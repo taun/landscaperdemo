@@ -1,0 +1,341 @@
+//
+//  MBIFSFractal.m
+//  LandscaperDemo
+//
+//  Created by Taun Chapman on 12/23/11.
+//  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
+//
+
+#import "MBIFSFractal.h"
+#import "MBFractalSegment.h"
+#include <math.h>
+
+#define MAXDATA int 1000000
+
+//TODO: Make CGContext and Path properties
+//TODO: Try drawing circle on stored path then check bounds and change CTM Scale before stroke
+
+/*!
+ At some point want to separate this into two separate classes.
+ 1. Fractal model which generates the string and has the rules for 
+ turtle drawing. Maps a rule to a method of the view.
+ Example: rule: F -> selector: "drawLineLength: x"
+                + -> "rotateAngle: theta"
+ 
+ Model properties includes a stack of:
+  Segment - struct or object?
+    CGMutablePath
+    Color for path 
+    Linewidth for path
+    ?
+ Model will update boundingBox property while creating paths for max box.
+ Delete production when path is complete (saves memory and only needs to be
+ regenerated if the axiom or rules change).
+ 
+ 2. The view takes the model and generates a view based on the 
+ production string and the drawing map. Basically iterates through
+ the production calling the mapped selector on the view.
+ 
+ View will set transfomation matrix to best fit fractal then iterate through segments 
+ */
+@interface MBIFSFractal ()
+
+#pragma mark - Model
+@property (strong,readwrite) NSMutableString*           production;
+@property (strong,readwrite) NSMutableDictionary*       replacementRules;
+@property (strong,readwrite) NSMutableDictionary*       drawingRules;
+@property (assign,readwrite) CGRect                     bounds;
+
+-(void) dispatchDrawingSelectorFromString:(NSString*)selector withArg:(id)arg;
+-(void) evaluateRule: (NSString*) rule;
+
+@end
+
+
+
+@implementation MBIFSFractal
+
+@synthesize levels = _levels, axiom = _axiom, productNeedsGenerating = _productNeedsGenerating, pathNeedsGenerating = _pathNeedsGenerating;
+
+@synthesize replacementRules = _replacementRules;
+@synthesize production = _production;
+@synthesize drawingRules = _drawingRules;
+@synthesize segments = _segments;
+@synthesize bounds = _bounds;
+
+@synthesize currentPath = _currentPath;
+@synthesize currentTransform = _currentTransform;
+@synthesize lineWidth = _lineWidth;
+@synthesize lineColor = _lineColor;
+@synthesize fillColor = _fillColor;
+@synthesize fill=_fill, stroke=_stroke;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _productNeedsGenerating = NO;
+        _pathNeedsGenerating = NO;
+        
+        _lineWidth = 1.0;
+        _stroke = YES;
+        _fill = NO;
+        
+        // Flip Y axis
+        // TODO: check for axis for mac version
+        // Fractal needs to be independent of the layer orientation
+        _currentTransform = CGAffineTransformIdentity; //CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0); //
+    }
+    return self;
+}
+
+#pragma mark - Custom Getter Setters
+
+-(NSUInteger) levels {
+    return _levels;
+}
+
+-(void) setLevels:(NSUInteger)levels {
+    _levels = levels;
+    self.productNeedsGenerating = YES;
+}
+
+-(NSString*) axiom {
+    return _axiom;
+}
+
+-(void) setAxiom:(NSString *)axiom {
+    _axiom = [axiom copy];
+    self.productNeedsGenerating = YES;
+}
+
+-(BOOL) productNeedsGenerating {
+    return _productNeedsGenerating;
+}
+
+-(void) setProductNeedsGenerating:(BOOL)productNeedsGenerating {
+    _productNeedsGenerating = productNeedsGenerating;
+    if (productNeedsGenerating) {
+        // path needs to be regenerated whenever the product changes
+        self.pathNeedsGenerating = YES;
+    }
+}
+
+-(CGMutablePathRef) currentPath {
+    return _currentPath;
+}
+
+-(void) setCurrentPath:(CGMutablePathRef)currentPath {
+    if (_currentPath != currentPath) {
+        CGPathRelease(_currentPath);
+        CGPathRetain(currentPath);
+        _currentPath = currentPath;
+    }
+}
+
+//-(CGAffineTransform) currentTransform {
+//    return _currentTransform;
+//}
+//
+//-(void) setCurrentTransform:(CGAffineTransform)currentTransform {
+//    
+//}
+
+-(CGColorRef) lineColor {
+    return _lineColor;
+}
+
+-(void) setLineColor:(CGColorRef)lineColor {
+    if (_lineColor != lineColor) {
+        CGColorRelease(_lineColor);
+        CGColorRetain(lineColor);
+        _lineColor = lineColor;
+    }
+    // by default, set the fill color same as line
+    if (_fillColor==NULL) {
+        self.fillColor = _lineColor;
+    }
+}
+
+-(CGColorRef) fillColor {
+    return _fillColor;
+}
+
+-(void) setFillColor:(CGColorRef)fillColor {
+    if (_fillColor != fillColor) {
+        CGColorRelease(_fillColor);
+        CGColorRetain(fillColor);
+        _fillColor = fillColor;
+    }
+}
+
+-(void) dealloc {
+    CGColorRelease(_fillColor);
+    CGColorRelease(_lineColor);
+    CGPathRelease(_currentPath);
+}
+
+#pragma mark - definition setup 
+
+-(void) addProductionRuleReplaceString: (NSString*) original withString: (NSString*) replacement {
+    if (self.replacementRules == nil) {
+        NSMutableDictionary* newRules = [[NSMutableDictionary alloc] initWithCapacity: 20];
+        [self setReplacementRules: newRules];
+    }
+    
+    [self.replacementRules setObject: replacement forKey: original];
+    self.productNeedsGenerating = YES;
+}
+
+-(void) resetRules {
+    self.replacementRules = nil;
+    self.productNeedsGenerating = YES;
+}
+
+-(void) addDrawingRuleString:(NSString*)character executesSelector:(NSString*)selector withArgument:(id)arg {
+    if (self.drawingRules == nil) {
+        self.drawingRules = [[NSMutableDictionary alloc] initWithCapacity: 4];
+    }
+    NSArray* drawingArgs = [[NSArray alloc] initWithObjects: selector, arg, nil];
+    [self.drawingRules setObject: drawingArgs forKey: character];
+    self.productNeedsGenerating = YES;
+}
+
+-(void) addSegment: (MBFractalSegment*) segment {
+    if (_segments == nil) {
+        _segments = [[NSMutableArray alloc] initWithCapacity: 2];
+        
+        // intiallize the bounds to the first segment
+        self.bounds = CGPathGetBoundingBox(segment.path);
+    } else {
+        CGRect pathBounds = CGPathGetBoundingBox(segment.path);
+        self.bounds = CGRectUnion(self.bounds, pathBounds);
+    }
+    [_segments addObject: segment];
+}
+
+#pragma mark - Product Generation
+
+//TODO convert this to GCD, one dispatch per axiom character? Then reassemble?
+-(void) generateProduct {
+    //estimate the length
+    NSUInteger productionLength = [self.axiom length] * self.levels;
+
+    
+    NSMutableString* sourceData = [[NSMutableString alloc] initWithCapacity: productionLength];
+    [sourceData appendString: self.axiom];
+    
+    NSMutableString* destinationData = [[NSMutableString alloc] initWithCapacity: productionLength];
+    NSMutableString* tempData = nil;
+        
+    for (int i = 0; i < self.levels ; i++) {
+        NSUInteger sourceLength = sourceData.length;
+        
+        NSString* key;
+        NSString* replacement;
+        
+        for (int y=0; y < sourceLength; y++) {
+            //
+            key = [sourceData substringWithRange: NSMakeRange(y, 1)];
+            replacement = [self.replacementRules objectForKey: key];
+            [destinationData appendString: replacement];
+        }
+        //swap source and destination
+        tempData = sourceData;
+        sourceData = destinationData;
+        destinationData = tempData;
+        //zero out destination
+        [destinationData deleteCharactersInRange: NSMakeRange(0, destinationData.length)];
+    }
+    self.production = sourceData;
+    destinationData = nil;
+    tempData = nil;
+    self.productNeedsGenerating = NO;
+    self.pathNeedsGenerating = YES;
+}
+
+
+#pragma mark - path generation
+
+-(void) generatePaths {
+    if (self.pathNeedsGenerating) {
+        
+        CGMutablePathRef newPath = CGPathCreateMutable();
+        CGPathMoveToPoint(newPath, NULL, 0.0f, 0.0f);
+        self.currentPath = newPath;
+        CGPathRelease(newPath);
+        
+        for (int c=0; c < [self.production length]; c++) {
+            NSString* rule = [self.production substringWithRange: NSMakeRange(c , 1)];
+            
+            [self evaluateRule: rule];
+        }
+        if (self.fill) {
+            CGPathCloseSubpath(self.currentPath);
+        }
+        MBFractalSegment* newSegment = [[MBFractalSegment alloc] initWithPath: self.currentPath lineWidth: self.lineWidth lineColor: self.lineColor stroke: self.stroke fillColor: self.fillColor fill: self.fill];
+        [self addSegment: newSegment];
+        // release the production string now that we have the path
+        // self.production = nil;
+    }
+    
+    self.pathNeedsGenerating = NO;
+}
+
+-(void) evaluateRule:(NSString *)rule {
+    NSArray* drawingResponse = [self.drawingRules objectForKey: rule];
+    if ([drawingResponse isKindOfClass: [NSArray class]]) {
+        NSString* selector = [drawingResponse objectAtIndex: 0];
+        id arg = [drawingResponse objectAtIndex: 1];
+        [self dispatchDrawingSelectorFromString: selector withArg: arg];
+    }
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
+-(void) dispatchDrawingSelectorFromString:(NSString*)selector withArg:(id)arg {
+    if ([self respondsToSelector:NSSelectorFromString(selector)]) {
+        [self performSelector: NSSelectorFromString(selector) withObject: arg];
+    }
+}
+
+#pragma clang diagnostic pop
+
+-(void) drawLine: (id) arg {
+    if ([arg isKindOfClass: [NSNumber class]]) {
+        double tx = [(NSNumber*)arg doubleValue];
+        CGAffineTransform local = self.currentTransform;
+        CGPathAddLineToPoint(self.currentPath, &local, tx, 0);
+        self.currentTransform = CGAffineTransformTranslate(self.currentTransform, tx, 0.0f);
+    }
+}
+
+-(void) rotate: (id) arg {
+    if ([arg isKindOfClass: [NSNumber class]]) {
+        double theta = [(NSNumber*)arg doubleValue];
+        self.currentTransform = CGAffineTransformRotate(self.currentTransform, theta);
+    }
+}
+
+#pragma mark - helper methods
+
+-(double) aspectRatio {
+    return self.bounds.size.height/self.bounds.size.width;
+}
+
+-(CGSize) unitBox {
+    CGSize result = {1.0,1.0};
+    double width = self.bounds.size.width;
+    double height = self.bounds.size.height;
+    
+    if (width >= height) {
+        // wider than tall width is 1.0
+        result.height = height/width;
+    } else {
+        // taller than wide height is 1.0
+        result.width = width/height;
+    }
+    return result;
+}
+
+@end

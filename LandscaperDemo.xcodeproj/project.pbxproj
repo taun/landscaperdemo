@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C53956FB14BF5ABC00D7301B /* QuartzHelpers.c in Sources */ = {isa = PBXBuildFile; fileRef = C53956FA14BF5ABC00D7301B /* QuartzHelpers.c */; };
+		C5450ED414BBB86300CD2E09 /* MBFractalLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */; };
+		C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */; };
+		C5B979E514B3A0FE00BB0022 /* FractalPadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B979E414B3A0FE00BB0022 /* FractalPadView.m */; };
+		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
+		C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78114A5346300DA48BD /* UIKit.framework */; };
+		C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
+		C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78514A5346300DA48BD /* CoreGraphics.framework */; };
+		C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B78A14A5346300DA48BD /* InfoPlist.strings */; };
+		C5E6B78E14A5346300DA48BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B78D14A5346300DA48BD /* main.m */; };
+		C5E6B79214A5346300DA48BD /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79114A5346300DA48BD /* MBAppDelegate.m */; };
+		C5E6B79514A5346300DA48BD /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */; };
+		C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */; };
+		C5E6B79B14A5346300DA48BD /* MBFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79A14A5346300DA48BD /* MBFirstViewController.m */; };
+		C5E6B79D14A5346300DA48BD /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79C14A5346300DA48BD /* first.png */; };
+		C5E6B79F14A5346300DA48BD /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79E14A5346300DA48BD /* first@2x.png */; };
+		C5E6B7A214A5346300DA48BD /* MBSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7A114A5346300DA48BD /* MBSecondViewController.m */; };
+		C5E6B7A414A5346300DA48BD /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7A314A5346300DA48BD /* second.png */; };
+		C5E6B7A614A5346300DA48BD /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7A514A5346300DA48BD /* second@2x.png */; };
+		C5E6B7AE14A5346300DA48BD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B7AD14A5346300DA48BD /* SenTestingKit.framework */; };
+		C5E6B7AF14A5346300DA48BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78114A5346300DA48BD /* UIKit.framework */; };
+		C5E6B7B014A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
+		C5E6B7B814A5346300DA48BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7B614A5346300DA48BD /* InfoPlist.strings */; };
+		C5E6B7BB14A5346300DA48BD /* LandscaperDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7BA14A5346300DA48BD /* LandscaperDemoTests.m */; };
+		C5E6B7C714A536B800DA48BD /* MBIFSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */; };
+		C5E6B7C814A536B800DA48BD /* MBIFSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C5E6B7B114A5346300DA48BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5E6B77414A5346200DA48BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5E6B77C14A5346200DA48BD;
+			remoteInfo = LandscaperDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C53956FA14BF5ABC00D7301B /* QuartzHelpers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = QuartzHelpers.c; path = LandscaperDemo/model/QuartzHelpers.c; sourceTree = "<group>"; };
+		C53956FD14BF5B0000D7301B /* QuartzHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzHelpers.h; path = LandscaperDemo/model/QuartzHelpers.h; sourceTree = "<group>"; };
+		C5450ED214BBB86300CD2E09 /* MBFractalLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalLayer.h; path = LandscaperDemo/MBFractalLayer.h; sourceTree = "<group>"; };
+		C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalLayer.m; path = LandscaperDemo/MBFractalLayer.m; sourceTree = "<group>"; };
+		C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalSegment.h; path = LandscaperDemo/model/MBFractalSegment.h; sourceTree = "<group>"; };
+		C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalSegment.m; path = LandscaperDemo/model/MBFractalSegment.m; sourceTree = "<group>"; };
+		C5B979E314B3A0FE00BB0022 /* FractalPadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractalPadView.h; sourceTree = "<group>"; };
+		C5B979E414B3A0FE00BB0022 /* FractalPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FractalPadView.m; sourceTree = "<group>"; };
+		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C5E6B77D14A5346300DA48BD /* LandscaperDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LandscaperDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E6B78114A5346300DA48BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C5E6B78314A5346300DA48BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C5E6B78514A5346300DA48BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C5E6B78914A5346300DA48BD /* LandscaperDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LandscaperDemo-Info.plist"; sourceTree = "<group>"; };
+		C5E6B78B14A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C5E6B78D14A5346300DA48BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C5E6B78F14A5346300DA48BD /* LandscaperDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LandscaperDemo-Prefix.pch"; sourceTree = "<group>"; };
+		C5E6B79014A5346300DA48BD /* MBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBAppDelegate.h; sourceTree = "<group>"; };
+		C5E6B79114A5346300DA48BD /* MBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBAppDelegate.m; sourceTree = "<group>"; };
+		C5E6B79414A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		C5E6B79714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		C5E6B79914A5346300DA48BD /* MBFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBFirstViewController.h; sourceTree = "<group>"; };
+		C5E6B79A14A5346300DA48BD /* MBFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBFirstViewController.m; sourceTree = "<group>"; };
+		C5E6B79C14A5346300DA48BD /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		C5E6B79E14A5346300DA48BD /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		C5E6B7A014A5346300DA48BD /* MBSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBSecondViewController.h; sourceTree = "<group>"; };
+		C5E6B7A114A5346300DA48BD /* MBSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBSecondViewController.m; sourceTree = "<group>"; };
+		C5E6B7A314A5346300DA48BD /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		C5E6B7A514A5346300DA48BD /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		C5E6B7AC14A5346300DA48BD /* LandscaperDemoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LandscaperDemoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E6B7AD14A5346300DA48BD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C5E6B7B514A5346300DA48BD /* LandscaperDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LandscaperDemoTests-Info.plist"; sourceTree = "<group>"; };
+		C5E6B7B714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C5E6B7B914A5346300DA48BD /* LandscaperDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LandscaperDemoTests.h; sourceTree = "<group>"; };
+		C5E6B7BA14A5346300DA48BD /* LandscaperDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LandscaperDemoTests.m; sourceTree = "<group>"; };
+		C5E6B7C514A536B800DA48BD /* MBIFSFractal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBIFSFractal.h; path = LandscaperDemo/model/MBIFSFractal.h; sourceTree = "<group>"; };
+		C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBIFSFractal.m; path = LandscaperDemo/model/MBIFSFractal.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C5E6B77A14A5346200DA48BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */,
+				C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */,
+				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
+				C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E6B7A814A5346300DA48BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E6B7AE14A5346300DA48BD /* SenTestingKit.framework in Frameworks */,
+				C5E6B7AF14A5346300DA48BD /* UIKit.framework in Frameworks */,
+				C5E6B7B014A5346300DA48BD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C5450ED014BBB7DB00CD2E09 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C5450ED214BBB86300CD2E09 /* MBFractalLayer.h */,
+				C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		C5E6B77214A5346200DA48BD = {
+			isa = PBXGroup;
+			children = (
+				C5E6B7C414A5359A00DA48BD /* Model */,
+				C5450ED014BBB7DB00CD2E09 /* Views */,
+				C5E6B78714A5346300DA48BD /* LandscaperDemo */,
+				C5E6B7B314A5346300DA48BD /* LandscaperDemoTests */,
+				C5E6B78014A5346300DA48BD /* Frameworks */,
+				C5E6B77E14A5346300DA48BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C5E6B77E14A5346300DA48BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6B77D14A5346300DA48BD /* LandscaperDemo.app */,
+				C5E6B7AC14A5346300DA48BD /* LandscaperDemoTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5E6B78014A5346300DA48BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */,
+				C5E6B78114A5346300DA48BD /* UIKit.framework */,
+				C5E6B78314A5346300DA48BD /* Foundation.framework */,
+				C5E6B78514A5346300DA48BD /* CoreGraphics.framework */,
+				C5E6B7AD14A5346300DA48BD /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C5E6B78714A5346300DA48BD /* LandscaperDemo */ = {
+			isa = PBXGroup;
+			children = (
+				C5B979E314B3A0FE00BB0022 /* FractalPadView.h */,
+				C5B979E414B3A0FE00BB0022 /* FractalPadView.m */,
+				C5E6B79014A5346300DA48BD /* MBAppDelegate.h */,
+				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
+				C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */,
+				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
+				C5E6B79914A5346300DA48BD /* MBFirstViewController.h */,
+				C5E6B79A14A5346300DA48BD /* MBFirstViewController.m */,
+				C5E6B79C14A5346300DA48BD /* first.png */,
+				C5E6B79E14A5346300DA48BD /* first@2x.png */,
+				C5E6B7A014A5346300DA48BD /* MBSecondViewController.h */,
+				C5E6B7A114A5346300DA48BD /* MBSecondViewController.m */,
+				C5E6B7A314A5346300DA48BD /* second.png */,
+				C5E6B7A514A5346300DA48BD /* second@2x.png */,
+				C5E6B78814A5346300DA48BD /* Supporting Files */,
+			);
+			path = LandscaperDemo;
+			sourceTree = "<group>";
+		};
+		C5E6B78814A5346300DA48BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6B78914A5346300DA48BD /* LandscaperDemo-Info.plist */,
+				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
+				C5E6B78D14A5346300DA48BD /* main.m */,
+				C5E6B78F14A5346300DA48BD /* LandscaperDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C5E6B7B314A5346300DA48BD /* LandscaperDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6B7B914A5346300DA48BD /* LandscaperDemoTests.h */,
+				C5E6B7BA14A5346300DA48BD /* LandscaperDemoTests.m */,
+				C5E6B7B414A5346300DA48BD /* Supporting Files */,
+			);
+			path = LandscaperDemoTests;
+			sourceTree = "<group>";
+		};
+		C5E6B7B414A5346300DA48BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6B7B514A5346300DA48BD /* LandscaperDemoTests-Info.plist */,
+				C5E6B7B614A5346300DA48BD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C5E6B7C414A5359A00DA48BD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6B7C514A536B800DA48BD /* MBIFSFractal.h */,
+				C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */,
+				C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */,
+				C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */,
+				C53956FA14BF5ABC00D7301B /* QuartzHelpers.c */,
+				C53956FD14BF5B0000D7301B /* QuartzHelpers.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C5E6B77C14A5346200DA48BD /* LandscaperDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5E6B7BE14A5346300DA48BD /* Build configuration list for PBXNativeTarget "LandscaperDemo" */;
+			buildPhases = (
+				C5E6B77914A5346200DA48BD /* Sources */,
+				C5E6B77A14A5346200DA48BD /* Frameworks */,
+				C5E6B77B14A5346200DA48BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LandscaperDemo;
+			productName = LandscaperDemo;
+			productReference = C5E6B77D14A5346300DA48BD /* LandscaperDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C5E6B7AB14A5346300DA48BD /* LandscaperDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5E6B7C114A5346300DA48BD /* Build configuration list for PBXNativeTarget "LandscaperDemoTests" */;
+			buildPhases = (
+				C5E6B7A714A5346300DA48BD /* Sources */,
+				C5E6B7A814A5346300DA48BD /* Frameworks */,
+				C5E6B7A914A5346300DA48BD /* Resources */,
+				C5E6B7AA14A5346300DA48BD /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5E6B7B214A5346300DA48BD /* PBXTargetDependency */,
+			);
+			name = LandscaperDemoTests;
+			productName = LandscaperDemoTests;
+			productReference = C5E6B7AC14A5346300DA48BD /* LandscaperDemoTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C5E6B77414A5346200DA48BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "MOEDAE LLC";
+			};
+			buildConfigurationList = C5E6B77714A5346200DA48BD /* Build configuration list for PBXProject "LandscaperDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C5E6B77214A5346200DA48BD;
+			productRefGroup = C5E6B77E14A5346300DA48BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C5E6B77C14A5346200DA48BD /* LandscaperDemo */,
+				C5E6B7AB14A5346300DA48BD /* LandscaperDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C5E6B77B14A5346200DA48BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */,
+				C5E6B79514A5346300DA48BD /* MainStoryboard_iPhone.storyboard in Resources */,
+				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
+				C5E6B79D14A5346300DA48BD /* first.png in Resources */,
+				C5E6B79F14A5346300DA48BD /* first@2x.png in Resources */,
+				C5E6B7A414A5346300DA48BD /* second.png in Resources */,
+				C5E6B7A614A5346300DA48BD /* second@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E6B7A914A5346300DA48BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E6B7B814A5346300DA48BD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C5E6B7AA14A5346300DA48BD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C5E6B77914A5346200DA48BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E6B78E14A5346300DA48BD /* main.m in Sources */,
+				C5E6B79214A5346300DA48BD /* MBAppDelegate.m in Sources */,
+				C5E6B79B14A5346300DA48BD /* MBFirstViewController.m in Sources */,
+				C5E6B7A214A5346300DA48BD /* MBSecondViewController.m in Sources */,
+				C5E6B7C714A536B800DA48BD /* MBIFSFractal.m in Sources */,
+				C5B979E514B3A0FE00BB0022 /* FractalPadView.m in Sources */,
+				C5450ED414BBB86300CD2E09 /* MBFractalLayer.m in Sources */,
+				C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */,
+				C53956FB14BF5ABC00D7301B /* QuartzHelpers.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E6B7A714A5346300DA48BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E6B7BB14A5346300DA48BD /* LandscaperDemoTests.m in Sources */,
+				C5E6B7C814A536B800DA48BD /* MBIFSFractal.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C5E6B7B214A5346300DA48BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5E6B77C14A5346200DA48BD /* LandscaperDemo */;
+			targetProxy = C5E6B7B114A5346300DA48BD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C5E6B78A14A5346300DA48BD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E6B78B14A5346300DA48BD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E6B79414A5346300DA48BD /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E6B79714A5346300DA48BD /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		C5E6B7B614A5346300DA48BD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E6B7B714A5346300DA48BD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C5E6B7BC14A5346300DA48BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C5E6B7BD14A5346300DA48BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C5E6B7BF14A5346300DA48BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LandscaperDemo/LandscaperDemo-Prefix.pch";
+				INFOPLIST_FILE = "LandscaperDemo/LandscaperDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C5E6B7C014A5346300DA48BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LandscaperDemo/LandscaperDemo-Prefix.pch";
+				INFOPLIST_FILE = "LandscaperDemo/LandscaperDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C5E6B7C214A5346300DA48BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LandscaperDemo.app/LandscaperDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LandscaperDemo/LandscaperDemo-Prefix.pch";
+				INFOPLIST_FILE = "LandscaperDemoTests/LandscaperDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		C5E6B7C314A5346300DA48BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LandscaperDemo.app/LandscaperDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LandscaperDemo/LandscaperDemo-Prefix.pch";
+				INFOPLIST_FILE = "LandscaperDemoTests/LandscaperDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C5E6B77714A5346200DA48BD /* Build configuration list for PBXProject "LandscaperDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E6B7BC14A5346300DA48BD /* Debug */,
+				C5E6B7BD14A5346300DA48BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5E6B7BE14A5346300DA48BD /* Build configuration list for PBXNativeTarget "LandscaperDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E6B7BF14A5346300DA48BD /* Debug */,
+				C5E6B7C014A5346300DA48BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5E6B7C114A5346300DA48BD /* Build configuration list for PBXNativeTarget "LandscaperDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E6B7C214A5346300DA48BD /* Debug */,
+				C5E6B7C314A5346300DA48BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C5E6B77414A5346200DA48BD /* Project object */;
+}
