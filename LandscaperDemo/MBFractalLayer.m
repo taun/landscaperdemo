@@ -18,10 +18,10 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.anchorPoint = CGPointMake(0.0f, 1.0f);
+        self.anchorPoint = CGPointMake(0.0f, 0.0f);
         //TODO: there is a bit of a circular reference problem here
         //The controller is sizing the content to the layer bounds but the layer resizes the content to changed layer bounds. This should allow resizing the fractal by resizing the layer without redrawing the fractal path.
-        self.contentsGravity = kCAGravityCenter;
+//        self.contentsGravity = kCAGravityCenter;
     }
     return self;
 }
@@ -30,81 +30,47 @@
     
     CGContextSaveGState(ctx);
     
-    self.contentsGravity = kCAGravityCenter;
-    
-    // change view aspect to match fractal
-    // only reduce dimension
-    CGRect fractalBounds = self.fractal.bounds;
-    
-    // create a transform to scale the fractal into the layer
-    CGRect viewBounds = self.bounds;
-    CGRect marginBounds = viewBounds;
-    // scale fractal to fit view bounds    
-    double scale = ((viewBounds.size.width)/fractalBounds.size.width);
-    scale = MAX(scale, (viewBounds.size.height)/fractalBounds.size.height);
-    double margin = 0.0;
-    
-    marginBounds.origin.x -= margin;
-    marginBounds.origin.y -= margin;
-    marginBounds.size.width += margin;
-    marginBounds.size.height += margin;
-    
-    self.bounds = marginBounds;
-    
-    // translate fractal origin to view origin
-    CGPoint fOrigin = fractalBounds.origin;
-    CGPoint vOrigin = viewBounds.origin;
-    
-    CGSize fSize = fractalBounds.size;
-    CGSize vSize = viewBounds.size;
-    
-    
-    
     // outline the layer bounding box
     CGContextBeginPath(ctx);
-    CGContextAddRect(ctx, marginBounds);
-    CGContextSetLineWidth(ctx, 5.0);
+    CGContextAddRect(ctx, self.bounds);
+    CGContextSetLineWidth(ctx, 1.0);
     CGContextSetRGBStrokeColor(ctx, 0.5, 0.0, 0.0, 0.1);
-//    CGContextStrokePath(ctx);
-
-    // outline the layer bounding box
-    CGContextBeginPath(ctx);
-    CGContextAddRect(ctx, viewBounds);
-    CGContextSetLineWidth(ctx, 5.0);
-    CGContextSetRGBStrokeColor(ctx, 0.5, 0.0, 0.0, 0.1);
-//    CGContextStrokePath(ctx);
+    CGContextStrokePath(ctx);
     
     // move 0,0 down to the bottom left corner
-    CGContextTranslateCTM(ctx, vOrigin.x, vOrigin.y + vSize.height);
+    CGContextTranslateCTM(ctx, self.bounds.origin.x, self.bounds.origin.y + self.bounds.size.height);
     // flip the Y axis so +Y is up direction from origin
     if ([self contentsAreFlipped]) {
-        CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
+        //CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
+        CGContextScaleCTM(ctx, 1.0, -1.0);
     }
-
+    
     // put a small square at the origin
     CGContextBeginPath(ctx);
     CGContextAddRect(ctx, CGRectMake(0, 0, 10, 10));
     CGContextSetLineWidth(ctx, 2.0);
     CGContextSetRGBStrokeColor(ctx, 0.5, 0.0, 0.4, 0.1);
     CGContextStrokePath(ctx);
+
+    CGContextRestoreGState(ctx);
     
-    // Scale so the largest axis fits
+    CGContextSaveGState(ctx);
+    
+    double scale = self.bounds.size.width/self.fractal.bounds.size.width;
+    double margin = -0.0/scale;
+    
+    CGRect fBounds = CGRectStandardize(CGRectInset(self.fractal.bounds, margin, margin) );
+
     CGContextScaleCTM(ctx, scale, scale);
-    // translate the fractal to start at the origin
-    CGContextTranslateCTM(ctx, vOrigin.x-fOrigin.x, vOrigin.y - fOrigin.y);    
+    CGContextTranslateCTM(ctx, -fBounds.origin.x, -fBounds.origin.y);
     
-    if ([self contentsAreFlipped]) {
-        CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
-        CGContextTranslateCTM(ctx, 0, fSize.height+5);
-    }
-    double maxLineWidth = 0;
     for (MBFractalSegment* segment in self.fractal.segments) {
         // stroke and or fill each segment
         CGContextBeginPath(ctx);
         
         // Scale the lineWidth to compensate for the overall scaling
+//        CGContextSetLineWidth(ctx, segment.lineWidth);
         CGContextSetLineWidth(ctx, segment.lineWidth/scale);
-        maxLineWidth = MAX(maxLineWidth, segment.lineWidth);
         
         CGContextAddPath(ctx, segment.path);
         CGPathDrawingMode strokeOrFill;

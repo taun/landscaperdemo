@@ -38,7 +38,9 @@
  
  View will set transfomation matrix to best fit fractal then iterate through segments 
  */
-@interface MBIFSFractal ()
+@interface MBIFSFractal () {
+    double _maxLineWidth;
+}
 
 #pragma mark - Model
 @property (strong,readwrite) NSMutableString*           production;
@@ -168,6 +170,17 @@
     }
 }
 
+-(CGRect) bounds {
+    // adjust for the lineWidth
+    double margin = _maxLineWidth*2.0+1.0;
+    CGRect result = CGRectInset(_bounds, -margin, -margin);
+    return result;
+}
+
+-(void) setBounds:(CGRect)bounds {
+    _bounds = bounds;
+}
+
 -(void) dealloc {
     CGColorRelease(_fillColor);
     CGColorRelease(_lineColor);
@@ -205,11 +218,12 @@
         _segments = [[NSMutableArray alloc] initWithCapacity: 2];
         
         // intiallize the bounds to the first segment
-        self.bounds = CGPathGetBoundingBox(segment.path);
+        _bounds = CGPathGetBoundingBox(segment.path);
     } else {
         CGRect pathBounds = CGPathGetBoundingBox(segment.path);
-        self.bounds = CGRectUnion(self.bounds, pathBounds);
+        _bounds = CGRectUnion(_bounds, pathBounds);
     }
+    _maxLineWidth = MAX(_maxLineWidth, segment.lineWidth);
     [_segments addObject: segment];
 }
 

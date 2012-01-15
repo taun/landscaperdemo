@@ -35,7 +35,7 @@
     
     MBIFSFractal* fractal = [[MBIFSFractal alloc] init];
     fractal.lineColor = lineColor;
-    fractal.lineWidth = 1.0f;
+    fractal.lineWidth = 2.0f;
     CGColorRelease(lineColor);
     
     fractal.axiom = @"F";
@@ -58,7 +58,7 @@
     
     MBIFSFractal* fractal = [[MBIFSFractal alloc] init];
     fractal.lineColor = lineColor;
-    fractal.lineWidth = 1.0f;
+    fractal.lineWidth = 2.0f;
     CGColorRelease(lineColor);
     
     fractal.axiom = @"F+F+F+F";
@@ -80,8 +80,8 @@
     
     // create the fractal
     MBIFSFractal* fractal = [self newVonKochSnowFlake];
-    fractal.levels = 5;
-    fractal.fill = YES;
+    fractal.levels = 4;
+    fractal.fill = NO;
     [fractal generateProduct];
     [fractal generatePaths];
 
@@ -115,7 +115,7 @@
 
     // create the fractal
     MBIFSFractal* fractal = [self newVonKochIsland];
-    fractal.levels = 3;
+    fractal.levels = 2;
     fractal.stroke = YES;
     fractal.lineColor = lineColor;
     CGColorRelease(lineColor);
@@ -151,8 +151,8 @@
     [MainFractalView setNeedsDisplay];
     [MainFractalView.layer setNeedsDisplay];
     
-    [self addVonKochSnowFlakeLayerPosition: CGPointMake(50, 350) maxDimension: 500];
-    [self addVonKochIslandLayerPosition: CGPointMake(75, 650) maxDimension: 500];
+    [self addVonKochSnowFlakeLayerPosition: CGPointMake(50, 50) maxDimension: 300];
+    [self addVonKochIslandLayerPosition: CGPointMake(75, 250) maxDimension: 300];
 }
 
 - (void)viewDidUnload
