@@ -48,6 +48,9 @@
 @property (strong,readwrite) NSMutableDictionary*       drawingRules;
 @property (assign,readwrite) CGRect                     bounds;
 
+@property (readwrite,atomic,strong) MBFractalSegment*   currentSegment;
+
+-(void) addSegment: (MBFractalSegment*) segment;
 -(void) dispatchDrawingSelectorFromString:(NSString*)selector withArg:(id)arg;
 -(void) evaluateRule: (NSString*) rule;
 
@@ -63,10 +66,11 @@
 @synthesize production = _production;
 @synthesize drawingRules = _drawingRules;
 @synthesize segments = _segments;
+@synthesize segmentStack = _segmentStack;
 @synthesize bounds = _bounds;
 
-@synthesize currentPath = _currentPath;
-@synthesize currentTransform = _currentTransform;
+@synthesize currentSegment = _currentSegment;
+
 @synthesize lineWidth = _lineWidth;
 @synthesize lineColor = _lineColor;
 @synthesize fillColor = _fillColor;
@@ -78,17 +82,116 @@
         _productNeedsGenerating = NO;
         _pathNeedsGenerating = NO;
         
-        _lineWidth = 1.0;
-        _stroke = YES;
-        _fill = NO;
+        MBFractalSegment* newSegment = [[MBFractalSegment alloc] init];
+
+        _segmentStack = [[NSMutableArray alloc] initWithCapacity: 1];
         
-        // Flip Y axis
-        // TODO: check for axis for mac version
-        // Fractal needs to be independent of the layer orientation
-        _currentTransform = CGAffineTransformIdentity; //CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0); //
+        _currentSegment = newSegment;
+                
     }
     return self;
 }
+
+
+
+#pragma mark - segment getter setters
+
+-(CGColorRef) lineColor {
+    return self.currentSegment.lineColor;
+}
+
+-(void) setLineColor:(CGColorRef)lineColor {
+    self.currentSegment.lineColor = lineColor;
+}
+
+-(CGColorRef) fillColor {
+    return self.currentSegment.fillColor;
+}
+
+-(void) setFillColor:(CGColorRef)fillColor {
+    self.currentSegment.fillColor = fillColor;
+}
+
+-(double) lineWidth {
+    return self.currentSegment.lineWidth;
+}
+
+-(void) setLineWidth:(double)lineWidth {
+    self.currentSegment.lineWidth = lineWidth;
+}
+
+-(BOOL) stroke {
+    return self.currentSegment.stroke;
+}
+
+-(void) setStroke:(BOOL)stroke {
+    self.currentSegment.stroke = stroke;
+}
+
+-(BOOL) fill {
+    return self.currentSegment.fill;
+}
+
+-(void) setFill:(BOOL)fill {
+    self.currentSegment.fill = fill;
+}
+
+#pragma mark - segment methods
+
+/*
+ Should always be an initial current segment.
+ Push the currentSegment
+ Create a new currentSegment copying the old segments settings
+ */
+-(void) pushSegment {
+    [self.segmentStack addObject: self.currentSegment];
+    MBFractalSegment* newCurrentSegment = [self.currentSegment copySettings];
+    
+    self.currentSegment = newCurrentSegment;
+}
+
+/*
+ Check to make sure there is a segment on the stack
+ Move the current segment to the final segments array
+ */
+-(void) popSegment {
+    if ([self.segments count]>0) {
+        MBFractalSegment* olderCurrentSegment = [self.segments lastObject];
+        [self.segments removeLastObject];
+        
+        [self addSegment: self.currentSegment];
+        self.currentSegment = olderCurrentSegment;
+    }
+}
+
+/*
+ Move the currentSegment to the segments array.
+ Check to see if there are any segments left on the stack and move them.
+ */
+-(void) finalizeSegments {
+    [self addSegment: self.currentSegment];
+    
+    for (MBFractalSegment* segment in self.segmentStack) {
+        [self addSegment: segment];
+        [self.segmentStack removeObject: segment];
+    }
+    
+}
+
+-(void) addSegment: (MBFractalSegment*) segment {
+    if (_segments == nil) {
+        _segments = [[NSMutableArray alloc] initWithCapacity: 2];
+        
+        // intiallize the bounds to the first segment
+        _bounds = CGPathGetBoundingBox(segment.path);
+    } else {
+        CGRect pathBounds = CGPathGetBoundingBox(segment.path);
+        _bounds = CGRectUnion(_bounds, pathBounds);
+    }
+    _maxLineWidth = MAX(_maxLineWidth, segment.lineWidth);
+    [_segments addObject: segment];
+}
+
 
 #pragma mark - Custom Getter Setters
 
@@ -122,17 +225,6 @@
     }
 }
 
--(CGMutablePathRef) currentPath {
-    return _currentPath;
-}
-
--(void) setCurrentPath:(CGMutablePathRef)currentPath {
-    if (_currentPath != currentPath) {
-        CGPathRelease(_currentPath);
-        CGPathRetain(currentPath);
-        _currentPath = currentPath;
-    }
-}
 
 //-(CGAffineTransform) currentTransform {
 //    return _currentTransform;
@@ -142,33 +234,6 @@
 //    
 //}
 
--(CGColorRef) lineColor {
-    return _lineColor;
-}
-
--(void) setLineColor:(CGColorRef)lineColor {
-    if (_lineColor != lineColor) {
-        CGColorRelease(_lineColor);
-        CGColorRetain(lineColor);
-        _lineColor = lineColor;
-    }
-    // by default, set the fill color same as line
-    if (_fillColor==NULL) {
-        self.fillColor = _lineColor;
-    }
-}
-
--(CGColorRef) fillColor {
-    return _fillColor;
-}
-
--(void) setFillColor:(CGColorRef)fillColor {
-    if (_fillColor != fillColor) {
-        CGColorRelease(_fillColor);
-        CGColorRetain(fillColor);
-        _fillColor = fillColor;
-    }
-}
 
 -(CGRect) bounds {
     // adjust for the lineWidth
@@ -181,11 +246,6 @@
     _bounds = bounds;
 }
 
--(void) dealloc {
-    CGColorRelease(_fillColor);
-    CGColorRelease(_lineColor);
-    CGPathRelease(_currentPath);
-}
 
 #pragma mark - definition setup 
 
@@ -213,19 +273,6 @@
     self.productNeedsGenerating = YES;
 }
 
--(void) addSegment: (MBFractalSegment*) segment {
-    if (_segments == nil) {
-        _segments = [[NSMutableArray alloc] initWithCapacity: 2];
-        
-        // intiallize the bounds to the first segment
-        _bounds = CGPathGetBoundingBox(segment.path);
-    } else {
-        CGRect pathBounds = CGPathGetBoundingBox(segment.path);
-        _bounds = CGRectUnion(_bounds, pathBounds);
-    }
-    _maxLineWidth = MAX(_maxLineWidth, segment.lineWidth);
-    [_segments addObject: segment];
-}
 
 #pragma mark - Product Generation
 
@@ -273,10 +320,7 @@
 -(void) generatePaths {
     if (self.pathNeedsGenerating) {
         
-        CGMutablePathRef newPath = CGPathCreateMutable();
-        CGPathMoveToPoint(newPath, NULL, 0.0f, 0.0f);
-        self.currentPath = newPath;
-        CGPathRelease(newPath);
+        CGPathMoveToPoint(self.currentSegment.path, NULL, 0.0f, 0.0f);
         
         for (int c=0; c < [self.production length]; c++) {
             NSString* rule = [self.production substringWithRange: NSMakeRange(c , 1)];
@@ -284,10 +328,9 @@
             [self evaluateRule: rule];
         }
         if (self.fill) {
-            CGPathCloseSubpath(self.currentPath);
+            CGPathCloseSubpath(self.currentSegment.path);
         }
-        MBFractalSegment* newSegment = [[MBFractalSegment alloc] initWithPath: self.currentPath lineWidth: self.lineWidth lineColor: self.lineColor stroke: self.stroke fillColor: self.fillColor fill: self.fill];
-        [self addSegment: newSegment];
+        [self finalizeSegments];
         // release the production string now that we have the path
         // self.production = nil;
     }
@@ -318,16 +361,16 @@
 -(void) drawLine: (id) arg {
     if ([arg isKindOfClass: [NSNumber class]]) {
         double tx = [(NSNumber*)arg doubleValue];
-        CGAffineTransform local = self.currentTransform;
-        CGPathAddLineToPoint(self.currentPath, &local, tx, 0);
-        self.currentTransform = CGAffineTransformTranslate(self.currentTransform, tx, 0.0f);
+        CGAffineTransform local = self.currentSegment.transform;
+        CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0);
+        self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
     }
 }
 
 -(void) rotate: (id) arg {
     if ([arg isKindOfClass: [NSNumber class]]) {
         double theta = [(NSNumber*)arg doubleValue];
-        self.currentTransform = CGAffineTransformRotate(self.currentTransform, theta);
+        self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, theta);
     }
 }
 

@@ -15,45 +15,35 @@
 @synthesize fillColor = _fillColor;
 @synthesize fill = _fill, stroke = _stroke;
 @synthesize path = _path;
+@synthesize transform = _transform;
 
-
-- (id)initWithPath:(CGPathRef) path 
-         lineWidth: (double) lineWidth 
-         lineColor: (CGColorRef) lineColor 
-            stroke: (BOOL) stroke 
-         fillColor: (CGColorRef) fillColor 
-              fill: (BOOL) fill {
-    self = [super init];
-    if (self) {
-        // set default values
-        _path = path;
-        _lineWidth = lineWidth;
-        _lineColor = lineColor;
-        _stroke = stroke;
-        _fillColor = fillColor;
-        _fill = fill;
-    }
-    return self;
-}
 
 - (id)init {
     self = [super init];
     if (self) {
-        self = [self initWithPath:nil 
-                 lineWidth:0.0 
-                 lineColor:nil 
-                    stroke:YES 
-                 fillColor:nil 
-                      fill:NO];
+        CGMutablePathRef newPath = CGPathCreateMutable();
+        _path = newPath;
+        CGPathRetain(_path);
+        
+        _lineWidth = 1.0;
+        _lineColor = NULL;
+        _stroke = YES;
+        _fillColor = NULL;
+        _fill = NO;
+        _transform = CGAffineTransformIdentity;
     }
     return self;
 }
 
--(CGPathRef) path {
+-(NSString*) debugDescription {
+    return [NSString stringWithFormat: @"Path %@, lineWidth: %d, stroke: %i", _path, _lineWidth, _stroke];
+}
+
+-(CGMutablePathRef) path {
     return _path;
 }
 
--(void) setPath:(CGPathRef)path {
+-(void) setPath:(CGMutablePathRef)path {
     if (_path != path) {
         CGPathRelease(_path);
         _path = path;
@@ -71,6 +61,9 @@
         _lineColor = lineColor;
         CGColorRetain(_lineColor);
     }
+    if (_fillColor==NULL) {
+        self.fillColor = lineColor;
+    }
 }
 
 -(CGColorRef) fillColor {
@@ -80,9 +73,23 @@
 -(void) setFillColor:(CGColorRef)fillColor {
     if (_fillColor != fillColor) {
         CGColorRelease(_fillColor);
-        _lineColor = fillColor;
+        _fillColor = fillColor;
         CGColorRetain(_fillColor);
     }
+}
+
+-(MBFractalSegment*) copySettings {
+    MBFractalSegment* newSegment = [[MBFractalSegment alloc] init];
+    newSegment.lineColor = self.lineColor;
+    newSegment.lineWidth = self.lineWidth;
+    newSegment.stroke = self.stroke;
+    
+    newSegment.fillColor = self.fillColor;
+    newSegment.fill = self.fill;
+    
+    newSegment.transform = self.transform;
+    
+    return newSegment;
 }
 
 -(void) dealloc {

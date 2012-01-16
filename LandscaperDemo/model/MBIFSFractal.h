@@ -23,10 +23,9 @@
 @property (assign) BOOL                             pathNeedsGenerating;
 
 @property (strong,readonly) NSMutableArray*         segments;
+@property (strong,readwrite) NSMutableArray*        segmentStack;
 @property (assign,readonly) CGRect                  bounds;
 
-@property (nonatomic,assign) CGMutablePathRef       currentPath;
-@property (nonatomic,assign) CGAffineTransform      currentTransform;
 @property (nonatomic,assign) double                 lineWidth;
 @property (nonatomic,assign) CGColorRef             lineColor;
 @property (nonatomic,assign) CGColorRef             fillColor;
@@ -52,6 +51,9 @@
 -(void) drawLine: (id) arg;
 -(void) rotate: (id) arg;
 
--(void) addSegment: (MBFractalSegment*) segment;
+-(void) finalizeSegments;
+
+-(void) pushSegment;
+-(void) popSegment;
 
 @end
