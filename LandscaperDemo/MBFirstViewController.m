@@ -93,6 +93,31 @@
     return fractal;
 }
 
+-(MBIFSFractal*) newBush1 {
+    CGColorRef lineColor = CreateDeviceRGBColor(0.0f, 0.3f, 1.0f, 1.0f);
+    
+    MBIFSFractal* fractal = [[MBIFSFractal alloc] init];
+    fractal.lineColor = lineColor;
+    fractal.lineWidth = 2.0f;
+    CGColorRelease(lineColor);
+    
+    fractal.axiom = @"F";
+    double angle = M_PI/(7.0f);
+    [fractal setInitialTransform: CGAffineTransformMakeRotation(-M_PI_2)];
+    [fractal addProductionRuleReplaceString: @"F" withString: @"F[+F]F[-F]F"];
+    [fractal addProductionRuleReplaceString: @"+" withString: @"+"];
+    [fractal addProductionRuleReplaceString: @"-" withString: @"-"];
+    [fractal addProductionRuleReplaceString: @"[" withString: @"["];
+    [fractal addProductionRuleReplaceString: @"]" withString: @"]"];
+    [fractal addDrawingRuleString: @"F" executesSelector: @"drawLine:" withArgument: [NSNumber numberWithDouble: 20.0f]];
+    [fractal addDrawingRuleString: @"+" executesSelector: @"rotate:" withArgument: [NSNumber numberWithDouble: angle]];
+    [fractal addDrawingRuleString: @"-" executesSelector: @"rotate:" withArgument: [NSNumber numberWithDouble: -angle]];
+    [fractal addDrawingRuleString: @"[" executesSelector: @"push:" withArgument: nil];
+    [fractal addDrawingRuleString: @"]" executesSelector: @"pop:" withArgument: nil];
+    fractal.levels = 0;
+    return fractal;
+}
+
 -(void) addVonKochSnowFlakeLayerPosition: (CGPoint) position  maxDimension: (double) size {
     // It is important to create the fractal before the layer so the layer bounds aspect can use the fractal bounds
     // It is assumed fractal bounds aspect will not change significantly with varying levels]
@@ -198,6 +223,41 @@
     [fractalLayer setNeedsDisplay];
 }
 
+-(void) addBush1LayerPosition: (CGPoint) position maxDimension: (double) size {
+    
+    CGColorRef fillColor = CreateDeviceRGBColor(0.0f, 0.8f, 1.0f, 0.8f);
+    CGColorRef lineColor = CreateDeviceRGBColor(1.0f, 0.8f, 0.0f, 1.0f);
+    
+    // create the fractal
+    MBIFSFractal* fractal = [self newBush1];
+    fractal.levels = 3;
+    fractal.stroke = YES;
+    fractal.lineColor = lineColor;
+    CGColorRelease(lineColor);
+    fractal.fill = NO;
+    fractal.fillColor = fillColor;
+    CGColorRelease(fillColor);
+    [fractal generateProduct];
+    [fractal generatePaths];
+    
+    
+    // create a fractal layer
+    MBFractalLayer* fractalLayer = [[MBFractalLayer alloc] init];
+    
+    // anchorPoint traditional lower left corner
+    //    fractalLayer.anchorPoint = CGPointMake(0.0f, 1.0f);    
+    // position based on lower left corner
+    fractalLayer.position = position;
+    
+    CGSize unitBox = [fractal unitBox];
+    fractalLayer.bounds = CGRectMake(0.0f, 0.0f, unitBox.width*size, unitBox.height*size);
+    
+    fractalLayer.fractal = fractal;
+    
+    [MainFractalView.layer addSublayer: fractalLayer];
+    [fractalLayer setNeedsDisplay];
+}
+
 
 - (void)viewDidLoad
 {
@@ -207,6 +267,7 @@
     [MainFractalView.layer setNeedsDisplay];
     
     [self addVonKochSnowFlakeLayerPosition: CGPointMake(50, 50) maxDimension: 300];
+    [self addBush1LayerPosition: CGPointMake(350, 50) maxDimension: 300];
     [self addVonKochIslandLayerPosition: CGPointMake(75, 250) maxDimension: 300];
     [self addVonKochSquaresLayerPosition: CGPointMake(175, 450) maxDimension: 300];
 }

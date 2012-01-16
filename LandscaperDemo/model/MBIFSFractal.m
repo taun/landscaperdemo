@@ -65,7 +65,7 @@
 @synthesize replacementRules = _replacementRules;
 @synthesize production = _production;
 @synthesize drawingRules = _drawingRules;
-@synthesize segments = _segments;
+@synthesize finishedSegments = _segments;
 @synthesize segmentStack = _segmentStack;
 @synthesize bounds = _bounds;
 
@@ -155,9 +155,9 @@
  Move the current segment to the final segments array
  */
 -(void) popSegment {
-    if ([self.segments count]>0) {
-        MBFractalSegment* olderCurrentSegment = [self.segments lastObject];
-        [self.segments removeLastObject];
+    if ([self.segmentStack count]>0) {
+        MBFractalSegment* olderCurrentSegment = [self.segmentStack lastObject];
+        [self.segmentStack removeLastObject];
         
         [self addSegment: self.currentSegment];
         self.currentSegment = olderCurrentSegment;
@@ -225,6 +225,9 @@
     }
 }
 
+-(void) setInitialTransform:(CGAffineTransform)transform {
+    self.currentSegment.transform = transform;
+}
 
 //-(CGAffineTransform) currentTransform {
 //    return _currentTransform;
@@ -264,10 +267,16 @@
     self.productNeedsGenerating = YES;
 }
 
+
 -(void) addDrawingRuleString:(NSString*)character executesSelector:(NSString*)selector withArgument:(id)arg {
     if (self.drawingRules == nil) {
         self.drawingRules = [[NSMutableDictionary alloc] initWithCapacity: 4];
     }
+    
+    if (arg==nil) {
+        arg = [NSNumber numberWithInt: 0];
+    }
+    
     NSArray* drawingArgs = [[NSArray alloc] initWithObjects: selector, arg, nil];
     [self.drawingRules setObject: drawingArgs forKey: character];
     self.productNeedsGenerating = YES;
@@ -298,6 +307,10 @@
             //
             key = [sourceData substringWithRange: NSMakeRange(y, 1)];
             replacement = [self.replacementRules objectForKey: key];
+            // If a specific rule is missing for a character, use the character
+            if (replacement==nil) {
+                replacement = key;
+            }
             [destinationData appendString: replacement];
         }
         //swap source and destination
@@ -358,6 +371,26 @@
 
 #pragma clang diagnostic pop
 
+-(void) drawCircle: (id) arg {
+    if ([arg isKindOfClass: [NSNumber class]]) {
+        double diameter = [(NSNumber*)arg doubleValue];
+        CGAffineTransform local = self.currentSegment.transform;
+        CGPathAddEllipseInRect(self.currentSegment.path, &local, CGRectMake(-diameter/2.0, -diameter/2.0, diameter, diameter));
+        CGPathMoveToPoint(self.currentSegment.path, &local, 0, 0);
+    }
+}
+
+-(void) drawSquare: (id) arg {
+    if ([arg isKindOfClass: [NSNumber class]]) {
+        double width = [(NSNumber*)arg doubleValue];
+        CGAffineTransform local = self.currentSegment.transform;
+        CGPathAddRect(self.currentSegment.path, &local, CGRectMake(-width/2.0, -width/2.0, width, width));
+        CGPathMoveToPoint(self.currentSegment.path, &local, 0, 0);
+    }
+}
+
+#pragma mark - Public Rule Methods
+
 -(void) drawLine: (id) arg {
     if ([arg isKindOfClass: [NSNumber class]]) {
         double tx = [(NSNumber*)arg doubleValue];
@@ -373,6 +406,16 @@
         self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, theta);
     }
 }
+
+-(void) push:(id)arg {
+    [self pushSegment];
+}
+
+-(void) pop:(id)arg {
+    [self drawCircle: [NSNumber numberWithDouble: 4.0]];
+    [self popSegment];
+}
+
 
 #pragma mark - helper methods
 

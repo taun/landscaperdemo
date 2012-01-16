@@ -22,7 +22,7 @@
 @property (assign) BOOL                             productNeedsGenerating;
 @property (assign) BOOL                             pathNeedsGenerating;
 
-@property (strong,readonly) NSMutableArray*         segments;
+@property (strong,readonly) NSMutableArray*         finishedSegments;
 @property (strong,readwrite) NSMutableArray*        segmentStack;
 @property (assign,readonly) CGRect                  bounds;
 
@@ -31,6 +31,11 @@
 @property (nonatomic,assign) CGColorRef             fillColor;
 @property (nonatomic, readwrite) BOOL               fill;
 @property (nonatomic, readwrite) BOOL               stroke;
+
+-(void) finalizeSegments;
+
+-(void) pushSegment;
+-(void) popSegment;
 
 /*!
  Height/Width aspect ratio.
@@ -42,18 +47,18 @@
  */
 -(CGSize) unitBox;
 
+-(void) setInitialTransform: (CGAffineTransform) transform;
 -(void) addProductionRuleReplaceString: (NSString*) original withString: (NSString*) replacement;
 -(void) addDrawingRuleString:(NSString*)character executesSelector:(NSString*)selector withArgument:(id)arg;
 -(void) resetRules;
 -(void) generateProduct;
 -(void) generatePaths;
 
+#pragma mark - Public Rule Methods
 -(void) drawLine: (id) arg;
 -(void) rotate: (id) arg;
+-(void) push: (id) arg;
+-(void) pop: (id) arg;
 
--(void) finalizeSegments;
-
--(void) pushSegment;
--(void) popSegment;
 
 @end

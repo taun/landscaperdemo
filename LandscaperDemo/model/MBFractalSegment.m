@@ -89,6 +89,10 @@
     
     newSegment.transform = self.transform;
     
+    CGPoint currentPoint = CGPathGetCurrentPoint(self.path);
+    CGAffineTransform currentTransform = newSegment.transform;
+    CGPathMoveToPoint(newSegment.path, &currentTransform, 0, 0);
+    
     return newSegment;
 }
 

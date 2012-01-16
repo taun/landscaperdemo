@@ -64,7 +64,7 @@
     CGContextScaleCTM(ctx, scale, scale);
     CGContextTranslateCTM(ctx, -fBounds.origin.x, -fBounds.origin.y);
     
-    for (MBFractalSegment* segment in self.fractal.segments) {
+    for (MBFractalSegment* segment in self.fractal.finishedSegments) {
         // stroke and or fill each segment
         CGContextBeginPath(ctx);
         
