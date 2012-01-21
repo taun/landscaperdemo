@@ -23,19 +23,25 @@
 
 @synthesize lineColor = _lineColor, fillColor = _fillColor;
 
++(NSArray*)settingsToCopy {
+    return [NSArray arrayWithObjects:
+            @"turningAngle",
+            @"turningAngleIncrement",
+            @"lineLength", 
+            @"lineWidth",
+            @"lineWidthIncrement",
+            @"lineLengthScaleFactor",
+            @"lineColor",
+            @"fillColor",
+            @"fill",
+            @"stroke",
+            @"transform",
+            nil];
+}
 
 - (id)init {
     self = [super init];
     if (self) {
-        CGMutablePathRef newPath = CGPathCreateMutable();
-        _path = newPath;
-        CGPathRetain(_path);
-        
-        CGColorRef defaultLineColor = CreateDeviceRGBColor(0.0, 0.0, 0.0, 1.0);
-        CGColorRetain(defaultLineColor);
-        
-        CGColorRef  defaultFillColor = CreateDeviceGrayColor(0.8, 0.8);
-        CGColorRetain(defaultFillColor);
         
         _turningAngle = M_PI_4;
         _turningAngleIncrement = 0.0;
@@ -46,15 +52,103 @@
         _lineWidth = 1.0;
         _lineWidthIncrement = 0.0;
         
-        _lineColor = defaultLineColor;
-        _stroke = YES;
-        
-        _fillColor = defaultFillColor;
-        _fill = NO;
-        
         _transform = CGAffineTransformIdentity;
     }
     return self;
+}
+
+-(CGMutablePathRef) path {
+    if (_path == NULL) {
+        _path = CGPathCreateMutable();
+        CGPathRetain(_path);
+    }
+    return _path;
+}
+
+-(void) setPath:(CGMutablePathRef)path {
+    if (CGPathEqualToPath(_path, path)) return;
+    
+    CGPathRelease(_path);
+    if (path != NULL) {
+    	_path = (CGMutablePathRef) CGPathRetain(path);
+    }
+}
+
+-(CGColorRef) lineColor {
+    if (_lineColor == NULL) {
+        _lineColor = CreateDeviceRGBColor(0.0, 0.0, 0.0, 1.0);
+        CGColorRetain(_lineColor);
+        self.stroke = YES;
+    }
+    return _lineColor;
+}
+
+-(void) setLineColor:(CGColorRef)lineColor {
+    if (CGColorEqualToColor(_lineColor,lineColor)) return;
+    
+    CGColorRelease(_lineColor);
+    if (lineColor != NULL) {
+    	_lineColor = CGColorRetain(lineColor);
+    }
+}
+
+-(CGColorRef) fillColor {
+    if (_fillColor == NULL) {
+        _fillColor = CreateDeviceGrayColor(0.8, 0.8);
+        CGColorRetain(_fillColor);
+        self.fill = NO;
+    }
+    return _fillColor;
+}
+
+-(void) setFillColor:(CGColorRef)fillColor {
+    if (CGColorEqualToColor(_fillColor,fillColor)) return;
+    
+    CGColorRelease(_fillColor);
+    if (fillColor != NULL) {
+    	_fillColor = CGColorRetain(fillColor);
+    }
+}
+
+-(MBFractalSegment*) copySettings {
+    MBFractalSegment* newSegment = [[MBFractalSegment alloc] init];
+    
+    for (id aSetting in [[self class] settingsToCopy]) {
+        [newSegment setValue:[self valueForKey: aSetting] forKey: aSetting];
+    }
+    
+    CGAffineTransform currentTransform = newSegment.transform;
+    CGPathMoveToPoint(newSegment.path, &currentTransform, 0, 0);
+    
+    return newSegment;
+}
+
+#pragma mark - KVC overrides for CGColorRef properties
+
+- (id)valueForUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"lineColor"]) {
+        return (id)self.lineColor;
+    } else if ([key isEqualToString:@"fillColor"]) {
+        return (id)self.fillColor;
+    }
+    
+    return [super valueForUndefinedKey:key];
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"lineColor"]) {
+        self.lineColor = (__bridge CGColorRef) value;
+    } else if ([key isEqualToString:@"fillColor"]) {
+        self.fillColor = (__bridge CGColorRef) value;
+    } else {
+        [super setValue: value forUndefinedKey: key];
+    }
+}
+
+-(void) dealloc {
+    CGPathRelease(_path);
+    CGColorRelease(_lineColor);
+    CGColorRelease(_fillColor);
 }
 
 -(NSString*) colorAsString: (CGColorRef) color {
@@ -97,104 +191,9 @@
     NSString* lineColorComponents = [self colorAsString: self.lineColor];
     NSString* fillColorComponents = [self colorAsString: self.fillColor];
     
-    return [NSString stringWithFormat: @"Path %@, lineWidth: %d, LineColor: %@, stroke: %@, FillColor: %@, fill: %@", 
+    return [NSString stringWithFormat: @"Path %@, lineWidth: %g, LineColor: %@, stroke: %@, FillColor: %@, fill: %@", 
             _path, _lineWidth, lineColorComponents, stroke, fillColorComponents, fill];
 }
 
--(CGMutablePathRef) path {
-    return _path;
-}
-
--(void) setPath:(CGMutablePathRef)path {
-    if (CGPathEqualToPath(_path, path)) return;
-    
-    CGPathRelease(_path);
-    if (path != NULL) {
-    	_path = (CGMutablePathRef) CGPathRetain(path);
-    }
-}
-
--(CGColorRef) lineColor {
-    return _lineColor;
-}
-
--(void) setLineColor:(CGColorRef)lineColor {
-    if (CGColorEqualToColor(_lineColor,lineColor)) return;
-    
-    CGColorRelease(_lineColor);
-    if (lineColor != NULL) {
-    	_lineColor = CGColorRetain(lineColor);
-    }
-}
-
--(CGColorRef) fillColor {
-    return _fillColor;
-}
-
--(void) setFillColor:(CGColorRef)fillColor {
-    if (CGColorEqualToColor(_fillColor,fillColor)) return;
-    
-    CGColorRelease(_fillColor);
-    if (fillColor != NULL) {
-    	_fillColor = CGColorRetain(fillColor);
-    }
-}
-
-- (NSArray*)settingsToCopy {
-    return [NSArray arrayWithObjects:
-            @"turningAngle",
-            @"turningAngleIncrement",
-            @"lineLength", 
-            @"lineWidth",
-            @"lineWidthIncrement",
-            @"lineLengthScaleFactor",
-            @"lineColor",
-            @"fillColor",
-            @"fill",
-            @"stroke",
-            @"transform",
-            nil];
-}
-
--(MBFractalSegment*) copySettings {
-    MBFractalSegment* newSegment = [[MBFractalSegment alloc] init];
-    
-    for (id aSetting in [self settingsToCopy]) {
-        [newSegment setValue:[self valueForKey: aSetting] forKey: aSetting];
-    }
-    
-    CGAffineTransform currentTransform = newSegment.transform;
-    CGPathMoveToPoint(newSegment.path, &currentTransform, 0, 0);
-    
-    return newSegment;
-}
-
-#pragma mark - KVC overrides for CGColorRef properties
-
-- (id)valueForUndefinedKey:(NSString *)key {
-    if ([key isEqualToString:@"lineColor"]) {
-        return (id)self.lineColor;
-    } else if ([key isEqualToString:@"fillColor"]) {
-        return (id)self.fillColor;
-    }
-    
-    return [super valueForUndefinedKey:key];
-}
-
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    if ([key isEqualToString:@"lineColor"]) {
-        self.lineColor = (__bridge CGColorRef) value;
-    } else if ([key isEqualToString:@"fillColor"]) {
-        self.fillColor = (__bridge CGColorRef) value;
-    } else {
-        [super setValue: value forUndefinedKey: key];
-    }
-}
-
--(void) dealloc {
-    CGPathRelease(_path);
-    CGColorRelease(_lineColor);
-    CGColorRelease(_fillColor);
-}
 
 @end

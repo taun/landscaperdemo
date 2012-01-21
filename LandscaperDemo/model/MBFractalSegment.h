@@ -16,14 +16,21 @@
 }
 
 @property (nonatomic, assign) CGMutablePathRef      path;
-@property (nonatomic, assign) double         lineWidth;
-@property (nonatomic, assign) CGColorRef     lineColor;
-@property (nonatomic, assign) CGColorRef     fillColor;
-@property (nonatomic, readwrite) BOOL        fill;
-@property (nonatomic, readwrite) BOOL        stroke;
+
+@property (nonatomic,assign) double                 turningAngle;
+@property (nonatomic,assign) double                 turningAngleIncrement;
+@property (nonatomic,assign) double                 lineLength;
+@property (nonatomic,assign) double                 lineWidth;
+@property (nonatomic,assign) double                 lineWidthIncrement;
+@property (nonatomic,assign) double                 lineLengthScaleFactor;
+@property (nonatomic,assign) CGColorRef             lineColor;
+@property (nonatomic,assign) CGColorRef             fillColor;
+@property (nonatomic, readwrite) BOOL               fill;
+@property (nonatomic, readwrite) BOOL               stroke;
 
 @property (nonatomic,assign) CGAffineTransform      transform;
 
++(NSArray*)settingsToCopy;
 
 -(MBFractalSegment*) copySettings;
 
