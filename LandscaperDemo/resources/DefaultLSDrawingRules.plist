@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DrawingRules</key>
+	<dict>
+		<key>F</key>
+		<string>drawLine</string>
+		<key>f</key>
+		<string>moveByLine</string>
+		<key>+</key>
+		<string>rotateCC</string>
+		<key>-</key>
+		<string>rotateC</string>
+		<key>|</key>
+		<string>reverseDirection</string>
+		<key>[</key>
+		<string>push</string>
+		<key>]</key>
+		<string>pop</string>
+		<key>#</key>
+		<string>incrementLineWidth</string>
+		<key>!</key>
+		<string>decrementLineWidth</string>
+		<key>@</key>
+		<string>drawDot</string>
+		<key>{</key>
+		<string>openPolygon</string>
+		<key>}</key>
+		<string>closePolygon</string>
+		<key>&gt;</key>
+		<string>upscaleLineLength</string>
+		<key>&lt;</key>
+		<string>downscaleLineLength</string>
+		<key>&amp;</key>
+		<string>swapRotation</string>
+		<key>(</key>
+		<string>decrementAngle</string>
+		<key>)</key>
+		<string>incrementAngle</string>
+	</dict>
+</dict>
+</plist>
