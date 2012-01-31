@@ -17,4 +17,15 @@ CGColorRef CreateDeviceRGBColor(CGFloat r, CGFloat g, CGFloat b, CGFloat a);
 CGColorRef graphBackgroundColor(void);
 
 
+/** Creates a CGPattern from a CGImage. */
+CGPatternRef CreateImagePattern( CGImageRef image );
+
+/** Creates a CGColor that draws the given CGImage as a pattern. */
+CGColorRef CreatePatternColor( CGImageRef image );
+
+CGImageRef GetCGImageNamed( NSString *name );
+
+
+CGColorRef GetCGPatternFromUIImage( UIImage *uImage );
+
 #endif

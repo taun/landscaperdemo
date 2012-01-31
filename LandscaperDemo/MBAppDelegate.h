@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class LSDrawingRuleType;
+
 @interface MBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -16,12 +18,15 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (nonatomic, strong) NSDictionary*             lsFractalDefaults;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
 -(BOOL)coreDataDefaultsExist;
 -(void)addDefaultCoreDataData;
--(void)addDefaultDrawingRules;
+-(LSDrawingRuleType*)loadDefaultDrawingRules;
 -(void)addDefaultLSFractals;
+-(void)addDefaultColors;
 
 @end

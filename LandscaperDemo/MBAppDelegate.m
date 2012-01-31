@@ -11,6 +11,7 @@
 #import "LSReplacementRule.h"
 #import "LSDrawingRuleType.h"
 #import "LSDrawingRule.h"
+#import "MBColor.h"
 
 @implementation MBAppDelegate
 
@@ -18,13 +19,15 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize lsFractalDefaults = _lsFractalDefaults;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    if (![self coreDataDefaultsExist]) {
-        [self addDefaultCoreDataData];
-    }
+//    if (![self coreDataDefaultsExist]) {
+//        [self addDefaultCoreDataData];
+//    }
+    [self addDefaultCoreDataData];
     return YES;
 }
 							
@@ -108,36 +111,53 @@
 }
 
 -(void) addDefaultCoreDataData {
-    [self addDefaultDrawingRules];
+    [self addDefaultColors];
     [self addDefaultLSFractals];
     [self saveContext];
+    
+    // now we can free up the defaults dictionary
+    self.lsFractalDefaults = nil;
 }
 
--(void)addDefaultDrawingRules {
-    NSString *errorDesc = nil;
-    NSPropertyListFormat format;
+-(NSDictionary*) lsFractalDefaults {
+    if (_lsFractalDefaults == nil) {        
+        NSString *errorDesc = nil;
+        NSPropertyListFormat format;
+        
+        NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"DefaultLSDrawingRules" ofType:@"plist"];
+        NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+        NSDictionary *tempDefaults = (NSDictionary *)[NSPropertyListSerialization
+                                                      propertyListFromData:plistXML
+                                                      mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                                      format:&format
+                                                      errorDescription:&errorDesc];
+        if (!tempDefaults) {
+            NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+        } else {
+            _lsFractalDefaults = tempDefaults;
+        }
 
-    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"DefaultLSDrawingRules" ofType:@"plist"];
-    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-    NSDictionary *tempDefaults = (NSDictionary *)[NSPropertyListSerialization
-                                          propertyListFromData:plistXML
-                                          mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                                          format:&format
-                                          errorDescription:&errorDesc];
+    }
+    return _lsFractalDefaults;
+}
 
-    if (!tempDefaults) {
-        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
-    } else {
+-(LSDrawingRuleType*)loadDefaultDrawingRules {
+
+    NSDictionary* defaults = [self lsFractalDefaults];
+    
+    LSDrawingRuleType* defaultType = nil;
+    
+    if (defaults) {
         NSManagedObjectContext* context = self.managedObjectContext;
         
-        LSDrawingRuleType* defaultType = [NSEntityDescription
+        defaultType = [NSEntityDescription
                                                insertNewObjectForEntityForName:@"LSDrawingRuleType"
                                                inManagedObjectContext: context];
         defaultType.name = @"Default";
         defaultType.identifier = @"default";
         defaultType.descriptor = @"Default drawing rules added when the application is run for the first time.";
         
-        NSDictionary* rules = [tempDefaults objectForKey: @"DrawingRules"];
+        NSDictionary* rules = [defaults objectForKey: @"DrawingRules"];
         for (NSString* key in rules) {
             
             LSDrawingRule *newDrawingRule = [NSEntityDescription
@@ -149,10 +169,80 @@
 
         }
     }
+    return defaultType;
 }
 
--(void)addDefaultLSFractals {
+-(void) addDefaultColors {
+    NSDictionary* defaults = [self lsFractalDefaults];
     
+    if (defaults) {
+        NSManagedObjectContext* context = self.managedObjectContext;
+        
+        NSArray* colorArray = [defaults objectForKey: @"InitialColors"];
+        if ([colorArray isKindOfClass: [NSArray class]]) {
+            for (NSDictionary* colorDict in colorArray) {
+                MBColor* newColor = [NSEntityDescription
+                                      insertNewObjectForEntityForName:@"MBColor"
+                                      inManagedObjectContext: context];
+                
+                
+                if ([colorDict isKindOfClass: [NSDictionary class]]) {
+                    for (id propertyKey in colorDict) {
+                        [newColor setValue: [colorDict objectForKey: propertyKey] forKey: propertyKey];
+                    }
+                }
+            }
+        }
+    }    
+}
+
+//TODO: handle more than just the default drawing rules.
+-(void)addDefaultLSFractals {
+    NSDictionary* defaults = [self lsFractalDefaults];
+    
+    if (defaults) {
+        LSDrawingRuleType* defaultDrawingRuleType = [self loadDefaultDrawingRules];
+        
+        NSManagedObjectContext* context = self.managedObjectContext;
+        
+        NSArray* fractals = [defaults objectForKey: @"InitialLSFractals"];
+        
+        if ([fractals isKindOfClass:[NSArray class]]) {
+            
+            for (id fractalDictionary in fractals) {
+                if ([fractalDictionary isKindOfClass: [NSDictionary class]]) {
+                    // create the fractal
+                    LSFractal* fractal = [NSEntityDescription
+                                          insertNewObjectForEntityForName:@"LSFractal"
+                                          inManagedObjectContext: context];
+                    
+                    fractal.drawingRulesType = defaultDrawingRuleType;
+                    
+                    for (id propertyKey in fractalDictionary) {
+                        id propertyValue = [fractalDictionary objectForKey: propertyKey];
+                        
+                        if ([propertyValue isKindOfClass:[NSDictionary class]]) {
+                            // dictionary is replacement rules
+                            for (id replacementKey in propertyValue) {
+                                // create replacement rules and assign to fractal
+                                LSReplacementRule *newReplacementRule = [NSEntityDescription
+                                                                         insertNewObjectForEntityForName:@"LSReplacementRule"
+                                                                         inManagedObjectContext: context];
+                                
+                                newReplacementRule.contextString = replacementKey;
+                                newReplacementRule.replacementString = [propertyValue objectForKey: replacementKey];
+                                [fractal addReplacementRulesObject: newReplacementRule];
+                            }
+                        } else {
+                            // all but dictionaries should be key value
+                            [fractal setValue: propertyValue forKey: propertyKey];
+                        }
+                    }
+                }
+            }
+        }
+        
+    }    
 }
 
 #pragma mark - Core Data stack
@@ -204,6 +294,10 @@
     }
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"FSLibrary.sqlite"];
+    
+    // for development, always delete the store first
+    // will force load of defaults
+    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
