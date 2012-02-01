@@ -12,6 +12,7 @@
 #import "LSReplacementRule.h"
 #import "LSDrawingRuleType.h"
 #import "LSDrawingRule.h"
+#import "MBColor.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -27,7 +28,7 @@
 @property (nonatomic,strong) NSMutableArray*        segmentStack;
 
 @property (nonatomic,assign) CGRect                 bounds;
-@property (nonatomic, strong) NSMutableDictionary*  cachedDrawingRules;
+@property (nonatomic,strong) NSMutableDictionary*  cachedDrawingRules;
 
 @property (nonatomic,strong) MBFractalSegment*      currentSegment;
 
@@ -76,13 +77,33 @@
 @synthesize currentSegment = _currentSegment;
 @synthesize cachedDrawingRules = _cachedDrawingRules;
 
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _productNeedsGenerating = YES;
+        _pathNeedsGenerating = YES;
+        _forceLevel = -1.0;
+    }
+    return self;
+}
+
+/*
+ <CALayer:0x6d6b0c0; position = CGPoint (578.5 110.5); bounds = CGRect (0 0; 369 211); delegate = <LSFractalGenerator: 0x6d6bd30>; borderWidth = 1; cornerRadius = 20; backgroundColor = <CGColor 0x6d6b260> [<CGColorSpace 0x6d38c80> (kCGColorSpaceDeviceRGB)] ( 1 1 1 1 )>
+ */
+-(NSString*) debugDescription {
+    NSDictionary* boundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(_bounds);
+    return [NSString stringWithFormat: @"<%@: fractal = %@; forceLevel = %g; bounds = %@; production = %@>",
+            NSStringFromClass([self class]), 
+            self.fractal, 
+            self.forceLevel, 
+            boundsDict,
+            self.production];
+}
+
 #pragma mark - layer delegate
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
-    
-    //TODO: not sure if this should be here or in the top level controller that creates the view containing the layer?
-    theLayer.anchorPoint = CGPointMake(0.0f, 0.0f);
-
-    
+        
     if (self.productNeedsGenerating) {
         [self generateProduct];
     }
@@ -94,13 +115,13 @@
     
     // outline the layer bounding box
     CGContextBeginPath(theContext);
-    CGContextAddRect(theContext, self.bounds);
+    CGContextAddRect(theContext, theLayer.bounds);
     CGContextSetLineWidth(theContext, 1.0);
     CGContextSetRGBStrokeColor(theContext, 0.5, 0.0, 0.0, 0.1);
     CGContextStrokePath(theContext);
     
     // move 0,0 down to the bottom left corner
-    CGContextTranslateCTM(theContext, self.bounds.origin.x, self.bounds.origin.y + self.bounds.size.height);
+    CGContextTranslateCTM(theContext, theLayer.bounds.origin.x, theLayer.bounds.origin.y + theLayer.bounds.size.height);
     // flip the Y axis so +Y is up direction from origin
     if ([theLayer contentsAreFlipped]) {
         //CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
@@ -118,17 +139,49 @@
     
     CGContextSaveGState(theContext);
     
-    double scale = theLayer.bounds.size.width/self.bounds.size.width;
-    double margin = -0.0/scale;
+    NSDictionary* lboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(theLayer.bounds);
+    NSLog(@"Layer Bounds = %@", lboundsDict);
     
-    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
+    NSDictionary* boundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(self.bounds);
+    NSLog(@"Fractal Path Bounds = %@", boundsDict);
     
+    NSLog(@"Layer anchor point: %g@%g", theLayer.anchorPoint.x, theLayer.anchorPoint.y);
+    
+    // Scaling
+    double scaleWidth = theLayer.bounds.size.width/self.bounds.size.width;
+    double scaleHeight = theLayer.bounds.size.height/self.bounds.size.height;
+    double scale = MIN(scaleHeight, scaleWidth);
+    
+//    double margin = -0.0/scale;
+    
+//    CGContextScaleCTM(theContext, scale, scale);
+    NSLog(@"Min Layer/Fractal Scale = %g", scale);
+    
+    
+//    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
+    
+    // Translating
+    double fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
+    double fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
+    
+    double lCenterX = theLayer.bounds.origin.x + theLayer.bounds.size.width/2.0;
+    double lCenterY = theLayer.bounds.origin.y + theLayer.bounds.size.height/2.0;
+    
+    double tx = lCenterX - (fCenterX*scale);
+    double ty = lCenterY - (fCenterY*scale);
+    
+    CGContextTranslateCTM(theContext, tx, ty);
     CGContextScaleCTM(theContext, scale, scale);
-    CGContextTranslateCTM(theContext, -fBounds.origin.x, -fBounds.origin.y);
+    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
+          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
     
     for (MBFractalSegment* segment in self.finishedSegments) {
         // stroke and or fill each segment
         CGContextBeginPath(theContext);
+        
+        
+        NSDictionary* aboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(CGPathGetBoundingBox(segment.path));
+        NSLog(@"Actual segment bounds = %@", aboundsDict);
         
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
@@ -161,14 +214,56 @@
     return _segmentStack;
 }
 
+//TODO: just reference the fractal in the segment?
 -(MBFractalSegment*) currentSegment {
     if (_currentSegment == nil) {
         _currentSegment = [[MBFractalSegment alloc] init];
+        
+        // Copy the fractal core data values to the segment
+        CGFloat components[4];
+        if (self.fractal.lineColor != nil) {
+            components[0] = [self.fractal.lineColor.red floatValue];
+            components[1] = [self.fractal.lineColor.green floatValue];
+            components[2] = [self.fractal.lineColor.blue floatValue];
+            components[3] = [self.fractal.lineColor.alpha floatValue];
+        } else {
+            components[0] = 0.0;
+            components[1] = 0.0;
+            components[2] = 1.0;
+            components[3] = 1.0;
+        }
+        CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
+        _currentSegment.lineColor = CGColorCreate(cSpace, components);
+        
+        if (self.fractal.fillColor != nil) {
+            components[0] = [self.fractal.fillColor.red floatValue];
+            components[1] = [self.fractal.fillColor.green floatValue];
+            components[2] = [self.fractal.fillColor.blue floatValue];
+            components[3] = [self.fractal.fillColor.alpha floatValue];
+        } else {
+            components[0] = 0.0;
+            components[1] = 0.0;
+            components[2] = 1.0;
+            components[3] = 1.0;
+        }
+        _currentSegment.fillColor = CGColorCreate(cSpace, components);
+        _currentSegment.fill = [self.fractal.fill boolValue];
+        
+        _currentSegment.lineLength = [self.fractal.lineLength doubleValue];
+        _currentSegment.lineLengthScaleFactor = [self.fractal.lineLengthScaleFactor doubleValue];
+        _currentSegment.lineWidth = [self.fractal.lineWidth doubleValue];
+        _currentSegment.lineWidthIncrement = [self.fractal.lineWidthIncrement doubleValue];
+        _currentSegment.stroke = [self.fractal.stroke boolValue];
+        
+        _currentSegment.turningAngle = [self.fractal.turningAngle doubleValue];
+        _currentSegment.turningAngleIncrement = [self.fractal.turningAngleIncrement doubleValue];
+        
+        CGColorSpaceRelease(cSpace);
     }
     return _currentSegment;
 }
 
--(NSMutableDictionary*) cacheDrawingRules {
+-(NSMutableDictionary*) cachedDrawingRules {
     if (_cachedDrawingRules == nil) {
         NSSet* rules = self.fractal.drawingRulesType.rules;
         NSUInteger ruleCount = [rules count];
@@ -186,6 +281,19 @@
 -(void) clearCache {
     self.cachedDrawingRules = nil;
 }
+
+-(CGRect) bounds {
+    // adjust for the lineWidth
+    double margin = _maxLineWidth*2.0+1.0;
+    CGRect result = CGRectInset(_bounds, -margin, -margin);
+    return result;
+//    return _bounds;
+}
+
+-(void) setBounds:(CGRect)bounds {
+    _bounds = bounds;
+}
+
 
 #pragma mark - segment getter setters
 
@@ -303,12 +411,12 @@
  */
 -(void) finalizeSegments {
     [self addSegment: self.currentSegment];
-    
-    for (MBFractalSegment* segment in self.segmentStack) {
-        [self addSegment: segment];
-        [self.segmentStack removeObject: segment];
+    if (_segmentStack != nil) {
+        for (MBFractalSegment* segment in self.segmentStack) {
+            [self addSegment: segment];
+            [self.segmentStack removeObject: segment];
+        }
     }
-    
 }
 
 -(void) addSegment: (MBFractalSegment*) segment {
@@ -354,22 +462,11 @@
 //}
 
 
--(CGRect) bounds {
-    // adjust for the lineWidth
-    double margin = _maxLineWidth*2.0+1.0;
-    CGRect result = CGRectInset(_bounds, -margin, -margin);
-    return result;
-}
-
--(void) setBounds:(CGRect)bounds {
-    _bounds = bounds;
-}
-
-
 #pragma mark - Product Generation
 
 -(void) productionRuleChanged {
     self.productNeedsGenerating = YES;
+    self.currentSegment = nil;
 }
 
 //TODO convert this to GCD, one dispatch per axiom character? Then reassemble?
@@ -418,6 +515,7 @@
         [destinationData deleteCharactersInRange: NSMakeRange(0, destinationData.length)];
     }
     self.production = sourceData;
+    NSLog(@"Production result = %@", sourceData);
     destinationData = nil;
     tempData = nil;
     self.productNeedsGenerating = NO;

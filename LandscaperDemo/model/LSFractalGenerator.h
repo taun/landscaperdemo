@@ -19,6 +19,10 @@
 @interface LSFractalGenerator : NSObject
 
 @property (nonatomic, strong) LSFractal*        fractal;
+
+/*!
+ Overrides the fractal level in order to allow multiple views of the same fractal with different generation levels.
+ */
 @property (nonatomic, assign) double            forceLevel;
 
 @property (nonatomic,assign,readonly) CGRect    bounds;
@@ -39,7 +43,7 @@
 -(double) aspectRatio;
 
 /*!
- Returns the width an height of maximum close fitting dimension of the fractal which will fit in a 1x1 box.
+ Returns the width and height of maximum close fitting dimension of the fractal which will fit in a 1x1 box.
  */
 -(CGSize) unitBox;
 
