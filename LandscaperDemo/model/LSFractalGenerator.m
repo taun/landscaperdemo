@@ -102,6 +102,17 @@
 }
 
 #pragma mark - layer delegate
+/*!
+ Transforms note:
+    The transforms are the reverse of what I would expect.
+    Calling a translate transform then scale transform seems to apply the transform to the data points as a scale then translate.
+ 
+    Example point at 100@100
+    Translate -50@-50 then scale x2 should be point at 100@100 actual point seems to be 150@150
+    Scale x2 then translate -50@-50 results in 50@50, the desired location.
+ 
+    Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
+ */
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
         
     if (self.productNeedsGenerating) {
@@ -139,13 +150,13 @@
     
     CGContextSaveGState(theContext);
     
-    NSDictionary* lboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(theLayer.bounds);
-    NSLog(@"Layer Bounds = %@", lboundsDict);
+//    NSDictionary* lboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(theLayer.bounds);
+//    NSLog(@"Layer Bounds = %@", lboundsDict);
     
-    NSDictionary* boundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(self.bounds);
-    NSLog(@"Fractal Path Bounds = %@", boundsDict);
+//    NSDictionary* boundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(self.bounds);
+//    NSLog(@"Fractal Path Bounds = %@", boundsDict);
     
-    NSLog(@"Layer anchor point: %g@%g", theLayer.anchorPoint.x, theLayer.anchorPoint.y);
+//    NSLog(@"Layer anchor point: %g@%g", theLayer.anchorPoint.x, theLayer.anchorPoint.y);
     
     // Scaling
     double scaleWidth = theLayer.bounds.size.width/self.bounds.size.width;
@@ -155,7 +166,7 @@
 //    double margin = -0.0/scale;
     
 //    CGContextScaleCTM(theContext, scale, scale);
-    NSLog(@"Min Layer/Fractal Scale = %g", scale);
+//    NSLog(@"Min Layer/Fractal Scale = %g", scale);
     
     
 //    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
@@ -171,17 +182,19 @@
     double ty = lCenterY - (fCenterY*scale);
     
     CGContextTranslateCTM(theContext, tx, ty);
+    
     CGContextScaleCTM(theContext, scale, scale);
-    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
-          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
+    
+//    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
+//          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
     
     for (MBFractalSegment* segment in self.finishedSegments) {
         // stroke and or fill each segment
         CGContextBeginPath(theContext);
         
         
-        NSDictionary* aboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(CGPathGetBoundingBox(segment.path));
-        NSLog(@"Actual segment bounds = %@", aboundsDict);
+//        NSDictionary* aboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(CGPathGetBoundingBox(segment.path));
+//        NSLog(@"Actual segment bounds = %@", aboundsDict);
         
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
@@ -515,7 +528,7 @@
         [destinationData deleteCharactersInRange: NSMakeRange(0, destinationData.length)];
     }
     self.production = sourceData;
-    NSLog(@"Production result = %@", sourceData);
+//    NSLog(@"Production result = %@", sourceData);
     destinationData = nil;
     tempData = nil;
     self.productNeedsGenerating = NO;
