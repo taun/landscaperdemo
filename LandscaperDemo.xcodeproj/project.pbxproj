@@ -7,11 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C53956FB14BF5ABC00D7301B /* QuartzHelpers.c in Sources */ = {isa = PBXBuildFile; fileRef = C53956FA14BF5ABC00D7301B /* QuartzHelpers.c */; };
+		C51215C214DA2BD4007ED367 /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C114DA2BD4007ED367 /* LSFractal.m */; };
+		C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
+		C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */; };
 		C5450ED414BBB86300CD2E09 /* MBFractalLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */; };
 		C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */; };
+		C56A2C8F14CFA1CB00B5F763 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C8E14CFA1CB00B5F763 /* grey.png */; };
+		C56A2C9414CFA77F00B5F763 /* sky.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9014CFA77F00B5F763 /* sky.png */; };
+		C56A2C9514CFA77F00B5F763 /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9114CFA77F00B5F763 /* space.png */; };
+		C56A2C9614CFA77F00B5F763 /* stone.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9214CFA77F00B5F763 /* stone.png */; };
+		C56A2C9714CFA77F00B5F763 /* zensand.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9314CFA77F00B5F763 /* zensand.png */; };
+		C57E630814D0744700BB7D54 /* MBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C57E630714D0744700BB7D54 /* MBColor.m */; };
+		C5914ACF14C9F0D500856F57 /* DefaultLSDrawingRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* DefaultLSDrawingRules.plist */; };
+		C5914AD014C9F0D500856F57 /* DefaultLSDrawingRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* DefaultLSDrawingRules.plist */; };
+		C5914ADF14C9F71F00856F57 /* MBFractalScape.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914ADE14C9F71F00856F57 /* MBFractalScape.m */; };
+		C5914AE014C9F71F00856F57 /* MBFractalScape.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914ADE14C9F71F00856F57 /* MBFractalScape.m */; };
+		C5914AE314C9F71F00856F57 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AE214C9F71F00856F57 /* LSDrawingRuleType.m */; };
+		C5914AE414C9F71F00856F57 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AE214C9F71F00856F57 /* LSDrawingRuleType.m */; };
+		C5914AE714C9F71F00856F57 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AE614C9F71F00856F57 /* LSDrawingRule.m */; };
+		C5914AE814C9F71F00856F57 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AE614C9F71F00856F57 /* LSDrawingRule.m */; };
+		C5914AEB14C9F71F00856F57 /* LSReplacementRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AEA14C9F71F00856F57 /* LSReplacementRule.m */; };
+		C5914AEC14C9F71F00856F57 /* LSReplacementRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AEA14C9F71F00856F57 /* LSReplacementRule.m */; };
+		C5914AF714C9F71F00856F57 /* MBScapeBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AF614C9F71F00856F57 /* MBScapeBackground.m */; };
+		C5914AF814C9F71F00856F57 /* MBScapeBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AF614C9F71F00856F57 /* MBScapeBackground.m */; };
+		C5914AFB14C9F71F00856F57 /* MBPlacedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AFA14C9F71F00856F57 /* MBPlacedEntity.m */; };
+		C5914AFC14C9F71F00856F57 /* MBPlacedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C5914AFA14C9F71F00856F57 /* MBPlacedEntity.m */; };
+		C5914B0214C9FB7F00856F57 /* bulging.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5914AFE14C9FB7F00856F57 /* bulging.jpg */; };
+		C5914B0314C9FB7F00856F57 /* bulging.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5914AFE14C9FB7F00856F57 /* bulging.jpg */; };
+		C5914B0414C9FB7F00856F57 /* grey.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914AFF14C9FB7F00856F57 /* grey.gif */; };
+		C5914B0514C9FB7F00856F57 /* grey.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914AFF14C9FB7F00856F57 /* grey.gif */; };
+		C5914B0614C9FB7F00856F57 /* marble_dark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0014C9FB7F00856F57 /* marble_dark.jpg */; };
+		C5914B0714C9FB7F00856F57 /* marble_dark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0014C9FB7F00856F57 /* marble_dark.jpg */; };
+		C5914B0814C9FB7F00856F57 /* zensand.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0114C9FB7F00856F57 /* zensand.gif */; };
+		C5914B0914C9FB7F00856F57 /* zensand.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0114C9FB7F00856F57 /* zensand.gif */; };
+		C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
+		C5A464F314C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
+		C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */; };
 		C5B979E514B3A0FE00BB0022 /* FractalPadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B979E414B3A0FE00BB0022 /* FractalPadView.m */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
+		C5BA2B9314C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5BA2B9114C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld */; };
+		C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
+		C5BA2BE714C6F59D00F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
+		C5BE4A1114D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */; };
+		C5BE4A1414D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BE4A1314D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib */; };
+		C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */; };
+		C5DA348D14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DA348C14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m */; };
+		C5DA349014D6413D00D91F43 /* FractalKeyboardBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA348F14D6413D00D91F43 /* FractalKeyboardBackground.png */; };
+		C5DA349414D6417300D91F43 /* imitation_leather.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349114D6417300D91F43 /* imitation_leather.png */; };
+		C5DA349514D6417300D91F43 /* interstices.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349214D6417300D91F43 /* interstices.png */; };
+		C5DA349614D6417300D91F43 /* marble_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349314D6417300D91F43 /* marble_dark.png */; };
 		C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78114A5346300DA48BD /* UIKit.framework */; };
 		C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
 		C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78514A5346300DA48BD /* CoreGraphics.framework */; };
@@ -20,10 +64,10 @@
 		C5E6B79214A5346300DA48BD /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79114A5346300DA48BD /* MBAppDelegate.m */; };
 		C5E6B79514A5346300DA48BD /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */; };
 		C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */; };
-		C5E6B79B14A5346300DA48BD /* MBFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79A14A5346300DA48BD /* MBFirstViewController.m */; };
+		C5E6B79B14A5346300DA48BD /* MBFractalLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */; };
 		C5E6B79D14A5346300DA48BD /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79C14A5346300DA48BD /* first.png */; };
 		C5E6B79F14A5346300DA48BD /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79E14A5346300DA48BD /* first@2x.png */; };
-		C5E6B7A214A5346300DA48BD /* MBSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7A114A5346300DA48BD /* MBSecondViewController.m */; };
+		C5E6B7A214A5346300DA48BD /* MBScapeLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7A114A5346300DA48BD /* MBScapeLibraryViewController.m */; };
 		C5E6B7A414A5346300DA48BD /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7A314A5346300DA48BD /* second.png */; };
 		C5E6B7A614A5346300DA48BD /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7A514A5346300DA48BD /* second@2x.png */; };
 		C5E6B7AE14A5346300DA48BD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B7AD14A5346300DA48BD /* SenTestingKit.framework */; };
@@ -31,8 +75,8 @@
 		C5E6B7B014A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
 		C5E6B7B814A5346300DA48BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7B614A5346300DA48BD /* InfoPlist.strings */; };
 		C5E6B7BB14A5346300DA48BD /* LandscaperDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7BA14A5346300DA48BD /* LandscaperDemoTests.m */; };
-		C5E6B7C714A536B800DA48BD /* MBIFSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */; };
-		C5E6B7C814A536B800DA48BD /* MBIFSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */; };
+		C5E6B7C714A536B800DA48BD /* MBLSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7C614A536B800DA48BD /* MBLSFractal.m */; };
+		C5E6B7C814A536B800DA48BD /* MBLSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7C614A536B800DA48BD /* MBLSFractal.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,15 +90,59 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C53956FA14BF5ABC00D7301B /* QuartzHelpers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = QuartzHelpers.c; path = LandscaperDemo/model/QuartzHelpers.c; sourceTree = "<group>"; };
+		C51215C014DA2BD4007ED367 /* LSFractal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractal.h; path = LandscaperDemo/model/LSFractal.h; sourceTree = "<group>"; };
+		C51215C114DA2BD4007ED367 /* LSFractal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractal.m; path = LandscaperDemo/model/LSFractal.m; sourceTree = "<group>"; };
+		C51215C414DA2E6F007ED367 /* LSFractal+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSFractal+addons.h"; path = "LandscaperDemo/model/LSFractal+addons.h"; sourceTree = "<group>"; };
+		C51215C514DA2E70007ED367 /* LSFractal+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSFractal+addons.m"; path = "LandscaperDemo/model/LSFractal+addons.m"; sourceTree = "<group>"; };
+		C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpers.m; path = LandscaperDemo/model/QuartzHelpers.m; sourceTree = "<group>"; };
 		C53956FD14BF5B0000D7301B /* QuartzHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzHelpers.h; path = LandscaperDemo/model/QuartzHelpers.h; sourceTree = "<group>"; };
 		C5450ED214BBB86300CD2E09 /* MBFractalLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalLayer.h; path = LandscaperDemo/MBFractalLayer.h; sourceTree = "<group>"; };
 		C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalLayer.m; path = LandscaperDemo/MBFractalLayer.m; sourceTree = "<group>"; };
 		C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalSegment.h; path = LandscaperDemo/model/MBFractalSegment.h; sourceTree = "<group>"; };
 		C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalSegment.m; path = LandscaperDemo/model/MBFractalSegment.m; sourceTree = "<group>"; };
-		C5B979E314B3A0FE00BB0022 /* FractalPadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractalPadView.h; sourceTree = "<group>"; };
-		C5B979E414B3A0FE00BB0022 /* FractalPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FractalPadView.m; sourceTree = "<group>"; };
+		C56A2C8E14CFA1CB00B5F763 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grey.png; path = resources/grey.png; sourceTree = "<group>"; };
+		C56A2C9014CFA77F00B5F763 /* sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sky.png; path = resources/sky.png; sourceTree = "<group>"; };
+		C56A2C9114CFA77F00B5F763 /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = space.png; path = resources/space.png; sourceTree = "<group>"; };
+		C56A2C9214CFA77F00B5F763 /* stone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stone.png; path = resources/stone.png; sourceTree = "<group>"; };
+		C56A2C9314CFA77F00B5F763 /* zensand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zensand.png; path = resources/zensand.png; sourceTree = "<group>"; };
+		C57E630614D0744700BB7D54 /* MBColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColor.h; path = LandscaperDemo/model/MBColor.h; sourceTree = "<group>"; };
+		C57E630714D0744700BB7D54 /* MBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColor.m; path = LandscaperDemo/model/MBColor.m; sourceTree = "<group>"; };
+		C5914ACE14C9F0D500856F57 /* DefaultLSDrawingRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = DefaultLSDrawingRules.plist; path = resources/DefaultLSDrawingRules.plist; sourceTree = "<group>"; };
+		C5914ADD14C9F71F00856F57 /* MBFractalScape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalScape.h; path = LandscaperDemo/model/MBFractalScape.h; sourceTree = "<group>"; };
+		C5914ADE14C9F71F00856F57 /* MBFractalScape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalScape.m; path = LandscaperDemo/model/MBFractalScape.m; sourceTree = "<group>"; };
+		C5914AE114C9F71F00856F57 /* LSDrawingRuleType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRuleType.h; path = LandscaperDemo/model/LSDrawingRuleType.h; sourceTree = "<group>"; };
+		C5914AE214C9F71F00856F57 /* LSDrawingRuleType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRuleType.m; path = LandscaperDemo/model/LSDrawingRuleType.m; sourceTree = "<group>"; };
+		C5914AE514C9F71F00856F57 /* LSDrawingRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRule.h; path = LandscaperDemo/model/LSDrawingRule.h; sourceTree = "<group>"; };
+		C5914AE614C9F71F00856F57 /* LSDrawingRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRule.m; path = LandscaperDemo/model/LSDrawingRule.m; sourceTree = "<group>"; };
+		C5914AE914C9F71F00856F57 /* LSReplacementRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSReplacementRule.h; path = LandscaperDemo/model/LSReplacementRule.h; sourceTree = "<group>"; };
+		C5914AEA14C9F71F00856F57 /* LSReplacementRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSReplacementRule.m; path = LandscaperDemo/model/LSReplacementRule.m; sourceTree = "<group>"; };
+		C5914AF514C9F71F00856F57 /* MBScapeBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBScapeBackground.h; path = LandscaperDemo/model/MBScapeBackground.h; sourceTree = "<group>"; };
+		C5914AF614C9F71F00856F57 /* MBScapeBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBScapeBackground.m; path = LandscaperDemo/model/MBScapeBackground.m; sourceTree = "<group>"; };
+		C5914AF914C9F71F00856F57 /* MBPlacedEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPlacedEntity.h; path = LandscaperDemo/model/MBPlacedEntity.h; sourceTree = "<group>"; };
+		C5914AFA14C9F71F00856F57 /* MBPlacedEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPlacedEntity.m; path = LandscaperDemo/model/MBPlacedEntity.m; sourceTree = "<group>"; };
+		C5914AFE14C9FB7F00856F57 /* bulging.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bulging.jpg; path = resources/bulging.jpg; sourceTree = "<group>"; };
+		C5914AFF14C9FB7F00856F57 /* grey.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = grey.gif; path = resources/grey.gif; sourceTree = "<group>"; };
+		C5914B0014C9FB7F00856F57 /* marble_dark.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = marble_dark.jpg; path = resources/marble_dark.jpg; sourceTree = "<group>"; };
+		C5914B0114C9FB7F00856F57 /* zensand.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = zensand.gif; path = resources/zensand.gif; sourceTree = "<group>"; };
+		C5A464F014C90BFA002BF0A3 /* LSFractalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalGenerator.h; path = LandscaperDemo/model/LSFractalGenerator.h; sourceTree = "<group>"; };
+		C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalGenerator.m; path = LandscaperDemo/model/LSFractalGenerator.m; sourceTree = "<group>"; };
+		C5A5C79A14D6F9A500D81C72 /* MBPortalStyleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPortalStyleView.h; path = LandscaperDemo/MBPortalStyleView.h; sourceTree = "<group>"; };
+		C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPortalStyleView.m; path = LandscaperDemo/MBPortalStyleView.m; sourceTree = "<group>"; };
+		C5B979E314B3A0FE00BB0022 /* FractalPadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalPadView.h; path = LandscaperDemo/FractalPadView.h; sourceTree = "<group>"; };
+		C5B979E414B3A0FE00BB0022 /* FractalPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FractalPadView.m; path = LandscaperDemo/FractalPadView.m; sourceTree = "<group>"; };
 		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C5BA2B9214C6F2BE00F2B9D0 /* FSLibrary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FSLibrary.xcdatamodel; sourceTree = "<group>"; };
+		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionKeyboardView.xib; path = LandscaperDemo/FractalDefinitionKeyboardView.xib; sourceTree = "<group>"; };
+		C5BE4A1314D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionAccessoryView.xib; path = LandscaperDemo/FractalDefinitionAccessoryView.xib; sourceTree = "<group>"; };
+		C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLSFractalEditViewController.h; sourceTree = "<group>"; };
+		C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLSFractalEditViewController.m; sourceTree = "<group>"; };
+		C5DA348B14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalDefinitionKeyboardView.h; path = LandscaperDemo/FractalDefinitionKeyboardView.h; sourceTree = "<group>"; };
+		C5DA348C14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FractalDefinitionKeyboardView.m; path = LandscaperDemo/FractalDefinitionKeyboardView.m; sourceTree = "<group>"; };
+		C5DA348F14D6413D00D91F43 /* FractalKeyboardBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FractalKeyboardBackground.png; sourceTree = "<group>"; };
+		C5DA349114D6417300D91F43 /* imitation_leather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imitation_leather.png; path = resources/imitation_leather.png; sourceTree = "<group>"; };
+		C5DA349214D6417300D91F43 /* interstices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = interstices.png; path = resources/interstices.png; sourceTree = "<group>"; };
+		C5DA349314D6417300D91F43 /* marble_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = marble_dark.png; path = resources/marble_dark.png; sourceTree = "<group>"; };
 		C5E6B77D14A5346300DA48BD /* LandscaperDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LandscaperDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5E6B78114A5346300DA48BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C5E6B78314A5346300DA48BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -67,12 +155,12 @@
 		C5E6B79114A5346300DA48BD /* MBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBAppDelegate.m; sourceTree = "<group>"; };
 		C5E6B79414A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		C5E6B79714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		C5E6B79914A5346300DA48BD /* MBFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBFirstViewController.h; sourceTree = "<group>"; };
-		C5E6B79A14A5346300DA48BD /* MBFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBFirstViewController.m; sourceTree = "<group>"; };
+		C5E6B79914A5346300DA48BD /* MBFractalLibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBFractalLibraryViewController.h; sourceTree = "<group>"; };
+		C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBFractalLibraryViewController.m; sourceTree = "<group>"; };
 		C5E6B79C14A5346300DA48BD /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		C5E6B79E14A5346300DA48BD /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		C5E6B7A014A5346300DA48BD /* MBSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBSecondViewController.h; sourceTree = "<group>"; };
-		C5E6B7A114A5346300DA48BD /* MBSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBSecondViewController.m; sourceTree = "<group>"; };
+		C5E6B7A014A5346300DA48BD /* MBScapeLibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBScapeLibraryViewController.h; sourceTree = "<group>"; };
+		C5E6B7A114A5346300DA48BD /* MBScapeLibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBScapeLibraryViewController.m; sourceTree = "<group>"; };
 		C5E6B7A314A5346300DA48BD /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		C5E6B7A514A5346300DA48BD /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		C5E6B7AC14A5346300DA48BD /* LandscaperDemoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LandscaperDemoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,8 +169,8 @@
 		C5E6B7B714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C5E6B7B914A5346300DA48BD /* LandscaperDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LandscaperDemoTests.h; sourceTree = "<group>"; };
 		C5E6B7BA14A5346300DA48BD /* LandscaperDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LandscaperDemoTests.m; sourceTree = "<group>"; };
-		C5E6B7C514A536B800DA48BD /* MBIFSFractal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBIFSFractal.h; path = LandscaperDemo/model/MBIFSFractal.h; sourceTree = "<group>"; };
-		C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBIFSFractal.m; path = LandscaperDemo/model/MBIFSFractal.m; sourceTree = "<group>"; };
+		C5E6B7C514A536B800DA48BD /* MBLSFractal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSFractal.h; path = LandscaperDemo/model/MBLSFractal.h; sourceTree = "<group>"; };
+		C5E6B7C614A536B800DA48BD /* MBLSFractal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBLSFractal.m; path = LandscaperDemo/model/MBLSFractal.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +182,7 @@
 				C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */,
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
 				C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */,
+				C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +193,7 @@
 				C5E6B7AE14A5346300DA48BD /* SenTestingKit.framework in Frameworks */,
 				C5E6B7AF14A5346300DA48BD /* UIKit.framework in Frameworks */,
 				C5E6B7B014A5346300DA48BD /* Foundation.framework in Frameworks */,
+				C5BA2BE714C6F59D00F2B9D0 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,10 +203,70 @@
 		C5450ED014BBB7DB00CD2E09 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
+				C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */,
 				C5450ED214BBB86300CD2E09 /* MBFractalLayer.h */,
 				C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */,
+				C5B979E314B3A0FE00BB0022 /* FractalPadView.h */,
+				C5B979E414B3A0FE00BB0022 /* FractalPadView.m */,
+				C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */,
+				C5DA348B14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.h */,
+				C5DA348C14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m */,
+				C5BE4A1314D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib */,
+				C5A5C79A14D6F9A500D81C72 /* MBPortalStyleView.h */,
+				C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		C5914AAC14C9ED2C00856F57 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				C51215C014DA2BD4007ED367 /* LSFractal.h */,
+				C51215C114DA2BD4007ED367 /* LSFractal.m */,
+				C57E630614D0744700BB7D54 /* MBColor.h */,
+				C57E630714D0744700BB7D54 /* MBColor.m */,
+				C5BA2B9114C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld */,
+				C5914AF914C9F71F00856F57 /* MBPlacedEntity.h */,
+				C5914AFA14C9F71F00856F57 /* MBPlacedEntity.m */,
+				C5914AF514C9F71F00856F57 /* MBScapeBackground.h */,
+				C5914AF614C9F71F00856F57 /* MBScapeBackground.m */,
+				C5914AE914C9F71F00856F57 /* LSReplacementRule.h */,
+				C5914AEA14C9F71F00856F57 /* LSReplacementRule.m */,
+				C5914AE514C9F71F00856F57 /* LSDrawingRule.h */,
+				C5914AE614C9F71F00856F57 /* LSDrawingRule.m */,
+				C5914AE114C9F71F00856F57 /* LSDrawingRuleType.h */,
+				C5914AE214C9F71F00856F57 /* LSDrawingRuleType.m */,
+				C5914ADD14C9F71F00856F57 /* MBFractalScape.h */,
+				C5914ADE14C9F71F00856F57 /* MBFractalScape.m */,
+				C51215C414DA2E6F007ED367 /* LSFractal+addons.h */,
+				C51215C514DA2E70007ED367 /* LSFractal+addons.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		C5914AFD14C9FB6000856F57 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6B7A514A5346300DA48BD /* second@2x.png */,
+				C5E6B7A314A5346300DA48BD /* second.png */,
+				C5E6B79E14A5346300DA48BD /* first@2x.png */,
+				C5E6B79C14A5346300DA48BD /* first.png */,
+				C5DA349114D6417300D91F43 /* imitation_leather.png */,
+				C5DA349214D6417300D91F43 /* interstices.png */,
+				C5DA349314D6417300D91F43 /* marble_dark.png */,
+				C5DA348F14D6413D00D91F43 /* FractalKeyboardBackground.png */,
+				C56A2C9014CFA77F00B5F763 /* sky.png */,
+				C56A2C9114CFA77F00B5F763 /* space.png */,
+				C56A2C9214CFA77F00B5F763 /* stone.png */,
+				C56A2C9314CFA77F00B5F763 /* zensand.png */,
+				C56A2C8E14CFA1CB00B5F763 /* grey.png */,
+				C5914AFE14C9FB7F00856F57 /* bulging.jpg */,
+				C5914AFF14C9FB7F00856F57 /* grey.gif */,
+				C5914B0014C9FB7F00856F57 /* marble_dark.jpg */,
+				C5914B0114C9FB7F00856F57 /* zensand.gif */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		C5E6B77214A5346200DA48BD = {
@@ -143,6 +293,7 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */,
 				C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */,
 				C5E6B78114A5346300DA48BD /* UIKit.framework */,
 				C5E6B78314A5346300DA48BD /* Foundation.framework */,
@@ -155,20 +306,14 @@
 		C5E6B78714A5346300DA48BD /* LandscaperDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C5B979E314B3A0FE00BB0022 /* FractalPadView.h */,
-				C5B979E414B3A0FE00BB0022 /* FractalPadView.m */,
 				C5E6B79014A5346300DA48BD /* MBAppDelegate.h */,
 				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
-				C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */,
-				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
-				C5E6B79914A5346300DA48BD /* MBFirstViewController.h */,
-				C5E6B79A14A5346300DA48BD /* MBFirstViewController.m */,
-				C5E6B79C14A5346300DA48BD /* first.png */,
-				C5E6B79E14A5346300DA48BD /* first@2x.png */,
-				C5E6B7A014A5346300DA48BD /* MBSecondViewController.h */,
-				C5E6B7A114A5346300DA48BD /* MBSecondViewController.m */,
-				C5E6B7A314A5346300DA48BD /* second.png */,
-				C5E6B7A514A5346300DA48BD /* second@2x.png */,
+				C5E6B79914A5346300DA48BD /* MBFractalLibraryViewController.h */,
+				C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */,
+				C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */,
+				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
+				C5E6B7A014A5346300DA48BD /* MBScapeLibraryViewController.h */,
+				C5E6B7A114A5346300DA48BD /* MBScapeLibraryViewController.m */,
 				C5E6B78814A5346300DA48BD /* Supporting Files */,
 			);
 			path = LandscaperDemo;
@@ -177,10 +322,12 @@
 		C5E6B78814A5346300DA48BD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C5914AFD14C9FB6000856F57 /* Images */,
 				C5E6B78914A5346300DA48BD /* LandscaperDemo-Info.plist */,
 				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
 				C5E6B78D14A5346300DA48BD /* main.m */,
 				C5E6B78F14A5346300DA48BD /* LandscaperDemo-Prefix.pch */,
+				C5914ACE14C9F0D500856F57 /* DefaultLSDrawingRules.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -207,12 +354,15 @@
 		C5E6B7C414A5359A00DA48BD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C5E6B7C514A536B800DA48BD /* MBIFSFractal.h */,
-				C5E6B7C614A536B800DA48BD /* MBIFSFractal.m */,
+				C5914AAC14C9ED2C00856F57 /* CoreData */,
+				C5E6B7C514A536B800DA48BD /* MBLSFractal.h */,
+				C5E6B7C614A536B800DA48BD /* MBLSFractal.m */,
 				C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */,
 				C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */,
-				C53956FA14BF5ABC00D7301B /* QuartzHelpers.c */,
+				C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */,
 				C53956FD14BF5B0000D7301B /* QuartzHelpers.h */,
+				C5A464F014C90BFA002BF0A3 /* LSFractalGenerator.h */,
+				C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -295,6 +445,22 @@
 				C5E6B79F14A5346300DA48BD /* first@2x.png in Resources */,
 				C5E6B7A414A5346300DA48BD /* second.png in Resources */,
 				C5E6B7A614A5346300DA48BD /* second@2x.png in Resources */,
+				C5914ACF14C9F0D500856F57 /* DefaultLSDrawingRules.plist in Resources */,
+				C5914B0214C9FB7F00856F57 /* bulging.jpg in Resources */,
+				C5914B0414C9FB7F00856F57 /* grey.gif in Resources */,
+				C5914B0614C9FB7F00856F57 /* marble_dark.jpg in Resources */,
+				C5914B0814C9FB7F00856F57 /* zensand.gif in Resources */,
+				C56A2C8F14CFA1CB00B5F763 /* grey.png in Resources */,
+				C56A2C9414CFA77F00B5F763 /* sky.png in Resources */,
+				C56A2C9514CFA77F00B5F763 /* space.png in Resources */,
+				C56A2C9614CFA77F00B5F763 /* stone.png in Resources */,
+				C56A2C9714CFA77F00B5F763 /* zensand.png in Resources */,
+				C5BE4A1114D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib in Resources */,
+				C5BE4A1414D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib in Resources */,
+				C5DA349014D6413D00D91F43 /* FractalKeyboardBackground.png in Resources */,
+				C5DA349414D6417300D91F43 /* imitation_leather.png in Resources */,
+				C5DA349514D6417300D91F43 /* interstices.png in Resources */,
+				C5DA349614D6417300D91F43 /* marble_dark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +469,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E6B7B814A5346300DA48BD /* InfoPlist.strings in Resources */,
+				C5914AD014C9F0D500856F57 /* DefaultLSDrawingRules.plist in Resources */,
+				C5914B0314C9FB7F00856F57 /* bulging.jpg in Resources */,
+				C5914B0514C9FB7F00856F57 /* grey.gif in Resources */,
+				C5914B0714C9FB7F00856F57 /* marble_dark.jpg in Resources */,
+				C5914B0914C9FB7F00856F57 /* zensand.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,13 +502,27 @@
 			files = (
 				C5E6B78E14A5346300DA48BD /* main.m in Sources */,
 				C5E6B79214A5346300DA48BD /* MBAppDelegate.m in Sources */,
-				C5E6B79B14A5346300DA48BD /* MBFirstViewController.m in Sources */,
-				C5E6B7A214A5346300DA48BD /* MBSecondViewController.m in Sources */,
-				C5E6B7C714A536B800DA48BD /* MBIFSFractal.m in Sources */,
+				C5E6B79B14A5346300DA48BD /* MBFractalLibraryViewController.m in Sources */,
+				C5E6B7A214A5346300DA48BD /* MBScapeLibraryViewController.m in Sources */,
+				C5E6B7C714A536B800DA48BD /* MBLSFractal.m in Sources */,
 				C5B979E514B3A0FE00BB0022 /* FractalPadView.m in Sources */,
 				C5450ED414BBB86300CD2E09 /* MBFractalLayer.m in Sources */,
 				C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */,
-				C53956FB14BF5ABC00D7301B /* QuartzHelpers.c in Sources */,
+				C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */,
+				C5BA2B9314C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld in Sources */,
+				C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */,
+				C5914ADF14C9F71F00856F57 /* MBFractalScape.m in Sources */,
+				C5914AE314C9F71F00856F57 /* LSDrawingRuleType.m in Sources */,
+				C5914AE714C9F71F00856F57 /* LSDrawingRule.m in Sources */,
+				C5914AEB14C9F71F00856F57 /* LSReplacementRule.m in Sources */,
+				C5914AF714C9F71F00856F57 /* MBScapeBackground.m in Sources */,
+				C5914AFB14C9F71F00856F57 /* MBPlacedEntity.m in Sources */,
+				C57E630814D0744700BB7D54 /* MBColor.m in Sources */,
+				C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */,
+				C5DA348D14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m in Sources */,
+				C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */,
+				C51215C214DA2BD4007ED367 /* LSFractal.m in Sources */,
+				C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +531,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E6B7BB14A5346300DA48BD /* LandscaperDemoTests.m in Sources */,
-				C5E6B7C814A536B800DA48BD /* MBIFSFractal.m in Sources */,
+				C5E6B7C814A536B800DA48BD /* MBLSFractal.m in Sources */,
+				C5A464F314C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */,
+				C5914AE014C9F71F00856F57 /* MBFractalScape.m in Sources */,
+				C5914AE414C9F71F00856F57 /* LSDrawingRuleType.m in Sources */,
+				C5914AE814C9F71F00856F57 /* LSDrawingRule.m in Sources */,
+				C5914AEC14C9F71F00856F57 /* LSReplacementRule.m in Sources */,
+				C5914AF814C9F71F00856F57 /* MBScapeBackground.m in Sources */,
+				C5914AFC14C9F71F00856F57 /* MBPlacedEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +567,7 @@
 				C5E6B79414A5346300DA48BD /* en */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
+			path = LandscaperDemo;
 			sourceTree = "<group>";
 		};
 		C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */ = {
@@ -383,6 +576,7 @@
 				C5E6B79714A5346300DA48BD /* en */,
 			);
 			name = MainStoryboard_iPad.storyboard;
+			path = LandscaperDemo;
 			sourceTree = "<group>";
 		};
 		C5E6B7B614A5346300DA48BD /* InfoPlist.strings */ = {
@@ -530,6 +724,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C5BA2B9114C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C5BA2B9214C6F2BE00F2B9D0 /* FSLibrary.xcdatamodel */,
+			);
+			currentVersion = C5BA2B9214C6F2BE00F2B9D0 /* FSLibrary.xcdatamodel */;
+			path = FSLibrary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C5E6B77414A5346200DA48BD /* Project object */;
 }
