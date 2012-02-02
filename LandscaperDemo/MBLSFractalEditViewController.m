@@ -8,22 +8,35 @@
 
 #import "MBLSFractalEditViewController.h"
 #import "LSFractalGenerator.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 @interface MBLSFractalEditViewController () 
 
+/*!
+ for tracking which text input field has the current focus.
+ allows using a custom input keyboard.
+ Want to change to a popover at some point.
+ */
+@property (weak, nonatomic) UITextField*            activeTextField;
+
+/*!
+ Custom keyboard for inputting fractal axioms and rules.
+ Change to a popover?
+ */
+@property (weak, nonatomic) IBOutlet FractalDefinitionKeyboardView *fractalInputControl;
+
 /*
  So a setNeedsDisplay can be sent to each layer when a fractal property is changed.
  */
-@property (nonatomic, weak) NSArray* fractalDisplayLayersArray;
+@property (nonatomic, strong) NSMutableArray* fractalDisplayLayersArray;
 /*
  a generator for each level being displayed.
  */
 @property (nonatomic, strong) NSMutableArray* generatorsArray; 
 
--(void) setupLevel0Generator;
--(void) setupLevel1Generator;
--(void) setupLevelNGenerator;
+-(void) setupLevelGeneratorForLayer: (CALayer*) aLayer forceLevel: (NSInteger) aLevel;
+-(void) reloadFractal;
 
 @end
 
@@ -37,16 +50,17 @@
 @synthesize currentFractal = _currentFractal;
 @synthesize fractalNameTextField = _fractalNameTextField;
 @synthesize fractalAxiomTextField = _fractalAxiomTextField;
-@synthesize appManagedObjectContext = _appManagedObjectContext;
 @synthesize fractalInputControl = _fractalInputControl;
 @synthesize activeTextField = _activeField;
 @synthesize fractalLevelView0 = _fractalLevelView0;
 @synthesize fractalLevelView1 = _fractalLevelView1;
 @synthesize fractalLevelViewN = _fractalLevelViewN;
 @synthesize lineLengthTextField = _lineLengthTextField;
+@synthesize lineLengthStepper = _lineLengthStepper;
 
 @synthesize fractalDisplayLayersArray = _fractalDisplayLayersArray;
 @synthesize generatorsArray = _generatorsArray;
+@synthesize undoManager = _undoManager;
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -63,6 +77,13 @@
         _generatorsArray = [[NSMutableArray alloc] initWithCapacity: 3];
     }
     return _generatorsArray;
+}
+
+-(NSMutableArray*) fractalDisplayLayersArray {
+    if (_fractalDisplayLayersArray == nil) {
+        _fractalDisplayLayersArray = [[NSMutableArray alloc] initWithCapacity: 3];
+    }
+    return _fractalDisplayLayersArray;
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,36 +103,29 @@
 }
 */
 
--(void) setupLevel0Generator {
+-(void) setupLevelGeneratorForLayer: (CALayer*) aLayer forceLevel: (NSInteger) aLevel {
     LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
+    
     if (generator) {
+        NSUInteger arrayCount = [self.generatorsArray count];
+        
         generator.fractal = self.currentFractal;
-        generator.forceLevel = 0;
-        CALayer* layer = [self.fractalDisplayLayersArray objectAtIndex: 0];
-        layer.delegate = generator;
+        generator.forceLevel = aLevel;
+        
+        aLayer.delegate = generator;
+        [aLayer setValue: [NSNumber numberWithInteger: arrayCount] forKey: @"arrayCount"];
+        
+        [self.fractalDisplayLayersArray addObject: aLayer];
         [self.generatorsArray addObject: generator];
     }
 }
-
--(void) setupLevel1Generator {
-    LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
-    if (generator) {
-        generator.fractal = self.currentFractal;
-        generator.forceLevel = 1;
-        CALayer* layer = [self.fractalDisplayLayersArray objectAtIndex: 1];
-        layer.delegate = generator;
-        [self.generatorsArray addObject: generator];
+//TODO: replace with KVO for generator of core data properties
+-(void) reloadFractal {
+    for (LSFractalGenerator* aGenerator in self.generatorsArray) {
+        [aGenerator productionRuleChanged];
     }
-}
-
--(void) setupLevelNGenerator {
-    LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
-    if (generator) {
-        generator.fractal = self.currentFractal;
-        generator.forceLevel = -1;
-        CALayer* layer = [self.fractalDisplayLayersArray objectAtIndex: 2];
-        layer.delegate = generator;
-        [self.generatorsArray addObject: generator];
+    for (CALayer* layer in self.fractalDisplayLayersArray) {
+        [layer setNeedsDisplay];
     }
 }
 
@@ -121,25 +135,72 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+        
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.fractalDisplayLayersArray = [NSArray arrayWithObjects: 
-                                 self.fractalLevelView0.layer,
-                                 self.fractalLevelView1.layer,
-                                 self.fractalLevelViewN.layer, nil];
-    
-    [self setupLevel0Generator];
-    [self setupLevel1Generator];
-    [self setupLevelNGenerator];
+    [self setupLevelGeneratorForLayer:self.fractalLevelView0.layer forceLevel:0];
+    [self setupLevelGeneratorForLayer:self.fractalLevelView1.layer forceLevel:1];
+    [self setupLevelGeneratorForLayer:self.fractalLevelViewN.layer forceLevel:-1];
     
     self.fractalNameTextField.text = self.currentFractal.name;
     self.fractalAxiomTextField.text = self.currentFractal.axiom;
     self.fractalAxiomTextField.inputView = self.fractalInputControl.view;
     self.lineLengthTextField.text =  [self.currentFractal.lineLength stringValue];
+    
+    [self reloadFractal];
 }
 
+-(void) setEditMode: (BOOL) editing {
+    UITextBorderStyle bs;
+    if (editing) {
+        bs = UITextBorderStyleBezel;
+    } else {
+        bs = UITextBorderStyleNone;
+    }
+    
+    self.fractalNameTextField.enabled = editing;
+    [self.fractalNameTextField setBorderStyle: bs];
+    
+    [self.fractalAxiomTextField setBorderStyle: bs];
+    self.fractalAxiomTextField.enabled = editing;
+    
+    [self.lineLengthTextField setBorderStyle: bs];
+    self.lineLengthTextField.enabled = editing;
+    
+    self.lineLengthStepper.enabled = editing;
+}
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
+    // Hide the back button when editing starts, and show it again when editing finishes.
+    [self.navigationItem setHidesBackButton:editing animated:animated];
+    
+    [self setEditMode: editing];
+    /*
+     When editing starts, create and set an undo manager to track edits. Then register as an observer of undo manager change notifications, so that if an undo or redo operation is performed, the table view can be reloaded.
+     When editing ends, de-register from the notification center and remove the undo manager, and save the changes.
+     */
+    if (editing) {
+        [self setUpUndoManager];
+    }
+    else {
+        [self cleanUpUndoManager];
+        // Save the changes.
+        NSError *error;
+        if (![self.currentFractal.managedObjectContext save:&error]) {
+            // Update to handle the error appropriately.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);  // Fail
+        }
+    }
+}
 
 - (void)viewDidUnload
 {
+    //should save be here or at higher level
+    //
+    [self.currentFractal.managedObjectContext save: nil];
+    
     [self setFractalNameTextField:nil];
     [self setFractalAxiomTextField:nil];
     [self setFractalInputControl:nil];
@@ -147,6 +208,10 @@
     [self setFractalLevelView1:nil];
     [self setFractalLevelViewN:nil];
     [self setLineLengthTextField:nil];
+    for (CALayer* layer in self.fractalDisplayLayersArray) {
+        layer.delegate = nil;
+    }
+    [self setLineLengthStepper:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -158,6 +223,8 @@
 	return YES;
 }
 
+#pragma mark - Custom Keyboard Handling
+
 - (void)keyTapped:(NSString*)title {
     if (self.activeTextField) {
         self.activeTextField.text = [self.activeTextField.text stringByAppendingString: title];
@@ -168,7 +235,7 @@
 }
 - (void)doneTapped {
 }
-
+//TODO: remove once KVO implemented
 - (IBAction)lineLengthInputChanged:(id)sender {
     if ([sender isKindOfClass: [UITextField class]]) {
         // handle text input
@@ -177,6 +244,7 @@
         UIStepper* stepper = sender;
         self.currentFractal.lineLength = [NSNumber numberWithDouble: stepper.value];
         self.lineLengthTextField.text = [self.currentFractal.lineLength stringValue];
+        [self reloadFractal];
     }
 }
      
@@ -190,5 +258,68 @@
     self.activeTextField = nil;
 }
 
+#pragma mark - core data 
+- (void)updateRightBarButtonItemState {
+    // Conditionally enable the right bar button item -- it should only be enabled if the book is in a valid state for saving.
+    self.navigationItem.rightBarButtonItem.enabled = [self.currentFractal validateForUpdate:NULL];
+}   
+
+- (void)setUpUndoManager {
+    /*
+     If the book's managed object context doesn't already have an undo manager, then create one and set it for the context and self.
+     The view controller needs to keep a reference to the undo manager it creates so that it can determine whether to remove the undo manager when editing finishes.
+     */
+    if (self.currentFractal.managedObjectContext.undoManager == nil) {
+        
+        NSUndoManager *anUndoManager = [[NSUndoManager alloc] init];
+        [anUndoManager setLevelsOfUndo:3];
+        self.undoManager = anUndoManager;
+        
+        self.currentFractal.managedObjectContext.undoManager = self.undoManager;
+    }
+    
+    // Register as an observer of the book's context's undo manager.
+    NSUndoManager *fractalUndoManager = self.currentFractal.managedObjectContext.undoManager;
+    
+    NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
+    [dnc addObserver:self selector:@selector(undoManagerDidUndo:) name:NSUndoManagerDidUndoChangeNotification object:fractalUndoManager];
+    [dnc addObserver:self selector:@selector(undoManagerDidRedo:) name:NSUndoManagerDidRedoChangeNotification object:fractalUndoManager];
+}
+
+
+- (void)cleanUpUndoManager {
+    
+    // Remove self as an observer.
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    if (self.currentFractal.managedObjectContext.undoManager == self.undoManager) {
+        self.currentFractal.managedObjectContext.undoManager = nil;
+        self.undoManager = nil;
+    }       
+}
+
+
+- (NSUndoManager *)undoManager {
+    return self.currentFractal.managedObjectContext.undoManager;
+}
+
+
+- (void)undoManagerDidUndo:(NSNotification *)notification {
+    [self reloadFractal];
+    [self updateRightBarButtonItemState];
+}
+
+
+- (void)undoManagerDidRedo:(NSNotification *)notification {
+    [self reloadFractal];
+    [self updateRightBarButtonItemState];
+}
+
+
+-(void) dealloc {
+    for (CALayer* layer in self.fractalDisplayLayersArray) {
+        layer.delegate = nil;
+    }
+}
 
 @end

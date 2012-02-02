@@ -8,7 +8,7 @@
 
 #import "MBFractalLibraryViewController.h"
 #import "FractalPadView.h"
-#import "MBLSFractal.h"
+#import "LSFractal+addons.h"
 #import "MBFractalLayer.h"
 #import "MBAppDelegate.h"
 #import "MBLSFractalEditViewController.h"
@@ -29,7 +29,6 @@
 
 @implementation MBFractalLibraryViewController
 
-@synthesize MainFractalView;
 @synthesize fractalTableView = _fractalTableView;
 @synthesize fetchedResultsController = _fetchedResultsController;
 
@@ -123,15 +122,30 @@
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: @"FractalEditorSeque"]) {
+        MBLSFractalEditViewController* editor = segue.destinationViewController;
+        LSFractal* passedFractal = nil;
+
         // pass the selected fractal
         NSIndexPath* indexPath = [self.fractalTableView indexPathForSelectedRow];
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
-        MBLSFractalEditViewController* editor = segue.destinationViewController;
-        
-        editor.currentFractal = (LSFractal*) managedObject;
-        editor.appManagedObjectContext = [self appManagedObjectContext];
-        
+
+        if ([managedObject isKindOfClass:[LSFractal class]]) {
+
+            LSFractal* fractal = (LSFractal*) managedObject;
+            
+            if ([fractal.isImmutable boolValue]) {
+                // copy
+                LSFractal* copiedFractal = [fractal mutableCopy];
+                copiedFractal.name = [NSString stringWithFormat: @"%@ copy", copiedFractal.name];
+                copiedFractal.isImmutable = [NSNumber numberWithBool: NO];
+                copiedFractal.isReadOnly = [NSNumber numberWithBool: NO];
+                passedFractal = copiedFractal;
+            } else {
+                passedFractal = fractal;
+            }
+            
+        }
+        editor.currentFractal = passedFractal;        
     }
 }
 
@@ -148,19 +162,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    UIImage* background = [UIImage imageNamed: @"interstices"];
-    UIColor* backgroundColor = [UIColor colorWithPatternImage: background];
-    
-    self.view.layer.backgroundColor = backgroundColor.CGColor;
+//    UIImage* background = [UIImage imageNamed: @"interstices"];
+//    UIColor* backgroundColor = [UIColor colorWithPatternImage: background];
+//    
+//    self.view.layer.backgroundColor = backgroundColor.CGColor;
     
 //    self.view.layer.backgroundColor = GetCGPatternFromUIImage(background);
     
-    MainFractalView.layer.opaque = NO;
-    MainFractalView.opaque = NO;
-    MainFractalView.backgroundColor = [UIColor colorWithWhite: 1.0 alpha: 0.0];
+//    MainFractalView.layer.opaque = NO;
+//    MainFractalView.opaque = NO;
+//    MainFractalView.backgroundColor = [UIColor colorWithWhite: 1.0 alpha: 0.0];
 //    MainFractalView.alpha = 0.0;
-    [MainFractalView setNeedsDisplay];
-    [MainFractalView.layer setNeedsDisplay];
+//    [MainFractalView setNeedsDisplay];
+//    [MainFractalView.layer setNeedsDisplay];
     [self.fractalTableView reloadData];
     
 //    [self addVonKochSnowFlakeLayerPosition: CGPointMake(50, 50) maxDimension: 300];
@@ -171,7 +185,7 @@
 
 - (void)viewDidUnload
 {
-    [self setMainFractalView:nil];
+//    [self setMainFractalView:nil];
     [self setFractalTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.

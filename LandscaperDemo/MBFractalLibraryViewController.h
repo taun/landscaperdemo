@@ -12,7 +12,6 @@
 
 @interface MBFractalLibraryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *MainFractalView;
 @property (weak, nonatomic) IBOutlet UITableView *fractalTableView;
 
 @end
