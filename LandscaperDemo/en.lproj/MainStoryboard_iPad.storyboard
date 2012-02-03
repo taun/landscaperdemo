@@ -79,99 +79,146 @@
                                 <rect key="frame" x="0.0" y="0.0" width="381" height="487"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="RcO-9O-BeM">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="RcO-9O-BeM" userLabel="Properties Scroll View">
                                         <rect key="frame" x="0.0" y="0.0" width="381" height="487"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Axiom" lineBreakMode="tailTruncation" minimumFontSize="10" id="bAo-Nq-OJ6">
-                                                <rect key="frame" x="20" y="60" width="48" height="21"/>
+                                                <rect key="frame" x="77" y="128" width="48" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="GGn-Zy-tFc" userLabel="Axiom Input">
-                                                <rect key="frame" x="144" y="55" width="208" height="31"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="GGn-Zy-tFc" userLabel="Axiom Input">
+                                                <rect key="frame" x="144" y="123" width="208" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" enablesReturnKeyAutomatically="YES"/>
                                                 <connections>
-                                                    <outlet property="delegate" destination="4nM-Pc-iAd" id="ovY-M6-44J"/>
+                                                    <action selector="axiomInputChanged:" destination="4nM-Pc-iAd" eventType="editingDidEnd" id="qpd-Zm-zrF"/>
+                                                    <outlet property="delegate" destination="4nM-Pc-iAd" id="0lW-VN-k6r"/>
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="iGV-Gr-OLO">
-                                                <rect key="frame" x="20" y="20" width="58" height="21"/>
+                                                <rect key="frame" x="67" y="20" width="58" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="Y9a-dl-24V" userLabel="Name Input">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Y9a-dl-24V" userLabel="Name Input">
                                                 <rect key="frame" x="144" y="15" width="208" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                                 <connections>
-                                                    <outlet property="delegate" destination="4nM-Pc-iAd" id="Izc-A6-xQK"/>
+                                                    <action selector="nameInputDidEnd:" destination="4nM-Pc-iAd" eventType="editingDidEnd" id="hwm-ok-yYi"/>
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line Length" lineBreakMode="tailTruncation" minimumFontSize="10" id="LHn-ZP-TRe">
-                                                <rect key="frame" x="20" y="167" width="90" height="21"/>
+                                                <rect key="frame" x="35" y="167" width="90" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="PKG-6J-akb" userLabel="LL Input">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="PKG-6J-akb" userLabel="lineLengthInput">
                                                 <rect key="frame" x="144" y="162" width="97" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                                 <connections>
                                                     <action selector="lineLengthInputChanged:" destination="4nM-Pc-iAd" eventType="valueChanged" id="c4I-zl-3RL"/>
                                                     <outlet property="delegate" destination="4nM-Pc-iAd" id="LLC-07-yXn"/>
                                                 </connections>
                                             </textField>
-                                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" maximumValue="100" id="iIP-8r-w0H" userLabel="LL Stepper">
+                                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" maximumValue="100" id="iIP-8r-w0H" userLabel="lineLengthStepper">
                                                 <rect key="frame" x="258" y="164" width="94" height="27"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <connections>
                                                     <action selector="lineLengthInputChanged:" destination="4nM-Pc-iAd" eventType="valueChanged" id="lMe-ji-KiP"/>
                                                 </connections>
                                             </stepper>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Turn Angle∘∢" lineBreakMode="tailTruncation" minimumFontSize="10" id="QUT-7r-BAS">
+                                                <rect key="frame" x="20" y="201" width="105" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="0TR-9i-t54" userLabel="turnAngle">
+                                                <rect key="frame" x="144" y="196" width="97" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                <connections>
+                                                    <action selector="turnAngleInputChanged:" destination="4nM-Pc-iAd" eventType="valueChanged" id="MK5-Gr-ci2"/>
+                                                    <outlet property="delegate" destination="4nM-Pc-iAd" id="FHj-l7-U3c"/>
+                                                </connections>
+                                            </textField>
+                                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" minimumValue="-180" maximumValue="180" stepValue="2.5" id="uAT-HC-Kfw" userLabel="turnAngleStepper">
+                                                <rect key="frame" x="258" y="198" width="94" height="27"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <connections>
+                                                    <action selector="turnAngleInputChanged:" destination="4nM-Pc-iAd" eventType="valueChanged" id="UNx-jq-YF7"/>
+                                                </connections>
+                                            </stepper>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="tailTruncation" minimumFontSize="10" id="pJQ-9S-40A">
+                                                <rect key="frame" x="38" y="54" width="87" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="PxA-nM-vB3" userLabel="descriptionInputView">
+                                                <rect key="frame" x="144" y="54" width="208" height="61"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration" label=""/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="4nM-Pc-iAd" id="dSK-fg-Gtm"/>
+                                                </connections>
+                                            </textView>
                                         </subviews>
+                                        <color key="backgroundColor" red="0.90980398650000005" green="0.90980398650000005" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="TbU-WI-8ja" userLabel="FractalLevelN" customClass="MBPortalStyleView">
                                 <rect key="frame" x="0.0" y="495" width="768" height="416"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MBPortalStyleView">
                                 <rect key="frame" x="389" y="0.0" width="379" height="221"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MBPortalStyleView">
                                 <rect key="frame" x="389" y="229" width="379" height="258"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Fractal Editor" id="5yD-Jb-xIT"/>
                     <connections>
-                        <outlet property="fractalAxiomTextField" destination="GGn-Zy-tFc" id="orL-01-3Rb"/>
+                        <outlet property="fractalAxiom" destination="GGn-Zy-tFc" id="tLl-fx-lOX"/>
+                        <outlet property="fractalDescription" destination="PxA-nM-vB3" id="hOy-20-BR2"/>
                         <outlet property="fractalInputControl" destination="hrP-bc-aE6" id="4mq-ym-cwd"/>
-                        <outlet property="fractalLevelView0" destination="wmh-En-OwM" id="ndj-Oc-vkk"/>
-                        <outlet property="fractalLevelView1" destination="dJU-MH-ihA" id="Qwk-5r-b7k"/>
-                        <outlet property="fractalLevelViewN" destination="TbU-WI-8ja" id="KW5-sH-cVP"/>
-                        <outlet property="fractalNameTextField" destination="Y9a-dl-24V" id="nVr-g3-lz6"/>
+                        <outlet property="fractalLineLength" destination="PKG-6J-akb" id="qoP-V0-gZH"/>
+                        <outlet property="fractalName" destination="Y9a-dl-24V" id="7uT-Jz-Tw0"/>
+                        <outlet property="fractalPropertiesView" destination="RcO-9O-BeM" id="GsT-kJ-2hZ"/>
+                        <outlet property="fractalTurningAngle" destination="0TR-9i-t54" id="1Id-Zp-1ds"/>
+                        <outlet property="fractalViewLevel0" destination="wmh-En-OwM" id="SBo-Qb-qrS"/>
+                        <outlet property="fractalViewLevel1" destination="dJU-MH-ihA" id="1gz-hf-fUO"/>
+                        <outlet property="fractalViewLevelN" destination="TbU-WI-8ja" id="3WM-96-TYb"/>
                         <outlet property="lineLengthStepper" destination="iIP-8r-w0H" id="qfB-RS-fK9"/>
-                        <outlet property="lineLengthTextField" destination="PKG-6J-akb" id="NLd-dj-AjW"/>
+                        <outlet property="turnAngleStepper" destination="uAT-HC-Kfw" id="4lF-aa-KTC"/>
                     </connections>
                 </viewController>
                 <customObject id="hrP-bc-aE6" customClass="FractalDefinitionKeyboardView">
@@ -276,15 +323,22 @@
         <class className="MBLSFractalEditViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBLSFractalEditViewController.h"/>
             <relationships>
+                <relationship kind="action" name="axiomInputChanged:" candidateClass="UITextField"/>
                 <relationship kind="action" name="lineLengthInputChanged:"/>
-                <relationship kind="outlet" name="fractalAxiomTextField" candidateClass="UITextField"/>
+                <relationship kind="action" name="nameInputDidEnd:" candidateClass="UITextField"/>
+                <relationship kind="action" name="turnAngleInputChanged:"/>
+                <relationship kind="outlet" name="fractalAxiom" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="fractalDescription" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="fractalInputControl" candidateClass="FractalDefinitionKeyboardView"/>
-                <relationship kind="outlet" name="fractalLevelView0" candidateClass="UIView"/>
-                <relationship kind="outlet" name="fractalLevelView1" candidateClass="UIView"/>
-                <relationship kind="outlet" name="fractalLevelViewN" candidateClass="UIView"/>
-                <relationship kind="outlet" name="fractalNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="fractalLineLength" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="fractalName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="fractalPropertiesView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="fractalTurningAngle" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="fractalViewLevel0" candidateClass="UIView"/>
+                <relationship kind="outlet" name="fractalViewLevel1" candidateClass="UIView"/>
+                <relationship kind="outlet" name="fractalViewLevelN" candidateClass="UIView"/>
                 <relationship kind="outlet" name="lineLengthStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="lineLengthTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="turnAngleStepper" candidateClass="UIStepper"/>
             </relationships>
         </class>
         <class className="MBPortalStyleView" superclassName="UIView">

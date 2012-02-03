@@ -7,12 +7,12 @@
 //
 
 #import "LSFractalGenerator.h"
-#import "LSFractal.h"
+#import "LSFractal+addons.h"
+#import "MBColor+addons.h"
 #import "MBFractalSegment.h"
 #import "LSReplacementRule.h"
 #import "LSDrawingRuleType.h"
 #import "LSDrawingRule.h"
-#import "MBColor.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -92,12 +92,15 @@
  <CALayer:0x6d6b0c0; position = CGPoint (578.5 110.5); bounds = CGRect (0 0; 369 211); delegate = <LSFractalGenerator: 0x6d6bd30>; borderWidth = 1; cornerRadius = 20; backgroundColor = <CGColor 0x6d6b260> [<CGColorSpace 0x6d38c80> (kCGColorSpaceDeviceRGB)] ( 1 1 1 1 )>
  */
 -(NSString*) debugDescription {
-    NSDictionary* boundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(_bounds);
+    CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(_bounds);
+    NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
+    CFRelease(boundsDict);
+    
     return [NSString stringWithFormat: @"<%@: fractal = %@; forceLevel = %g; bounds = %@; production = %@>",
             NSStringFromClass([self class]), 
             self.fractal, 
             self.forceLevel, 
-            boundsDict,
+            boundsDescription,
             self.production];
 }
 
@@ -201,7 +204,7 @@
         CGContextSetLineWidth(theContext, segment.lineWidth/scale);
         
         CGContextAddPath(theContext, segment.path);
-        CGPathDrawingMode strokeOrFill;
+        CGPathDrawingMode strokeOrFill = kCGPathStroke;
         if (segment.fill && segment.stroke) {
             strokeOrFill = kCGPathFillStroke;
             CGContextSetStrokeColorWithColor(theContext, segment.lineColor);
@@ -233,45 +236,20 @@
         _currentSegment = [[MBFractalSegment alloc] init];
         
         // Copy the fractal core data values to the segment
-        CGFloat components[4];
-        if (self.fractal.lineColor != nil) {
-            components[0] = [self.fractal.lineColor.red floatValue];
-            components[1] = [self.fractal.lineColor.green floatValue];
-            components[2] = [self.fractal.lineColor.blue floatValue];
-            components[3] = [self.fractal.lineColor.alpha floatValue];
-        } else {
-            components[0] = 0.0;
-            components[1] = 0.0;
-            components[2] = 1.0;
-            components[3] = 1.0;
-        }
-        CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
-        _currentSegment.lineColor = CGColorCreate(cSpace, components);
+        _currentSegment.lineColor = [self.fractal lineColorAsUI].CGColor;
         
-        if (self.fractal.fillColor != nil) {
-            components[0] = [self.fractal.fillColor.red floatValue];
-            components[1] = [self.fractal.fillColor.green floatValue];
-            components[2] = [self.fractal.fillColor.blue floatValue];
-            components[3] = [self.fractal.fillColor.alpha floatValue];
-        } else {
-            components[0] = 0.0;
-            components[1] = 0.0;
-            components[2] = 1.0;
-            components[3] = 1.0;
-        }
-        _currentSegment.fillColor = CGColorCreate(cSpace, components);
+        _currentSegment.fillColor = [self.fractal fillColorAsUI].CGColor;
         _currentSegment.fill = [self.fractal.fill boolValue];
         
-        _currentSegment.lineLength = [self.fractal.lineLength doubleValue];
+        _currentSegment.lineLength = [self.fractal lineLengthAsDouble];
         _currentSegment.lineLengthScaleFactor = [self.fractal.lineLengthScaleFactor doubleValue];
         _currentSegment.lineWidth = [self.fractal.lineWidth doubleValue];
         _currentSegment.lineWidthIncrement = [self.fractal.lineWidthIncrement doubleValue];
         _currentSegment.stroke = [self.fractal.stroke boolValue];
         
-        _currentSegment.turningAngle = [self.fractal.turningAngle doubleValue];
+        _currentSegment.turningAngle = [self.fractal turningAngleAsDouble];
         _currentSegment.turningAngleIncrement = [self.fractal.turningAngleIncrement doubleValue];
         
-        CGColorSpaceRelease(cSpace);
     }
     return _currentSegment;
 }
@@ -456,9 +434,19 @@
 -(void) setProductNeedsGenerating:(BOOL)productNeedsGenerating {
     _productNeedsGenerating = productNeedsGenerating;
     if (productNeedsGenerating) {
+        self.production = nil;
         // path needs to be regenerated whenever the product changes
         // this is redundant since the end of the product generation method sets the pathNeedsGenerating flag.
         self.pathNeedsGenerating = YES;
+    }
+}
+
+-(void) setPathNeedsGenerating:(BOOL)pathNeedsGenerating {
+    _pathNeedsGenerating = pathNeedsGenerating;
+    if (_pathNeedsGenerating) {
+        _currentSegment = nil;
+        _segments = nil;
+        _segmentStack = nil;
     }
 }
 
@@ -479,7 +467,6 @@
 
 -(void) productionRuleChanged {
     self.productNeedsGenerating = YES;
-    self.currentSegment = nil;
 }
 
 //TODO convert this to GCD, one dispatch per axiom character? Then reassemble?

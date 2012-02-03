@@ -191,7 +191,7 @@
     NSString* lineColorComponents = [self colorAsString: self.lineColor];
     NSString* fillColorComponents = [self colorAsString: self.fillColor];
     
-    return [NSString stringWithFormat: @"Path %@, lineWidth: %g, LineColor: %@, stroke: %@, FillColor: %@, fill: %@", 
+    return [NSString stringWithFormat: @"Path %@; lineWidth = %g; LineColor = %@; stroke = %@; FillColor = %@; fill = %@", 
             _path, _lineWidth, lineColorComponents, stroke, fillColorComponents, fill];
 }
 
