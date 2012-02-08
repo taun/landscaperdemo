@@ -10,6 +10,7 @@
 		C51215C214DA2BD4007ED367 /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C114DA2BD4007ED367 /* LSFractal.m */; };
 		C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
 		C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */; };
+		C540634214DADC6A00FBDEA4 /* MBColor+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C540634114DADC6A00FBDEA4 /* MBColor+addons.m */; };
 		C5450ED414BBB86300CD2E09 /* MBFractalLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */; };
 		C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */; };
 		C56A2C8F14CFA1CB00B5F763 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C8E14CFA1CB00B5F763 /* grey.png */; };
@@ -40,6 +41,8 @@
 		C5914B0714C9FB7F00856F57 /* marble_dark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0014C9FB7F00856F57 /* marble_dark.jpg */; };
 		C5914B0814C9FB7F00856F57 /* zensand.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0114C9FB7F00856F57 /* zensand.gif */; };
 		C5914B0914C9FB7F00856F57 /* zensand.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0114C9FB7F00856F57 /* zensand.gif */; };
+		C59E337714E1B65400972D82 /* FractalDefinitionRulesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C59E337614E1B65400972D82 /* FractalDefinitionRulesView.xib */; };
+		C59E337E14E1BD5900972D82 /* FractalDefinitionAppearanceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C59E337D14E1BD5900972D82 /* FractalDefinitionAppearanceView.xib */; };
 		C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
 		C5A464F314C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
 		C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */; };
@@ -96,6 +99,8 @@
 		C51215C514DA2E70007ED367 /* LSFractal+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSFractal+addons.m"; path = "LandscaperDemo/model/LSFractal+addons.m"; sourceTree = "<group>"; };
 		C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpers.m; path = LandscaperDemo/model/QuartzHelpers.m; sourceTree = "<group>"; };
 		C53956FD14BF5B0000D7301B /* QuartzHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzHelpers.h; path = LandscaperDemo/model/QuartzHelpers.h; sourceTree = "<group>"; };
+		C540634014DADC6A00FBDEA4 /* MBColor+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBColor+addons.h"; path = "LandscaperDemo/model/MBColor+addons.h"; sourceTree = "<group>"; };
+		C540634114DADC6A00FBDEA4 /* MBColor+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBColor+addons.m"; path = "LandscaperDemo/model/MBColor+addons.m"; sourceTree = "<group>"; };
 		C5450ED214BBB86300CD2E09 /* MBFractalLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalLayer.h; path = LandscaperDemo/MBFractalLayer.h; sourceTree = "<group>"; };
 		C5450ED314BBB86300CD2E09 /* MBFractalLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalLayer.m; path = LandscaperDemo/MBFractalLayer.m; sourceTree = "<group>"; };
 		C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalSegment.h; path = LandscaperDemo/model/MBFractalSegment.h; sourceTree = "<group>"; };
@@ -124,6 +129,8 @@
 		C5914AFF14C9FB7F00856F57 /* grey.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = grey.gif; path = resources/grey.gif; sourceTree = "<group>"; };
 		C5914B0014C9FB7F00856F57 /* marble_dark.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = marble_dark.jpg; path = resources/marble_dark.jpg; sourceTree = "<group>"; };
 		C5914B0114C9FB7F00856F57 /* zensand.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = zensand.gif; path = resources/zensand.gif; sourceTree = "<group>"; };
+		C59E337614E1B65400972D82 /* FractalDefinitionRulesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionRulesView.xib; path = LandscaperDemo/FractalDefinitionRulesView.xib; sourceTree = "<group>"; };
+		C59E337D14E1BD5900972D82 /* FractalDefinitionAppearanceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionAppearanceView.xib; path = LandscaperDemo/FractalDefinitionAppearanceView.xib; sourceTree = "<group>"; };
 		C5A464F014C90BFA002BF0A3 /* LSFractalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalGenerator.h; path = LandscaperDemo/model/LSFractalGenerator.h; sourceTree = "<group>"; };
 		C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalGenerator.m; path = LandscaperDemo/model/LSFractalGenerator.m; sourceTree = "<group>"; };
 		C5A5C79A14D6F9A500D81C72 /* MBPortalStyleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPortalStyleView.h; path = LandscaperDemo/MBPortalStyleView.h; sourceTree = "<group>"; };
@@ -200,6 +207,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C540634414DADC7500FBDEA4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C51215C414DA2E6F007ED367 /* LSFractal+addons.h */,
+				C51215C514DA2E70007ED367 /* LSFractal+addons.m */,
+				C540634014DADC6A00FBDEA4 /* MBColor+addons.h */,
+				C540634114DADC6A00FBDEA4 /* MBColor+addons.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		C5450ED014BBB7DB00CD2E09 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +233,8 @@
 				C5BE4A1314D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib */,
 				C5A5C79A14D6F9A500D81C72 /* MBPortalStyleView.h */,
 				C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */,
+				C59E337614E1B65400972D82 /* FractalDefinitionRulesView.xib */,
+				C59E337D14E1BD5900972D82 /* FractalDefinitionAppearanceView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -222,6 +242,7 @@
 		C5914AAC14C9ED2C00856F57 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				C540634414DADC7500FBDEA4 /* Categories */,
 				C51215C014DA2BD4007ED367 /* LSFractal.h */,
 				C51215C114DA2BD4007ED367 /* LSFractal.m */,
 				C57E630614D0744700BB7D54 /* MBColor.h */,
@@ -239,8 +260,6 @@
 				C5914AE214C9F71F00856F57 /* LSDrawingRuleType.m */,
 				C5914ADD14C9F71F00856F57 /* MBFractalScape.h */,
 				C5914ADE14C9F71F00856F57 /* MBFractalScape.m */,
-				C51215C414DA2E6F007ED367 /* LSFractal+addons.h */,
-				C51215C514DA2E70007ED367 /* LSFractal+addons.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -461,6 +480,8 @@
 				C5DA349414D6417300D91F43 /* imitation_leather.png in Resources */,
 				C5DA349514D6417300D91F43 /* interstices.png in Resources */,
 				C5DA349614D6417300D91F43 /* marble_dark.png in Resources */,
+				C59E337714E1B65400972D82 /* FractalDefinitionRulesView.xib in Resources */,
+				C59E337E14E1BD5900972D82 /* FractalDefinitionAppearanceView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +544,7 @@
 				C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */,
 				C51215C214DA2BD4007ED367 /* LSFractal.m in Sources */,
 				C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */,
+				C540634214DADC6A00FBDEA4 /* MBColor+addons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
