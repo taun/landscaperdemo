@@ -77,7 +77,6 @@
 @synthesize currentSegment = _currentSegment;
 @synthesize cachedDrawingRules = _cachedDrawingRules;
 
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -86,6 +85,34 @@
         _forceLevel = -1.0;
     }
     return self;
+}
+
+#pragma mark - Fractal Property KVO
+-(void) setFractal:(LSFractal *)fractal {
+    if (_fractal != fractal) {
+        
+        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+        
+        for (NSString* keyPath in propertiesToObserve) {
+            [_fractal removeObserver: self forKeyPath: keyPath];
+            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
+        }
+        
+        _fractal = fractal;
+    }
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
+        // productionRuleChanged
+        [self productionRuleChanged];
+    } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
+        // appearanceChanged
+        [self appearanceChanged];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 /*
@@ -284,7 +311,6 @@
 -(void) setBounds:(CGRect)bounds {
     _bounds = bounds;
 }
-
 
 #pragma mark - segment getter setters
 
