@@ -40,13 +40,17 @@
 @property (nonatomic, strong, readonly) NSSet*   editControls;
 @property (nonatomic, strong, readonly) NSSet*   editBorderControls;
 @property (nonatomic, strong, readonly) NSSet*   editUnhideControls;
-@property (nonatomic, strong, readonly) NSSet*   editControlsDoubleValues;
+@property (nonatomic, strong, readonly) NSSet*   editControlsWithDoubleValues;
 
 -(void) setEditMode: (BOOL) editing;
 -(void) setupLevelGeneratorForLayer: (CALayer*) aLayer forceLevel: (NSInteger) aLevel;
--(void) refreshProduction;
--(void) refreshAppearance;
--(void) reloadFractal;
+-(void) reloadLabels;
+-(void) refreshValueInputs;
+-(void) refreshLayers;
+
+-(void) useFractalDefinitionRulesView;
+-(void) useFractalDefinitionAppearanceView;
+-(void) loadDefinitionViews;
 
 @end
 
@@ -57,9 +61,15 @@
 
 @implementation MBLSFractalEditViewController
 
+@synthesize fractalDefinitionAppearanceView = _fractalDefinitionAppearanceView;
+@synthesize fractalDefinitionRulesView = _fractalDefinitionRulesView;
+@synthesize fractalDefinitionPlaceholderView = _fractalDefinitionPlaceholderView;
+@synthesize placeHolderBounds = _placeHolderBounds;
+@synthesize placeHolderCenter = _placeHolderCenter;
 @synthesize currentFractal = _currentFractal;
+@synthesize onePlaceFormatter = _onePlaceFormatter;
 @synthesize fractalName = _fractalNameTextField;
-@synthesize fractalDescription = _fractalDescription;
+@synthesize fractalDescriptor = _fractalDescription;
 @synthesize fractalAxiom = _fractalAxiomTextField;
 @synthesize fractalInputControl = _fractalInputControl;
 @synthesize activeTextField = _activeField;
@@ -70,11 +80,14 @@
 @synthesize lineLengthStepper = _lineLengthStepper;
 @synthesize fractalTurningAngle = _turnAngleTextField;
 @synthesize turnAngleStepper = _turnAngleStepper;
+@synthesize fractalLevel = _fractalLevel;
+@synthesize levelStepper = _levelStepper;
 @synthesize fractalPropertiesView = _fractalPropertiesView;
+@synthesize fractalViewLevelNLabel = _fractalViewLevelNLabel;
 
 @synthesize fractalDisplayLayersArray = _fractalDisplayLayersArray;
 @synthesize generatorsArray = _generatorsArray;
-@synthesize editBorderControls = _editBorderControls, editControlsDoubleValues=_editControlsDoubleValues;
+@synthesize editBorderControls = _editBorderControls, editControlsWithDoubleValues = _editControlsWithDoubleValues;
 @synthesize editUnhideControls = _editUnhideControls;
 @synthesize editControls = _editControls;
 
@@ -88,6 +101,38 @@
 //    }
 //    return self;
 //}
+
+#pragma mark - Fractal Property KVO
+-(void) setCurrentFractal:(LSFractal *)fractal {
+    if (_currentFractal != fractal) {
+        
+        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+        propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal lableProperties]];
+        
+        for (NSString* keyPath in propertiesToObserve) {
+            [_currentFractal removeObserver: self forKeyPath: keyPath];
+            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
+        }
+        
+        _currentFractal = fractal;
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
+        // productionRuleChanged
+        [self refreshValueInputs];
+        [self refreshLayers];
+    } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
+        [self refreshValueInputs];
+        [self refreshLayers];
+    } else if ([[LSFractal lableProperties] containsObject: keyPath]) {
+        [self reloadLabels];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
 #pragma mark - custom setter getters
 -(NSMutableArray*) generatorsArray {
@@ -108,12 +153,13 @@
     if (_editControls == nil) {
         _editControls = [[NSSet alloc] initWithObjects: 
                          self.fractalName,
-                         self.fractalDescription,
+                         self.fractalDescriptor,
                          self.fractalAxiom,
                          self.fractalLineLength,
                          self.fractalTurningAngle,
                          self.lineLengthStepper,
                          self.turnAngleStepper,
+                         self.levelStepper,
                          nil];
     }
     return _editControls;
@@ -123,7 +169,7 @@
     if (_editBorderControls == nil) {
         _editBorderControls = [[NSSet alloc] initWithObjects: 
                                self.fractalName,
-                               self.fractalDescription,
+                               self.fractalDescriptor,
                                self.fractalAxiom,
                                self.fractalLineLength,
                                self.fractalTurningAngle,
@@ -135,21 +181,34 @@
 -(NSSet*) editUnhideControls {
     if (_editUnhideControls == nil) {
         _editUnhideControls = [[NSSet alloc] initWithObjects: 
-                           self.lineLengthStepper,
-                           self.turnAngleStepper,
-                           nil];
+                               self.lineLengthStepper,
+                               self.turnAngleStepper,
+                               self.levelStepper,
+                               nil];
     }
     return _editUnhideControls;
 }
 
--(NSSet*) editControlsDoubleValues {
-    if (_editControlsDoubleValues == nil) {
-        _editControlsDoubleValues = [[NSSet alloc] initWithObjects: 
+-(NSSet*) editControlsWithDoubleValues {
+    if (_editControlsWithDoubleValues == nil) {
+        _editControlsWithDoubleValues = [[NSSet alloc] initWithObjects: 
                                        self.fractalLineLength,
                                        self.fractalTurningAngle,
                                        nil];
     }
-    return _editControlsDoubleValues;
+    return _editControlsWithDoubleValues;
+}
+
+-(NSNumberFormatter*) onePlaceFormatter {
+    if (_onePlaceFormatter == nil) {
+        _onePlaceFormatter = [[NSNumberFormatter alloc] init];
+        [_onePlaceFormatter setAllowsFloats: YES];
+        [_onePlaceFormatter setMaximumFractionDigits: 1];
+        [_onePlaceFormatter setMaximumIntegerDigits: 3];
+        [_onePlaceFormatter setPositiveFormat: @"##0.0"];
+        [_onePlaceFormatter setNegativeFormat: @"-##0.0"];
+    }
+    return _onePlaceFormatter;
 }
 
 #pragma mark - View lifecycle
@@ -191,37 +250,70 @@
         [self.generatorsArray addObject: generator];
     }
 }
-//TODO: replace with KVO for generator of core data properties
--(void) refreshAppearance {
-    for (LSFractalGenerator* aGenerator in self.generatorsArray) {
-        [aGenerator appearanceChanged];
-    }
-    [self reloadFractal];
-}
--(void) refreshProduction {
-    for (LSFractalGenerator* aGenerator in self.generatorsArray) {
-        [aGenerator productionRuleChanged];
-    }
-    [self reloadFractal];
-}
 
--(void) reloadFractal {
+-(void) reloadLabels {
     self.fractalName.text = self.currentFractal.name;
     
-    self.fractalDescription.text = self.currentFractal.descriptor;
-    
+    self.fractalDescriptor.text = self.currentFractal.descriptor;
+}
+
+//TODO: number formatters
+-(void) refreshValueInputs {    
     self.fractalAxiom.text = self.currentFractal.axiom;
     
     self.fractalLineLength.text =  [self.currentFractal.lineLength stringValue];
     self.lineLengthStepper.value = [self.currentFractal.lineLength doubleValue];
     
-    self.fractalTurningAngle.text = [[NSNumber numberWithDouble:[self.currentFractal turningAngleAsDegree]] stringValue];
-    self.turnAngleStepper.value = [self.currentFractal turningAngleAsDegree];
+    self.fractalTurningAngle.text = [self.onePlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
+    self.turnAngleStepper.value = [[self.currentFractal turningAngleAsDegree] doubleValue];
     
-     for (CALayer* layer in self.fractalDisplayLayersArray) {
+    self.fractalLevel.text = [self.currentFractal.level stringValue];
+    self.levelStepper.value = [self.currentFractal.level doubleValue];
+}
+
+-(void) refreshLayers {
+    self.fractalViewLevelNLabel.text = [self.currentFractal.level stringValue];
+    
+    for (CALayer* layer in self.fractalDisplayLayersArray) {
         layer.contents = nil;
         [layer setNeedsDisplay];
     }
+}
+
+-(void) loadDefinitionViews {
+    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionRulesView" owner: self options: nil];
+    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionAppearanceView" owner: self options: nil];
+}
+
+-(void) useFractalDefinitionRulesView {
+    
+    if (self.fractalDefinitionAppearanceView.superview == nil) {
+        [self.fractalDefinitionPlaceholderView addSubview: self.fractalDefinitionRulesView];
+    } else {
+        [UIView transitionFromView: self.fractalDefinitionAppearanceView 
+                            toView: self.fractalDefinitionRulesView 
+                          duration: 0.3 
+                           options: UIViewAnimationOptionTransitionFlipFromLeft 
+                        completion: NULL];
+    }
+//    self.fractalDefinitionRulesView.center = self.placeHolderCenter;
+//    self.fractalDefinitionRulesView.bounds = self.placeHolderBounds;
+    
+}
+
+-(void) useFractalDefinitionAppearanceView {
+    
+    if (self.fractalDefinitionRulesView.superview == nil) {
+        [self.fractalDefinitionPlaceholderView addSubview: self.fractalDefinitionAppearanceView];
+    } else {
+        [UIView transitionFromView: self.fractalDefinitionRulesView 
+                            toView: self.fractalDefinitionAppearanceView 
+                          duration: 0.3 
+                           options: UIViewAnimationOptionTransitionFlipFromRight 
+                        completion: NULL];
+    }
+//    self.fractalDefinitionAppearanceView.center = self.placeHolderCenter;
+//    self.fractalDefinitionAppearanceView.bounds = self.placeHolderBounds;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -230,6 +322,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _placeHolderCenter = self.fractalDefinitionPlaceholderView.center;
+    _placeHolderBounds = self.fractalDefinitionPlaceholderView.bounds;
+    
+//    [self.fractalDefinitionPlaceholderView removeFromSuperview];
+    [self loadDefinitionViews];
+    [self useFractalDefinitionRulesView];
         
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self setEditMode: NO];
@@ -244,7 +343,9 @@
     
     self.fractalAxiom.inputView = self.fractalInputControl.view;
     
-    [self reloadFractal];
+    [self reloadLabels];
+    [self refreshValueInputs];
+    [self refreshLayers];
 }
 
 -(void) setEditMode: (BOOL) editing {
@@ -253,12 +354,16 @@
         if ([control isKindOfClass:[UITextField class]]) {
             UITextField* tf = (UITextField*) control;
             tf.enabled = editing;
+            tf.backgroundColor = editing ? white : nil;
+            tf.opaque = editing;
             tf.borderStyle = editing ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
+
         } else if ([control isKindOfClass:[UITextView class]]) {
             UITextView* tf = (UITextView*) control;
             tf.editable = editing;
             tf.backgroundColor = editing ? white : nil;
             tf.opaque = editing;
+
         } else  if ([control isKindOfClass:[UIStepper class]]) {
             UIStepper* tf = (UIStepper*) control;
             tf.hidden = !editing;
@@ -308,7 +413,6 @@
     [self.undoManager undo];
     [self setEditMode: NO];
     [self cleanUpUndoManager];
-    [self refreshProduction];
 }
 
 - (void)viewDidUnload
@@ -318,24 +422,40 @@
     [self.currentFractal.managedObjectContext save: nil];
     self.fractalInputControl.delegate = nil;
     [self setFractalInputControl: nil];
+    
+    for (CALayer* layer in self.fractalDisplayLayersArray) {
+        layer.delegate = nil;
+    }
+
+
     [self setFractalName:nil];
+    [self setFractalDescriptor:nil];
     [self setFractalAxiom:nil];
     [self setFractalInputControl:nil];
     [self setFractalViewLevel0:nil];
     [self setFractalViewLevel1:nil];
     [self setFractalViewLevelN:nil];
     [self setFractalLineLength:nil];
-    for (CALayer* layer in self.fractalDisplayLayersArray) {
-        layer.delegate = nil;
-    }
     [self setLineLengthStepper:nil];
     [self setFractalTurningAngle:nil];
     [self setTurnAngleStepper:nil];
+
+    [self setFractalPropertiesView:nil];
+
     _editControls = nil;
     _editBorderControls = nil;
-    _editControlsDoubleValues = nil;
-    [self setFractalDescription:nil];
-    [self setFractalPropertiesView:nil];
+    _editControlsWithDoubleValues = nil;
+    
+    
+    [self setFractalViewLevelNLabel:nil];
+    [self setFractalLevel:nil];
+    [self setLevelStepper:nil];
+    [self setFractalDefinitionRulesView:nil];
+    [self setFractalDefinitionAppearanceView:nil];
+    [self setFractalDefinitionAppearanceView:nil];
+    [self setFractalDefinitionAppearanceView:nil];
+    [self setFractalDefinitionRulesView:nil];
+    [self setFractalDefinitionPlaceholderView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -353,7 +473,7 @@
     return self.editing;
 }
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    if (textView == self.fractalDescription) {
+    if (textView == self.fractalDescriptor) {
         self.currentFractal.descriptor = textView.text;
     }
 }
@@ -371,23 +491,37 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     BOOL result = YES;
-    if ([self.editControlsDoubleValues containsObject: textField]) {
+    if ([self.editControlsWithDoubleValues containsObject: textField]) {
         // check for a float value
         // only allow float/doubles
         // does not update the model value
         NSString* newString = [textField.text stringByReplacingCharactersInRange: range withString: string];
-        double value;
-        NSScanner *scanner = [[NSScanner alloc] initWithString: newString];
-        if (![scanner scanDouble:&value] || !scanner.isAtEnd) {
+        NSRange oldRange = NSMakeRange(0, newString.length);
+        NSRange newRange = NSMakeRange(0, newString.length);
+        
+        NSNumber* value;
+        BOOL success = [self.onePlaceFormatter getObjectValue: &value 
+                                                    forString: newString 
+                                                        range: &newRange 
+                                                        error: nil];
+        
+        if (!success || !NSEqualRanges(newRange, oldRange)) {
             result = NO;
         }  
-        NSLog(@"Scanner result double = %g", value);
+        NSLog(@"Scanner result double = %@", value);
     } else if (textField == self.fractalAxiom) {
         // perform continuous updating?
         // Could cause problems when the axiom is invalid.
         // How to validate axiom? Such as matching brackets.
         // Always apply brackets as matching pair with insertion point between the two?
         NSLog(@"Axiom field being edited");
+    } else if (textField == self.fractalLevel) {
+        NSString* newString = [textField.text stringByReplacingCharactersInRange: range withString: string];
+        NSInteger value;
+        NSScanner *scanner = [[NSScanner alloc] initWithString: newString];
+        if (![scanner scanInteger:&value] || !scanner.isAtEnd) {
+            result = NO;
+        }  
     }
     return result;
 }
@@ -410,14 +544,15 @@
 #pragma mark - Custom Keyboard Handling
 
 - (void)keyTapped:(NSString*)text {
+    if ([text isEqualToString: @"Done"]) {
+        [self.activeTextField resignFirstResponder];
+    } else
     if (self.activeTextField) {
-        self.activeTextField.text = [self.activeTextField.text stringByAppendingString: text];
         // Update fractal when this value changes?
         // live updates?
         // save on each press and use observer?
         if (self.activeTextField == self.fractalAxiom) {
-            self.currentFractal.axiom = self.activeTextField.text;
-            [self refreshProduction];
+            self.currentFractal.axiom = [self.activeTextField.text stringByAppendingString: text];
         }
     }
 }
@@ -429,9 +564,31 @@
     self.currentFractal.name = sender.text;
 }
 
+- (IBAction)levelInputChanged:(id)sender {
+    double newValue = 0;
+    if ([sender isKindOfClass: [UITextField class]]) {
+        // handle text input
+        UITextField* textField = (UITextField*) sender;
+        newValue = [textField.text doubleValue];
+        
+    } else if ([sender isKindOfClass: [UIStepper class]]) {
+        // handle stepper input
+        UIStepper* stepper = sender;
+        newValue = stepper.value;
+    }
+    self.currentFractal.level = [NSNumber numberWithDouble:newValue];
+}
+
+- (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        [self useFractalDefinitionRulesView];
+    } else if(sender.selectedSegmentIndex == 1) {
+        [self useFractalDefinitionAppearanceView];
+    }
+}
+
 - (IBAction)axiomInputChanged:(UITextField*)sender {
     self.currentFractal.axiom = sender.text;
-    [self refreshProduction];
 }
 
 //TODO: remove once KVO implemented
@@ -448,9 +605,8 @@
         newValue = stepper.value;
     }
     self.currentFractal.lineLength = [NSNumber numberWithDouble:newValue];
-    
-    [self refreshAppearance];
 }
+
 //TODO: remove once KVO implemented
 - (IBAction)turnAngleInputChanged:(id)sender {
     double newValue = 0;
@@ -464,8 +620,7 @@
         UIStepper* stepper = sender;
         newValue = stepper.value;
     }
-    [self.currentFractal setTurningAngleAsDegrees: newValue];
-    [self refreshAppearance];
+    [self.currentFractal setTurningAngleAsDegrees: [NSNumber numberWithDouble:newValue]];
 }
      
 #pragma mark - core data 
@@ -510,18 +665,17 @@
 
 
 - (void)undoManagerDidUndo:(NSNotification *)notification {
-    [self refreshProduction];
     [self updateRightBarButtonItemState];
 }
 
 
 - (void)undoManagerDidRedo:(NSNotification *)notification {
-    [self refreshProduction];
     [self updateRightBarButtonItemState];
 }
 
 
 -(void) dealloc {
+    self.currentFractal = nil; // removes observers via custom setter call
     for (CALayer* layer in self.fractalDisplayLayersArray) {
         layer.delegate = nil;
     }
