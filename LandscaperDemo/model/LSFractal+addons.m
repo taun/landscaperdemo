@@ -15,10 +15,10 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 @implementation LSFractal (addons)
 
-+ (NSArray *)keysToBeCopied {
-    static NSArray *keysToBeCopied = nil;
++ (NSSet *)keysToBeCopied {
+    static NSSet *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {
-        keysToBeCopied = [[NSArray alloc] initWithObjects:
+        keysToBeCopied = [[NSSet alloc] initWithObjects:
                           @"axiom",
                           @"category",
                           @"descriptor",
@@ -42,6 +42,46 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     }
     return keysToBeCopied;
 }
+
++(NSSet*) lableProperties {
+    static NSSet* lableProperties = nil;
+    if (lableProperties == nil) {
+        lableProperties = [[NSSet alloc] initWithObjects:
+                                    @"name",
+                                    @"descriptor", 
+                                    nil];
+    }
+    return lableProperties;
+}
+
++(NSSet*) productionRuleProperties {
+    static NSSet* productionRuleProperties = nil;
+    if (productionRuleProperties == nil) {
+        productionRuleProperties = [[NSSet alloc] initWithObjects:
+                                    @"axiom",
+                                    @"replacementRules", 
+                                    @"level",
+                                    nil];
+    }
+    return productionRuleProperties;
+}
+
++(NSSet*) appearanceProperties {
+    static NSSet* appearanceProperties = nil;
+    if (appearanceProperties == nil) {
+        appearanceProperties = [[NSSet alloc] initWithObjects:
+                                @"lineLength",
+                                @"lineWidth",
+                                @"lineColor",
+                                @"stroke",
+                                @"fill",
+                                @"fillColor",
+                                @"turningAngle",
+                                nil];
+    }
+    return appearanceProperties;
+}
+
 
 -(id) mutableCopy {
     NSManagedObject *fractalCopy = [NSEntityDescription
@@ -89,15 +129,16 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     return [self.turningAngle doubleValue];
 }
 
--(double) turningAngleAsDegree {
-    return degrees([self.turningAngle doubleValue]);
+-(NSNumber*) turningAngleAsDegree {
+    return [NSNumber numberWithDouble: degrees([self.turningAngle doubleValue])];
 }
 
 -(void) setTurningAngleAsDouble:(double)newAngle {
     self.turningAngle = [NSNumber numberWithDouble: newAngle];
 }
 
--(void) setTurningAngleAsDegrees:(double)newAngle {
-    self.turningAngle = [NSNumber numberWithDouble: radians(newAngle)];
+-(void) setTurningAngleAsDegrees:(NSNumber*)newAngle {
+    double inRadians = radians([newAngle doubleValue]);
+    self.turningAngle = [NSNumber numberWithDouble: inRadians];
 }
 @end

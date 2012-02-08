@@ -13,7 +13,11 @@
 /*!
  for cut and paste functionality
  */
-+ (NSArray *)keysToBeCopied;
++(NSSet*)keysToBeCopied;
++(NSSet*) lableProperties;
++(NSSet*) productionRuleProperties;
++(NSSet*) appearanceProperties;
+
 
 -(UIColor*) lineColorAsUI;
 -(UIColor*) fillColorAsUI;
@@ -22,7 +26,7 @@
 -(void) setLineLengthAsDouble: (double) newLength;
 
 -(double) turningAngleAsDouble;
--(double) turningAngleAsDegree;
+-(NSNumber*) turningAngleAsDegree;
 -(void) setTurningAngleAsDouble: (double) newAngle;
--(void) setTurningAngleAsDegrees: (double) newAngle;
+-(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
 @end
