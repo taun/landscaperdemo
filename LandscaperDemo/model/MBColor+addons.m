@@ -14,6 +14,30 @@
     return [UIColor colorWithRed: 0.0 green: 0.0 blue: 1.0 alpha: 1.0];
 }
 
++(MBColor*) mbColorWithUIColor:(UIColor *)color inContext:(NSManagedObjectContext *)context {
+    
+    MBColor *newColor = [NSEntityDescription
+                         insertNewObjectForEntityForName:@"MBColor"
+                         inManagedObjectContext: context];
+    
+    if (newColor) {
+        CGFloat red;
+        CGFloat green;
+        CGFloat blue;
+        CGFloat alpha;
+        
+        BOOL success = [color getRed: &red green: &green blue: &blue alpha: &alpha];
+        
+        if (success) {
+            newColor.red = [NSNumber numberWithDouble: red];
+            newColor.blue = [NSNumber numberWithDouble: blue];
+            newColor.green = [NSNumber numberWithDouble: green];
+            newColor.alpha = [NSNumber numberWithDouble: alpha];
+        }
+    }
+    return newColor;
+}
+
 -(UIColor*) asUIColor {
         
     return [UIColor colorWithRed:[self.red floatValue] 

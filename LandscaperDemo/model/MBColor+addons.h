@@ -10,6 +10,8 @@
 
 @interface MBColor (addons)
 
++(MBColor*) mbColorWithUIColor: (UIColor*) color inContext: (NSManagedObjectContext*) context;
+
 +(UIColor*) defaultUIColor;
 
 -(UIColor*) asUIColor;
