@@ -8,12 +8,11 @@
 
 #import "MBLSFractalEditViewController.h"
 #import "LSFractalGenerator.h"
+#import "MBColor+addons.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface MBLSFractalEditViewController () {
-    __strong NSSet* _editBorderControls;
-}
+@interface MBLSFractalEditViewController () 
 
 /*!
  for tracking which text input field has the current focus.
@@ -38,9 +37,6 @@
 @property (nonatomic, strong) NSMutableArray* generatorsArray; 
 
 @property (nonatomic, strong, readonly) NSSet*   editControls;
-@property (nonatomic, strong, readonly) NSSet*   editBorderControls;
-@property (nonatomic, strong, readonly) NSSet*   editUnhideControls;
-@property (nonatomic, strong, readonly) NSSet*   editControlsWithDoubleValues;
 
 -(void) setEditMode: (BOOL) editing;
 -(void) setupLevelGeneratorForLayer: (CALayer*) aLayer forceLevel: (NSInteger) aLevel;
@@ -64,9 +60,11 @@
 @synthesize fractalDefinitionAppearanceView = _fractalDefinitionAppearanceView;
 @synthesize fractalDefinitionRulesView = _fractalDefinitionRulesView;
 @synthesize fractalDefinitionPlaceholderView = _fractalDefinitionPlaceholderView;
+@synthesize colorPopover = _colorPopover;
 @synthesize placeHolderBounds = _placeHolderBounds;
 @synthesize placeHolderCenter = _placeHolderCenter;
 @synthesize currentFractal = _currentFractal;
+@synthesize coloringKey = _coloringKey;
 @synthesize onePlaceFormatter = _onePlaceFormatter;
 @synthesize fractalName = _fractalNameTextField;
 @synthesize fractalDescriptor = _fractalDescription;
@@ -74,21 +72,27 @@
 @synthesize fractalInputControl = _fractalInputControl;
 @synthesize activeTextField = _activeField;
 @synthesize fractalViewLevel0 = _fractalLevelView0;
+@synthesize level0GestureRecognizers = _level0GestureRecognizers;
 @synthesize fractalViewLevel1 = _fractalLevelView1;
 @synthesize fractalViewLevelN = _fractalLevelViewN;
 @synthesize fractalLineLength = _lineLengthTextField;
 @synthesize lineLengthStepper = _lineLengthStepper;
+@synthesize fractalWidth = _fractalWidth;
+@synthesize widthStepper = _widthStepper;
+@synthesize widthSlider = _widthSlider;
 @synthesize fractalTurningAngle = _turnAngleTextField;
 @synthesize turnAngleStepper = _turnAngleStepper;
 @synthesize fractalLevel = _fractalLevel;
 @synthesize levelStepper = _levelStepper;
+@synthesize strokeSwitch = _strokeSwitch;
+@synthesize fillColorButton = _fillColorButton;
+@synthesize strokeColorButton = _strokeColorButton;
+@synthesize fillSwitch = _fillSwitch;
 @synthesize fractalPropertiesView = _fractalPropertiesView;
 @synthesize fractalViewLevelNLabel = _fractalViewLevelNLabel;
 
 @synthesize fractalDisplayLayersArray = _fractalDisplayLayersArray;
 @synthesize generatorsArray = _generatorsArray;
-@synthesize editBorderControls = _editBorderControls, editControlsWithDoubleValues = _editControlsWithDoubleValues;
-@synthesize editUnhideControls = _editUnhideControls;
 @synthesize editControls = _editControls;
 
 @synthesize undoManager = _undoManager;
@@ -135,6 +139,25 @@
 }
 
 #pragma mark - custom setter getters
+-(UIPopoverController*) colorPopover {
+    if (_colorPopover == nil) {
+        UIColor* color = [self.currentFractal lineColorAsUI];
+        ColorPickerController* colorPicker = [[ColorPickerController alloc] initWithColor: color andTitle: @"Pick a Fill Color"];
+        colorPicker.delegate = self;
+        colorPicker.contentSizeForViewInPopover = CGSizeMake(400, 300);
+
+        UINavigationController* navCon = [[UINavigationController alloc] initWithRootViewController: colorPicker];
+        
+        navCon.contentSizeForViewInPopover = CGSizeMake(400, 300);
+        navCon.modalInPopover = YES;
+        
+        _colorPopover = [[UIPopoverController alloc] initWithContentViewController: navCon];
+        _colorPopover.delegate = (id<UIPopoverControllerDelegate>)self;
+        _colorPopover.popoverContentSize = CGSizeMake(400, 300);
+    }
+    return _colorPopover;
+}
+
 -(NSMutableArray*) generatorsArray {
     if (_generatorsArray == nil) {
         _generatorsArray = [[NSMutableArray alloc] initWithCapacity: 3];
@@ -155,48 +178,18 @@
                          self.fractalName,
                          self.fractalDescriptor,
                          self.fractalAxiom,
-                         self.fractalLineLength,
-                         self.fractalTurningAngle,
                          self.lineLengthStepper,
                          self.turnAngleStepper,
                          self.levelStepper,
+                         self.widthStepper,
+                         self.widthSlider,
+                         self.strokeSwitch,
+                         self.strokeColorButton,
+                         self.fillSwitch,
+                         self.fillColorButton,
                          nil];
     }
     return _editControls;
-}
-
--(NSSet*) editBorderControls {
-    if (_editBorderControls == nil) {
-        _editBorderControls = [[NSSet alloc] initWithObjects: 
-                               self.fractalName,
-                               self.fractalDescriptor,
-                               self.fractalAxiom,
-                               self.fractalLineLength,
-                               self.fractalTurningAngle,
-                               nil];
-    }
-    return _editBorderControls;
-}
-
--(NSSet*) editUnhideControls {
-    if (_editUnhideControls == nil) {
-        _editUnhideControls = [[NSSet alloc] initWithObjects: 
-                               self.lineLengthStepper,
-                               self.turnAngleStepper,
-                               self.levelStepper,
-                               nil];
-    }
-    return _editUnhideControls;
-}
-
--(NSSet*) editControlsWithDoubleValues {
-    if (_editControlsWithDoubleValues == nil) {
-        _editControlsWithDoubleValues = [[NSSet alloc] initWithObjects: 
-                                       self.fractalLineLength,
-                                       self.fractalTurningAngle,
-                                       nil];
-    }
-    return _editControlsWithDoubleValues;
 }
 
 -(NSNumberFormatter*) onePlaceFormatter {
@@ -264,11 +257,18 @@
     self.fractalLineLength.text =  [self.currentFractal.lineLength stringValue];
     self.lineLengthStepper.value = [self.currentFractal.lineLength doubleValue];
     
+    self.fractalWidth.text =  [self.currentFractal.lineWidth stringValue];
+    self.widthStepper.value = [self.currentFractal.lineWidth doubleValue];
+    self.widthSlider.value = [self.currentFractal.lineWidth doubleValue];
+    
     self.fractalTurningAngle.text = [self.onePlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
     self.turnAngleStepper.value = [[self.currentFractal turningAngleAsDegree] doubleValue];
     
     self.fractalLevel.text = [self.currentFractal.level stringValue];
     self.levelStepper.value = [self.currentFractal.level doubleValue];
+    
+    self.strokeSwitch.on = [self.currentFractal.stroke boolValue];
+    self.fillSwitch.on = [self.currentFractal.fill boolValue];
 }
 
 -(void) refreshLayers {
@@ -351,9 +351,10 @@
 -(void) setEditMode: (BOOL) editing {
     UIColor* white = [UIColor colorWithWhite: 1.0 alpha: 1.0];
     for (UIControl* control in self.editControls) {
+        control.enabled = editing;
+        
         if ([control isKindOfClass:[UITextField class]]) {
             UITextField* tf = (UITextField*) control;
-            tf.enabled = editing;
             tf.backgroundColor = editing ? white : nil;
             tf.opaque = editing;
             tf.borderStyle = editing ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
@@ -367,7 +368,11 @@
         } else  if ([control isKindOfClass:[UIStepper class]]) {
             UIStepper* tf = (UIStepper*) control;
             tf.hidden = !editing;
-            tf.enabled = editing;
+        } else if ([control isKindOfClass:[UISwitch class]]) {
+            UISwitch* tf = (UISwitch*) control;
+            tf.hidden = !editing;
+        } else if ([control isKindOfClass:[UIButton class]]) {
+            UIButton* tf = (UIButton*) control;
         }
     }
 }
@@ -427,6 +432,7 @@
         layer.delegate = nil;
     }
 
+    [self setColorPopover: nil];
 
     [self setFractalName:nil];
     [self setFractalDescriptor:nil];
@@ -442,10 +448,7 @@
 
     [self setFractalPropertiesView:nil];
 
-    _editControls = nil;
-    _editBorderControls = nil;
-    _editControlsWithDoubleValues = nil;
-    
+    _editControls = nil;    
     
     [self setFractalViewLevelNLabel:nil];
     [self setFractalLevel:nil];
@@ -456,6 +459,14 @@
     [self setFractalDefinitionAppearanceView:nil];
     [self setFractalDefinitionRulesView:nil];
     [self setFractalDefinitionPlaceholderView:nil];
+    [self setStrokeSwitch:nil];
+    [self setFillSwitch:nil];
+    [self setFractalWidth:nil];
+    [self setWidthStepper:nil];
+    [self setFillColorButton:nil];
+    [self setStrokeColorButton:nil];
+    [self setWidthSlider:nil];
+    [self setLevel0GestureRecognizers:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -491,25 +502,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     BOOL result = YES;
-    if ([self.editControlsWithDoubleValues containsObject: textField]) {
-        // check for a float value
-        // only allow float/doubles
-        // does not update the model value
-        NSString* newString = [textField.text stringByReplacingCharactersInRange: range withString: string];
-        NSRange oldRange = NSMakeRange(0, newString.length);
-        NSRange newRange = NSMakeRange(0, newString.length);
-        
-        NSNumber* value;
-        BOOL success = [self.onePlaceFormatter getObjectValue: &value 
-                                                    forString: newString 
-                                                        range: &newRange 
-                                                        error: nil];
-        
-        if (!success || !NSEqualRanges(newRange, oldRange)) {
-            result = NO;
-        }  
-        NSLog(@"Scanner result double = %@", value);
-    } else if (textField == self.fractalAxiom) {
+    if (textField == self.fractalAxiom) {
         // perform continuous updating?
         // Could cause problems when the axiom is invalid.
         // How to validate axiom? Such as matching brackets.
@@ -564,65 +557,114 @@
     self.currentFractal.name = sender.text;
 }
 
-- (IBAction)levelInputChanged:(id)sender {
-    double newValue = 0;
-    if ([sender isKindOfClass: [UITextField class]]) {
-        // handle text input
-        UITextField* textField = (UITextField*) sender;
-        newValue = [textField.text doubleValue];
-        
-    } else if ([sender isKindOfClass: [UIStepper class]]) {
-        // handle stepper input
-        UIStepper* stepper = sender;
-        newValue = stepper.value;
-    }
-    self.currentFractal.level = [NSNumber numberWithDouble:newValue];
+- (IBAction)levelInputChanged:(UIStepper*)sender {
+    self.currentFractal.level = [NSNumber numberWithDouble: sender.value];
 }
 
-- (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender {
-    if (sender.selectedSegmentIndex == 0) {
-        [self useFractalDefinitionRulesView];
-    } else if(sender.selectedSegmentIndex == 1) {
-        [self useFractalDefinitionAppearanceView];
+- (IBAction)selectStrokeColor:(UIButton*)sender {
+    self.coloringKey = @"lineColor";
+        
+    ColorPickerController* colorPicker = (ColorPickerController*) self.colorPopover.contentViewController.navigationController.visibleViewController;
+    colorPicker.selectedColor = [self.currentFractal lineColorAsUI];
+    
+    [self.colorPopover presentPopoverFromRect: sender.frame 
+                                       inView: sender.superview 
+                     permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                     animated: YES];
+
+}
+
+- (IBAction)selectFillColor:(UIButton*)sender {
+    self.coloringKey = @"fillColor";
+    
+    ColorPickerController* colorPicker = (ColorPickerController*) self.colorPopover.contentViewController.navigationController.visibleViewController;
+    colorPicker.selectedColor = [self.currentFractal fillColorAsUI];
+        
+    [self.colorPopover presentPopoverFromRect: sender.frame 
+                                       inView: sender.superview 
+                     permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                     animated: YES];
+
+//    [self performSegueWithIdentifier: @"ColorPickerPopoverSeque" sender: self];
+
+
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if (![segue.identifier isEqualToString: @"ColorPickerPopoverSeque"]) {
+        // send the color
+        UIViewController* dest = segue.destinationViewController;
+        [(ColorPickerController*)dest setDelegate: self];
+        dest.modalInPopover = YES;
     }
+}
+
+- (IBAction)toggleStroke:(UISwitch*)sender {
+    self.currentFractal.stroke = [NSNumber numberWithBool: sender.on];
+}
+
+- (IBAction)toggleFill:(UISwitch*)sender {
+    self.currentFractal.fill = [NSNumber numberWithBool: sender.on];
+}
+
+- (IBAction)lineWidthInputChanged:(id)sender {
+    self.currentFractal.lineWidth = [sender valueForKey: @"value"];
 }
 
 - (IBAction)axiomInputChanged:(UITextField*)sender {
     self.currentFractal.axiom = sender.text;
 }
 
-//TODO: remove once KVO implemented
-- (IBAction)lineLengthInputChanged:(id)sender {
-    double newValue = 0;
-    if ([sender isKindOfClass: [UITextField class]]) {
-        // handle text input
-        UITextField* textField = (UITextField*) sender;
-        newValue = [textField.text doubleValue];
-        
-    } else if ([sender isKindOfClass: [UIStepper class]]) {
-        // handle stepper input
-        UIStepper* stepper = sender;
-        newValue = stepper.value;
-    }
-    self.currentFractal.lineLength = [NSNumber numberWithDouble:newValue];
+- (IBAction)lineLengthInputChanged:(UIStepper*)sender {
+    self.currentFractal.lineLength = [NSNumber numberWithDouble: sender.value];
 }
 
-//TODO: remove once KVO implemented
-- (IBAction)turnAngleInputChanged:(id)sender {
-    double newValue = 0;
-    if ([sender isKindOfClass: [UITextField class]]) {
-        // handle text input
-        UITextField* textField = (UITextField*) sender;
-        newValue = [textField.text doubleValue];
-        
-    } else if ([sender isKindOfClass: [UIStepper class]]) {
-        // handle stepper input
-        UIStepper* stepper = sender;
-        newValue = stepper.value;
-    }
-    [self.currentFractal setTurningAngleAsDegrees: [NSNumber numberWithDouble:newValue]];
+- (IBAction)turnAngleInputChanged:(UIStepper*)sender {
+    [self.currentFractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: sender.value]];
 }
-     
+
+- (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        [self useFractalDefinitionRulesView];
+        
+    } else if(sender.selectedSegmentIndex == 1) {
+        [self useFractalDefinitionAppearanceView];
+    }
+}
+
+
+#pragma mark - ColorPicker Delegate Protocol
+//TODO: check for pre-existing colors, maybe only allow selecting from pre-existing colors? replacing colorPicker with swatches?
+- (void)colorPickerSaved:(ColorPickerController *)controller {
+    
+    MBColor* newColor = [MBColor mbColorWithUIColor: controller.selectedColor inContext: self.currentFractal.managedObjectContext];
+    MBColor* currentColor = [self.currentFractal valueForKey: self.coloringKey];
+    
+    NSString* camelCase = [self.coloringKey stringByReplacingCharactersInRange: NSMakeRange(0, 1) withString: [[self.coloringKey substringWithRange: NSMakeRange(0, 1)] uppercaseString]];
+    
+    NSString* selectorString = [NSString stringWithFormat: @"set%@:", camelCase];
+        
+    NSUndoManager* undoManager = self.currentFractal.managedObjectContext.undoManager;
+    
+    [undoManager beginUndoGrouping];
+    
+    [undoManager registerUndoWithTarget: self.currentFractal selector: NSSelectorFromString(selectorString) object: currentColor];
+    
+    [self.currentFractal setValue: newColor forKey: self.coloringKey];
+    
+    [undoManager endUndoGrouping];
+}
+
+- (void)colorPickerUndo:(ColorPickerController *)controller {
+    NSUndoManager* undoManager = self.currentFractal.managedObjectContext.undoManager;
+    [undoManager undo];
+}
+
+- (void)colorPickerRedo:(ColorPickerController *)controller {
+    NSUndoManager* undoManager = self.currentFractal.managedObjectContext.undoManager;
+    [undoManager redo];
+}
+
 #pragma mark - core data 
 - (void)setUpUndoManager {
     /*
@@ -659,9 +701,9 @@
 }
 
 
-- (NSUndoManager *)undoManager {
-    return self.currentFractal.managedObjectContext.undoManager;
-}
+//- (NSUndoManager *)undoManager {
+//    return self.currentFractal.managedObjectContext.undoManager;
+//}
 
 
 - (void)undoManagerDidUndo:(NSNotification *)notification {

@@ -9,24 +9,45 @@
 #import <UIKit/UIKit.h>
 #import "LSFractal+addons.h"
 #import "FractalDefinitionKeyboardView.h"
+#import "ColorPickerController.h"
 
-@interface MBLSFractalEditViewController : UIViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate>
+@interface MBLSFractalEditViewController : UIViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *fractalDefinitionAppearanceView;
-@property (strong, nonatomic) IBOutlet UIView *fractalDefinitionRulesView;
-@property (weak, nonatomic) IBOutlet UIView *fractalDefinitionPlaceholderView;
 
+@property (nonatomic, strong) LSFractal*            currentFractal;
 @property (assign, nonatomic) CGRect                placeHolderBounds;
 @property (assign, nonatomic) CGPoint               placeHolderCenter;
-@property (nonatomic, strong) LSFractal*            currentFractal;
+@property (nonatomic, strong) UIPopoverController*  colorPopover;
+@property (nonatomic, strong) NSString*             coloringKey;
 @property (nonatomic, strong) NSNumberFormatter*    onePlaceFormatter;
 
+#pragma mark - Property Input Views
 @property (weak, nonatomic) IBOutlet UIScrollView   *fractalPropertiesView;
+
 @property (weak, nonatomic) IBOutlet UITextField    *fractalName;
 @property (weak, nonatomic) IBOutlet UITextView     *fractalDescriptor;
+
+@property (weak, nonatomic) IBOutlet UIView         *fractalDefinitionPlaceholderView;
+@property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionAppearanceView;
+@property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionRulesView;
+
+#pragma mark - Drawing Views
+@property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
+@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel0;
+@property (strong, nonatomic) IBOutletCollection(UIRotationGestureRecognizer) NSArray *level0GestureRecognizers;
+@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
+@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevelN;
+
+#pragma mark - Production Fields
 @property (weak, nonatomic) IBOutlet UITextField    *fractalAxiom;
+
+#pragma mark - Appearance Fields
 @property (weak, nonatomic) IBOutlet UITextField    *fractalLineLength;
 @property (weak, nonatomic) IBOutlet UIStepper      *lineLengthStepper;
+
+@property (weak, nonatomic) IBOutlet UITextField    *fractalWidth;
+@property (weak, nonatomic) IBOutlet UIStepper      *widthStepper;
+@property (weak, nonatomic) IBOutlet UISlider       *widthSlider;
 
 @property (weak, nonatomic) IBOutlet UITextField    *fractalTurningAngle;
 @property (weak, nonatomic) IBOutlet UIStepper      *turnAngleStepper;
@@ -34,11 +55,11 @@
 @property (weak, nonatomic) IBOutlet UITextField    *fractalLevel;
 @property (weak, nonatomic) IBOutlet UIStepper      *levelStepper;
 
-@property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel0;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevelN;
 
+@property (weak, nonatomic) IBOutlet UISwitch       *strokeSwitch;
+@property (weak, nonatomic) IBOutlet UIButton       *strokeColorButton;
+@property (weak, nonatomic) IBOutlet UISwitch       *fillSwitch;
+@property (weak, nonatomic) IBOutlet UIButton       *fillColorButton;
 
 @property (nonatomic, strong) NSUndoManager *undoManager;
 
@@ -50,12 +71,21 @@
 - (void)keyTapped:(NSString*)title;
 - (void)doneTapped;
 
-#pragma mark - Control Actions
-- (IBAction)lineLengthInputChanged:(id)sender;
-- (IBAction)turnAngleInputChanged:(id)sender;
-- (IBAction)axiomInputChanged:(UITextField*)sender;
+#pragma mark - Description Control Actions
 - (IBAction)nameInputDidEnd:(UITextField*)sender;
-- (IBAction)levelInputChanged:(id)sender;
 - (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender;
+
+#pragma mark - Production Control Actions
+- (IBAction)axiomInputChanged:(UITextField*)sender;
+
+#pragma mark - Appearance Control Actions
+- (IBAction)lineLengthInputChanged: (UIStepper*)sender;
+- (IBAction)lineWidthInputChanged: (id)sender;
+- (IBAction)turnAngleInputChanged: (UIStepper*)sender;
+- (IBAction)levelInputChanged: (UIStepper*)sender;
+- (IBAction)selectStrokeColor: (UIButton*)sender;
+- (IBAction)selectFillColor: (UIButton*)sender;
+- (IBAction)toggleStroke: (UISwitch*)sender;
+- (IBAction)toggleFill: (UISwitch*)sender;
 
 @end

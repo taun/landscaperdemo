@@ -144,7 +144,6 @@
 								<bool key="IBUIEnabled">NO</bool>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>
-								<int key="IBUIBorderStyle">2</int>
 								<reference key="IBUITextColor" ref="511662923"/>
 								<int key="IBUITextAlignment">2</int>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
@@ -166,6 +165,7 @@
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<bool key="IBUIEnabled">NO</bool>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<double key="IBUIMaximumValue">6</double>
@@ -244,23 +244,6 @@
 						<int key="IBEventType">13</int>
 					</object>
 					<int key="connectionID">49</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="690257106"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">45</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">levelInputChanged:</string>
-						<reference key="source" ref="690257106"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">19</int>
-					</object>
-					<int key="connectionID">46</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -418,11 +401,16 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="axiomInputChanged:">UITextField</string>
-						<string key="levelInputChanged:">id</string>
-						<string key="lineLengthInputChanged:">id</string>
+						<string key="levelInputChanged:">UIStepper</string>
+						<string key="lineLengthInputChanged:">UIStepper</string>
+						<string key="lineWidthInputChanged:">UIStepper</string>
 						<string key="nameInputDidEnd:">UITextField</string>
+						<string key="selectFillColor:">UIButton</string>
+						<string key="selectStrokeColor:">UIButton</string>
 						<string key="switchFractalDefinitionView:">UISegmentedControl</string>
-						<string key="turnAngleInputChanged:">id</string>
+						<string key="toggleFill:">UISwitch</string>
+						<string key="toggleStroke:">UISwitch</string>
+						<string key="turnAngleInputChanged:">UIStepper</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="axiomInputChanged:">
@@ -431,26 +419,47 @@
 						</object>
 						<object class="IBActionInfo" key="levelInputChanged:">
 							<string key="name">levelInputChanged:</string>
-							<string key="candidateClassName">id</string>
+							<string key="candidateClassName">UIStepper</string>
 						</object>
 						<object class="IBActionInfo" key="lineLengthInputChanged:">
 							<string key="name">lineLengthInputChanged:</string>
-							<string key="candidateClassName">id</string>
+							<string key="candidateClassName">UIStepper</string>
+						</object>
+						<object class="IBActionInfo" key="lineWidthInputChanged:">
+							<string key="name">lineWidthInputChanged:</string>
+							<string key="candidateClassName">UIStepper</string>
 						</object>
 						<object class="IBActionInfo" key="nameInputDidEnd:">
 							<string key="name">nameInputDidEnd:</string>
 							<string key="candidateClassName">UITextField</string>
 						</object>
+						<object class="IBActionInfo" key="selectFillColor:">
+							<string key="name">selectFillColor:</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBActionInfo" key="selectStrokeColor:">
+							<string key="name">selectStrokeColor:</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBActionInfo" key="switchFractalDefinitionView:">
 							<string key="name">switchFractalDefinitionView:</string>
 							<string key="candidateClassName">UISegmentedControl</string>
 						</object>
+						<object class="IBActionInfo" key="toggleFill:">
+							<string key="name">toggleFill:</string>
+							<string key="candidateClassName">UISwitch</string>
+						</object>
+						<object class="IBActionInfo" key="toggleStroke:">
+							<string key="name">toggleStroke:</string>
+							<string key="candidateClassName">UISwitch</string>
+						</object>
 						<object class="IBActionInfo" key="turnAngleInputChanged:">
 							<string key="name">turnAngleInputChanged:</string>
-							<string key="candidateClassName">id</string>
+							<string key="candidateClassName">UIStepper</string>
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="fillSwitch">UISwitch</string>
 						<string key="fractalAxiom">UITextField</string>
 						<string key="fractalDefinitionAppearanceView">UIView</string>
 						<string key="fractalDefinitionPlaceholderView">UIView</string>
@@ -466,11 +475,18 @@
 						<string key="fractalViewLevel1">UIView</string>
 						<string key="fractalViewLevelN">UIView</string>
 						<string key="fractalViewLevelNLabel">UILabel</string>
+						<string key="fractalWidth">UITextField</string>
 						<string key="levelStepper">UIStepper</string>
 						<string key="lineLengthStepper">UIStepper</string>
+						<string key="strokeSwitch">UISwitch</string>
 						<string key="turnAngleStepper">UIStepper</string>
+						<string key="widthStepper">UIStepper</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="fillSwitch">
+							<string key="name">fillSwitch</string>
+							<string key="candidateClassName">UISwitch</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="fractalAxiom">
 							<string key="name">fractalAxiom</string>
 							<string key="candidateClassName">UITextField</string>
@@ -531,6 +547,10 @@
 							<string key="name">fractalViewLevelNLabel</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="fractalWidth">
+							<string key="name">fractalWidth</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="levelStepper">
 							<string key="name">levelStepper</string>
 							<string key="candidateClassName">UIStepper</string>
@@ -539,8 +559,16 @@
 							<string key="name">lineLengthStepper</string>
 							<string key="candidateClassName">UIStepper</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="strokeSwitch">
+							<string key="name">strokeSwitch</string>
+							<string key="candidateClassName">UISwitch</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="turnAngleStepper">
 							<string key="name">turnAngleStepper</string>
+							<string key="candidateClassName">UIStepper</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="widthStepper">
+							<string key="name">widthStepper</string>
 							<string key="candidateClassName">UIStepper</string>
 						</object>
 					</dictionary>

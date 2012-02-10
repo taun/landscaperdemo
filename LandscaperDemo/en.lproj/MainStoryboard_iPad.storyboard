@@ -72,7 +72,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pSX-p9-jkP">
-                        <rect key="frame" x="0.0" y="64" width="768" height="911"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" multipleTouchEnabled="YES" tag="500" contentMode="TopLeft" id="Lid-md-lf6" customClass="MBPortalStyleView">
@@ -121,6 +121,7 @@
                                                 <rect key="frame" x="0.0" y="160" width="381" height="327"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="2BC-PO-ii2">
                                                 <rect key="frame" x="20" y="123" width="341" height="30"/>
@@ -140,7 +141,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="TbU-WI-8ja" userLabel="FractalLevelN" customClass="MBPortalStyleView">
-                                <rect key="frame" x="0.0" y="495" width="768" height="416"/>
+                                <rect key="frame" x="0.0" y="495" width="768" height="421"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iterations:" lineBreakMode="tailTruncation" minimumFontSize="10" id="CwB-Uy-ezK">
@@ -173,6 +174,10 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="n3p-9U-k75" appends="YES" id="AXi-eb-xoG"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MBPortalStyleView">
                                 <rect key="frame" x="389" y="229" width="379" height="258"/>
@@ -191,7 +196,9 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Fractal Editor" id="5yD-Jb-xIT"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="fractalDefinitionPlaceholderView" destination="SVg-nK-aRG" id="jHj-bc-mat"/>
                         <outlet property="fractalDescriptor" destination="PxA-nM-vB3" id="S9y-Xo-oVU"/>
@@ -202,6 +209,10 @@
                         <outlet property="fractalViewLevel1" destination="dJU-MH-ihA" id="1gz-hf-fUO"/>
                         <outlet property="fractalViewLevelN" destination="TbU-WI-8ja" id="3WM-96-TYb"/>
                         <outlet property="fractalViewLevelNLabel" destination="nXe-lZ-0xB" id="fSq-Zf-asN"/>
+                        <outletCollection property="level0GestureRecognizers" destination="n3p-9U-k75" id="cIA-ac-UUm"/>
+                        <segue destination="cMu-0j-3J1" kind="popover" identifier="ColorPickerPopoverSeque" popoverAnchorView="SVg-nK-aRG" id="P4I-Bk-UYt">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <customObject id="hrP-bc-aE6" customClass="FractalDefinitionKeyboardView">
@@ -209,8 +220,39 @@
                         <outlet property="delegate" destination="4nM-Pc-iAd" id="gns-ni-Reh"/>
                     </connections>
                 </customObject>
+                <rotationGestureRecognizer id="n3p-9U-k75"/>
             </objects>
-            <point key="canvasLocation" x="4895" y="49"/>
+            <point key="canvasLocation" x="5127" y="49"/>
+        </scene>
+        <scene sceneID="tXO-kt-t4O">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OEb-V2-BUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="yq5-hA-2Ny" customClass="ColorPickerController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U9m-hQ-MWe">
+                        <rect key="frame" x="0.0" y="44" width="500" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Color Picker" id="lAP-nQ-SpX"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="400" height="400"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="7076" y="339"/>
+        </scene>
+        <scene sceneID="liv-an-Md9">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dp8-M9-cY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="cMu-0j-3J1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="pRa-zc-LTM">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="yq5-hA-2Ny" kind="relationship" relationship="rootViewController" id="loS-Fq-Uqg"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="6078" y="49"/>
         </scene>
         <scene sceneID="cHp-ci-Or9">
             <objects>
@@ -290,6 +332,12 @@
         <image name="second" width="16" height="16"/>
     </resources>
     <classes>
+        <class className="ColorPickerController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorPickerController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
         <class className="FractalDefinitionKeyboardView" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FractalDefinitionKeyboardView.h"/>
             <relationships>
@@ -307,11 +355,18 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBLSFractalEditViewController.h"/>
             <relationships>
                 <relationship kind="action" name="axiomInputChanged:" candidateClass="UITextField"/>
-                <relationship kind="action" name="levelInputChanged:"/>
-                <relationship kind="action" name="lineLengthInputChanged:"/>
+                <relationship kind="action" name="levelInputChanged:" candidateClass="UIStepper"/>
+                <relationship kind="action" name="lineLengthInputChanged:" candidateClass="UIStepper"/>
+                <relationship kind="action" name="lineWidthInputChanged:"/>
                 <relationship kind="action" name="nameInputDidEnd:" candidateClass="UITextField"/>
-                <relationship kind="action" name="switchFractalDefinitionView:"/>
-                <relationship kind="action" name="turnAngleInputChanged:"/>
+                <relationship kind="action" name="selectFillColor:" candidateClass="UIButton"/>
+                <relationship kind="action" name="selectStrokeColor:" candidateClass="UIButton"/>
+                <relationship kind="action" name="switchFractalDefinitionView:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="toggleFill:" candidateClass="UISwitch"/>
+                <relationship kind="action" name="toggleStroke:" candidateClass="UISwitch"/>
+                <relationship kind="action" name="turnAngleInputChanged:" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="fillColorButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fillSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="fractalAxiom" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="fractalDefinitionAppearanceView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="fractalDefinitionPlaceholderView" candidateClass="UIView"/>
@@ -327,13 +382,22 @@
                 <relationship kind="outlet" name="fractalViewLevel1" candidateClass="UIView"/>
                 <relationship kind="outlet" name="fractalViewLevelN" candidateClass="UIView"/>
                 <relationship kind="outlet" name="fractalViewLevelNLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="fractalWidth" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="levelStepper" candidateClass="UIStepper"/>
                 <relationship kind="outlet" name="lineLengthStepper" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="strokeColorButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="strokeSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="turnAngleStepper" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="widthSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="widthStepper" candidateClass="UIStepper"/>
+                <relationship kind="outletCollection" name="gestureRecognizers" candidateClass="UIRotationGestureRecognizer"/>
             </relationships>
         </class>
         <class className="MBPortalStyleView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBPortalStyleView.h"/>
+            <relationships>
+                <relationship kind="outletCollection" name="gestureRecognizers" candidateClass="UIRotationGestureRecognizer"/>
+            </relationships>
         </class>
         <class className="MBScapeLibraryViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBScapeLibraryViewController.h"/>
