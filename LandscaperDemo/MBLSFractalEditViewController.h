@@ -34,9 +34,10 @@
 #pragma mark - Drawing Views
 @property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel0;
-@property (strong, nonatomic) IBOutletCollection(UIRotationGestureRecognizer) NSArray *level0GestureRecognizers;
+
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevelN;
+@property (weak, nonatomic) IBOutlet UIView         *levelSliderContainerView;
 
 #pragma mark - Production Fields
 @property (weak, nonatomic) IBOutlet UITextField    *fractalAxiom;
@@ -51,9 +52,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextField    *fractalTurningAngle;
 @property (weak, nonatomic) IBOutlet UIStepper      *turnAngleStepper;
+@property (weak, nonatomic) IBOutlet UILabel        *fractalBaseAngle;
 
 @property (weak, nonatomic) IBOutlet UITextField    *fractalLevel;
 @property (weak, nonatomic) IBOutlet UIStepper      *levelStepper;
+@property (weak, nonatomic) IBOutlet UISlider       *levelSlider;
 
 
 @property (weak, nonatomic) IBOutlet UISwitch       *strokeSwitch;
@@ -82,10 +85,12 @@
 - (IBAction)lineLengthInputChanged: (UIStepper*)sender;
 - (IBAction)lineWidthInputChanged: (id)sender;
 - (IBAction)turnAngleInputChanged: (UIStepper*)sender;
-- (IBAction)levelInputChanged: (UIStepper*)sender;
+- (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction)selectStrokeColor: (UIButton*)sender;
 - (IBAction)selectFillColor: (UIButton*)sender;
 - (IBAction)toggleStroke: (UISwitch*)sender;
 - (IBAction)toggleFill: (UISwitch*)sender;
+
+- (IBAction)rotateFractal:(UIRotationGestureRecognizer*)sender;
 
 @end

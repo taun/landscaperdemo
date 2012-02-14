@@ -38,8 +38,12 @@
 
 @property (nonatomic, strong, readonly) NSSet*   editControls;
 
+@property (nonatomic, assign) double viewNRotationFromStart;
+
+-(void) fitLayer: (CALayer*) layerA inLayer: (CALayer*) layerB margin: (double) margin;
+
 -(void) setEditMode: (BOOL) editing;
--(void) setupLevelGeneratorForLayer: (CALayer*) aLayer forceLevel: (NSInteger) aLevel;
+-(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel;
 -(void) reloadLabels;
 -(void) refreshValueInputs;
 -(void) refreshLayers;
@@ -71,10 +75,10 @@
 @synthesize fractalAxiom = _fractalAxiomTextField;
 @synthesize fractalInputControl = _fractalInputControl;
 @synthesize activeTextField = _activeField;
-@synthesize fractalViewLevel0 = _fractalLevelView0;
-@synthesize level0GestureRecognizers = _level0GestureRecognizers;
-@synthesize fractalViewLevel1 = _fractalLevelView1;
-@synthesize fractalViewLevelN = _fractalLevelViewN;
+@synthesize fractalViewLevel0 = _fractalViewLevel0;
+@synthesize fractalViewLevel1 = _fractalViewLevel1;
+@synthesize fractalViewLevelN = _fractalViewLevelN;
+@synthesize levelSliderContainerView = _levelSliderContainerView;
 @synthesize fractalLineLength = _lineLengthTextField;
 @synthesize lineLengthStepper = _lineLengthStepper;
 @synthesize fractalWidth = _fractalWidth;
@@ -82,8 +86,10 @@
 @synthesize widthSlider = _widthSlider;
 @synthesize fractalTurningAngle = _turnAngleTextField;
 @synthesize turnAngleStepper = _turnAngleStepper;
+@synthesize fractalBaseAngle = _fractalBaseAngle;
 @synthesize fractalLevel = _fractalLevel;
 @synthesize levelStepper = _levelStepper;
+@synthesize levelSlider = _levelSlider;
 @synthesize strokeSwitch = _strokeSwitch;
 @synthesize fillColorButton = _fillColorButton;
 @synthesize strokeColorButton = _strokeColorButton;
@@ -94,6 +100,7 @@
 @synthesize fractalDisplayLayersArray = _fractalDisplayLayersArray;
 @synthesize generatorsArray = _generatorsArray;
 @synthesize editControls = _editControls;
+@synthesize viewNRotationFromStart = _viewNRotationFromStart;
 
 @synthesize undoManager = _undoManager;
 
@@ -105,6 +112,16 @@
 //    }
 //    return self;
 //}
+
+-(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo {
+    CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(bounds);
+    NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
+    CFRelease(boundsDict);
+    
+    NSLog(@"%@ = %@", boundsInfo,boundsDescription);
+}
+
+
 
 #pragma mark - Fractal Property KVO
 -(void) setCurrentFractal:(LSFractal *)fractal {
@@ -187,6 +204,7 @@
                          self.strokeColorButton,
                          self.fillSwitch,
                          self.fillColorButton,
+                         self.levelSlider,
                          nil];
     }
     return _editControls;
@@ -202,6 +220,13 @@
         [_onePlaceFormatter setNegativeFormat: @"-##0.0"];
     }
     return _onePlaceFormatter;
+}
+
+-(void) setFractalViewLevelN:(UIView *)fractalViewLevelN {
+    _fractalViewLevelN = fractalViewLevelN;
+    UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] initWithTarget: self action: @selector(rotateFractal:)];
+    [_fractalViewLevelN addGestureRecognizer: rgr];
+    [self setupLevelGeneratorForView: _fractalViewLevelN name: @"fractalLevelN" forceLevel: -1];
 }
 
 #pragma mark - View lifecycle
@@ -220,14 +245,22 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+-(void) fitLayer: (CALayer*) layerA inLayer: (CALayer*) layerB margin: (double) margin {
+    CGRect boundsB = layerB.bounds;
+    CGRect boundsA = CGRectInset(boundsB, margin, margin);
+    layerA.bounds = boundsA;
+    layerA.position = CGPointMake(boundsB.size.width/2, boundsB.size.height/2);
 }
-*/
 
--(void) setupLevelGeneratorForLayer: (CALayer*) aLayer forceLevel: (NSInteger) aLevel {
+-(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel {
+    CALayer* aLayer = [[CALayer alloc] init];
+    aLayer.name = name;
+    aLayer.needsDisplayOnBoundsChange = YES;
+    
+    [self fitLayer: aLayer inLayer: aView.layer margin: 10];        
+    [aView.layer addSublayer: aLayer];
+
+    
     LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
     
     if (generator) {
@@ -266,6 +299,7 @@
     
     self.fractalLevel.text = [self.currentFractal.level stringValue];
     self.levelStepper.value = [self.currentFractal.level doubleValue];
+    self.levelSlider.value = [self.currentFractal.level doubleValue];
     
     self.strokeSwitch.on = [self.currentFractal.stroke boolValue];
     self.fillSwitch.on = [self.currentFractal.fill boolValue];
@@ -273,9 +307,17 @@
 
 -(void) refreshLayers {
     self.fractalViewLevelNLabel.text = [self.currentFractal.level stringValue];
+    self.fractalBaseAngle.text = [self.onePlaceFormatter stringFromNumber: [self.currentFractal baseAngleAsDegree]];
+    
+//    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
+//    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
     
     for (CALayer* layer in self.fractalDisplayLayersArray) {
         layer.contents = nil;
+//        [self logBounds: layer.bounds info: @"newLayer Bounds"];
+        [layer setNeedsLayout];
+        [layer layoutIfNeeded];
+//        [self logBounds: layer.bounds info: @"newLayer Bounds"];
         [layer setNeedsDisplay];
     }
 }
@@ -316,6 +358,7 @@
 //    self.fractalDefinitionAppearanceView.bounds = self.placeHolderBounds;
 }
 
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 //TODO: change the generator, layer, levels to be more generic.
 //TODO: note changing number of levels only changes N view.
@@ -337,15 +380,39 @@
 //    self.navigationItem.rightBarButtonItem = saveButton;
     
     
-    [self setupLevelGeneratorForLayer:self.fractalViewLevel0.layer forceLevel:0];
-    [self setupLevelGeneratorForLayer:self.fractalViewLevel1.layer forceLevel:1];
-    [self setupLevelGeneratorForLayer:self.fractalViewLevelN.layer forceLevel:-1];
-    
+    [self setupLevelGeneratorForView: self.fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
+    [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
+        
     self.fractalAxiom.inputView = self.fractalInputControl.view;
+    
+    CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
+    [self.levelSliderContainerView setTransform: rotateCC];
     
     [self reloadLabels];
     [self refreshValueInputs];
     [self refreshLayers];
+}
+
+
+/*!
+ Want to monitor the layout to resize the fractal layer of fractalViewLevelN. Always fit the layer in the view on layout.
+ Can change the layer scale or the frame and redraw the layer?
+ */
+-(void) viewDidLayoutSubviews {
+    CALayer* containingLayer = self.fractalViewLevelN.layer;
+    NSArray* subLayers = containingLayer.sublayers;
+    for (CALayer* layer in subLayers) {
+        if ([layer.name isEqualToString: @"fractalLevel0"]) {
+            [self fitLayer: layer inLayer: containingLayer margin: 10];
+            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+        } else if ([layer.name isEqualToString: @"fractalLevel1"]) {
+            [self fitLayer: layer inLayer: containingLayer margin: 10];
+            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+        } if ([layer.name isEqualToString: @"fractalLevelN"]) {
+            [self fitLayer: layer inLayer: containingLayer margin: 10];
+            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+        }
+    }
 }
 
 -(void) setEditMode: (BOOL) editing {
@@ -372,7 +439,7 @@
             UISwitch* tf = (UISwitch*) control;
             tf.hidden = !editing;
         } else if ([control isKindOfClass:[UIButton class]]) {
-            UIButton* tf = (UIButton*) control;
+//            UIButton* tf = (UIButton*) control;
         }
     }
 }
@@ -466,7 +533,9 @@
     [self setFillColorButton:nil];
     [self setStrokeColorButton:nil];
     [self setWidthSlider:nil];
-    [self setLevel0GestureRecognizers:nil];
+    [self setLevelSliderContainerView:nil];
+    [self setLevelSlider:nil];
+    [self setFractalBaseAngle:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -557,8 +626,10 @@
     self.currentFractal.name = sender.text;
 }
 
-- (IBAction)levelInputChanged:(UIStepper*)sender {
-    self.currentFractal.level = [NSNumber numberWithDouble: sender.value];
+- (IBAction)levelInputChanged:(UIControl*)sender {
+    double rawValue = [[sender valueForKey: @"value"] doubleValue];
+    NSNumber* roundedNumber = [NSNumber numberWithLong: lround(rawValue)];
+    self.currentFractal.level = roundedNumber;
 }
 
 - (IBAction)selectStrokeColor:(UIButton*)sender {
@@ -608,7 +679,9 @@
 }
 
 - (IBAction)lineWidthInputChanged:(id)sender {
-    self.currentFractal.lineWidth = [sender valueForKey: @"value"];
+    double rawValue = [[sender valueForKey: @"value"] doubleValue];
+    NSNumber* roundedNumber = [NSNumber numberWithDouble: (floor(rawValue*10)/10.0)];
+    self.currentFractal.lineWidth = roundedNumber;
 }
 
 - (IBAction)axiomInputChanged:(UITextField*)sender {
@@ -629,6 +702,19 @@
         
     } else if(sender.selectedSegmentIndex == 1) {
         [self useFractalDefinitionAppearanceView];
+    }
+}
+
+-(void) rotateFractal:(UIRotationGestureRecognizer*)sender {
+    if (self.editing) {
+        
+        double fifteenDegrees = M_PI/12.0;
+        
+        double quanta = nearbyint(sender.rotation/fifteenDegrees);
+        
+        sender.rotation = sender.rotation - (quanta*fifteenDegrees);
+        double newAngle = remainder([self.currentFractal.baseAngle doubleValue]-(quanta*fifteenDegrees), M_PI*2);
+        self.currentFractal.baseAngle = [NSNumber numberWithDouble: newAngle];
     }
 }
 
