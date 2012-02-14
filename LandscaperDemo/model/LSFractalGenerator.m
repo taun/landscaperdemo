@@ -16,6 +16,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#define MAXPRODUCTLENGTH 1500
 
 @interface LSFractalGenerator () {
     double _maxLineWidth;
@@ -496,6 +497,7 @@
 }
 
 //TODO convert this to GCD, one dispatch per axiom character? Then reassemble?
+//TODO static var for max product length and way to flag max reached.
 -(void) generateProduct {
     //estimate the length
     double localLevel = [self.fractal.level doubleValue];
@@ -519,6 +521,9 @@
     
     for (int i = 0; i < localLevel ; i++) {
         NSUInteger sourceLength = sourceData.length;
+        if (sourceLength > MAXPRODUCTLENGTH) {
+            break;
+        }
         
         NSString* key;
         NSString* replacement;
@@ -559,6 +564,10 @@
     if (self.pathNeedsGenerating) {
         
         CGPathMoveToPoint(self.currentSegment.path, NULL, 0.0f, 0.0f);
+        double startingRotation = [self.fractal.baseAngle doubleValue];
+        
+        self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -startingRotation);
+
         
         for (int c=0; c < [self.production length]; c++) {
             NSString* rule = [self.production substringWithRange: NSMakeRange(c , 1)];
@@ -710,5 +719,12 @@
     }
     return result;
 }
+
+//TODO: why is this called. somehow related to adding a subview to LevelN view.
+// When the subview is touched even "charge" gets called to the delegate which seems to be the generator even though the generator is only the delegate of the LevelN view layer.
+//-(void) charge {
+//    
+//    NSLog(@"Charge called");
+//}
 
 @end

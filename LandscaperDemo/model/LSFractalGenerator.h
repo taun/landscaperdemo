@@ -54,4 +54,5 @@
 #pragma mark - layer delegate
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext;
 
+//-(void) charge;
 @end
