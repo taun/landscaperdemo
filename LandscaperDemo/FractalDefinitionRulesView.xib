@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">11C74</string>
+		<string key="IBDocument.SystemVersion">11D50b</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1138.23</string>
-		<string key="IBDocument.HIToolboxVersion">567.00</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">933</string>
@@ -13,7 +13,7 @@
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBUITextField</string>
 			<string>IBUILabel</string>
-			<string>IBUIStepper</string>
+			<string>IBUITableView</string>
 			<string>IBUIView</string>
 			<string>IBUIScrollView</string>
 			<string>IBProxyObject</string>
@@ -36,11 +36,11 @@
 			</object>
 			<object class="IBUIView" id="431039176">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">292</int>
+				<int key="NSvFlags">310</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIScrollView" id="930607441">
 						<reference key="NSNextResponder" ref="431039176"/>
-						<int key="NSvFlags">1298</int>
+						<int key="NSvFlags">1334</int>
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUILabel" id="498884116">
 								<reference key="NSNextResponder" ref="930607441"/>
@@ -56,18 +56,18 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<string key="IBUIText">Axiom</string>
-								<object class="NSColor" key="IBUITextColor" id="640383299">
+								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="927828292">
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
 									<double key="pointSize">17</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="840596877">
+								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
@@ -80,14 +80,14 @@
 								<string key="NSFrame">{{144, 20}, {208, 31}}</string>
 								<reference key="NSSuperview" ref="930607441"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="138318822"/>
+								<reference key="NSNextKeyView" ref="1043978159"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>
 								<int key="IBUIBorderStyle">3</int>
-								<object class="NSColor" key="IBUITextColor" id="511662923">
+								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
@@ -99,76 +99,38 @@
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="37606355">
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
 									<double key="pointSize">14</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="59771775">
+								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUILabel" id="138318822">
+							<object class="IBUITableView" id="1043978159">
 								<reference key="NSNextResponder" ref="930607441"/>
-								<int key="NSvFlags">1316</int>
-								<object class="NSPSMatrix" key="NSFrameMatrix"/>
-								<string key="NSFrame">{{54, 64}, {71, 21}}</string>
-								<reference key="NSSuperview" ref="930607441"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="690257106"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<string key="IBUIText">Iterations</string>
-								<reference key="IBUITextColor" ref="640383299"/>
-								<nil key="IBUIHighlightedColor"/>
-								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">10</float>
-								<reference key="IBUIFontDescription" ref="927828292"/>
-								<reference key="IBUIFont" ref="840596877"/>
-							</object>
-							<object class="IBUITextField" id="690257106">
-								<reference key="NSNextResponder" ref="930607441"/>
-								<int key="NSvFlags">1316</int>
-								<object class="NSPSMatrix" key="NSFrameMatrix"/>
-								<string key="NSFrame">{{144, 59}, {97, 31}}</string>
-								<reference key="NSSuperview" ref="930607441"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="43440469"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<bool key="IBUIEnabled">NO</bool>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUIText"/>
-								<reference key="IBUITextColor" ref="511662923"/>
-								<int key="IBUITextAlignment">2</int>
-								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
-								<float key="IBUIMinimumFontSize">17</float>
-								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
-									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								</object>
-								<reference key="IBUIFontDescription" ref="37606355"/>
-								<reference key="IBUIFont" ref="59771775"/>
-							</object>
-							<object class="IBUIStepper" id="43440469">
-								<reference key="NSNextResponder" ref="930607441"/>
-								<int key="NSvFlags">1292</int>
-								<object class="NSPSMatrix" key="NSFrameMatrix"/>
-								<string key="NSFrame">{{258, 60}, {94, 27}}</string>
+								<int key="NSvFlags">1298</int>
+								<string key="NSFrame">{{0, 59}, {379, 260}}</string>
 								<reference key="NSSuperview" ref="930607441"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<string key="NSReuseIdentifierKey">_NS:408</string>
+								<object class="NSColor" key="IBUIBackgroundColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAgMAA</bytes>
+								</object>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<bool key="IBUIEnabled">NO</bool>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<double key="IBUIMaximumValue">6</double>
+								<bool key="IBUIAlwaysBounceVertical">YES</bool>
+								<int key="IBUIStyle">1</int>
+								<int key="IBUISeparatorStyle">2</int>
+								<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
+								<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
+								<float key="IBUIRowHeight">44</float>
+								<float key="IBUISectionHeaderHeight">10</float>
+								<float key="IBUISectionFooterHeight">10</float>
 							</object>
 						</array>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
@@ -214,36 +176,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">fractalLevel</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="690257106"/>
-					</object>
-					<int key="connectionID">43</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">levelStepper</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="43440469"/>
-					</object>
-					<int key="connectionID">44</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">fractalDefinitionRulesView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="431039176"/>
 					</object>
 					<int key="connectionID">48</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">levelInputChanged:</string>
-						<reference key="source" ref="43440469"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">13</int>
-					</object>
-					<int key="connectionID">49</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -255,12 +192,37 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">axiomInputChanged:</string>
+						<string key="label">axiomInputEnded:</string>
 						<reference key="source" ref="1039732760"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">19</int>
 					</object>
-					<int key="connectionID">47</int>
+					<int key="connectionID">51</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">axiomInputChanged:</string>
+						<reference key="source" ref="1039732760"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">18</int>
+					</object>
+					<int key="connectionID">52</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="1043978159"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">54</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="1043978159"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">55</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -296,29 +258,10 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="1039732760"/>
 							<reference ref="498884116"/>
-							<reference ref="690257106"/>
-							<reference ref="43440469"/>
-							<reference ref="138318822"/>
+							<reference ref="1043978159"/>
 						</array>
 						<reference key="parent" ref="431039176"/>
 						<string key="objectName">Production Scroll View</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="43440469"/>
-						<reference key="parent" ref="930607441"/>
-						<string key="objectName">LevelStepper</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="690257106"/>
-						<reference key="parent" ref="930607441"/>
-						<string key="objectName">level</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">6</int>
-						<reference key="object" ref="138318822"/>
-						<reference key="parent" ref="930607441"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">17</int>
@@ -329,6 +272,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">18</int>
 						<reference key="object" ref="498884116"/>
+						<reference key="parent" ref="930607441"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">53</int>
+						<reference key="object" ref="1043978159"/>
 						<reference key="parent" ref="930607441"/>
 					</object>
 				</array>
@@ -348,21 +296,13 @@
 				<reference key="3.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="3.showNotes"/>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<reference key="4.IBUserGuides" ref="0"/>
-				<boolean value="NO" key="4.showNotes"/>
-				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<reference key="5.IBUserGuides" ref="0"/>
-				<boolean value="NO" key="5.showNotes"/>
-				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<reference key="6.IBUserGuides" ref="0"/>
-				<boolean value="NO" key="6.showNotes"/>
+				<string key="53.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">49</int>
+			<int key="maxID">55</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -401,10 +341,14 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="axiomInputChanged:">UITextField</string>
-						<string key="levelInputChanged:">UIStepper</string>
+						<string key="axiomInputEnded:">UITextField</string>
+						<string key="copyFractal:">id</string>
+						<string key="levelInputChanged:">UIControl</string>
 						<string key="lineLengthInputChanged:">UIStepper</string>
-						<string key="lineWidthInputChanged:">UIStepper</string>
+						<string key="lineWidthInputChanged:">id</string>
+						<string key="magnifyFractal:">UILongPressGestureRecognizer</string>
 						<string key="nameInputDidEnd:">UITextField</string>
+						<string key="rotateFractal:">UIRotationGestureRecognizer</string>
 						<string key="selectFillColor:">UIButton</string>
 						<string key="selectStrokeColor:">UIButton</string>
 						<string key="switchFractalDefinitionView:">UISegmentedControl</string>
@@ -417,9 +361,17 @@
 							<string key="name">axiomInputChanged:</string>
 							<string key="candidateClassName">UITextField</string>
 						</object>
+						<object class="IBActionInfo" key="axiomInputEnded:">
+							<string key="name">axiomInputEnded:</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBActionInfo" key="copyFractal:">
+							<string key="name">copyFractal:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="levelInputChanged:">
 							<string key="name">levelInputChanged:</string>
-							<string key="candidateClassName">UIStepper</string>
+							<string key="candidateClassName">UIControl</string>
 						</object>
 						<object class="IBActionInfo" key="lineLengthInputChanged:">
 							<string key="name">lineLengthInputChanged:</string>
@@ -427,11 +379,19 @@
 						</object>
 						<object class="IBActionInfo" key="lineWidthInputChanged:">
 							<string key="name">lineWidthInputChanged:</string>
-							<string key="candidateClassName">UIStepper</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="magnifyFractal:">
+							<string key="name">magnifyFractal:</string>
+							<string key="candidateClassName">UILongPressGestureRecognizer</string>
 						</object>
 						<object class="IBActionInfo" key="nameInputDidEnd:">
 							<string key="name">nameInputDidEnd:</string>
 							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBActionInfo" key="rotateFractal:">
+							<string key="name">rotateFractal:</string>
+							<string key="candidateClassName">UIRotationGestureRecognizer</string>
 						</object>
 						<object class="IBActionInfo" key="selectFillColor:">
 							<string key="name">selectFillColor:</string>
@@ -459,8 +419,10 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="fillColorButton">UIButton</string>
 						<string key="fillSwitch">UISwitch</string>
 						<string key="fractalAxiom">UITextField</string>
+						<string key="fractalBaseAngle">UILabel</string>
 						<string key="fractalDefinitionAppearanceView">UIView</string>
 						<string key="fractalDefinitionPlaceholderView">UIView</string>
 						<string key="fractalDefinitionRulesView">UIView</string>
@@ -474,15 +436,24 @@
 						<string key="fractalViewLevel0">UIView</string>
 						<string key="fractalViewLevel1">UIView</string>
 						<string key="fractalViewLevelN">UIView</string>
+						<string key="fractalViewLevelNHUD">UIView</string>
 						<string key="fractalViewLevelNLabel">UILabel</string>
 						<string key="fractalWidth">UITextField</string>
+						<string key="levelSlider">UISlider</string>
+						<string key="levelSliderContainerView">UIView</string>
 						<string key="levelStepper">UIStepper</string>
 						<string key="lineLengthStepper">UIStepper</string>
+						<string key="strokeColorButton">UIButton</string>
 						<string key="strokeSwitch">UISwitch</string>
 						<string key="turnAngleStepper">UIStepper</string>
+						<string key="widthSlider">UISlider</string>
 						<string key="widthStepper">UIStepper</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="fillColorButton">
+							<string key="name">fillColorButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="fillSwitch">
 							<string key="name">fillSwitch</string>
 							<string key="candidateClassName">UISwitch</string>
@@ -490,6 +461,10 @@
 						<object class="IBToOneOutletInfo" key="fractalAxiom">
 							<string key="name">fractalAxiom</string>
 							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalBaseAngle">
+							<string key="name">fractalBaseAngle</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="fractalDefinitionAppearanceView">
 							<string key="name">fractalDefinitionAppearanceView</string>
@@ -543,6 +518,10 @@
 							<string key="name">fractalViewLevelN</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="fractalViewLevelNHUD">
+							<string key="name">fractalViewLevelNHUD</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="fractalViewLevelNLabel">
 							<string key="name">fractalViewLevelNLabel</string>
 							<string key="candidateClassName">UILabel</string>
@@ -550,6 +529,14 @@
 						<object class="IBToOneOutletInfo" key="fractalWidth">
 							<string key="name">fractalWidth</string>
 							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="levelSlider">
+							<string key="name">levelSlider</string>
+							<string key="candidateClassName">UISlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="levelSliderContainerView">
+							<string key="name">levelSliderContainerView</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="levelStepper">
 							<string key="name">levelStepper</string>
@@ -559,6 +546,10 @@
 							<string key="name">lineLengthStepper</string>
 							<string key="candidateClassName">UIStepper</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="strokeColorButton">
+							<string key="name">strokeColorButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="strokeSwitch">
 							<string key="name">strokeSwitch</string>
 							<string key="candidateClassName">UISwitch</string>
@@ -566,6 +557,10 @@
 						<object class="IBToOneOutletInfo" key="turnAngleStepper">
 							<string key="name">turnAngleStepper</string>
 							<string key="candidateClassName">UIStepper</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="widthSlider">
+							<string key="name">widthSlider</string>
+							<string key="candidateClassName">UISlider</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="widthStepper">
 							<string key="name">widthStepper</string>

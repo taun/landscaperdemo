@@ -10,6 +10,6 @@
 
 @interface MBPortalStyleView : UIView
 
-@property (strong, nonatomic) IBOutletCollection(UIRotationGestureRecognizer) NSArray *gestureRecognizers;
+//@property (strong, nonatomic) IBOutletCollection(UIRotationGestureRecognizer) NSArray *gestureRecognizers;
 
 @end
