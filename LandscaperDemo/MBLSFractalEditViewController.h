@@ -11,7 +11,7 @@
 #import "FractalDefinitionKeyboardView.h"
 #import "ColorPickerController.h"
 
-@interface MBLSFractalEditViewController : UIViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate>
+@interface MBLSFractalEditViewController : UIViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 @property (nonatomic, strong) LSFractal*            currentFractal;
@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIPopoverController*  colorPopover;
 @property (nonatomic, strong) NSString*             coloringKey;
 @property (nonatomic, strong) NSNumberFormatter*    onePlaceFormatter;
+@property (nonatomic, strong) UIBarButtonItem*      aCopyButtonItem;
 
 #pragma mark - Property Input Views
 @property (weak, nonatomic) IBOutlet UIScrollView   *fractalPropertiesView;
@@ -38,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevelN;
 @property (weak, nonatomic) IBOutlet UIView         *levelSliderContainerView;
+@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevelNHUD;
 
 #pragma mark - Production Fields
 @property (weak, nonatomic) IBOutlet UITextField    *fractalAxiom;
@@ -80,6 +82,7 @@
 
 #pragma mark - Production Control Actions
 - (IBAction)axiomInputChanged:(UITextField*)sender;
+- (IBAction)axiomInputEnded:(UITextField*)sender;
 
 #pragma mark - Appearance Control Actions
 - (IBAction)lineLengthInputChanged: (UIStepper*)sender;
@@ -92,5 +95,8 @@
 - (IBAction)toggleFill: (UISwitch*)sender;
 
 - (IBAction)rotateFractal:(UIRotationGestureRecognizer*)sender;
+- (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender;
+
+- (IBAction)copyFractal:(id)sender;
 
 @end

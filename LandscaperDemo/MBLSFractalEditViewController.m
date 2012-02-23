@@ -12,6 +12,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#define HUD_CORNER_RADIUS 12.0
+#define HUD_OPACITY 1
+
 @interface MBLSFractalEditViewController () 
 
 /*!
@@ -42,11 +45,13 @@
 
 -(void) fitLayer: (CALayer*) layerA inLayer: (CALayer*) layerB margin: (double) margin;
 
+-(void) configureRightButtons;
 -(void) setEditMode: (BOOL) editing;
 -(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel;
 -(void) reloadLabels;
 -(void) refreshValueInputs;
 -(void) refreshLayers;
+-(void) refreshContents;
 
 -(void) useFractalDefinitionRulesView;
 -(void) useFractalDefinitionAppearanceView;
@@ -70,6 +75,7 @@
 @synthesize currentFractal = _currentFractal;
 @synthesize coloringKey = _coloringKey;
 @synthesize onePlaceFormatter = _onePlaceFormatter;
+@synthesize aCopyButtonItem = _aCopyButtonItem;
 @synthesize fractalName = _fractalNameTextField;
 @synthesize fractalDescriptor = _fractalDescription;
 @synthesize fractalAxiom = _fractalAxiomTextField;
@@ -79,6 +85,7 @@
 @synthesize fractalViewLevel1 = _fractalViewLevel1;
 @synthesize fractalViewLevelN = _fractalViewLevelN;
 @synthesize levelSliderContainerView = _levelSliderContainerView;
+@synthesize fractalViewLevelNHUD = _fractalViewLevelNHUD;
 @synthesize fractalLineLength = _lineLengthTextField;
 @synthesize lineLengthStepper = _lineLengthStepper;
 @synthesize fractalWidth = _fractalWidth;
@@ -136,6 +143,13 @@
         }
         
         _currentFractal = fractal;
+        
+        // If the generators have been created, the fractal needs to be replaced.
+        if ([self.generatorsArray count] > 0) {
+            for (LSFractalGenerator* generator in self.generatorsArray) {
+                generator.fractal = _currentFractal;
+            }
+        }
     }
 }
 
@@ -156,6 +170,17 @@
 }
 
 #pragma mark - custom setter getters
+-(UIBarButtonItem*) aCopyButtonItem {
+    if (_aCopyButtonItem == nil) {
+        _aCopyButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Copy" 
+                                                            style:UIBarButtonItemStyleBordered 
+                                                           target:self 
+                                                           action:@selector(copyFractal:)];
+
+    }
+    return _aCopyButtonItem;
+}
+
 -(UIPopoverController*) colorPopover {
     if (_colorPopover == nil) {
         UIColor* color = [self.currentFractal lineColorAsUI];
@@ -224,9 +249,32 @@
 
 -(void) setFractalViewLevelN:(UIView *)fractalViewLevelN {
     _fractalViewLevelN = fractalViewLevelN;
-    UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] initWithTarget: self action: @selector(rotateFractal:)];
+    UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] 
+                                        initWithTarget: self 
+                                        action: @selector(rotateFractal:)];
+    
     [_fractalViewLevelN addGestureRecognizer: rgr];
+    
+    UILongPressGestureRecognizer* lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget: self
+                                          action: @selector(magnifyFractal:)];
+    
+    [_fractalViewLevelN addGestureRecognizer: lpgr];
+    
     [self setupLevelGeneratorForView: _fractalViewLevelN name: @"fractalLevelN" forceLevel: -1];
+}
+
+-(void) setFractalViewLevelNHUD: (UIView*) fractalViewLevelNHUD {
+    _fractalViewLevelNHUD = fractalViewLevelNHUD;
+
+    CALayer* background = _fractalViewLevelNHUD.layer; 
+    
+    background.cornerRadius = HUD_CORNER_RADIUS;
+    background.borderWidth = 1.6;
+    background.borderColor = [UIColor grayColor].CGColor;
+
+    background.shadowOffset = CGSizeMake(0, 3.0);
+    background.shadowOpacity = 0.6;
 }
 
 #pragma mark - View lifecycle
@@ -283,7 +331,6 @@
     self.fractalDescriptor.text = self.currentFractal.descriptor;
 }
 
-//TODO: number formatters
 -(void) refreshValueInputs {    
     self.fractalAxiom.text = self.currentFractal.axiom;
     
@@ -322,6 +369,12 @@
     }
 }
 
+-(void) refreshContents {
+    [self reloadLabels];
+    [self refreshValueInputs];
+    [self refreshLayers];
+}
+
 -(void) loadDefinitionViews {
     [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionRulesView" owner: self options: nil];
     [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionAppearanceView" owner: self options: nil];
@@ -358,10 +411,29 @@
 //    self.fractalDefinitionAppearanceView.bounds = self.placeHolderBounds;
 }
 
+//TODO: add Undo and Redo buttons for editing
+- (void) configureRightButtons {
+    
+    NSArray* rightButtons;
+    
+    if ([self.currentFractal.isImmutable boolValue]) {
+        // no edit button if it is read only
+        rightButtons = [[NSArray alloc] initWithObjects: self.aCopyButtonItem, nil];
+        self.navigationItem.title = [NSString stringWithFormat: @"%@ (read-only)", self.title];
+    } else if (self.editing) {
+        // include edit button but no copy button
+        rightButtons = [[NSArray alloc] initWithObjects: self.editButtonItem, nil];
+    } else {
+        // copy and edit button
+        UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace 
+                                                                               target: self 
+                                                                               action:nil];
+        
+        rightButtons = [[NSArray alloc] initWithObjects: self.editButtonItem, space, space, self.aCopyButtonItem, nil];
+    }
+    self.navigationItem.rightBarButtonItems = rightButtons;
+}
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-//TODO: change the generator, layer, levels to be more generic.
-//TODO: note changing number of levels only changes N view.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -373,24 +445,25 @@
     [self loadDefinitionViews];
     [self useFractalDefinitionRulesView];
         
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self configureRightButtons];
+    
     [self setEditMode: NO];
-    
-//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
-//    self.navigationItem.rightBarButtonItem = saveButton;
-    
     
     [self setupLevelGeneratorForView: self.fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
     [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
         
     self.fractalAxiom.inputView = self.fractalInputControl.view;
-    
+        
     CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
     [self.levelSliderContainerView setTransform: rotateCC];
     
-    [self reloadLabels];
-    [self refreshValueInputs];
-    [self refreshLayers];
+    [self refreshContents];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    [self.navigationController setToolbarHidden: NO animated: YES];
 }
 
 
@@ -442,6 +515,7 @@
 //            UIButton* tf = (UIButton*) control;
         }
     }
+    [self configureRightButtons];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -456,7 +530,7 @@
      When editing ends, de-register from the notification center and remove the undo manager, and save the changes.
      */
     if (editing) {
-        
+        self.navigationItem.title = [NSString stringWithFormat: @"%@ (editing)", self.title];
         [self setUpUndoManager];
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
         
@@ -466,6 +540,7 @@
         self.navigationItem.leftItemsSupplementBackButton = YES;
     }
     else {
+        self.navigationItem.title = self.title;
         [self cleanUpUndoManager];
         // Save the changes.
         NSError *error;
@@ -536,6 +611,8 @@
     [self setLevelSliderContainerView:nil];
     [self setLevelSlider:nil];
     [self setFractalBaseAngle:nil];
+    [self setFractalViewLevelNHUD:nil];
+    [self setACopyButtonItem: nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -576,7 +653,7 @@
         // Could cause problems when the axiom is invalid.
         // How to validate axiom? Such as matching brackets.
         // Always apply brackets as matching pair with insertion point between the two?
-        NSLog(@"Axiom field being edited");
+        NSLog(@"Axiom field being edited, range = %@; string = %@", NSStringFromRange(range), string);
     } else if (textField == self.fractalLevel) {
         NSString* newString = [textField.text stringByReplacingCharactersInRange: range withString: string];
         NSInteger value;
@@ -603,18 +680,41 @@
     self.activeTextField = nil;
 }
 
+
 #pragma mark - Custom Keyboard Handling
 
 - (void)keyTapped:(NSString*)text {
+    // Convert the TextRange to an NSRange
+    NSRange selectedNSRange;
+    UITextRange* textRange = [self.activeTextField selectedTextRange];
+
+    NSInteger start = [self.activeTextField offsetFromPosition: self.activeTextField.beginningOfDocument 
+                                                    toPosition: textRange.start];
+
+    NSInteger length =  [self.activeTextField offsetFromPosition: textRange.start 
+                                                      toPosition: textRange.end];
+    
+    selectedNSRange = NSMakeRange(start, length);
+
     if ([text isEqualToString: @"Done"]) {
         [self.activeTextField resignFirstResponder];
+    
+    } else 
+    if ([text isEqualToString: @"⇤"]) {
+        // backspace
+        if ([self.activeTextField.delegate textField: self.activeTextField 
+                       shouldChangeCharactersInRange: selectedNSRange 
+                                   replacementString: text] ) {
+            [self.activeTextField deleteBackward];
+
+        }
+        
     } else
-    if (self.activeTextField) {
-        // Update fractal when this value changes?
-        // live updates?
-        // save on each press and use observer?
-        if (self.activeTextField == self.fractalAxiom) {
-            self.currentFractal.axiom = [self.activeTextField.text stringByAppendingString: text];
+    if (self.activeTextField == self.fractalAxiom) {
+        if ([self.activeTextField.delegate textField: self.activeTextField 
+                       shouldChangeCharactersInRange: selectedNSRange 
+                                   replacementString: text] ) {
+            [self.activeTextField insertText: text];
         }
     }
 }
@@ -688,6 +788,10 @@
     self.currentFractal.axiom = sender.text;
 }
 
+- (IBAction)axiomInputEnded:(UITextField*)sender {
+    // update rule editing table?
+}
+
 - (IBAction)lineLengthInputChanged:(UIStepper*)sender {
     self.currentFractal.lineLength = [NSNumber numberWithDouble: sender.value];
 }
@@ -705,7 +809,7 @@
     }
 }
 
--(void) rotateFractal:(UIRotationGestureRecognizer*)sender {
+-(IBAction) rotateFractal:(UIRotationGestureRecognizer*)sender {
     if (self.editing) {
         
         double fifteenDegrees = M_PI/12.0;
@@ -718,6 +822,26 @@
     }
 }
 
+- (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender {
+    
+}
+
+- (IBAction)copyFractal:(id)sender {
+    LSFractal* fractal = self.currentFractal;
+    
+    // copy
+    LSFractal* copiedFractal = [fractal mutableCopy];
+    copiedFractal.name = [NSString stringWithFormat: @"%@ copy", copiedFractal.name];
+    copiedFractal.isImmutable = [NSNumber numberWithBool: NO];
+    copiedFractal.isReadOnly = [NSNumber numberWithBool: NO];
+    
+    self.currentFractal = copiedFractal;
+    // Need to add edit button if missing
+    [self configureRightButtons];
+    
+    [self refreshContents];
+    self.editing = YES;
+}
 
 #pragma mark - ColorPicker Delegate Protocol
 //TODO: check for pre-existing colors, maybe only allow selecting from pre-existing colors? replacing colorPicker with swatches?
