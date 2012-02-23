@@ -14,6 +14,7 @@
     </entity>
     <entity name="LSFractal" representedClassName="LSFractal" syncable="YES">
         <attribute name="axiom" attributeType="String" syncable="YES"/>
+        <attribute name="baseAngle" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="descriptor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fill" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -40,13 +41,13 @@
         <relationship name="lsFractal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="replacementRules" inverseEntity="LSFractal" syncable="YES"/>
     </entity>
     <entity name="MBColor" representedClassName="MBColor" syncable="YES">
-        <attribute name="alpha" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="blue" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="green" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="identifier" attributeType="String" syncable="YES"/>
+        <attribute name="alpha" attributeType="Double" maxValueString="1" defaultValueString="1" syncable="YES"/>
+        <attribute name="blue" attributeType="Double" maxValueString="1" defaultValueString="0.5" syncable="YES"/>
+        <attribute name="green" attributeType="Double" maxValueString="1" defaultValueString="0.5" syncable="YES"/>
+        <attribute name="identifier" attributeType="String" defaultValueString="NoneYet" syncable="YES"/>
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="red" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="NoName" syncable="YES"/>
+        <attribute name="red" attributeType="Double" maxValueString="1" defaultValueString="0.5" syncable="YES"/>
         <relationship name="fractalFills" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="fillColor" inverseEntity="LSFractal" syncable="YES"/>
         <relationship name="fractalLines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="lineColor" inverseEntity="LSFractal" syncable="YES"/>
     </entity>
@@ -70,7 +71,7 @@
     <elements>
         <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="105"/>
         <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="LSFractal" positionX="160" positionY="192" width="128" height="345"/>
+        <element name="LSFractal" positionX="160" positionY="192" width="128" height="360"/>
         <element name="LSReplacementRule" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MBColor" positionX="160" positionY="192" width="128" height="180"/>
         <element name="MBFractalScape" positionX="160" positionY="192" width="128" height="120"/>
