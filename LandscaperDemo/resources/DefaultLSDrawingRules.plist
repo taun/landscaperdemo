@@ -45,6 +45,382 @@
 			<key>category</key>
 			<string>Geometric</string>
 			<key>descriptor</key>
+			<string>L-System Von Koch Snowflake Curve</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Von Koch Snowflake Curve</string>
+			<key>axiom</key>
+			<string>F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.0471975511966</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>F-F++F-F</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>L-System Hilbert Curve</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Hilbert Curve</string>
+			<key>axiom</key>
+			<string>X</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>Y</key>
+				<string>+XF-YFY-FX+</string>
+				<key>X</key>
+				<string>-YF+XFX+FY-</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>L-System Sierpinsky Gasket</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Sierpinsky Gasket</string>
+			<key>axiom</key>
+			<string>FXF--FF--FF</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.0471975511966</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>FF</string>
+				<key>X</key>
+				<string>--FXF++FXF++FXF--</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>L-System Sierpinsky Curve</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Sierpinsky Curve</string>
+			<key>axiom</key>
+			<string>F+F+F+F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>FF+F+F+F+FF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>L-System Peano Curve</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Peano Curve</string>
+			<key>axiom</key>
+			<string>X</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>X</key>
+				<string>XFYFX+F+YFXFY-F-XFYFX</string>
+				<key>Y</key>
+				<string>YFXFY-F-XFYFX+F+YFXFY</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>L-System Dragon curve</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Dragon Curve</string>
+			<key>axiom</key>
+			<string>X</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>X</key>
+				<string>X+YF+</string>
+				<key>Y</key>
+				<string>-FX-Y</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Plant</string>
+			<key>descriptor</key>
+			<string>L-System Bush</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Fern</string>
+			<key>axiom</key>
+			<string>SLFFF</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>0.31415926535898</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>baseAngle</key>
+			<real>1.5707963267949</real>
+			<key>replacementRules</key>
+			<dict>
+				<key>S</key>
+				<string>[+++G][---G]TS</string>
+				<key>G</key>
+				<string>+H[-G]L</string>
+				<key>H</key>
+				<string>-G[+H]L</string>
+				<key>T</key>
+				<string>TL</string>
+				<key>L</key>
+				<string>[-FFF][+FFF]F</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Plant</string>
+			<key>descriptor</key>
+			<string>L-System Bush</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Bush00</string>
+			<key>axiom</key>
+			<string>F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>0.39269908169872</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>baseAngle</key>
+			<real>1.5707963267949</real>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>FF+[+F-F-F]-[-F+F+F]</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Plant</string>
+			<key>descriptor</key>
+			<string>L-System Bush</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Bush0</string>
+			<key>axiom</key>
+			<string>F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>0.44879895051283</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>baseAngle</key>
+			<real>1.5707963267949</real>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>F[+F]F[-F]F</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Plant</string>
+			<key>descriptor</key>
+			<string>L-System Bush</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Bush1</string>
+			<key>axiom</key>
+			<string>G</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>0.44879895051283</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>baseAngle</key>
+			<real>1.5707963267949</real>
+			<key>replacementRules</key>
+			<dict>
+				<key>G</key>
+				<string>GFX[+G][-G]</string>
+				<key>X</key>
+				<string>X[-FFF][+FFF]FX</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
 			<string>L-System Von Koch Snowflake</string>
 			<key>isImmutable</key>
 			<true/>
@@ -150,15 +526,15 @@
 			<key>category</key>
 			<string>Plant</string>
 			<key>descriptor</key>
-			<string>L-System Bush</string>
+			<string>L-System Flower</string>
 			<key>isImmutable</key>
 			<true/>
 			<key>name</key>
-			<string>Bush0</string>
+			<string>Flower</string>
 			<key>axiom</key>
-			<string>F</string>
+			<string>G</string>
 			<key>fill</key>
-			<true/>
+			<false/>
 			<key>stroke</key>
 			<true/>
 			<key>level</key>
@@ -172,13 +548,17 @@
 			<key>lineWidthIncrement</key>
 			<integer>1</integer>
 			<key>turningAngle</key>
-			<real>0.44879895051283</real>
+			<real>0.45378560551851</real>
 			<key>turningAngleIncrement</key>
 			<integer>0</integer>
+			<key>baseAngle</key>
+			<real>1.5707963267949</real>
 			<key>replacementRules</key>
 			<dict>
-				<key>F</key>
-				<string>F[+F]F[-F]F</string>
+				<key>G</key>
+				<string>GFX[+G][-G]</string>
+				<key>X</key>
+				<string>X[-FFF][+FFF]FX</string>
 			</dict>
 		</dict>
 	</array>
