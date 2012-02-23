@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11C74" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Gwq-WM-cEm">
     <dependencies>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
@@ -8,13 +8,13 @@
         <scene sceneID="11">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
-                <viewController id="2" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
+                <viewController title="Fractals" id="2" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
-                        <rect key="frame" x="0.0" y="64" width="768" height="911"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="SXv-Wx-Azb">
-                                <rect key="frame" x="8" y="8" width="752" height="895"/>
+                                <rect key="frame" x="8" y="8" width="752" height="944"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationLevel="2" indentationWidth="10" reuseIdentifier="FractalLibraryListCell" textLabel="OBa-yZ-PmX" detailTextLabel="r3t-9p-8g2" imageView="dex-xV-RqG" style="IBUITableViewCellStyleSubtitle" id="5ug-pl-9ZB">
@@ -59,7 +59,9 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Fractal Library" image="first" id="7"/>
-                    <navigationItem key="navigationItem" title="Fractal Library" id="uQi-66-jef"/>
+                    <navigationItem key="navigationItem" title="Fractals" id="uQi-66-jef">
+                        <barButtonItem key="backBarButtonItem" title="Fractals" id="GZq-cw-2dK"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="fractalTableView" destination="SXv-Wx-Azb" id="66w-PL-MaJ"/>
                     </connections>
@@ -70,9 +72,9 @@
         <scene sceneID="Vzi-SL-M21">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
+                <viewController title="Editor" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pSX-p9-jkP">
-                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" multipleTouchEnabled="YES" tag="500" contentMode="TopLeft" id="Lid-md-lf6" customClass="MBPortalStyleView">
@@ -93,14 +95,14 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Y9a-dl-24V" userLabel="Name Input">
                                                 <rect key="frame" x="115" y="15" width="246" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                                 <connections>
                                                     <action selector="nameInputDidEnd:" destination="4nM-Pc-iAd" eventType="editingDidEnd" id="hwm-ok-yYi"/>
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="tailTruncation" minimumFontSize="10" id="pJQ-9S-40A">
-                                                <rect key="frame" x="20" y="54" width="87" height="21"/>
+                                                <rect key="frame" x="20" y="60" width="87" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -111,7 +113,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration" label=""/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="4nM-Pc-iAd" id="dSK-fg-Gtm"/>
@@ -140,61 +142,88 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="TbU-WI-8ja" userLabel="FractalLevelN" customClass="MBPortalStyleView">
-                                <rect key="frame" x="0.0" y="495" width="768" height="421"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="TbU-WI-8ja" userLabel="FractalLevelN" customClass="MBPortalStyleView">
+                                <rect key="frame" x="0.0" y="488" width="768" height="472"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iterations:" lineBreakMode="tailTruncation" minimumFontSize="10" id="CwB-Uy-ezK">
-                                        <rect key="frame" x="20" y="20" width="75" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="nXe-lZ-0xB">
-                                        <rect key="frame" x="103" y="20" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view opaque="NO" contentMode="center" id="55F-IR-Ful">
-                                        <rect key="frame" x="-105" y="193" width="325" height="35"/>
+                                    <view contentMode="scaleToFill" id="w8E-uR-W9b" userLabel="Fractal" customClass="MBFractalExamineView">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="472"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <view opaque="NO" contentMode="center" id="55F-IR-Ful">
+                                                <rect key="frame" x="-101" y="169" width="465" height="179"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="10" id="tcf-D9-8ET">
+                                                        <rect key="frame" x="52" y="7" width="329" height="23"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="levelInputChanged:" destination="4nM-Pc-iAd" eventType="valueChanged" id="OCp-k5-ndB"/>
+                                                        </connections>
+                                                    </slider>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view opaque="NO" contentMode="scaleToFill" id="8yL-vI-3hY" userLabel="HUDContainer">
+                                        <rect key="frame" x="9" y="6" width="222" height="39"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="5" id="tcf-D9-8ET">
-                                                <rect key="frame" x="-2" y="7" width="329" height="23"/>
+                                            <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" id="Gh2-T8-dmG" userLabel="HUDBackground">
+                                                <rect key="frame" x="2" y="5" width="222" height="32"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" id="vgs-A7-o0F" userLabel="HUD Content">
+                                                <rect key="frame" x="2" y="6" width="220" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <connections>
-                                                    <action selector="levelInputChanged:" destination="4nM-Pc-iAd" eventType="valueChanged" id="OCp-k5-ndB"/>
-                                                </connections>
-                                            </slider>
+                                                <subviews>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iterations:" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" minimumFontSize="10" id="CwB-Uy-ezK">
+                                                        <rect key="frame" x="10" y="4" width="75" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5" textAlignment="right" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" minimumFontSize="10" id="nXe-lZ-0xB">
+                                                        <rect key="frame" x="93" y="4" width="18" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="∘∢" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" minimumFontSize="10" id="mSW-6c-IEq">
+                                                        <rect key="frame" x="143" y="3" width="42" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="360.0" textAlignment="right" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" minimumFontSize="10" id="Iof-pr-uLl" userLabel="baseAngle">
+                                                        <rect key="frame" x="167" y="4" width="45" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="∘∢" lineBreakMode="tailTruncation" minimumFontSize="10" id="mSW-6c-IEq">
-                                        <rect key="frame" x="161" y="20" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="180.0" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="Iof-pr-uLl" userLabel="baseAngle">
-                                        <rect key="frame" x="187" y="20" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MBPortalStyleView">
-                                <rect key="frame" x="389" y="0.0" width="379" height="221"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MBPortalStyleView">
+                                <rect key="frame" x="382" y="0.0" width="386" height="221"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iterations: 0" lineBreakMode="tailTruncation" minimumFontSize="10" id="gVZ-Ol-vER">
-                                        <rect key="frame" x="20" y="20" width="89" height="21"/>
+                                        <rect key="frame" x="10" y="10" width="89" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -204,12 +233,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                             </view>
-                            <view contentMode="scaleToFill" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MBPortalStyleView">
-                                <rect key="frame" x="389" y="229" width="379" height="258"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MBPortalStyleView">
+                                <rect key="frame" x="382" y="222" width="386" height="265"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iterations: 1" lineBreakMode="tailTruncation" minimumFontSize="10" id="Uje-jg-N66">
-                                        <rect key="frame" x="20" y="20" width="89" height="21"/>
+                                        <rect key="frame" x="10" y="10" width="89" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -222,8 +251,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Fractal Editor" id="5yD-Jb-xIT"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationItem key="navigationItem" title="Editor" id="5yD-Jb-xIT"/>
                     <connections>
                         <outlet property="fractalBaseAngle" destination="Iof-pr-uLl" id="4Pj-Wr-zRw"/>
                         <outlet property="fractalDefinitionPlaceholderView" destination="SVg-nK-aRG" id="jHj-bc-mat"/>
@@ -233,7 +261,8 @@
                         <outlet property="fractalPropertiesView" destination="RcO-9O-BeM" id="GsT-kJ-2hZ"/>
                         <outlet property="fractalViewLevel0" destination="wmh-En-OwM" id="SBo-Qb-qrS"/>
                         <outlet property="fractalViewLevel1" destination="dJU-MH-ihA" id="1gz-hf-fUO"/>
-                        <outlet property="fractalViewLevelN" destination="TbU-WI-8ja" id="3WM-96-TYb"/>
+                        <outlet property="fractalViewLevelN" destination="w8E-uR-W9b" id="RDp-aV-87i"/>
+                        <outlet property="fractalViewLevelNHUD" destination="Gh2-T8-dmG" id="ZtR-pO-dyf"/>
                         <outlet property="fractalViewLevelNLabel" destination="nXe-lZ-0xB" id="fSq-Zf-asN"/>
                         <outlet property="levelSlider" destination="tcf-D9-8ET" id="KsH-dS-iVb"/>
                         <outlet property="levelSliderContainerView" destination="55F-IR-Ful" id="TJp-fN-l90"/>
@@ -288,6 +317,10 @@
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Npz-Zw-nzT">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8MT-kk-gmn">
+                        <rect key="frame" x="0.0" y="980" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="afS-FJ-v5c"/>
                     </connections>
@@ -300,7 +333,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
                 <viewController id="3" customClass="MBScapeLibraryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="16">
-                        <rect key="frame" x="0.0" y="20" width="768" height="955"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="21">
@@ -333,24 +366,6 @@
             </objects>
             <point key="canvasLocation" x="3042" y="1284"/>
         </scene>
-        <scene sceneID="15">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
-                <tabBarController id="4" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="5">
-                        <rect key="frame" x="0.0" y="975" width="768" height="49"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="Gwq-WM-cEm" kind="relationship" relationship="viewControllers" id="Tii-Wa-Xxa"/>
-                        <segue destination="3" kind="relationship" relationship="viewControllers" id="28"/>
-                    </connections>
-                </tabBarController>
-            </objects>
-            <point key="canvasLocation" x="2023" y="718"/>
-        </scene>
     </scenes>
     <resources>
         <image name="first" width="16" height="16"/>
@@ -371,6 +386,12 @@
                 <relationship kind="outlet" name="delegate"/>
             </relationships>
         </class>
+        <class className="MBFractalExamineView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalExamineView.h"/>
+            <relationships>
+                <relationship kind="action" name="magnifyFractal:" candidateClass="UILongPressGestureRecognizer"/>
+            </relationships>
+        </class>
         <class className="MBFractalLibraryViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalLibraryViewController.h"/>
             <relationships>
@@ -381,9 +402,12 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBLSFractalEditViewController.h"/>
             <relationships>
                 <relationship kind="action" name="axiomInputChanged:" candidateClass="UITextField"/>
+                <relationship kind="action" name="axiomInputEnded:" candidateClass="UITextField"/>
+                <relationship kind="action" name="copyFractal:"/>
                 <relationship kind="action" name="levelInputChanged:" candidateClass="UIControl"/>
                 <relationship kind="action" name="lineLengthInputChanged:" candidateClass="UIStepper"/>
                 <relationship kind="action" name="lineWidthInputChanged:"/>
+                <relationship kind="action" name="magnifyFractal:" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="action" name="nameInputDidEnd:" candidateClass="UITextField"/>
                 <relationship kind="action" name="rotateFractal:" candidateClass="UIRotationGestureRecognizer"/>
                 <relationship kind="action" name="selectFillColor:" candidateClass="UIButton"/>
@@ -409,6 +433,7 @@
                 <relationship kind="outlet" name="fractalViewLevel0" candidateClass="UIView"/>
                 <relationship kind="outlet" name="fractalViewLevel1" candidateClass="UIView"/>
                 <relationship kind="outlet" name="fractalViewLevelN" candidateClass="UIView"/>
+                <relationship kind="outlet" name="fractalViewLevelNHUD" candidateClass="UIView"/>
                 <relationship kind="outlet" name="fractalViewLevelNLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="fractalWidth" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="levelSlider" candidateClass="UISlider"/>

@@ -16,7 +16,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#define MAXPRODUCTLENGTH 1500
+#define MAXPRODUCTLENGTH 2000
 
 @interface LSFractalGenerator () {
     double _maxLineWidth;
@@ -88,6 +88,10 @@
     return self;
 }
 
+- (void) dealloc {
+    self.fractal = nil;
+}
+
 #pragma mark - Fractal Property KVO
 -(void) setFractal:(LSFractal *)fractal {
     if (_fractal != fractal) {
@@ -100,6 +104,7 @@
         }
         
         _fractal = fractal;
+        [self productionRuleChanged];
     }
 }
 
@@ -132,20 +137,8 @@
             self.production];
 }
 
-#pragma mark - layer delegate
-/*!
- Transforms note:
-    The transforms are the reverse of what I would expect.
-    Calling a translate transform then scale transform seems to apply the transform to the data points as a scale then translate.
- 
-    Example point at 100@100
-    Translate -50@-50 then scale x2 should be point at 100@100 actual point seems to be 150@150
-    Scale x2 then translate -50@-50 results in 50@50, the desired location.
- 
-    Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
- */
-- (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
-        
+-(void) drawInBounds:(CGRect)bounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
+    
     if (self.productNeedsGenerating) {
         [self generateProduct];
     }
@@ -157,15 +150,15 @@
     
     // outline the layer bounding box
     CGContextBeginPath(theContext);
-    CGContextAddRect(theContext, theLayer.bounds);
+    CGContextAddRect(theContext, bounds);
     CGContextSetLineWidth(theContext, 1.0);
     CGContextSetRGBStrokeColor(theContext, 0.5, 0.0, 0.0, 0.1);
     CGContextStrokePath(theContext);
     
     // move 0,0 down to the bottom left corner
-    CGContextTranslateCTM(theContext, theLayer.bounds.origin.x, theLayer.bounds.origin.y + theLayer.bounds.size.height);
+    CGContextTranslateCTM(theContext, bounds.origin.x, bounds.origin.y + bounds.size.height);
     // flip the Y axis so +Y is up direction from origin
-    if ([theLayer contentsAreFlipped]) {
+    if (isFlipped) {
         //CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
         CGContextScaleCTM(theContext, 1.0, -1.0);
     }
@@ -181,33 +174,33 @@
     
     CGContextSaveGState(theContext);
     
-//    NSDictionary* lboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(theLayer.bounds);
-//    NSLog(@"Layer Bounds = %@", lboundsDict);
+    //    NSDictionary* lboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(bounds);
+    //    NSLog(@"Layer Bounds = %@", lboundsDict);
     
-//    NSDictionary* boundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(self.bounds);
-//    NSLog(@"Fractal Path Bounds = %@", boundsDict);
+    //    NSDictionary* boundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(self.bounds);
+    //    NSLog(@"Fractal Path Bounds = %@", boundsDict);
     
-//    NSLog(@"Layer anchor point: %g@%g", theLayer.anchorPoint.x, theLayer.anchorPoint.y);
+    //    NSLog(@"Layer anchor point: %g@%g", theLayer.anchorPoint.x, theLayer.anchorPoint.y);
     
     // Scaling
-    double scaleWidth = theLayer.bounds.size.width/self.bounds.size.width;
-    double scaleHeight = theLayer.bounds.size.height/self.bounds.size.height;
+    double scaleWidth = bounds.size.width/self.bounds.size.width;
+    double scaleHeight = bounds.size.height/self.bounds.size.height;
     double scale = MIN(scaleHeight, scaleWidth);
     
-//    double margin = -0.0/scale;
+    //    double margin = -0.0/scale;
     
-//    CGContextScaleCTM(theContext, scale, scale);
-//    NSLog(@"Min Layer/Fractal Scale = %g", scale);
+    //    CGContextScaleCTM(theContext, scale, scale);
+    //    NSLog(@"Min Layer/Fractal Scale = %g", scale);
     
     
-//    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
+    //    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
     
     // Translating
     double fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
     double fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
     
-    double lCenterX = theLayer.bounds.origin.x + theLayer.bounds.size.width/2.0;
-    double lCenterY = theLayer.bounds.origin.y + theLayer.bounds.size.height/2.0;
+    double lCenterX = bounds.origin.x + bounds.size.width/2.0;
+    double lCenterY = bounds.origin.y + bounds.size.height/2.0;
     
     double tx = lCenterX - (fCenterX*scale);
     double ty = lCenterY - (fCenterY*scale);
@@ -216,16 +209,16 @@
     
     CGContextScaleCTM(theContext, scale, scale);
     
-//    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
-//          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
+    //    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
+    //          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
     
     for (MBFractalSegment* segment in self.finishedSegments) {
         // stroke and or fill each segment
         CGContextBeginPath(theContext);
         
         
-//        NSDictionary* aboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(CGPathGetBoundingBox(segment.path));
-//        NSLog(@"Actual segment bounds = %@", aboundsDict);
+        //        NSDictionary* aboundsDict = (__bridge NSDictionary*) CGRectCreateDictionaryRepresentation(CGPathGetBoundingBox(segment.path));
+        //        NSLog(@"Actual segment bounds = %@", aboundsDict);
         
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
@@ -248,6 +241,22 @@
     }
     
     CGContextRestoreGState(theContext);
+}
+
+#pragma mark - layer delegate
+/*!
+ Transforms note:
+    The transforms are the reverse of what I would expect.
+    Calling a translate transform then scale transform seems to apply the transform to the data points as a scale then translate.
+ 
+    Example point at 100@100
+    Translate -50@-50 then scale x2 should be point at 100@100 actual point seems to be 150@150
+    Scale x2 then translate -50@-50 results in 50@50, the desired location.
+ 
+    Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
+ */
+- (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
+    [self drawInBounds: theLayer.bounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
 }
 
 #pragma mark - lazy init getters

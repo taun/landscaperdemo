@@ -51,6 +51,8 @@
  */
 -(void) setInitialTransform: (CGAffineTransform) transform;
 
+-(void) drawInBounds: (CGRect) bounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
+
 #pragma mark - layer delegate
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext;
 
