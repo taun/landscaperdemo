@@ -33,6 +33,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
                           @"stroke",
                           @"turningAngle",
                           @"turningAngleIncrement",
+                          @"baseAngle",
                           @"drawingRulesType",
                           @"fillColor",
                           @"lineColor",
@@ -77,6 +78,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
                                 @"fill",
                                 @"fillColor",
                                 @"turningAngle",
+                                @"baseAngle",
                                 nil];
     }
     return appearanceProperties;
@@ -140,5 +142,14 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(void) setTurningAngleAsDegrees:(NSNumber*)newAngle {
     double inRadians = radians([newAngle doubleValue]);
     self.turningAngle = [NSNumber numberWithDouble: inRadians];
+}
+
+-(NSNumber*) baseAngleAsDegree {
+    return [NSNumber numberWithDouble: degrees([self.baseAngle doubleValue])];
+}
+
+-(void) setBaseAngleAsDegrees:(NSNumber*)newAngle {
+    double inRadians = radians([newAngle doubleValue]);
+    self.baseAngle = [NSNumber numberWithDouble: inRadians];
 }
 @end

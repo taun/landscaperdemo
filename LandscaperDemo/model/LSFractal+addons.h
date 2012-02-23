@@ -29,4 +29,7 @@
 -(NSNumber*) turningAngleAsDegree;
 -(void) setTurningAngleAsDouble: (double) newAngle;
 -(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
+
+-(NSNumber*) baseAngleAsDegree;
+-(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
 @end
