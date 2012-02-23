@@ -6,12 +6,11 @@
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBFractalLibraryViewController.h"
-#import "FractalPadView.h"
-#import "LSFractal+addons.h"
-#import "MBFractalLayer.h"
 #import "MBAppDelegate.h"
+#import "MBFractalLibraryViewController.h"
 #import "MBLSFractalEditViewController.h"
+#import "LSFractal+addons.h"
+#import "LSFractalGenerator.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -88,6 +87,34 @@
     return [sectionInfo numberOfObjects];
 }
 
+-(UIImage*) thumbnailForFractal: (NSManagedObject*) mObject size: (CGSize) size {
+    UIImage* thumbnail;
+    if ([mObject isKindOfClass: [LSFractal class]]) {
+        //
+        CGSize newSize = CGSizeMake(86, 86);
+        UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+        LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
+        generator.fractal = (LSFractal*) mObject;
+        
+        CGRect viewRect = CGRectMake(0, 0, newSize.width, newSize.height);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGContextSaveGState(context);
+        UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
+        [thumbNailBackground setFill];
+        CGContextFillRect(context, viewRect);
+        CGContextRestoreGState(context);
+        
+        [generator drawInBounds: viewRect
+                    withContext: context
+                        flipped: NO];
+        
+        thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return thumbnail;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"FractalLibraryListCell";
@@ -103,6 +130,9 @@
     // Configure the cell with data from the managed object.
     cell.textLabel.text = [managedObject valueForKey: @"name"];
     cell.detailTextLabel.text = [managedObject valueForKey: @"descriptor"];
+    cell.imageView.image = [self thumbnailForFractal: managedObject size: cell.imageView.bounds.size];
+    cell.imageView.highlightedImage = cell.imageView.image;
+    
     return cell;
 }
 
@@ -133,16 +163,7 @@
 
             LSFractal* fractal = (LSFractal*) managedObject;
             
-            if ([fractal.isImmutable boolValue]) {
-                // copy
-                LSFractal* copiedFractal = [fractal mutableCopy];
-                copiedFractal.name = [NSString stringWithFormat: @"%@ copy", copiedFractal.name];
-                copiedFractal.isImmutable = [NSNumber numberWithBool: NO];
-                copiedFractal.isReadOnly = [NSNumber numberWithBool: NO];
-                passedFractal = copiedFractal;
-            } else {
-                passedFractal = fractal;
-            }
+            passedFractal = fractal;
             
         }
         editor.currentFractal = passedFractal;        
@@ -195,6 +216,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    [self.navigationController setToolbarHidden: YES animated: YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
