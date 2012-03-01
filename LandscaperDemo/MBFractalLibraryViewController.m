@@ -141,13 +141,41 @@
     return [sectionInfo name];
 }
 
-//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-//    return [self.fetchedResultsController sectionIndexTitles];
-//}
+//TODO change to cache section view?
+- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    // Change rect to ??
+    CGRect tableBounds = tableView.bounds;
+    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableBounds.size.width-20.0, 44.0)];
+	
+	// create the button object
+    CGRect headerLabelFrame = customView.bounds;
+    headerLabelFrame.origin.x += 35.0;
+    headerLabelFrame.size.width -= 35.0;
+    CGRectInset(headerLabelFrame, 0.0, 5.0);
+    
+	UILabel * headerLabel = [[UILabel alloc] initWithFrame: headerLabelFrame];
+	headerLabel.backgroundColor = [UIColor clearColor];
+	headerLabel.opaque = NO;
+	headerLabel.textColor = [UIColor colorWithWhite: 0.1 alpha: 1.0];
+	headerLabel.highlightedTextColor = [UIColor whiteColor];
+    headerLabel.shadowColor = [UIColor colorWithWhite: 0.7 alpha: 0.9];
+    headerLabel.shadowOffset = CGSizeMake(0.0, 1.0);
+	headerLabel.font = [UIFont boldSystemFontOfSize:20];
+    
+	// If you want to align the header text as centered
+	// headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
+    
+	headerLabel.text = [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+	[customView addSubview:headerLabel];
+    
+	return customView;
+}
 
-//- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-//    return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
-//}
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return UITableViewAutomaticDimension;
+}
+
 
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -196,6 +224,11 @@
 //    MainFractalView.alpha = 0.0;
 //    [MainFractalView setNeedsDisplay];
 //    [MainFractalView.layer setNeedsDisplay];
+    
+    
+    // Allow the grouped table to have a clear background.
+    self.fractalTableView.backgroundView = nil;
+    
     [self.fractalTableView reloadData];
     
 //    [self addVonKochSnowFlakeLayerPosition: CGPointMake(50, 50) maxDimension: 300];

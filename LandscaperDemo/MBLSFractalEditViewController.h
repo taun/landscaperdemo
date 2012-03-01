@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LSFractal+addons.h"
 #import "FractalDefinitionKeyboardView.h"
 #import "ColorPickerController.h"
+#import "MBLSRuleTableViewCell.h"
 
-@interface MBLSFractalEditViewController : UIViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate, UITableViewDataSource, UITableViewDelegate>
+@class MBFractalPropertyTableHeaderView;
+@class LSFractal;
+
+@interface MBLSFractalEditViewController : UIViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate, UITableViewDataSource, UITableViewDelegate, MBLSRuleTableViewCellDelegate>
 
 
 @property (nonatomic, strong) LSFractal*            currentFractal;
@@ -22,15 +25,21 @@
 @property (nonatomic, strong) NSNumberFormatter*    onePlaceFormatter;
 @property (nonatomic, strong) UIBarButtonItem*      aCopyButtonItem;
 
-#pragma mark - Property Input Views
+@property (nonatomic, strong) NSArray*              replacementRulesArray;
+
+@property (strong, nonatomic) IBOutlet UIView*      fractalPropertyTableHeaderView;
+@property (weak, nonatomic)  IBOutlet UITextField*  fractalName;
+@property (weak, nonatomic)  IBOutlet UITextView*   fractalDescriptor;
+
+#pragma mark - obsolete
 @property (weak, nonatomic) IBOutlet UIScrollView   *fractalPropertiesView;
-
-@property (weak, nonatomic) IBOutlet UITextField    *fractalName;
-@property (weak, nonatomic) IBOutlet UITextView     *fractalDescriptor;
-
 @property (weak, nonatomic) IBOutlet UIView         *fractalDefinitionPlaceholderView;
-@property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionAppearanceView;
 @property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionRulesView;
+@property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionAppearanceView;
+
+#pragma mark - Property Input Views
+
+@property (weak, nonatomic) IBOutlet UITableView    *fractalPropertiesTableView;
 
 #pragma mark - Drawing Views
 @property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
@@ -93,6 +102,8 @@
 - (IBAction)selectFillColor: (UIButton*)sender;
 - (IBAction)toggleStroke: (UISwitch*)sender;
 - (IBAction)toggleFill: (UISwitch*)sender;
+
+- (IBAction)rotateTurnAngle:(UIRotationGestureRecognizer*)sender;
 
 - (IBAction)rotateFractal:(UIRotationGestureRecognizer*)sender;
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender;
