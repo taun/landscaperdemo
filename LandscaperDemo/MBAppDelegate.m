@@ -261,7 +261,7 @@
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil)
     {
-        __managedObjectContext = [[NSManagedObjectContext alloc] init];
+        __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
         [__managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return __managedObjectContext;
@@ -301,7 +301,7 @@
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
+    if (![__persistentStoreCoordinator addPersistentStoreWithType: NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
     {
         /*
          Replace this implementation with code to handle the error appropriately.
