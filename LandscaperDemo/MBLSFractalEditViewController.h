@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSString*             coloringKey;
 @property (nonatomic, strong) NSNumberFormatter*    onePlaceFormatter;
 @property (nonatomic, strong) UIBarButtonItem*      aCopyButtonItem;
+@property (nonatomic, strong) NSDictionary*         portraitViewFrames;
+@property (nonatomic, strong) NSDictionary*         landscapeViewFrames;
 
 @property (nonatomic, strong) NSArray*              replacementRulesArray;
 

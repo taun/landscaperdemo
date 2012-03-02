@@ -12,6 +12,7 @@
 #import "LSFractalGenerator.h"
 #import "LSReplacementRule.h"
 #import "MBColor+addons.h"
+#import "MBPortalStyleView.h"
 
 #import "MBStepperTableViewCell.h"
 
@@ -33,6 +34,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  Want to change to a popover at some point.
  */
 @property (weak, nonatomic) UITextField*            activeTextField;
+
+@property (nonatomic, assign) BOOL                  startedInLandscape;
 
 /*!
  Custom keyboard for inputting fractal axioms and rules.
@@ -80,6 +83,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize fractalDefinitionRulesView = _fractalDefinitionRulesView;
 @synthesize fractalDefinitionPlaceholderView = _fractalDefinitionPlaceholderView;
 @synthesize replacementRulesArray = _replacementRulesArray;
+@synthesize portraitViewFrames = _portraitViewFrames, landscapeViewFrames = _landscapeViewFrames;
 @synthesize colorPopover = _colorPopover;
 @synthesize placeHolderBounds = _placeHolderBounds;
 @synthesize placeHolderCenter = _placeHolderCenter;
@@ -121,6 +125,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize generatorsArray = _generatorsArray;
 @synthesize editControls = _editControls;
 @synthesize viewNRotationFromStart = _viewNRotationFromStart;
+@synthesize startedInLandscape = _startedInLandscape;
 
 @synthesize undoManager = _undoManager;
 
@@ -172,7 +177,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
-    if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
+    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString:  @"replacementString"]) {
         // productionRuleChanged
         [self refreshValueInputs];
         [self refreshLayers];
@@ -187,6 +192,20 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 }
 
 #pragma mark - custom setter getters
+
+-(void) setReplacementRulesArray:(NSArray *)replacementRulesArray {
+    if (replacementRulesArray != _replacementRulesArray) {
+        for (LSReplacementRule* rule in _replacementRulesArray) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule removeObserver: self forKeyPath: keyPath];
+        }
+        for (LSReplacementRule* rule in replacementRulesArray) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+        }
+        _replacementRulesArray = replacementRulesArray;
+    }
+}
 
 -(UIBarButtonItem*) aCopyButtonItem {
     if (_aCopyButtonItem == nil) {
@@ -322,11 +341,11 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void) fitLayer: (CALayer*) layerA inLayer: (CALayer*) layerB margin: (double) margin {
-    CGRect boundsB = layerB.bounds;
-    CGRect boundsA = CGRectInset(boundsB, margin, margin);
-    layerA.bounds = boundsA;
-    layerA.position = CGPointMake(boundsB.size.width/2, boundsB.size.height/2);
+-(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin {
+    CGRect boundsOuter = layerOuter.bounds;
+    CGRect boundsInner = CGRectInset(boundsOuter, margin, margin);
+    layerInner.bounds = boundsInner;
+    layerInner.position = CGPointMake(boundsOuter.size.width/2, boundsOuter.size.height/2);
 }
 
 -(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel {
@@ -376,7 +395,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 //    
 //    self.fractalLevel.text = [self.currentFractal.level stringValue];
 //    self.levelStepper.value = [self.currentFractal.level doubleValue];
-//    self.levelSlider.value = [self.currentFractal.level doubleValue];
+    self.levelSlider.value = [self.currentFractal.level doubleValue];
 //    
 //    self.strokeSwitch.on = [self.currentFractal.stroke boolValue];
 //    self.fillSwitch.on = [self.currentFractal.fill boolValue];
@@ -466,7 +485,16 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 - (void)viewDidLoad
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     [super viewDidLoad];
+    
+    if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
+        self.startedInLandscape = YES;
+    } else { 
+        self.startedInLandscape = NO;
+    }
+    
+    
     
     _placeHolderCenter = self.fractalDefinitionPlaceholderView.center;
     _placeHolderBounds = self.fractalDefinitionPlaceholderView.bounds;
@@ -487,7 +515,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     
     [self setEditMode: NO];
     
-    [self setupLevelGeneratorForView: self.fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
     [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
         
     self.fractalAxiom.inputView = self.fractalInputControl.view;
@@ -504,23 +531,123 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 //    [self.navigationController setToolbarHidden: NO animated: YES];
 }
 
+-(void)configureLandscapeViewFrames {
+    
+    if (self.portraitViewFrames != nil) {
+        // should always not be nil
+        CGRect portrait0 = self.fractalViewLevel0.superview.frame;
+        CGRect portrait1 = self.fractalViewLevel1.superview.frame;
+        CGRect portraitN = self.fractalViewLevelN.superview.frame;
+        
+        CGRect new0;
+        CGRect new1;
+        CGRect newN;
+
+        
+        newN = CGRectUnion(portrait0, portrait1);
+        
+        // Portrait
+        // Swap position of N with 0 & 1
+        CGRectDivide(portraitN, &new0, &new1, portraitN.size.width/2.0, CGRectMinXEdge);        
+        [UIView animateWithDuration:1.0 animations:^{
+            // move N to empty spot
+            self.fractalViewLevelN.superview.frame = newN;
+            
+            // move 0 & 1 to empty N spot
+            self.fractalViewLevel0.superview.frame = new0;
+            self.fractalViewLevel1.superview.frame = new1;
+        }];
+        
+    }
+}
+
+-(void) restorePortraitViewFrames {
+    if (self.portraitViewFrames != nil) {
+        // should always not be nil
+        CGRect portrait0;
+        CGRect portrait1;
+        CGRect portraitN;
+
+        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frame0"], &portrait0);
+        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frame1"], &portrait1);
+        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frameN"], &portraitN);
+
+        [UIView animateWithDuration:1.0 animations:^{
+            // move N to empty spot
+            self.fractalViewLevelN.superview.frame = portraitN;
+            
+            // move 0 & 1 to empty N spot
+            self.fractalViewLevel0.superview.frame = portrait0;
+            self.fractalViewLevel1.superview.frame = portrait1;
+        }];
+
+    }
+}
+
+/*
+ When this is first called, the dimensions are the nib dimensions.
+ We can capture the nib portrait intent here then use it later for
+ calculating landscape and returning to portrait.
+ */
+-(void) viewWillLayoutSubviews {
+
+    CGRect viewBounds = self.view.bounds;
+    NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
+
+    if (self.portraitViewFrames == nil) {
+        
+        double barHeight = self.navigationController.navigationBar.frame.size.height;
+        NSLog(@"bar height = %g;", barHeight);
+        CGRect frame = self.fractalViewLevelN.superview.frame;
+        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
+        NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
+        NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
+        NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
+
+        self.portraitViewFrames = [[NSDictionary alloc] initWithObjectsAndKeys: frame0, @"frame0", frame1, @"frame1", frameN, @"frameN", nil];
+        
+        //NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
+
+    }
+}
 
 /*!
- Want to monitor the layout to resize the fractal layer of fractalViewLevelN. Always fit the layer in the view on layout.
+ Want to monitor the layout to resize the fractal layer of fractalViewLevelN. 
+ Always fit the layer in the view on layout.
  Can change the layer scale or the frame and redraw the layer?
+
+ When loading the view in landscape mode, the layout gets done twice.
+ Once when loaded but with the portrait bounds.
+ Then with the landscape bounds.
  */
 -(void) viewDidLayoutSubviews {
-    CALayer* containingLayer = self.fractalViewLevelN.layer;
-    NSArray* subLayers = containingLayer.sublayers;
-    for (CALayer* layer in subLayers) {
+    CGRect viewBounds = self.view.bounds;
+    NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
+
+    if (self.startedInLandscape && UIDeviceOrientationIsLandscape(self.interfaceOrientation) && (viewBounds.size.width>viewBounds.size.height)) {
+        self.startedInLandscape = NO;
+        NSLog(@"%@ Started in landscape, orientation = %u; 1,2 = portrait; 3,4 = landscape", NSStringFromSelector(_cmd), self.interfaceOrientation);
+        // only called here when first loaded in landscape orientation and with landscape bounds
+        [self configureLandscapeViewFrames];
+    }
+    
+    for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevel0"]) {
-            [self fitLayer: layer inLayer: containingLayer margin: 10];
+            [self fitLayer: layer inLayer: self.fractalViewLevel0.superview.layer margin: 5];
+            // assumes fractalViewLevel0 is a subview and fitted to a portal view which has
+            // a layer with a margin.
             // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-        } else if ([layer.name isEqualToString: @"fractalLevel1"]) {
-            [self fitLayer: layer inLayer: containingLayer margin: 10];
+        }
+    }
+    for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
+        if ([layer.name isEqualToString: @"fractalLevel1"]) {
+            [self fitLayer: layer inLayer: self.fractalViewLevel1.superview.layer margin: 5];
             // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-        } if ([layer.name isEqualToString: @"fractalLevelN"]) {
-            [self fitLayer: layer inLayer: containingLayer margin: 10];
+        }
+    }
+    for (CALayer* layer in self.fractalViewLevelN.layer.sublayers) {
+        if ([layer.name isEqualToString: @"fractalLevelN"]) {
+            [self fitLayer: layer inLayer: self.fractalViewLevelN.superview.layer margin: 5];
             // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
         }
     }
@@ -586,7 +713,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         if (![self.currentFractal.managedObjectContext save:&error]) {
             // Update to handle the error appropriately.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            exit(-1);  // Fail
+            // exit(-1);  // Fail
+            // TODO: alert here?
         }
         NSMutableArray* lefties = [self.navigationItem.leftBarButtonItems mutableCopy];
         [lefties removeLastObject];
@@ -604,8 +732,10 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 - (void)viewDidUnload
 {
     //should save be here or at higher level
-    //
-    [self.currentFractal.managedObjectContext save: nil];
+    // Only need to save if still in edit mode
+    if (self.editing) {
+        [self.currentFractal.managedObjectContext save: nil];
+    }
     self.fractalInputControl.delegate = nil;
     [self setFractalInputControl: nil];
     
@@ -613,6 +743,9 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         layer.delegate = nil;
     }
 
+    // removes observers
+    [self setReplacementRulesArray: nil];
+    
     [self setColorPopover: nil];
 
     [self setFractalName:nil];
@@ -663,6 +796,35 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 {
     // Return YES for supported orientations
 	return YES;
+}
+
+/* 
+ For portrait to landscape, move the views before the rotation.
+ 
+ */
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    //NSLog(@"%@", NSStringFromSelector(_cmd));
+
+    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation) && UIDeviceOrientationIsLandscape(toInterfaceOrientation)) {
+        
+        //[self configureLandscapeViewFrames];
+    }
+}
+
+/*
+ from landscape to portrait, move the views after the rotation
+ */
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    //NSLog(@"%@", NSStringFromSelector(_cmd));
+        
+    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation) && UIDeviceOrientationIsLandscape(fromInterfaceOrientation)) {
+        
+        [self restorePortraitViewFrames];
+    } else {
+        
+        [self configureLandscapeViewFrames];
+        
+    }
 }
 
 #pragma mark - TextView Delegate
