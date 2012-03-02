@@ -20,7 +20,7 @@
 
 
 -(void) setupStyle {
-    self.layer.frame = CGRectInset(self.layer.frame, 5.0, 5.0);
+    self.layer.frame = CGRectInset(self.layer.frame, MBPORTALMARGIN, MBPORTALMARGIN);
     self.layer.cornerRadius = 20.0;
     self.layer.borderWidth = 1.0;
     UIColor* theBorderColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1.0];

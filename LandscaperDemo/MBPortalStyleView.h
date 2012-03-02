@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define MBPORTALMARGIN 2.0
+
 @interface MBPortalStyleView : UIView
 
 //@property (strong, nonatomic) IBOutletCollection(UIRotationGestureRecognizer) NSArray *gestureRecognizers;
