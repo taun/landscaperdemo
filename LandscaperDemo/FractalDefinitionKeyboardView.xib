@@ -72,6 +72,7 @@
 						<double key="IBUIContentEdgeInsets.bottom">4</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">F</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="782044243">
 							<int key="NSColorSpace">3</int>
@@ -81,10 +82,7 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleShadowColor" id="746627821">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC41AA</bytes>
-						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">F dark.png</string>
@@ -117,10 +115,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">G</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -143,10 +142,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">8</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">g</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -165,10 +165,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">X</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -191,10 +192,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">8</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">x</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -213,10 +215,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">Y</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -239,10 +242,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">8</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">y</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -265,10 +269,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">4</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">f</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">f  forward no line dark.png</string>
@@ -291,10 +296,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">+</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Plus rotate CC dark.png</string>
@@ -321,10 +327,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">2</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">-</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Minus rotate CW dark.png</string>
@@ -347,10 +354,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">|</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Bar rotate 180 dark.png</string>
@@ -374,10 +382,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">&amp;</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Ampersand rotate swap dark.png</string>
@@ -404,10 +413,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">[</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Left square bracket push context dark.png</string>
@@ -434,10 +444,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">]</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Right square bracket pop context dark.png</string>
@@ -460,10 +471,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">#</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -482,10 +494,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">!</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -504,10 +517,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">@</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -526,10 +540,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">delete</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="682157702">
 							<int key="type">2</int>
@@ -547,7 +562,6 @@
 						<string key="NSFrame">{{668, 200}, {80, 60}}</string>
 						<reference key="NSSuperview" ref="1023344787"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<reference key="IBUIBackgroundColor" ref="776413012"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -555,10 +569,11 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">done</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="682157702"/>
 						<reference key="IBUIFont" ref="701605675"/>
@@ -581,10 +596,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">{</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -607,10 +623,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">}</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -633,10 +650,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">&lt;</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -659,10 +677,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">(</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -685,10 +704,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">)</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
@@ -711,10 +731,11 @@
 						<double key="IBUIContentEdgeInsets.bottom">7</double>
 						<double key="IBUIContentEdgeInsets.left">0.0</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">&gt;</string>
 						<reference key="IBUIHighlightedTitleColor" ref="782044243"/>
 						<reference key="IBUINormalTitleColor" ref="774246892"/>
-						<reference key="IBUINormalTitleShadowColor" ref="746627821"/>
+						<reference key="IBUINormalTitleShadowColor" ref="782044243"/>
 						<reference key="IBUINormalBackgroundImage" ref="202809036"/>
 						<reference key="IBUIFontDescription" ref="257731489"/>
 						<reference key="IBUIFont" ref="261769212"/>
