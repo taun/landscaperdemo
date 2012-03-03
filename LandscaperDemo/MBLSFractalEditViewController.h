@@ -22,15 +22,14 @@
 @property (assign, nonatomic) CGPoint               placeHolderCenter;
 @property (nonatomic, strong) UIPopoverController*  colorPopover;
 @property (nonatomic, strong) NSString*             coloringKey;
-@property (nonatomic, strong) NSNumberFormatter*    onePlaceFormatter;
 @property (nonatomic, strong) UIBarButtonItem*      aCopyButtonItem;
 @property (nonatomic, strong) NSDictionary*         portraitViewFrames;
-@property (nonatomic, strong) NSDictionary*         landscapeViewFrames;
 
 @property (nonatomic, strong) NSArray*              replacementRulesArray;
 
 @property (strong, nonatomic) IBOutlet UIView*      fractalPropertyTableHeaderView;
 @property (weak, nonatomic)  IBOutlet UITextField*  fractalName;
+@property (weak, nonatomic)  IBOutlet UITextField*  fractalCategory;
 @property (weak, nonatomic)  IBOutlet UITextView*   fractalDescriptor;
 
 #pragma mark - obsolete
@@ -97,19 +96,24 @@
 
 #pragma mark - Appearance Control Actions
 - (IBAction)lineLengthInputChanged: (UIStepper*)sender;
+- (IBAction)lineLengthScaleFactorInputChanged: (UIStepper*)sender;
 - (IBAction)lineWidthInputChanged: (id)sender;
-- (IBAction)turnAngleInputChanged: (UIStepper*)sender;
+- (IBAction)lineWidthIncrementInputChanged: (id)sender;
+- (IBAction)turningAngleInputChanged: (UIStepper*)sender;
+- (IBAction)turningAngleIncrementInputChanged: (UIStepper*)sender;
 - (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction)selectStrokeColor: (UIButton*)sender;
 - (IBAction)selectFillColor: (UIButton*)sender;
 - (IBAction)toggleStroke: (UISwitch*)sender;
 - (IBAction)toggleFill: (UISwitch*)sender;
 
-- (IBAction)rotateTurnAngle:(UIRotationGestureRecognizer*)sender;
+- (IBAction)rotateTurningAngle:(UIRotationGestureRecognizer*)sender;
 
 - (IBAction)rotateFractal:(UIRotationGestureRecognizer*)sender;
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender;
 
+#pragma mark - Button actions
+- (IBAction)cancel:(id)sender;
 - (IBAction)copyFractal:(id)sender;
-
+- (IBAction)info:(id)sender;
 @end

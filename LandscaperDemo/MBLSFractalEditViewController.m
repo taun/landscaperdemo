@@ -26,7 +26,9 @@
 static inline double radians (double degrees) {return degrees * M_PI/180.0;}
 static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
-@interface MBLSFractalEditViewController () 
+@interface MBLSFractalEditViewController () {
+    __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
+}
 
 /*!
  for tracking which text input field has the current focus.
@@ -36,6 +38,11 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (weak, nonatomic) UITextField*            activeTextField;
 
 @property (nonatomic, assign) BOOL                  startedInLandscape;
+
+@property (nonatomic, readonly) NSArray*            fractalPropertiesAppearanceSectionDefinitions;
+
+@property (nonatomic, strong) NSMutableDictionary*  appearanceCellIndexPaths;
+@property (nonatomic, strong) NSMutableDictionary*  rulesCellIndexPaths;
 
 /*!
  Custom keyboard for inputting fractal axioms and rules.
@@ -55,6 +62,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic, strong, readonly) NSSet*   editControls;
 
 @property (nonatomic, assign) double viewNRotationFromStart;
+
+@property (nonatomic, strong) NSNumberFormatter*    twoPlaceFormatter;
 
 -(void) fitLayer: (CALayer*) layerA inLayer: (CALayer*) layerB margin: (double) margin;
 
@@ -83,18 +92,18 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize fractalDefinitionRulesView = _fractalDefinitionRulesView;
 @synthesize fractalDefinitionPlaceholderView = _fractalDefinitionPlaceholderView;
 @synthesize replacementRulesArray = _replacementRulesArray;
-@synthesize portraitViewFrames = _portraitViewFrames, landscapeViewFrames = _landscapeViewFrames;
+@synthesize portraitViewFrames = _portraitViewFrames;
 @synthesize colorPopover = _colorPopover;
 @synthesize placeHolderBounds = _placeHolderBounds;
 @synthesize placeHolderCenter = _placeHolderCenter;
 @synthesize currentFractal = _currentFractal;
 @synthesize coloringKey = _coloringKey;
-@synthesize onePlaceFormatter = _onePlaceFormatter;
+@synthesize twoPlaceFormatter = _twoPlaceFormatter;
 @synthesize aCopyButtonItem = _aCopyButtonItem;
 @synthesize fractalPropertyTableHeaderView = _fractalPropertyTableHeaderView;
-@synthesize fractalName = _fractalNameTextField;
-@synthesize fractalDescriptor = _fractalDescription;
-@synthesize fractalAxiom = _fractalAxiomTextField;
+@synthesize fractalName = _fractalName, fractalCategory = _fractalCategory;
+@synthesize fractalDescriptor = _fractalDescriptor;
+@synthesize fractalAxiom = _fractalAxiom;
 @synthesize fractalInputControl = _fractalInputControl;
 @synthesize activeTextField = _activeField;
 @synthesize fractalViewLevel0 = _fractalViewLevel0;
@@ -126,6 +135,9 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize editControls = _editControls;
 @synthesize viewNRotationFromStart = _viewNRotationFromStart;
 @synthesize startedInLandscape = _startedInLandscape;
+@synthesize appearanceCellIndexPaths = _appearanceCellIndexPaths;
+@synthesize rulesCellIndexPaths = _rulesCellIndexPaths;
+@synthesize fractalPropertiesAppearanceSectionDefinitions = _fractalPropertiesAppearanceSectionDefinitions;
 
 @synthesize undoManager = _undoManager;
 
@@ -192,6 +204,86 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 }
 
 #pragma mark - custom setter getters
+//enum AppearanceIndex {
+//    TurningAngle=0,
+//    TurningAngleIncrement,
+//    LineWidth,
+//    LineWidthIncrement,
+//    LineLengthScaleFactor
+//};
+
+-(NSArray*) fractalPropertiesAppearanceSectionDefinitions {
+    if (_fractalPropertiesAppearanceSectionDefinitions == nil) {
+        NSDictionary* turningAngle = [[NSDictionary alloc] initWithObjectsAndKeys: 
+                                   @"Angle",@"label",
+                                   @"Plus rotate CC dark.png", @"imageName",
+                                   [NSNumber numberWithDouble: -180.0], @"minimumValue",
+                                   [NSNumber numberWithDouble: 181.0], @"maximumValue",
+                                   [NSNumber numberWithDouble: 1.0], @"stepValue",
+                                   @"turningAngleAsDegree", @"propertyValueKey",
+                                   @"turningAngleInputChanged:", @"actionSelectorString",
+                                   nil];
+        
+        NSDictionary* turningAngleIncrement = [[NSDictionary alloc] initWithObjectsAndKeys: 
+                                               @"A Increment",@"label",
+                                               [NSNumber numberWithDouble: -180.0], @"minimumValue",
+                                               [NSNumber numberWithDouble: 181.0], @"maximumValue",
+                                               [NSNumber numberWithDouble: 0.25], @"stepValue",
+                                               @"turningAngleIncrementAsDegree", @"propertyValueKey",
+                                               @"turningAngleIncrementInputChanged:", @"actionSelectorString",
+                                               nil];
+        
+        NSDictionary* lineWidth = [[NSDictionary alloc] initWithObjectsAndKeys: 
+                                               @"Width",@"label",
+                                               [NSNumber numberWithDouble: 1.0], @"minimumValue",
+                                               [NSNumber numberWithDouble: 20.0], @"maximumValue",
+                                               [NSNumber numberWithDouble: 1.0], @"stepValue",
+                                               @"lineWidth", @"propertyValueKey",
+                                               @"lineWidthInputChanged:", @"actionSelectorString",
+                                               nil];
+        
+        NSDictionary* lineWidthIncrement = [[NSDictionary alloc] initWithObjectsAndKeys: 
+                                   @"L Increment",@"label",
+                                   [NSNumber numberWithDouble: 1.0], @"minimumValue",
+                                   [NSNumber numberWithDouble: 20.0], @"maximumValue",
+                                   [NSNumber numberWithDouble: 0.25], @"stepValue",
+                                   @"lineWidthIncrement", @"propertyValueKey",
+                                   @"lineWidthIncrementInputChanged:", @"actionSelectorString",
+                                   nil];
+        
+        NSDictionary* lineLengthScaleFactor = [[NSDictionary alloc] initWithObjectsAndKeys: 
+                                   @"Length Scale",@"label",
+                                   [NSNumber numberWithDouble: 0.0], @"minimumValue",
+                                   [NSNumber numberWithDouble: 10.0], @"maximumValue",
+                                   [NSNumber numberWithDouble: 0.1], @"stepValue",
+                                   @"lineLengthScaleFactor", @"propertyValueKey",
+                                   @"lineLengthScaleFactorInputChanged:", @"actionSelectorString",
+                                   nil];
+        
+        _fractalPropertiesAppearanceSectionDefinitions = [[NSArray alloc] initWithObjects: 
+                                                          turningAngle, 
+                                                          turningAngleIncrement,
+                                                          lineWidth,
+                                                          lineWidthIncrement,
+                                                          lineLengthScaleFactor,
+                                                          nil];
+    }
+    return _fractalPropertiesAppearanceSectionDefinitions;
+}
+
+-(NSMutableDictionary*) appearanceCellIndexPaths {
+    if (_appearanceCellIndexPaths == nil) {
+        _appearanceCellIndexPaths = [[NSMutableDictionary alloc] initWithCapacity: 5];
+    }
+    return _appearanceCellIndexPaths;
+}
+
+-(NSMutableDictionary*) rulesCellIndexPaths {
+    if (_rulesCellIndexPaths == nil) {
+        _rulesCellIndexPaths = [[NSMutableDictionary alloc] initWithCapacity: 5];
+    }
+    return _rulesCellIndexPaths;
+}
 
 -(void) setReplacementRulesArray:(NSArray *)replacementRulesArray {
     if (replacementRulesArray != _replacementRulesArray) {
@@ -255,6 +347,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     if (_editControls == nil) {
         _editControls = [[NSSet alloc] initWithObjects: 
                          self.fractalName,
+                         self.fractalCategory,
                          self.fractalDescriptor,
                          self.levelSlider,
                          nil];
@@ -272,23 +365,23 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     return _editControls;
 }
 
--(NSNumberFormatter*) onePlaceFormatter {
-    if (_onePlaceFormatter == nil) {
-        _onePlaceFormatter = [[NSNumberFormatter alloc] init];
-        [_onePlaceFormatter setAllowsFloats: YES];
-        [_onePlaceFormatter setMaximumFractionDigits: 1];
-        [_onePlaceFormatter setMaximumIntegerDigits: 3];
-        [_onePlaceFormatter setPositiveFormat: @"##0.0"];
-        [_onePlaceFormatter setNegativeFormat: @"-##0.0"];
+-(NSNumberFormatter*) twoPlaceFormatter {
+    if (_twoPlaceFormatter == nil) {
+        _twoPlaceFormatter = [[NSNumberFormatter alloc] init];
+        [_twoPlaceFormatter setAllowsFloats: YES];
+        [_twoPlaceFormatter setMaximumFractionDigits: 2];
+        [_twoPlaceFormatter setMaximumIntegerDigits: 3];
+        [_twoPlaceFormatter setPositiveFormat: @"##0.00"];
+        [_twoPlaceFormatter setNegativeFormat: @"-##0.00"];
     }
-    return _onePlaceFormatter;
+    return _twoPlaceFormatter;
 }
 
 -(void) setFractalViewLevel0:(UIView *)fractalViewLevel0 {
     _fractalViewLevel0 = fractalViewLevel0;
     UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] 
                                         initWithTarget: self 
-                                        action: @selector(rotateTurnAngle:)];
+                                        action: @selector(rotateTurningAngle:)];
     
     [_fractalViewLevel0 addGestureRecognizer: rgr];
     
@@ -375,7 +468,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 -(void) reloadLabels {
     self.fractalName.text = self.currentFractal.name;
-    
+    self.fractalCategory.text = self.currentFractal.category;
     self.fractalDescriptor.text = self.currentFractal.descriptor;
 }
 
@@ -389,7 +482,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 //    self.widthStepper.value = [self.currentFractal.lineWidth doubleValue];
 //    self.widthSlider.value = [self.currentFractal.lineWidth doubleValue];
 //    
-//    self.fractalTurningAngle.text = [self.onePlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
+//    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
     self.turnAngleStepper.value = [[self.currentFractal turningAngleAsDegree] doubleValue];
     
 //    
@@ -403,7 +496,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 -(void) refreshLayers {
     self.fractalViewLevelNLabel.text = [self.currentFractal.level stringValue];
-    self.fractalBaseAngle.text = [self.onePlaceFormatter stringFromNumber: [self.currentFractal baseAngleAsDegree]];
+    self.fractalBaseAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal baseAngleAsDegree]];
     
 //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
 //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
@@ -485,7 +578,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 - (void)viewDidLoad
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+    //NSLog(@"%@", NSStringFromSelector(_cmd));
     [super viewDidLoad];
     
     if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
@@ -591,13 +684,13 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  */
 -(void) viewWillLayoutSubviews {
 
-    CGRect viewBounds = self.view.bounds;
-    NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
+//    CGRect viewBounds = self.view.bounds;
+    //NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
 
     if (self.portraitViewFrames == nil) {
         
         double barHeight = self.navigationController.navigationBar.frame.size.height;
-        NSLog(@"bar height = %g;", barHeight);
+        //NSLog(@"bar height = %g;", barHeight);
         CGRect frame = self.fractalViewLevelN.superview.frame;
         CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
         NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
@@ -622,7 +715,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  */
 -(void) viewDidLayoutSubviews {
     CGRect viewBounds = self.view.bounds;
-    NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
+    //NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
 
     if (self.startedInLandscape && UIDeviceOrientationIsLandscape(self.interfaceOrientation) && (viewBounds.size.width>viewBounds.size.height)) {
         self.startedInLandscape = NO;
@@ -699,9 +792,15 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         self.navigationItem.title = [NSString stringWithFormat: @"%@ (editing)", self.title];
         [self setUpUndoManager];
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+
+        UIBarButtonItem *spaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
         
-        NSMutableArray* lefties = [self.navigationItem.leftBarButtonItems mutableCopy];
-        [lefties addObject: cancelButton];
+        spaceButton.width = 30.0;
+
+        UIBarButtonItem *infoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(info:)];
+        
+        NSArray* lefties = [[NSArray alloc] initWithObjects: cancelButton, spaceButton, infoButton, nil];
+        
         self.navigationItem.leftBarButtonItems = lefties;
         self.navigationItem.leftItemsSupplementBackButton = YES;
     }
@@ -723,7 +822,11 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     }
 }
 
-- (void)cancel:(id)sender {
+-(IBAction) info:(id)sender {
+    
+}
+
+- (IBAction)cancel:(id)sender {
     [self.undoManager undo];
     [self setEditMode: NO];
     [self cleanUpUndoManager];
@@ -805,10 +908,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     //NSLog(@"%@", NSStringFromSelector(_cmd));
 
-    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation) && UIDeviceOrientationIsLandscape(toInterfaceOrientation)) {
-        
-        //[self configureLandscapeViewFrames];
-    }
 }
 
 /*
@@ -938,11 +1037,12 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 }
 
 #pragma mark - table delegate & source
-enum TableSections {
+enum TableSection {
     SectionAxiom=0,
     SectionRules,
     SectionAppearance
 };
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
@@ -979,10 +1079,42 @@ enum TableSections {
         
     } else  if (section == SectionAppearance) {
         // 
-        rows = 1;
+        rows = [self.fractalPropertiesAppearanceSectionDefinitions count];
     }
     return rows;
 }
+
+-(MBStepperTableViewCell*) populateStepperCell: (MBStepperTableViewCell*) cell 
+                              withSettingsFrom: (NSDictionary*) settings 
+                                     indexPath: (NSIndexPath*) indexPath {
+    
+    cell.propertyImage.image = [UIImage imageNamed: [settings objectForKey:@"imageName"]];
+    cell.propertyLabel.text = [settings objectForKey:@"label"];
+    cell.formatter = [self.twoPlaceFormatter copy];
+    //        [stepperCell addObserver: stepperCell forKeyPath: @"stepper.value" options: NSKeyValueObservingOptionNew context: NULL];
+    
+    //        self.fractalTurningAngle = stepperCell.value;
+    
+    UIStepper* stepper = cell.stepper;
+    self.turnAngleStepper = stepper;
+    
+    stepper.minimumValue = [[settings objectForKey:@"minimumValue"] doubleValue];
+    stepper.maximumValue = [[settings objectForKey:@"maximumValue"] doubleValue];
+    stepper.stepValue = [[settings objectForKey:@"stepValue"] doubleValue];
+    stepper.value = [[self.currentFractal valueForKey: [settings objectForKey: @"propertyValueKey"]] doubleValue];
+    
+    // manually call to set the textField to the stepper value
+    //        [stepperCell stepperValueChanged: stepper];
+    
+    [stepper addTarget: self 
+                action: NSSelectorFromString([settings objectForKey: @"actionSelectorString"]) 
+      forControlEvents: UIControlEventValueChanged];
+    
+    [self.appearanceCellIndexPaths setObject: indexPath forKey: [settings objectForKey: @"propertyValueKey"]];
+    
+    return cell;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
@@ -1030,34 +1162,16 @@ enum TableSections {
           forControlEvents: UIControlEventEditingDidEnd];
 
         cell = ruleCell;
+        [self.rulesCellIndexPaths setObject: indexPath forKey: rule.contextString];
 
     } else if (indexPath.section == SectionAppearance) {
         // appearance
         MBStepperTableViewCell *stepperCell = (MBStepperTableViewCell *)[tableView dequeueReusableCellWithIdentifier: StepperCellIdentifier];
         
-        stepperCell.label.text = @"Angle";
-        stepperCell.formatter = [self.onePlaceFormatter copy];
-//        [stepperCell addObserver: stepperCell forKeyPath: @"stepper.value" options: NSKeyValueObservingOptionNew context: NULL];
+        cell = [self populateStepperCell: stepperCell 
+                        withSettingsFrom: [self.fractalPropertiesAppearanceSectionDefinitions objectAtIndex:indexPath.row]
+                               indexPath: indexPath];
         
-//        self.fractalTurningAngle = stepperCell.value;
-        
-        UIStepper* stepper = stepperCell.stepper;
-        self.turnAngleStepper = stepper;
-        
-        stepper.minimumValue = -180.0;
-        stepper.maximumValue = 181.0;
-        stepper.stepValue = 1.0;
-        stepper.value = [[self.currentFractal turningAngleAsDegree] doubleValue];
-        
-        // manually call to set the textField to the stepper value
-//        [stepperCell stepperValueChanged: stepper];
-        
-        [stepper addTarget: self 
-                                action: @selector(turnAngleInputChanged:) 
-                      forControlEvents: UIControlEventValueChanged];
-        
-
-        cell = stepperCell;
     } else if (indexPath.section == 2) {
         // ?
     } 
@@ -1153,9 +1267,11 @@ enum TableSections {
 }
 
 - (IBAction)lineWidthInputChanged:(id)sender {
-    double rawValue = [[sender valueForKey: @"value"] doubleValue];
-    NSNumber* roundedNumber = [NSNumber numberWithDouble: (floor(rawValue*10)/10.0)];
-    self.currentFractal.lineWidth = roundedNumber;
+    self.currentFractal.lineWidth = [sender valueForKey: @"value"];
+}
+
+- (IBAction)lineWidthIncrementInputChanged:(id)sender {
+    self.currentFractal.lineWidthIncrement = [sender valueForKey: @"value"];
 }
 
 - (IBAction)axiomInputChanged:(UITextField*)sender {
@@ -1171,8 +1287,16 @@ enum TableSections {
     self.currentFractal.lineLength = [NSNumber numberWithDouble: sender.value];
 }
 
-- (IBAction)turnAngleInputChanged:(UIStepper*)sender {
+- (IBAction)lineLengthScaleFactorInputChanged:(UIStepper*)sender {
+    self.currentFractal.lineLengthScaleFactor = [NSNumber numberWithDouble: sender.value];
+}
+
+- (IBAction)turningAngleInputChanged:(UIStepper*)sender {
     [self.currentFractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: sender.value]];
+}
+
+- (IBAction)turningAngleIncrementInputChanged:(UIStepper*)sender {
+    [self.currentFractal setTurningAngleIncrementAsDegrees: [NSNumber numberWithDouble: sender.value]];
 }
 
 - (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender {
@@ -1202,8 +1326,17 @@ enum TableSections {
     return deltaAngle;
 }
 
--(IBAction) rotateTurnAngle:(UIRotationGestureRecognizer*)sender {
+-(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)sender {
     if (self.editing) {
+        
+        NSIndexPath* turnAngleIndex = [self.appearanceCellIndexPaths objectForKey: @"turningAngle"];
+        
+        if (turnAngleIndex) {
+            [self.fractalPropertiesTableView scrollToRowAtIndexPath: turnAngleIndex 
+                                                   atScrollPosition: UITableViewScrollPositionMiddle 
+                                                           animated: YES];
+
+        }
         
 
         double stepRadians = radians(self.turnAngleStepper.stepValue);
@@ -1291,6 +1424,22 @@ enum TableSections {
 }
 
 #pragma mark - core data 
+-(void) setUndoManager:(NSUndoManager *)undoManager {
+    if (undoManager != _undoManager) {
+        if (undoManager == nil) {
+            [self cleanUpUndoManager];
+        }
+        _undoManager = undoManager;
+    }
+}
+
+-(NSUndoManager*) undoManager {
+    if (_undoManager == nil) {
+        [self setUpUndoManager];
+    }
+    return _undoManager;
+}
+
 - (void)setUpUndoManager {
     /*
      If the book's managed object context doesn't already have an undo manager, then create one and set it for the context and self.
@@ -1300,9 +1449,9 @@ enum TableSections {
         
         NSUndoManager *anUndoManager = [[NSUndoManager alloc] init];
         [anUndoManager setLevelsOfUndo:3];
-        self.undoManager = anUndoManager;
+        _undoManager = anUndoManager;
         
-        self.currentFractal.managedObjectContext.undoManager = self.undoManager;
+        self.currentFractal.managedObjectContext.undoManager = _undoManager;
     }
     
     // Register as an observer of the book's context's undo manager.
@@ -1319,9 +1468,9 @@ enum TableSections {
     // Remove self as an observer.
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    if (self.currentFractal.managedObjectContext.undoManager == self.undoManager) {
+    if (self.currentFractal.managedObjectContext.undoManager == _undoManager) {
         self.currentFractal.managedObjectContext.undoManager = nil;
-        self.undoManager = nil;
+        _undoManager = nil;
     }       
 }
 
