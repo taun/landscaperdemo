@@ -60,14 +60,24 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic, strong) NSMutableArray* generatorsArray; 
 
 @property (nonatomic, strong, readonly) NSSet*   editControls;
+@property (nonatomic, strong)   NSMutableArray*  cachedEditViews;
 
 @property (nonatomic, assign) double viewNRotationFromStart;
 
 @property (nonatomic, strong) NSNumberFormatter*    twoPlaceFormatter;
+@property (nonatomic, strong) UIBarButtonItem*      aCopyButtonItem;
+@property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
+@property (nonatomic, strong) UIBarButtonItem*      infoButtonItem;
+@property (nonatomic, strong) UIBarButtonItem*      spaceButtonItem;
+@property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
+@property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
+
+@property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
 -(void) fitLayer: (CALayer*) layerA inLayer: (CALayer*) layerB margin: (double) margin;
 
--(void) configureRightButtons;
+-(void) configureNavButtons;
+
 -(void) setEditMode: (BOOL) editing;
 -(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel;
 -(void) reloadLabels;
@@ -78,6 +88,10 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(void) useFractalDefinitionRulesView;
 -(void) useFractalDefinitionAppearanceView;
 -(void) loadDefinitionViews;
+
+- (void)updateUndoRedoBarButtonState;
+- (void)setUpUndoManager;
+- (void)cleanUpUndoManager;
 
 @end
 
@@ -99,7 +113,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize currentFractal = _currentFractal;
 @synthesize coloringKey = _coloringKey;
 @synthesize twoPlaceFormatter = _twoPlaceFormatter;
-@synthesize aCopyButtonItem = _aCopyButtonItem;
+@synthesize aCopyButtonItem = _aCopyButtonItem, cancelButtonItem = _cancelButtonItem, infoButtonItem = _infoButtonItem;
+@synthesize spaceButtonItem = _spaceButtonItem, undoButtonItem = _undoButtonItem, redoButtonItem = _redoButtonItem;
 @synthesize fractalPropertyTableHeaderView = _fractalPropertyTableHeaderView;
 @synthesize fractalName = _fractalName, fractalCategory = _fractalCategory;
 @synthesize fractalDescriptor = _fractalDescriptor;
@@ -129,6 +144,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize fractalPropertiesView = _fractalPropertiesView;
 @synthesize fractalPropertiesTableView = _fractalPropertiesTableView;
 @synthesize fractalViewLevelNLabel = _fractalViewLevelNLabel;
+@synthesize cachedEditViews = _cachedEditViews;
 
 @synthesize fractalDisplayLayersArray = _fractalDisplayLayersArray;
 @synthesize generatorsArray = _generatorsArray;
@@ -139,6 +155,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize rulesCellIndexPaths = _rulesCellIndexPaths;
 @synthesize fractalPropertiesAppearanceSectionDefinitions = _fractalPropertiesAppearanceSectionDefinitions;
 
+@synthesize cancelled = _cancelled;
 @synthesize undoManager = _undoManager;
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -189,6 +206,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
+    [self updateUndoRedoBarButtonState];
+    
     if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString:  @"replacementString"]) {
         // productionRuleChanged
         [self refreshValueInputs];
@@ -212,6 +231,13 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 //    LineLengthScaleFactor
 //};
 
+-(NSMutableArray*) cachedEditViews {
+    if (_cachedEditViews==nil) {
+        _cachedEditViews = [[NSMutableArray alloc] initWithCapacity: 2];
+    }
+    return _cachedEditViews;
+}
+
 -(NSArray*) fractalPropertiesAppearanceSectionDefinitions {
     if (_fractalPropertiesAppearanceSectionDefinitions == nil) {
         NSDictionary* turningAngle = [[NSDictionary alloc] initWithObjectsAndKeys: 
@@ -226,6 +252,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         
         NSDictionary* turningAngleIncrement = [[NSDictionary alloc] initWithObjectsAndKeys: 
                                                @"A Increment",@"label",
+                                               @"Parenthesis increment turn angle dark.png", @"imageName",
                                                [NSNumber numberWithDouble: -180.0], @"minimumValue",
                                                [NSNumber numberWithDouble: 181.0], @"maximumValue",
                                                [NSNumber numberWithDouble: 0.25], @"stepValue",
@@ -235,6 +262,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         
         NSDictionary* lineWidth = [[NSDictionary alloc] initWithObjectsAndKeys: 
                                                @"Width",@"label",
+                                                @"Line width dark.png", @"imageName",
                                                [NSNumber numberWithDouble: 1.0], @"minimumValue",
                                                [NSNumber numberWithDouble: 20.0], @"maximumValue",
                                                [NSNumber numberWithDouble: 1.0], @"stepValue",
@@ -244,6 +272,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         
         NSDictionary* lineWidthIncrement = [[NSDictionary alloc] initWithObjectsAndKeys: 
                                    @"L Increment",@"label",
+                                    @"Pound increment width dark.png", @"imageName",
                                    [NSNumber numberWithDouble: 1.0], @"minimumValue",
                                    [NSNumber numberWithDouble: 20.0], @"maximumValue",
                                    [NSNumber numberWithDouble: 0.25], @"stepValue",
@@ -310,6 +339,54 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     return _aCopyButtonItem;
 }
 
+-(UIBarButtonItem*) cancelButtonItem {
+    if (_cancelButtonItem == nil) {
+        _cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel 
+                                                                          target:self 
+                                                                          action:@selector(cancelEdit:)];
+        
+    }
+    return _cancelButtonItem;
+}
+
+-(UIBarButtonItem*) infoButtonItem {
+    if (_infoButtonItem == nil) {
+        _infoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemOrganize 
+                                                                        target:self 
+                                                                        action:@selector(info:)];
+        
+    }
+    return _infoButtonItem;
+}
+
+-(UIBarButtonItem*) spaceButtonItem {
+    if (_spaceButtonItem == nil) {
+        _spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace 
+                                                                         target:self 
+                                                                         action:nil];
+        _spaceButtonItem.width = 10.0;
+    }
+    return _spaceButtonItem;
+}
+
+-(UIBarButtonItem*) undoButtonItem {
+    if (_undoButtonItem == nil) {
+        _undoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemUndo 
+                                                                        target:self 
+                                                                        action:@selector(undoEdit:)];
+    }
+    return _undoButtonItem;
+}
+
+-(UIBarButtonItem*) redoButtonItem {
+    if (_redoButtonItem == nil) {
+        _redoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemRedo 
+                                                                        target:self 
+                                                                        action:@selector(redoEdit:)];
+    }
+    return _redoButtonItem;
+}
+
 -(UIPopoverController*) colorPopover {
     if (_colorPopover == nil) {
         UIColor* color = [self.currentFractal lineColorAsUI];
@@ -349,18 +426,18 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
                          self.fractalName,
                          self.fractalCategory,
                          self.fractalDescriptor,
-                         self.levelSlider,
                          nil];
-        //                         self.lineLengthStepper,
-        //                         self.turnAngleStepper,
-        //                         self.widthStepper,
-        //                         self.widthSlider,
-        //                         self.strokeSwitch,
-        //                         self.strokeColorButton,
-        //                         self.fillSwitch,
-        //                         self.fillColorButton,
-        //                         self.fractalAxiom,
-        //                         self.levelStepper,
+//                         self.levelSlider,
+//                         self.lineLengthStepper,
+//                         self.turnAngleStepper,
+//                         self.widthStepper,
+//                         self.widthSlider,
+//                         self.strokeSwitch,
+//                         self.strokeColorButton,
+//                         self.fillSwitch,
+//                         self.fillColorButton,
+//                         self.fractalAxiom,
+//                         self.levelStepper,
     }
     return _editControls;
 }
@@ -418,22 +495,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     background.shadowOpacity = 0.6;
 }
 
-#pragma mark - View lifecycle
-
-- (void)updateRightBarButtonItemState {
-    // Conditionally enable the right bar button item -- it should only be enabled if the book is in a valid state for saving.
-    self.navigationItem.rightBarButtonItem.enabled = [self.currentFractal validateForUpdate:NULL];
-    self.navigationItem.leftBarButtonItem.enabled = [self.currentFractal validateForUpdate:NULL];
-}   
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
+#pragma mark - view utility methods
 -(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin {
     CGRect boundsOuter = layerOuter.bounds;
     CGRect boundsInner = CGRectInset(boundsOuter, margin, margin);
@@ -448,7 +510,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     
     [self fitLayer: aLayer inLayer: aView.layer margin: 10];        
     [aView.layer addSublayer: aLayer];
-
+    
     
     LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
     
@@ -473,40 +535,40 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 }
 
 -(void) refreshValueInputs {    
-//    self.fractalAxiom.text = self.currentFractal.axiom;
-//    
-//    self.fractalLineLength.text =  [self.currentFractal.lineLength stringValue];
-//    self.lineLengthStepper.value = [self.currentFractal.lineLength doubleValue];
-//    
-//    self.fractalWidth.text =  [self.currentFractal.lineWidth stringValue];
-//    self.widthStepper.value = [self.currentFractal.lineWidth doubleValue];
-//    self.widthSlider.value = [self.currentFractal.lineWidth doubleValue];
-//    
-//    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
+    //    self.fractalAxiom.text = self.currentFractal.axiom;
+    //    
+    //    self.fractalLineLength.text =  [self.currentFractal.lineLength stringValue];
+    //    self.lineLengthStepper.value = [self.currentFractal.lineLength doubleValue];
+    //    
+    //    self.fractalWidth.text =  [self.currentFractal.lineWidth stringValue];
+    //    self.widthStepper.value = [self.currentFractal.lineWidth doubleValue];
+    //    self.widthSlider.value = [self.currentFractal.lineWidth doubleValue];
+    //    
+    //    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
     self.turnAngleStepper.value = [[self.currentFractal turningAngleAsDegree] doubleValue];
     
-//    
-//    self.fractalLevel.text = [self.currentFractal.level stringValue];
-//    self.levelStepper.value = [self.currentFractal.level doubleValue];
+    //    
+    //    self.fractalLevel.text = [self.currentFractal.level stringValue];
+    //    self.levelStepper.value = [self.currentFractal.level doubleValue];
     self.levelSlider.value = [self.currentFractal.level doubleValue];
-//    
-//    self.strokeSwitch.on = [self.currentFractal.stroke boolValue];
-//    self.fillSwitch.on = [self.currentFractal.fill boolValue];
+    //    
+    //    self.strokeSwitch.on = [self.currentFractal.stroke boolValue];
+    //    self.fillSwitch.on = [self.currentFractal.fill boolValue];
 }
 
 -(void) refreshLayers {
     self.fractalViewLevelNLabel.text = [self.currentFractal.level stringValue];
     self.fractalBaseAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal baseAngleAsDegree]];
     
-//    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
-//    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
+    //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
+    //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
     
     for (CALayer* layer in self.fractalDisplayLayersArray) {
         layer.contents = nil;
-//        [self logBounds: layer.bounds info: @"newLayer Bounds"];
+        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
         [layer setNeedsLayout];
         [layer layoutIfNeeded];
-//        [self logBounds: layer.bounds info: @"newLayer Bounds"];
+        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
         [layer setNeedsDisplay];
     }
 }
@@ -514,7 +576,9 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(void) refreshContents {
     [self reloadLabels];
     [self refreshValueInputs];
+    [self.fractalPropertiesTableView reloadData];
     [self refreshLayers];
+    [self configureNavButtons];
 }
 
 -(void) loadDefinitionViews {
@@ -533,8 +597,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
                            options: UIViewAnimationOptionTransitionFlipFromLeft 
                         completion: NULL];
     }
-//    self.fractalDefinitionRulesView.center = self.placeHolderCenter;
-//    self.fractalDefinitionRulesView.bounds = self.placeHolderBounds;
+    //    self.fractalDefinitionRulesView.center = self.placeHolderCenter;
+    //    self.fractalDefinitionRulesView.bounds = self.placeHolderBounds;
     
 }
 
@@ -549,84 +613,100 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
                            options: UIViewAnimationOptionTransitionFlipFromRight 
                         completion: NULL];
     }
-//    self.fractalDefinitionAppearanceView.center = self.placeHolderCenter;
-//    self.fractalDefinitionAppearanceView.bounds = self.placeHolderBounds;
+    //    self.fractalDefinitionAppearanceView.center = self.placeHolderCenter;
+    //    self.fractalDefinitionAppearanceView.bounds = self.placeHolderBounds;
+}
+
+/*
+ not sure this is needed?
+ copied but no longer relevant?
+ */
+- (void)updateUndoRedoBarButtonState {
+    if (self.editing) {
+        if ([self.undoManager canRedo]) {
+            self.redoButtonItem.enabled = YES;
+        } else {
+            self.redoButtonItem.enabled = NO;
+        }
+        
+        if ([self.undoManager canUndo]) {
+            self.undoButtonItem.enabled = YES;
+        } else {
+            self.undoButtonItem.enabled = NO;
+        }
+    }
 }
 
 //TODO: add Undo and Redo buttons for editing
-- (void) configureRightButtons {
+- (void) configureNavButtons {
     
-    NSArray* rightButtons;
+    NSMutableArray *rightButtons, *leftButtons;
+    
     
     if ([self.currentFractal.isImmutable boolValue]) {
         // no edit button if it is read only
-        rightButtons = [[NSArray alloc] initWithObjects: self.aCopyButtonItem, nil];
-        self.navigationItem.title = [NSString stringWithFormat: @"%@ (read-only)", self.title];
-    } else if (self.editing) {
-        // include edit button but no copy button
-        rightButtons = [[NSArray alloc] initWithObjects: self.editButtonItem, nil];
-    } else {
-        // copy and edit button
-        UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace 
-                                                                               target: self 
-                                                                               action:nil];
+        rightButtons = [[NSMutableArray alloc] initWithObjects: self.aCopyButtonItem, nil];
         
-        rightButtons = [[NSArray alloc] initWithObjects: self.editButtonItem, space, space, self.aCopyButtonItem, nil];
+        self.navigationItem.title = [NSString stringWithFormat: @"%@ (read-only)", self.title];
+        
+    } else if (self.editing) {
+        self.navigationItem.title = [NSString stringWithFormat: @"%@ (editing)", self.title];
+        
+        leftButtons = [[NSMutableArray alloc] initWithObjects: self.cancelButtonItem,self.spaceButtonItem, self.undoButtonItem, self.redoButtonItem, nil];
+        
+        // include edit button but no copy button
+        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, nil];
+        
+    } else {
+        self.navigationItem.title = self.title;
+        // copy and edit button        
+        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, self.aCopyButtonItem, nil];
     }
-    self.navigationItem.rightBarButtonItems = rightButtons;
+    
+    [rightButtons addObject: self.infoButtonItem];
+    
+    self.navigationItem.leftItemsSupplementBackButton = YES;
+
+    [self updateUndoRedoBarButtonState];
+    
+    [UIView animateWithDuration:0.20 animations:^{
+        self.navigationItem.rightBarButtonItems = rightButtons;
+        
+        self.navigationItem.leftBarButtonItems = leftButtons;
+    }];
+
 }
 
-- (void)viewDidLoad
-{
-    //NSLog(@"%@", NSStringFromSelector(_cmd));
-    [super viewDidLoad];
+-(void) savePortraitViewFrames {
+    // This is only called when the nib is first loaded and the views have not been resized.
+    double barHeight = self.navigationController.navigationBar.frame.size.height;
+
+    double topMargin = 0;
     
     if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
         self.startedInLandscape = YES;
+        // remove extra 20 pixels added when started in landscape but getting nib dimensions before autolayout.
+        topMargin = 20.0;
     } else { 
         self.startedInLandscape = NO;
     }
-    
-    
-    
-    _placeHolderCenter = self.fractalDefinitionPlaceholderView.center;
-    _placeHolderBounds = self.fractalDefinitionPlaceholderView.bounds;
-    
-    [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
-        
-    UIView* header = self.fractalPropertyTableHeaderView;
-    
-    header.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    self.fractalPropertiesTableView.allowsSelectionDuringEditing = YES;
-    self.fractalPropertiesTableView.tableHeaderView = header;
-    
-//    [self.fractalDefinitionPlaceholderView removeFromSuperview];
-//    [self loadDefinitionViews];
-//    [self useFractalDefinitionRulesView];
-        
-    [self configureRightButtons];
-    
-    [self setEditMode: NO];
-    
-    [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
-        
-    self.fractalAxiom.inputView = self.fractalInputControl.view;
-        
-    CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
-    [self.levelSliderContainerView setTransform: rotateCC];
-    
-    [self refreshContents];
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-//    [self.navigationController setToolbarHidden: NO animated: YES];
+    CGRect frame = self.fractalViewLevelN.superview.frame;
+    //        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
+    CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN-topMargin);
+    NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
+    NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
+    NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
+    
+    self.portraitViewFrames = [[NSDictionary alloc] initWithObjectsAndKeys: frame0, @"frame0", frame1, @"frame1", frameN, @"frameN", nil];
+    NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
+
 }
 
 -(void)configureLandscapeViewFrames {
     
-    if (self.portraitViewFrames != nil) {
+    if (self.portraitViewFrames) {
+//    if (self.portraitViewFrames != nil && self.editing) {
         // should always not be nil
         CGRect portrait0 = self.fractalViewLevel0.superview.frame;
         CGRect portrait1 = self.fractalViewLevel1.superview.frame;
@@ -635,7 +715,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         CGRect new0;
         CGRect new1;
         CGRect newN;
-
+        
         
         newN = CGRectUnion(portrait0, portrait1);
         
@@ -660,11 +740,11 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         CGRect portrait0;
         CGRect portrait1;
         CGRect portraitN;
-
+        
         CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frame0"], &portrait0);
         CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frame1"], &portrait1);
         CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frameN"], &portraitN);
-
+        
         [UIView animateWithDuration:1.0 animations:^{
             // move N to empty spot
             self.fractalViewLevelN.superview.frame = portraitN;
@@ -673,77 +753,46 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
             self.fractalViewLevel0.superview.frame = portrait0;
             self.fractalViewLevel1.superview.frame = portrait1;
         }];
-
+        
     }
+}
+
+-(IBAction) info:(id)sender {
+    
+}
+/*!
+ It took awhile to understand the undo mechanism but I think I finally have it.
+ 
+ Undo undoes everything in the top level closed undo group. 
+ 
+ To have the ability to undo lists of operations, they need to be nested and undoNested needs to be used.
+ 
+ undoNested adds the operation to the redo stack whereas undo puts what was undone on the undo stack so undoing again just redoes what was undone like a toggle.
+ 
+ In this context, we want undo to perform undoNested and undo individual edit operations.
+ 
+ Cancel will undo all changes since the edit session started by using core data rollback.
+ */
+// TODO: change all undos to [managedObjectContext undo] rather than undoManager
+// need to make sure MOC undoManager exist like in setupUndoManager
+// Don't need self.undoManager just model undoManager
+- (IBAction)undoEdit:(id)sender {
+    [self.undoManager endUndoGrouping];
+    [self.undoManager undoNestedGroup];
+    //[self.undoManager disableUndoRegistration];
+    //[self.undoManager undo];
+    //[self.undoManager enableUndoRegistration];
+}
+- (IBAction)redoEdit:(id)sender {
+    [self.currentFractal.managedObjectContext redo];
 }
 
 /*
- When this is first called, the dimensions are the nib dimensions.
- We can capture the nib portrait intent here then use it later for
- calculating landscape and returning to portrait.
+ since we are using core data, all we need to do to undo all changes and cancel the edit session is not save the core data and use rollback.
  */
--(void) viewWillLayoutSubviews {
-
-//    CGRect viewBounds = self.view.bounds;
-    //NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
-
-    if (self.portraitViewFrames == nil) {
-        
-        double barHeight = self.navigationController.navigationBar.frame.size.height;
-        //NSLog(@"bar height = %g;", barHeight);
-        CGRect frame = self.fractalViewLevelN.superview.frame;
-        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
-        NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
-        NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
-        NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
-
-        self.portraitViewFrames = [[NSDictionary alloc] initWithObjectsAndKeys: frame0, @"frame0", frame1, @"frame1", frameN, @"frameN", nil];
-        
-        //NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
-
-    }
-}
-
-/*!
- Want to monitor the layout to resize the fractal layer of fractalViewLevelN. 
- Always fit the layer in the view on layout.
- Can change the layer scale or the frame and redraw the layer?
-
- When loading the view in landscape mode, the layout gets done twice.
- Once when loaded but with the portrait bounds.
- Then with the landscape bounds.
- */
--(void) viewDidLayoutSubviews {
-    CGRect viewBounds = self.view.bounds;
-    //NSLog(@"%@ Bounds = %g,%g,%g,%g", NSStringFromSelector(_cmd),viewBounds.origin.x,viewBounds.origin.y,viewBounds.size.width, viewBounds.size.height);
-
-    if (self.startedInLandscape && UIDeviceOrientationIsLandscape(self.interfaceOrientation) && (viewBounds.size.width>viewBounds.size.height)) {
-        self.startedInLandscape = NO;
-        NSLog(@"%@ Started in landscape, orientation = %u; 1,2 = portrait; 3,4 = landscape", NSStringFromSelector(_cmd), self.interfaceOrientation);
-        // only called here when first loaded in landscape orientation and with landscape bounds
-        [self configureLandscapeViewFrames];
-    }
-    
-    for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevel0"]) {
-            [self fitLayer: layer inLayer: self.fractalViewLevel0.superview.layer margin: 5];
-            // assumes fractalViewLevel0 is a subview and fitted to a portal view which has
-            // a layer with a margin.
-            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-        }
-    }
-    for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevel1"]) {
-            [self fitLayer: layer inLayer: self.fractalViewLevel1.superview.layer margin: 5];
-            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-        }
-    }
-    for (CALayer* layer in self.fractalViewLevelN.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevelN"]) {
-            [self fitLayer: layer inLayer: self.fractalViewLevelN.superview.layer margin: 5];
-            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-        }
-    }
+- (IBAction)cancelEdit:(id)sender {
+    self.cancelled = YES;
+    [self setEditing: NO animated: YES];
 }
 
 -(void) setEditMode: (BOOL) editing {
@@ -756,13 +805,13 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
             tf.backgroundColor = editing ? white : nil;
             tf.opaque = editing;
             tf.borderStyle = editing ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
-
+            
         } else if ([control isKindOfClass:[UITextView class]]) {
             UITextView* tf = (UITextView*) control;
             tf.editable = editing;
             tf.backgroundColor = editing ? white : nil;
             tf.opaque = editing;
-
+            
         } else  if ([control isKindOfClass:[UIStepper class]]) {
             UIStepper* tf = (UIStepper*) control;
             tf.hidden = !editing;
@@ -770,66 +819,159 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
             UISwitch* tf = (UISwitch*) control;
             tf.hidden = !editing;
         } else if ([control isKindOfClass:[UIButton class]]) {
-//            UIButton* tf = (UIButton*) control;
+            //            UIButton* tf = (UIButton*) control;
         }
     }
-    [self configureRightButtons];
 }
 
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
-    [super setEditing:editing animated:animated];
+#pragma mark - UIViewController Methods
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
     
-    // Hide the back button when editing starts, and show it again when editing finishes.
-    [self.navigationItem setHidesBackButton:editing animated:animated];
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidLoad
+{
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+
+    [super viewDidLoad];
     
-    [self setEditMode: editing];
-    [self.fractalPropertiesTableView setEditing: editing animated: animated];
-    /*
-     When editing starts, create and set an undo manager to track edits. Then register as an observer of undo manager change notifications, so that if an undo or redo operation is performed, the table view can be reloaded.
-     When editing ends, de-register from the notification center and remove the undo manager, and save the changes.
-     */
-    if (editing) {
-        self.navigationItem.title = [NSString stringWithFormat: @"%@ (editing)", self.title];
-        [self setUpUndoManager];
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
-
-        UIBarButtonItem *spaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-        
-        spaceButton.width = 30.0;
-
-        UIBarButtonItem *infoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(info:)];
-        
-        NSArray* lefties = [[NSArray alloc] initWithObjects: cancelButton, spaceButton, infoButton, nil];
-        
-        self.navigationItem.leftBarButtonItems = lefties;
-        self.navigationItem.leftItemsSupplementBackButton = YES;
+    self.title = self.currentFractal.name;
+    
+    if (self.portraitViewFrames == nil) {
+        // we want to save the frames as layed out in the nib.
+        [self savePortraitViewFrames];        
     }
-    else {
-        self.navigationItem.title = self.title;
-        [self cleanUpUndoManager];
-        // Save the changes.
-        NSError *error;
-        if (![self.currentFractal.managedObjectContext save:&error]) {
-            // Update to handle the error appropriately.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            // exit(-1);  // Fail
-            // TODO: alert here?
-        }
-        NSMutableArray* lefties = [self.navigationItem.leftBarButtonItems mutableCopy];
-        [lefties removeLastObject];
-        self.navigationItem.leftBarButtonItems = lefties;
-        [self becomeFirstResponder];
-    }
-}
-
--(IBAction) info:(id)sender {
     
-}
-
-- (IBAction)cancel:(id)sender {
-    [self.undoManager undo];
+    [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
+        
+    UIView* header = self.fractalPropertyTableHeaderView;
+    
+    header.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.fractalPropertiesTableView.allowsSelectionDuringEditing = YES;
+    self.fractalPropertiesTableView.tableHeaderView = header;
+    
     [self setEditMode: NO];
-    [self cleanUpUndoManager];
+    
+    [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
+        
+    self.fractalAxiom.inputView = self.fractalInputControl.view;
+        
+    CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
+    [self.levelSliderContainerView setTransform: rotateCC];
+}
+
+/*!
+ Initial view autolayout of the nib is done between viewDidLoad and viewWillAppear.
+ viewDiDLoad has the nib view size without a toolbar
+ viewWillAppear has the nib view after being resized.
+ 
+ viewDidLoad is portrait but 20 pixels taller when started in landscape orientation.
+ Does not become landscape until viewWillAppear.
+ */
+- (void)viewWillAppear:(BOOL)animated {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+
+    [super viewWillAppear:animated];
+
+}
+
+/*
+
+ */
+-(void) viewWillLayoutSubviews {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+    
+    if (self.portraitViewFrames == nil) {
+        
+        [self.cachedEditViews addObject: self.fractalPropertiesView];
+        [self.cachedEditViews addObject: self.fractalViewLevel0.superview];
+        [self.cachedEditViews addObject: self.fractalViewLevel1.superview];        
+    }
+    
+    //    if (!self.editing) {
+    //        for (UIView* view in self.cachedEditViews) {
+    //            [view removeFromSuperview];
+    //        }
+    //    }
+}
+
+/*!
+ Want to monitor the layout to resize the fractal layer of fractalViewLevelN. 
+ Always fit the layer in the view on layout.
+ Can change the layer scale or the frame and redraw the layer?
+ 
+ When loading the view in landscape mode, the layout gets done twice.
+ Once when loaded but with the portrait bounds.
+ Then with the landscape bounds.
+ */
+-(void) viewDidLayoutSubviews {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+    
+    if (self.startedInLandscape && UIDeviceOrientationIsLandscape(self.interfaceOrientation) && (viewBounds.size.width>viewBounds.size.height)) {
+        self.startedInLandscape = NO;
+        NSLog(@"%@ Started in landscape, orientation = %u; 1,2 = portrait; 3,4 = landscape", NSStringFromSelector(_cmd), self.interfaceOrientation);
+        // only called here when first loaded in landscape orientation and with landscape bounds
+        [self configureLandscapeViewFrames];
+    }
+    if (!self.editing) {
+        for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
+            if ([layer.name isEqualToString: @"fractalLevel0"]) {
+                [self fitLayer: layer inLayer: self.fractalViewLevel0.superview.layer margin: 5];
+                // assumes fractalViewLevel0 is a subview and fitted to a portal view which has
+                // a layer with a margin.
+                // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+            }
+        }
+        
+        for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
+            if ([layer.name isEqualToString: @"fractalLevel1"]) {
+                [self fitLayer: layer inLayer: self.fractalViewLevel1.superview.layer margin: 5];
+                // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+            }
+        }
+    }
+    for (CALayer* layer in self.fractalViewLevelN.layer.sublayers) {
+        if ([layer.name isEqualToString: @"fractalLevelN"]) {
+            [self fitLayer: layer inLayer: self.fractalViewLevelN.superview.layer margin: 5];
+            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+        }
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+
+    [super viewDidAppear:animated];
+    [self refreshContents];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+
+    if (self.editing) {
+        [self.currentFractal.managedObjectContext save: nil];
+        [self setUndoManager: nil];
+    } else {
+        // undo all non-saved changes
+        [self.currentFractal.managedObjectContext rollback];
+    }
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
 }
 
 - (void)viewDidUnload
@@ -838,6 +980,10 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     // Only need to save if still in edit mode
     if (self.editing) {
         [self.currentFractal.managedObjectContext save: nil];
+        [self setUndoManager: nil];
+    } else {
+        // undo all non-saved changes
+        [self.currentFractal.managedObjectContext rollback];
     }
     self.fractalInputControl.delegate = nil;
     [self setFractalInputControl: nil];
@@ -845,12 +991,12 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     for (CALayer* layer in self.fractalDisplayLayersArray) {
         layer.delegate = nil;
     }
-
+    
     // removes observers
     [self setReplacementRulesArray: nil];
     
     [self setColorPopover: nil];
-
+    
     [self setFractalName:nil];
     [self setFractalDescriptor:nil];
     [self setFractalAxiom:nil];
@@ -862,9 +1008,9 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     [self setLineLengthStepper:nil];
     [self setFractalTurningAngle:nil];
     [self setTurnAngleStepper:nil];
-
+    
     [self setFractalPropertiesView:nil];
-
+    
     _editControls = nil;    
     
     [self setFractalViewLevelNLabel:nil];
@@ -893,6 +1039,56 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+// TODO: generate a thumbnail whenever saving. add thumbnails to coreData
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
+    /*
+     When editing starts, create and set an undo manager to track edits. Then register as an observer of undo manager change notifications, so that if an undo or redo operation is performed, the table view can be reloaded.
+     When editing ends, de-register from the notification center and remove the undo manager, and save the changes.
+     */
+    if (editing) {
+        // reset cancelled status
+        self.cancelled = NO;
+                
+        [self.undoManager beginUndoGrouping];
+        
+        
+    } else {
+                
+        //[self.undoManager endUndoGrouping];
+        [self.currentFractal.managedObjectContext rollback];
+        
+        if (self.isCancelled) { 
+            // 
+            
+        } else {
+            // Save the changes.
+            NSError *error;
+            if (![self.currentFractal.managedObjectContext save:&error]) {
+                // Update to handle the error appropriately.
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                // exit(-1);  // Fail
+                // TODO: alert here?
+                
+            }
+        }
+        [self.undoManager removeAllActions];
+        [self setUndoManager: nil];
+        [self becomeFirstResponder];
+    }
+    self.fractalPropertiesView.hidden = !editing;
+    self.fractalViewLevel0.superview.hidden = !editing;
+    self.fractalViewLevel1.superview.hidden = !editing;
+
+    [self refreshContents];
+    // Hide the back button when editing starts, and show it again when editing finishes.
+    [self.navigationItem setHidesBackButton:editing animated:animated];
+    
+    [self setEditMode: editing];
+    [self.fractalPropertiesTableView setEditing: editing animated: animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -1292,7 +1488,10 @@ enum TableSection {
 }
 
 - (IBAction)turningAngleInputChanged:(UIStepper*)sender {
+    [self.undoManager beginUndoGrouping];
+    [self.currentFractal.managedObjectContext processPendingChanges];
     [self.currentFractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: sender.value]];
+    NSLog(@"Undo group levels = %u", [self.undoManager groupingLevel]);
 }
 
 - (IBAction)turningAngleIncrementInputChanged:(UIStepper*)sender {
@@ -1374,6 +1573,7 @@ enum TableSection {
     
 }
 
+// TODO: copy app delegate saveContext method
 - (IBAction)copyFractal:(id)sender {
     LSFractal* fractal = self.currentFractal;
     
@@ -1384,9 +1584,10 @@ enum TableSection {
     copiedFractal.isReadOnly = [NSNumber numberWithBool: NO];
     
     self.currentFractal = copiedFractal;
-    // Need to add edit button if missing
-    [self configureRightButtons];
     
+    // coalesce to a common method for saving, copy from appDelegate
+    [self.currentFractal.managedObjectContext save: nil];
+
     [self refreshContents];
     self.editing = YES;
 }
@@ -1401,26 +1602,26 @@ enum TableSection {
     NSString* camelCase = [self.coloringKey stringByReplacingCharactersInRange: NSMakeRange(0, 1) withString: [[self.coloringKey substringWithRange: NSMakeRange(0, 1)] uppercaseString]];
     
     NSString* selectorString = [NSString stringWithFormat: @"set%@:", camelCase];
-        
-    NSUndoManager* undoManager = self.currentFractal.managedObjectContext.undoManager;
+            
+    [self.undoManager beginUndoGrouping];
     
-    [undoManager beginUndoGrouping];
-    
-    [undoManager registerUndoWithTarget: self.currentFractal selector: NSSelectorFromString(selectorString) object: currentColor];
+    [self.undoManager registerUndoWithTarget: self.currentFractal selector: NSSelectorFromString(selectorString) object: currentColor];
     
     [self.currentFractal setValue: newColor forKey: self.coloringKey];
     
-    [undoManager endUndoGrouping];
+    [self.undoManager endUndoGrouping];
 }
 
 - (void)colorPickerUndo:(ColorPickerController *)controller {
-    NSUndoManager* undoManager = self.currentFractal.managedObjectContext.undoManager;
-    [undoManager undo];
+    if ([self.undoManager canUndo]) {
+        [self.undoManager undo];
+    }
 }
 
 - (void)colorPickerRedo:(ColorPickerController *)controller {
-    NSUndoManager* undoManager = self.currentFractal.managedObjectContext.undoManager;
-    [undoManager redo];
+    if ([self.undoManager canRedo]) {
+        [self.undoManager redo];
+    }
 }
 
 #pragma mark - core data 
@@ -1448,7 +1649,8 @@ enum TableSection {
     if (self.currentFractal.managedObjectContext.undoManager == nil) {
         
         NSUndoManager *anUndoManager = [[NSUndoManager alloc] init];
-        [anUndoManager setLevelsOfUndo:3];
+        [anUndoManager setLevelsOfUndo:0];
+        [anUndoManager setGroupsByEvent: NO];
         _undoManager = anUndoManager;
         
         self.currentFractal.managedObjectContext.undoManager = _undoManager;
@@ -1481,12 +1683,12 @@ enum TableSection {
 
 
 - (void)undoManagerDidUndo:(NSNotification *)notification {
-    [self updateRightBarButtonItemState];
+    [self refreshContents];
 }
 
 
 - (void)undoManagerDidRedo:(NSNotification *)notification {
-    [self updateRightBarButtonItemState];
+    [self refreshContents];
 }
 
 

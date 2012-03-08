@@ -22,7 +22,6 @@
 @property (assign, nonatomic) CGPoint               placeHolderCenter;
 @property (nonatomic, strong) UIPopoverController*  colorPopover;
 @property (nonatomic, strong) NSString*             coloringKey;
-@property (nonatomic, strong) UIBarButtonItem*      aCopyButtonItem;
 @property (nonatomic, strong) NSDictionary*         portraitViewFrames;
 
 @property (nonatomic, strong) NSArray*              replacementRulesArray;
@@ -33,7 +32,7 @@
 @property (weak, nonatomic)  IBOutlet UITextView*   fractalDescriptor;
 
 #pragma mark - obsolete
-@property (weak, nonatomic) IBOutlet UIScrollView   *fractalPropertiesView;
+@property (weak, nonatomic) IBOutlet UIView         *fractalPropertiesView;
 @property (weak, nonatomic) IBOutlet UIView         *fractalDefinitionPlaceholderView;
 @property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionRulesView;
 @property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionAppearanceView;
@@ -78,10 +77,6 @@
 
 @property (nonatomic, strong) NSUndoManager *undoManager;
 
-- (void)setUpUndoManager;
-- (void)cleanUpUndoManager;
-- (void)updateRightBarButtonItemState;
-
 #pragma mark - Fractal Definition Input Protocol
 - (void)keyTapped:(NSString*)title;
 - (void)doneTapped;
@@ -113,7 +108,9 @@
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender;
 
 #pragma mark - Button actions
-- (IBAction)cancel:(id)sender;
+- (IBAction)undoEdit:(id)sender;
+- (IBAction)redoEdit:(id)sender;
+- (IBAction)cancelEdit:(id)sender;
 - (IBAction)copyFractal:(id)sender;
 - (IBAction)info:(id)sender;
 @end
