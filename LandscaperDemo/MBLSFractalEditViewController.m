@@ -677,32 +677,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 }
 
--(void) savePortraitViewFrames {
-    // This is only called when the nib is first loaded and the views have not been resized.
-    double barHeight = self.navigationController.navigationBar.frame.size.height;
-
-    double topMargin = 0;
-    
-    if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
-        self.startedInLandscape = YES;
-        // remove extra 20 pixels added when started in landscape but getting nib dimensions before autolayout.
-        topMargin = 20.0;
-    } else { 
-        self.startedInLandscape = NO;
-    }
-
-    CGRect frame = self.fractalViewLevelN.superview.frame;
-    //        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
-    CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN-topMargin);
-    NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
-    NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
-    NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
-    
-    self.portraitViewFrames = [[NSDictionary alloc] initWithObjectsAndKeys: frame0, @"frame0", frame1, @"frame1", frameN, @"frameN", nil];
-    NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
-
-}
-
 -(void)configureLandscapeViewFrames {
     
     if (self.portraitViewFrames) {
@@ -833,6 +807,35 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     // Release any cached data, images, etc that aren't in use.
 }
 
+/*
+ should only be called by viewDidLoad
+ */ 
+-(void) __savePortraitViewFrames {
+    // This is only called when the nib is first loaded and the views have not been resized.
+    double barHeight = self.navigationController.navigationBar.frame.size.height;
+    
+    double topMargin = 0;
+    
+    if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
+        self.startedInLandscape = YES;
+        // remove extra 20 pixels added when started in landscape but getting nib dimensions before autolayout.
+        topMargin = 20.0;
+    } else { 
+        self.startedInLandscape = NO;
+    }
+    
+    CGRect frame = self.fractalViewLevelN.superview.frame;
+    //        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
+    CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN-topMargin);
+    NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
+    NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
+    NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
+    
+    self.portraitViewFrames = [[NSDictionary alloc] initWithObjectsAndKeys: frame0, @"frame0", frame1, @"frame1", frameN, @"frameN", nil];
+    NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
+    
+}
+
 - (void)viewDidLoad
 {
     CGRect viewBounds = self.view.bounds;
@@ -844,7 +847,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     
     if (self.portraitViewFrames == nil) {
         // we want to save the frames as layed out in the nib.
-        [self savePortraitViewFrames];        
+        [self __savePortraitViewFrames];        
     }
     
     [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
