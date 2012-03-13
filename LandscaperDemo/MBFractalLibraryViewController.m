@@ -8,7 +8,7 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
-#import "MBLSFractalEditViewController.h"
+#import "MBLSFractalViewController.h"
 #import "LSFractal+addons.h"
 #import "LSFractalGenerator.h"
 
@@ -179,8 +179,8 @@
 
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString: @"FractalEditorSeque"]) {
-        MBLSFractalEditViewController* editor = segue.destinationViewController;
+    if ([segue.identifier isEqualToString: @"FractalViewerSegue"]) {
+        MBLSFractalViewController* viewer = segue.destinationViewController;
         LSFractal* passedFractal = nil;
 
         // pass the selected fractal
@@ -194,7 +194,7 @@
             passedFractal = fractal;
             
         }
-        editor.currentFractal = passedFractal;        
+        viewer.currentFractal = passedFractal;        
     }
 }
 
@@ -224,8 +224,7 @@
 //    MainFractalView.alpha = 0.0;
 //    [MainFractalView setNeedsDisplay];
 //    [MainFractalView.layer setNeedsDisplay];
-    
-    
+        
     // Allow the grouped table to have a clear background.
     self.fractalTableView.backgroundView = nil;
     
