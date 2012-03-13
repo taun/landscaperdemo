@@ -102,14 +102,14 @@
             [_fractal removeObserver: self forKeyPath: keyPath];
             [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
         }
-//        for (LSReplacementRule* rule in _fractal.replacementRules) {
-//            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-//            [rule removeObserver: self forKeyPath: keyPath];
-//        }
-//        for (LSReplacementRule* rule in fractal.replacementRules) {
-//            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-//            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
-//        }
+        for (LSReplacementRule* rule in _fractal.replacementRules) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule removeObserver: self forKeyPath: keyPath];
+        }
+        for (LSReplacementRule* rule in fractal.replacementRules) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+        }
         
         _fractal = fractal;
         [self productionRuleChanged];
@@ -118,12 +118,9 @@
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
+    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString: @"replacementString"]) {
         // productionRuleChanged
         [self productionRuleChanged];
-//    } else if ([keyPath isEqualToString: @"replacementString"]) {
-//        // productionRuleChanged
-//        [self productionRuleChanged];
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
         // appearanceChanged
         [self appearanceChanged];
