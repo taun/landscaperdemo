@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #define MBPORTALMARGIN 2.0
+#define HUD_CORNER_RADIUS 12.0
+#define HUD_OPACITY 1
+
 
 @interface MBPortalStyleView : UIView
 
