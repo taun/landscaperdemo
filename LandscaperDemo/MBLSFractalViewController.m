@@ -142,10 +142,30 @@
                                               initWithTarget:self 
                                               action:@selector(panFractal:)];
         
-        [panGesture setMaximumNumberOfTouches:2];
+        panGesture.maximumNumberOfTouches = 1;
         [panGesture setDelegate:self];
         
-        [_fractalView addGestureRecognizer:panGesture];
+        [_fractalView addGestureRecognizer: panGesture];
+
+        UISwipeGestureRecognizer *rightSwipeGesture = [[UISwipeGestureRecognizer alloc] 
+                                                  initWithTarget:self 
+                                                  action:@selector(swipeFractal:)];
+        
+        rightSwipeGesture.numberOfTouchesRequired = 2;
+        rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+        [rightSwipeGesture setDelegate:self];
+        
+        [_fractalView addGestureRecognizer: rightSwipeGesture];
+        
+        UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc] 
+                                                  initWithTarget:self 
+                                                  action:@selector(swipeFractal:)];
+        
+        leftSwipeGesture.numberOfTouchesRequired = 2;
+        leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+        [leftSwipeGesture setDelegate:self];
+        
+        [_fractalView addGestureRecognizer: leftSwipeGesture];
 
         [self setupLevelGeneratorForView: _fractalView name: @"fractalLevelN" forceLevel: -1];
     }
@@ -266,11 +286,12 @@
 
 -(void) refreshValueInputs {    
     self.slider.value = [self.currentFractal.level doubleValue];
+    self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
 }
 
 -(void) refreshLayers {
     self.hudText1.text = [self.currentFractal.level stringValue];
-    self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal baseAngleAsDegree]];
+    self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
     
     //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
     //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
@@ -326,17 +347,28 @@
     
     double deltaAngle = 0.0;
     
-    double deltaGestureRotation = sender.rotation;
+    // conver the gesture rotation to a range between +180 & -180
+    double deltaGestureRotation =  remainder(sender.rotation, 2*M_PI);
     
     double deltaAngleSteps = nearbyint(deltaAngleToDeltaGestureRatio*deltaGestureRotation/stepRadians);
+    double newRotation = 0;
     
     if (deltaAngleSteps != 0.0) {
         deltaAngle = deltaAngleSteps*stepRadians;
         
-        double newRotation = deltaGestureRotation - deltaAngle/deltaAngleToDeltaGestureRatio;
+        newRotation = deltaGestureRotation - deltaAngle/deltaAngleToDeltaGestureRatio;
         sender.rotation = newRotation;
     }
+//    NSLog(@"rotation: %g; sign: %g; rotated: %g; remainder: %g; deltaGestureRotation: %g; velocity: %g; newRotation: %g", 
+//          degrees(sender.rotation),
+//          copysign(1.0, sender.rotation),
+//          degrees(sender.rotation + copysign(M_PI, sender.rotation)),
+//          degrees(remainder(sender.rotation + copysign(M_PI, sender.rotation), 2*M_PI)),
+//          degrees(deltaGestureRotation), 
+//          sender.velocity, 
+//          newRotation);
     
+//    NSLog(@"deltaAngleSteps = %g; deltaAngle = %g;", deltaAngleSteps, degrees(deltaAngle));
     return deltaAngle;
 }
 - (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
@@ -359,10 +391,10 @@
 }
 
 -(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)gestureRecognizer {
-    double stepRadians = radians(2.5);
+    double stepRadians = radians(1.0);
     // 2.5 degrees -> radians
     
-    double deltaTurnToDeltaGestureRatio = 1.0/6.0;
+    double deltaTurnToDeltaGestureRatio = 1.0/5.0;
     // reduce the sensitivity to make it easier to rotate small degrees
     
     double deltaTurnAngle = [self convertAndQuantizeRotationFrom: gestureRecognizer 
@@ -370,7 +402,8 @@
                                                            ratio: deltaTurnToDeltaGestureRatio];
     
     if (deltaTurnAngle != 0.0 ) {
-        double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
+//        double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
+        double newAngle = [self.currentFractal.turningAngle doubleValue]-deltaTurnAngle;
         self.currentFractal.turningAngle = [NSNumber numberWithDouble: newAngle];
     }
 }
@@ -397,6 +430,20 @@
     }
 }
 
+- (IBAction)swipeFractal:(UISwipeGestureRecognizer *)gestureRecognizer {
+//    UIView *fractalView = [gestureRecognizer view];
+    
+//    CGPoint location = [gestureRecognizer locationInView:self.view];
+    double width = [self.currentFractal.lineWidth doubleValue];
+    double increment = [self.currentFractal.lineWidthIncrement doubleValue];
+    
+    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        self.currentFractal.lineWidth = [NSNumber numberWithDouble: fmax(width-increment, 1.0)];
+    }
+    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        self.currentFractal.lineWidth = [NSNumber numberWithDouble: (width+increment)];
+    }
+}
 
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender {
     

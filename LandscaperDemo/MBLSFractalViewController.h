@@ -63,6 +63,7 @@
 - (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)gestureRecognizer;
 - (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer;
+- (IBAction)swipeFractal:(UISwipeGestureRecognizer *)gestureRecognizer;
 - (IBAction)rotateFractal:(UIRotationGestureRecognizer*)gestureRecognizer;
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)gestureRecognizer;
 - (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer;
