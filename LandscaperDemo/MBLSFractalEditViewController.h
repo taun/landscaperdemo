@@ -10,26 +10,21 @@
 #import "FractalDefinitionKeyboardView.h"
 #import "ColorPickerController.h"
 #import "MBLSRuleTableViewCell.h"
+#import "MBLSFractalViewController.h"
 
 @class MBFractalPropertyTableHeaderView;
 @class LSFractal;
+@class MBLSFractalLevelNView;
 
-@interface MBLSFractalEditViewController : UIViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate, UITableViewDataSource, UITableViewDelegate, MBLSRuleTableViewCellDelegate>
+@interface MBLSFractalEditViewController : MBLSFractalViewController <FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate, UITableViewDataSource, UITableViewDelegate, MBLSRuleTableViewCellDelegate>
 
 
-@property (nonatomic, strong) LSFractal*            currentFractal;
-@property (assign, nonatomic) CGRect                placeHolderBounds;
-@property (assign, nonatomic) CGPoint               placeHolderCenter;
 @property (nonatomic, strong) UIPopoverController*  colorPopover;
 @property (nonatomic, strong) NSString*             coloringKey;
 @property (nonatomic, strong) NSDictionary*         portraitViewFrames;
 
-@property (nonatomic, strong) NSArray*              replacementRulesArray;
 
 @property (strong, nonatomic) IBOutlet UIView*      fractalPropertyTableHeaderView;
-@property (weak, nonatomic)  IBOutlet UITextField*  fractalName;
-@property (weak, nonatomic)  IBOutlet UITextField*  fractalCategory;
-@property (weak, nonatomic)  IBOutlet UITextView*   fractalDescriptor;
 
 #pragma mark - obsolete
 @property (weak, nonatomic) IBOutlet UIView         *fractalPropertiesView;
@@ -44,11 +39,7 @@
 #pragma mark - Drawing Views
 @property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel0;
-
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevelN;
-@property (weak, nonatomic) IBOutlet UIView         *levelSliderContainerView;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevelNHUD;
 
 #pragma mark - Production Fields
 @property (weak, nonatomic) IBOutlet UITextField    *fractalAxiom;
@@ -96,7 +87,6 @@
 - (IBAction)lineWidthIncrementInputChanged: (id)sender;
 - (IBAction)turningAngleInputChanged: (UIStepper*)sender;
 - (IBAction)turningAngleIncrementInputChanged: (UIStepper*)sender;
-- (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction)selectStrokeColor: (UIButton*)sender;
 - (IBAction)selectFillColor: (UIButton*)sender;
 - (IBAction)toggleStroke: (UISwitch*)sender;

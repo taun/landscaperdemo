@@ -8,10 +8,12 @@
 
 #import "MBLSFractalEditViewController.h"
 #import "MBFractalPropertyTableHeaderView.h"
+#import "MBLSFractalLevelNView.h"
 #import "LSFractal+addons.h"
 #import "LSFractalGenerator.h"
 #import "LSReplacementRule.h"
 #import "MBColor+addons.h"
+
 #import "MBPortalStyleView.h"
 
 #import "MBStepperTableViewCell.h"
@@ -19,12 +21,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 #include <math.h>
-
-#define HUD_CORNER_RADIUS 12.0
-#define HUD_OPACITY 1
-
-static inline double radians (double degrees) {return degrees * M_PI/180.0;}
-static inline double degrees (double radians) {return radians * 180.0/M_PI;}
+//
+//static inline double radians (double degrees) {return degrees * M_PI/180.0;}
+//static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 @interface MBLSFractalEditViewController () {
     __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
@@ -50,40 +49,19 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  */
 @property (strong, nonatomic) IBOutlet FractalDefinitionKeyboardView *fractalInputControl;
 
-/*
- So a setNeedsDisplay can be sent to each layer when a fractal property is changed.
- */
-@property (nonatomic, strong) NSMutableArray* fractalDisplayLayersArray;
-/*
- a generator for each level being displayed.
- */
-@property (nonatomic, strong) NSMutableArray* generatorsArray; 
 
 @property (nonatomic, strong, readonly) NSSet*   editControls;
 @property (nonatomic, strong)   NSMutableArray*  cachedEditViews;
 
 @property (nonatomic, assign) double viewNRotationFromStart;
 
-@property (nonatomic, strong) NSNumberFormatter*    twoPlaceFormatter;
-@property (nonatomic, strong) UIBarButtonItem*      aCopyButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
-@property (nonatomic, strong) UIBarButtonItem*      infoButtonItem;
-@property (nonatomic, strong) UIBarButtonItem*      spaceButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
 
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
--(void) fitLayer: (CALayer*) layerA inLayer: (CALayer*) layerB margin: (double) margin;
-
--(void) configureNavButtons;
-
 -(void) setEditMode: (BOOL) editing;
--(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel;
--(void) reloadLabels;
--(void) refreshValueInputs;
--(void) refreshLayers;
--(void) refreshContents;
 
 -(void) useFractalDefinitionRulesView;
 -(void) useFractalDefinitionAppearanceView;
@@ -105,27 +83,18 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize fractalDefinitionAppearanceView = _fractalDefinitionAppearanceView;
 @synthesize fractalDefinitionRulesView = _fractalDefinitionRulesView;
 @synthesize fractalDefinitionPlaceholderView = _fractalDefinitionPlaceholderView;
-@synthesize replacementRulesArray = _replacementRulesArray;
 @synthesize portraitViewFrames = _portraitViewFrames;
 @synthesize colorPopover = _colorPopover;
-@synthesize placeHolderBounds = _placeHolderBounds;
-@synthesize placeHolderCenter = _placeHolderCenter;
 @synthesize currentFractal = _currentFractal;
 @synthesize coloringKey = _coloringKey;
-@synthesize twoPlaceFormatter = _twoPlaceFormatter;
-@synthesize aCopyButtonItem = _aCopyButtonItem, cancelButtonItem = _cancelButtonItem, infoButtonItem = _infoButtonItem;
-@synthesize spaceButtonItem = _spaceButtonItem, undoButtonItem = _undoButtonItem, redoButtonItem = _redoButtonItem;
+@synthesize cancelButtonItem = _cancelButtonItem;
+@synthesize undoButtonItem = _undoButtonItem, redoButtonItem = _redoButtonItem;
 @synthesize fractalPropertyTableHeaderView = _fractalPropertyTableHeaderView;
-@synthesize fractalName = _fractalName, fractalCategory = _fractalCategory;
-@synthesize fractalDescriptor = _fractalDescriptor;
 @synthesize fractalAxiom = _fractalAxiom;
 @synthesize fractalInputControl = _fractalInputControl;
 @synthesize activeTextField = _activeField;
 @synthesize fractalViewLevel0 = _fractalViewLevel0;
 @synthesize fractalViewLevel1 = _fractalViewLevel1;
-@synthesize fractalViewLevelN = _fractalViewLevelN;
-@synthesize levelSliderContainerView = _levelSliderContainerView;
-@synthesize fractalViewLevelNHUD = _fractalViewLevelNHUD;
 @synthesize fractalLineLength = _lineLengthTextField;
 @synthesize lineLengthStepper = _lineLengthStepper;
 @synthesize fractalWidth = _fractalWidth;
@@ -146,8 +115,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @synthesize fractalViewLevelNLabel = _fractalViewLevelNLabel;
 @synthesize cachedEditViews = _cachedEditViews;
 
-@synthesize fractalDisplayLayersArray = _fractalDisplayLayersArray;
-@synthesize generatorsArray = _generatorsArray;
 @synthesize editControls = _editControls;
 @synthesize viewNRotationFromStart = _viewNRotationFromStart;
 @synthesize startedInLandscape = _startedInLandscape;
@@ -166,43 +133,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 //    }
 //    return self;
 //}
-
--(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo {
-    CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(bounds);
-    NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
-    CFRelease(boundsDict);
-    
-    NSLog(@"%@ = %@", boundsInfo,boundsDescription);
-}
-
-
-
-#pragma mark - Fractal Property KVO
-//TODO: change so replacementRulesArray is cached and updated when rules are updated.
--(void) setCurrentFractal:(LSFractal *)fractal {
-    if (_currentFractal != fractal) {
-        
-        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-        propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal lableProperties]];
-        
-        for (NSString* keyPath in propertiesToObserve) {
-            [_currentFractal removeObserver: self forKeyPath: keyPath];
-            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
-        }
-        
-        _currentFractal = fractal;
-        NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey: @"contextString" ascending: YES];
-        NSArray* descriptors = [[NSArray alloc] initWithObjects: sort, nil];
-        self.replacementRulesArray = [_currentFractal.replacementRules sortedArrayUsingDescriptors: descriptors];
-        
-        // If the generators have been created, the fractal needs to be replaced.
-        if ([self.generatorsArray count] > 0) {
-            for (LSFractalGenerator* generator in self.generatorsArray) {
-                generator.fractal = _currentFractal;
-            }
-        }
-    }
-}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
@@ -314,31 +244,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     return _rulesCellIndexPaths;
 }
 
--(void) setReplacementRulesArray:(NSArray *)replacementRulesArray {
-    if (replacementRulesArray != _replacementRulesArray) {
-        for (LSReplacementRule* rule in _replacementRulesArray) {
-            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-            [rule removeObserver: self forKeyPath: keyPath];
-        }
-        for (LSReplacementRule* rule in replacementRulesArray) {
-            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
-        }
-        _replacementRulesArray = replacementRulesArray;
-    }
-}
-
--(UIBarButtonItem*) aCopyButtonItem {
-    if (_aCopyButtonItem == nil) {
-        _aCopyButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Copy" 
-                                                            style:UIBarButtonItemStyleBordered 
-                                                           target:self 
-                                                           action:@selector(copyFractal:)];
-
-    }
-    return _aCopyButtonItem;
-}
-
 -(UIBarButtonItem*) cancelButtonItem {
     if (_cancelButtonItem == nil) {
         _cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel 
@@ -347,26 +252,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         
     }
     return _cancelButtonItem;
-}
-
--(UIBarButtonItem*) infoButtonItem {
-    if (_infoButtonItem == nil) {
-        _infoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemOrganize 
-                                                                        target:self 
-                                                                        action:@selector(info:)];
-        
-    }
-    return _infoButtonItem;
-}
-
--(UIBarButtonItem*) spaceButtonItem {
-    if (_spaceButtonItem == nil) {
-        _spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace 
-                                                                         target:self 
-                                                                         action:nil];
-        _spaceButtonItem.width = 10.0;
-    }
-    return _spaceButtonItem;
 }
 
 -(UIBarButtonItem*) undoButtonItem {
@@ -406,19 +291,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     return _colorPopover;
 }
 
--(NSMutableArray*) generatorsArray {
-    if (_generatorsArray == nil) {
-        _generatorsArray = [[NSMutableArray alloc] initWithCapacity: 3];
-    }
-    return _generatorsArray;
-}
-
--(NSMutableArray*) fractalDisplayLayersArray {
-    if (_fractalDisplayLayersArray == nil) {
-        _fractalDisplayLayersArray = [[NSMutableArray alloc] initWithCapacity: 3];
-    }
-    return _fractalDisplayLayersArray;
-}
 
 -(NSSet*) editControls {
     if (_editControls == nil) {
@@ -442,18 +314,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     return _editControls;
 }
 
--(NSNumberFormatter*) twoPlaceFormatter {
-    if (_twoPlaceFormatter == nil) {
-        _twoPlaceFormatter = [[NSNumberFormatter alloc] init];
-        [_twoPlaceFormatter setAllowsFloats: YES];
-        [_twoPlaceFormatter setMaximumFractionDigits: 2];
-        [_twoPlaceFormatter setMaximumIntegerDigits: 3];
-        [_twoPlaceFormatter setPositiveFormat: @"##0.00"];
-        [_twoPlaceFormatter setNegativeFormat: @"-##0.00"];
-    }
-    return _twoPlaceFormatter;
-}
-
 -(void) setFractalViewLevel0:(UIView *)fractalViewLevel0 {
     _fractalViewLevel0 = fractalViewLevel0;
     UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] 
@@ -465,74 +325,9 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     [self setupLevelGeneratorForView: _fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
 }
 
--(void) setFractalViewLevelN:(UIView *)fractalViewLevelN {
-    _fractalViewLevelN = fractalViewLevelN;
-    UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] 
-                                        initWithTarget: self 
-                                        action: @selector(rotateFractal:)];
-    
-    [_fractalViewLevelN addGestureRecognizer: rgr];
-    
-    UILongPressGestureRecognizer* lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget: self
-                                          action: @selector(magnifyFractal:)];
-    
-    [_fractalViewLevelN addGestureRecognizer: lpgr];
-    
-    [self setupLevelGeneratorForView: _fractalViewLevelN name: @"fractalLevelN" forceLevel: -1];
-}
-
--(void) setFractalViewLevelNHUD: (UIView*) fractalViewLevelNHUD {
-    _fractalViewLevelNHUD = fractalViewLevelNHUD;
-
-    CALayer* background = _fractalViewLevelNHUD.layer; 
-    
-    background.cornerRadius = HUD_CORNER_RADIUS;
-    background.borderWidth = 1.6;
-    background.borderColor = [UIColor grayColor].CGColor;
-
-    background.shadowOffset = CGSizeMake(0, 3.0);
-    background.shadowOpacity = 0.6;
-}
 
 #pragma mark - view utility methods
--(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin {
-    CGRect boundsOuter = layerOuter.bounds;
-    CGRect boundsInner = CGRectInset(boundsOuter, margin, margin);
-    layerInner.bounds = boundsInner;
-    layerInner.position = CGPointMake(boundsOuter.size.width/2, boundsOuter.size.height/2);
-}
 
--(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel {
-    CALayer* aLayer = [[CALayer alloc] init];
-    aLayer.name = name;
-    aLayer.needsDisplayOnBoundsChange = YES;
-    
-    [self fitLayer: aLayer inLayer: aView.layer margin: 10];        
-    [aView.layer addSublayer: aLayer];
-    
-    
-    LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
-    
-    if (generator) {
-        NSUInteger arrayCount = [self.generatorsArray count];
-        
-        generator.fractal = self.currentFractal;
-        generator.forceLevel = aLevel;
-        
-        aLayer.delegate = generator;
-        [aLayer setValue: [NSNumber numberWithInteger: arrayCount] forKey: @"arrayCount"];
-        
-        [self.fractalDisplayLayersArray addObject: aLayer];
-        [self.generatorsArray addObject: generator];
-    }
-}
-
--(void) reloadLabels {
-    self.fractalName.text = self.currentFractal.name;
-    self.fractalCategory.text = self.currentFractal.category;
-    self.fractalDescriptor.text = self.currentFractal.descriptor;
-}
 
 -(void) refreshValueInputs {    
     //    self.fractalAxiom.text = self.currentFractal.axiom;
@@ -556,22 +351,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     //    self.fillSwitch.on = [self.currentFractal.fill boolValue];
 }
 
--(void) refreshLayers {
-    self.fractalViewLevelNLabel.text = [self.currentFractal.level stringValue];
-    self.fractalBaseAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal baseAngleAsDegree]];
-    
-    //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
-    //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
-    
-    for (CALayer* layer in self.fractalDisplayLayersArray) {
-        layer.contents = nil;
-        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
-        [layer setNeedsLayout];
-        [layer layoutIfNeeded];
-        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
-        [layer setNeedsDisplay];
-    }
-}
 
 -(void) refreshContents {
     [self reloadLabels];
@@ -684,7 +463,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         // should always not be nil
         CGRect portrait0 = self.fractalViewLevel0.superview.frame;
         CGRect portrait1 = self.fractalViewLevel1.superview.frame;
-        CGRect portraitN = self.fractalViewLevelN.superview.frame;
+        CGRect portraitN = self.fractalView.frame;
         
         CGRect new0;
         CGRect new1;
@@ -698,7 +477,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         CGRectDivide(portraitN, &new0, &new1, portraitN.size.width/2.0, CGRectMinXEdge);        
         [UIView animateWithDuration:1.0 animations:^{
             // move N to empty spot
-            self.fractalViewLevelN.superview.frame = newN;
+            self.fractalView.superview.frame = newN;
             
             // move 0 & 1 to empty N spot
             self.fractalViewLevel0.superview.frame = new0;
@@ -721,7 +500,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         
         [UIView animateWithDuration:1.0 animations:^{
             // move N to empty spot
-            self.fractalViewLevelN.superview.frame = portraitN;
+            self.fractalView.superview.frame = portraitN;
             
             // move 0 & 1 to empty N spot
             self.fractalViewLevel0.superview.frame = portrait0;
@@ -824,7 +603,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         self.startedInLandscape = NO;
     }
     
-    CGRect frame = self.fractalViewLevelN.superview.frame;
+    CGRect frame = self.fractalView.superview.frame;
     //        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
     CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN-topMargin);
     NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
@@ -864,8 +643,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
         
     self.fractalAxiom.inputView = self.fractalInputControl.view;
         
-    CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
-    [self.levelSliderContainerView setTransform: rotateCC];
 }
 
 /*!
@@ -941,9 +718,9 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
             }
         }
     }
-    for (CALayer* layer in self.fractalViewLevelN.layer.sublayers) {
+    for (CALayer* layer in self.fractalView.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevelN"]) {
-            [self fitLayer: layer inLayer: self.fractalViewLevelN.superview.layer margin: 5];
+            [self fitLayer: layer inLayer: self.fractalView.superview.layer margin: 5];
             // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
         }
     }
@@ -1006,7 +783,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     [self setFractalInputControl:nil];
     [self setFractalViewLevel0:nil];
     [self setFractalViewLevel1:nil];
-    [self setFractalViewLevelN:nil];
     [self setFractalLineLength:nil];
     [self setLineLengthStepper:nil];
     [self setFractalTurningAngle:nil];
@@ -1032,10 +808,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
     [self setFillColorButton:nil];
     [self setStrokeColorButton:nil];
     [self setWidthSlider:nil];
-    [self setLevelSliderContainerView:nil];
     [self setLevelSlider:nil];
     [self setFractalBaseAngle:nil];
-    [self setFractalViewLevelNHUD:nil];
     [self setACopyButtonItem: nil];
     [self setFractalPropertyTableHeaderView:nil];
     [self setFractalPropertiesTableView:nil];
@@ -1413,12 +1187,6 @@ enum TableSection {
     self.currentFractal.name = sender.text;
 }
 
-- (IBAction)levelInputChanged:(UIControl*)sender {
-    double rawValue = [[sender valueForKey: @"value"] doubleValue];
-    NSNumber* roundedNumber = [NSNumber numberWithLong: lround(rawValue)];
-    self.currentFractal.level = roundedNumber;
-}
-
 - (IBAction)selectStrokeColor:(UIButton*)sender {
     self.coloringKey = @"lineColor";
         
@@ -1510,23 +1278,6 @@ enum TableSection {
     }
 }
 
--(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio {
-    
-    double deltaAngle = 0.0;
-    
-    double deltaGestureRotation = sender.rotation;
-    
-    double deltaAngleSteps = nearbyint(deltaAngleToDeltaGestureRatio*deltaGestureRotation/stepRadians);
-    
-    if (deltaAngleSteps != 0.0) {
-        deltaAngle = deltaAngleSteps*stepRadians;
-                
-        double newRotation = deltaGestureRotation - deltaAngle/deltaAngleToDeltaGestureRatio;
-        sender.rotation = newRotation;
-    }
-    
-    return deltaAngle;
-}
 
 -(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)sender {
     if (self.editing) {
@@ -1547,7 +1298,9 @@ enum TableSection {
         double deltaTurnToDeltaGestureRatio = 1.0/6.0;
         // reduce the sensitivity to make it easier to rotate small degrees
 
-        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender quanta: stepRadians ratio: deltaTurnToDeltaGestureRatio];
+        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender 
+                                                              quanta: stepRadians 
+                                                               ratio: deltaTurnToDeltaGestureRatio];
         
         if (deltaTurnAngle != 0.0 ) {
             double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
