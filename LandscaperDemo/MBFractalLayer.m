@@ -7,7 +7,7 @@
 //
 
 #import "MBFractalLayer.h"
-#import "MBIFSFractal.h"
+#import "MBLSFractal.h"
 #import "MBFractalSegment.h"
 #include <math.h>
 
@@ -73,7 +73,9 @@
         CGContextSetLineWidth(ctx, segment.lineWidth/scale);
         
         CGContextAddPath(ctx, segment.path);
-        CGPathDrawingMode strokeOrFill;
+        
+        //init to default value
+        CGPathDrawingMode strokeOrFill = kCGPathStroke;
         if (segment.fill && segment.stroke) {
             strokeOrFill = kCGPathFillStroke;
             CGContextSetStrokeColorWithColor(ctx, segment.lineColor);

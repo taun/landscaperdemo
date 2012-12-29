@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="LSDrawingRule" representedClassName="LSDrawingRule" syncable="YES">
         <attribute name="drawingMethodString" attributeType="String" syncable="YES"/>
         <attribute name="productionString" attributeType="String" syncable="YES"/>
@@ -21,14 +21,14 @@
         <attribute name="isImmutable" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isReadOnly" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="level" attributeType="Integer 64" maxValueString="100" defaultValueString="0" syncable="YES"/>
-        <attribute name="lineLength" attributeType="Double" maxValueString="100" defaultValueString="10" syncable="YES"/>
+        <attribute name="lineLength" attributeType="Double" minValueString="1" maxValueString="100" defaultValueString="10" syncable="YES"/>
         <attribute name="lineLengthScaleFactor" attributeType="Double" maxValueString="2" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="lineWidth" attributeType="Double" maxValueString="50" defaultValueString="1" syncable="YES"/>
-        <attribute name="lineWidthIncrement" attributeType="Double" maxValueString="100" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lineWidth" attributeType="Double" minValueString="0.5" maxValueString="50" defaultValueString="1" syncable="YES"/>
+        <attribute name="lineWidthIncrement" attributeType="Double" minValueString="0" maxValueString="100" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="stroke" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="turningAngle" attributeType="Double" maxValueString="7" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="turningAngleIncrement" attributeType="Double" maxValueString="7" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="turningAngleIncrement" attributeType="Double" minValueString="0" maxValueString="7" defaultValueString="0.0" syncable="YES"/>
         <relationship name="drawingRulesType" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="LSDrawingRuleType" inverseName="fractals" inverseEntity="LSDrawingRuleType" syncable="YES"/>
         <relationship name="fillColor" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalFills" inverseEntity="MBColor" syncable="YES"/>
         <relationship name="lineColor" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalLines" inverseEntity="MBColor" syncable="YES"/>

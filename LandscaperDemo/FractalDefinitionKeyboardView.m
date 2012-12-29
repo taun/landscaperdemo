@@ -10,8 +10,6 @@
 
 @implementation FractalDefinitionKeyboardView
 
-@synthesize delegate = _delegate;
-
 
 //- (BOOL)loadFractalKeyboardNibFile
 //{

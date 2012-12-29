@@ -80,10 +80,10 @@ CGPatternRef CreateImagePattern( CGImageRef image )
 }
 
 
-CGColorRef GetCGPatternFromUIImage( UIImage *uImage )         // can be resource name or abs. path
-{
-    
-    CGColorRef pattern = CreatePatternColor( uImage.CGImage );
-    return pattern;
-}
+//CGColorRef GetCGPatternFromUIImage( UIImage *uImage )         // can be resource name or abs. path
+//{
+//    
+//    CGColorRef pattern = CreatePatternColor( uImage.CGImage );
+//    return pattern;
+//}
 

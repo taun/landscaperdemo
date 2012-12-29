@@ -27,25 +27,6 @@
 
 @implementation MBLSFractalViewController
 
-@synthesize currentFractal = _currentFractal;
-@synthesize fractalName = _fractalName, fractalCategory = _fractalCategory;
-@synthesize fractalDescriptor = _fractalDescriptor;
-@synthesize fractalViewHolder = _fractalViewHolder;
-@synthesize fractalViewView = _fractalViewView;
-
-@synthesize generatorsArray = _generatorsArray;
-@synthesize replacementRulesArray = _replacementRulesArray;
-@synthesize fractalDisplayLayersArray = _fractalDisplayLayersArray;
-@synthesize twoPlaceFormatter = _twoPlaceFormatter;
-@synthesize aCopyButtonItem = _aCopyButtonItem;
-@synthesize spaceButtonItem = _spaceButtonItem, infoButtonItem = _infoButtonItem;
-
-@synthesize fractalView = _fractalView, sliderContainerView = _sliderContainerView;
-@synthesize hudViewBackground = _hudViewBackground;
-
-@synthesize slider = _slider;
-@synthesize hudLabel = _hudLabel, hudText1 = _hudText1, hudText2 = _hudText2;
-
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo {
     CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(bounds);
     NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
@@ -186,7 +167,7 @@
     if (_infoButtonItem == nil) {
         _infoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemOrganize 
                                                                         target:self 
-                                                                        action:@selector(info:)];
+                                                                        action:@selector(toggleAutoScale:)];
         
     }
     return _infoButtonItem;
@@ -218,7 +199,7 @@
         
         _currentFractal = fractal;
         NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey: @"contextString" ascending: YES];
-        NSArray* descriptors = [[NSArray alloc] initWithObjects: sort, nil];
+        NSArray* descriptors = @[sort];
         self.replacementRulesArray = [_currentFractal.replacementRules sortedArrayUsingDescriptors: descriptors];
         
         // If the generators have been created, the fractal needs to be replaced.
@@ -245,8 +226,11 @@
 }
 
 -(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin {
+    
     CGRect boundsOuter = layerOuter.bounds;
+    
     CGRect boundsInner = CGRectInset(boundsOuter, margin, margin);
+    
     layerInner.bounds = boundsInner;
     layerInner.position = CGPointMake(boundsOuter.size.width/2, boundsOuter.size.height/2);
 }
@@ -384,9 +368,34 @@
 
 #pragma mark - actions
 
+- (IBAction)copyFractal:(id)sender {
+    LSFractal* fractal = self.currentFractal;
+    
+    // copy
+    LSFractal* copiedFractal = [fractal mutableCopy];
+    copiedFractal.name = [NSString stringWithFormat: @"%@ copy", copiedFractal.name];
+    copiedFractal.isImmutable = @NO;
+    copiedFractal.isReadOnly = @NO;
+    
+    self.currentFractal = copiedFractal;
+    
+    // coalesce to a common method for saving, copy from appDelegate
+    [self.currentFractal.managedObjectContext save: nil];
+    
+    [self refreshContents];
+    [self performSegueWithIdentifier: @"FractalEditorSegue" sender: self];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
+    if (editing && [self isMemberOfClass: [MBLSFractalViewController class]]) {
+        [self performSegueWithIdentifier: @"FractalEditorSegue" sender: self];
+    }
+}
 - (IBAction)levelInputChanged:(UIControl*)sender {
     double rawValue = [[sender valueForKey: @"value"] doubleValue];
-    NSNumber* roundedNumber = [NSNumber numberWithLong: lround(rawValue)];
+    NSNumber* roundedNumber = @(lround(rawValue));
     self.currentFractal.level = roundedNumber;
 }
 
@@ -404,7 +413,7 @@
     if (deltaTurnAngle != 0.0 ) {
 //        double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
         double newAngle = [self.currentFractal.turningAngle doubleValue]-deltaTurnAngle;
-        self.currentFractal.turningAngle = [NSNumber numberWithDouble: newAngle];
+        self.currentFractal.turningAngle = @(newAngle);
     }
 }
 
@@ -422,7 +431,9 @@
     
     [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
     
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+    UIGestureRecognizerState state = gestureRecognizer.state;
+    
+    if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gestureRecognizer translationInView:[fractalView superview]];
         
         [fractalView setCenter:CGPointMake([fractalView center].x + translation.x, [fractalView center].y + translation.y)];
@@ -438,10 +449,10 @@
     double increment = [self.currentFractal.lineWidthIncrement doubleValue];
     
     if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        self.currentFractal.lineWidth = [NSNumber numberWithDouble: fmax(width-increment, 1.0)];
+        self.currentFractal.lineWidth = @(fmax(width-increment, 1.0));
     }
     if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        self.currentFractal.lineWidth = [NSNumber numberWithDouble: (width+increment)];
+        self.currentFractal.lineWidth = @(width+increment);
     }
 }
 
@@ -449,12 +460,52 @@
     
 }
 
+- (IBAction)toggleAutoScale:(id)sender {
+    for (id object in self.generatorsArray) {
+        if ([object isKindOfClass: [LSFractalGenerator class]]) {
+            LSFractalGenerator* generator = (LSFractalGenerator*) object;
+            generator.autoscale = !generator.autoscale;
+            NSLog(@"autoscale: %u;", generator.autoscale);
+            if (generator.autoscale) {
+                // refit view frame and refresh layer
+                self.fractalView.transform = CGAffineTransformIdentity;
+                self.fractalView.frame = self.fractalViewHolder.bounds;
+            }
+        }
+    }
+}
+
 - (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer {
     [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
     
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
-        [gestureRecognizer view].transform = CGAffineTransformScale([[gestureRecognizer view] transform], [gestureRecognizer scale], [gestureRecognizer scale]);
+//    [[self.generatorsArray objectAtIndex: 0] setAutoscale: NO]; 
+    
+    UIGestureRecognizerState state = gestureRecognizer.state;
+    
+    if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStateChanged) {
+        
+        gestureRecognizer.view.transform = CGAffineTransformScale([[gestureRecognizer view] transform], [gestureRecognizer scale], [gestureRecognizer scale]);
+
+        
         [gestureRecognizer setScale:1];
+        
+//        [self logBounds: gestureRecognizer.view.bounds info: @"Scaled fractalView bounds"];
+//        [self logBounds: gestureRecognizer.view.frame info: @"Scaled fractalView frame"];
+        
+    } else if (state == UIGestureRecognizerStateEnded) {
+        // redraw the fractal
+//        CALayer* fractalLayer = [self.fractalDisplayLayersArray objectAtIndex: 0];
+//        gestureRecognizer.view.bounds = gestureRecognizer.view.frame;
+//        fractalLayer.bounds = gestureRecognizer.view.bounds;
+        
+//        gestureRecognizer.view.transform = CGAffineTransformIdentity;
+        
+//        [self logBounds: gestureRecognizer.view.bounds info: @"Post Scaled fractalView bounds"];
+//        [self logBounds: gestureRecognizer.view.frame info: @"Post Scaled fractalView frame"];
+//        [self logBounds: [[self.fractalDisplayLayersArray objectAtIndex: 0] bounds] info: @"Post Scaled fractalLayer bounds"];
+        
+        
+//        [self refreshLayers];
     }
 }
 
@@ -498,7 +549,7 @@
     
     
     NSArray* resources = [[NSBundle mainBundle] loadNibNamed:@"MBLSFractalLevelNView" owner:self options:nil];
-    self.fractalViewView = [resources objectAtIndex: 0];
+    self.fractalViewView = resources[0];
     self.fractalViewView.frame = self.fractalViewHolder.bounds;
     [self.fractalViewHolder addSubview: self.fractalViewView];
 //    self.fractalViewLevelN = nil
@@ -510,7 +561,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-    
+//    self.editing = NO;
     [super viewWillAppear:animated];
     
 }
@@ -556,7 +607,11 @@
 	[super viewDidDisappear:animated];
 }
 
-
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    MBLSFractalViewController* viewer = segue.destinationViewController;
+    viewer.currentFractal = self.currentFractal;
+    viewer.editing = YES;
+}
 - (void)viewDidUnload {
     [super viewDidUnload];
     // Release any retained subviews of the main view.

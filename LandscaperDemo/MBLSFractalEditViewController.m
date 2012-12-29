@@ -50,10 +50,10 @@
 @property (strong, nonatomic) IBOutlet FractalDefinitionKeyboardView *fractalInputControl;
 
 
-@property (nonatomic, strong, readonly) NSSet*   editControls;
-@property (nonatomic, strong)   NSMutableArray*  cachedEditViews;
+@property (nonatomic, strong) NSSet*                editControls;
+@property (nonatomic, strong) NSMutableArray*       cachedEditViews;
 
-@property (nonatomic, assign) double viewNRotationFromStart;
+@property (nonatomic, assign) double                viewNRotationFromStart;
 
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
@@ -80,49 +80,6 @@
 
 @implementation MBLSFractalEditViewController
 
-@synthesize fractalDefinitionAppearanceView = _fractalDefinitionAppearanceView;
-@synthesize fractalDefinitionRulesView = _fractalDefinitionRulesView;
-@synthesize fractalDefinitionPlaceholderView = _fractalDefinitionPlaceholderView;
-@synthesize portraitViewFrames = _portraitViewFrames;
-@synthesize colorPopover = _colorPopover;
-@synthesize currentFractal = _currentFractal;
-@synthesize coloringKey = _coloringKey;
-@synthesize cancelButtonItem = _cancelButtonItem;
-@synthesize undoButtonItem = _undoButtonItem, redoButtonItem = _redoButtonItem;
-@synthesize fractalPropertyTableHeaderView = _fractalPropertyTableHeaderView;
-@synthesize fractalAxiom = _fractalAxiom;
-@synthesize fractalInputControl = _fractalInputControl;
-@synthesize activeTextField = _activeField;
-@synthesize fractalViewLevel0 = _fractalViewLevel0;
-@synthesize fractalViewLevel1 = _fractalViewLevel1;
-@synthesize fractalLineLength = _lineLengthTextField;
-@synthesize lineLengthStepper = _lineLengthStepper;
-@synthesize fractalWidth = _fractalWidth;
-@synthesize widthStepper = _widthStepper;
-@synthesize widthSlider = _widthSlider;
-@synthesize fractalTurningAngle = _turnAngleTextField;
-@synthesize turnAngleStepper = _turnAngleStepper;
-@synthesize fractalBaseAngle = _fractalBaseAngle;
-@synthesize fractalLevel = _fractalLevel;
-@synthesize levelStepper = _levelStepper;
-@synthesize levelSlider = _levelSlider;
-@synthesize strokeSwitch = _strokeSwitch;
-@synthesize fillColorButton = _fillColorButton;
-@synthesize strokeColorButton = _strokeColorButton;
-@synthesize fillSwitch = _fillSwitch;
-@synthesize fractalPropertiesView = _fractalPropertiesView;
-@synthesize fractalPropertiesTableView = _fractalPropertiesTableView;
-@synthesize fractalViewLevelNLabel = _fractalViewLevelNLabel;
-@synthesize cachedEditViews = _cachedEditViews;
-
-@synthesize editControls = _editControls;
-@synthesize viewNRotationFromStart = _viewNRotationFromStart;
-@synthesize startedInLandscape = _startedInLandscape;
-@synthesize appearanceCellIndexPaths = _appearanceCellIndexPaths;
-@synthesize rulesCellIndexPaths = _rulesCellIndexPaths;
-@synthesize fractalPropertiesAppearanceSectionDefinitions = _fractalPropertiesAppearanceSectionDefinitions;
-
-@synthesize cancelled = _cancelled;
 @synthesize undoManager = _undoManager;
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -170,62 +127,50 @@
 
 -(NSArray*) fractalPropertiesAppearanceSectionDefinitions {
     if (_fractalPropertiesAppearanceSectionDefinitions == nil) {
-        NSDictionary* turningAngle = [[NSDictionary alloc] initWithObjectsAndKeys: 
-                                   @"Angle",@"label",
-                                   @"Plus rotate CC dark.png", @"imageName",
-                                   [NSNumber numberWithDouble: -180.0], @"minimumValue",
-                                   [NSNumber numberWithDouble: 181.0], @"maximumValue",
-                                   [NSNumber numberWithDouble: 1.0], @"stepValue",
-                                   @"turningAngleAsDegree", @"propertyValueKey",
-                                   @"turningAngleInputChanged:", @"actionSelectorString",
-                                   nil];
+        NSDictionary* turningAngle = @{@"label": @"Angle",
+                                   @"imageName": @"Plus rotate CC dark.png",
+                                   @"minimumValue": @-180.0,
+                                   @"maximumValue": @181.0,
+                                   @"stepValue": @1.0,
+                                   @"propertyValueKey": @"turningAngleAsDegree",
+                                   @"actionSelectorString": @"turningAngleInputChanged:"};
         
-        NSDictionary* turningAngleIncrement = [[NSDictionary alloc] initWithObjectsAndKeys: 
-                                               @"A Increment",@"label",
-                                               @"Parenthesis increment turn angle dark.png", @"imageName",
-                                               [NSNumber numberWithDouble: -180.0], @"minimumValue",
-                                               [NSNumber numberWithDouble: 181.0], @"maximumValue",
-                                               [NSNumber numberWithDouble: 0.25], @"stepValue",
-                                               @"turningAngleIncrementAsDegree", @"propertyValueKey",
-                                               @"turningAngleIncrementInputChanged:", @"actionSelectorString",
-                                               nil];
+        NSDictionary* turningAngleIncrement = @{@"label": @"A Increment",
+                                               @"imageName": @"Parenthesis increment turn angle dark.png",
+                                               @"minimumValue": @-180.0,
+                                               @"maximumValue": @181.0,
+                                               @"stepValue": @0.25,
+                                               @"propertyValueKey": @"turningAngleIncrementAsDegree",
+                                               @"actionSelectorString": @"turningAngleIncrementInputChanged:"};
         
-        NSDictionary* lineWidth = [[NSDictionary alloc] initWithObjectsAndKeys: 
-                                               @"Width",@"label",
-                                                @"Line width dark.png", @"imageName",
-                                               [NSNumber numberWithDouble: 1.0], @"minimumValue",
-                                               [NSNumber numberWithDouble: 20.0], @"maximumValue",
-                                               [NSNumber numberWithDouble: 1.0], @"stepValue",
-                                               @"lineWidth", @"propertyValueKey",
-                                               @"lineWidthInputChanged:", @"actionSelectorString",
-                                               nil];
+        NSDictionary* lineWidth = @{@"label": @"Width",
+                                                @"imageName": @"Line width dark.png",
+                                               @"minimumValue": @1.0,
+                                               @"maximumValue": @20.0,
+                                               @"stepValue": @1.0,
+                                               @"propertyValueKey": @"lineWidth",
+                                               @"actionSelectorString": @"lineWidthInputChanged:"};
         
-        NSDictionary* lineWidthIncrement = [[NSDictionary alloc] initWithObjectsAndKeys: 
-                                   @"L Increment",@"label",
-                                    @"Pound increment width dark.png", @"imageName",
-                                   [NSNumber numberWithDouble: 1.0], @"minimumValue",
-                                   [NSNumber numberWithDouble: 20.0], @"maximumValue",
-                                   [NSNumber numberWithDouble: 0.25], @"stepValue",
-                                   @"lineWidthIncrement", @"propertyValueKey",
-                                   @"lineWidthIncrementInputChanged:", @"actionSelectorString",
-                                   nil];
+        NSDictionary* lineWidthIncrement = @{@"label": @"L Increment",
+                                    @"imageName": @"Pound increment width dark.png",
+                                   @"minimumValue": @1.0,
+                                   @"maximumValue": @20.0,
+                                   @"stepValue": @0.25,
+                                   @"propertyValueKey": @"lineWidthIncrement",
+                                   @"actionSelectorString": @"lineWidthIncrementInputChanged:"};
         
-        NSDictionary* lineLengthScaleFactor = [[NSDictionary alloc] initWithObjectsAndKeys: 
-                                   @"Length Scale",@"label",
-                                   [NSNumber numberWithDouble: 0.0], @"minimumValue",
-                                   [NSNumber numberWithDouble: 10.0], @"maximumValue",
-                                   [NSNumber numberWithDouble: 0.1], @"stepValue",
-                                   @"lineLengthScaleFactor", @"propertyValueKey",
-                                   @"lineLengthScaleFactorInputChanged:", @"actionSelectorString",
-                                   nil];
+        NSDictionary* lineLengthScaleFactor = @{@"label": @"Length Scale",
+                                   @"minimumValue": @0.0,
+                                   @"maximumValue": @10.0,
+                                   @"stepValue": @0.1,
+                                   @"propertyValueKey": @"lineLengthScaleFactor",
+                                   @"actionSelectorString": @"lineLengthScaleFactorInputChanged:"};
         
-        _fractalPropertiesAppearanceSectionDefinitions = [[NSArray alloc] initWithObjects: 
-                                                          turningAngle, 
+        _fractalPropertiesAppearanceSectionDefinitions = @[turningAngle, 
                                                           turningAngleIncrement,
                                                           lineWidth,
                                                           lineWidthIncrement,
-                                                          lineLengthScaleFactor,
-                                                          nil];
+                                                          lineLengthScaleFactor];
     }
     return _fractalPropertiesAppearanceSectionDefinitions;
 }
@@ -494,9 +439,9 @@
         CGRect portrait1;
         CGRect portraitN;
         
-        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frame0"], &portrait0);
-        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frame1"], &portrait1);
-        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)[self.portraitViewFrames objectForKey:@"frameN"], &portraitN);
+        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame0"], &portrait0);
+        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame1"], &portrait1);
+        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frameN"], &portraitN);
         
         [UIView animateWithDuration:1.0 animations:^{
             // move N to empty spot
@@ -610,7 +555,7 @@
     NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
     NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
     
-    self.portraitViewFrames = [[NSDictionary alloc] initWithObjectsAndKeys: frame0, @"frame0", frame1, @"frame1", frameN, @"frameN", nil];
+    self.portraitViewFrames = @{@"frame0": frame0, @"frame1": frame1, @"frameN": frameN};
     NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
     
 }
@@ -856,9 +801,9 @@
         [self setUndoManager: nil];
         [self becomeFirstResponder];
     }
-    self.fractalPropertiesView.hidden = !editing;
-    self.fractalViewLevel0.superview.hidden = !editing;
-    self.fractalViewLevel1.superview.hidden = !editing;
+//    self.fractalPropertiesView.hidden = !editing;
+//    self.fractalViewLevel0.superview.hidden = !editing;
+//    self.fractalViewLevel1.superview.hidden = !editing;
 
     [self refreshContents];
     // Hide the back button when editing starts, and show it again when editing finishes.
@@ -1061,8 +1006,8 @@ enum TableSection {
                               withSettingsFrom: (NSDictionary*) settings 
                                      indexPath: (NSIndexPath*) indexPath {
     
-    cell.propertyImage.image = [UIImage imageNamed: [settings objectForKey:@"imageName"]];
-    cell.propertyLabel.text = [settings objectForKey:@"label"];
+    cell.propertyImage.image = [UIImage imageNamed: settings[@"imageName"]];
+    cell.propertyLabel.text = settings[@"label"];
     cell.formatter = [self.twoPlaceFormatter copy];
     //        [stepperCell addObserver: stepperCell forKeyPath: @"stepper.value" options: NSKeyValueObservingOptionNew context: NULL];
     
@@ -1071,19 +1016,19 @@ enum TableSection {
     UIStepper* stepper = cell.stepper;
     self.turnAngleStepper = stepper;
     
-    stepper.minimumValue = [[settings objectForKey:@"minimumValue"] doubleValue];
-    stepper.maximumValue = [[settings objectForKey:@"maximumValue"] doubleValue];
-    stepper.stepValue = [[settings objectForKey:@"stepValue"] doubleValue];
-    stepper.value = [[self.currentFractal valueForKey: [settings objectForKey: @"propertyValueKey"]] doubleValue];
+    stepper.minimumValue = [settings[@"minimumValue"] doubleValue];
+    stepper.maximumValue = [settings[@"maximumValue"] doubleValue];
+    stepper.stepValue = [settings[@"stepValue"] doubleValue];
+    stepper.value = [[self.currentFractal valueForKey: settings[@"propertyValueKey"]] doubleValue];
     
     // manually call to set the textField to the stepper value
     //        [stepperCell stepperValueChanged: stepper];
     
     [stepper addTarget: self 
-                action: NSSelectorFromString([settings objectForKey: @"actionSelectorString"]) 
+                action: NSSelectorFromString(settings[@"actionSelectorString"]) 
       forControlEvents: UIControlEventValueChanged];
     
-    [self.appearanceCellIndexPaths setObject: indexPath forKey: [settings objectForKey: @"propertyValueKey"]];
+    (self.appearanceCellIndexPaths)[settings[@"propertyValueKey"]] = indexPath;
     
     return cell;
 }
@@ -1118,7 +1063,7 @@ enum TableSection {
         // rules
         
         MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleCellIdentifier];
-        LSReplacementRule* rule = [self.replacementRulesArray objectAtIndex: indexPath.row];
+        LSReplacementRule* rule = (self.replacementRulesArray)[indexPath.row];
         
         // Configure the cell with data from the managed object.
         ruleCell.textLeft.text = rule.contextString;
@@ -1135,14 +1080,14 @@ enum TableSection {
           forControlEvents: UIControlEventEditingDidEnd];
 
         cell = ruleCell;
-        [self.rulesCellIndexPaths setObject: indexPath forKey: rule.contextString];
+        (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
 
     } else if (indexPath.section == SectionAppearance) {
         // appearance
         MBStepperTableViewCell *stepperCell = (MBStepperTableViewCell *)[tableView dequeueReusableCellWithIdentifier: StepperCellIdentifier];
         
         cell = [self populateStepperCell: stepperCell 
-                        withSettingsFrom: [self.fractalPropertiesAppearanceSectionDefinitions objectAtIndex:indexPath.row]
+                        withSettingsFrom: (self.fractalPropertiesAppearanceSectionDefinitions)[indexPath.row]
                                indexPath: indexPath];
         
     } else if (indexPath.section == 2) {
@@ -1226,11 +1171,11 @@ enum TableSection {
 }
 
 - (IBAction)toggleStroke:(UISwitch*)sender {
-    self.currentFractal.stroke = [NSNumber numberWithBool: sender.on];
+    self.currentFractal.stroke = @(sender.on);
 }
 
 - (IBAction)toggleFill:(UISwitch*)sender {
-    self.currentFractal.fill = [NSNumber numberWithBool: sender.on];
+    self.currentFractal.fill = @(sender.on);
 }
 
 - (IBAction)lineWidthInputChanged:(id)sender {
@@ -1251,22 +1196,22 @@ enum TableSection {
 
 
 - (IBAction)lineLengthInputChanged:(UIStepper*)sender {
-    self.currentFractal.lineLength = [NSNumber numberWithDouble: sender.value];
+    self.currentFractal.lineLength = @(sender.value);
 }
 
 - (IBAction)lineLengthScaleFactorInputChanged:(UIStepper*)sender {
-    self.currentFractal.lineLengthScaleFactor = [NSNumber numberWithDouble: sender.value];
+    self.currentFractal.lineLengthScaleFactor = @(sender.value);
 }
 
 - (IBAction)turningAngleInputChanged:(UIStepper*)sender {
     [self.undoManager beginUndoGrouping];
     [self.currentFractal.managedObjectContext processPendingChanges];
-    [self.currentFractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: sender.value]];
+    [self.currentFractal setTurningAngleAsDegrees: @(sender.value)];
     NSLog(@"Undo group levels = %u", [self.undoManager groupingLevel]);
 }
 
 - (IBAction)turningAngleIncrementInputChanged:(UIStepper*)sender {
-    [self.currentFractal setTurningAngleIncrementAsDegrees: [NSNumber numberWithDouble: sender.value]];
+    [self.currentFractal setTurningAngleIncrementAsDegrees: @(sender.value)];
 }
 
 - (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender {
@@ -1282,7 +1227,7 @@ enum TableSection {
 -(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)sender {
     if (self.editing) {
         
-        NSIndexPath* turnAngleIndex = [self.appearanceCellIndexPaths objectForKey: @"turningAngle"];
+        NSIndexPath* turnAngleIndex = (self.appearanceCellIndexPaths)[@"turningAngle"];
         
         if (turnAngleIndex) {
             [self.fractalPropertiesTableView scrollToRowAtIndexPath: turnAngleIndex 
@@ -1304,7 +1249,7 @@ enum TableSection {
         
         if (deltaTurnAngle != 0.0 ) {
             double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
-            self.currentFractal.turningAngle = [NSNumber numberWithDouble: newAngle];
+            self.currentFractal.turningAngle = @(newAngle);
         }
     }
 }
@@ -1320,7 +1265,7 @@ enum TableSection {
         
         if (deltaTurnAngle != 0) {
             double newAngle = remainder([self.currentFractal.baseAngle doubleValue]-deltaTurnAngle, M_PI*2);
-            self.currentFractal.baseAngle = [NSNumber numberWithDouble: newAngle];
+            self.currentFractal.baseAngle = @(newAngle);
         }
     }
 }
@@ -1330,23 +1275,6 @@ enum TableSection {
 }
 
 // TODO: copy app delegate saveContext method
-- (IBAction)copyFractal:(id)sender {
-    LSFractal* fractal = self.currentFractal;
-    
-    // copy
-    LSFractal* copiedFractal = [fractal mutableCopy];
-    copiedFractal.name = [NSString stringWithFormat: @"%@ copy", copiedFractal.name];
-    copiedFractal.isImmutable = [NSNumber numberWithBool: NO];
-    copiedFractal.isReadOnly = [NSNumber numberWithBool: NO];
-    
-    self.currentFractal = copiedFractal;
-    
-    // coalesce to a common method for saving, copy from appDelegate
-    [self.currentFractal.managedObjectContext save: nil];
-
-    [self refreshContents];
-    self.editing = YES;
-}
 
 #pragma mark - ColorPicker Delegate Protocol
 //TODO: check for pre-existing colors, maybe only allow selecting from pre-existing colors? replacing colorPicker with swatches?

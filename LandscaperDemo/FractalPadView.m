@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
+// TODO: unused
+
 #import "FractalPadView.h"
 #import <QuartzCore/QuartzCore.h>
 

@@ -70,6 +70,7 @@
 
 @synthesize fractal = _fractal;
 @synthesize forceLevel = _forceLevel;
+@synthesize scale = _scale, autoscale = _autoscale, translate = _translate;
 @synthesize production = _production, productNeedsGenerating = _productNeedsGenerating;
 @synthesize pathNeedsGenerating = _pathNeedsGenerating;
 @synthesize finishedSegments = _segments;
@@ -84,6 +85,9 @@
         _productNeedsGenerating = YES;
         _pathNeedsGenerating = YES;
         _forceLevel = -1.0;
+        _scale = 1.0;
+        _autoscale = YES;
+        _translate = CGPointMake(0.0, 0.0);
     }
     return self;
 }
@@ -190,32 +194,34 @@
     
     //    NSLog(@"Layer anchor point: %g@%g", theLayer.anchorPoint.x, theLayer.anchorPoint.y);
     
-    // Scaling
-    double scaleWidth = bounds.size.width/self.bounds.size.width;
-    double scaleHeight = bounds.size.height/self.bounds.size.height;
-    double scale = MIN(scaleHeight, scaleWidth);
+    if (self.autoscale) {
+        // Scaling
+        double scaleWidth = bounds.size.width/self.bounds.size.width;
+        double scaleHeight = bounds.size.height/self.bounds.size.height;
+        
+        self.scale = MIN(scaleHeight, scaleWidth);
+        
+        //    double margin = -0.0/scale;
+        
+        //    CGContextScaleCTM(theContext, scale, scale);
+        //    NSLog(@"Min Layer/Fractal Scale = %g", scale);
+        
+        
+        //    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
+        
+        // Translating
+        double fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
+        double fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
+        
+        double lCenterX = bounds.origin.x + bounds.size.width/2.0;
+        double lCenterY = bounds.origin.y + bounds.size.height/2.0;
+        
+        self.translate = CGPointMake(lCenterX - (fCenterX*self.scale), lCenterY - (fCenterY*self.scale));
+    }
     
-    //    double margin = -0.0/scale;
+    CGContextTranslateCTM(theContext, self.translate.x, self.translate.y);
     
-    //    CGContextScaleCTM(theContext, scale, scale);
-    //    NSLog(@"Min Layer/Fractal Scale = %g", scale);
-    
-    
-    //    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
-    
-    // Translating
-    double fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
-    double fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
-    
-    double lCenterX = bounds.origin.x + bounds.size.width/2.0;
-    double lCenterY = bounds.origin.y + bounds.size.height/2.0;
-    
-    double tx = lCenterX - (fCenterX*scale);
-    double ty = lCenterY - (fCenterY*scale);
-    
-    CGContextTranslateCTM(theContext, tx, ty);
-    
-    CGContextScaleCTM(theContext, scale, scale);
+    CGContextScaleCTM(theContext, self.scale, self.scale);
     
     //    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
     //          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
@@ -230,7 +236,8 @@
         
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
-        CGContextSetLineWidth(theContext, segment.lineWidth/scale);
+//        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
+        CGContextSetLineWidth(theContext, segment.lineWidth);
         
         CGContextAddPath(theContext, segment.path);
         CGPathDrawingMode strokeOrFill = kCGPathStroke;
@@ -306,7 +313,7 @@
         NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] initWithCapacity: ruleCount];
         
         for (LSDrawingRule* rule in rules) {
-            [tempDict setObject: rule.drawingMethodString forKey: rule.productionString];
+            tempDict[rule.productionString] = rule.drawingMethodString;
         }
         
         _cachedDrawingRules = tempDict;
@@ -365,7 +372,7 @@
 }
 
 -(double) lineWidth {
-    return self.currentSegment.lineWidth;
+    return fabs(self.currentSegment.lineWidth);
 }
 
 -(void) setLineWidth:(double)lineWidth {
@@ -533,7 +540,7 @@
     // Create a local dictionary version of the replacement rules
     NSMutableDictionary* localReplacementRules = [[NSMutableDictionary alloc] initWithCapacity: [self.fractal.replacementRules count]];
     for (LSReplacementRule* rule in self.fractal.replacementRules) {
-        [localReplacementRules setObject: rule.replacementString forKey: rule.contextString];
+        localReplacementRules[rule.contextString] = rule.replacementString;
     }
     
     for (int i = 0; i < localLevel ; i++) {
@@ -548,7 +555,7 @@
         for (int y=0; y < sourceLength; y++) {
             //
             key = [sourceData substringWithRange: NSMakeRange(y, 1)];
-            replacement = [localReplacementRules objectForKey: key];
+            replacement = localReplacementRules[key];
             // If a specific rule is missing for a character, use the character
             if (replacement==nil) {
                 replacement = key;
@@ -604,7 +611,7 @@
 
 -(void) evaluateRule:(NSString *)rule {    
     //
-    id selectorId = [self.cachedDrawingRules objectForKey: rule];
+    id selectorId = (self.cachedDrawingRules)[rule];
     if ([selectorId isKindOfClass: [NSString class]]) {
         NSString* selectorString = (NSString*) selectorId;
         [self dispatchDrawingSelectorFromString: selectorString];
@@ -703,9 +710,9 @@
 }
 
 -(void) swapRotation {
-    id tempMinusRule = [self.cachedDrawingRules objectForKey: @"-"];
-    [self.cachedDrawingRules setObject: [self.cachedDrawingRules objectForKey: @"+"] forKey: @"-"];
-    [self.cachedDrawingRules setObject: tempMinusRule forKey: @"+"];
+    id tempMinusRule = (self.cachedDrawingRules)[@"-"];
+    (self.cachedDrawingRules)[@"-"] = (self.cachedDrawingRules)[@"+"];
+    (self.cachedDrawingRules)[@"+"] = tempMinusRule;
 }
 
 -(void) decrementAngle {

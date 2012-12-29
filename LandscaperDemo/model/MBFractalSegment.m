@@ -24,8 +24,7 @@
 @synthesize lineColor = _lineColor, fillColor = _fillColor;
 
 +(NSArray*)settingsToCopy {
-    return [NSArray arrayWithObjects:
-            @"turningAngle",
+    return @[@"turningAngle",
             @"turningAngleIncrement",
             @"lineLength", 
             @"lineWidth",
@@ -35,8 +34,7 @@
             @"fillColor",
             @"fill",
             @"stroke",
-            @"transform",
-            nil];
+            @"transform"];
 }
 
 - (id)init {
@@ -161,25 +159,24 @@
     {
         case kCGColorSpaceModelMonochrome:
             // For grayscale colors, the luminance is the color value
-            componentsArray =[NSArray arrayWithObjects: @"Monochrome:", [NSNumber numberWithFloat: components[0]], nil];
+            componentsArray =@[@"Monochrome:", @(components[0])];
             break;
             
         case kCGColorSpaceModelRGB:
             // For RGB colors, we calculate luminance assuming sRGB Primaries as per
             // http://en.wikipedia.org/wiki/Luminance_(relative)
-            componentsArray =[NSArray arrayWithObjects: @"RGB:",
-                              [NSNumber numberWithFloat: components[0]],
-                              [NSNumber numberWithFloat: components[1]],
-                              [NSNumber numberWithFloat: components[2]],
-                              [NSNumber numberWithFloat: components[3]],
-                              nil];
+            componentsArray =@[@"RGB:",
+                              @(components[0]),
+                              @(components[1]),
+                              @(components[2]),
+                              @(components[3])];
             break;
             
         default:
             // We don't implement support for non-gray, non-rgb colors at this time.
             // Since our only consumer is colorSortByLuminance, we return a larger than normal
             // value to ensure that these types of colors are sorted to the end of the list.
-            componentsArray =[NSArray arrayWithObjects: @"Default",nil];
+            componentsArray =@[@"Default"];
     }
     resultString = [componentsArray componentsJoinedByString: @" "];
     return  resultString;

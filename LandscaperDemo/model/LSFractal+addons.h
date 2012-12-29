@@ -8,6 +8,11 @@
 
 #import "LSFractal.h"
 
+#include <math.h>
+
+static inline double radians (double degrees) {return degrees * M_PI/180.0;}
+static inline double degrees (double radians) {return radians * 180.0/M_PI;}
+
 @interface LSFractal (addons)
 
 /*!
@@ -29,6 +34,11 @@
 -(NSNumber*) turningAngleAsDegree;
 -(void) setTurningAngleAsDouble: (double) newAngle;
 -(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
+
+-(double) turningAngleIncrementAsDouble;
+-(NSNumber*) turningAngleIncrementAsDegree;
+-(void) setTurningAngleIncrementAsDouble: (double) newAngle;
+-(void) setTurningAngleIncrementAsDegrees: (NSNumber*) newAngle;
 
 -(NSNumber*) baseAngleAsDegree;
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;

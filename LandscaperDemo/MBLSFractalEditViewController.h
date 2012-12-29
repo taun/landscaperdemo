@@ -101,6 +101,5 @@
 - (IBAction)undoEdit:(id)sender;
 - (IBAction)redoEdit:(id)sender;
 - (IBAction)cancelEdit:(id)sender;
-- (IBAction)copyFractal:(id)sender;
 - (IBAction)info:(id)sender;
 @end

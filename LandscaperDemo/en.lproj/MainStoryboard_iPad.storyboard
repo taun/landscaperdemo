@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Gwq-WM-cEm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Gwq-WM-cEm">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1179"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Fractal Library View Controller - Fractals-->
         <scene sceneID="11">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
                 <viewController title="Fractals" id="2" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -28,14 +25,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OBa-yZ-PmX">
-                                                    <rect key="frame" x="93" y="2" width="38" height="22"/>
+                                                    <rect key="frame" x="73" y="2" width="38" height="22"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r3t-9p-8g2">
-                                                    <rect key="frame" x="93" y="24" width="47" height="18"/>
+                                                    <rect key="frame" x="73" y="24" width="47" height="18"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,13 +65,13 @@
                         <outlet property="fractalTableView" destination="SXv-Wx-Azb" id="66w-PL-MaJ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4021" y="49"/>
         </scene>
         <!--Fractal View Controller-->
         <scene sceneID="nVz-nu-c8d">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="whj-lG-D8V" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="aHu-I2-s3l" customClass="MBLSFractalViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8gR-PQ-SIS">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -138,13 +135,13 @@
                         <segue destination="4nM-Pc-iAd" kind="push" identifier="FractalEditorSegue" id="HwF-po-Pah"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="whj-lG-D8V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5010" y="49"/>
         </scene>
         <!--Fractal Edit View Controller - FractalName-->
         <scene sceneID="Vzi-SL-M21">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="FractalName" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pSX-p9-jkP">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -392,15 +389,16 @@
                         <outlet property="fractalInputControl" destination="hrP-bc-aE6" id="4mq-ym-cwd"/>
                         <outlet property="fractalPropertiesTableView" destination="Dni-f2-BXO" id="NyC-3R-uyw"/>
                         <outlet property="fractalPropertiesView" destination="Lid-md-lf6" id="Vfa-vZ-Y3U"/>
+                        <outlet property="fractalViewHolder" destination="w8E-uR-W9b" id="OFc-yR-e1H"/>
                         <outlet property="fractalViewLevel0" destination="a6O-Vz-bO2" id="HuL-uc-thg"/>
                         <outlet property="fractalViewLevel1" destination="NoY-Fh-7ru" id="QuM-d5-Yxy"/>
-                        <outlet property="fractalViewLevelN" destination="w8E-uR-W9b" id="RDp-aV-87i"/>
-                        <outlet property="fractalViewLevelNHUD" destination="Gh2-T8-dmG" id="ZtR-pO-dyf"/>
                         <outlet property="fractalViewLevelNLabel" destination="nXe-lZ-0xB" id="fSq-Zf-asN"/>
+                        <outlet property="hudViewBackground" destination="Gh2-T8-dmG" id="Cdn-xY-OdV"/>
                         <outlet property="levelSlider" destination="tcf-D9-8ET" id="KsH-dS-iVb"/>
-                        <outlet property="levelSliderContainerView" destination="55F-IR-Ful" id="TJp-fN-l90"/>
+                        <outlet property="sliderContainerView" destination="55F-IR-Ful" id="jwe-nh-bZM"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="hrP-bc-aE6" customClass="FractalDefinitionKeyboardView">
                     <connections>
                         <outlet property="delegate" destination="4nM-Pc-iAd" id="gns-ni-Reh"/>
@@ -412,7 +410,6 @@
         <!--Navigation Controller-->
         <scene sceneID="cHp-ci-Or9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6bk-Ir-1Yu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="Gwq-WM-cEm" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Npz-Zw-nzT">
                         <autoresizingMask key="autoresizingMask"/>
@@ -425,6 +422,7 @@
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="afS-FJ-v5c"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6bk-Ir-1Yu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3051" y="49"/>
         </scene>
@@ -458,7 +456,6 @@
                 <relationship kind="action" name="axiomInputChanged:" candidateClass="UITextField"/>
                 <relationship kind="action" name="axiomInputEnded:" candidateClass="UITextField"/>
                 <relationship kind="action" name="cancelEdit:"/>
-                <relationship kind="action" name="copyFractal:"/>
                 <relationship kind="action" name="info:"/>
                 <relationship kind="action" name="lineLengthInputChanged:" candidateClass="UIStepper"/>
                 <relationship kind="action" name="lineLengthScaleFactorInputChanged:" candidateClass="UIStepper"/>
@@ -508,12 +505,15 @@
         <class className="MBLSFractalViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBLSFractalViewController.h"/>
             <relationships>
+                <relationship kind="action" name="copyFractal:"/>
                 <relationship kind="action" name="levelInputChanged:" candidateClass="UIControl"/>
                 <relationship kind="action" name="magnifyFractal:" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="action" name="panFractal:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="rotateFractal:" candidateClass="UIRotationGestureRecognizer"/>
                 <relationship kind="action" name="rotateTurningAngle:" candidateClass="UIRotationGestureRecognizer"/>
                 <relationship kind="action" name="scaleFractal:" candidateClass="UIPinchGestureRecognizer"/>
+                <relationship kind="action" name="swipeFractal:" candidateClass="UISwipeGestureRecognizer"/>
+                <relationship kind="action" name="toggleAutoScale:"/>
                 <relationship kind="outlet" name="fractalCategory" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="fractalDescriptor" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="fractalName" candidateClass="UITextField"/>

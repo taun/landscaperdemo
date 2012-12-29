@@ -13,7 +13,6 @@
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBUITextField</string>
 			<string>IBUILabel</string>
-			<string>IBUITableView</string>
 			<string>IBUIView</string>
 			<string>IBUIScrollView</string>
 			<string>IBProxyObject</string>
@@ -80,7 +79,7 @@
 								<string key="NSFrame">{{144, 20}, {208, 31}}</string>
 								<reference key="NSSuperview" ref="930607441"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="1043978159"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -108,29 +107,6 @@
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
-							</object>
-							<object class="IBUITableView" id="1043978159">
-								<reference key="NSNextResponder" ref="930607441"/>
-								<int key="NSvFlags">1298</int>
-								<string key="NSFrame">{{0, 59}, {379, 260}}</string>
-								<reference key="NSSuperview" ref="930607441"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
-								<string key="NSReuseIdentifierKey">_NS:408</string>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAgMAA</bytes>
-								</object>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<bool key="IBUIAlwaysBounceVertical">YES</bool>
-								<int key="IBUIStyle">1</int>
-								<int key="IBUISeparatorStyle">2</int>
-								<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
-								<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
-								<float key="IBUIRowHeight">44</float>
-								<float key="IBUISectionHeaderHeight">10</float>
-								<float key="IBUISectionFooterHeight">10</float>
 							</object>
 						</array>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
@@ -176,14 +152,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">fractalDefinitionRulesView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="431039176"/>
-					</object>
-					<int key="connectionID">48</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="1039732760"/>
 						<reference key="destination" ref="372490531"/>
@@ -207,22 +175,6 @@
 						<int key="IBEventType">18</int>
 					</object>
 					<int key="connectionID">52</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">dataSource</string>
-						<reference key="source" ref="1043978159"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">54</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="1043978159"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">55</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -258,7 +210,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="1039732760"/>
 							<reference ref="498884116"/>
-							<reference ref="1043978159"/>
 						</array>
 						<reference key="parent" ref="431039176"/>
 						<string key="objectName">Production Scroll View</string>
@@ -272,11 +223,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">18</int>
 						<reference key="object" ref="498884116"/>
-						<reference key="parent" ref="930607441"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">53</int>
-						<reference key="object" ref="1043978159"/>
 						<reference key="parent" ref="930607441"/>
 					</object>
 				</array>
@@ -296,7 +242,6 @@
 				<reference key="3.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="3.showNotes"/>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="53.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -431,7 +376,9 @@
 						<string key="fractalLevel">UITextField</string>
 						<string key="fractalLineLength">UITextField</string>
 						<string key="fractalName">UITextField</string>
+						<string key="fractalPropertiesTableView">UITableView</string>
 						<string key="fractalPropertiesView">UIScrollView</string>
+						<string key="fractalPropertyTableHeaderView">UIView</string>
 						<string key="fractalTurningAngle">UITextField</string>
 						<string key="fractalViewLevel0">UIView</string>
 						<string key="fractalViewLevel1">UIView</string>
@@ -498,9 +445,17 @@
 							<string key="name">fractalName</string>
 							<string key="candidateClassName">UITextField</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="fractalPropertiesTableView">
+							<string key="name">fractalPropertiesTableView</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="fractalPropertiesView">
 							<string key="name">fractalPropertiesView</string>
 							<string key="candidateClassName">UIScrollView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalPropertyTableHeaderView">
+							<string key="name">fractalPropertyTableHeaderView</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="fractalTurningAngle">
 							<string key="name">fractalTurningAngle</string>

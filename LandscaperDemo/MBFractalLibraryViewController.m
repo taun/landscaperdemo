@@ -28,8 +28,6 @@
 
 @implementation MBFractalLibraryViewController
 
-@synthesize fractalTableView = _fractalTableView;
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 #pragma mark - custom getters -
 
@@ -53,7 +51,7 @@
         [fetchRequest setFetchBatchSize: 20];
         NSSortDescriptor* nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"name" ascending: YES];
         NSSortDescriptor* catSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"category" ascending: YES];
-        NSArray* sortDescriptors = [[NSArray alloc] initWithObjects: catSortDescriptor, nameSortDescriptor, nil];
+        NSArray* sortDescriptors = @[catSortDescriptor, nameSortDescriptor];
         [fetchRequest setSortDescriptors: sortDescriptors];
         
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: @"category" cacheName: @"root"];
@@ -83,7 +81,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -137,7 +135,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo name];
 }
 
@@ -166,7 +164,7 @@
 	// If you want to align the header text as centered
 	// headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
     
-	headerLabel.text = [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+	headerLabel.text = [[self.fetchedResultsController sections][section] name];
 	[customView addSubview:headerLabel];
     
 	return customView;

@@ -8,10 +8,6 @@
 
 #import "LSFractal+addons.h"
 #import "MBColor+addons.h"
-#include <math.h>
-
-static inline double radians (double degrees) {return degrees * M_PI/180.0;}
-static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 @implementation LSFractal (addons)
 
@@ -124,7 +120,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 }
 
 -(void) setLineLengthAsDouble:(double)newLength {
-    self.lineLength = [NSNumber numberWithDouble: newLength];
+    self.lineLength = @(newLength);
 }
 
 -(double) turningAngleAsDouble {
@@ -132,24 +128,41 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 }
 
 -(NSNumber*) turningAngleAsDegree {
-    return [NSNumber numberWithDouble: degrees([self.turningAngle doubleValue])];
+    return @(degrees([self.turningAngle doubleValue]));
 }
 
 -(void) setTurningAngleAsDouble:(double)newAngle {
-    self.turningAngle = [NSNumber numberWithDouble: newAngle];
+    self.turningAngle = @(newAngle);
 }
 
 -(void) setTurningAngleAsDegrees:(NSNumber*)newAngle {
     double inRadians = radians([newAngle doubleValue]);
-    self.turningAngle = [NSNumber numberWithDouble: inRadians];
+    self.turningAngle = @(inRadians);
+}
+
+-(double) turningAngleIncrementAsDouble {
+    return [self.turningAngleIncrement doubleValue];
+}
+
+-(NSNumber*) turningAngleIncrementAsDegree {
+    return @(degrees([self.turningAngleIncrement doubleValue]));
+}
+
+-(void) setTurningAngleIncrementAsDouble:(double)newAngle {
+    self.turningAngleIncrement = @(newAngle);
+}
+
+-(void) setTurningAngleIncrementAsDegrees:(NSNumber*)newAngle {
+    double inRadians = radians([newAngle doubleValue]);
+    self.turningAngleIncrement = @(inRadians);
 }
 
 -(NSNumber*) baseAngleAsDegree {
-    return [NSNumber numberWithDouble: degrees([self.baseAngle doubleValue])];
+    return @(degrees([self.baseAngle doubleValue]));
 }
 
 -(void) setBaseAngleAsDegrees:(NSNumber*)newAngle {
     double inRadians = radians([newAngle doubleValue]);
-    self.baseAngle = [NSNumber numberWithDouble: inRadians];
+    self.baseAngle = @(inRadians);
 }
 @end

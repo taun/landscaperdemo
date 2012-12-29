@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@class MBIFSFractal;
+@class MBLSFractal;
 
 /*!
  Default anchorPoint is set to (0, 1), lower left corner
  */
 @interface MBFractalLayer : CALayer
 
-@property (nonatomic, strong) MBIFSFractal* fractal;
+@property (nonatomic, strong) MBLSFractal* fractal;
 
 @end

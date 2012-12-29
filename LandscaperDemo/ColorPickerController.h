@@ -86,8 +86,8 @@ typedef struct {
 + (UIColor *)colorFromHexValue:(NSString *)hexValue;
 + (BOOL)isValidHexValue:(NSString *)hexValue;
 
-@property (nonatomic, readwrite, strong) UIColor *selectedColor;
-@property (nonatomic, readwrite, weak) IBOutlet id<ColorPickerDelegate> delegate;
+@property (nonatomic, strong) UIColor *selectedColor;
+@property (nonatomic, weak) IBOutlet id<ColorPickerDelegate> delegate;
 
 - (id)initWithColor:(UIColor *)color andTitle:(NSString *)title;
 

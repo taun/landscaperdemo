@@ -60,6 +60,7 @@
 
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio;
 
+- (IBAction)copyFractal:(id)sender;
 - (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)gestureRecognizer;
 - (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer;
@@ -67,4 +68,5 @@
 - (IBAction)rotateFractal:(UIRotationGestureRecognizer*)gestureRecognizer;
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)gestureRecognizer;
 - (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer;
+- (IBAction)toggleAutoScale:(id)sender;
 @end

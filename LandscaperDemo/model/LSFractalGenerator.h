@@ -144,6 +144,10 @@
 
 @property (nonatomic,assign,readonly) CGRect    bounds;
 
+@property (nonatomic, assign) BOOL              autoscale;
+@property (nonatomic, assign) double            scale;
+@property (nonatomic, assign) CGPoint           translate;
+
 /*
  The drawing rules are cached from the managed object. This is because the rules are returned as a set and we need to convert them to a dictionary. We only want to do this once unless the rules are changed. Need to observer the rules and if there is a change, clear the cache.
  */

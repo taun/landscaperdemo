@@ -157,7 +157,7 @@
         defaultType.identifier = @"default";
         defaultType.descriptor = @"Default drawing rules added when the application is run for the first time.";
         
-        NSDictionary* rules = [defaults objectForKey: @"DrawingRules"];
+        NSDictionary* rules = defaults[@"DrawingRules"];
         for (NSString* key in rules) {
             
             LSDrawingRule *newDrawingRule = [NSEntityDescription
@@ -165,7 +165,7 @@
                                                   inManagedObjectContext: context];
             newDrawingRule.type = defaultType;
             newDrawingRule.productionString = key;
-            newDrawingRule.drawingMethodString = [rules objectForKey: key];
+            newDrawingRule.drawingMethodString = rules[key];
 
         }
     }
@@ -178,7 +178,7 @@
     if (defaults) {
         NSManagedObjectContext* context = self.managedObjectContext;
         
-        NSArray* colorArray = [defaults objectForKey: @"InitialColors"];
+        NSArray* colorArray = defaults[@"InitialColors"];
         if ([colorArray isKindOfClass: [NSArray class]]) {
             for (NSDictionary* colorDict in colorArray) {
                 MBColor* newColor = [NSEntityDescription
@@ -188,7 +188,7 @@
                 
                 if ([colorDict isKindOfClass: [NSDictionary class]]) {
                     for (id propertyKey in colorDict) {
-                        [newColor setValue: [colorDict objectForKey: propertyKey] forKey: propertyKey];
+                        [newColor setValue: colorDict[propertyKey] forKey: propertyKey];
                     }
                 }
             }
@@ -205,7 +205,7 @@
         
         NSManagedObjectContext* context = self.managedObjectContext;
         
-        NSArray* fractals = [defaults objectForKey: @"InitialLSFractals"];
+        NSArray* fractals = defaults[@"InitialLSFractals"];
         
         if ([fractals isKindOfClass:[NSArray class]]) {
             
@@ -219,7 +219,7 @@
                     fractal.drawingRulesType = defaultDrawingRuleType;
                     
                     for (id propertyKey in fractalDictionary) {
-                        id propertyValue = [fractalDictionary objectForKey: propertyKey];
+                        id propertyValue = fractalDictionary[propertyKey];
                         
                         if ([propertyValue isKindOfClass:[NSDictionary class]]) {
                             // dictionary is replacement rules
@@ -230,7 +230,7 @@
                                                                          inManagedObjectContext: context];
                                 
                                 newReplacementRule.contextString = replacementKey;
-                                newReplacementRule.replacementString = [propertyValue objectForKey: replacementKey];
+                                newReplacementRule.replacementString = propertyValue[replacementKey];
                                 [fractal addReplacementRulesObject: newReplacementRule];
                             }
                         } else {

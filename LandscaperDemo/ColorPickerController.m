@@ -252,7 +252,6 @@
 #pragma mark Properties
 
 @synthesize selectedColor = _selectedColor;
-@synthesize delegate = _delegate;
 
 - (UIColor *)selectedColor {
     if (_selectedColor == nil) {
@@ -335,7 +334,7 @@
                                                                                 target: self 
                                                                                 action: @selector(redoButtonPressed)];
 
-    NSArray* buttons = [NSArray arrayWithObjects: undoButton, redoButton, nil];
+    NSArray* buttons = @[undoButton, redoButton];
     self.navigationItem.leftBarButtonItems = buttons;
     
     
@@ -353,7 +352,7 @@
                                                LABEL_WIDTH, 
                                                LABEL_HEIGHT);
     hueSaturationValueLabel.autoresizingMask = UIViewAutoresizingNone;
-    hueSaturationValueLabel.textAlignment = UITextAlignmentRight;
+    hueSaturationValueLabel.textAlignment = NSTextAlignmentRight;
     hueSaturationValueLabel.backgroundColor = [UIColor clearColor];
     
     [backgroundView addSubview:hueSaturationValueLabel];
@@ -367,7 +366,7 @@
                                  LABEL_WIDTH, 
                                  TEXT_FIELD_HEIGHT);
     _hueField.autoresizingMask = UIViewAutoresizingNone;
-    _hueField.textAlignment = UITextAlignmentCenter;
+    _hueField.textAlignment = NSTextAlignmentCenter;
     _hueField.borderStyle = UITextBorderStyleLine;
     _hueField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _hueField.returnKeyType = UIReturnKeyDone;
@@ -385,7 +384,7 @@
                                         LABEL_WIDTH, 
                                         TEXT_FIELD_HEIGHT);
     _saturationField.autoresizingMask = UIViewAutoresizingNone;
-    _saturationField.textAlignment = UITextAlignmentCenter;
+    _saturationField.textAlignment = NSTextAlignmentCenter;
     _saturationField.borderStyle = UITextBorderStyleLine;
     _saturationField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _saturationField.returnKeyType = UIReturnKeyDone;
@@ -403,7 +402,7 @@
                                        LABEL_WIDTH, 
                                        TEXT_FIELD_HEIGHT);
     _brightnessField.autoresizingMask = UIViewAutoresizingNone;
-    _brightnessField.textAlignment = UITextAlignmentCenter;
+    _brightnessField.textAlignment = NSTextAlignmentCenter;
     _brightnessField.borderStyle = UITextBorderStyleLine;
     _brightnessField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _brightnessField.returnKeyType = UIReturnKeyDone;
@@ -436,7 +435,7 @@
                                          LABEL_WIDTH, 
                                          LABEL_HEIGHT);
     redGreenBlueLabel.autoresizingMask = UIViewAutoresizingNone;
-    redGreenBlueLabel.textAlignment = UITextAlignmentRight;
+    redGreenBlueLabel.textAlignment = NSTextAlignmentRight;
     redGreenBlueLabel.backgroundColor = [UIColor clearColor];
     
     [backgroundView addSubview:redGreenBlueLabel];
@@ -449,7 +448,7 @@
                                  LABEL_WIDTH, 
                                  TEXT_FIELD_HEIGHT);
     _redField.autoresizingMask = UIViewAutoresizingNone;
-    _redField.textAlignment = UITextAlignmentCenter;
+    _redField.textAlignment = NSTextAlignmentCenter;
     _redField.borderStyle = UITextBorderStyleLine;
     _redField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _redField.returnKeyType = UIReturnKeyDone;
@@ -467,7 +466,7 @@
                                    LABEL_WIDTH, 
                                    TEXT_FIELD_HEIGHT);
     _greenField.autoresizingMask = UIViewAutoresizingNone;
-    _greenField.textAlignment = UITextAlignmentCenter;
+    _greenField.textAlignment = NSTextAlignmentCenter;
     _greenField.borderStyle = UITextBorderStyleLine;
     _greenField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _greenField.returnKeyType = UIReturnKeyDone;
@@ -485,7 +484,7 @@
                                   LABEL_WIDTH, 
                                   TEXT_FIELD_HEIGHT);
     _blueField.autoresizingMask = UIViewAutoresizingNone;
-    _blueField.textAlignment = UITextAlignmentCenter;
+    _blueField.textAlignment = NSTextAlignmentCenter;
     _blueField.borderStyle = UITextBorderStyleLine;
     _blueField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _blueField.returnKeyType = UIReturnKeyDone;
@@ -506,7 +505,7 @@
                                         LABEL_WIDTH, 
                                         LABEL_HEIGHT);
     hexadecimalLabel.autoresizingMask = UIViewAutoresizingNone;
-    hexadecimalLabel.textAlignment = UITextAlignmentRight;
+    hexadecimalLabel.textAlignment = NSTextAlignmentRight;
     hexadecimalLabel.backgroundColor = [UIColor clearColor];
     
     [backgroundView addSubview:hexadecimalLabel];
@@ -519,7 +518,7 @@
                                  HEXADECIMAL_TEXT_FIELD_WDITH, 
                                  TEXT_FIELD_HEIGHT);
     _hexField.autoresizingMask = UIViewAutoresizingNone;
-    _hexField.textAlignment = UITextAlignmentCenter;
+    _hexField.textAlignment = NSTextAlignmentCenter;
     _hexField.borderStyle = UITextBorderStyleLine;
     _hexField.keyboardType = UIKeyboardTypeASCIICapable;
     _hexField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
@@ -538,12 +537,11 @@
                                       GRADIENT_HEIGHT);
     
     _brightnessView = [[GradientView alloc] initWithFrame:gradientFrame];
-    _brightnessView.colors = [NSArray arrayWithObjects: self.selectedColor,
+    _brightnessView.colors = @[self.selectedColor,
                                                        [UIColor colorWithRed:0.0f 
                                                                        green:0.0f 
                                                                         blue:0.0f 
-                                                                       alpha:1.0f],
-                                                       nil];
+                                                                       alpha:1.0f]];
     _brightnessView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
     [backgroundView addSubview:_brightnessView];
@@ -688,15 +686,14 @@
                                                            _hsvColor.brightnessValue];
         
         _brightnessView.colors = 
-            [NSArray arrayWithObjects:[UIColor colorWithHue:_hsvColor.hue
+            @[[UIColor colorWithHue:_hsvColor.hue
                                                  saturation:_hsvColor.saturation 
                                                  brightness:1.0f
                                                       alpha:1.0f],  
                                       [UIColor colorWithRed:0.0f 
                                                       green:0.0f 
                                                        blue:0.0f 
-                                                      alpha:1.0f], 
-                                      nil];
+                                                      alpha:1.0f]];
         
         _hueSaturationView.alpha = _hsvColor.brightness;
     }
