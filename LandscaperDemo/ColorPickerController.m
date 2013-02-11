@@ -597,13 +597,13 @@
     [self moveSelectors];
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
+//- (void)viewDidUnload {
+//    [super viewDidUnload];
+//}
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
                                          duration:(NSTimeInterval)duration {

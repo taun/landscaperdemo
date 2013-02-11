@@ -20,6 +20,8 @@
 
 #include <math.h>
 
+#define LOGBOUNDS 0
+
 
 @interface MBLSFractalViewController ()
 
@@ -28,11 +30,13 @@
 @implementation MBLSFractalViewController
 
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo {
-    CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(bounds);
-    NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
-    CFRelease(boundsDict);
-    
-    NSLog(@"%@ = %@", boundsInfo,boundsDescription);
+    if (LOGBOUNDS) {
+        CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(bounds);
+        NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
+        CFRelease(boundsDict);
+        
+        NSLog(@"%@ = %@", boundsInfo,boundsDescription);
+    }
 }
 
 -(NSNumberFormatter*) twoPlaceFormatter {
@@ -97,8 +101,8 @@
 -(void) setSliderContainerView:(UIView *)sliderContainerView {
     if (_sliderContainerView != sliderContainerView) {
         _sliderContainerView = sliderContainerView;
-        CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
-        [_sliderContainerView setTransform: rotateCC];
+//        CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
+//        [_sliderContainerView setTransform: rotateCC];
     }
 }
 
@@ -108,7 +112,7 @@
         
         UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] 
                                             initWithTarget: self 
-                                            action: @selector(rotateTurningAngle:)];
+                                            action: @selector(rotateFractal:)];
         
         [_fractalView addGestureRecognizer: rgr];
         
@@ -400,30 +404,30 @@
 }
 
 -(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)gestureRecognizer {
-    double stepRadians = radians(1.0);
-    // 2.5 degrees -> radians
-    
-    double deltaTurnToDeltaGestureRatio = 1.0/5.0;
-    // reduce the sensitivity to make it easier to rotate small degrees
-    
-    double deltaTurnAngle = [self convertAndQuantizeRotationFrom: gestureRecognizer 
-                                                          quanta: stepRadians 
-                                                           ratio: deltaTurnToDeltaGestureRatio];
-    
-    if (deltaTurnAngle != 0.0 ) {
+//    double stepRadians = radians(1.0);
+//    // 2.5 degrees -> radians
+//    
+//    double deltaTurnToDeltaGestureRatio = 1.0/5.0;
+//    // reduce the sensitivity to make it easier to rotate small degrees
+//    
+//    double deltaTurnAngle = [self convertAndQuantizeRotationFrom: gestureRecognizer 
+//                                                          quanta: stepRadians 
+//                                                           ratio: deltaTurnToDeltaGestureRatio];
+//    
+//    if (deltaTurnAngle != 0.0 ) {
 //        double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
-        double newAngle = [self.currentFractal.turningAngle doubleValue]-deltaTurnAngle;
-        self.currentFractal.turningAngle = @(newAngle);
-    }
+//        double newAngle = [self.currentFractal.turningAngle doubleValue]-deltaTurnAngle;
+//        self.currentFractal.turningAngle = @(newAngle);
+//    }
 }
 
 -(IBAction) rotateFractal:(UIRotationGestureRecognizer*)gestureRecognizer {
-    [self adjustAnchorPointForGestureRecognizer: gestureRecognizer];
-    
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
-        [gestureRecognizer view].transform = CGAffineTransformRotate([[gestureRecognizer view] transform], [gestureRecognizer rotation]);
-        [gestureRecognizer setRotation:0];
-    }
+//    [self adjustAnchorPointForGestureRecognizer: gestureRecognizer];
+//    
+//    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+//        [gestureRecognizer view].transform = CGAffineTransformRotate([[gestureRecognizer view] transform], [gestureRecognizer rotation]);
+//        [gestureRecognizer setRotation:0];
+//    }
 }
 
 - (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -469,7 +473,7 @@
             if (generator.autoscale) {
                 // refit view frame and refresh layer
                 self.fractalView.transform = CGAffineTransformIdentity;
-                self.fractalView.frame = self.fractalViewHolder.bounds;
+                self.fractalView.frame = self.fractalViewParent.bounds;
             }
         }
     }
@@ -549,12 +553,17 @@
     
     
     NSArray* resources = [[NSBundle mainBundle] loadNibNamed:@"MBLSFractalLevelNView" owner:self options:nil];
-    self.fractalViewView = resources[0];
-    self.fractalViewView.frame = self.fractalViewHolder.bounds;
-    [self.fractalViewHolder addSubview: self.fractalViewView];
+#pragma unused (resources)
+//    self.fractalViewRoot = resources[0];
+//    UIImage* patternImage = [UIImage imageWithContentsOfFile: @"grey.png"];
+    UIImage* patternImage = [UIImage imageNamed: @"linen-fine.jpg"];
+    UIColor* newColor = [UIColor colorWithPatternImage: patternImage];
+    self.fractalViewRoot.backgroundColor = newColor;
+    self.fractalViewRoot.frame = self.fractalViewHolder.bounds;
+    [self.fractalViewHolder addSubview: self.fractalViewRoot];
 //    self.fractalViewLevelN = nil
     [self logBounds: self.fractalViewHolder.bounds info: @"fractalViewHolder"];
-    [self logBounds: self.fractalViewView.bounds info: @"fractalViewView"];
+    [self logBounds: self.fractalViewParent.bounds info: @"fractalViewView"];
     [self logBounds: self.fractalView.bounds info: @"fractalView"];
 }
 
@@ -577,7 +586,7 @@
         }
     }
     [self logBounds: self.fractalViewHolder.bounds info: @"fractalViewHolder"];
-    [self logBounds: self.fractalViewView.bounds info: @"fractalViewView"];
+    [self logBounds: self.fractalViewParent.bounds info: @"fractalViewView"];
     [self logBounds: self.fractalView.bounds info: @"fractalView"];
 
 }
@@ -589,7 +598,7 @@
     [super viewDidAppear:animated];
     [self refreshContents];
     [self logBounds: self.fractalViewHolder.bounds info: @"fractalViewHolder"];
-    [self logBounds: self.fractalViewView.bounds info: @"fractalViewView"];
+    [self logBounds: self.fractalViewParent.bounds info: @"fractalViewView"];
     [self logBounds: self.fractalView.bounds info: @"fractalView"];
 }
 
@@ -606,11 +615,14 @@
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 }
-
+/*
+ Controller exists here but controller has no views yet!
+ Can set properties but should not set any which depend on a view or a view outlet.
+ */
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     MBLSFractalViewController* viewer = segue.destinationViewController;
     viewer.currentFractal = self.currentFractal;
-    viewer.editing = YES;
+//    viewer.editing = YES;
 }
 - (void)viewDidUnload {
     [super viewDidUnload];

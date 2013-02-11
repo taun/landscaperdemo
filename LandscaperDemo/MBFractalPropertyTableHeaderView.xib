@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">11D50b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<int key="IBDocument.SystemTarget">1536</int>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">933</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
+			<string>IBProxyObject</string>
+			<string>IBUITextField</string>
 			<string>IBUITextView</string>
 			<string>IBUIView</string>
-			<string>IBUITextField</string>
-			<string>IBProxyObject</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -50,6 +50,7 @@
 						<bool key="IBUIEnabled">NO</bool>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
+						<string key="IBUIPlaceholder">Name</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
@@ -86,6 +87,7 @@
 						<bool key="IBUIEnabled">NO</bool>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
+						<string key="IBUIPlaceholder">Category</string>
 						<object class="NSColor" key="IBUITextColor" id="107963421">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
@@ -101,7 +103,7 @@
 					<object class="IBUITextView" id="772948804">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{20, 98}, {340, 81}}</string>
+						<string key="NSFrame">{{20, 98}, {340, 91}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -280,18 +282,19 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">MBLSFractalEditViewController</string>
-					<string key="superclassName">UIViewController</string>
+					<string key="superclassName">MBLSFractalViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="axiomInputChanged:">UITextField</string>
 						<string key="axiomInputEnded:">UITextField</string>
-						<string key="copyFractal:">id</string>
-						<string key="levelInputChanged:">UIControl</string>
+						<string key="cancelEdit:">id</string>
+						<string key="info:">id</string>
 						<string key="lineLengthInputChanged:">UIStepper</string>
 						<string key="lineLengthScaleFactorInputChanged:">UIStepper</string>
 						<string key="lineWidthIncrementInputChanged:">id</string>
 						<string key="lineWidthInputChanged:">id</string>
 						<string key="magnifyFractal:">UILongPressGestureRecognizer</string>
 						<string key="nameInputDidEnd:">UITextField</string>
+						<string key="redoEdit:">id</string>
 						<string key="rotateFractal:">UIRotationGestureRecognizer</string>
 						<string key="rotateTurningAngle:">UIRotationGestureRecognizer</string>
 						<string key="selectFillColor:">UIButton</string>
@@ -301,6 +304,7 @@
 						<string key="toggleStroke:">UISwitch</string>
 						<string key="turningAngleIncrementInputChanged:">UIStepper</string>
 						<string key="turningAngleInputChanged:">UIStepper</string>
+						<string key="undoEdit:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="axiomInputChanged:">
@@ -311,13 +315,13 @@
 							<string key="name">axiomInputEnded:</string>
 							<string key="candidateClassName">UITextField</string>
 						</object>
-						<object class="IBActionInfo" key="copyFractal:">
-							<string key="name">copyFractal:</string>
+						<object class="IBActionInfo" key="cancelEdit:">
+							<string key="name">cancelEdit:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="levelInputChanged:">
-							<string key="name">levelInputChanged:</string>
-							<string key="candidateClassName">UIControl</string>
+						<object class="IBActionInfo" key="info:">
+							<string key="name">info:</string>
+							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="lineLengthInputChanged:">
 							<string key="name">lineLengthInputChanged:</string>
@@ -342,6 +346,10 @@
 						<object class="IBActionInfo" key="nameInputDidEnd:">
 							<string key="name">nameInputDidEnd:</string>
 							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBActionInfo" key="redoEdit:">
+							<string key="name">redoEdit:</string>
+							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="rotateFractal:">
 							<string key="name">rotateFractal:</string>
@@ -379,6 +387,10 @@
 							<string key="name">turningAngleInputChanged:</string>
 							<string key="candidateClassName">UIStepper</string>
 						</object>
+						<object class="IBActionInfo" key="undoEdit:">
+							<string key="name">undoEdit:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="fillColorButton">UIButton</string>
@@ -395,17 +407,14 @@
 						<string key="fractalLineLength">UITextField</string>
 						<string key="fractalName">UITextField</string>
 						<string key="fractalPropertiesTableView">UITableView</string>
-						<string key="fractalPropertiesView">UIScrollView</string>
+						<string key="fractalPropertiesView">UIView</string>
 						<string key="fractalPropertyTableHeaderView">UIView</string>
 						<string key="fractalTurningAngle">UITextField</string>
 						<string key="fractalViewLevel0">UIView</string>
 						<string key="fractalViewLevel1">UIView</string>
-						<string key="fractalViewLevelN">UIView</string>
-						<string key="fractalViewLevelNHUD">UIView</string>
 						<string key="fractalViewLevelNLabel">UILabel</string>
 						<string key="fractalWidth">UITextField</string>
 						<string key="levelSlider">UISlider</string>
-						<string key="levelSliderContainerView">UIView</string>
 						<string key="levelStepper">UIStepper</string>
 						<string key="lineLengthStepper">UIStepper</string>
 						<string key="strokeColorButton">UIButton</string>
@@ -473,7 +482,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="fractalPropertiesView">
 							<string key="name">fractalPropertiesView</string>
-							<string key="candidateClassName">UIScrollView</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="fractalPropertyTableHeaderView">
 							<string key="name">fractalPropertyTableHeaderView</string>
@@ -491,14 +500,6 @@
 							<string key="name">fractalViewLevel1</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="fractalViewLevelN">
-							<string key="name">fractalViewLevelN</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="fractalViewLevelNHUD">
-							<string key="name">fractalViewLevelNHUD</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="fractalViewLevelNLabel">
 							<string key="name">fractalViewLevelNLabel</string>
 							<string key="candidateClassName">UILabel</string>
@@ -510,10 +511,6 @@
 						<object class="IBToOneOutletInfo" key="levelSlider">
 							<string key="name">levelSlider</string>
 							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="levelSliderContainerView">
-							<string key="name">levelSliderContainerView</string>
-							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="levelStepper">
 							<string key="name">levelStepper</string>
@@ -549,12 +546,142 @@
 						<string key="minorKey">./Classes/MBLSFractalEditViewController.h</string>
 					</object>
 				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MBLSFractalViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="copyFractal:">id</string>
+						<string key="levelInputChanged:">UIControl</string>
+						<string key="magnifyFractal:">UILongPressGestureRecognizer</string>
+						<string key="panFractal:">UIPanGestureRecognizer</string>
+						<string key="rotateFractal:">UIRotationGestureRecognizer</string>
+						<string key="rotateTurningAngle:">UIRotationGestureRecognizer</string>
+						<string key="scaleFractal:">UIPinchGestureRecognizer</string>
+						<string key="swipeFractal:">UISwipeGestureRecognizer</string>
+						<string key="toggleAutoScale:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="copyFractal:">
+							<string key="name">copyFractal:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="levelInputChanged:">
+							<string key="name">levelInputChanged:</string>
+							<string key="candidateClassName">UIControl</string>
+						</object>
+						<object class="IBActionInfo" key="magnifyFractal:">
+							<string key="name">magnifyFractal:</string>
+							<string key="candidateClassName">UILongPressGestureRecognizer</string>
+						</object>
+						<object class="IBActionInfo" key="panFractal:">
+							<string key="name">panFractal:</string>
+							<string key="candidateClassName">UIPanGestureRecognizer</string>
+						</object>
+						<object class="IBActionInfo" key="rotateFractal:">
+							<string key="name">rotateFractal:</string>
+							<string key="candidateClassName">UIRotationGestureRecognizer</string>
+						</object>
+						<object class="IBActionInfo" key="rotateTurningAngle:">
+							<string key="name">rotateTurningAngle:</string>
+							<string key="candidateClassName">UIRotationGestureRecognizer</string>
+						</object>
+						<object class="IBActionInfo" key="scaleFractal:">
+							<string key="name">scaleFractal:</string>
+							<string key="candidateClassName">UIPinchGestureRecognizer</string>
+						</object>
+						<object class="IBActionInfo" key="swipeFractal:">
+							<string key="name">swipeFractal:</string>
+							<string key="candidateClassName">UISwipeGestureRecognizer</string>
+						</object>
+						<object class="IBActionInfo" key="toggleAutoScale:">
+							<string key="name">toggleAutoScale:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="fractalCategory">UITextField</string>
+						<string key="fractalDescriptor">UITextView</string>
+						<string key="fractalName">UITextField</string>
+						<string key="fractalView">UIView</string>
+						<string key="fractalViewHolder">UIView</string>
+						<string key="fractalViewParent">UIView</string>
+						<string key="fractalViewRoot">UIView</string>
+						<string key="hudLabel">UILabel</string>
+						<string key="hudText1">UILabel</string>
+						<string key="hudText2">UILabel</string>
+						<string key="hudViewBackground">UIView</string>
+						<string key="slider">UISlider</string>
+						<string key="sliderContainerView">UIView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="fractalCategory">
+							<string key="name">fractalCategory</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalDescriptor">
+							<string key="name">fractalDescriptor</string>
+							<string key="candidateClassName">UITextView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalName">
+							<string key="name">fractalName</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalView">
+							<string key="name">fractalView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalViewHolder">
+							<string key="name">fractalViewHolder</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalViewParent">
+							<string key="name">fractalViewParent</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fractalViewRoot">
+							<string key="name">fractalViewRoot</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="hudLabel">
+							<string key="name">hudLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="hudText1">
+							<string key="name">hudText1</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="hudText2">
+							<string key="name">hudText2</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="hudViewBackground">
+							<string key="name">hudViewBackground</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="slider">
+							<string key="name">slider</string>
+							<string key="candidateClassName">UISlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="sliderContainerView">
+							<string key="name">sliderContainerView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MBLSFractalViewController.h</string>
+					</object>
+				</object>
 			</array>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1536" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<string key="IBCocoaTouchPluginVersion">933</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

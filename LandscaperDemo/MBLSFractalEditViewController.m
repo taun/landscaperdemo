@@ -95,18 +95,20 @@
     
     [self updateUndoRedoBarButtonState];
     
-    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString:  @"replacementString"]) {
-        // productionRuleChanged
-        [self refreshValueInputs];
-        [self refreshLayers];
-    } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
-        [self refreshValueInputs];
-        [self refreshLayers];
-    } else if ([[LSFractal lableProperties] containsObject: keyPath]) {
-        [self reloadLabels];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    
+//    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString:  @"replacementString"]) {
+//        // productionRuleChanged
+//        [self refreshValueInputs];
+//        [self refreshLayers];
+//    } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
+//        [self refreshValueInputs];
+//        [self refreshLayers];
+//    } else if ([[LSFractal lableProperties] containsObject: keyPath]) {
+//        [self reloadLabels];
+//    } else {
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//    }
 }
 
 #pragma mark - custom setter getters
@@ -403,56 +405,57 @@
 
 -(void)configureLandscapeViewFrames {
     
-    if (self.portraitViewFrames) {
+    // Temporarily disable
+//    if (nil && self.portraitViewFrames) {
 //    if (self.portraitViewFrames != nil && self.editing) {
         // should always not be nil
-        CGRect portrait0 = self.fractalViewLevel0.superview.frame;
-        CGRect portrait1 = self.fractalViewLevel1.superview.frame;
-        CGRect portraitN = self.fractalView.frame;
-        
-        CGRect new0;
-        CGRect new1;
-        CGRect newN;
-        
-        
-        newN = CGRectUnion(portrait0, portrait1);
-        
-        // Portrait
-        // Swap position of N with 0 & 1
-        CGRectDivide(portraitN, &new0, &new1, portraitN.size.width/2.0, CGRectMinXEdge);        
-        [UIView animateWithDuration:1.0 animations:^{
-            // move N to empty spot
-            self.fractalView.superview.frame = newN;
-            
-            // move 0 & 1 to empty N spot
-            self.fractalViewLevel0.superview.frame = new0;
-            self.fractalViewLevel1.superview.frame = new1;
-        }];
-        
-    }
+//        CGRect portrait0 = self.fractalViewLevel0.superview.frame;
+//        CGRect portrait1 = self.fractalViewLevel1.superview.frame;
+//        CGRect portraitN = self.fractalView.frame;
+//        
+//        CGRect new0;
+//        CGRect new1;
+//        CGRect newN;
+//        
+//        
+//        newN = CGRectUnion(portrait0, portrait1);
+//        
+//        // Portrait
+//        // Swap position of N with 0 & 1
+//        CGRectDivide(portraitN, &new0, &new1, portraitN.size.width/2.0, CGRectMinXEdge);        
+//        [UIView animateWithDuration:1.0 animations:^{
+//            // move N to empty spot
+//            self.fractalView.superview.frame = newN;
+//            
+//            // move 0 & 1 to empty N spot
+//            self.fractalViewLevel0.superview.frame = new0;
+//            self.fractalViewLevel1.superview.frame = new1;
+//        }];
+//        
+//    }
 }
 
 -(void) restorePortraitViewFrames {
-    if (self.portraitViewFrames != nil) {
-        // should always not be nil
-        CGRect portrait0;
-        CGRect portrait1;
-        CGRect portraitN;
-        
-        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame0"], &portrait0);
-        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame1"], &portrait1);
-        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frameN"], &portraitN);
-        
-        [UIView animateWithDuration:1.0 animations:^{
-            // move N to empty spot
-            self.fractalView.superview.frame = portraitN;
-            
-            // move 0 & 1 to empty N spot
-            self.fractalViewLevel0.superview.frame = portrait0;
-            self.fractalViewLevel1.superview.frame = portrait1;
-        }];
-        
-    }
+//    if (self.portraitViewFrames != nil) {
+//        // should always not be nil
+//        CGRect portrait0;
+//        CGRect portrait1;
+//        CGRect portraitN;
+//        
+//        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame0"], &portrait0);
+//        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame1"], &portrait1);
+//        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frameN"], &portraitN);
+//        
+//        [UIView animateWithDuration:1.0 animations:^{
+//            // move N to empty spot
+//            self.fractalView.superview.frame = portraitN;
+//            
+//            // move 0 & 1 to empty N spot
+//            self.fractalViewLevel0.superview.frame = portrait0;
+//            self.fractalViewLevel1.superview.frame = portrait1;
+//        }];
+//        
+//    }
 }
 
 -(IBAction) info:(id)sender {
@@ -509,6 +512,18 @@
             tf.editable = editing;
             tf.backgroundColor = editing ? white : nil;
             tf.opaque = editing;
+            if (editing) {
+                tf.layer.borderColor = [[UIColor colorWithWhite: 0.75 alpha: 1.0] CGColor];
+                tf.layer.borderWidth = 1.0;
+                tf.layer.cornerRadius = 8.0;
+                // Would need to add another layer to have a shadow.
+                //tf.layer.shadowOpacity = 0.5;
+                //tf.layer.shadowOffset = CGSizeMake(5.0, 5.0);
+                //tf.layer.masksToBounds = NO;
+            } else {
+                tf.layer.borderColor = [[UIColor colorWithWhite: 1.0 alpha: 1.0] CGColor];
+                //tf.layer.shadowOpacity = 0.0;
+            }
             
         } else  if ([control isKindOfClass:[UIStepper class]]) {
             UIStepper* tf = (UIStepper*) control;
@@ -562,32 +577,25 @@
 
 - (void)viewDidLoad
 {
-    CGRect viewBounds = self.view.bounds;
-    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-
     [super viewDidLoad];
-    
-    self.title = self.currentFractal.name;
     
     if (self.portraitViewFrames == nil) {
         // we want to save the frames as layed out in the nib.
         [self __savePortraitViewFrames];        
     }
     
-    [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
-        
+    NSArray* resources = [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
+#pragma unused (resources)
+    
     UIView* header = self.fractalPropertyTableHeaderView;
     
     header.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.fractalPropertiesTableView.allowsSelectionDuringEditing = YES;
     self.fractalPropertiesTableView.tableHeaderView = header;
-    
-    [self setEditMode: NO];
-    
+        
     [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
         
     self.fractalAxiom.inputView = self.fractalInputControl.view;
-        
 }
 
 /*!
@@ -598,34 +606,32 @@
  viewDidLoad is portrait but 20 pixels taller when started in landscape orientation.
  Does not become landscape until viewWillAppear.
  */
-- (void)viewWillAppear:(BOOL)animated {
-    CGRect viewBounds = self.view.bounds;
-    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-
-    [super viewWillAppear:animated];
-
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//
+//    [self setEditMode: YES];
+//}
 
 /*
 
  */
--(void) viewWillLayoutSubviews {
-    CGRect viewBounds = self.view.bounds;
-    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-    
-    if (self.portraitViewFrames == nil) {
-        
-        [self.cachedEditViews addObject: self.fractalPropertiesView];
-        [self.cachedEditViews addObject: self.fractalViewLevel0.superview];
-        [self.cachedEditViews addObject: self.fractalViewLevel1.superview];        
-    }
-    
+//-(void) viewWillLayoutSubviews {
+//    CGRect viewBounds = self.view.bounds;
+//    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+//    
+//    if (self.portraitViewFrames == nil) {
+//        
+//        [self.cachedEditViews addObject: self.fractalPropertiesView];
+//        [self.cachedEditViews addObject: self.fractalViewLevel0.superview];
+//        [self.cachedEditViews addObject: self.fractalViewLevel1.superview];        
+//    }
+
     //    if (!self.editing) {
     //        for (UIView* view in self.cachedEditViews) {
     //            [view removeFromSuperview];
     //        }
     //    }
-}
+//}
 
 /*!
  Want to monitor the layout to resize the fractal layer of fractalViewLevelN. 
@@ -637,15 +643,15 @@
  Then with the landscape bounds.
  */
 -(void) viewDidLayoutSubviews {
-    CGRect viewBounds = self.view.bounds;
-    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-    
-    if (self.startedInLandscape && UIDeviceOrientationIsLandscape(self.interfaceOrientation) && (viewBounds.size.width>viewBounds.size.height)) {
-        self.startedInLandscape = NO;
-        NSLog(@"%@ Started in landscape, orientation = %u; 1,2 = portrait; 3,4 = landscape", NSStringFromSelector(_cmd), self.interfaceOrientation);
-        // only called here when first loaded in landscape orientation and with landscape bounds
-        [self configureLandscapeViewFrames];
-    }
+//    CGRect viewBounds = self.view.bounds;
+//    
+//    if (self.startedInLandscape && UIDeviceOrientationIsLandscape(self.interfaceOrientation) && (viewBounds.size.width>viewBounds.size.height)) {
+//        self.startedInLandscape = NO;
+//        NSLog(@"%@ Started in landscape, orientation = %u; 1,2 = portrait; 3,4 = landscape", NSStringFromSelector(_cmd), self.interfaceOrientation);
+//        // only called here when first loaded in landscape orientation and with landscape bounds
+//        [self configureLandscapeViewFrames];
+//    }
+    [super viewDidLayoutSubviews];
     if (!self.editing) {
         for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
             if ([layer.name isEqualToString: @"fractalLevel0"]) {
@@ -663,26 +669,22 @@
             }
         }
     }
-    for (CALayer* layer in self.fractalView.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevelN"]) {
-            [self fitLayer: layer inLayer: self.fractalView.superview.layer margin: 5];
-            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-        }
-    }
+//    for (CALayer* layer in self.fractalView.layer.sublayers) {
+//        if ([layer.name isEqualToString: @"fractalLevelN"]) {
+//            [self fitLayer: layer inLayer: self.fractalView.superview.layer margin: 5];
+//            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+//        }
+//    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    CGRect viewBounds = self.view.bounds;
-    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
 
     [super viewDidAppear:animated];
-    [self refreshContents];
+    self.editing = YES;
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-    CGRect viewBounds = self.view.bounds;
-    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
 
     if (self.editing) {
         [self.currentFractal.managedObjectContext save: nil];
@@ -691,13 +693,13 @@
         // undo all non-saved changes
         [self.currentFractal.managedObjectContext rollback];
     }
-	[super viewWillDisappear:animated];
+//	[super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
+//- (void)viewDidDisappear:(BOOL)animated
+//{
+//	[super viewDidDisappear:animated];
+//}
 
 - (void)viewDidUnload
 {
@@ -713,12 +715,12 @@
     self.fractalInputControl.delegate = nil;
     [self setFractalInputControl: nil];
     
-    for (CALayer* layer in self.fractalDisplayLayersArray) {
-        layer.delegate = nil;
-    }
+//    for (CALayer* layer in self.fractalDisplayLayersArray) {
+//        layer.delegate = nil;
+//    }
     
     // removes observers
-    [self setReplacementRulesArray: nil];
+//    [self setReplacementRulesArray: nil];
     
     [self setColorPopover: nil];
     

@@ -18,6 +18,8 @@
 
 #define MAXPRODUCTLENGTH 3000
 
+#define SHOWDEBUGBORDER 0
+
 @interface LSFractalGenerator () {
     double _maxLineWidth;
 }
@@ -160,29 +162,31 @@
     
     CGContextSaveGState(theContext);
     
-    // outline the layer bounding box
-    CGContextBeginPath(theContext);
-    CGContextAddRect(theContext, bounds);
-    CGContextSetLineWidth(theContext, 1.0);
-    CGContextSetRGBStrokeColor(theContext, 0.5, 0.0, 0.0, 0.1);
-    CGContextStrokePath(theContext);
-    
-    // move 0,0 down to the bottom left corner
-    CGContextTranslateCTM(theContext, bounds.origin.x, bounds.origin.y + bounds.size.height);
-    // flip the Y axis so +Y is up direction from origin
-    if (isFlipped) {
-        //CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
-        CGContextScaleCTM(theContext, 1.0, -1.0);
+    if (SHOWDEBUGBORDER) {
+        // outline the layer bounding box
+        CGContextBeginPath(theContext);
+        CGContextAddRect(theContext, bounds);
+        CGContextSetLineWidth(theContext, 1.0);
+        CGContextSetRGBStrokeColor(theContext, 0.5, 0.0, 0.0, 0.1);
+        CGContextStrokePath(theContext);
+        
+        // move 0,0 down to the bottom left corner
+        CGContextTranslateCTM(theContext, bounds.origin.x, bounds.origin.y + bounds.size.height);
+        // flip the Y axis so +Y is up direction from origin
+        if (isFlipped) {
+            //CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
+            CGContextScaleCTM(theContext, 1.0, -1.0);
+        }
+        
+        // put a small square at the origin
+        CGContextBeginPath(theContext);
+        CGContextAddRect(theContext, CGRectMake(0, 0, 10, 10));
+        CGContextSetLineWidth(theContext, 2.0);
+        CGContextSetRGBStrokeColor(theContext, 0.5, 0.0, 0.4, 0.1);
+        CGContextStrokePath(theContext);
+        
+        CGContextRestoreGState(theContext);
     }
-    
-    // put a small square at the origin
-    CGContextBeginPath(theContext);
-    CGContextAddRect(theContext, CGRectMake(0, 0, 10, 10));
-    CGContextSetLineWidth(theContext, 2.0);
-    CGContextSetRGBStrokeColor(theContext, 0.5, 0.0, 0.4, 0.1);
-    CGContextStrokePath(theContext);
-    
-    CGContextRestoreGState(theContext);
     
     CGContextSaveGState(theContext);
     

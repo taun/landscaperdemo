@@ -25,6 +25,9 @@
 
 
 @property (strong, nonatomic) IBOutlet UIView*      fractalPropertyTableHeaderView;
+@property (weak, nonatomic)  IBOutlet UITextField*  fractalName;
+@property (weak, nonatomic)  IBOutlet UITextField*  fractalCategory;
+@property (weak, nonatomic)  IBOutlet UITextView*   fractalDescriptor;
 
 #pragma mark - obsolete
 @property (weak, nonatomic) IBOutlet UIView         *fractalPropertiesView;

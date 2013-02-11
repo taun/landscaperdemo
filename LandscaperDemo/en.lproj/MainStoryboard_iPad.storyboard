@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Gwq-WM-cEm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Gwq-WM-cEm">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--Fractal Library View Controller - Fractals-->
@@ -77,12 +78,12 @@
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" id="AQa-PS-cGz" userLabel="FractalLevelHolder" customClass="MBPortalStyleView">
+                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="AQa-PS-cGz" userLabel="FractalViewHolder" customClass="MBPortalStyleView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="850"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" id="o3J-SA-PZd" customClass="MBPortalStyleView">
+                            <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="o3J-SA-PZd" customClass="MBPortalStyleView">
                                 <rect key="frame" x="0.0" y="851" width="768" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -115,13 +116,13 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" id="KeQ-gT-1Ni">
                                         <rect key="frame" x="0.0" y="54" width="768" height="55"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.89675524635036497" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -145,26 +146,26 @@
                 <viewController title="FractalName" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pSX-p9-jkP">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <view clipsSubviews="YES" multipleTouchEnabled="YES" tag="500" contentMode="TopLeft" id="Lid-md-lf6" customClass="MBPortalStyleView">
-                                <rect key="frame" x="2" y="0.0" width="368" height="400"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="2" y="0.0" width="400" height="400"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dni-f2-BXO">
-                                        <rect key="frame" x="0.0" y="0.0" width="366" height="400"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="400"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBStepperCell" id="JeW-3y-qgX" customClass="MBStepperTableViewCell">
-                                                <rect key="frame" x="0.0" y="34" width="366" height="45"/>
+                                                <rect key="frame" x="0.0" y="34" width="398" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="10" y="1" width="346" height="43"/>
+                                                    <rect key="frame" x="10" y="1" width="378" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="propertyLabel" lineBreakMode="tailTruncation" minimumFontSize="10" id="9nw-Ip-Ilv">
-                                                            <rect key="frame" x="63" y="11" width="90" height="21"/>
+                                                            <rect key="frame" x="63" y="11" width="122" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -172,7 +173,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stepper clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="xdN-3z-SaO">
-                                                            <rect key="frame" x="232" y="8" width="94" height="27"/>
+                                                            <rect key="frame" x="264" y="8" width="94" height="27"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                         </stepper>
@@ -198,23 +199,23 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBColorCell" id="wp3-jm-B5c">
-                                                <rect key="frame" x="0.0" y="79" width="366" height="44"/>
+                                                <rect key="frame" x="0.0" y="79" width="398" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="10" y="0.0" width="346" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="378" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSAxiomCell" id="j6N-pe-Xi9" customClass="MBLSRuleTableViewCell">
-                                                <rect key="frame" x="0.0" y="123" width="366" height="44"/>
+                                                <rect key="frame" x="0.0" y="123" width="398" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="10" y="0.0" width="346" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="378" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <textField clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="2yX-xy-vfw">
-                                                            <rect key="frame" x="20" y="6" width="306" height="31"/>
+                                                            <rect key="frame" x="20" y="6" width="338" height="31"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -228,10 +229,10 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleCell" id="T1O-Jv-pcU" customClass="MBLSRuleTableViewCell">
-                                                <rect key="frame" x="0.0" y="167" width="366" height="45"/>
+                                                <rect key="frame" x="0.0" y="167" width="398" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="10" y="0.0" width="346" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="378" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <textField clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="8tK-Nk-6ot">
@@ -242,7 +243,7 @@
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <textField clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="fUb-5c-svh">
-                                                            <rect key="frame" x="91" y="6" width="235" height="31"/>
+                                                            <rect key="frame" x="91" y="6" width="267" height="31"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -264,88 +265,19 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" id="TbU-WI-8ja" userLabel="FractalLevelN" customClass="MBPortalStyleView">
+                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="TbU-WI-8ja" userLabel="FractalLevelHolder" customClass="MBPortalStyleView">
                                 <rect key="frame" x="2" y="401" width="764" height="557"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="w8E-uR-W9b" userLabel="Fractal" customClass="MBFractalExamineView">
-                                        <rect key="frame" x="0.0" y="0.0" width="764" height="557"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view opaque="NO" contentMode="center" id="55F-IR-Ful">
-                                        <rect key="frame" x="-250" y="240" width="600" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="10" id="tcf-D9-8ET">
-                                                <rect key="frame" x="8" y="15" width="514" height="23"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <connections>
-                                                    <action selector="levelInputChanged:" destination="4nM-Pc-iAd" eventType="valueChanged" id="OCp-k5-ndB"/>
-                                                </connections>
-                                            </slider>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view opaque="NO" contentMode="scaleToFill" id="8yL-vI-3hY" userLabel="HUDContainer">
-                                        <rect key="frame" x="9" y="6" width="222" height="39"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" id="Gh2-T8-dmG" userLabel="HUDBackground">
-                                                <rect key="frame" x="2" y="5" width="222" height="32"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view opaque="NO" contentMode="scaleToFill" id="vgs-A7-o0F" userLabel="HUD Content">
-                                                <rect key="frame" x="2" y="6" width="220" height="28"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iterations:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="CwB-Uy-ezK">
-                                                        <rect key="frame" x="10" y="4" width="75" height="21"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="5" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="nXe-lZ-0xB">
-                                                        <rect key="frame" x="93" y="4" width="36" height="21"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="∘∢" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="mSW-6c-IEq">
-                                                        <rect key="frame" x="143" y="3" width="42" height="21"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="360.0" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Iof-pr-uLl" userLabel="baseAngle">
-                                                        <rect key="frame" x="167" y="4" width="45" height="21"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MBPortalStyleView">
-                                <rect key="frame" x="370" y="0.0" width="396" height="176"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <rect key="frame" x="402" y="0.0" width="364" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="a6O-Vz-bO2" userLabel="Fractal">
-                                        <rect key="frame" x="0.0" y="0.0" width="396" height="176"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="364" height="176"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
@@ -361,11 +293,11 @@
                                 <gestureRecognizers/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MBPortalStyleView">
-                                <rect key="frame" x="370" y="177" width="396" height="224"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <rect key="frame" x="402" y="177" width="364" height="224"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="NoY-Fh-7ru" userLabel="Fractal">
-                                        <rect key="frame" x="0.0" y="0.0" width="396" height="224"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="364" height="224"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
@@ -385,17 +317,12 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Editor" id="5yD-Jb-xIT"/>
                     <connections>
-                        <outlet property="fractalBaseAngle" destination="Iof-pr-uLl" id="4Pj-Wr-zRw"/>
                         <outlet property="fractalInputControl" destination="hrP-bc-aE6" id="4mq-ym-cwd"/>
                         <outlet property="fractalPropertiesTableView" destination="Dni-f2-BXO" id="NyC-3R-uyw"/>
                         <outlet property="fractalPropertiesView" destination="Lid-md-lf6" id="Vfa-vZ-Y3U"/>
-                        <outlet property="fractalViewHolder" destination="w8E-uR-W9b" id="OFc-yR-e1H"/>
+                        <outlet property="fractalViewHolder" destination="TbU-WI-8ja" id="XYT-46-hXM"/>
                         <outlet property="fractalViewLevel0" destination="a6O-Vz-bO2" id="HuL-uc-thg"/>
                         <outlet property="fractalViewLevel1" destination="NoY-Fh-7ru" id="QuM-d5-Yxy"/>
-                        <outlet property="fractalViewLevelNLabel" destination="nXe-lZ-0xB" id="fSq-Zf-asN"/>
-                        <outlet property="hudViewBackground" destination="Gh2-T8-dmG" id="Cdn-xY-OdV"/>
-                        <outlet property="levelSlider" destination="tcf-D9-8ET" id="KsH-dS-iVb"/>
-                        <outlet property="sliderContainerView" destination="55F-IR-Ful" id="jwe-nh-bZM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -436,12 +363,6 @@
             <relationships>
                 <relationship kind="action" name="keyPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="MBFractalExamineView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalExamineView.h"/>
-            <relationships>
-                <relationship kind="action" name="magnifyFractal:" candidateClass="UILongPressGestureRecognizer"/>
             </relationships>
         </class>
         <class className="MBFractalLibraryViewController" superclassName="UIViewController">
@@ -519,7 +440,8 @@
                 <relationship kind="outlet" name="fractalName" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="fractalView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="fractalViewHolder" candidateClass="UIView"/>
-                <relationship kind="outlet" name="fractalViewView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="fractalViewParent" candidateClass="UIView"/>
+                <relationship kind="outlet" name="fractalViewRoot" candidateClass="UIView"/>
                 <relationship kind="outlet" name="hudLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="hudText1" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="hudText2" candidateClass="UILabel"/>

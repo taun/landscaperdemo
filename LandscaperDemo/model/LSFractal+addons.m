@@ -58,6 +58,7 @@
                                     @"axiom",
                                     @"replacementRules", 
                                     @"level",
+                                    @"replacementString",
                                     nil];
     }
     return productionRuleProperties;

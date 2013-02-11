@@ -21,7 +21,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView*        fractalViewHolder;
 
-@property (weak, nonatomic) IBOutlet UIView*        fractalViewView;
+#pragma mark FractalLevel Nib outlets
+@property (strong, nonatomic) IBOutlet UIView*      fractalViewRoot;
+@property (weak, nonatomic) IBOutlet UIView*        fractalViewParent;
 @property (weak, nonatomic) IBOutlet UIView*        fractalView;
 @property (weak, nonatomic) IBOutlet UIView*        sliderContainerView;
 @property (weak, nonatomic) IBOutlet UIView*        hudViewBackground;
@@ -62,7 +64,7 @@
 
 - (IBAction)copyFractal:(id)sender;
 - (IBAction)levelInputChanged: (UIControl*)sender;
-- (IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)gestureRecognizer;
+- (IBAction)rotateTurningAngle:(UIRotationGestureRecognizer*)gestureRecognizer;
 - (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer;
 - (IBAction)swipeFractal:(UISwipeGestureRecognizer *)gestureRecognizer;
 - (IBAction)rotateFractal:(UIRotationGestureRecognizer*)gestureRecognizer;

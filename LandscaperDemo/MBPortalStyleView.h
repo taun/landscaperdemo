@@ -12,7 +12,9 @@
 #define HUD_CORNER_RADIUS 12.0
 #define HUD_OPACITY 1
 
-
+/*
+ A UIView subclass to give the view a border, margin and rounded corners
+ */
 @interface MBPortalStyleView : UIView
 
 //@property (strong, nonatomic) IBOutletCollection(UIRotationGestureRecognizer) NSArray *gestureRecognizers;
