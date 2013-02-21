@@ -52,6 +52,7 @@
 
 @property (nonatomic, strong) NSSet*                editControls;
 @property (nonatomic, strong) NSMutableArray*       cachedEditViews;
+@property (nonatomic, assign) NSInteger             cachedEditorsHeight;
 
 @property (nonatomic, assign) double                viewNRotationFromStart;
 
@@ -62,6 +63,10 @@
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
 -(void) setEditMode: (BOOL) editing;
+-(void) updateViewsForEditMode: (BOOL) editing;
+-(void) moveEditorHeightTo: (NSInteger) height;
+-(void) fullScreenOn;
+-(void) fullScreenOff;
 
 -(void) useFractalDefinitionRulesView;
 -(void) useFractalDefinitionAppearanceView;
@@ -71,6 +76,7 @@
 - (void)setUpUndoManager;
 - (void)cleanUpUndoManager;
 
+-(void) logGroupingLevelFrom: (NSString*) cmd;
 @end
 
 /*!
@@ -81,6 +87,10 @@
 @implementation MBLSFractalEditViewController
 
 @synthesize undoManager = _undoManager;
+
+-(void) logGroupingLevelFrom:  (NSString*) cmd {
+    NSLog(@"%@: Undo group levels = %u", cmd, [self.undoManager groupingLevel]);
+}
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -122,7 +132,7 @@
 
 -(NSMutableArray*) cachedEditViews {
     if (_cachedEditViews==nil) {
-        _cachedEditViews = [[NSMutableArray alloc] initWithCapacity: 2];
+        _cachedEditViews = [[NSMutableArray alloc] initWithCapacity: 3];
     }
     return _cachedEditViews;
 }
@@ -355,7 +365,9 @@
             self.redoButtonItem.enabled = NO;
         }
         
-        if ([self.undoManager canUndo]) {
+        [self logGroupingLevelFrom: NSStringFromSelector(_cmd)];
+        NSInteger level = [self.undoManager groupingLevel] > 0;
+        if ([self.undoManager canUndo] && level) {
             self.undoButtonItem.enabled = YES;
         } else {
             self.undoButtonItem.enabled = NO;
@@ -478,11 +490,15 @@
 // need to make sure MOC undoManager exist like in setupUndoManager
 // Don't need self.undoManager just model undoManager
 - (IBAction)undoEdit:(id)sender {
-    [self.undoManager endUndoGrouping];
-    [self.undoManager undoNestedGroup];
+    [self logGroupingLevelFrom: NSStringFromSelector(_cmd)];
+    if ([self.undoManager groupingLevel] > 0) {
+        [self.undoManager endUndoGrouping];
+        [self.undoManager undoNestedGroup];
+    }
     //[self.undoManager disableUndoRegistration];
     //[self.undoManager undo];
     //[self.undoManager enableUndoRegistration];
+    [self logGroupingLevelFrom: NSStringFromSelector(_cmd)];
 }
 - (IBAction)redoEdit:(id)sender {
     [self.currentFractal.managedObjectContext redo];
@@ -587,12 +603,16 @@
     NSArray* resources = [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
 #pragma unused (resources)
     
-    UIView* header = self.fractalPropertyTableHeaderView;
+//    UIView* header = self.fractalPropertyTableHeaderView;
+//    
+//    header.backgroundColor = [UIColor groupTableViewBackgroundColor];
+//    self.fractalPropertiesTableView.allowsSelectionDuringEditing = YES;
+//    self.fractalPropertiesTableView.tableHeaderView = header;
+//
+//    NSDictionary *views = NSDictionaryOfVariableBindings(header);
+//    [self.fractalPropertiesTableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[header]-0-|" options:0 metrics:nil views:views]];
+//    [self.fractalPropertiesTableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[header]-0-|" options:0 metrics:nil views:views]];
     
-    header.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    self.fractalPropertiesTableView.allowsSelectionDuringEditing = YES;
-    self.fractalPropertiesTableView.tableHeaderView = header;
-        
     [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
         
     self.fractalAxiom.inputView = self.fractalInputControl.view;
@@ -615,23 +635,10 @@
 /*
 
  */
-//-(void) viewWillLayoutSubviews {
-//    CGRect viewBounds = self.view.bounds;
-//    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-//    
-//    if (self.portraitViewFrames == nil) {
-//        
-//        [self.cachedEditViews addObject: self.fractalPropertiesView];
-//        [self.cachedEditViews addObject: self.fractalViewLevel0.superview];
-//        [self.cachedEditViews addObject: self.fractalViewLevel1.superview];        
-//    }
-
-    //    if (!self.editing) {
-    //        for (UIView* view in self.cachedEditViews) {
-    //            [view removeFromSuperview];
-    //        }
-    //    }
-//}
+-(void) viewWillLayoutSubviews {
+//    [self updateViewsForEditMode: self.editing];
+    [super viewWillLayoutSubviews];
+}
 
 /*!
  Want to monitor the layout to resize the fractal layer of fractalViewLevelN. 
@@ -680,6 +687,9 @@
 - (void) viewDidAppear:(BOOL)animated {
 
     [super viewDidAppear:animated];
+    if (self.cachedEditorsHeight==0) {
+        self.cachedEditorsHeight = self.fractalEditorsHolder.frame.size.height;
+    }
     self.editing = YES;
 }
 
@@ -767,6 +777,14 @@
 
 // TODO: generate a thumbnail whenever saving. add thumbnails to coreData
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [UIView transitionWithView: self.view
+                      duration:0.5
+                       options:UIViewAnimationOptionCurveEaseInOut
+                    animations:^{ [self updateViewsForEditMode: editing]; }
+                    completion:^(BOOL finished){ [self autoScale:nil]; }];
+    
+//    [self updateViewsForEditMode: editing];
+    
     [super setEditing:editing animated:animated];
     
     /*
@@ -777,17 +795,21 @@
         // reset cancelled status
         self.cancelled = NO;
                 
-        [self.undoManager beginUndoGrouping];
+//        [self.undoManager beginUndoGrouping];
         
         
     } else {
                 
         //[self.undoManager endUndoGrouping];
-        [self.currentFractal.managedObjectContext rollback];
         
-        if (self.isCancelled) { 
-            // 
+        if (self.isCancelled) {
+//            NSManagedObjectID* objectID = self.currentFractal.objectID;
+//            NSManagedObjectContext* moc = self.currentFractal.managedObjectContext;
             
+            [self.currentFractal.managedObjectContext rollback];
+            self.cancelled = NO;
+            // reload fractal from store.
+//            self.currentFractal = (LSFractal*)[moc objectRegisteredForID: objectID];
         } else {
             // Save the changes.
             NSError *error;
@@ -803,10 +825,7 @@
         [self setUndoManager: nil];
         [self becomeFirstResponder];
     }
-//    self.fractalPropertiesView.hidden = !editing;
-//    self.fractalViewLevel0.superview.hidden = !editing;
-//    self.fractalViewLevel1.superview.hidden = !editing;
-
+    
     [self refreshContents];
     // Hide the back button when editing starts, and show it again when editing finishes.
     [self.navigationItem setHidesBackButton:editing animated:animated];
@@ -820,7 +839,46 @@
     // Return YES for supported orientations
 	return YES;
 }
+-(void) updateViewsForEditMode:(BOOL)editing {
+    
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
 
+    if (!editing) {
+        [self fullScreenOn];
+        
+    } else {
+        [self fullScreenOff];
+    }
+}
+-(void) moveEditorHeightTo:(NSInteger)height {
+    UIView* editorHolderView = self.fractalEditorsHolder;
+    [editorHolderView removeConstraint: self.fractalEditorsHolderHeightConstraint];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(editorHolderView);
+    NSString* formatString = [NSString stringWithFormat:@"V:[editorHolderView(%u)]",height];
+    NSArray* newConstraints = [NSLayoutConstraint constraintsWithVisualFormat:formatString options:0 metrics:nil views:views];
+    
+    self.fractalEditorsHolderHeightConstraint = newConstraints.count > 0 ? [newConstraints objectAtIndex: 0] : nil;
+    
+    [editorHolderView addConstraint: self.fractalEditorsHolderHeightConstraint];
+}
+-(void) fullScreenOn {
+    [self moveEditorHeightTo: 0];
+}
+-(void) fullScreenOff {
+    [self moveEditorHeightTo: self.cachedEditorsHeight];
+}
+-(void) toggleFullScreen:(id)sender {
+    if (self.fractalEditorsHolder.frame.size.height == self.cachedEditorsHeight) {
+        [self fullScreenOn];
+    } else {
+        [self fullScreenOff];
+    }
+}
+-(void) updateViewConstraints {
+    [super updateViewConstraints];
+}
 /* 
  For portrait to landscape, move the views before the rotation.
  
@@ -1209,7 +1267,7 @@ enum TableSection {
     [self.undoManager beginUndoGrouping];
     [self.currentFractal.managedObjectContext processPendingChanges];
     [self.currentFractal setTurningAngleAsDegrees: @(sender.value)];
-    NSLog(@"Undo group levels = %u", [self.undoManager groupingLevel]);
+    [self logGroupingLevelFrom: NSStringFromSelector(_cmd)];
 }
 
 - (IBAction)turningAngleIncrementInputChanged:(UIStepper*)sender {
@@ -1335,7 +1393,7 @@ enum TableSection {
     if (self.currentFractal.managedObjectContext.undoManager == nil) {
         
         NSUndoManager *anUndoManager = [[NSUndoManager alloc] init];
-        [anUndoManager setLevelsOfUndo:0];
+        [anUndoManager setLevelsOfUndo:50];
         [anUndoManager setGroupsByEvent: NO];
         _undoManager = anUndoManager;
         

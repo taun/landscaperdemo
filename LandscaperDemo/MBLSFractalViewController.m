@@ -25,6 +25,8 @@
 
 @interface MBLSFractalViewController ()
 
+-(CALayer*) fractalLevelNLayer;
+
 @end
 
 @implementation MBLSFractalViewController
@@ -155,6 +157,15 @@
         [self setupLevelGeneratorForView: _fractalView name: @"fractalLevelN" forceLevel: -1];
     }
 }
+-(CALayer*) fractalLevelNLayer {
+    CALayer* subLayer;
+    for (CALayer* layer in self.fractalView.layer.sublayers) {
+        if ([layer.name isEqualToString: @"fractalLevelN"]) {
+            subLayer = layer;
+        }
+    }
+    return subLayer;
+}
 
 -(UIBarButtonItem*) aCopyButtonItem {
     if (_aCopyButtonItem == nil) {
@@ -190,6 +201,12 @@
 
 #pragma mark - Fractal Property KVO
 //TODO: change so replacementRulesArray is cached and updated when rules are updated.
+/*
+ If the passed fractal a read-only instance,
+ create a read-write copy of the passed fractal.
+ 
+ Id there  method for copying a fractal? Should be just [fractal mutableCopy]
+ */
 -(void) setCurrentFractal:(LSFractal *)fractal {
     if (_currentFractal != fractal) {
         
@@ -243,6 +260,8 @@
     CALayer* aLayer = [[CALayer alloc] init];
     aLayer.name = name;
     aLayer.needsDisplayOnBoundsChange = YES;
+    aLayer.speed = 10.0;
+    aLayer.drawsAsynchronously = YES;
     
     [self fitLayer: aLayer inLayer: aView.layer margin: 10];        
     [aView.layer addSublayer: aLayer];
@@ -361,12 +380,12 @@
 }
 - (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        UIView *piece = gestureRecognizer.view;
-        CGPoint locationInView = [gestureRecognizer locationInView:piece];
-        CGPoint locationInSuperview = [gestureRecognizer locationInView:piece.superview];
+        UIView *fractalView = gestureRecognizer.view;
+        CGPoint locationInView = [gestureRecognizer locationInView: fractalView];
+        CGPoint locationInSuperview = [gestureRecognizer locationInView:fractalView.superview];
         
-        piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.bounds.size.width, locationInView.y / piece.bounds.size.height);
-        piece.center = locationInSuperview;
+        fractalView.layer.anchorPoint = CGPointMake(locationInView.x / fractalView.bounds.size.width, locationInView.y / fractalView.bounds.size.height);
+        fractalView.center = locationInSuperview;
     }
 }
 
@@ -377,17 +396,16 @@
     
     // copy
     LSFractal* copiedFractal = [fractal mutableCopy];
-    copiedFractal.name = [NSString stringWithFormat: @"%@ copy", copiedFractal.name];
-    copiedFractal.isImmutable = @NO;
-    copiedFractal.isReadOnly = @NO;
     
     self.currentFractal = copiedFractal;
     
     // coalesce to a common method for saving, copy from appDelegate
-    [self.currentFractal.managedObjectContext save: nil];
+    NSError *error;
+    if (![self.currentFractal.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
     
     [self refreshContents];
-    [self performSegueWithIdentifier: @"FractalEditorSegue" sender: self];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -433,15 +451,19 @@
 - (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer {
     UIView *fractalView = [gestureRecognizer view];
     
-    [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
+    CALayer* subLayer = [self fractalLevelNLayer];
+    CGPoint locationInView = [gestureRecognizer locationInView: fractalView];
+//    subLayer.anchorPoint = CGPointMake(locationInView.x / fractalView.bounds.size.width, locationInView.y / fractalView.bounds.size.height);
     
     UIGestureRecognizerState state = gestureRecognizer.state;
     
     if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStateChanged) {
-        CGPoint translation = [gestureRecognizer translationInView:[fractalView superview]];
+        CGPoint translation = [gestureRecognizer translationInView:fractalView];
         
-        [fractalView setCenter:CGPointMake([fractalView center].x + translation.x, [fractalView center].y + translation.y)];
-        [gestureRecognizer setTranslation:CGPointZero inView:[fractalView superview]];
+        CATransform3D newTrans = CATransform3DTranslate(subLayer.transform, translation.x, translation.y, 0);
+        subLayer.transform = newTrans;
+
+        [gestureRecognizer setTranslation:CGPointZero inView: fractalView];
     }
 }
 
@@ -449,14 +471,16 @@
 //    UIView *fractalView = [gestureRecognizer view];
     
 //    CGPoint location = [gestureRecognizer locationInView:self.view];
-    double width = [self.currentFractal.lineWidth doubleValue];
-    double increment = [self.currentFractal.lineWidthIncrement doubleValue];
-    
-    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        self.currentFractal.lineWidth = @(fmax(width-increment, 1.0));
-    }
-    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        self.currentFractal.lineWidth = @(width+increment);
+    if (self.editing) {
+        double width = [self.currentFractal.lineWidth doubleValue];
+        double increment = [self.currentFractal.lineWidthIncrement doubleValue];
+        
+        if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+            self.currentFractal.lineWidth = @(fmax(width-increment, 1.0));
+        }
+        if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+            self.currentFractal.lineWidth = @(width+increment);
+        }
     }
 }
 
@@ -478,18 +502,29 @@
         }
     }
 }
-
 - (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer {
-    [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
-    
-//    [[self.generatorsArray objectAtIndex: 0] setAutoscale: NO]; 
+
+    CALayer* subLayer = [self fractalLevelNLayer];
+
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        UIView *fractalView = gestureRecognizer.view;
+        CGPoint locationInView = [gestureRecognizer locationInView: fractalView];
+//        CGPoint locationInSuperview = [gestureRecognizer locationInView:fractalView.superview];
+        
+        subLayer.anchorPoint = CGPointMake(locationInView.x / fractalView.bounds.size.width, locationInView.y / fractalView.bounds.size.height);
+        subLayer.position = locationInView;
+//        fractalView.center = locationInSuperview;
+    }
+
+//    [[self.generatorsArray objectAtIndex: 0] setAutoscale: NO];
     
     UIGestureRecognizerState state = gestureRecognizer.state;
     
     if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStateChanged) {
         
-        gestureRecognizer.view.transform = CGAffineTransformScale([[gestureRecognizer view] transform], [gestureRecognizer scale], [gestureRecognizer scale]);
-
+        CATransform3D newTrans = CATransform3DScale(subLayer.transform, [gestureRecognizer scale], [gestureRecognizer scale], 1);
+        subLayer.transform = newTrans;
+        
         
         [gestureRecognizer setScale:1];
         
@@ -511,6 +546,10 @@
         
 //        [self refreshLayers];
     }
+}
+-(void) autoScale:(id)sender {
+    [self fitLayer: [self fractalLevelNLayer] inLayer: self.fractalView.superview.layer margin: 5];
+            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
 }
 
 // ensure that the pinch, pan and rotate gesture recognizers on a particular view can all recognize simultaneously
@@ -579,12 +618,8 @@
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
 
-    for (CALayer* layer in self.fractalView.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevelN"]) {
-            [self fitLayer: layer inLayer: self.fractalView.superview.layer margin: 5];
-            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-        }
-    }
+    [self autoScale: nil];
+
     [self logBounds: self.fractalViewHolder.bounds info: @"fractalViewHolder"];
     [self logBounds: self.fractalViewParent.bounds info: @"fractalViewView"];
     [self logBounds: self.fractalView.bounds info: @"fractalView"];
@@ -621,6 +656,11 @@
  */
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     MBLSFractalViewController* viewer = segue.destinationViewController;
+    NSError *error;
+    if (![self.currentFractal.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+
     viewer.currentFractal = self.currentFractal;
 //    viewer.editing = YES;
 }

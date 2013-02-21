@@ -36,6 +36,8 @@
 @property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionAppearanceView;
 
 #pragma mark - Property Input Views
+@property (weak, nonatomic) IBOutlet UIView         *fractalEditorsHolder;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fractalEditorsHolderHeightConstraint;
 
 @property (weak, nonatomic) IBOutlet UITableView    *fractalPropertiesTableView;
 
@@ -105,4 +107,5 @@
 - (IBAction)redoEdit:(id)sender;
 - (IBAction)cancelEdit:(id)sender;
 - (IBAction)info:(id)sender;
+- (IBAction)toggleFullScreen:(id)sender;
 @end

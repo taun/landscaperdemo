@@ -92,6 +92,10 @@
             id value = [self valueForKey: aKey];
             [fractalCopy setValue: value forKey: aKey];
         }
+        NSString* newName = [NSString stringWithFormat:@"%@ copy",[self valueForKey: @"name"]];
+        [fractalCopy setValue: newName forKey: @"name"];
+        [fractalCopy setValue: @NO forKey: @"isImmutable"];
+        [fractalCopy setValue: @NO forKey: @"isReadOnly"];
     }
     return fractalCopy;
 }

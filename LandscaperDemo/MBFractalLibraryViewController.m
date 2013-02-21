@@ -177,7 +177,7 @@
 
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString: @"FractalViewerSegue"]) {
+    if ([segue.identifier isEqualToString: @"FractalEditorSegue"]) {
         MBLSFractalViewController* viewer = segue.destinationViewController;
         LSFractal* passedFractal = nil;
 
@@ -189,8 +189,15 @@
 
             LSFractal* fractal = (LSFractal*) managedObject;
             
-            passedFractal = fractal;
-            
+            if ([fractal.isImmutable boolValue]) {
+                passedFractal = [fractal mutableCopy];
+                NSError *error;
+                if (![passedFractal.managedObjectContext save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            } else {
+                passedFractal = fractal;
+            }
         }
         viewer.currentFractal = passedFractal;        
     }

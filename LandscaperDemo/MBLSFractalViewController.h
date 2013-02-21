@@ -11,6 +11,11 @@
 @class LSFractal;
 //@class MBLSFractalLevelNView;
 
+/*
+ Obsolete. 
+ Segue goes straight to editor.
+ Should merge into editor class?
+ */
 @interface MBLSFractalViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) LSFractal*                      currentFractal;
@@ -70,5 +75,5 @@
 - (IBAction)rotateFractal:(UIRotationGestureRecognizer*)gestureRecognizer;
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)gestureRecognizer;
 - (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer;
-- (IBAction)toggleAutoScale:(id)sender;
+- (IBAction)autoScale:(id)sender;
 @end
