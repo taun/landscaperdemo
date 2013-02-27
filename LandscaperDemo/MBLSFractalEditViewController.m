@@ -8,7 +8,7 @@
 
 #import "MBLSFractalEditViewController.h"
 #import "MBFractalPropertyTableHeaderView.h"
-#import "MBLSFractalLevelNView.h"
+//#import "MBLSFractalLevelNView.h"
 #import "LSFractal+addons.h"
 #import "LSFractalGenerator.h"
 #import "LSReplacementRule.h"
@@ -24,6 +24,7 @@
 //
 //static inline double radians (double degrees) {return degrees * M_PI/180.0;}
 //static inline double degrees (double radians) {return radians * 180.0/M_PI;}
+#define LOGBOUNDS 0
 
 @interface MBLSFractalEditViewController () {
     __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
@@ -62,6 +63,8 @@
 
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
+-(CALayer*) fractalLevelNLayer;
+
 -(void) setEditMode: (BOOL) editing;
 -(void) updateViewsForEditMode: (BOOL) editing;
 -(void) moveEditorHeightTo: (NSInteger) height;
@@ -79,6 +82,9 @@
 -(void) logGroupingLevelFrom: (NSString*) cmd;
 @end
 
+#pragma mark -
+#pragma mark ** Implementation
+#pragma mark -
 /*!
  Could setup KVO for model proerties to fields.
  Would be same as using bindings.
@@ -88,40 +94,345 @@
 
 @synthesize undoManager = _undoManager;
 
--(void) logGroupingLevelFrom:  (NSString*) cmd {
-    NSLog(@"%@: Undo group levels = %u", cmd, [self.undoManager groupingLevel]);
+#pragma mark Init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+-(void) awakeFromNib {
+    [super awakeFromNib];
 }
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
+#pragma mark - UIViewController Methods
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+/*
+ should only be called by viewDidLoad
+ */
+-(void) __savePortraitViewFrames {
+    // This is only called when the nib is first loaded and the views have not been resized.
+    double barHeight = self.navigationController.navigationBar.frame.size.height;
+    
+    double topMargin = 0;
+    
+    if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
+        self.startedInLandscape = YES;
+        // remove extra 20 pixels added when started in landscape but getting nib dimensions before autolayout.
+        topMargin = 20.0;
+    } else {
+        self.startedInLandscape = NO;
+    }
+    
+    CGRect frame = self.fractalView.superview.frame;
+    //        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
+    CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN-topMargin);
+    NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
+    NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
+    NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
+    
+    self.portraitViewFrames = @{@"frame0": frame0, @"frame1": frame1, @"frameN": frameN};
+    NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
+    
+}
+
+-(void)viewDidLoad {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+    
+    [super viewDidLoad];
+    
+    self.title = self.currentFractal.name;
+    
+    
+//    NSArray* resources0 = [[NSBundle mainBundle] loadNibNamed:@"MBLSFractalLevelNView" owner:self options:nil];
+//#pragma unused (resources0)
+    //    self.fractalViewRoot = resources[0];
+    //    UIImage* patternImage = [UIImage imageWithContentsOfFile: @"grey.png"];
+    UIImage* patternImage = [UIImage imageNamed: @"linen-fine.jpg"];
+    UIColor* newColor = [UIColor colorWithPatternImage: patternImage];
+    self.fractalViewRoot.backgroundColor = newColor;
+//    self.fractalViewRoot.frame = self.fractalViewHolder.bounds;
+//    [self.fractalViewHolder addSubview: self.fractalViewRoot];
+    
+
+    //    self.fractalViewLevelN = nil
+    [self logBounds: self.fractalViewHolder.bounds info: @"fractalViewHolder"];
+    [self logBounds: self.fractalViewParent.bounds info: @"fractalViewView"];
+    [self logBounds: self.fractalView.bounds info: @"fractalView"];
+    
+    if (self.portraitViewFrames == nil) {
+        // we want to save the frames as layed out in the nib.
+        [self __savePortraitViewFrames];
+    }
+    
+//    NSArray* resources1 = [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
+//#pragma unused (resources1)
+    
+    //    UIView* header = self.fractalPropertyTableHeaderView;
+    //
+    //    header.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    //    self.fractalPropertiesTableView.allowsSelectionDuringEditing = YES;
+    //    self.fractalPropertiesTableView.tableHeaderView = header;
+    //
+    //    NSDictionary *views = NSDictionaryOfVariableBindings(header);
+    //    [self.fractalPropertiesTableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[header]-0-|" options:0 metrics:nil views:views]];
+    //    [self.fractalPropertiesTableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[header]-0-|" options:0 metrics:nil views:views]];
+    
+    [self setupLevelGeneratorForView: self.fractalView name: @"fractalLevelN" forceLevel: -1];
+    [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
+    
+    self.fractalAxiom.inputView = self.fractalInputControl.view;
+
+    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalRightSwipeGR];
+    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalLeftSwipeGR];
+    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalUpSwipeGR];
+    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalDownSwipeGR];
+}
+
+/*!
+ Initial view autolayout of the nib is done between viewDidLoad and viewWillAppear.
+ viewDiDLoad has the nib view size without a toolbar
+ viewWillAppear has the nib view after being resized.
+ 
+ viewDidLoad is portrait but 20 pixels taller when started in landscape orientation.
+ Does not become landscape until viewWillAppear.
+ */
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//
+//    [self setEditMode: YES];
 //}
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
-    [self updateUndoRedoBarButtonState];
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    
-//    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString:  @"replacementString"]) {
-//        // productionRuleChanged
-//        [self refreshValueInputs];
-//        [self refreshLayers];
-//    } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
-//        [self refreshValueInputs];
-//        [self refreshLayers];
-//    } else if ([[LSFractal lableProperties] containsObject: keyPath]) {
-//        [self reloadLabels];
-//    } else {
-//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//    }
+/*
+ 
+ */
+-(void) viewWillLayoutSubviews {
+    //    [self updateViewsForEditMode: self.editing];
+    [super viewWillLayoutSubviews];
 }
 
-#pragma mark - custom setter getters
+/*!
+ Want to monitor the layout to resize the fractal layer of fractalViewLevelN.
+ Always fit the layer in the view on layout.
+ Can change the layer scale or the frame and redraw the layer?
+ 
+ When loading the view in landscape mode, the layout gets done twice.
+ Once when loaded but with the portrait bounds.
+ Then with the landscape bounds.
+ */
+-(void) viewDidLayoutSubviews {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+    
+    [self autoScale: nil];
+    
+    [self logBounds: self.fractalViewHolder.bounds info: @"fractalViewHolder"];
+    [self logBounds: self.fractalViewParent.bounds info: @"fractalViewView"];
+    [self logBounds: self.fractalView.bounds info: @"fractalView"];
+    
+    if (!self.editing) {
+        for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
+            if ([layer.name isEqualToString: @"fractalLevel0"]) {
+                [self fitLayer: layer inLayer: self.fractalViewLevel0.superview.layer margin: 5];
+                // assumes fractalViewLevel0 is a subview and fitted to a portal view which has
+                // a layer with a margin.
+                // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+            }
+        }
+        
+        for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
+            if ([layer.name isEqualToString: @"fractalLevel1"]) {
+                [self fitLayer: layer inLayer: self.fractalViewLevel1.superview.layer margin: 5];
+                // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+            }
+        }
+    }
+    //    for (CALayer* layer in self.fractalView.layer.sublayers) {
+    //        if ([layer.name isEqualToString: @"fractalLevelN"]) {
+    //            [self fitLayer: layer inLayer: self.fractalView.superview.layer margin: 5];
+    //            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+    //        }
+    //    }
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+    //    self.editing = NO;
+    [super viewWillAppear:animated];
+    
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    
+    CGRect viewBounds = self.view.bounds;
+    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
+    
+    [super viewDidAppear:animated];
+    [self refreshContents];
+    [self logBounds: self.fractalViewHolder.bounds info: @"fractalViewHolder"];
+    [self logBounds: self.fractalViewParent.bounds info: @"fractalViewView"];
+    [self logBounds: self.fractalView.bounds info: @"fractalView"];
+
+//    if (self.cachedEditorsHeight==0) {
+//        self.cachedEditorsHeight = self.fractalEditorsHolder.frame.size.height;
+//    }
+    self.editing = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    if (self.editing) {
+        [self.currentFractal.managedObjectContext save: nil];
+        [self setUndoManager: nil];
+    } else {
+        // undo all non-saved changes
+        [self.currentFractal.managedObjectContext rollback];
+    }
+    //	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+}
+
+-(void)viewDidUnload {
+    //should save be here or at higher level
+    // Only need to save if still in edit mode
+    if (self.editing) {
+        [self.currentFractal.managedObjectContext save: nil];
+        [self setUndoManager: nil];
+    } else {
+        // undo all non-saved changes
+        [self.currentFractal.managedObjectContext rollback];
+    }
+    self.fractalInputControl.delegate = nil;
+    [self setFractalInputControl: nil];
+    
+    for (CALayer* layer in self.fractalDisplayLayersArray) {
+        layer.delegate = nil;
+    }
+    
+    // removes observers
+    [self setReplacementRulesArray: nil];
+    
+    [self setColorPopover: nil];
+    
+    [self setFractalName:nil];
+    [self setFractalDescriptor:nil];
+    [self setFractalAxiom:nil];
+    [self setFractalInputControl:nil];
+    [self setFractalViewLevel0:nil];
+    [self setFractalViewLevel1:nil];
+    [self setFractalLineLength:nil];
+    [self setLineLengthStepper:nil];
+    [self setFractalTurningAngle:nil];
+    [self setTurnAngleStepper:nil];
+    
+    [self setFractalPropertiesView:nil];
+    
+    _editControls = nil;
+    
+    [self setFractalViewLevelNLabel:nil];
+    [self setFractalLevel:nil];
+    [self setLevelStepper:nil];
+    [self setFractalDefinitionRulesView:nil];
+    [self setFractalDefinitionAppearanceView:nil];
+    [self setFractalDefinitionAppearanceView:nil];
+    [self setFractalDefinitionAppearanceView:nil];
+    [self setFractalDefinitionRulesView:nil];
+    [self setFractalDefinitionPlaceholderView:nil];
+    [self setStrokeSwitch:nil];
+    [self setFillSwitch:nil];
+    [self setFractalWidth:nil];
+    [self setWidthStepper:nil];
+    [self setFillColorButton:nil];
+    [self setStrokeColorButton:nil];
+    [self setWidthSlider:nil];
+    [self setLevelSlider:nil];
+    [self setFractalBaseAngle:nil];
+    [self setACopyButtonItem: nil];
+    [self setFractalPropertyTableHeaderView:nil];
+    [self setFractalPropertiesTableView:nil];    
+
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+// TODO: generate a thumbnail whenever saving. add thumbnails to coreData
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [UIView transitionWithView: self.view
+                      duration:0.5
+                       options:UIViewAnimationOptionCurveEaseInOut
+                    animations:^{ [self updateViewsForEditMode: editing]; }
+                    completion:^(BOOL finished){ [self autoScale:nil]; }];
+    
+    //    [self updateViewsForEditMode: editing];
+    
+    [super setEditing:editing animated:animated];
+    
+    /*
+     When editing starts, create and set an undo manager to track edits. Then register as an observer of undo manager change notifications, so that if an undo or redo operation is performed, the table view can be reloaded.
+     When editing ends, de-register from the notification center and remove the undo manager, and save the changes.
+     */
+    if (editing) {
+        // reset cancelled status
+        self.cancelled = NO;
+        
+        //        [self.undoManager beginUndoGrouping];
+        
+        
+    } else {
+        
+        //[self.undoManager endUndoGrouping];
+        
+        if (self.isCancelled) {
+            //            NSManagedObjectID* objectID = self.currentFractal.objectID;
+            //            NSManagedObjectContext* moc = self.currentFractal.managedObjectContext;
+            
+            [self.currentFractal.managedObjectContext rollback];
+            self.cancelled = NO;
+            // reload fractal from store.
+            //            self.currentFractal = (LSFractal*)[moc objectRegisteredForID: objectID];
+        } else {
+            // Save the changes.
+            NSError *error;
+            if (![self.currentFractal.managedObjectContext save:&error]) {
+                // Update to handle the error appropriately.
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                // exit(-1);  // Fail
+                // TODO: alert here?
+                
+            }
+        }
+        [self.undoManager removeAllActions];
+        [self setUndoManager: nil];
+        [self becomeFirstResponder];
+    }
+    
+    [self refreshContents];
+    // Hide the back button when editing starts, and show it again when editing finishes.
+    [self.navigationItem setHidesBackButton:editing animated:animated];
+    
+    [self setEditMode: editing];
+    [self.fractalPropertiesTableView setEditing: editing animated: animated];
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+    // Return YES for supported orientations
+	return YES;
+}
+
+#pragma mark - Getters & Setters
 //enum AppearanceIndex {
 //    TurningAngle=0,
 //    TurningAngleIncrement,
@@ -129,6 +440,19 @@
 //    LineWidthIncrement,
 //    LineLengthScaleFactor
 //};
+-(NSMutableArray*) generatorsArray {
+    if (_generatorsArray == nil) {
+        _generatorsArray = [[NSMutableArray alloc] initWithCapacity: 3];
+    }
+    return _generatorsArray;
+}
+
+-(NSMutableArray*) fractalDisplayLayersArray {
+    if (_fractalDisplayLayersArray == nil) {
+        _fractalDisplayLayersArray = [[NSMutableArray alloc] initWithCapacity: 3];
+    }
+    return _fractalDisplayLayersArray;
+}
 
 -(NSMutableArray*) cachedEditViews {
     if (_cachedEditViews==nil) {
@@ -229,6 +553,37 @@
     return _redoButtonItem;
 }
 
+-(UIBarButtonItem*) aCopyButtonItem {
+    if (_aCopyButtonItem == nil) {
+        _aCopyButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Copy"
+                                                            style:UIBarButtonItemStyleBordered
+                                                           target:self
+                                                           action:@selector(copyFractal:)];
+        
+    }
+    return _aCopyButtonItem;
+}
+
+-(UIBarButtonItem*) infoButtonItem {
+    if (_infoButtonItem == nil) {
+        _infoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemOrganize
+                                                                        target:self
+                                                                        action:@selector(toggleAutoScale:)];
+        
+    }
+    return _infoButtonItem;
+}
+
+-(UIBarButtonItem*) spaceButtonItem {
+    if (_spaceButtonItem == nil) {
+        _spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace
+                                                                         target:self
+                                                                         action:nil];
+        _spaceButtonItem.width = 10.0;
+    }
+    return _spaceButtonItem;
+}
+
 -(UIPopoverController*) colorPopover {
     if (_colorPopover == nil) {
         UIColor* color = [self.currentFractal lineColorAsUI];
@@ -247,7 +602,6 @@
     }
     return _colorPopover;
 }
-
 
 -(NSSet*) editControls {
     if (_editControls == nil) {
@@ -271,6 +625,89 @@
     return _editControls;
 }
 
+-(void) setHudViewBackground: (UIView*) hudViewBackground {
+    if (_hudViewBackground != hudViewBackground) {
+        _hudViewBackground = hudViewBackground;
+        
+        CALayer* background = _hudViewBackground.layer;
+        
+        background.cornerRadius = HUD_CORNER_RADIUS;
+        background.borderWidth = 1.6;
+        background.borderColor = [UIColor grayColor].CGColor;
+        
+        background.shadowOffset = CGSizeMake(0, 3.0);
+        background.shadowOpacity = 0.6;
+    }
+}
+
+-(void) setSliderContainerView:(UIView *)sliderContainerView {
+    if (_sliderContainerView != sliderContainerView) {
+        _sliderContainerView = sliderContainerView;
+        //        CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
+        //        [_sliderContainerView setTransform: rotateCC];
+    }
+}
+
+//-(void) setFractalView:(UIView *)fractalView {
+//    if (_fractalView != fractalView) {
+//        _fractalView = fractalView;
+//        
+//        UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc]
+//                                            initWithTarget: self
+//                                            action: @selector(rotateFractal:)];
+//        
+//        [_fractalView addGestureRecognizer: rgr];
+//        
+//        UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]
+//                                                  initWithTarget:self
+//                                                  action:@selector(scaleFractal:)];
+//        
+//        [pinchGesture setDelegate:self];
+//        [_fractalView addGestureRecognizer: pinchGesture];
+//        
+//        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]
+//                                              initWithTarget:self
+//                                              action:@selector(panFractal:)];
+//        
+//        panGesture.maximumNumberOfTouches = 1;
+//        [panGesture setDelegate:self];
+//        
+//        [_fractalView addGestureRecognizer: panGesture];
+//        
+//        UISwipeGestureRecognizer *rightSwipeGesture = [[UISwipeGestureRecognizer alloc]
+//                                                       initWithTarget:self
+//                                                       action:@selector(swipeFractal:)];
+//        
+//        rightSwipeGesture.numberOfTouchesRequired = 2;
+//        rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+//        [rightSwipeGesture setDelegate:self];
+//        
+//        [_fractalView addGestureRecognizer: rightSwipeGesture];
+//        
+//        UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc]
+//                                                      initWithTarget:self
+//                                                      action:@selector(swipeFractal:)];
+//        
+//        leftSwipeGesture.numberOfTouchesRequired = 2;
+//        leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+//        [leftSwipeGesture setDelegate:self];
+//        
+//        [_fractalView addGestureRecognizer: leftSwipeGesture];
+//        
+//        [self setupLevelGeneratorForView: _fractalView name: @"fractalLevelN" forceLevel: -1];
+//    }
+//}
+
+-(CALayer*) fractalLevelNLayer {
+    CALayer* subLayer;
+    for (CALayer* layer in self.fractalView.layer.sublayers) {
+        if ([layer.name isEqualToString: @"fractalLevelN"]) {
+            subLayer = layer;
+        }
+    }
+    return subLayer;
+}
+
 -(void) setFractalViewLevel0:(UIView *)fractalViewLevel0 {
     _fractalViewLevel0 = fractalViewLevel0;
     UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc] 
@@ -283,8 +720,116 @@
 }
 
 
+#pragma mark - Fractal Property KVO
+//TODO: change so replacementRulesArray is cached and updated when rules are updated.
+/*
+ If the passed fractal a read-only instance,
+ create a read-write copy of the passed fractal.
+ 
+ Id there  method for copying a fractal? Should be just [fractal mutableCopy]
+ */
+-(void) setCurrentFractal:(LSFractal *)fractal {
+    if (_currentFractal != fractal) {
+        
+        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+        propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal lableProperties]];
+        
+        for (NSString* keyPath in propertiesToObserve) {
+            [_currentFractal removeObserver: self forKeyPath: keyPath];
+            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
+        }
+        
+        _currentFractal = fractal;
+        NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey: @"contextString" ascending: YES];
+        NSArray* descriptors = @[sort];
+        self.replacementRulesArray = [_currentFractal.replacementRules sortedArrayUsingDescriptors: descriptors];
+        
+        // If the generators have been created, the fractal needs to be replaced.
+        if ([self.generatorsArray count] > 0) {
+            for (LSFractalGenerator* generator in self.generatorsArray) {
+                generator.fractal = _currentFractal;
+            }
+        }
+    }
+}
+
+-(void) setReplacementRulesArray:(NSArray *)replacementRulesArray {
+    if (replacementRulesArray != _replacementRulesArray) {
+        for (LSReplacementRule* rule in _replacementRulesArray) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule removeObserver: self forKeyPath: keyPath];
+        }
+        for (LSReplacementRule* rule in replacementRulesArray) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+        }
+        _replacementRulesArray = replacementRulesArray;
+    }
+}
+
+-(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin {
+    
+    CGRect boundsOuter = layerOuter.bounds;
+    
+    CGRect boundsInner = CGRectInset(boundsOuter, margin, margin);
+    
+    layerInner.bounds = boundsInner;
+    layerInner.position = CGPointMake(boundsOuter.size.width/2, boundsOuter.size.height/2);
+}
+
+-(void) setupLevelGeneratorForView: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel {
+    CALayer* aLayer = [[CALayer alloc] init];
+    aLayer.name = name;
+    aLayer.needsDisplayOnBoundsChange = YES;
+    aLayer.speed = 10.0;
+    aLayer.drawsAsynchronously = YES;
+    
+    [self fitLayer: aLayer inLayer: aView.layer margin: 10];
+    [aView.layer addSublayer: aLayer];
+    
+    
+    LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
+    
+    if (generator) {
+        NSUInteger arrayCount = [self.generatorsArray count];
+        
+        generator.fractal = self.currentFractal;
+        generator.forceLevel = aLevel;
+        
+        aLayer.delegate = generator;
+        [aLayer setValue: [NSNumber numberWithInteger: arrayCount] forKey: @"arrayCount"];
+        
+        [self.fractalDisplayLayersArray addObject: aLayer];
+        [self.generatorsArray addObject: generator];
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    [self updateUndoRedoBarButtonState];
+    
+    if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
+        // productionRuleChanged
+        [self refreshValueInputs];
+        [self refreshLayers];
+    } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
+        [self refreshValueInputs];
+        [self refreshLayers];
+    } else if ([[LSFractal lableProperties] containsObject: keyPath]) {
+        [self reloadLabels];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+
 #pragma mark - view utility methods
 
+-(void) reloadLabels {
+    self.fractalName.text = self.currentFractal.name;
+    self.fractalCategory.text = self.currentFractal.category;
+    self.fractalDescriptor.text = self.currentFractal.descriptor;
+}
 
 -(void) refreshValueInputs {    
     //    self.fractalAxiom.text = self.currentFractal.axiom;
@@ -302,12 +847,30 @@
     //    
     //    self.fractalLevel.text = [self.currentFractal.level stringValue];
     //    self.levelStepper.value = [self.currentFractal.level doubleValue];
+    self.slider.value = [self.currentFractal.level doubleValue];
     self.levelSlider.value = [self.currentFractal.level doubleValue];
     //    
     //    self.strokeSwitch.on = [self.currentFractal.stroke boolValue];
     //    self.fillSwitch.on = [self.currentFractal.fill boolValue];
+    self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
 }
 
+-(void) refreshLayers {
+    self.hudText1.text = [self.currentFractal.level stringValue];
+    self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
+    
+    //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
+    //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
+    
+    for (CALayer* layer in self.fractalDisplayLayersArray) {
+        layer.contents = nil;
+        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
+        [layer setNeedsLayout];
+        [layer layoutIfNeeded];
+        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
+        [layer setNeedsDisplay];
+    }
+}
 
 -(void) refreshContents {
     [self reloadLabels];
@@ -317,10 +880,10 @@
     [self configureNavButtons];
 }
 
--(void) loadDefinitionViews {
-    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionRulesView" owner: self options: nil];
-    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionAppearanceView" owner: self options: nil];
-}
+//-(void) loadDefinitionViews {
+//    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionRulesView" owner: self options: nil];
+//    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionAppearanceView" owner: self options: nil];
+//}
 
 -(void) useFractalDefinitionRulesView {
     
@@ -470,6 +1033,48 @@
 //    }
 }
 
+#pragma mark - action utility methods
+-(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio {
+    
+    double deltaAngle = 0.0;
+    
+    // conver the gesture rotation to a range between +180 & -180
+    double deltaGestureRotation =  remainder(sender.rotation, 2*M_PI);
+    
+    double deltaAngleSteps = nearbyint(deltaAngleToDeltaGestureRatio*deltaGestureRotation/stepRadians);
+    double newRotation = 0;
+    
+    if (deltaAngleSteps != 0.0) {
+        deltaAngle = deltaAngleSteps*stepRadians;
+        
+        newRotation = deltaGestureRotation - deltaAngle/deltaAngleToDeltaGestureRatio;
+        sender.rotation = newRotation;
+    }
+    //    NSLog(@"rotation: %g; sign: %g; rotated: %g; remainder: %g; deltaGestureRotation: %g; velocity: %g; newRotation: %g",
+    //          degrees(sender.rotation),
+    //          copysign(1.0, sender.rotation),
+    //          degrees(sender.rotation + copysign(M_PI, sender.rotation)),
+    //          degrees(remainder(sender.rotation + copysign(M_PI, sender.rotation), 2*M_PI)),
+    //          degrees(deltaGestureRotation),
+    //          sender.velocity,
+    //          newRotation);
+    
+    //    NSLog(@"deltaAngleSteps = %g; deltaAngle = %g;", deltaAngleSteps, degrees(deltaAngle));
+    return deltaAngle;
+}
+- (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        UIView *fractalView = gestureRecognizer.view;
+        CGPoint locationInView = [gestureRecognizer locationInView: fractalView];
+        CGPoint locationInSuperview = [gestureRecognizer locationInView:fractalView.superview];
+        
+        fractalView.layer.anchorPoint = CGPointMake(locationInView.x / fractalView.bounds.size.width, locationInView.y / fractalView.bounds.size.height);
+        fractalView.center = locationInSuperview;
+    }
+}
+
+
+
 -(IBAction) info:(id)sender {
     
 }
@@ -553,292 +1158,7 @@
     }
 }
 
-#pragma mark - UIViewController Methods
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
 
-/*
- should only be called by viewDidLoad
- */ 
--(void) __savePortraitViewFrames {
-    // This is only called when the nib is first loaded and the views have not been resized.
-    double barHeight = self.navigationController.navigationBar.frame.size.height;
-    
-    double topMargin = 0;
-    
-    if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
-        self.startedInLandscape = YES;
-        // remove extra 20 pixels added when started in landscape but getting nib dimensions before autolayout.
-        topMargin = 20.0;
-    } else { 
-        self.startedInLandscape = NO;
-    }
-    
-    CGRect frame = self.fractalView.superview.frame;
-    //        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
-    CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN-topMargin);
-    NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
-    NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
-    NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
-    
-    self.portraitViewFrames = @{@"frame0": frame0, @"frame1": frame1, @"frameN": frameN};
-    NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
-    
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    if (self.portraitViewFrames == nil) {
-        // we want to save the frames as layed out in the nib.
-        [self __savePortraitViewFrames];        
-    }
-    
-    NSArray* resources = [[NSBundle mainBundle] loadNibNamed:@"MBFractalPropertyTableHeaderView" owner:self options:nil];
-#pragma unused (resources)
-    
-//    UIView* header = self.fractalPropertyTableHeaderView;
-//    
-//    header.backgroundColor = [UIColor groupTableViewBackgroundColor];
-//    self.fractalPropertiesTableView.allowsSelectionDuringEditing = YES;
-//    self.fractalPropertiesTableView.tableHeaderView = header;
-//
-//    NSDictionary *views = NSDictionaryOfVariableBindings(header);
-//    [self.fractalPropertiesTableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[header]-0-|" options:0 metrics:nil views:views]];
-//    [self.fractalPropertiesTableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[header]-0-|" options:0 metrics:nil views:views]];
-    
-    [self setupLevelGeneratorForView: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
-        
-    self.fractalAxiom.inputView = self.fractalInputControl.view;
-}
-
-/*!
- Initial view autolayout of the nib is done between viewDidLoad and viewWillAppear.
- viewDiDLoad has the nib view size without a toolbar
- viewWillAppear has the nib view after being resized.
- 
- viewDidLoad is portrait but 20 pixels taller when started in landscape orientation.
- Does not become landscape until viewWillAppear.
- */
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//
-//    [self setEditMode: YES];
-//}
-
-/*
-
- */
--(void) viewWillLayoutSubviews {
-//    [self updateViewsForEditMode: self.editing];
-    [super viewWillLayoutSubviews];
-}
-
-/*!
- Want to monitor the layout to resize the fractal layer of fractalViewLevelN. 
- Always fit the layer in the view on layout.
- Can change the layer scale or the frame and redraw the layer?
- 
- When loading the view in landscape mode, the layout gets done twice.
- Once when loaded but with the portrait bounds.
- Then with the landscape bounds.
- */
--(void) viewDidLayoutSubviews {
-//    CGRect viewBounds = self.view.bounds;
-//    
-//    if (self.startedInLandscape && UIDeviceOrientationIsLandscape(self.interfaceOrientation) && (viewBounds.size.width>viewBounds.size.height)) {
-//        self.startedInLandscape = NO;
-//        NSLog(@"%@ Started in landscape, orientation = %u; 1,2 = portrait; 3,4 = landscape", NSStringFromSelector(_cmd), self.interfaceOrientation);
-//        // only called here when first loaded in landscape orientation and with landscape bounds
-//        [self configureLandscapeViewFrames];
-//    }
-    [super viewDidLayoutSubviews];
-    if (!self.editing) {
-        for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
-            if ([layer.name isEqualToString: @"fractalLevel0"]) {
-                [self fitLayer: layer inLayer: self.fractalViewLevel0.superview.layer margin: 5];
-                // assumes fractalViewLevel0 is a subview and fitted to a portal view which has
-                // a layer with a margin.
-                // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-            }
-        }
-        
-        for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
-            if ([layer.name isEqualToString: @"fractalLevel1"]) {
-                [self fitLayer: layer inLayer: self.fractalViewLevel1.superview.layer margin: 5];
-                // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-            }
-        }
-    }
-//    for (CALayer* layer in self.fractalView.layer.sublayers) {
-//        if ([layer.name isEqualToString: @"fractalLevelN"]) {
-//            [self fitLayer: layer inLayer: self.fractalView.superview.layer margin: 5];
-//            // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
-//        }
-//    }
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-
-    [super viewDidAppear:animated];
-    if (self.cachedEditorsHeight==0) {
-        self.cachedEditorsHeight = self.fractalEditorsHolder.frame.size.height;
-    }
-    self.editing = YES;
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-
-    if (self.editing) {
-        [self.currentFractal.managedObjectContext save: nil];
-        [self setUndoManager: nil];
-    } else {
-        // undo all non-saved changes
-        [self.currentFractal.managedObjectContext rollback];
-    }
-//	[super viewWillDisappear:animated];
-}
-
-//- (void)viewDidDisappear:(BOOL)animated
-//{
-//	[super viewDidDisappear:animated];
-//}
-
-- (void)viewDidUnload
-{
-    //should save be here or at higher level
-    // Only need to save if still in edit mode
-    if (self.editing) {
-        [self.currentFractal.managedObjectContext save: nil];
-        [self setUndoManager: nil];
-    } else {
-        // undo all non-saved changes
-        [self.currentFractal.managedObjectContext rollback];
-    }
-    self.fractalInputControl.delegate = nil;
-    [self setFractalInputControl: nil];
-    
-//    for (CALayer* layer in self.fractalDisplayLayersArray) {
-//        layer.delegate = nil;
-//    }
-    
-    // removes observers
-//    [self setReplacementRulesArray: nil];
-    
-    [self setColorPopover: nil];
-    
-    [self setFractalName:nil];
-    [self setFractalDescriptor:nil];
-    [self setFractalAxiom:nil];
-    [self setFractalInputControl:nil];
-    [self setFractalViewLevel0:nil];
-    [self setFractalViewLevel1:nil];
-    [self setFractalLineLength:nil];
-    [self setLineLengthStepper:nil];
-    [self setFractalTurningAngle:nil];
-    [self setTurnAngleStepper:nil];
-    
-    [self setFractalPropertiesView:nil];
-    
-    _editControls = nil;    
-    
-    [self setFractalViewLevelNLabel:nil];
-    [self setFractalLevel:nil];
-    [self setLevelStepper:nil];
-    [self setFractalDefinitionRulesView:nil];
-    [self setFractalDefinitionAppearanceView:nil];
-    [self setFractalDefinitionAppearanceView:nil];
-    [self setFractalDefinitionAppearanceView:nil];
-    [self setFractalDefinitionRulesView:nil];
-    [self setFractalDefinitionPlaceholderView:nil];
-    [self setStrokeSwitch:nil];
-    [self setFillSwitch:nil];
-    [self setFractalWidth:nil];
-    [self setWidthStepper:nil];
-    [self setFillColorButton:nil];
-    [self setStrokeColorButton:nil];
-    [self setWidthSlider:nil];
-    [self setLevelSlider:nil];
-    [self setFractalBaseAngle:nil];
-    [self setACopyButtonItem: nil];
-    [self setFractalPropertyTableHeaderView:nil];
-    [self setFractalPropertiesTableView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-// TODO: generate a thumbnail whenever saving. add thumbnails to coreData
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
-    [UIView transitionWithView: self.view
-                      duration:0.5
-                       options:UIViewAnimationOptionCurveEaseInOut
-                    animations:^{ [self updateViewsForEditMode: editing]; }
-                    completion:^(BOOL finished){ [self autoScale:nil]; }];
-    
-//    [self updateViewsForEditMode: editing];
-    
-    [super setEditing:editing animated:animated];
-    
-    /*
-     When editing starts, create and set an undo manager to track edits. Then register as an observer of undo manager change notifications, so that if an undo or redo operation is performed, the table view can be reloaded.
-     When editing ends, de-register from the notification center and remove the undo manager, and save the changes.
-     */
-    if (editing) {
-        // reset cancelled status
-        self.cancelled = NO;
-                
-//        [self.undoManager beginUndoGrouping];
-        
-        
-    } else {
-                
-        //[self.undoManager endUndoGrouping];
-        
-        if (self.isCancelled) {
-//            NSManagedObjectID* objectID = self.currentFractal.objectID;
-//            NSManagedObjectContext* moc = self.currentFractal.managedObjectContext;
-            
-            [self.currentFractal.managedObjectContext rollback];
-            self.cancelled = NO;
-            // reload fractal from store.
-//            self.currentFractal = (LSFractal*)[moc objectRegisteredForID: objectID];
-        } else {
-            // Save the changes.
-            NSError *error;
-            if (![self.currentFractal.managedObjectContext save:&error]) {
-                // Update to handle the error appropriately.
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                // exit(-1);  // Fail
-                // TODO: alert here?
-                
-            }
-        }
-        [self.undoManager removeAllActions];
-        [self setUndoManager: nil];
-        [self becomeFirstResponder];
-    }
-    
-    [self refreshContents];
-    // Hide the back button when editing starts, and show it again when editing finishes.
-    [self.navigationItem setHidesBackButton:editing animated:animated];
-    
-    [self setEditMode: editing];
-    [self.fractalPropertiesTableView setEditing: editing animated: animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-	return YES;
-}
 -(void) updateViewsForEditMode:(BOOL)editing {
     
     CGRect viewBounds = self.view.bounds;
@@ -851,31 +1171,36 @@
         [self fullScreenOff];
     }
 }
+
 -(void) moveEditorHeightTo:(NSInteger)height {
-    UIView* editorHolderView = self.fractalEditorsHolder;
-    [editorHolderView removeConstraint: self.fractalEditorsHolderHeightConstraint];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(editorHolderView);
-    NSString* formatString = [NSString stringWithFormat:@"V:[editorHolderView(%u)]",height];
-    NSArray* newConstraints = [NSLayoutConstraint constraintsWithVisualFormat:formatString options:0 metrics:nil views:views];
-    
-    self.fractalEditorsHolderHeightConstraint = newConstraints.count > 0 ? [newConstraints objectAtIndex: 0] : nil;
-    
-    [editorHolderView addConstraint: self.fractalEditorsHolderHeightConstraint];
+//    UIView* editorHolderView = self.fractalEditorsHolder;
+//    [editorHolderView removeConstraint: self.fractalEditorsHolderHeightConstraint];
+//    
+//    NSDictionary *views = NSDictionaryOfVariableBindings(editorHolderView);
+//    NSString* formatString = [NSString stringWithFormat:@"V:[editorHolderView(%u)]",height];
+//    NSArray* newConstraints = [NSLayoutConstraint constraintsWithVisualFormat:formatString options:0 metrics:nil views:views];
+//    
+//    self.fractalEditorsHolderHeightConstraint = newConstraints.count > 0 ? [newConstraints objectAtIndex: 0] : nil;
+//    
+//    [editorHolderView addConstraint: self.fractalEditorsHolderHeightConstraint];
 }
+
 -(void) fullScreenOn {
-    [self moveEditorHeightTo: 0];
+//    [self moveEditorHeightTo: 0];
 }
+
 -(void) fullScreenOff {
-    [self moveEditorHeightTo: self.cachedEditorsHeight];
+//    [self moveEditorHeightTo: self.cachedEditorsHeight];
 }
+
 -(void) toggleFullScreen:(id)sender {
-    if (self.fractalEditorsHolder.frame.size.height == self.cachedEditorsHeight) {
-        [self fullScreenOn];
-    } else {
-        [self fullScreenOff];
-    }
+//    if (self.fractalEditorsHolder.frame.size.height == self.cachedEditorsHeight) {
+//        [self fullScreenOn];
+//    } else {
+//        [self fullScreenOff];
+//    }
 }
+
 -(void) updateViewConstraints {
     [super updateViewConstraints];
 }
@@ -904,288 +1229,217 @@
     }
 }
 
-#pragma mark - TextView Delegate
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+
+#pragma mark - Gesture & Button Actions
+// ensure that the pinch, pan and rotate gesture recognizers on a particular view can all recognize simultaneously
+// prevent other gesture recognizers from recognizing simultaneously
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    // if the gesture recognizers's view isn't one of our pieces, don't allow simultaneous recognition
+    if (gestureRecognizer.view != self.fractalView)
+        return NO;
     
-    return self.editing;
+    // if the gesture recognizers are on different views, don't allow simultaneous recognition
+    if (gestureRecognizer.view != otherGestureRecognizer.view)
+        return NO;
+    
+    // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+        return NO;
+    
+    return YES;
 }
 
-// TODO: change to sendActionsFor...
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    if (textView == self.fractalDescriptor) {
-        self.currentFractal.descriptor = textView.text;
+- (IBAction)copyFractal:(id)sender {
+    LSFractal* fractal = self.currentFractal;
+    
+    // copy
+    LSFractal* copiedFractal = [fractal mutableCopy];
+    
+    self.currentFractal = copiedFractal;
+    
+    // coalesce to a common method for saving, copy from appDelegate
+    NSError *error;
+    if (![self.currentFractal.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    
+    [self refreshContents];
+}
+
+- (IBAction)levelInputChanged:(UIControl*)sender {
+    double rawValue = [[sender valueForKey: @"value"] doubleValue];
+    NSNumber* roundedNumber = @(lround(rawValue));
+    self.currentFractal.level = roundedNumber;
+}
+
+-(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)sender {
+    if (self.editing) {
+        
+        NSIndexPath* turnAngleIndex = (self.appearanceCellIndexPaths)[@"turningAngle"];
+        
+        if (turnAngleIndex) {
+            [self.fractalPropertiesTableView scrollToRowAtIndexPath: turnAngleIndex
+                                                   atScrollPosition: UITableViewScrollPositionMiddle
+                                                           animated: YES];
+            
+        }
+        
+        
+        double stepRadians = radians(self.turnAngleStepper.stepValue);
+        // 2.5 degrees -> radians
+        
+        double deltaTurnToDeltaGestureRatio = 1.0/6.0;
+        // reduce the sensitivity to make it easier to rotate small degrees
+        
+        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender
+                                                              quanta: stepRadians
+                                                               ratio: deltaTurnToDeltaGestureRatio];
+        
+        if (deltaTurnAngle != 0.0 ) {
+            double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
+            self.currentFractal.turningAngle = @(newAngle);
+        }
     }
 }
 
-#pragma mark - TextField Delegate
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
-    return self.editing;
+-(IBAction) rotateFractal:(UIRotationGestureRecognizer*)sender {
+    if (self.editing) {
+        
+        double stepRadians = radians(15.0);
+        
+        double deltaTurnToDeltaGestureRatio = 1.0;
+        
+        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender quanta: stepRadians ratio: deltaTurnToDeltaGestureRatio];
+        
+        if (deltaTurnAngle != 0) {
+            double newAngle = remainder([self.currentFractal.baseAngle doubleValue]-deltaTurnAngle, M_PI*2);
+            self.currentFractal.baseAngle = @(newAngle);
+        }
+    }
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    self.activeTextField = textField;
-}
-
-// TODO: no need for this.
-// Level is by a slider and axiom below does nothing
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    BOOL result = YES;
-//    if (textField == self.fractalAxiom) {
-//        // perform continuous updating?
-//        // Could cause problems when the axiom is invalid.
-//        // How to validate axiom? Such as matching brackets.
-//        // Always apply brackets as matching pair with insertion point between the two?
-//        NSLog(@"Axiom field being edited, range = %@; string = %@", NSStringFromRange(range), string);
-//    } else if (textField == self.fractalLevel) {
-//        NSString* newString = [textField.text stringByReplacingCharactersInRange: range withString: string];
-//        NSInteger value;
-//        NSScanner *scanner = [[NSScanner alloc] initWithString: newString];
-//        if (![scanner scanInteger:&value] || !scanner.isAtEnd) {
-//            result = NO;
-//        }  
+- (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer {
+//    CGPoint locationInView = [gestureRecognizer locationInView: fractalView];
+//    subLayer.anchorPoint = CGPointMake(locationInView.x / fractalView.bounds.size.width, locationInView.y / fractalView.bounds.size.height);
+//    
+//    UIGestureRecognizerState state = gestureRecognizer.state;
+//    
+//    if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStateChanged) {
+//        CGPoint translation = [gestureRecognizer translationInView:fractalView];
+//        
+//        CATransform3D newTrans = CATransform3DTranslate(subLayer.transform, translation.x, translation.y, 0);
+//        subLayer.transform = newTrans;
+//        
+//        [gestureRecognizer setTranslation:CGPointZero inView: fractalView];
 //    }
-    return result;
-}
+//    
+    static CGPoint initialPosition;
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    return YES;
-}
-
-// TODO: calls the ruleCell action twice
-// Once directly from the field and once from here.
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-//    [textField sendActionsForControlEvents: UIControlEventEditingDidEnd];
-    self.activeTextField = nil;
-}
-
-
-#pragma mark - Custom Keyboard Handling
-
-- (void)keyTapped:(NSString*)text {
-    // Convert the TextRange to an NSRange
-    NSRange selectedNSRange;
-    UITextRange* textRange = [self.activeTextField selectedTextRange];
-
-    NSInteger start = [self.activeTextField offsetFromPosition: self.activeTextField.beginningOfDocument 
-                                                    toPosition: textRange.start];
-
-    NSInteger length =  [self.activeTextField offsetFromPosition: textRange.start 
-                                                      toPosition: textRange.end];
+    UIView *fractalView = [gestureRecognizer view];
+    CALayer* subLayer = [self fractalLevelNLayer];
+    UIGestureRecognizerState state = gestureRecognizer.state;
     
-    selectedNSRange = NSMakeRange(start, length);
-
-    if ([text isEqualToString: @"done"]) {
-        [self.activeTextField resignFirstResponder];
     
-    } else 
-    if ([text isEqualToString: @"delete"]) {
-        // backspace
-        if ([self.activeTextField.delegate textField: self.activeTextField 
-                       shouldChangeCharactersInRange: selectedNSRange 
-                                   replacementString: text] ) {
-            [self.activeTextField deleteBackward];
-
-        }
+    if (state == UIGestureRecognizerStateBegan) {
         
-    } else
-    if (self.activeTextField == self.fractalAxiom) {
-        if ([self.activeTextField.delegate textField: self.activeTextField 
-                       shouldChangeCharactersInRange: selectedNSRange 
-                                   replacementString: text] ) {
-            [self.activeTextField insertText: text];
-        }
-    } else {
-        if ([self.activeTextField.delegate textField: self.activeTextField 
-                       shouldChangeCharactersInRange: selectedNSRange 
-                                   replacementString: text] ) {
-            [self.activeTextField insertText: text];
-        }
+        initialPosition = subLayer.position;
+        
+    } else if (state == UIGestureRecognizerStateChanged) {
+        
+        CGPoint translation = [gestureRecognizer translationInView: fractalView];
+        subLayer.position = CGPointMake(initialPosition.x+translation.x,initialPosition.y+translation.y);
+        
+    } else if (state == UIGestureRecognizerStateCancelled) {
+        
+        subLayer.position = initialPosition;
+        [gestureRecognizer setTranslation: CGPointZero inView: fractalView];        
+        
+    } else if (state == UIGestureRecognizerStateEnded) {
+        
+        [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
+    }
+
+}
+
+- (IBAction)swipeFractal:(UISwipeGestureRecognizer *)gestureRecognizer {
+    
+    if (self.editing) {
+        UIGestureRecognizerState state = gestureRecognizer.state;
+        
+        if (state == UIGestureRecognizerStatePossible) {
+            
+        } else if (state == UIGestureRecognizerStateRecognized) {
+            
+            if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+                [self decrementLineWidth: nil];
+            } else if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+                [self incrementLineWidth: nil];
+            } else if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
+                [self incrementTurnAngle: nil];
+            } else if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionDown) {
+                [self decrementTurnAngle: nil];
+            }
+        } else if (state == UIGestureRecognizerStateCancelled) {
+            
+        } 
+        
     }
 }
-- (void)doneTapped {
-    // resign first responder? does this ever get called?
+
+- (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender {
+    
 }
 
-#pragma mark - table delegate & source
-enum TableSection {
-    SectionAxiom=0,
-    SectionRules,
-    SectionAppearance
-};
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
-    NSString* sectionHeader = nil;
-    
-    if (section == SectionAxiom) {
-        // axiom
-        sectionHeader = @"Axiom";
-        
-    } else  if (section == SectionRules) {
-        // rules
-        sectionHeader = @"Rules";
-        
-    } else  if (section == SectionAppearance) {
-        // 
-        sectionHeader = @"Appearance";
-    }
-    return sectionHeader;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger rows = 0;
-    
-    if (section == SectionAxiom) {
-        // axiom
-        rows = 1;
-        
-    } else  if (section == SectionRules) {
-        // rules
-        rows = [self.replacementRulesArray count];
-        
-    } else  if (section == SectionAppearance) {
-        // 
-        rows = [self.fractalPropertiesAppearanceSectionDefinitions count];
-    }
-    return rows;
-}
-
--(MBStepperTableViewCell*) populateStepperCell: (MBStepperTableViewCell*) cell 
-                              withSettingsFrom: (NSDictionary*) settings 
-                                     indexPath: (NSIndexPath*) indexPath {
-    
-    cell.propertyImage.image = [UIImage imageNamed: settings[@"imageName"]];
-    cell.propertyLabel.text = settings[@"label"];
-    cell.formatter = [self.twoPlaceFormatter copy];
-    //        [stepperCell addObserver: stepperCell forKeyPath: @"stepper.value" options: NSKeyValueObservingOptionNew context: NULL];
-    
-    //        self.fractalTurningAngle = stepperCell.value;
-    
-    UIStepper* stepper = cell.stepper;
-    self.turnAngleStepper = stepper;
-    
-    stepper.minimumValue = [settings[@"minimumValue"] doubleValue];
-    stepper.maximumValue = [settings[@"maximumValue"] doubleValue];
-    stepper.stepValue = [settings[@"stepValue"] doubleValue];
-    stepper.value = [[self.currentFractal valueForKey: settings[@"propertyValueKey"]] doubleValue];
-    
-    // manually call to set the textField to the stepper value
-    //        [stepperCell stepperValueChanged: stepper];
-    
-    [stepper addTarget: self 
-                action: NSSelectorFromString(settings[@"actionSelectorString"]) 
-      forControlEvents: UIControlEventValueChanged];
-    
-    (self.appearanceCellIndexPaths)[settings[@"propertyValueKey"]] = indexPath;
-    
-    return cell;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = nil;
-    
-    static NSString *RuleCellIdentifier = @"MBLSRuleCell";
-    static NSString *AxiomCellIdentifier = @"MBLSAxiomCell";
-    static NSString *StepperCellIdentifier = @"MBStepperCell";
-//    static NSString *ColorCellIdentifier = @"MBColorCell";
-    
-    if (indexPath.section == SectionAxiom) {
-        // axiom
-        
-        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
-        
-        // Configure the cell with data from the managed object.
-        UITextField* axiom = ruleCell.textRight;
-        self.fractalAxiom = axiom; // may be unneccessary?
-        axiom.text = self.currentFractal.axiom;
-        
-        axiom.inputView = self.fractalInputControl.view;
-        axiom.delegate = self;
-        [axiom addTarget: self 
-                  action: @selector(axiomInputChanged:) 
-        forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
-        
-        cell = ruleCell;
-        
-    } else if (indexPath.section == SectionRules) {
-        // rules
-        
-        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleCellIdentifier];
-        LSReplacementRule* rule = (self.replacementRulesArray)[indexPath.row];
-        
-        // Configure the cell with data from the managed object.
-        ruleCell.textLeft.text = rule.contextString;
-        ruleCell.textRight.text = rule.replacementString;
-        
-        ruleCell.textRight.inputView = self.fractalInputControl.view;
-        ruleCell.textRight.delegate = self;
-
-        // notify textRight delegate of cell change
-        // calls delegate back ruleCellTextRightEditingEnded:
-        // a way to pass both fields of the rule cell
-        [ruleCell.textRight addTarget: ruleCell 
-                    action: @selector(textRightEditingEnded:) 
-          forControlEvents: UIControlEventEditingDidEnd];
-
-        cell = ruleCell;
-        (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
-
-    } else if (indexPath.section == SectionAppearance) {
-        // appearance
-        MBStepperTableViewCell *stepperCell = (MBStepperTableViewCell *)[tableView dequeueReusableCellWithIdentifier: StepperCellIdentifier];
-        
-        cell = [self populateStepperCell: stepperCell 
-                        withSettingsFrom: (self.fractalPropertiesAppearanceSectionDefinitions)[indexPath.row]
-                               indexPath: indexPath];
-        
-    } else if (indexPath.section == 2) {
-        // ?
-    } 
-
-    return cell;
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleNone;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Accessory view");
-}
-
-#pragma mark - Rule Cell Delegate
--(void)ruleCellTextRightEditingEnded:(id)sender {
-    if ([sender isKindOfClass: [MBLSRuleTableViewCell class]]) {
-        MBLSRuleTableViewCell* ruleCell = (MBLSRuleTableViewCell*) sender;
-        
-        NSString* ruleKey = ruleCell.textLeft.text;
-        NSArray* rules = self.replacementRulesArray;
-        
-        // Find the relevant rule for this cell using the key
-        // could do the following using a query
-        for (LSReplacementRule* rule in rules) {
-            if ([rule.contextString isEqualToString: ruleKey]) {
-                rule.replacementString = ruleCell.textRight.text;
+- (IBAction)toggleAutoScale:(id)sender {
+    for (id object in self.generatorsArray) {
+        if ([object isKindOfClass: [LSFractalGenerator class]]) {
+            LSFractalGenerator* generator = (LSFractalGenerator*) object;
+            generator.autoscale = !generator.autoscale;
+            NSLog(@"autoscale: %u;", generator.autoscale);
+            if (generator.autoscale) {
+                // refit view frame and refresh layer
+                self.fractalView.transform = CGAffineTransformIdentity;
+                self.fractalView.frame = self.fractalViewParent.bounds;
             }
         }
     }
 }
+
+- (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer {
+    
+    static CATransform3D initialTransform;
+
+    CALayer* subLayer = [self fractalLevelNLayer];
+    UIGestureRecognizerState state = gestureRecognizer.state;
+    
+    
+    if (state == UIGestureRecognizerStateBegan) {
+        
+        initialTransform = subLayer.transform;
+        
+    } else if (state == UIGestureRecognizerStateChanged) {
+
+        CATransform3D newTrans = CATransform3DScale(initialTransform, [gestureRecognizer scale], [gestureRecognizer scale], 1);
+        subLayer.transform = newTrans;
+
+    } else if (state == UIGestureRecognizerStateCancelled) {
+        
+        subLayer.transform = initialTransform;
+        [gestureRecognizer setScale:1];
+        
+    } else if (state == UIGestureRecognizerStateEnded) {
+    
+        [gestureRecognizer setScale:1];
+
+    }
+}
+
+-(void) autoScale:(id)sender {
+    [self fitLayer: [self fractalLevelNLayer] inLayer: self.fractalView.superview.layer margin: 5];
+    // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+}
+
 
 #pragma mark - control actions
 - (IBAction)nameInputDidEnd:(UITextField*)sender {
@@ -1230,6 +1484,33 @@ enum TableSection {
     }
 }
 
+- (IBAction)incrementLineWidth:(id)sender {
+    double width = [self.currentFractal.lineWidth doubleValue];
+    double increment = [self.currentFractal.lineWidthIncrement doubleValue];
+    
+    [self.undoManager beginUndoGrouping];
+    self.currentFractal.lineWidth = @(fmax(width+increment, 1.0));
+}
+
+- (IBAction)decrementLineWidth:(id)sender {
+    double width = [self.currentFractal.lineWidth doubleValue];
+    double increment = [self.currentFractal.lineWidthIncrement doubleValue];
+    
+    [self.undoManager beginUndoGrouping];
+    self.currentFractal.lineWidth = @(fmax(width-increment, 1.0));
+}
+
+//TODO: User preference for turnAngle swipe increment
+- (IBAction)incrementTurnAngle:(id)sender {
+    [self.undoManager beginUndoGrouping];
+    [self.currentFractal.managedObjectContext processPendingChanges];
+    [self.currentFractal setTurningAngleAsDegrees:  @([self.currentFractal.turningAngleAsDegree doubleValue] + 0.5)];
+}
+- (IBAction)decrementTurnAngle:(id)sender {
+    [self.undoManager beginUndoGrouping];
+    [self.currentFractal.managedObjectContext processPendingChanges];
+    [self.currentFractal setTurningAngleAsDegrees:  @([self.currentFractal.turningAngleAsDegree doubleValue] - 0.5)];
+}
 - (IBAction)toggleStroke:(UISwitch*)sender {
     self.currentFractal.stroke = @(sender.on);
 }
@@ -1284,56 +1565,6 @@ enum TableSection {
 }
 
 
--(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)sender {
-    if (self.editing) {
-        
-        NSIndexPath* turnAngleIndex = (self.appearanceCellIndexPaths)[@"turningAngle"];
-        
-        if (turnAngleIndex) {
-            [self.fractalPropertiesTableView scrollToRowAtIndexPath: turnAngleIndex 
-                                                   atScrollPosition: UITableViewScrollPositionMiddle 
-                                                           animated: YES];
-
-        }
-        
-
-        double stepRadians = radians(self.turnAngleStepper.stepValue);
-        // 2.5 degrees -> radians
-        
-        double deltaTurnToDeltaGestureRatio = 1.0/6.0;
-        // reduce the sensitivity to make it easier to rotate small degrees
-
-        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender 
-                                                              quanta: stepRadians 
-                                                               ratio: deltaTurnToDeltaGestureRatio];
-        
-        if (deltaTurnAngle != 0.0 ) {
-            double newAngle = remainder([self.currentFractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
-            self.currentFractal.turningAngle = @(newAngle);
-        }
-    }
-}
-
--(IBAction) rotateFractal:(UIRotationGestureRecognizer*)sender {
-    if (self.editing) {
-        
-        double stepRadians = radians(15.0);
-        
-        double deltaTurnToDeltaGestureRatio = 1.0;
-        
-        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender quanta: stepRadians ratio: deltaTurnToDeltaGestureRatio];
-        
-        if (deltaTurnAngle != 0) {
-            double newAngle = remainder([self.currentFractal.baseAngle doubleValue]-deltaTurnAngle, M_PI*2);
-            self.currentFractal.baseAngle = @(newAngle);
-        }
-    }
-}
-
-- (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender {
-    
-}
-
 // TODO: copy app delegate saveContext method
 
 #pragma mark - ColorPicker Delegate Protocol
@@ -1367,6 +1598,290 @@ enum TableSection {
         [self.undoManager redo];
     }
 }
+
+#pragma mark - TextView Delegate
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    
+    return self.editing;
+}
+
+// TODO: change to sendActionsFor...
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if (textView == self.fractalDescriptor) {
+        self.currentFractal.descriptor = textView.text;
+    }
+}
+
+#pragma mark - TextField Delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    return self.editing;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.activeTextField = textField;
+}
+
+// TODO: no need for this.
+// Level is by a slider and axiom below does nothing
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    BOOL result = YES;
+    //    if (textField == self.fractalAxiom) {
+    //        // perform continuous updating?
+    //        // Could cause problems when the axiom is invalid.
+    //        // How to validate axiom? Such as matching brackets.
+    //        // Always apply brackets as matching pair with insertion point between the two?
+    //        NSLog(@"Axiom field being edited, range = %@; string = %@", NSStringFromRange(range), string);
+    //    } else if (textField == self.fractalLevel) {
+    //        NSString* newString = [textField.text stringByReplacingCharactersInRange: range withString: string];
+    //        NSInteger value;
+    //        NSScanner *scanner = [[NSScanner alloc] initWithString: newString];
+    //        if (![scanner scanInteger:&value] || !scanner.isAtEnd) {
+    //            result = NO;
+    //        }
+    //    }
+    return result;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    return YES;
+}
+
+// TODO: calls the ruleCell action twice
+// Once directly from the field and once from here.
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    //    [textField sendActionsForControlEvents: UIControlEventEditingDidEnd];
+    self.activeTextField = nil;
+}
+
+
+#pragma mark - Custom Keyboard Handling
+
+- (void)keyTapped:(NSString*)text {
+    // Convert the TextRange to an NSRange
+    NSRange selectedNSRange;
+    UITextRange* textRange = [self.activeTextField selectedTextRange];
+    
+    NSInteger start = [self.activeTextField offsetFromPosition: self.activeTextField.beginningOfDocument
+                                                    toPosition: textRange.start];
+    
+    NSInteger length =  [self.activeTextField offsetFromPosition: textRange.start
+                                                      toPosition: textRange.end];
+    
+    selectedNSRange = NSMakeRange(start, length);
+    
+    if ([text isEqualToString: @"done"]) {
+        [self.activeTextField resignFirstResponder];
+        
+    } else
+        if ([text isEqualToString: @"delete"]) {
+            // backspace
+            if ([self.activeTextField.delegate textField: self.activeTextField
+                           shouldChangeCharactersInRange: selectedNSRange
+                                       replacementString: text] ) {
+                [self.activeTextField deleteBackward];
+                
+            }
+            
+        } else
+            if (self.activeTextField == self.fractalAxiom) {
+                if ([self.activeTextField.delegate textField: self.activeTextField
+                               shouldChangeCharactersInRange: selectedNSRange
+                                           replacementString: text] ) {
+                    [self.activeTextField insertText: text];
+                }
+            } else {
+                if ([self.activeTextField.delegate textField: self.activeTextField
+                               shouldChangeCharactersInRange: selectedNSRange
+                                           replacementString: text] ) {
+                    [self.activeTextField insertText: text];
+                }
+            }
+}
+- (void)doneTapped {
+    // resign first responder? does this ever get called?
+}
+
+#pragma mark - table delegate & source
+enum TableSection {
+    SectionAxiom=0,
+    SectionRules,
+    SectionAppearance
+};
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString* sectionHeader = nil;
+    
+    if (section == SectionAxiom) {
+        // axiom
+        sectionHeader = @"Axiom";
+        
+    } else  if (section == SectionRules) {
+        // rules
+        sectionHeader = @"Rules";
+        
+    } else  if (section == SectionAppearance) {
+        //
+        sectionHeader = @"Appearance";
+    }
+    return sectionHeader;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSInteger rows = 0;
+    
+    if (section == SectionAxiom) {
+        // axiom
+        rows = 1;
+        
+    } else  if (section == SectionRules) {
+        // rules
+        rows = [self.replacementRulesArray count];
+        
+    } else  if (section == SectionAppearance) {
+        //
+        rows = [self.fractalPropertiesAppearanceSectionDefinitions count];
+    }
+    return rows;
+}
+
+-(MBStepperTableViewCell*) populateStepperCell: (MBStepperTableViewCell*) cell
+                              withSettingsFrom: (NSDictionary*) settings
+                                     indexPath: (NSIndexPath*) indexPath {
+    
+    cell.propertyImage.image = [UIImage imageNamed: settings[@"imageName"]];
+    cell.propertyLabel.text = settings[@"label"];
+    cell.formatter = [self.twoPlaceFormatter copy];
+    //        [stepperCell addObserver: stepperCell forKeyPath: @"stepper.value" options: NSKeyValueObservingOptionNew context: NULL];
+    
+    //        self.fractalTurningAngle = stepperCell.value;
+    
+    UIStepper* stepper = cell.stepper;
+    self.turnAngleStepper = stepper;
+    
+    stepper.minimumValue = [settings[@"minimumValue"] doubleValue];
+    stepper.maximumValue = [settings[@"maximumValue"] doubleValue];
+    stepper.stepValue = [settings[@"stepValue"] doubleValue];
+    stepper.value = [[self.currentFractal valueForKey: settings[@"propertyValueKey"]] doubleValue];
+    
+    // manually call to set the textField to the stepper value
+    //        [stepperCell stepperValueChanged: stepper];
+    
+    [stepper addTarget: self
+                action: NSSelectorFromString(settings[@"actionSelectorString"])
+      forControlEvents: UIControlEventValueChanged];
+    
+    (self.appearanceCellIndexPaths)[settings[@"propertyValueKey"]] = indexPath;
+    
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = nil;
+    
+    static NSString *RuleCellIdentifier = @"MBLSRuleCell";
+    static NSString *AxiomCellIdentifier = @"MBLSAxiomCell";
+    static NSString *StepperCellIdentifier = @"MBStepperCell";
+    //    static NSString *ColorCellIdentifier = @"MBColorCell";
+    
+    if (indexPath.section == SectionAxiom) {
+        // axiom
+        
+        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
+        
+        // Configure the cell with data from the managed object.
+        UITextField* axiom = ruleCell.textRight;
+        self.fractalAxiom = axiom; // may be unneccessary?
+        axiom.text = self.currentFractal.axiom;
+        
+        axiom.inputView = self.fractalInputControl.view;
+        axiom.delegate = self;
+        [axiom addTarget: self
+                  action: @selector(axiomInputChanged:)
+        forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
+        
+        cell = ruleCell;
+        
+    } else if (indexPath.section == SectionRules) {
+        // rules
+        
+        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleCellIdentifier];
+        LSReplacementRule* rule = (self.replacementRulesArray)[indexPath.row];
+        
+        // Configure the cell with data from the managed object.
+        ruleCell.textLeft.text = rule.contextString;
+        ruleCell.textRight.text = rule.replacementString;
+        
+        ruleCell.textRight.inputView = self.fractalInputControl.view;
+        ruleCell.textRight.delegate = self;
+        
+        // notify textRight delegate of cell change
+        // calls delegate back ruleCellTextRightEditingEnded:
+        // a way to pass both fields of the rule cell
+        [ruleCell.textRight addTarget: ruleCell
+                               action: @selector(textRightEditingEnded:)
+                     forControlEvents: UIControlEventEditingDidEnd];
+        
+        cell = ruleCell;
+        (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
+        
+    } else if (indexPath.section == SectionAppearance) {
+        // appearance
+        MBStepperTableViewCell *stepperCell = (MBStepperTableViewCell *)[tableView dequeueReusableCellWithIdentifier: StepperCellIdentifier];
+        
+        cell = [self populateStepperCell: stepperCell
+                        withSettingsFrom: (self.fractalPropertiesAppearanceSectionDefinitions)[indexPath.row]
+                               indexPath: indexPath];
+        
+    } else if (indexPath.section == 2) {
+        // ?
+    }
+    
+    return cell;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Accessory view");
+}
+
+#pragma mark - Rule Cell Delegate
+-(void)ruleCellTextRightEditingEnded:(id)sender {
+    if ([sender isKindOfClass: [MBLSRuleTableViewCell class]]) {
+        MBLSRuleTableViewCell* ruleCell = (MBLSRuleTableViewCell*) sender;
+        
+        NSString* ruleKey = ruleCell.textLeft.text;
+        NSArray* rules = self.replacementRulesArray;
+        
+        // Find the relevant rule for this cell using the key
+        // could do the following using a query
+        for (LSReplacementRule* rule in rules) {
+            if ([rule.contextString isEqualToString: ruleKey]) {
+                rule.replacementString = ruleCell.textRight.text;
+            }
+        }
+    }
+}
+
 
 #pragma mark - core data 
 -(void) setUndoManager:(NSUndoManager *)undoManager {
@@ -1435,6 +1950,33 @@ enum TableSection {
     [self refreshContents];
 }
 
+#pragma Utilities
+
+-(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo {
+    if (LOGBOUNDS) {
+        CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(bounds);
+        NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
+        CFRelease(boundsDict);
+        
+        NSLog(@"%@ = %@", boundsInfo,boundsDescription);
+    }
+}
+-(void) logGroupingLevelFrom:  (NSString*) cmd {
+    if (NO) {
+        NSLog(@"%@: Undo group levels = %u", cmd, [self.undoManager groupingLevel]);
+    }
+}
+-(NSNumberFormatter*) twoPlaceFormatter {
+    if (_twoPlaceFormatter == nil) {
+        _twoPlaceFormatter = [[NSNumberFormatter alloc] init];
+        [_twoPlaceFormatter setAllowsFloats: YES];
+        [_twoPlaceFormatter setMaximumFractionDigits: 2];
+        [_twoPlaceFormatter setMaximumIntegerDigits: 3];
+        [_twoPlaceFormatter setPositiveFormat: @"##0.00"];
+        [_twoPlaceFormatter setNegativeFormat: @"-##0.00"];
+    }
+    return _twoPlaceFormatter;
+}
 
 -(void) dealloc {
     self.currentFractal = nil; // removes observers via custom setter call

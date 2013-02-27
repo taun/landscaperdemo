@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C50F709B15097A520062DBC7 /* MBLSFractalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50F709A15097A520062DBC7 /* MBLSFractalViewController.m */; };
 		C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
 		C525B15414FBFA9800A0986B /* Ampersand rotate swap dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B14C14FBFA9800A0986B /* Ampersand rotate swap dark.png */; };
 		C525B15514FBFA9800A0986B /* Bar rotate 180 dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B14D14FBFA9800A0986B /* Bar rotate 180 dark.png */; };
@@ -47,6 +46,9 @@
 		C56A2C9514CFA77F00B5F763 /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9114CFA77F00B5F763 /* space.png */; };
 		C56A2C9614CFA77F00B5F763 /* stone.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9214CFA77F00B5F763 /* stone.png */; };
 		C56A2C9714CFA77F00B5F763 /* zensand.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9314CFA77F00B5F763 /* zensand.png */; };
+		C579625E16DC3E1200A8BCDC /* Root.plist in Resources */ = {isa = PBXBuildFile; fileRef = C579625C16DC3E1200A8BCDC /* Root.plist */; };
+		C579626116DD480500A8BCDC /* MBCollectionFractalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C579626016DD480500A8BCDC /* MBCollectionFractalCell.m */; };
+		C579626416DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */; };
 		C5886EEB14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = C5886EEA14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png */; };
 		C5886EF014FDD3D50009BEB6 /* Keyboard key background light.png in Resources */ = {isa = PBXBuildFile; fileRef = C5886EEF14FDD3D50009BEB6 /* Keyboard key background light.png */; };
 		C58CC51114E9C529005BF2D7 /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C58CC51014E9C529005BF2D7 /* LSFractal.m */; };
@@ -86,7 +88,6 @@
 		C5BA2BE714C6F59D00F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C5BE4A1114D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */; };
 		C5BE4A1414D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BE4A1314D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib */; };
-		C5D69859150C200500266D45 /* MBLSFractalLevelNView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5D69858150C200500266D45 /* MBLSFractalLevelNView.xib */; };
 		C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */; };
 		C5DA348D14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DA348C14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m */; };
 		C5DA349014D6413D00D91F43 /* FractalKeyboardBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA348F14D6413D00D91F43 /* FractalKeyboardBackground.png */; };
@@ -132,8 +133,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C50F709915097A520062DBC7 /* MBLSFractalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLSFractalViewController.h; sourceTree = "<group>"; };
-		C50F709A15097A520062DBC7 /* MBLSFractalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLSFractalViewController.m; sourceTree = "<group>"; };
 		C51215C414DA2E6F007ED367 /* LSFractal+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSFractal+addons.h"; path = "LandscaperDemo/model/LSFractal+addons.h"; sourceTree = "<group>"; };
 		C51215C514DA2E70007ED367 /* LSFractal+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSFractal+addons.m"; path = "LandscaperDemo/model/LSFractal+addons.m"; sourceTree = "<group>"; };
 		C525B14C14FBFA9800A0986B /* Ampersand rotate swap dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ampersand rotate swap dark.png"; path = "resources/Ampersand rotate swap dark.png"; sourceTree = "<group>"; };
@@ -181,6 +180,11 @@
 		C56A2C9114CFA77F00B5F763 /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = space.png; path = resources/space.png; sourceTree = "<group>"; };
 		C56A2C9214CFA77F00B5F763 /* stone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stone.png; path = resources/stone.png; sourceTree = "<group>"; };
 		C56A2C9314CFA77F00B5F763 /* zensand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zensand.png; path = resources/zensand.png; sourceTree = "<group>"; };
+		C579625D16DC3E1200A8BCDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/Root.plist; sourceTree = "<group>"; };
+		C579625F16DD480500A8BCDC /* MBCollectionFractalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBCollectionFractalCell.h; path = LandscaperDemo/MBCollectionFractalCell.h; sourceTree = "<group>"; };
+		C579626016DD480500A8BCDC /* MBCollectionFractalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBCollectionFractalCell.m; path = LandscaperDemo/MBCollectionFractalCell.m; sourceTree = "<group>"; };
+		C579626216DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBCollectionFractalSupplementaryLabel.h; path = LandscaperDemo/MBCollectionFractalSupplementaryLabel.h; sourceTree = "<group>"; };
+		C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBCollectionFractalSupplementaryLabel.m; path = LandscaperDemo/MBCollectionFractalSupplementaryLabel.m; sourceTree = "<group>"; };
 		C5886EEA14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FractalKeyboardBackgroundGradient.png; path = resources/FractalKeyboardBackgroundGradient.png; sourceTree = "<group>"; };
 		C5886EEF14FDD3D50009BEB6 /* Keyboard key background light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Keyboard key background light.png"; path = "resources/Keyboard key background light.png"; sourceTree = "<group>"; };
 		C58CC50F14E9C529005BF2D7 /* LSFractal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractal.h; path = LandscaperDemo/model/LSFractal.h; sourceTree = "<group>"; };
@@ -217,7 +221,6 @@
 		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionKeyboardView.xib; path = LandscaperDemo/FractalDefinitionKeyboardView.xib; sourceTree = "<group>"; };
 		C5BE4A1314D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionAccessoryView.xib; path = LandscaperDemo/FractalDefinitionAccessoryView.xib; sourceTree = "<group>"; };
-		C5D69858150C200500266D45 /* MBLSFractalLevelNView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBLSFractalLevelNView.xib; sourceTree = "<group>"; };
 		C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLSFractalEditViewController.h; sourceTree = "<group>"; };
 		C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLSFractalEditViewController.m; sourceTree = "<group>"; };
 		C5DA348B14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalDefinitionKeyboardView.h; path = LandscaperDemo/FractalDefinitionKeyboardView.h; sourceTree = "<group>"; };
@@ -354,25 +357,28 @@
 		C5450ED014BBB7DB00CD2E09 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C5DA348B14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.h */,
-				C5AF42D214EC3E8200D3308F /* MBFractalExamineView.h */,
-				C55131F114F5F6E80074137C /* MBFractalPropertyTableHeaderView.h */,
-				C55131F814F6A15E0074137C /* MBLSRuleTableViewCell.h */,
-				C5A5C79A14D6F9A500D81C72 /* MBPortalStyleView.h */,
-				C55131FF14F731C70074137C /* MBStepperTableViewCell.h */,
-				C5DA348C14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m */,
-				C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */,
-				C55131F214F5F6E80074137C /* MBFractalPropertyTableHeaderView.m */,
-				C55131F914F6A15E0074137C /* MBLSRuleTableViewCell.m */,
-				C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */,
-				C551320014F731C70074137C /* MBStepperTableViewCell.m */,
 				C5BE4A1314D4F8F2005A7AE5 /* FractalDefinitionAccessoryView.xib */,
 				C59E337D14E1BD5900972D82 /* FractalDefinitionAppearanceView.xib */,
+				C5DA348B14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.h */,
+				C5DA348C14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m */,
 				C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */,
-				C55131EF14F5F6810074137C /* MBFractalPropertyTableHeaderView.xib */,
-				C5D69858150C200500266D45 /* MBLSFractalLevelNView.xib */,
 				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
 				C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */,
+				C5AF42D214EC3E8200D3308F /* MBFractalExamineView.h */,
+				C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */,
+				C55131F114F5F6E80074137C /* MBFractalPropertyTableHeaderView.h */,
+				C55131F214F5F6E80074137C /* MBFractalPropertyTableHeaderView.m */,
+				C55131EF14F5F6810074137C /* MBFractalPropertyTableHeaderView.xib */,
+				C55131F814F6A15E0074137C /* MBLSRuleTableViewCell.h */,
+				C55131F914F6A15E0074137C /* MBLSRuleTableViewCell.m */,
+				C5A5C79A14D6F9A500D81C72 /* MBPortalStyleView.h */,
+				C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */,
+				C55131FF14F731C70074137C /* MBStepperTableViewCell.h */,
+				C551320014F731C70074137C /* MBStepperTableViewCell.m */,
+				C579625F16DD480500A8BCDC /* MBCollectionFractalCell.h */,
+				C579626016DD480500A8BCDC /* MBCollectionFractalCell.m */,
+				C579626216DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.h */,
+				C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -489,8 +495,6 @@
 				C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */,
 				C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */,
 				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
-				C50F709915097A520062DBC7 /* MBLSFractalViewController.h */,
-				C50F709A15097A520062DBC7 /* MBLSFractalViewController.m */,
 			);
 			path = LandscaperDemo;
 			sourceTree = "<group>";
@@ -506,6 +510,7 @@
 				C5914ACE14C9F0D500856F57 /* DefaultLSDrawingRules.plist */,
 				C5E556D714E2E6B300CAAB33 /* Localizable.strings */,
 				C59FF02016441631006E2B27 /* Settings.bundle */,
+				C579625C16DC3E1200A8BCDC /* Root.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -673,9 +678,9 @@
 				C5DF95BC1506EC1100FD2FAF /* Exclaim reduce line width.png in Resources */,
 				C5DF95BD1506EC1100FD2FAF /* Pound increment width dark.png in Resources */,
 				C5DF95BF1506EFAF00FD2FAF /* Line width dark.png in Resources */,
-				C5D69859150C200500266D45 /* MBLSFractalLevelNView.xib in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C53AF0F416C2C43400FA5142 /* linen-fine.jpg in Resources */,
+				C579625E16DC3E1200A8BCDC /* Root.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,7 +746,8 @@
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,
 				C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */,
 				C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */,
-				C50F709B15097A520062DBC7 /* MBLSFractalViewController.m in Sources */,
+				C579626116DD480500A8BCDC /* MBCollectionFractalCell.m in Sources */,
+				C579626416DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +777,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C579625C16DC3E1200A8BCDC /* Root.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C579625D16DC3E1200A8BCDC /* en */,
+			);
+			name = Root.plist;
+			sourceTree = "<group>";
+		};
 		C5E556D714E2E6B300CAAB33 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

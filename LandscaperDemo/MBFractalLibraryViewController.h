@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class FractalPadView;
 
 
-@interface MBFractalLibraryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MBFractalLibraryViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *fractalTableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *fractalCollectionView;
 
 @end

@@ -8,9 +8,12 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
-#import "MBLSFractalViewController.h"
+#import "MBLSFractalEditViewController.h"
 #import "LSFractal+addons.h"
 #import "LSFractalGenerator.h"
+
+#import "MBCollectionFractalCell.h"
+#import "MBCollectionFractalSupplementaryLabel.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -71,16 +74,16 @@
 
 #pragma mark - NSFetchedResultsControllerDelegate conformance -
 -(void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.fractalTableView reloadData];
+    [self.fractalCollectionView reloadData];
 }
 
 #pragma mark - Table Delegate and Data Source -
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [[self.fetchedResultsController sections] count];
 }
 
-- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
@@ -113,11 +116,11 @@
     return thumbnail;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"FractalLibraryListCell";
     
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MBCollectionFractalCell *cell = (MBCollectionFractalCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
 //    if (cell == nil) {
 //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -134,55 +137,71 @@
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo name];
+- (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *SupplementaryCellIdentifier = @"FractalLibraryCollectionHeader";
+    
+    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableCellWithReuseIdentifier:SupplementaryCellIdentifier forIndexPath:indexPath];
+    
+    rView.textLabel.text = [[[self.fetchedResultsController sections] objectAtIndex: indexPath.section] name];
+
+    return rView;
 }
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
+//    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+//    return [sectionInfo name];
+//}
 
 //TODO change to cache section view?
-- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    // Change rect to ??
-    CGRect tableBounds = tableView.bounds;
-    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableBounds.size.width-20.0, 44.0)];
-	
-	// create the button object
-    CGRect headerLabelFrame = customView.bounds;
-    headerLabelFrame.origin.x += 35.0;
-    headerLabelFrame.size.width -= 35.0;
-    CGRectInset(headerLabelFrame, 0.0, 5.0);
-    
-	UILabel * headerLabel = [[UILabel alloc] initWithFrame: headerLabelFrame];
-	headerLabel.backgroundColor = [UIColor clearColor];
-	headerLabel.opaque = NO;
-	headerLabel.textColor = [UIColor colorWithWhite: 0.1 alpha: 1.0];
-	headerLabel.highlightedTextColor = [UIColor whiteColor];
-    headerLabel.shadowColor = [UIColor colorWithWhite: 0.7 alpha: 0.9];
-    headerLabel.shadowOffset = CGSizeMake(0.0, 1.0);
-	headerLabel.font = [UIFont boldSystemFontOfSize:20];
-    
-	// If you want to align the header text as centered
-	// headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
-    
-	headerLabel.text = [[self.fetchedResultsController sections][section] name];
-	[customView addSubview:headerLabel];
-    
-	return customView;
-}
+//- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    
+//    // Change rect to ??
+//    CGRect tableBounds = tableView.bounds;
+//    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableBounds.size.width-20.0, 44.0)];
+//	
+//	// create the button object
+//    CGRect headerLabelFrame = customView.bounds;
+//    headerLabelFrame.origin.x += 35.0;
+//    headerLabelFrame.size.width -= 35.0;
+//    CGRectInset(headerLabelFrame, 0.0, 5.0);
+//    
+//	UILabel * headerLabel = [[UILabel alloc] initWithFrame: headerLabelFrame];
+//	headerLabel.backgroundColor = [UIColor clearColor];
+//	headerLabel.opaque = NO;
+//	headerLabel.textColor = [UIColor colorWithWhite: 0.1 alpha: 1.0];
+//	headerLabel.highlightedTextColor = [UIColor whiteColor];
+//    headerLabel.shadowColor = [UIColor colorWithWhite: 0.7 alpha: 0.9];
+//    headerLabel.shadowOffset = CGSizeMake(0.0, 1.0);
+//	headerLabel.font = [UIFont boldSystemFontOfSize:20];
+//    
+//	// If you want to align the header text as centered
+//	// headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
+//    
+//	headerLabel.text = [[self.fetchedResultsController sections][section] name];
+//	[customView addSubview:headerLabel];
+//    
+//	return customView;
+//}
 
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return UITableViewAutomaticDimension;
-}
+//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return UITableViewAutomaticDimension;
+//}
 
 
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: @"FractalEditorSegue"]) {
-        MBLSFractalViewController* viewer = segue.destinationViewController;
+        MBLSFractalEditViewController* viewer = segue.destinationViewController;
         LSFractal* passedFractal = nil;
 
         // pass the selected fractal
-        NSIndexPath* indexPath = [self.fractalTableView indexPathForSelectedRow];
+        NSIndexPath* indexPath;
+        NSArray* indexPaths = [self.fractalCollectionView indexPathsForSelectedItems];
+        if (indexPaths.count > 0) {
+            indexPath = [indexPaths objectAtIndex: 0];
+        }
+        
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
         if ([managedObject isKindOfClass:[LSFractal class]]) {
@@ -231,9 +250,9 @@
 //    [MainFractalView.layer setNeedsDisplay];
         
     // Allow the grouped table to have a clear background.
-    self.fractalTableView.backgroundView = nil;
+    self.fractalCollectionView.backgroundView = nil;
     
-    [self.fractalTableView reloadData];
+    [self.fractalCollectionView reloadData];
     
 //    [self addVonKochSnowFlakeLayerPosition: CGPointMake(50, 50) maxDimension: 300];
 //    [self addBush1LayerPosition: CGPointMake(350, 50) maxDimension: 300];
@@ -244,7 +263,7 @@
 - (void)viewDidUnload
 {
 //    [self setMainFractalView:nil];
-    [self setFractalTableView:nil];
+    [self setFractalCollectionView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
