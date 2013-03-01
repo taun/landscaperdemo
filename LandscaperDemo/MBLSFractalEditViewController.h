@@ -16,7 +16,12 @@
 @class LSFractal;
 @class MBLSFractalLevelNView;
 
-@interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate, FractalDefinitionKVCDelegate, UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate, UITableViewDataSource, UITableViewDelegate, MBLSRuleTableViewCellDelegate>
+// Application preference keys
+static NSString*  kLastEditedFractalURI = @"lastEditedFractalURI";
+
+@interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate, FractalDefinitionKVCDelegate,
+UITextFieldDelegate, UITextViewDelegate, ColorPickerDelegate, UITableViewDataSource, UITableViewDelegate,
+MBLSRuleTableViewCellDelegate, UIPopoverControllerDelegate>
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *currentFractal;

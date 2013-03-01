@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class LSDrawingRuleType;
+@class LSFractal;
 
 @interface MBAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -26,7 +27,7 @@
 -(BOOL)coreDataDefaultsExist;
 -(void)addDefaultCoreDataData;
 -(LSDrawingRuleType*)loadDefaultDrawingRules;
--(void)addDefaultLSFractals;
+-(LSFractal*)addDefaultLSFractals;
 -(void)addDefaultColors;
 
 @end

@@ -21,16 +21,25 @@
 
 #include <math.h>
 
+static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
+
 @interface MBFractalLibraryViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController*   fetchedResultsController;
 
 -(NSManagedObjectContext*)         appManagedObjectContext;
+-(void) initControls;
 
 @end
 
 @implementation MBFractalLibraryViewController
 
+-(void) initControls {
+    // need to set current selection
+    // use selectItemAtIndexPath:animated:scrollPosition:
+    // need to determine index of selectedFractal
+    // perhaps make part of selectedFractal setter?
+}
 
 #pragma mark - custom getters -
 
@@ -77,7 +86,7 @@
     [self.fractalCollectionView reloadData];
 }
 
-#pragma mark - Table Delegate and Data Source -
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [[self.fetchedResultsController sections] count];
@@ -92,12 +101,11 @@
     UIImage* thumbnail;
     if ([mObject isKindOfClass: [LSFractal class]]) {
         //
-        CGSize newSize = CGSizeMake(86, 86);
-        UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
         LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
         generator.fractal = (LSFractal*) mObject;
         
-        CGRect viewRect = CGRectMake(0, 0, newSize.width, newSize.height);
+        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
         CGContextRef context = UIGraphicsGetCurrentContext();
         
         CGContextSaveGState(context);
@@ -131,7 +139,7 @@
     // Configure the cell with data from the managed object.
     cell.textLabel.text = [managedObject valueForKey: @"name"];
     cell.detailTextLabel.text = [managedObject valueForKey: @"descriptor"];
-    cell.imageView.image = [self thumbnailForFractal: managedObject size: cell.imageView.bounds.size];
+    cell.imageView.image = [self thumbnailForFractal: managedObject size: cell.bounds.size];
     cell.imageView.highlightedImage = cell.imageView.image;
     
     return cell;
@@ -139,9 +147,11 @@
 
 - (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *SupplementaryCellIdentifier = @"FractalLibraryCollectionHeader";
     
-    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableCellWithReuseIdentifier:SupplementaryCellIdentifier forIndexPath:indexPath];
+//    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableCellWithReuseIdentifier: SupplementaryCellIdentifier forIndexPath: indexPath];
+    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+                                                                                      withReuseIdentifier: kSupplementaryHeaderCellIdentifier
+                                                                                             forIndexPath: indexPath];
     
     rView.textLabel.text = [[[self.fetchedResultsController sections] objectAtIndex: indexPath.section] name];
 
@@ -188,6 +198,10 @@
 //    return UITableViewAutomaticDimension;
 //}
 
+#pragma mark - UICollectionViewDelegate
+-(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Selected item: %@", indexPath);
+}
 
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -250,7 +264,11 @@
 //    [MainFractalView.layer setNeedsDisplay];
         
     // Allow the grouped table to have a clear background.
-    self.fractalCollectionView.backgroundView = nil;
+//    self.fractalCollectionView.backgroundView = nil;
+    
+//    [self.fractalCollectionView registerClass: [MBCollectionFractalSupplementaryLabel class]
+//       forSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+//              withReuseIdentifier: kSupplementaryHeaderCellIdentifier];
     
     [self.fractalCollectionView reloadData];
     
@@ -259,7 +277,10 @@
 //    [self addVonKochIslandLayerPosition: CGPointMake(75, 250) maxDimension: 300];
 //    [self addVonKochSquaresLayerPosition: CGPointMake(175, 450) maxDimension: 300];
 }
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self initControls];
+}
 - (void)viewDidUnload
 {
 //    [self setMainFractalView:nil];

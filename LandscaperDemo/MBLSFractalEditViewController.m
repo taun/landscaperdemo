@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
+#import "MBAppDelegate.h"
 #import "MBLSFractalEditViewController.h"
+#import "MBFractalLibraryViewController.h"
 #import "MBFractalPropertyTableHeaderView.h"
 //#import "MBLSFractalLevelNView.h"
 #import "LSFractal+addons.h"
@@ -25,6 +27,7 @@
 //static inline double radians (double degrees) {return degrees * M_PI/180.0;}
 //static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 #define LOGBOUNDS 0
+
 
 @interface MBLSFractalEditViewController () {
     __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
@@ -63,6 +66,10 @@
 
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
+@property (weak, nonatomic) UIPopoverController   *currentPopover;
+
+-(NSManagedObjectContext*)         appManagedObjectContext;
+
 -(CALayer*) fractalLevelNLayer;
 
 -(void) setEditMode: (BOOL) editing;
@@ -93,6 +100,7 @@
 @implementation MBLSFractalEditViewController
 
 @synthesize undoManager = _undoManager;
+@synthesize currentFractal = _currentFractal;
 
 #pragma mark Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -720,7 +728,7 @@
 }
 
 
-#pragma mark - Fractal Property KVO
+#pragma mark Fractal Property KVO
 //TODO: change so replacementRulesArray is cached and updated when rules are updated.
 /*
  If the passed fractal a read-only instance,
@@ -730,6 +738,17 @@
  */
 -(void) setCurrentFractal:(LSFractal *)fractal {
     if (_currentFractal != fractal) {
+        if ([fractal.isImmutable boolValue]) {
+            fractal = [fractal mutableCopy];
+        }
+        
+        NSManagedObjectID* fractalID = fractal.objectID;
+        if (fractalID.isTemporaryID) {
+            [fractal.managedObjectContext save: nil];
+        }
+        NSURL* selectedFractalURL = [fractal.objectID URIRepresentation];
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setURL: selectedFractalURL forKey: kLastEditedFractalURI];
         
         NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
         propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal lableProperties]];
@@ -752,7 +771,26 @@
         }
     }
 }
-
+-(LSFractal*) currentFractal {
+//    if (_currentFractal == nil) {
+//        // get the last selected fractal
+//        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+//        NSURL* selectedFractalURL = [defaults URLForKey: kLastEditedFractalURI];
+//        if (selectedFractalURL == nil) {
+//            // use a default
+//        }
+//
+//        NSManagedObjectContext* moc = [self appManagedObjectContext];
+//        NSPersistentStoreCoordinator* store = moc.persistentStoreCoordinator;
+//        NSManagedObjectID* objectID = [store managedObjectIDForURIRepresentation: selectedFractalURL];
+//        if (objectID != nil) {
+//            _currentFractal = (LSFractal*)[moc objectWithID: objectID];
+//            
+//        }
+//    }
+    
+    return _currentFractal;
+}
 -(void) setReplacementRulesArray:(NSArray *)replacementRulesArray {
     if (replacementRulesArray != _replacementRulesArray) {
         for (LSReplacementRule* rule in _replacementRulesArray) {
@@ -1474,16 +1512,88 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 
 }
-
+/* close any existing popover before opening a new one.
+ do not open a new one if the new popover is the same as the current */
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    BOOL should = YES;
+    if ([identifier isEqualToString: @"LibraryPopoverSegue"]) {
+        if (self.currentPopover) {
+            if ([self.currentPopover.contentViewController isMemberOfClass: [MBFractalLibraryViewController class]]) {
+                should = NO;
+            } else {
+                should = YES;
+            }
+            [self.currentPopover dismissPopoverAnimated: YES];
+            self.currentPopover = nil;
+        }
+    } else if ([identifier isEqualToString: @"PropertiesPopoverSegue"]) {
+        if (self.currentPopover) {
+            if ([self.currentPopover.contentViewController isMemberOfClass: [UITableViewController class]]) {
+                should = NO;
+            } else {
+                should = YES;
+            }
+            [self.currentPopover dismissPopoverAnimated: YES];
+            self.currentPopover = nil;
+        }
+    } else if ([identifier isEqualToString: @"AppearancePopoverSegue"]){
+        if (self.currentPopover) {
+            if ([self.currentPopover.contentViewController isMemberOfClass: [UIViewController class]]) {
+                should = NO;
+            } else {
+                should = YES;
+            }
+            [self.currentPopover dismissPopoverAnimated: YES];
+            self.currentPopover = nil;
+        }
+    }
+    return should;
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if (![segue.identifier isEqualToString: @"ColorPickerPopoverSeque"]) {
+    
+    UIStoryboardPopoverSegue* popSegue;
+    UIPopoverController* popController;
+
+    if ([segue isKindOfClass:[UIStoryboardPopoverSegue class]]) {
+        popSegue = (UIStoryboardPopoverSegue*)segue;
+        popController = popSegue.popoverController;
+    }
+    
+    if ([segue.identifier isEqualToString: @"LibraryPopoverSegue"]) {
+        
+        if (self.currentPopover) {
+            // dismiss
+            NSLog(@"Shouldn't be here: %@; Popover %@", NSStringFromSelector(_cmd), popController.description);
+        } else {
+            [(MBFractalLibraryViewController*)segue.destinationViewController setSelectedFractal: self.currentFractal];
+            popController.delegate = self;
+            self.currentPopover = popController;
+        }
+        
+    } else if ([segue.identifier isEqualToString: @"PropertiesPopoverSegue"]) {
         // send the color
-        UIViewController* dest = segue.destinationViewController;
-        [(ColorPickerController*)dest setDelegate: self];
-        dest.modalInPopover = YES;
+        //UIViewController* dest = segue.destinationViewController;
+        //[(ColorPickerController*)dest setDelegate: self];
+        //dest.modalInPopover = YES;
+        popController.delegate = self;
+        self.currentPopover = popController;
+    } else if ([segue.identifier isEqualToString: @"AppearancePopoverSegue"]) {
+        popController.delegate = self;
+        self.currentPopover = popController;
     }
 }
-
+/* The popover controller does not call this method in response to programmatic calls to the 
+ dismissPopoverAnimated: method. If you dismiss the popover programmatically, you should perform 
+ any cleanup actions immediately after calling the dismissPopoverAnimated: method. */
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    if (self.currentPopover == popoverController) {
+        self.currentPopover = nil;
+    } else {
+        // ???
+        NSLog(@"Shouldn't be here: %@; Popover %@", NSStringFromSelector(_cmd), popoverController.description);
+    }
+    NSLog(@"%@ Popover dismissed", popoverController.description);
+}
 - (IBAction)incrementLineWidth:(id)sender {
     double width = [self.currentFractal.lineWidth doubleValue];
     double increment = [self.currentFractal.lineWidthIncrement doubleValue];
@@ -1884,6 +1994,14 @@ enum TableSection {
 
 
 #pragma mark - core data 
+-(NSManagedObjectContext*) appManagedObjectContext {
+    
+    UIApplication* app = [UIApplication sharedApplication];
+    MBAppDelegate* appDelegate = [app delegate];
+    NSManagedObjectContext* appContext = appDelegate.managedObjectContext;
+    
+    return appContext;
+}
 -(void) setUndoManager:(NSUndoManager *)undoManager {
     if (undoManager != _undoManager) {
         if (undoManager == nil) {

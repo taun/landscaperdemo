@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class LSFractal;
 
 @interface MBFractalLibraryViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *fractalCollectionView;
+
+@property (weak, nonatomic) LSFractal                 *selectedFractal;
 
 @end

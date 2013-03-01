@@ -13,6 +13,12 @@
 #import "LSDrawingRule.h"
 #import "MBColor.h"
 
+#import "MBLSFractalEditViewController.h"
+
+@interface MBAppDelegate ()
++ (void)registerDefaults;
+@end
+
 @implementation MBAppDelegate
 
 @synthesize window = _window;
@@ -21,13 +27,88 @@
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize lsFractalDefaults = _lsFractalDefaults;
 
++ (void)registerDefaults
+{
+    /*  */
+    
+//    NSString *pathStr = [[NSBundle mainBundle] bundlePath];
+    //        NSString *settingsBundlePath = [pathStr stringByAppendingPathComponent:@"Settings.bundle"];
+//    NSString *finalPath = [pathStr stringByAppendingPathComponent:@"Root.plist"];
+    
+//    NSDictionary *settingsDict = [NSDictionary dictionaryWithContentsOfFile:finalPath];
+//    NSArray *prefSpecifierArray = [settingsDict objectForKey:@"PreferenceSpecifiers"];
+//    
+//    NSNumber *difficultyLevel = @0;
+//    NSNumber *volume = @1.0;
+//    NSNumber *theme = @0;
+//    NSNumber *showIntro = @YES;
+//    NSNumber *resetHighScores = @NO;
+//    
+//    NSMutableArray* highScores = [NSMutableArray array];
+    
+//    NSDictionary *prefItem;
+//    for (prefItem in prefSpecifierArray)
+//    {
+//        NSString *keyValueStr = [prefItem objectForKey:@"Key"];
+//        id defaultValue = [prefItem objectForKey:@"DefaultValue"];
+//        
+//        if ([keyValueStr isEqualToString:kLastEditedFractalURI])
+//        {
+//            difficultyLevel = defaultValue;
+//        }
+//        else if ([keyValueStr isEqualToString:kVolumeKey])
+//        {
+//            volume = defaultValue;
+//        }
+//        else if ([keyValueStr isEqualToString:kThemeKey])
+//        {
+//            theme = defaultValue;
+//        }
+//        else if ([keyValueStr isEqualToString:kShowIntroKey])
+//        {
+//            showIntro = defaultValue;
+//        }
+//        else if ([keyValueStr isEqualToString:kResetScoresKey])
+//        {
+//            resetHighScores = defaultValue;
+//        }
+//        else if ([keyValueStr isEqualToString:kHighScoresKey])
+//        {
+//            NSUInteger count = [[prefItem objectForKey:@"Values"] unsignedIntegerValue];
+//            for (int i = 0; i < count; i++) {
+//                [highScores addObject: @0];
+//            }
+//        }
+//    }
+//    
+//    // since no default values have been set, create them here
+//    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:
+//                                  difficultyLevel, kDifficultyLevelKey,
+//                                  volume, kVolumeKey,
+//                                  theme, kThemeKey,
+//                                  showIntro, kShowIntroKey,
+//                                  highScores, kHighScoresKey,
+//                                  resetHighScores, kResetScoresKey,
+//                                  nil];
+//    
+//    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
 //    if (![self coreDataDefaultsExist]) {
 //        [self addDefaultCoreDataData];
 //    }
-    [self addDefaultCoreDataData];
+    [self addDefaultColors];
+    LSFractal* selectedFractal = [self addDefaultLSFractals];
+    [self saveContext];
+    
+    // now we can free up the defaults dictionary
+    self.lsFractalDefaults = nil;
+    
+    [(MBLSFractalEditViewController*)self.window.rootViewController setCurrentFractal: selectedFractal];
     return YES;
 }
 							
@@ -110,15 +191,6 @@
     return result;
 }
 
--(void) addDefaultCoreDataData {
-    [self addDefaultColors];
-    [self addDefaultLSFractals];
-    [self saveContext];
-    
-    // now we can free up the defaults dictionary
-    self.lsFractalDefaults = nil;
-}
-
 -(NSDictionary*) lsFractalDefaults {
     if (_lsFractalDefaults == nil) {        
         NSString *errorDesc = nil;
@@ -197,8 +269,10 @@
 }
 
 //TODO: handle more than just the default drawing rules.
--(void)addDefaultLSFractals {
+-(LSFractal*)addDefaultLSFractals {
     NSDictionary* defaults = [self lsFractalDefaults];
+    LSFractal* defaultFractal;
+    LSFractal* lastFractal;
     
     if (defaults) {
         LSDrawingRuleType* defaultDrawingRuleType = [self loadDefaultDrawingRules];
@@ -217,6 +291,7 @@
                                           inManagedObjectContext: context];
                     
                     fractal.drawingRulesType = defaultDrawingRuleType;
+                    lastFractal = fractal;
                     
                     for (id propertyKey in fractalDictionary) {
                         id propertyValue = fractalDictionary[propertyKey];
@@ -242,7 +317,27 @@
             }
         }
         
-    }    
+        [self saveContext];
+    }
+    // What if the kLastEditedFractalURI is missing and yet defaults don't need to be loaded?
+    // Then defaultFractal will be nil.
+
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    NSURL* selectedFractalURL = [userDefaults URLForKey: kLastEditedFractalURI];
+    if (selectedFractalURL == nil) {
+        // use a default
+        defaultFractal = lastFractal;
+    } else {
+        // instantiate the saved default URI
+        NSPersistentStoreCoordinator* store = self.managedObjectContext.persistentStoreCoordinator;
+        NSManagedObjectID* objectID = [store managedObjectIDForURIRepresentation: selectedFractalURL];
+        if (objectID != nil) {
+            defaultFractal = (LSFractal*)[self.managedObjectContext objectWithID: objectID];
+        } else {
+            defaultFractal = lastFractal;
+        }
+    }
+    return defaultFractal;
 }
 
 #pragma mark - Core Data stack
