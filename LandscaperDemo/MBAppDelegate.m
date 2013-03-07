@@ -101,14 +101,6 @@
 //    if (![self coreDataDefaultsExist]) {
 //        [self addDefaultCoreDataData];
 //    }
-    [self addDefaultColors];
-    LSFractal* selectedFractal = [self addDefaultLSFractals];
-    [self saveContext];
-    
-    // now we can free up the defaults dictionary
-    self.lsFractalDefaults = nil;
-    
-    [(MBLSFractalEditViewController*)self.window.rootViewController setCurrentFractal: selectedFractal];
     return YES;
 }
 							
@@ -140,6 +132,14 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    [self addDefaultColors];
+    LSFractal* selectedFractal = [self addDefaultLSFractals];
+    [self saveContext];
+    
+    // now we can free up the defaults dictionary
+    self.lsFractalDefaults = nil;
+    
+    [(MBLSFractalEditViewController*)self.window.rootViewController setFractal: selectedFractal];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

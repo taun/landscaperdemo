@@ -25,7 +25,7 @@
 - (NSURL *)applicationDocumentsDirectory;
 
 -(BOOL)coreDataDefaultsExist;
--(void)addDefaultCoreDataData;
+//-(void)addDefaultCoreDataData; //obsolete
 -(LSDrawingRuleType*)loadDefaultDrawingRules;
 -(LSFractal*)addDefaultLSFractals;
 -(void)addDefaultColors;
