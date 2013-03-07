@@ -18,7 +18,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 /*!
  for cut and paste functionality
  */
-+(NSSet*)keysToBeCopied;
++(NSSet*) keysToBeCopied;
 +(NSSet*) lableProperties;
 +(NSSet*) productionRuleProperties;
 +(NSSet*) appearanceProperties;
@@ -42,4 +42,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 -(NSNumber*) baseAngleAsDegree;
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
+
+-(NSArray*) newSortedReplacementRulesArray;
 @end

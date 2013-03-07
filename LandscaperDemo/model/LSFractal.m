@@ -2,8 +2,8 @@
 //  LSFractal.m
 //  LandscaperDemo
 //
-//  Created by Taun Chapman on 02/13/12.
-//  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/06/13.
+//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
 #import "LSFractal.h"
@@ -16,6 +16,7 @@
 @implementation LSFractal
 
 @dynamic axiom;
+@dynamic baseAngle;
 @dynamic category;
 @dynamic descriptor;
 @dynamic fill;
@@ -30,7 +31,9 @@
 @dynamic stroke;
 @dynamic turningAngle;
 @dynamic turningAngleIncrement;
-@dynamic baseAngle;
+@dynamic eoFill;
+@dynamic lineJoin;
+@dynamic lineCap;
 @dynamic drawingRulesType;
 @dynamic fillColor;
 @dynamic lineColor;

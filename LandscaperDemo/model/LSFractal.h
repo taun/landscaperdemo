@@ -2,8 +2,8 @@
 //  LSFractal.h
 //  LandscaperDemo
 //
-//  Created by Taun Chapman on 02/13/12.
-//  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/06/13.
+//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,6 +14,7 @@
 @interface LSFractal : NSManagedObject
 
 @property (nonatomic, retain) NSString * axiom;
+@property (nonatomic, retain) NSNumber * baseAngle;
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSString * descriptor;
 @property (nonatomic, retain) NSNumber * fill;
@@ -28,7 +29,9 @@
 @property (nonatomic, retain) NSNumber * stroke;
 @property (nonatomic, retain) NSNumber * turningAngle;
 @property (nonatomic, retain) NSNumber * turningAngleIncrement;
-@property (nonatomic, retain) NSNumber * baseAngle;
+@property (nonatomic, retain) NSNumber * eoFill;
+@property (nonatomic, retain) NSNumber * lineJoin;
+@property (nonatomic, retain) NSNumber * lineCap;
 @property (nonatomic, retain) LSDrawingRuleType *drawingRulesType;
 @property (nonatomic, retain) MBColor *fillColor;
 @property (nonatomic, retain) MBColor *lineColor;

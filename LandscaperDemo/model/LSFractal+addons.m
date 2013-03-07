@@ -19,6 +19,7 @@
                           @"category",
                           @"descriptor",
                           @"fill",
+                          @"eoFill",
                           @"isImmutable",
                           @"isReadOnly",
                           @"level",
@@ -33,6 +34,8 @@
                           @"drawingRulesType",
                           @"fillColor",
                           @"lineColor",
+                          @"lineJoin",
+                          @"lineCap",
                           @"replacementRules",
                           @"name",
                           nil];
@@ -71,8 +74,11 @@
                                 @"lineLength",
                                 @"lineWidth",
                                 @"lineColor",
+                                @"lineJoin",
+                                @"lineCap",
                                 @"stroke",
                                 @"fill",
+                                @"eoFill",
                                 @"fillColor",
                                 @"turningAngle",
                                 @"baseAngle",
@@ -119,55 +125,49 @@
     }
     return result;
 }
-
 -(double) lineLengthAsDouble {
     return [self.lineLength doubleValue];
 }
-
 -(void) setLineLengthAsDouble:(double)newLength {
     self.lineLength = @(newLength);
 }
-
 -(double) turningAngleAsDouble {
     return [self.turningAngle doubleValue];
 }
-
 -(NSNumber*) turningAngleAsDegree {
     return @(degrees([self.turningAngle doubleValue]));
 }
-
 -(void) setTurningAngleAsDouble:(double)newAngle {
     self.turningAngle = @(newAngle);
 }
-
 -(void) setTurningAngleAsDegrees:(NSNumber*)newAngle {
     double inRadians = radians([newAngle doubleValue]);
     self.turningAngle = @(inRadians);
 }
-
 -(double) turningAngleIncrementAsDouble {
     return [self.turningAngleIncrement doubleValue];
 }
-
 -(NSNumber*) turningAngleIncrementAsDegree {
     return @(degrees([self.turningAngleIncrement doubleValue]));
 }
-
 -(void) setTurningAngleIncrementAsDouble:(double)newAngle {
     self.turningAngleIncrement = @(newAngle);
 }
-
 -(void) setTurningAngleIncrementAsDegrees:(NSNumber*)newAngle {
     double inRadians = radians([newAngle doubleValue]);
     self.turningAngleIncrement = @(inRadians);
 }
-
 -(NSNumber*) baseAngleAsDegree {
     return @(degrees([self.baseAngle doubleValue]));
 }
-
 -(void) setBaseAngleAsDegrees:(NSNumber*)newAngle {
     double inRadians = radians([newAngle doubleValue]);
     self.baseAngle = @(inRadians);
+}
+-(NSArray*) newSortedReplacementRulesArray {
+    NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey: @"contextString" ascending: YES];
+    NSArray* descriptors = @[sort];
+    NSArray* sortedRules = [self.replacementRules sortedArrayUsingDescriptors: descriptors];
+    return sortedRules;
 }
 @end
