@@ -43,6 +43,8 @@
 -(void) dispatchDrawingSelectorFromString:(NSString*)selector;
 -(void) evaluateRule: (NSString*) rule;
 
+-(void) addObserverForFractal: (LSFractal*)fractal;
+-(void) removeObserverForFractal: (LSFractal*)fractal;
 -(void) generateProduct;
 -(void) generatePaths;
 
@@ -102,27 +104,41 @@
 -(void) setFractal:(LSFractal *)fractal {
     if (_fractal != fractal) {
         
+        [self removeObserverForFractal: _fractal];
+        
+        _fractal = fractal;
+        
+        [self addObserverForFractal: fractal];
+        [self productionRuleChanged];
+    }
+}
+
+-(void) addObserverForFractal:(LSFractal *)fractal {
+    if (fractal) {
         NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
         
         for (NSString* keyPath in propertiesToObserve) {
-            [_fractal removeObserver: self forKeyPath: keyPath];
             [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
-        }
-        for (LSReplacementRule* rule in _fractal.replacementRules) {
-            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-            [rule removeObserver: self forKeyPath: keyPath];
         }
         for (LSReplacementRule* rule in fractal.replacementRules) {
             NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
             [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
         }
-        
-        _fractal = fractal;
-        [self productionRuleChanged];
     }
 }
-
-
+-(void) removeObserverForFractal:(LSFractal *)fractal {
+    if (fractal) {
+        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+        
+        for (NSString* keyPath in propertiesToObserve) {
+            [fractal removeObserver: self forKeyPath: keyPath];
+        }
+        for (LSReplacementRule* rule in fractal.replacementRules) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule removeObserver: self forKeyPath: keyPath];
+        }
+    }
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString: @"replacementString"]) {
         // productionRuleChanged
@@ -241,19 +257,28 @@
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
 //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
+        BOOL eoFill = [self.fractal.eoFill boolValue];
         CGContextSetLineWidth(theContext, segment.lineWidth);
         
         CGContextAddPath(theContext, segment.path);
         CGPathDrawingMode strokeOrFill = kCGPathStroke;
         if (segment.fill && segment.stroke) {
-            strokeOrFill = kCGPathFillStroke;
+            if (eoFill) {
+                strokeOrFill = kCGPathEOFillStroke;
+            } else {
+                strokeOrFill = kCGPathFillStroke;
+            }
             CGContextSetStrokeColorWithColor(theContext, segment.lineColor);
             CGContextSetFillColorWithColor(theContext, segment.fillColor);
         } else if (segment.stroke) {
             strokeOrFill = kCGPathStroke;
             CGContextSetStrokeColorWithColor(theContext, segment.lineColor);
         } else if (segment.fill) {
-            strokeOrFill = kCGPathFill;
+            if (eoFill) {
+                strokeOrFill = kCGPathEOFill;
+            } else {
+                strokeOrFill = kCGPathFill;
+            }
             CGContextSetFillColorWithColor(theContext, segment.fillColor);
         }
         CGContextDrawPath(theContext, strokeOrFill);
