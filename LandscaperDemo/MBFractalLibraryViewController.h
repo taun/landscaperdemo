@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FractalControllerProtocol.h"
 @class LSFractal;
 
-@interface MBFractalLibraryViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MBFractalLibraryViewController : UICollectionViewController <FractalControllerProtocol>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *fractalCollectionView;
 
-@property (weak, nonatomic) LSFractal                 *selectedFractal;
+/* if set, make the initial selection in the collection */
+@property (weak, nonatomic) LSFractal                   *fractal;
+@property (nonatomic,weak) NSUndoManager                *fractalUndoManager;
+/* internally set to the current selection */
+@property (strong, nonatomic) LSFractal                 *selectedFractal;
 
 @end

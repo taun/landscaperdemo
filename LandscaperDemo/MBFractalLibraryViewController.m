@@ -8,8 +8,6 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
-#import "MBLSFractalEditViewController.h"
-#import "LSFractal+addons.h"
 #import "LSFractalGenerator.h"
 
 #import "MBCollectionFractalCell.h"
@@ -200,13 +198,16 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 
 #pragma mark - UICollectionViewDelegate
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    self.selectedFractal = (LSFractal*)managedObject;
+    
     NSLog(@"Selected item: %@", indexPath);
 }
 
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: @"FractalEditorSegue"]) {
-        MBLSFractalEditViewController* viewer = segue.destinationViewController;
+        UIViewController<FractalControllerProtocol>* viewer = segue.destinationViewController;
         LSFractal* passedFractal = nil;
 
         // pass the selected fractal
@@ -232,7 +233,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
                 passedFractal = fractal;
             }
         }
-        viewer.currentFractal = passedFractal;        
+        viewer.fractal = passedFractal;        
     }
 }
 
