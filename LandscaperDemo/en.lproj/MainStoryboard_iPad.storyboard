@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="4nM-Pc-iAd">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
+        <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
@@ -226,13 +226,26 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Fractal Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsw-ym-KtT">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="oxU-QV-pm0"/>
+                                    <constraint firstAttribute="width" priority="24" constant="42" type="user" id="w3B-1T-rXm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="top" secondItem="zjZ-fb-Tj5" secondAttribute="bottom" type="user" id="71u-Ke-8LE"/>
+                            <constraint firstItem="hsw-ym-KtT" firstAttribute="centerY" secondItem="zjZ-fb-Tj5" secondAttribute="centerY" type="default" id="HAn-tm-eqg"/>
                             <constraint firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" type="user" id="IdL-jb-QvC"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" type="default" id="PtK-pN-Ohx"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" type="default" id="YF5-t7-Zlt"/>
+                            <constraint firstItem="hsw-ym-KtT" firstAttribute="centerX" secondItem="zjZ-fb-Tj5" secondAttribute="centerX" type="default" id="Z1V-5j-0Io"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" type="user" id="ea9-du-8sk"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="top" secondItem="pSX-p9-jkP" secondAttribute="top" type="user" id="fiF-Xw-TNI"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" type="user" id="zI8-i5-HMe"/>
@@ -262,6 +275,7 @@
                         <outlet property="hudText1" destination="LpP-a6-a0V" id="Dij-UX-9Rr"/>
                         <outlet property="hudText2" destination="s4f-oD-mXM" id="KLy-sp-9Ia"/>
                         <outlet property="hudViewBackground" destination="3Df-59-GZt" id="jQD-Z3-ikN"/>
+                        <outlet property="toolbarTitle" destination="hsw-ym-KtT" id="F9f-Zx-raW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -980,6 +994,7 @@
                 <relationship kind="outlet" name="hudText1" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="hudText2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="hudViewBackground" candidateClass="UIView"/>
+                <relationship kind="outlet" name="toolbarTitle" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="MBLSRuleTableViewCell" superclassName="UITableViewCell">

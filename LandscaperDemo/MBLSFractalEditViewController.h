@@ -36,6 +36,7 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) UIBarButtonItem*              aCopyButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*              infoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*              spaceButtonItem;
+@property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;

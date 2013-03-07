@@ -627,7 +627,6 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
         if (_fractal != nil) {
             [self saveToUserPreferencesAsLastEditedFractal: fractal];
         }
-        
         [self refreshContents];
     }
 }
@@ -830,40 +829,41 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 //TODO: add Undo and Redo buttons for editing
 - (void) configureNavButtons {
     
-    NSMutableArray *rightButtons, *leftButtons;
-    
-    
-    if ([self.fractal.isImmutable boolValue]) {
-        // no edit button if it is read only
-        rightButtons = [[NSMutableArray alloc] initWithObjects: self.aCopyButtonItem, nil];
-        
-        self.navigationItem.title = [NSString stringWithFormat: @"%@ (read-only)", self.title];
-        
-    } else if (self.editing) {
-        self.navigationItem.title = [NSString stringWithFormat: @"%@ (editing)", self.title];
-        
-        leftButtons = [[NSMutableArray alloc] initWithObjects: self.cancelButtonItem,self.spaceButtonItem, self.undoButtonItem, self.redoButtonItem, nil];
-        
-        // include edit button but no copy button
-        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, nil];
-        
-    } else {
-        self.navigationItem.title = self.title;
-        // copy and edit button        
-        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, self.aCopyButtonItem, nil];
-    }
-    
-    [rightButtons addObject: self.infoButtonItem];
-    
-    self.navigationItem.leftItemsSupplementBackButton = YES;
-
-    [self updateUndoRedoBarButtonState];
-    
-    [UIView animateWithDuration:0.20 animations:^{
-        self.navigationItem.rightBarButtonItems = rightButtons;
-        
-        self.navigationItem.leftBarButtonItems = leftButtons;
-    }];
+    self.toolbarTitle.text = _fractal.name;
+//    NSMutableArray *rightButtons, *leftButtons;
+//    
+//    
+//    if ([self.fractal.isImmutable boolValue]) {
+//        // no edit button if it is read only
+//        rightButtons = [[NSMutableArray alloc] initWithObjects: self.aCopyButtonItem, nil];
+//        
+//        self.navigationItem.title = [NSString stringWithFormat: @"%@ (read-only)", self.title];
+//        
+//    } else if (self.editing) {
+//        self.navigationItem.title = [NSString stringWithFormat: @"%@ (editing)", self.title];
+//        
+//        leftButtons = [[NSMutableArray alloc] initWithObjects: self.cancelButtonItem,self.spaceButtonItem, self.undoButtonItem, self.redoButtonItem, nil];
+//        
+//        // include edit button but no copy button
+//        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, nil];
+//        
+//    } else {
+//        self.navigationItem.title = self.title;
+//        // copy and edit button        
+//        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, self.aCopyButtonItem, nil];
+//    }
+//    
+//    [rightButtons addObject: self.infoButtonItem];
+//    
+//    self.navigationItem.leftItemsSupplementBackButton = YES;
+//
+//    [self updateUndoRedoBarButtonState];
+//    
+//    [UIView animateWithDuration:0.20 animations:^{
+//        self.navigationItem.rightBarButtonItems = rightButtons;
+//        
+//        self.navigationItem.leftBarButtonItems = leftButtons;
+//    }];
 
 }
 
