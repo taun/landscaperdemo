@@ -33,6 +33,9 @@
 @property (weak, nonatomic) IBOutlet UISwitch       *fillSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch       *fillEvenOddSwitch;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *lineCapSegment;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *lineJoinSegment;
+
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
 
 #pragma mark - Appearance Control Actions
@@ -57,5 +60,7 @@
 //- (IBAction)incrementTurnAngle: (id) sender;
 //- (IBAction)decrementTurnAngle: (id) sender;
 - (IBAction)toggleFillMode:(UISwitch *)sender;
+- (IBAction)changeLineCap:(UISegmentedControl *)sender;
+- (IBAction)changeLineJoin:(UISegmentedControl *)sender;
 
 @end

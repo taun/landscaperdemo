@@ -121,6 +121,9 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
     self.strokeSwitch.on = [self.fractal.stroke boolValue];
     self.fillSwitch.on = [self.fractal.fill boolValue];
     self.fillEvenOddSwitch.on = [self.fractal.eoFill boolValue];
+    
+    self.lineCapSegment.selectedSegmentIndex = [self.fractal.lineCap intValue];
+    self.lineJoinSegment.selectedSegmentIndex = [self.fractal.lineJoin intValue];
 }
 
 
@@ -181,5 +184,13 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 
 - (IBAction)toggleFillMode:(UISwitch *)sender {
     self.fractal.eoFill = [NSNumber numberWithBool: sender.on];
+}
+
+- (IBAction)changeLineCap:(UISegmentedControl *)sender {
+    self.fractal.lineCap = @(sender.selectedSegmentIndex);
+}
+
+- (IBAction)changeLineJoin:(UISegmentedControl *)sender {
+    self.fractal.lineJoin = @(sender.selectedSegmentIndex);
 }
 @end

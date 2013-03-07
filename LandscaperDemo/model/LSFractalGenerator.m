@@ -258,6 +258,8 @@
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
 //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
         BOOL eoFill = [self.fractal.eoFill boolValue];
+        CGContextSetLineCap(theContext, [self.fractal.lineCap intValue]);
+        CGContextSetLineJoin(theContext, [self.fractal.lineJoin intValue]);
         CGContextSetLineWidth(theContext, segment.lineWidth);
         
         CGContextAddPath(theContext, segment.path);

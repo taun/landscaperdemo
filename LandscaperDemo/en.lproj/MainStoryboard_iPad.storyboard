@@ -587,12 +587,55 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Tup-sQ-xiB">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="230" id="BEX-z4-e12"/>
+                                            <constraint firstAttribute="height" constant="29" type="user" id="oeX-UQ-ixE"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Butt"/>
+                                            <segment title="Round"/>
+                                            <segment title="Square"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="changeLineCap:" destination="bDY-89-tKS" eventType="valueChanged" id="aIE-75-uXQ"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tda-WJ-30Z">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" type="user" id="c4q-f1-txB"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Miter"/>
+                                            <segment title="Round"/>
+                                            <segment title="Bevel"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="changeLineJoin:" destination="bDY-89-tKS" eventType="valueChanged" id="S4k-yy-ccx"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Cap" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mL-VC-7Vv">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="42" id="tqq-rn-qiW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Join" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPS-zH-4Gk">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90980398650000005" green="0.90980398650000005" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
+                                    <constraint firstItem="tda-WJ-30Z" firstAttribute="leading" secondItem="tPS-zH-4Gk" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="1AW-Dr-9im"/>
+                                    <constraint firstItem="tPS-zH-4Gk" firstAttribute="centerY" secondItem="tda-WJ-30Z" secondAttribute="centerY" type="default" id="1BZ-Ki-w4H"/>
                                     <constraint firstItem="oiM-1S-2iF" firstAttribute="top" secondItem="BLQ-6L-OHf" secondAttribute="top" constant="170" id="1ww-X6-JF3"/>
                                     <constraint firstItem="Pvv-cr-j1y" firstAttribute="leading" secondItem="k9B-kO-46M" secondAttribute="leading" type="default" id="2MH-vW-kc7"/>
                                     <constraint firstItem="9uC-E5-O6X" firstAttribute="leading" secondItem="GPC-4R-afT" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="78r-vS-ulO"/>
+                                    <constraint firstItem="tda-WJ-30Z" firstAttribute="trailing" secondItem="Tup-sQ-xiB" secondAttribute="trailing" type="default" id="7Gz-NQ-HSb"/>
                                     <constraint firstItem="TLV-kZ-yss" firstAttribute="top" secondItem="2ff-Zw-Tcw" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="7cE-MG-m1S"/>
                                     <constraint firstItem="ZLo-L7-418" firstAttribute="trailing" secondItem="OP5-n7-1xV" secondAttribute="trailing" type="default" id="8gi-wM-Ncl"/>
                                     <constraint firstItem="GPC-4R-afT" firstAttribute="centerY" secondItem="9uC-E5-O6X" secondAttribute="centerY" type="default" id="AyS-Z8-LiC"/>
@@ -604,28 +647,35 @@
                                     <constraint firstItem="k9B-kO-46M" firstAttribute="centerY" secondItem="TLV-kZ-yss" secondAttribute="centerY" type="default" id="K2L-yQ-goy"/>
                                     <constraint firstItem="GPC-4R-afT" firstAttribute="leading" secondItem="ZLo-L7-418" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="LdT-DX-3Zy"/>
                                     <constraint firstItem="JzH-hP-l7f" firstAttribute="trailing" secondItem="z1t-Qf-I26" secondAttribute="trailing" type="default" id="M2x-ss-QoK"/>
-                                    <constraint firstAttribute="bottom" secondItem="hMZ-KP-Kvr" secondAttribute="bottom" constant="133" id="MIe-ej-sZg"/>
                                     <constraint firstItem="qUX-fY-Mbz" firstAttribute="centerY" secondItem="z1t-Qf-I26" secondAttribute="centerY" type="default" id="NoM-7p-UyP"/>
                                     <constraint firstItem="OP5-n7-1xV" firstAttribute="leading" secondItem="xZs-cq-PEM" secondAttribute="leading" type="default" id="O1X-Er-reY"/>
                                     <constraint firstItem="OP5-n7-1xV" firstAttribute="trailing" secondItem="z1t-Qf-I26" secondAttribute="trailing" type="default" id="OcM-eh-Nsj"/>
+                                    <constraint firstItem="Tup-sQ-xiB" firstAttribute="leading" secondItem="0mL-VC-7Vv" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="PxR-A7-8PX"/>
                                     <constraint firstItem="Znd-jk-Msh" firstAttribute="baseline" secondItem="2ff-Zw-Tcw" secondAttribute="baseline" type="default" id="Ssn-Yw-cAS"/>
                                     <constraint firstItem="2ff-Zw-Tcw" firstAttribute="leading" secondItem="TLV-kZ-yss" secondAttribute="leading" type="default" id="WCi-WM-dJf"/>
                                     <constraint firstItem="hMZ-KP-Kvr" firstAttribute="top" secondItem="qUX-fY-Mbz" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="WVd-x6-Ink"/>
                                     <constraint firstAttribute="trailing" secondItem="Pvv-cr-j1y" secondAttribute="trailing" constant="49" id="ZGp-dg-7wc"/>
+                                    <constraint firstAttribute="bottom" secondItem="tda-WJ-30Z" secondAttribute="bottom" constant="59" id="aFV-9c-87D"/>
+                                    <constraint firstItem="GPC-4R-afT" firstAttribute="centerX" secondItem="BLQ-6L-OHf" secondAttribute="centerX" type="default" id="ayD-nO-cKz"/>
                                     <constraint firstItem="Pvv-cr-j1y" firstAttribute="leading" secondItem="2ff-Zw-Tcw" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="bJM-1E-MSK"/>
                                     <constraint firstItem="qUX-fY-Mbz" firstAttribute="top" secondItem="oiM-1S-2iF" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="daq-Cc-S2I"/>
                                     <constraint firstItem="qUX-fY-Mbz" firstAttribute="leading" secondItem="oiM-1S-2iF" secondAttribute="leading" type="default" id="dtG-75-w1H"/>
                                     <constraint firstItem="ZLo-L7-418" firstAttribute="baseline" secondItem="GPC-4R-afT" secondAttribute="baseline" type="default" id="f4W-EP-ILd"/>
+                                    <constraint firstItem="Tup-sQ-xiB" firstAttribute="trailing" secondItem="hMZ-KP-Kvr" secondAttribute="trailing" type="default" id="fLH-lz-9O4"/>
                                     <constraint firstItem="TLV-kZ-yss" firstAttribute="leading" secondItem="GPC-4R-afT" secondAttribute="leading" type="default" id="glC-Ve-Fvj"/>
-                                    <constraint firstItem="2ff-Zw-Tcw" firstAttribute="centerX" secondItem="BLQ-6L-OHf" secondAttribute="centerX" type="default" id="gpa-Cb-kh5"/>
                                     <constraint firstItem="TLV-kZ-yss" firstAttribute="baseline" secondItem="xZs-cq-PEM" secondAttribute="baseline" type="default" id="ijb-Xl-daS"/>
                                     <constraint firstItem="GPC-4R-afT" firstAttribute="top" secondItem="TLV-kZ-yss" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="j6B-Gy-ibo"/>
+                                    <constraint firstItem="tda-WJ-30Z" firstAttribute="top" secondItem="Tup-sQ-xiB" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="jrw-fm-XaI"/>
+                                    <constraint firstItem="Tup-sQ-xiB" firstAttribute="top" secondItem="hMZ-KP-Kvr" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="nad-ID-W5M"/>
                                     <constraint firstItem="JzH-hP-l7f" firstAttribute="centerY" secondItem="hMZ-KP-Kvr" secondAttribute="centerY" type="default" id="o3I-Ag-5NX"/>
                                     <constraint firstItem="TLV-kZ-yss" firstAttribute="leading" secondItem="xZs-cq-PEM" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="osI-Zq-oi6"/>
                                     <constraint firstItem="Pvv-cr-j1y" firstAttribute="top" secondItem="BLQ-6L-OHf" secondAttribute="top" constant="50" id="pC8-TC-bjW"/>
+                                    <constraint firstItem="tda-WJ-30Z" firstAttribute="leading" secondItem="Tup-sQ-xiB" secondAttribute="leading" type="default" id="pLb-63-dG0"/>
                                     <constraint firstItem="2ff-Zw-Tcw" firstAttribute="top" secondItem="BLQ-6L-OHf" secondAttribute="top" constant="49" id="pd5-an-ge5"/>
+                                    <constraint firstItem="0mL-VC-7Vv" firstAttribute="centerY" secondItem="Tup-sQ-xiB" secondAttribute="centerY" type="default" id="pl4-W5-Dp1"/>
                                     <constraint firstItem="9uC-E5-O6X" firstAttribute="centerX" secondItem="oiM-1S-2iF" secondAttribute="centerX" type="default" id="tFS-yp-X64"/>
                                     <constraint firstItem="k9B-kO-46M" firstAttribute="leading" secondItem="9uC-E5-O6X" secondAttribute="leading" type="default" id="teL-qr-3qd"/>
+                                    <constraint firstItem="tPS-zH-4Gk" firstAttribute="leading" secondItem="0mL-VC-7Vv" secondAttribute="leading" type="default" id="v5a-CH-GHO"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -650,6 +700,8 @@
                         <outlet property="fractalLineLength" destination="GPC-4R-afT" id="DJQ-Zx-jpt"/>
                         <outlet property="fractalTurningAngle" destination="2ff-Zw-Tcw" id="eoJ-XQ-uKE"/>
                         <outlet property="fractalWidth" destination="TLV-kZ-yss" id="SLs-bj-hfy"/>
+                        <outlet property="lineCapSegment" destination="Tup-sQ-xiB" id="dnO-vZ-Dru"/>
+                        <outlet property="lineJoinSegment" destination="tda-WJ-30Z" id="q2C-0z-K5E"/>
                         <outlet property="lineLengthStepper" destination="9uC-E5-O6X" id="pr5-d5-dsu"/>
                         <outlet property="strokeSwitch" destination="oiM-1S-2iF" id="xbA-Aw-Y9Z"/>
                         <outlet property="turnAngleStepper" destination="Pvv-cr-j1y" id="V7S-6s-keD"/>
@@ -923,6 +975,8 @@
         <class className="MBFractalLineSegmentsEditorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalLineSegmentsEditorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeLineCap:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="changeLineJoin:" candidateClass="UISegmentedControl"/>
                 <relationship kind="action" name="lineLengthInputChanged:"/>
                 <relationship kind="action" name="lineLengthScaleFactorInputChanged:" candidateClass="UIStepper"/>
                 <relationship kind="action" name="lineWidthIncrementInputChanged:"/>
@@ -939,6 +993,8 @@
                 <relationship kind="outlet" name="fractalLineLength" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="fractalTurningAngle" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="fractalWidth" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lineCapSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="lineJoinSegment" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="lineLengthStepper" candidateClass="UIStepper"/>
                 <relationship kind="outlet" name="strokeSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="turnAngleStepper" candidateClass="UIStepper"/>
