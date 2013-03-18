@@ -7,6 +7,7 @@
 //
 
 #import "MBCollectionColorCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation MBCollectionColorCell
 
@@ -15,6 +16,21 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder: aDecoder];
+    if (self) {
+        // Initialization code
+        self.layer.cornerRadius = 5.0;
+        self.layer.masksToBounds = YES;
+        UIColor* border = [UIColor lightGrayColor];
+        CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
+        self.layer.borderColor = colorCopy;
+        CGColorRelease(colorCopy);
+        self.layer.borderWidth = 1.0;
     }
     return self;
 }

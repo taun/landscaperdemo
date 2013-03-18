@@ -98,10 +98,7 @@
         
         CGContextSaveGState(context);
         MBColor* color = (MBColor*)mObject;
-        UIColor* thumbNailBackground = [UIColor colorWithRed: [color.red doubleValue]
-                                                       green: [color.green doubleValue]
-                                                        blue: [color.blue doubleValue]
-                                                       alpha: [color.alpha doubleValue]];
+        UIColor* thumbNailBackground = [color asUIColor];
         [thumbNailBackground setFill];
         CGContextFillRect(context, viewRect);
         CGContextRestoreGState(context);
