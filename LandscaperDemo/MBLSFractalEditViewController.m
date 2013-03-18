@@ -107,10 +107,10 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
-    [self setPopover: nil];
-    [self setLibraryViewController: nil];
-    [self setPropertiesViewController: nil];
-    [self setAppearanceViewController: nil];
+//    [self setPopover: nil];
+//    [self setLibraryViewController: nil];
+//    [self setPropertiesViewController: nil];
+//    [self setAppearanceViewController: nil];
 }
 
 /*
@@ -262,7 +262,7 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
         // reset cancelled status
         self.cancelled = NO;
         
-        //        [self.undoManager beginUndoGrouping];
+        [self.undoManager beginUndoGrouping];
         
         
     } else {
@@ -810,15 +810,16 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
  */
 - (void)updateUndoRedoBarButtonState {
     if (self.editing) {
-        if ([self.undoManager canRedo]) {
+        NSInteger level = [self.undoManager groupingLevel] > 0;
+        
+        if (level && [self.undoManager canRedo]) {
             self.redoButtonItem.enabled = YES;
         } else {
             self.redoButtonItem.enabled = NO;
         }
         
         [self logGroupingLevelFrom: NSStringFromSelector(_cmd)];
-        NSInteger level = [self.undoManager groupingLevel] > 0;
-        if ([self.undoManager canUndo] && level) {
+        if (level && [self.undoManager canUndo]) {
             self.undoButtonItem.enabled = YES;
         } else {
             self.undoButtonItem.enabled = NO;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="4nM-Pc-iAd">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
@@ -520,12 +519,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="lineWidthInputChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="2We-Kt-hSb"/>
+                                            <action selector="lineWidthStepperChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="Wt8-Fb-l11"/>
                                         </connections>
                                     </textField>
                                     <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="10" stepValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="k9B-kO-46M" userLabel="widthStepper">
                                         <connections>
-                                            <action selector="lineWidthInputChanged:" destination="bDY-89-tKS" eventType="valueChanged" id="nZN-Sg-BmP"/>
+                                            <action selector="lineWidthStepperChanged:" destination="bDY-89-tKS" eventType="valueChanged" id="cTq-os-odN"/>
                                         </connections>
                                     </stepper>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Length" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZLo-L7-418">
@@ -543,12 +542,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
-                                            <action selector="lineLengthInputChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="8db-ni-QrU"/>
+                                            <action selector="lineLengthStepperChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="QCv-3E-2yy"/>
                                         </connections>
                                     </textField>
                                     <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="9uC-E5-O6X" userLabel="lineLengthStepper">
                                         <connections>
-                                            <action selector="lineLengthInputChanged:" destination="bDY-89-tKS" eventType="valueChanged" id="Vqo-BU-bu7"/>
+                                            <action selector="lineLengthStepperChanged:" destination="bDY-89-tKS" eventType="valueChanged" id="paS-Xe-FsZ"/>
                                         </connections>
                                     </stepper>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stroke" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="OP5-n7-1xV">
@@ -712,68 +711,108 @@
             </objects>
             <point key="canvasLocation" x="6905" y="-191"/>
         </scene>
-        <!--Color Collection View Controller - Fill Colors-->
+        <!--Fractal Fill Color View Controller - Fill Colors-->
         <scene sceneID="ahc-Pz-mGd">
             <objects>
-                <viewController storyboardIdentifier="FillColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBColorCollectionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FillColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBFractalFillColorViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="oGc-CD-mGf">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C4h-zc-Fd7">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="5" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorSwatchCell" id="tT3-xK-Dkq">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorSwatchCell" id="tT3-xK-Dkq" customClass="MBCollectionColorCell">
+                                <rect key="frame" x="10" y="10" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQP-T2-WD8"/>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="eQP-T2-WD8" firstAttribute="top" secondItem="tT3-xK-Dkq" secondAttribute="top" type="default" id="5pD-eh-hEG"/>
+                                    <constraint firstItem="eQP-T2-WD8" firstAttribute="trailing" secondItem="tT3-xK-Dkq" secondAttribute="trailing" type="default" id="Fcu-0f-8kb"/>
+                                    <constraint firstItem="eQP-T2-WD8" firstAttribute="leading" secondItem="tT3-xK-Dkq" secondAttribute="leading" type="default" id="H8w-xB-WBv"/>
+                                    <constraint firstItem="eQP-T2-WD8" firstAttribute="bottom" secondItem="tT3-xK-Dkq" secondAttribute="bottom" type="default" id="eD8-pi-iBa"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="eQP-T2-WD8" id="cni-C5-WLo"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="bRM-XI-8Xh" id="9Sl-lT-4fG"/>
+                            <outlet property="delegate" destination="bRM-XI-8Xh" id="Cya-ED-FIf"/>
+                        </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Fill Colors" id="XzP-vF-Qi5"/>
                     <value key="contentSizeForViewInPopover" type="size" width="400" height="400"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="colorCollectionView" destination="oGc-CD-mGf" id="95W-Uc-juv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6905" y="897"/>
         </scene>
-        <!--Color Collection View Controller - Line Colors-->
+        <!--Fractal Stroke Color View Controller - Line Colors-->
         <scene sceneID="Qnc-2Z-7h3">
             <objects>
-                <viewController storyboardIdentifier="StrokeColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TSZ-NG-w8m" customClass="MBColorCollectionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StrokeColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TSZ-NG-w8m" customClass="MBFractalStrokeColorViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="wYq-wQ-gO2">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pTA-8R-u0K">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorSwatchCell" id="anf-Me-bX5">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorSwatchCell" id="anf-Me-bX5" customClass="MBCollectionColorCell">
+                                <rect key="frame" x="10" y="10" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLB-PH-71i"/>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="iLB-PH-71i" firstAttribute="top" secondItem="anf-Me-bX5" secondAttribute="top" type="user" id="E6d-ik-i1q"/>
+                                    <constraint firstItem="iLB-PH-71i" firstAttribute="bottom" secondItem="anf-Me-bX5" secondAttribute="bottom" type="user" id="MVo-Nq-GHf"/>
+                                    <constraint firstItem="iLB-PH-71i" firstAttribute="trailing" secondItem="anf-Me-bX5" secondAttribute="trailing" type="default" id="o7B-qK-or7"/>
+                                    <constraint firstItem="iLB-PH-71i" firstAttribute="leading" secondItem="anf-Me-bX5" secondAttribute="leading" type="default" id="ygV-hp-4m1"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="iLB-PH-71i" id="YDg-xd-EkE"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="TSZ-NG-w8m" id="h2k-zk-1Rm"/>
+                            <outlet property="delegate" destination="TSZ-NG-w8m" id="Gj6-Sy-IHj"/>
+                        </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Line Colors" id="fRh-xF-oTr"/>
                     <value key="contentSizeForViewInPopover" type="size" width="400" height="400"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="colorCollectionView" destination="wYq-wQ-gO2" id="tR5-wH-tHy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ln-qV-G96" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -926,6 +965,12 @@
                 <relationship kind="outlet" name="delegate"/>
             </relationships>
         </class>
+        <class className="MBCollectionColorCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBCollectionColorCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
         <class className="MBCollectionFractalCell" superclassName="UICollectionViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBCollectionFractalCell.h"/>
             <relationships>
@@ -942,6 +987,9 @@
         </class>
         <class className="MBColorCollectionViewController" superclassName="UICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBColorCollectionViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="colorCollectionView" candidateClass="UICollectionView"/>
+            </relationships>
         </class>
         <class className="MBFractalAppearanceEditorViewController" superclassName="UITabBarController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalAppearanceEditorViewController.h"/>
@@ -966,6 +1014,9 @@
                 <relationship kind="action" name="magnifyFractal:" candidateClass="UILongPressGestureRecognizer"/>
             </relationships>
         </class>
+        <class className="MBFractalFillColorViewController" superclassName="MBColorCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalFillColorViewController.h"/>
+        </class>
         <class className="MBFractalLibraryViewController" superclassName="UICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalLibraryViewController.h"/>
             <relationships>
@@ -977,10 +1028,10 @@
             <relationships>
                 <relationship kind="action" name="changeLineCap:" candidateClass="UISegmentedControl"/>
                 <relationship kind="action" name="changeLineJoin:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="lineLengthInputChanged:"/>
                 <relationship kind="action" name="lineLengthScaleFactorInputChanged:" candidateClass="UIStepper"/>
+                <relationship kind="action" name="lineLengthStepperChanged:" candidateClass="UIStepper"/>
                 <relationship kind="action" name="lineWidthIncrementInputChanged:"/>
-                <relationship kind="action" name="lineWidthInputChanged:"/>
+                <relationship kind="action" name="lineWidthStepperChanged:" candidateClass="UIStepper"/>
                 <relationship kind="action" name="toggleFill:" candidateClass="UISwitch"/>
                 <relationship kind="action" name="toggleFillMode:" candidateClass="UISwitch"/>
                 <relationship kind="action" name="toggleStroke:" candidateClass="UISwitch"/>
@@ -1000,6 +1051,9 @@
                 <relationship kind="outlet" name="turnAngleStepper" candidateClass="UIStepper"/>
                 <relationship kind="outlet" name="widthStepper" candidateClass="UIStepper"/>
             </relationships>
+        </class>
+        <class className="MBFractalStrokeColorViewController" superclassName="MBColorCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBFractalStrokeColorViewController.h"/>
         </class>
         <class className="MBLSFractalEditViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBLSFractalEditViewController.h"/>

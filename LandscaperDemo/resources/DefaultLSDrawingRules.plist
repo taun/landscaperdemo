@@ -566,6 +566,86 @@
 	<array>
 		<dict>
 			<key>name</key>
+			<string>Brown 4</string>
+			<key>identifier</key>
+			<string>brown4</string>
+			<key>red</key>
+			<real>0.54509803921569</real>
+			<key>green</key>
+			<real>0.40392156862745</real>
+			<key>blue</key>
+			<real>0.24705882352941</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brown 3</string>
+			<key>identifier</key>
+			<string>brown3</string>
+			<key>red</key>
+			<real>0.5921568627451</real>
+			<key>green</key>
+			<real>0.45882352941176</real>
+			<key>blue</key>
+			<real>0.28235294117647</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brown 2</string>
+			<key>identifier</key>
+			<string>brown2</string>
+			<key>red</key>
+			<real>0.42745098039216</real>
+			<key>green</key>
+			<real>0.18039215686275</real>
+			<key>blue</key>
+			<real>0.12156862745098</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brown 0</string>
+			<key>identifier</key>
+			<string>brown0</string>
+			<key>red</key>
+			<real>0.31</real>
+			<key>green</key>
+			<real>0.118</real>
+			<key>blue</key>
+			<real>0.078</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brown 1</string>
+			<key>identifier</key>
+			<string>brown1</string>
+			<key>red</key>
+			<real>0.34901960784314</real>
+			<key>green</key>
+			<real>0.13333333333333</real>
+			<key>blue</key>
+			<real>0.08627450980392</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>name</key>
 			<string>Red</string>
 			<key>identifier</key>
 			<string>red</string>
@@ -630,9 +710,9 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>Brown</string>
+			<string>Purple</string>
 			<key>identifier</key>
-			<string>brown</string>
+			<string>purple</string>
 			<key>red</key>
 			<real>0.8</real>
 			<key>green</key>

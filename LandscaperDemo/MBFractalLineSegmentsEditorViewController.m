@@ -148,15 +148,17 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
     self.fractal.fill = @(sender.on);
 }
 
-- (IBAction)lineWidthInputChanged:(id)sender {
+- (IBAction)lineWidthStepperChanged:(UIStepper*)sender {
     self.fractal.lineWidth = [sender valueForKey: @"value"];
+    self.fractalWidth.text = [self.fractal.lineWidth stringValue];
 }
 
 - (IBAction)lineWidthIncrementInputChanged:(id)sender {
     self.fractal.lineWidthIncrement = [sender valueForKey: @"value"];
 }
-- (IBAction)lineLengthInputChanged:(UIStepper*)sender {
+- (IBAction)lineLengthStepperChanged:(UIStepper*)sender {
     self.fractal.lineLength = @(sender.value);
+    self.fractalLineLength.text = [self.fractal.lineLength stringValue];
 }
 
 - (IBAction)lineLengthScaleFactorInputChanged:(UIStepper*)sender {
@@ -167,13 +169,14 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
     [self.fractalUndoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: sender.value]];
-    [self refreshValueInputs];
+    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
 }
 - (IBAction)turningAngleTextInputChanged: (UITextField*)sender {
     [self.fractalUndoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: [sender.text doubleValue]]];
-    [self refreshValueInputs];
+    self.turnAngleStepper.value = [[self.fractal turningAngleAsDegree] doubleValue];
+    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
 }
 
 

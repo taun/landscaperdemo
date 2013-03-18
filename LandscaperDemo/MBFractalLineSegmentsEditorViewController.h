@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "FractalControllerProtocol.h"
-#import "ColorPickerController.h"
 
 @class LSFractal;
 
@@ -39,11 +38,11 @@
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
 
 #pragma mark - Appearance Control Actions
-- (IBAction)lineLengthInputChanged: (id)sender;
+- (IBAction)lineLengthStepperChanged: (UIStepper*)sender;
 
 - (IBAction)lineLengthScaleFactorInputChanged: (UIStepper*)sender;
 
-- (IBAction)lineWidthInputChanged: (id)sender;
+- (IBAction)lineWidthStepperChanged: (UIStepper*)sender;
 
 - (IBAction)lineWidthIncrementInputChanged: (id)sender;
 

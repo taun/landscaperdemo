@@ -14,5 +14,8 @@
 
 @implementation MBFractalFillColorViewController
 
++(NSString*) fractalPropertyKeypath {
+    return @"fillColor";
+}
 
 @end
