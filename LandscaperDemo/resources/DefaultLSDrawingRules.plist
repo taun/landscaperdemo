@@ -45,6 +45,148 @@
 			<key>category</key>
 			<string>Geometric</string>
 			<key>descriptor</key>
+			<string>Modified Von Koch Curve 3</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Von Koch Curve 3</string>
+			<key>axiom</key>
+			<string>F-F-F-F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>FF-F--F-F</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>Modified Von Koch Curve 2</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Von Koch Curve</string>
+			<key>axiom</key>
+			<string>F-F-F-F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>FF-F-F-F-F-F+F</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>Modified Von Koch Snowflake</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Von Koch Snowflake</string>
+			<key>axiom</key>
+			<string>-F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>F</key>
+				<string>F+F-F-F+F</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
+			<string>Islands and Lakes</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>Islands and lakes</string>
+			<key>axiom</key>
+			<string>F+F+F+F</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>2</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<integer>1</integer>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<integer>1</integer>
+			<key>turningAngle</key>
+			<real>1.5707963267949</real>
+			<key>turningAngleIncrement</key>
+			<integer>0</integer>
+			<key>replacementRules</key>
+			<dict>
+				<key>f</key>
+				<string>ffffff</string>
+				<key>F</key>
+				<string>F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>Geometric</string>
+			<key>descriptor</key>
 			<string>L-System Von Koch Snowflake Curve</string>
 			<key>isImmutable</key>
 			<true/>
