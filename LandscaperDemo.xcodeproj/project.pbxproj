@@ -29,6 +29,8 @@
 		C525B16D14FBFAD300A0986B /* Right square bracket pop context.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B16414FBFAD300A0986B /* Right square bracket pop context.png */; };
 		C525B17114FC089B00A0986B /* Keyboard key background.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B17014FC089B00A0986B /* Keyboard key background.png */; };
 		C525B17314FD4C2400A0986B /* FractalKeyboardKeyGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B17214FD4C2400A0986B /* FractalKeyboardKeyGradient.png */; };
+		C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */; };
+		C525B9FF16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C525B9FE16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalLineSegmentsEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalLineSegmentsEditorViewController.m */; };
 		C531F3F016E139D4007F4DD3 /* MBFractalAxiomEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EF16E139D4007F4DD3 /* MBFractalAxiomEditViewController.m */; };
 		C5383E3D16F763F400D0304B /* MBCollectionColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5383E3C16F763F400D0304B /* MBCollectionColorCell.m */; };
@@ -164,6 +166,10 @@
 		C525B16414FBFAD300A0986B /* Right square bracket pop context.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Right square bracket pop context.png"; path = "resources/Right square bracket pop context.png"; sourceTree = "<group>"; };
 		C525B17014FC089B00A0986B /* Keyboard key background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Keyboard key background.png"; path = "resources/Keyboard key background.png"; sourceTree = "<group>"; };
 		C525B17214FD4C2400A0986B /* FractalKeyboardKeyGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FractalKeyboardKeyGradient.png; path = resources/FractalKeyboardKeyGradient.png; sourceTree = "<group>"; };
+		C525B9FA16F8A6C500CE2200 /* MBColorCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColorCellBackgroundView.h; path = LandscaperDemo/MBColorCellBackgroundView.h; sourceTree = "<group>"; };
+		C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColorCellBackgroundView.m; path = LandscaperDemo/MBColorCellBackgroundView.m; sourceTree = "<group>"; };
+		C525B9FD16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColorCellSelectBackgroundView.h; path = LandscaperDemo/MBColorCellSelectBackgroundView.h; sourceTree = "<group>"; };
+		C525B9FE16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColorCellSelectBackgroundView.m; path = LandscaperDemo/MBColorCellSelectBackgroundView.m; sourceTree = "<group>"; };
 		C531F3EB16E1398E007F4DD3 /* MBFractalLineSegmentsEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFractalLineSegmentsEditorViewController.h; sourceTree = "<group>"; };
 		C531F3EC16E1398E007F4DD3 /* MBFractalLineSegmentsEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFractalLineSegmentsEditorViewController.m; sourceTree = "<group>"; };
 		C531F3EE16E139D4007F4DD3 /* MBFractalAxiomEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFractalAxiomEditViewController.h; sourceTree = "<group>"; };
@@ -396,6 +402,10 @@
 				C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */,
 				C5383E3B16F763F400D0304B /* MBCollectionColorCell.h */,
 				C5383E3C16F763F400D0304B /* MBCollectionColorCell.m */,
+				C525B9FA16F8A6C500CE2200 /* MBColorCellBackgroundView.h */,
+				C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */,
+				C525B9FD16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.h */,
+				C525B9FE16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -784,6 +794,8 @@
 				C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */,
 				C5A3EA6F16E7E6EF00D19155 /* MBColorCollectionViewController.m in Sources */,
 				C5383E3D16F763F400D0304B /* MBCollectionColorCell.m in Sources */,
+				C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */,
+				C525B9FF16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

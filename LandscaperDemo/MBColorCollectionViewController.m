@@ -132,7 +132,7 @@
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.fractal setValue: (MBColor*)managedObject forKey: [[self class] fractalPropertyKeypath]];
-    
+    [collectionView selectItemAtIndexPath: indexPath animated: YES scrollPosition:UICollectionViewScrollPositionNone] ;
     NSLog(@"Selected item: %@;", indexPath);
 }
 
