@@ -7,8 +7,18 @@
 //
 
 #import "MBCollectionFractalCell.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @implementation MBCollectionFractalCell
+
+-(void) setImageFrame:(UIView *)imageFrame {
+    if (_imageFrame != imageFrame) {
+        _imageFrame = imageFrame;
+        _imageFrame.layer.shadowOpacity = 0.5;
+        _imageFrame.layer.shadowOffset = CGSizeMake(0, 3.0);
+    }
+}
 
 - (id)initWithFrame:(CGRect)frame
 {

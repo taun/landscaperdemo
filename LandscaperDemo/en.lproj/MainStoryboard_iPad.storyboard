@@ -885,74 +885,86 @@
         <!--Fractal Library View Controller - Library-->
         <scene sceneID="iKT-0y-poi">
             <objects>
-                <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="510" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tuN-UJ-qld">
-                            <size key="itemSize" width="138" height="138"/>
-                            <size key="headerReferenceSize" width="50" height="50"/>
+                        <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="tuN-UJ-qld">
+                            <size key="itemSize" width="154" height="262"/>
+                            <size key="headerReferenceSize" width="50" height="44"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryListCell" id="OPm-W7-tPA" customClass="MBCollectionFractalCell">
-                                <rect key="frame" x="0.0" y="50" width="138" height="138"/>
+                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryListCell" id="OPm-W7-tPA" customClass="MBCollectionFractalCell">
+                                <rect key="frame" x="8" y="52" width="154" height="262"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="138" height="138"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="154" height="262"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="zensand.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
+                                            <subviews>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="zensand.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="130" id="WGd-Uc-raF"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="108" id="SpF-MW-FFZ"/>
+                                                <constraint firstItem="AYV-rN-sBG" firstAttribute="centerY" secondItem="z47-1a-Cob" secondAttribute="centerY" type="default" id="OFX-QA-ocP"/>
+                                                <constraint firstItem="AYV-rN-sBG" firstAttribute="leading" secondItem="z47-1a-Cob" secondAttribute="leading" constant="8" type="user" id="lQb-9Y-CZq"/>
+                                                <constraint firstAttribute="trailing" secondItem="AYV-rN-sBG" secondAttribute="trailing" constant="8" type="user" id="mpl-II-0ep"/>
                                             </constraints>
-                                        </imageView>
+                                        </view>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="22" id="drB-lz-sKf"/>
+                                                <constraint firstAttribute="height" constant="22" type="user" id="drB-lz-sKf"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
+                                            <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle and lots more text, ipsem and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="138" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="0.48999999999999999" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle and lots more text, ipsem and more. And more and more and more." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="45" id="n9W-mh-aIS"/>
+                                                <constraint firstAttribute="height" constant="74" id="48S-hd-Zfd"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
+                                            <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" red="0.0" green="0.25098040699958801" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="PV1-X5-WaQ" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" type="default" id="9Oj-or-w6t"/>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="trailing" secondItem="OPm-W7-tPA" secondAttribute="trailing" type="default" id="AFu-rS-6MC"/>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="bottom" secondItem="OPm-W7-tPA" secondAttribute="bottom" type="default" id="N6H-O9-bWS"/>
-                                    <constraint firstItem="PV1-X5-WaQ" firstAttribute="top" secondItem="OPm-W7-tPA" secondAttribute="top" constant="5" id="RIM-Bg-waC"/>
-                                    <constraint firstItem="AYV-rN-sBG" firstAttribute="bottom" secondItem="OPm-W7-tPA" secondAttribute="bottom" type="default" id="g4C-tP-BYE"/>
-                                    <constraint firstItem="AYV-rN-sBG" firstAttribute="trailing" secondItem="OPm-W7-tPA" secondAttribute="trailing" type="default" id="khs-bk-JcQ"/>
-                                    <constraint firstItem="PV1-X5-WaQ" firstAttribute="trailing" secondItem="OPm-W7-tPA" secondAttribute="trailing" type="default" id="mvV-wS-6kC"/>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" type="default" id="uuX-bx-0av"/>
-                                    <constraint firstItem="AYV-rN-sBG" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" type="default" id="vmR-TN-uaM"/>
+                                    <constraint firstItem="6en-9e-q6w" firstAttribute="top" secondItem="PV1-X5-WaQ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="BZg-mQ-thB"/>
+                                    <constraint firstItem="AYV-rN-sBG" firstAttribute="width" secondItem="PV1-X5-WaQ" secondAttribute="width" type="user" id="ERf-Ru-606"/>
+                                    <constraint firstItem="6en-9e-q6w" firstAttribute="leading" secondItem="PV1-X5-WaQ" secondAttribute="leading" type="default" id="TJf-cQ-4pC"/>
+                                    <constraint firstItem="z47-1a-Cob" firstAttribute="top" secondItem="OPm-W7-tPA" secondAttribute="top" constant="4" type="user" id="WAu-ao-5TD"/>
+                                    <constraint firstItem="6en-9e-q6w" firstAttribute="width" secondItem="PV1-X5-WaQ" secondAttribute="width" type="user" id="eH2-I3-BhS"/>
+                                    <constraint firstItem="AYV-rN-sBG" firstAttribute="leading" secondItem="PV1-X5-WaQ" secondAttribute="leading" type="user" id="fgk-Gv-1RW"/>
+                                    <constraint firstItem="PV1-X5-WaQ" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="gOd-2L-omk"/>
+                                    <constraint firstItem="z47-1a-Cob" firstAttribute="trailing" secondItem="OPm-W7-tPA" secondAttribute="trailing" constant="-4" type="user" id="k1B-Je-zPk"/>
+                                    <constraint firstItem="z47-1a-Cob" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="4" type="user" id="kl7-au-tsS"/>
+                                    <constraint firstItem="6en-9e-q6w" firstAttribute="bottom" secondItem="OPm-W7-tPA" secondAttribute="bottom" type="default" id="mlZ-f9-Rjc"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="detailTextLabel" destination="6en-9e-q6w" id="GMq-49-tGr"/>
+                                    <outlet property="imageFrame" destination="z47-1a-Cob" id="xkP-Xw-MvZ"/>
                                     <outlet property="imageView" destination="AYV-rN-sBG" id="lg7-Jp-1im"/>
                                     <outlet property="textLabel" destination="PV1-X5-WaQ" id="rtZ-MR-lcd"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="R8j-MN-2F0" customClass="MBCollectionFractalSupplementaryLabel">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="510" height="44"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
@@ -968,8 +980,8 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="CBu-fT-DpV" firstAttribute="centerX" secondItem="R8j-MN-2F0" secondAttribute="centerX" type="default" id="tB3-WA-Oj9"/>
-                                <constraint firstItem="CBu-fT-DpV" firstAttribute="top" secondItem="R8j-MN-2F0" secondAttribute="top" constant="14" id="vuJ-Cm-dLz"/>
+                                <constraint firstItem="CBu-fT-DpV" firstAttribute="leading" secondItem="R8j-MN-2F0" secondAttribute="leading" constant="100" id="1Xz-V2-gon"/>
+                                <constraint firstItem="CBu-fT-DpV" firstAttribute="top" secondItem="R8j-MN-2F0" secondAttribute="top" constant="11" id="HUo-74-l1T"/>
                             </constraints>
                             <connections>
                                 <outlet property="textLabel" destination="CBu-fT-DpV" id="LlO-Uj-LGO"/>
@@ -1016,6 +1028,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBCollectionFractalCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="detailTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageFrame" candidateClass="UIView"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
             </relationships>

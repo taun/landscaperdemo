@@ -12,6 +12,7 @@
 
 #import "MBCollectionFractalCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
+#import "MBColorCellSelectBackgroundView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -139,6 +140,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     cell.detailTextLabel.text = [managedObject valueForKey: @"descriptor"];
     cell.imageView.image = [self thumbnailForFractal: managedObject size: cell.bounds.size];
     cell.imageView.highlightedImage = cell.imageView.image;
+    cell.selectedBackgroundView = [MBColorCellSelectBackgroundView new];
     
     return cell;
 }
