@@ -48,6 +48,10 @@
 		C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C55131F914F6A15E0074137C /* MBLSRuleTableViewCell.m */; };
 		C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C551320014F731C70074137C /* MBStepperTableViewCell.m */; };
 		C551320514F9CA2A0074137C /* FractalScapeLogoIPad.png in Resources */ = {isa = PBXBuildFile; fileRef = C551320414F9CA290074137C /* FractalScapeLogoIPad.png */; };
+		C557D9A616FA921A00FCB857 /* TabbarFillColorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */; };
+		C557D9A716FA921A00FCB857 /* TabbarFillColorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A316FA921A00FCB857 /* TabbarFillColorIcon@2x.png */; };
+		C557D9A816FA921A00FCB857 /* TabbarLineColorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A416FA921A00FCB857 /* TabbarLineColorIcon.png */; };
+		C557D9A916FA921A00FCB857 /* TabbarLineColorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A516FA921A00FCB857 /* TabbarLineColorIcon@2x.png */; };
 		C56A2C8F14CFA1CB00B5F763 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C8E14CFA1CB00B5F763 /* grey.png */; };
 		C56A2C9414CFA77F00B5F763 /* sky.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9014CFA77F00B5F763 /* sky.png */; };
 		C56A2C9514CFA77F00B5F763 /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9114CFA77F00B5F763 /* space.png */; };
@@ -197,6 +201,10 @@
 		C55131FF14F731C70074137C /* MBStepperTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBStepperTableViewCell.h; path = LandscaperDemo/MBStepperTableViewCell.h; sourceTree = "<group>"; };
 		C551320014F731C70074137C /* MBStepperTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBStepperTableViewCell.m; path = LandscaperDemo/MBStepperTableViewCell.m; sourceTree = "<group>"; };
 		C551320414F9CA290074137C /* FractalScapeLogoIPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FractalScapeLogoIPad.png; path = ../FractalScapeLogoIPad.png; sourceTree = "<group>"; };
+		C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabbarFillColorIcon.png; path = resources/TabbarFillColorIcon.png; sourceTree = "<group>"; };
+		C557D9A316FA921A00FCB857 /* TabbarFillColorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TabbarFillColorIcon@2x.png"; path = "resources/TabbarFillColorIcon@2x.png"; sourceTree = "<group>"; };
+		C557D9A416FA921A00FCB857 /* TabbarLineColorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabbarLineColorIcon.png; path = resources/TabbarLineColorIcon.png; sourceTree = "<group>"; };
+		C557D9A516FA921A00FCB857 /* TabbarLineColorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TabbarLineColorIcon@2x.png"; path = "resources/TabbarLineColorIcon@2x.png"; sourceTree = "<group>"; };
 		C56A2C8E14CFA1CB00B5F763 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grey.png; path = resources/grey.png; sourceTree = "<group>"; };
 		C56A2C9014CFA77F00B5F763 /* sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sky.png; path = resources/sky.png; sourceTree = "<group>"; };
 		C56A2C9114CFA77F00B5F763 /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = space.png; path = resources/space.png; sourceTree = "<group>"; };
@@ -438,6 +446,10 @@
 		C5914AFD14C9FB6000856F57 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */,
+				C557D9A316FA921A00FCB857 /* TabbarFillColorIcon@2x.png */,
+				C557D9A416FA921A00FCB857 /* TabbarLineColorIcon.png */,
+				C557D9A516FA921A00FCB857 /* TabbarLineColorIcon@2x.png */,
 				C53AF0F316C2C43400FA5142 /* linen-fine.jpg */,
 				C525B14B14FBFA2F00A0986B /* FractalSymbolsDark */,
 				C525B14914FBFA1600A0986B /* FractalSymbolsWhite */,
@@ -720,6 +732,10 @@
 				C53AF0F416C2C43400FA5142 /* linen-fine.jpg in Resources */,
 				C579625E16DC3E1200A8BCDC /* Root.plist in Resources */,
 				C5A3EA7416E8194100D19155 /* Default-568h@2x.png in Resources */,
+				C557D9A616FA921A00FCB857 /* TabbarFillColorIcon.png in Resources */,
+				C557D9A716FA921A00FCB857 /* TabbarFillColorIcon@2x.png in Resources */,
+				C557D9A816FA921A00FCB857 /* TabbarLineColorIcon.png in Resources */,
+				C557D9A916FA921A00FCB857 /* TabbarLineColorIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

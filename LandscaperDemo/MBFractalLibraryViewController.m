@@ -142,6 +142,10 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     cell.imageView.highlightedImage = cell.imageView.image;
     cell.selectedBackgroundView = [MBColorCellSelectBackgroundView new];
     
+    if (self.fractal == managedObject) {
+        cell.selected = YES;
+    }
+    
     return cell;
 }
 
@@ -283,6 +287,11 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self initControls];
+}
+-(void)viewDidAppear:(BOOL)animated {
+    NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.fractal];
+    [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
+
 }
 - (void)viewDidUnload
 {

@@ -34,24 +34,44 @@
 //        CGColorRelease(colorCopy);
 //        self.layer.borderWidth = 1.0;
         
-        MBColorCellBackgroundView *backgroundView = [[MBColorCellBackgroundView alloc] initWithFrame:CGRectZero];
+//        MBColorCellBackgroundView *backgroundView = [[MBColorCellBackgroundView alloc] initWithFrame:CGRectZero];
         MBColorCellSelectBackgroundView *selectBackgroundView = [[MBColorCellSelectBackgroundView alloc] initWithFrame:CGRectZero];
-        self.backgroundView = backgroundView;
+//        self.backgroundView = backgroundView;
         self.selectedBackgroundView = selectBackgroundView;
     }
     return self;
 }
-
+-(void)setImageFrame:(UIView *)imageFrame {
+    if (_imageFrame != imageFrame) {
+        _imageFrame = imageFrame;
+        
+        CALayer* layer = _imageFrame.layer;
+        layer.cornerRadius = 5.0;
+        layer.masksToBounds = NO;
+        UIColor* border = [UIColor clearColor];
+        CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
+        layer.borderColor = colorCopy;
+        CGColorRelease(colorCopy);
+        layer.borderWidth = 1.0;
+        layer.shadowOpacity = 0.75;
+        layer.shadowRadius = 1;
+        layer.shadowOffset = CGSizeMake(0,2);
+        layer.backgroundColor = [[UIColor lightTextColor] CGColor];
+    }
+}
 -(void)setImageView:(UIImageView *)imageView {
     if (_imageView != imageView) {
         _imageView = imageView;
         _imageView.layer.cornerRadius = 5.0;
         _imageView.layer.masksToBounds = YES;
-        UIColor* border = [UIColor grayColor];
-        CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
-        _imageView.layer.borderColor = colorCopy;
-        CGColorRelease(colorCopy);
-        _imageView.layer.borderWidth = 1.0;
+        
+//        _imageView.layer.shadowOpacity = 0.5;
+//        _imageView.layer.shadowOffset = CGSizeMake(0, 2);
+//        UIColor* border = [UIColor grayColor];
+//        CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
+//        _imageView.layer.borderColor = colorCopy;
+//        CGColorRelease(colorCopy);
+//        _imageView.layer.borderWidth = 1.0;
     }
 }
 /*

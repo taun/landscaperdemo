@@ -18,15 +18,15 @@
         // Initialization code
         self.layer.cornerRadius = 5.0;
         self.layer.masksToBounds = NO;
-        UIColor* border = [UIColor grayColor];
+        UIColor* border = [UIColor clearColor];
         CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
         self.layer.borderColor = colorCopy;
         CGColorRelease(colorCopy);
         self.layer.borderWidth = 1.0;
         self.layer.shadowOpacity = 0.75;
         self.layer.shadowRadius = 1;
-        self.layer.shadowOffset = CGSizeMake(2,2);
-        self.layer.backgroundColor = [[UIColor grayColor] CGColor];
+        self.layer.shadowOffset = CGSizeMake(0,2);
+        self.layer.backgroundColor = [[UIColor whiteColor] CGColor];
     }
     return self;
 }

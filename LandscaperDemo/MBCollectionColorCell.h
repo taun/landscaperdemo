@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MBCollectionColorCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIView         *imageFrame;
 @property (weak, nonatomic) IBOutlet UIImageView    *imageView;
 @end
