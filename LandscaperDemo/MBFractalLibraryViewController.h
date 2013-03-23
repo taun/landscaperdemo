@@ -14,9 +14,12 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *fractalCollectionView;
 
-/* if set, make the initial selection in the collection */
+/* if set, make the initial selection in the collection.
+ There must always be a fractal or there is no managedObjectContext. */
 @property (weak, nonatomic) LSFractal                   *fractal;
+
 @property (nonatomic,weak) NSUndoManager                *fractalUndoManager;
+
 /* internally set to the current selection */
 @property (strong, nonatomic) LSFractal                 *selectedFractal;
 

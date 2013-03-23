@@ -23,6 +23,11 @@
 @interface LSFractalGenerator () {
     double _maxLineWidth;
 }
+@property (nonatomic,strong) NSManagedObjectID      *fractalID;
+@property (nonatomic,strong) NSManagedObjectContext *parentObjectContext;
+@property (nonatomic,strong) NSManagedObjectContext *privateObjectContext;
+@property (nonatomic,strong) NSManagedObject        *privateFractal;
+
 @property (nonatomic,strong) NSMutableString*       production;
 @property (nonatomic,assign) BOOL                   productNeedsGenerating;
 @property (nonatomic,assign) BOOL                   pathNeedsGenerating;
@@ -31,9 +36,11 @@
 @property (nonatomic,strong) NSMutableArray*        segmentStack;
 
 @property (nonatomic,assign) CGRect                 bounds;
-@property (nonatomic,strong) NSMutableDictionary*  cachedDrawingRules;
+@property (nonatomic,strong) NSMutableDictionary*   cachedDrawingRules;
 
 @property (nonatomic,strong) MBFractalSegment*      currentSegment;
+
+@property (nonatomic,strong) UIImage*               cachedImage;
 
 -(void) addSegment: (MBFractalSegment*) segment;
 -(void) pushSegment;
@@ -97,10 +104,12 @@
 }
 
 - (void) dealloc {
+    // removes observer
     self.fractal = nil;
 }
 
 #pragma mark - Fractal Property KVO
+/* If fractal is not save, below will return nil for privateFractal. What to do? */
 -(void) setFractal:(LSFractal *)fractal {
     if (_fractal != fractal) {
         
@@ -108,11 +117,16 @@
         
         _fractal = fractal;
         
+        self.fractalID = _fractal.objectID;
+        self.privateObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
+        self.privateObjectContext.parentContext = _fractal.managedObjectContext;
+        self.privateFractal = [self.privateObjectContext objectWithID: self.fractalID];
+        
         [self addObserverForFractal: fractal];
         [self productionRuleChanged];
     }
 }
-
+/* will this cause threading problems? */
 -(void) addObserverForFractal:(LSFractal *)fractal {
     if (fractal) {
         NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
@@ -166,7 +180,39 @@
             boundsDescription,
             self.production];
 }
-
+-(UIImage*) generateImageSize:(CGSize)size withBackground:(UIColor*)uiColor {
+    if ([self productNeedsGenerating] || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+        
+        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        NSAssert(context, @"NULL Context being used. Context must be non-null.");
+        
+        CGContextSaveGState(context);
+        UIColor* thumbNailBackground = [UIColor colorWithCGColor: uiColor.CGColor];
+        [thumbNailBackground setFill];
+        CGContextFillRect(context, viewRect);
+        CGContextRestoreGState(context);
+        
+        [self drawInBounds: viewRect
+               withContext: context
+                   flipped: NO];
+        
+        UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        self.cachedImage = thumbnail;
+    }
+    return self.cachedImage;
+}
+-(BOOL)hasImageSize:(CGSize)size {
+    BOOL status = YES;
+    if ([self productNeedsGenerating] || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
+        status = NO;
+    }
+    return status;
+}
 -(void) drawInBounds:(CGRect)bounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
     
     if (self.productNeedsGenerating) {
@@ -257,9 +303,17 @@
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
 //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
-        BOOL eoFill = [self.fractal.eoFill boolValue];
-        CGContextSetLineCap(theContext, [self.fractal.lineCap intValue]);
-        CGContextSetLineJoin(theContext, [self.fractal.lineJoin intValue]);
+        __block BOOL eoFill;
+        __block CGLineCap lineCap;
+        __block CGLineJoin lineJoin;
+        
+        LSFractal* fractal = (LSFractal*)self.fractal;
+        eoFill = [fractal.eoFill boolValue];
+        lineCap = [fractal.lineCap intValue];
+        lineJoin = [fractal.lineJoin intValue];
+        
+        CGContextSetLineCap(theContext,lineCap);
+        CGContextSetLineJoin(theContext, lineJoin);
         CGContextSetLineWidth(theContext, segment.lineWidth);
         
         CGContextAddPath(theContext, segment.path);
@@ -354,6 +408,7 @@
 
 -(void) clearCache {
     self.cachedDrawingRules = nil;
+    self.cachedImage = nil;
 }
 
 -(CGRect) bounds {

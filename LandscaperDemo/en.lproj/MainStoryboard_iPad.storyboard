@@ -943,9 +943,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="154" height="262"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
+                                        <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
                                             <subviews>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="zensand.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
+                                                <imageView opaque="NO" autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="zensand.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="130" id="WGd-Uc-raF"/>
@@ -1173,7 +1173,6 @@
                 <relationship kind="action" name="rotateTurningAngle:" candidateClass="UIRotationGestureRecognizer"/>
                 <relationship kind="action" name="scaleFractal:" candidateClass="UIPinchGestureRecognizer"/>
                 <relationship kind="action" name="swipeFractal:" candidateClass="UISwipeGestureRecognizer"/>
-                <relationship kind="action" name="toggleAutoScale:"/>
                 <relationship kind="action" name="toggleFullScreen:"/>
                 <relationship kind="action" name="twoFingerPanFractal:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="undoEdit:"/>

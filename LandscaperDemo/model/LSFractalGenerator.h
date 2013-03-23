@@ -132,6 +132,9 @@
  
  Need an LSFractal controller which intermediates between view and model.
  Gets context from view and segments from LSFractalGenerator?
+ 
+ Internally, the generator uses a private queue for the fractal context.
+ This should avoid problems where generator operations are performed on separate threads by callers.
  */
 @interface LSFractalGenerator : NSObject
 
@@ -173,6 +176,9 @@
 -(void) setInitialTransform: (CGAffineTransform) transform;
 
 -(void) drawInBounds: (CGRect) bounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
+
+-(UIImage*)generateImageSize: (CGSize)size withBackground: (UIColor*)uiColor;
+-(BOOL)hasImageSize: (CGSize) size;
 
 #pragma mark - layer delegate
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext;

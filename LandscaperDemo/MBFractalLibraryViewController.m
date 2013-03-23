@@ -26,8 +26,12 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 
 @property (nonatomic, strong) NSFetchedResultsController*   fetchedResultsController;
 
--(NSManagedObjectContext*)         appManagedObjectContext;
+@property (nonatomic,strong) NSMutableDictionary*           fractalToThumbnailGenerators;
+@property (nonatomic,strong) NSOperationQueue*              privateQueue;
+@property (nonatomic,strong) NSMutableDictionary*           fractalToGeneratorOperations;
+
 -(void) initControls;
+-(UIImage*) placeHolderImageSized: (CGSize)size background: (UIColor*) color;
 
 @end
 
@@ -41,23 +45,32 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 }
 
 #pragma mark - custom getters -
-
--(NSManagedObjectContext*) appManagedObjectContext {
-    
-    UIApplication* app = [UIApplication sharedApplication];
-    MBAppDelegate* appDelegate = [app delegate];
-    NSManagedObjectContext* appContext = appDelegate.managedObjectContext;
-    
-    return appContext;
+-(NSMutableDictionary*) fractalToThumbnailGenerators {
+    if (!_fractalToThumbnailGenerators) {
+        _fractalToThumbnailGenerators = [NSMutableDictionary new];
+    }
+    return _fractalToThumbnailGenerators;
+}
+-(NSMutableDictionary*) fractalToGeneratorOperations {
+    if (!_fractalToGeneratorOperations) {
+        _fractalToGeneratorOperations = [NSMutableDictionary new];
+    }
+    return _fractalToGeneratorOperations;
+}
+-(NSOperationQueue*) privateQueue {
+    if (!_privateQueue) {
+        _privateQueue = [[NSOperationQueue alloc] init];
+    }
+    return _privateQueue;
 }
 
 -(NSFetchedResultsController*) fetchedResultsController {
     if (_fetchedResultsController == nil) {
         // instantiate
-        NSManagedObjectContext* appContext = [self appManagedObjectContext];
+        NSManagedObjectContext* fractalContext = self.fractal.managedObjectContext;
         
         NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription* entity = [NSEntityDescription entityForName: @"LSFractal" inManagedObjectContext:appContext];
+        NSEntityDescription* entity = [NSEntityDescription entityForName: @"LSFractal" inManagedObjectContext: fractalContext];
         [fetchRequest setEntity: entity];
         [fetchRequest setFetchBatchSize: 20];
         NSSortDescriptor* nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"name" ascending: YES];
@@ -65,7 +78,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
         NSArray* sortDescriptors = @[catSortDescriptor, nameSortDescriptor];
         [fetchRequest setSortDescriptors: sortDescriptors];
         
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: @"category" cacheName: @"root"];
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: fractalContext sectionNameKeyPath: @"category" cacheName: @"root"];
 
         _fetchedResultsController.delegate = self;
         
@@ -96,33 +109,34 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     return [sectionInfo numberOfObjects];
 }
 
--(UIImage*) thumbnailForFractal: (NSManagedObject*) mObject size: (CGSize) size {
-    UIImage* thumbnail;
-    if ([mObject isKindOfClass: [LSFractal class]]) {
-        //
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-        LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
-        generator.fractal = (LSFractal*) mObject;
+//-(UIImage*) thumbnailForFractal: (NSManagedObject*) mObject size: (CGSize) size {
+//    UIImage* thumbnail;
+//    if ([mObject isKindOfClass: [LSFractal class]]) {
+//        //
+//        LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
+//        generator.fractal = (LSFractal*) mObject;
+//        
+//        UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
+//        
+//        thumbnail = [generator generateImageSize: size withBackground: thumbNailBackground.CGColor];
+//    }
+//    return thumbnail;
+//}
+-(UIImage*) placeHolderImageSized: (CGSize)size background: (UIColor*) uiColor {
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    
+    CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSaveGState(context);
+    [uiColor setFill];
+    CGContextFillRect(context, viewRect);
+    CGContextRestoreGState(context);
         
-        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        CGContextSaveGState(context);
-        UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
-        [thumbNailBackground setFill];
-        CGContextFillRect(context, viewRect);
-        CGContextRestoreGState(context);
-        
-        [generator drawInBounds: viewRect
-                    withContext: context
-                        flipped: NO];
-        
-        thumbnail = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
+    UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     return thumbnail;
 }
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"FractalLibraryListCell";
@@ -135,11 +149,71 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 
     
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSManagedObjectID* objectID = managedObject.objectID;
+    
+    NSAssert(objectID, @"Fractal objectID should not be nil. Maybe it wasn't saved?");
+    
     // Configure the cell with data from the managed object.
     cell.textLabel.text = [managedObject valueForKey: @"name"];
     cell.detailTextLabel.text = [managedObject valueForKey: @"descriptor"];
-    cell.imageView.image = [self thumbnailForFractal: managedObject size: cell.bounds.size];
-    cell.imageView.highlightedImage = cell.imageView.image;
+    
+    LSFractalGenerator* generator = [self.fractalToThumbnailGenerators objectForKey: managedObject.objectID];
+    
+    CGSize thumbnailSize = [cell.imageView systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
+
+    [cell.imageView sizeToFit];
+    thumbnailSize = cell.imageView.bounds.size;
+    thumbnailSize = [cell.imageView sizeThatFits: cell.bounds.size];
+
+    CGSize imageFrameSize = [cell.imageFrame systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
+    [cell.imageFrame sizeToFit];
+    imageFrameSize = cell.imageFrame.bounds.size;
+    
+    UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
+    
+    if ([generator hasImageSize: thumbnailSize]) {
+        cell.imageView.image = [generator generateImageSize: thumbnailSize withBackground: thumbNailBackground];
+    } else {
+        if (!generator) {
+            // No generator yet
+            generator = [[LSFractalGenerator alloc] init];
+            generator.fractal = (LSFractal*) managedObject;
+            [self.fractalToThumbnailGenerators setObject: generator forKey: objectID];
+        }
+            
+        NSOperation* operation = [self.fractalToGeneratorOperations objectForKey: objectID];
+        
+        // if the operation exists and is finished
+        //      remove and queue a new operation
+        // if the operation exists and is not finished
+        //      let finish
+        // if no operation exists
+        //      queue new operation
+        
+        if (operation && operation.isFinished) {
+            [self.fractalToGeneratorOperations removeObjectForKey: objectID];
+            operation = nil;
+        }
+        
+        if (!operation) {
+            operation = [NSBlockOperation blockOperationWithBlock:^{
+                //code
+                UIImage* fractalImage = [generator generateImageSize: thumbnailSize withBackground: thumbNailBackground];
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    //code
+                    [[(MBCollectionFractalCell*)[collectionView cellForItemAtIndexPath: indexPath] imageView] setImage: fractalImage];
+                }];
+            }];
+            [self.fractalToGeneratorOperations setObject: operation forKey: objectID];
+            [self.privateQueue addOperation: operation];
+        }
+    
+        cell.imageView.image = [self placeHolderImageSized: thumbnailSize background: thumbNailBackground];
+    }
+    
+//    cell.imageView.highlightedImage = cell.imageView.image;
+    
     cell.selectedBackgroundView = [MBColorCellSelectBackgroundView new];
     
     if (self.fractal == managedObject) {
@@ -209,7 +283,16 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     NSLog(@"Selected item: %@", indexPath);
 }
-
+-(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSManagedObjectID* objectID = managedObject.objectID;
+    
+//    NSOperation* operation = [self.fractalToGeneratorOperations objectForKey: objectID];
+//    if (operation) {
+//        [operation cancel];
+//        [self.fractalToGeneratorOperations removeObjectForKey: objectID];
+//    }
+}
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: @"FractalEditorSegue"]) {
@@ -292,6 +375,10 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.fractal];
     [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
 
+}
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear: animated];
+    [_privateQueue cancelAllOperations];
 }
 - (void)viewDidUnload
 {
