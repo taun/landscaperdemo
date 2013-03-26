@@ -126,6 +126,11 @@
     cell.imageView.image = [self thumbnailForColor: managedObject size: cell.bounds.size];
     cell.imageView.highlightedImage = cell.imageView.image;
     
+    MBColor* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
+    if (currentColor == managedObject) {
+        cell.selected = YES;
+    }
+    
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
@@ -133,7 +138,6 @@
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.fractal setValue: (MBColor*)managedObject forKey: [[self class] fractalPropertyKeypath]];
     [collectionView selectItemAtIndexPath: indexPath animated: YES scrollPosition:UICollectionViewScrollPositionNone] ;
-    NSLog(@"Selected item: %@;", indexPath);
 }
 
 
@@ -142,7 +146,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
-
+-(void)viewDidAppear:(BOOL)animated {
+    NSManagedObject* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
+    NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: currentColor];
+    
+    [self.colorCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

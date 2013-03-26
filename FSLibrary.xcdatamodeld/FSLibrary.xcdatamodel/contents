@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="LSDrawingRule" representedClassName="LSDrawingRule" syncable="YES">
         <attribute name="drawingMethodString" attributeType="String" syncable="YES"/>
         <attribute name="productionString" attributeType="String" syncable="YES"/>
@@ -71,6 +71,7 @@
         <relationship name="fractalScapes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFractalScape" inverseName="background" inverseEntity="MBFractalScape" syncable="YES"/>
     </entity>
     <fetchRequest name="DrawingRulesOfType" entity="LSDrawingRuleType" predicateString="identifier CONTAINS &quot;$DRULETYPE&quot;"/>
+    <fetchRequest name="MBColorWithIdentifier" entity="MBColor" predicateString="identifier == $MBIDENTIFIER"/>
     <elements>
         <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="105"/>
         <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="120"/>

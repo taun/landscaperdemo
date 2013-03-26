@@ -195,9 +195,13 @@
 			<key>axiom</key>
 			<string>F</string>
 			<key>fill</key>
-			<false/>
+			<true/>
+			<key>fillColorFromIdentifier</key>
+			<string>white75p</string>
 			<key>stroke</key>
 			<true/>
+			<key>lineColorFromIdentifier</key>
+			<string>white25p</string>
 			<key>level</key>
 			<integer>4</integer>
 			<key>lineLength</key>
@@ -379,6 +383,8 @@
 			<false/>
 			<key>stroke</key>
 			<true/>
+			<key>lineColorFromIdentifier</key>
+			<string>green</string>
 			<key>level</key>
 			<integer>4</integer>
 			<key>lineLength</key>
@@ -498,6 +504,8 @@
 			<false/>
 			<key>stroke</key>
 			<true/>
+			<key>lineColorFromIdentifier</key>
+			<string>green</string>
 			<key>level</key>
 			<integer>4</integer>
 			<key>lineLength</key>
@@ -574,6 +582,8 @@
 			<false/>
 			<key>stroke</key>
 			<true/>
+			<key>lineColorFromIdentifier</key>
+			<string>white50p</string>
 			<key>level</key>
 			<integer>4</integer>
 			<key>lineLength</key>
@@ -706,6 +716,54 @@
 	</array>
 	<key>InitialColors</key>
 	<array>
+		<dict>
+			<key>name</key>
+			<string>White 75%</string>
+			<key>identifier</key>
+			<string>white75p</string>
+			<key>red</key>
+			<real>0.75</real>
+			<key>green</key>
+			<real>0.75</real>
+			<key>blue</key>
+			<real>0.75</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>White 25%</string>
+			<key>identifier</key>
+			<string>white25p</string>
+			<key>red</key>
+			<real>0.25</real>
+			<key>green</key>
+			<real>0.25</real>
+			<key>blue</key>
+			<real>0.25</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>White 50%</string>
+			<key>identifier</key>
+			<string>white50p</string>
+			<key>red</key>
+			<real>0.5</real>
+			<key>green</key>
+			<real>0.5</real>
+			<key>blue</key>
+			<real>0.5</real>
+			<key>alpha</key>
+			<integer>1</integer>
+			<key>imagePath</key>
+			<string></string>
+		</dict>
 		<dict>
 			<key>name</key>
 			<string>Bulging</string>

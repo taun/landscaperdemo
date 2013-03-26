@@ -160,14 +160,6 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     LSFractalGenerator* generator = [self.fractalToThumbnailGenerators objectForKey: managedObject.objectID];
     
     CGSize thumbnailSize = [cell.imageView systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
-
-    [cell.imageView sizeToFit];
-    thumbnailSize = cell.imageView.bounds.size;
-    thumbnailSize = [cell.imageView sizeThatFits: cell.bounds.size];
-
-    CGSize imageFrameSize = [cell.imageFrame systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
-    [cell.imageFrame sizeToFit];
-    imageFrameSize = cell.imageFrame.bounds.size;
     
     UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
     
@@ -287,11 +279,11 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSManagedObjectID* objectID = managedObject.objectID;
     
-//    NSOperation* operation = [self.fractalToGeneratorOperations objectForKey: objectID];
-//    if (operation) {
-//        [operation cancel];
-//        [self.fractalToGeneratorOperations removeObjectForKey: objectID];
-//    }
+    NSOperation* operation = [self.fractalToGeneratorOperations objectForKey: objectID];
+    if (operation) {
+        [operation cancel];
+        [self.fractalToGeneratorOperations removeObjectForKey: objectID];
+    }
 }
 #pragma mark - Seque Handling -
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -374,7 +366,6 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 -(void)viewDidAppear:(BOOL)animated {
     NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.fractal];
     [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
-
 }
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear: animated];

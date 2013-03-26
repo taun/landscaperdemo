@@ -106,10 +106,19 @@
     return fractalCopy;
 }
 
+-(void) setLineColorFromIdentifier:(NSString *)colorIdentifier {
+    MBColor* mbColor = [MBColor findMBColorWithIdentifier: colorIdentifier inContext: self.managedObjectContext];
+    self.lineColor = mbColor;
+}
+-(void) setFillColorFromIdentifier:(NSString *)colorIdentifier {
+    MBColor* mbColor = [MBColor findMBColorWithIdentifier: colorIdentifier inContext: self.managedObjectContext];
+    self.fillColor = mbColor;
+}
+
 -(UIColor*) lineColorAsUI {
     UIColor* result = nil;
     if (self.lineColor == nil) {
-        result = [MBColor defaultUIColor];
+        result = [MBColor newDefaultUIColor];
     } else {
         result = [self.lineColor asUIColor];
     }
@@ -119,7 +128,7 @@
 -(UIColor*) fillColorAsUI {
     UIColor* result = nil;
     if (self.fillColor == nil) {
-        result = [MBColor defaultUIColor];
+        result = [MBColor newDefaultUIColor];
     } else {
         result = [self.fillColor asUIColor];
     }

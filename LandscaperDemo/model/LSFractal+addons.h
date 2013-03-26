@@ -23,6 +23,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 +(NSSet*) productionRuleProperties;
 +(NSSet*) appearanceProperties;
 
+-(void) setLineColorFromIdentifier: (NSString*) colorIdentifier;
+-(void) setFillColorFromIdentifier: (NSString*) colorIdentifier;
 
 -(UIColor*) lineColorAsUI;
 -(UIColor*) fillColorAsUI;

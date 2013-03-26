@@ -7,11 +7,11 @@
 //
 
 #import "MBAppDelegate.h"
-#import "LSFractal.h"
+#import "LSFractal+addons.h"
 #import "LSReplacementRule.h"
 #import "LSDrawingRuleType.h"
 #import "LSDrawingRule.h"
-#import "MBColor.h"
+#import "MBColor+addons.h"
 
 #import "MBLSFractalEditViewController.h"
 
@@ -133,6 +133,7 @@
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     [self addDefaultColors];
+    [self saveContext]; // save colors for access by addDefaultLSFractals...
     LSFractal* selectedFractal = [self addDefaultLSFractals];
     [self saveContext];
     

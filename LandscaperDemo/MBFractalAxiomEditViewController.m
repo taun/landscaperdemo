@@ -24,6 +24,7 @@
 @property (weak, nonatomic) UITextField             *activeTextField;
 @property (nonatomic, readwrite) NSArray            *sortedReplacementRulesArray;
 
+@property (nonatomic,strong) NSArray                *tableSections;
 
 -(void) addReplacementRulesObserverFor: (LSFractal*)fractal;
 -(void) removeReplacementRulesObserverFor: (LSFractal*)fractal;
@@ -73,6 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableSections = [NSArray arrayWithObjects:@"Name", @"Category", @"Description", @"Axiom", @"Rules", nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -261,43 +263,24 @@
 }
 
 #pragma mark - table delegate & source
-enum TableSection {
-    SectionAxiom=0,
-    SectionRules,
-    SectionAppearance
-};
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return [self.tableSections count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString* sectionHeader = nil;
-    
-    if (section == SectionAxiom) {
-        // axiom
-        sectionHeader = @"Axiom";
         
-    } else  if (section == SectionRules) {
-        // rules
-        sectionHeader = @"Rules";
-    }
+    sectionHeader = [self.tableSections objectAtIndex: section];
     
     return sectionHeader;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger rows = 0;
+    NSInteger rows = 1;
     
-    if (section == SectionAxiom) {
-        // axiom
-        rows = 1;
-        
-    } else  if (section == SectionRules) {
+    if (section == ([self.tableSections count] -1)) {
         // rules
         rows = [self.sortedReplacementRulesArray count];
-        
     }
     return rows;
 }
@@ -309,7 +292,13 @@ enum TableSection {
     static NSString *RuleCellIdentifier = @"MBLSRuleCell";
     static NSString *AxiomCellIdentifier = @"MBLSAxiomCell";
     
-    if (indexPath.section == SectionAxiom) {
+    if (indexPath.section == 0) {
+        // name
+    } else if (indexPath.section == 1) {
+        // category
+    } else if (indexPath.section == 2) {
+        // description
+    } else if (indexPath.section == 3) {
         // axiom
         
         MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
@@ -327,7 +316,7 @@ enum TableSection {
         
         cell = ruleCell;
         
-    } else if (indexPath.section == SectionRules) {
+    } else if (indexPath.section == 4) {
         // rules
         
         MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleCellIdentifier];
@@ -350,9 +339,7 @@ enum TableSection {
         cell = ruleCell;
         (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
         
-    } else if (indexPath.section == 2) {
-        // ?
-    }
+    } 
     
     return cell;
 }
