@@ -27,10 +27,10 @@
 
 
 @property (weak, nonatomic) IBOutlet UITableView  *fractalPropertiesTableView;
-@property (weak, nonatomic) IBOutlet UIView       *fractalPropertyTableHeaderView;
-@property (weak, nonatomic) IBOutlet UITextField  *fractalName;
-@property (weak, nonatomic) IBOutlet UITextField  *fractalCategory;
-@property (weak, nonatomic) IBOutlet UITextView   *fractalDescriptor;
+//@property (weak, nonatomic) IBOutlet UIView       *fractalPropertyTableHeaderView;
+//@property (weak, nonatomic) IBOutlet UITextField  *fractalName;
+//@property (weak, nonatomic) IBOutlet UITextField  *fractalCategory;
+//@property (weak, nonatomic) IBOutlet UITextView   *fractalDescriptor;
 
 #pragma mark - Production Fields
 @property (weak, nonatomic) IBOutlet UITextField                        *fractalAxiom;

@@ -74,7 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableSections = [NSArray arrayWithObjects:@"Name", @"Category", @"Description", @"Axiom", @"Rules", nil];
+    self.tableSections = [NSArray arrayWithObjects: @"Description", @"Axiom", @"Rules", nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -87,12 +87,13 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    self.fractalName.text = self.fractal.name;
-    self.fractalCategory.text = self.fractal.category;
-    self.fractalDescriptor.text = self.fractal.descriptor;
+//    self.fractalName.text = self.fractal.name;
+//    self.fractalCategory.text = self.fractal.category;
+//    self.fractalDescriptor.text = self.fractal.descriptor;
     
     self.fractalAxiom.inputView = self.fractalInputControl.view;
-    self.editing = YES;
+
+    [self setEditing: YES animated: NO];
 }
 -(void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -103,7 +104,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self.fractalPropertiesTableView setEditing:editing animated:YES];
+//    if (editing) {
+//        addButton.enabled = NO;
+//    } else {
+//        addButton.enabled = YES;
+//    }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,19 +122,8 @@
 }
 */
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+
+
 
 /*
 // Override to support rearranging the table view.
@@ -160,9 +158,9 @@
 
 // TODO: change to sendActionsFor...
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    if (textView == self.fractalDescriptor) {
-        self.fractal.descriptor = textView.text;
-    }
+//    if (textView == self.fractalDescriptor) {
+//        self.fractal.descriptor = textView.text;
+//    }
 }
 
 #pragma mark - TextField Delegate
@@ -277,8 +275,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows = 1;
-    
-    if (section == ([self.tableSections count] -1)) {
+    if (section==0) {
+        rows = 3;
+    } else if (section == ([self.tableSections count] -1)) {
         // rules
         rows = [self.sortedReplacementRulesArray count];
     }
@@ -289,16 +288,32 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
+    static NSString *NameCellIdentifier = @"NameCell";
+    static NSString *CategoryCellIdentifier = @"CategoryCell";
+    static NSString *DescriptionCellIdentifier = @"DescriptionCell";
     static NSString *RuleCellIdentifier = @"MBLSRuleCell";
     static NSString *AxiomCellIdentifier = @"MBLSAxiomCell";
     
     if (indexPath.section == 0) {
-        // name
-    } else if (indexPath.section == 1) {
-        // category
-    } else if (indexPath.section == 2) {
         // description
-    } else if (indexPath.section == 3) {
+        if (indexPath.row==0) {
+            //name
+            UITableViewCell *newCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
+            newCell.textLabel.text = @"Name:";
+            newCell.detailTextLabel.text = self.fractal.name;
+            cell = newCell;
+        } else if (indexPath.row==1) {
+            UITableViewCell *newCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier: CategoryCellIdentifier];
+            newCell.textLabel.text = @"Category:";
+            newCell.detailTextLabel.text = self.fractal.category;
+            cell = newCell;
+        } else if (indexPath.row==2) {
+            UITableViewCell *newCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier: DescriptionCellIdentifier];
+            newCell.textLabel.text = @"Details:";
+            newCell.detailTextLabel.text = self.fractal.descriptor;
+            cell = newCell;
+        }
+    } else if (indexPath.section == 1) {
         // axiom
         
         MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
@@ -316,7 +331,7 @@
         
         cell = ruleCell;
         
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 2) {
         // rules
         
         MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleCellIdentifier];
@@ -343,13 +358,35 @@
     
     return cell;
 }
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleNone;
+- (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
 }
-
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCellEditingStyle editingStyle = UITableViewCellEditingStyleNone;
+    
+    if (indexPath.section == 2) {
+        // Rules
+        if (indexPath.row == ([self.sortedReplacementRulesArray count] -1)) {
+            editingStyle = UITableViewCellEditingStyleInsert;
+        } else {
+            editingStyle = UITableViewCellEditingStyleDelete;
+        }
+    }
+    return editingStyle;
+}
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+}
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {

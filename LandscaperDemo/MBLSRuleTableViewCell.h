@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBXibAutolayoutTableCell.h"
 
 @protocol MBLSRuleTableViewCellDelegate <NSObject>
 
@@ -14,7 +15,7 @@
 
 @end
 
-@interface MBLSRuleTableViewCell : UITableViewCell
+@interface MBLSRuleTableViewCell : MBXibAutolayoutTableCell
 
 @property (nonatomic, weak) IBOutlet UITextField*       textLeft;
 @property (nonatomic, weak) IBOutlet UITextField*       textRight;

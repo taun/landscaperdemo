@@ -342,23 +342,103 @@
                 <tableViewController storyboardIdentifier="PropertiesPopover" title="Properties" modalPresentationStyle="pageSheet" id="VAi-2L-lOP" customClass="MBFractalAxiomEditViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dni-f2-BXO">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="408"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSAxiomCell" id="j6N-pe-Xi9" customClass="MBLSRuleTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="NameCell" textLabel="8Oj-ii-SD3" detailTextLabel="wge-C1-vy9" style="IBUITableViewCellStyleValue2" id="pNb-zV-lwG">
                                 <rect key="frame" x="0.0" y="34" width="400" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="1" width="380" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2yX-xy-vfw">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Oj-ii-SD3">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.32156862745098042" green="0.40000000000000002" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wge-C1-vy9">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration" label="Replacement Rule">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="CategoryCell" textLabel="NWh-ia-JTA" detailTextLabel="hbE-7I-xKL" style="IBUITableViewCellStyleValue2" id="cxC-EO-lQs">
+                                <rect key="frame" x="0.0" y="79" width="400" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="380" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWh-ia-JTA">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.32156862745098042" green="0.40000000000000002" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbE-7I-xKL">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration" label="Replacement Rule">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="DescriptionCell" textLabel="xbf-oF-ACY" detailTextLabel="LI5-vg-7Rc" style="IBUITableViewCellStyleValue2" id="h4a-eT-jsK">
+                                <rect key="frame" x="0.0" y="123" width="400" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="380" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbf-oF-ACY">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.32156862745098042" green="0.40000000000000002" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LI5-vg-7Rc">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration" label="Replacement Rule">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSAxiomCell" id="j6N-pe-Xi9" customClass="MBLSRuleTableViewCell">
+                                <rect key="frame" x="0.0" y="167" width="400" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="380" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="833" verticalCompressionResistancePriority="840" translatesAutoresizingMaskIntoConstraints="NO" id="75U-Lb-pSd" userLabel="embeddedView">
+                                            <subviews>
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="390" verticalHuggingPriority="406" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="791" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2yX-xy-vfw">
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
                                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="32" id="S3B-ay-5DN"/>
+                                                <constraint firstAttribute="bottom" secondItem="2yX-xy-vfw" secondAttribute="bottom" type="user" id="LW1-Dl-WpC"/>
+                                                <constraint firstAttribute="trailing" secondItem="2yX-xy-vfw" secondAttribute="trailing" type="user" id="MKA-8Z-mdY"/>
+                                                <constraint firstItem="2yX-xy-vfw" firstAttribute="leading" secondItem="75U-Lb-pSd" secondAttribute="leading" type="user" id="aGP-B9-IoW"/>
+                                                <constraint firstItem="2yX-xy-vfw" firstAttribute="top" secondItem="75U-Lb-pSd" secondAttribute="top" type="user" id="bVH-8e-NMu"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -366,34 +446,59 @@
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="2yX-xy-vfw" secondAttribute="trailing" constant="30" type="user" id="6qd-Lq-6MW"/>
-                                    <constraint firstItem="2yX-xy-vfw" firstAttribute="leading" secondItem="j6N-pe-Xi9" secondAttribute="leading" constant="30" type="user" id="dQP-OO-H1V"/>
-                                    <constraint firstItem="2yX-xy-vfw" firstAttribute="top" secondItem="j6N-pe-Xi9" secondAttribute="top" constant="7" id="hb4-g1-W59"/>
+                                    <constraint firstItem="75U-Lb-pSd" firstAttribute="top" secondItem="j6N-pe-Xi9" secondAttribute="top" type="user" id="1sW-uI-FaY"/>
+                                    <constraint firstAttribute="trailing" secondItem="75U-Lb-pSd" secondAttribute="trailing" constant="42" id="HqP-gb-UQQ"/>
+                                    <constraint firstItem="75U-Lb-pSd" firstAttribute="centerX" secondItem="j6N-pe-Xi9" secondAttribute="centerX" priority="765" type="user" id="I8k-Zb-bVA"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="75U-Lb-pSd" secondAttribute="trailing" priority="418" constant="31" type="user" id="QsQ-ef-GYW"/>
+                                    <constraint firstItem="75U-Lb-pSd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j6N-pe-Xi9" secondAttribute="leading" constant="31" type="user" id="WTW-tv-k1J"/>
+                                    <constraint firstAttribute="bottom" secondItem="75U-Lb-pSd" secondAttribute="bottom" constant="1" type="user" id="cFH-gm-S5h"/>
+                                    <constraint firstItem="75U-Lb-pSd" firstAttribute="leading" secondItem="j6N-pe-Xi9" secondAttribute="leading" constant="31" id="dEb-Si-1Xt"/>
+                                    <constraint firstItem="75U-Lb-pSd" firstAttribute="leading" secondItem="j6N-pe-Xi9" secondAttribute="leading" priority="581" constant="30" type="user" id="roz-ch-SYG"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="embeddedSubviews" destination="75U-Lb-pSd" id="2OC-Iw-zFg"/>
                                     <outlet property="textRight" destination="2yX-xy-vfw" id="NQI-CX-QeJ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleCell" id="T1O-Jv-pcU" customClass="MBLSRuleTableViewCell">
-                                <rect key="frame" x="0.0" y="79" width="400" height="45"/>
+                                <rect key="frame" x="0.0" y="211" width="400" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="380" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8tK-Nk-6ot">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8iX-TV-RaP" userLabel="embeddedView">
+                                            <subviews>
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="233" verticalCompressionResistancePriority="213" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8tK-Nk-6ot">
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="82" type="user" id="qXg-Rm-iBK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="413" verticalHuggingPriority="396" horizontalCompressionResistancePriority="45" verticalCompressionResistancePriority="46" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fUb-5c-svh">
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" priority="167" constant="233" type="user" id="8EI-bm-N7t"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="681" constant="200" type="user" id="Tt1-9W-d4J"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
                                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="63" type="user" id="qTJ-CW-E8f"/>
+                                                <constraint firstItem="fUb-5c-svh" firstAttribute="top" secondItem="8iX-TV-RaP" secondAttribute="top" type="user" id="71m-ct-AlZ"/>
+                                                <constraint firstItem="8tK-Nk-6ot" firstAttribute="top" secondItem="8iX-TV-RaP" secondAttribute="top" type="user" id="IpU-p0-2fi"/>
+                                                <constraint firstAttribute="bottom" secondItem="8tK-Nk-6ot" secondAttribute="bottom" constant="1" type="user" id="MPx-mD-z81"/>
+                                                <constraint firstAttribute="trailing" secondItem="fUb-5c-svh" secondAttribute="trailing" priority="43" constant="20" symbolic="YES" type="user" id="gef-bb-JOO"/>
+                                                <constraint firstAttribute="bottom" secondItem="fUb-5c-svh" secondAttribute="bottom" constant="1" type="user" id="iRF-6d-mNX"/>
+                                                <constraint firstItem="fUb-5c-svh" firstAttribute="leading" secondItem="8tK-Nk-6ot" secondAttribute="trailing" constant="8" symbolic="YES" type="user" id="rph-cu-q3g"/>
+                                                <constraint firstItem="8tK-Nk-6ot" firstAttribute="leading" secondItem="8iX-TV-RaP" secondAttribute="leading" type="user" id="u25-zR-aHD"/>
+                                                <constraint firstAttribute="trailing" secondItem="fUb-5c-svh" secondAttribute="trailing" priority="890" type="user" id="wlR-Mb-evE"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                        <textField clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fUb-5c-svh">
-                                            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -401,15 +506,13 @@
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                                 <constraints>
-                                    <constraint firstItem="8tK-Nk-6ot" firstAttribute="top" secondItem="fUb-5c-svh" secondAttribute="top" type="default" id="8EI-rX-ZDF"/>
-                                    <constraint firstItem="8tK-Nk-6ot" firstAttribute="leading" secondItem="T1O-Jv-pcU" secondAttribute="leading" constant="30" type="user" id="8zd-D5-a7R"/>
-                                    <constraint firstItem="fUb-5c-svh" firstAttribute="leading" secondItem="8tK-Nk-6ot" secondAttribute="trailing" constant="8" symbolic="YES" type="user" id="Jsb-Ax-qSx"/>
-                                    <constraint firstItem="8tK-Nk-6ot" firstAttribute="top" secondItem="T1O-Jv-pcU" secondAttribute="top" constant="6" type="user" id="Juc-zh-7Le"/>
-                                    <constraint firstAttribute="bottom" secondItem="8tK-Nk-6ot" secondAttribute="bottom" constant="6" type="user" id="KFl-Ru-cco"/>
-                                    <constraint firstItem="8tK-Nk-6ot" firstAttribute="bottom" secondItem="fUb-5c-svh" secondAttribute="bottom" type="default" id="NL3-kz-8YU"/>
-                                    <constraint firstAttribute="trailing" secondItem="fUb-5c-svh" secondAttribute="trailing" constant="30" type="user" id="sYo-Ks-Ewu"/>
+                                    <constraint firstAttribute="trailing" secondItem="8iX-TV-RaP" secondAttribute="trailing" priority="474" constant="20" type="user" id="BvE-a8-35E"/>
+                                    <constraint firstItem="8iX-TV-RaP" firstAttribute="top" secondItem="T1O-Jv-pcU" secondAttribute="top" constant="5" type="user" id="JAQ-pT-n5r"/>
+                                    <constraint firstItem="8iX-TV-RaP" firstAttribute="leading" secondItem="T1O-Jv-pcU" secondAttribute="leading" priority="489" constant="20" type="user" id="QzC-tl-Rkf"/>
+                                    <constraint firstAttribute="bottom" secondItem="8iX-TV-RaP" secondAttribute="bottom" constant="8" type="user" id="W3b-VQ-Kyc"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="embeddedSubviews" destination="8iX-TV-RaP" id="I1P-pQ-3cb"/>
                                     <outlet property="textLeft" destination="8tK-Nk-6ot" id="23m-FR-MKE"/>
                                     <outlet property="textRight" destination="fUb-5c-svh" id="vYI-Aw-QwX"/>
                                 </connections>
@@ -1069,12 +1172,8 @@
                 <relationship kind="action" name="axiomInputChanged:" candidateClass="UITextField"/>
                 <relationship kind="action" name="axiomInputEnded:" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="fractalAxiom" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="fractalCategory" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="fractalDescriptor" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="fractalInputControl" candidateClass="FractalDefinitionKeyboardView"/>
-                <relationship kind="outlet" name="fractalName" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="fractalPropertiesTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="fractalPropertyTableHeaderView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="MBFractalExamineView" superclassName="UIView">
@@ -1176,7 +1275,7 @@
                 <relationship kind="outlet" name="toolbarTitle" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="MBLSRuleTableViewCell" superclassName="UITableViewCell">
+        <class className="MBLSRuleTableViewCell" superclassName="MBXibAutolayoutTableCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBLSRuleTableViewCell.h"/>
             <relationships>
                 <relationship kind="action" name="textRightEditingEnded:"/>
@@ -1186,6 +1285,12 @@
         </class>
         <class className="MBPortalStyleView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBPortalStyleView.h"/>
+        </class>
+        <class className="MBXibAutolayoutTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBXibAutolayoutTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="embeddedSubviews" candidateClass="UIView"/>
+            </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
