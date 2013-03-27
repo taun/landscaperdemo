@@ -1164,7 +1164,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         self.currentSender = sender;
         controller.fractal = self.fractal;
         controller.fractalUndoManager = self.undoManager;
-        [self.popover setContentViewController: controller animated: NO];
+        [self.popover setContentViewController: controller animated: YES];
         
         [self.popover setPopoverContentSize: controller.contentSizeForViewInPopover animated: YES];
         self.popover.delegate = self;

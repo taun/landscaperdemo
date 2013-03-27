@@ -12,7 +12,8 @@
 #import "LSReplacementRule.h"
 
 #import "MBFractalPropertyTableHeaderView.h"
-
+#import "MBBasicLabelTextTableCell.h"
+#import "MBTextViewTableCell.h"
 
 @interface MBFractalAxiomEditViewController ()
 
@@ -90,7 +91,7 @@
 //    self.fractalName.text = self.fractal.name;
 //    self.fractalCategory.text = self.fractal.category;
 //    self.fractalDescriptor.text = self.fractal.descriptor;
-    
+    [self.tableView reloadData];
     self.fractalAxiom.inputView = self.fractalInputControl.view;
 
     [self setEditing: YES animated: NO];
@@ -298,19 +299,19 @@
         // description
         if (indexPath.row==0) {
             //name
-            UITableViewCell *newCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
+            MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
             newCell.textLabel.text = @"Name:";
-            newCell.detailTextLabel.text = self.fractal.name;
+            newCell.textField.text = self.fractal.name;
             cell = newCell;
         } else if (indexPath.row==1) {
-            UITableViewCell *newCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier: CategoryCellIdentifier];
+            MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: CategoryCellIdentifier];
             newCell.textLabel.text = @"Category:";
-            newCell.detailTextLabel.text = self.fractal.category;
+            newCell.textField.text = self.fractal.category;
             cell = newCell;
         } else if (indexPath.row==2) {
-            UITableViewCell *newCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier: DescriptionCellIdentifier];
-            newCell.textLabel.text = @"Details:";
-            newCell.detailTextLabel.text = self.fractal.descriptor;
+            MBTextViewTableCell *newCell = (MBTextViewTableCell *)[tableView dequeueReusableCellWithIdentifier: DescriptionCellIdentifier];
+//            newCell.textLabel.text = @"Description:";
+            newCell.textView.text = self.fractal.descriptor;
             cell = newCell;
         }
     } else if (indexPath.section == 1) {
@@ -357,6 +358,14 @@
     } 
     
     return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat rowHeight = tableView.rowHeight;
+    if (indexPath.section==0 && indexPath.row==2) {
+        // description cell
+        rowHeight = 91.0;
+    }
+    return rowHeight;
 }
 - (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
