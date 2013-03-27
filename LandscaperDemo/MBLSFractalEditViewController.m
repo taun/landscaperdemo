@@ -317,7 +317,7 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
         [self refreshValueInputs];
         [self refreshLayers];
-//    } else if ([[LSFractal lableProperties] containsObject: keyPath]) {
+//    } else if ([[LSFractal labelProperties] containsObject: keyPath]) {
 //        [self reloadLabels];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -635,7 +635,7 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 }
 -(void) addObserversForFractal:(LSFractal *)fractal {
     NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-    propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal lableProperties]];
+    propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
     for (NSString* keyPath in propertiesToObserve) {
         [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
     }
@@ -646,7 +646,7 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 }
 -(void) removeObserversForFractal:(LSFractal *)fractal {
     NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-    propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal lableProperties]];
+    propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
     for (NSString* keyPath in propertiesToObserve) {
         [fractal removeObserver: self forKeyPath: keyPath];
     }

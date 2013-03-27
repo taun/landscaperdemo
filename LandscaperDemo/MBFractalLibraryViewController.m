@@ -364,6 +364,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     [self initControls];
 }
 -(void)viewDidAppear:(BOOL)animated {
+//    [self.fractalCollectionView reloadData];
     NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.fractal];
     [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
 }

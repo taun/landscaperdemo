@@ -11,6 +11,45 @@
 
 @implementation LSFractal (addons)
 
++(NSArray*) allFractalsInContext: (NSManagedObjectContext *)context {
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LSFractal"
+                                              inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        // Handle the error.
+    }
+    return fetchedObjects;
+}
++(LSFractal*) findFractalWithName:(NSString *)fractalName inContext: (NSManagedObjectContext*) context{
+
+    LSFractal* node = nil;
+    
+    NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
+    
+    NSDictionary *substitutionDictionary =
+    [NSDictionary dictionaryWithObjectsAndKeys: fractalName, @"LSFRACTALNAME", nil];
+    
+    NSFetchRequest *fetchRequest =
+    [model fetchRequestFromTemplateWithName:@"LSFractalWithName"
+                      substitutionVariables:substitutionDictionary];
+    
+    NSArray *fetchedObjects;
+    fetchedObjects = [context executeFetchRequest:fetchRequest error: nil];
+    
+    // ToDo deal with error
+    // There should always be only one. Don't know what error to post if > 1
+    if ( ([fetchedObjects count] >= 1) ) {
+        node = [fetchedObjects objectAtIndex: 0];
+    }
+    
+    return node;
+}
+
 + (NSSet *)keysToBeCopied {
     static NSSet *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {
@@ -43,15 +82,15 @@
     return keysToBeCopied;
 }
 
-+(NSSet*) lableProperties {
-    static NSSet* lableProperties = nil;
-    if (lableProperties == nil) {
-        lableProperties = [[NSSet alloc] initWithObjects:
++(NSSet*) labelProperties {
+    static NSSet* labelProperties = nil;
+    if (labelProperties == nil) {
+        labelProperties = [[NSSet alloc] initWithObjects:
                                     @"name",
                                     @"descriptor", 
                                     nil];
     }
-    return lableProperties;
+    return labelProperties;
 }
 
 +(NSSet*) productionRuleProperties {

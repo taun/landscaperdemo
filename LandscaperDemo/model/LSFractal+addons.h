@@ -15,11 +15,14 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 @interface LSFractal (addons)
 
++(NSArray*) allFractalsInContext: (NSManagedObjectContext *)context;
++(LSFractal*) findFractalWithName:(NSString *)fractalIdentifier inContext: (NSManagedObjectContext*) context;
+
 /*!
  for cut and paste functionality
  */
 +(NSSet*) keysToBeCopied;
-+(NSSet*) lableProperties;
++(NSSet*) labelProperties;
 +(NSSet*) productionRuleProperties;
 +(NSSet*) appearanceProperties;
 

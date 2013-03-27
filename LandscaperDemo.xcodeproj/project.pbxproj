@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C509AF83170330A700025DF7 /* LSDrawingRule+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C509AF82170330A700025DF7 /* LSDrawingRule+addons.m */; };
 		C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
 		C51DF51E16E68DB700FBDB8A /* MBFractalStrokeColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF51D16E68DB700FBDB8A /* MBFractalStrokeColorViewController.m */; };
 		C51DF52116E68DEC00FBDB8A /* MBFractalFillColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52016E68DEC00FBDB8A /* MBFractalFillColorViewController.m */; };
@@ -147,6 +148,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C509AF81170330A700025DF7 /* LSDrawingRule+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSDrawingRule+addons.h"; path = "LandscaperDemo/LSDrawingRule+addons.h"; sourceTree = "<group>"; };
+		C509AF82170330A700025DF7 /* LSDrawingRule+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSDrawingRule+addons.m"; path = "LandscaperDemo/LSDrawingRule+addons.m"; sourceTree = "<group>"; };
 		C51215C414DA2E6F007ED367 /* LSFractal+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSFractal+addons.h"; path = "LandscaperDemo/model/LSFractal+addons.h"; sourceTree = "<group>"; };
 		C51215C514DA2E70007ED367 /* LSFractal+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSFractal+addons.m"; path = "LandscaperDemo/model/LSFractal+addons.m"; sourceTree = "<group>"; };
 		C51DF51C16E68DB700FBDB8A /* MBFractalStrokeColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFractalStrokeColorViewController.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				C51215C514DA2E70007ED367 /* LSFractal+addons.m */,
 				C540634014DADC6A00FBDEA4 /* MBColor+addons.h */,
 				C540634114DADC6A00FBDEA4 /* MBColor+addons.m */,
+				C509AF81170330A700025DF7 /* LSDrawingRule+addons.h */,
+				C509AF82170330A700025DF7 /* LSDrawingRule+addons.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -846,6 +851,7 @@
 				C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */,
 				C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */,
 				C5D99F55170277600025D5BB /* MBTextViewTableCell.m in Sources */,
+				C509AF83170330A700025DF7 /* LSDrawingRule+addons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

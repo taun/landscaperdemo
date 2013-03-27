@@ -181,7 +181,7 @@
             self.production];
 }
 -(UIImage*) generateImageSize:(CGSize)size withBackground:(UIColor*)uiColor {
-    if ([self productNeedsGenerating] || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
+    if (self.productNeedsGenerating || self.pathNeedsGenerating || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
         UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
         
         CGRect viewRect = CGRectMake(0, 0, size.width, size.height);

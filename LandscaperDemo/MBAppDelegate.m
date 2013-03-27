@@ -10,7 +10,7 @@
 #import "LSFractal+addons.h"
 #import "LSReplacementRule.h"
 #import "LSDrawingRuleType.h"
-#import "LSDrawingRule.h"
+#import "LSDrawingRule+addons.h"
 #import "MBColor+addons.h"
 
 #import "MBLSFractalEditViewController.h"
@@ -118,6 +118,8 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self saveContext];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -133,9 +135,7 @@
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     [self addDefaultColors];
-    [self saveContext]; // save colors for access by addDefaultLSFractals...
     LSFractal* selectedFractal = [self addDefaultLSFractals];
-    [self saveContext];
     
     // now we can free up the defaults dictionary
     self.lsFractalDefaults = nil;
@@ -150,6 +150,8 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self saveContext];
 }
 
 - (void)saveContext
@@ -233,15 +235,18 @@
         NSDictionary* rules = defaults[@"DrawingRules"];
         for (NSString* key in rules) {
             
-            LSDrawingRule *newDrawingRule = [NSEntityDescription
-                                                  insertNewObjectForEntityForName:@"LSDrawingRule"
-                                                  inManagedObjectContext: context];
-            newDrawingRule.type = defaultType;
-            newDrawingRule.productionString = key;
-            newDrawingRule.drawingMethodString = rules[key];
+            if ([LSDrawingRule findRuleWithType: @"default" productionString: key inContext: context] == nil) {
+                LSDrawingRule *newDrawingRule = [NSEntityDescription
+                                                 insertNewObjectForEntityForName:@"LSDrawingRule"
+                                                 inManagedObjectContext: context];
+                newDrawingRule.type = defaultType;
+                newDrawingRule.productionString = key;
+                newDrawingRule.drawingMethodString = rules[key];
+            }
 
         }
     }
+    [self saveContext]; 
     return defaultType;
 }
 
@@ -254,19 +259,25 @@
         NSArray* colorArray = defaults[@"InitialColors"];
         if ([colorArray isKindOfClass: [NSArray class]]) {
             for (NSDictionary* colorDict in colorArray) {
-                MBColor* newColor = [NSEntityDescription
-                                      insertNewObjectForEntityForName:@"MBColor"
-                                      inManagedObjectContext: context];
                 
-                
-                if ([colorDict isKindOfClass: [NSDictionary class]]) {
-                    for (id propertyKey in colorDict) {
-                        [newColor setValue: colorDict[propertyKey] forKey: propertyKey];
+                // only create new color if one with identifier doesn't already exist
+                NSString* identifier = [colorDict objectForKey: @"identifier"];
+                if ([MBColor findMBColorWithIdentifier: identifier inContext: context] == nil) {
+                    MBColor* newColor = [NSEntityDescription
+                                         insertNewObjectForEntityForName:@"MBColor"
+                                         inManagedObjectContext: context];
+                    
+                    
+                    if ([colorDict isKindOfClass: [NSDictionary class]]) {
+                        for (id propertyKey in colorDict) {
+                            [newColor setValue: colorDict[propertyKey] forKey: propertyKey];
+                        }
                     }
-                }
-            }
+                }                
+             }
         }
     }    
+    [self saveContext]; // save colors for access by addDefaultLSFractals...
 }
 
 //TODO: handle more than just the default drawing rules.
@@ -287,33 +298,39 @@
             for (id fractalDictionary in fractals) {
                 if ([fractalDictionary isKindOfClass: [NSDictionary class]]) {
                     // create the fractal
-                    LSFractal* fractal = [NSEntityDescription
-                                          insertNewObjectForEntityForName:@"LSFractal"
-                                          inManagedObjectContext: context];
                     
-                    fractal.drawingRulesType = defaultDrawingRuleType;
-                    lastFractal = fractal;
-                    
-                    for (id propertyKey in fractalDictionary) {
-                        id propertyValue = fractalDictionary[propertyKey];
+                    // only create new fractal if one with identifier doesn't already exist
+                    NSString* fractalName = [fractalDictionary objectForKey: @"name"];
+                    if ([LSFractal findFractalWithName: fractalName inContext: context] == nil) {
+                        LSFractal* fractal = [NSEntityDescription
+                                              insertNewObjectForEntityForName:@"LSFractal"
+                                              inManagedObjectContext: context];
                         
-                        if ([propertyValue isKindOfClass:[NSDictionary class]]) {
-                            // dictionary is replacement rules
-                            for (id replacementKey in propertyValue) {
-                                // create replacement rules and assign to fractal
-                                LSReplacementRule *newReplacementRule = [NSEntityDescription
-                                                                         insertNewObjectForEntityForName:@"LSReplacementRule"
-                                                                         inManagedObjectContext: context];
-                                
-                                newReplacementRule.contextString = replacementKey;
-                                newReplacementRule.replacementString = propertyValue[replacementKey];
-                                [fractal addReplacementRulesObject: newReplacementRule];
+                        fractal.drawingRulesType = defaultDrawingRuleType;
+                        lastFractal = fractal;
+                        
+                        for (id propertyKey in fractalDictionary) {
+                            id propertyValue = fractalDictionary[propertyKey];
+                            
+                            if ([propertyValue isKindOfClass:[NSDictionary class]]) {
+                                // dictionary is replacement rules
+                                for (id replacementKey in propertyValue) {
+                                    // create replacement rules and assign to fractal
+                                    LSReplacementRule *newReplacementRule = [NSEntityDescription
+                                                                             insertNewObjectForEntityForName:@"LSReplacementRule"
+                                                                             inManagedObjectContext: context];
+                                    
+                                    newReplacementRule.contextString = replacementKey;
+                                    newReplacementRule.replacementString = propertyValue[replacementKey];
+                                    [fractal addReplacementRulesObject: newReplacementRule];
+                                }
+                            } else {
+                                // all but dictionaries should be key value
+                                [fractal setValue: propertyValue forKey: propertyKey];
                             }
-                        } else {
-                            // all but dictionaries should be key value
-                            [fractal setValue: propertyValue forKey: propertyKey];
                         }
                     }
+                    
                 }
             }
         }
