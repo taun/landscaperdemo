@@ -26,7 +26,7 @@
 @property (nonatomic,strong) NSManagedObjectID      *fractalID;
 @property (nonatomic,strong) NSManagedObjectContext *parentObjectContext;
 @property (nonatomic,strong) NSManagedObjectContext *privateObjectContext;
-@property (nonatomic,strong) NSManagedObject        *privateFractal;
+@property (nonatomic,strong) LSFractal              *privateFractal;
 
 @property (nonatomic,strong) NSMutableString*       production;
 @property (nonatomic,assign) BOOL                   productNeedsGenerating;
@@ -120,37 +120,44 @@
         self.fractalID = _fractal.objectID;
         self.privateObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
         self.privateObjectContext.parentContext = _fractal.managedObjectContext;
-        self.privateFractal = [self.privateObjectContext objectWithID: self.fractalID];
-        
-        [self addObserverForFractal: fractal];
+
+        [self addObserverForFractal: _fractal];
         [self productionRuleChanged];
     }
 }
 /* will this cause threading problems? */
 -(void) addObserverForFractal:(LSFractal *)fractal {
     if (fractal) {
-        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-        
-        for (NSString* keyPath in propertiesToObserve) {
-            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
-        }
-        for (LSReplacementRule* rule in fractal.replacementRules) {
-            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
-        }
+        [fractal.managedObjectContext performBlock:^{
+            
+            NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+            
+            for (NSString* keyPath in propertiesToObserve) {
+                [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
+            }
+                        
+            for (LSReplacementRule* rule in fractal.replacementRules) {
+                NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+                [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+            }
+        }];
     }
 }
 -(void) removeObserverForFractal:(LSFractal *)fractal {
     if (fractal) {
-        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-        
-        for (NSString* keyPath in propertiesToObserve) {
-            [fractal removeObserver: self forKeyPath: keyPath];
-        }
-        for (LSReplacementRule* rule in fractal.replacementRules) {
-            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-            [rule removeObserver: self forKeyPath: keyPath];
-        }
+        [fractal.managedObjectContext performBlock:^{
+            
+            NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+            
+            for (NSString* keyPath in propertiesToObserve) {
+                [fractal removeObserver: self forKeyPath: keyPath];
+            }
+            
+            for (LSReplacementRule* rule in fractal.replacementRules) {
+                NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+                [rule removeObserver: self forKeyPath: keyPath];
+            }
+        }];
     }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -214,14 +221,28 @@
     return status;
 }
 -(void) drawInBounds:(CGRect)bounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
+
+    __block BOOL eoFill;
+    __block CGLineCap lineCap;
+    __block CGLineJoin lineJoin;
     
-    if (self.productNeedsGenerating) {
-        [self generateProduct];
-    }
-    if (self.pathNeedsGenerating) {
-        [self generatePaths];
-    }
-    
+    [self.privateObjectContext performBlockAndWait:^{
+        
+        self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
+        [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
+        
+        if (self.productNeedsGenerating) {
+            [self generateProduct];
+        }
+        if (self.pathNeedsGenerating) {
+            [self generatePaths];
+        }
+        
+        eoFill = [self.privateFractal.eoFill boolValue];
+        lineCap = [self.privateFractal.lineCap intValue];
+        lineJoin = [self.privateFractal.lineJoin intValue];
+   }];
+
     CGContextSaveGState(theContext);
     
     if (SHOWDEBUGBORDER) {
@@ -303,14 +324,6 @@
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
 //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
-        __block BOOL eoFill;
-        __block CGLineCap lineCap;
-        __block CGLineJoin lineJoin;
-        
-        LSFractal* fractal = (LSFractal*)self.fractal;
-        eoFill = [fractal.eoFill boolValue];
-        lineCap = [fractal.lineCap intValue];
-        lineJoin = [fractal.lineJoin intValue];
         
         CGContextSetLineCap(theContext,lineCap);
         CGContextSetLineJoin(theContext, lineJoin);
@@ -370,22 +383,28 @@
 //TODO: just reference the fractal in the segment?
 -(MBFractalSegment*) currentSegment {
     if (_currentSegment == nil) {
-        _currentSegment = [[MBFractalSegment alloc] init];
         
-        // Copy the fractal core data values to the segment
-        _currentSegment.lineColor = [self.fractal lineColorAsUI].CGColor;
-        
-        _currentSegment.fillColor = [self.fractal fillColorAsUI].CGColor;
-        _currentSegment.fill = [self.fractal.fill boolValue];
-        
-        _currentSegment.lineLength = [self.fractal lineLengthAsDouble];
-        _currentSegment.lineLengthScaleFactor = [self.fractal.lineLengthScaleFactor doubleValue];
-        _currentSegment.lineWidth = [self.fractal.lineWidth doubleValue];
-        _currentSegment.lineWidthIncrement = [self.fractal.lineWidthIncrement doubleValue];
-        _currentSegment.stroke = [self.fractal.stroke boolValue];
-        
-        _currentSegment.turningAngle = [self.fractal turningAngleAsDouble];
-        _currentSegment.turningAngleIncrement = [self.fractal.turningAngleIncrement doubleValue];
+            MBFractalSegment* newSegment;
+            
+            newSegment = [[MBFractalSegment alloc] init];
+            
+            // Copy the fractal core data values to the segment
+            newSegment.lineColor = [self.privateFractal lineColorAsUI].CGColor;
+            
+            newSegment.fillColor = [self.privateFractal fillColorAsUI].CGColor;
+            newSegment.fill = [self.privateFractal.fill boolValue];
+            
+            newSegment.lineLength = [self.privateFractal lineLengthAsDouble];
+            newSegment.lineLengthScaleFactor = [self.privateFractal.lineLengthScaleFactor doubleValue];
+            newSegment.lineWidth = [self.privateFractal.lineWidth doubleValue];
+            newSegment.lineWidthIncrement = [self.privateFractal.lineWidthIncrement doubleValue];
+            newSegment.stroke = [self.privateFractal.stroke boolValue];
+            
+            newSegment.turningAngle = [self.privateFractal turningAngleAsDouble];
+            newSegment.turningAngleIncrement = [self.privateFractal.turningAngleIncrement doubleValue];
+
+                 //code
+                _currentSegment = newSegment;
         
     }
     return _currentSegment;
@@ -393,7 +412,8 @@
 
 -(NSMutableDictionary*) cachedDrawingRules {
     if (_cachedDrawingRules == nil) {
-        NSSet* rules = self.fractal.drawingRulesType.rules;
+        
+        NSSet* rules = self.privateFractal.drawingRulesType.rules;
         NSUInteger ruleCount = [rules count];
         NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] initWithCapacity: ruleCount];
         
@@ -610,24 +630,31 @@
 //TODO static var for max product length and way to flag max reached.
 -(void) generateProduct {
     //estimate the length
-    double localLevel = [self.fractal.level doubleValue];
+    
+    NSMutableDictionary* localReplacementRules;
+    NSMutableString* sourceData;
+    NSInteger productionLength;
+    double localLevel;
+    
+    localLevel = [self.privateFractal.level doubleValue];
     if (self.forceLevel >= 0) {
         localLevel = self.forceLevel;
     }
-    NSUInteger productionLength = [self.fractal.axiom length] * localLevel;
     
+    productionLength = [self.privateFractal.axiom length] * localLevel;
     
-    NSMutableString* sourceData = [[NSMutableString alloc] initWithCapacity: productionLength];
-    [sourceData appendString: self.fractal.axiom];
+    sourceData = [[NSMutableString alloc] initWithCapacity: productionLength];
+    [sourceData appendString: self.privateFractal.axiom];
+    
+    // Create a local dictionary version of the replacement rules
+    localReplacementRules = [[NSMutableDictionary alloc] initWithCapacity: [self.privateFractal.replacementRules count]];
+    for (LSReplacementRule* rule in self.privateFractal.replacementRules) {
+        localReplacementRules[rule.contextString] = rule.replacementString;
+    }
     
     NSMutableString* destinationData = [[NSMutableString alloc] initWithCapacity: productionLength];
     NSMutableString* tempData = nil;
     
-    // Create a local dictionary version of the replacement rules
-    NSMutableDictionary* localReplacementRules = [[NSMutableDictionary alloc] initWithCapacity: [self.fractal.replacementRules count]];
-    for (LSReplacementRule* rule in self.fractal.replacementRules) {
-        localReplacementRules[rule.contextString] = rule.replacementString;
-    }
     
     for (int i = 0; i < localLevel ; i++) {
         NSUInteger sourceLength = sourceData.length;
@@ -655,12 +682,17 @@
         //zero out destination
         [destinationData deleteCharactersInRange: NSMakeRange(0, destinationData.length)];
     }
-    self.production = sourceData;
-//    NSLog(@"Production result = %@", sourceData);
+    
+    
     destinationData = nil;
     tempData = nil;
+    
+    //code
+    self.production = sourceData;
     self.productNeedsGenerating = NO;
     self.pathNeedsGenerating = YES;
+    
+    //    NSLog(@"Production result = %@", sourceData);
 }
 
 
@@ -674,7 +706,10 @@
     if (self.pathNeedsGenerating) {
         
         CGPathMoveToPoint(self.currentSegment.path, NULL, 0.0f, 0.0f);
-        double startingRotation = [self.fractal.baseAngle doubleValue];
+        
+        double startingRotation;
+        
+        startingRotation = [self.privateFractal.baseAngle doubleValue];
         
         self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -startingRotation);
 

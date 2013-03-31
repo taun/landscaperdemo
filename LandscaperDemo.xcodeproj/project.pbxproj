@@ -97,6 +97,9 @@
 		C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */; };
 		C5AF42D414EC3E8200D3308F /* MBFractalExamineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
+		C5B983401704928F00BEC62C /* MBImmutableCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B9833F1704928F00BEC62C /* MBImmutableCellBackgroundView.m */; };
+		C5B98343170496FE00BEC62C /* ToolbarGyroLockedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */; };
+		C5B98344170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B98342170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png */; };
 		C5BA2B9314C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5BA2B9114C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld */; };
 		C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C5BA2BE714C6F59D00F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
@@ -257,6 +260,10 @@
 		C5AF42D214EC3E8200D3308F /* MBFractalExamineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalExamineView.h; path = LandscaperDemo/MBFractalExamineView.h; sourceTree = "<group>"; };
 		C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalExamineView.m; path = LandscaperDemo/MBFractalExamineView.m; sourceTree = "<group>"; };
 		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C5B9833E1704928F00BEC62C /* MBImmutableCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBImmutableCellBackgroundView.h; sourceTree = "<group>"; };
+		C5B9833F1704928F00BEC62C /* MBImmutableCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBImmutableCellBackgroundView.m; sourceTree = "<group>"; };
+		C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarGyroLockedIcon.png; path = ../../../Cocos2D3D/Projects/AligyroApp/Aligyro/Resources/ToolbarGyroLockedIcon.png; sourceTree = "<group>"; };
+		C5B98342170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ToolbarGyroLockedIcon@2x.png"; path = "../../../Cocos2D3D/Projects/AligyroApp/Aligyro/Resources/ToolbarGyroLockedIcon@2x.png"; sourceTree = "<group>"; };
 		C5BA2B9214C6F2BE00F2B9D0 /* FSLibrary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FSLibrary.xcdatamodel; sourceTree = "<group>"; };
 		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionKeyboardView.xib; path = LandscaperDemo/FractalDefinitionKeyboardView.xib; sourceTree = "<group>"; };
@@ -450,6 +457,8 @@
 				C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */,
 				C525B9FD16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.h */,
 				C525B9FE16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m */,
+				C5B9833E1704928F00BEC62C /* MBImmutableCellBackgroundView.h */,
+				C5B9833F1704928F00BEC62C /* MBImmutableCellBackgroundView.m */,
 			);
 			name = CollectionCells;
 			sourceTree = "<group>";
@@ -482,6 +491,8 @@
 		C5914AFD14C9FB6000856F57 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */,
+				C5B98342170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png */,
 				C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */,
 				C557D9A316FA921A00FCB857 /* TabbarFillColorIcon@2x.png */,
 				C557D9A416FA921A00FCB857 /* TabbarLineColorIcon.png */,
@@ -772,6 +783,8 @@
 				C557D9A716FA921A00FCB857 /* TabbarFillColorIcon@2x.png in Resources */,
 				C557D9A816FA921A00FCB857 /* TabbarLineColorIcon.png in Resources */,
 				C557D9A916FA921A00FCB857 /* TabbarLineColorIcon@2x.png in Resources */,
+				C5B98343170496FE00BEC62C /* ToolbarGyroLockedIcon.png in Resources */,
+				C5B98344170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,6 +865,7 @@
 				C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */,
 				C5D99F55170277600025D5BB /* MBTextViewTableCell.m in Sources */,
 				C509AF83170330A700025DF7 /* LSDrawingRule+addons.m in Sources */,
+				C5B983401704928F00BEC62C /* MBImmutableCellBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

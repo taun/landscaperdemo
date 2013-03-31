@@ -46,7 +46,7 @@
 -(void) removeReplacementRulesObserverFor:(LSFractal *)fractal {
     [fractal removeObserver: self forKeyPath:@"replacementRules"];
 }
-#pragma Getters&Setters
+#pragma mark - Getters & Setters
 -(void) setSortedReplacementRulesArray:(NSArray *)sortedReplacementRulesArray {
     if (sortedReplacementRulesArray!=_sortedReplacementRulesArray) {
         [self removeReplacementRulesObserverFor: self.fractal];
@@ -60,8 +60,14 @@
     }
     return _sortedReplacementRulesArray;
 }
-
-#pragma Initialisation
+-(FractalDefinitionKeyboardView*) fractalInputControl {
+    if (_fractalInputControl == nil) {
+        _fractalInputControl = [FractalDefinitionKeyboardView new];
+        _fractalInputControl.delegate = self;
+    }
+    return _fractalInputControl;
+}
+#pragma mark - Initialisation
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -71,7 +77,7 @@
     return self;
 }
 
-#pragma ViewController States
+#pragma mark - ViewController States
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -92,7 +98,7 @@
 //    self.fractalCategory.text = self.fractal.category;
 //    self.fractalDescriptor.text = self.fractal.descriptor;
     [self.tableView reloadData];
-    self.fractalAxiom.inputView = self.fractalInputControl.view;
+//    self.fractalAxiom.inputView = self.fractalInputControl.view;
 
     [self setEditing: YES animated: NO];
 }
@@ -162,6 +168,7 @@
 //    if (textView == self.fractalDescriptor) {
 //        self.fractal.descriptor = textView.text;
 //    }
+    self.fractal.descriptor = textView.text;
 }
 
 #pragma mark - TextField Delegate
@@ -302,16 +309,25 @@
             MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
             newCell.textLabel.text = @"Name:";
             newCell.textField.text = self.fractal.name;
+            newCell.textField.delegate = self;
+            [newCell.textField addTarget: self
+                                 action: @selector(nameInputChanged:)
+                       forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
             cell = newCell;
         } else if (indexPath.row==1) {
             MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: CategoryCellIdentifier];
             newCell.textLabel.text = @"Category:";
             newCell.textField.text = self.fractal.category;
+            newCell.textField.delegate = self;
+            [newCell.textField addTarget: self
+                                  action: @selector(categoryInputChanged:)
+                        forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
             cell = newCell;
         } else if (indexPath.row==2) {
             MBTextViewTableCell *newCell = (MBTextViewTableCell *)[tableView dequeueReusableCellWithIdentifier: DescriptionCellIdentifier];
 //            newCell.textLabel.text = @"Description:";
             newCell.textView.text = self.fractal.descriptor;
+            newCell.textView.delegate = self;
             cell = newCell;
         }
     } else if (indexPath.section == 1) {
@@ -401,7 +417,9 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Accessory view");
 }
-
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Edditing row %@", indexPath);
+}
 #pragma mark - Rule Cell Delegate
 -(void)ruleCellTextRightEditingEnded:(id)sender {
     if ([sender isKindOfClass: [MBLSRuleTableViewCell class]]) {
@@ -443,7 +461,15 @@
 - (IBAction)axiomInputEnded:(UITextField*)sender {
     // update rule editing table?
 }
-
+-(IBAction)nameInputChanged:(UITextField*)sender {
+    self.fractal.name = sender.text;
+}
+-(IBAction)categoryInputChanged:(UITextField*)sender {
+    self.fractal.category = sender.text;
+}
+-(IBAction)descriptorInputChanged:(UITextView*)sender {
+    self.fractal.descriptor = sender.text;
+}
 
 
 @end

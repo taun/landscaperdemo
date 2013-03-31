@@ -15,6 +15,9 @@
 
 #import "MBLSFractalEditViewController.h"
 
+static const BOOL ERASE_CORE_DATA = NO;
+
+
 @interface MBAppDelegate ()
 + (void)registerDefaults;
 @end
@@ -138,7 +141,7 @@
     LSFractal* selectedFractal = [self addDefaultLSFractals];
     
     // now we can free up the defaults dictionary
-    self.lsFractalDefaults = nil;
+    [self setLsFractalDefaults: nil];
     
     [(MBLSFractalEditViewController*)self.window.rootViewController setFractal: selectedFractal];
 }
@@ -154,45 +157,26 @@
     [self saveContext];
 }
 
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil)
-    {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
-        {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
-    }
-}
-
--(BOOL)coreDataDefaultsExist {
-    BOOL result = NO;
-    
-    NSManagedObjectContext* context = self.managedObjectContext;
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LSFractal" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        // TODO: error handling
-    } else if ([fetchedObjects count]>0){
-        // really basic test, could be much more complete
-        result = YES;
-    }
-    
-    return result;
-}
+//-(BOOL)coreDataDefaultsExist {
+//    BOOL result = NO;
+//    
+//    NSManagedObjectContext* context = self.managedObjectContext;
+//    
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LSFractal" inManagedObjectContext:context];
+//    [fetchRequest setEntity:entity];
+//    
+//    NSError *error = nil;
+//    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+//    if (fetchedObjects == nil) {
+//        // TODO: error handling
+//    } else if ([fetchedObjects count]>0){
+//        // really basic test, could be much more complete
+//        result = YES;
+//    }
+//    
+//    return result;
+//}
 
 -(NSDictionary*) lsFractalDefaults {
     if (_lsFractalDefaults == nil) {        
@@ -380,6 +364,25 @@
     return __managedObjectContext;
 }
 
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil)
+    {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
+        {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
 /**
  Returns the managed object model for the application.
  If the model doesn't already exist, it is created from the application's model.
@@ -410,7 +413,9 @@
     
     // for development, always delete the store first
     // will force load of defaults
-    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+    if (ERASE_CORE_DATA) {
+        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+    }
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

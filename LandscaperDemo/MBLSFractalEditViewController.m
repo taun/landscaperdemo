@@ -71,6 +71,7 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 - (void)updateUndoRedoBarButtonState;
 - (void)setUpUndoManager;
 - (void)cleanUpUndoManager;
+- (void) saveContext;
 
 -(void) logGroupingLevelFrom: (NSString*) cmd;
 @end
@@ -217,8 +218,6 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 /* on staartup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-        
-    self.title = self.fractal.name;
     
     [self refreshContents];
 
@@ -305,20 +304,34 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
     // Return YES for supported orientations
 	return YES;
 }
+-(void) refreshInterface {
+    [self refreshValueInputs];
+    [self refreshLayers];
+}
 // TODO: Check for fractal name change to update window title
 /* observer fractal.replacementRules */
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString: kLibrarySelectionKeypath] && object == self.libraryViewController) {
+        
         self.fractal = self.libraryViewController.selectedFractal;
+        
     } else if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
-        // productionRuleChanged
-        [self refreshValueInputs];
-        [self refreshLayers];
+        
+        [self refreshInterface];
+        
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
-        [self refreshValueInputs];
-        [self refreshLayers];
+        
+        [self refreshInterface];
+        
 //    } else if ([[LSFractal labelProperties] containsObject: keyPath]) {
 //        [self reloadLabels];
+    } else if ([keyPath isEqualToString: @"name"]) {
+        [self configureNavButtons];
+                
+    } else if ([keyPath isEqualToString: @"category"]) {
+        
+    } else if ([keyPath isEqualToString: @"descriptor"]) {
+        
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -634,37 +647,43 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
     return _fractal;
 }
 -(void) addObserversForFractal:(LSFractal *)fractal {
-    NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-    propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
-    for (NSString* keyPath in propertiesToObserve) {
-        [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
-    }
-    for (LSReplacementRule* rule in fractal.replacementRules) {
-        NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-        [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+    if (fractal) {
+        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+        propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
+        for (NSString* keyPath in propertiesToObserve) {
+            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
+        }
+        for (LSReplacementRule* rule in fractal.replacementRules) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+        }
     }
 }
 -(void) removeObserversForFractal:(LSFractal *)fractal {
-    NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-    propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
-    for (NSString* keyPath in propertiesToObserve) {
-        [fractal removeObserver: self forKeyPath: keyPath];
-    }
-    for (LSReplacementRule* rule in fractal.replacementRules) {
-        NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-        [rule removeObserver: self forKeyPath: keyPath];
+    if (fractal) {
+        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+        propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
+        for (NSString* keyPath in propertiesToObserve) {
+            [fractal removeObserver: self forKeyPath: keyPath];
+        }
+        for (LSReplacementRule* rule in fractal.replacementRules) {
+            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
+            [rule removeObserver: self forKeyPath: keyPath];
+        }
     }
 }
 -(void) updateGeneratorsForFractal:(LSFractal *)fractal {
-    // If the generators have been created, the fractal needs to be replaced.
-    if ([self.generatorsArray count] > 0) {
-        for (LSFractalGenerator* generator in self.generatorsArray) {
-            generator.fractal = fractal;
+    if (fractal) {
+        // If the generators have been created, the fractal needs to be replaced.
+        if ([self.generatorsArray count] > 0) {
+            for (LSFractalGenerator* generator in self.generatorsArray) {
+                generator.fractal = fractal;
+            }
+        } else {
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" forceLevel: -1];
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
         }
-    } else {
-        [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" forceLevel: -1];
-        [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
-        [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
     }
 }
 -(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) fractal {
@@ -829,7 +848,7 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 
 //TODO: add Undo and Redo buttons for editing
 - (void) configureNavButtons {
-    
+    self.title = _fractal.name;
     self.toolbarTitle.text = _fractal.name;
 //    NSMutableArray *rightButtons, *leftButtons;
 //    
@@ -1178,6 +1197,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self handlePopoverRequestForController: self.libraryViewController fromSender: sender];
 }
 -(IBAction)propertiesButtonPressed:(id)sender {
+    if ([self.fractal.isImmutable boolValue]) {
+        self.fractal = [self.fractal mutableCopy];
+    }
     [self handlePopoverRequestForController: self.propertiesViewController fromSender: sender];
 }
 -(IBAction)appearanceButtonPressed:(id)sender {
@@ -1189,11 +1211,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     self.fractal = copiedFractal;
     
-    // coalesce to a common method for saving, copy from appDelegate
-    NSError *error;
-    if (![self.fractal.managedObjectContext save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
+    [self propertiesButtonPressed: sender];
 }
 
 - (IBAction)levelInputChanged:(UIControl*)sender {
@@ -1303,7 +1321,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     UIView *fractalView = [gestureRecognizer view];
     CALayer* subLayer = [self fractalLevelNLayer];
     UIGestureRecognizerState state = gestureRecognizer.state;
-    
     
     if (state == UIGestureRecognizerStateBegan) {
         
@@ -1475,6 +1492,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 //
 //}
 - (IBAction)incrementLineWidth:(id)sender {
+    if ([self.fractal.isImmutable boolValue]) {
+        self.fractal = [self.fractal mutableCopy];
+    }
     double width = [self.fractal.lineWidth doubleValue];
     double increment = [self.fractal.lineWidthIncrement doubleValue];
     
@@ -1583,6 +1603,24 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)undoManagerDidRedo:(NSNotification *)notification {
     [self refreshContents];
+}
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.fractal.managedObjectContext;
+    if (managedObjectContext != nil)
+    {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
+        {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
 }
 
 #pragma Utilities

@@ -13,6 +13,7 @@
 #import "MBCollectionFractalCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
 #import "MBColorCellSelectBackgroundView.h"
+#import "MBImmutableCellBackgroundView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -150,14 +151,20 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSManagedObjectID* objectID = managedObject.objectID;
-    
     NSAssert(objectID, @"Fractal objectID should not be nil. Maybe it wasn't saved?");
     
-    // Configure the cell with data from the managed object.
-    cell.textLabel.text = [managedObject valueForKey: @"name"];
-    cell.detailTextLabel.text = [managedObject valueForKey: @"descriptor"];
+    LSFractal* cellFractal = nil;
+    if ([managedObject isKindOfClass: [LSFractal class]]) {
+        cellFractal = (LSFractal*)managedObject;
+    }
     
-    LSFractalGenerator* generator = [self.fractalToThumbnailGenerators objectForKey: managedObject.objectID];
+    NSAssert(cellFractal, @"Managed object should be a fractal.");
+    
+    // Configure the cell with data from the managed object.
+    cell.textLabel.text = cellFractal.name;
+    cell.detailTextLabel.text = cellFractal.descriptor;
+    
+    LSFractalGenerator* generator = [self.fractalToThumbnailGenerators objectForKey: objectID];
     
     CGSize thumbnailSize = [cell.imageView systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
     
@@ -169,7 +176,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
         if (!generator) {
             // No generator yet
             generator = [[LSFractalGenerator alloc] init];
-            generator.fractal = (LSFractal*) managedObject;
+            generator.fractal = cellFractal;
             [self.fractalToThumbnailGenerators setObject: generator forKey: objectID];
         }
             
@@ -205,10 +212,13 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     }
     
 //    cell.imageView.highlightedImage = cell.imageView.image;
-    
+    MBImmutableCellBackgroundView* newBackground =  [MBImmutableCellBackgroundView new];
+    newBackground.readOnlyView = [cellFractal.isImmutable boolValue];
+    cell.backgroundView = newBackground;
+
     cell.selectedBackgroundView = [MBColorCellSelectBackgroundView new];
     
-    if (self.fractal == managedObject) {
+    if (self.fractal == cellFractal) {
         cell.selected = YES;
     }
     
@@ -364,7 +374,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     [self initControls];
 }
 -(void)viewDidAppear:(BOOL)animated {
-//    [self.fractalCollectionView reloadData];
+    [self.fractalCollectionView reloadData];
     NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.fractal];
     [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
 }

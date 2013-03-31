@@ -45,6 +45,9 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
     self.editing = YES;
     [self refreshValueInputs];
 }
+-(void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

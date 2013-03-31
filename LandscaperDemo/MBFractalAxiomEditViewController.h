@@ -41,7 +41,7 @@
  Custom keyboard for inputting fractal axioms and rules.
  Change to a popover?
  */
-@property (strong, nonatomic) IBOutlet FractalDefinitionKeyboardView    *fractalInputControl;
+@property (strong, nonatomic) FractalDefinitionKeyboardView    *fractalInputControl;
 @property (nonatomic, strong) NSMutableDictionary                       *rulesCellIndexPaths;
 
 @property (nonatomic, strong) NSNumberFormatter                         *twoPlaceFormatter;
@@ -55,6 +55,8 @@
 #pragma mark - Production Control Actions
 - (IBAction)axiomInputChanged:(UITextField*)sender;
 - (IBAction)axiomInputEnded:(UITextField*)sender;
-
+- (IBAction)nameInputChanged:(id)sender;
+- (IBAction)descriptorInputChanged:(id)sender;
+- (IBAction)categoryInputChanged:(id)sender;
 
 @end
