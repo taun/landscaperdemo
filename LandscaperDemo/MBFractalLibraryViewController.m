@@ -23,7 +23,9 @@
 
 static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
 
-@interface MBFractalLibraryViewController () <NSFetchedResultsControllerDelegate>
+@interface MBFractalLibraryViewController () <NSFetchedResultsControllerDelegate> {
+    CGSize _cachedThumbnailSize;
+}
 
 @property (nonatomic, strong) NSFetchedResultsController*   fetchedResultsController;
 
@@ -32,6 +34,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 @property (nonatomic,strong) NSMutableDictionary*           fractalToGeneratorOperations;
 
 -(void) initControls;
+-(CGSize) cachedThumbnailSizeForCell: (MBCollectionFractalCell*) cell;
 -(UIImage*) placeHolderImageSized: (CGSize)size background: (UIColor*) color;
 
 @end
@@ -46,6 +49,12 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 }
 
 #pragma mark - custom getters -
+-(CGSize) cachedThumbnailSizeForCell: (MBCollectionFractalCell*) cell {
+    if (CGSizeEqualToSize(_cachedThumbnailSize, CGSizeZero)) {
+        _cachedThumbnailSize = [cell.imageView systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
+    }
+    return _cachedThumbnailSize;
+}
 -(NSMutableDictionary*) fractalToThumbnailGenerators {
     if (!_fractalToThumbnailGenerators) {
         _fractalToThumbnailGenerators = [NSMutableDictionary new];
@@ -166,7 +175,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     LSFractalGenerator* generator = [self.fractalToThumbnailGenerators objectForKey: objectID];
     
-    CGSize thumbnailSize = [cell.imageView systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
+    CGSize thumbnailSize = [self cachedThumbnailSizeForCell: cell];
     
     UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
     

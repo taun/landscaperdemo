@@ -31,6 +31,7 @@
 #define LOGBOUNDS 0
 
 static NSString* kLibrarySelectionKeypath = @"selectedFractal";
+static BOOL SIMULTOUCH = YES;
 
 @interface MBLSFractalEditViewController ()
 
@@ -1156,7 +1157,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         return NO;
     
 //    return YES;
-    return NO;
+    return SIMULTOUCH;
 }
 /* close any existing popover before opening a new one.
  do not open a new one if the new popover is the same as the current */

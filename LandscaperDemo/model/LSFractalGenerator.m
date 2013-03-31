@@ -226,22 +226,25 @@
     __block CGLineCap lineCap;
     __block CGLineJoin lineJoin;
     
-    [self.privateObjectContext performBlockAndWait:^{
-        
-        self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
-        [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
-        
-        if (self.productNeedsGenerating) {
-            [self generateProduct];
-        }
-        if (self.pathNeedsGenerating) {
-            [self generatePaths];
-        }
-        
-        eoFill = [self.privateFractal.eoFill boolValue];
-        lineCap = [self.privateFractal.lineCap intValue];
-        lineJoin = [self.privateFractal.lineJoin intValue];
-   }];
+    if (self.productNeedsGenerating || self.pathNeedsGenerating) {
+        [self.privateObjectContext performBlockAndWait:^{
+            
+            self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
+            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
+            
+            if (self.productNeedsGenerating) {
+                [self generateProduct];
+            }
+            if (self.pathNeedsGenerating) {
+                [self generatePaths];
+            }
+            
+            eoFill = [self.privateFractal.eoFill boolValue];
+            lineCap = [self.privateFractal.lineCap intValue];
+            lineJoin = [self.privateFractal.lineJoin intValue];
+        }];
+    }
+    
 
     CGContextSaveGState(theContext);
     
