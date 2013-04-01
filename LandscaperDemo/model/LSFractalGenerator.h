@@ -28,6 +28,12 @@
  (: Decrement turning angle by turning angle increment
  ): Increment turning angle by turning angle increment
  
+Added adhoc rules for more flexibility:
+  s: turn context stroke off - overrides global per context. push [s ...] context first
+  S: turn context stroke on
+ 
+ 
+ 
  Variables
  LineLength
  turningAngle

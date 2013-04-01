@@ -38,6 +38,10 @@
 		<string>decrementAngle</string>
 		<key>)</key>
 		<string>incrementAngle</string>
+		<key>s</key>
+		<string>strokeOff</string>
+		<key>S</key>
+		<string>strokeOn</string>
 	</dict>
 	<key>InitialLSFractals</key>
 	<array>

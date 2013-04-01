@@ -31,7 +31,7 @@
 #define LOGBOUNDS 0
 
 static NSString* kLibrarySelectionKeypath = @"selectedFractal";
-static BOOL SIMULTOUCH = YES;
+static BOOL SIMULTOUCH = NO;
 
 @interface MBLSFractalEditViewController ()
 

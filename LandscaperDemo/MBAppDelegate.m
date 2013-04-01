@@ -9,13 +9,13 @@
 #import "MBAppDelegate.h"
 #import "LSFractal+addons.h"
 #import "LSReplacementRule.h"
-#import "LSDrawingRuleType.h"
+#import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 #import "MBColor+addons.h"
 
 #import "MBLSFractalEditViewController.h"
 
-static const BOOL ERASE_CORE_DATA = NO;
+static const BOOL ERASE_CORE_DATA = YES;
 
 
 @interface MBAppDelegate ()
@@ -209,17 +209,47 @@ static const BOOL ERASE_CORE_DATA = NO;
     if (defaults) {
         NSManagedObjectContext* context = self.managedObjectContext;
         
-        defaultType = [NSEntityDescription
-                                               insertNewObjectForEntityForName:@"LSDrawingRuleType"
-                                               inManagedObjectContext: context];
-        defaultType.name = @"Default";
-        defaultType.identifier = @"default";
-        defaultType.descriptor = @"Default drawing rules added when the application is run for the first time.";
+        NSArray* allTypes = [LSDrawingRuleType allRuleTypesInContext: context];
+        
+//        NSLog(@"All currently registered DrawingRuleTypes and Rules");
+        
+        if (allTypes.count > 0) {
+            for (NSManagedObject* object in allTypes) {
+                if ([object isKindOfClass: [LSDrawingRuleType class]]) {
+                    LSDrawingRuleType* dType = (LSDrawingRuleType*)object;
+                    if ([dType.identifier isEqualToString: @"default"]) {
+                        defaultType = dType;
+                    }
+                    NSLog(@"Type: %@; Rules: %@", dType, dType.rules);
+                }
+            }
+        }
+        
+        if (!defaultType) {
+            defaultType = [NSEntityDescription
+                           insertNewObjectForEntityForName:@"LSDrawingRuleType"
+                           inManagedObjectContext: context];
+            defaultType.name = @"Default";
+            defaultType.identifier = @"default";
+            defaultType.descriptor = @"Default drawing rules added when the application is run for the first time.";
+            
+        }
         
         NSDictionary* rules = defaults[@"DrawingRules"];
+        NSSet* currentDefaultRules = [defaultType.rules copy];
+        // COuld convert set to dictionary and ise a lookup to detect existence but not worth it for a few rules.
         for (NSString* key in rules) {
+            BOOL alreadyExists = NO;
             
-            if ([LSDrawingRule findRuleWithType: @"default" productionString: key inContext: context] == nil) {
+            for (NSManagedObject* existingRuleObject in currentDefaultRules) {
+                if ([existingRuleObject isKindOfClass: [LSDrawingRule class]]) {
+                    LSDrawingRule* existingRule = (LSDrawingRule*)existingRuleObject;
+                    if ([existingRule.productionString isEqualToString: key]) {
+                        alreadyExists = YES;
+                    }
+                }
+            }
+            if (!alreadyExists) {
                 LSDrawingRule *newDrawingRule = [NSEntityDescription
                                                  insertNewObjectForEntityForName:@"LSDrawingRule"
                                                  inManagedObjectContext: context];
@@ -227,8 +257,9 @@ static const BOOL ERASE_CORE_DATA = NO;
                 newDrawingRule.productionString = key;
                 newDrawingRule.drawingMethodString = rules[key];
             }
-
         }
+        NSLog(@"Type: %@; Existing Rules: %@", defaultType, currentDefaultRules);
+        NSLog(@"Type: %@; All Rules: %@", defaultType, defaultType.rules);
     }
     [self saveContext]; 
     return defaultType;

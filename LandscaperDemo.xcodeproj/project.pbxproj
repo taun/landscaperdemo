@@ -96,6 +96,7 @@
 		C5A464F314C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
 		C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */; };
 		C5AF42D414EC3E8200D3308F /* MBFractalExamineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */; };
+		C5AF5FB2170A3C3400990196 /* LSDrawingRuleType+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AF5FB1170A3C3400990196 /* LSDrawingRuleType+addons.m */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
 		C5B983401704928F00BEC62C /* MBImmutableCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B9833F1704928F00BEC62C /* MBImmutableCellBackgroundView.m */; };
 		C5B98343170496FE00BEC62C /* ToolbarGyroLockedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */; };
@@ -259,6 +260,8 @@
 		C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPortalStyleView.m; path = LandscaperDemo/MBPortalStyleView.m; sourceTree = "<group>"; };
 		C5AF42D214EC3E8200D3308F /* MBFractalExamineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalExamineView.h; path = LandscaperDemo/MBFractalExamineView.h; sourceTree = "<group>"; };
 		C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalExamineView.m; path = LandscaperDemo/MBFractalExamineView.m; sourceTree = "<group>"; };
+		C5AF5FB0170A3C3400990196 /* LSDrawingRuleType+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSDrawingRuleType+addons.h"; path = "LandscaperDemo/LSDrawingRuleType+addons.h"; sourceTree = "<group>"; };
+		C5AF5FB1170A3C3400990196 /* LSDrawingRuleType+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSDrawingRuleType+addons.m"; path = "LandscaperDemo/LSDrawingRuleType+addons.m"; sourceTree = "<group>"; };
 		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C5B9833E1704928F00BEC62C /* MBImmutableCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBImmutableCellBackgroundView.h; sourceTree = "<group>"; };
 		C5B9833F1704928F00BEC62C /* MBImmutableCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBImmutableCellBackgroundView.m; sourceTree = "<group>"; };
@@ -391,6 +394,8 @@
 				C540634114DADC6A00FBDEA4 /* MBColor+addons.m */,
 				C509AF81170330A700025DF7 /* LSDrawingRule+addons.h */,
 				C509AF82170330A700025DF7 /* LSDrawingRule+addons.m */,
+				C5AF5FB0170A3C3400990196 /* LSDrawingRuleType+addons.h */,
+				C5AF5FB1170A3C3400990196 /* LSDrawingRuleType+addons.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -866,6 +871,7 @@
 				C5D99F55170277600025D5BB /* MBTextViewTableCell.m in Sources */,
 				C509AF83170330A700025DF7 /* LSDrawingRule+addons.m in Sources */,
 				C5B983401704928F00BEC62C /* MBImmutableCellBackgroundView.m in Sources */,
+				C5AF5FB2170A3C3400990196 /* LSDrawingRuleType+addons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -73,7 +73,8 @@
 -(void) swapRotation;
 -(void) decrementAngle;
 -(void) incrementAngle;
-
+-(void) strokeOff;
+-(void) strokeOn;
 @end
 
 
@@ -229,8 +230,9 @@
     if (self.productNeedsGenerating || self.pathNeedsGenerating) {
         [self.privateObjectContext performBlockAndWait:^{
             
+            [self.privateObjectContext reset];
             self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
-            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
+//            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
             
             if (self.productNeedsGenerating) {
                 [self generateProduct];
@@ -755,13 +757,13 @@
 
 -(void) drawCircle: (double) radius {
     CGAffineTransform local = self.currentSegment.transform;
-    CGPathAddEllipseInRect(self.currentSegment.path, &local, CGRectMake(-radius, -radius, radius*2.0, radius*2.0));
-    CGPathMoveToPoint(self.currentSegment.path, &local, 0, 0);
+    CGPathAddEllipseInRect(self.currentSegment.path, &local, CGRectMake(0, -radius, radius*2.0, radius*2.0));
+    CGPathMoveToPoint(self.currentSegment.path, &local, radius*2, 0);
 }
 
 -(void) drawSquare: (double) width {
     CGAffineTransform local = self.currentSegment.transform;
-    CGPathAddRect(self.currentSegment.path, &local, CGRectMake(-width/2.0, -width/2.0, width, width));
+    CGPathAddRect(self.currentSegment.path, &local, CGRectMake(0, -width/2.0, width, width));
     CGPathMoveToPoint(self.currentSegment.path, &local, 0, 0);
 }
 
@@ -810,7 +812,7 @@
 }
 
 -(void) decrementLineWidth {
-    self.currentSegment.lineWidth -= self.currentSegment.lineWidthIncrement;
+    self.currentSegment.lineWidth = fmax(0,(self.currentSegment.lineWidth - self.currentSegment.lineWidthIncrement));
 }
 
 -(void) drawDot {
@@ -830,7 +832,9 @@
 }
 
 -(void) downscaleLineLength {
-    self.currentSegment.lineLength /= self.currentSegment.lineLengthScaleFactor;
+    if (self.currentSegment.lineLengthScaleFactor > 0) {
+        self.currentSegment.lineLength = fmax(0,(self.currentSegment.lineLength / self.currentSegment.lineLengthScaleFactor));
+    }
 }
 
 -(void) swapRotation {
@@ -845,6 +849,14 @@
 
 -(void) incrementAngle {
     self.currentSegment.turningAngle += self.currentSegment.turningAngleIncrement;
+}
+
+-(void) strokeOff {
+    self.currentSegment.stroke = NO;
+}
+
+-(void) strokeOn {
+    self.currentSegment.stroke = YES;
 }
 
 #pragma mark - helper methods
