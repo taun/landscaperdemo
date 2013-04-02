@@ -23,9 +23,9 @@
     
     [super collectionView: collectionView didSelectItemAtIndexPath: indexPath];
     
-    if (![self.fractal.fill boolValue]) {
-        self.fractal.fill = @(YES);
-    }
+//    if (![self.fractal.fill boolValue]) {
+//        self.fractal.fill = @(YES);
+//    }
 }
 
 

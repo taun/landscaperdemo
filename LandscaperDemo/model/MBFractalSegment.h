@@ -23,6 +23,7 @@
 @property (nonatomic,assign) double                 lineWidth;
 @property (nonatomic,assign) double                 lineWidthIncrement;
 @property (nonatomic,assign) double                 lineLengthScaleFactor;
+@property (nonatomic,assign) double                 randomness;
 @property (nonatomic,assign) CGColorRef             lineColor;
 @property (nonatomic,assign) CGColorRef             fillColor;
 @property (nonatomic, readwrite) BOOL               fill;

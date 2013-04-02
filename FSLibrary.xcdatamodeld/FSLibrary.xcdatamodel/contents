@@ -29,6 +29,8 @@
         <attribute name="lineWidth" attributeType="Double" minValueString="0.5" maxValueString="50" defaultValueString="1" syncable="YES"/>
         <attribute name="lineWidthIncrement" attributeType="Double" minValueString="0" maxValueString="100" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="randomize" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="randomness" optional="YES" attributeType="Double" minValueString="0" maxValueString="1" defaultValueString="0.0" syncable="YES"/>
         <attribute name="stroke" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="turningAngle" attributeType="Double" maxValueString="7" defaultValueString="0.0" syncable="YES"/>
         <attribute name="turningAngleIncrement" attributeType="Double" minValueString="0" maxValueString="7" defaultValueString="0.0" syncable="YES"/>
@@ -77,7 +79,7 @@
     <elements>
         <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="105"/>
         <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="LSFractal" positionX="160" positionY="192" width="128" height="405"/>
+        <element name="LSFractal" positionX="160" positionY="192" width="128" height="435"/>
         <element name="LSReplacementRule" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MBColor" positionX="160" positionY="192" width="128" height="180"/>
         <element name="MBFractalScape" positionX="160" positionY="192" width="128" height="120"/>

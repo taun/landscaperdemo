@@ -17,19 +17,26 @@
     if (self) {
         // Initialization code
         self.readOnlyView = NO;
+        CALayer* temp = [CALayer layer];
+        [self.layer addSublayer: temp];
+        _outlineLayer = temp;
+        _outlineLayer.frame = CGRectInset(frame, -6.0, -6.0);
+        _outlineLayer.borderWidth = 3.0;
+        _outlineLayer.cornerRadius = 6.0;
+        _outlineLayer.zPosition = 300.0;
     }
     return self;
 }
 
 -(void) setReadOnlyView:(BOOL)readOnlyView {
     _readOnlyView = readOnlyView;
-    UIColor* border = [UIColor greenColor];
+    UIColor* border = [UIColor clearColor];
     if (_readOnlyView) {
         border = [UIColor redColor];
     }
     
     CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
-    self.layer.borderColor = colorCopy;
+    self.outlineLayer.borderColor = colorCopy;
     CGColorRelease(colorCopy);
 }
 /*

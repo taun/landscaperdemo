@@ -12,4 +12,6 @@
 
 @property (nonatomic,assign) BOOL       readOnlyView;
 
+@property (nonatomic,weak) CALayer      *outlineLayer;
+
 @end

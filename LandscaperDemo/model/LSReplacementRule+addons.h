@@ -1,5 +1,5 @@
 //
-//  LSReplacementRule.m
+//  LSReplacementRule+addons.h
 //  LandscaperDemo
 //
 //  Created by Taun Chapman on 04/02/13.
@@ -7,13 +7,9 @@
 //
 
 #import "LSReplacementRule.h"
-#import "LSFractal.h"
 
+@interface LSReplacementRule (addons)
 
-@implementation LSReplacementRule
-
-@dynamic contextString;
-@dynamic replacementString;
-@dynamic lsFractal;
++(NSSet*) keysToBeCopied;
 
 @end

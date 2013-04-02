@@ -42,6 +42,8 @@
 
 @property (nonatomic,strong) UIImage*               cachedImage;
 
+@property (nonatomic,assign) BOOL                   randomize;
+
 -(void) addSegment: (MBFractalSegment*) segment;
 -(void) pushSegment;
 -(void) popSegment;
@@ -75,6 +77,10 @@
 -(void) incrementAngle;
 -(void) strokeOff;
 -(void) strokeOn;
+-(void) fillOn;
+-(void) fillOff;
+-(void) randomizeOn;
+-(void) randomizeOff;
 @end
 
 
@@ -100,6 +106,7 @@
         _scale = 1.0;
         _autoscale = YES;
         _translate = CGPointMake(0.0, 0.0);
+        _randomize = NO;
     }
     return self;
 }
@@ -389,27 +396,29 @@
 -(MBFractalSegment*) currentSegment {
     if (_currentSegment == nil) {
         
-            MBFractalSegment* newSegment;
-            
-            newSegment = [[MBFractalSegment alloc] init];
-            
-            // Copy the fractal core data values to the segment
-            newSegment.lineColor = [self.privateFractal lineColorAsUI].CGColor;
-            
-            newSegment.fillColor = [self.privateFractal fillColorAsUI].CGColor;
-            newSegment.fill = [self.privateFractal.fill boolValue];
-            
-            newSegment.lineLength = [self.privateFractal lineLengthAsDouble];
-            newSegment.lineLengthScaleFactor = [self.privateFractal.lineLengthScaleFactor doubleValue];
-            newSegment.lineWidth = [self.privateFractal.lineWidth doubleValue];
-            newSegment.lineWidthIncrement = [self.privateFractal.lineWidthIncrement doubleValue];
-            newSegment.stroke = [self.privateFractal.stroke boolValue];
-            
-            newSegment.turningAngle = [self.privateFractal turningAngleAsDouble];
-            newSegment.turningAngleIncrement = [self.privateFractal.turningAngleIncrement doubleValue];
-
-                 //code
-                _currentSegment = newSegment;
+        MBFractalSegment* newSegment;
+        
+        newSegment = [[MBFractalSegment alloc] init];
+        
+        // Copy the fractal core data values to the segment
+        newSegment.lineColor = [self.privateFractal lineColorAsUI].CGColor;
+        
+        newSegment.fillColor = [self.privateFractal fillColorAsUI].CGColor;
+        newSegment.fill = [self.privateFractal.fill boolValue];
+        
+        newSegment.lineLength = [self.privateFractal lineLengthAsDouble];
+        newSegment.lineLengthScaleFactor = [self.privateFractal.lineLengthScaleFactor doubleValue];
+        newSegment.lineWidth = [self.privateFractal.lineWidth doubleValue];
+        newSegment.lineWidthIncrement = [self.privateFractal.lineWidthIncrement doubleValue];
+        newSegment.stroke = [self.privateFractal.stroke boolValue];
+        
+        newSegment.turningAngle = [self.privateFractal turningAngleAsDouble];
+        newSegment.turningAngleIncrement = [self.privateFractal.turningAngleIncrement doubleValue];
+        
+        newSegment.randomness = [self.privateFractal.randomness doubleValue];
+        
+        //code
+        _currentSegment = newSegment;
         
     }
     return _currentSegment;
@@ -449,9 +458,15 @@
 }
 
 #pragma mark - segment getter setters
-
+-(double) randomness {
+    return self.currentSegment.randomness;
+}
 -(double) turningAngle {
-    return self.currentSegment.turningAngle;
+    double value = self.currentSegment.turningAngle;
+    if (self.randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
 }
 
 -(void) setTurningAngle:(double)turningAngle {
@@ -459,7 +474,11 @@
 }
 
 -(double) turningAngleIncrement {
-    return self.currentSegment.turningAngleIncrement;
+    double value = self.currentSegment.turningAngleIncrement;
+    if (self.randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
 }
 
 -(void) setTurningAngleIncrement:(double)turningAngleIncrement {
@@ -467,7 +486,11 @@
 }
 
 -(double) lineLength {
-    return self.currentSegment.lineLength;
+    double value = self.currentSegment.lineLength;
+    if (self.randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
 }
 
 -(void) setLineLength:(double)lineLength {
@@ -475,7 +498,11 @@
 }
 
 -(double) lineLengthScaleFactor {
-    return self.currentSegment.lineLength;
+    double value = self.currentSegment.lineLengthScaleFactor;
+    if (self.randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
 }
 
 -(void) setLineLengthScaleFactor:(double)lineLengthScaleFactor {
@@ -483,7 +510,11 @@
 }
 
 -(double) lineWidth {
-    return fabs(self.currentSegment.lineWidth);
+    double value = fabs(self.currentSegment.lineWidth);
+    if (self.randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
 }
 
 -(void) setLineWidth:(double)lineWidth {
@@ -491,7 +522,11 @@
 }
 
 -(double) lineWidthIncrement {
-    return self.currentSegment.lineWidthIncrement;
+    double value = self.currentSegment.lineWidthIncrement;
+    if (self.randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
 }
 
 -(void) setLineWidthIncrement:(double)lineWidthIncrement {
@@ -808,15 +843,15 @@
 }
 
 -(void) incrementLineWidth {
-    self.currentSegment.lineWidth += self.currentSegment.lineWidthIncrement;
+    self.currentSegment.lineWidth += self.lineWidthIncrement;
 }
 
 -(void) decrementLineWidth {
-    self.currentSegment.lineWidth = fmax(0,(self.currentSegment.lineWidth - self.currentSegment.lineWidthIncrement));
+    self.currentSegment.lineWidth = fmax(0,(self.lineWidth - self.lineWidthIncrement));
 }
 
 -(void) drawDot {
-    [self drawCircle: self.currentSegment.lineWidth];
+    [self drawCircle: self.lineWidth];
 }
 
 -(void) openPolygon {
@@ -828,12 +863,12 @@
 }
 
 -(void) upscaleLineLength {
-    self.currentSegment.lineLength *= self.currentSegment.lineLengthScaleFactor;
+    self.currentSegment.lineLength *= self.lineLengthScaleFactor;
 }
 
 -(void) downscaleLineLength {
     if (self.currentSegment.lineLengthScaleFactor > 0) {
-        self.currentSegment.lineLength = fmax(0,(self.currentSegment.lineLength / self.currentSegment.lineLengthScaleFactor));
+        self.currentSegment.lineLength = fmax(0,(self.lineLength / self.lineLengthScaleFactor));
     }
 }
 
@@ -844,11 +879,11 @@
 }
 
 -(void) decrementAngle {
-    self.currentSegment.turningAngle -= self.currentSegment.turningAngleIncrement;
+    self.currentSegment.turningAngle -= self.turningAngleIncrement;
 }
 
 -(void) incrementAngle {
-    self.currentSegment.turningAngle += self.currentSegment.turningAngleIncrement;
+    self.currentSegment.turningAngle += self.turningAngleIncrement;
 }
 
 -(void) strokeOff {
@@ -858,7 +893,18 @@
 -(void) strokeOn {
     self.currentSegment.stroke = YES;
 }
-
+-(void) fillOff {
+    self.currentSegment.fill = NO;
+}
+-(void) fillOn {
+    self.currentSegment.fill = YES;
+}
+-(void) randomizeOff {
+    self.randomize = NO;
+}
+-(void) randomizeOn {
+    self.randomize = YES;
+}
 #pragma mark - helper methods
 
 -(double) aspectRatio {
@@ -879,7 +925,13 @@
     }
     return result;
 }
-
+-(double) randomScalar {
+    return [LSFractalGenerator randomDoubleBetween: (1.0 - self.randomness)  and: (1.0 + self.randomness)];
+}
++ (double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber {
+    double diff = bigNumber - smallNumber;
+    return (((double) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
+}
 //TODO: why is this called. somehow related to adding a subview to LevelN view.
 // When the subview is touched even "charge" gets called to the delegate which seems to be the generator even though the generator is only the delegate of the LevelN view layer.
 //-(void) charge {

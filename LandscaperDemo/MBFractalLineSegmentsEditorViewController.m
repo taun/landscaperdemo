@@ -199,4 +199,25 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 - (IBAction)changeLineJoin:(UISegmentedControl *)sender {
     self.fractal.lineJoin = @(sender.selectedSegmentIndex);
 }
+
+- (IBAction)randomnessStepperChanged:(UIStepper *)sender {
+    [self.fractalUndoManager beginUndoGrouping];
+    [self.fractal.managedObjectContext processPendingChanges];
+    self.fractal.randomness = [NSNumber numberWithDouble: sender.value];
+    self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];
+    if (self.fractal.randomness == 0) {
+        self.fractal.randomize = [NSNumber numberWithBool: NO];
+    }
+}
+
+- (IBAction)randomnessInputChanged:(UITextField *)sender {
+    [self.fractalUndoManager beginUndoGrouping];
+    [self.fractal.managedObjectContext processPendingChanges];
+    [self.fractal setRandomness: [NSNumber numberWithDouble: [sender.text doubleValue]]];
+    self.randomnessStepper.value = [[self.fractal randomness] doubleValue];
+    self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];
+    if (self.fractal.randomness == 0) {
+        self.fractal.randomize = [NSNumber numberWithBool: NO];
+    }
+}
 @end

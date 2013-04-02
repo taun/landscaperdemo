@@ -12,16 +12,6 @@
 
 @implementation MBFractalSegment
 
-@synthesize path = _path;
-@synthesize transform = _transform;
-
-@synthesize lineWidth = _lineWidth, lineWidthIncrement = _lineWidthIncrement;
-@synthesize lineLength = _lineLength, lineLengthScaleFactor = _lineLengthScaleFactor;
-@synthesize stroke = _stroke, fill = _fill;
-
-@synthesize turningAngle = _turningAngle, turningAngleIncrement = _turningAngleIncrement;
-
-@synthesize lineColor = _lineColor, fillColor = _fillColor;
 
 +(NSArray*)settingsToCopy {
     return @[@"turningAngle",
@@ -30,6 +20,7 @@
             @"lineWidth",
             @"lineWidthIncrement",
             @"lineLengthScaleFactor",
+            @"randomness",
             @"lineColor",
             @"fillColor",
             @"fill",

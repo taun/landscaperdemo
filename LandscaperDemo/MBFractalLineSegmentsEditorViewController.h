@@ -35,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *lineCapSegment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *lineJoinSegment;
 
+@property (weak, nonatomic) IBOutlet UITextField        *randomness;
+@property (weak, nonatomic) IBOutlet UIStepper          *randomnessStepper;
+
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
 
 #pragma mark - Appearance Control Actions
@@ -61,5 +64,8 @@
 - (IBAction)toggleFillMode:(UISwitch *)sender;
 - (IBAction)changeLineCap:(UISegmentedControl *)sender;
 - (IBAction)changeLineJoin:(UISegmentedControl *)sender;
+
+- (IBAction)randomnessStepperChanged:(UIStepper *)sender;
+- (IBAction)randomnessInputChanged:(UITextField *)sender;
 
 @end

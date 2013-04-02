@@ -7,6 +7,7 @@
 //
 
 #import "LSFractal+addons.h"
+#import "LSReplacementRule+addons.h"
 #import "MBColor+addons.h"
 
 @implementation LSFractal (addons)
@@ -75,8 +76,8 @@
                           @"lineColor",
                           @"lineJoin",
                           @"lineCap",
-                          @"replacementRules",
                           @"name",
+                          @"randomness",
                           nil];
     }
     return keysToBeCopied;
@@ -121,6 +122,7 @@
                                 @"fillColor",
                                 @"turningAngle",
                                 @"baseAngle",
+                                @"randomness",
                                 nil];
     }
     return appearanceProperties;
@@ -128,7 +130,7 @@
 
 
 -(id) mutableCopy {
-    NSManagedObject *fractalCopy = [NSEntityDescription
+    LSFractal *fractalCopy = (LSFractal*)[NSEntityDescription
                               insertNewObjectForEntityForName:@"LSFractal"
                               inManagedObjectContext: self.managedObjectContext];
     
@@ -137,6 +139,12 @@
             id value = [self valueForKey: aKey];
             [fractalCopy setValue: value forKey: aKey];
         }
+        NSSet* rules = self.replacementRules;
+        
+        for (LSReplacementRule* rule in rules) {
+            [fractalCopy addReplacementRulesObject: [rule mutableCopy]];
+        }
+        
         NSString* newName = [NSString stringWithFormat:@"%@ copy",[self valueForKey: @"name"]];
         [fractalCopy setValue: newName forKey: @"name"];
         [fractalCopy setValue: @NO forKey: @"isImmutable"];

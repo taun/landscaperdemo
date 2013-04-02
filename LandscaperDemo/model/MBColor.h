@@ -2,8 +2,8 @@
 //  MBColor.h
 //  LandscaperDemo
 //
-//  Created by Taun Chapman on 02/09/12.
-//  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 04/02/13.
+//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

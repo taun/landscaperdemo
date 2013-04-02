@@ -31,6 +31,10 @@
 Added adhoc rules for more flexibility:
   s: turn context stroke off - overrides global per context. push [s ...] context first
   S: turn context stroke on
+  l: turn context fill off
+  L: turn context fill on
+  r: randomize context on
+  R: randomize context off
  
  
  
@@ -157,6 +161,8 @@ Added adhoc rules for more flexibility:
 @property (nonatomic, assign) double            scale;
 @property (nonatomic, assign) CGPoint           translate;
 
++(double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber;
+-(double)randomScalar;
 /*
  The drawing rules are cached from the managed object. This is because the rules are returned as a set and we need to convert them to a dictionary. We only want to do this once unless the rules are changed. Need to observer the rules and if there is a change, clear the cache.
  */

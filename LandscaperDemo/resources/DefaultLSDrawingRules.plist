@@ -42,9 +42,62 @@
 		<string>strokeOff</string>
 		<key>S</key>
 		<string>strokeOn</string>
+		<key>l</key>
+		<string>fillOff</string>
+		<key>L</key>
+		<string>fillOn</string>
+		<key>r</key>
+		<string>randomizeOff</string>
+		<key>R</key>
+		<string>randomizeOn</string>
 	</dict>
 	<key>InitialLSFractals</key>
 	<array>
+		<dict>
+			<key>category</key>
+			<string>Plant</string>
+			<key>descriptor</key>
+			<string>Leaf</string>
+			<key>isImmutable</key>
+			<true/>
+			<key>name</key>
+			<string>A leaf</string>
+			<key>axiom</key>
+			<string>a</string>
+			<key>fill</key>
+			<false/>
+			<key>stroke</key>
+			<true/>
+			<key>level</key>
+			<integer>4</integer>
+			<key>lineLength</key>
+			<integer>10</integer>
+			<key>lineLengthScaleFactor</key>
+			<real>1.36</real>
+			<key>lineColorFromIdentifier</key>
+			<string>green</string>
+			<key>lineWidth</key>
+			<integer>2</integer>
+			<key>lineWidthIncrement</key>
+			<real>0.25</real>
+			<key>turningAngle</key>
+			<real>0.7853981633974501</real>
+			<key>turningAngleIncrement</key>
+			<real>0.08726646259972</real>
+			<key>replacementRules</key>
+			<dict>
+				<key>y</key>
+				<string>b</string>
+				<key>x</key>
+				<string>a</string>
+				<key>b</key>
+				<string>F[-y]Fa</string>
+				<key>a</key>
+				<string>F[+x]Fb</string>
+				<key>F</key>
+				<string>&gt;F&lt;</string>
+			</dict>
+		</dict>
 		<dict>
 			<key>category</key>
 			<string>Geometric</string>
@@ -69,11 +122,11 @@
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -100,15 +153,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.5</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -135,15 +188,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.5</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -170,15 +223,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.5</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>f</key>
@@ -211,15 +264,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.0471975511966</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -246,15 +299,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>Y</key>
@@ -283,15 +336,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.5</real>
 			<key>turningAngle</key>
 			<real>1.0471975511966</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -320,15 +373,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -394,15 +447,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>X</key>
@@ -431,15 +484,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>0.31415926535898</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>baseAngle</key>
 			<real>1.5707963267949</real>
 			<key>replacementRules</key>
@@ -480,11 +533,11 @@
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>0.39269908169872</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>baseAngle</key>
 			<real>1.5707963267949</real>
 			<key>replacementRules</key>
@@ -515,15 +568,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>0.44879895051283</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>baseAngle</key>
 			<real>1.5707963267949</real>
 			<key>replacementRules</key>
@@ -552,15 +605,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>0.44879895051283</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>baseAngle</key>
 			<real>1.5707963267949</real>
 			<key>replacementRules</key>
@@ -593,15 +646,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.0471975511966</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -628,15 +681,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -663,15 +716,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>1.5707963267949</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>replacementRules</key>
 			<dict>
 				<key>F</key>
@@ -698,15 +751,15 @@
 			<key>lineLength</key>
 			<integer>10</integer>
 			<key>lineLengthScaleFactor</key>
-			<integer>1</integer>
+			<real>1.25</real>
 			<key>lineWidth</key>
 			<integer>2</integer>
 			<key>lineWidthIncrement</key>
-			<integer>1</integer>
+			<real>0.25</real>
 			<key>turningAngle</key>
 			<real>0.45378560551851</real>
 			<key>turningAngleIncrement</key>
-			<integer>0</integer>
+			<real>0.08726646259972</real>
 			<key>baseAngle</key>
 			<real>1.5707963267949</real>
 			<key>replacementRules</key>

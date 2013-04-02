@@ -2,7 +2,7 @@
 //  LSFractal.m
 //  LandscaperDemo
 //
-//  Created by Taun Chapman on 03/06/13.
+//  Created by Taun Chapman on 04/02/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
@@ -19,10 +19,13 @@
 @dynamic baseAngle;
 @dynamic category;
 @dynamic descriptor;
+@dynamic eoFill;
 @dynamic fill;
 @dynamic isImmutable;
 @dynamic isReadOnly;
 @dynamic level;
+@dynamic lineCap;
+@dynamic lineJoin;
 @dynamic lineLength;
 @dynamic lineLengthScaleFactor;
 @dynamic lineWidth;
@@ -31,9 +34,8 @@
 @dynamic stroke;
 @dynamic turningAngle;
 @dynamic turningAngleIncrement;
-@dynamic eoFill;
-@dynamic lineJoin;
-@dynamic lineCap;
+@dynamic randomness;
+@dynamic randomize;
 @dynamic drawingRulesType;
 @dynamic fillColor;
 @dynamic lineColor;
