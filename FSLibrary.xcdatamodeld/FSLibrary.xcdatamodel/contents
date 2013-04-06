@@ -72,8 +72,8 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="fractalScapes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFractalScape" inverseName="background" inverseEntity="MBFractalScape" syncable="YES"/>
     </entity>
-    <fetchRequest name="DrawingRuleOfTypeName" entity="LSDrawingRule" predicateString="type.identifier == $TYPEIDENTIFIER AND productionString == $PRODUCTIONSTRING"/>
-    <fetchRequest name="DrawingRulesOfType" entity="LSDrawingRuleType" predicateString="identifier == $TYPEIDENTIFIER"/>
+    <fetchRequest name="LSDrawingRuleOfTypeAndName" entity="LSDrawingRule" predicateString="type.identifier == $TYPEIDENTIFIER AND productionString == $PRODUCTIONSTRING"/>
+    <fetchRequest name="LSDrawingRuleTypeWithIdentifier" entity="LSDrawingRuleType" predicateString="identifier == $TYPEIDENTIFIER"/>
     <fetchRequest name="LSFractalWithName" entity="LSFractal" predicateString="name == $LSFRACTALNAME"/>
     <fetchRequest name="MBColorWithIdentifier" entity="MBColor" predicateString="identifier == $MBIDENTIFIER"/>
     <elements>
