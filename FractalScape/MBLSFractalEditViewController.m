@@ -702,8 +702,9 @@ static BOOL SIMULTOUCH = NO;
     CALayer* aLayer = [[CALayer alloc] init];
     aLayer.name = name;
     aLayer.needsDisplayOnBoundsChange = YES;
-    aLayer.speed = 10.0;
+    aLayer.speed = 1.0;
     aLayer.drawsAsynchronously = YES;
+    aLayer.contentsScale = 2.0 * aView.layer.contentsScale;
     
     [self fitLayer: aLayer inLayer: aView.layer margin: 10];
     [aView.layer addSublayer: aLayer];
@@ -1280,6 +1281,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CALayer* subLayer = [self fractalLevelNLayer];
     UIGestureRecognizerState state = gestureRecognizer.state;
     
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
     
     if (state == UIGestureRecognizerStateBegan) {
         
@@ -1300,6 +1304,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
     }
 
+    [CATransaction commit];
 }
 /* want to use 2 finger pans for changing rotation and line thickness in place of swiping 
   need to lock in either horizontal or vertical panning view a state and state change */
@@ -1423,6 +1428,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CALayer* subLayer = [self fractalLevelNLayer];
     UIGestureRecognizerState state = gestureRecognizer.state;
     
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
     
     if (state == UIGestureRecognizerStateBegan) {
         
@@ -1443,6 +1451,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         [gestureRecognizer setScale:1];
 
     }
+    [CATransaction commit];
 }
 
 -(IBAction) autoScale:(id)sender {

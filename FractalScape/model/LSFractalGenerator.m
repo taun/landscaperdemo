@@ -16,7 +16,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#define MAXPRODUCTLENGTH 6000
+#define MAXPRODUCTLENGTH 8000
 
 #define SHOWDEBUGBORDER 0
 
