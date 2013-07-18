@@ -332,7 +332,7 @@ static const BOOL ERASE_CORE_DATA = YES;
 }
 
 /*
- Fractals plist is a root array full or fractal dictionaries.
+ Fractals plist is a root array full of fractal dictionaries.
  */
 -(LSFractal*)loadLSFractalsPListAndReturnLastSelected: (NSString*) plistFileName {
     
@@ -349,53 +349,57 @@ static const BOOL ERASE_CORE_DATA = YES;
     LSFractal* lastFractal;
     
     if (fractalList) {
-        LSDrawingRuleType* defaultDrawingRuleType = [self loadLSDrawingRulesPListAndReturnDefaultRuleType];
-        
         NSManagedObjectContext* context = self.managedObjectContext;
+    
+        LSDrawingRuleType* fractalDrawingRuleType;
         
-        NSArray* fractals = defaults[@"InitialLSFractals"];
         
-        @"drawingRulesType.identifier";
+        //NSArray* fractals = defaults[@"InitialLSFractals"];
         
-        if ([fractals isKindOfClass:[NSArray class]]) {
+        //@"drawingRulesType.identifier";
+        
             
-            for (id fractalDictionary in fractals) {
-                if ([fractalDictionary isKindOfClass: [NSDictionary class]]) {
-                    // create the fractal
+        for (id fractalDictionary in fractalList) {
+            if ([fractalDictionary isKindOfClass: [NSDictionary class]]) {
+                // create the fractal
+                
+                // only create new fractal if one with identifier doesn't already exist
+                NSString* fractalName = [fractalDictionary objectForKey: @"name"];
+                if ([LSFractal findFractalWithName: fractalName inContext: context] == nil) {
+                    LSFractal* fractal = [NSEntityDescription
+                                          insertNewObjectForEntityForName:@"LSFractal"
+                                          inManagedObjectContext: context];
                     
-                    // only create new fractal if one with identifier doesn't already exist
-                    NSString* fractalName = [fractalDictionary objectForKey: @"name"];
-                    if ([LSFractal findFractalWithName: fractalName inContext: context] == nil) {
-                        LSFractal* fractal = [NSEntityDescription
-                                              insertNewObjectForEntityForName:@"LSFractal"
-                                              inManagedObjectContext: context];
+                    //fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: [fractalDictionary objectForKey: @"drawingRulesType.identifier"] inContext: self.managedObjectContext];
+                    //fractal.drawingRulesType = fractalDrawingRuleType;
+                    lastFractal = fractal;
+                    
+                    for (id propertyKey in fractalDictionary) {
+                        id propertyValue = fractalDictionary[propertyKey];
                         
-                        fractal.drawingRulesType = defaultDrawingRuleType;
-                        lastFractal = fractal;
-                        
-                        for (id propertyKey in fractalDictionary) {
-                            id propertyValue = fractalDictionary[propertyKey];
-                            
-                            if ([propertyValue isKindOfClass:[NSDictionary class]]) {
-                                // dictionary is replacement rules
-                                for (id replacementKey in propertyValue) {
-                                    // create replacement rules and assign to fractal
-                                    LSReplacementRule *newReplacementRule = [NSEntityDescription
-                                                                             insertNewObjectForEntityForName:@"LSReplacementRule"
-                                                                             inManagedObjectContext: context];
-                                    
-                                    newReplacementRule.contextString = replacementKey;
-                                    newReplacementRule.replacementString = propertyValue[replacementKey];
-                                    [fractal addReplacementRulesObject: newReplacementRule];
-                                }
-                            } else {
-                                // all but dictionaries should be key value
-                                [fractal setValue: propertyValue forKey: propertyKey];
+                        if ([propertyValue isKindOfClass:[NSDictionary class]]) {
+                            // dictionary is replacement rules
+                            for (id replacementKey in propertyValue) {
+                                // create replacement rules and assign to fractal
+                                LSReplacementRule *newReplacementRule = [NSEntityDescription
+                                                                         insertNewObjectForEntityForName:@"LSReplacementRule"
+                                                                         inManagedObjectContext: context];
+                                
+                                newReplacementRule.contextString = replacementKey;
+                                newReplacementRule.replacementString = propertyValue[replacementKey];
+                                [fractal addReplacementRulesObject: newReplacementRule];
                             }
+                        } else if ([propertyKey isEqualToString: @"drawingRulesType.identifier"]) {
+                            // special case
+                            fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: [fractalDictionary objectForKey: @"drawingRulesType.identifier"] inContext: self.managedObjectContext];
+                            fractal.drawingRulesType = fractalDrawingRuleType;
+                        } else {
+                            // all but dictionaries should be key value
+                            [fractal setValue: propertyValue forKey: propertyKey];
                         }
                     }
-                    
                 }
+                
             }
         }
         

@@ -597,10 +597,10 @@
 		<string>default</string>
 		<key>replacementRules</key>
 		<dict>
-			<key>A</key>
-			<string>AFB[+A][-A]</string>
-			<key>B</key>
-			<string>B[-FFF][+FFF]FB</string>
+			<key>G</key>
+			<string>GFX[+G][-G]</string>
+			<key>X</key>
+			<string>X[-FFF][+FFF]FX</string>
 		</dict>
 	</dict>
 	<dict>
@@ -751,10 +751,10 @@
 		<string>default</string>
 		<key>replacementRules</key>
 		<dict>
-			<key>A</key>
-			<string>A[-FFF][+FFF]FA</string>
-			<key>B</key>
-			<string>BFA[+B][-B]</string>
+			<key>G</key>
+			<string>GFX[+G][-G]</string>
+			<key>X</key>
+			<string>X[-FFF][+FFF]FX</string>
 		</dict>
 	</dict>
 </array>

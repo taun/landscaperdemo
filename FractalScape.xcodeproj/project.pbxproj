@@ -203,6 +203,7 @@
 		C531F3EC16E1398E007F4DD3 /* MBFractalLineSegmentsEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFractalLineSegmentsEditorViewController.m; sourceTree = "<group>"; };
 		C531F3EE16E139D4007F4DD3 /* MBFractalAxiomEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFractalAxiomEditViewController.h; sourceTree = "<group>"; };
 		C531F3EF16E139D4007F4DD3 /* MBFractalAxiomEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFractalAxiomEditViewController.m; sourceTree = "<group>"; };
+		C53305C517985877005D2A18 /* History.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = History.rtf; path = resources/History.rtf; sourceTree = "<group>"; };
 		C5383E3B16F763F400D0304B /* MBCollectionColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBCollectionColorCell.h; path = FractalScape/MBCollectionColorCell.h; sourceTree = "<group>"; };
 		C5383E3C16F763F400D0304B /* MBCollectionColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBCollectionColorCell.m; path = FractalScape/MBCollectionColorCell.m; sourceTree = "<group>"; };
 		C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpers.m; path = FractalScape/model/QuartzHelpers.m; sourceTree = "<group>"; };
@@ -551,6 +552,7 @@
 				C5E6B7C414A5359A00DA48BD /* Model */,
 				C5450ED014BBB7DB00CD2E09 /* Views */,
 				C5E6B78714A5346300DA48BD /* Controllers */,
+				C5E6B78814A5346300DA48BD /* Supporting Files */,
 				C5E6B7B314A5346300DA48BD /* Tests */,
 				C5E6B78014A5346300DA48BD /* Frameworks */,
 				C5E6B77E14A5346300DA48BD /* Products */,
@@ -602,7 +604,6 @@
 				C51DF51D16E68DB700FBDB8A /* MBFractalStrokeColorViewController.m */,
 				C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */,
 				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
-				C5E6B78814A5346300DA48BD /* Supporting Files */,
 			);
 			name = Controllers;
 			path = FractalScape;
@@ -622,8 +623,10 @@
 				C59FF02016441631006E2B27 /* Settings.bundle */,
 				C5CE9458170C9389002EF5FD /* MBColorsList.plist */,
 				C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */,
+				C53305C517985877005D2A18 /* History.rtf */,
 			);
 			name = "Supporting Files";
+			path = FractalScape;
 			sourceTree = "<group>";
 		};
 		C5E6B7B314A5346300DA48BD /* Tests */ = {
@@ -704,7 +707,7 @@
 		C5E6B77414A5346200DA48BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "MOEDAE LLC";
 			};
 			buildConfigurationList = C5E6B77714A5346200DA48BD /* Build configuration list for PBXProject "FractalScape" */;
@@ -961,9 +964,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -980,9 +984,12 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -992,9 +999,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1004,7 +1012,9 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
