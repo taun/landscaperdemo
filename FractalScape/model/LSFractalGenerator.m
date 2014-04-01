@@ -230,9 +230,9 @@
 }
 -(void) drawInBounds:(CGRect)bounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
 
-    __block BOOL eoFill;
-    __block CGLineCap lineCap;
-    __block CGLineJoin lineJoin;
+    __block BOOL eoFill = NO;
+    __block CGLineCap lineCap = kCGLineCapButt;
+    __block CGLineJoin lineJoin = kCGLineJoinBevel;
     
     if (self.productNeedsGenerating || self.pathNeedsGenerating) {
         [self.privateObjectContext performBlockAndWait:^{
