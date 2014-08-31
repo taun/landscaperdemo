@@ -86,6 +86,7 @@
 		C5914B0714C9FB7F00856F57 /* marble_dark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0014C9FB7F00856F57 /* marble_dark.jpg */; };
 		C5914B0814C9FB7F00856F57 /* zensand.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0114C9FB7F00856F57 /* zensand.gif */; };
 		C5914B0914C9FB7F00856F57 /* zensand.gif in Resources */ = {isa = PBXBuildFile; fileRef = C5914B0114C9FB7F00856F57 /* zensand.gif */; };
+		C59435B419B2BA7800D0207A /* FractalScapeIconSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C59435B319B2BA7800D0207A /* FractalScapeIconSet.m */; };
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
 		C5A3EA6F16E7E6EF00D19155 /* MBColorCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A3EA6E16E7E6EF00D19155 /* MBColorCollectionViewController.m */; };
 		C5A3EA7416E8194100D19155 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A3EA7316E8194100D19155 /* Default-568h@2x.png */; };
@@ -254,6 +255,8 @@
 		C5914AFF14C9FB7F00856F57 /* grey.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = grey.gif; path = resources/grey.gif; sourceTree = "<group>"; };
 		C5914B0014C9FB7F00856F57 /* marble_dark.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = marble_dark.jpg; path = resources/marble_dark.jpg; sourceTree = "<group>"; };
 		C5914B0114C9FB7F00856F57 /* zensand.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = zensand.gif; path = resources/zensand.gif; sourceTree = "<group>"; };
+		C59435B219B2BA7800D0207A /* FractalScapeIconSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalScapeIconSet.h; path = FractalScape/FractalScapeIconSet.h; sourceTree = "<group>"; };
+		C59435B319B2BA7800D0207A /* FractalScapeIconSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FractalScapeIconSet.m; path = FractalScape/FractalScapeIconSet.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A3EA6D16E7E6EF00D19155 /* MBColorCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBColorCollectionViewController.h; sourceTree = "<group>"; };
 		C5A3EA6E16E7E6EF00D19155 /* MBColorCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBColorCollectionViewController.m; sourceTree = "<group>"; };
@@ -430,6 +433,8 @@
 				C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */,
 				C5A5C79A14D6F9A500D81C72 /* MBPortalStyleView.h */,
 				C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */,
+				C59435B219B2BA7800D0207A /* FractalScapeIconSet.h */,
+				C59435B319B2BA7800D0207A /* FractalScapeIconSet.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -699,7 +704,7 @@
 			name = FractalScapeTests;
 			productName = FractalScapeTests;
 			productReference = C5E6B7AC14A5346300DA48BD /* FractalScapeTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -707,7 +712,8 @@
 		C5E6B77414A5346200DA48BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastTestingUpgradeCheck = 0600;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "MOEDAE LLC";
 			};
 			buildConfigurationList = C5E6B77714A5346200DA48BD /* Build configuration list for PBXProject "FractalScape" */;
@@ -849,6 +855,7 @@
 				C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */,
 				C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */,
 				C5DA348D14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m in Sources */,
+				C59435B419B2BA7800D0207A /* FractalScapeIconSet.m in Sources */,
 				C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */,
 				C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */,
 				C540634214DADC6A00FBDEA4 /* MBColor+addons.m in Sources */,
@@ -970,9 +977,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1006,9 +1015,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

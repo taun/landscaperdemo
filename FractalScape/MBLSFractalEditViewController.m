@@ -378,6 +378,16 @@ static BOOL SIMULTOUCH = NO;
     return _appearanceViewController;
 }
 
+-(UIActionSheet*) shareActionsSheet {
+    if (_shareActionsSheet==nil) {
+        _shareActionsSheet = [[UIActionSheet alloc] initWithTitle: nil
+                                                         delegate: self
+                                                cancelButtonTitle: nil
+                                           destructiveButtonTitle: nil
+                                                otherButtonTitles: @"Save Image", nil];
+    }
+    return _shareActionsSheet;
+}
 //enum AppearanceIndex {
 //    TurningAngle=0,
 //    TurningAngleIncrement,
@@ -1189,14 +1199,15 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(IBAction)libraryButtonPressed:(id)sender {
     [self handlePopoverRequestForController: self.libraryViewController fromSender: sender];
 }
--(IBAction)propertiesButtonPressed:(id)sender {
+-(IBAction)appearanceButtonPressed:(id)sender {
     if ([self.fractal.isImmutable boolValue]) {
         self.fractal = [self.fractal mutableCopy];
     }
-    [self handlePopoverRequestForController: self.propertiesViewController fromSender: sender];
-}
--(IBAction)appearanceButtonPressed:(id)sender {
     [self handlePopoverRequestForController: self.appearanceViewController fromSender: sender];
+}
+
+- (IBAction)shareButtonPressed:(id)sender {
+    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
 }
 - (IBAction)copyFractal:(id)sender {    
     // copy
@@ -1204,7 +1215,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     self.fractal = copiedFractal;
     
-    [self propertiesButtonPressed: sender];
+    [self appearanceButtonPressed: self.appearanceButton];
 }
 
 - (IBAction)levelInputChanged:(UIControl*)sender {
@@ -1461,6 +1472,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
 }
 
+-(void) shareFractalToCameraRoll {
+    
+}
 
 #pragma mark - control actions
 //- (IBAction)nameInputDidEnd:(UITextField*)sender {
@@ -1541,6 +1555,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 // TODO: copy app delegate saveContext method
 
+#pragma  mark - ActionSheetDelegate Methods
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+}
 
 #pragma mark - core data 
 -(void) setUndoManager:(NSUndoManager *)undoManager {
@@ -1632,15 +1651,15 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo {
     if (LOGBOUNDS) {
         CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(bounds);
-        NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
+        NSString* boundsDescription = [(__bridge NSDictionary*)boundsDict description];
         CFRelease(boundsDict);
         
         NSLog(@"%@ = %@", boundsInfo,boundsDescription);
     }
 }
 -(void) logGroupingLevelFrom:  (NSString*) cmd {
-    if (NO) {
-        NSLog(@"%@: Undo group levels = %u", cmd, [self.undoManager groupingLevel]);
+    if (/* DISABLES CODE */ (NO)) {
+        NSLog(@"%@: Undo group levels = %ld", cmd, (long)[self.undoManager groupingLevel]);
     }
 }
 -(NSNumberFormatter*) twoPlaceFormatter {

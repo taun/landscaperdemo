@@ -18,7 +18,7 @@
 
 -(void) awakeFromNib {
     [super awakeFromNib];
-    [self fixSubviewsOuterConstraints];
+//    [self fixSubviewsOuterConstraints];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

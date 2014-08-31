@@ -23,7 +23,7 @@ static NSString*  kLastEditedFractalURI = @"lastEditedFractalURI";
 
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
-UIPopoverControllerDelegate>
+UIPopoverControllerDelegate, UIActionSheetDelegate>
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;
@@ -37,6 +37,7 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) UIBarButtonItem*              infoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*              spaceButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem        *appearanceButton;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
@@ -87,6 +88,8 @@ UIPopoverControllerDelegate>
 @property (strong, nonatomic) MBFractalAxiomEditViewController          *propertiesViewController;
 @property (strong, nonatomic) MBFractalAppearanceEditorViewController   *appearanceViewController;
 
+@property (strong, nonatomic) UIActionSheet     *shareActionsSheet;
+
 @property (nonatomic, strong) NSDictionary*         portraitViewFrames;
 
 
@@ -126,8 +129,8 @@ UIPopoverControllerDelegate>
 - (IBAction)info:(id)sender;
 - (IBAction)toggleFullScreen:(id)sender;
 - (IBAction)libraryButtonPressed:(id)sender;
-- (IBAction)propertiesButtonPressed:(id)sender;
 - (IBAction)appearanceButtonPressed:(id)sender;
+- (IBAction)shareButtonPressed:(id)sender;
 
 #pragma mark - Screen Controller Actions
 - (IBAction)copyFractal:(id)sender;

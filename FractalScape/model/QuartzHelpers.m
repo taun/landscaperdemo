@@ -66,8 +66,8 @@ CGColorRef CreatePatternColor( CGImageRef image )
 CGPatternRef CreateImagePattern( CGImageRef image )
 {
 //    NSCParameterAssert(image);
-    int width = CGImageGetWidth(image);
-    int height = CGImageGetHeight(image);
+    unsigned long width = CGImageGetWidth(image);
+    unsigned long height = CGImageGetHeight(image);
     static const CGPatternCallbacks callbacks = {0, &drawPatternImage, &releasePatternImage};
     return CGPatternCreate (image,
                             CGRectMake (0, 0, width, height),

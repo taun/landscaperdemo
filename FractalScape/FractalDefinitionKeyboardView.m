@@ -30,9 +30,9 @@
 {
     [super viewDidLoad];
 //    [self loadFractalKeyboardNibFile];
-    UIImage* background = [UIImage imageNamed: @"FractalKeyboardBackground"];
-    UIColor* backgroundColor = [UIColor colorWithPatternImage: background];
-    self.view.backgroundColor = backgroundColor;
+//    UIImage* background = [UIImage imageNamed: @"FractalKeyboardBackground"];
+//    UIColor* backgroundColor = [UIColor colorWithPatternImage: background];
+//    self.view.backgroundColor = backgroundColor;
 }
 
 

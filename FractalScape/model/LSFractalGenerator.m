@@ -185,7 +185,7 @@
  */
 -(NSString*) debugDescription {
     CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(_bounds);
-    NSString* boundsDescription = [(__bridge NSString*)boundsDict description];
+    NSString* boundsDescription = [(__bridge NSDictionary*)boundsDict description];
     CFRelease(boundsDict);
     
     return [NSString stringWithFormat: @"<%@: fractal = %@; forceLevel = %g; bounds = %@; production = %@>",
