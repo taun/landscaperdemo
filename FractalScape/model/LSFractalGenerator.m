@@ -75,12 +75,12 @@
 -(void) swapRotation;
 -(void) decrementAngle;
 -(void) incrementAngle;
--(void) strokeOff;
--(void) strokeOn;
--(void) fillOn;
--(void) fillOff;
--(void) randomizeOn;
--(void) randomizeOff;
+-(void) commandStrokeOff;
+-(void) commandStrokeOn;
+-(void) commandFillOn;
+-(void) commandFillOff;
+-(void) commandRandomizeOn;
+-(void) commandRandomizeOff;
 @end
 
 
@@ -887,23 +887,23 @@
     self.currentSegment.turningAngle += self.turningAngleIncrement;
 }
 
--(void) strokeOff {
+-(void) commandStrokeOff {
     self.currentSegment.stroke = NO;
 }
 
--(void) strokeOn {
+-(void) commandStrokeOn {
     self.currentSegment.stroke = YES;
 }
--(void) fillOff {
+-(void) commandFillOff {
     self.currentSegment.fill = NO;
 }
--(void) fillOn {
+-(void) commandFillOn {
     self.currentSegment.fill = YES;
 }
--(void) randomizeOff {
+-(void) commandRandomizeOff {
     self.randomize = NO;
 }
--(void) randomizeOn {
+-(void) commandRandomizeOn {
     self.randomize = YES;
 }
 #pragma mark - helper methods
