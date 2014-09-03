@@ -15,7 +15,7 @@
 
 #import "MBLSFractalEditViewController.h"
 
-static const BOOL ERASE_CORE_DATA = NO;
+static const BOOL ERASE_CORE_DATA = YES;
 
 
 @interface MBAppDelegate ()

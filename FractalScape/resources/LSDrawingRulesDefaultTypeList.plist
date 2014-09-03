@@ -14,39 +14,39 @@
 	<key>rules</key>
 	<dict>
 		<key>F</key>
-		<string>drawLine</string>
+		<string>commandDrawLine</string>
 		<key>f</key>
-		<string>moveByLine</string>
+		<string>commandMoveByLine</string>
 		<key>+</key>
-		<string>rotateCC</string>
+		<string>commandRotateCC</string>
 		<key>-</key>
-		<string>rotateC</string>
+		<string>commandRotateC</string>
 		<key>|</key>
-		<string>reverseDirection</string>
+		<string>commandReverseDirection</string>
 		<key>[</key>
-		<string>push</string>
+		<string>commandPush</string>
 		<key>]</key>
-		<string>pop</string>
+		<string>commandPop</string>
 		<key>#</key>
-		<string>incrementLineWidth</string>
+		<string>commandIncrementLineWidth</string>
 		<key>!</key>
-		<string>decrementLineWidth</string>
+		<string>commandDecrementLineWidth</string>
 		<key>@</key>
-		<string>drawDot</string>
+		<string>commandDrawDot</string>
 		<key>{</key>
-		<string>openPolygon</string>
+		<string>commandOpenPolygon</string>
 		<key>}</key>
-		<string>closePolygon</string>
+		<string>commandClosePolygon</string>
 		<key>&gt;</key>
-		<string>upscaleLineLength</string>
+		<string>commandUpscaleLineLength</string>
 		<key>&lt;</key>
-		<string>downscaleLineLength</string>
+		<string>commandDownscaleLineLength</string>
 		<key>&amp;</key>
-		<string>swapRotation</string>
+		<string>commandSwapRotation</string>
 		<key>(</key>
-		<string>decrementAngle</string>
+		<string>commandDecrementAngle</string>
 		<key>)</key>
-		<string>incrementAngle</string>
+		<string>commandIncrementAngle</string>
 		<key>s</key>
 		<string>commandStrokeOff</string>
 		<key>S</key>

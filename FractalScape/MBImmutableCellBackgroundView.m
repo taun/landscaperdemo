@@ -21,7 +21,7 @@
         [self.layer addSublayer: temp];
         _outlineLayer = temp;
         _outlineLayer.frame = CGRectInset(frame, -6.0, -6.0);
-        _outlineLayer.borderWidth = 3.0;
+        _outlineLayer.borderWidth = 1.0;
         _outlineLayer.cornerRadius = 6.0;
         _outlineLayer.zPosition = 300.0;
     }

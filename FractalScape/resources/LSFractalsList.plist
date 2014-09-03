@@ -250,7 +250,7 @@
 		<key>name</key>
 		<string>Hilbert Curve</string>
 		<key>axiom</key>
-		<string>X</string>
+		<string>A</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -289,7 +289,7 @@
 		<key>name</key>
 		<string>Sierpinsky Gasket</string>
 		<key>axiom</key>
-		<string>FXF--FF--FF</string>
+		<string>FAF--FF--FF</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -365,7 +365,7 @@
 		<key>name</key>
 		<string>Peano Curve</string>
 		<key>axiom</key>
-		<string>X</string>
+		<string>A</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -404,7 +404,7 @@
 		<key>name</key>
 		<string>Dragon Curve</string>
 		<key>axiom</key>
-		<string>X</string>
+		<string>A</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -572,7 +572,7 @@
 		<key>name</key>
 		<string>Bush1</string>
 		<key>axiom</key>
-		<string>G</string>
+		<string>A</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -597,10 +597,10 @@
 		<string>default</string>
 		<key>replacementRules</key>
 		<dict>
-			<key>G</key>
-			<string>GFX[+G][-G]</string>
-			<key>X</key>
-			<string>X[-FFF][+FFF]FX</string>
+			<key>A</key>
+			<string>AFB[+A][-A]</string>
+			<key>B</key>
+			<string>B[-FFF][+FFF]FB</string>
 		</dict>
 	</dict>
 	<dict>
@@ -726,7 +726,7 @@
 		<key>name</key>
 		<string>Flower</string>
 		<key>axiom</key>
-		<string>G</string>
+		<string>A</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -751,10 +751,10 @@
 		<string>default</string>
 		<key>replacementRules</key>
 		<dict>
-			<key>G</key>
-			<string>GFX[+G][-G]</string>
-			<key>X</key>
-			<string>X[-FFF][+FFF]FX</string>
+			<key>A</key>
+			<string>AFB[+A][-A]</string>
+			<key>B</key>
+			<string>B[-FFF][+FFF]FB</string>
 		</dict>
 	</dict>
 </array>

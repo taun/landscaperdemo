@@ -48,7 +48,9 @@
 -(id) initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self initGradient];
+        if ((NO)) {
+            [self initGradient];
+        }
     }
     return self;
 }

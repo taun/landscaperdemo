@@ -58,23 +58,23 @@
 -(void) generatePaths;
 
 #pragma mark - Default Drawing Rule Methods
--(void) drawLine;
--(void) moveByLine;
--(void) rotateCC;
--(void) rotateC;
--(void) reverseDirection;
--(void) push;
--(void) pop;
--(void) incrementLineWidth;
--(void) decrementLineWidth;
--(void) drawDot;
--(void) openPolygon;
--(void) closePolygon;
--(void) upscaleLineLength;
--(void) downscaleLineLength;
--(void) swapRotation;
--(void) decrementAngle;
--(void) incrementAngle;
+-(void) commandDrawLine;
+-(void) commandMoveByLine;
+-(void) commandRotateCC;
+-(void) commandRotateC;
+-(void) commandReverseDirection;
+-(void) commandPush;
+-(void) commandPop;
+-(void) commandIncrementLineWidth;
+-(void) commandDecrementLineWidth;
+-(void) commandDrawDot;
+-(void) commandOpenPolygon;
+-(void) commandClosePolygon;
+-(void) commandUpscaleLineLength;
+-(void) commandDownscaleLineLength;
+-(void) commandSwapRotation;
+-(void) commandDecrementAngle;
+-(void) commandIncrementAngle;
 -(void) commandStrokeOff;
 -(void) commandStrokeOn;
 -(void) commandFillOn;
@@ -807,83 +807,83 @@
 
 //TODO remove arg and use segment properties
 
--(void) drawLine {
+-(void) commandDrawLine {
     double tx = self.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
     CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0);
     self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
 }
 
--(void) moveByLine {
+-(void) commandMoveByLine {
     double tx = self.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
     CGPathMoveToPoint(self.currentSegment.path, &local, tx, 0);
     self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
 }
 
--(void) rotateCC {
+-(void) commandRotateCC {
     double theta = self.turningAngle;
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, theta);
 }
 
--(void) rotateC {
+-(void) commandRotateC {
     double theta = self.turningAngle;
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -theta);
 }
 
--(void) reverseDirection {
+-(void) commandReverseDirection {
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, M_PI);
 }
 
--(void) push {
+-(void) commandPush {
     [self pushSegment];
 }
 
--(void) pop {
+-(void) commandPop {
     [self popSegment];
 }
 
--(void) incrementLineWidth {
+-(void) commandIncrementLineWidth {
     self.currentSegment.lineWidth += self.lineWidthIncrement;
 }
 
--(void) decrementLineWidth {
+-(void) commandDecrementLineWidth {
     self.currentSegment.lineWidth = fmax(0,(self.lineWidth - self.lineWidthIncrement));
 }
 
--(void) drawDot {
+-(void) commandDrawDot {
     [self drawCircle: self.lineWidth];
 }
 
--(void) openPolygon {
+-(void) commandOpenPolygon {
     
 }
 
--(void) closePolygon {
+-(void) commandClosePolygon {
     
 }
 
--(void) upscaleLineLength {
+-(void) commandUpscaleLineLength {
     self.currentSegment.lineLength *= self.lineLengthScaleFactor;
 }
 
--(void) downscaleLineLength {
+-(void) commandDownscaleLineLength {
     if (self.currentSegment.lineLengthScaleFactor > 0) {
         self.currentSegment.lineLength = fmax(0,(self.lineLength / self.lineLengthScaleFactor));
     }
 }
 
--(void) swapRotation {
+-(void) commandSwapRotation {
     id tempMinusRule = (self.cachedDrawingRules)[@"-"];
     (self.cachedDrawingRules)[@"-"] = (self.cachedDrawingRules)[@"+"];
     (self.cachedDrawingRules)[@"+"] = tempMinusRule;
 }
 
--(void) decrementAngle {
+-(void) commandDecrementAngle {
     self.currentSegment.turningAngle -= self.turningAngleIncrement;
 }
 
--(void) incrementAngle {
+-(void) commandIncrementAngle {
     self.currentSegment.turningAngle += self.turningAngleIncrement;
 }
 
