@@ -287,9 +287,9 @@ static const BOOL ERASE_CORE_DATA = YES;
     
     LSDrawingRuleType* ruleType = [self loadLSDrawingRuleTypeFromPListDictionary: plistRuleType];
     
-    NSInteger addRulesCount = [self loadRules: plistRules forType: ruleType];
+    long addRulesCount = [self loadRules: plistRules forType: ruleType];
     
-    NSLog(@"Added %d rules.", addRulesCount);
+    NSLog(@"Added %ld rules.", addRulesCount);
 }
 /*
  MBColors plist must have a root array full of MBColor dictionary entries.

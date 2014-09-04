@@ -523,8 +523,8 @@
 			isa = PBXGroup;
 			children = (
 				C585291D19B8A1F9003ED8B1 /* tabBarFillColorIcon.png */,
-				C585291E19B8A1F9003ED8B1 /* tabBarFillColorIcon@2x.png */,
 				C585291F19B8A1F9003ED8B1 /* tabBarLineColorIcon.png */,
+				C585291E19B8A1F9003ED8B1 /* tabBarFillColorIcon@2x.png */,
 				C585292019B8A1F9003ED8B1 /* tabBarLineColorIcon@2x.png */,
 				C585289519B89935003ED8B1 /* elements.png */,
 				C585289619B89935003ED8B1 /* elements@2x.png */,

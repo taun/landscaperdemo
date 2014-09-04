@@ -41,6 +41,7 @@
 @property (nonatomic,strong) MBFractalSegment*      currentSegment;
 
 @property (nonatomic,strong) UIImage*               cachedImage;
+@property (nonatomic,strong) NSMutableDictionary*   cachedSelectors;
 
 @property (nonatomic,assign) BOOL                   randomize;
 
@@ -445,6 +446,13 @@
     self.cachedImage = nil;
 }
 
+-(NSMutableDictionary*) cachedSelectors {
+    if (!_cachedSelectors) {
+        _cachedSelectors = [NSMutableDictionary dictionaryWithCapacity: 30];
+    }
+    return _cachedSelectors;
+}
+
 -(CGRect) bounds {
     // adjust for the lineWidth
     double margin = _maxLineWidth*2.0+1.0;
@@ -784,9 +792,20 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 -(void) dispatchDrawingSelectorFromString:(NSString*)selector {
-    if ([self respondsToSelector:NSSelectorFromString(selector)]) {
-        [self performSelector: NSSelectorFromString(selector)];
+    
+    SEL cachedSelector = [[self.cachedSelectors objectForKey: selector] pointerValue];
+    
+    if (!cachedSelector) {
+        SEL uncachedSelector = NSSelectorFromString(selector);
+        
+        if ([self respondsToSelector: uncachedSelector]) {
+            cachedSelector = uncachedSelector;
+            [self.cachedSelectors setObject: [NSValue valueWithPointer: uncachedSelector] forKey: selector];
+        }
     }
+    
+    [self performSelector: cachedSelector];
+
 }
 
 #pragma clang diagnostic pop

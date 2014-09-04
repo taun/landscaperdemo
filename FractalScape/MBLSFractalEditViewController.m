@@ -345,6 +345,7 @@ static BOOL SIMULTOUCH = NO;
     if (_popover==nil) {
         _popover = [[UIPopoverController alloc]
                     initWithContentViewController: self.libraryViewController];
+        _popover.passthroughViews = [NSArray arrayWithObjects: self.fractalViewLevel0, self.fractalViewLevel1, nil];
     }
     return _popover;
 }
