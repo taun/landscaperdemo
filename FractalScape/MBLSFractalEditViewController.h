@@ -80,6 +80,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate>
 //@property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel0;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
+@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel2;
 
 
 #pragma mark - Popovers

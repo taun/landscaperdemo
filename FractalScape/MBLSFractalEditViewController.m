@@ -52,6 +52,7 @@ static BOOL SIMULTOUCH = NO;
 
 -(CALayer*) fractalLevel0Layer;
 -(CALayer*) fractalLevel1Layer;
+-(CALayer*) fractalLevel2Layer;
 -(CALayer*) fractalLevelNLayer;
 
 -(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) fractal;
@@ -205,6 +206,7 @@ static BOOL SIMULTOUCH = NO;
     if (!self.editing) {
         [self fitLayer: [self fractalLevel0Layer] inLayer: self.fractalViewLevel0.superview.layer margin: 5];
         [self fitLayer: [self fractalLevel1Layer] inLayer: self.fractalViewLevel1.superview.layer margin: 5];
+        [self fitLayer: [self fractalLevel2Layer] inLayer: self.fractalViewLevel2.superview.layer margin: 5];
     }
 }
 
@@ -345,7 +347,10 @@ static BOOL SIMULTOUCH = NO;
     if (_popover==nil) {
         _popover = [[UIPopoverController alloc]
                     initWithContentViewController: self.libraryViewController];
-        _popover.passthroughViews = [NSArray arrayWithObjects: self.fractalViewLevel0, self.fractalViewLevel1, nil];
+        _popover.passthroughViews = [NSArray arrayWithObjects:
+                                     self.fractalViewLevel0,
+                                     self.fractalViewLevel1,
+                                     self.fractalViewLevel2, nil];
     }
     return _popover;
 }
@@ -609,6 +614,15 @@ static BOOL SIMULTOUCH = NO;
     }
     return subLayer;
 }
+-(CALayer*) fractalLevel2Layer {
+    CALayer* subLayer;
+    for (CALayer* layer in self.fractalView.layer.sublayers) {
+        if ([layer.name isEqualToString: @"fractalLevel2"]) {
+            subLayer = layer;
+        }
+    }
+    return subLayer;
+}
 -(CALayer*) fractalLevelNLayer {
     CALayer* subLayer;
     for (CALayer* layer in self.fractalView.layer.sublayers) {
@@ -686,6 +700,7 @@ static BOOL SIMULTOUCH = NO;
             [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" forceLevel: -1];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel2 name: @"fractalLevel2" forceLevel: 2];
         }
     }
 }

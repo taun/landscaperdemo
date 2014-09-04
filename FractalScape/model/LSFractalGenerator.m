@@ -842,12 +842,12 @@
 
 -(void) commandRotateCC {
     double theta = self.turningAngle;
-    self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, theta);
+    self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -theta);
 }
 
 -(void) commandRotateC {
     double theta = self.turningAngle;
-    self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -theta);
+    self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, theta);
 }
 
 -(void) commandReverseDirection {
