@@ -8,7 +8,7 @@
 
 #import "MBStyleKitButton.h"
 
-NSString* kKBBackgroundImage = @"Keyboard key background light.png";
+NSString* kKBBackgroundImage = @"kBKeyBackgroundLight.png";
 
 @implementation MBStyleKitButton
 
@@ -16,7 +16,7 @@ NSString* kKBBackgroundImage = @"Keyboard key background light.png";
     self = [super initWithCoder: aDecoder];
     if (self) {
         //
-        [self setupAppearance];
+//        [self setupAppearance];
         [self removeLabel];
     }
     return self;
@@ -36,10 +36,12 @@ NSString* kKBBackgroundImage = @"Keyboard key background light.png";
     [self setImage: image forState: UIControlStateNormal];
 }
 
+// Not used, just use IB
 -(void) setupAppearance {
     [self setBackgroundImage: [UIImage imageNamed: kKBBackgroundImage] forState: UIControlStateNormal];
 }
 
+// Move label to internal property so the button just has image but label can be shown in IB for layout
 -(void) removeLabel {
     NSString* labelText = self.titleLabel.text;
     

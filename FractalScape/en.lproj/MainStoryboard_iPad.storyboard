@@ -231,7 +231,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="12" systemItem="fixedSpace" id="3FB-b2-WFQ"/>
-                                    <barButtonItem id="BQo-fn-mpv" userLabel="Copy">
+                                    <barButtonItem image="toolBarCopyIcon.png" id="BQo-fn-mpv" userLabel="Copy">
                                         <connections>
                                             <action selector="copyFractal:" destination="4nM-Pc-iAd" id="2Yt-KM-ZVV"/>
                                         </connections>
@@ -298,11 +298,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="sYo-Wa-K7H" customClass="FractalScapeIconSet">
-                    <connections>
-                        <outletCollection property="toolBarCopyIconTargets" destination="BQo-fn-mpv" id="rNL-iu-KBg"/>
-                    </connections>
-                </customObject>
+                <customObject id="sYo-Wa-K7H" customClass="FractalScapeIconSet"/>
                 <rotationGestureRecognizer id="SI8-00-oVr" userLabel="Fractal Rotation Gesture Recognizer">
                     <connections>
                         <action selector="rotateFractal:" destination="4nM-Pc-iAd" id="Fwx-oH-r76"/>
@@ -624,7 +620,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Rules" id="CZx-kr-Ycs"/>
+                    <tabBarItem key="tabBarItem" title="Rules" image="tabBarRulesIcon.png" id="CZx-kr-Ycs"/>
                     <value key="contentSizeForViewInPopover" type="size" width="400" height="400"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -636,11 +632,7 @@
                         <outlet property="fractalPropertiesTableView" destination="Dni-f2-BXO" id="qq9-zE-i5E"/>
                     </connections>
                 </tableViewController>
-                <customObject id="Rjd-15-VLu" customClass="FractalScapeIconSet">
-                    <connections>
-                        <outletCollection property="tabBarRulesIconTargets" destination="CZx-kr-Ycs" id="6TS-V2-6Y8"/>
-                    </connections>
-                </customObject>
+                <customObject id="Rjd-15-VLu" customClass="FractalScapeIconSet"/>
                 <customObject id="hrP-bc-aE6" customClass="FractalDefinitionKeyboardView"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqJ-1w-dtn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -966,7 +958,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Line Segments" id="dHW-xy-0Vv"/>
+                    <tabBarItem key="tabBarItem" title="Line Segments" image="tabBarLinePropertiesIcon.png" id="dHW-xy-0Vv"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="416"/>
@@ -986,11 +978,7 @@
                         <outlet property="widthStepper" destination="k9B-kO-46M" id="QtG-ma-PMc"/>
                     </connections>
                 </viewController>
-                <customObject id="n7o-vg-l7l" customClass="FractalScapeIconSet">
-                    <connections>
-                        <outletCollection property="tabBarLinePropertiesIconTargets" destination="dHW-xy-0Vv" id="iZm-lT-bGu"/>
-                    </connections>
-                </customObject>
+                <customObject id="n7o-vg-l7l" customClass="FractalScapeIconSet"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6905" y="-298"/>
@@ -1052,7 +1040,7 @@
                             <outlet property="delegate" destination="bRM-XI-8Xh" id="Cya-ED-FIf"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Fill Colors" id="XzP-vF-Qi5"/>
+                    <tabBarItem key="tabBarItem" title="Fill Colors" image="tabBarFillColorIcon.png" id="XzP-vF-Qi5"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="400"/>
@@ -1061,11 +1049,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="6ep-nf-v8a" customClass="FractalScapeIconSet">
-                    <connections>
-                        <outletCollection property="tabBarFillColorIconTargets" destination="XzP-vF-Qi5" id="GEf-1b-dJw"/>
-                    </connections>
-                </customObject>
+                <customObject id="6ep-nf-v8a" customClass="FractalScapeIconSet"/>
             </objects>
             <point key="canvasLocation" x="6905" y="671"/>
         </scene>
@@ -1126,7 +1110,7 @@
                             <outlet property="delegate" destination="TSZ-NG-w8m" id="Gj6-Sy-IHj"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Line Colors" id="fRh-xF-oTr"/>
+                    <tabBarItem key="tabBarItem" title="Line Colors" image="tabBarLineColorIcon.png" id="fRh-xF-oTr"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="420"/>
                     <connections>
@@ -1134,11 +1118,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ln-qV-G96" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="JE5-q7-SfG" customClass="FractalScapeIconSet">
-                    <connections>
-                        <outletCollection property="tabBarLineColorIconTargets" destination="fRh-xF-oTr" id="nWu-qu-aGQ"/>
-                    </connections>
-                </customObject>
+                <customObject id="JE5-q7-SfG" customClass="FractalScapeIconSet"/>
             </objects>
             <point key="canvasLocation" x="6905" y="180"/>
         </scene>
@@ -1298,6 +1278,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="tabBarFillColorIcon.png" width="25" height="25"/>
+        <image name="tabBarLineColorIcon.png" width="25" height="25"/>
+        <image name="tabBarLinePropertiesIcon.png" width="25" height="25"/>
+        <image name="tabBarRulesIcon.png" width="25" height="25"/>
+        <image name="toolBarCopyIcon.png" width="28" height="28"/>
         <image name="zensand.png" width="72" height="71"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

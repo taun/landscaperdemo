@@ -13,6 +13,7 @@
 @property (strong,nonatomic) NSString   *ruleCode;
 
 // Set defaultImage to PaintCode StyleKit image
+// NOT used due to using actual images to better see view in IB
 -(void) setImage:(UIImage *)image;
 
 @end

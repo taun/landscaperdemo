@@ -21,24 +21,6 @@
 		C51DF51E16E68DB700FBDB8A /* MBFractalStrokeColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF51D16E68DB700FBDB8A /* MBFractalStrokeColorViewController.m */; };
 		C51DF52116E68DEC00FBDB8A /* MBFractalFillColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52016E68DEC00FBDB8A /* MBFractalFillColorViewController.m */; };
 		C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */; };
-		C525B15414FBFA9800A0986B /* Ampersand rotate swap dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B14C14FBFA9800A0986B /* Ampersand rotate swap dark.png */; };
-		C525B15514FBFA9800A0986B /* Bar rotate 180 dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B14D14FBFA9800A0986B /* Bar rotate 180 dark.png */; };
-		C525B15614FBFA9800A0986B /* f  forward no line dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B14E14FBFA9800A0986B /* f  forward no line dark.png */; };
-		C525B15714FBFA9800A0986B /* F dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B14F14FBFA9800A0986B /* F dark.png */; };
-		C525B15814FBFA9800A0986B /* Left square bracket push context dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B15014FBFA9800A0986B /* Left square bracket push context dark.png */; };
-		C525B15914FBFA9800A0986B /* Minus rotate CW dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B15114FBFA9800A0986B /* Minus rotate CW dark.png */; };
-		C525B15A14FBFA9800A0986B /* Plus rotate CC dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B15214FBFA9800A0986B /* Plus rotate CC dark.png */; };
-		C525B15B14FBFA9800A0986B /* Right square bracket pop context dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B15314FBFA9800A0986B /* Right square bracket pop context dark.png */; };
-		C525B16514FBFAD300A0986B /* Ampersand rotate swap.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B15C14FBFAD300A0986B /* Ampersand rotate swap.png */; };
-		C525B16614FBFAD300A0986B /* Bar rotate 180.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B15D14FBFAD300A0986B /* Bar rotate 180.png */; };
-		C525B16814FBFAD300A0986B /* f  forward no line.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B15F14FBFAD300A0986B /* f  forward no line.png */; };
-		C525B16914FBFAD300A0986B /* F.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B16014FBFAD300A0986B /* F.png */; };
-		C525B16A14FBFAD300A0986B /* Left square bracket push context.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B16114FBFAD300A0986B /* Left square bracket push context.png */; };
-		C525B16B14FBFAD300A0986B /* Minus rotate CW.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B16214FBFAD300A0986B /* Minus rotate CW.png */; };
-		C525B16C14FBFAD300A0986B /* Plus rotate CC.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B16314FBFAD300A0986B /* Plus rotate CC.png */; };
-		C525B16D14FBFAD300A0986B /* Right square bracket pop context.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B16414FBFAD300A0986B /* Right square bracket pop context.png */; };
-		C525B17114FC089B00A0986B /* Keyboard key background.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B17014FC089B00A0986B /* Keyboard key background.png */; };
-		C525B17314FD4C2400A0986B /* FractalKeyboardKeyGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = C525B17214FD4C2400A0986B /* FractalKeyboardKeyGradient.png */; };
 		C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */; };
 		C525B9FF16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C525B9FE16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalLineSegmentsEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalLineSegmentsEditorViewController.m */; };
@@ -57,10 +39,6 @@
 		C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C55131F914F6A15E0074137C /* MBLSRuleTableViewCell.m */; };
 		C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C551320014F731C70074137C /* MBStepperTableViewCell.m */; };
 		C551320514F9CA2A0074137C /* FractalScapeLogoIPad.png in Resources */ = {isa = PBXBuildFile; fileRef = C551320414F9CA290074137C /* FractalScapeLogoIPad.png */; };
-		C557D9A616FA921A00FCB857 /* TabbarFillColorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */; };
-		C557D9A716FA921A00FCB857 /* TabbarFillColorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A316FA921A00FCB857 /* TabbarFillColorIcon@2x.png */; };
-		C557D9A816FA921A00FCB857 /* TabbarLineColorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A416FA921A00FCB857 /* TabbarLineColorIcon.png */; };
-		C557D9A916FA921A00FCB857 /* TabbarLineColorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C557D9A516FA921A00FCB857 /* TabbarLineColorIcon@2x.png */; };
 		C56A2C8F14CFA1CB00B5F763 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C8E14CFA1CB00B5F763 /* grey.png */; };
 		C56A2C9414CFA77F00B5F763 /* sky.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9014CFA77F00B5F763 /* sky.png */; };
 		C56A2C9514CFA77F00B5F763 /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = C56A2C9114CFA77F00B5F763 /* space.png */; };
@@ -140,8 +118,11 @@
 		C585291A19B89935003ED8B1 /* toolBarAppearanceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D619B89935003ED8B1 /* toolBarAppearanceIcon@2x.png */; };
 		C585291B19B89935003ED8B1 /* toolBarCopyIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D719B89935003ED8B1 /* toolBarCopyIcon.png */; };
 		C585291C19B89935003ED8B1 /* toolBarCopyIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D819B89935003ED8B1 /* toolBarCopyIcon@2x.png */; };
-		C5886EEB14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = C5886EEA14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png */; };
-		C5886EF014FDD3D50009BEB6 /* Keyboard key background light.png in Resources */ = {isa = PBXBuildFile; fileRef = C5886EEF14FDD3D50009BEB6 /* Keyboard key background light.png */; };
+		C585292119B8A1F9003ED8B1 /* tabBarFillColorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C585291D19B8A1F9003ED8B1 /* tabBarFillColorIcon.png */; };
+		C585292219B8A1F9003ED8B1 /* tabBarFillColorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C585291E19B8A1F9003ED8B1 /* tabBarFillColorIcon@2x.png */; };
+		C585292319B8A1F9003ED8B1 /* tabBarLineColorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C585291F19B8A1F9003ED8B1 /* tabBarLineColorIcon.png */; };
+		C585292419B8A1F9003ED8B1 /* tabBarLineColorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C585292019B8A1F9003ED8B1 /* tabBarLineColorIcon@2x.png */; };
+		C585292619B8A498003ED8B1 /* kBKeyBackgroundLight.png in Resources */ = {isa = PBXBuildFile; fileRef = C585292519B8A498003ED8B1 /* kBKeyBackgroundLight.png */; };
 		C588E23A19B7D8C60061B34A /* MBStyleKitButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C588E23919B7D8C60061B34A /* MBStyleKitButton.m */; };
 		C58FF3C014FE80FC00AB9659 /* FractalScapeIconiPhone57.png in Resources */ = {isa = PBXBuildFile; fileRef = C58FF3BF14FE80FC00AB9659 /* FractalScapeIconiPhone57.png */; };
 		C58FF3C214FE810500AB9659 /* FractalScapeIconiPhone57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58FF3C114FE810500AB9659 /* FractalScapeIconiPhone57@2x.png */; };
@@ -165,8 +146,6 @@
 		C5AF42D414EC3E8200D3308F /* MBFractalExamineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */; };
 		C5AF5FB2170A3C3400990196 /* LSDrawingRuleType+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AF5FB1170A3C3400990196 /* LSDrawingRuleType+addons.m */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
-		C5B98343170496FE00BEC62C /* ToolbarGyroLockedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */; };
-		C5B98344170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B98342170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png */; };
 		C5BA2B9314C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5BA2B9114C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld */; };
 		C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C5BA2BE714C6F59D00F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
@@ -180,11 +159,6 @@
 		C5DA349414D6417300D91F43 /* imitation_leather.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349114D6417300D91F43 /* imitation_leather.png */; };
 		C5DA349514D6417300D91F43 /* interstices.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349214D6417300D91F43 /* interstices.png */; };
 		C5DA349614D6417300D91F43 /* marble_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349314D6417300D91F43 /* marble_dark.png */; };
-		C5DF95B71506EBD900FD2FAF /* Parenthesis decrement turn angle.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DF95B51506EBD900FD2FAF /* Parenthesis decrement turn angle.png */; };
-		C5DF95B81506EBD900FD2FAF /* Parenthesis increment turn angle dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DF95B61506EBD900FD2FAF /* Parenthesis increment turn angle dark.png */; };
-		C5DF95BC1506EC1100FD2FAF /* Exclaim reduce line width.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DF95BA1506EC1100FD2FAF /* Exclaim reduce line width.png */; };
-		C5DF95BD1506EC1100FD2FAF /* Pound increment width dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DF95BB1506EC1100FD2FAF /* Pound increment width dark.png */; };
-		C5DF95BF1506EFAF00FD2FAF /* Line width dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DF95BE1506EFAF00FD2FAF /* Line width dark.png */; };
 		C5E556D514E2E24F00CAAB33 /* ColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E556D214E2E24F00CAAB33 /* ColorPickerController.m */; };
 		C5E556D614E2E24F00CAAB33 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E556D414E2E24F00CAAB33 /* GradientView.m */; };
 		C5E556D914E2E6B300CAAB33 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E556D714E2E6B300CAAB33 /* Localizable.strings */; };
@@ -197,10 +171,6 @@
 		C5E6B79514A5346300DA48BD /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */; };
 		C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */; };
 		C5E6B79B14A5346300DA48BD /* MBFractalLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */; };
-		C5E6B79D14A5346300DA48BD /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79C14A5346300DA48BD /* first.png */; };
-		C5E6B79F14A5346300DA48BD /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79E14A5346300DA48BD /* first@2x.png */; };
-		C5E6B7A414A5346300DA48BD /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7A314A5346300DA48BD /* second.png */; };
-		C5E6B7A614A5346300DA48BD /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7A514A5346300DA48BD /* second@2x.png */; };
 		C5E6B7AE14A5346300DA48BD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B7AD14A5346300DA48BD /* SenTestingKit.framework */; };
 		C5E6B7AF14A5346300DA48BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78114A5346300DA48BD /* UIKit.framework */; };
 		C5E6B7B014A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
@@ -247,24 +217,6 @@
 		C51DF52016E68DEC00FBDB8A /* MBFractalFillColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFractalFillColorViewController.m; sourceTree = "<group>"; };
 		C51DF52216E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFractalAppearanceEditorViewController.h; sourceTree = "<group>"; };
 		C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFractalAppearanceEditorViewController.m; sourceTree = "<group>"; };
-		C525B14C14FBFA9800A0986B /* Ampersand rotate swap dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ampersand rotate swap dark.png"; path = "resources/Ampersand rotate swap dark.png"; sourceTree = "<group>"; };
-		C525B14D14FBFA9800A0986B /* Bar rotate 180 dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Bar rotate 180 dark.png"; path = "resources/Bar rotate 180 dark.png"; sourceTree = "<group>"; };
-		C525B14E14FBFA9800A0986B /* f  forward no line dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "f  forward no line dark.png"; path = "resources/f  forward no line dark.png"; sourceTree = "<group>"; };
-		C525B14F14FBFA9800A0986B /* F dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "F dark.png"; path = "resources/F dark.png"; sourceTree = "<group>"; };
-		C525B15014FBFA9800A0986B /* Left square bracket push context dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Left square bracket push context dark.png"; path = "resources/Left square bracket push context dark.png"; sourceTree = "<group>"; };
-		C525B15114FBFA9800A0986B /* Minus rotate CW dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Minus rotate CW dark.png"; path = "resources/Minus rotate CW dark.png"; sourceTree = "<group>"; };
-		C525B15214FBFA9800A0986B /* Plus rotate CC dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Plus rotate CC dark.png"; path = "resources/Plus rotate CC dark.png"; sourceTree = "<group>"; };
-		C525B15314FBFA9800A0986B /* Right square bracket pop context dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Right square bracket pop context dark.png"; path = "resources/Right square bracket pop context dark.png"; sourceTree = "<group>"; };
-		C525B15C14FBFAD300A0986B /* Ampersand rotate swap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Ampersand rotate swap.png"; path = "resources/Ampersand rotate swap.png"; sourceTree = "<group>"; };
-		C525B15D14FBFAD300A0986B /* Bar rotate 180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Bar rotate 180.png"; path = "resources/Bar rotate 180.png"; sourceTree = "<group>"; };
-		C525B15F14FBFAD300A0986B /* f  forward no line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "f  forward no line.png"; path = "resources/f  forward no line.png"; sourceTree = "<group>"; };
-		C525B16014FBFAD300A0986B /* F.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = F.png; path = resources/F.png; sourceTree = "<group>"; };
-		C525B16114FBFAD300A0986B /* Left square bracket push context.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Left square bracket push context.png"; path = "resources/Left square bracket push context.png"; sourceTree = "<group>"; };
-		C525B16214FBFAD300A0986B /* Minus rotate CW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Minus rotate CW.png"; path = "resources/Minus rotate CW.png"; sourceTree = "<group>"; };
-		C525B16314FBFAD300A0986B /* Plus rotate CC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Plus rotate CC.png"; path = "resources/Plus rotate CC.png"; sourceTree = "<group>"; };
-		C525B16414FBFAD300A0986B /* Right square bracket pop context.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Right square bracket pop context.png"; path = "resources/Right square bracket pop context.png"; sourceTree = "<group>"; };
-		C525B17014FC089B00A0986B /* Keyboard key background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Keyboard key background.png"; path = "resources/Keyboard key background.png"; sourceTree = "<group>"; };
-		C525B17214FD4C2400A0986B /* FractalKeyboardKeyGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FractalKeyboardKeyGradient.png; path = resources/FractalKeyboardKeyGradient.png; sourceTree = "<group>"; };
 		C525B9FA16F8A6C500CE2200 /* MBColorCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColorCellBackgroundView.h; path = FractalScape/MBColorCellBackgroundView.h; sourceTree = "<group>"; };
 		C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColorCellBackgroundView.m; path = FractalScape/MBColorCellBackgroundView.m; sourceTree = "<group>"; };
 		C525B9FD16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColorCellSelectBackgroundView.h; path = FractalScape/MBColorCellSelectBackgroundView.h; sourceTree = "<group>"; };
@@ -295,10 +247,6 @@
 		C55131FF14F731C70074137C /* MBStepperTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBStepperTableViewCell.h; path = FractalScape/MBStepperTableViewCell.h; sourceTree = "<group>"; };
 		C551320014F731C70074137C /* MBStepperTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBStepperTableViewCell.m; path = FractalScape/MBStepperTableViewCell.m; sourceTree = "<group>"; };
 		C551320414F9CA290074137C /* FractalScapeLogoIPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FractalScapeLogoIPad.png; path = ../FractalScapeLogoIPad.png; sourceTree = "<group>"; };
-		C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabbarFillColorIcon.png; path = resources/TabbarFillColorIcon.png; sourceTree = "<group>"; };
-		C557D9A316FA921A00FCB857 /* TabbarFillColorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TabbarFillColorIcon@2x.png"; path = "resources/TabbarFillColorIcon@2x.png"; sourceTree = "<group>"; };
-		C557D9A416FA921A00FCB857 /* TabbarLineColorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabbarLineColorIcon.png; path = resources/TabbarLineColorIcon.png; sourceTree = "<group>"; };
-		C557D9A516FA921A00FCB857 /* TabbarLineColorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TabbarLineColorIcon@2x.png"; path = "resources/TabbarLineColorIcon@2x.png"; sourceTree = "<group>"; };
 		C56A2C8E14CFA1CB00B5F763 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grey.png; path = resources/grey.png; sourceTree = "<group>"; };
 		C56A2C9014CFA77F00B5F763 /* sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sky.png; path = resources/sky.png; sourceTree = "<group>"; };
 		C56A2C9114CFA77F00B5F763 /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = space.png; path = resources/space.png; sourceTree = "<group>"; };
@@ -383,8 +331,11 @@
 		C58528D619B89935003ED8B1 /* toolBarAppearanceIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolBarAppearanceIcon@2x.png"; path = "resources/toolBarAppearanceIcon@2x.png"; sourceTree = "<group>"; };
 		C58528D719B89935003ED8B1 /* toolBarCopyIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolBarCopyIcon.png; path = resources/toolBarCopyIcon.png; sourceTree = "<group>"; };
 		C58528D819B89935003ED8B1 /* toolBarCopyIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolBarCopyIcon@2x.png"; path = "resources/toolBarCopyIcon@2x.png"; sourceTree = "<group>"; };
-		C5886EEA14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FractalKeyboardBackgroundGradient.png; path = resources/FractalKeyboardBackgroundGradient.png; sourceTree = "<group>"; };
-		C5886EEF14FDD3D50009BEB6 /* Keyboard key background light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Keyboard key background light.png"; path = "resources/Keyboard key background light.png"; sourceTree = "<group>"; };
+		C585291D19B8A1F9003ED8B1 /* tabBarFillColorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabBarFillColorIcon.png; path = resources/tabBarFillColorIcon.png; sourceTree = "<group>"; };
+		C585291E19B8A1F9003ED8B1 /* tabBarFillColorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabBarFillColorIcon@2x.png"; path = "resources/tabBarFillColorIcon@2x.png"; sourceTree = "<group>"; };
+		C585291F19B8A1F9003ED8B1 /* tabBarLineColorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabBarLineColorIcon.png; path = resources/tabBarLineColorIcon.png; sourceTree = "<group>"; };
+		C585292019B8A1F9003ED8B1 /* tabBarLineColorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabBarLineColorIcon@2x.png"; path = "resources/tabBarLineColorIcon@2x.png"; sourceTree = "<group>"; };
+		C585292519B8A498003ED8B1 /* kBKeyBackgroundLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBKeyBackgroundLight.png; path = resources/kBKeyBackgroundLight.png; sourceTree = "<group>"; };
 		C588E23819B7D8C60061B34A /* MBStyleKitButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBStyleKitButton.h; path = FractalScape/MBStyleKitButton.h; sourceTree = "<group>"; };
 		C588E23919B7D8C60061B34A /* MBStyleKitButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBStyleKitButton.m; path = FractalScape/MBStyleKitButton.m; sourceTree = "<group>"; };
 		C58FF3BF14FE80FC00AB9659 /* FractalScapeIconiPhone57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FractalScapeIconiPhone57.png; sourceTree = "<group>"; };
@@ -409,8 +360,6 @@
 		C5AF5FB0170A3C3400990196 /* LSDrawingRuleType+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSDrawingRuleType+addons.h"; path = "FractalScape/LSDrawingRuleType+addons.h"; sourceTree = "<group>"; };
 		C5AF5FB1170A3C3400990196 /* LSDrawingRuleType+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSDrawingRuleType+addons.m"; path = "FractalScape/LSDrawingRuleType+addons.m"; sourceTree = "<group>"; };
 		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarGyroLockedIcon.png; path = ../../../Cocos2D3D/Projects/AligyroApp/Aligyro/Resources/ToolbarGyroLockedIcon.png; sourceTree = "<group>"; };
-		C5B98342170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ToolbarGyroLockedIcon@2x.png"; path = "../../../Cocos2D3D/Projects/AligyroApp/Aligyro/Resources/ToolbarGyroLockedIcon@2x.png"; sourceTree = "<group>"; };
 		C5BA2B9214C6F2BE00F2B9D0 /* FSLibrary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FSLibrary.xcdatamodel; sourceTree = "<group>"; };
 		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5BE4A1014D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FractalDefinitionKeyboardView.xib; path = FractalScape/FractalDefinitionKeyboardView.xib; sourceTree = "<group>"; };
@@ -427,11 +376,6 @@
 		C5DA349114D6417300D91F43 /* imitation_leather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imitation_leather.png; path = resources/imitation_leather.png; sourceTree = "<group>"; };
 		C5DA349214D6417300D91F43 /* interstices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = interstices.png; path = resources/interstices.png; sourceTree = "<group>"; };
 		C5DA349314D6417300D91F43 /* marble_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = marble_dark.png; path = resources/marble_dark.png; sourceTree = "<group>"; };
-		C5DF95B51506EBD900FD2FAF /* Parenthesis decrement turn angle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Parenthesis decrement turn angle.png"; path = "resources/Parenthesis decrement turn angle.png"; sourceTree = "<group>"; };
-		C5DF95B61506EBD900FD2FAF /* Parenthesis increment turn angle dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Parenthesis increment turn angle dark.png"; path = "resources/Parenthesis increment turn angle dark.png"; sourceTree = "<group>"; };
-		C5DF95BA1506EC1100FD2FAF /* Exclaim reduce line width.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Exclaim reduce line width.png"; path = "resources/Exclaim reduce line width.png"; sourceTree = "<group>"; };
-		C5DF95BB1506EC1100FD2FAF /* Pound increment width dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pound increment width dark.png"; path = "resources/Pound increment width dark.png"; sourceTree = "<group>"; };
-		C5DF95BE1506EFAF00FD2FAF /* Line width dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Line width dark.png"; path = "resources/Line width dark.png"; sourceTree = "<group>"; };
 		C5E556D114E2E24F00CAAB33 /* ColorPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerController.h; sourceTree = "<group>"; };
 		C5E556D214E2E24F00CAAB33 /* ColorPickerController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ColorPickerController.m; sourceTree = "<group>"; };
 		C5E556D314E2E24F00CAAB33 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
@@ -451,10 +395,6 @@
 		C5E6B79714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		C5E6B79914A5346300DA48BD /* MBFractalLibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBFractalLibraryViewController.h; sourceTree = "<group>"; };
 		C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBFractalLibraryViewController.m; sourceTree = "<group>"; };
-		C5E6B79C14A5346300DA48BD /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		C5E6B79E14A5346300DA48BD /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		C5E6B7A314A5346300DA48BD /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		C5E6B7A514A5346300DA48BD /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		C5E6B7AC14A5346300DA48BD /* FractalScapeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FractalScapeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5E6B7AD14A5346300DA48BD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C5E6B7B514A5346300DA48BD /* FractalScapeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FractalScapeTests-Info.plist"; sourceTree = "<group>"; };
@@ -490,45 +430,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C525B14914FBFA1600A0986B /* FractalSymbolsWhite */ = {
-			isa = PBXGroup;
-			children = (
-				C525B15C14FBFAD300A0986B /* Ampersand rotate swap.png */,
-				C525B15D14FBFAD300A0986B /* Bar rotate 180.png */,
-				C525B15F14FBFAD300A0986B /* f  forward no line.png */,
-				C525B16014FBFAD300A0986B /* F.png */,
-				C525B16114FBFAD300A0986B /* Left square bracket push context.png */,
-				C525B16214FBFAD300A0986B /* Minus rotate CW.png */,
-				C525B16314FBFAD300A0986B /* Plus rotate CC.png */,
-				C525B16414FBFAD300A0986B /* Right square bracket pop context.png */,
-			);
-			name = FractalSymbolsWhite;
-			sourceTree = "<group>";
-		};
-		C525B14B14FBFA2F00A0986B /* FractalSymbolsDark */ = {
-			isa = PBXGroup;
-			children = (
-				C5DF95BE1506EFAF00FD2FAF /* Line width dark.png */,
-				C5DF95BA1506EC1100FD2FAF /* Exclaim reduce line width.png */,
-				C5DF95BB1506EC1100FD2FAF /* Pound increment width dark.png */,
-				C5DF95B51506EBD900FD2FAF /* Parenthesis decrement turn angle.png */,
-				C5DF95B61506EBD900FD2FAF /* Parenthesis increment turn angle dark.png */,
-				C5886EEF14FDD3D50009BEB6 /* Keyboard key background light.png */,
-				C5886EEA14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png */,
-				C525B17214FD4C2400A0986B /* FractalKeyboardKeyGradient.png */,
-				C525B17014FC089B00A0986B /* Keyboard key background.png */,
-				C525B14C14FBFA9800A0986B /* Ampersand rotate swap dark.png */,
-				C525B14D14FBFA9800A0986B /* Bar rotate 180 dark.png */,
-				C525B14E14FBFA9800A0986B /* f  forward no line dark.png */,
-				C525B14F14FBFA9800A0986B /* F dark.png */,
-				C525B15014FBFA9800A0986B /* Left square bracket push context dark.png */,
-				C525B15114FBFA9800A0986B /* Minus rotate CW dark.png */,
-				C525B15214FBFA9800A0986B /* Plus rotate CC dark.png */,
-				C525B15314FBFA9800A0986B /* Right square bracket pop context dark.png */,
-			);
-			name = FractalSymbolsDark;
-			sourceTree = "<group>";
-		};
 		C540634414DADC7500FBDEA4 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,6 +522,10 @@
 		C585289419B89904003ED8B1 /* PaintcodeStyleKit */ = {
 			isa = PBXGroup;
 			children = (
+				C585291D19B8A1F9003ED8B1 /* tabBarFillColorIcon.png */,
+				C585291E19B8A1F9003ED8B1 /* tabBarFillColorIcon@2x.png */,
+				C585291F19B8A1F9003ED8B1 /* tabBarLineColorIcon.png */,
+				C585292019B8A1F9003ED8B1 /* tabBarLineColorIcon@2x.png */,
 				C585289519B89935003ED8B1 /* elements.png */,
 				C585289619B89935003ED8B1 /* elements@2x.png */,
 				C585289719B89935003ED8B1 /* kBIconRuleClosePolygon.png */,
@@ -721,22 +626,11 @@
 		C5914AFD14C9FB6000856F57 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C585292519B8A498003ED8B1 /* kBKeyBackgroundLight.png */,
 				C585289419B89904003ED8B1 /* PaintcodeStyleKit */,
-				C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */,
-				C5B98342170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png */,
-				C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */,
-				C557D9A316FA921A00FCB857 /* TabbarFillColorIcon@2x.png */,
-				C557D9A416FA921A00FCB857 /* TabbarLineColorIcon.png */,
-				C557D9A516FA921A00FCB857 /* TabbarLineColorIcon@2x.png */,
 				C53AF0F316C2C43400FA5142 /* linen-fine.jpg */,
-				C525B14B14FBFA2F00A0986B /* FractalSymbolsDark */,
-				C525B14914FBFA1600A0986B /* FractalSymbolsWhite */,
 				C551320414F9CA290074137C /* FractalScapeLogoIPad.png */,
 				C543E80014E3903900403005 /* ColorPicker */,
-				C5E6B7A514A5346300DA48BD /* second@2x.png */,
-				C5E6B7A314A5346300DA48BD /* second.png */,
-				C5E6B79E14A5346300DA48BD /* first@2x.png */,
-				C5E6B79C14A5346300DA48BD /* first.png */,
 				C5DA349114D6417300D91F43 /* imitation_leather.png */,
 				C5DA349214D6417300D91F43 /* interstices.png */,
 				C5DA349314D6417300D91F43 /* marble_dark.png */,
@@ -962,13 +856,9 @@
 				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
 				C58528F919B89935003ED8B1 /* kBIconRulePlace3.png in Resources */,
 				C58528FB19B89935003ED8B1 /* kBIconRulePlace4.png in Resources */,
-				C5E6B79D14A5346300DA48BD /* first.png in Resources */,
-				C5E6B79F14A5346300DA48BD /* first@2x.png in Resources */,
-				C5E6B7A414A5346300DA48BD /* second.png in Resources */,
 				C58528EA19B89935003ED8B1 /* kBIconRuleFillOn@2x.png in Resources */,
 				C58528DC19B89935003ED8B1 /* kBIconRuleClosePolygon@2x.png in Resources */,
 				C585291319B89935003ED8B1 /* kBIconRuleUpscaleLineLength.png in Resources */,
-				C5E6B7A614A5346300DA48BD /* second@2x.png in Resources */,
 				C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
 				C58528E719B89935003ED8B1 /* kBIconRuleFillOff.png in Resources */,
 				C585290E19B89935003ED8B1 /* kBIconRuleStrokeOff@2x.png in Resources */,
@@ -991,6 +881,7 @@
 				C58528FD19B89935003ED8B1 /* kBIconRulePlace5.png in Resources */,
 				C58528FC19B89935003ED8B1 /* kBIconRulePlace4@2x.png in Resources */,
 				C5BE4A1114D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib in Resources */,
+				C585292119B8A1F9003ED8B1 /* tabBarFillColorIcon.png in Resources */,
 				C58528EC19B89935003ED8B1 /* kBIconRuleIncrementAngle@2x.png in Resources */,
 				C5DA349014D6413D00D91F43 /* FractalKeyboardBackground.png in Resources */,
 				C58528E319B89935003ED8B1 /* kBIconRuleDrawDot.png in Resources */,
@@ -1014,37 +905,19 @@
 				C543E80A14E390A000403005 /* HorizontalSelector@2x.png in Resources */,
 				C58528E819B89935003ED8B1 /* kBIconRuleFillOff@2x.png in Resources */,
 				C585290D19B89935003ED8B1 /* kBIconRuleStrokeOff.png in Resources */,
+				C585292219B8A1F9003ED8B1 /* tabBarFillColorIcon@2x.png in Resources */,
 				C543E80B14E390A000403005 /* HueSaturationGradient.png in Resources */,
 				C551320514F9CA2A0074137C /* FractalScapeLogoIPad.png in Resources */,
+				C585292419B8A1F9003ED8B1 /* tabBarLineColorIcon@2x.png in Resources */,
 				C58528F219B89935003ED8B1 /* kBIconRuleOpenPolygon@2x.png in Resources */,
-				C525B15414FBFA9800A0986B /* Ampersand rotate swap dark.png in Resources */,
-				C525B15514FBFA9800A0986B /* Bar rotate 180 dark.png in Resources */,
-				C525B15614FBFA9800A0986B /* f  forward no line dark.png in Resources */,
-				C525B15714FBFA9800A0986B /* F dark.png in Resources */,
-				C525B15814FBFA9800A0986B /* Left square bracket push context dark.png in Resources */,
-				C525B15914FBFA9800A0986B /* Minus rotate CW dark.png in Resources */,
-				C525B15A14FBFA9800A0986B /* Plus rotate CC dark.png in Resources */,
-				C525B15B14FBFA9800A0986B /* Right square bracket pop context dark.png in Resources */,
-				C525B16514FBFAD300A0986B /* Ampersand rotate swap.png in Resources */,
-				C525B16614FBFAD300A0986B /* Bar rotate 180.png in Resources */,
-				C525B16814FBFAD300A0986B /* f  forward no line.png in Resources */,
-				C525B16914FBFAD300A0986B /* F.png in Resources */,
 				C58528E119B89935003ED8B1 /* kBIconRuleDownscaleLineLength.png in Resources */,
 				C585290919B89935003ED8B1 /* kBIconRuleRotateC.png in Resources */,
 				C58528F619B89935003ED8B1 /* kBIconRulePlace1@2x.png in Resources */,
-				C525B16A14FBFAD300A0986B /* Left square bracket push context.png in Resources */,
-				C525B16B14FBFAD300A0986B /* Minus rotate CW.png in Resources */,
-				C525B16C14FBFAD300A0986B /* Plus rotate CC.png in Resources */,
-				C525B16D14FBFAD300A0986B /* Right square bracket pop context.png in Resources */,
 				C585291619B89935003ED8B1 /* tabBarLinePropertiesIcon@2x.png in Resources */,
 				C58528ED19B89935003ED8B1 /* kBIconRuleIncrementLineWidth.png in Resources */,
-				C525B17114FC089B00A0986B /* Keyboard key background.png in Resources */,
-				C525B17314FD4C2400A0986B /* FractalKeyboardKeyGradient.png in Resources */,
 				C585290719B89935003ED8B1 /* kBIconRuleReverseDirection.png in Resources */,
 				C585290319B89935003ED8B1 /* kBIconRuleRandomizeOff.png in Resources */,
-				C5886EEB14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png in Resources */,
 				C58528F019B89935003ED8B1 /* kBIconRuleMoveByLine@2x.png in Resources */,
-				C5886EF014FDD3D50009BEB6 /* Keyboard key background light.png in Resources */,
 				C58528F119B89935003ED8B1 /* kBIconRuleOpenPolygon.png in Resources */,
 				C585290419B89935003ED8B1 /* kBIconRuleRandomizeOff@2x.png in Resources */,
 				C585291819B89935003ED8B1 /* tabBarRulesIcon@2x.png in Resources */,
@@ -1052,41 +925,32 @@
 				C58FF3C214FE810500AB9659 /* FractalScapeIconiPhone57@2x.png in Resources */,
 				C58528E419B89935003ED8B1 /* kBIconRuleDrawDot@2x.png in Resources */,
 				C585291B19B89935003ED8B1 /* toolBarCopyIcon.png in Resources */,
-				C5DF95B71506EBD900FD2FAF /* Parenthesis decrement turn angle.png in Resources */,
-				C5DF95B81506EBD900FD2FAF /* Parenthesis increment turn angle dark.png in Resources */,
 				C58528F519B89935003ED8B1 /* kBIconRulePlace1.png in Resources */,
 				C58528EE19B89935003ED8B1 /* kBIconRuleIncrementLineWidth@2x.png in Resources */,
 				C58528EB19B89935003ED8B1 /* kBIconRuleIncrementAngle.png in Resources */,
-				C5DF95BC1506EC1100FD2FAF /* Exclaim reduce line width.png in Resources */,
-				C5DF95BD1506EC1100FD2FAF /* Pound increment width dark.png in Resources */,
 				C585290B19B89935003ED8B1 /* kBIconRuleRotateCC.png in Resources */,
 				C58528FE19B89935003ED8B1 /* kBIconRulePlace5@2x.png in Resources */,
 				C58528E219B89935003ED8B1 /* kBIconRuleDownscaleLineLength@2x.png in Resources */,
 				C585291C19B89935003ED8B1 /* toolBarCopyIcon@2x.png in Resources */,
-				C5DF95BF1506EFAF00FD2FAF /* Line width dark.png in Resources */,
 				C58528E519B89935003ED8B1 /* kBIconRuleDrawLine.png in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C585290219B89935003ED8B1 /* kBIconRulePush@2x.png in Resources */,
 				C58528DA19B89935003ED8B1 /* elements@2x.png in Resources */,
 				C58528E919B89935003ED8B1 /* kBIconRuleFillOn.png in Resources */,
+				C585292319B8A1F9003ED8B1 /* tabBarLineColorIcon.png in Resources */,
 				C53AF0F416C2C43400FA5142 /* linen-fine.jpg in Resources */,
+				C585292619B8A498003ED8B1 /* kBKeyBackgroundLight.png in Resources */,
 				C585291019B89935003ED8B1 /* kBIconRuleStrokeOn@2x.png in Resources */,
 				C585290619B89935003ED8B1 /* kBIconRuleRandomizeOn@2x.png in Resources */,
 				C579625E16DC3E1200A8BCDC /* Root.plist in Resources */,
 				C5A3EA7416E8194100D19155 /* Default-568h@2x.png in Resources */,
 				C585290A19B89935003ED8B1 /* kBIconRuleRotateC@2x.png in Resources */,
 				C58528D919B89935003ED8B1 /* elements.png in Resources */,
-				C557D9A616FA921A00FCB857 /* TabbarFillColorIcon.png in Resources */,
 				C58528F719B89935003ED8B1 /* kBIconRulePlace2.png in Resources */,
-				C557D9A716FA921A00FCB857 /* TabbarFillColorIcon@2x.png in Resources */,
-				C557D9A816FA921A00FCB857 /* TabbarLineColorIcon.png in Resources */,
 				C58528F419B89935003ED8B1 /* kBIconRulePlace0@2x.png in Resources */,
 				C58528DF19B89935003ED8B1 /* kBIconRuleDecrementLineWidth.png in Resources */,
-				C557D9A916FA921A00FCB857 /* TabbarLineColorIcon@2x.png in Resources */,
 				C58528DB19B89935003ED8B1 /* kBIconRuleClosePolygon.png in Resources */,
 				C585291919B89935003ED8B1 /* toolBarAppearanceIcon.png in Resources */,
-				C5B98343170496FE00BEC62C /* ToolbarGyroLockedIcon.png in Resources */,
-				C5B98344170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png in Resources */,
 				C58528E019B89935003ED8B1 /* kBIconRuleDecrementLineWidth@2x.png in Resources */,
 				C585291719B89935003ED8B1 /* tabBarRulesIcon.png in Resources */,
 				C585291A19B89935003ED8B1 /* toolBarAppearanceIcon@2x.png in Resources */,
