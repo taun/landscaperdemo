@@ -7,6 +7,7 @@
 //
 
 #import "FractalDefinitionKeyboardView.h"
+#import "MBStyleKitButton.h"
 
 @implementation FractalDefinitionKeyboardView
 
@@ -52,9 +53,15 @@
     self.delegate = nil;
 }
 
-- (IBAction)keyPressed:(UIButton*)sender {
+- (IBAction)keyPressed:(MBStyleKitButton*)sender {
     
-    NSString* keyTitle = sender.titleLabel.text;
+    NSString* keyTitle;
+    
+    if ([sender isKindOfClass: [MBStyleKitButton class]] && sender.ruleCode) {
+        keyTitle = sender.ruleCode;
+    } else {
+        keyTitle = sender.titleLabel.text;
+    }
     
     [self.delegate keyTapped: keyTitle];
 }

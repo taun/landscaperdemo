@@ -10,7 +10,6 @@
 
 #import "FractalScapeIconSet.h"
 
-
 @implementation FractalScapeIconSet
 
 #pragma mark Cache
@@ -26,7 +25,34 @@ static UIImage* _imageOfTabBarRulesIcon = nil;
 static UIImage* _imageOfToolBarCopyIcon = nil;
 static UIImage* _imageOfToolBarAppearanceIcon = nil;
 static UIImage* _imageOfKBIconRuleDrawLine = nil;
+static UIImage* _imageOfKBIconRuleMoveByLine = nil;
 static UIImage* _imageOfKBIconRuleDrawDot = nil;
+static UIImage* _imageOfKBIconRuleDecrementLineWidth = nil;
+static UIImage* _imageOfKBIconRuleIncrementLineWidth = nil;
+static UIImage* _imageOfKBIconRuleOpenPolygon = nil;
+static UIImage* _imageOfKBIconRuleClosePolygon = nil;
+static UIImage* _imageOfKBIconRuleDecrementAngle = nil;
+static UIImage* _imageOfKBIconRuleIncrementAngle = nil;
+static UIImage* _imageOfKBIconRuleRotateC = nil;
+static UIImage* _imageOfKBIconRuleRotateCC = nil;
+static UIImage* _imageOfKBIconRulePush = nil;
+static UIImage* _imageOfKBIconRulePop = nil;
+static UIImage* _imageOfKBIconRuleSwapRotation = nil;
+static UIImage* _imageOfKBIconRuleReverseDirection = nil;
+static UIImage* _imageOfKBIconRuleFillOn = nil;
+static UIImage* _imageOfKBIconRuleFillOff = nil;
+static UIImage* _imageOfKBIconRuleUpscaleLineLength = nil;
+static UIImage* _imageOfKBIconRuleDownscaleLineLength = nil;
+static UIImage* _imageOfKBIconRuleStrokeOff = nil;
+static UIImage* _imageOfKBIconRuleStrokeOn = nil;
+static UIImage* _imageOfKBIconRuleRandomizeOff = nil;
+static UIImage* _imageOfKBIconRuleRandomizeOn = nil;
+static UIImage* _imageOfKBIconRulePlace0 = nil;
+static UIImage* _imageOfKBIconRulePlace1 = nil;
+static UIImage* _imageOfKBIconRulePlace2 = nil;
+static UIImage* _imageOfKBIconRulePlace3 = nil;
+static UIImage* _imageOfKBIconRulePlace4 = nil;
+static UIImage* _imageOfKBIconRulePlace5 = nil;
 
 #pragma mark Initialization
 
@@ -1593,6 +1619,19 @@ static UIImage* _imageOfKBIconRuleDrawDot = nil;
     return _imageOfKBIconRuleDrawLine;
 }
 
++ (UIImage*)imageOfKBIconRuleMoveByLine;
+{
+    if (_imageOfKBIconRuleMoveByLine)
+        return _imageOfKBIconRuleMoveByLine;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleMoveByLine];
+    _imageOfKBIconRuleMoveByLine = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleMoveByLine;
+}
+
 + (UIImage*)imageOfKBIconRuleDrawDot;
 {
     if (_imageOfKBIconRuleDrawDot)
@@ -1604,6 +1643,344 @@ static UIImage* _imageOfKBIconRuleDrawDot = nil;
     UIGraphicsEndImageContext();
 
     return _imageOfKBIconRuleDrawDot;
+}
+
++ (UIImage*)imageOfKBIconRuleDecrementLineWidth;
+{
+    if (_imageOfKBIconRuleDecrementLineWidth)
+        return _imageOfKBIconRuleDecrementLineWidth;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleDecrementLineWidth];
+    _imageOfKBIconRuleDecrementLineWidth = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleDecrementLineWidth;
+}
+
++ (UIImage*)imageOfKBIconRuleIncrementLineWidth;
+{
+    if (_imageOfKBIconRuleIncrementLineWidth)
+        return _imageOfKBIconRuleIncrementLineWidth;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleIncrementLineWidth];
+    _imageOfKBIconRuleIncrementLineWidth = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleIncrementLineWidth;
+}
+
++ (UIImage*)imageOfKBIconRuleOpenPolygon;
+{
+    if (_imageOfKBIconRuleOpenPolygon)
+        return _imageOfKBIconRuleOpenPolygon;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleOpenPolygon];
+    _imageOfKBIconRuleOpenPolygon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleOpenPolygon;
+}
+
++ (UIImage*)imageOfKBIconRuleClosePolygon;
+{
+    if (_imageOfKBIconRuleClosePolygon)
+        return _imageOfKBIconRuleClosePolygon;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleClosePolygon];
+    _imageOfKBIconRuleClosePolygon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleClosePolygon;
+}
+
++ (UIImage*)imageOfKBIconRuleDecrementAngle;
+{
+    if (_imageOfKBIconRuleDecrementAngle)
+        return _imageOfKBIconRuleDecrementAngle;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleDecrementAngle];
+    _imageOfKBIconRuleDecrementAngle = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleDecrementAngle;
+}
+
++ (UIImage*)imageOfKBIconRuleIncrementAngle;
+{
+    if (_imageOfKBIconRuleIncrementAngle)
+        return _imageOfKBIconRuleIncrementAngle;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleIncrementAngle];
+    _imageOfKBIconRuleIncrementAngle = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleIncrementAngle;
+}
+
++ (UIImage*)imageOfKBIconRuleRotateC;
+{
+    if (_imageOfKBIconRuleRotateC)
+        return _imageOfKBIconRuleRotateC;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleRotateC];
+    _imageOfKBIconRuleRotateC = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleRotateC;
+}
+
++ (UIImage*)imageOfKBIconRuleRotateCC;
+{
+    if (_imageOfKBIconRuleRotateCC)
+        return _imageOfKBIconRuleRotateCC;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleRotateCC];
+    _imageOfKBIconRuleRotateCC = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleRotateCC;
+}
+
++ (UIImage*)imageOfKBIconRulePush;
+{
+    if (_imageOfKBIconRulePush)
+        return _imageOfKBIconRulePush;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePush];
+    _imageOfKBIconRulePush = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePush;
+}
+
++ (UIImage*)imageOfKBIconRulePop;
+{
+    if (_imageOfKBIconRulePop)
+        return _imageOfKBIconRulePop;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePop];
+    _imageOfKBIconRulePop = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePop;
+}
+
++ (UIImage*)imageOfKBIconRuleSwapRotation;
+{
+    if (_imageOfKBIconRuleSwapRotation)
+        return _imageOfKBIconRuleSwapRotation;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleSwapRotation];
+    _imageOfKBIconRuleSwapRotation = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleSwapRotation;
+}
+
++ (UIImage*)imageOfKBIconRuleReverseDirection;
+{
+    if (_imageOfKBIconRuleReverseDirection)
+        return _imageOfKBIconRuleReverseDirection;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleReverseDirection];
+    _imageOfKBIconRuleReverseDirection = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleReverseDirection;
+}
+
++ (UIImage*)imageOfKBIconRuleFillOn;
+{
+    if (_imageOfKBIconRuleFillOn)
+        return _imageOfKBIconRuleFillOn;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleFillOn];
+    _imageOfKBIconRuleFillOn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleFillOn;
+}
+
++ (UIImage*)imageOfKBIconRuleFillOff;
+{
+    if (_imageOfKBIconRuleFillOff)
+        return _imageOfKBIconRuleFillOff;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleFillOff];
+    _imageOfKBIconRuleFillOff = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleFillOff;
+}
+
++ (UIImage*)imageOfKBIconRuleUpscaleLineLength;
+{
+    if (_imageOfKBIconRuleUpscaleLineLength)
+        return _imageOfKBIconRuleUpscaleLineLength;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleUpscaleLineLength];
+    _imageOfKBIconRuleUpscaleLineLength = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleUpscaleLineLength;
+}
+
++ (UIImage*)imageOfKBIconRuleDownscaleLineLength;
+{
+    if (_imageOfKBIconRuleDownscaleLineLength)
+        return _imageOfKBIconRuleDownscaleLineLength;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleDownscaleLineLength];
+    _imageOfKBIconRuleDownscaleLineLength = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleDownscaleLineLength;
+}
+
++ (UIImage*)imageOfKBIconRuleStrokeOff;
+{
+    if (_imageOfKBIconRuleStrokeOff)
+        return _imageOfKBIconRuleStrokeOff;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleStrokeOff];
+    _imageOfKBIconRuleStrokeOff = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleStrokeOff;
+}
+
++ (UIImage*)imageOfKBIconRuleStrokeOn;
+{
+    if (_imageOfKBIconRuleStrokeOn)
+        return _imageOfKBIconRuleStrokeOn;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleStrokeOn];
+    _imageOfKBIconRuleStrokeOn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleStrokeOn;
+}
+
++ (UIImage*)imageOfKBIconRuleRandomizeOff;
+{
+    if (_imageOfKBIconRuleRandomizeOff)
+        return _imageOfKBIconRuleRandomizeOff;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleRandomizeOff];
+    _imageOfKBIconRuleRandomizeOff = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleRandomizeOff;
+}
+
++ (UIImage*)imageOfKBIconRuleRandomizeOn;
+{
+    if (_imageOfKBIconRuleRandomizeOn)
+        return _imageOfKBIconRuleRandomizeOn;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRuleRandomizeOn];
+    _imageOfKBIconRuleRandomizeOn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRuleRandomizeOn;
+}
+
++ (UIImage*)imageOfKBIconRulePlace0;
+{
+    if (_imageOfKBIconRulePlace0)
+        return _imageOfKBIconRulePlace0;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePlace0];
+    _imageOfKBIconRulePlace0 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePlace0;
+}
+
++ (UIImage*)imageOfKBIconRulePlace1;
+{
+    if (_imageOfKBIconRulePlace1)
+        return _imageOfKBIconRulePlace1;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePlace1];
+    _imageOfKBIconRulePlace1 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePlace1;
+}
+
++ (UIImage*)imageOfKBIconRulePlace2;
+{
+    if (_imageOfKBIconRulePlace2)
+        return _imageOfKBIconRulePlace2;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePlace2];
+    _imageOfKBIconRulePlace2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePlace2;
+}
+
++ (UIImage*)imageOfKBIconRulePlace3;
+{
+    if (_imageOfKBIconRulePlace3)
+        return _imageOfKBIconRulePlace3;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePlace3];
+    _imageOfKBIconRulePlace3 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePlace3;
+}
+
++ (UIImage*)imageOfKBIconRulePlace4;
+{
+    if (_imageOfKBIconRulePlace4)
+        return _imageOfKBIconRulePlace4;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePlace4];
+    _imageOfKBIconRulePlace4 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePlace4;
+}
+
++ (UIImage*)imageOfKBIconRulePlace5;
+{
+    if (_imageOfKBIconRulePlace5)
+        return _imageOfKBIconRulePlace5;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, 0.0f);
+    [FractalScapeIconSet drawKBIconRulePlace5];
+    _imageOfKBIconRulePlace5 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfKBIconRulePlace5;
 }
 
 #pragma mark Customization Infrastructure
@@ -1664,12 +2041,228 @@ static UIImage* _imageOfKBIconRuleDrawDot = nil;
         [target setImage: FractalScapeIconSet.imageOfKBIconRuleDrawLine];
 }
 
+- (void)setKBIconRuleMoveByLineTargets: (NSArray*)kBIconRuleMoveByLineTargets
+{
+    _kBIconRuleMoveByLineTargets = kBIconRuleMoveByLineTargets;
+
+    for (id target in self.kBIconRuleMoveByLineTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleMoveByLine];
+}
+
 - (void)setKBIconRuleDrawDotTargets: (NSArray*)kBIconRuleDrawDotTargets
 {
     _kBIconRuleDrawDotTargets = kBIconRuleDrawDotTargets;
 
     for (id target in self.kBIconRuleDrawDotTargets)
         [target setImage: FractalScapeIconSet.imageOfKBIconRuleDrawDot];
+}
+
+- (void)setKBIconRuleDecrementLineWidthTargets: (NSArray*)kBIconRuleDecrementLineWidthTargets
+{
+    _kBIconRuleDecrementLineWidthTargets = kBIconRuleDecrementLineWidthTargets;
+
+    for (id target in self.kBIconRuleDecrementLineWidthTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleDecrementLineWidth];
+}
+
+- (void)setKBIconRuleIncrementLineWidthTargets: (NSArray*)kBIconRuleIncrementLineWidthTargets
+{
+    _kBIconRuleIncrementLineWidthTargets = kBIconRuleIncrementLineWidthTargets;
+
+    for (id target in self.kBIconRuleIncrementLineWidthTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleIncrementLineWidth];
+}
+
+- (void)setKBIconRuleOpenPolygonTargets: (NSArray*)kBIconRuleOpenPolygonTargets
+{
+    _kBIconRuleOpenPolygonTargets = kBIconRuleOpenPolygonTargets;
+
+    for (id target in self.kBIconRuleOpenPolygonTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleOpenPolygon];
+}
+
+- (void)setKBIconRuleClosePolygonTargets: (NSArray*)kBIconRuleClosePolygonTargets
+{
+    _kBIconRuleClosePolygonTargets = kBIconRuleClosePolygonTargets;
+
+    for (id target in self.kBIconRuleClosePolygonTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleClosePolygon];
+}
+
+- (void)setKBIconRuleDecrementAngleTargets: (NSArray*)kBIconRuleDecrementAngleTargets
+{
+    _kBIconRuleDecrementAngleTargets = kBIconRuleDecrementAngleTargets;
+
+    for (id target in self.kBIconRuleDecrementAngleTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleDecrementAngle];
+}
+
+- (void)setKBIconRuleIncrementAngleTargets: (NSArray*)kBIconRuleIncrementAngleTargets
+{
+    _kBIconRuleIncrementAngleTargets = kBIconRuleIncrementAngleTargets;
+
+    for (id target in self.kBIconRuleIncrementAngleTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleIncrementAngle];
+}
+
+- (void)setKBIconRuleRotateCTargets: (NSArray*)kBIconRuleRotateCTargets
+{
+    _kBIconRuleRotateCTargets = kBIconRuleRotateCTargets;
+
+    for (id target in self.kBIconRuleRotateCTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleRotateC];
+}
+
+- (void)setKBIconRuleRotateCCTargets: (NSArray*)kBIconRuleRotateCCTargets
+{
+    _kBIconRuleRotateCCTargets = kBIconRuleRotateCCTargets;
+
+    for (id target in self.kBIconRuleRotateCCTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleRotateCC];
+}
+
+- (void)setKBIconRulePushTargets: (NSArray*)kBIconRulePushTargets
+{
+    _kBIconRulePushTargets = kBIconRulePushTargets;
+
+    for (id target in self.kBIconRulePushTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePush];
+}
+
+- (void)setKBIconRulePopTargets: (NSArray*)kBIconRulePopTargets
+{
+    _kBIconRulePopTargets = kBIconRulePopTargets;
+
+    for (id target in self.kBIconRulePopTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePop];
+}
+
+- (void)setKBIconRuleSwapRotationTargets: (NSArray*)kBIconRuleSwapRotationTargets
+{
+    _kBIconRuleSwapRotationTargets = kBIconRuleSwapRotationTargets;
+
+    for (id target in self.kBIconRuleSwapRotationTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleSwapRotation];
+}
+
+- (void)setKBIconRuleReverseDirectionTargets: (NSArray*)kBIconRuleReverseDirectionTargets
+{
+    _kBIconRuleReverseDirectionTargets = kBIconRuleReverseDirectionTargets;
+
+    for (id target in self.kBIconRuleReverseDirectionTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleReverseDirection];
+}
+
+- (void)setKBIconRuleFillOnTargets: (NSArray*)kBIconRuleFillOnTargets
+{
+    _kBIconRuleFillOnTargets = kBIconRuleFillOnTargets;
+
+    for (id target in self.kBIconRuleFillOnTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleFillOn];
+}
+
+- (void)setKBIconRuleFillOffTargets: (NSArray*)kBIconRuleFillOffTargets
+{
+    _kBIconRuleFillOffTargets = kBIconRuleFillOffTargets;
+
+    for (id target in self.kBIconRuleFillOffTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleFillOff];
+}
+
+- (void)setKBIconRuleUpscaleLineLengthTargets: (NSArray*)kBIconRuleUpscaleLineLengthTargets
+{
+    _kBIconRuleUpscaleLineLengthTargets = kBIconRuleUpscaleLineLengthTargets;
+
+    for (id target in self.kBIconRuleUpscaleLineLengthTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleUpscaleLineLength];
+}
+
+- (void)setKBIconRuleDownscaleLineLengthTargets: (NSArray*)kBIconRuleDownscaleLineLengthTargets
+{
+    _kBIconRuleDownscaleLineLengthTargets = kBIconRuleDownscaleLineLengthTargets;
+
+    for (id target in self.kBIconRuleDownscaleLineLengthTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleDownscaleLineLength];
+}
+
+- (void)setKBIconRuleStrokeOffTargets: (NSArray*)kBIconRuleStrokeOffTargets
+{
+    _kBIconRuleStrokeOffTargets = kBIconRuleStrokeOffTargets;
+
+    for (id target in self.kBIconRuleStrokeOffTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleStrokeOff];
+}
+
+- (void)setKBIconRuleStrokeOnTargets: (NSArray*)kBIconRuleStrokeOnTargets
+{
+    _kBIconRuleStrokeOnTargets = kBIconRuleStrokeOnTargets;
+
+    for (id target in self.kBIconRuleStrokeOnTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleStrokeOn];
+}
+
+- (void)setKBIconRuleRandomizeOffTargets: (NSArray*)kBIconRuleRandomizeOffTargets
+{
+    _kBIconRuleRandomizeOffTargets = kBIconRuleRandomizeOffTargets;
+
+    for (id target in self.kBIconRuleRandomizeOffTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleRandomizeOff];
+}
+
+- (void)setKBIconRuleRandomizeOnTargets: (NSArray*)kBIconRuleRandomizeOnTargets
+{
+    _kBIconRuleRandomizeOnTargets = kBIconRuleRandomizeOnTargets;
+
+    for (id target in self.kBIconRuleRandomizeOnTargets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRuleRandomizeOn];
+}
+
+- (void)setKBIconRulePlace0Targets: (NSArray*)kBIconRulePlace0Targets
+{
+    _kBIconRulePlace0Targets = kBIconRulePlace0Targets;
+
+    for (id target in self.kBIconRulePlace0Targets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePlace0];
+}
+
+- (void)setKBIconRulePlace1Targets: (NSArray*)kBIconRulePlace1Targets
+{
+    _kBIconRulePlace1Targets = kBIconRulePlace1Targets;
+
+    for (id target in self.kBIconRulePlace1Targets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePlace1];
+}
+
+- (void)setKBIconRulePlace2Targets: (NSArray*)kBIconRulePlace2Targets
+{
+    _kBIconRulePlace2Targets = kBIconRulePlace2Targets;
+
+    for (id target in self.kBIconRulePlace2Targets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePlace2];
+}
+
+- (void)setKBIconRulePlace3Targets: (NSArray*)kBIconRulePlace3Targets
+{
+    _kBIconRulePlace3Targets = kBIconRulePlace3Targets;
+
+    for (id target in self.kBIconRulePlace3Targets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePlace3];
+}
+
+- (void)setKBIconRulePlace4Targets: (NSArray*)kBIconRulePlace4Targets
+{
+    _kBIconRulePlace4Targets = kBIconRulePlace4Targets;
+
+    for (id target in self.kBIconRulePlace4Targets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePlace4];
+}
+
+- (void)setKBIconRulePlace5Targets: (NSArray*)kBIconRulePlace5Targets
+{
+    _kBIconRulePlace5Targets = kBIconRulePlace5Targets;
+
+    for (id target in self.kBIconRulePlace5Targets)
+        [target setImage: FractalScapeIconSet.imageOfKBIconRulePlace5];
 }
 
 

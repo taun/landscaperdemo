@@ -15,16 +15,16 @@
             <rect key="frame" x="0.0" y="0.0" width="1002" height="300"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                    <rect key="frame" x="227" y="18" width="72" height="58"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4" userLabel="drawLine" customClass="MBStyleKitButton">
+                    <rect key="frame" x="227" y="18" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="58" id="35c-Th-VQZ"/>
+                        <constraint firstAttribute="height" constant="60" id="35c-Th-VQZ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="F" image="F dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="F" image="kBIconRuleDrawLine.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -44,7 +44,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="G" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="A" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -64,7 +64,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="g" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="a" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -83,7 +83,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="X" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="B" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -103,7 +103,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="x" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="b" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -122,7 +122,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="Y" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="C" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -142,7 +142,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="y" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="c" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -153,36 +153,31 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="53"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                    <rect key="frame" x="307" y="18" width="72" height="58"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5" userLabel="moveByLine" customClass="MBStyleKitButton">
+                    <rect key="frame" x="307" y="18" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="58" id="Ewm-SO-EM3"/>
+                        <constraint firstAttribute="height" constant="60" id="Ewm-SO-EM3"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="f" image="f  forward no line dark.png" backgroundImage="Keyboard key background light.png">
-                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="f" image="kBIconRuleMoveByLine.png" backgroundImage="Keyboard key background light.png">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="10"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6" userLabel="rotateCC" customClass="MBStyleKitButton">
                     <rect key="frame" x="780" y="18" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="fem-vT-4D6"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="+" image="Plus rotate CC dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="+" image="kBIconRuleRotateCC.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -193,16 +188,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="12"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7" userLabel="rotateC" customClass="MBStyleKitButton">
                     <rect key="frame" x="700" y="18" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="vpc-DB-VDz"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="6"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="-" image="Minus rotate CW dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="-" image="kBIconRuleRotateC.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -213,15 +208,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="11"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13" userLabel="reverseDirection" customClass="MBStyleKitButton">
                     <rect key="frame" x="700" y="156" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="ey8-M9-yRL"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="|" image="Bar rotate 180 dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="|" image="kBIconRuleReverseDirection.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -232,15 +228,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="17"/>
                     </connections>
                 </button>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14">
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14" userLabel="swapRotation" customClass="MBStyleKitButton">
                     <rect key="frame" x="780" y="156" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="trb-q8-Cno"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="&amp;" image="Ampersand rotate swap dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="&amp;" image="kBIconRuleSwapRotation.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -251,7 +248,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="18"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" userLabel="push" customClass="MBStyleKitButton">
                     <rect key="frame" x="910" y="18" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -260,7 +257,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="[" image="Left square bracket push context dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="[" image="kBIconRulePush.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -271,16 +268,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="20"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                    <rect key="frame" x="910" y="84" width="72" height="62"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16" userLabel="pop" customClass="MBStyleKitButton">
+                    <rect key="frame" x="910" y="84" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="62" id="pMf-Cj-SWn"/>
+                        <constraint firstAttribute="height" constant="60" id="pMf-Cj-SWn"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="]" image="Right square bracket pop context dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="]" image="kBIconRulePop.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -291,16 +288,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="19"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21">
-                    <rect key="frame" x="307" y="84" width="72" height="63"/>
+                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21" userLabel="incrementLineWidth" customClass="MBStyleKitButton">
+                    <rect key="frame" x="307" y="84" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="63" id="7rM-JC-ag9"/>
+                        <constraint firstAttribute="height" constant="60" id="7rM-JC-ag9"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="6"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="#" image="Pound increment width dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="#" image="kBIconRuleIncrementLineWidth.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -311,16 +308,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="34"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                    <rect key="frame" x="227" y="84" width="72" height="63"/>
+                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22" userLabel="decrementLineWidth" customClass="MBStyleKitButton">
+                    <rect key="frame" x="227" y="84" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="63" id="NlS-Ce-vrW"/>
+                        <constraint firstAttribute="height" constant="60" id="NlS-Ce-vrW"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="6"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="!" image="Exclaim reduce line width.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="!" image="kBIconRuleDecrementLineWidth.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -331,21 +328,17 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="30"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23" userLabel="drawDot" customClass="MBStyleKitButton">
                     <rect key="frame" x="469" y="18" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="72" id="Meg-V2-f6g"/>
                         <constraint firstAttribute="height" constant="60" id="m54-Yv-yFr"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="@" backgroundImage="Keyboard key background light.png">
-                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="@" image="kBIconRuleDrawDot.png" backgroundImage="Keyboard key background light.png">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="33"/>
@@ -391,16 +384,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="36"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                    <rect key="frame" x="469" y="84" width="72" height="61"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25" userLabel="openPolygon" customClass="MBStyleKitButton">
+                    <rect key="frame" x="469" y="84" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="61" id="3KV-qp-AB9"/>
+                        <constraint firstAttribute="height" constant="60" id="3KV-qp-AB9"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="{" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="{" image="kBIconRuleOpenPolygon.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -411,16 +404,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="29"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26">
-                    <rect key="frame" x="549" y="84" width="72" height="62"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26" userLabel="closePolygon" customClass="MBStyleKitButton">
+                    <rect key="frame" x="549" y="84" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="62" id="JGa-Fk-mui"/>
+                        <constraint firstAttribute="height" constant="60" id="JGa-Fk-mui"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="}" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="}" image="kBIconRuleClosePolygon.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -431,7 +424,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="31"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27" userLabel="downscaleLineLength" customClass="MBStyleKitButton">
                     <rect key="frame" x="227" y="156" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -440,7 +433,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="&lt;" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="&lt;" image="kBIconRuleDownscaleLineLength.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -451,16 +444,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="32"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37">
-                    <rect key="frame" x="700" y="84" width="72" height="62"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37" userLabel="decrementAngle" customClass="MBStyleKitButton">
+                    <rect key="frame" x="700" y="84" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="62" id="LpK-Dm-Hc7"/>
+                        <constraint firstAttribute="height" constant="60" id="LpK-Dm-Hc7"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="(" image="Parenthesis increment turn angle dark.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="(" image="kBIconRuleDecrementAngle.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -471,16 +464,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="38"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39">
-                    <rect key="frame" x="780" y="84" width="72" height="62"/>
+                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39" userLabel="incrementAngle" customClass="MBStyleKitButton">
+                    <rect key="frame" x="780" y="84" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="62" id="fDO-dI-zVx"/>
+                        <constraint firstAttribute="height" constant="60" id="fDO-dI-zVx"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title=")" image="Parenthesis decrement turn angle.png" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title=")" image="kBIconRuleIncrementAngle.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -491,7 +484,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="40"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="28">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="28" userLabel="upscaleLineLength" customClass="MBStyleKitButton">
                     <rect key="frame" x="307" y="156" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -500,7 +493,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title=">" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title=">" image="kBIconRuleUpscaleLineLength.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -511,7 +504,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="35"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="439">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="439" userLabel="strokeOff" customClass="MBStyleKitButton">
                     <rect key="frame" x="227" y="221" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -520,7 +513,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="s" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="s" image="kBIconRuleStrokeOff.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -531,7 +524,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="1095"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="440">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="440" userLabel="fillOn" customClass="MBStyleKitButton">
                     <rect key="frame" x="549" y="156" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -540,7 +533,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="L" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="L" image="kBIconRuleFillOn.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -551,16 +544,16 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="1098"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="441">
-                    <rect key="frame" x="469" y="156" width="72" height="62"/>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="441" userLabel="fillOff" customClass="MBStyleKitButton">
+                    <rect key="frame" x="469" y="156" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="62" id="VRz-N6-eUC"/>
+                        <constraint firstAttribute="height" constant="60" id="VRz-N6-eUC"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="l" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="l" image="kBIconRuleFillOff.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -571,7 +564,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="1097"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1384">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1384" userLabel="randomizeOff" customClass="MBStyleKitButton">
                     <rect key="frame" x="469" y="221" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -580,7 +573,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="r" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="r" image="kBIconRuleRandomizeOff.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -591,7 +584,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="1386"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1393">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1393" userLabel="randomizeOn" customClass="MBStyleKitButton">
                     <rect key="frame" x="549" y="221" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -600,7 +593,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="R" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="R" image="kBIconRuleRandomizeOn.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -611,7 +604,7 @@
                         <action selector="keyPressed:" destination="-1" eventType="touchUpInside" id="1395"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="442">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="442" userLabel="strokeOn" customClass="MBStyleKitButton">
                     <rect key="frame" x="307" y="221" width="72" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -620,7 +613,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="S" backgroundImage="Keyboard key background light.png">
+                    <state key="normal" title="S" image="kBIconRuleStrokeOn.png" backgroundImage="Keyboard key background light.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -733,21 +726,33 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <customObject id="ihl-Vs-gWZ" customClass="FractalScapeIconSet"/>
     </objects>
     <resources>
-        <image name="Ampersand rotate swap dark.png" width="40" height="40"/>
-        <image name="Bar rotate 180 dark.png" width="40" height="40"/>
-        <image name="Exclaim reduce line width.png" width="40" height="40"/>
-        <image name="F dark.png" width="40" height="40"/>
         <image name="Keyboard key background light.png" width="80" height="60"/>
-        <image name="Left square bracket push context dark.png" width="40" height="40"/>
-        <image name="Minus rotate CW dark.png" width="40" height="40"/>
-        <image name="Parenthesis decrement turn angle.png" width="40" height="40"/>
-        <image name="Parenthesis increment turn angle dark.png" width="40" height="40"/>
-        <image name="Plus rotate CC dark.png" width="40" height="40"/>
-        <image name="Pound increment width dark.png" width="40" height="40"/>
-        <image name="Right square bracket pop context dark.png" width="40" height="40"/>
-        <image name="f  forward no line dark.png" width="40" height="40"/>
+        <image name="kBIconRuleClosePolygon.png" width="40" height="40"/>
+        <image name="kBIconRuleDecrementAngle.png" width="40" height="40"/>
+        <image name="kBIconRuleDecrementLineWidth.png" width="40" height="40"/>
+        <image name="kBIconRuleDownscaleLineLength.png" width="40" height="40"/>
+        <image name="kBIconRuleDrawDot.png" width="40" height="40"/>
+        <image name="kBIconRuleDrawLine.png" width="40" height="40"/>
+        <image name="kBIconRuleFillOff.png" width="40" height="40"/>
+        <image name="kBIconRuleFillOn.png" width="40" height="40"/>
+        <image name="kBIconRuleIncrementAngle.png" width="40" height="40"/>
+        <image name="kBIconRuleIncrementLineWidth.png" width="40" height="40"/>
+        <image name="kBIconRuleMoveByLine.png" width="40" height="40"/>
+        <image name="kBIconRuleOpenPolygon.png" width="40" height="40"/>
+        <image name="kBIconRulePop.png" width="40" height="40"/>
+        <image name="kBIconRulePush.png" width="40" height="40"/>
+        <image name="kBIconRuleRandomizeOff.png" width="40" height="40"/>
+        <image name="kBIconRuleRandomizeOn.png" width="40" height="40"/>
+        <image name="kBIconRuleReverseDirection.png" width="40" height="40"/>
+        <image name="kBIconRuleRotateC.png" width="40" height="40"/>
+        <image name="kBIconRuleRotateCC.png" width="40" height="40"/>
+        <image name="kBIconRuleStrokeOff.png" width="40" height="40"/>
+        <image name="kBIconRuleStrokeOn.png" width="40" height="40"/>
+        <image name="kBIconRuleSwapRotation.png" width="40" height="40"/>
+        <image name="kBIconRuleUpscaleLineLength.png" width="40" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

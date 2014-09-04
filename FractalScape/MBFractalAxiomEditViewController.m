@@ -15,6 +15,8 @@
 #import "MBBasicLabelTextTableCell.h"
 #import "MBTextViewTableCell.h"
 
+#import "MBStyleKitButton.h"
+
 @interface MBFractalAxiomEditViewController ()
 
 /*!

@@ -22,7 +22,34 @@
 @property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* toolBarCopyIconTargets;
 @property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* toolBarAppearanceIconTargets;
 @property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleDrawLineTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleMoveByLineTargets;
 @property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleDrawDotTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleDecrementLineWidthTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleIncrementLineWidthTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleOpenPolygonTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleClosePolygonTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleDecrementAngleTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleIncrementAngleTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleRotateCTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleRotateCCTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePushTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePopTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleSwapRotationTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleReverseDirectionTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleFillOnTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleFillOffTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleUpscaleLineLengthTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleDownscaleLineLengthTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleStrokeOffTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleStrokeOnTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleRandomizeOffTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRuleRandomizeOnTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePlace0Targets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePlace1Targets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePlace2Targets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePlace3Targets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePlace4Targets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* kBIconRulePlace5Targets;
 
 // Colors
 + (UIColor*)symbolFillColor;
@@ -75,6 +102,33 @@
 + (UIImage*)imageOfToolBarCopyIcon;
 + (UIImage*)imageOfToolBarAppearanceIcon;
 + (UIImage*)imageOfKBIconRuleDrawLine;
++ (UIImage*)imageOfKBIconRuleMoveByLine;
 + (UIImage*)imageOfKBIconRuleDrawDot;
++ (UIImage*)imageOfKBIconRuleDecrementLineWidth;
++ (UIImage*)imageOfKBIconRuleIncrementLineWidth;
++ (UIImage*)imageOfKBIconRuleOpenPolygon;
++ (UIImage*)imageOfKBIconRuleClosePolygon;
++ (UIImage*)imageOfKBIconRuleDecrementAngle;
++ (UIImage*)imageOfKBIconRuleIncrementAngle;
++ (UIImage*)imageOfKBIconRuleRotateC;
++ (UIImage*)imageOfKBIconRuleRotateCC;
++ (UIImage*)imageOfKBIconRulePush;
++ (UIImage*)imageOfKBIconRulePop;
++ (UIImage*)imageOfKBIconRuleSwapRotation;
++ (UIImage*)imageOfKBIconRuleReverseDirection;
++ (UIImage*)imageOfKBIconRuleFillOn;
++ (UIImage*)imageOfKBIconRuleFillOff;
++ (UIImage*)imageOfKBIconRuleUpscaleLineLength;
++ (UIImage*)imageOfKBIconRuleDownscaleLineLength;
++ (UIImage*)imageOfKBIconRuleStrokeOff;
++ (UIImage*)imageOfKBIconRuleStrokeOn;
++ (UIImage*)imageOfKBIconRuleRandomizeOff;
++ (UIImage*)imageOfKBIconRuleRandomizeOn;
++ (UIImage*)imageOfKBIconRulePlace0;
++ (UIImage*)imageOfKBIconRulePlace1;
++ (UIImage*)imageOfKBIconRulePlace2;
++ (UIImage*)imageOfKBIconRulePlace3;
++ (UIImage*)imageOfKBIconRulePlace4;
++ (UIImage*)imageOfKBIconRulePlace5;
 
 @end

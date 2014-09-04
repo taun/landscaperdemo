@@ -72,8 +72,77 @@
 		C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE4F170FC29900967F79 /* MBImmutableCellBackgroundView.m */; };
 		C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */; };
 		C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */; };
+		C58528D919B89935003ED8B1 /* elements.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289519B89935003ED8B1 /* elements.png */; };
+		C58528DA19B89935003ED8B1 /* elements@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289619B89935003ED8B1 /* elements@2x.png */; };
+		C58528DB19B89935003ED8B1 /* kBIconRuleClosePolygon.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289719B89935003ED8B1 /* kBIconRuleClosePolygon.png */; };
+		C58528DC19B89935003ED8B1 /* kBIconRuleClosePolygon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289819B89935003ED8B1 /* kBIconRuleClosePolygon@2x.png */; };
+		C58528DD19B89935003ED8B1 /* kBIconRuleDecrementAngle.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289919B89935003ED8B1 /* kBIconRuleDecrementAngle.png */; };
+		C58528DE19B89935003ED8B1 /* kBIconRuleDecrementAngle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289A19B89935003ED8B1 /* kBIconRuleDecrementAngle@2x.png */; };
+		C58528DF19B89935003ED8B1 /* kBIconRuleDecrementLineWidth.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289B19B89935003ED8B1 /* kBIconRuleDecrementLineWidth.png */; };
+		C58528E019B89935003ED8B1 /* kBIconRuleDecrementLineWidth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289C19B89935003ED8B1 /* kBIconRuleDecrementLineWidth@2x.png */; };
+		C58528E119B89935003ED8B1 /* kBIconRuleDownscaleLineLength.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289D19B89935003ED8B1 /* kBIconRuleDownscaleLineLength.png */; };
+		C58528E219B89935003ED8B1 /* kBIconRuleDownscaleLineLength@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289E19B89935003ED8B1 /* kBIconRuleDownscaleLineLength@2x.png */; };
+		C58528E319B89935003ED8B1 /* kBIconRuleDrawDot.png in Resources */ = {isa = PBXBuildFile; fileRef = C585289F19B89935003ED8B1 /* kBIconRuleDrawDot.png */; };
+		C58528E419B89935003ED8B1 /* kBIconRuleDrawDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A019B89935003ED8B1 /* kBIconRuleDrawDot@2x.png */; };
+		C58528E519B89935003ED8B1 /* kBIconRuleDrawLine.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A119B89935003ED8B1 /* kBIconRuleDrawLine.png */; };
+		C58528E619B89935003ED8B1 /* kBIconRuleDrawLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A219B89935003ED8B1 /* kBIconRuleDrawLine@2x.png */; };
+		C58528E719B89935003ED8B1 /* kBIconRuleFillOff.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A319B89935003ED8B1 /* kBIconRuleFillOff.png */; };
+		C58528E819B89935003ED8B1 /* kBIconRuleFillOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A419B89935003ED8B1 /* kBIconRuleFillOff@2x.png */; };
+		C58528E919B89935003ED8B1 /* kBIconRuleFillOn.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A519B89935003ED8B1 /* kBIconRuleFillOn.png */; };
+		C58528EA19B89935003ED8B1 /* kBIconRuleFillOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A619B89935003ED8B1 /* kBIconRuleFillOn@2x.png */; };
+		C58528EB19B89935003ED8B1 /* kBIconRuleIncrementAngle.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A719B89935003ED8B1 /* kBIconRuleIncrementAngle.png */; };
+		C58528EC19B89935003ED8B1 /* kBIconRuleIncrementAngle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A819B89935003ED8B1 /* kBIconRuleIncrementAngle@2x.png */; };
+		C58528ED19B89935003ED8B1 /* kBIconRuleIncrementLineWidth.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528A919B89935003ED8B1 /* kBIconRuleIncrementLineWidth.png */; };
+		C58528EE19B89935003ED8B1 /* kBIconRuleIncrementLineWidth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528AA19B89935003ED8B1 /* kBIconRuleIncrementLineWidth@2x.png */; };
+		C58528EF19B89935003ED8B1 /* kBIconRuleMoveByLine.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528AB19B89935003ED8B1 /* kBIconRuleMoveByLine.png */; };
+		C58528F019B89935003ED8B1 /* kBIconRuleMoveByLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528AC19B89935003ED8B1 /* kBIconRuleMoveByLine@2x.png */; };
+		C58528F119B89935003ED8B1 /* kBIconRuleOpenPolygon.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528AD19B89935003ED8B1 /* kBIconRuleOpenPolygon.png */; };
+		C58528F219B89935003ED8B1 /* kBIconRuleOpenPolygon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528AE19B89935003ED8B1 /* kBIconRuleOpenPolygon@2x.png */; };
+		C58528F319B89935003ED8B1 /* kBIconRulePlace0.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528AF19B89935003ED8B1 /* kBIconRulePlace0.png */; };
+		C58528F419B89935003ED8B1 /* kBIconRulePlace0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B019B89935003ED8B1 /* kBIconRulePlace0@2x.png */; };
+		C58528F519B89935003ED8B1 /* kBIconRulePlace1.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B119B89935003ED8B1 /* kBIconRulePlace1.png */; };
+		C58528F619B89935003ED8B1 /* kBIconRulePlace1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B219B89935003ED8B1 /* kBIconRulePlace1@2x.png */; };
+		C58528F719B89935003ED8B1 /* kBIconRulePlace2.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B319B89935003ED8B1 /* kBIconRulePlace2.png */; };
+		C58528F819B89935003ED8B1 /* kBIconRulePlace2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B419B89935003ED8B1 /* kBIconRulePlace2@2x.png */; };
+		C58528F919B89935003ED8B1 /* kBIconRulePlace3.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B519B89935003ED8B1 /* kBIconRulePlace3.png */; };
+		C58528FA19B89935003ED8B1 /* kBIconRulePlace3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B619B89935003ED8B1 /* kBIconRulePlace3@2x.png */; };
+		C58528FB19B89935003ED8B1 /* kBIconRulePlace4.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B719B89935003ED8B1 /* kBIconRulePlace4.png */; };
+		C58528FC19B89935003ED8B1 /* kBIconRulePlace4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B819B89935003ED8B1 /* kBIconRulePlace4@2x.png */; };
+		C58528FD19B89935003ED8B1 /* kBIconRulePlace5.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528B919B89935003ED8B1 /* kBIconRulePlace5.png */; };
+		C58528FE19B89935003ED8B1 /* kBIconRulePlace5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528BA19B89935003ED8B1 /* kBIconRulePlace5@2x.png */; };
+		C58528FF19B89935003ED8B1 /* kBIconRulePop.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528BB19B89935003ED8B1 /* kBIconRulePop.png */; };
+		C585290019B89935003ED8B1 /* kBIconRulePop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528BC19B89935003ED8B1 /* kBIconRulePop@2x.png */; };
+		C585290119B89935003ED8B1 /* kBIconRulePush.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528BD19B89935003ED8B1 /* kBIconRulePush.png */; };
+		C585290219B89935003ED8B1 /* kBIconRulePush@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528BE19B89935003ED8B1 /* kBIconRulePush@2x.png */; };
+		C585290319B89935003ED8B1 /* kBIconRuleRandomizeOff.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528BF19B89935003ED8B1 /* kBIconRuleRandomizeOff.png */; };
+		C585290419B89935003ED8B1 /* kBIconRuleRandomizeOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C019B89935003ED8B1 /* kBIconRuleRandomizeOff@2x.png */; };
+		C585290519B89935003ED8B1 /* kBIconRuleRandomizeOn.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C119B89935003ED8B1 /* kBIconRuleRandomizeOn.png */; };
+		C585290619B89935003ED8B1 /* kBIconRuleRandomizeOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C219B89935003ED8B1 /* kBIconRuleRandomizeOn@2x.png */; };
+		C585290719B89935003ED8B1 /* kBIconRuleReverseDirection.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C319B89935003ED8B1 /* kBIconRuleReverseDirection.png */; };
+		C585290819B89935003ED8B1 /* kBIconRuleReverseDirection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C419B89935003ED8B1 /* kBIconRuleReverseDirection@2x.png */; };
+		C585290919B89935003ED8B1 /* kBIconRuleRotateC.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C519B89935003ED8B1 /* kBIconRuleRotateC.png */; };
+		C585290A19B89935003ED8B1 /* kBIconRuleRotateC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C619B89935003ED8B1 /* kBIconRuleRotateC@2x.png */; };
+		C585290B19B89935003ED8B1 /* kBIconRuleRotateCC.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C719B89935003ED8B1 /* kBIconRuleRotateCC.png */; };
+		C585290C19B89935003ED8B1 /* kBIconRuleRotateCC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C819B89935003ED8B1 /* kBIconRuleRotateCC@2x.png */; };
+		C585290D19B89935003ED8B1 /* kBIconRuleStrokeOff.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528C919B89935003ED8B1 /* kBIconRuleStrokeOff.png */; };
+		C585290E19B89935003ED8B1 /* kBIconRuleStrokeOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528CA19B89935003ED8B1 /* kBIconRuleStrokeOff@2x.png */; };
+		C585290F19B89935003ED8B1 /* kBIconRuleStrokeOn.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528CB19B89935003ED8B1 /* kBIconRuleStrokeOn.png */; };
+		C585291019B89935003ED8B1 /* kBIconRuleStrokeOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528CC19B89935003ED8B1 /* kBIconRuleStrokeOn@2x.png */; };
+		C585291119B89935003ED8B1 /* kBIconRuleSwapRotation.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528CD19B89935003ED8B1 /* kBIconRuleSwapRotation.png */; };
+		C585291219B89935003ED8B1 /* kBIconRuleSwapRotation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528CE19B89935003ED8B1 /* kBIconRuleSwapRotation@2x.png */; };
+		C585291319B89935003ED8B1 /* kBIconRuleUpscaleLineLength.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528CF19B89935003ED8B1 /* kBIconRuleUpscaleLineLength.png */; };
+		C585291419B89935003ED8B1 /* kBIconRuleUpscaleLineLength@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D019B89935003ED8B1 /* kBIconRuleUpscaleLineLength@2x.png */; };
+		C585291519B89935003ED8B1 /* tabBarLinePropertiesIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D119B89935003ED8B1 /* tabBarLinePropertiesIcon.png */; };
+		C585291619B89935003ED8B1 /* tabBarLinePropertiesIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D219B89935003ED8B1 /* tabBarLinePropertiesIcon@2x.png */; };
+		C585291719B89935003ED8B1 /* tabBarRulesIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D319B89935003ED8B1 /* tabBarRulesIcon.png */; };
+		C585291819B89935003ED8B1 /* tabBarRulesIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D419B89935003ED8B1 /* tabBarRulesIcon@2x.png */; };
+		C585291919B89935003ED8B1 /* toolBarAppearanceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D519B89935003ED8B1 /* toolBarAppearanceIcon.png */; };
+		C585291A19B89935003ED8B1 /* toolBarAppearanceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D619B89935003ED8B1 /* toolBarAppearanceIcon@2x.png */; };
+		C585291B19B89935003ED8B1 /* toolBarCopyIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D719B89935003ED8B1 /* toolBarCopyIcon.png */; };
+		C585291C19B89935003ED8B1 /* toolBarCopyIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58528D819B89935003ED8B1 /* toolBarCopyIcon@2x.png */; };
 		C5886EEB14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = C5886EEA14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png */; };
 		C5886EF014FDD3D50009BEB6 /* Keyboard key background light.png in Resources */ = {isa = PBXBuildFile; fileRef = C5886EEF14FDD3D50009BEB6 /* Keyboard key background light.png */; };
+		C588E23A19B7D8C60061B34A /* MBStyleKitButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C588E23919B7D8C60061B34A /* MBStyleKitButton.m */; };
 		C58FF3C014FE80FC00AB9659 /* FractalScapeIconiPhone57.png in Resources */ = {isa = PBXBuildFile; fileRef = C58FF3BF14FE80FC00AB9659 /* FractalScapeIconiPhone57.png */; };
 		C58FF3C214FE810500AB9659 /* FractalScapeIconiPhone57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C58FF3C114FE810500AB9659 /* FractalScapeIconiPhone57@2x.png */; };
 		C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
@@ -246,8 +315,78 @@
 		C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBTextViewTableCell.m; path = FractalScape/MBTextViewTableCell.m; sourceTree = "<group>"; };
 		C57F32BA170209EE0072FE75 /* MBXibAutolayoutTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBXibAutolayoutTableCell.h; path = FractalScape/MBXibAutolayoutTableCell.h; sourceTree = "<group>"; };
 		C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBXibAutolayoutTableCell.m; path = FractalScape/MBXibAutolayoutTableCell.m; sourceTree = "<group>"; };
+		C585289519B89935003ED8B1 /* elements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = elements.png; path = resources/elements.png; sourceTree = "<group>"; };
+		C585289619B89935003ED8B1 /* elements@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "elements@2x.png"; path = "resources/elements@2x.png"; sourceTree = "<group>"; };
+		C585289719B89935003ED8B1 /* kBIconRuleClosePolygon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleClosePolygon.png; path = resources/kBIconRuleClosePolygon.png; sourceTree = "<group>"; };
+		C585289819B89935003ED8B1 /* kBIconRuleClosePolygon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleClosePolygon@2x.png"; path = "resources/kBIconRuleClosePolygon@2x.png"; sourceTree = "<group>"; };
+		C585289919B89935003ED8B1 /* kBIconRuleDecrementAngle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleDecrementAngle.png; path = resources/kBIconRuleDecrementAngle.png; sourceTree = "<group>"; };
+		C585289A19B89935003ED8B1 /* kBIconRuleDecrementAngle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleDecrementAngle@2x.png"; path = "resources/kBIconRuleDecrementAngle@2x.png"; sourceTree = "<group>"; };
+		C585289B19B89935003ED8B1 /* kBIconRuleDecrementLineWidth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleDecrementLineWidth.png; path = resources/kBIconRuleDecrementLineWidth.png; sourceTree = "<group>"; };
+		C585289C19B89935003ED8B1 /* kBIconRuleDecrementLineWidth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleDecrementLineWidth@2x.png"; path = "resources/kBIconRuleDecrementLineWidth@2x.png"; sourceTree = "<group>"; };
+		C585289D19B89935003ED8B1 /* kBIconRuleDownscaleLineLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleDownscaleLineLength.png; path = resources/kBIconRuleDownscaleLineLength.png; sourceTree = "<group>"; };
+		C585289E19B89935003ED8B1 /* kBIconRuleDownscaleLineLength@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleDownscaleLineLength@2x.png"; path = "resources/kBIconRuleDownscaleLineLength@2x.png"; sourceTree = "<group>"; };
+		C585289F19B89935003ED8B1 /* kBIconRuleDrawDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleDrawDot.png; path = resources/kBIconRuleDrawDot.png; sourceTree = "<group>"; };
+		C58528A019B89935003ED8B1 /* kBIconRuleDrawDot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleDrawDot@2x.png"; path = "resources/kBIconRuleDrawDot@2x.png"; sourceTree = "<group>"; };
+		C58528A119B89935003ED8B1 /* kBIconRuleDrawLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleDrawLine.png; path = resources/kBIconRuleDrawLine.png; sourceTree = "<group>"; };
+		C58528A219B89935003ED8B1 /* kBIconRuleDrawLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleDrawLine@2x.png"; path = "resources/kBIconRuleDrawLine@2x.png"; sourceTree = "<group>"; };
+		C58528A319B89935003ED8B1 /* kBIconRuleFillOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleFillOff.png; path = resources/kBIconRuleFillOff.png; sourceTree = "<group>"; };
+		C58528A419B89935003ED8B1 /* kBIconRuleFillOff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleFillOff@2x.png"; path = "resources/kBIconRuleFillOff@2x.png"; sourceTree = "<group>"; };
+		C58528A519B89935003ED8B1 /* kBIconRuleFillOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleFillOn.png; path = resources/kBIconRuleFillOn.png; sourceTree = "<group>"; };
+		C58528A619B89935003ED8B1 /* kBIconRuleFillOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleFillOn@2x.png"; path = "resources/kBIconRuleFillOn@2x.png"; sourceTree = "<group>"; };
+		C58528A719B89935003ED8B1 /* kBIconRuleIncrementAngle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleIncrementAngle.png; path = resources/kBIconRuleIncrementAngle.png; sourceTree = "<group>"; };
+		C58528A819B89935003ED8B1 /* kBIconRuleIncrementAngle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleIncrementAngle@2x.png"; path = "resources/kBIconRuleIncrementAngle@2x.png"; sourceTree = "<group>"; };
+		C58528A919B89935003ED8B1 /* kBIconRuleIncrementLineWidth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleIncrementLineWidth.png; path = resources/kBIconRuleIncrementLineWidth.png; sourceTree = "<group>"; };
+		C58528AA19B89935003ED8B1 /* kBIconRuleIncrementLineWidth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleIncrementLineWidth@2x.png"; path = "resources/kBIconRuleIncrementLineWidth@2x.png"; sourceTree = "<group>"; };
+		C58528AB19B89935003ED8B1 /* kBIconRuleMoveByLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleMoveByLine.png; path = resources/kBIconRuleMoveByLine.png; sourceTree = "<group>"; };
+		C58528AC19B89935003ED8B1 /* kBIconRuleMoveByLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleMoveByLine@2x.png"; path = "resources/kBIconRuleMoveByLine@2x.png"; sourceTree = "<group>"; };
+		C58528AD19B89935003ED8B1 /* kBIconRuleOpenPolygon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleOpenPolygon.png; path = resources/kBIconRuleOpenPolygon.png; sourceTree = "<group>"; };
+		C58528AE19B89935003ED8B1 /* kBIconRuleOpenPolygon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleOpenPolygon@2x.png"; path = "resources/kBIconRuleOpenPolygon@2x.png"; sourceTree = "<group>"; };
+		C58528AF19B89935003ED8B1 /* kBIconRulePlace0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePlace0.png; path = resources/kBIconRulePlace0.png; sourceTree = "<group>"; };
+		C58528B019B89935003ED8B1 /* kBIconRulePlace0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePlace0@2x.png"; path = "resources/kBIconRulePlace0@2x.png"; sourceTree = "<group>"; };
+		C58528B119B89935003ED8B1 /* kBIconRulePlace1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePlace1.png; path = resources/kBIconRulePlace1.png; sourceTree = "<group>"; };
+		C58528B219B89935003ED8B1 /* kBIconRulePlace1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePlace1@2x.png"; path = "resources/kBIconRulePlace1@2x.png"; sourceTree = "<group>"; };
+		C58528B319B89935003ED8B1 /* kBIconRulePlace2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePlace2.png; path = resources/kBIconRulePlace2.png; sourceTree = "<group>"; };
+		C58528B419B89935003ED8B1 /* kBIconRulePlace2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePlace2@2x.png"; path = "resources/kBIconRulePlace2@2x.png"; sourceTree = "<group>"; };
+		C58528B519B89935003ED8B1 /* kBIconRulePlace3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePlace3.png; path = resources/kBIconRulePlace3.png; sourceTree = "<group>"; };
+		C58528B619B89935003ED8B1 /* kBIconRulePlace3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePlace3@2x.png"; path = "resources/kBIconRulePlace3@2x.png"; sourceTree = "<group>"; };
+		C58528B719B89935003ED8B1 /* kBIconRulePlace4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePlace4.png; path = resources/kBIconRulePlace4.png; sourceTree = "<group>"; };
+		C58528B819B89935003ED8B1 /* kBIconRulePlace4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePlace4@2x.png"; path = "resources/kBIconRulePlace4@2x.png"; sourceTree = "<group>"; };
+		C58528B919B89935003ED8B1 /* kBIconRulePlace5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePlace5.png; path = resources/kBIconRulePlace5.png; sourceTree = "<group>"; };
+		C58528BA19B89935003ED8B1 /* kBIconRulePlace5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePlace5@2x.png"; path = "resources/kBIconRulePlace5@2x.png"; sourceTree = "<group>"; };
+		C58528BB19B89935003ED8B1 /* kBIconRulePop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePop.png; path = resources/kBIconRulePop.png; sourceTree = "<group>"; };
+		C58528BC19B89935003ED8B1 /* kBIconRulePop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePop@2x.png"; path = "resources/kBIconRulePop@2x.png"; sourceTree = "<group>"; };
+		C58528BD19B89935003ED8B1 /* kBIconRulePush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRulePush.png; path = resources/kBIconRulePush.png; sourceTree = "<group>"; };
+		C58528BE19B89935003ED8B1 /* kBIconRulePush@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRulePush@2x.png"; path = "resources/kBIconRulePush@2x.png"; sourceTree = "<group>"; };
+		C58528BF19B89935003ED8B1 /* kBIconRuleRandomizeOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleRandomizeOff.png; path = resources/kBIconRuleRandomizeOff.png; sourceTree = "<group>"; };
+		C58528C019B89935003ED8B1 /* kBIconRuleRandomizeOff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleRandomizeOff@2x.png"; path = "resources/kBIconRuleRandomizeOff@2x.png"; sourceTree = "<group>"; };
+		C58528C119B89935003ED8B1 /* kBIconRuleRandomizeOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleRandomizeOn.png; path = resources/kBIconRuleRandomizeOn.png; sourceTree = "<group>"; };
+		C58528C219B89935003ED8B1 /* kBIconRuleRandomizeOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleRandomizeOn@2x.png"; path = "resources/kBIconRuleRandomizeOn@2x.png"; sourceTree = "<group>"; };
+		C58528C319B89935003ED8B1 /* kBIconRuleReverseDirection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleReverseDirection.png; path = resources/kBIconRuleReverseDirection.png; sourceTree = "<group>"; };
+		C58528C419B89935003ED8B1 /* kBIconRuleReverseDirection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleReverseDirection@2x.png"; path = "resources/kBIconRuleReverseDirection@2x.png"; sourceTree = "<group>"; };
+		C58528C519B89935003ED8B1 /* kBIconRuleRotateC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleRotateC.png; path = resources/kBIconRuleRotateC.png; sourceTree = "<group>"; };
+		C58528C619B89935003ED8B1 /* kBIconRuleRotateC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleRotateC@2x.png"; path = "resources/kBIconRuleRotateC@2x.png"; sourceTree = "<group>"; };
+		C58528C719B89935003ED8B1 /* kBIconRuleRotateCC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleRotateCC.png; path = resources/kBIconRuleRotateCC.png; sourceTree = "<group>"; };
+		C58528C819B89935003ED8B1 /* kBIconRuleRotateCC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleRotateCC@2x.png"; path = "resources/kBIconRuleRotateCC@2x.png"; sourceTree = "<group>"; };
+		C58528C919B89935003ED8B1 /* kBIconRuleStrokeOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleStrokeOff.png; path = resources/kBIconRuleStrokeOff.png; sourceTree = "<group>"; };
+		C58528CA19B89935003ED8B1 /* kBIconRuleStrokeOff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleStrokeOff@2x.png"; path = "resources/kBIconRuleStrokeOff@2x.png"; sourceTree = "<group>"; };
+		C58528CB19B89935003ED8B1 /* kBIconRuleStrokeOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleStrokeOn.png; path = resources/kBIconRuleStrokeOn.png; sourceTree = "<group>"; };
+		C58528CC19B89935003ED8B1 /* kBIconRuleStrokeOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleStrokeOn@2x.png"; path = "resources/kBIconRuleStrokeOn@2x.png"; sourceTree = "<group>"; };
+		C58528CD19B89935003ED8B1 /* kBIconRuleSwapRotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleSwapRotation.png; path = resources/kBIconRuleSwapRotation.png; sourceTree = "<group>"; };
+		C58528CE19B89935003ED8B1 /* kBIconRuleSwapRotation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleSwapRotation@2x.png"; path = "resources/kBIconRuleSwapRotation@2x.png"; sourceTree = "<group>"; };
+		C58528CF19B89935003ED8B1 /* kBIconRuleUpscaleLineLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kBIconRuleUpscaleLineLength.png; path = resources/kBIconRuleUpscaleLineLength.png; sourceTree = "<group>"; };
+		C58528D019B89935003ED8B1 /* kBIconRuleUpscaleLineLength@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kBIconRuleUpscaleLineLength@2x.png"; path = "resources/kBIconRuleUpscaleLineLength@2x.png"; sourceTree = "<group>"; };
+		C58528D119B89935003ED8B1 /* tabBarLinePropertiesIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabBarLinePropertiesIcon.png; path = resources/tabBarLinePropertiesIcon.png; sourceTree = "<group>"; };
+		C58528D219B89935003ED8B1 /* tabBarLinePropertiesIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabBarLinePropertiesIcon@2x.png"; path = "resources/tabBarLinePropertiesIcon@2x.png"; sourceTree = "<group>"; };
+		C58528D319B89935003ED8B1 /* tabBarRulesIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabBarRulesIcon.png; path = resources/tabBarRulesIcon.png; sourceTree = "<group>"; };
+		C58528D419B89935003ED8B1 /* tabBarRulesIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabBarRulesIcon@2x.png"; path = "resources/tabBarRulesIcon@2x.png"; sourceTree = "<group>"; };
+		C58528D519B89935003ED8B1 /* toolBarAppearanceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolBarAppearanceIcon.png; path = resources/toolBarAppearanceIcon.png; sourceTree = "<group>"; };
+		C58528D619B89935003ED8B1 /* toolBarAppearanceIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolBarAppearanceIcon@2x.png"; path = "resources/toolBarAppearanceIcon@2x.png"; sourceTree = "<group>"; };
+		C58528D719B89935003ED8B1 /* toolBarCopyIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolBarCopyIcon.png; path = resources/toolBarCopyIcon.png; sourceTree = "<group>"; };
+		C58528D819B89935003ED8B1 /* toolBarCopyIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolBarCopyIcon@2x.png"; path = "resources/toolBarCopyIcon@2x.png"; sourceTree = "<group>"; };
 		C5886EEA14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FractalKeyboardBackgroundGradient.png; path = resources/FractalKeyboardBackgroundGradient.png; sourceTree = "<group>"; };
 		C5886EEF14FDD3D50009BEB6 /* Keyboard key background light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Keyboard key background light.png"; path = "resources/Keyboard key background light.png"; sourceTree = "<group>"; };
+		C588E23819B7D8C60061B34A /* MBStyleKitButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBStyleKitButton.h; path = FractalScape/MBStyleKitButton.h; sourceTree = "<group>"; };
+		C588E23919B7D8C60061B34A /* MBStyleKitButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBStyleKitButton.m; path = FractalScape/MBStyleKitButton.m; sourceTree = "<group>"; };
 		C58FF3BF14FE80FC00AB9659 /* FractalScapeIconiPhone57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FractalScapeIconiPhone57.png; sourceTree = "<group>"; };
 		C58FF3C114FE810500AB9659 /* FractalScapeIconiPhone57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FractalScapeIconiPhone57@2x.png"; sourceTree = "<group>"; };
 		C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSDrawingRulesDefaultTypeList.plist; path = resources/LSDrawingRulesDefaultTypeList.plist; sourceTree = "<group>"; };
@@ -435,6 +574,8 @@
 				C5A5C79B14D6F9A500D81C72 /* MBPortalStyleView.m */,
 				C59435B219B2BA7800D0207A /* FractalScapeIconSet.h */,
 				C59435B319B2BA7800D0207A /* FractalScapeIconSet.m */,
+				C588E23819B7D8C60061B34A /* MBStyleKitButton.h */,
+				C588E23919B7D8C60061B34A /* MBStyleKitButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -477,6 +618,81 @@
 			name = CollectionCells;
 			sourceTree = "<group>";
 		};
+		C585289419B89904003ED8B1 /* PaintcodeStyleKit */ = {
+			isa = PBXGroup;
+			children = (
+				C585289519B89935003ED8B1 /* elements.png */,
+				C585289619B89935003ED8B1 /* elements@2x.png */,
+				C585289719B89935003ED8B1 /* kBIconRuleClosePolygon.png */,
+				C585289819B89935003ED8B1 /* kBIconRuleClosePolygon@2x.png */,
+				C585289919B89935003ED8B1 /* kBIconRuleDecrementAngle.png */,
+				C585289A19B89935003ED8B1 /* kBIconRuleDecrementAngle@2x.png */,
+				C585289B19B89935003ED8B1 /* kBIconRuleDecrementLineWidth.png */,
+				C585289C19B89935003ED8B1 /* kBIconRuleDecrementLineWidth@2x.png */,
+				C585289D19B89935003ED8B1 /* kBIconRuleDownscaleLineLength.png */,
+				C585289E19B89935003ED8B1 /* kBIconRuleDownscaleLineLength@2x.png */,
+				C585289F19B89935003ED8B1 /* kBIconRuleDrawDot.png */,
+				C58528A019B89935003ED8B1 /* kBIconRuleDrawDot@2x.png */,
+				C58528A119B89935003ED8B1 /* kBIconRuleDrawLine.png */,
+				C58528A219B89935003ED8B1 /* kBIconRuleDrawLine@2x.png */,
+				C58528A319B89935003ED8B1 /* kBIconRuleFillOff.png */,
+				C58528A419B89935003ED8B1 /* kBIconRuleFillOff@2x.png */,
+				C58528A519B89935003ED8B1 /* kBIconRuleFillOn.png */,
+				C58528A619B89935003ED8B1 /* kBIconRuleFillOn@2x.png */,
+				C58528A719B89935003ED8B1 /* kBIconRuleIncrementAngle.png */,
+				C58528A819B89935003ED8B1 /* kBIconRuleIncrementAngle@2x.png */,
+				C58528A919B89935003ED8B1 /* kBIconRuleIncrementLineWidth.png */,
+				C58528AA19B89935003ED8B1 /* kBIconRuleIncrementLineWidth@2x.png */,
+				C58528AB19B89935003ED8B1 /* kBIconRuleMoveByLine.png */,
+				C58528AC19B89935003ED8B1 /* kBIconRuleMoveByLine@2x.png */,
+				C58528AD19B89935003ED8B1 /* kBIconRuleOpenPolygon.png */,
+				C58528AE19B89935003ED8B1 /* kBIconRuleOpenPolygon@2x.png */,
+				C58528AF19B89935003ED8B1 /* kBIconRulePlace0.png */,
+				C58528B019B89935003ED8B1 /* kBIconRulePlace0@2x.png */,
+				C58528B119B89935003ED8B1 /* kBIconRulePlace1.png */,
+				C58528B219B89935003ED8B1 /* kBIconRulePlace1@2x.png */,
+				C58528B319B89935003ED8B1 /* kBIconRulePlace2.png */,
+				C58528B419B89935003ED8B1 /* kBIconRulePlace2@2x.png */,
+				C58528B519B89935003ED8B1 /* kBIconRulePlace3.png */,
+				C58528B619B89935003ED8B1 /* kBIconRulePlace3@2x.png */,
+				C58528B719B89935003ED8B1 /* kBIconRulePlace4.png */,
+				C58528B819B89935003ED8B1 /* kBIconRulePlace4@2x.png */,
+				C58528B919B89935003ED8B1 /* kBIconRulePlace5.png */,
+				C58528BA19B89935003ED8B1 /* kBIconRulePlace5@2x.png */,
+				C58528BB19B89935003ED8B1 /* kBIconRulePop.png */,
+				C58528BC19B89935003ED8B1 /* kBIconRulePop@2x.png */,
+				C58528BD19B89935003ED8B1 /* kBIconRulePush.png */,
+				C58528BE19B89935003ED8B1 /* kBIconRulePush@2x.png */,
+				C58528BF19B89935003ED8B1 /* kBIconRuleRandomizeOff.png */,
+				C58528C019B89935003ED8B1 /* kBIconRuleRandomizeOff@2x.png */,
+				C58528C119B89935003ED8B1 /* kBIconRuleRandomizeOn.png */,
+				C58528C219B89935003ED8B1 /* kBIconRuleRandomizeOn@2x.png */,
+				C58528C319B89935003ED8B1 /* kBIconRuleReverseDirection.png */,
+				C58528C419B89935003ED8B1 /* kBIconRuleReverseDirection@2x.png */,
+				C58528C519B89935003ED8B1 /* kBIconRuleRotateC.png */,
+				C58528C619B89935003ED8B1 /* kBIconRuleRotateC@2x.png */,
+				C58528C719B89935003ED8B1 /* kBIconRuleRotateCC.png */,
+				C58528C819B89935003ED8B1 /* kBIconRuleRotateCC@2x.png */,
+				C58528C919B89935003ED8B1 /* kBIconRuleStrokeOff.png */,
+				C58528CA19B89935003ED8B1 /* kBIconRuleStrokeOff@2x.png */,
+				C58528CB19B89935003ED8B1 /* kBIconRuleStrokeOn.png */,
+				C58528CC19B89935003ED8B1 /* kBIconRuleStrokeOn@2x.png */,
+				C58528CD19B89935003ED8B1 /* kBIconRuleSwapRotation.png */,
+				C58528CE19B89935003ED8B1 /* kBIconRuleSwapRotation@2x.png */,
+				C58528CF19B89935003ED8B1 /* kBIconRuleUpscaleLineLength.png */,
+				C58528D019B89935003ED8B1 /* kBIconRuleUpscaleLineLength@2x.png */,
+				C58528D119B89935003ED8B1 /* tabBarLinePropertiesIcon.png */,
+				C58528D219B89935003ED8B1 /* tabBarLinePropertiesIcon@2x.png */,
+				C58528D319B89935003ED8B1 /* tabBarRulesIcon.png */,
+				C58528D419B89935003ED8B1 /* tabBarRulesIcon@2x.png */,
+				C58528D519B89935003ED8B1 /* toolBarAppearanceIcon.png */,
+				C58528D619B89935003ED8B1 /* toolBarAppearanceIcon@2x.png */,
+				C58528D719B89935003ED8B1 /* toolBarCopyIcon.png */,
+				C58528D819B89935003ED8B1 /* toolBarCopyIcon@2x.png */,
+			);
+			name = PaintcodeStyleKit;
+			sourceTree = "<group>";
+		};
 		C5914AAC14C9ED2C00856F57 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +721,7 @@
 		C5914AFD14C9FB6000856F57 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C585289419B89904003ED8B1 /* PaintcodeStyleKit */,
 				C5B98341170496FE00BEC62C /* ToolbarGyroLockedIcon.png */,
 				C5B98342170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png */,
 				C557D9A216FA921A00FCB857 /* TabbarFillColorIcon.png */,
@@ -741,33 +958,65 @@
 			files = (
 				C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */,
 				C5E6B79514A5346300DA48BD /* MainStoryboard_iPhone.storyboard in Resources */,
+				C58528F319B89935003ED8B1 /* kBIconRulePlace0.png in Resources */,
 				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
+				C58528F919B89935003ED8B1 /* kBIconRulePlace3.png in Resources */,
+				C58528FB19B89935003ED8B1 /* kBIconRulePlace4.png in Resources */,
 				C5E6B79D14A5346300DA48BD /* first.png in Resources */,
 				C5E6B79F14A5346300DA48BD /* first@2x.png in Resources */,
 				C5E6B7A414A5346300DA48BD /* second.png in Resources */,
+				C58528EA19B89935003ED8B1 /* kBIconRuleFillOn@2x.png in Resources */,
+				C58528DC19B89935003ED8B1 /* kBIconRuleClosePolygon@2x.png in Resources */,
+				C585291319B89935003ED8B1 /* kBIconRuleUpscaleLineLength.png in Resources */,
 				C5E6B7A614A5346300DA48BD /* second@2x.png in Resources */,
 				C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
+				C58528E719B89935003ED8B1 /* kBIconRuleFillOff.png in Resources */,
+				C585290E19B89935003ED8B1 /* kBIconRuleStrokeOff@2x.png in Resources */,
 				C5914B0214C9FB7F00856F57 /* bulging.jpg in Resources */,
 				C5914B0414C9FB7F00856F57 /* grey.gif in Resources */,
 				C5914B0614C9FB7F00856F57 /* marble_dark.jpg in Resources */,
+				C58528EF19B89935003ED8B1 /* kBIconRuleMoveByLine.png in Resources */,
+				C585291419B89935003ED8B1 /* kBIconRuleUpscaleLineLength@2x.png in Resources */,
+				C58528E619B89935003ED8B1 /* kBIconRuleDrawLine@2x.png in Resources */,
+				C58528FA19B89935003ED8B1 /* kBIconRulePlace3@2x.png in Resources */,
+				C58528F819B89935003ED8B1 /* kBIconRulePlace2@2x.png in Resources */,
 				C5914B0814C9FB7F00856F57 /* zensand.gif in Resources */,
+				C585290019B89935003ED8B1 /* kBIconRulePop@2x.png in Resources */,
 				C56A2C8F14CFA1CB00B5F763 /* grey.png in Resources */,
 				C56A2C9414CFA77F00B5F763 /* sky.png in Resources */,
 				C56A2C9514CFA77F00B5F763 /* space.png in Resources */,
 				C56A2C9614CFA77F00B5F763 /* stone.png in Resources */,
 				C56A2C9714CFA77F00B5F763 /* zensand.png in Resources */,
+				C585291219B89935003ED8B1 /* kBIconRuleSwapRotation@2x.png in Resources */,
+				C58528FD19B89935003ED8B1 /* kBIconRulePlace5.png in Resources */,
+				C58528FC19B89935003ED8B1 /* kBIconRulePlace4@2x.png in Resources */,
 				C5BE4A1114D4F8C7005A7AE5 /* FractalDefinitionKeyboardView.xib in Resources */,
+				C58528EC19B89935003ED8B1 /* kBIconRuleIncrementAngle@2x.png in Resources */,
 				C5DA349014D6413D00D91F43 /* FractalKeyboardBackground.png in Resources */,
+				C58528E319B89935003ED8B1 /* kBIconRuleDrawDot.png in Resources */,
 				C5DA349414D6417300D91F43 /* imitation_leather.png in Resources */,
 				C5DA349514D6417300D91F43 /* interstices.png in Resources */,
+				C585291119B89935003ED8B1 /* kBIconRuleSwapRotation.png in Resources */,
+				C58528DE19B89935003ED8B1 /* kBIconRuleDecrementAngle@2x.png in Resources */,
 				C5DA349614D6417300D91F43 /* marble_dark.png in Resources */,
+				C58528FF19B89935003ED8B1 /* kBIconRulePop.png in Resources */,
 				C5E556D914E2E6B300CAAB33 /* Localizable.strings in Resources */,
+				C58528DD19B89935003ED8B1 /* kBIconRuleDecrementAngle.png in Resources */,
+				C585290C19B89935003ED8B1 /* kBIconRuleRotateCC@2x.png in Resources */,
+				C585290119B89935003ED8B1 /* kBIconRulePush.png in Resources */,
+				C585290519B89935003ED8B1 /* kBIconRuleRandomizeOn.png in Resources */,
+				C585290819B89935003ED8B1 /* kBIconRuleReverseDirection@2x.png in Resources */,
 				C543E80714E390A000403005 /* CrosshairSelector.png in Resources */,
 				C543E80814E390A000403005 /* CrosshairSelector@2x.png in Resources */,
 				C543E80914E390A000403005 /* HorizontalSelector.png in Resources */,
+				C585290F19B89935003ED8B1 /* kBIconRuleStrokeOn.png in Resources */,
+				C585291519B89935003ED8B1 /* tabBarLinePropertiesIcon.png in Resources */,
 				C543E80A14E390A000403005 /* HorizontalSelector@2x.png in Resources */,
+				C58528E819B89935003ED8B1 /* kBIconRuleFillOff@2x.png in Resources */,
+				C585290D19B89935003ED8B1 /* kBIconRuleStrokeOff.png in Resources */,
 				C543E80B14E390A000403005 /* HueSaturationGradient.png in Resources */,
 				C551320514F9CA2A0074137C /* FractalScapeLogoIPad.png in Resources */,
+				C58528F219B89935003ED8B1 /* kBIconRuleOpenPolygon@2x.png in Resources */,
 				C525B15414FBFA9800A0986B /* Ampersand rotate swap dark.png in Resources */,
 				C525B15514FBFA9800A0986B /* Bar rotate 180 dark.png in Resources */,
 				C525B15614FBFA9800A0986B /* f  forward no line dark.png in Resources */,
@@ -780,31 +1029,67 @@
 				C525B16614FBFAD300A0986B /* Bar rotate 180.png in Resources */,
 				C525B16814FBFAD300A0986B /* f  forward no line.png in Resources */,
 				C525B16914FBFAD300A0986B /* F.png in Resources */,
+				C58528E119B89935003ED8B1 /* kBIconRuleDownscaleLineLength.png in Resources */,
+				C585290919B89935003ED8B1 /* kBIconRuleRotateC.png in Resources */,
+				C58528F619B89935003ED8B1 /* kBIconRulePlace1@2x.png in Resources */,
 				C525B16A14FBFAD300A0986B /* Left square bracket push context.png in Resources */,
 				C525B16B14FBFAD300A0986B /* Minus rotate CW.png in Resources */,
 				C525B16C14FBFAD300A0986B /* Plus rotate CC.png in Resources */,
 				C525B16D14FBFAD300A0986B /* Right square bracket pop context.png in Resources */,
+				C585291619B89935003ED8B1 /* tabBarLinePropertiesIcon@2x.png in Resources */,
+				C58528ED19B89935003ED8B1 /* kBIconRuleIncrementLineWidth.png in Resources */,
 				C525B17114FC089B00A0986B /* Keyboard key background.png in Resources */,
 				C525B17314FD4C2400A0986B /* FractalKeyboardKeyGradient.png in Resources */,
+				C585290719B89935003ED8B1 /* kBIconRuleReverseDirection.png in Resources */,
+				C585290319B89935003ED8B1 /* kBIconRuleRandomizeOff.png in Resources */,
 				C5886EEB14FDD2F20009BEB6 /* FractalKeyboardBackgroundGradient.png in Resources */,
+				C58528F019B89935003ED8B1 /* kBIconRuleMoveByLine@2x.png in Resources */,
 				C5886EF014FDD3D50009BEB6 /* Keyboard key background light.png in Resources */,
+				C58528F119B89935003ED8B1 /* kBIconRuleOpenPolygon.png in Resources */,
+				C585290419B89935003ED8B1 /* kBIconRuleRandomizeOff@2x.png in Resources */,
+				C585291819B89935003ED8B1 /* tabBarRulesIcon@2x.png in Resources */,
 				C58FF3C014FE80FC00AB9659 /* FractalScapeIconiPhone57.png in Resources */,
 				C58FF3C214FE810500AB9659 /* FractalScapeIconiPhone57@2x.png in Resources */,
+				C58528E419B89935003ED8B1 /* kBIconRuleDrawDot@2x.png in Resources */,
+				C585291B19B89935003ED8B1 /* toolBarCopyIcon.png in Resources */,
 				C5DF95B71506EBD900FD2FAF /* Parenthesis decrement turn angle.png in Resources */,
 				C5DF95B81506EBD900FD2FAF /* Parenthesis increment turn angle dark.png in Resources */,
+				C58528F519B89935003ED8B1 /* kBIconRulePlace1.png in Resources */,
+				C58528EE19B89935003ED8B1 /* kBIconRuleIncrementLineWidth@2x.png in Resources */,
+				C58528EB19B89935003ED8B1 /* kBIconRuleIncrementAngle.png in Resources */,
 				C5DF95BC1506EC1100FD2FAF /* Exclaim reduce line width.png in Resources */,
 				C5DF95BD1506EC1100FD2FAF /* Pound increment width dark.png in Resources */,
+				C585290B19B89935003ED8B1 /* kBIconRuleRotateCC.png in Resources */,
+				C58528FE19B89935003ED8B1 /* kBIconRulePlace5@2x.png in Resources */,
+				C58528E219B89935003ED8B1 /* kBIconRuleDownscaleLineLength@2x.png in Resources */,
+				C585291C19B89935003ED8B1 /* toolBarCopyIcon@2x.png in Resources */,
 				C5DF95BF1506EFAF00FD2FAF /* Line width dark.png in Resources */,
+				C58528E519B89935003ED8B1 /* kBIconRuleDrawLine.png in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
+				C585290219B89935003ED8B1 /* kBIconRulePush@2x.png in Resources */,
+				C58528DA19B89935003ED8B1 /* elements@2x.png in Resources */,
+				C58528E919B89935003ED8B1 /* kBIconRuleFillOn.png in Resources */,
 				C53AF0F416C2C43400FA5142 /* linen-fine.jpg in Resources */,
+				C585291019B89935003ED8B1 /* kBIconRuleStrokeOn@2x.png in Resources */,
+				C585290619B89935003ED8B1 /* kBIconRuleRandomizeOn@2x.png in Resources */,
 				C579625E16DC3E1200A8BCDC /* Root.plist in Resources */,
 				C5A3EA7416E8194100D19155 /* Default-568h@2x.png in Resources */,
+				C585290A19B89935003ED8B1 /* kBIconRuleRotateC@2x.png in Resources */,
+				C58528D919B89935003ED8B1 /* elements.png in Resources */,
 				C557D9A616FA921A00FCB857 /* TabbarFillColorIcon.png in Resources */,
+				C58528F719B89935003ED8B1 /* kBIconRulePlace2.png in Resources */,
 				C557D9A716FA921A00FCB857 /* TabbarFillColorIcon@2x.png in Resources */,
 				C557D9A816FA921A00FCB857 /* TabbarLineColorIcon.png in Resources */,
+				C58528F419B89935003ED8B1 /* kBIconRulePlace0@2x.png in Resources */,
+				C58528DF19B89935003ED8B1 /* kBIconRuleDecrementLineWidth.png in Resources */,
 				C557D9A916FA921A00FCB857 /* TabbarLineColorIcon@2x.png in Resources */,
+				C58528DB19B89935003ED8B1 /* kBIconRuleClosePolygon.png in Resources */,
+				C585291919B89935003ED8B1 /* toolBarAppearanceIcon.png in Resources */,
 				C5B98343170496FE00BEC62C /* ToolbarGyroLockedIcon.png in Resources */,
 				C5B98344170496FE00BEC62C /* ToolbarGyroLockedIcon@2x.png in Resources */,
+				C58528E019B89935003ED8B1 /* kBIconRuleDecrementLineWidth@2x.png in Resources */,
+				C585291719B89935003ED8B1 /* tabBarRulesIcon.png in Resources */,
+				C585291A19B89935003ED8B1 /* toolBarAppearanceIcon@2x.png in Resources */,
 				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
 				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);
@@ -854,6 +1139,7 @@
 				C5BA2B9314C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld in Sources */,
 				C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */,
 				C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */,
+				C588E23A19B7D8C60061B34A /* MBStyleKitButton.m in Sources */,
 				C5DA348D14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m in Sources */,
 				C59435B419B2BA7800D0207A /* FractalScapeIconSet.m in Sources */,
 				C5A5C79C14D6F9A500D81C72 /* MBPortalStyleView.m in Sources */,
