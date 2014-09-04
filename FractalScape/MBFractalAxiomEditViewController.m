@@ -83,7 +83,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableSections = [NSArray arrayWithObjects: @"Description", @"Axiom", @"Rules", nil];
+    self.tableSections = [NSArray arrayWithObjects: @"Description", @"Starting Rule", @"Replacement Rules", nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

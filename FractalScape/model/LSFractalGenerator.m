@@ -874,10 +874,12 @@
     [self drawCircle: self.lineWidth];
 }
 
+#pragma message "TODO: implement openPolygon"
 -(void) commandOpenPolygon {
     
 }
 
+#pragma message "TODO: implement closePolygon"
 -(void) commandClosePolygon {
     
 }
