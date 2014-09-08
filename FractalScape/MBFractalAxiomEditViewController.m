@@ -43,10 +43,24 @@
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 -(void) addReplacementRulesObserverFor:(LSFractal *)fractal {
-    [fractal addObserver: self forKeyPath: @"replacementRules" options:0 context:NULL];
+    if (fractal) {
+        [fractal addObserver: self forKeyPath: @"replacementRules" options:0 context:NULL];
+//        NSLog(@"Add Observer: %@ for fractal: %@", self, fractal.name);
+    }
 }
 -(void) removeReplacementRulesObserverFor:(LSFractal *)fractal {
-    [fractal removeObserver: self forKeyPath:@"replacementRules"];
+    @try {
+        if (fractal) {
+            [fractal removeObserver: self forKeyPath:@"replacementRules"];
+//            NSLog(@"Remove Observer: %@ for fractal: %@", self, fractal.name);
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Exception Observer: %@ missing for fractal: %@", self, fractal.name);
+    }
+    @finally {
+        //Code that gets executed whether or not an exception is thrown
+    }
 }
 #pragma mark - Getters & Setters
 -(void) setSortedReplacementRulesArray:(NSArray *)sortedReplacementRulesArray {
@@ -109,7 +123,10 @@
 }
 -(void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    // removes all fractal observers.
     [self setSortedReplacementRulesArray: nil];
+    // nil out, so old fractal does not get re-used when controller starts to reappear.
+    self.fractal = nil;
 }
 - (void)didReceiveMemoryWarning
 {
@@ -373,7 +390,7 @@
         // a way to pass both fields of the rule cell
         [ruleCell.textRight addTarget: ruleCell
                                action: @selector(textRightEditingEnded:)
-                     forControlEvents: UIControlEventEditingDidEnd];
+                     forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
         
         cell = ruleCell;
         (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
