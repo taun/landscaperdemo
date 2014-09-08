@@ -33,8 +33,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 /* a generator for each level being displayed. */
 @property (nonatomic, strong) NSMutableArray*               generatorsArray;
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
-@property (nonatomic, strong) UIBarButtonItem*              aCopyButtonItem;
-@property (nonatomic, strong) UIBarButtonItem*              infoButtonItem;
+#pragma message "Unused"
 @property (nonatomic, strong) UIBarButtonItem*              spaceButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem        *appearanceButton;

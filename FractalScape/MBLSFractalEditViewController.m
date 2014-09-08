@@ -416,6 +416,7 @@ static BOOL SIMULTOUCH = NO;
 //}
 
 
+#pragma message "Unused"
 -(UIBarButtonItem*) cancelButtonItem {
     if (_cancelButtonItem == nil) {
         _cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel 
@@ -425,7 +426,7 @@ static BOOL SIMULTOUCH = NO;
     }
     return _cancelButtonItem;
 }
-
+#pragma message "Unused"
 -(UIBarButtonItem*) undoButtonItem {
     if (_undoButtonItem == nil) {
         _undoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemUndo 
@@ -435,6 +436,7 @@ static BOOL SIMULTOUCH = NO;
     return _undoButtonItem;
 }
 
+#pragma message "Unused"
 -(UIBarButtonItem*) redoButtonItem {
     if (_redoButtonItem == nil) {
         _redoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemRedo 
@@ -444,27 +446,7 @@ static BOOL SIMULTOUCH = NO;
     return _redoButtonItem;
 }
 
--(UIBarButtonItem*) aCopyButtonItem {
-    if (_aCopyButtonItem == nil) {
-        _aCopyButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Copy"
-                                                            style:UIBarButtonItemStyleBordered
-                                                           target:self
-                                                           action:@selector(copyFractal:)];
-        
-    }
-    return _aCopyButtonItem;
-}
-
--(UIBarButtonItem*) infoButtonItem {
-    if (_infoButtonItem == nil) {
-        _infoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemOrganize
-                                                                        target:self
-                                                                        action:@selector(toggleAutoScale:)];
-        
-    }
-    return _infoButtonItem;
-}
-
+#pragma message "Unused"
 -(UIBarButtonItem*) spaceButtonItem {
     if (_spaceButtonItem == nil) {
         _spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace
@@ -862,41 +844,6 @@ static BOOL SIMULTOUCH = NO;
 - (void) configureNavButtons {
     self.title = _fractal.name;
     self.toolbarTitle.text = _fractal.name;
-//    NSMutableArray *rightButtons, *leftButtons;
-//    
-//    
-//    if ([self.fractal.isImmutable boolValue]) {
-//        // no edit button if it is read only
-//        rightButtons = [[NSMutableArray alloc] initWithObjects: self.aCopyButtonItem, nil];
-//        
-//        self.navigationItem.title = [NSString stringWithFormat: @"%@ (read-only)", self.title];
-//        
-//    } else if (self.editing) {
-//        self.navigationItem.title = [NSString stringWithFormat: @"%@ (editing)", self.title];
-//        
-//        leftButtons = [[NSMutableArray alloc] initWithObjects: self.cancelButtonItem,self.spaceButtonItem, self.undoButtonItem, self.redoButtonItem, nil];
-//        
-//        // include edit button but no copy button
-//        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, nil];
-//        
-//    } else {
-//        self.navigationItem.title = self.title;
-//        // copy and edit button        
-//        rightButtons = [[NSMutableArray alloc] initWithObjects: self.editButtonItem, self.spaceButtonItem, self.aCopyButtonItem, nil];
-//    }
-//    
-//    [rightButtons addObject: self.infoButtonItem];
-//    
-//    self.navigationItem.leftItemsSupplementBackButton = YES;
-//
-//    [self updateUndoRedoBarButtonState];
-//    
-//    [UIView animateWithDuration:0.20 animations:^{
-//        self.navigationItem.rightBarButtonItems = rightButtons;
-//        
-//        self.navigationItem.leftBarButtonItems = leftButtons;
-//    }];
-
 }
 
 -(void)configureLandscapeViewFrames {
@@ -1213,6 +1160,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self handleNewPopoverRequest: self.libraryViewController sender: sender otherPopover: self.appearanceViewController];
 }
 -(IBAction)appearanceButtonPressed:(id)sender {
+    if ([self.fractal.isImmutable boolValue]) {
+        self.fractal = [self.fractal mutableCopy];
+    }
     [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
 }
 
@@ -1221,9 +1171,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 - (IBAction)copyFractal:(id)sender {    
     // copy
-    LSFractal* copiedFractal = [self.fractal mutableCopy];
-    
-    self.fractal = copiedFractal;
+    self.fractal = [self.fractal mutableCopy];
     
     [self appearanceButtonPressed: self.appearanceButton];
 }
