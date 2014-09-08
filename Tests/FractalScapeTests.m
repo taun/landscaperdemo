@@ -1,14 +1,14 @@
 //
-//  LandscaperDemoTests.m
-//  LandscaperDemoTests
+//  FractalScapeTests.m
+//  FractalScapeTests
 //
 //  Created by Taun Chapman on 12/23/11.
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import "LandscaperDemoTests.h"
+#import "FractalScapeTests.h"
 
-@implementation LandscaperDemoTests
+@implementation FractalScapeTests
 
 - (void)setUp
 {
@@ -26,7 +26,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in LandscaperDemoTests");
+    XCTFail(@"Unit tests are not implemented yet in FractalScapeTests");
 }
 
 @end

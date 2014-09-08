@@ -1,6 +1,6 @@
 //
 //  MBCollectionColorCell.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/18/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -13,7 +13,7 @@
 
 @implementation MBCollectionColorCell
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -22,7 +22,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder: aDecoder];
     if (self) {
         // Initialization code

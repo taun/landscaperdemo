@@ -1,6 +1,6 @@
 //
 //  MBStepperTableViewCell.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 02/23/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -14,7 +14,7 @@
     [self addObserver: self forKeyPath: @"stepper.value" options: NSKeyValueObservingOptionNew context: NULL];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder: decoder];
     
     if (self) [self setupStepperObserver];
@@ -30,7 +30,7 @@
     return self;
 }
 
--(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+-(instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle: style reuseIdentifier: reuseIdentifier];
     
     if (self) [self setupStepperObserver];

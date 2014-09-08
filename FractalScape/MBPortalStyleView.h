@@ -1,6 +1,6 @@
 //
 //  MBPortalStyleView.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 01/30/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.

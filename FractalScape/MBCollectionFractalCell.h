@@ -1,6 +1,6 @@
 //
 //  MBCollectionFractalCell.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 02/26/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.

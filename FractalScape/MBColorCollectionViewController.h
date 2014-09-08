@@ -1,6 +1,6 @@
 //
 //  MBColorCollectionViewController.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/06/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -24,7 +24,7 @@
 
 +(NSString*) fractalPropertyKeypath;
 
--(NSManagedObjectContext*)         appManagedObjectContext;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSManagedObjectContext *appManagedObjectContext;
 -(void) initControls;
 
 

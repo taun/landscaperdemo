@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'LandscaperDemo' target in the 'LandscaperDemo' project
+// Prefix header for all source files of the 'FractalScape' target in the 'FractalScape' project
 //
 
 #import <Availability.h>

@@ -1,6 +1,6 @@
 //
 //  main.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 12/23/11.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.

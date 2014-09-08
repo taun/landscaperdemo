@@ -1,6 +1,6 @@
 //
 //  MBFractalPropertyTableHeaderView.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 02/22/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -10,7 +10,7 @@
 
 @implementation MBFractalPropertyTableHeaderView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -19,7 +19,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder: aDecoder];
     if (self) {
         //

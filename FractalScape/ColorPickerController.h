@@ -89,6 +89,8 @@ typedef struct {
 @property (nonatomic, strong) UIColor *selectedColor;
 @property (nonatomic, weak) IBOutlet id<ColorPickerDelegate> delegate;
 
-- (id)initWithColor:(UIColor *)color andTitle:(NSString *)title;
+- (instancetype)initWithColor:(UIColor *)color andTitle:(NSString *)title NS_DESIGNATED_INITIALIZER;
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 @end

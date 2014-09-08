@@ -1,6 +1,6 @@
 //
 //  MBFractalPropertiesViewController.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/01/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -70,7 +70,7 @@
     return _fractalInputControl;
 }
 #pragma mark - Initialisation
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -83,7 +83,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableSections = [NSArray arrayWithObjects: @"Description", @"Starting Rule", @"Replacement Rules", nil];
+    self.tableSections = @[@"Description", @"Starting Rule", @"Replacement Rules"];
+    
+//    self.fractalPropertiesTableView.estimatedRowHeight = 44;
+//    self.fractalPropertiesTableView.rowHeight = UITableViewAutomaticDimension;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -280,7 +283,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString* sectionHeader = nil;
         
-    sectionHeader = [self.tableSections objectAtIndex: section];
+    sectionHeader = (self.tableSections)[section];
     
     return sectionHeader;
 }
@@ -379,14 +382,14 @@
     
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat rowHeight = tableView.rowHeight;
-    if (indexPath.section==0 && indexPath.row==2) {
-        // description cell
-        rowHeight = 91.0;
-    }
-    return rowHeight;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    CGFloat rowHeight = tableView.rowHeight;
+//    if (indexPath.section==0 && indexPath.row==2) {
+//        // description cell
+//        rowHeight = 91.0;
+//    }
+//    return rowHeight;
+//}
 - (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }

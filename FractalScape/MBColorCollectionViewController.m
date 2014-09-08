@@ -1,6 +1,6 @@
 //
 //  MBColorCollectionViewController.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/06/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -20,7 +20,7 @@
     return @"lineColor";
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {

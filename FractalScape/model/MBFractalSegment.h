@@ -1,6 +1,6 @@
 //
 //  MBFractalSegment.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 01/09/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -33,6 +33,6 @@
 
 +(NSArray*)settingsToCopy;
 
--(MBFractalSegment*) copySettings;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) MBFractalSegment *copySettings;
 
 @end

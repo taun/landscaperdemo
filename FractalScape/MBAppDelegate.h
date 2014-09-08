@@ -1,6 +1,6 @@
 //
 //  MBAppDelegate.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 12/23/11.
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
@@ -21,7 +21,7 @@
 
 
 - (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *applicationDocumentsDirectory;
 
 //-(BOOL)coreDataDefaultsExist;
 //-(void)addDefaultCoreDataData; //obsolete

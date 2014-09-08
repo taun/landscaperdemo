@@ -274,10 +274,10 @@
     _hexadecimalCharacters = [NSCharacterSet characterSetWithCharactersInString:HEXADECIMAL_CHARACTERS];
     _decimalCharacters = [NSCharacterSet characterSetWithCharactersInString:DECIMAL_CHARACTERS];
     self.modalInPopover = YES;
-    self.contentSizeForViewInPopover = CGSizeMake(400, 300);
+    self.preferredContentSize = CGSizeMake(400, 300);
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self setupVars];
@@ -285,7 +285,7 @@
     return self;
 }
 
-- (id)initWithColor:(UIColor *)color andTitle:(NSString *)title {
+- (instancetype)initWithColor:(UIColor *)color andTitle:(NSString *)title {
     self = [super init];
     
     if (self) {

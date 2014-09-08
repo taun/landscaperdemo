@@ -1,6 +1,6 @@
 //
 //  MBFractalPropertiesViewController.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/01/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -22,11 +22,11 @@
     __strong NSArray        *_sortedReplacementRulesArray;
 }
 
-@property (nonatomic,weak) LSFractal        *fractal;
-@property (nonatomic,weak) NSUndoManager    *fractalUndoManager;
+@property (nonatomic,weak) LSFractal                                *fractal;
+@property (nonatomic,weak) NSUndoManager                            *fractalUndoManager;
 
 
-@property (weak, nonatomic) IBOutlet UITableView  *fractalPropertiesTableView;
+@property (weak, nonatomic) IBOutlet UITableView                    *fractalPropertiesTableView;
 //@property (weak, nonatomic) IBOutlet UIView       *fractalPropertyTableHeaderView;
 //@property (weak, nonatomic) IBOutlet UITextField  *fractalName;
 //@property (weak, nonatomic) IBOutlet UITextField  *fractalCategory;
@@ -41,7 +41,7 @@
  Custom keyboard for inputting fractal axioms and rules.
  Change to a popover?
  */
-@property (strong, nonatomic) FractalDefinitionKeyboardView    *fractalInputControl;
+@property (strong, nonatomic) FractalDefinitionKeyboardView             *fractalInputControl;
 @property (nonatomic, strong) NSMutableDictionary                       *rulesCellIndexPaths;
 
 @property (nonatomic, strong) NSNumberFormatter                         *twoPlaceFormatter;

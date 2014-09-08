@@ -1,6 +1,6 @@
 //
 //  MBColor+addons.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 02/02/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -62,7 +62,7 @@
     NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
     
     NSDictionary *substitutionDictionary =
-    [NSDictionary dictionaryWithObjectsAndKeys: colorIdentifier, @"MBIDENTIFIER", nil];
+    @{@"MBIDENTIFIER": colorIdentifier};
     
     NSFetchRequest *fetchRequest =
     [model fetchRequestFromTemplateWithName:@"MBColorWithIdentifier"
@@ -74,7 +74,7 @@
     // ToDo deal with error
     // There should always be only one. Don't know what error to post if > 1
     if ( ([fetchedObjects count] >= 1) ) {
-        node = [fetchedObjects objectAtIndex: 0];
+        node = fetchedObjects[0];
     }
     
     return node;

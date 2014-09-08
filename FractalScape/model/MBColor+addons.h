@@ -1,6 +1,6 @@
 //
 //  MBColor+addons.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 02/02/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -18,6 +18,6 @@
 
 +(UIColor*) newDefaultUIColor;
 
--(UIColor*) asUIColor;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *asUIColor;
 
 @end

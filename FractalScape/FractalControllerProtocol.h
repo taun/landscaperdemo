@@ -1,6 +1,6 @@
 //
 //  FractalControllerProtocol.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/04/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.

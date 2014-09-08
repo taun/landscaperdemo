@@ -1,6 +1,6 @@
 //
 //  MBFractalAppearanceViewController.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/01/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -26,7 +26,7 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 @implementation MBFractalLineSegmentsEditorViewController
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -174,13 +174,13 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 - (IBAction)turningAngleStepperInputChanged:(UIStepper*)sender {
     [self.fractalUndoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
-    [self.fractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: sender.value]];
+    [self.fractal setTurningAngleAsDegrees: @(sender.value)];
     self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
 }
 - (IBAction)turningAngleTextInputChanged: (UITextField*)sender {
     [self.fractalUndoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
-    [self.fractal setTurningAngleAsDegrees: [NSNumber numberWithDouble: [sender.text doubleValue]]];
+    [self.fractal setTurningAngleAsDegrees: @([sender.text doubleValue])];
     self.turnAngleStepper.value = [[self.fractal turningAngleAsDegree] doubleValue];
     self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
 }
@@ -192,7 +192,7 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 
 
 - (IBAction)toggleFillMode:(UISwitch *)sender {
-    self.fractal.eoFill = [NSNumber numberWithBool: sender.on];
+    self.fractal.eoFill = @(sender.on);
 }
 
 - (IBAction)changeLineCap:(UISegmentedControl *)sender {
@@ -206,21 +206,21 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 - (IBAction)randomnessStepperChanged:(UIStepper *)sender {
     [self.fractalUndoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
-    self.fractal.randomness = [NSNumber numberWithDouble: sender.value];
+    self.fractal.randomness = @(sender.value);
     self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];
     if (self.fractal.randomness == 0) {
-        self.fractal.randomize = [NSNumber numberWithBool: NO];
+        self.fractal.randomize = @NO;
     }
 }
 
 - (IBAction)randomnessInputChanged:(UITextField *)sender {
     [self.fractalUndoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
-    [self.fractal setRandomness: [NSNumber numberWithDouble: [sender.text doubleValue]]];
+    [self.fractal setRandomness: @([sender.text doubleValue])];
     self.randomnessStepper.value = [[self.fractal randomness] doubleValue];
     self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];
     if (self.fractal.randomness == 0) {
-        self.fractal.randomize = [NSNumber numberWithBool: NO];
+        self.fractal.randomize = @NO;
     }
 }
 @end

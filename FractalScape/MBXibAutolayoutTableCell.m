@@ -1,6 +1,6 @@
 //
 //  MBXibAutolayoutTableCell.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/26/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -18,6 +18,7 @@
 
 -(void) awakeFromNib {
     [super awakeFromNib];
+    [self fixConstraints];
 //    [self fixSubviewsOuterConstraints];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -27,6 +28,30 @@
     // Configure the view for the selected state
 }
 
+/*!
+ Seems to be a bug in iOS 8 beta#?
+ Cannont add constraints to the contentView using IB so we do it manually.
+ */
+-(void) fixConstraints {
+    UIView* contentView = self.contentView;
+    
+    NSMutableArray* constraints = [[NSMutableArray alloc] init];
+    
+    [constraints addObject: [NSLayoutConstraint
+                             constraintWithItem: contentView
+                             attribute: NSLayoutAttributeHeight
+                             relatedBy:NSLayoutRelationGreaterThanOrEqual
+                             toItem: nil
+                             attribute: 0
+                             multiplier: 1.0
+                             constant: 44.0]];
+    
+    [self.contentView addConstraints: constraints];
+}
+/*!
+ This was an autolayout fix for iOS 6.
+ No obsolete.
+ */
 -(void) fixSubviewsOuterConstraints {
 
     UIView* cellView = self.contentView.superview;

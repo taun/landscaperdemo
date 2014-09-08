@@ -1,6 +1,6 @@
 //
 //  MBLSFractalEditViewController.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 01/27/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -23,7 +23,7 @@ static NSString*  kLastEditedFractalURI = @"lastEditedFractalURI";
 
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
-UIPopoverControllerDelegate, UIActionSheetDelegate>
+UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate>
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;
@@ -84,17 +84,14 @@ UIPopoverControllerDelegate, UIActionSheetDelegate>
 
 
 #pragma mark - Popovers
-@property (nonatomic, strong) UIPopoverController                       *popover;
 @property (strong, nonatomic) MBFractalLibraryViewController            *libraryViewController;
-@property (strong, nonatomic) MBFractalAxiomEditViewController          *propertiesViewController;
 @property (strong, nonatomic) MBFractalAppearanceEditorViewController   *appearanceViewController;
 
-@property (strong, nonatomic) UIActionSheet     *shareActionsSheet;
+@property (strong, nonatomic) UIActionSheet                             *shareActionsSheet;
 
-@property (nonatomic, strong) NSDictionary*         portraitViewFrames;
+@property (nonatomic, strong) NSDictionary                              *portraitViewFrames;
 
-
-@property (nonatomic, strong) NSUndoManager *undoManager;
+@property (nonatomic, strong) NSUndoManager                             *undoManager;
 
 
 #pragma mark - Generation and Display

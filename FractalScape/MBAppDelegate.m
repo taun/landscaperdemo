@@ -1,6 +1,6 @@
 //
 //  MBAppDelegate.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 12/23/11.
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
@@ -282,8 +282,8 @@ static const BOOL ERASE_CORE_DATA = YES;
     }
 
     NSDictionary* plistRulesDict = (NSDictionary*)plistObject;
-    NSDictionary* plistRuleType = [plistRulesDict objectForKey: @"ruleType"];
-    NSDictionary* plistRules = [plistRulesDict objectForKey: @"rules"];
+    NSDictionary* plistRuleType = plistRulesDict[@"ruleType"];
+    NSDictionary* plistRules = plistRulesDict[@"rules"];
     
     LSDrawingRuleType* ruleType = [self loadLSDrawingRuleTypeFromPListDictionary: plistRuleType];
     
@@ -314,7 +314,7 @@ static const BOOL ERASE_CORE_DATA = YES;
             if ([colorDict isKindOfClass: [NSDictionary class]]) {
                 
                 // only create new color if one with identifier doesn't already exist
-                NSString* identifier = [colorDict objectForKey: @"identifier"];
+                NSString* identifier = colorDict[@"identifier"];
                 if ([MBColor findMBColorWithIdentifier: identifier inContext: context] == nil) {
                     MBColor* newColor = [NSEntityDescription
                                          insertNewObjectForEntityForName:@"MBColor"
@@ -364,7 +364,7 @@ static const BOOL ERASE_CORE_DATA = YES;
                 // create the fractal
                 
                 // only create new fractal if one with identifier doesn't already exist
-                NSString* fractalName = [fractalDictionary objectForKey: @"name"];
+                NSString* fractalName = fractalDictionary[@"name"];
                 if ([LSFractal findFractalWithName: fractalName inContext: context] == nil) {
                     LSFractal* fractal = [NSEntityDescription
                                           insertNewObjectForEntityForName:@"LSFractal"
@@ -391,7 +391,7 @@ static const BOOL ERASE_CORE_DATA = YES;
                             }
                         } else if ([propertyKey isEqualToString: @"drawingRulesType.identifier"]) {
                             // special case
-                            fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: [fractalDictionary objectForKey: @"drawingRulesType.identifier"] inContext: self.managedObjectContext];
+                            fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: fractalDictionary[@"drawingRulesType.identifier"] inContext: self.managedObjectContext];
                             fractal.drawingRulesType = fractalDrawingRuleType;
                         } else {
                             // all but dictionaries should be key value

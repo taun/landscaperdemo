@@ -1,6 +1,6 @@
 //
 //  MBImmutableCellBackgroundView.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 03/28/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
@@ -11,7 +11,7 @@
 
 @implementation MBImmutableCellBackgroundView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {

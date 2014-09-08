@@ -1,6 +1,6 @@
 //
 //  MBFractalLibraryViewController.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 12/23/11.
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
@@ -75,7 +75,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 }
 
 -(NSFetchedResultsController*) fetchedResultsController {
-    if (_fetchedResultsController == nil) {
+    if (self.fractal != nil && _fetchedResultsController == nil) {
         // instantiate
         NSManagedObjectContext* fractalContext = self.fractal.managedObjectContext;
         
@@ -173,7 +173,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     cell.textLabel.text = cellFractal.name;
     cell.detailTextLabel.text = cellFractal.descriptor;
     
-    LSFractalGenerator* generator = [self.fractalToThumbnailGenerators objectForKey: objectID];
+    LSFractalGenerator* generator = (self.fractalToThumbnailGenerators)[objectID];
     
     CGSize thumbnailSize = [self cachedThumbnailSizeForCell: cell];
     
@@ -186,10 +186,10 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
             // No generator yet
             generator = [[LSFractalGenerator alloc] init];
             generator.fractal = cellFractal;
-            [self.fractalToThumbnailGenerators setObject: generator forKey: objectID];
+            (self.fractalToThumbnailGenerators)[objectID] = generator;
         }
             
-        NSOperation* operation = [self.fractalToGeneratorOperations objectForKey: objectID];
+        NSOperation* operation = (self.fractalToGeneratorOperations)[objectID];
         
         // if the operation exists and is finished
         //      remove and queue a new operation
@@ -213,7 +213,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
                     [[(MBCollectionFractalCell*)[collectionView cellForItemAtIndexPath: indexPath] imageView] setImage: fractalImage];
                 }];
             }];
-            [self.fractalToGeneratorOperations setObject: operation forKey: objectID];
+            (self.fractalToGeneratorOperations)[objectID] = operation;
             [self.privateQueue addOperation: operation];
         }
     
@@ -242,7 +242,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
                                                                                       withReuseIdentifier: kSupplementaryHeaderCellIdentifier
                                                                                              forIndexPath: indexPath];
     
-    rView.textLabel.text = [[[self.fetchedResultsController sections] objectAtIndex: indexPath.section] name];
+    rView.textLabel.text = [[self.fetchedResultsController sections][indexPath.section] name];
 
     return rView;
 }
@@ -298,7 +298,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSManagedObjectID* objectID = managedObject.objectID;
     
-    NSOperation* operation = [self.fractalToGeneratorOperations objectForKey: objectID];
+    NSOperation* operation = (self.fractalToGeneratorOperations)[objectID];
     if (operation) {
         [operation cancel];
         [self.fractalToGeneratorOperations removeObjectForKey: objectID];
@@ -314,7 +314,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
         NSIndexPath* indexPath;
         NSArray* indexPaths = [self.fractalCollectionView indexPathsForSelectedItems];
         if (indexPaths.count > 0) {
-            indexPath = [indexPaths objectAtIndex: 0];
+            indexPath = indexPaths[0];
         }
         
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];

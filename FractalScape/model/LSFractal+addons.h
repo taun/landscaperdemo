@@ -1,6 +1,6 @@
 //
 //  LSFractal+addons.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 02/01/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -29,24 +29,21 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(void) setLineColorFromIdentifier: (NSString*) colorIdentifier;
 -(void) setFillColorFromIdentifier: (NSString*) colorIdentifier;
 
--(UIColor*) lineColorAsUI;
--(UIColor*) fillColorAsUI;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *lineColorAsUI;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *fillColorAsUI;
 
--(double) lineLengthAsDouble;
--(void) setLineLengthAsDouble: (double) newLength;
+@property (NS_NONATOMIC_IOSONLY) double lineLengthAsDouble;
 
--(double) turningAngleAsDouble;
--(NSNumber*) turningAngleAsDegree;
--(void) setTurningAngleAsDouble: (double) newAngle;
+@property (NS_NONATOMIC_IOSONLY) double turningAngleAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber *turningAngleAsDegree;
 -(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
 
--(double) turningAngleIncrementAsDouble;
--(NSNumber*) turningAngleIncrementAsDegree;
--(void) setTurningAngleIncrementAsDouble: (double) newAngle;
+@property (NS_NONATOMIC_IOSONLY) double turningAngleIncrementAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber *turningAngleIncrementAsDegree;
 -(void) setTurningAngleIncrementAsDegrees: (NSNumber*) newAngle;
 
--(NSNumber*) baseAngleAsDegree;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber *baseAngleAsDegree;
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
 
--(NSArray*) newSortedReplacementRulesArray;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *newSortedReplacementRulesArray;
 @end

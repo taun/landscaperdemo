@@ -1,6 +1,6 @@
 //
 //  MBLSFractalEditViewController.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 01/27/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -46,14 +46,15 @@ static BOOL SIMULTOUCH = NO;
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
-@property (nonatomic, weak) id                      currentSender;
+
+@property (nonatomic,weak) UIViewController*        currentPresentedController;
 
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
--(CALayer*) fractalLevel0Layer;
--(CALayer*) fractalLevel1Layer;
--(CALayer*) fractalLevel2Layer;
--(CALayer*) fractalLevelNLayer;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel0Layer;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel1Layer;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel2Layer;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevelNLayer;
 
 -(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) fractal;
 -(void) updateGeneratorsForFractal: (LSFractal*) fractal;
@@ -93,7 +94,7 @@ static BOOL SIMULTOUCH = NO;
 @synthesize libraryViewController = _libraryViewController;
 
 #pragma mark Init
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -343,17 +344,6 @@ static BOOL SIMULTOUCH = NO;
 
 #pragma mark - Getters & Setters
 
--(UIPopoverController*) popover{
-    if (_popover==nil) {
-        _popover = [[UIPopoverController alloc]
-                    initWithContentViewController: self.libraryViewController];
-        _popover.passthroughViews = [NSArray arrayWithObjects:
-                                     self.fractalViewLevel0,
-                                     self.fractalViewLevel1,
-                                     self.fractalViewLevel2, nil];
-    }
-    return _popover;
-}
 -(void) setLibraryViewController:(MBFractalLibraryViewController *)libraryViewController {
     if (_libraryViewController!=libraryViewController) {
         if (_libraryViewController!=nil) {
@@ -368,18 +358,21 @@ static BOOL SIMULTOUCH = NO;
 -(UIViewController*) libraryViewController {
     if (_libraryViewController==nil) {
         [self setLibraryViewController: [self.storyboard instantiateViewControllerWithIdentifier:@"LibraryPopover"]];
+        [_libraryViewController setPreferredContentSize: CGSizeMake(510, 600)];
+        _libraryViewController.modalPresentationStyle = UIModalPresentationPopover;
+        _libraryViewController.popoverPresentationController.delegate = self;
     }
     return _libraryViewController;
-}
--(UIViewController*) propertiesViewController {
-    if (_propertiesViewController==nil) {
-        _propertiesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PropertiesPopover"];
-    }
-    return _propertiesViewController;
 }
 -(UIViewController*) appearanceViewController {
     if (_appearanceViewController==nil) {
         _appearanceViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
+        [_appearanceViewController setPreferredContentSize: CGSizeMake(400, 408)];
+        _appearanceViewController.modalPresentationStyle = UIModalPresentationPopover;
+        _appearanceViewController.popoverPresentationController.passthroughViews = @[self.fractalViewLevel0,
+                                                                                     self.fractalViewLevel1,
+                                                                                     self.fractalViewLevel2];
+        _appearanceViewController.popoverPresentationController.delegate = self;
     }
     return _appearanceViewController;
 }
@@ -390,7 +383,7 @@ static BOOL SIMULTOUCH = NO;
                                                          delegate: self
                                                 cancelButtonTitle: nil
                                            destructiveButtonTitle: nil
-                                                otherButtonTitles: @"Save Image", nil];
+                                                otherButtonTitles: @"Save to camera roll", @"Share to public Cloud",nil];
     }
     return _shareActionsSheet;
 }
@@ -1187,39 +1180,40 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
  dismissPopoverAnimated: method. If you dismiss the popover programmatically, you should perform
  any cleanup actions immediately after calling the dismissPopoverAnimated: method. */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    self.currentSender = nil;
     NSLog(@"%@ Popover dismissed", popoverController.description);
 }
-/* utility to handle popover switching and dismissing 
-   needs to dismiss if the popover is already up and the button is pressed again.
-   needs to switch if the popover is up and a different button is pressed.
- */
--(void) handlePopoverRequestForController: (UIViewController<FractalControllerProtocol>*)controller fromSender: (id) sender {
-    if (self.currentSender == sender) {
-        [self.popover dismissPopoverAnimated: YES];
-        self.currentSender = nil;
-    } else {
-        self.currentSender = sender;
-        controller.fractal = self.fractal;
-        controller.fractalUndoManager = self.undoManager;
-        [self.popover setContentViewController: controller animated: YES];
-        
-        [self.popover setPopoverContentSize: controller.contentSizeForViewInPopover animated: YES];
-        self.popover.delegate = self;
-        
-        [self.popover presentPopoverFromBarButtonItem: sender
-                             permittedArrowDirections:UIPopoverArrowDirectionAny
-                                             animated:YES];
+-(void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
+//    NSLog(@"%@ Popover dismissed", popoverPresentationController.description);
+    self.currentPresentedController = nil;
+}
+-(void) handleNewPopoverRequest:(UIViewController<FractalControllerProtocol>*)newController
+                         sender: (id) sender
+                   otherPopover: (UIViewController<FractalControllerProtocol>*) otherController {
+    
+    if (self.currentPresentedController != nil) {
+        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
+            self.currentPresentedController = nil;
+        }];
     }
+    
+    newController.fractal = self.fractal;
+    newController.fractalUndoManager = self.undoManager;
+    
+    UIPopoverPresentationController* ppo = newController.popoverPresentationController;
+    ppo.barButtonItem = sender;
+    ppo.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController: newController animated: YES completion: ^{
+        //
+        self.currentPresentedController = newController;
+    }];
+
 }
 -(IBAction)libraryButtonPressed:(id)sender {
-    [self handlePopoverRequestForController: self.libraryViewController fromSender: sender];
+    [self handleNewPopoverRequest: self.libraryViewController sender: sender otherPopover: self.appearanceViewController];
 }
 -(IBAction)appearanceButtonPressed:(id)sender {
-    if ([self.fractal.isImmutable boolValue]) {
-        self.fractal = [self.fractal mutableCopy];
-    }
-    [self handlePopoverRequestForController: self.appearanceViewController fromSender: sender];
+    [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
 }
 
 - (IBAction)shareButtonPressed:(id)sender {
