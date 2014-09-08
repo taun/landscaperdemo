@@ -1,6 +1,6 @@
 //
 //  LSFractalGenerator.m
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 01/19/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -35,7 +35,7 @@
 @property (nonatomic,strong) NSMutableArray*        finishedSegments;
 @property (nonatomic,strong) NSMutableArray*        segmentStack;
 
-@property (nonatomic,assign) CGRect                 bounds;
+@property (nonatomic,assign,readwrite) CGRect       bounds;
 @property (nonatomic,strong) NSMutableDictionary*   cachedDrawingRules;
 
 @property (nonatomic,strong) MBFractalSegment*      currentSegment;
@@ -98,7 +98,7 @@
 @synthesize currentSegment = _currentSegment;
 @synthesize cachedDrawingRules = _cachedDrawingRules;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _productNeedsGenerating = YES;
@@ -108,6 +108,7 @@
         _autoscale = YES;
         _translate = CGPointMake(0.0, 0.0);
         _randomize = NO;
+        _bounds = CGRectZero;
     }
     return self;
 }
@@ -229,15 +230,19 @@
     }
     return status;
 }
--(void) drawInBounds:(CGRect)bounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
+-(void) drawInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
 
     __block BOOL eoFill = NO;
     __block CGLineCap lineCap = kCGLineCapButt;
     __block CGLineJoin lineJoin = kCGLineJoinBevel;
     
+    // Following is because layerBounds value disappears after 1st if statement line below.
+    // cause totally unknown.
+    CGRect localBounds = layerBounds;
+    
     if (self.productNeedsGenerating || self.pathNeedsGenerating) {
-        [self.privateObjectContext performBlockAndWait:^{
-            
+//        [self.privateObjectContext performBlockAndWait:^{
+        
             [self.privateObjectContext reset];
             self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
 //            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
@@ -252,7 +257,7 @@
             eoFill = [self.privateFractal.eoFill boolValue];
             lineCap = [self.privateFractal.lineCap intValue];
             lineJoin = [self.privateFractal.lineJoin intValue];
-        }];
+//        }];
     }
     
 
@@ -261,13 +266,13 @@
     if (SHOWDEBUGBORDER) {
         // outline the layer bounding box
         CGContextBeginPath(theContext);
-        CGContextAddRect(theContext, bounds);
+        CGContextAddRect(theContext, localBounds);
         CGContextSetLineWidth(theContext, 1.0);
         CGContextSetRGBStrokeColor(theContext, 0.5, 0.0, 0.0, 0.1);
         CGContextStrokePath(theContext);
         
         // move 0,0 down to the bottom left corner
-        CGContextTranslateCTM(theContext, bounds.origin.x, bounds.origin.y + bounds.size.height);
+        CGContextTranslateCTM(theContext, localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
         // flip the Y axis so +Y is up direction from origin
         if (isFlipped) {
             //CGContextConcatCTM(ctx, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
@@ -296,8 +301,8 @@
     
     if (self.autoscale) {
         // Scaling
-        double scaleWidth = bounds.size.width/self.bounds.size.width;
-        double scaleHeight = bounds.size.height/self.bounds.size.height;
+        double scaleWidth = localBounds.size.width/self.bounds.size.width;
+        double scaleHeight = localBounds.size.height/self.bounds.size.height;
         
         self.scale = MIN(scaleHeight, scaleWidth);
         
@@ -313,8 +318,8 @@
         double fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
         double fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
         
-        double lCenterX = bounds.origin.x + bounds.size.width/2.0;
-        double lCenterY = bounds.origin.y + bounds.size.height/2.0;
+        double lCenterX = localBounds.origin.x + localBounds.size.width/2.0;
+        double lCenterY = localBounds.origin.y + localBounds.size.height/2.0;
         
         self.translate = CGPointMake(lCenterX - (fCenterX*self.scale), lCenterY - (fCenterY*self.scale));
     }
@@ -382,7 +387,9 @@
     Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
  */
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
-    [self drawInBounds: theLayer.bounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
+    CGRect tempRect = theLayer.bounds;
+    CGRect layerBounds = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height);
+    [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
 }
 
 #pragma mark - lazy init getters
@@ -461,9 +468,9 @@
 //    return _bounds;
 }
 
--(void) setBounds:(CGRect)bounds {
-    _bounds = bounds;
-}
+//-(void) setBounds:(CGRect)bounds {
+//    _bounds = bounds;
+//}
 
 #pragma mark - segment getter setters
 -(double) randomness {
@@ -616,14 +623,17 @@
 }
 
 -(void) addSegment: (MBFractalSegment*) segment {
+    CGRect tempBounds = CGRectZero;
+    
     if (_segments == nil) {
         _segments = [[NSMutableArray alloc] initWithCapacity: 2];
         
         // intiallize the bounds to the first segment
-        _bounds = CGPathGetBoundingBox(segment.path);
+        tempBounds = CGPathGetBoundingBox(segment.path);
+        self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
     } else {
-        CGRect pathBounds = CGPathGetBoundingBox(segment.path);
-        _bounds = CGRectUnion(_bounds, pathBounds);
+        tempBounds = CGRectUnion(_bounds, CGPathGetBoundingBox(segment.path));
+        self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
     }
     _maxLineWidth = MAX(_maxLineWidth, segment.lineWidth);
     [_segments addObject: segment];
@@ -792,7 +802,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 -(void) dispatchDrawingSelectorFromString:(NSString*)selector {
-    
+    // Using cached selectors was a 50% performance improvement. Calling NSSelectorFromString is very expensive.
     SEL cachedSelector = [[self.cachedSelectors objectForKey: selector] pointerValue];
     
     if (!cachedSelector) {

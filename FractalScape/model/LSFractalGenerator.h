@@ -1,6 +1,6 @@
 //
 //  LSFractalGenerator.h
-//  LandscaperDemo
+//  FractalScape
 //
 //  Created by Taun Chapman on 01/19/12.
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
@@ -162,7 +162,7 @@ Added adhoc rules for more flexibility:
 @property (nonatomic, assign) CGPoint           translate;
 
 +(double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber;
--(double)randomScalar;
+@property (NS_NONATOMIC_IOSONLY, readonly) double randomScalar;
 /*
  The drawing rules are cached from the managed object. This is because the rules are returned as a set and we need to convert them to a dictionary. We only want to do this once unless the rules are changed. Need to observer the rules and if there is a change, clear the cache.
  */
@@ -175,19 +175,19 @@ Added adhoc rules for more flexibility:
 /*!
  Height/Width aspect ratio.
  */
--(double) aspectRatio;
+@property (NS_NONATOMIC_IOSONLY, readonly) double aspectRatio;
 
 /*!
  Returns the width and height of maximum close fitting dimension of the fractal which will fit in a 1x1 box.
  */
--(CGSize) unitBox;
+@property (NS_NONATOMIC_IOSONLY, readonly) CGSize unitBox;
 
 /*!
  Use to flip or rotate the fractal before generating the path.
  */
 -(void) setInitialTransform: (CGAffineTransform) transform;
 
--(void) drawInBounds: (CGRect) bounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
+-(void) drawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
 
 -(UIImage*)generateImageSize: (CGSize)size withBackground: (UIColor*)uiColor;
 -(BOOL)hasImageSize: (CGSize) size;
