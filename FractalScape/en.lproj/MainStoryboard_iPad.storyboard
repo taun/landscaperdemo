@@ -415,12 +415,31 @@
         <scene sceneID="m6b-7w-Xm5">
             <objects>
                 <tableViewController storyboardIdentifier="PropertiesPopover" title="Properties" definesPresentationContext="YES" id="VAi-2L-lOP" customClass="MBFractalAxiomEditViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dni-f2-BXO">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dni-f2-BXO">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="359"/>
-                        <color key="backgroundColor" red="0.86666673421859741" green="0.86666673421859741" blue="0.86666673421859741" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.74506729014598538" green="0.0" blue="0.0" alpha="0.66000000000000003" colorSpace="calibratedRGB"/>
                         <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="HeaderCell" textLabel="0ce-KW-Bdk" style="IBUITableViewCellStyleDefault" id="SSH-EY-cYI" userLabel="HeaderCell">
+                                <rect key="frame" x="0.0" y="278" width="400" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SSH-EY-cYI" id="p9s-fk-tfT">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Section Header" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0ce-KW-Bdk">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" label="Header">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                            </tableViewCell>
                             <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="NameCell" id="pNb-zV-lwG" customClass="MBBasicLabelTextTableCell">
                                 <rect key="frame" x="0.0" y="55" width="400" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>

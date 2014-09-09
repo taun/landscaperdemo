@@ -393,7 +393,11 @@
 }
 
 #pragma mark - lazy init getters
-
+//-(void)setSegmentStack:(NSMutableArray *)segmentStack {
+//    if (segmentStack != _segmentStack) {
+//        _segmentStack = segmentStack;
+//    }
+//}
 -(NSMutableArray*) segmentStack {
     if (_segmentStack == nil) _segmentStack = [[NSMutableArray alloc] initWithCapacity: 1];
     
@@ -615,7 +619,9 @@
 -(void) finalizeSegments {
     [self addSegment: self.currentSegment];
     if (_segmentStack != nil) {
-        for (MBFractalSegment* segment in self.segmentStack) {
+        // Copy segmentStack so it does not mutate during iteration.
+        NSArray* localSegmentStackCopy = [self.segmentStack copy];
+        for (MBFractalSegment* segment in localSegmentStackCopy) {
             [self addSegment: segment];
             [self.segmentStack removeObject: segment];
         }

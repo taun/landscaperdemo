@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5E6B7AB14A5346300DA48BD"
-               BuildableName = "FractalScapeTests.octest"
+               BuildableName = "FractalScapeTests.xctest"
                BlueprintName = "FractalScapeTests"
                ReferencedContainer = "container:FractalScape.xcodeproj">
             </BuildableReference>

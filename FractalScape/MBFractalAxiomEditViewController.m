@@ -298,13 +298,19 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString* sectionHeader = nil;
-        
-    sectionHeader = (self.tableSections)[section];
+    NSString* sectionHeader = (self.tableSections)[section];
     
     return sectionHeader;
 }
-
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    NSString* sectionHeader = (self.tableSections)[section];
+    
+    UITableViewCell *sectionView = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: @"HeaderCell"];
+    sectionView.textLabel.text = sectionHeader;
+    
+    return sectionView;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows = 1;
     if (section==0) {
