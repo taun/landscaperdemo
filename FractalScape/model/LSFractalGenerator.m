@@ -241,7 +241,7 @@
     CGRect localBounds = layerBounds;
     
     if (self.productNeedsGenerating || self.pathNeedsGenerating) {
-//        [self.privateObjectContext performBlockAndWait:^{
+        [self.privateObjectContext performBlockAndWait:^{
         
             [self.privateObjectContext reset];
             self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
@@ -257,7 +257,7 @@
             eoFill = [self.privateFractal.eoFill boolValue];
             lineCap = [self.privateFractal.lineCap intValue];
             lineJoin = [self.privateFractal.lineJoin intValue];
-//        }];
+        }];
     }
     
 

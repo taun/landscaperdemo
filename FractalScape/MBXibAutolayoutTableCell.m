@@ -44,7 +44,7 @@
                              toItem: nil
                              attribute: 0
                              multiplier: 1.0
-                             constant: 44.0]];
+                             constant: 43.0]];
     
     [self.contentView addConstraints: constraints];
 }
