@@ -86,7 +86,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (strong, nonatomic) MBFractalLibraryViewController            *libraryViewController;
 @property (strong, nonatomic) MBFractalAppearanceEditorViewController   *appearanceViewController;
 
-@property (strong, nonatomic) UIActionSheet                             *shareActionsSheet;
+//@property (strong, nonatomic) UIActionSheet                             *shareActionsSheet;
 
 @property (nonatomic, strong) NSDictionary                              *portraitViewFrames;
 

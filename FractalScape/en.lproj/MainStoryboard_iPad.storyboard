@@ -17,16 +17,16 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
-                                <rect key="frame" x="0.0" y="45" width="768" height="979"/>
+                                <rect key="frame" x="0.0" y="65" width="768" height="959"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="979"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
-                                                <rect key="frame" x="0.0" y="0.0" width="768" height="979"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                                 <subviews>
                                                     <view multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="979"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <connections>
@@ -123,7 +123,7 @@
                                                     <constraint firstItem="3Df-59-GZt" firstAttribute="leading" secondItem="yI1-Ql-dv9" secondAttribute="leading" id="vmM-xB-86H"/>
                                                 </constraints>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MBPortalStyleView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MBPortalStyleView">
                                                 <rect key="frame" x="10" y="472" width="300" height="200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal">
@@ -156,7 +156,7 @@
                                                     <constraint firstAttribute="height" constant="200" id="lEF-vi-LdY"/>
                                                 </constraints>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.50000000000000011" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MBPortalStyleView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MBPortalStyleView">
                                                 <rect key="frame" x="10" y="246" width="300" height="200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal">
@@ -189,7 +189,7 @@
                                                     <constraint firstItem="NoY-Fh-7ru" firstAttribute="leading" secondItem="dJU-MH-ihA" secondAttribute="leading" id="nL4-hK-L79"/>
                                                 </constraints>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.50000000000000011" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MBPortalStyleView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MBPortalStyleView">
                                                 <rect key="frame" x="10" y="20" width="300" height="200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal">
@@ -250,8 +250,8 @@
                                     <constraint firstItem="ekL-TA-FTU" firstAttribute="leading" secondItem="TbU-WI-8ja" secondAttribute="leading" id="bJ6-fM-n25"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="zjZ-fb-Tj5">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="45"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjZ-fb-Tj5">
+                                <rect key="frame" x="0.0" y="20" width="768" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Xch-7H-rSH"/>
                                 </constraints>
@@ -282,15 +282,14 @@
                                 </items>
                             </toolbar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Fractal Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsw-ym-KtT">
-                                <rect key="frame" x="333" y="12" width="103" height="21.5"/>
+                                <rect key="frame" x="333" y="32" width="103" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="top" secondItem="zjZ-fb-Tj5" secondAttribute="bottom" id="71u-Ke-8LE"/>
                             <constraint firstItem="hsw-ym-KtT" firstAttribute="centerY" secondItem="zjZ-fb-Tj5" secondAttribute="centerY" id="HAn-tm-eqg"/>
@@ -298,18 +297,14 @@
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" id="PtK-pN-Ohx"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" id="YF5-t7-Zlt"/>
                             <constraint firstItem="hsw-ym-KtT" firstAttribute="centerX" secondItem="zjZ-fb-Tj5" secondAttribute="centerX" id="Z1V-5j-0Io"/>
+                            <constraint firstItem="zjZ-fb-Tj5" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" id="aV3-ad-ubB"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" id="ea9-du-8sk"/>
-                            <constraint firstItem="zjZ-fb-Tj5" firstAttribute="top" secondItem="pSX-p9-jkP" secondAttribute="top" id="fiF-Xw-TNI"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" id="zI8-i5-HMe"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Editor" id="5yD-Jb-xIT"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics">
-                        <size key="portraitSize" width="768" height="1024"/>
-                        <size key="landscapeSize" width="1024" height="768"/>
-                    </simulatedScreenMetrics>
                     <connections>
                         <outlet property="appearanceButton" destination="d0Q-Vq-qWV" id="Epz-6u-D1q"/>
                         <outlet property="fractal2PanGR" destination="wp3-t2-GY6" id="BSt-we-AGL"/>
@@ -420,10 +415,11 @@
         <scene sceneID="m6b-7w-Xm5">
             <objects>
                 <tableViewController storyboardIdentifier="PropertiesPopover" title="Properties" definesPresentationContext="YES" id="VAi-2L-lOP" customClass="MBFractalAxiomEditViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dni-f2-BXO">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dni-f2-BXO">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="359"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.86666673421859741" green="0.86666673421859741" blue="0.86666673421859741" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.74506729014598538" green="0.0" blue="0.0" alpha="0.66000000000000003" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="NameCell" id="pNb-zV-lwG" customClass="MBBasicLabelTextTableCell">
                                 <rect key="frame" x="0.0" y="55" width="400" height="44"/>
@@ -457,7 +453,7 @@
                                         <constraint firstAttribute="centerY" secondItem="HQE-ZV-zkE" secondAttribute="centerY" id="sUf-LS-RWF"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -495,7 +491,7 @@
                                         <constraint firstItem="goN-HQ-CYn" firstAttribute="leading" secondItem="CBk-TT-WPC" secondAttribute="leading" constant="20" symbolic="YES" id="zkT-1R-uIr"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>

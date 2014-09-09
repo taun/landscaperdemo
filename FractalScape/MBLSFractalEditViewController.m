@@ -377,16 +377,16 @@ static BOOL SIMULTOUCH = NO;
     return _appearanceViewController;
 }
 
--(UIActionSheet*) shareActionsSheet {
-    if (_shareActionsSheet==nil) {
-        _shareActionsSheet = [[UIActionSheet alloc] initWithTitle: nil
-                                                         delegate: self
-                                                cancelButtonTitle: nil
-                                           destructiveButtonTitle: nil
-                                                otherButtonTitles: @"Save to camera roll", @"Share to public Cloud",nil];
-    }
-    return _shareActionsSheet;
-}
+//-(UIActionSheet*) shareActionsSheet {
+//    if (_shareActionsSheet==nil) {
+//        _shareActionsSheet = [[UIActionSheet alloc] initWithTitle: nil
+//                                                         delegate: self
+//                                                cancelButtonTitle: nil
+//                                           destructiveButtonTitle: nil
+//                                                otherButtonTitles: @"Save to camera roll", @"Share to public Cloud",nil];
+//    }
+//    return _shareActionsSheet;
+//}
 //enum AppearanceIndex {
 //    TurningAngle=0,
 //    TurningAngleIncrement,
@@ -1146,9 +1146,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     newController.fractal = self.fractal;
     newController.fractalUndoManager = self.undoManager;
     
-    UIPopoverPresentationController* ppo = newController.popoverPresentationController;
-    ppo.barButtonItem = sender;
-    ppo.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    UIPopoverPresentationController* ppc = newController.popoverPresentationController;
+    ppc.barButtonItem = sender;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
     
     [self presentViewController: newController animated: YES completion: ^{
         //
@@ -1167,7 +1167,35 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (IBAction)shareButtonPressed:(id)sender {
-    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
+//    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
+                                                                   message: @"How would you like to share the image?"
+                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    UIAlertController* __weak weakAlert = alert;
+    UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"Camera Roll" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                                              [self shareFractalToCameraRoll];
+                                                          }];
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                                              [self shareFractalToPublicCloud];
+                                                          }];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {
+                                                              [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                                          }];
+    [alert addAction: cameraAction];
+    [alert addAction: fractalCloud];
+    [alert addAction: defaultAction];
+    
+    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+    ppc.barButtonItem = sender;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (IBAction)copyFractal:(id)sender {    
     // copy
@@ -1431,7 +1459,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 -(void) shareFractalToCameraRoll {
-    
+    NSLog(@"Unimplemented sharing to camera.");
+}
+-(void) shareFractalToPublicCloud {
+    NSLog(@"Unimplemented sharing to public cloud.");
 }
 
 #pragma mark - control actions
