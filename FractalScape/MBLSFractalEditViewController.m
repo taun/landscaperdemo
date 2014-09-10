@@ -23,6 +23,7 @@
 
 
 #import <QuartzCore/QuartzCore.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 #include <math.h>
 //
@@ -377,23 +378,6 @@ static BOOL SIMULTOUCH = NO;
     return _appearanceViewController;
 }
 
-//-(UIActionSheet*) shareActionsSheet {
-//    if (_shareActionsSheet==nil) {
-//        _shareActionsSheet = [[UIActionSheet alloc] initWithTitle: nil
-//                                                         delegate: self
-//                                                cancelButtonTitle: nil
-//                                           destructiveButtonTitle: nil
-//                                                otherButtonTitles: @"Save to camera roll", @"Share to public Cloud",nil];
-//    }
-//    return _shareActionsSheet;
-//}
-//enum AppearanceIndex {
-//    TurningAngle=0,
-//    TurningAngleIncrement,
-//    LineWidth,
-//    LineWidthIncrement,
-//    LineLengthScaleFactor
-//};
 -(NSMutableArray*) generatorsArray {
     if (_generatorsArray == nil) {
         _generatorsArray = [[NSMutableArray alloc] initWithCapacity: 3];
@@ -1173,22 +1157,28 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                                             preferredStyle: UIAlertControllerStyleActionSheet];
     
     UIAlertController* __weak weakAlert = alert;
-    UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"Camera Roll" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                                              [self shareFractalToCameraRoll];
-                                                          }];
+
+    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    
+    if (cameraAuthStatus == ALAuthorizationStatusNotDetermined || cameraAuthStatus == ALAuthorizationStatusAuthorized) {
+        UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"Camera Roll" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                                 [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                                                 [self shareFractalToCameraRoll];
+                                                             }];
+        [alert addAction: cameraAction];
+    }
     UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
                                                               [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                                               [self shareFractalToPublicCloud];
                                                           }];
+    [alert addAction: fractalCloud];
+
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action) {
                                                               [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                                           }];
-    [alert addAction: cameraAction];
-    [alert addAction: fractalCloud];
     [alert addAction: defaultAction];
     
     UIPopoverPresentationController* ppc = alert.popoverPresentationController;
@@ -1457,12 +1447,63 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     subLayer.position = self.fractalView.center;
     // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
 }
+- (UIImage *)snapshot:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
+    [view drawViewHierarchyInRect: view.bounds afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 -(void) shareFractalToCameraRoll {
-    NSLog(@"Unimplemented sharing to camera.");
+    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+
+    if (cameraAuthStatus == ALAuthorizationStatusNotDetermined || cameraAuthStatus == ALAuthorizationStatusAuthorized) {
+        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+        
+        UIImage* fractalImage = [self snapshot: self.fractalView];
+        
+        [library writeImageToSavedPhotosAlbum: [fractalImage CGImage] orientation: ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
+            // call method for UIAlert about successful save with save text
+            [self showSharedCompletionAlertWithText: @"your camera roll." error: error];
+            
+            NSLog(@"Sharing to camera status %@.", error);
+        }];
+    }
+    
+    NSLog(@"Sharing to camera called.");
 }
 -(void) shareFractalToPublicCloud {
     NSLog(@"Unimplemented sharing to public cloud.");
+}
+-(void) showSharedCompletionAlertWithText: (NSString*) alertText error: (NSError*) error {
+    
+    NSString* successText;
+    
+    if (error==nil) {
+        successText = [NSString stringWithFormat: @"Your fractal was shared to %@.", alertText];
+    } else {
+        successText = [NSString stringWithFormat: @"There was a problem sharing your fractal. \nError: %@", error];
+    }
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share Status"
+                                                                   message: successText
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                                          }];
+    [alert addAction: defaultAction];
+    
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 #pragma mark - control actions
@@ -1543,12 +1584,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 
 // TODO: copy app delegate saveContext method
-
-#pragma  mark - ActionSheetDelegate Methods
-
--(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-}
 
 #pragma mark - core data 
 -(void) setUndoManager:(NSUndoManager *)undoManager {

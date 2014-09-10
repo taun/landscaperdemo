@@ -17,6 +17,7 @@
 		C501478F170B47DB00BD7488 /* MBScapeBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014786170B47DB00BD7488 /* MBScapeBackground.m */; };
 		C5014792170B4EB400BD7488 /* LSReplacementRule+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014791170B4EB300BD7488 /* LSReplacementRule+addons.m */; };
 		C509AF83170330A700025DF7 /* LSDrawingRule+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C509AF82170330A700025DF7 /* LSDrawingRule+addons.m */; };
+		C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50C825F19BF916300AD6A0F /* AssetsLibrary.framework */; };
 		C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
 		C51DF51E16E68DB700FBDB8A /* MBFractalStrokeColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF51D16E68DB700FBDB8A /* MBFractalStrokeColorViewController.m */; };
 		C51DF52116E68DEC00FBDB8A /* MBFractalFillColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52016E68DEC00FBDB8A /* MBFractalFillColorViewController.m */; };
@@ -209,6 +210,7 @@
 		C5014791170B4EB300BD7488 /* LSReplacementRule+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSReplacementRule+addons.m"; path = "FractalScape/model/LSReplacementRule+addons.m"; sourceTree = "<group>"; };
 		C509AF81170330A700025DF7 /* LSDrawingRule+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSDrawingRule+addons.h"; path = "FractalScape/LSDrawingRule+addons.h"; sourceTree = "<group>"; };
 		C509AF82170330A700025DF7 /* LSDrawingRule+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSDrawingRule+addons.m"; path = "FractalScape/LSDrawingRule+addons.m"; sourceTree = "<group>"; };
+		C50C825F19BF916300AD6A0F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C51215C414DA2E6F007ED367 /* LSFractal+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSFractal+addons.h"; path = "FractalScape/model/LSFractal+addons.h"; sourceTree = "<group>"; };
 		C51215C514DA2E70007ED367 /* LSFractal+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSFractal+addons.m"; path = "FractalScape/model/LSFractal+addons.m"; sourceTree = "<group>"; };
 		C51DF51C16E68DB700FBDB8A /* MBFractalStrokeColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFractalStrokeColorViewController.h; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */,
 				C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */,
 				C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */,
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
@@ -689,6 +692,7 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C50C825F19BF916300AD6A0F /* AssetsLibrary.framework */,
 				C5CD99D719BA21FE0037E976 /* CloudKit.framework */,
 				C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */,
 				C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */,

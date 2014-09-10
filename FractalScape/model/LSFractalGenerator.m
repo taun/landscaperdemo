@@ -58,7 +58,7 @@
 -(void) generateProduct;
 -(void) generatePaths;
 
-#pragma mark - Default Drawing Rule Methods
+#pragma mark Default Drawing Rule Methods
 -(void) commandDrawLine;
 -(void) commandMoveByLine;
 -(void) commandRotateCC;
@@ -84,6 +84,7 @@
 -(void) commandRandomizeOff;
 @end
 
+#pragma mark - Implementation
 
 @implementation LSFractalGenerator 
 
@@ -118,7 +119,7 @@
     self.fractal = nil;
 }
 
-#pragma mark - Fractal Property KVO
+#pragma mark Fractal Property KVO
 /* If fractal is not save, below will return nil for privateFractal. What to do? */
 -(void) setFractal:(LSFractal *)fractal {
     if (_fractal != fractal) {
@@ -374,7 +375,7 @@
     CGContextRestoreGState(theContext);
 }
 
-#pragma mark - layer delegate
+#pragma mark layer delegate
 /*!
  Transforms note:
     The transforms are the reverse of what I would expect.
@@ -392,7 +393,7 @@
     [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
 }
 
-#pragma mark - lazy init getters
+#pragma mark lazy init getters
 //-(void)setSegmentStack:(NSMutableArray *)segmentStack {
 //    if (segmentStack != _segmentStack) {
 //        _segmentStack = segmentStack;
@@ -476,7 +477,7 @@
 //    _bounds = bounds;
 //}
 
-#pragma mark - segment getter setters
+#pragma mark segment getter setters
 -(double) randomness {
     return self.currentSegment.randomness;
 }
@@ -584,7 +585,7 @@
     self.currentSegment.fill = fill;
 }
 
-#pragma mark - segment methods
+#pragma mark segment methods
 
 /*
  Should always be an initial current segment.
@@ -646,7 +647,7 @@
 }
 
 
-#pragma mark - Custom Getter Setters
+#pragma mark Custom Getter Setters
 
 -(BOOL) productNeedsGenerating {
     return _productNeedsGenerating;
@@ -684,7 +685,7 @@
 //}
 
 
-#pragma mark - Product Generation
+#pragma mark Product Generation
 
 -(void) productionRuleChanged {
     self.productNeedsGenerating = YES;
@@ -761,7 +762,7 @@
 }
 
 
-#pragma mark - path generation
+#pragma mark path generation
 
 -(void) appearanceChanged {
     self.pathNeedsGenerating = YES;
@@ -838,7 +839,7 @@
     CGPathMoveToPoint(self.currentSegment.path, &local, 0, 0);
 }
 
-#pragma mark - Public Rule Methods
+#pragma mark Public Rule Methods
 
 //TODO remove arg and use segment properties
 
@@ -943,7 +944,7 @@
 -(void) commandRandomizeOn {
     self.randomize = YES;
 }
-#pragma mark - helper methods
+#pragma mark helper methods
 
 -(double) aspectRatio {
     return self.bounds.size.height/self.bounds.size.width;

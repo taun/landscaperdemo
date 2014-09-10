@@ -190,6 +190,7 @@ Added adhoc rules for more flexibility:
 -(void) drawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
 
 -(UIImage*)generateImageSize: (CGSize)size withBackground: (UIColor*)uiColor;
+
 -(BOOL)hasImageSize: (CGSize) size;
 
 #pragma mark - layer delegate
