@@ -160,6 +160,7 @@ Added adhoc rules for more flexibility:
 @property (nonatomic, assign) BOOL              autoscale;
 @property (nonatomic, assign) double            scale;
 @property (nonatomic, assign) CGPoint           translate;
+@property (nonatomic, assign) CGPathRef  path;
 
 +(double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber;
 @property (NS_NONATOMIC_IOSONLY, readonly) double randomScalar;
@@ -182,10 +183,10 @@ Added adhoc rules for more flexibility:
  */
 @property (NS_NONATOMIC_IOSONLY, readonly) CGSize unitBox;
 
-/*!
- Use to flip or rotate the fractal before generating the path.
- */
--(void) setInitialTransform: (CGAffineTransform) transform;
+///*!
+// Use to flip or rotate the fractal before generating the path.
+// */
+//-(void) setInitialTransform: (CGAffineTransform) transform;
 
 -(void) drawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
 

@@ -154,6 +154,10 @@
 		C5CD99D819BA21FE0037E976 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CD99D719BA21FE0037E976 /* CloudKit.framework */; };
 		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
+		C5CF55A719C13AFA009BC8C8 /* kPathArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C5CF55A519C13AFA009BC8C8 /* kPathArrow.png */; };
+		C5CF55A819C13AFA009BC8C8 /* kPathArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5CF55A619C13AFA009BC8C8 /* kPathArrow@2x.png */; };
+		C5CF55AB19C13C0E009BC8C8 /* emptyStatus.png in Resources */ = {isa = PBXBuildFile; fileRef = C5CF55A919C13C0E009BC8C8 /* emptyStatus.png */; };
+		C5CF55AC19C13C0E009BC8C8 /* emptyStatus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5CF55AA19C13C0E009BC8C8 /* emptyStatus@2x.png */; };
 		C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D99F51170270450025D5BB /* MBBasicLabelTextTableCell.m */; };
 		C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */; };
 		C5DA348D14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DA348C14D5CF6E00D91F43 /* FractalDefinitionKeyboardView.m */; };
@@ -370,6 +374,10 @@
 		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractalControllerProtocol.h; sourceTree = "<group>"; };
+		C5CF55A519C13AFA009BC8C8 /* kPathArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kPathArrow.png; path = resources/kPathArrow.png; sourceTree = "<group>"; };
+		C5CF55A619C13AFA009BC8C8 /* kPathArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kPathArrow@2x.png"; path = "resources/kPathArrow@2x.png"; sourceTree = "<group>"; };
+		C5CF55A919C13C0E009BC8C8 /* emptyStatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStatus.png; sourceTree = "<group>"; };
+		C5CF55AA19C13C0E009BC8C8 /* emptyStatus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emptyStatus@2x.png"; sourceTree = "<group>"; };
 		C5D99F50170270450025D5BB /* MBBasicLabelTextTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBBasicLabelTextTableCell.h; path = FractalScape/MBBasicLabelTextTableCell.h; sourceTree = "<group>"; };
 		C5D99F51170270450025D5BB /* MBBasicLabelTextTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBBasicLabelTextTableCell.m; path = FractalScape/MBBasicLabelTextTableCell.m; sourceTree = "<group>"; };
 		C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLSFractalEditViewController.h; sourceTree = "<group>"; };
@@ -630,6 +638,10 @@
 		C5914AFD14C9FB6000856F57 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C5CF55A919C13C0E009BC8C8 /* emptyStatus.png */,
+				C5CF55AA19C13C0E009BC8C8 /* emptyStatus@2x.png */,
+				C5CF55A519C13AFA009BC8C8 /* kPathArrow.png */,
+				C5CF55A619C13AFA009BC8C8 /* kPathArrow@2x.png */,
 				C585292519B8A498003ED8B1 /* kBKeyBackgroundLight.png */,
 				C585289419B89904003ED8B1 /* PaintcodeStyleKit */,
 				C53AF0F316C2C43400FA5142 /* linen-fine.jpg */,
@@ -885,6 +897,7 @@
 				C585291419B89935003ED8B1 /* kBIconRuleUpscaleLineLength@2x.png in Resources */,
 				C58528E619B89935003ED8B1 /* kBIconRuleDrawLine@2x.png in Resources */,
 				C58528FA19B89935003ED8B1 /* kBIconRulePlace3@2x.png in Resources */,
+				C5CF55AB19C13C0E009BC8C8 /* emptyStatus.png in Resources */,
 				C58528F819B89935003ED8B1 /* kBIconRulePlace2@2x.png in Resources */,
 				C5914B0814C9FB7F00856F57 /* zensand.gif in Resources */,
 				C585290019B89935003ED8B1 /* kBIconRulePop@2x.png in Resources */,
@@ -907,6 +920,7 @@
 				C58528DE19B89935003ED8B1 /* kBIconRuleDecrementAngle@2x.png in Resources */,
 				C5DA349614D6417300D91F43 /* marble_dark.png in Resources */,
 				C58528FF19B89935003ED8B1 /* kBIconRulePop.png in Resources */,
+				C5CF55A719C13AFA009BC8C8 /* kPathArrow.png in Resources */,
 				C5E556D914E2E6B300CAAB33 /* Localizable.strings in Resources */,
 				C58528DD19B89935003ED8B1 /* kBIconRuleDecrementAngle.png in Resources */,
 				C585290C19B89935003ED8B1 /* kBIconRuleRotateCC@2x.png in Resources */,
@@ -931,6 +945,7 @@
 				C58528F619B89935003ED8B1 /* kBIconRulePlace1@2x.png in Resources */,
 				C585291619B89935003ED8B1 /* tabBarLinePropertiesIcon@2x.png in Resources */,
 				C58528ED19B89935003ED8B1 /* kBIconRuleIncrementLineWidth.png in Resources */,
+				C5CF55A819C13AFA009BC8C8 /* kPathArrow@2x.png in Resources */,
 				C585290719B89935003ED8B1 /* kBIconRuleReverseDirection.png in Resources */,
 				C585290319B89935003ED8B1 /* kBIconRuleRandomizeOff.png in Resources */,
 				C58528F019B89935003ED8B1 /* kBIconRuleMoveByLine@2x.png in Resources */,
@@ -963,6 +978,7 @@
 				C585290A19B89935003ED8B1 /* kBIconRuleRotateC@2x.png in Resources */,
 				C58528D919B89935003ED8B1 /* elements.png in Resources */,
 				C58528F719B89935003ED8B1 /* kBIconRulePlace2.png in Resources */,
+				C5CF55AC19C13C0E009BC8C8 /* emptyStatus@2x.png in Resources */,
 				C58528F419B89935003ED8B1 /* kBIconRulePlace0@2x.png in Resources */,
 				C58528DF19B89935003ED8B1 /* kBIconRuleDecrementLineWidth.png in Resources */,
 				C58528DB19B89935003ED8B1 /* kBIconRuleClosePolygon.png in Resources */,

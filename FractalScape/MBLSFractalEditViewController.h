@@ -128,6 +128,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)libraryButtonPressed:(id)sender;
 - (IBAction)appearanceButtonPressed:(id)sender;
 - (IBAction)shareButtonPressed:(id)sender;
+- (IBAction)playButtonPressed:(id)sender;
 
 #pragma mark - Screen Controller Actions
 - (IBAction)copyFractal:(id)sender;

@@ -557,7 +557,7 @@ static BOOL SIMULTOUCH = NO;
 
 -(CALayer*) fractalLevel0Layer {
     CALayer* subLayer;
-    for (CALayer* layer in self.fractalView.layer.sublayers) {
+    for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevel0"]) {
             subLayer = layer;
         }
@@ -566,7 +566,7 @@ static BOOL SIMULTOUCH = NO;
 }
 -(CALayer*) fractalLevel1Layer {
     CALayer* subLayer;
-    for (CALayer* layer in self.fractalView.layer.sublayers) {
+    for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevel1"]) {
             subLayer = layer;
         }
@@ -575,7 +575,7 @@ static BOOL SIMULTOUCH = NO;
 }
 -(CALayer*) fractalLevel2Layer {
     CALayer* subLayer;
-    for (CALayer* layer in self.fractalView.layer.sublayers) {
+    for (CALayer* layer in self.fractalViewLevel2.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevel2"]) {
             subLayer = layer;
         }
@@ -1186,6 +1186,50 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (IBAction)playButtonPressed:(id)sender {
+    CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] path];
+    CGRect pathBounds = CGPathGetPathBoundingBox(thePath);
+    
+    CALayer* turtle = [[CALayer alloc] init];
+    UIImage* turtleImage = [UIImage imageNamed: @"emptyStatus.png"];
+    turtle.contents = CFBridgingRelease([turtleImage CGImage]);
+    turtle.bounds = CGRectMake(0., 0., turtleImage.size.width, turtleImage.size.height);
+//    turtle.position = CGPointMake(100, 100);
+    
+    [self.fractalLevelNLayer addSublayer: turtle];
+//    [self.fractalLevelNLayer.superlayer insertSublayer: turtle above: self.fractalLevelNLayer];
+//    CGRect layerBounds = self.fractalView.layer.bounds;
+//    turtle.position = CGPointMake(layerBounds.origin.x+layerBounds.size.width/2.0, layerBounds.origin.y+layerBounds.size.height/2.0) ;
+
+    CGRect layerBounds = self.fractalLevelNLayer.bounds;
+    CGFloat layerScale = self.fractalLevelNLayer.contentsScale;
+    
+    CATransform3D layerTrans = self.fractalLevelNLayer.transform;
+    
+    CGAffineTransform pathTransform = CGAffineTransformIdentity;
+    // flip the Y axis so +Y is up direction from origin
+    CGAffineTransform scaleTrans = CGAffineTransformScale(pathTransform, 1.0/layerScale, -1.0/layerScale);
+    CGAffineTransform moveTrans = CGAffineTransformTranslate(scaleTrans, layerScale*layerBounds.origin.x, -layerScale*(layerBounds.origin.y + layerBounds.size.height));
+    
+    CGPathRef transPath = CGPathCreateCopyByTransformingPath(thePath, &moveTrans);
+    CGRect transBounds = CGPathGetPathBoundingBox(transPath);
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        
+        CAKeyframeAnimation * theAnimation;
+        
+        // Create the animation object, specifying the position property as the key path.
+        theAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
+        theAnimation.rotationMode = kCAAnimationRotateAuto;
+        theAnimation.calculationMode = kCAAnimationPaced;
+        theAnimation.path = transPath;
+        theAnimation.duration = 30.0;
+
+        [turtle addAnimation:theAnimation forKey:@"position"];
+        CGPathRelease(transPath);
+    }];
 }
 - (IBAction)copyFractal:(id)sender {    
     // copy

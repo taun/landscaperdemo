@@ -15,8 +15,6 @@
 
 #import "MBLSFractalEditViewController.h"
 
-static const BOOL ERASE_CORE_DATA = YES;
-
 
 @interface MBAppDelegate ()
 @property (readwrite, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -497,9 +495,11 @@ static const BOOL ERASE_CORE_DATA = YES;
     
     // for development, always delete the store first
     // will force load of defaults
-    if (ERASE_CORE_DATA) {
+#ifdef DEBUG
+    if ([[[NSProcessInfo processInfo] arguments] containsObject:@"eraseCoreData"]) {
         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
     }
+#endif
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

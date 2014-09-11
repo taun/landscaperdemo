@@ -4,6 +4,49 @@
 <array>
 	<dict>
 		<key>category</key>
+		<string>Geometric</string>
+		<key>descriptor</key>
+		<string>Spiral</string>
+		<key>isImmutable</key>
+		<true/>
+		<key>name</key>
+		<string>A spiral</string>
+		<key>axiom</key>
+		<string>AAAA</string>
+		<key>fill</key>
+		<false/>
+		<key>stroke</key>
+		<true/>
+		<key>level</key>
+		<integer>4</integer>
+		<key>lineLength</key>
+		<integer>10</integer>
+		<key>lineLengthScaleFactor</key>
+		<real>1.36</real>
+		<key>lineColorFromIdentifier</key>
+		<string>green</string>
+		<key>lineWidth</key>
+		<integer>2</integer>
+		<key>lineWidthIncrement</key>
+		<real>0.25</real>
+		<key>turningAngle</key>
+		<real>0.26179938779914</real>
+		<key>turningAngleIncrement</key>
+		<real>0.26179938779914</real>
+		<key>drawingRulesType.identifier</key>
+		<string>default</string>
+		<key>replacementRules</key>
+		<dict>
+			<key>A</key>
+			<string>B+B+B+B+B+B+</string>
+			<key>B</key>
+			<string>[F+F+F+F[---B-C]+++++F++++++++F-F-F-F]</string>
+			<key>C</key>
+			<string>[F+F+F+F[---C]+++++F++++++++F-F-F-F]</string>
+		</dict>
+	</dict>
+	<dict>
+		<key>category</key>
 		<string>Plant</string>
 		<key>descriptor</key>
 		<string>Leaf</string>
@@ -12,7 +55,7 @@
 		<key>name</key>
 		<string>A leaf</string>
 		<key>axiom</key>
-		<string>a</string>
+		<string>A</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -37,14 +80,14 @@
 		<string>default</string>
 		<key>replacementRules</key>
 		<dict>
-			<key>a</key>
-			<string>F[+c]Fb</string>
-			<key>b</key>
-			<string>F[-d]Fa</string>
-			<key>c</key>
-			<string>a</string>
-			<key>d</key>
-			<string>b</string>
+			<key>A</key>
+			<string>F[+C]FB</string>
+			<key>B</key>
+			<string>F[-D]FA</string>
+			<key>C</key>
+			<string>A</string>
+			<key>D</key>
+			<string>B</string>
 			<key>F</key>
 			<string>&gt;F&lt;</string>
 		</dict>
@@ -312,10 +355,10 @@
 		<string>default</string>
 		<key>replacementRules</key>
 		<dict>
-			<key>F</key>
-			<string>FF</string>
 			<key>A</key>
 			<string>--FAF++FAF++FAF--</string>
+			<key>F</key>
+			<string>FF</string>
 		</dict>
 	</dict>
 	<dict>
@@ -445,7 +488,7 @@
 		<key>name</key>
 		<string>Fern</string>
 		<key>axiom</key>
-		<string>SLFFF</string>
+		<string>AEFFF</string>
 		<key>fill</key>
 		<false/>
 		<key>stroke</key>
@@ -471,15 +514,15 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>A</key>
-			<string>[+++D][---D]CA</string>
+			<string>[+++B][---B]DA</string>
 			<key>B</key>
-			<string>[-FFF][+FFF]F</string>
+			<string>+C[-B]E</string>
 			<key>C</key>
-			<string>CB</string>
+			<string>-B[+C]E</string>
 			<key>D</key>
-			<string>+E[-D]B</string>
+			<string>DE</string>
 			<key>E</key>
-			<string>-D[+E]B</string>
+			<string>[-FFF][+FFF]F</string>
 		</dict>
 	</dict>
 	<dict>

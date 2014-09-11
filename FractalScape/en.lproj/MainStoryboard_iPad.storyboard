@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="4nM-Pc-iAd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="4nM-Pc-iAd">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--FractalName-->
@@ -273,7 +273,13 @@
                                             <action selector="copyFractal:" destination="4nM-Pc-iAd" id="2Yt-KM-ZVV"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="12" systemItem="fixedSpace" id="aac-8O-1Wr"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="2oT-13-Oji"/>
+                                    <barButtonItem systemItem="play" id="ec5-JZ-eZx">
+                                        <connections>
+                                            <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="FyM-N5-rEQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="iC5-eo-mH3"/>
                                     <barButtonItem systemItem="edit" id="d0Q-Vq-qWV">
                                         <connections>
                                             <action selector="appearanceButtonPressed:" destination="4nM-Pc-iAd" id="7vp-Rk-PFg"/>
@@ -1290,9 +1296,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination">
-            <size key="portraitSize" width="768" height="1024"/>
-            <size key="landscapeSize" width="1024" height="768"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>

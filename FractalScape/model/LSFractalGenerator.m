@@ -16,7 +16,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#define MAXPRODUCTLENGTH 8000
+#define MAXPRODUCTLENGTH 10000
 
 #define SHOWDEBUGBORDER 0
 
@@ -95,6 +95,7 @@
 @synthesize pathNeedsGenerating = _pathNeedsGenerating;
 @synthesize finishedSegments = _segments;
 @synthesize segmentStack = _segmentStack, bounds = _bounds;
+@synthesize path = _path;
 
 @synthesize currentSegment = _currentSegment;
 @synthesize cachedDrawingRules = _cachedDrawingRules;
@@ -331,7 +332,14 @@
     
     //    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
     //          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
+//    CGRect localBounds = self.fractalLevelNLayer.bounds;
     
+//    CGAffineTransform pathTransform = CGAffineTransformIdentity;
+//    CGPointMake(localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
+
+    CGMutablePathRef fractalPath = CGPathCreateMutable();
+//    CGPathMoveToPoint(fractalPath, NULL, localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
+
     for (MBFractalSegment* segment in self.finishedSegments) {
         // stroke and or fill each segment
         CGContextBeginPath(theContext);
@@ -348,7 +356,11 @@
         CGContextSetLineJoin(theContext, lineJoin);
         CGContextSetLineWidth(theContext, segment.lineWidth);
         
+        CGAffineTransform ctm = CGContextGetCTM(theContext);
+        CGAffineTransformScale(ctm, 1.0, -1.0);
         CGContextAddPath(theContext, segment.path);
+        CGPathAddPath(fractalPath, &ctm, segment.path);
+        
         CGPathDrawingMode strokeOrFill = kCGPathStroke;
         if (segment.fill && segment.stroke) {
             if (eoFill) {
@@ -371,7 +383,10 @@
         }
         CGContextDrawPath(theContext, strokeOrFill);
     }
-    
+//    CGPathCloseSubpath(fractalPath);
+//    self.path = CGPathCreateCopyByTransformingPath(fractalPath, &initialTransform);
+    self.path = CGPathCreateCopy(fractalPath);
+
     CGContextRestoreGState(theContext);
 }
 
@@ -478,6 +493,22 @@
 //}
 
 #pragma mark segment getter setters
+-(CGPathRef) path {
+    if (_path == NULL) {
+        _path = CGPathCreateMutable();
+        CGPathRetain(_path);
+    }
+    return _path;
+}
+
+-(void) setPath:(CGPathRef)path {
+    if (CGPathEqualToPath(_path, path)) return;
+    
+    CGPathRelease(_path);
+    if (path != NULL) {
+        _path = (CGMutablePathRef) CGPathRetain(path);
+    }
+}
 -(double) randomness {
     return self.currentSegment.randomness;
 }
@@ -587,7 +618,7 @@
 
 #pragma mark segment methods
 
-/*
+/*!
  Should always be an initial current segment.
  Push the currentSegment
  Create a new currentSegment copying the old segments settings
@@ -599,7 +630,7 @@
     self.currentSegment = newCurrentSegment;
 }
 
-/*
+/*!
  Check to make sure there is a segment on the stack
  Move the current segment to the final segments array
  */
@@ -613,7 +644,7 @@
     }
 }
 
-/*
+/*!
  Move the currentSegment to the segments array.
  Check to see if there are any segments left on the stack and move them.
  */
@@ -672,9 +703,9 @@
     }
 }
 
--(void) setInitialTransform:(CGAffineTransform)transform {
-    self.currentSegment.transform = transform;
-}
+//-(void) setInitialTransform:(CGAffineTransform)transform {
+//    self.currentSegment.transform = transform;
+//}
 
 //-(CGAffineTransform) currentTransform {
 //    return _currentTransform;
@@ -693,6 +724,9 @@
 
 //TODO convert this to GCD, one dispatch per axiom character? Then reassemble?
 //TODO static var for max product length and way to flag max reached.
+/*!
+ Evaluates the production rules for each generation.
+ */
 -(void) generateProduct {
     //estimate the length
     
@@ -767,7 +801,9 @@
 -(void) appearanceChanged {
     self.pathNeedsGenerating = YES;
 }
-
+/*!
+ Draws the path on the context following the rules from generateProduct.
+ */
 -(void) generatePaths {
     if (self.pathNeedsGenerating) {
         
