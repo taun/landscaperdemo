@@ -1190,46 +1190,74 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)playButtonPressed:(id)sender {
     CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] path];
-    CGRect pathBounds = CGPathGetPathBoundingBox(thePath);
     
     CALayer* turtle = [[CALayer alloc] init];
     UIImage* turtleImage = [UIImage imageNamed: @"emptyStatus.png"];
-    turtle.contents = CFBridgingRelease([turtleImage CGImage]);
+    turtle.contents = (__bridge id)([turtleImage CGImage]);
     turtle.bounds = CGRectMake(0., 0., turtleImage.size.width, turtleImage.size.height);
-//    turtle.position = CGPointMake(100, 100);
+    turtle.position = CGPointMake(-10000.0, -10000.0);
     
-    [self.fractalLevelNLayer addSublayer: turtle];
-//    [self.fractalLevelNLayer.superlayer insertSublayer: turtle above: self.fractalLevelNLayer];
-//    CGRect layerBounds = self.fractalView.layer.bounds;
-//    turtle.position = CGPointMake(layerBounds.origin.x+layerBounds.size.width/2.0, layerBounds.origin.y+layerBounds.size.height/2.0) ;
+    CALayer* fractalLayer = self.fractalLevelNLayer;
+    [fractalLayer addSublayer: turtle];
 
-    CGRect layerBounds = self.fractalLevelNLayer.bounds;
-    CGFloat layerScale = self.fractalLevelNLayer.contentsScale;
-    
-    CATransform3D layerTrans = self.fractalLevelNLayer.transform;
+    CGRect layerBounds = fractalLayer.bounds;
+    CGFloat layerScale = fractalLayer.contentsScale;
+    CGFloat flipFactor = fractalLayer.contentsAreFlipped ? -1.0 : 1.0;
     
     CGAffineTransform pathTransform = CGAffineTransformIdentity;
     // flip the Y axis so +Y is up direction from origin
-    CGAffineTransform scaleTrans = CGAffineTransformScale(pathTransform, 1.0/layerScale, -1.0/layerScale);
-    CGAffineTransform moveTrans = CGAffineTransformTranslate(scaleTrans, layerScale*layerBounds.origin.x, -layerScale*(layerBounds.origin.y + layerBounds.size.height));
+    CGAffineTransform scaleTrans = CGAffineTransformScale(pathTransform, 1.0/layerScale, flipFactor/layerScale);
+    CGAffineTransform moveTrans = CGAffineTransformTranslate(scaleTrans, layerScale*layerBounds.origin.x, flipFactor*layerScale*(layerBounds.origin.y + layerBounds.size.height));
     
     CGPathRef transPath = CGPathCreateCopyByTransformingPath(thePath, &moveTrans);
-    CGRect transBounds = CGPathGetPathBoundingBox(transPath);
     
-    [UIView animateWithDuration:1.0 animations:^{
-        
-        CAKeyframeAnimation * theAnimation;
-        
-        // Create the animation object, specifying the position property as the key path.
-        theAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
-        theAnimation.rotationMode = kCAAnimationRotateAuto;
-        theAnimation.calculationMode = kCAAnimationPaced;
-        theAnimation.path = transPath;
-        theAnimation.duration = 30.0;
-
-        [turtle addAnimation:theAnimation forKey:@"position"];
+    NSMutableArray* countArray = [NSMutableArray arrayWithObjects: @0, nil];
+    CGPathApply(transPath, (void *)countArray, countPathElements);
+    // want the animatino to use less time for fewer elements
+    NSInteger elementCount = [countArray[0] integerValue];
+    CGFloat duration = 10.0;
+    if (elementCount < 100) {
+        duration = 5.0;
+    } else if (elementCount < 1000) {
+        duration = 10.0;
+    } else if (elementCount <10000) {
+        duration = 20.0;
+    } else {
+        duration = 30.0;
+    }
+    
+    [CATransaction begin];
+    
+    [CATransaction setCompletionBlock:^{
+        // This will be performed after actions added after the block
         CGPathRelease(transPath);
+        [turtle removeFromSuperlayer];
+        self.playButton.enabled = YES;
+        
+        // check for leak
     }];
+    
+    self.playButton.enabled = NO;
+    
+    CAKeyframeAnimation * theAnimation;
+    
+    // Create the animation object, specifying the position property as the key path.
+    theAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
+    //        theAnimation.rotationMode = kCAAnimationRotateAuto;
+    theAnimation.calculationMode = kCAAnimationPaced;
+    theAnimation.path = transPath;
+    theAnimation.duration = duration;
+    
+    turtle.hidden = NO;
+    [turtle addAnimation:theAnimation forKey:@"position"];
+    
+    [CATransaction commit];
+    
+}
+static void countPathElements(void *info, const CGPathElement *element) {
+    
+    NSMutableArray *countArray = (__bridge NSMutableArray *)info;
+    countArray[0] = [NSNumber numberWithInteger: ([countArray[0] integerValue]+1)];
 }
 - (IBAction)copyFractal:(id)sender {    
     // copy

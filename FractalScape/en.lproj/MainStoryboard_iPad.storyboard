@@ -333,6 +333,7 @@
                         <outlet property="hudText1" destination="LpP-a6-a0V" id="Dij-UX-9Rr"/>
                         <outlet property="hudText2" destination="s4f-oD-mXM" id="KLy-sp-9Ia"/>
                         <outlet property="hudViewBackground" destination="3Df-59-GZt" id="jQD-Z3-ikN"/>
+                        <outlet property="playButton" destination="ec5-JZ-eZx" id="jUC-RT-uMt"/>
                         <outlet property="toolbarTitle" destination="hsw-ym-KtT" id="F9f-Zx-raW"/>
                     </connections>
                 </viewController>

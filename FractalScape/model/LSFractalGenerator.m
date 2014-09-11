@@ -383,8 +383,7 @@
         }
         CGContextDrawPath(theContext, strokeOrFill);
     }
-//    CGPathCloseSubpath(fractalPath);
-//    self.path = CGPathCreateCopyByTransformingPath(fractalPath, &initialTransform);
+
     self.path = CGPathCreateCopy(fractalPath);
 
     CGContextRestoreGState(theContext);

@@ -37,6 +37,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (nonatomic, strong) UIBarButtonItem*              spaceButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem        *appearanceButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem        *playButton;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
