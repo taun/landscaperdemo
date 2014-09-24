@@ -19,13 +19,13 @@
 #import "LSFractalGenerator.h"
 #import "MBColor+addons.h"
 
-#import "MBPortalStyleView.h"
-
-
 #import <QuartzCore/QuartzCore.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <MDUiKit/MDUiKit.h>
 
 #include <math.h>
+
+
 //
 //static inline double radians (double degrees) {return degrees * M_PI/180.0;}
 //static inline double degrees (double radians) {return radians * 180.0/M_PI;}
@@ -482,20 +482,20 @@ static BOOL SIMULTOUCH = NO;
 //    return _editControls;
 //}
 
--(void) setHudViewBackground: (UIView*) hudViewBackground {
-    if (_hudViewBackground != hudViewBackground) {
-        _hudViewBackground = hudViewBackground;
-        
-        CALayer* background = _hudViewBackground.layer;
-        
-        background.cornerRadius = HUD_CORNER_RADIUS;
-        background.borderWidth = 1.6;
-        background.borderColor = [UIColor grayColor].CGColor;
-        
-        background.shadowOffset = CGSizeMake(0, 3.0);
-        background.shadowOpacity = 0.6;
-    }
-}
+//-(void) setHudViewBackground: (UIView*) hudViewBackground {
+//    if (_hudViewBackground != hudViewBackground) {
+//        _hudViewBackground = hudViewBackground;
+//        
+//        CALayer* background = _hudViewBackground.layer;
+//        
+//        background.cornerRadius = HUD_CORNER_RADIUS;
+//        background.borderWidth = 1.6;
+//        background.borderColor = [UIColor grayColor].CGColor;
+//        
+//        background.shadowOffset = CGSizeMake(0, 3.0);
+//        background.shadowOpacity = 0.6;
+//    }
+//}
 
 //-(void) setSliderContainerView:(UIView *)sliderContainerView {
 //    if (_sliderContainerView != sliderContainerView) {
