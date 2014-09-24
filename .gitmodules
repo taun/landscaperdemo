@@ -1,0 +1,4 @@
+[submodule "FractalScape/MDUiKitFramework"]
+	path = FractalScape/MDUiKitFramework
+	url = ssh://taun@srv.moedae.net:2609/srv/gitroot/moedae/apple/MDUiKit.git
+	branch = working
