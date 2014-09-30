@@ -324,6 +324,11 @@
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     NSString* sectionHeader = (self.tableSections)[section];
+    if (section == 3) {
+        // section == "Available Rules"
+        NSString* newHeader = [NSString stringWithFormat: @"%@ - press and hold to drag rule ^",sectionHeader];
+        sectionHeader = newHeader;
+    }
     
     UITableViewCell *sectionView = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: @"HeaderCell"];
     sectionView.textLabel.text = sectionHeader;
