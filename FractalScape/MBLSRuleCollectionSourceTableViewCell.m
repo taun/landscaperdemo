@@ -10,14 +10,40 @@
 
 @implementation MBLSRuleCollectionSourceTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
+//-(void) layoutSubviews {
+//    self.collectionView.bounds = self.contentView.bounds;
+//}
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void) updateConstraints {
+    
+    UIView* contentView = self.contentView;
+    UIView* collectionView = self.collectionView;
+    
+    NSMutableArray* constraints = [[NSMutableArray alloc] init];
+    
+    [constraints addObject: [NSLayoutConstraint
+                             constraintWithItem: collectionView
+                             attribute: NSLayoutAttributeTop
+                             relatedBy:NSLayoutRelationEqual
+                             toItem: contentView
+                             attribute: NSLayoutAttributeTop
+                             multiplier: 1.0
+                             constant: 0.0]
+     ];
+    [constraints addObject: [NSLayoutConstraint
+                             constraintWithItem: collectionView
+                             attribute: NSLayoutAttributeBottom
+                             relatedBy:NSLayoutRelationEqual
+                             toItem: contentView
+                             attribute: NSLayoutAttributeBottom
+                             multiplier: 1.0
+                             constant: 0.0]
+     ];
+    
+    [self.contentView addConstraints: constraints];
+    
+    
+    [super updateConstraints];
 }
 
 @end

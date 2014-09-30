@@ -50,7 +50,7 @@
 }
 /*!
  This was an autolayout fix for iOS 6.
- No obsolete.
+ Now obsolete.
  */
 -(void) fixSubviewsOuterConstraints {
 

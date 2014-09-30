@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface MBRuleSourceCollectionDataSource : NSObject <UICollectionViewDataSource>
+
+@property (nonatomic,strong) NSSet* rules;
 
 @end

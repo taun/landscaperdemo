@@ -10,6 +10,7 @@
 #import "LSFractal+addons.h"
 #import "MBLSRuleTableViewCell.h"
 #import "LSReplacementRule.h"
+#import "LSDrawingRuleType+addons.h"
 
 #import "MBFractalPropertyTableHeaderView.h"
 #import "MBBasicLabelTextTableCell.h"
@@ -33,6 +34,7 @@
 
 @property (nonatomic,strong) NSArray                *tableSections;
 
+@property (nonatomic,strong) NSMutableSet                       *rulesCollections;
 @property (nonatomic,strong) MBRuleSourceCollectionDataSource   *rulesDataSource;
 
 -(void) addReplacementRulesObserverFor: (LSFractal*)fractal;
@@ -69,6 +71,11 @@
     }
 }
 #pragma mark - Getters & Setters
+-(void) setFractal:(LSFractal *)fractal {
+    if (_fractal != fractal) {
+        _fractal = fractal;
+    }
+}
 -(void) setSortedReplacementRulesArray:(NSArray *)sortedReplacementRulesArray {
     if (sortedReplacementRulesArray!=_sortedReplacementRulesArray) {
         [self removeReplacementRulesObserverFor: self.fractal];
@@ -105,6 +112,7 @@
     [super viewDidLoad];
     self.tableSections = @[@"Description", @"Starting Rule", @"Replacement Rules", @"Available Rules"];
     self.rulesDataSource = [MBRuleSourceCollectionDataSource new];
+    self.rulesCollections = [NSMutableSet new];
     
 //    self.fractalPropertiesTableView.estimatedRowHeight = 44;
 //    self.fractalPropertiesTableView.rowHeight = UITableViewAutomaticDimension;
@@ -123,6 +131,10 @@
 //    self.fractalName.text = self.fractal.name;
 //    self.fractalCategory.text = self.fractal.category;
 //    self.fractalDescriptor.text = self.fractal.descriptor;
+    self.rulesDataSource.rules = self.fractal.drawingRulesType.rules;
+    for (UICollectionView* collection in self.rulesCollections) {
+        [collection reloadData];
+    }
     [self.tableView reloadData];
 //    self.fractalAxiom.inputView = self.fractalInputControl.view;
 
@@ -419,19 +431,34 @@
     } else if (indexPath.section == 3) {
         // Rule source section
         MBLSRuleCollectionSourceTableViewCell *newCell = (MBLSRuleCollectionSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier];
+        [self.rulesCollections addObject: newCell.collectionView];
         newCell.collectionView.dataSource = self.rulesDataSource;
         cell = newCell;
     }
     
     return cell;
 }
+#pragma message "TODO: fix collectionView layout to be flexible height"
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat rowHeight = tableView.rowHeight;
     if (indexPath.section == 3) {
         // description cell
-        rowHeight = 58.0;
+        rowHeight = 4*51.0;
     }
     return rowHeight;
+}
+- (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    BOOL result = YES;
+    if (indexPath.section == 0) {
+        result = NO;
+    } else if (indexPath.section == 1) {
+        result = NO;
+    } else if (indexPath.section == 2) {
+        
+    } else if (indexPath.section == 3) {
+        result = NO;
+    }
+    return result;
 }
 - (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
@@ -460,10 +487,6 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Accessory view");
 }

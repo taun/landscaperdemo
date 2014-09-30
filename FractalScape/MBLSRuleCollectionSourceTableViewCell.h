@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBXibAutolayoutTableCell.h"
 
 @interface MBLSRuleCollectionSourceTableViewCell : UITableViewCell
 

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13F34" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="LSDrawingRule" representedClassName="LSDrawingRule" syncable="YES">
+        <attribute name="displayIndex" attributeType="Integer 16" minValueString="0" maxValueString="64" defaultValueString="0" syncable="YES"/>
         <attribute name="drawingMethodString" attributeType="String" syncable="YES"/>
+        <attribute name="iconIdentifierString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productionString" attributeType="String" syncable="YES"/>
         <relationship name="type" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="LSDrawingRuleType" inverseName="rules" inverseEntity="LSDrawingRuleType" syncable="YES"/>
     </entity>
@@ -77,7 +79,7 @@
     <fetchRequest name="LSFractalWithName" entity="LSFractal" predicateString="name == $LSFRACTALNAME"/>
     <fetchRequest name="MBColorWithIdentifier" entity="MBColor" predicateString="identifier == $MBIDENTIFIER"/>
     <elements>
-        <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="118"/>
         <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="120"/>
         <element name="LSFractal" positionX="160" positionY="192" width="128" height="435"/>
         <element name="LSReplacementRule" positionX="160" positionY="192" width="128" height="90"/>

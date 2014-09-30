@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C5014787170B47DB00BD7488 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014776170B47DB00BD7488 /* LSDrawingRule.m */; };
 		C5014788170B47DB00BD7488 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014778170B47DB00BD7488 /* LSDrawingRuleType.m */; };
 		C5014789170B47DB00BD7488 /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C501477A170B47DB00BD7488 /* LSFractal.m */; };
 		C501478A170B47DB00BD7488 /* LSReplacementRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C501477C170B47DB00BD7488 /* LSReplacementRule.m */; };
@@ -185,6 +184,7 @@
 		C5E6B7B014A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
 		C5E6B7B814A5346300DA48BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7B614A5346300DA48BD /* InfoPlist.strings */; };
 		C5E6B7BB14A5346300DA48BD /* FractalScapeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7BA14A5346300DA48BD /* FractalScapeTests.m */; };
+		C5EEC60E19DB0C9300D9C88F /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEC60D19DB0C9300D9C88F /* LSDrawingRule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -233,8 +233,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C5014775170B47DB00BD7488 /* LSDrawingRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRule.h; path = FractalScape/model/LSDrawingRule.h; sourceTree = "<group>"; };
-		C5014776170B47DB00BD7488 /* LSDrawingRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRule.m; path = FractalScape/model/LSDrawingRule.m; sourceTree = "<group>"; };
 		C5014777170B47DB00BD7488 /* LSDrawingRuleType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRuleType.h; path = FractalScape/model/LSDrawingRuleType.h; sourceTree = "<group>"; };
 		C5014778170B47DB00BD7488 /* LSDrawingRuleType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRuleType.m; path = FractalScape/model/LSDrawingRuleType.m; sourceTree = "<group>"; };
 		C5014779170B47DB00BD7488 /* LSFractal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractal.h; path = FractalScape/model/LSFractal.h; sourceTree = "<group>"; };
@@ -456,6 +454,8 @@
 		C5E6B7B714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C5E6B7B914A5346300DA48BD /* FractalScapeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FractalScapeTests.h; sourceTree = "<group>"; };
 		C5E6B7BA14A5346300DA48BD /* FractalScapeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FractalScapeTests.m; sourceTree = "<group>"; };
+		C5EEC60C19DB0C9300D9C88F /* LSDrawingRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRule.h; path = FractalScape/model/LSDrawingRule.h; sourceTree = "<group>"; };
+		C5EEC60D19DB0C9300D9C88F /* LSDrawingRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRule.m; path = FractalScape/model/LSDrawingRule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -669,9 +669,9 @@
 		C5914AAC14C9ED2C00856F57 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				C5EEC60C19DB0C9300D9C88F /* LSDrawingRule.h */,
+				C5EEC60D19DB0C9300D9C88F /* LSDrawingRule.m */,
 				C540634414DADC7500FBDEA4 /* Categories */,
-				C5014775170B47DB00BD7488 /* LSDrawingRule.h */,
-				C5014776170B47DB00BD7488 /* LSDrawingRule.m */,
 				C5014777170B47DB00BD7488 /* LSDrawingRuleType.h */,
 				C5014778170B47DB00BD7488 /* LSDrawingRuleType.m */,
 				C5014779170B47DB00BD7488 /* LSFractal.h */,
@@ -1146,7 +1146,6 @@
 				C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */,
 				C509AF83170330A700025DF7 /* LSDrawingRule+addons.m in Sources */,
 				C5AF5FB2170A3C3400990196 /* LSDrawingRuleType+addons.m in Sources */,
-				C5014787170B47DB00BD7488 /* LSDrawingRule.m in Sources */,
 				C5014788170B47DB00BD7488 /* LSDrawingRuleType.m in Sources */,
 				C5014789170B47DB00BD7488 /* LSFractal.m in Sources */,
 				C501478A170B47DB00BD7488 /* LSReplacementRule.m in Sources */,
@@ -1157,6 +1156,7 @@
 				C501478F170B47DB00BD7488 /* MBScapeBackground.m in Sources */,
 				C5E22C2919DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.m in Sources */,
 				C5014792170B4EB400BD7488 /* LSReplacementRule+addons.m in Sources */,
+				C5EEC60E19DB0C9300D9C88F /* LSDrawingRule.m in Sources */,
 				C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */,
 				C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */,
 			);

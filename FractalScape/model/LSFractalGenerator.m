@@ -59,6 +59,7 @@
 -(void) generatePaths;
 
 #pragma mark Default Drawing Rule Methods
+-(void) commandDoNothing;
 -(void) commandDrawLine;
 -(void) commandMoveByLine;
 -(void) commandRotateCC;
@@ -876,7 +877,8 @@
 
 #pragma mark Public Rule Methods
 
-//TODO remove arg and use segment properties
+-(void) commandDoNothing {
+}
 
 -(void) commandDrawLine {
     double tx = self.lineLength;

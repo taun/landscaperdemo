@@ -27,7 +27,6 @@
 
 -(void)loadMBColorsPList: (NSString*) plist;
 -(LSDrawingRuleType*)loadLSDrawingRuleTypeFromPListDictionary: (NSDictionary*) plistDictRuleType;
--(NSInteger)loadRules: (NSDictionary*)rulesDict forType: (LSDrawingRuleType*) ruleType;
 -(void)loadLSDrawingRulesPList: (NSString*) plist;
 -(LSFractal*)loadLSFractalsPListAndReturnLastSelected: (NSString*) plist;
 
@@ -229,22 +228,22 @@
     return ruleType;
 }
 
--(NSInteger)loadRules: (NSDictionary*)rulesDict forType: (LSDrawingRuleType*) ruleType {
+-(NSInteger)loadRules: (NSArray*)rulesArray forType: (LSDrawingRuleType*) ruleType {
     NSInteger addedRulesCount = 0;
     
-    if (ruleType && rulesDict) {
+    if (ruleType && rulesArray) {
         NSManagedObjectContext* context = self.managedObjectContext;
         
         
         NSSet* currentDefaultRules = [ruleType.rules copy];
         // COuld convert set to dictionary and ise a lookup to detect existence but not worth it for a few rules.
-        for (NSString* key in rulesDict) {
+        for (NSDictionary* rule in rulesArray) {
             BOOL alreadyExists = NO;
             
             for (NSManagedObject* existingRuleObject in currentDefaultRules) {
                 if ([existingRuleObject isKindOfClass: [LSDrawingRule class]]) {
                     LSDrawingRule* existingRule = (LSDrawingRule*)existingRuleObject;
-                    if ([existingRule.productionString isEqualToString: key]) {
+                    if ([existingRule.productionString isEqualToString: rule[@"productionString"]]) {
                         alreadyExists = YES;
                     }
                 }
@@ -254,8 +253,10 @@
                                                  insertNewObjectForEntityForName:@"LSDrawingRule"
                                                  inManagedObjectContext: context];
                 newDrawingRule.type = ruleType;
-                newDrawingRule.productionString = key;
-                newDrawingRule.drawingMethodString = rulesDict[key];
+                newDrawingRule.productionString = rule[@"productionString"];
+                newDrawingRule.drawingMethodString = rule[@"drawingMethodString"];
+                newDrawingRule.iconIdentifierString = rule[@"iconIdentifierString"];
+                newDrawingRule.displayIndex = rule[@"displayIndex"];
                 addedRulesCount += 1;
             }
         }
@@ -282,10 +283,11 @@
     NSDictionary* plistRulesDict = (NSDictionary*)plistObject;
     NSDictionary* plistRuleType = plistRulesDict[@"ruleType"];
     NSDictionary* plistRules = plistRulesDict[@"rules"];
+    NSArray* plistRulesArray = plistRulesDict[@"rulesArray"];
     
     LSDrawingRuleType* ruleType = [self loadLSDrawingRuleTypeFromPListDictionary: plistRuleType];
     
-    long addRulesCount = [self loadRules: plistRules forType: ruleType];
+    long addRulesCount = [self loadRules: plistRulesArray forType: ruleType];
     
     NSLog(@"Added %ld rules.", addRulesCount);
 }
