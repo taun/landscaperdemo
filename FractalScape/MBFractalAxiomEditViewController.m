@@ -14,6 +14,10 @@
 #import "MBFractalPropertyTableHeaderView.h"
 #import "MBBasicLabelTextTableCell.h"
 #import "MBTextViewTableCell.h"
+#import "MBLSRuleCollectionSourceTableViewCell.h"
+#import "MBLSRuleCollectionViewCell.h"
+
+#import "MBRuleSourceCollectionDataSource.h"
 
 #import "MBStyleKitButton.h"
 
@@ -28,6 +32,8 @@
 @property (nonatomic, readwrite) NSArray            *sortedReplacementRulesArray;
 
 @property (nonatomic,strong) NSArray                *tableSections;
+
+@property (nonatomic,strong) MBRuleSourceCollectionDataSource   *rulesDataSource;
 
 -(void) addReplacementRulesObserverFor: (LSFractal*)fractal;
 -(void) removeReplacementRulesObserverFor: (LSFractal*)fractal;
@@ -97,7 +103,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableSections = @[@"Description", @"Starting Rule", @"Replacement Rules"];
+    self.tableSections = @[@"Description", @"Starting Rule", @"Replacement Rules", @"Available Rules"];
+    self.rulesDataSource = [MBRuleSourceCollectionDataSource new];
     
 //    self.fractalPropertiesTableView.estimatedRowHeight = 44;
 //    self.fractalPropertiesTableView.rowHeight = UITableViewAutomaticDimension;
@@ -314,10 +321,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows = 1;
     if (section==0) {
+        // section == "Description" - name, category, description
         rows = 3;
-    } else if (section == ([self.tableSections count] -1)) {
-        // rules
+    } else if (section == 1) {
+        // section == "Starting Rule"
+        rows = 1;
+    } else if (section == 2) {
+        // section == "Replacement rules"
         rows = [self.sortedReplacementRulesArray count];
+    } else if (section == 3) {
+        // section == "Available Rules"
+        rows = 1;
     }
     return rows;
 }
@@ -331,6 +345,7 @@
     static NSString *DescriptionCellIdentifier = @"DescriptionCell";
     static NSString *RuleCellIdentifier = @"MBLSRuleCell";
     static NSString *AxiomCellIdentifier = @"MBLSAxiomCell";
+    static NSString *RuleSourceCellIdentifier = @"MBLSRuleSourceCell";
     
     if (indexPath.section == 0) {
         // description
@@ -401,18 +416,23 @@
         cell = ruleCell;
         (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
         
-    } 
+    } else if (indexPath.section == 3) {
+        // Rule source section
+        MBLSRuleCollectionSourceTableViewCell *newCell = (MBLSRuleCollectionSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier];
+        newCell.collectionView.dataSource = self.rulesDataSource;
+        cell = newCell;
+    }
     
     return cell;
 }
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    CGFloat rowHeight = tableView.rowHeight;
-//    if (indexPath.section==0 && indexPath.row==2) {
-//        // description cell
-//        rowHeight = 91.0;
-//    }
-//    return rowHeight;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat rowHeight = tableView.rowHeight;
+    if (indexPath.section == 3) {
+        // description cell
+        rowHeight = 58.0;
+    }
+    return rowHeight;
+}
 - (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
