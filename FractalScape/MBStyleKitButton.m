@@ -8,7 +8,7 @@
 
 #import "MBStyleKitButton.h"
 
-NSString* kKBBackgroundImage = @"kBKeyBackgroundLight.png";
+NSString* kKBBackgroundImage = @"kBKeyBackgroundLight";
 
 @implementation MBStyleKitButton
 

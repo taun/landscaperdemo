@@ -42,10 +42,12 @@
 
 #pragma mark - Appearance Control Actions
 - (IBAction)lineLengthStepperChanged: (UIStepper*)sender;
+- (IBAction)lineLengthTextInputChanged:(id)sender;
 
 - (IBAction)lineLengthScaleFactorInputChanged: (UIStepper*)sender;
 
 - (IBAction)lineWidthStepperChanged: (UIStepper*)sender;
+- (IBAction)lineWidthTextInputChanged:(id)sender;
 
 - (IBAction)lineWidthIncrementInputChanged: (id)sender;
 

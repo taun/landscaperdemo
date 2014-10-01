@@ -10,7 +10,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRulePlace0</string>
+			<string>kBIconRulePlace0</string>
 			<key>displayIndex</key>
 			<integer>0</integer>
 		</dict>
@@ -20,7 +20,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRulePlace1</string>
+			<string>kBIconRulePlace1</string>
 			<key>displayIndex</key>
 			<integer>0</integer>
 		</dict>
@@ -30,7 +30,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRulePlace2</string>
+			<string>kBIconRulePlace2</string>
 			<key>displayIndex</key>
 			<integer>0</integer>
 		</dict>
@@ -40,7 +40,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRulePlace3</string>
+			<string>kBIconRulePlace3</string>
 			<key>displayIndex</key>
 			<integer>0</integer>
 		</dict>
@@ -50,7 +50,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRulePlace4</string>
+			<string>kBIconRulePlace4</string>
 			<key>displayIndex</key>
 			<integer>0</integer>
 		</dict>
@@ -60,7 +60,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDrawLine</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleDrawLine</string>
+			<string>kBIconRuleDrawLine</string>
 			<key>displayIndex</key>
 			<integer>1</integer>
 		</dict>
@@ -70,7 +70,7 @@
 			<key>drawingMethodString</key>
 			<string>commandMoveByLine</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleMoveByLine</string>
+			<string>kBIconRuleMoveByLine</string>
 			<key>displayIndex</key>
 			<integer>1</integer>
 		</dict>
@@ -80,7 +80,7 @@
 			<key>drawingMethodString</key>
 			<string>commandRotateCC</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleRotateCC</string>
+			<string>kBIconRuleRotateCC</string>
 			<key>displayIndex</key>
 			<integer>2</integer>
 		</dict>
@@ -90,7 +90,7 @@
 			<key>drawingMethodString</key>
 			<string>commandRotateC</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleRotateC</string>
+			<string>kBIconRuleRotateC</string>
 			<key>displayIndex</key>
 			<integer>3</integer>
 		</dict>
@@ -100,7 +100,7 @@
 			<key>drawingMethodString</key>
 			<string>commandReverseDirection</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleReverseDirection</string>
+			<string>kBIconRuleReverseDirection</string>
 			<key>displayIndex</key>
 			<integer>4</integer>
 		</dict>
@@ -110,7 +110,7 @@
 			<key>drawingMethodString</key>
 			<string>commandPush</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRulePush</string>
+			<string>kBIconRulePush</string>
 			<key>displayIndex</key>
 			<integer>5</integer>
 		</dict>
@@ -120,7 +120,7 @@
 			<key>drawingMethodString</key>
 			<string>commandPop</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRulePop</string>
+			<string>kBIconRulePop</string>
 			<key>displayIndex</key>
 			<integer>6</integer>
 		</dict>
@@ -130,7 +130,7 @@
 			<key>drawingMethodString</key>
 			<string>commandIncrementLineWidth</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleIncrementLineWidth</string>
+			<string>kBIconRuleIncrementLineWidth</string>
 			<key>displayIndex</key>
 			<integer>7</integer>
 		</dict>
@@ -140,7 +140,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDecrementLineWidth</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleDecrementLineWidth</string>
+			<string>kBIconRuleDecrementLineWidth</string>
 			<key>displayIndex</key>
 			<integer>8</integer>
 		</dict>
@@ -150,7 +150,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDrawDot</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleDrawDot</string>
+			<string>kBIconRuleDrawDot</string>
 			<key>displayIndex</key>
 			<integer>9</integer>
 		</dict>
@@ -160,7 +160,7 @@
 			<key>drawingMethodString</key>
 			<string>commandOpenPolygon</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleOpenPolygon</string>
+			<string>kBIconRuleOpenPolygon</string>
 			<key>displayIndex</key>
 			<integer>10</integer>
 		</dict>
@@ -170,7 +170,7 @@
 			<key>drawingMethodString</key>
 			<string>commandClosePolygon</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleClosePolygon</string>
+			<string>kBIconRuleClosePolygon</string>
 			<key>displayIndex</key>
 			<integer>11</integer>
 		</dict>
@@ -180,7 +180,7 @@
 			<key>drawingMethodString</key>
 			<string>commandUpscaleLineLength</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleUpscaleLineLength</string>
+			<string>kBIconRuleUpscaleLineLength</string>
 			<key>displayIndex</key>
 			<integer>12</integer>
 		</dict>
@@ -190,7 +190,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDownscaleLineLength</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleDownscaleLineLength</string>
+			<string>kBIconRuleDownscaleLineLength</string>
 			<key>displayIndex</key>
 			<integer>13</integer>
 		</dict>
@@ -200,7 +200,7 @@
 			<key>drawingMethodString</key>
 			<string>commandSwapRotation</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleSwapRotation</string>
+			<string>kBIconRuleSwapRotation</string>
 			<key>displayIndex</key>
 			<integer>14</integer>
 		</dict>
@@ -210,7 +210,7 @@
 			<key>drawingMethodString</key>
 			<string>commandIncrementAngle</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleIncrementAngle</string>
+			<string>kBIconRuleIncrementAngle</string>
 			<key>displayIndex</key>
 			<integer>15</integer>
 		</dict>
@@ -220,7 +220,7 @@
 			<key>drawingMethodString</key>
 			<string>commandDecrementAngle</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleDecrementAngle</string>
+			<string>kBIconRuleDecrementAngle</string>
 			<key>displayIndex</key>
 			<integer>16</integer>
 		</dict>
@@ -230,7 +230,7 @@
 			<key>drawingMethodString</key>
 			<string>commandStrokeOff</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleStrokeOff</string>
+			<string>kBIconRuleStrokeOff</string>
 			<key>displayIndex</key>
 			<integer>17</integer>
 		</dict>
@@ -240,7 +240,7 @@
 			<key>drawingMethodString</key>
 			<string>commandStrokeOn</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleStrokeOn</string>
+			<string>kBIconRuleStrokeOn</string>
 			<key>displayIndex</key>
 			<integer>18</integer>
 		</dict>
@@ -250,7 +250,7 @@
 			<key>drawingMethodString</key>
 			<string>commandFillOff</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleFillOff</string>
+			<string>kBIconRuleFillOff</string>
 			<key>displayIndex</key>
 			<integer>19</integer>
 		</dict>
@@ -260,7 +260,7 @@
 			<key>drawingMethodString</key>
 			<string>commandFillOn</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleFillOn</string>
+			<string>kBIconRuleFillOn</string>
 			<key>displayIndex</key>
 			<integer>20</integer>
 		</dict>
@@ -270,7 +270,7 @@
 			<key>drawingMethodString</key>
 			<string>commandRandomizeOff</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleRandomizeOff</string>
+			<string>kBIconRuleRandomizeOff</string>
 			<key>displayIndex</key>
 			<integer>21</integer>
 		</dict>
@@ -280,7 +280,7 @@
 			<key>drawingMethodString</key>
 			<string>commandRandomizeOn</string>
 			<key>iconIdentifierString</key>
-			<string>KBIconRuleRandomizeOn</string>
+			<string>kBIconRuleRandomizeOn</string>
 			<key>displayIndex</key>
 			<integer>22</integer>
 		</dict>

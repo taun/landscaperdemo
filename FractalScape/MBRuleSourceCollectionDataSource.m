@@ -36,18 +36,16 @@
     MBLSRuleCollectionViewCell* newCell = [collectionView dequeueReusableCellWithReuseIdentifier: @"MBLSRuleCollectionCell" forIndexPath: indexPath];
     
     LSDrawingRule* rule = (LSDrawingRule*)self.rules[indexPath.row];
-    NSString* iconImageMethod = [NSString stringWithFormat: @"imageOf%@",rule.iconIdentifierString];
+    UIImage* cellImage = [UIImage imageNamed: rule.iconIdentifierString];
     
     CGFloat cellWidth = newCell.bounds.size.width;
     
-    if ([FractalScapeIconSet respondsToSelector: NSSelectorFromString(iconImageMethod)]) {
-        UIImage* cellImage = [FractalScapeIconSet performSelector: NSSelectorFromString(iconImageMethod)];
-        
-        newCell.imageView.image = cellImage;
-        if (cellWidth < 35) {
-            newCell.imageView.contentScaleFactor = 4.0;
-        }
+    newCell.imageView.image = cellImage;
+    
+    if (cellWidth < 35) {
+        newCell.imageView.contentScaleFactor = 4.0;
     }
+    
     return newCell;
 }
 

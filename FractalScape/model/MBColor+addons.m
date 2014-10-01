@@ -83,18 +83,23 @@
 -(UIColor*) asUIColor {
     
     UIColor* newUIColor;
+    UIImage* colorImage;
     
-    UIImage* colorImage = [UIImage imageNamed: self.imagePath];
+    NSString* imagePath = self.imagePath;
     
-    if (colorImage) {
-        // use pattern image
-        newUIColor = [UIColor colorWithPatternImage: colorImage];
+    if (imagePath && imagePath.length != 0) {
+        colorImage = [UIImage imageNamed: self.imagePath];
+        if (colorImage) {
+            // use pattern image
+            newUIColor = [UIColor colorWithPatternImage: colorImage];
+        }
     } else {
         newUIColor = [UIColor colorWithRed:[self.red floatValue]
                                      green:[self.green floatValue]
                                       blue:[self.blue floatValue]
                                      alpha:[self.alpha floatValue]];
     }
+    
     return newUIColor;
 }
 

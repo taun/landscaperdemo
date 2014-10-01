@@ -151,7 +151,7 @@ static BOOL SIMULTOUCH = NO;
     
     [super viewDidLoad];
         
-    UIImage* patternImage = [UIImage imageNamed: @"linen-fine.jpg"];
+    UIImage* patternImage = [UIImage imageNamed: @"linen-fine"];
     UIColor* newColor = [UIColor colorWithPatternImage: patternImage];
     self.fractalViewRoot.backgroundColor = newColor;
         
@@ -1192,7 +1192,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] path];
     
     CALayer* turtle = [[CALayer alloc] init];
-    UIImage* turtleImage = [UIImage imageNamed: @"emptyStatus.png"];
+    UIImage* turtleImage = [UIImage imageNamed: @"emptyStatus"];
     turtle.contents = (__bridge id)([turtleImage CGImage]);
     turtle.bounds = CGRectMake(0., 0., turtleImage.size.width, turtleImage.size.height);
     turtle.position = CGPointMake(-10000.0, -10000.0);

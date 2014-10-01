@@ -46,9 +46,9 @@
 
 #define GRADIENT_HEIGHT 37.0f
 
-#define HUE_SATURATION_IMAGE_FILE_NAME @"HueSaturationGradient.png"
-#define HORIZONTAL_SELECTOR_IMAGE_FILE_NAME @"HorizontalSelector.png"
-#define CROSSHAIR_SELECTOR_IMAGE_FILE_NAME @"CrosshairSelector.png"
+#define HUE_SATURATION_IMAGE_FILE_NAME @"HueSaturationGradient"
+#define HORIZONTAL_SELECTOR_IMAGE_FILE_NAME @"HorizontalSelector"
+#define CROSSHAIR_SELECTOR_IMAGE_FILE_NAME @"CrosshairSelector"
 
 #define COLOR_COMPONENT_RED_INDEX 0
 #define COLOR_COMPONENT_GREEN_INDEX 1

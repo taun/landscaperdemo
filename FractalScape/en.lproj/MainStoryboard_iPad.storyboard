@@ -51,7 +51,7 @@
                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="Vla-Kc-k4B"/>
                                                 </constraints>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
                                                 <rect key="frame" x="370.5" y="10" width="377.5" height="39"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
@@ -321,7 +321,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="12" systemItem="fixedSpace" id="3FB-b2-WFQ"/>
-                                    <barButtonItem image="toolBarCopyIcon.png" id="BQo-fn-mpv" userLabel="Copy">
+                                    <barButtonItem image="toolBarCopyIcon" id="BQo-fn-mpv" userLabel="Copy">
                                         <connections>
                                             <action selector="copyFractal:" destination="4nM-Pc-iAd" id="2Yt-KM-ZVV"/>
                                         </connections>
@@ -640,32 +640,6 @@
                                     <outlet property="textView" destination="Tr2-Mw-O3b" id="ugu-sL-Sqr"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSAxiomCell" id="j6N-pe-Xi9" customClass="MBLSRuleTableViewCell">
-                                <rect key="frame" x="0.0" y="234" width="400" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j6N-pe-Xi9" id="rxM-jB-01T">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textField clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="390" verticalHuggingPriority="406" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="791" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="2yX-xy-vfw">
-                                            <rect key="frame" x="20" y="7.5" width="360" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="2yX-xy-vfw" secondAttribute="trailing" constant="20" symbolic="YES" id="7AL-YA-c6W"/>
-                                        <constraint firstItem="2yX-xy-vfw" firstAttribute="leading" secondItem="rxM-jB-01T" secondAttribute="leading" constant="20" symbolic="YES" id="SFu-yy-QIi"/>
-                                        <constraint firstAttribute="centerY" secondItem="2yX-xy-vfw" secondAttribute="centerY" id="hGE-HN-3Cw"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <accessibility key="accessibilityConfiguration" label="Axiom">
-                                    <bool key="isElement" value="YES"/>
-                                </accessibility>
-                                <connections>
-                                    <outlet property="textRight" destination="2yX-xy-vfw" id="NQI-CX-QeJ"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleCell" id="T1O-Jv-pcU" customClass="MBLSRuleTableViewCell">
                                 <rect key="frame" x="0.0" y="278" width="400" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -792,7 +766,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Rules" image="tabBarRulesIcon.png" id="CZx-kr-Ycs"/>
+                    <tabBarItem key="tabBarItem" title="Rules" image="tabBarRulesIcon" id="CZx-kr-Ycs"/>
                     <value key="contentSizeForViewInPopover" type="size" width="400" height="400"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -942,7 +916,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="lineWidthStepperChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="Wt8-Fb-l11"/>
+                                            <action selector="lineWidthTextInputChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="0HC-tB-fqE"/>
                                         </connections>
                                     </textField>
                                     <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="16" stepValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="k9B-kO-46M" userLabel="widthStepper">
@@ -968,7 +942,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
-                                            <action selector="lineLengthStepperChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="QCv-3E-2yy"/>
+                                            <action selector="lineLengthTextInputChanged:" destination="bDY-89-tKS" eventType="editingDidEnd" id="MXd-Ts-gMS"/>
                                         </connections>
                                     </textField>
                                     <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="9uC-E5-O6X" userLabel="lineLengthStepper">
@@ -1130,7 +1104,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Line Segments" image="tabBarLinePropertiesIcon.png" id="dHW-xy-0Vv"/>
+                    <tabBarItem key="tabBarItem" title="Line Segments" image="tabBarLinePropertiesIcon" id="dHW-xy-0Vv"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="416"/>
@@ -1212,7 +1186,7 @@
                             <outlet property="delegate" destination="bRM-XI-8Xh" id="Cya-ED-FIf"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Fill Colors" image="tabBarFillColorIcon.png" id="XzP-vF-Qi5"/>
+                    <tabBarItem key="tabBarItem" title="Fill Colors" image="tabBarFillColorIcon" id="XzP-vF-Qi5"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="400"/>
@@ -1282,7 +1256,7 @@
                             <outlet property="delegate" destination="TSZ-NG-w8m" id="Gj6-Sy-IHj"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Line Colors" image="tabBarLineColorIcon.png" id="fRh-xF-oTr"/>
+                    <tabBarItem key="tabBarItem" title="Line Colors" image="tabBarLineColorIcon" id="fRh-xF-oTr"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="420"/>
                     <connections>
@@ -1344,7 +1318,7 @@
                                         <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
                                             <rect key="frame" x="4" y="4" width="146" height="146"/>
                                             <subviews>
-                                                <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="zensand.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
+                                                <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="zensand" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
                                                     <rect key="frame" x="8" y="8" width="130" height="130"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1450,12 +1424,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tabBarFillColorIcon.png" width="25" height="25"/>
-        <image name="tabBarLineColorIcon.png" width="25" height="25"/>
-        <image name="tabBarLinePropertiesIcon.png" width="25" height="25"/>
-        <image name="tabBarRulesIcon.png" width="25" height="25"/>
-        <image name="toolBarCopyIcon.png" width="28" height="28"/>
-        <image name="zensand.png" width="72" height="71"/>
+        <image name="tabBarFillColorIcon" width="25" height="25"/>
+        <image name="tabBarLineColorIcon" width="25" height="25"/>
+        <image name="tabBarLinePropertiesIcon" width="25" height="25"/>
+        <image name="tabBarRulesIcon" width="25" height="25"/>
+        <image name="toolBarCopyIcon" width="28" height="28"/>
+        <image name="zensand" width="72" height="71"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

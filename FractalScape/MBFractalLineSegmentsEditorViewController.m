@@ -13,9 +13,9 @@
 
 @interface MBFractalLineSegmentsEditorViewController () {
 
-__strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
+//__strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 }
-@property (nonatomic,readonly) NSArray* fractalPropertiesAppearanceSectionDefinitions;
+//@property (nonatomic,readonly) NSArray* fractalPropertiesAppearanceSectionDefinitions;
 
 @property (nonatomic, strong) NSMutableDictionary*  appearanceCellIndexPaths;
 
@@ -54,55 +54,55 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
     // Dispose of any resources that can be recreated.
 }
 
--(NSArray*) fractalPropertiesAppearanceSectionDefinitions {
-    if (_fractalPropertiesAppearanceSectionDefinitions == nil) {
-        NSDictionary* turningAngle = @{@"label": @"Angle",
-                                       @"imageName": @"Plus rotate CC dark.png",
-                                       @"minimumValue": @-180.0,
-                                       @"maximumValue": @181.0,
-                                       @"stepValue": @1.0,
-                                       @"propertyValueKey": @"turningAngleAsDegree",
-                                       @"actionSelectorString": @"turningAngleInputChanged:"};
-        
-        NSDictionary* turningAngleIncrement = @{@"label": @"A Increment",
-                                                @"imageName": @"Parenthesis increment turn angle dark.png",
-                                                @"minimumValue": @-180.0,
-                                                @"maximumValue": @181.0,
-                                                @"stepValue": @0.25,
-                                                @"propertyValueKey": @"turningAngleIncrementAsDegree",
-                                                @"actionSelectorString": @"turningAngleIncrementInputChanged:"};
-        
-        NSDictionary* lineWidth = @{@"label": @"Width",
-                                    @"imageName": @"Line width dark.png",
-                                    @"minimumValue": @1.0,
-                                    @"maximumValue": @20.0,
-                                    @"stepValue": @1.0,
-                                    @"propertyValueKey": @"lineWidth",
-                                    @"actionSelectorString": @"lineWidthInputChanged:"};
-        
-        NSDictionary* lineWidthIncrement = @{@"label": @"L Increment",
-                                             @"imageName": @"Pound increment width dark.png",
-                                             @"minimumValue": @1.0,
-                                             @"maximumValue": @20.0,
-                                             @"stepValue": @0.25,
-                                             @"propertyValueKey": @"lineWidthIncrement",
-                                             @"actionSelectorString": @"lineWidthIncrementInputChanged:"};
-        
-        NSDictionary* lineLengthScaleFactor = @{@"label": @"Length Scale",
-                                                @"minimumValue": @0.0,
-                                                @"maximumValue": @10.0,
-                                                @"stepValue": @0.1,
-                                                @"propertyValueKey": @"lineLengthScaleFactor",
-                                                @"actionSelectorString": @"lineLengthScaleFactorInputChanged:"};
-        
-        _fractalPropertiesAppearanceSectionDefinitions = @[turningAngle,
-                                                           turningAngleIncrement,
-                                                           lineWidth,
-                                                           lineWidthIncrement,
-                                                           lineLengthScaleFactor];
-    }
-    return _fractalPropertiesAppearanceSectionDefinitions;
-}
+//-(NSArray*) fractalPropertiesAppearanceSectionDefinitions {
+//    if (_fractalPropertiesAppearanceSectionDefinitions == nil) {
+//        NSDictionary* turningAngle = @{@"label": @"Angle",
+//                                       @"imageName": @"Plus rotate CC dark.png",
+//                                       @"minimumValue": @-180.0,
+//                                       @"maximumValue": @181.0,
+//                                       @"stepValue": @1.0,
+//                                       @"propertyValueKey": @"turningAngleAsDegree",
+//                                       @"actionSelectorString": @"turningAngleInputChanged:"};
+//        
+//        NSDictionary* turningAngleIncrement = @{@"label": @"A Increment",
+//                                                @"imageName": @"Parenthesis increment turn angle dark.png",
+//                                                @"minimumValue": @-180.0,
+//                                                @"maximumValue": @181.0,
+//                                                @"stepValue": @0.25,
+//                                                @"propertyValueKey": @"turningAngleIncrementAsDegree",
+//                                                @"actionSelectorString": @"turningAngleIncrementInputChanged:"};
+//        
+//        NSDictionary* lineWidth = @{@"label": @"Width",
+//                                    @"imageName": @"Line width dark.png",
+//                                    @"minimumValue": @1.0,
+//                                    @"maximumValue": @20.0,
+//                                    @"stepValue": @1.0,
+//                                    @"propertyValueKey": @"lineWidth",
+//                                    @"actionSelectorString": @"lineWidthInputChanged:"};
+//        
+//        NSDictionary* lineWidthIncrement = @{@"label": @"L Increment",
+//                                             @"imageName": @"Pound increment width dark.png",
+//                                             @"minimumValue": @1.0,
+//                                             @"maximumValue": @20.0,
+//                                             @"stepValue": @0.25,
+//                                             @"propertyValueKey": @"lineWidthIncrement",
+//                                             @"actionSelectorString": @"lineWidthIncrementInputChanged:"};
+//        
+//        NSDictionary* lineLengthScaleFactor = @{@"label": @"Length Scale",
+//                                                @"minimumValue": @0.0,
+//                                                @"maximumValue": @10.0,
+//                                                @"stepValue": @0.1,
+//                                                @"propertyValueKey": @"lineLengthScaleFactor",
+//                                                @"actionSelectorString": @"lineLengthScaleFactorInputChanged:"};
+//        
+//        _fractalPropertiesAppearanceSectionDefinitions = @[turningAngle,
+//                                                           turningAngleIncrement,
+//                                                           lineWidth,
+//                                                           lineWidthIncrement,
+//                                                           lineLengthScaleFactor];
+//    }
+//    return _fractalPropertiesAppearanceSectionDefinitions;
+//}
 
 -(NSMutableDictionary*) appearanceCellIndexPaths {
     if (_appearanceCellIndexPaths == nil) {
@@ -159,12 +159,25 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
     self.fractalWidth.text = [self.fractal.lineWidth stringValue];
 }
 
+- (IBAction)lineWidthTextInputChanged:(UITextField*)sender {
+    NSNumber* lineWidth = @([sender.text doubleValue]);
+    [self.fractal setLineWidth: lineWidth];
+    self.widthStepper.value = [lineWidth doubleValue];
+}
+
 - (IBAction)lineWidthIncrementInputChanged:(id)sender {
     self.fractal.lineWidthIncrement = [sender valueForKey: @"value"];
 }
+
 - (IBAction)lineLengthStepperChanged:(UIStepper*)sender {
     self.fractal.lineLength = @(sender.value);
     self.fractalLineLength.text = [self.fractal.lineLength stringValue];
+}
+
+- (IBAction)lineLengthTextInputChanged:(UITextField*)sender {
+    NSNumber* lineLength = @([sender.text doubleValue]);
+    [self.fractal setLineLength: lineLength];
+    self.lineLengthStepper.value = [lineLength doubleValue];
 }
 
 - (IBAction)lineLengthScaleFactorInputChanged:(UIStepper*)sender {
@@ -172,14 +185,14 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 }
 
 - (IBAction)turningAngleStepperInputChanged:(UIStepper*)sender {
-    [self.fractalUndoManager beginUndoGrouping];
-    [self.fractal.managedObjectContext processPendingChanges];
+//    [self.fractalUndoManager beginUndoGrouping];
+//    [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees: @(sender.value)];
     self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
 }
 - (IBAction)turningAngleTextInputChanged: (UITextField*)sender {
-    [self.fractalUndoManager beginUndoGrouping];
-    [self.fractal.managedObjectContext processPendingChanges];
+//    [self.fractalUndoManager beginUndoGrouping];
+//    [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees: @([sender.text doubleValue])];
     self.turnAngleStepper.value = [[self.fractal turningAngleAsDegree] doubleValue];
     self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
@@ -204,8 +217,8 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 }
 
 - (IBAction)randomnessStepperChanged:(UIStepper *)sender {
-    [self.fractalUndoManager beginUndoGrouping];
-    [self.fractal.managedObjectContext processPendingChanges];
+//    [self.fractalUndoManager beginUndoGrouping];
+//    [self.fractal.managedObjectContext processPendingChanges];
     self.fractal.randomness = @(sender.value);
     self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];
     if (self.fractal.randomness == 0) {
@@ -214,8 +227,8 @@ __strong NSArray* _fractalPropertiesAppearanceSectionDefinitions;
 }
 
 - (IBAction)randomnessInputChanged:(UITextField *)sender {
-    [self.fractalUndoManager beginUndoGrouping];
-    [self.fractal.managedObjectContext processPendingChanges];
+//    [self.fractalUndoManager beginUndoGrouping];
+//    [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setRandomness: @([sender.text doubleValue])];
     self.randomnessStepper.value = [[self.fractal randomness] doubleValue];
     self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];

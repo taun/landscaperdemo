@@ -23,7 +23,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="F" image="kBIconRuleDrawLine.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="F" image="kBIconRuleDrawLine" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -43,7 +43,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="A" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="A" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -63,7 +63,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="a" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="a" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -82,7 +82,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="B" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="B" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -102,7 +102,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="b" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="b" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -121,7 +121,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="C" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="C" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -141,7 +141,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="c" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="c" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -160,7 +160,7 @@
                     </constraints>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="f" image="kBIconRuleMoveByLine.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="f" image="kBIconRuleMoveByLine" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -176,7 +176,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="+" image="kBIconRuleRotateCC.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="+" image="kBIconRuleRotateCC" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -196,7 +196,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="-" image="kBIconRuleRotateC.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="-" image="kBIconRuleRotateC" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -216,7 +216,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="|" image="kBIconRuleReverseDirection.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="|" image="kBIconRuleReverseDirection" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -236,7 +236,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="&amp;" image="kBIconRuleSwapRotation.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="&amp;" image="kBIconRuleSwapRotation" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -256,7 +256,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="[" image="kBIconRulePush.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="[" image="kBIconRulePush" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -276,7 +276,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="]" image="kBIconRulePop.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="]" image="kBIconRulePop" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -296,7 +296,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="#" image="kBIconRuleIncrementLineWidth.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="#" image="kBIconRuleIncrementLineWidth" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -316,7 +316,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="!" image="kBIconRuleDecrementLineWidth.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="!" image="kBIconRuleDecrementLineWidth" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -336,7 +336,7 @@
                     </constraints>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="@" image="kBIconRuleDrawDot.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="@" image="kBIconRuleDrawDot" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -352,7 +352,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="delete" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="delete" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -372,7 +372,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="done" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="done" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -392,7 +392,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="{" image="kBIconRuleOpenPolygon.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="{" image="kBIconRuleOpenPolygon" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -412,7 +412,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="}" image="kBIconRuleClosePolygon.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="}" image="kBIconRuleClosePolygon" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -432,7 +432,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="&lt;" image="kBIconRuleDownscaleLineLength.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="&lt;" image="kBIconRuleDownscaleLineLength" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -452,7 +452,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="(" image="kBIconRuleDecrementAngle.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="(" image="kBIconRuleDecrementAngle" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -472,7 +472,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title=")" image="kBIconRuleIncrementAngle.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title=")" image="kBIconRuleIncrementAngle" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -492,7 +492,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title=">" image="kBIconRuleUpscaleLineLength.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title=">" image="kBIconRuleUpscaleLineLength" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -512,7 +512,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="s" image="kBIconRuleStrokeOff.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="s" image="kBIconRuleStrokeOff" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -532,7 +532,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="L" image="kBIconRuleFillOn.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="L" image="kBIconRuleFillOn" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -552,7 +552,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="l" image="kBIconRuleFillOff.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="l" image="kBIconRuleFillOff" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -572,7 +572,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="r" image="kBIconRuleRandomizeOff.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="r" image="kBIconRuleRandomizeOff" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -592,7 +592,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="R" image="kBIconRuleRandomizeOn.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="R" image="kBIconRuleRandomizeOn" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -612,7 +612,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="7"/>
                     <size key="titleShadowOffset" width="0.0" height="2"/>
-                    <state key="normal" title="S" image="kBIconRuleStrokeOn.png" backgroundImage="kBKeyBackgroundLight.png">
+                    <state key="normal" title="S" image="kBIconRuleStrokeOn" backgroundImage="kBKeyBackgroundLight">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -728,30 +728,30 @@
         <customObject id="ihl-Vs-gWZ" customClass="FractalScapeIconSet"/>
     </objects>
     <resources>
-        <image name="kBIconRuleClosePolygon.png" width="40" height="40"/>
-        <image name="kBIconRuleDecrementAngle.png" width="40" height="40"/>
-        <image name="kBIconRuleDecrementLineWidth.png" width="40" height="40"/>
-        <image name="kBIconRuleDownscaleLineLength.png" width="40" height="40"/>
-        <image name="kBIconRuleDrawDot.png" width="40" height="40"/>
-        <image name="kBIconRuleDrawLine.png" width="40" height="40"/>
-        <image name="kBIconRuleFillOff.png" width="40" height="40"/>
-        <image name="kBIconRuleFillOn.png" width="40" height="40"/>
-        <image name="kBIconRuleIncrementAngle.png" width="40" height="40"/>
-        <image name="kBIconRuleIncrementLineWidth.png" width="40" height="40"/>
-        <image name="kBIconRuleMoveByLine.png" width="40" height="40"/>
-        <image name="kBIconRuleOpenPolygon.png" width="40" height="40"/>
-        <image name="kBIconRulePop.png" width="40" height="40"/>
-        <image name="kBIconRulePush.png" width="40" height="40"/>
-        <image name="kBIconRuleRandomizeOff.png" width="40" height="40"/>
-        <image name="kBIconRuleRandomizeOn.png" width="40" height="40"/>
-        <image name="kBIconRuleReverseDirection.png" width="40" height="40"/>
-        <image name="kBIconRuleRotateC.png" width="40" height="40"/>
-        <image name="kBIconRuleRotateCC.png" width="40" height="40"/>
-        <image name="kBIconRuleStrokeOff.png" width="40" height="40"/>
-        <image name="kBIconRuleStrokeOn.png" width="40" height="40"/>
-        <image name="kBIconRuleSwapRotation.png" width="40" height="40"/>
-        <image name="kBIconRuleUpscaleLineLength.png" width="40" height="40"/>
-        <image name="kBKeyBackgroundLight.png" width="80" height="60"/>
+        <image name="kBIconRuleClosePolygon" width="40" height="40"/>
+        <image name="kBIconRuleDecrementAngle" width="40" height="40"/>
+        <image name="kBIconRuleDecrementLineWidth" width="40" height="40"/>
+        <image name="kBIconRuleDownscaleLineLength" width="40" height="40"/>
+        <image name="kBIconRuleDrawDot" width="40" height="40"/>
+        <image name="kBIconRuleDrawLine" width="40" height="40"/>
+        <image name="kBIconRuleFillOff" width="40" height="40"/>
+        <image name="kBIconRuleFillOn" width="40" height="40"/>
+        <image name="kBIconRuleIncrementAngle" width="40" height="40"/>
+        <image name="kBIconRuleIncrementLineWidth" width="40" height="40"/>
+        <image name="kBIconRuleMoveByLine" width="40" height="40"/>
+        <image name="kBIconRuleOpenPolygon" width="40" height="40"/>
+        <image name="kBIconRulePop" width="40" height="40"/>
+        <image name="kBIconRulePush" width="40" height="40"/>
+        <image name="kBIconRuleRandomizeOff" width="40" height="40"/>
+        <image name="kBIconRuleRandomizeOn" width="40" height="40"/>
+        <image name="kBIconRuleReverseDirection" width="40" height="40"/>
+        <image name="kBIconRuleRotateC" width="40" height="40"/>
+        <image name="kBIconRuleRotateCC" width="40" height="40"/>
+        <image name="kBIconRuleStrokeOff" width="40" height="40"/>
+        <image name="kBIconRuleStrokeOn" width="40" height="40"/>
+        <image name="kBIconRuleSwapRotation" width="40" height="40"/>
+        <image name="kBIconRuleUpscaleLineLength" width="40" height="40"/>
+        <image name="kBKeyBackgroundLight" width="80" height="60"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
