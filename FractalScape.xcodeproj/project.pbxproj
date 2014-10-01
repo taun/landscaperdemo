@@ -165,7 +165,7 @@
 		C5DA349414D6417300D91F43 /* imitation_leather.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349114D6417300D91F43 /* imitation_leather.png */; };
 		C5DA349514D6417300D91F43 /* interstices.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349214D6417300D91F43 /* interstices.png */; };
 		C5DA349614D6417300D91F43 /* marble_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C5DA349314D6417300D91F43 /* marble_dark.png */; };
-		C5E22C2919DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E22C2819DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.m */; };
+		C5E22C2919DA105900B91607 /* MBLSRuleCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E22C2819DA105900B91607 /* MBLSRuleCollectionTableViewCell.m */; };
 		C5E22C2C19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E22C2B19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m */; };
 		C5E22C2F19DA19CE00B91607 /* MBRuleSourceCollectionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E22C2E19DA19CE00B91607 /* MBRuleSourceCollectionDataSource.m */; };
 		C5E556D514E2E24F00CAAB33 /* ColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E556D214E2E24F00CAAB33 /* ColorPickerController.m */; };
@@ -424,8 +424,8 @@
 		C5DA349114D6417300D91F43 /* imitation_leather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imitation_leather.png; path = resources/imitation_leather.png; sourceTree = "<group>"; };
 		C5DA349214D6417300D91F43 /* interstices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = interstices.png; path = resources/interstices.png; sourceTree = "<group>"; };
 		C5DA349314D6417300D91F43 /* marble_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = marble_dark.png; path = resources/marble_dark.png; sourceTree = "<group>"; };
-		C5E22C2719DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleCollectionSourceTableViewCell.h; path = FractalScape/MBLSRuleCollectionSourceTableViewCell.h; sourceTree = "<group>"; };
-		C5E22C2819DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBLSRuleCollectionSourceTableViewCell.m; path = FractalScape/MBLSRuleCollectionSourceTableViewCell.m; sourceTree = "<group>"; };
+		C5E22C2719DA105900B91607 /* MBLSRuleCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleCollectionTableViewCell.h; path = FractalScape/MBLSRuleCollectionTableViewCell.h; sourceTree = "<group>"; };
+		C5E22C2819DA105900B91607 /* MBLSRuleCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBLSRuleCollectionTableViewCell.m; path = FractalScape/MBLSRuleCollectionTableViewCell.m; sourceTree = "<group>"; };
 		C5E22C2A19DA11FE00B91607 /* MBLSRuleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleCollectionViewCell.h; path = FractalScape/MBLSRuleCollectionViewCell.h; sourceTree = "<group>"; };
 		C5E22C2B19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBLSRuleCollectionViewCell.m; path = FractalScape/MBLSRuleCollectionViewCell.m; sourceTree = "<group>"; };
 		C5E22C2D19DA19CE00B91607 /* MBRuleSourceCollectionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBRuleSourceCollectionDataSource.h; sourceTree = "<group>"; };
@@ -560,10 +560,8 @@
 				C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */,
 				C5D99F50170270450025D5BB /* MBBasicLabelTextTableCell.h */,
 				C5D99F51170270450025D5BB /* MBBasicLabelTextTableCell.m */,
-				C5E22C2719DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.h */,
-				C5E22C2819DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.m */,
-				C5E22C2A19DA11FE00B91607 /* MBLSRuleCollectionViewCell.h */,
-				C5E22C2B19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m */,
+				C5E22C2719DA105900B91607 /* MBLSRuleCollectionTableViewCell.h */,
+				C5E22C2819DA105900B91607 /* MBLSRuleCollectionTableViewCell.m */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -583,6 +581,8 @@
 				C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */,
 				C525B9FD16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.h */,
 				C525B9FE16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m */,
+				C5E22C2A19DA11FE00B91607 /* MBLSRuleCollectionViewCell.h */,
+				C5E22C2B19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m */,
 			);
 			name = CollectionCells;
 			sourceTree = "<group>";
@@ -1154,7 +1154,7 @@
 				C5E22C2C19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m in Sources */,
 				C501478E170B47DB00BD7488 /* MBPlacedEntity.m in Sources */,
 				C501478F170B47DB00BD7488 /* MBScapeBackground.m in Sources */,
-				C5E22C2919DA105900B91607 /* MBLSRuleCollectionSourceTableViewCell.m in Sources */,
+				C5E22C2919DA105900B91607 /* MBLSRuleCollectionTableViewCell.m in Sources */,
 				C5014792170B4EB400BD7488 /* LSReplacementRule+addons.m in Sources */,
 				C5EEC60E19DB0C9300D9C88F /* LSDrawingRule.m in Sources */,
 				C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */,

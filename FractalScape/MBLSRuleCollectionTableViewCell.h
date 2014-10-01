@@ -1,5 +1,5 @@
 //
-//  MBLSRuleCollectionSourceTableViewCell.h
+//  MBLSRuleCollectionTableViewCell.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 09/29/14.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBXibAutolayoutTableCell.h"
 
-@interface MBLSRuleCollectionSourceTableViewCell : UITableViewCell
+@interface MBLSRuleCollectionTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 

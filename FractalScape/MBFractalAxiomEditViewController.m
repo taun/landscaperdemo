@@ -11,16 +11,25 @@
 #import "MBLSRuleTableViewCell.h"
 #import "LSReplacementRule.h"
 #import "LSDrawingRuleType+addons.h"
+#import "LSDrawingRule+addons.h"
 
 #import "MBFractalPropertyTableHeaderView.h"
 #import "MBBasicLabelTextTableCell.h"
 #import "MBTextViewTableCell.h"
-#import "MBLSRuleCollectionSourceTableViewCell.h"
+#import "MBLSRuleCollectionTableViewCell.h"
 #import "MBLSRuleCollectionViewCell.h"
 
 #import "MBRuleSourceCollectionDataSource.h"
 
 #import "MBStyleKitButton.h"
+
+
+typedef NS_ENUM(NSUInteger, enumTableSections) {
+    TableSectionsDescription,
+    TableSectionsRule,
+    TableSectionsReplacement,
+    TableSectionRules
+};
 
 @interface MBFractalAxiomEditViewController ()
 
@@ -34,8 +43,10 @@
 
 @property (nonatomic,strong) NSArray                *tableSections;
 
+@property (nonatomic,strong) NSDictionary                       *rulesDictionary;
 @property (nonatomic,strong) NSMutableSet                       *rulesCollections;
 @property (nonatomic,strong) MBRuleSourceCollectionDataSource   *rulesDataSource;
+@property (nonatomic,strong) MBRuleSourceCollectionDataSource   *axiomDataSource;
 
 -(void) addReplacementRulesObserverFor: (LSFractal*)fractal;
 -(void) removeReplacementRulesObserverFor: (LSFractal*)fractal;
@@ -74,6 +85,25 @@
 -(void) setFractal:(LSFractal *)fractal {
     if (_fractal != fractal) {
         _fractal = fractal;
+        NSSet* rules = _fractal.drawingRulesType.rules;
+        if (rules.count > 0) {
+            NSMutableDictionary* rulesDict = [[NSMutableDictionary alloc] initWithCapacity: rules.count];
+            for (LSDrawingRule* rule in rules) {
+                //
+                rulesDict[rule.productionString] = rule;
+            }
+            self.rulesDictionary = [rulesDict copy];
+            NSSortDescriptor* ruleIndexSorting = [NSSortDescriptor sortDescriptorWithKey: @"displayIndex" ascending: YES];
+            NSSortDescriptor* ruleAlphaSorting = [NSSortDescriptor sortDescriptorWithKey: @"iconIdentifierString" ascending: YES];
+            NSArray* sortedRules = [self.fractal.drawingRulesType.rules sortedArrayUsingDescriptors: @[ruleIndexSorting,ruleAlphaSorting]];
+            
+            self.rulesDataSource = [MBRuleSourceCollectionDataSource new];
+            self.rulesDataSource.rules = sortedRules;
+            
+            self.axiomDataSource = [MBRuleSourceCollectionDataSource new];
+            self.axiomDataSource.rules = [self rulesArrayFromRuleString: self.fractal.axiom];
+
+        }
     }
 }
 -(void) setSortedReplacementRulesArray:(NSArray *)sortedReplacementRulesArray {
@@ -111,7 +141,6 @@
 {
     [super viewDidLoad];
     self.tableSections = @[@"Description", @"Starting Rule", @"Replacement Rules", @"Available Rules"];
-    self.rulesDataSource = [MBRuleSourceCollectionDataSource new];
     self.rulesCollections = [NSMutableSet new];
     
 //    self.fractalPropertiesTableView.estimatedRowHeight = 44;
@@ -131,11 +160,10 @@
 //    self.fractalName.text = self.fractal.name;
 //    self.fractalCategory.text = self.fractal.category;
 //    self.fractalDescriptor.text = self.fractal.descriptor;
-    self.rulesDataSource.rules = self.fractal.drawingRulesType.rules;
+    [self.tableView reloadData];
     for (UICollectionView* collection in self.rulesCollections) {
         [collection reloadData];
     }
-    [self.tableView reloadData];
 //    self.fractalAxiom.inputView = self.fractalInputControl.view;
 
     [self setEditing: YES animated: NO];
@@ -337,22 +365,40 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows = 1;
-    if (section==0) {
+    if (section==TableSectionsDescription) {
         // section == "Description" - name, category, description
         rows = 3;
-    } else if (section == 1) {
+    } else if (section == TableSectionsRule) {
         // section == "Starting Rule"
         rows = 1;
-    } else if (section == 2) {
+    } else if (section == TableSectionsReplacement) {
         // section == "Replacement rules"
         rows = [self.sortedReplacementRulesArray count];
-    } else if (section == 3) {
+    } else if (section == TableSectionRules) {
         // section == "Available Rules"
         rows = 1;
     }
     return rows;
 }
 
+-(NSArray*) rulesArrayFromRuleString: (NSString*) ruleString {
+    NSInteger sourceLength = ruleString.length;
+    
+    NSMutableArray* rules = [[NSMutableArray alloc] initWithCapacity: sourceLength];
+    
+    for (int y=0; y < sourceLength; y++) {
+        //
+        NSString* key = [ruleString substringWithRange: NSMakeRange(y, 1)];
+        
+        LSDrawingRule* rule = self.rulesDictionary[key];
+        
+        if (rule) {
+            [rules addObject: rule];
+        }
+        
+    }
+    return [rules copy];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
@@ -361,10 +407,10 @@
     static NSString *CategoryCellIdentifier = @"CategoryCell";
     static NSString *DescriptionCellIdentifier = @"DescriptionCell";
     static NSString *RuleCellIdentifier = @"MBLSRuleCell";
-    static NSString *AxiomCellIdentifier = @"MBLSAxiomCell";
-    static NSString *RuleSourceCellIdentifier = @"MBLSRuleSourceCell";
+    static NSString *AxiomCellIdentifier = @"MBLSRuleCollectionTableCell";
+    static NSString *RuleSourceCellIdentifier = @"MBLSRuleCollectionTableCell";
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == TableSectionsDescription) {
         // description
         if (indexPath.row==0) {
             //name
@@ -392,25 +438,34 @@
             newCell.textView.delegate = self;
             cell = newCell;
         }
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == TableSectionsRule) {
         // axiom
         
-        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
+        MBLSRuleCollectionTableViewCell *newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
+        [self.rulesCollections addObject: newCell.collectionView];
         
-        // Configure the cell with data from the managed object.
-        UITextField* axiom = ruleCell.textRight;
-        self.fractalAxiom = axiom; // may be unneccessary?
-        axiom.text = self.fractal.axiom;
+        self.axiomDataSource.rules = [self rulesArrayFromRuleString: self.fractal.axiom];
+        newCell.collectionView.dataSource = self.axiomDataSource;
+        UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
+        layout.itemSize = CGSizeMake(25.0, 25.0);
         
-        axiom.inputView = self.fractalInputControl.view;
-        axiom.delegate = self;
-        [axiom addTarget: self
-                  action: @selector(axiomInputChanged:)
-        forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
+//        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
+//        
+//        // Configure the cell with data from the managed object.
+//        UITextField* axiom = ruleCell.textRight;
+//        self.fractalAxiom = axiom; // may be unneccessary?
+//        axiom.text = self.fractal.axiom;
+//        
+//        axiom.inputView = self.fractalInputControl.view;
+//        axiom.delegate = self;
+//        [axiom addTarget: self
+//                  action: @selector(axiomInputChanged:)
+//        forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
         
-        cell = ruleCell;
+        cell = newCell;
+        [newCell.collectionView reloadData];
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == TableSectionsReplacement) {
         // rules
         
         MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleCellIdentifier];
@@ -433,12 +488,14 @@
         cell = ruleCell;
         (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
         
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == TableSectionRules) {
         // Rule source section
-        MBLSRuleCollectionSourceTableViewCell *newCell = (MBLSRuleCollectionSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier];
+        MBLSRuleCollectionTableViewCell *newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier];
         [self.rulesCollections addObject: newCell.collectionView];
+
         newCell.collectionView.dataSource = self.rulesDataSource;
         cell = newCell;
+        [newCell.collectionView reloadData];
     }
     
     return cell;
@@ -446,21 +503,24 @@
 #pragma message "TODO: fix collectionView layout to be flexible height"
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat rowHeight = tableView.rowHeight;
-    if (indexPath.section == 3) {
+    if (indexPath.section == TableSectionsRule) {
         // description cell
-        rowHeight = 4*51.0;
+        rowHeight = 1*29.0;
+    } else if (indexPath.section == TableSectionRules) {
+        // description cell
+        rowHeight = 4*52.0;
     }
     return rowHeight;
 }
 - (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL result = YES;
-    if (indexPath.section == 0) {
+    if (indexPath.section == TableSectionsDescription) {
         result = NO;
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == TableSectionsRule) {
         result = NO;
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == TableSectionsReplacement) {
         
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == TableSectionRules) {
         result = NO;
     }
     return result;
@@ -471,7 +531,7 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCellEditingStyle editingStyle = UITableViewCellEditingStyleNone;
     
-    if (indexPath.section == 2) {
+    if (indexPath.section == TableSectionsReplacement) {
         // Rules
         if (indexPath.row == ([self.sortedReplacementRulesArray count] -1)) {
             editingStyle = UITableViewCellEditingStyleInsert;

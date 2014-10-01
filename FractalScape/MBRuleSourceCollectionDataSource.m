@@ -13,18 +13,14 @@
 #import "FractalScapeIconSet.h"
 
 @interface MBRuleSourceCollectionDataSource ()
-@property (nonatomic,strong) NSArray*   cachedOrderedRules;
 @end
 
 
 @implementation MBRuleSourceCollectionDataSource
 
--(void) setRules:(NSSet *)rules {
+-(void) setRules:(NSArray *)rules {
     if (_rules != rules) {
         _rules = rules;
-        NSSortDescriptor* ruleIndexSorting = [NSSortDescriptor sortDescriptorWithKey: @"displayIndex" ascending: YES];
-        NSSortDescriptor* ruleAlphaSorting = [NSSortDescriptor sortDescriptorWithKey: @"iconIdentifierString" ascending: YES];
-        _cachedOrderedRules = [rules sortedArrayUsingDescriptors: @[ruleIndexSorting,ruleAlphaSorting]];
     }
 }
 
@@ -39,12 +35,18 @@
 -(UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MBLSRuleCollectionViewCell* newCell = [collectionView dequeueReusableCellWithReuseIdentifier: @"MBLSRuleCollectionCell" forIndexPath: indexPath];
     
-    LSDrawingRule* rule = (LSDrawingRule*)self.cachedOrderedRules[indexPath.row];
+    LSDrawingRule* rule = (LSDrawingRule*)self.rules[indexPath.row];
     NSString* iconImageMethod = [NSString stringWithFormat: @"imageOf%@",rule.iconIdentifierString];
+    
+    CGFloat cellWidth = newCell.bounds.size.width;
     
     if ([FractalScapeIconSet respondsToSelector: NSSelectorFromString(iconImageMethod)]) {
         UIImage* cellImage = [FractalScapeIconSet performSelector: NSSelectorFromString(iconImageMethod)];
+        
         newCell.imageView.image = cellImage;
+        if (cellWidth < 35) {
+            newCell.imageView.contentScaleFactor = 4.0;
+        }
     }
     return newCell;
 }

@@ -12,6 +12,6 @@
 
 @interface MBRuleSourceCollectionDataSource : NSObject <UICollectionViewDataSource>
 
-@property (nonatomic,strong) NSSet* rules;
+@property (nonatomic,strong) NSArray* rules;
 
 @end
