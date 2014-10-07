@@ -35,17 +35,22 @@
 -(UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MBLSRuleCollectionViewCell* newCell = [collectionView dequeueReusableCellWithReuseIdentifier: @"MBLSRuleCollectionCell" forIndexPath: indexPath];
     
+    CGFloat deviceScaleFactor = collectionView.contentScaleFactor;
+    
     LSDrawingRule* rule = (LSDrawingRule*)self.rules[indexPath.row];
-    UIImage* cellImage = [UIImage imageNamed: rule.iconIdentifierString];
+    UIImage* cellImage = [rule asImage];
     
     CGFloat cellWidth = newCell.bounds.size.width;
     
     newCell.imageView.image = cellImage;
     
     if (cellWidth < 35) {
-        newCell.imageView.contentScaleFactor = 4.0;
+        newCell.imageView.contentScaleFactor = deviceScaleFactor*2;
+    } else {
+        newCell.imageView.contentScaleFactor = deviceScaleFactor;
     }
-    
+    [newCell setNeedsUpdateConstraints];
+#pragma message "TODO have cell class monitor properties and call setNeedsUpdateConstraints as needed?"
     return newCell;
 }
 

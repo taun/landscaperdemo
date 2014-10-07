@@ -34,4 +34,9 @@
     return node;
 }
 
+-(UIImage*) asImage {
+    UIImage* cellImage = [UIImage imageNamed: self.iconIdentifierString];
+    return cellImage;
+}
+
 @end

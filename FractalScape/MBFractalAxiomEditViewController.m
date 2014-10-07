@@ -18,6 +18,7 @@
 #import "MBTextViewTableCell.h"
 #import "MBLSRuleCollectionTableViewCell.h"
 #import "MBLSRuleCollectionViewCell.h"
+#import "MBLSReplacementRuleTableViewCell.h"
 
 #import "MBRuleSourceCollectionDataSource.h"
 
@@ -44,9 +45,10 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
 @property (nonatomic,strong) NSArray                *tableSections;
 
 @property (nonatomic,strong) NSDictionary                       *rulesDictionary;
-@property (nonatomic,strong) NSMutableSet                       *rulesCollections;
+@property (nonatomic,strong) NSMutableDictionary                *rulesCollectionsDict;
 @property (nonatomic,strong) MBRuleSourceCollectionDataSource   *rulesDataSource;
 @property (nonatomic,strong) MBRuleSourceCollectionDataSource   *axiomDataSource;
+@property (nonatomic,strong) NSMutableDictionary                *replacementDataSourcesDict;
 
 -(void) addReplacementRulesObserverFor: (LSFractal*)fractal;
 -(void) removeReplacementRulesObserverFor: (LSFractal*)fractal;
@@ -102,8 +104,17 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
             
             self.axiomDataSource = [MBRuleSourceCollectionDataSource new];
             self.axiomDataSource.rules = [self rulesArrayFromRuleString: self.fractal.axiom];
-
+            
+            self.replacementDataSourcesDict = [NSMutableDictionary new];
+            [self.rulesCollectionsDict removeAllObjects];
+            _rulesCollectionsDict = nil;
         }
+        [self.tableView reloadData];
+//        for (id key in self.rulesCollectionsDict) {
+//            
+//            UICollectionView* collection = (UICollectionView*)self.rulesCollectionsDict[key];
+//            [collection reloadData];
+//        }
     }
 }
 -(void) setSortedReplacementRulesArray:(NSArray *)sortedReplacementRulesArray {
@@ -126,6 +137,12 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
     }
     return _fractalInputControl;
 }
+-(NSMutableDictionary*) rulesCollectionsDict {
+    if (!_rulesCollectionsDict) {
+        _rulesCollectionsDict = [NSMutableDictionary new];
+    }
+    return _rulesCollectionsDict;
+}
 #pragma mark - Initialisation
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -140,8 +157,8 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableSections = @[@"Description", @"Starting Rule", @"Replacement Rules", @"Available Rules"];
-    self.rulesCollections = [NSMutableSet new];
     
 //    self.fractalPropertiesTableView.estimatedRowHeight = 44;
 //    self.fractalPropertiesTableView.rowHeight = UITableViewAutomaticDimension;
@@ -160,10 +177,6 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
 //    self.fractalName.text = self.fractal.name;
 //    self.fractalCategory.text = self.fractal.category;
 //    self.fractalDescriptor.text = self.fractal.descriptor;
-    [self.tableView reloadData];
-    for (UICollectionView* collection in self.rulesCollections) {
-        [collection reloadData];
-    }
 //    self.fractalAxiom.inputView = self.fractalInputControl.view;
 
     [self setEditing: YES animated: NO];
@@ -399,16 +412,21 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
     }
     return [rules copy];
 }
-
+-(NSString*) stringFromIndexPath: (NSIndexPath*) indexPath {
+    NSString* pathString = [NSString stringWithFormat: @"%ld:%ld", (long)indexPath.section, (long)indexPath.row];
+    return pathString;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
     static NSString *NameCellIdentifier = @"NameCell";
     static NSString *CategoryCellIdentifier = @"CategoryCell";
     static NSString *DescriptionCellIdentifier = @"DescriptionCell";
-    static NSString *RuleCellIdentifier = @"MBLSRuleCell";
+    static NSString *ReplacementRuleCellIdentifier = @"MBLSReplacementRuleCell";
     static NSString *AxiomCellIdentifier = @"MBLSRuleCollectionTableCell";
     static NSString *RuleSourceCellIdentifier = @"MBLSRuleCollectionTableCell";
+    
+    NSString* indexString = [self stringFromIndexPath: indexPath];
     
     if (indexPath.section == TableSectionsDescription) {
         // description
@@ -440,78 +458,129 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
         }
     } else if (indexPath.section == TableSectionsRule) {
         // axiom
-        
-        MBLSRuleCollectionTableViewCell *newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
-        [self.rulesCollections addObject: newCell.collectionView];
-        
-        self.axiomDataSource.rules = [self rulesArrayFromRuleString: self.fractal.axiom];
-        newCell.collectionView.dataSource = self.axiomDataSource;
-        UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
-        layout.itemSize = CGSizeMake(25.0, 25.0);
-        
-//        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier];
-//        
-//        // Configure the cell with data from the managed object.
-//        UITextField* axiom = ruleCell.textRight;
-//        self.fractalAxiom = axiom; // may be unneccessary?
-//        axiom.text = self.fractal.axiom;
-//        
-//        axiom.inputView = self.fractalInputControl.view;
-//        axiom.delegate = self;
-//        [axiom addTarget: self
-//                  action: @selector(axiomInputChanged:)
-//        forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
+        MBLSRuleCollectionTableViewCell* newCell = nil;
+//        newCell = self.rulesCollectionsDict[indexString];
+        if (!newCell) {
+            newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier forIndexPath: indexPath];
+            self.rulesCollectionsDict[indexString] = newCell.collectionView;
+            
+            self.axiomDataSource.rules = [self rulesArrayFromRuleString: self.fractal.axiom];
+            newCell.collectionView.dataSource = self.axiomDataSource;
+            //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            CGFloat itemSize = 26.0;
+            CGFloat itemMargin = 2.0;
+            NSInteger items = [newCell.collectionView numberOfItemsInSection: 0];
+            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
+            layout.itemSize = CGSizeMake(itemSize, itemSize);
+            layout.minimumLineSpacing = itemMargin;
+            layout.minimumInteritemSpacing = itemMargin;
+            NSInteger rows = floorf(items/9.0) + 1;
+            CGFloat height = rows*(itemSize+itemMargin);
+            newCell.collectionView.currentHeightConstraint.constant = height;
+            CGSize currentSize = newCell.collectionView.contentSize;
+            newCell.collectionView.contentSize = CGSizeMake(currentSize.width, height);
+            [newCell.collectionView reloadData];
+            
+            [newCell.collectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
+        }
         
         cell = newCell;
-        [newCell.collectionView reloadData];
+//        [newCell.collectionView layoutIfNeeded];
         
     } else if (indexPath.section == TableSectionsReplacement) {
         // rules
+        MBLSReplacementRuleTableViewCell *newCell = nil;
+//        newCell = self.rulesCollectionsDict[indexString];
+        if (!newCell) {
+            newCell = (MBLSReplacementRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: ReplacementRuleCellIdentifier forIndexPath: indexPath];
+            self.rulesCollectionsDict[indexString] = newCell.rightCollectionView;
+            
+            LSReplacementRule* replacementRule = (self.sortedReplacementRulesArray)[indexPath.row];
+            
+            newCell.leftImageView.image = [self.rulesDictionary[replacementRule.contextString] asImage];
+            
+            MBRuleSourceCollectionDataSource* replacementRulesSource = self.replacementDataSourcesDict[replacementRule.contextString];
+            if (!replacementRulesSource) {
+                // already has a source
+                replacementRulesSource = [MBRuleSourceCollectionDataSource new];
+                self.replacementDataSourcesDict[replacementRule.contextString] = replacementRulesSource;
+#pragma message "TODO remember to remove the replacementRuleSource when deleting the cell"
+            }
+            replacementRulesSource.rules = [self rulesArrayFromRuleString: replacementRule.replacementString];
+            newCell.rightCollectionView.dataSource = replacementRulesSource;
+            //        newCell.rightCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+            CGFloat itemSize = 26.0;
+            CGFloat itemMargin = 2.0;
+            NSInteger items = [newCell.rightCollectionView numberOfItemsInSection: 0];
+            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.rightCollectionView.collectionViewLayout;
+            layout.itemSize = CGSizeMake(itemSize, itemSize);
+            layout.minimumLineSpacing = itemMargin;
+            layout.minimumInteritemSpacing = itemMargin;
+            NSInteger rows = floorf(items/9.0) + 1;
+            CGFloat height = rows*(itemSize+itemMargin);
+            newCell.rightCollectionView.currentHeightConstraint.constant = height;
+            CGSize currentSize = newCell.rightCollectionView.contentSize;
+            newCell.rightCollectionView.contentSize = CGSizeMake(currentSize.width, height);
+            [newCell.rightCollectionView reloadData];
+            [newCell.rightCollectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
+            (self.rulesCellIndexPaths)[replacementRule.contextString] = indexPath;
+       }
         
-        MBLSRuleTableViewCell *ruleCell = (MBLSRuleTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleCellIdentifier];
-        LSReplacementRule* rule = (self.sortedReplacementRulesArray)[indexPath.row];
-        
-        // Configure the cell with data from the managed object.
-        ruleCell.textLeft.text = rule.contextString;
-        ruleCell.textRight.text = rule.replacementString;
-        
-        ruleCell.textRight.inputView = self.fractalInputControl.view;
-        ruleCell.textRight.delegate = self;
-        
-        // notify textRight delegate of cell change
-        // calls delegate back ruleCellTextRightEditingEnded:
-        // a way to pass both fields of the rule cell
-        [ruleCell.textRight addTarget: ruleCell
-                               action: @selector(textRightEditingEnded:)
-                     forControlEvents: (UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
-        
-        cell = ruleCell;
-        (self.rulesCellIndexPaths)[rule.contextString] = indexPath;
+        cell = newCell;
+//        [newCell.rightCollectionView layoutIfNeeded];
         
     } else if (indexPath.section == TableSectionRules) {
         // Rule source section
-        MBLSRuleCollectionTableViewCell *newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier];
-        [self.rulesCollections addObject: newCell.collectionView];
-
-        newCell.collectionView.dataSource = self.rulesDataSource;
+        MBLSRuleCollectionTableViewCell *newCell = nil;
+//        newCell = self.rulesCollectionsDict[indexString];
+        if (!newCell) {
+            newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
+            self.rulesCollectionsDict[indexString] = newCell.collectionView;
+            
+            newCell.collectionView.dataSource = self.rulesDataSource;
+            //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            CGFloat itemSize = 46.0;
+            CGFloat itemMargin = 2.0;
+            NSInteger items = [newCell.collectionView numberOfItemsInSection: 0];
+            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
+            layout.itemSize = CGSizeMake(itemSize, itemSize);
+            layout.minimumLineSpacing = itemMargin;
+            layout.minimumInteritemSpacing = itemMargin;
+            NSInteger rows = floorf(items/9.0) + 1;
+            CGFloat height = rows*(itemSize+itemMargin);
+            newCell.collectionView.currentHeightConstraint.constant = height;
+            CGSize currentSize = newCell.collectionView.contentSize;
+            newCell.collectionView.contentSize = CGSizeMake(currentSize.width, height);
+            [newCell.collectionView reloadData];
+            [newCell.collectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
+        }
+        
+//        CGSize largeCollectionSize = [newCell.collectionView systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
+//        CGSize smallCollectionSize = [newCell.collectionView systemLayoutSizeFittingSize: UILayoutFittingCompressedSize];
+//        CGSize largeContentSize = [newCell.collectionView.conte]
+        
         cell = newCell;
-        [newCell.collectionView reloadData];
+//        [newCell.collectionView layoutIfNeeded];
     }
     
     return cell;
 }
 #pragma message "TODO: fix collectionView layout to be flexible height"
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat rowHeight = tableView.rowHeight;
-    if (indexPath.section == TableSectionsRule) {
-        // description cell
-        rowHeight = 1*29.0;
-    } else if (indexPath.section == TableSectionRules) {
-        // description cell
-        rowHeight = 4*52.0;
-    }
-    return rowHeight;
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    CGFloat estimatedRowHeight = tableView.estimatedRowHeight;
+//    if (indexPath.section == TableSectionsRule) {
+//        // description cell
+//        estimatedRowHeight = 1*30.0;
+//    } else if (indexPath.section == TableSectionsReplacement) {
+//        estimatedRowHeight = 30.0;
+//    } else if (indexPath.section == TableSectionRules) {
+//        // description cell
+//        estimatedRowHeight = 4.0*46.0;
+//    }
+//    return estimatedRowHeight;
+//}
 - (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL result = YES;
     if (indexPath.section == TableSectionsDescription) {
@@ -568,6 +637,7 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
         
         // Find the relevant rule for this cell using the key
         // could do the following using a query
+#pragma message "TDOD replace with self.rulesDictionary?"
         for (LSReplacementRule* rule in rules) {
             if ([rule.contextString isEqualToString: ruleKey]) {
                 rule.replacementString = ruleCell.textRight.text;

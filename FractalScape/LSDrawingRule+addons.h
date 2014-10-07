@@ -12,4 +12,6 @@
 
 +(LSDrawingRule*) findRuleWithType:(NSString *)ruleType productionString: (NSString*)production inContext: (NSManagedObjectContext*) context;
 
+-(UIImage*) asImage;
+
 @end

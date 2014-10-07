@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MBXibAutolayoutTableCell.h"
+#import <MDUiKit/MDUiKit.h>
 
 @interface MBLSRuleCollectionTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet MDKUICollectionViewScrollContentSized *collectionView;
 
 @end
