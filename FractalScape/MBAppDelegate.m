@@ -282,7 +282,7 @@
 
     NSDictionary* plistRulesDict = (NSDictionary*)plistObject;
     NSDictionary* plistRuleType = plistRulesDict[@"ruleType"];
-    NSDictionary* plistRules = plistRulesDict[@"rules"];
+//    NSDictionary* plistRules = plistRulesDict[@"rules"];
     NSArray* plistRulesArray = plistRulesDict[@"rulesArray"];
     
     LSDrawingRuleType* ruleType = [self loadLSDrawingRuleTypeFromPListDictionary: plistRuleType];

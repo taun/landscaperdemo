@@ -10,6 +10,25 @@
 
 @implementation MBLSRuleCollectionTableViewCell
 
+/*!
+ Initializes a table cell with a style and a reuse identifier and returns it to the caller.
+ 
+ @param style           A constant indicating a cell style. See UITableViewCellStyle for descriptions of these constants.
+ @param reuseIdentifier A string used to identify the cell object if it is to be reused for drawing multiple rows of a table view. Pass nil if the cell object is not to be reused. You should use the same reuse identifier for all cells of the same form.
+ 
+ @return An initialized UITableViewCell object or nil if the object could not be created.
+ */
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    return self;
+}
+/*!
+ Prepares a reusable cell for reuse by the table view's delegate.
+ */
+-(void)prepareForReuse {
+    
+}
+
 -(void) awakeFromNib {
     [super awakeFromNib];
 //    [self setTranslatesAutoresizingMaskIntoConstraints: NO];
@@ -69,7 +88,7 @@
     // change constraints above
     [super updateConstraints];
     
-    NSString* constraintsString = [self.contentView.constraints description];
+//    NSString* constraintsString = [self.contentView.constraints description];
 }
 
 -(void) layoutSubviews {
@@ -78,7 +97,7 @@
 //    }
     [super layoutSubviews];
     
-    NSString* constraintsString = [self.contentView.constraints description];
+//    NSString* constraintsString = [self.contentView.constraints description];
 }
 
 @end

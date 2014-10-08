@@ -8,6 +8,8 @@
 
 #import "LSFractal+addons.h"
 #import "LSReplacementRule+addons.h"
+#import "LSDrawingRuleType+addons.h"
+#import "LSDrawingRule+addons.h"
 #import "MBColor+addons.h"
 
 @implementation LSFractal (addons)
@@ -226,4 +228,35 @@
     NSArray* sortedRules = [self.replacementRules sortedArrayUsingDescriptors: descriptors];
     return sortedRules;
 }
+-(NSDictionary*) rulesDictionary {
+    NSSet* rules = self.drawingRulesType.rules;
+    
+    NSMutableDictionary* rulesDict = [[NSMutableDictionary alloc] initWithCapacity: rules.count];
+    for (LSDrawingRule* rule in rules) {
+        //
+        rulesDict[rule.productionString] = rule;
+    }
+    return [rulesDict copy];
+}
+-(NSArray*) rulesArrayFromRuleString: (NSString*) ruleString {
+    NSInteger sourceLength = ruleString.length;
+    
+    NSDictionary* rulesDict = self.rulesDictionary;
+
+    NSMutableArray* rulesArray = [[NSMutableArray alloc] initWithCapacity: sourceLength];
+    
+    for (int y=0; y < sourceLength; y++) {
+        //
+        NSString* key = [ruleString substringWithRange: NSMakeRange(y, 1)];
+        
+        LSDrawingRule* rule = rulesDict[key];
+        
+        if (rule) {
+            [rulesArray addObject: rule];
+        }
+        
+    }
+    return [rulesArray copy];
+}
+
 @end

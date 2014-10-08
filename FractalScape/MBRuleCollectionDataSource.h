@@ -1,5 +1,5 @@
 //
-//  MBRuleSourceCollectionDataSource.h
+//  MBRuleCollectionDataSource.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 09/29/14.
@@ -10,7 +10,7 @@
 
 
 
-@interface MBRuleSourceCollectionDataSource : NSObject <UICollectionViewDataSource>
+@interface MBRuleCollectionDataSource : NSObject <UICollectionViewDataSource>
 
 @property (nonatomic,strong) NSArray* rules;
 

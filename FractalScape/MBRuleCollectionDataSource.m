@@ -1,22 +1,22 @@
 //
-//  MBRuleSourceCollectionDataSource.m
+//  MBRuleCollectionDataSource.m
 //  FractalScape
 //
 //  Created by Taun Chapman on 09/29/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBRuleSourceCollectionDataSource.h"
+#import "MBRuleCollectionDataSource.h"
 #import "MBLSRuleCollectionViewCell.h"
 #import "LSDrawingRule+addons.h"
 
 #import "FractalScapeIconSet.h"
 
-@interface MBRuleSourceCollectionDataSource ()
+@interface MBRuleCollectionDataSource ()
 @end
 
 
-@implementation MBRuleSourceCollectionDataSource
+@implementation MBRuleCollectionDataSource
 
 -(void) setRules:(NSArray *)rules {
     if (_rules != rules) {

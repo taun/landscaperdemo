@@ -46,4 +46,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *newSortedReplacementRulesArray;
+
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary* rulesDictionary;
+
+-(NSArray*) rulesArrayFromRuleString: (NSString*) ruleString;
 @end

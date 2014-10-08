@@ -7,8 +7,36 @@
 //
 
 #import "MBLSRuleCollectionViewCell.h"
+#import <MDUiKit/MDKLayerView.h>
 
 @implementation MBLSRuleCollectionViewCell
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    return self;
+}
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder: aDecoder];
+    return self;
+}
+/*!
+ Prepares a reusable cell for reuse by the table view's delegate.
+ */
+-(void)prepareForReuse {
+    
+}
+-(void) awakeFromNib {
+    [super awakeFromNib];
+    
+    MDKLayerView* layerView = [[MDKLayerView alloc] initWithFrame: CGRectZero];
+    
+    layerView.maskToBounds = NO;
+    layerView.cornerRadius = 4.0;
+    layerView.margin = 4;
+    layerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent: 0.15];
+    
+    self.selectedBackgroundView = layerView;
+}
 
 -(void) updateConstraints {
     
