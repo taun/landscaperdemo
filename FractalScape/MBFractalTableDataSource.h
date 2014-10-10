@@ -14,7 +14,7 @@
 
 @property (nonatomic,weak) NSMutableArray*                                     fractalData;
 @property (nonatomic,strong) UICollectionView*                                 rulesCollectionView;
-@property (nonatomic,strong) NSMutableArray*                                   replacmentCollections;
+@property (nonatomic,strong) NSPointerArray*                                   replacmentCollections;
 
 +(instancetype) newSourceWithFractalData: (NSArray*) fractalData;
 

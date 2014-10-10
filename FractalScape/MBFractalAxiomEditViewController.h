@@ -48,13 +48,16 @@
 - (void)doneTapped;
 
 #pragma mark - Production Control Actions
-- (IBAction)axiomInputChanged:(UITextField*)sender;
-- (IBAction)axiomInputEnded:(UITextField*)sender;
+//- (IBAction)axiomInputChanged:(UITextField*)sender;
+//- (IBAction)axiomInputEnded:(UITextField*)sender;
 - (IBAction)nameInputDidEnd:(UITextField*)sender;
 - (IBAction)nameInputChanged:(id)sender;
-- (IBAction)descriptorInputChanged:(id)sender;
+//- (IBAction)descriptorInputChanged:(id)sender;
 - (IBAction)categoryInputChanged:(id)sender;
 - (IBAction)categoryInputDidEnd:(UITextField*)sender;
-- (IBAction)ruleLongPress:(UILongPressGestureRecognizer *)sender;
+- (IBAction)replacementRuleLongPress:(UILongPressGestureRecognizer *)sender;
+- (IBAction)rulesSourceLongPress:(UILongPressGestureRecognizer *)sender;
+- (IBAction)axiomRuleLongPress:(id)sender;
+- (IBAction)placeholderLongPress:(id)sender;
 
 @end

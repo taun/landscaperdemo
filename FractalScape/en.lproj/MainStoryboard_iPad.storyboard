@@ -662,7 +662,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eyx-KZ-uqZ" customClass="MDKLayerView">
-                                            <rect key="frame" x="1" y="1" width="398" height="28"/>
+                                            <rect key="frame" x="1" y="1" width="381" height="28"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -708,6 +708,9 @@
                                                     <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="fJA-dJ-xyc" appends="YES" id="GNU-Hf-HJX"/>
+                                            </connections>
                                         </view>
                                         <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lP1-fi-GwI" customClass="MDKUICollectionViewScrollContentSized">
                                             <rect key="frame" x="68" y="2" width="312" height="26"/>
@@ -792,7 +795,7 @@
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lP1-fi-GwI" secondAttribute="bottom" constant="2" id="b3I-iZ-Dwz"/>
                                         <constraint firstItem="Eyx-KZ-uqZ" firstAttribute="top" secondItem="xWc-AI-adn" secondAttribute="top" constant="1" id="dZv-kW-9J4"/>
                                         <constraint firstAttribute="bottom" secondItem="Eyx-KZ-uqZ" secondAttribute="bottom" constant="1" id="e1b-4D-h5V"/>
-                                        <constraint firstAttribute="trailing" secondItem="Eyx-KZ-uqZ" secondAttribute="trailing" constant="1" id="qqZ-56-eYT"/>
+                                        <constraint firstItem="lP1-fi-GwI" firstAttribute="trailing" secondItem="Eyx-KZ-uqZ" secondAttribute="trailing" constant="-2" id="y6e-BR-1iG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
@@ -882,7 +885,7 @@
                                             </cells>
                                             <connections>
                                                 <outlet property="delegate" destination="VAi-2L-lOP" id="mLj-4Y-h0I"/>
-                                                <outletCollection property="gestureRecognizers" destination="Jim-by-0WL" appends="YES" id="bOT-fi-Cxb"/>
+                                                <outletCollection property="gestureRecognizers" destination="M7s-QL-kUh" appends="YES" id="Cn7-c4-eDF"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>
@@ -979,7 +982,7 @@
                                             </cells>
                                             <connections>
                                                 <outlet property="delegate" destination="VAi-2L-lOP" id="bXh-pT-FmY"/>
-                                                <outletCollection property="gestureRecognizers" destination="Jim-by-0WL" appends="YES" id="KQG-Ge-MjZ"/>
+                                                <outletCollection property="gestureRecognizers" destination="pAU-pU-ARD" appends="YES" id="Qe7-6S-Sco"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>
@@ -1021,10 +1024,28 @@
                 <customObject id="5ri-mz-AKR" customClass="MBFractalTableDataSource"/>
                 <customObject id="hrP-bc-aE6" customClass="FractalDefinitionKeyboardView"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqJ-1w-dtn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Jim-by-0WL">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Jim-by-0WL" userLabel="ReplacementRuleDrag">
                     <connections>
-                        <action selector="ruleLongPress:" destination="VAi-2L-lOP" id="MNe-fl-1Se"/>
+                        <action selector="replacementRuleLongPress:" destination="VAi-2L-lOP" id="XYj-oh-AZi"/>
                         <outlet property="delegate" destination="VAi-2L-lOP" id="Hy7-4w-guN"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="M7s-QL-kUh" userLabel="RulesSourceDrag">
+                    <connections>
+                        <action selector="rulesSourceLongPress:" destination="VAi-2L-lOP" id="Rwg-Fx-bvQ"/>
+                        <outlet property="delegate" destination="VAi-2L-lOP" id="SoR-gq-K6f"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="pAU-pU-ARD" userLabel="AxiomRuleDrag">
+                    <connections>
+                        <action selector="axiomRuleLongPress:" destination="VAi-2L-lOP" id="dpv-I7-bo8"/>
+                        <outlet property="delegate" destination="VAi-2L-lOP" id="gn0-gk-1H3"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="fJA-dJ-xyc" userLabel="PlaceholderDrag">
+                    <connections>
+                        <action selector="placeholderLongPress:" destination="VAi-2L-lOP" id="nEu-H2-xf2"/>
+                        <outlet property="delegate" destination="VAi-2L-lOP" id="M0A-By-OO3"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
