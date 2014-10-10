@@ -16,7 +16,7 @@
 -(instancetype)initWithRule:(LSDrawingRule *)rule size:(NSInteger)size {
     self = [super init];
     if (self) {
-        _size = 26.0;
+        _size = size;
         _rule = rule;
         [self updateView];
     }
@@ -24,19 +24,26 @@
 }
 -(void) updateView {
     CGRect frame = CGRectMake(0, 0, _size, _size);
+    CGFloat margin = 2.0;
+    
     self.view = [[UIView alloc] initWithFrame: frame];
     MDKLayerView* outlineView = [[MDKLayerView alloc] initWithFrame: frame];
     outlineView.borderWidth = 1.0;
     outlineView.cornerRadius = 4.0;
     outlineView.borderColor = [UIColor blueColor];
-    outlineView.margin = 2.0;
+    outlineView.margin = 0.0;
     outlineView.shadowOpacity = 0.5;
     outlineView.shadowRadius = 3.0;
+    outlineView.shadowOffset = CGPointMake(3, 3);
     outlineView.maskToBounds = NO;
-    outlineView.contentMode = UIViewContentModeScaleAspectFit;
+    outlineView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: 0.95];
+//    outlineView.contentMode = UIViewContentModeCenter;
     [self.view addSubview: outlineView];
     UIImage* ruleImage = [_rule asImage];
     UIImageView* ruleView = [[UIImageView alloc] initWithImage: ruleImage];
+    ruleView.contentMode = UIViewContentModeScaleAspectFit;
+    ruleView.frame = CGRectInset(outlineView.frame, margin, margin);
+
     if (ruleView) {
         [outlineView addSubview: ruleView];
     }

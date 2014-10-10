@@ -80,6 +80,12 @@
     }
     return _replacementDataSourcesArray;
 }
+-(NSMutableArray*)replacmentCollections {
+    if (!_replacmentCollections) {
+        _replacmentCollections = [NSMutableArray new];
+    }
+    return _replacmentCollections;
+}
 
 #pragma mark - TableDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -208,7 +214,7 @@
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
             
             newCell.collectionView.dataSource = self.rulesDataSource;
-            
+            self.rulesCollectionView = newCell.collectionView;
             //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
 #pragma message "All of the stuff below should be in cell class 'prepareForReuse' ? or when setting itemSize? of class"
             CGFloat itemSize = 46.0;
@@ -250,13 +256,5 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
-
--(IBAction)categoryInputChanged:(UITextField*)sender {
-    NSLog(@"%@", sender.text);
-}
--(IBAction)nameInputChanged:(UITextField*)sender {
-    NSLog(@"%@", sender.text);
-}
-
 
 @end

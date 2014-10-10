@@ -9,19 +9,17 @@
 #import <Foundation/Foundation.h>
 
 #import "LSFractal+addons.h"
-#import "MBFractalAxiomEditViewController.h"
 
 @interface MBFractalTableDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic,weak) NSMutableArray*                                     fractalData;
+@property (nonatomic,strong) UICollectionView*                                 rulesCollectionView;
+@property (nonatomic,strong) NSMutableArray*                                   replacmentCollections;
 
 +(instancetype) newSourceWithFractalData: (NSArray*) fractalData;
 
 -(instancetype) initWithFractalData: (NSArray*) fractal NS_DESIGNATED_INITIALIZER;
 
 -(instancetype) init;
-
-- (IBAction)categoryInputChanged:(id)sender;
-- (IBAction)nameInputChanged:(id)sender;
 
 @end
