@@ -18,6 +18,16 @@
 
 @implementation MBRuleCollectionDataSource
 
++(instancetype)newWithRules:(NSArray *)rules {
+    return [[[self class] alloc] initWithRules: rules];
+}
+-(instancetype)initWithRules:(NSArray *)rules {
+    self = [super init];
+    if (self) {
+        _rules = rules;
+    }
+    return self;
+}
 -(void) setRules:(NSArray *)rules {
     if (_rules != rules) {
         _rules = rules;

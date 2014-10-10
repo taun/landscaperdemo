@@ -368,7 +368,7 @@ static BOOL SIMULTOUCH = NO;
 -(UIViewController*) appearanceViewController {
     if (_appearanceViewController==nil) {
         _appearanceViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
-        [_appearanceViewController setPreferredContentSize: CGSizeMake(400, 408)];
+        [_appearanceViewController setPreferredContentSize: CGSizeMake(400, 500)];
         _appearanceViewController.modalPresentationStyle = UIModalPresentationPopover;
         _appearanceViewController.popoverPresentationController.passthroughViews = @[self.fractalViewLevel0,
                                                                                      self.fractalViewLevel1,

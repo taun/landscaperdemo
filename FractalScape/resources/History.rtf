@@ -40,4 +40,18 @@ Lots to do.\
 	4) 
 \f1 \uc0\u10003 
 \f0 Use paintcode to make command images rather than using fonts.\
-	5) Rather than a keyboard, have a non-scrolling bottom section of the rules popover which is a drag and drop source of commands?}
+	5) Rather than a keyboard, have a non-scrolling bottom section of the rules popover which is a drag and drop source of commands?\
+2014-10-09\
+	Have Controller be delegate\
+	add controller methods/properties which supply data source with data\
+	add controller methods/properties which supply cell for indexPath\
+		above implies dataSource collectionViews and cells come from controller and can be accessed at controller level by indexPath\
+	can fractal data be mapped to an indexPath?\
+	Fractal model as tree node\
+		Section - local properties = fractal.name, desc, ..\
+			   			fractal.axiom\
+		Section - replacement rules = replacementRules\
+		Section - Rules = fractal.drawingRulesType.rules\
+	Change rules and replacementRules to orderedSets\
+	Have array of model keys for section index and ?\
+	or pass arrayed copy of data (via delegate properties) to source and repass when changed?}

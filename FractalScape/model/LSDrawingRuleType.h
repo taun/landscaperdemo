@@ -1,9 +1,9 @@
 //
 //  LSDrawingRuleType.h
-//  FractalScape
+//  MDUiKit
 //
-//  Created by Taun Chapman on 04/02/13.
-//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 10/09/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *fractals;
-@property (nonatomic, retain) NSSet *rules;
+@property (nonatomic, retain) NSOrderedSet *rules;
 @end
 
 @interface LSDrawingRuleType (CoreDataGeneratedAccessors)
@@ -27,9 +27,14 @@
 - (void)addFractals:(NSSet *)values;
 - (void)removeFractals:(NSSet *)values;
 
+- (void)insertObject:(LSDrawingRule *)value inRulesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromRulesAtIndex:(NSUInteger)idx;
+- (void)insertRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeRulesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInRulesAtIndex:(NSUInteger)idx withObject:(LSDrawingRule *)value;
+- (void)replaceRulesAtIndexes:(NSIndexSet *)indexes withRules:(NSArray *)values;
 - (void)addRulesObject:(LSDrawingRule *)value;
 - (void)removeRulesObject:(LSDrawingRule *)value;
-- (void)addRules:(NSSet *)values;
-- (void)removeRules:(NSSet *)values;
-
+- (void)addRules:(NSOrderedSet *)values;
+- (void)removeRules:(NSOrderedSet *)values;
 @end

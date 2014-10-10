@@ -237,7 +237,14 @@
         
         NSSet* currentDefaultRules = [ruleType.rules copy];
         // COuld convert set to dictionary and ise a lookup to detect existence but not worth it for a few rules.
-        for (NSDictionary* rule in rulesArray) {
+        
+        //Sort rules before adding so orderedSet is created in desired order.
+        //Will not work as desired if rules using same indexes already exist in LSDrawingRuleType.
+        NSSortDescriptor* ruleIndexSorting = [NSSortDescriptor sortDescriptorWithKey: @"displayIndex" ascending: YES];
+        NSSortDescriptor* ruleAlphaSorting = [NSSortDescriptor sortDescriptorWithKey: @"iconIdentifierString" ascending: YES];
+        NSArray* sortedRules = [rulesArray sortedArrayUsingDescriptors: @[ruleIndexSorting,ruleAlphaSorting]];
+        
+        for (NSDictionary* rule in sortedRules) {
             BOOL alreadyExists = NO;
             
             for (NSManagedObject* existingRuleObject in currentDefaultRules) {
@@ -387,7 +394,8 @@
                                 
                                 newReplacementRule.contextString = replacementKey;
                                 newReplacementRule.replacementString = propertyValue[replacementKey];
-                                [fractal addReplacementRulesObject: newReplacementRule];
+                                NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: @"replacementRules"];
+                                [replacementRules addObject: newReplacementRule];
                             }
                         } else if ([propertyKey isEqualToString: @"drawingRulesType.identifier"]) {
                             // special case

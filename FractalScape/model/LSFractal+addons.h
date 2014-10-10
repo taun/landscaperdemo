@@ -29,25 +29,20 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(void) setLineColorFromIdentifier: (NSString*) colorIdentifier;
 -(void) setFillColorFromIdentifier: (NSString*) colorIdentifier;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *lineColorAsUI;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *fillColorAsUI;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor    *lineColorAsUI;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor    *fillColorAsUI;
 
-@property (NS_NONATOMIC_IOSONLY) double lineLengthAsDouble;
+@property (NS_NONATOMIC_IOSONLY) double                     lineLengthAsDouble;
 
-@property (NS_NONATOMIC_IOSONLY) double turningAngleAsDouble;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber *turningAngleAsDegree;
+@property (NS_NONATOMIC_IOSONLY) double                     turningAngleAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *turningAngleAsDegree;
 -(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
 
-@property (NS_NONATOMIC_IOSONLY) double turningAngleIncrementAsDouble;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber *turningAngleIncrementAsDegree;
--(void) setTurningAngleIncrementAsDegrees: (NSNumber*) newAngle;
+@property (NS_NONATOMIC_IOSONLY) double                     turningAngleIncrementAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *turningAngleIncrementAsDegree;
+-(void) setTurningAngleIncrementAsDegrees: (NSNumber*)      newAngle;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber *baseAngleAsDegree;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *baseAngleAsDegree;
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *newSortedReplacementRulesArray;
-
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary* rulesDictionary;
-
--(NSArray*) rulesArrayFromRuleString: (NSString*) ruleString;
 @end

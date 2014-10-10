@@ -12,7 +12,7 @@
         <attribute name="identifier" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="fractals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="drawingRulesType" inverseEntity="LSFractal" syncable="YES"/>
-        <relationship name="rules" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LSDrawingRule" inverseName="type" inverseEntity="LSDrawingRule" syncable="YES"/>
+        <relationship name="rules" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LSDrawingRule" inverseName="type" inverseEntity="LSDrawingRule" syncable="YES"/>
     </entity>
     <entity name="LSFractal" representedClassName="LSFractal" syncable="YES">
         <attribute name="axiom" attributeType="String" syncable="YES"/>
@@ -40,7 +40,7 @@
         <relationship name="fillColor" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalFills" inverseEntity="MBColor" syncable="YES"/>
         <relationship name="lineColor" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalLines" inverseEntity="MBColor" syncable="YES"/>
         <relationship name="placements" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBPlacedEntity" inverseName="lsFractal" inverseEntity="MBPlacedEntity" syncable="YES"/>
-        <relationship name="replacementRules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSReplacementRule" inverseName="lsFractal" inverseEntity="LSReplacementRule" syncable="YES"/>
+        <relationship name="replacementRules" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="LSReplacementRule" inverseName="lsFractal" inverseEntity="LSReplacementRule" syncable="YES"/>
     </entity>
     <entity name="LSReplacementRule" representedClassName="LSReplacementRule" syncable="YES">
         <attribute name="contextString" attributeType="String" syncable="YES"/>
@@ -80,8 +80,8 @@
     <fetchRequest name="MBColorWithIdentifier" entity="MBColor" predicateString="identifier == $MBIDENTIFIER"/>
     <elements>
         <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="118"/>
-        <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="LSFractal" positionX="160" positionY="192" width="128" height="435"/>
+        <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="118"/>
+        <element name="LSFractal" positionX="160" positionY="192" width="128" height="433"/>
         <element name="LSReplacementRule" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MBColor" positionX="160" positionY="192" width="128" height="180"/>
         <element name="MBFractalScape" positionX="160" positionY="192" width="128" height="120"/>

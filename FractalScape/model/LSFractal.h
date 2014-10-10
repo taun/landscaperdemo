@@ -1,9 +1,9 @@
 //
 //  LSFractal.h
-//  FractalScape
+//  MDUiKit
 //
-//  Created by Taun Chapman on 04/02/13.
-//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 10/09/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -29,16 +29,16 @@
 @property (nonatomic, retain) NSNumber * lineWidth;
 @property (nonatomic, retain) NSNumber * lineWidthIncrement;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * randomize;
+@property (nonatomic, retain) NSNumber * randomness;
 @property (nonatomic, retain) NSNumber * stroke;
 @property (nonatomic, retain) NSNumber * turningAngle;
 @property (nonatomic, retain) NSNumber * turningAngleIncrement;
-@property (nonatomic, retain) NSNumber * randomness;
-@property (nonatomic, retain) NSNumber * randomize;
 @property (nonatomic, retain) LSDrawingRuleType *drawingRulesType;
 @property (nonatomic, retain) MBColor *fillColor;
 @property (nonatomic, retain) MBColor *lineColor;
 @property (nonatomic, retain) NSSet *placements;
-@property (nonatomic, retain) NSSet *replacementRules;
+@property (nonatomic, retain) NSOrderedSet *replacementRules;
 @end
 
 @interface LSFractal (CoreDataGeneratedAccessors)
@@ -48,9 +48,14 @@
 - (void)addPlacements:(NSSet *)values;
 - (void)removePlacements:(NSSet *)values;
 
+- (void)insertObject:(LSReplacementRule *)value inReplacementRulesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromReplacementRulesAtIndex:(NSUInteger)idx;
+- (void)insertReplacementRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeReplacementRulesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInReplacementRulesAtIndex:(NSUInteger)idx withObject:(LSReplacementRule *)value;
+- (void)replaceReplacementRulesAtIndexes:(NSIndexSet *)indexes withReplacementRules:(NSArray *)values;
 - (void)addReplacementRulesObject:(LSReplacementRule *)value;
 - (void)removeReplacementRulesObject:(LSReplacementRule *)value;
-- (void)addReplacementRules:(NSSet *)values;
-- (void)removeReplacementRules:(NSSet *)values;
-
+- (void)addReplacementRules:(NSOrderedSet *)values;
+- (void)removeReplacementRules:(NSOrderedSet *)values;
 @end

@@ -13,13 +13,15 @@
 
 @interface MBFractalTableDataSource : NSObject <UITableViewDataSource>
 
-@property (nonatomic,weak) LSFractal*                           fractal;
-@property (nonatomic,weak) IBOutlet MBFractalAxiomEditViewController*    controller;
+@property (nonatomic,weak) NSMutableArray*                                     fractalData;
 
-+(instancetype) newSourceWithFractal: (LSFractal*) fractal;
++(instancetype) newSourceWithFractalData: (NSArray*) fractalData;
 
--(instancetype) initWithFractal: (LSFractal*) fractal NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithFractalData: (NSArray*) fractal NS_DESIGNATED_INITIALIZER;
 
 -(instancetype) init;
+
+- (IBAction)categoryInputChanged:(id)sender;
+- (IBAction)nameInputChanged:(id)sender;
 
 @end

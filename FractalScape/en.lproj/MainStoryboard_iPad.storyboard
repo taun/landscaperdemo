@@ -477,7 +477,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="PropertiesPopover" title="Properties" definesPresentationContext="YES" id="VAi-2L-lOP" customClass="MBFractalAxiomEditViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dni-f2-BXO" customClass="MDKUITableViewDynamicRowHeights">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="359"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.74506729014598538" green="0.0" blue="0.0" alpha="0.66000000000000003" colorSpace="calibratedRGB"/>
@@ -515,6 +515,11 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="nameInputChanged:" destination="VAi-2L-lOP" eventType="editingChanged" id="gng-XX-C4v"/>
+                                                <action selector="nameInputDidEnd:" destination="VAi-2L-lOP" eventType="editingDidEnd" id="J48-u6-rkv"/>
+                                                <outlet property="delegate" destination="VAi-2L-lOP" id="iv9-uL-IVE"/>
+                                            </connections>
                                         </textField>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rd1-Bk-Upw">
                                             <rect key="frame" x="20" y="12" width="45.5" height="20.5"/>
@@ -560,6 +565,11 @@
                                             <rect key="frame" x="98.5" y="7" width="281.5" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="categoryInputChanged:" destination="VAi-2L-lOP" eventType="editingChanged" id="lgM-pD-RqG"/>
+                                                <action selector="categoryInputDidEnd:" destination="VAi-2L-lOP" eventType="editingDidEnd" id="LQ4-2S-Y3S"/>
+                                                <outlet property="delegate" destination="VAi-2L-lOP" id="chh-AH-cY4"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -602,6 +612,9 @@
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="VAi-2L-lOP" id="Lua-rt-Oaj"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -764,6 +777,9 @@
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="Jim-by-0WL" appends="YES" id="JAq-Wb-L2j"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <constraints>
@@ -865,6 +881,7 @@
                                                 </collectionViewCell>
                                             </cells>
                                             <connections>
+                                                <outlet property="delegate" destination="VAi-2L-lOP" id="mLj-4Y-h0I"/>
                                                 <outletCollection property="gestureRecognizers" destination="Jim-by-0WL" appends="YES" id="bOT-fi-Cxb"/>
                                             </connections>
                                         </collectionView>
@@ -960,6 +977,10 @@
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
+                                            <connections>
+                                                <outlet property="delegate" destination="VAi-2L-lOP" id="bXh-pT-FmY"/>
+                                                <outletCollection property="gestureRecognizers" destination="Jim-by-0WL" appends="YES" id="KQG-Ge-MjZ"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <constraints>
@@ -980,7 +1001,7 @@
                         <sections/>
                         <connections>
                             <outlet property="dataSource" destination="5ri-mz-AKR" id="ctr-87-cqO"/>
-                            <outlet property="delegate" destination="5ri-mz-AKR" id="8Ui-oe-Wl8"/>
+                            <outlet property="delegate" destination="VAi-2L-lOP" id="5Ad-Yu-3eV"/>
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -991,17 +1012,13 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="408"/>
+                    <size key="freeformSize" width="400" height="500"/>
                     <connections>
                         <outlet property="fractalTableSource" destination="5ri-mz-AKR" id="GQs-ta-7Ya"/>
                     </connections>
                 </tableViewController>
                 <customObject id="Rjd-15-VLu" customClass="FractalScapeIconSet"/>
-                <customObject id="5ri-mz-AKR" customClass="MBFractalTableDataSource">
-                    <connections>
-                        <outlet property="controller" destination="VAi-2L-lOP" id="jBs-5w-93S"/>
-                    </connections>
-                </customObject>
+                <customObject id="5ri-mz-AKR" customClass="MBFractalTableDataSource"/>
                 <customObject id="hrP-bc-aE6" customClass="FractalDefinitionKeyboardView"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqJ-1w-dtn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Jim-by-0WL">
@@ -1011,7 +1028,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6905" y="-764.5"/>
+            <point key="canvasLocation" x="6688" y="-212"/>
         </scene>
         <!--Line Segments-->
         <scene sceneID="AoQ-mK-Ne2">
@@ -1022,11 +1039,11 @@
                         <viewControllerLayoutGuide type="bottom" id="9ql-HA-CPu"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="top" id="ei1-2X-rGK">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="367"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="BLQ-6L-OHf" userLabel="Appearance Scroll View">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="367"/>
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzI-MX-qrI">
                                         <rect key="frame" x="20" y="20" width="360" height="185"/>
@@ -1336,7 +1353,7 @@
                     <tabBarItem key="tabBarItem" title="Line Segments" image="tabBarLinePropertiesIcon" id="dHW-xy-0Vv"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="416"/>
+                    <size key="freeformSize" width="400" height="500"/>
                     <connections>
                         <outlet property="fillEvenOddSwitch" destination="hMZ-KP-Kvr" id="gQi-zz-Gvh"/>
                         <outlet property="fillSwitch" destination="qUX-fY-Mbz" id="JiW-ck-l8p"/>
@@ -1356,14 +1373,14 @@
                 <customObject id="n7o-vg-l7l" customClass="FractalScapeIconSet"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6905" y="-298"/>
+            <point key="canvasLocation" x="7122" y="-212"/>
         </scene>
         <!--Fill Colors-->
         <scene sceneID="ahc-Pz-mGd">
             <objects>
                 <viewController storyboardIdentifier="FillColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBFractalFillColorViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="oGc-CD-mGf">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C4h-zc-Fd7">
@@ -1418,7 +1435,7 @@
                     <tabBarItem key="tabBarItem" title="Fill Colors" image="tabBarFillColorIcon" id="XzP-vF-Qi5"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="400"/>
+                    <size key="freeformSize" width="400" height="500"/>
                     <connections>
                         <outlet property="colorCollectionView" destination="oGc-CD-mGf" id="95W-Uc-juv"/>
                     </connections>
@@ -1426,14 +1443,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="6ep-nf-v8a" customClass="FractalScapeIconSet"/>
             </objects>
-            <point key="canvasLocation" x="6905" y="671"/>
+            <point key="canvasLocation" x="7122" y="349"/>
         </scene>
         <!--Line Colors-->
         <scene sceneID="Qnc-2Z-7h3">
             <objects>
                 <viewController storyboardIdentifier="StrokeColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TSZ-NG-w8m" customClass="MBFractalStrokeColorViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="549" verticalHuggingPriority="574" horizontalCompressionResistancePriority="384" verticalCompressionResistancePriority="384" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="wYq-wQ-gO2">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="420"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pTA-8R-u0K">
@@ -1487,7 +1504,7 @@
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Line Colors" image="tabBarLineColorIcon" id="fRh-xF-oTr"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="420"/>
+                    <size key="freeformSize" width="400" height="500"/>
                     <connections>
                         <outlet property="colorCollectionView" destination="wYq-wQ-gO2" id="tR5-wH-tHy"/>
                     </connections>
@@ -1495,13 +1512,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ln-qV-G96" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="JE5-q7-SfG" customClass="FractalScapeIconSet"/>
             </objects>
-            <point key="canvasLocation" x="6905" y="180"/>
+            <point key="canvasLocation" x="6688" y="349"/>
         </scene>
         <!--Fractal Appearance Editor View Controller-->
         <scene sceneID="vbC-pS-Rbr">
             <objects>
                 <tabBarController storyboardIdentifier="AppearancePopover" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="frN-XI-f6b" customClass="MBFractalAppearanceEditorViewController" sceneMemberID="viewController">
-                    <value key="contentSizeForViewInPopover" type="size" width="400" height="400"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="400" height="500"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

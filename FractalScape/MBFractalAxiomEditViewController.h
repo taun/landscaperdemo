@@ -20,9 +20,9 @@
                                                                         UITextViewDelegate,
                                                                         MBLSRuleTableViewCellDelegate,
                                                                         FractalDefinitionKVCDelegate>
-{
-    __strong NSArray        *_sortedReplacementRulesArray;
-}
+//{
+//    __strong NSArray        *_sortedReplacementRulesArray;
+//}
 
 @property (nonatomic,weak) LSFractal                                *fractal;
 @property (nonatomic,weak) NSUndoManager                            *fractalUndoManager;
@@ -30,7 +30,7 @@
 
 #pragma mark - Production Fields
 
-@property (nonatomic, readonly) NSArray                                 *sortedReplacementRulesArray;
+//@property (nonatomic, readonly) NSArray                                 *sortedReplacementRulesArray;
 
 /*!
  Custom keyboard for inputting fractal axioms and rules.
@@ -50,9 +50,11 @@
 #pragma mark - Production Control Actions
 - (IBAction)axiomInputChanged:(UITextField*)sender;
 - (IBAction)axiomInputEnded:(UITextField*)sender;
+- (IBAction)nameInputDidEnd:(UITextField*)sender;
 - (IBAction)nameInputChanged:(id)sender;
 - (IBAction)descriptorInputChanged:(id)sender;
 - (IBAction)categoryInputChanged:(id)sender;
+- (IBAction)categoryInputDidEnd:(UITextField*)sender;
 - (IBAction)ruleLongPress:(UILongPressGestureRecognizer *)sender;
 
 @end

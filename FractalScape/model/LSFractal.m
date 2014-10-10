@@ -1,9 +1,9 @@
 //
 //  LSFractal.m
-//  FractalScape
+//  MDUiKit
 //
-//  Created by Taun Chapman on 04/02/13.
-//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 10/09/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "LSFractal.h"
@@ -31,11 +31,11 @@
 @dynamic lineWidth;
 @dynamic lineWidthIncrement;
 @dynamic name;
+@dynamic randomize;
+@dynamic randomness;
 @dynamic stroke;
 @dynamic turningAngle;
 @dynamic turningAngleIncrement;
-@dynamic randomness;
-@dynamic randomize;
 @dynamic drawingRulesType;
 @dynamic fillColor;
 @dynamic lineColor;

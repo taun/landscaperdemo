@@ -141,10 +141,11 @@
             id value = [self valueForKey: aKey];
             [fractalCopy setValue: value forKey: aKey];
         }
-        NSSet* rules = self.replacementRules;
+        NSOrderedSet* rules = self.replacementRules;
         
+        NSMutableOrderedSet* replacementRules = [fractalCopy mutableOrderedSetValueForKey: @"replacementRules"];
         for (LSReplacementRule* rule in rules) {
-            [fractalCopy addReplacementRulesObject: [rule mutableCopy]];
+            [replacementRules addObject: [rule mutableCopy]];
         }
         
         NSString* newName = [NSString stringWithFormat:@"%@ copy",[self valueForKey: @"name"]];
@@ -221,42 +222,6 @@
 -(void) setBaseAngleAsDegrees:(NSNumber*)newAngle {
     double inRadians = radians([newAngle doubleValue]);
     self.baseAngle = @(inRadians);
-}
--(NSArray*) newSortedReplacementRulesArray {
-    NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey: @"contextString" ascending: YES];
-    NSArray* descriptors = @[sort];
-    NSArray* sortedRules = [self.replacementRules sortedArrayUsingDescriptors: descriptors];
-    return sortedRules;
-}
--(NSDictionary*) rulesDictionary {
-    NSSet* rules = self.drawingRulesType.rules;
-    
-    NSMutableDictionary* rulesDict = [[NSMutableDictionary alloc] initWithCapacity: rules.count];
-    for (LSDrawingRule* rule in rules) {
-        //
-        rulesDict[rule.productionString] = rule;
-    }
-    return [rulesDict copy];
-}
--(NSArray*) rulesArrayFromRuleString: (NSString*) ruleString {
-    NSInteger sourceLength = ruleString.length;
-    
-    NSDictionary* rulesDict = self.rulesDictionary;
-
-    NSMutableArray* rulesArray = [[NSMutableArray alloc] initWithCapacity: sourceLength];
-    
-    for (int y=0; y < sourceLength; y++) {
-        //
-        NSString* key = [ruleString substringWithRange: NSMakeRange(y, 1)];
-        
-        LSDrawingRule* rule = rulesDict[key];
-        
-        if (rule) {
-            [rulesArray addObject: rule];
-        }
-        
-    }
-    return [rulesArray copy];
 }
 
 @end
