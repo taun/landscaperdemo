@@ -14,7 +14,7 @@
 
 @property (nonatomic,strong) NSArray* rules;
 
-+(instancetype)newWithRules: (NSArray*) rules;
--(instancetype)initWithRules: (NSArray*) rules;
++(instancetype)newWithRules: (NSMutableArray*) rules;
+-(instancetype)initWithRules: (NSMutableArray*) rules;
 
 @end

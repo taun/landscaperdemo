@@ -60,4 +60,7 @@
         [self updateView];
     }
 }
+-(UIImage*)asImage {
+    return [self.rule asImage];
+}
 @end

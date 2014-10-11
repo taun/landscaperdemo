@@ -26,6 +26,7 @@
  Size of the draggable view.
  */
 @property (nonatomic,assign) CGFloat                            size;
+@property (nonatomic,readonly) UIImage                          *asImage;
 /*!
  Convenience class method.
  

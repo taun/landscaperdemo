@@ -68,8 +68,8 @@
         _rulesDataSource = [MBRuleCollectionDataSource newWithRules: rulesSection.data[0]];
         
         MBAxiomEditorTableSection* replacementSection = fractalData[TableSectionsReplacement];
-        _replacmentCollections = [NSPointerArray pointerArrayWithOptions: NSPointerFunctionsWeakMemory];
-        [_replacmentCollections setCount: replacementSection.data.count];
+        _replacementCollections = [NSPointerArray pointerArrayWithOptions: NSPointerFunctionsWeakMemory];
+        [_replacementCollections setCount: replacementSection.data.count];
     }
 }
 -(NSMutableDictionary*) rulesCollectionsDict {
@@ -184,7 +184,7 @@
             }
             replacementRulesSource.rules = tableSectionData[indexPath.row][1];
             newCell.rightCollectionView.dataSource = replacementRulesSource;
-            [self.replacmentCollections replacePointerAtIndex: indexPath.row withPointer: (__bridge void *)(newCell.rightCollectionView)];
+            [self.replacementCollections replacePointerAtIndex: indexPath.row withPointer: (__bridge void *)(newCell.rightCollectionView)];
             //        newCell.rightCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
             CGFloat itemSize = 26.0;
             CGFloat itemMargin = 2.0;

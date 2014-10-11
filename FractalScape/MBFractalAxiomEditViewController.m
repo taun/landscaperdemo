@@ -35,6 +35,8 @@
 @property (nonatomic,strong) NSMutableArray                     *fractalTableData;
 @property (nonatomic,assign) BOOL                               fractalDataChanged;
 @property (nonatomic,strong) MBDraggingRule                     *draggingRule;
+@property (nonatomic,strong) NSMutableArray                     *lastDragDestinationArray;
+@property (nonatomic,strong) UICollectionView                   *lastDragDestinationCollection;
 
 -(void) addReplacementRulesObserverFor: (LSFractal*)fractal;
 -(void) removeReplacementRulesObserverFor: (LSFractal*)fractal;
@@ -123,7 +125,8 @@
         NSMutableArray* repRuleObjects = [NSMutableArray new];
         NSOrderedSet* repRules = self.fractal.replacementRules;
         for (LSReplacementRule* repRule in repRules) {
-            NSArray* repRuleObject = @[self.cachedRulesDictionary[repRule.contextString],[self.fractal.drawingRulesType rulesArrayFromRuleString: repRule.replacementString]];
+            NSMutableArray* repRuleObject = [NSMutableArray arrayWithObjects: self.cachedRulesDictionary[repRule.contextString],
+                                             [[self.fractal.drawingRulesType rulesArrayFromRuleString: repRule.replacementString]mutableCopy], nil];
             [repRuleObjects addObject: repRuleObject];
         }
         replace.data = [repRuleObjects copy];
@@ -352,7 +355,17 @@
 //-(IBAction)axiomInputEnded:(UITextField*)sender {
 //    // update rule editing table?
 //}
-
+/*!
+ Each longGesture recognizer is associated with a particular source of rules. 
+ This avoids needing to detect the initial location of the touch and simplifies the code.
+ 
+ The following is in spacial order of the table fields.
+ @param sender UILongPressGestureRecognizer
+ */
+- (IBAction)axiomRuleLongPress:(id)sender {
+}
+- (IBAction)placeholderLongPress:(id)sender {
+}
 - (IBAction)replacementRuleLongPress:(UILongPressGestureRecognizer *)sender {
     CGPoint fingerOffset = CGPointMake(-10.0, -40.0);
     CGPoint rawLoc = [sender locationInView: self.tableView];
@@ -412,7 +425,7 @@
             // We are starting the drag in the rules collection
             // Get the rules collection index
 #pragma message "TODO need to test for cell drag source leftImage or rightCollection"
-            NSPointerArray* collections = self.fractalTableSource.replacmentCollections;
+            NSPointerArray* collections = self.fractalTableSource.replacementCollections;
             UICollectionView* sourceCollection = [collections pointerAtIndex: tableRawRow];
             
             CGPoint collectionLoc = [self.tableView convertPoint: rawLoc toView: sourceCollection];
@@ -438,6 +451,8 @@
                 }
                 if (tableInsertionRow == 1) {
                     // Replaement rules collection
+                    
+//                    UICollectionView* replacementRulesCollection = self.fractalTableSource.replacementCollections[
 //                    NSIndexPath* insertionIndexPath = [replacementRulesCollection indexPathForItemAtPoint: loc];
 //                    NSInteger section = insertionIndexPath.section;
 //                    NSInteger row = insertionIndexPath.row;
@@ -458,9 +473,6 @@
 - (IBAction)rulesSourceLongPress:(UILongPressGestureRecognizer *)sender {
     CGPoint fingerOffset = CGPointMake(-10.0, -40.0);
     CGPoint rawLoc = [sender locationInView: self.tableView];
-    NSIndexPath* tableRawIndex = [self.tableView indexPathForRowAtPoint: rawLoc];
-    NSInteger tableRawSection = tableRawIndex.section;
-    NSInteger tableRawRow = tableRawIndex.row;
     
     CGRect tableBounds = self.tableView.bounds;
     CGPoint loc = CGPointZero;
@@ -496,37 +508,18 @@
     UIGestureRecognizerState gestureState = sender.state;
     if (gestureState == UIGestureRecognizerStateBegan) {
         //
-        MBAxiomEditorTableSection* tableSection = self.fractalTableData[tableRawSection];
-        if (tableRawSection == TableSectionsRules) {
-            // We are starting the drag in the rules collection
-            // Get the rules collection index
-            UICollectionView* sourceCollection = self.fractalTableSource.rulesCollectionView;
-            CGPoint collectionLoc = [self.tableView convertPoint: rawLoc toView: sourceCollection];
-            NSIndexPath* rulesCollectionIndex = [sourceCollection indexPathForItemAtPoint: collectionLoc];
-            NSInteger rulesSection = rulesCollectionIndex.section;
-            NSInteger rulesRow = rulesCollectionIndex.row;
-            LSDrawingRule* draggedRule = tableSection.data[rulesSection][rulesRow];
-            self.draggingRule = [MBDraggingRule newWithRule: draggedRule size: 30];
-            [self.tableView addSubview: self.draggingRule.view];
-            self.draggingRule.view.center = loc;
-        }
-        if (tableRawSection == TableSectionsReplacement) {
-            // We are starting the drag in the rules collection
-            // Get the rules collection index
-#pragma message "TODO need to test for cell drag source leftImage or rightCollection"
-            NSPointerArray* collections = self.fractalTableSource.replacmentCollections;
-            UICollectionView* sourceCollection = [collections pointerAtIndex: tableRawRow];
-            
-            CGPoint collectionLoc = [self.tableView convertPoint: rawLoc toView: sourceCollection];
-            NSIndexPath* rulesCollectionIndex = [sourceCollection indexPathForItemAtPoint: collectionLoc];
-            NSInteger rulesSection = rulesCollectionIndex.section;
-            NSInteger rulesRow = rulesCollectionIndex.row;
-            // 1 below selects rightCollection
-            LSDrawingRule* draggedRule = tableSection.data[tableRawRow][1][rulesRow];
-            self.draggingRule = [MBDraggingRule newWithRule: draggedRule size: 30];
-            [self.tableView addSubview: self.draggingRule.view];
-            self.draggingRule.view.center = loc;
-        }
+        MBAxiomEditorTableSection* tableSection = self.fractalTableData[TableSectionsRules];
+        // We are starting the drag in the rules collection
+        // Get the rules collection index
+        UICollectionView* sourceCollection = self.fractalTableSource.rulesCollectionView;
+        CGPoint collectionLoc = [self.tableView convertPoint: rawLoc toView: sourceCollection];
+        NSIndexPath* rulesCollectionIndex = [sourceCollection indexPathForItemAtPoint: collectionLoc];
+        NSInteger rulesSection = rulesCollectionIndex.section;
+        NSInteger rulesRow = rulesCollectionIndex.row;
+        LSDrawingRule* draggedRule = tableSection.data[rulesSection][rulesRow];
+        self.draggingRule = [MBDraggingRule newWithRule: draggedRule size: 30];
+        [self.tableView addSubview: self.draggingRule.view];
+        self.draggingRule.view.center = loc;
         
     } else if (gestureState == UIGestureRecognizerStateChanged) {
         if (self.draggingRule) {
@@ -535,15 +528,53 @@
                 //
                 
                 if (tableInsertionRow == 0) {
-                    // Replacment placeholder image
+                    // Replacment rules row 0
                     
                 }
                 if (tableInsertionRow == 1) {
-                    // Replaement rules collection
-                    //                    NSIndexPath* insertionIndexPath = [replacementRulesCollection indexPathForItemAtPoint: loc];
-                    //                    NSInteger section = insertionIndexPath.section;
-                    //                    NSInteger row = insertionIndexPath.row;
+                    // Replacment rules row 0
+#pragma message "TODO use [self.tableView cellForRowAtIndexPath: tableInsertionIndex] then get the collection and image from the cell"
+                    MBAxiomEditorTableSection* tableReplacementSection = self.fractalTableData[TableSectionsReplacement];
+                    NSPointerArray* collections = self.fractalTableSource.replacementCollections;
+                    UICollectionView* sourceCollection = [collections pointerAtIndex: tableInsertionRow];
+                    
+                    CGPoint collectionLoc = [self.tableView convertPoint: loc toView: sourceCollection];
+                    NSIndexPath* rulesCollectionIndex = [sourceCollection indexPathForItemAtPoint: collectionLoc];
+                    if (rulesCollectionIndex) {
+                        NSInteger rulesSection = rulesCollectionIndex.section;
+                        NSInteger rulesRow = rulesCollectionIndex.row;
+//                        UICollectionViewLayoutAttributes* cellAttributes = [sourceCollection layoutAttributesForItemAtIndexPath: rulesCollectionIndex];
+//                        cellAttributes.center = CGPointMake(cellAttributes.center.x + 30, cellAttributes.center.y);
+//                        [[sourceCollection collectionViewLayout] invalidateLayout];
+//                        [sourceCollection reloadItemsAtIndexPaths: @[rulesCollectionIndex]];
+                        // 1 below selects rightCollection
+//                        UICollectionViewCell* cellUnderGesture = [sourceCollection cellForItemAtIndexPath: rulesCollectionIndex];
+//                        cellUnderGesture.center = CGPointMake(cellUnderGesture.center.x+30, cellUnderGesture.center.y);
+                        NSMutableArray* replacementRulesArray = tableReplacementSection.data[tableInsertionRow][1];
+                        LSDrawingRule* ruleUnderGesture = replacementRulesArray[rulesRow];
+                        if (![ruleUnderGesture isKindOfClass: [MBDraggingRule class]]) {
+                            [replacementRulesArray removeObject: self.draggingRule];
+                            [replacementRulesArray insertObject: self.draggingRule atIndex: rulesRow];
+                            [sourceCollection reloadData];
+                            self.lastDragDestinationArray = replacementRulesArray;
+                            self.lastDragDestinationCollection = sourceCollection;
+                        }
+                    }
+                    // [rulesRow]
+                    // Need a blank placeholder rule cell to show insertion point
+                    // Need to check if we are over a blank insertion rule and if so, do nothing.
+                    // Need to remove or move blank cell as gesture moves.
+                    // Use UICollectionLayoutAttributes to create insertion point?
+                    // Keep track of item to remove attribute is move changes or is cancelled?
                 }
+            } else {
+                if (self.lastDragDestinationArray && self.draggingRule) {
+                    [self.lastDragDestinationArray removeObject: self.draggingRule];
+                    self.lastDragDestinationArray = nil;
+                    [self.lastDragDestinationCollection reloadData];
+                    self.lastDragDestinationCollection = nil;
+                }
+
             }
             
         }
@@ -557,11 +588,6 @@
     }
 }
 
-- (IBAction)axiomRuleLongPress:(id)sender {
-}
-
-- (IBAction)placeholderLongPress:(id)sender {
-}
 - (void)saveContext
 {
     NSError *error = nil;
