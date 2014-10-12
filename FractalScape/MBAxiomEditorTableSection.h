@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, enumTableSections) {
 @property (nonatomic,strong) NSString       *title;
 @property (nonatomic,assign) BOOL           shouldIndentWhileEditing;
 @property (nonatomic,assign) BOOL           canEditRow;
-@property (nonatomic,strong) NSArray        *data;
+@property (nonatomic,strong) NSMutableArray *data;
 
 +(instancetype) newWithTitle: (NSString*) title;
 -(instancetype) initWithTItle: (NSString*) title;

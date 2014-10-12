@@ -400,46 +400,46 @@ static BOOL SIMULTOUCH = NO;
 //}
 
 
-#pragma message "Unused"
--(UIBarButtonItem*) cancelButtonItem {
-    if (_cancelButtonItem == nil) {
-        _cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel 
-                                                                          target:self 
-                                                                          action:@selector(cancelEdit:)];
-        
-    }
-    return _cancelButtonItem;
-}
-#pragma message "Unused"
--(UIBarButtonItem*) undoButtonItem {
-    if (_undoButtonItem == nil) {
-        _undoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemUndo 
-                                                                        target:self 
-                                                                        action:@selector(undoEdit:)];
-    }
-    return _undoButtonItem;
-}
-
-#pragma message "Unused"
--(UIBarButtonItem*) redoButtonItem {
-    if (_redoButtonItem == nil) {
-        _redoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemRedo 
-                                                                        target:self 
-                                                                        action:@selector(redoEdit:)];
-    }
-    return _redoButtonItem;
-}
-
-#pragma message "Unused"
--(UIBarButtonItem*) spaceButtonItem {
-    if (_spaceButtonItem == nil) {
-        _spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace
-                                                                         target:self
-                                                                         action:nil];
-        _spaceButtonItem.width = 10.0;
-    }
-    return _spaceButtonItem;
-}
+//#pragma message "Unused"
+//-(UIBarButtonItem*) cancelButtonItem {
+//    if (_cancelButtonItem == nil) {
+//        _cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel 
+//                                                                          target:self 
+//                                                                          action:@selector(cancelEdit:)];
+//        
+//    }
+//    return _cancelButtonItem;
+//}
+//#pragma message "Unused"
+//-(UIBarButtonItem*) undoButtonItem {
+//    if (_undoButtonItem == nil) {
+//        _undoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemUndo 
+//                                                                        target:self 
+//                                                                        action:@selector(undoEdit:)];
+//    }
+//    return _undoButtonItem;
+//}
+//
+//#pragma message "Unused"
+//-(UIBarButtonItem*) redoButtonItem {
+//    if (_redoButtonItem == nil) {
+//        _redoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemRedo 
+//                                                                        target:self 
+//                                                                        action:@selector(redoEdit:)];
+//    }
+//    return _redoButtonItem;
+//}
+//
+//#pragma message "Unused"
+//-(UIBarButtonItem*) spaceButtonItem {
+//    if (_spaceButtonItem == nil) {
+//        _spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace
+//                                                                         target:self
+//                                                                         action:nil];
+//        _spaceButtonItem.width = 10.0;
+//    }
+//    return _spaceButtonItem;
+//}
 
 //-(UIPopoverController*) colorPopover {
 //    if (_colorPopover == nil) {

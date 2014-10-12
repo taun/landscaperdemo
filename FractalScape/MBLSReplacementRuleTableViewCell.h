@@ -12,7 +12,7 @@
 
 @interface MBLSReplacementRuleTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
-@property (weak, nonatomic) IBOutlet MDKUICollectionViewScrollContentSized *rightCollectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *customImageView;
+@property (weak, nonatomic) IBOutlet MDKUICollectionViewScrollContentSized *collectionView;
 
 @end

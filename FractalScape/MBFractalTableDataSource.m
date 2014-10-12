@@ -26,11 +26,11 @@
 
 @interface MBFractalTableDataSource ()
 
-@property (nonatomic,strong) MBRuleCollectionDataSource     *axiomDataSource;
-@property (nonatomic,strong) MBRuleCollectionDataSource     *rulesDataSource;
+@property (nonatomic,strong) MBRuleCollectionDataSource     *cachedAxiomDataSource;
+@property (nonatomic,strong) MBRuleCollectionDataSource     *cachedRulesDataSource;
 
-@property (nonatomic,strong) NSMutableDictionary            *rulesCollectionsDict;
-@property (nonatomic,strong) NSMutableArray                 *replacementDataSourcesArray;
+@property (nonatomic,strong) NSMutableDictionary            *cachedRulesCollectionsDict;
+@property (nonatomic,strong) NSMutableArray                 *cachedReplacementDataSourcesArray;
 
 @end
 
@@ -61,28 +61,36 @@
     if (_fractalData != fractalData) {
         _fractalData = fractalData;
         
-        MBAxiomEditorTableSection* axiomSection = fractalData[TableSectionsAxiom];
-        _axiomDataSource = [MBRuleCollectionDataSource newWithRules: axiomSection.data];
-
-        MBAxiomEditorTableSection* rulesSection = fractalData[TableSectionsRules];
-        _rulesDataSource = [MBRuleCollectionDataSource newWithRules: rulesSection.data[0]];
-        
-        MBAxiomEditorTableSection* replacementSection = fractalData[TableSectionsReplacement];
-        _replacementCollections = [NSPointerArray pointerArrayWithOptions: NSPointerFunctionsWeakMemory];
-        [_replacementCollections setCount: replacementSection.data.count];
+        if (_fractalData) {
+            MBAxiomEditorTableSection* axiomSection = fractalData[TableSectionsAxiom];
+            _cachedAxiomDataSource = [MBRuleCollectionDataSource newWithRules: axiomSection.data[0]];
+            
+            MBAxiomEditorTableSection* rulesSection = fractalData[TableSectionsRules];
+            _cachedRulesDataSource = [MBRuleCollectionDataSource newWithRules: rulesSection.data[0]];
+            
+            MBAxiomEditorTableSection* replacementSection = fractalData[TableSectionsReplacement];
+            _cachedReplacementCollections = [NSPointerArray pointerArrayWithOptions: NSPointerFunctionsWeakMemory];
+            [_cachedReplacementCollections setCount: replacementSection.data.count];
+        } else {
+            _cachedAxiomDataSource = nil;
+            _cachedRulesDataSource = nil;
+            _cachedReplacementCollections = nil;
+            _cachedRulesCollectionsDict = nil;
+            _cachedReplacementDataSourcesArray = nil;
+        }
     }
 }
--(NSMutableDictionary*) rulesCollectionsDict {
-    if (!_rulesCollectionsDict) {
-        _rulesCollectionsDict = [NSMutableDictionary new];
+-(NSMutableDictionary*) cachedRulesCollectionsDict {
+    if (!_cachedRulesCollectionsDict) {
+        _cachedRulesCollectionsDict = [NSMutableDictionary new];
     }
-    return _rulesCollectionsDict;
+    return _cachedRulesCollectionsDict;
 }
--(NSMutableArray*)replacementDataSourcesArray {
-    if (!_replacementDataSourcesArray) {
-        _replacementDataSourcesArray = [NSMutableArray new];
+-(NSMutableArray*)cachedReplacementDataSourcesArray {
+    if (!_cachedReplacementDataSourcesArray) {
+        _cachedReplacementDataSourcesArray = [NSMutableArray new];
     }
-    return _replacementDataSourcesArray;
+    return _cachedReplacementDataSourcesArray;
 }
 
 #pragma mark - TableDataSource
@@ -141,7 +149,7 @@
         if (!newCell) {
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier forIndexPath: indexPath];
             
-            newCell.collectionView.dataSource = self.axiomDataSource;
+            newCell.collectionView.dataSource = self.cachedAxiomDataSource;
             //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
             
             CGFloat itemSize = 26.0;
@@ -171,35 +179,35 @@
         if (!newCell) {
             newCell = [tableView dequeueReusableCellWithIdentifier: ReplacementRuleCellIdentifier forIndexPath: indexPath];
             
-            newCell.leftImageView.image = [tableSectionData[indexPath.row][0] asImage];
+            newCell.customImageView.image = [tableSectionData[indexPath.row][0] asImage];
             
             MBRuleCollectionDataSource* replacementRulesSource;
-            if (self.replacementDataSourcesArray.count > indexPath.row) {
+            if (self.cachedReplacementDataSourcesArray.count > indexPath.row) {
                 // already has a source
-                replacementRulesSource = self.replacementDataSourcesArray[indexPath.row];
+                replacementRulesSource = self.cachedReplacementDataSourcesArray[indexPath.row];
             } else {
                 replacementRulesSource = [MBRuleCollectionDataSource new];
-                self.replacementDataSourcesArray[indexPath.row] = replacementRulesSource;
+                self.cachedReplacementDataSourcesArray[indexPath.row] = replacementRulesSource;
 #pragma message "TODO remember to remove the replacementRuleSource when deleting the cell"
             }
             replacementRulesSource.rules = tableSectionData[indexPath.row][1];
-            newCell.rightCollectionView.dataSource = replacementRulesSource;
-            [self.replacementCollections replacePointerAtIndex: indexPath.row withPointer: (__bridge void *)(newCell.rightCollectionView)];
+            newCell.collectionView.dataSource = replacementRulesSource;
+            [self.cachedReplacementCollections replacePointerAtIndex: indexPath.row withPointer: (__bridge void *)(newCell.collectionView)];
             //        newCell.rightCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
             CGFloat itemSize = 26.0;
             CGFloat itemMargin = 2.0;
-            NSInteger items = [newCell.rightCollectionView numberOfItemsInSection: 0];
-            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.rightCollectionView.collectionViewLayout;
+            NSInteger items = [newCell.collectionView numberOfItemsInSection: 0];
+            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
             layout.itemSize = CGSizeMake(itemSize, itemSize);
             layout.minimumLineSpacing = itemMargin;
             layout.minimumInteritemSpacing = itemMargin;
             NSInteger rows = floorf(items/9.0) + 1;
             CGFloat height = rows*(itemSize+itemMargin);
-            newCell.rightCollectionView.currentHeightConstraint.constant = height;
-            CGSize currentSize = newCell.rightCollectionView.contentSize;
-            newCell.rightCollectionView.contentSize = CGSizeMake(currentSize.width, height);
-            [newCell.rightCollectionView reloadData];
-            [newCell.rightCollectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
+            newCell.collectionView.currentHeightConstraint.constant = height;
+            CGSize currentSize = newCell.collectionView.contentSize;
+            newCell.collectionView.contentSize = CGSizeMake(currentSize.width, height);
+            [newCell.collectionView reloadData];
+            [newCell.collectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
         }
         
         cell = newCell;
@@ -212,7 +220,7 @@
         if (!newCell) {
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
             
-            newCell.collectionView.dataSource = self.rulesDataSource;
+            newCell.collectionView.dataSource = self.cachedRulesDataSource;
             self.rulesCollectionView = newCell.collectionView;
             //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
 #pragma message "All of the stuff below should be in cell class 'prepareForReuse' ? or when setting itemSize? of class"

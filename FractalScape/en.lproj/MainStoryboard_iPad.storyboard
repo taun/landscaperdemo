@@ -799,11 +799,12 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
+                                    <accessibilityTraits key="traits" none="YES"/>
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                                 <connections>
-                                    <outlet property="leftImageView" destination="Ffk-kI-tOa" id="urT-s6-mb9"/>
-                                    <outlet property="rightCollectionView" destination="lP1-fi-GwI" id="poN-Tq-oPK"/>
+                                    <outlet property="collectionView" destination="lP1-fi-GwI" id="BbX-JB-Ovg"/>
+                                    <outlet property="customImageView" destination="Ffk-kI-tOa" id="5c8-cK-Tqk"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleCollectionTableCell" rowHeight="54" id="FFF-WA-aWO" customClass="MBLSRuleCollectionTableViewCell">

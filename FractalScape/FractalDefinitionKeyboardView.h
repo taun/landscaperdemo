@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#pragma message "TODO remove fractal definition keyboard classes and references. Replaced by drag and drop."
 /*!
  L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
  F: Move forward by line length drawing a line

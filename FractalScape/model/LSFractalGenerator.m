@@ -455,7 +455,7 @@
 -(NSMutableDictionary*) cachedDrawingRules {
     if (_cachedDrawingRules == nil) {
         
-        NSSet* rules = self.privateFractal.drawingRulesType.rules;
+        NSOrderedSet* rules = self.privateFractal.drawingRulesType.rules;
         NSUInteger ruleCount = [rules count];
         NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] initWithCapacity: ruleCount];
         

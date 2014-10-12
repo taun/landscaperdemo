@@ -17,9 +17,7 @@
                                                                         UICollectionViewDelegate,
                                                                         UIGestureRecognizerDelegate,
                                                                         UITextFieldDelegate,
-                                                                        UITextViewDelegate,
-                                                                        MBLSRuleTableViewCellDelegate,
-                                                                        FractalDefinitionKVCDelegate>
+                                                                        UITextViewDelegate>
 //{
 //    __strong NSArray        *_sortedReplacementRulesArray;
 //}
@@ -44,8 +42,8 @@
 //-(void) reloadLabels;
 
 #pragma mark - Fractal Definition Input Protocol
-- (void)keyTapped:(NSString*)title;
-- (void)doneTapped;
+//- (void)keyTapped:(NSString*)title;
+//- (void)doneTapped;
 
 #pragma mark - Production Control Actions
 //- (IBAction)axiomInputChanged:(UITextField*)sender;

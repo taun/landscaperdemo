@@ -36,6 +36,7 @@
 
 -(UIImage*) asImage {
     UIImage* cellImage = [UIImage imageNamed: self.iconIdentifierString];
+//    UIImage* resizingImage = [cellImage resizableImageWithCapInsets: UIEdgeInsetsZero resizingMode: UIImageResizingModeStretch];
     return cellImage;
 }
 

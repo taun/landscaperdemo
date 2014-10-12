@@ -31,24 +31,47 @@
 }
 -(void)updateConstraints {
     
-    //    CGFloat newHeight = self.contentSize.height;
-    //
-    //    if (newHeight > 0) {
-    //
-    //        self.currentHeightConstraint = [NSLayoutConstraint constraintWithItem: self
-    //                                                                    attribute: NSLayoutAttributeHeight
-    //                                                                    relatedBy: NSLayoutRelationEqual
-    //                                                                       toItem: nil
-    //                                                                    attribute: NSLayoutAttributeNotAnAttribute
-    //                                                                   multiplier: 1.0
-    //                                                                     constant: newHeight];
-    //
-    //        [self addConstraint: self.currentHeightConstraint];
-    //    }
     
+//    NSMutableArray* constraints = [NSMutableArray new];
+//    NSLayoutConstraint* constraint;
+//    
+//    BOOL needsCenterX = YES;
+//    BOOL needsCenterY = YES;
+//    
+//    for (NSLayoutConstraint* existingConstraint in self.imageView.superview.constraints) {
+//        if ([existingConstraint.identifier isEqualToString: @"MBCenterX"]) {
+//            needsCenterX = NO;
+//        } else if ([existingConstraint.identifier isEqualToString: @"MBCenterY"]) {
+//            needsCenterY = NO;
+//        }
+//    }
+//    if (needsCenterX) {
+//        constraint = [NSLayoutConstraint constraintWithItem: self.imageView
+//                                                  attribute: NSLayoutAttributeCenterX
+//                                                  relatedBy: NSLayoutRelationEqual
+//                                                     toItem: self.imageView.superview
+//                                                  attribute: NSLayoutAttributeCenterX
+//                                                 multiplier: 1
+//                                                   constant: 0];
+//        constraint.identifier = @"MBCenterX";
+//        [constraints addObject: constraint];
+//    }
+//    if (needsCenterY) {
+//        constraint = [NSLayoutConstraint constraintWithItem: self.imageView.superview
+//                                                  attribute: NSLayoutAttributeCenterY
+//                                                  relatedBy: NSLayoutRelationEqual
+//                                                     toItem: self.imageView.superview
+//                                                  attribute: NSLayoutAttributeCenterY
+//                                                 multiplier: 1
+//                                                   constant: 0];
+//        constraint.identifier = @"MBCenterY";
+//        [constraints addObject: constraint];
+//    }
+//    
+//    [self.imageView.superview addConstraints: constraints];
     // change constraints above
     [super updateConstraints];
-    NSString* constraintsString = [self.contentView.constraints description];
+//    NSString* constraintsString = [self.contentView.constraints description];
 }
 
 @end
