@@ -101,7 +101,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     MBAxiomEditorTableSection* tableSection = (self.fractalData)[section];
     NSString* sectionHeader = tableSection.title;
-    
+
     return sectionHeader;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

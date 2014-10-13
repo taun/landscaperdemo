@@ -52,6 +52,8 @@
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString: @"replacementRules"]) {
 //        self.sortedReplacementRulesArray = nil;
+        self.fractalDataChanged = YES;
+
     }
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
@@ -143,7 +145,7 @@
             replace.data = [repRuleObjects copy];
             replace.shouldIndentWhileEditing = YES;
             
-            MBAxiomEditorTableSection* rules = [MBAxiomEditorTableSection newWithTitle: @"Available Rules"];
+            MBAxiomEditorTableSection* rules = [MBAxiomEditorTableSection newWithTitle: @"Available Rules - press and hold to drag rule ^"];
             rules.data = [NSMutableArray arrayWithObject: [self.fractal.drawingRulesType.rules array]];
             
             [_fractalTableData addObjectsFromArray: @[desc,start,replace,rules]];
@@ -246,21 +248,21 @@
     MBAxiomEditorTableSection* tableSection = (self.fractalTableData)[indexPath.section];
     return tableSection.shouldIndentWhileEditing;
 }
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    MBAxiomEditorTableSection* tableSection = (self.fractalTableData)[section];
-    NSString* sectionHeader = tableSection.title;
-
-    if (section == 3) {
-        // section == "Available Rules"
-        NSString* newHeader = [NSString stringWithFormat: @"%@ - press and hold to drag rule ^",sectionHeader];
-        sectionHeader = newHeader;
-    }
-
-    UITableViewCell *sectionView = [tableView dequeueReusableCellWithIdentifier: @"HeaderCell"];
-    sectionView.textLabel.text = sectionHeader;
-
-    return sectionView;
-}
+//- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    MBAxiomEditorTableSection* tableSection = (self.fractalTableData)[section];
+//    NSString* sectionHeader = tableSection.title;
+//
+//    if (section == 3) {
+//        // section == "Available Rules"
+//        NSString* newHeader = [NSString stringWithFormat: @"%@ - press and hold to drag rule ^",sectionHeader];
+//        sectionHeader = newHeader;
+//    }
+//
+//    UITableViewCell *sectionView = [tableView dequeueReusableCellWithIdentifier: @"HeaderCell"];
+//    sectionView.textLabel.text = sectionHeader;
+//
+//    return sectionView;
+//}
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     MBAxiomEditorTableSection* tableSection = (self.fractalTableData)[indexPath.section];
 
@@ -602,7 +604,6 @@
                                         addedRow = YES;
                                     }
                                 }
-//                                [sourceCollection reloadData];
                                 self.lastDragDestinationArray = replacementRulesArray;
                                 self.lastDragDestinationCollection = sourceCollection;
                                 self.lastTableDragIndexPath = tableInsertionIndex;
@@ -610,6 +611,7 @@
                         }
                     }
                 } else if (rulesCollectionIndexPath) {
+                    // over a cell in the collection
                     NSInteger rulesSection = rulesCollectionIndexPath.section;
                     NSInteger rulesRow = rulesCollectionIndexPath.row;
                     LSDrawingRule* ruleUnderGesture = replacementRulesArray[rulesRow];
@@ -629,7 +631,6 @@
                             }
                         }
                         self.lastCollectionDragIndexPath = rulesCollectionIndexPath;
-//                        [sourceCollection reloadData];
                         self.lastDragDestinationArray = replacementRulesArray;
                         self.lastDragDestinationCollection = sourceCollection;
                         self.lastTableDragIndexPath = tableInsertionIndex;
@@ -640,6 +641,36 @@
         }
     }else if (gestureState == UIGestureRecognizerStateEnded) {
         // look for dragging cell and replace with real rule in fractal data then regen fractalTableData
+        if (self.lastTableDragIndexPath.section == TableSectionsReplacement) {
+            //
+            NSMutableOrderedSet* replacements = [self.fractal mutableOrderedSetValueForKey: @"replacementRules"];
+            LSReplacementRule* editedReplacementRule = replacements[self.lastTableDragIndexPath.row];
+            LSDrawingRule* insertedRule = self.draggingRule.rule;
+            NSInteger insertionRow = self.lastCollectionDragIndexPath.row;
+            NSMutableString* oldReplacementString = [editedReplacementRule.replacementString mutableCopy];
+            NSString* insertedString = insertedRule.productionString;
+            
+            if (insertionRow == oldReplacementString.length) {
+                // append
+                [oldReplacementString appendString: insertedString];
+            } else if (insertionRow < oldReplacementString.length) {
+                // insert
+                [oldReplacementString insertString: insertedString atIndex: insertionRow];
+            } else {
+                // problem since insertionRow is too large
+            }
+            editedReplacementRule.replacementString = [oldReplacementString copy];
+            [self saveContext];
+            
+//            NSMutableArray* replacementRulesIndexPaths = [[NSMutableArray alloc] initWithCapacity: replacements.count];
+//            for (int i = 0; i < replacements.count; i++) {
+//                NSIndexPath* tableRowIndexPath = [NSIndexPath indexPathForRow: i inSection: self.lastTableDragIndexPath.section];
+//                [replacementRulesIndexPaths addObject: tableRowIndexPath];
+//            }
+            // need to force reload of the collections so the dataSource array references are updated.
+//            [self.tableView reloadRowsAtIndexPaths: replacementRulesIndexPaths withRowAnimation: UITableViewRowAnimationNone];
+            [self.tableView reloadSections: [NSIndexSet indexSetWithIndex: self.lastTableDragIndexPath.section] withRowAnimation: UITableViewRowAnimationNone];
+        }
         [self.draggingRule.view removeFromSuperview];
         self.lastCollectionDragIndexPath = nil;
         self.draggingRule = nil;
