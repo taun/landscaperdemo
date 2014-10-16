@@ -8,6 +8,23 @@
 
 #include "QuartzHelpers.h"
 
+CGPoint CGPointConfineToRect(CGPoint p, CGRect r) {
+    CGPoint constrainedPoint = CGPointZero;
+    
+    if (CGRectContainsPoint(r, p)) {
+        constrainedPoint = p;
+    } else {
+        CGFloat limitedX;
+        CGFloat limitedY;
+        limitedX = p.x < CGRectGetMinX(r) ? CGRectGetMinX(r) : p.x;
+        limitedX = p.x > CGRectGetMaxX(r) ? CGRectGetMaxX(r) : limitedX;
+        limitedY = p.y < CGRectGetMinY(r) ? CGRectGetMinY(r) : p.y;
+        limitedY = p.y > CGRectGetMaxY(r) ? CGRectGetMaxY(r) : limitedY;
+        constrainedPoint = CGPointMake(limitedX, limitedY);
+    }
+    return constrainedPoint;
+}
+
 CGColorRef CreateDeviceGrayColor(CGFloat w, CGFloat a)
 {
 	CGColorSpaceRef gray = CGColorSpaceCreateDeviceGray();

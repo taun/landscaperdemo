@@ -10,7 +10,9 @@
 #define FractalScape_QuartzHelpers_h
 
 #import <QuartzCore/QuartzCore.h>
+#import <CoreGraphics/CoreGraphics.h>
 
+CGPoint CGPointConfineToRect(CGPoint, CGRect);
 // Functions used to draw all content
 CGColorRef CreateDeviceGrayColor(CGFloat w, CGFloat a);
 CGColorRef CreateDeviceRGBColor(CGFloat r, CGFloat g, CGFloat b, CGFloat a);
