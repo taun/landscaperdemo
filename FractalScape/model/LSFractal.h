@@ -1,19 +1,18 @@
 //
 //  LSFractal.h
-//  MDUiKit
+//  FractalScape
 //
-//  Created by Taun Chapman on 10/09/14.
+//  Created by Taun Chapman on 10/16/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class LSDrawingRuleType, LSReplacementRule, MBColor, MBPlacedEntity;
+@class LSDrawingRule, LSDrawingRuleType, LSReplacementRule, MBColor, MBPlacedEntity;
 
 @interface LSFractal : NSManagedObject
 
-@property (nonatomic, retain) NSString * axiom;
 @property (nonatomic, retain) NSNumber * baseAngle;
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSString * descriptor;
@@ -39,6 +38,7 @@
 @property (nonatomic, retain) MBColor *lineColor;
 @property (nonatomic, retain) NSSet *placements;
 @property (nonatomic, retain) NSOrderedSet *replacementRules;
+@property (nonatomic, retain) NSOrderedSet *startingRules;
 @end
 
 @interface LSFractal (CoreDataGeneratedAccessors)
@@ -58,4 +58,14 @@
 - (void)removeReplacementRulesObject:(LSReplacementRule *)value;
 - (void)addReplacementRules:(NSOrderedSet *)values;
 - (void)removeReplacementRules:(NSOrderedSet *)values;
+- (void)insertObject:(LSDrawingRule *)value inStartingRulesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromStartingRulesAtIndex:(NSUInteger)idx;
+- (void)insertStartingRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeStartingRulesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInStartingRulesAtIndex:(NSUInteger)idx withObject:(LSDrawingRule *)value;
+- (void)replaceStartingRulesAtIndexes:(NSIndexSet *)indexes withStartingRules:(NSArray *)values;
+- (void)addStartingRulesObject:(LSDrawingRule *)value;
+- (void)removeStartingRulesObject:(LSDrawingRule *)value;
+- (void)addStartingRules:(NSOrderedSet *)values;
+- (void)removeStartingRules:(NSOrderedSet *)values;
 @end

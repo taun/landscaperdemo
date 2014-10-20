@@ -57,7 +57,6 @@
     static NSSet *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {
         keysToBeCopied = [[NSSet alloc] initWithObjects:
-                          @"axiom",
                           @"category",
                           @"descriptor",
                           @"fill",
@@ -100,10 +99,9 @@
     static NSSet* productionRuleProperties = nil;
     if (productionRuleProperties == nil) {
         productionRuleProperties = [[NSSet alloc] initWithObjects:
-                                    @"axiom",
+                                    @"startingRules",
                                     @"replacementRules", 
                                     @"level",
-                                    @"replacementString",
                                     nil];
     }
     return productionRuleProperties;
@@ -141,10 +139,14 @@
             id value = [self valueForKey: aKey];
             [fractalCopy setValue: value forKey: aKey];
         }
-        NSOrderedSet* rules = self.replacementRules;
         
+        NSMutableOrderedSet* startingRules = [fractalCopy mutableOrderedSetValueForKey: @"startingRules"];
+        for (LSDrawingRule* rule in self.startingRules) {
+            [startingRules addObject: [rule mutableCopy]];
+        }
+                
         NSMutableOrderedSet* replacementRules = [fractalCopy mutableOrderedSetValueForKey: @"replacementRules"];
-        for (LSReplacementRule* rule in rules) {
+        for (LSReplacementRule* rule in self.replacementRules) {
             [replacementRules addObject: [rule mutableCopy]];
         }
         
@@ -163,6 +165,14 @@
 -(void) setFillColorFromIdentifier:(NSString *)colorIdentifier {
     MBColor* mbColor = [MBColor findMBColorWithIdentifier: colorIdentifier inContext: self.managedObjectContext];
     self.fillColor = mbColor;
+}
+
+-(NSString*) startingRulesString {
+    NSMutableString* rulesString = [[NSMutableString alloc]initWithCapacity: self.startingRules.count];
+    for (LSDrawingRule* rule in self.startingRules) {
+        [rulesString appendString: rule.productionString];
+    }
+    return rulesString;
 }
 
 -(UIColor*) lineColorAsUI {

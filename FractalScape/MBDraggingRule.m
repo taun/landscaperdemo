@@ -95,18 +95,66 @@
     return (self.lastDestinationArray != nil);
 }
 #pragma mark - Dragging state changes
--(void) setLastTableIndexPath:(NSIndexPath *)lastTableIndexPath andResetRuleIfDifferent: (BOOL) reset {
-    if ([lastTableIndexPath compare: _lastTableIndexPath]!=NSOrderedSame) {
+-(void) setLastTableIndexPath:(NSIndexPath *)lastTableIndexPath andResetRuleIfDifferent: (BOOL) reset notify: (id)object forPropertyChange:(NSString*)property {
+    BOOL lastIsNotNil = _lastTableIndexPath != nil;
+    BOOL newIsNotNil = lastTableIndexPath != nil;
+    BOOL indexesBothNotNil = lastIsNotNil & newIsNotNil;
+    BOOL onlyOneIsNotNil = lastIsNotNil ^ newIsNotNil;
+    if (onlyOneIsNotNil || (indexesBothNotNil && [lastTableIndexPath compare: _lastTableIndexPath]!=NSOrderedSame)) {
         // Table index is different so all of the saved values are obsolete and lastDrop destination needs to be removed
         if (reset) {
-            [self removePreviousDropRepresentation];
+            [self removePreviousDropRepresentationNotify: object forPropertyChange: property];
         }
     }
     self.lastTableIndexPath = lastTableIndexPath;
 }
--(void) removePreviousDropRepresentation {
-    if (self.lastDestinationArray) {
-        [self.lastDestinationArray removeObject: self];
+-(BOOL) moveRuleToArray: (id)aCollectionType indexPath:(NSIndexPath *)indexPath notify:(id)object forPropertyChange:(NSString *)property {
+    BOOL resized = NO;
+    
+    NSInteger lastCellRow = [self.lastDestinationCollection numberOfItemsInSection: 0] - 1;
+
+    if (object!=nil && property != nil && property.length > 0) {
+        [object willChangeValueForKey: property];
+    }
+    
+        if (self.lastDestinationArray) { // need to move item
+                                                      //
+            [self.lastDestinationArray exchangeObjectAtIndex: self.lastCollectionIndexPath.row withObjectAtIndex: indexPath.row];
+            [self.lastDestinationCollection moveItemAtIndexPath: self.lastCollectionIndexPath toIndexPath: indexPath];
+            
+            self.lastCollectionIndexPath = indexPath;
+            
+        } else { // need to append or insert, growing number of items
+            self.lastDestinationArray = aCollectionType;
+            
+            [self.lastDestinationArray insertObject: self.rule atIndex: indexPath.row];
+            [self.lastDestinationCollection insertItemsAtIndexPaths: @[indexPath]];
+            
+            self.lastCollectionIndexPath = indexPath;
+            CGFloat remainder = fmodf(lastCellRow+1, 9.0);
+            if (remainder == 0.0) {
+                // flag to relayout collection with additional row
+                resized = YES;
+            }
+        }
+    
+    if (object!=nil && property != nil && property.length > 0) {
+        [object didChangeValueForKey: property];
+    }
+    return resized;
+}
+-(void) removePreviousDropRepresentationNotify: (id)object forPropertyChange:(NSString*)property {
+    if (self.lastDestinationArray && self.lastCollectionIndexPath) {
+        if (object!=nil && property != nil && property.length > 0) {
+            [object willChangeValueForKey: property];
+        }
+        
+        [self.lastDestinationArray removeObject: _rule];
+        
+        if (object!=nil && property != nil && property.length > 0) {
+            [object didChangeValueForKey: property];
+        }
+        
         [self.lastDestinationCollection deleteItemsAtIndexPaths: @[self.lastCollectionIndexPath]];
     }
     [self resetDestination];

@@ -12,4 +12,6 @@
 
 +(NSSet*) keysToBeCopied;
 
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString   *rulesString;
+
 @end

@@ -1,21 +1,21 @@
 //
 //  LSReplacementRule.h
-//  MDUiKit
+//  FractalScape
 //
-//  Created by Taun Chapman on 10/09/14.
+//  Created by Taun Chapman on 10/16/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class LSFractal;
+@class LSDrawingRule, LSFractal;
 
 @interface LSReplacementRule : NSManagedObject
 
-@property (nonatomic, retain) NSString * contextString;
-@property (nonatomic, retain) NSString * replacementString;
 @property (nonatomic, retain) NSSet *lsFractal;
+@property (nonatomic, retain) LSDrawingRule *contextRule;
+@property (nonatomic, retain) NSOrderedSet *rules;
 @end
 
 @interface LSReplacementRule (CoreDataGeneratedAccessors)
@@ -25,4 +25,14 @@
 - (void)addLsFractal:(NSSet *)values;
 - (void)removeLsFractal:(NSSet *)values;
 
+- (void)insertObject:(LSDrawingRule *)value inRulesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromRulesAtIndex:(NSUInteger)idx;
+- (void)insertRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeRulesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInRulesAtIndex:(NSUInteger)idx withObject:(LSDrawingRule *)value;
+- (void)replaceRulesAtIndexes:(NSIndexSet *)indexes withRules:(NSArray *)values;
+- (void)addRulesObject:(LSDrawingRule *)value;
+- (void)removeRulesObject:(LSDrawingRule *)value;
+- (void)addRules:(NSOrderedSet *)values;
+- (void)removeRules:(NSOrderedSet *)values;
 @end

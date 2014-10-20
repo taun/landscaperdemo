@@ -338,6 +338,36 @@
     [self saveContext]; // save colors for access by addDefaultLSFractals...
 }
 
+- (void)addObjectFrom:(NSDictionary *)availableObjects usingKeysInString:(NSString *)keyString toCollection:(NSMutableOrderedSet *)collection {
+    NSString* key;
+    id newObject;
+    for (int y=0; y < keyString.length; y++) {
+        //
+        key = [keyString substringWithRange: NSMakeRange(y, 1)];
+        
+        newObject = availableObjects[key];
+        
+        if (newObject) {
+            [collection addObject: newObject];
+        }
+    }
+}
+
+- (void)copyObjectFrom:(NSDictionary *)availableObjects usingKeysInString:(NSString *)keyString toCollection:(NSMutableOrderedSet *)collection {
+    NSString* key;
+    id newObject;
+    for (int y=0; y < keyString.length; y++) {
+        //
+        key = [keyString substringWithRange: NSMakeRange(y, 1)];
+        
+        newObject = availableObjects[key];
+        
+        if (newObject) {
+            [collection addObject: [newObject mutableCopy]];
+        }
+    }
+}
+
 /*
  Fractals plist is a root array full of fractal dictionaries.
  */
@@ -381,30 +411,55 @@
                     //fractal.drawingRulesType = fractalDrawingRuleType;
                     lastFractal = fractal;
                     
-                    for (id propertyKey in fractalDictionary) {
-                        id propertyValue = fractalDictionary[propertyKey];
+                    // handle special cases
+                    NSMutableDictionary* mutableFractalDictionary = [fractalDictionary mutableCopy];
+                    
+                    // need rules type before we can handle starting rules and replacement rules
+                    NSString* rulesTypeString = mutableFractalDictionary[@"drawingRulesType.identifier"];
+                    if (rulesTypeString != nil && rulesTypeString.length > 0) {
+                        fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: rulesTypeString inContext: self.managedObjectContext];
+                        fractal.drawingRulesType = fractalDrawingRuleType;
+                        [mutableFractalDictionary removeObjectForKey: @"drawingRulesType.identifier"];
+                    }
+                    
+                    NSDictionary* availableRules = [fractal.drawingRulesType rulesDictionary];
+
+                    NSString* startingRulesString = mutableFractalDictionary[@"startingRules"];
+                    if (startingRulesString != nil && rulesTypeString.length > 0) {
+                        NSMutableOrderedSet* startingRules = [fractal mutableOrderedSetValueForKey: @"startingRules"];
                         
-                        if ([propertyValue isKindOfClass:[NSDictionary class]]) {
-                            // dictionary is replacement rules
-                            for (id replacementKey in propertyValue) {
-                                // create replacement rules and assign to fractal
-                                LSReplacementRule *newReplacementRule = [NSEntityDescription
-                                                                         insertNewObjectForEntityForName:@"LSReplacementRule"
-                                                                         inManagedObjectContext: context];
-                                
-                                newReplacementRule.contextString = replacementKey;
-                                newReplacementRule.replacementString = propertyValue[replacementKey];
-                                NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: @"replacementRules"];
-                                [replacementRules addObject: newReplacementRule];
-                            }
-                        } else if ([propertyKey isEqualToString: @"drawingRulesType.identifier"]) {
-                            // special case
-                            fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: fractalDictionary[@"drawingRulesType.identifier"] inContext: self.managedObjectContext];
-                            fractal.drawingRulesType = fractalDrawingRuleType;
-                        } else {
-                            // all but dictionaries should be key value
-                            [fractal setValue: propertyValue forKey: propertyKey];
+                        [self copyObjectFrom: availableRules usingKeysInString: startingRulesString toCollection: startingRules];
+                        
+                        [mutableFractalDictionary removeObjectForKey: @"startingRules"];
+                    }
+                   
+                    NSDictionary* replacementRulesDict = mutableFractalDictionary[@"replacementRules"];
+                    if (replacementRulesDict.count > 0) {
+                        NSDictionary* availableRules = [fractal.drawingRulesType rulesDictionary];
+                        NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: @"replacementRules"];
+ 
+                        for (NSString* key in replacementRulesDict) {
+                            //
+                            LSReplacementRule *newReplacementRule = [NSEntityDescription
+                                                                     insertNewObjectForEntityForName:@"LSReplacementRule"
+                                                                     inManagedObjectContext: context];
+                            
+                            newReplacementRule.contextRule = availableRules[key];
+                            
+                            NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: @"rules"];
+                            NSString* replacementRulesString = replacementRulesDict[key];
+                            
+                            [self copyObjectFrom: availableRules usingKeysInString: replacementRulesString toCollection: rules];
+                            
+                            [replacementRules addObject: newReplacementRule];
                         }
+                        [mutableFractalDictionary removeObjectForKey: @"replacementRules"];
+                    }
+
+                    for (id propertyKey in mutableFractalDictionary) {
+                        id propertyValue = mutableFractalDictionary[propertyKey];
+                        // all but dictionaries should be key value
+                        [fractal setValue: propertyValue forKey: propertyKey];
                     }
                 }
                 

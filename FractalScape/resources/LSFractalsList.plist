@@ -11,7 +11,7 @@
 		<true/>
 		<key>name</key>
 		<string>A spiral</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>AAAA</string>
 		<key>fill</key>
 		<false/>
@@ -54,7 +54,7 @@
 		<true/>
 		<key>name</key>
 		<string>A leaf</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>A</string>
 		<key>fill</key>
 		<false/>
@@ -101,7 +101,7 @@
 		<true/>
 		<key>name</key>
 		<string>Von Koch Curve 3</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F-F-F-F</string>
 		<key>fill</key>
 		<false/>
@@ -138,7 +138,7 @@
 		<true/>
 		<key>name</key>
 		<string>Von Koch Curve</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F-F-F-F</string>
 		<key>fill</key>
 		<false/>
@@ -175,7 +175,7 @@
 		<true/>
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>-F</string>
 		<key>fill</key>
 		<false/>
@@ -212,7 +212,7 @@
 		<true/>
 		<key>name</key>
 		<string>Islands and lakes</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F+F+F+F</string>
 		<key>fill</key>
 		<false/>
@@ -251,7 +251,7 @@
 		<true/>
 		<key>name</key>
 		<string>Von Koch Snowflake Curve</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F</string>
 		<key>fill</key>
 		<true/>
@@ -292,7 +292,7 @@
 		<true/>
 		<key>name</key>
 		<string>Hilbert Curve</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>A</string>
 		<key>fill</key>
 		<false/>
@@ -331,7 +331,7 @@
 		<true/>
 		<key>name</key>
 		<string>Sierpinsky Gasket</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>FAF--FF--FF</string>
 		<key>fill</key>
 		<false/>
@@ -370,7 +370,7 @@
 		<true/>
 		<key>name</key>
 		<string>Sierpinsky Curve</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F+F+F+F</string>
 		<key>fill</key>
 		<false/>
@@ -407,7 +407,7 @@
 		<true/>
 		<key>name</key>
 		<string>Peano Curve</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>A</string>
 		<key>fill</key>
 		<false/>
@@ -446,7 +446,7 @@
 		<true/>
 		<key>name</key>
 		<string>Dragon Curve</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>A</string>
 		<key>fill</key>
 		<false/>
@@ -487,7 +487,7 @@
 		<true/>
 		<key>name</key>
 		<string>Fern</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>AEFFF</string>
 		<key>fill</key>
 		<false/>
@@ -534,7 +534,7 @@
 		<true/>
 		<key>name</key>
 		<string>Bush00</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F</string>
 		<key>fill</key>
 		<false/>
@@ -573,7 +573,7 @@
 		<true/>
 		<key>name</key>
 		<string>Bush0</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F</string>
 		<key>fill</key>
 		<false/>
@@ -614,7 +614,7 @@
 		<true/>
 		<key>name</key>
 		<string>Bush1</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>A</string>
 		<key>fill</key>
 		<false/>
@@ -655,7 +655,7 @@
 		<true/>
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F++F++F</string>
 		<key>fill</key>
 		<false/>
@@ -694,7 +694,7 @@
 		<true/>
 		<key>name</key>
 		<string>Von Koch Island</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F+F+F+F</string>
 		<key>fill</key>
 		<false/>
@@ -731,7 +731,7 @@
 		<true/>
 		<key>name</key>
 		<string>Von Koch Squares</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>F+F+F+F</string>
 		<key>fill</key>
 		<false/>
@@ -768,7 +768,7 @@
 		<true/>
 		<key>name</key>
 		<string>Flower</string>
-		<key>axiom</key>
+		<key>startingRules</key>
 		<string>A</string>
 		<key>fill</key>
 		<false/>

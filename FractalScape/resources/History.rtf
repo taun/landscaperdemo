@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf140
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 LucidaGrande;}
 {\colortbl;\red255\green255\blue255;}
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
@@ -54,4 +54,35 @@ Lots to do.\
 		Section - Rules = fractal.drawingRulesType.rules\
 	Change rules and replacementRules to orderedSets\
 	Have array of model keys for section index and ?\
-	or pass arrayed copy of data (via delegate properties) to source and repass when changed?}
+	or pass arrayed copy of data (via delegate properties) to source and repass when changed?\
+2014-10-17\
+	Drag and drop cases\
+\
+	Assumption - EVERY rule is unique, ALL rules are copied from LSDrawingRuleType.rules\
+		rules dragged from the source are mutableCopy'd making them unique.\
+		once the rule is dropped in a destination, it is only moved or deleted.\
+	Cases -\
+		From source to - copy and \
+			startingRules - insert\
+			replacement.rules - insert\
+			replacement.contextRule - replace\
+		Drag within 3 possible destinations\
+			move/exchange indexes\
+		Drag out of 3 possible destinations\
+			delete except replacement.contextRule - do nothing\
+		Drag between 3 possible destinations\
+			do nothing or delete from source and drop in destination including replacement.contextRule?\
+	Implementation\
+		Separate Delegate class for each type of collection? NO.\
+		Separate mini-controller class - for each table cell type.\
+		Assign mini-controller to cell, mini-controller has source and view so it can modify both.\
+		Common methods/protocol\
+		Axiom Controller - Associate controller with cell, pass touchpoint and draggingRule to controller dragStart/Change/End methods.\
+				each miniController handles cases of copy versus move versus delete, ....\
+\
+	dragDidEnterCollectionView\
+	dragDidLeaveCollectionView\
+	dragDidChangeInCollectionView\
+	dragDidEndInCollectionView\
+\
+}

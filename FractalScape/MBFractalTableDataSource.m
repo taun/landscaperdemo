@@ -20,6 +20,7 @@
 #import "MBLSRuleCollectionViewCell.h"
 #import "MBLSReplacementRuleTableViewCell.h"
 
+
 #import "MBAxiomEditorTableSection.h"
 
 #import <MDUiKit/MDKLayerView.h>
@@ -36,19 +37,20 @@
 
 @implementation MBFractalTableDataSource
 
-+(instancetype) newSourceWithFractalData:(NSMutableArray *)fractalData {
-    return [[[self class] alloc] initWithFractalData: fractalData];
++(instancetype) newSourceWithFractal:(LSFractal*)fractal tableSections: (NSArray*) sections {
+    return [[[self class] alloc] initWithFractal: fractal tableSections: sections];
 }
 - (instancetype)init
 {
-    self = [self initWithFractalData: nil];
+    self = [self initWithFractal: nil tableSections: nil];
     return self;
 }
--(instancetype) initWithFractalData:(NSMutableArray *)fractalData {
+-(instancetype) initWithFractal:(LSFractal*)fractal tableSections: (NSArray*) sections {
     self = [super init];
     if (self) {
         //
-        self.fractalData = fractalData;
+        _fractal = fractal;
+        _tableSections = sections;
     }
     return self;
 }
@@ -57,24 +59,18 @@
 }
 
 #pragma mark - Setters Getters
--(void)setFractalData:(NSMutableArray *)fractalData {
-    if (_fractalData != fractalData) {
-        _fractalData = fractalData;
+-(void)setFractal:(LSFractal *)fractal {
+    if (_fractal != fractal) {
+        _fractal = fractal;
         
-        if (_fractalData) {
-            MBAxiomEditorTableSection* axiomSection = fractalData[TableSectionsAxiom];
-            _cachedAxiomDataSource = [MBRuleCollectionDataSource newWithRules: axiomSection.data[0]];
+        
+        if (_fractal) {
+            _cachedRulesDataSource = [MBRuleCollectionDataSource newWithRules: _fractal.drawingRulesType.rules];
+            _cachedAxiomDataSource = [MBRuleCollectionDataSource newWithRules: _fractal.startingRules];
             
-            MBAxiomEditorTableSection* rulesSection = fractalData[TableSectionsRules];
-            _cachedRulesDataSource = [MBRuleCollectionDataSource newWithRules: rulesSection.data[0]];
-            
-            MBAxiomEditorTableSection* replacementSection = fractalData[TableSectionsReplacement];
-            _cachedReplacementCollections = [NSPointerArray pointerArrayWithOptions: NSPointerFunctionsWeakMemory];
-            [_cachedReplacementCollections setCount: replacementSection.data.count];
         } else {
             _cachedAxiomDataSource = nil;
             _cachedRulesDataSource = nil;
-            _cachedReplacementCollections = nil;
             _cachedRulesCollectionsDict = nil;
             _cachedReplacementDataSourcesArray = nil;
         }
@@ -95,27 +91,42 @@
 
 #pragma mark - TableDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.fractalData count];
+    return [self.tableSections count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    MBAxiomEditorTableSection* tableSection = (self.fractalData)[section];
+    MBAxiomEditorTableSection* tableSection = (self.tableSections)[section];
     NSString* sectionHeader = tableSection.title;
 
     return sectionHeader;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
  
-    MBAxiomEditorTableSection* tableSection = self.fractalData[section];
-    return [tableSection.data count];
+    NSInteger count = 0;
+    
+    if (section == TableSectionsDescription) {
+        //
+        count = 3;
+        
+    } else if (section == TableSectionsAxiom) {
+        //
+        count = 1;
+        
+    } else if (section == TableSectionsReplacement) {
+        //
+        count = self.fractal.replacementRules.count;
+        
+    } else if (section == TableSectionsRules) {
+        //
+        count = 1;
+    }
+    
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
-    MBAxiomEditorTableSection* tableSection = self.fractalData[indexPath.section];
-    NSArray* tableSectionData = tableSection.data;
-
     static NSString *NameCellIdentifier = @"NameCell";
     static NSString *CategoryCellIdentifier = @"CategoryCell";
     static NSString *DescriptionCellIdentifier = @"DescriptionCell";
@@ -129,17 +140,17 @@
             //name
             MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
             newCell.textLabel.text = @"Name:";
-            newCell.textField.text = tableSectionData[indexPath.row];
+            newCell.textField.text = self.fractal.name;
             cell = newCell;
         } else if (indexPath.row==1) {
             MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: CategoryCellIdentifier];
             newCell.textLabel.text = @"Category:";
-            newCell.textField.text = tableSectionData[indexPath.row];
+            newCell.textField.text = self.fractal.category;
             cell = newCell;
         } else if (indexPath.row==2) {
             MBTextViewTableCell *newCell = [tableView dequeueReusableCellWithIdentifier: DescriptionCellIdentifier];
             //            newCell.textLabel.text = @"Description:";
-            newCell.textView.text = tableSectionData[indexPath.row];
+            newCell.textView.text = self.fractal.descriptor;
             cell = newCell;
         }
     } else if (indexPath.section == TableSectionsAxiom) {
@@ -174,12 +185,14 @@
         
     } else if (indexPath.section == TableSectionsReplacement) {
         // rules
+        LSReplacementRule* replacementRule = self.fractal.replacementRules[indexPath.row];
+
         MBLSReplacementRuleTableViewCell *newCell = nil;
         //        newCell = self.rulesCollectionsDict[indexString];
-        if (!newCell) {
+        if (replacementRule) {
             newCell = [tableView dequeueReusableCellWithIdentifier: ReplacementRuleCellIdentifier forIndexPath: indexPath];
             
-            newCell.customImageView.image = [tableSectionData[indexPath.row][0] asImage];
+            newCell.rule = replacementRule.contextRule;
             
             MBRuleCollectionDataSource* replacementRulesSource;
             if (self.cachedReplacementDataSourcesArray.count > indexPath.row) {
@@ -190,9 +203,8 @@
                 self.cachedReplacementDataSourcesArray[indexPath.row] = replacementRulesSource;
 #pragma message "TODO remember to remove the replacementRuleSource when deleting the cell"
             }
-            replacementRulesSource.rules = tableSectionData[indexPath.row][1];
+            replacementRulesSource.rules = replacementRule.rules;
             newCell.collectionView.dataSource = replacementRulesSource;
-            [self.cachedReplacementCollections replacePointerAtIndex: indexPath.row withPointer: (__bridge void *)(newCell.collectionView)];
             //        newCell.rightCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
             CGFloat itemSize = 26.0;
             CGFloat itemMargin = 2.0;
@@ -221,7 +233,6 @@
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
             
             newCell.collectionView.dataSource = self.cachedRulesDataSource;
-            self.rulesCollectionView = newCell.collectionView;
             //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
 #pragma message "All of the stuff below should be in cell class 'prepareForReuse' ? or when setting itemSize? of class"
             CGFloat itemSize = 46.0;
@@ -251,7 +262,7 @@
     return cell;
 }
 - (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    MBAxiomEditorTableSection* tableSection = self.fractalData[indexPath.section];
+    MBAxiomEditorTableSection* tableSection = self.tableSections[indexPath.section];
     return tableSection.canEditRow;
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

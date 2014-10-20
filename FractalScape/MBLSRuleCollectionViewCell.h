@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LSDrawingRule+addons.h"
 
 @interface MBLSRuleCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak,nonatomic) LSDrawingRule            *rule;
+
+@property (weak,nonatomic) IBOutlet UIImageView     *customImageView;
 
 @end

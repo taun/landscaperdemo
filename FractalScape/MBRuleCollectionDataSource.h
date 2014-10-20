@@ -12,9 +12,9 @@
 
 @interface MBRuleCollectionDataSource : NSObject <UICollectionViewDataSource>
 
-@property (nonatomic,strong) NSMutableArray* rules;
+@property (nonatomic,strong) NSOrderedSet* rules;
 
-+(instancetype)newWithRules: (NSMutableArray*) rules;
--(instancetype)initWithRules: (NSMutableArray*) rules;
++(instancetype)newWithRules: (NSOrderedSet*) rules;
+-(instancetype)initWithRules: (NSOrderedSet*) rules;
 
 @end

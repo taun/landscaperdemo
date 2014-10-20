@@ -32,10 +32,13 @@
 @property (nonatomic,assign) CGPoint                            viewCenter;
 
 #pragma mark - state tracking properties
+@property (nonatomic,copy) NSIndexPath                          *sourceTableIndexPath;
+@property (nonatomic,weak) UICollectionView                     *sourceCollection;
+@property (nonatomic,copy) NSIndexPath                          *sourceCollectionIndexPath;
 @property (nonatomic,copy) NSIndexPath                          *lastTableIndexPath;
 @property (nonatomic,copy) NSIndexPath                          *lastCollectionIndexPath;
 @property (nonatomic,weak) UICollectionView                     *lastDestinationCollection;
-@property (nonatomic,weak) NSMutableArray                       *lastDestinationArray;
+@property (nonatomic,weak) NSMutableOrderedSet                  *lastDestinationArray;
 
 #pragma mark - Conveniences properties
 @property (nonatomic,readonly) BOOL                             isAlreadyDropped;
@@ -67,7 +70,17 @@
  in a different table cell and need to start over with the drop. Starting over means removing any previous
  dropped representation in the other table cell and setting the other associated values to nil.
  */
--(void) setLastTableIndexPath:(NSIndexPath *)lastTableIndexPath andResetRuleIfDifferent: (BOOL) reset;
--(void) removePreviousDropRepresentation;
-
+-(void) setLastTableIndexPath:(NSIndexPath *)lastTableIndexPath andResetRuleIfDifferent: (BOOL) reset notify: (id)object forPropertyChange:(NSString*)property;
+-(void) removePreviousDropRepresentationNotify: (id)object forPropertyChange:(NSString*)property;
+/*!
+ move the rule either between collections or within a collection.
+ 
+ @param aCollectionType a collection which handles insert and move
+ @param indexPath       indexPath to place the rule
+ @param object          object to notify of change
+ @param property        object property being changed
+ 
+ @return BOOL = YES if collection has added a row needed the eclosing view to be resized.
+ */
+-(BOOL) moveRuleToArray: (id)aCollectionType indexPath: (NSIndexPath*) indexPath notify: (id)object forPropertyChange:(NSString*)property;
 @end

@@ -12,13 +12,12 @@
 
 @interface MBFractalTableDataSource : NSObject <UITableViewDataSource>
 
-@property (nonatomic,weak) NSMutableArray*                                     fractalData;
-@property (nonatomic,strong) UICollectionView*                                 rulesCollectionView;
-@property (nonatomic,strong) NSPointerArray*                                   cachedReplacementCollections;
+@property (nonatomic,weak) LSFractal*                                          fractal;
+@property (nonatomic,strong) NSArray*                                          tableSections;
 
-+(instancetype) newSourceWithFractalData: (NSArray*) fractalData;
++(instancetype) newSourceWithFractal: (LSFractal*) fractal tableSections: (NSArray*) sections;
 
--(instancetype) initWithFractalData: (NSArray*) fractal NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithFractal: (LSFractal*) fractal tableSections: (NSArray*) sections NS_DESIGNATED_INITIALIZER;
 
 -(instancetype) init;
 

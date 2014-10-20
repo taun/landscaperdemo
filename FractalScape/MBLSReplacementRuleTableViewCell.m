@@ -22,12 +22,18 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     return self;
 }
+-(void)setRule:(LSDrawingRule *)rule {
+    if (_rule != rule) {
+        _rule = rule;
+        self.customImageView.image = [_rule asImage];
+    }
+}
 /*!
  Prepares a reusable cell for reuse by the table view's delegate.
  Just here for future reference.
  */
 -(void)prepareForReuse {
-    
+    self.imageView.image = nil;
 }
 -(void)updateConstraints {
     

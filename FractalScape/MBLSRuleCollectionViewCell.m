@@ -38,6 +38,13 @@
     self.selectedBackgroundView = layerView;
 }
 
+-(void)setRule:(LSDrawingRule *)rule {
+    if (_rule != rule) {
+        _rule = rule;
+        self.customImageView.image = [_rule asImage];
+    }
+}
+
 -(void) updateConstraints {
     
     UIView* contentView = self.contentView;

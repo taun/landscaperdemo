@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="4nM-Pc-iAd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="4nM-Pc-iAd">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -776,7 +776,7 @@
                                                     </constraints>
                                                     <size key="customSize" width="26" height="26"/>
                                                     <connections>
-                                                        <outlet property="imageView" destination="BTZ-rI-Rhd" id="Msp-Lj-Xmt"/>
+                                                        <outlet property="customImageView" destination="BTZ-rI-Rhd" id="HE7-mC-PHv"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -880,7 +880,7 @@
                                                     </constraints>
                                                     <size key="customSize" width="46" height="46"/>
                                                     <connections>
-                                                        <outlet property="imageView" destination="BhZ-Oc-UKD" id="szM-YM-CJg"/>
+                                                        <outlet property="customImageView" destination="BhZ-Oc-UKD" id="cgR-yl-3hs"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -977,7 +977,7 @@
                                                     </constraints>
                                                     <size key="customSize" width="26" height="26"/>
                                                     <connections>
-                                                        <outlet property="imageView" destination="DpS-IF-gOD" id="C3Y-1o-8Lu"/>
+                                                        <outlet property="customImageView" destination="DpS-IF-gOD" id="EYg-0Y-2Mv"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>

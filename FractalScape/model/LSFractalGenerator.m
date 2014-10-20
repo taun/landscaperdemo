@@ -10,9 +10,9 @@
 #import "LSFractal+addons.h"
 #import "MBColor+addons.h"
 #import "MBFractalSegment.h"
-#import "LSReplacementRule.h"
-#import "LSDrawingRuleType.h"
-#import "LSDrawingRule.h"
+#import "LSReplacementRule+addons.h"
+#import "LSDrawingRuleType+addons.h"
+#import "LSDrawingRule+addons.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -150,8 +150,8 @@
             }
                         
             for (LSReplacementRule* rule in fractal.replacementRules) {
-                NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-                [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+                [rule addObserver: self forKeyPath: @"contextRule" options: 0 context: NULL];
+                [rule addObserver: self forKeyPath: @"rules" options: 0 context: NULL];
             }
         }];
     }
@@ -167,14 +167,14 @@
             }
             
             for (LSReplacementRule* rule in fractal.replacementRules) {
-                NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-                [rule removeObserver: self forKeyPath: keyPath];
+                [rule removeObserver: self forKeyPath: @"contextRule"];
+                [rule removeObserver: self forKeyPath: @"rules"];
             }
         }];
     }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString: @"replacementString"]) {
+    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString: @"rules"] || [keyPath isEqualToString: @"contextRule"]) {
         // productionRuleChanged
         [self productionRuleChanged];
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
@@ -721,7 +721,7 @@
 -(void) productionRuleChanged {
     self.productNeedsGenerating = YES;
 }
-
+#pragma message "TODO convert from NSString to NSData"
 //TODO convert this to GCD, one dispatch per axiom character? Then reassemble?
 //TODO static var for max product length and way to flag max reached.
 /*!
@@ -740,15 +740,15 @@
         localLevel = self.forceLevel;
     }
     
-    productionLength = [self.privateFractal.axiom length] * localLevel;
+    productionLength = [self.privateFractal.startingRules count] * localLevel;
     
     sourceData = [[NSMutableString alloc] initWithCapacity: productionLength];
-    [sourceData appendString: self.privateFractal.axiom];
+    [sourceData appendString: self.privateFractal.startingRulesString];
     
     // Create a local dictionary version of the replacement rules
     localReplacementRules = [[NSMutableDictionary alloc] initWithCapacity: [self.privateFractal.replacementRules count]];
-    for (LSReplacementRule* rule in self.privateFractal.replacementRules) {
-        localReplacementRules[rule.contextString] = rule.replacementString;
+    for (LSReplacementRule* replacementRule in self.privateFractal.replacementRules) {
+        localReplacementRules[replacementRule.contextRule.productionString] = replacementRule.rulesString;
     }
     
     NSMutableString* destinationData = [[NSMutableString alloc] initWithCapacity: productionLength];

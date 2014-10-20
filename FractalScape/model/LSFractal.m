@@ -1,12 +1,13 @@
 //
 //  LSFractal.m
-//  MDUiKit
+//  FractalScape
 //
-//  Created by Taun Chapman on 10/09/14.
+//  Created by Taun Chapman on 10/16/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "LSFractal.h"
+#import "LSDrawingRule.h"
 #import "LSDrawingRuleType.h"
 #import "LSReplacementRule.h"
 #import "MBColor.h"
@@ -15,7 +16,6 @@
 
 @implementation LSFractal
 
-@dynamic axiom;
 @dynamic baseAngle;
 @dynamic category;
 @dynamic descriptor;
@@ -41,5 +41,6 @@
 @dynamic lineColor;
 @dynamic placements;
 @dynamic replacementRules;
+@dynamic startingRules;
 
 @end

@@ -10,6 +10,19 @@
 
 @implementation LSDrawingRule (addons)
 
++ (NSSet *)keysToBeCopied {
+    static NSSet *keysToBeCopied = nil;
+    if (keysToBeCopied == nil) {
+        keysToBeCopied = [[NSSet alloc] initWithObjects:
+                          @"displayIndex",
+                          @"drawingMethodString",
+                          @"iconIdentifierString",
+                          @"productionString",
+                          nil];
+    }
+    return keysToBeCopied;
+}
+
 +(LSDrawingRule*) findRuleWithType:(NSString *)ruleType productionString: (NSString*)production inContext: (NSManagedObjectContext*) context {
     LSDrawingRule* node = nil;
     
@@ -32,6 +45,21 @@
     }
     
     return node;
+}
+
+-(id) mutableCopy {
+    LSDrawingRule *ruleCopy = (LSDrawingRule*)[NSEntityDescription
+                                          insertNewObjectForEntityForName:@"LSDrawingRule"
+                                          inManagedObjectContext: self.managedObjectContext];
+    
+    if (ruleCopy) {
+        for ( NSString* aKey in [LSDrawingRule keysToBeCopied]) {
+            id value = [self valueForKey: aKey];
+            [ruleCopy setValue: value forKey: aKey];
+        }
+        
+    }
+    return ruleCopy;
 }
 
 -(UIImage*) asImage {

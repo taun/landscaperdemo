@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "MBXibAutolayoutTableCell.h"
 #import <MDUiKit/MDUiKit.h>
+#import "LSDrawingRule+addons.h"
 
 @interface MBLSReplacementRuleTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *customImageView;
-@property (weak, nonatomic) IBOutlet MDKUICollectionViewScrollContentSized *collectionView;
+@property (weak,nonatomic) LSDrawingRule                                    *rule;
+
+@property (weak, nonatomic) IBOutlet UIImageView                            *customImageView;
+@property (weak, nonatomic) IBOutlet MDKUICollectionViewScrollContentSized  *collectionView;
 
 @end

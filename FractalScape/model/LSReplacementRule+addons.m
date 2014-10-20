@@ -7,6 +7,7 @@
 //
 
 #import "LSReplacementRule+addons.h"
+#import "LSDrawingRule+addons.h"
 
 @implementation LSReplacementRule (addons)
 
@@ -14,8 +15,7 @@
     static NSSet *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {
         keysToBeCopied = [[NSSet alloc] initWithObjects:
-                          @"contextString",
-                          @"replacementString",
+                          @"contextRule",
                           nil];
     }
     return keysToBeCopied;
@@ -32,7 +32,24 @@
             [copy setValue: value forKey: aKey];
         }
     }
+    
+    //contextRule
+    //rules
+    
+    NSMutableOrderedSet* rules = [copy mutableOrderedSetValueForKey: @"rules"];
+    for (LSDrawingRule* rule in self.rules) {
+        [rules addObject: [rule mutableCopy]];
+    }
+  
     return copy;
+}
+
+-(NSString*) rulesString {
+    NSMutableString* rulesString = [[NSMutableString alloc]initWithCapacity: self.rules.count];
+    for (LSDrawingRule* rule in self.rules) {
+        [rulesString appendString: rule.productionString];
+    }
+    return rulesString;
 }
 
 @end

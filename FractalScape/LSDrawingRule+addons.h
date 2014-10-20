@@ -10,6 +10,8 @@
 
 @interface LSDrawingRule (addons)
 
++(NSSet*) keysToBeCopied;
+
 +(LSDrawingRule*) findRuleWithType:(NSString *)ruleType productionString: (NSString*)production inContext: (NSManagedObjectContext*) context;
 
 -(UIImage*) asImage;
