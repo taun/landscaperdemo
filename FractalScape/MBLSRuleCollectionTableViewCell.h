@@ -9,9 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "MBXibAutolayoutTableCell.h"
 #import <MDUiKit/MDUiKit.h>
+#import "MBLSRuleDragAndDropProtocol.h"
+#import "MBRuleCollectionDataSource.h"
 
-@interface MBLSRuleCollectionTableViewCell : UITableViewCell
+@interface MBLSRuleCollectionTableViewCell : UITableViewCell <MBLSRuleDragAndDropProtocol>
 
-@property (weak, nonatomic) IBOutlet MDKUICollectionViewScrollContentSized *collectionView;
+@property (nonatomic,weak) NSMutableOrderedSet                              *rules;
+@property (nonatomic,weak) id                                               notifyObject;
+@property (nonatomic,strong) NSString                                       *notifyPath;
+@property (nonatomic,assign) BOOL                                           isReadOnly;
+@property (nonatomic,assign) CGFloat                                        itemSize;
+@property (nonatomic,assign) CGFloat                                        itemMargin;
+
+@property (nonatomic,weak) IBOutlet MDKUICollectionViewScrollContentSized<MBLSRuleDragAndDropProtocol>  *collectionView;
+
+@property (nonatomic,strong) MBRuleCollectionDataSource                     *rulesSource;
+@property (nonatomic,weak) UIView                                           *lastEnteredView;
+@property (nonatomic,strong) NSIndexPath                                    *lastIndexPath;
 
 @end

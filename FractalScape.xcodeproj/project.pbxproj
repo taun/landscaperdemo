@@ -26,6 +26,7 @@
 		C5383E3D16F763F400D0304B /* MBCollectionColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5383E3C16F763F400D0304B /* MBCollectionColorCell.m */; };
 		C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */; };
 		C540634214DADC6A00FBDEA4 /* MBColor+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C540634114DADC6A00FBDEA4 /* MBColor+addons.m */; };
+		C544C72819F6C496002C2A2B /* MBLSUIRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C544C72719F6C496002C2A2B /* MBLSUIRuleView.m */; };
 		C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */; };
 		C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C55131F214F5F6E80074137C /* MBFractalPropertyTableHeaderView.m */; };
 		C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C55131F914F6A15E0074137C /* MBLSRuleTableViewCell.m */; };
@@ -182,6 +183,8 @@
 		C540634014DADC6A00FBDEA4 /* MBColor+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBColor+addons.h"; path = "FractalScape/model/MBColor+addons.h"; sourceTree = "<group>"; };
 		C540634114DADC6A00FBDEA4 /* MBColor+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBColor+addons.m"; path = "FractalScape/model/MBColor+addons.m"; sourceTree = "<group>"; };
 		C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleDragAndDropProtocol.h; path = FractalScape/MBLSRuleDragAndDropProtocol.h; sourceTree = "<group>"; };
+		C544C72619F6C496002C2A2B /* MBLSUIRuleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSUIRuleView.h; path = FractalScape/MBLSUIRuleView.h; sourceTree = "<group>"; };
+		C544C72719F6C496002C2A2B /* MBLSUIRuleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBLSUIRuleView.m; path = FractalScape/MBLSUIRuleView.m; sourceTree = "<group>"; };
 		C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalSegment.h; path = FractalScape/model/MBFractalSegment.h; sourceTree = "<group>"; };
 		C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalSegment.m; path = FractalScape/model/MBFractalSegment.m; sourceTree = "<group>"; };
 		C54922AF19D32BE800A4FE49 /* MDUiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MDUiKit.xcodeproj; path = FractalScape/MDUiKitFramework/MDUiKit.xcodeproj; sourceTree = "<group>"; };
@@ -430,21 +433,23 @@
 			children = (
 				C531F3EE16E139D4007F4DD3 /* MBFractalAxiomEditViewController.h */,
 				C531F3EF16E139D4007F4DD3 /* MBFractalAxiomEditViewController.m */,
-				C5E22C2D19DA19CE00B91607 /* MBRuleCollectionDataSource.h */,
-				C5E22C2E19DA19CE00B91607 /* MBRuleCollectionDataSource.m */,
-				C5E22C2719DA105900B91607 /* MBLSRuleCollectionTableViewCell.h */,
-				C5E22C2819DA105900B91607 /* MBLSRuleCollectionTableViewCell.m */,
-				C5E22C2A19DA11FE00B91607 /* MBLSRuleCollectionViewCell.h */,
-				C5E22C2B19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m */,
-				C5B3F18919DCB77B00BDFAF5 /* MBLSReplacementRuleTableViewCell.h */,
-				C5B3F18A19DCB77B00BDFAF5 /* MBLSReplacementRuleTableViewCell.m */,
-				C595A40019E58A1500A4BEB0 /* MBFractalTableDataSource.h */,
-				C595A40119E58A1500A4BEB0 /* MBFractalTableDataSource.m */,
 				C564A32719E722FA00839D9E /* MBDraggingRule.h */,
 				C564A32819E722FA00839D9E /* MBDraggingRule.m */,
+				C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */,
 				C564A32A19E725C800839D9E /* MBAxiomEditorTableSection.h */,
 				C564A32B19E725C800839D9E /* MBAxiomEditorTableSection.m */,
-				C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */,
+				C595A40019E58A1500A4BEB0 /* MBFractalTableDataSource.h */,
+				C595A40119E58A1500A4BEB0 /* MBFractalTableDataSource.m */,
+				C5E22C2719DA105900B91607 /* MBLSRuleCollectionTableViewCell.h */,
+				C5E22C2819DA105900B91607 /* MBLSRuleCollectionTableViewCell.m */,
+				C5B3F18919DCB77B00BDFAF5 /* MBLSReplacementRuleTableViewCell.h */,
+				C5B3F18A19DCB77B00BDFAF5 /* MBLSReplacementRuleTableViewCell.m */,
+				C544C72619F6C496002C2A2B /* MBLSUIRuleView.h */,
+				C544C72719F6C496002C2A2B /* MBLSUIRuleView.m */,
+				C5E22C2D19DA19CE00B91607 /* MBRuleCollectionDataSource.h */,
+				C5E22C2E19DA19CE00B91607 /* MBRuleCollectionDataSource.m */,
+				C5E22C2A19DA11FE00B91607 /* MBLSRuleCollectionViewCell.h */,
+				C5E22C2B19DA11FE00B91607 /* MBLSRuleCollectionViewCell.m */,
 			);
 			name = AxiomEditPopover;
 			sourceTree = "<group>";
@@ -778,6 +783,7 @@
 				C5A3EA6F16E7E6EF00D19155 /* MBColorCollectionViewController.m in Sources */,
 				C5383E3D16F763F400D0304B /* MBCollectionColorCell.m in Sources */,
 				C5E22C2F19DA19CE00B91607 /* MBRuleCollectionDataSource.m in Sources */,
+				C544C72819F6C496002C2A2B /* MBLSUIRuleView.m in Sources */,
 				C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */,
 				C525B9FF16F8B66D00CE2200 /* MBColorCellSelectBackgroundView.m in Sources */,
 				C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */,

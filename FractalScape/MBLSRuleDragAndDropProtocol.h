@@ -14,9 +14,10 @@
 
 @protocol MBLSRuleDragAndDropProtocol <NSObject>
 
--(void) gestureBeganAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
--(void) gestureChangedToLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
--(void) gestureEndedAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
--(void) gestureBeganCancelledDraggingRule: (MBDraggingRule*) draggingRule;
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidEndDraggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidExitDraggingRule: (MBDraggingRule*) draggingRule;
 
 @end

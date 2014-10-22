@@ -10,12 +10,15 @@
 #import "MBXibAutolayoutTableCell.h"
 #import <MDUiKit/MDUiKit.h>
 #import "LSDrawingRule+addons.h"
+#import "LSReplacementRule+addons.h"
+#import "MBLSRuleDragAndDropProtocol.h"
+#import "MBLSRuleCollectionTableViewCell.h"
+#import "MBLSUIRuleView.h"
 
-@interface MBLSReplacementRuleTableViewCell : UITableViewCell
+@interface MBLSReplacementRuleTableViewCell : MBLSRuleCollectionTableViewCell
 
-@property (weak,nonatomic) LSDrawingRule                                    *rule;
+@property (weak,nonatomic) LSReplacementRule                                *replacementRule;
 
 @property (weak, nonatomic) IBOutlet UIImageView                            *customImageView;
-@property (weak, nonatomic) IBOutlet MDKUICollectionViewScrollContentSized  *collectionView;
 
 @end

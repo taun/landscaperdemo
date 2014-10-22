@@ -1037,21 +1037,7 @@ static BOOL SIMULTOUCH = NO;
 //    [editorHolderView addConstraint: self.fractalEditorsHolderHeightConstraint];
 }
 
--(void) fullScreenOn {
-//    [self moveEditorHeightTo: 0];
-}
 
--(void) fullScreenOff {
-//    [self moveEditorHeightTo: self.cachedEditorsHeight];
-}
-
--(void) toggleFullScreen:(id)sender {
-//    if (self.fractalEditorsHolder.frame.size.height == self.cachedEditorsHeight) {
-//        [self fullScreenOn];
-//    } else {
-//        [self fullScreenOff];
-//    }
-}
 -(void) updateViewConstraints {
     [super updateViewConstraints];
 }
@@ -1518,6 +1504,27 @@ static void countPathElements(void *info, const CGPathElement *element) {
     subLayer.transform = CATransform3DIdentity;
     subLayer.position = self.fractalView.center;
     // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+}
+
+- (IBAction)toggleFullScreen:(id)sender {
+    if (self.fractalViewLevel0.superview.hidden == YES) {
+        [self fullScreenOff];
+    } else {
+        [self fullScreenOn];
+    }
+}
+-(void) fullScreenOn {
+    //    [self moveEditorHeightTo: 0];
+    self.fractalViewLevel0.superview.hidden = YES;
+    self.fractalViewLevel1.superview.hidden = YES;
+    self.fractalViewLevel2.superview.hidden = YES;
+}
+
+-(void) fullScreenOff {
+    //    [self moveEditorHeightTo: self.cachedEditorsHeight];
+    self.fractalViewLevel0.superview.hidden = NO;
+    self.fractalViewLevel1.superview.hidden = NO;
+    self.fractalViewLevel2.superview.hidden = NO;
 }
 - (UIImage *)snapshot:(UIView *)view
 {

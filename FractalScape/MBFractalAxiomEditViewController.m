@@ -20,6 +20,7 @@
 #import "MBLSRuleCollectionTableViewCell.h"
 #import "MBLSRuleTableViewCell.h"
 #import "MBLSRuleCollectionViewCell.h"
+#import "MBLSRuleDragAndDropProtocol.h"
 
 #import "MBStyleKitButton.h"
 #import "MBDraggingRule.h"
@@ -287,10 +288,6 @@
  The following is in spacial order of the table fields.
  @param sender UILongPressGestureRecognizer
  */
-- (IBAction)axiomRuleLongPress:(id)sender {
-}
-- (IBAction)placeholderLongPress:(id)sender {
-}
 //- (IBAction)replacementRuleLongPress:(UILongPressGestureRecognizer *)sender {
 //    CGPoint fingerOffset = CGPointMake(-10.0, -40.0);
 //    CGPoint rawLoc = [sender locationInView: self.tableView];
@@ -473,6 +470,15 @@
     [self.draggingRule.view removeFromSuperview];
     self.draggingRule = nil;
 }
+- (IBAction)axiomRuleLongPress:(id)sender {
+    [self rulesSourceLongPress: sender];
+}
+- (IBAction)placeholderLongPress:(id)sender {
+    [self rulesSourceLongPress: sender];
+}
+-(IBAction)replacementRuleLongPress:(UILongPressGestureRecognizer *)sender {
+    [self rulesSourceLongPress: sender];
+}
 /*!
  Precess the long press gesture as a drag originating in the rules source collection.
  The rules source is read only and items can be dragged from the source to all the other
@@ -483,12 +489,14 @@
 - (IBAction)rulesSourceLongPress:(UILongPressGestureRecognizer *)sender {
     
     if (!self.draggingRule) {
-        self.draggingRule = [[MBDraggingRule alloc] initWithRule: nil size: 30.0];
+        self.draggingRule = [[MBDraggingRule alloc] initWithRule: nil size: 26.0];
         //        self.draggingRule = [[MBDraggingRule alloc] init];
         //        self.draggingRule.size = 30;
-        self.draggingRule.touchToDragViewOffset = CGPointMake(-10.0, -40.0);
+        self.draggingRule.touchToDragViewOffset = CGPointMake(0.0, -40.0);
     }
     
+    BOOL reloadCell = NO;
+
     CGPoint touchPoint = [sender locationInView: self.tableView];
     
     CGRect tableBounds = self.tableView.bounds;
@@ -502,12 +510,22 @@
     CGRect scroll = CGRectInset(CGRectMake(self.draggingRule.viewCenter.x, self.draggingRule.viewCenter.y, 1, 1), -20, -20);
     [self.tableView scrollRectToVisible: scroll animated: YES];
     
+    UITableViewCell<MBLSRuleDragAndDropProtocol>* currentTableCell = (UITableViewCell<MBLSRuleDragAndDropProtocol>*)[self.tableView cellForRowAtIndexPath: tableInsertionIndexPath];
+    CGPoint localSourceViewPoint = [self.tableView convertPoint: touchPoint toView: currentTableCell];
+    CGPoint localDropViewPoint = [self.tableView convertPoint: self.draggingRule.viewCenter toView: currentTableCell];
+
     UIGestureRecognizerState gestureState = sender.state;
-    if (gestureState == UIGestureRecognizerStateBegan) {
+    if (currentTableCell && gestureState == UIGestureRecognizerStateBegan) {
         //
-        [self handleRulesSourceGestureBeganWithLocation: touchPoint andIndexPath: tableInsertionIndexPath];
+        UIView* dragView = [currentTableCell dragDidStartAtLocalPoint: localSourceViewPoint draggingRule: self.draggingRule];
+        if (dragView) {
+            [self.tableView addSubview: dragView];
+            [self.tableView bringSubviewToFront: dragView];
+            self.draggingRule.sourceTableIndexPath = tableInsertionIndexPath;
+            self.draggingRule.lastTableIndexPath = tableInsertionIndexPath;
+        }
         
-    } else if (gestureState == UIGestureRecognizerStateChanged) {
+    } else if (currentTableCell && gestureState == UIGestureRecognizerStateChanged) {
         // Cases
         // Previous cell in other array
         //      remove previous cell
@@ -522,26 +540,39 @@
         /*
          also have a category method which takes above index and does the right thing in terms of insertion or append based on whether index is past end of row. Maybe not neccesary given proper index above?
          */
-        if (!self.draggingRule) {
+        if (self.draggingRule == nil) {
+            // drag never began.
             return;
         }
-
-        NSString* propertyKey = self.fractalSectionKeyChangedMap[self.draggingRule.lastTableIndexPath.section];
-        [self.draggingRule setLastTableIndexPath: tableInsertionIndexPath andResetRuleIfDifferent: YES notify: self.fractal forPropertyChange: propertyKey];
         
-        if (tableInsertionSection == TableSectionsAxiom) {
-            [self axiomRuleDropInTableIndexPath: tableInsertionIndexPath];
-           
-        } else if (tableInsertionSection == TableSectionsReplacement) {
-            [self replacementRuleDropInTableIndexPath: tableInsertionIndexPath];
-            
+        BOOL isDifferentLocation = (self.draggingRule.lastTableIndexPath == nil || [tableInsertionIndexPath compare: self.draggingRule.lastTableIndexPath] != NSOrderedSame);
+        if (isDifferentLocation) {
+            if (self.draggingRule.lastTableIndexPath) {
+                UITableViewCell<MBLSRuleDragAndDropProtocol>* lastTableCell = (UITableViewCell<MBLSRuleDragAndDropProtocol>*)[self.tableView cellForRowAtIndexPath: self.draggingRule.lastTableIndexPath];
+                if (lastTableCell) {
+                    reloadCell = [lastTableCell dragDidExitDraggingRule: self.draggingRule];
+                }
+            }
+            reloadCell = [currentTableCell dragDidEnterAtLocalPoint: localDropViewPoint draggingRule: self.draggingRule];
+        } else {
+            reloadCell = [currentTableCell dragDidChangeToLocalPoint: localDropViewPoint draggingRule: self.draggingRule];
         }
-    }else if (gestureState == UIGestureRecognizerStateEnded) {
+        self.draggingRule.lastTableIndexPath = tableInsertionIndexPath;
+        
+ 
+    }else if (currentTableCell && gestureState == UIGestureRecognizerStateEnded) {
         // look for dragging cell and replace with real rule in fractal data then regen fractalTableData
-        [self handleRulesSourceGestureEndedWithIndexPath];
+        reloadCell = [currentTableCell dragDidEndDraggingRule: self.draggingRule];
+        [self.draggingRule.view removeFromSuperview];
+        self.draggingRule = nil;
         
     } else if (gestureState == UIGestureRecognizerStateCancelled) {
-        [self handleRulesSourceGestureCancelled];
+        [self.draggingRule.view removeFromSuperview];
+        self.draggingRule = nil;
+    }
+
+    if (reloadCell) {
+        [self.tableView reloadRowsAtIndexPaths: @[tableInsertionIndexPath] withRowAnimation: UITableViewRowAnimationAutomatic];
     }
 }
 -(void) axiomRuleDropInTableIndexPath: (NSIndexPath*)tableIndexPath {
@@ -596,12 +627,6 @@
             [self.draggingRule removePreviousDropRepresentationNotify: self.fractal forPropertyChange: propertyKey];
         }
     }
-}
--(void)dragDidStartInView: (UIView*) view {
-    
-}
--(void)dragDidEnterView: (UIView*) view {
-    
 }
 
 - (void)saveContext

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LSDrawingRule+addons.h"
+#import "MBLSRuleDragAndDropProtocol.h"
 
-@interface MBLSRuleCollectionViewCell : UICollectionViewCell
+@interface MBLSRuleCollectionViewCell : UICollectionViewCell <MBLSRuleDragAndDropProtocol>
 
 @property (weak,nonatomic) LSDrawingRule            *rule;
 

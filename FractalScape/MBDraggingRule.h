@@ -29,6 +29,9 @@
 @property (nonatomic,readonly) UIImage                          *asImage;
 
 @property (nonatomic,assign) CGPoint                            touchToDragViewOffset;
+/*!
+ Coordinates at which to display the dragged view. Must be in the coordinate space of the containing view.
+ */
 @property (nonatomic,assign) CGPoint                            viewCenter;
 
 #pragma mark - state tracking properties

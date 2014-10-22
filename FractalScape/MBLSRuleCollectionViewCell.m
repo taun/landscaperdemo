@@ -130,4 +130,14 @@
     [super updateConstraints];
 }
 
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
+    return nil;
+}
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
+    return NO;
+}
+-(BOOL) dragDidExitDraggingRule: (MBDraggingRule*) draggingRule {
+    return NO;
+}
+
 @end

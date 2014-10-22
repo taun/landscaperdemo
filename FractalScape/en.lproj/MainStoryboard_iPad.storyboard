@@ -15,19 +15,19 @@
                         <viewControllerLayoutGuide type="bottom" id="Awh-gB-3mV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pSX-p9-jkP">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="980"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
+                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
                                 <rect key="frame" x="0.0" y="65" width="768" height="959"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
+                                    <view clipsSubviews="YES" contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
+                                            <view clipsSubviews="YES" contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                                 <subviews>
-                                                    <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
+                                                    <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
                                                         <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <gestureRecognizers/>
@@ -52,20 +52,20 @@
                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="Vla-Kc-k4B"/>
                                                 </constraints>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
-                                                <rect key="frame" x="370.5" y="10" width="377.5" height="39"/>
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
+                                                <rect key="frame" x="370" y="10" width="377.5" height="39"/>
                                                 <subviews>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
                                                         <rect key="frame" x="5" y="5" width="367.5" height="29"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="15" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpP-a6-a0V">
-                                                                <rect key="frame" x="136" y="4.5" width="18.5" height="19.5"/>
+                                                                <rect key="frame" x="136" y="4" width="18.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="EBw-pv-A8y">
-                                                                <rect key="frame" x="162.5" y="0.0" width="94" height="29"/>
+                                                                <rect key="frame" x="162" y="0.0" width="94" height="29"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="pLT-vI-nwS"/>
                                                                 </constraints>
@@ -74,19 +74,19 @@
                                                                 </connections>
                                                             </stepper>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="∘∢" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZk-fO-9mg">
-                                                                <rect key="frame" x="264.5" y="4" width="21.5" height="20.5"/>
+                                                                <rect key="frame" x="264" y="4" width="21.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="451" verticalHuggingPriority="457" horizontalCompressionResistancePriority="360" verticalCompressionResistancePriority="360" text="360.00" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4f-oD-mXM" userLabel="baseAngle">
-                                                                <rect key="frame" x="294.5" y="4" width="52.5" height="20.5"/>
+                                                                <rect key="frame" x="294" y="4" width="52.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </label>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Replacements:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbV-8d-39A">
-                                                                <rect key="frame" x="20" y="4.5" width="108.5" height="19.5"/>
+                                                                <rect key="frame" x="20" y="4" width="108.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -327,10 +327,16 @@
                                             <action selector="copyFractal:" destination="4nM-Pc-iAd" id="2Yt-KM-ZVV"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="2oT-13-Oji"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="gP2-cL-LGt"/>
                                     <barButtonItem systemItem="play" id="ec5-JZ-eZx">
                                         <connections>
                                             <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="FyM-N5-rEQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="2oT-13-Oji"/>
+                                    <barButtonItem image="toolBarFullScreenIcon" style="plain" id="Xn2-fr-47f" userLabel="FullScreen">
+                                        <connections>
+                                            <action selector="toggleFullScreen:" destination="4nM-Pc-iAd" id="V3H-XS-6ly"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="iC5-eo-mH3"/>
@@ -342,7 +348,7 @@
                                 </items>
                             </toolbar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Fractal Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsw-ym-KtT">
-                                <rect key="frame" x="333" y="32" width="103" height="21.5"/>
+                                <rect key="frame" x="220" y="32" width="103" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -352,11 +358,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="top" secondItem="zjZ-fb-Tj5" secondAttribute="bottom" id="71u-Ke-8LE"/>
+                            <constraint firstItem="hsw-ym-KtT" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leadingMargin" constant="200" id="BaF-l6-JAh"/>
                             <constraint firstItem="hsw-ym-KtT" firstAttribute="centerY" secondItem="zjZ-fb-Tj5" secondAttribute="centerY" id="HAn-tm-eqg"/>
                             <constraint firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" id="IdL-jb-QvC"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" id="PtK-pN-Ohx"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" id="YF5-t7-Zlt"/>
-                            <constraint firstItem="hsw-ym-KtT" firstAttribute="centerX" secondItem="zjZ-fb-Tj5" secondAttribute="centerX" id="Z1V-5j-0Io"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" id="aV3-ad-ubB"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" id="ea9-du-8sk"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" id="zI8-i5-HMe"/>
@@ -365,6 +371,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Editor" id="5yD-Jb-xIT"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="appearanceButton" destination="d0Q-Vq-qWV" id="Epz-6u-D1q"/>
                         <outlet property="fractal2PanGR" destination="wp3-t2-GY6" id="BSt-we-AGL"/>
@@ -1698,6 +1705,7 @@
         <image name="tabBarLinePropertiesIcon" width="25" height="25"/>
         <image name="tabBarRulesIcon" width="25" height="25"/>
         <image name="toolBarCopyIcon" width="28" height="28"/>
+        <image name="toolBarFullScreenIcon" width="28" height="28"/>
         <image name="zensand" width="72" height="71"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -159,29 +159,16 @@
         //        newCell = self.rulesCollectionsDict[indexString];
         if (!newCell) {
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier forIndexPath: indexPath];
-            
-            newCell.collectionView.dataSource = self.cachedAxiomDataSource;
+            newCell.rules = [self.fractal mutableOrderedSetValueForKey: @"startingRules"];
+            newCell.notifyObject = self.fractal;
+            newCell.notifyPath = @"startingRules";
+            newCell.isReadOnly = NO;
+            newCell.itemSize = 26.0;
+            newCell.itemMargin = 2.0;
             //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-            
-            CGFloat itemSize = 26.0;
-            CGFloat itemMargin = 2.0;
-            NSInteger items = [newCell.collectionView numberOfItemsInSection: 0];
-            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
-            layout.itemSize = CGSizeMake(itemSize, itemSize);
-            layout.minimumLineSpacing = itemMargin;
-            layout.minimumInteritemSpacing = itemMargin;
-            NSInteger rows = floorf(items/9.0) + 1;
-            CGFloat height = rows*(itemSize+itemMargin);
-            newCell.collectionView.currentHeightConstraint.constant = height;
-            CGSize currentSize = newCell.collectionView.contentSize;
-            newCell.collectionView.contentSize = CGSizeMake(currentSize.width, height);
-            [newCell.collectionView reloadData];
-            
-            [newCell.collectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
         }
         
         cell = newCell;
-        //        [newCell.collectionView layoutIfNeeded];
         
     } else if (indexPath.section == TableSectionsReplacement) {
         // rules
@@ -191,39 +178,15 @@
         //        newCell = self.rulesCollectionsDict[indexString];
         if (replacementRule) {
             newCell = [tableView dequeueReusableCellWithIdentifier: ReplacementRuleCellIdentifier forIndexPath: indexPath];
-            
-            newCell.rule = replacementRule.contextRule;
-            
-            MBRuleCollectionDataSource* replacementRulesSource;
-            if (self.cachedReplacementDataSourcesArray.count > indexPath.row) {
-                // already has a source
-                replacementRulesSource = self.cachedReplacementDataSourcesArray[indexPath.row];
-            } else {
-                replacementRulesSource = [MBRuleCollectionDataSource new];
-                self.cachedReplacementDataSourcesArray[indexPath.row] = replacementRulesSource;
-#pragma message "TODO remember to remove the replacementRuleSource when deleting the cell"
-            }
-            replacementRulesSource.rules = replacementRule.rules;
-            newCell.collectionView.dataSource = replacementRulesSource;
-            //        newCell.rightCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
-            CGFloat itemSize = 26.0;
-            CGFloat itemMargin = 2.0;
-            NSInteger items = [newCell.collectionView numberOfItemsInSection: 0];
-            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
-            layout.itemSize = CGSizeMake(itemSize, itemSize);
-            layout.minimumLineSpacing = itemMargin;
-            layout.minimumInteritemSpacing = itemMargin;
-            NSInteger rows = floorf(items/9.0) + 1;
-            CGFloat height = rows*(itemSize+itemMargin);
-            newCell.collectionView.currentHeightConstraint.constant = height;
-            CGSize currentSize = newCell.collectionView.contentSize;
-            newCell.collectionView.contentSize = CGSizeMake(currentSize.width, height);
-            [newCell.collectionView reloadData];
-            [newCell.collectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
+            newCell.replacementRule = replacementRule;
+            newCell.notifyObject = self.fractal;
+            newCell.notifyPath = @"replacementRules";
+            newCell.isReadOnly = NO;
+            newCell.itemSize = 26.0;
+            newCell.itemMargin = 2.0;
         }
         
         cell = newCell;
-        //        [newCell.rightCollectionView layoutIfNeeded];
         
     } else if (indexPath.section == TableSectionsRules) {
         // Rule source section
@@ -231,32 +194,16 @@
         //        newCell = self.rulesCollectionsDict[indexString];
         if (!newCell) {
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
-            
-            newCell.collectionView.dataSource = self.cachedRulesDataSource;
+            newCell.rules = [self.fractal.drawingRulesType mutableOrderedSetValueForKey: @"rules"];
+            newCell.notifyObject = self.fractal.drawingRulesType;
+            newCell.notifyPath = @"rules";
+            newCell.isReadOnly = YES;
+            newCell.itemSize = 46.0;
+            newCell.itemMargin = 2.0;
             //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-#pragma message "All of the stuff below should be in cell class 'prepareForReuse' ? or when setting itemSize? of class"
-            CGFloat itemSize = 46.0;
-            CGFloat itemMargin = 2.0;
-            NSInteger items = [newCell.collectionView numberOfItemsInSection: 0];
-            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)newCell.collectionView.collectionViewLayout;
-            layout.itemSize = CGSizeMake(itemSize, itemSize);
-            layout.minimumLineSpacing = itemMargin;
-            layout.minimumInteritemSpacing = itemMargin;
-            NSInteger rows = floorf(items/9.0) + 1;
-            CGFloat height = rows*(itemSize+itemMargin);
-            newCell.collectionView.currentHeightConstraint.constant = height;
-            CGSize currentSize = newCell.collectionView.contentSize;
-            newCell.collectionView.contentSize = CGSizeMake(currentSize.width, height);
-            [newCell.collectionView reloadData];
-            [newCell.collectionView setNeedsUpdateConstraints]; // needed to reapply cell and collection constraint heights.
         }
         
-        //        CGSize largeCollectionSize = [newCell.collectionView systemLayoutSizeFittingSize: UILayoutFittingExpandedSize];
-        //        CGSize smallCollectionSize = [newCell.collectionView systemLayoutSizeFittingSize: UILayoutFittingCompressedSize];
-        //        CGSize largeContentSize = [newCell.collectionView.conte]
-        
         cell = newCell;
-        //        [newCell.collectionView layoutIfNeeded];
     }
     
     return cell;
