@@ -69,8 +69,7 @@
     if (CGRectContainsPoint(collectionRect, point)) {
         // over collection
         // get data and collection and send to method
-        CGPoint collectionPoint = [self convertPoint: point toView: self.collectionView];
-        returnView = [super dragDidStartAtLocalPoint: collectionPoint draggingRule: draggingRule];
+        returnView = [super dragDidStartAtLocalPoint: point draggingRule: draggingRule];
         
     } else if (CGRectContainsPoint(placeholderImageRect, point)) {
         // over rule placeholder imageView

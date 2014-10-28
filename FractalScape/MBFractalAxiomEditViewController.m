@@ -487,6 +487,8 @@
  @param sender users long press
  */
 - (IBAction)rulesSourceLongPress:(UILongPressGestureRecognizer *)sender {
+    UIGestureRecognizerState gestureState = sender.state;
+    BOOL reloadCell = NO;
     
     if (!self.draggingRule) {
         self.draggingRule = [[MBDraggingRule alloc] initWithRule: nil size: 26.0];
@@ -495,7 +497,6 @@
         self.draggingRule.touchToDragViewOffset = CGPointMake(0.0, -40.0);
     }
     
-    BOOL reloadCell = NO;
 
     CGPoint touchPoint = [sender locationInView: self.tableView];
     
@@ -504,19 +505,32 @@
     // Keep dragged view within the table bounds
     self.draggingRule.viewCenter = constrainedPoint;
     
-    NSIndexPath* tableInsertionIndexPath = [self.tableView indexPathForRowAtPoint: self.draggingRule.viewCenter];
-    NSInteger tableInsertionSection = tableInsertionIndexPath.section;
+    NSIndexPath* tableInsertionIndexPath;
     
-    CGRect scroll = CGRectInset(CGRectMake(self.draggingRule.viewCenter.x, self.draggingRule.viewCenter.y, 1, 1), -20, -20);
+    if (gestureState == UIGestureRecognizerStateBegan) {
+        tableInsertionIndexPath = [self.tableView indexPathForRowAtPoint: touchPoint];
+    } else {
+        tableInsertionIndexPath = [self.tableView indexPathForRowAtPoint: self.draggingRule.viewCenter];
+    }
+    
+    // Scroll the table to keep the touchpoint and dragged image in the frame.
+    CGFloat scrollTouchInsets = -20.0;
+    CGRect dropImageRect = CGRectInset(self.draggingRule.view.frame, scrollTouchInsets, scrollTouchInsets);
+    CGRect touchRect = CGRectInset(CGRectMake(touchPoint.x, touchPoint.y, 1, 1), scrollTouchInsets, scrollTouchInsets);
+    CGRect scroll = CGRectUnion(dropImageRect, touchRect);
     [self.tableView scrollRectToVisible: scroll animated: YES];
     
+    // Get the cell either under the touch or under the drag image depending on current tableIndex.
     UITableViewCell<MBLSRuleDragAndDropProtocol>* currentTableCell = (UITableViewCell<MBLSRuleDragAndDropProtocol>*)[self.tableView cellForRowAtIndexPath: tableInsertionIndexPath];
-    CGPoint localSourceViewPoint = [self.tableView convertPoint: touchPoint toView: currentTableCell];
-    CGPoint localDropViewPoint = [self.tableView convertPoint: self.draggingRule.viewCenter toView: currentTableCell];
 
-    UIGestureRecognizerState gestureState = sender.state;
+    if (![currentTableCell conformsToProtocol: @protocol(MBLSRuleDragAndDropProtocol) ]) {
+        currentTableCell = nil;
+    }
+    
     if (currentTableCell && gestureState == UIGestureRecognizerStateBegan) {
         //
+        CGPoint localSourceViewPoint = [self.tableView convertPoint: touchPoint toView: currentTableCell];
+        
         UIView* dragView = [currentTableCell dragDidStartAtLocalPoint: localSourceViewPoint draggingRule: self.draggingRule];
         if (dragView) {
             [self.tableView addSubview: dragView];
@@ -545,6 +559,7 @@
             return;
         }
         
+        CGPoint localDropViewPoint = [self.tableView convertPoint: self.draggingRule.viewCenter toView: currentTableCell];
         BOOL isDifferentLocation = (self.draggingRule.lastTableIndexPath == nil || [tableInsertionIndexPath compare: self.draggingRule.lastTableIndexPath] != NSOrderedSame);
         if (isDifferentLocation) {
             if (self.draggingRule.lastTableIndexPath) {
@@ -560,9 +575,11 @@
         self.draggingRule.lastTableIndexPath = tableInsertionIndexPath;
         
  
-    }else if (currentTableCell && gestureState == UIGestureRecognizerStateEnded) {
-        // look for dragging cell and replace with real rule in fractal data then regen fractalTableData
-        reloadCell = [currentTableCell dragDidEndDraggingRule: self.draggingRule];
+    }else if (gestureState == UIGestureRecognizerStateEnded) {
+        if (currentTableCell) {
+            // look for dragging cell and replace with real rule in fractal data then regen fractalTableData
+            reloadCell = [currentTableCell dragDidEndDraggingRule: self.draggingRule];
+        }
         [self.draggingRule.view removeFromSuperview];
         self.draggingRule = nil;
         

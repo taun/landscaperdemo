@@ -1515,9 +1515,17 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 -(void) fullScreenOn {
     //    [self moveEditorHeightTo: 0];
-    self.fractalViewLevel0.superview.hidden = YES;
-    self.fractalViewLevel1.superview.hidden = YES;
-    self.fractalViewLevel2.superview.hidden = YES;
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.fractalViewLevel0.superview.alpha = 0;
+                         self.fractalViewLevel1.superview.alpha = 0;
+                         self.fractalViewLevel2.superview.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                         self.fractalViewLevel0.superview.hidden = YES;
+                         self.fractalViewLevel1.superview.hidden = YES;
+                         self.fractalViewLevel2.superview.hidden = YES;
+                     }];
 }
 
 -(void) fullScreenOff {
@@ -1525,6 +1533,13 @@ static void countPathElements(void *info, const CGPathElement *element) {
     self.fractalViewLevel0.superview.hidden = NO;
     self.fractalViewLevel1.superview.hidden = NO;
     self.fractalViewLevel2.superview.hidden = NO;
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.fractalViewLevel0.superview.alpha = 0.75;
+                         self.fractalViewLevel1.superview.alpha = 0.75;
+                         self.fractalViewLevel2.superview.alpha = 0.75;
+                     }];
 }
 - (UIImage *)snapshot:(UIView *)view
 {

@@ -18,17 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="980"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
-                                <rect key="frame" x="0.0" y="65" width="768" height="959"/>
+                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
+                                <rect key="frame" x="0.0" y="65" width="768" height="915"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
+                                    <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="915"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
-                                                <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
+                                            <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="915"/>
                                                 <subviews>
-                                                    <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
+                                                    <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="915"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <gestureRecognizers/>
                                                         <connections>
@@ -52,11 +52,11 @@
                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="Vla-Kc-k4B"/>
                                                 </constraints>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
-                                                <rect key="frame" x="370" y="10" width="377.5" height="39"/>
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
+                                                <rect key="frame" x="371" y="10" width="376.5" height="39"/>
                                                 <subviews>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
-                                                        <rect key="frame" x="5" y="5" width="367.5" height="29"/>
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
+                                                        <rect key="frame" x="5" y="5" width="366.5" height="29"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="15" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpP-a6-a0V">
                                                                 <rect key="frame" x="136" y="4" width="18.5" height="19.5"/>
@@ -144,7 +144,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerView">
+                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerView">
                                                 <rect key="frame" x="12" y="474" width="296" height="196"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal">
@@ -188,7 +188,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerView">
+                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerView">
                                                 <rect key="frame" x="12" y="248" width="296" height="196"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal">
@@ -232,7 +232,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerView">
+                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerView">
                                                 <rect key="frame" x="12" y="22" width="296" height="196"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal">
@@ -334,7 +334,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="2oT-13-Oji"/>
-                                    <barButtonItem image="toolBarFullScreenIcon" style="plain" id="Xn2-fr-47f" userLabel="FullScreen">
+                                    <barButtonItem image="toolBarHUDScreenIcon" style="plain" id="Xn2-fr-47f" userLabel="FullScreen">
                                         <connections>
                                             <action selector="toggleFullScreen:" destination="4nM-Pc-iAd" id="V3H-XS-6ly"/>
                                         </connections>
@@ -477,7 +477,7 @@
                     </connections>
                 </rotationGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4938" y="49"/>
+            <point key="canvasLocation" x="4797.4400000000005" y="232.10666666666668"/>
         </scene>
         <!--Properties-->
         <scene sceneID="m6b-7w-Xm5">
@@ -485,9 +485,9 @@
                 <tableViewController storyboardIdentifier="PropertiesPopover" title="Properties" definesPresentationContext="YES" id="VAi-2L-lOP" customClass="MBFractalAxiomEditViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dni-f2-BXO" customClass="MDKUITableViewDynamicRowHeights">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="sectionIndexBackgroundColor" red="0.74506729014598538" green="0.0" blue="0.0" alpha="0.66000000000000003" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="HeaderCell" textLabel="0ce-KW-Bdk" style="IBUITableViewCellStyleDefault" id="SSH-EY-cYI" userLabel="HeaderCell">
                                 <rect key="frame" x="0.0" y="278" width="400" height="44"/>
@@ -504,6 +504,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Header">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -536,7 +537,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="HQE-ZV-zkE" secondAttribute="trailing" constant="20" symbolic="YES" id="9Yx-BE-36w"/>
                                         <constraint firstAttribute="centerY" secondItem="Rd1-Bk-Upw" secondAttribute="centerY" id="Zr6-FY-Y4e"/>
@@ -545,7 +545,7 @@
                                         <constraint firstAttribute="centerY" secondItem="HQE-ZV-zkE" secondAttribute="centerY" id="sUf-LS-RWF"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -569,7 +569,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="qYh-ef-UI2">
-                                            <rect key="frame" x="98.5" y="7" width="281.5" height="30"/>
+                                            <rect key="frame" x="98" y="7" width="281.5" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
@@ -588,7 +588,7 @@
                                         <constraint firstItem="goN-HQ-CYn" firstAttribute="leading" secondItem="CBk-TT-WPC" secondAttribute="leading" constant="20" symbolic="YES" id="zkT-1R-uIr"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -647,6 +647,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="liy-oF-qdV" secondAttribute="bottom" constant="6" id="55b-mR-QHJ"/>
                                         <constraint firstItem="liy-oF-qdV" firstAttribute="leading" secondItem="HFK-iH-g0e" secondAttribute="leading" constant="20" symbolic="YES" id="OFy-vR-pzD"/>
@@ -654,6 +655,7 @@
                                         <constraint firstAttribute="trailing" secondItem="liy-oF-qdV" secondAttribute="trailing" constant="20" symbolic="YES" id="yg7-Bc-akV"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -805,6 +807,7 @@
                                         <constraint firstItem="lP1-fi-GwI" firstAttribute="trailing" secondItem="Eyx-KZ-uqZ" secondAttribute="trailing" constant="-2" id="y6e-BR-1iG"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Replacement Rule">
                                     <accessibilityTraits key="traits" none="YES"/>
                                     <bool key="isElement" value="YES"/>
@@ -904,6 +907,7 @@
                                         <constraint firstItem="xDw-d4-d3Z" firstAttribute="leading" secondItem="hFf-fk-1mS" secondAttribute="leadingMargin" constant="12" id="KHK-kM-z6e"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Rule Source Collection">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -1057,7 +1061,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6688" y="-212"/>
+            <point key="canvasLocation" x="6690.5600000000004" y="-356.69333333333333"/>
         </scene>
         <!--Line Segments-->
         <scene sceneID="AoQ-mK-Ne2">
@@ -1402,7 +1406,7 @@
                 <customObject id="n7o-vg-l7l" customClass="FractalScapeIconSet"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7122" y="-212"/>
+            <point key="canvasLocation" x="7247.3600000000006" y="-356.69333333333333"/>
         </scene>
         <!--Fill Colors-->
         <scene sceneID="ahc-Pz-mGd">
@@ -1472,7 +1476,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="6ep-nf-v8a" customClass="FractalScapeIconSet"/>
             </objects>
-            <point key="canvasLocation" x="7122" y="349"/>
+            <point key="canvasLocation" x="7247.3600000000006" y="607.57333333333338"/>
         </scene>
         <!--Line Colors-->
         <scene sceneID="Qnc-2Z-7h3">
@@ -1541,7 +1545,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ln-qV-G96" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="JE5-q7-SfG" customClass="FractalScapeIconSet"/>
             </objects>
-            <point key="canvasLocation" x="6688" y="349"/>
+            <point key="canvasLocation" x="6693.1199999999999" y="607.57333333333338"/>
         </scene>
         <!--Fractal Appearance Editor View Controller-->
         <scene sceneID="vbC-pS-Rbr">
@@ -1695,7 +1699,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4961" y="-913"/>
+            <point key="canvasLocation" x="4828.1599999999999" y="-928.42666666666673"/>
         </scene>
     </scenes>
     <resources>
@@ -1705,7 +1709,7 @@
         <image name="tabBarLinePropertiesIcon" width="25" height="25"/>
         <image name="tabBarRulesIcon" width="25" height="25"/>
         <image name="toolBarCopyIcon" width="28" height="28"/>
-        <image name="toolBarFullScreenIcon" width="28" height="28"/>
+        <image name="toolBarHUDScreenIcon" width="28" height="28"/>
         <image name="zensand" width="72" height="71"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

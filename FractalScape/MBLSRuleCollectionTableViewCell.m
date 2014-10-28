@@ -106,6 +106,10 @@
         } else {
             draggedRule = collectionSourceCell.rule;
         }
+        
+        self.lastEnteredView = self.collectionView;
+        self.lastIndexPath = ruleIndexPath;
+        
         draggingRule.rule = draggedRule;
         draggingRule.sourceCollection = self.collectionView;
         draggingRule.sourceCollectionIndexPath = ruleIndexPath;
@@ -114,6 +118,7 @@
     }
     return returnView;
 }
+#pragma message "There is a possibility this is entered for the same view right after the didStart"
 -(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
     BOOL reloadContainer = NO;
     
