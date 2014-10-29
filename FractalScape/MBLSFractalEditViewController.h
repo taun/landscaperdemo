@@ -52,6 +52,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *fractalDownSwipeGR;
 @property (weak, nonatomic) IBOutlet UIPinchGestureRecognizer *fractalPinchGR;
 @property (weak, nonatomic) IBOutlet UIRotationGestureRecognizer *fractalRotationGR;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *toggleFullScreenButton;
 
 #pragma mark FractalLevel0 Nib outlets
 
