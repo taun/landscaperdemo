@@ -131,7 +131,7 @@
             [self.lastDestinationCollection insertItemsAtIndexPaths: @[indexPath]];
             
             self.lastCollectionIndexPath = indexPath;
-            CGFloat remainder = fmodf(lastCellRow+1, 9.0);
+            CGFloat remainder = fmodf(lastCellRow+1, 22.0);
             if (remainder == 0.0) {
                 // flag to relayout collection with additional row
                 resized = YES;

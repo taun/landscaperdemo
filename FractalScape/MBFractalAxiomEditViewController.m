@@ -112,8 +112,8 @@
 -(NSArray*) fractalTableSections {
     if (!_fractalTableSections) {
         
-            MBAxiomEditorTableSection* desc = [MBAxiomEditorTableSection newWithTitle: @"Description"];
-            
+        MBAxiomEditorTableSection* desc = [MBAxiomEditorTableSection newWithTitle: nil]; // no title to fit rules //@"Description"
+        
             MBAxiomEditorTableSection* start = [MBAxiomEditorTableSection newWithTitle: @"Starting Rule"];
             
             MBAxiomEditorTableSection* replace = [MBAxiomEditorTableSection newWithTitle:  @"Replacement Rules"];

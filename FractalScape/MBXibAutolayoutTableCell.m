@@ -19,6 +19,7 @@
 -(void) awakeFromNib {
     [super awakeFromNib];
     [self fixConstraints];
+    self.backgroundColor = [UIColor clearColor];
 //    [self fixSubviewsOuterConstraints];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

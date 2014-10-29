@@ -368,9 +368,13 @@ static BOOL SIMULTOUCH = NO;
 -(UIViewController*) appearanceViewController {
     if (_appearanceViewController==nil) {
         _appearanceViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
-        [_appearanceViewController setPreferredContentSize: CGSizeMake(400, 500)];
+        [_appearanceViewController setPreferredContentSize: CGSizeMake(800, 350)];
         _appearanceViewController.modalPresentationStyle = UIModalPresentationPopover;
-        _appearanceViewController.popoverPresentationController.passthroughViews = @[self.fractalViewLevel0,
+        _appearanceViewController.popoverPresentationController.passthroughViews = @[self.fractalViewRoot,
+                                                                                     self.fractalViewHolder,
+                                                                                     self.hudViewBackground,
+                                                                                     self.hudLevelStepper,
+                                                                                     self.fractalViewLevel0,
                                                                                      self.fractalViewLevel1,
                                                                                      self.fractalViewLevel2];
         _appearanceViewController.popoverPresentationController.delegate = self;
@@ -1117,7 +1121,30 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     newController.fractalUndoManager = self.undoManager;
     
     UIPopoverPresentationController* ppc = newController.popoverPresentationController;
-    ppc.barButtonItem = sender;
+    
+    if (sender) {
+        ppc.barButtonItem = sender;
+    } else {
+        ppc.passthroughViews = @[self.fractalViewRoot,
+                                 self.fractalViewHolder,
+                                 self.hudViewBackground,
+                                 self.hudLevelStepper,
+                                 self.fractalViewLevel0,
+                                 self.fractalViewLevel1,
+                                 self.fractalViewLevel2];
+        
+        // imaginary button at bottom of screen/view
+        CGRect viewBounds = self.fractalViewRoot.bounds;
+        CGFloat bottomY = viewBounds.origin.y + viewBounds.size.height;
+        CGFloat centerX = viewBounds.origin.x + (viewBounds.size.width / 2.0);
+        CGFloat halfWidth = 44.0;
+        CGFloat height = 0.0;
+        CGRect sourceRect = CGRectMake(centerX - halfWidth, bottomY - height, 2*halfWidth, height);
+        
+        ppc.sourceView = self.fractalViewRoot;
+        ppc.sourceRect = sourceRect;
+    }
+    
     ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
     
     [self presentViewController: newController animated: YES completion: ^{
@@ -1133,7 +1160,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if ([self.fractal.isImmutable boolValue]) {
         self.fractal = [self.fractal mutableCopy];
     }
-    [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
+    [self handleNewPopoverRequest: self.appearanceViewController sender: nil otherPopover: self.libraryViewController];
 }
 
 - (IBAction)shareButtonPressed:(id)sender {

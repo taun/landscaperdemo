@@ -28,8 +28,16 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _isReadOnly = NO;
+        [self configureAppearance];
     }
     return self;
+}
+-(void) awakeFromNib {
+    [super awakeFromNib];
+    [self configureAppearance];
+}
+-(void) configureAppearance {
+    self.backgroundColor = [UIColor clearColor];
 }
 -(void)setRules:(NSMutableOrderedSet *)rules {
     if (_rules != rules) {
@@ -66,7 +74,7 @@
         layout.itemSize = CGSizeMake(_itemSize, _itemSize);
         layout.minimumLineSpacing = _itemMargin;
         layout.minimumInteritemSpacing = _itemMargin;
-        NSInteger rows = floorf(items/9.0) + 1;
+        NSInteger rows = floorf(items/22.0) + 1;
         CGFloat height = rows*(_itemSize+_itemMargin);
         self.collectionView.currentHeightConstraint.constant = height;
         CGSize currentSize = self.collectionView.contentSize;
@@ -139,7 +147,7 @@
                 self.lastEnteredView = self.collectionView;
                 self.lastIndexPath = rulesCollectionIndexPath;
                 
-                CGFloat remainder = fmodf([self.collectionView numberOfItemsInSection: 0], 9.0);
+                CGFloat remainder = fmodf([self.collectionView numberOfItemsInSection: 0], 22.0);
                 if (remainder == 0.0) {
                     // flag to relayout collection with additional row
                     reloadContainer = YES;
