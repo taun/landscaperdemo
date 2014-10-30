@@ -36,8 +36,8 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 #pragma message "Unused"
 @property (nonatomic, strong) UIBarButtonItem*              spaceButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem        *appearanceButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem        *playButton;
+@property (weak, nonatomic) IBOutlet UIButton               *editButton;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;

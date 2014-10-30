@@ -52,13 +52,14 @@
                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="Vla-Kc-k4B"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL">
-                                                <rect key="frame" x="694" y="927" width="72" height="30"/>
+                                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerView">
+                                                <rect key="frame" x="683" y="918" width="65" height="37"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
-                                                        <rect key="frame" x="21" y="0.0" width="30" height="30"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <state key="normal" title="Edit">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
+                                                        <rect key="frame" x="20" y="6" width="25" height="25"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <size key="titleShadowOffset" width="0.0" height="2"/>
+                                                        <state key="normal" image="tabBarRulesIcon">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -67,13 +68,24 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="6Fb-d0-pgo"/>
-                                                    <constraint firstAttribute="centerX" secondItem="X2L-iC-acQ" secondAttribute="centerX" id="7lm-ru-qb0"/>
-                                                    <constraint firstAttribute="width" constant="72" id="SvI-ID-YdQ"/>
-                                                    <constraint firstAttribute="centerY" secondItem="X2L-iC-acQ" secondAttribute="centerY" id="hfD-Wz-Ntg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="X2L-iC-acQ" secondAttribute="bottom" constant="6" id="Cd6-g2-wPd"/>
+                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="6" id="LaG-r5-4ck"/>
+                                                    <constraint firstAttribute="trailing" secondItem="X2L-iC-acQ" secondAttribute="trailing" constant="20" id="hS5-Rm-snq"/>
+                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="leading" secondItem="SdO-1x-rjL" secondAttribute="leading" constant="20" id="xCj-kA-f3t"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.4344103634" green="0.67821794749999997" blue="0.99883222579999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="12"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
                                                 <rect key="frame" x="10" y="10" width="376.5" height="39"/>
@@ -301,13 +313,13 @@
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="10" id="5dp-ny-2EX"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="height" secondItem="wmh-En-OwM" secondAttribute="height" id="GDc-sq-pmy"/>
-                                            <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="2" id="H3F-eo-44g"/>
+                                            <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="4" id="H3F-eo-44g"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="wmh-En-OwM" secondAttribute="width" id="Tgk-ig-GfA"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="dJU-MH-ihA" secondAttribute="width" id="WFl-b4-lj2"/>
-                                            <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="2" id="dWF-E9-FbC"/>
+                                            <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="20" id="dWF-E9-FbC"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="leading" secondItem="dJU-MH-ihA" secondAttribute="leading" id="fcH-Cx-ND2"/>
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="top" secondItem="wmh-En-OwM" secondAttribute="bottom" constant="10" id="gz4-lg-v7f"/>
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="i9u-dn-N5F"/>
@@ -361,12 +373,6 @@
                                             <action selector="toggleFullScreen:" destination="4nM-Pc-iAd" id="V3H-XS-6ly"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="iC5-eo-mH3"/>
-                                    <barButtonItem systemItem="edit" id="d0Q-Vq-qWV">
-                                        <connections>
-                                            <action selector="appearanceButtonPressed:" destination="4nM-Pc-iAd" id="7vp-Rk-PFg"/>
-                                        </connections>
-                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Fractal Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsw-ym-KtT">
@@ -395,7 +401,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Editor" id="5yD-Jb-xIT"/>
                     <connections>
-                        <outlet property="appearanceButton" destination="d0Q-Vq-qWV" id="Epz-6u-D1q"/>
+                        <outlet property="editButton" destination="X2L-iC-acQ" id="Lo3-pv-esw"/>
                         <outlet property="fractal2PanGR" destination="wp3-t2-GY6" id="BSt-we-AGL"/>
                         <outlet property="fractalDownSwipeGR" destination="usL-KC-8Lh" id="GwR-hC-rsJ"/>
                         <outlet property="fractalLeftSwipeGR" destination="5hS-Q6-3ge" id="cdI-7f-iYB"/>

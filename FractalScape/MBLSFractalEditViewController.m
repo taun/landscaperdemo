@@ -1150,6 +1150,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self handleNewPopoverRequest: self.libraryViewController sender: sender otherPopover: self.appearanceViewController];
 }
 -(IBAction)appearanceButtonPressed:(id)sender {
+    if (self.presentedViewController == self.appearanceViewController) {
+        [self dismissViewControllerAnimated: YES completion:^{
+            self.currentPresentedController = nil;
+        }];
+        return;
+    }
+    
     if ([self.fractal.isImmutable boolValue]) {
         self.fractal = [self.fractal mutableCopy];
     }
@@ -1278,7 +1285,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
     // copy
     self.fractal = [self.fractal mutableCopy];
     
-    [self appearanceButtonPressed: self.appearanceButton];
+    [self appearanceButtonPressed: self.editButton];
 }
 
 - (IBAction)levelInputChanged:(UIControl*)sender {
