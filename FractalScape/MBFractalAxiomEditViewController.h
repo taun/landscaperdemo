@@ -14,9 +14,9 @@
 @class LSFractal;
 
 @interface MBFractalAxiomEditViewController : UITableViewController <FractalControllerProtocol,
-                                                                        UICollectionViewDelegate,
                                                                         UIGestureRecognizerDelegate,
-                                                                        UITextFieldDelegate,
+                                                                        UIPickerViewDataSource,
+                                                                        UIPickerViewDelegate,
                                                                         UITextViewDelegate>
 //{
 //    __strong NSArray        *_sortedReplacementRulesArray;

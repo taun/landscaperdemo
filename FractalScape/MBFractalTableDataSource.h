@@ -14,6 +14,8 @@
 
 @property (nonatomic,weak) LSFractal*                                          fractal;
 @property (nonatomic,strong) NSArray*                                          tableSections;
+@property (nonatomic,weak) id<UIPickerViewDelegate>                            pickerDelegate;
+@property (nonatomic,weak) id<UIPickerViewDataSource>                          pickerSource;
 
 +(instancetype) newSourceWithFractal: (LSFractal*) fractal tableSections: (NSArray*) sections;
 

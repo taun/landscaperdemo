@@ -98,6 +98,8 @@
         self.cachedRulesDictionary = nil;
         self.fractalTableSource.fractal = _fractal;
         self.fractalTableSource.tableSections = self.fractalTableSections;
+        self.fractalTableSource.pickerDelegate = self;
+        self.fractalTableSource.pickerSource = self;
         
         [self.tableView reloadData];
         
@@ -205,57 +207,6 @@
  }
  */
 
-
-
-#pragma mark - table delegate
-- (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    MBAxiomEditorTableSection* tableSection = (self.fractalTableSections)[indexPath.section];
-    return tableSection.shouldIndentWhileEditing;
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MBAxiomEditorTableSection* tableSection = (self.fractalTableSections)[indexPath.section];
-    
-    //Set default value
-    UITableViewCellEditingStyle editingStyle = UITableViewCellEditingStyleNone;
-    
-    if (indexPath.section == TableSectionsReplacement) {
-        // Rules
-        if (indexPath.row == ([tableSection.data count] -1)) {
-            editingStyle = UITableViewCellEditingStyleInsert;
-        } else {
-            editingStyle = UITableViewCellEditingStyleDelete;
-        }
-    }
-    return editingStyle;
-}
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Accessory view");
-}
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Edditing row %@", indexPath);
-}
-
-#pragma mark - Rule Cell Delegate
-
--(NSNumberFormatter*) twoPlaceFormatter {
-    if (_twoPlaceFormatter == nil) {
-        _twoPlaceFormatter = [[NSNumberFormatter alloc] init];
-        [_twoPlaceFormatter setAllowsFloats: YES];
-        [_twoPlaceFormatter setMaximumFractionDigits: 2];
-        [_twoPlaceFormatter setMaximumIntegerDigits: 3];
-        [_twoPlaceFormatter setPositiveFormat: @"##0.00"];
-        [_twoPlaceFormatter setNegativeFormat: @"-##0.00"];
-    }
-    return _twoPlaceFormatter;
-}
-#pragma mark - UICollectionViewDelegate
--(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
--(BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
 #pragma mark - Actions
 - (IBAction)nameInputDidEnd:(UITextField*)sender {
     self.fractal.name = sender.text;
@@ -397,7 +348,7 @@
  is unique to the draggingRule. If the draggingRule copy is dropped in a collection, then it is also unique in that collection
  and can be easily found in the set. This means we don't need to keep track of indexes just the source collection (if not the rules
  collection) for moves and deletes.
-  */
+ */
 -(void) handleRulesSourceGestureBeganWithLocation: (CGPoint) touchPoint andIndexPath: (NSIndexPath*) indexPath {
     MBLSRuleCollectionTableViewCell* tableSourceCell = (MBLSRuleCollectionTableViewCell*)[self.tableView cellForRowAtIndexPath: indexPath];
     UICollectionView* sourceCollection = tableSourceCell.collectionView;
@@ -413,7 +364,7 @@
         
         [self.tableView addSubview: self.draggingRule.view];
     }
- }
+}
 -(void) handleRulesSourceGestureChangedWithCollection: (UICollectionView*) collectionView data: (NSMutableOrderedSet*)newDestinationArray {
     
     self.draggingRule.lastDestinationCollection = collectionView;
@@ -448,7 +399,7 @@
         }
         
     }
-
+    
 }
 /*!
  Add the real rule to the fractal data and update the relevant table views.
@@ -497,7 +448,7 @@
         self.draggingRule.touchToDragViewOffset = CGPointMake(0.0, -40.0);
     }
     
-
+    
     CGPoint touchPoint = [sender locationInView: self.tableView];
     
     CGRect tableBounds = self.tableView.bounds;
@@ -522,7 +473,7 @@
     
     // Get the cell either under the touch or under the drag image depending on current tableIndex.
     UITableViewCell<MBLSRuleDragAndDropProtocol>* currentTableCell = (UITableViewCell<MBLSRuleDragAndDropProtocol>*)[self.tableView cellForRowAtIndexPath: tableInsertionIndexPath];
-
+    
     if (![currentTableCell conformsToProtocol: @protocol(MBLSRuleDragAndDropProtocol) ]) {
         currentTableCell = nil;
     }
@@ -574,7 +525,7 @@
         }
         self.draggingRule.lastTableIndexPath = tableInsertionIndexPath;
         
- 
+        
     }else if (gestureState == UIGestureRecognizerStateEnded) {
         if (currentTableCell) {
             // look for dragging cell and replace with real rule in fractal data then regen fractalTableData
@@ -587,7 +538,7 @@
         [self.draggingRule.view removeFromSuperview];
         self.draggingRule = nil;
     }
-
+    
     if (reloadCell) {
         [self.tableView reloadRowsAtIndexPaths: @[tableInsertionIndexPath] withRowAnimation: UITableViewRowAnimationAutomatic];
     }
@@ -596,7 +547,7 @@
     NSMutableOrderedSet* rulesSet;
     
     UITableViewCell* currentTableCell = [self.tableView cellForRowAtIndexPath: tableIndexPath];
-
+    
     rulesSet = self.fractalSectionDataMap[TableSectionsAxiom];
     
     if ([currentTableCell isKindOfClass:[MBLSRuleCollectionTableViewCell class]]) {
@@ -660,9 +611,66 @@
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         } else {
-//            self.fractalDataChanged = YES;
+            //            self.fractalDataChanged = YES;
         }
     }
+}
+
+
+
+#pragma mark - table delegate
+- (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    MBAxiomEditorTableSection* tableSection = (self.fractalTableSections)[indexPath.section];
+    return tableSection.shouldIndentWhileEditing;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Set default value
+    UITableViewCellEditingStyle editingStyle = UITableViewCellEditingStyleNone;
+    
+    if (indexPath.section == TableSectionsReplacement) {
+        // Rules
+        if (indexPath.row == ([self.fractal.replacementRules count] -1)) {
+            editingStyle = UITableViewCellEditingStyleInsert;
+        } else {
+            editingStyle = UITableViewCellEditingStyleDelete;
+        }
+    }
+    return editingStyle;
+}
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Accessory view");
+}
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Edditing row %@", indexPath);
+}
+
+#pragma mark - Rule Cell Delegate
+
+-(NSNumberFormatter*) twoPlaceFormatter {
+    if (_twoPlaceFormatter == nil) {
+        _twoPlaceFormatter = [[NSNumberFormatter alloc] init];
+        [_twoPlaceFormatter setAllowsFloats: YES];
+        [_twoPlaceFormatter setMaximumFractionDigits: 2];
+        [_twoPlaceFormatter setMaximumIntegerDigits: 3];
+        [_twoPlaceFormatter setPositiveFormat: @"##0.00"];
+        [_twoPlaceFormatter setNegativeFormat: @"-##0.00"];
+    }
+    return _twoPlaceFormatter;
+}
+#pragma mark - UICollectionViewDelegate
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+#pragma mark - PickerViewSource
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return 2;
 }
 
 #pragma mark - TextView Delegate
@@ -671,6 +679,17 @@
     return YES;
 }
 
+#pragma mark - PickerViewDelegate
+-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 26.0;
+}
+-(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    return 160.0;
+}
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSArray* categories = [self.fractal allCategories];
+    return categories[row];
+}
 // TODO: change to sendActionsFor...
 - (void)textViewDidEndEditing:(UITextView *)textView {
     //    if (textView == self.fractalDescriptor) {

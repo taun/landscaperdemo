@@ -158,6 +158,34 @@
     return fractalCopy;
 }
 
+-(NSArray*)allCategories {
+    NSString* fetchPropertyName = @"category";
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName: @"LSFractal"
+                                              inManagedObjectContext: self.managedObjectContext];
+
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity: entity];
+    [request setResultType:NSDictionaryResultType];
+    [request setReturnsDistinctResults:YES];
+    [request setPropertiesToFetch:@[fetchPropertyName]];
+    
+    // Execute the fetch.
+    NSError *error;
+    NSArray *objects = [self.managedObjectContext executeFetchRequest: request error: &error];
+    NSMutableArray *categories = [NSMutableArray arrayWithCapacity: objects.count];
+    if (objects == nil) {
+        // Handle the error.
+    } else if(objects.count > 0) {
+        for (NSDictionary* categoryDict in objects) {
+            NSString* categoryString = categoryDict[fetchPropertyName];
+            [categories addObject: categoryString];
+        }
+        [categories sortUsingSelector: @selector(caseInsensitiveCompare:)];
+    }
+    return [categories copy];
+}
+
 -(void) setLineColorFromIdentifier:(NSString *)colorIdentifier {
     MBColor* mbColor = [MBColor findMBColorWithIdentifier: colorIdentifier inContext: self.managedObjectContext];
     self.lineColor = mbColor;

@@ -29,6 +29,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(void) setLineColorFromIdentifier: (NSString*) colorIdentifier;
 -(void) setFillColorFromIdentifier: (NSString*) colorIdentifier;
 
+-(NSArray*) allCategories;
+
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString   *startingRulesString;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor    *lineColorAsUI;

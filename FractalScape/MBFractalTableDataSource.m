@@ -14,8 +14,7 @@
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 
-#import "MBBasicLabelTextTableCell.h"
-#import "MBTextViewTableCell.h"
+#import "MBFractalDescriptionTableCell.h"
 #import "MBLSRuleCollectionTableViewCell.h"
 #import "MBLSRuleCollectionViewCell.h"
 #import "MBLSReplacementRuleTableViewCell.h"
@@ -106,7 +105,7 @@
     
     if (section == TableSectionsDescription) {
         //
-        count = 3;
+        count = 1;
         
     } else if (section == TableSectionsAxiom) {
         //
@@ -128,31 +127,23 @@
     UITableViewCell *cell = nil;
     
     static NSString *NameCellIdentifier = @"NameCell";
-    static NSString *CategoryCellIdentifier = @"CategoryCell";
-    static NSString *DescriptionCellIdentifier = @"DescriptionCell";
+//    static NSString *CategoryCellIdentifier = @"CategoryCell";
+//    static NSString *DescriptionCellIdentifier = @"DescriptionCell";
     static NSString *ReplacementRuleCellIdentifier = @"MBLSReplacementRuleCell";
     static NSString *AxiomCellIdentifier = @"MBLSRuleStartCollectionTableCell";
     static NSString *RuleSourceCellIdentifier = @"MBLSRuleCollectionTableCell";
     
     if (indexPath.section == TableSectionsDescription) {
         // description
-        if (indexPath.row==0) {
             //name
-            MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
-            newCell.textLabel.text = @"Name:";
-            newCell.textField.text = self.fractal.name;
-            cell = newCell;
-        } else if (indexPath.row==1) {
-            MBBasicLabelTextTableCell *newCell = (MBBasicLabelTextTableCell *)[tableView dequeueReusableCellWithIdentifier: CategoryCellIdentifier];
-            newCell.textLabel.text = @"Category:";
-            newCell.textField.text = self.fractal.category;
-            cell = newCell;
-        } else if (indexPath.row==2) {
-            MBTextViewTableCell *newCell = [tableView dequeueReusableCellWithIdentifier: DescriptionCellIdentifier];
-            //            newCell.textLabel.text = @"Description:";
-            newCell.textView.text = self.fractal.descriptor;
-            cell = newCell;
-        }
+        MBFractalDescriptionTableCell *newCell = (MBFractalDescriptionTableCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
+        newCell.textField.text = self.fractal.name;
+        newCell.textView.text = self.fractal.descriptor;
+        newCell.pickerView.delegate = self.pickerDelegate;
+        newCell.pickerView.dataSource = self.pickerSource;
+        NSInteger catIndex = [[self.fractal allCategories] indexOfObject: self.fractal.category];
+        [newCell.pickerView selectRow: catIndex inComponent: 0 animated: YES];
+        cell = newCell;
     } else if (indexPath.section == TableSectionsAxiom) {
         // axiom
         MBLSRuleCollectionTableViewCell* newCell = nil;
