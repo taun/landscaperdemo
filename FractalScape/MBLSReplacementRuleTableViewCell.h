@@ -13,7 +13,6 @@
 #import "LSReplacementRule+addons.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MBLSRuleCollectionTableViewCell.h"
-#import "MBLSUIRuleView.h"
 
 @interface MBLSReplacementRuleTableViewCell : MBLSRuleCollectionTableViewCell
 

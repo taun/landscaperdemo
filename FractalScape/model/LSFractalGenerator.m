@@ -70,6 +70,7 @@
 -(void) commandIncrementLineWidth;
 -(void) commandDecrementLineWidth;
 -(void) commandDrawDot;
+-(void) commandDrawDotFilledNoStroke;
 -(void) commandOpenPolygon;
 -(void) commandClosePolygon;
 -(void) commandUpscaleLineLength;
@@ -926,6 +927,13 @@
 
 -(void) commandDrawDot {
     [self drawCircle: self.lineWidth];
+}
+-(void) commandDrawDotFilledNoStroke {
+    [self commandPush];
+    [self commandStrokeOff];
+    [self commandFillOn];
+    [self commandDrawDot];
+    [self commandPop];
 }
 
 #pragma message "TODO: implement openPolygon"

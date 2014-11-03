@@ -408,11 +408,11 @@
 		C5914AAC14C9ED2C00856F57 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				C540634414DADC7500FBDEA4 /* Categories */,
 				C5DA47FE19F011A400A0A432 /* LSReplacementRule.h */,
 				C5DA47FF19F011A400A0A432 /* LSReplacementRule.m */,
 				C5DA47F819F0104100A0A432 /* LSFractal.h */,
 				C5DA47F919F0104100A0A432 /* LSFractal.m */,
-				C540634414DADC7500FBDEA4 /* Categories */,
 				C5EEC60C19DB0C9300D9C88F /* LSDrawingRule.h */,
 				C5EEC60D19DB0C9300D9C88F /* LSDrawingRule.m */,
 				C5014777170B47DB00BD7488 /* LSDrawingRuleType.h */,

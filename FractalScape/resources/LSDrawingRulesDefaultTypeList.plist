@@ -146,11 +146,21 @@
 		</dict>
 		<dict>
 			<key>productionString</key>
-			<string>@</string>
+			<string>O</string>
 			<key>drawingMethodString</key>
 			<string>commandDrawDot</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDrawDot</string>
+			<key>displayIndex</key>
+			<integer>9</integer>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>@</string>
+			<key>drawingMethodString</key>
+			<string>commandDrawDotFilledNoStroke</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDrawDotFilledNoStroke</string>
 			<key>displayIndex</key>
 			<integer>9</integer>
 		</dict>
