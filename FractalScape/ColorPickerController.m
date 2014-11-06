@@ -595,6 +595,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self moveSelectors];
+    [super viewDidAppear:animated];
 }
 
 //- (void)viewDidUnload {

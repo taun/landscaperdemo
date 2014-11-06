@@ -131,7 +131,10 @@
             [self.lastDestinationCollection insertItemsAtIndexPaths: @[indexPath]];
             
             self.lastCollectionIndexPath = indexPath;
-            CGFloat remainder = fmodf(lastCellRow+1, 22.0);
+            CGFloat cellWidth = self.lastDestinationCollection.bounds.size.width;
+            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)self.lastDestinationCollection.collectionViewLayout;
+            NSInteger itemsPerLine = (cellWidth / (layout.itemSize.width+2*layout.minimumInteritemSpacing));
+            CGFloat remainder = fmodf(lastCellRow+1, itemsPerLine);
             if (remainder == 0.0) {
                 // flag to relayout collection with additional row
                 resized = YES;

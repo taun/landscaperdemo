@@ -22,7 +22,7 @@
 //    __strong NSArray        *_sortedReplacementRulesArray;
 //}
 
-@property (nonatomic,weak) LSFractal                                *fractal;
+@property (nonatomic,strong) LSFractal                                *fractal;
 @property (nonatomic,weak) NSUndoManager                            *fractalUndoManager;
 
 

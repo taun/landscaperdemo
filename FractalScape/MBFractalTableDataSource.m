@@ -59,13 +59,15 @@
 
 #pragma mark - Setters Getters
 -(void)setFractal:(LSFractal *)fractal {
-    if (_fractal != fractal) {
+    LSFractal* strongFractalProperty = _fractal;
+    
+    if (strongFractalProperty != fractal) {
         _fractal = fractal;
+        strongFractalProperty = _fractal;
         
-        
-        if (_fractal) {
-            _cachedRulesDataSource = [MBRuleCollectionDataSource newWithRules: _fractal.drawingRulesType.rules];
-            _cachedAxiomDataSource = [MBRuleCollectionDataSource newWithRules: _fractal.startingRules];
+        if (strongFractalProperty) {
+            _cachedRulesDataSource = [MBRuleCollectionDataSource newWithRules: strongFractalProperty.drawingRulesType.rules];
+            _cachedAxiomDataSource = [MBRuleCollectionDataSource newWithRules: strongFractalProperty.startingRules];
             
         } else {
             _cachedAxiomDataSource = nil;
@@ -100,6 +102,7 @@
     return sectionHeader;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    LSFractal* strongFractalProperty = self.fractal;
  
     NSInteger count = 0;
     
@@ -113,7 +116,7 @@
         
     } else if (section == TableSectionsReplacement) {
         //
-        count = self.fractal.replacementRules.count;
+        count = strongFractalProperty.replacementRules.count;
         
     } else if (section == TableSectionsRules) {
         //
@@ -125,6 +128,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
+    LSFractal* strongFractalProperty = self.fractal;
     
     static NSString *NameCellIdentifier = @"NameCell";
 //    static NSString *CategoryCellIdentifier = @"CategoryCell";
@@ -137,44 +141,45 @@
         // description
             //name
         MBFractalDescriptionTableCell *newCell = (MBFractalDescriptionTableCell *)[tableView dequeueReusableCellWithIdentifier: NameCellIdentifier];
-        newCell.textField.text = self.fractal.name;
-        newCell.textView.text = self.fractal.descriptor;
+        newCell.textField.text = strongFractalProperty.name;
+        newCell.textView.text = strongFractalProperty.descriptor;
         newCell.pickerView.delegate = self.pickerDelegate;
         newCell.pickerView.dataSource = self.pickerSource;
-        NSInteger catIndex = [[self.fractal allCategories] indexOfObject: self.fractal.category];
+        NSInteger catIndex = [[strongFractalProperty allCategories] indexOfObject: strongFractalProperty.category];
         [newCell.pickerView selectRow: catIndex inComponent: 0 animated: YES];
         cell = newCell;
     } else if (indexPath.section == TableSectionsAxiom) {
         // axiom
         MBLSRuleCollectionTableViewCell* newCell = nil;
-        //        newCell = self.rulesCollectionsDict[indexString];
         if (!newCell) {
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier forIndexPath: indexPath];
-            newCell.rules = [self.fractal mutableOrderedSetValueForKey: @"startingRules"];
-            newCell.notifyObject = self.fractal;
+            newCell.rules = [strongFractalProperty mutableOrderedSetValueForKey: @"startingRules"];
+            newCell.notifyObject = strongFractalProperty;
             newCell.notifyPath = @"startingRules";
             newCell.isReadOnly = NO;
             newCell.itemSize = 26.0;
             newCell.itemMargin = 2.0;
-            //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+            CGFloat newHeight = [self calculateCollectionHeightFor: newCell.collectionView itemSize: 26.0 itemMargin: 2.0 itemCount: newCell.rules.count];
+            newCell.collectionView.currentHeightConstraint.constant = newHeight;
         }
         
         cell = newCell;
         
     } else if (indexPath.section == TableSectionsReplacement) {
         // rules
-        LSReplacementRule* replacementRule = self.fractal.replacementRules[indexPath.row];
+        LSReplacementRule* replacementRule = strongFractalProperty.replacementRules[indexPath.row];
 
         MBLSReplacementRuleTableViewCell *newCell = nil;
-        //        newCell = self.rulesCollectionsDict[indexString];
         if (replacementRule) {
             newCell = [tableView dequeueReusableCellWithIdentifier: ReplacementRuleCellIdentifier forIndexPath: indexPath];
             newCell.replacementRule = replacementRule;
-            newCell.notifyObject = self.fractal;
+            newCell.notifyObject = strongFractalProperty;
             newCell.notifyPath = @"replacementRules";
             newCell.isReadOnly = NO;
             newCell.itemSize = 26.0;
             newCell.itemMargin = 2.0;
+            CGFloat newHeight = [self calculateCollectionHeightFor: newCell.collectionView itemSize: 26.0 itemMargin: 2.0 itemCount: newCell.replacementRule.rules.count];
+            newCell.collectionView.currentHeightConstraint.constant = newHeight;
         }
         
         cell = newCell;
@@ -182,22 +187,39 @@
     } else if (indexPath.section == TableSectionsRules) {
         // Rule source section
         MBLSRuleCollectionTableViewCell *newCell = nil;
-        //        newCell = self.rulesCollectionsDict[indexString];
         if (!newCell) {
             newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
-            newCell.rules = [self.fractal.drawingRulesType mutableOrderedSetValueForKey: @"rules"];
-            newCell.notifyObject = self.fractal.drawingRulesType;
+            newCell.rules = [strongFractalProperty.drawingRulesType mutableOrderedSetValueForKey: @"rules"];
+            newCell.notifyObject = strongFractalProperty.drawingRulesType;
             newCell.notifyPath = @"rules";
             newCell.isReadOnly = YES;
             newCell.itemSize = 46.0;
             newCell.itemMargin = 2.0;
-            //        newCell.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+            CGFloat newHeight = [self calculateCollectionHeightFor: newCell.collectionView itemSize: 46.0 itemMargin: 2.0 itemCount: newCell.rules.count];
+            newCell.collectionView.currentHeightConstraint.constant = newHeight;
         }
         
         cell = newCell;
     }
     
     return cell;
+}
+-(CGFloat) calculateCollectionHeightFor: (UICollectionView*) cell itemSize: (CGFloat)itemSize itemMargin: (CGFloat) itemMargin itemCount: (NSInteger)count {
+    // force the newly loaded cell to update the layout before calculating the
+    [cell setNeedsUpdateConstraints];
+    [cell setNeedsLayout];
+    #pragma message "KEY to making embedded dynamic collectionViews work."
+    [cell layoutIfNeeded];
+    
+    CGFloat cellWidth = cell.bounds.size.width;
+    CGFloat itemWidth = itemMargin+itemSize;
+    NSInteger lines = 1;
+    if (cellWidth) {
+        CGFloat itemsPerLine = floorf(cellWidth/itemWidth);
+        lines = ceilf(count/itemsPerLine);
+    }
+    CGFloat newHeight = lines * itemWidth;
+    return newHeight;
 }
 - (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     MBAxiomEditorTableSection* tableSection = self.tableSections[indexPath.section];

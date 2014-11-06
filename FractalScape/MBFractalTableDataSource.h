@@ -11,10 +11,18 @@
 #import "LSFractal+addons.h"
 
 @interface MBFractalTableDataSource : NSObject <UITableViewDataSource>
-
+/*!
+ The LSFractal to use as the source.
+ */
 @property (nonatomic,weak) LSFractal*                                          fractal;
 @property (nonatomic,strong) NSArray*                                          tableSections;
+/*!
+ Delegate for UIPickerView embedded in table
+ */
 @property (nonatomic,weak) id<UIPickerViewDelegate>                            pickerDelegate;
+/*!
+ Data source for UIPickerView embedded in table
+ */
 @property (nonatomic,weak) id<UIPickerViewDataSource>                          pickerSource;
 
 +(instancetype) newSourceWithFractal: (LSFractal*) fractal tableSections: (NSArray*) sections;

@@ -238,7 +238,7 @@ static BOOL SIMULTOUCH = NO;
         // undo all non-saved changes
         [self.fractal.managedObjectContext rollback];
     }
-    //	[super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -368,7 +368,7 @@ static BOOL SIMULTOUCH = NO;
 -(UIViewController*) appearanceViewController {
     if (_appearanceViewController==nil) {
         _appearanceViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
-        [_appearanceViewController setPreferredContentSize: CGSizeMake(748, 350)];
+        [_appearanceViewController setPreferredContentSize: CGSizeMake(400,650)]; // landscape: 748,350, portrait: 400,650
         _appearanceViewController.modalPresentationStyle = UIModalPresentationPopover;
         _appearanceViewController.popoverPresentationController.passthroughViews = @[self.fractalViewRoot,
                                                                                      self.fractalViewHolder,

@@ -11,7 +11,7 @@
 
 @protocol FractalControllerProtocol <NSObject>
 
-@property (nonatomic,weak) LSFractal        *fractal;
+@property (nonatomic,strong) LSFractal        *fractal;
 @property (nonatomic,weak) NSUndoManager    *fractalUndoManager;
 
 @end

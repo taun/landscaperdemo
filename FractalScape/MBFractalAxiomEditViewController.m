@@ -81,6 +81,8 @@
 }
 #pragma mark - Getters & Setters
 -(void) setFractal:(LSFractal *)fractal {
+    MBFractalTableDataSource* strongFractalTableSource = self.fractalTableSource;
+    
     if (_fractal != fractal) {
         _fractal = fractal;
         
@@ -96,10 +98,10 @@
         }
         
         self.cachedRulesDictionary = nil;
-        self.fractalTableSource.fractal = _fractal;
-        self.fractalTableSource.tableSections = self.fractalTableSections;
-        self.fractalTableSource.pickerDelegate = self;
-        self.fractalTableSource.pickerSource = self;
+        strongFractalTableSource.fractal = _fractal;
+        strongFractalTableSource.tableSections = self.fractalTableSections;
+        strongFractalTableSource.pickerDelegate = self;
+        strongFractalTableSource.pickerSource = self;
         
         [self.tableView reloadData];
         
@@ -141,8 +143,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 44;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -157,6 +159,12 @@
     [super viewDidAppear:animated];
     
     [self setEditing: YES animated: NO];
+}
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+}
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 }
 -(void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -357,7 +365,9 @@
     MBLSRuleCollectionViewCell* collectionSourceCell = (MBLSRuleCollectionViewCell*)[sourceCollection cellForItemAtIndexPath: ruleIndexPath];
     
     if (collectionSourceCell) {
-        self.draggingRule.rule = [collectionSourceCell.rule mutableCopy]; // only use a copy if getting from source which is case for now
+        LSDrawingRule* strongRule = collectionSourceCell.rule;
+        
+        self.draggingRule.rule = [strongRule mutableCopy]; // only use a copy if getting from source which is case for now
         self.draggingRule.sourceTableIndexPath = indexPath;
         self.draggingRule.sourceCollection = sourceCollection;
         self.draggingRule.sourceCollectionIndexPath = ruleIndexPath;
@@ -366,13 +376,14 @@
     }
 }
 -(void) handleRulesSourceGestureChangedWithCollection: (UICollectionView*) collectionView data: (NSMutableOrderedSet*)newDestinationArray {
+    UICollectionView* strongLastDestinationCollection = self.draggingRule.lastDestinationCollection;
     
     self.draggingRule.lastDestinationCollection = collectionView;
     
-    NSInteger lastCellRow = [self.draggingRule.lastDestinationCollection numberOfItemsInSection: 0] - 1;
+    NSInteger lastCellRow = [strongLastDestinationCollection numberOfItemsInSection: 0] - 1;
     
-    CGPoint collectionPoint = [self.tableView convertPoint: self.draggingRule.viewCenter toView: self.draggingRule.lastDestinationCollection];
-    NSIndexPath* rulesCollectionIndexPath = [self.draggingRule.lastDestinationCollection indexPathForDropInSection: 0 atPoint: collectionPoint];
+    CGPoint collectionPoint = [self.tableView convertPoint: self.draggingRule.viewCenter toView: strongLastDestinationCollection];
+    NSIndexPath* rulesCollectionIndexPath = [strongLastDestinationCollection indexPathForDropInSection: 0 atPoint: collectionPoint];
     
     if (rulesCollectionIndexPath == nil) {
         // in table cell but not in collection therefore remove from collection is there
@@ -571,15 +582,17 @@
         // replacement cell with image and collection
         // dragging over image or collection?
         MBLSReplacementRuleTableViewCell* replacementTableCell = (MBLSReplacementRuleTableViewCell*)currentTableCell;
+        UICollectionView* strongCollectionView = replacementTableCell.collectionView;
+        UIImageView* strongImageView = replacementTableCell.customImageView;
         
-        CGRect collectionRect = [self.tableView convertRect: replacementTableCell.collectionView.bounds fromView: replacementTableCell.collectionView];
-        CGRect placeholderImageRect = [self.tableView convertRect: replacementTableCell.customImageView.bounds fromView: replacementTableCell.customImageView];
+        CGRect collectionRect = [self.tableView convertRect: strongCollectionView.bounds fromView: strongCollectionView];
+        CGRect placeholderImageRect = [self.tableView convertRect: strongImageView.bounds fromView: strongImageView];
         
         if (CGRectContainsPoint(collectionRect, self.draggingRule.viewCenter)) {
             // over collection
             // get data and collection and send to method
             
-            [self handleRulesSourceGestureChangedWithCollection: replacementTableCell.collectionView data: rulesSet];
+            [self handleRulesSourceGestureChangedWithCollection: strongCollectionView data: rulesSet];
             
         } else if (CGRectContainsPoint(placeholderImageRect, self.draggingRule.viewCenter)) {
             // over rule placeholder imageView
@@ -644,7 +657,55 @@
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Edditing row %@", indexPath);
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // move appearance code from tableSOurce to here
+    if (indexPath.section == TableSectionsAxiom) {
+        // axiom
+        MBLSRuleCollectionTableViewCell* newCell = (MBLSRuleCollectionTableViewCell *)cell;
+        if (newCell.collectionView.bounds.size.height < newCell.collectionView.contentSize.height) {
+            [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
+        }
+//        newCell.isReadOnly = NO;
+//        newCell.itemSize = 26.0;
+//        newCell.itemMargin = 2.0;
+        
+    } else if (indexPath.section == TableSectionsReplacement) {
+        // rules
+        
+        MBLSReplacementRuleTableViewCell *newCell = (MBLSReplacementRuleTableViewCell*)cell;
+        if (newCell.collectionView.bounds.size.height < newCell.collectionView.contentSize.height) {
+            [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
+        }
+//        newCell.isReadOnly = NO;
+//        newCell.itemSize = 26.0;
+//        newCell.itemMargin = 2.0;
+        
+    } else if (indexPath.section == TableSectionsRules) {
+        // Rule source section
+        MBLSRuleCollectionTableViewCell *newCell = (MBLSRuleCollectionTableViewCell*)cell;
+        if (newCell.collectionView.bounds.size.height < newCell.collectionView.contentSize.height) {
+            [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
+        }
+//        newCell.isReadOnly = YES;
+//        newCell.itemSize = 46.0;
+//        newCell.itemMargin = 2.0;
+//        newCell.rules.count;
+//        CGFloat newHeight = [self calculateCollectionHeightFor: newCell.collectionView itemSize: 46.0 itemMargin: 2.0 itemCount: newCell.rules.count];
+//        newCell.collectionView.currentHeightConstraint.constant = newHeight;
+    }
+}
+//-(CGFloat) calculateCollectionHeightFor: (UICollectionView*) cell itemSize: (CGFloat)itemSize itemMargin: (CGFloat) itemMargin itemCount: (NSInteger)count {
+//    CGFloat width = self.tableView.bounds.size.width;
+//    CGFloat cellWidth = cell.bounds.size.width;
+//    CGFloat itemWidth = itemMargin+itemSize;
+//    NSInteger lines = 1;
+//    if (cellWidth) {
+//        CGFloat itemsPerLine = floorf(cellWidth/itemWidth);
+//        lines = ceilf(count/itemsPerLine);
+//    }
+//    CGFloat newHeight = lines * itemWidth;
+//    return newHeight;
+//}
 #pragma mark - Rule Cell Delegate
 
 -(NSNumberFormatter*) twoPlaceFormatter {
