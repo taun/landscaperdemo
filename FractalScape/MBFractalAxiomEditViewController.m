@@ -116,7 +116,7 @@
 -(NSArray*) fractalTableSections {
     if (!_fractalTableSections) {
         
-        MBAxiomEditorTableSection* desc = [MBAxiomEditorTableSection newWithTitle: nil]; // no title to fit rules //@"Description"
+        MBAxiomEditorTableSection* desc = [MBAxiomEditorTableSection newWithTitle: @"Name, Description, Category"]; // no title to fit rules //@"Description"
         
             MBAxiomEditorTableSection* start = [MBAxiomEditorTableSection newWithTitle: @"Starting Rule"];
             
@@ -479,7 +479,6 @@
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return 2;
 }
-
 #pragma mark - TextView Delegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     
@@ -488,10 +487,10 @@
 
 #pragma mark - PickerViewDelegate
 -(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
-    return 26.0;
+    return 24.0;
 }
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    return 160.0;
+    return 120.0;
 }
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSArray* categories = [self.fractal allCategories];
