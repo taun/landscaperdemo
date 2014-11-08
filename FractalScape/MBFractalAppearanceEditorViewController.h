@@ -18,7 +18,10 @@
  */
 @interface MBFractalAppearanceEditorViewController : UITabBarController <FractalControllerProtocol,UITabBarControllerDelegate>
 
-@property (nonatomic,weak) LSFractal        *fractal;
+@property (nonatomic,strong) LSFractal        *fractal;
 @property (nonatomic,weak) NSUndoManager    *fractalUndoManager;
+
+@property(nonatomic,assign) CGSize            portraitSize;
+@property(nonatomic,assign) CGSize            landscapeSize;
 
 @end

@@ -118,34 +118,6 @@ static BOOL SIMULTOUCH = NO;
 //    [self setAppearanceViewController: nil];
 }
 
-/*
- should only be called by viewDidLoad
- */
-//-(void) __savePortraitViewFrames {
-//    // This is only called when the nib is first loaded and the views have not been resized.
-//    double barHeight = self.navigationController.navigationBar.frame.size.height;
-//    
-//    double topMargin = 0;
-//    
-//    if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
-//        self.startedInLandscape = YES;
-//        // remove extra 20 pixels added when started in landscape but getting nib dimensions before autolayout.
-//        topMargin = 20.0;
-//    } else {
-//        self.startedInLandscape = NO;
-//    }
-//    
-//    CGRect frame = self.fractalView.superview.frame;
-//    //        CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN);
-//    CGRect frameNLessNav = CGRectMake(frame.origin.x,frame.origin.y,frame.size.width,frame.size.height-barHeight-MBPORTALMARGIN-topMargin);
-//    NSDictionary* frame0 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel0.superview.frame);
-//    NSDictionary* frame1 = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(self.fractalViewLevel1.superview.frame);
-//    NSDictionary* frameN = (__bridge_transfer NSDictionary*) CGRectCreateDictionaryRepresentation(frameNLessNav);
-//    
-//    self.portraitViewFrames = @{@"frame0": frame0, @"frame1": frame1, @"frameN": frameN};
-//    NSLog(@"%@ setPortraitViewFrames frame0 = %@; frame1 = %@; frameN = %@;", NSStringFromSelector(_cmd), frame0, frame1, frameN);
-//    
-//}
 
 -(void)viewDidLoad {
     
@@ -367,17 +339,19 @@ static BOOL SIMULTOUCH = NO;
 }
 -(UIViewController*) appearanceViewController {
     if (_appearanceViewController==nil) {
-        _appearanceViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
-        [_appearanceViewController setPreferredContentSize: CGSizeMake(400,650)]; // landscape: 748,350, portrait: 400,650
-        _appearanceViewController.modalPresentationStyle = UIModalPresentationPopover;
-        _appearanceViewController.popoverPresentationController.passthroughViews = @[self.fractalViewRoot,
+        MBFractalAppearanceEditorViewController* viewController = (MBFractalAppearanceEditorViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
+        viewController.portraitSize = CGSizeMake(748.0,350.0);
+        viewController.landscapeSize = CGSizeMake(400.0,650.0);
+        viewController.modalPresentationStyle = UIModalPresentationPopover;
+        viewController.popoverPresentationController.passthroughViews = @[self.fractalViewRoot,
                                                                                      self.fractalViewHolder,
                                                                                      self.hudViewBackground,
                                                                                      self.hudLevelStepper,
                                                                                      self.fractalViewLevel0,
                                                                                      self.fractalViewLevel1,
                                                                                      self.fractalViewLevel2];
-        _appearanceViewController.popoverPresentationController.delegate = self;
+        viewController.popoverPresentationController.delegate = self;
+        _appearanceViewController = viewController;
     }
     return _appearanceViewController;
 }
@@ -395,169 +369,6 @@ static BOOL SIMULTOUCH = NO;
     }
     return _fractalDisplayLayersArray;
 }
-
-//-(NSMutableArray*) cachedEditViews {
-//    if (_cachedEditViews==nil) {
-//        _cachedEditViews = [[NSMutableArray alloc] initWithCapacity: 3];
-//    }
-//    return _cachedEditViews;
-//}
-
-
-//#pragma message "Unused"
-//-(UIBarButtonItem*) cancelButtonItem {
-//    if (_cancelButtonItem == nil) {
-//        _cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel 
-//                                                                          target:self 
-//                                                                          action:@selector(cancelEdit:)];
-//        
-//    }
-//    return _cancelButtonItem;
-//}
-//#pragma message "Unused"
-//-(UIBarButtonItem*) undoButtonItem {
-//    if (_undoButtonItem == nil) {
-//        _undoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemUndo 
-//                                                                        target:self 
-//                                                                        action:@selector(undoEdit:)];
-//    }
-//    return _undoButtonItem;
-//}
-//
-//#pragma message "Unused"
-//-(UIBarButtonItem*) redoButtonItem {
-//    if (_redoButtonItem == nil) {
-//        _redoButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemRedo 
-//                                                                        target:self 
-//                                                                        action:@selector(redoEdit:)];
-//    }
-//    return _redoButtonItem;
-//}
-//
-//#pragma message "Unused"
-//-(UIBarButtonItem*) spaceButtonItem {
-//    if (_spaceButtonItem == nil) {
-//        _spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace
-//                                                                         target:self
-//                                                                         action:nil];
-//        _spaceButtonItem.width = 10.0;
-//    }
-//    return _spaceButtonItem;
-//}
-
-//-(UIPopoverController*) colorPopover {
-//    if (_colorPopover == nil) {
-//        UIColor* color = [self.currentFractal lineColorAsUI];
-//        ColorPickerController* colorPicker = [[ColorPickerController alloc] initWithColor: color andTitle: @"Pick a Fill Color"];
-//        colorPicker.delegate = self;
-//        colorPicker.contentSizeForViewInPopover = CGSizeMake(400, 300);
-//
-//        UINavigationController* navCon = [[UINavigationController alloc] initWithRootViewController: colorPicker];
-//        
-//        navCon.contentSizeForViewInPopover = CGSizeMake(400, 300);
-//        navCon.modalInPopover = YES;
-//        
-//        _colorPopover = [[UIPopoverController alloc] initWithContentViewController: navCon];
-//        _colorPopover.delegate = (id<UIPopoverControllerDelegate>)self;
-//        _colorPopover.popoverContentSize = CGSizeMake(400, 300);
-//    }
-//    return _colorPopover;
-//}
-
-//-(NSSet*) editControls {
-//    if (_editControls == nil) {
-//        _editControls = [[NSSet alloc] initWithObjects: 
-//                         self.fractalName,
-//                         self.fractalCategory,
-//                         self.fractalDescriptor,
-//                         nil];
-////                         self.levelSlider,
-////                         self.lineLengthStepper,
-////                         self.turnAngleStepper,
-////                         self.widthStepper,
-////                         self.widthSlider,
-////                         self.strokeSwitch,
-////                         self.strokeColorButton,
-////                         self.fillSwitch,
-////                         self.fillColorButton,
-////                         self.fractalAxiom,
-////                         self.levelStepper,
-//    }
-//    return _editControls;
-//}
-
-//-(void) setHudViewBackground: (UIView*) hudViewBackground {
-//    if (_hudViewBackground != hudViewBackground) {
-//        _hudViewBackground = hudViewBackground;
-//        
-//        CALayer* background = _hudViewBackground.layer;
-//        
-//        background.cornerRadius = HUD_CORNER_RADIUS;
-//        background.borderWidth = 1.6;
-//        background.borderColor = [UIColor grayColor].CGColor;
-//        
-//        background.shadowOffset = CGSizeMake(0, 3.0);
-//        background.shadowOpacity = 0.6;
-//    }
-//}
-
-//-(void) setSliderContainerView:(UIView *)sliderContainerView {
-//    if (_sliderContainerView != sliderContainerView) {
-//        _sliderContainerView = sliderContainerView;
-//        //        CGAffineTransform rotateCC = CGAffineTransformMakeRotation(-M_PI_2);
-//        //        [_sliderContainerView setTransform: rotateCC];
-//    }
-//}
-
-//-(void) setFractalView:(UIView *)fractalView {
-//    if (_fractalView != fractalView) {
-//        _fractalView = fractalView;
-//        
-//        UIRotationGestureRecognizer* rgr = [[UIRotationGestureRecognizer alloc]
-//                                            initWithTarget: self
-//                                            action: @selector(rotateFractal:)];
-//        
-//        [_fractalView addGestureRecognizer: rgr];
-//        
-//        UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]
-//                                                  initWithTarget:self
-//                                                  action:@selector(scaleFractal:)];
-//        
-//        [pinchGesture setDelegate:self];
-//        [_fractalView addGestureRecognizer: pinchGesture];
-//        
-//        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]
-//                                              initWithTarget:self
-//                                              action:@selector(panFractal:)];
-//        
-//        panGesture.maximumNumberOfTouches = 1;
-//        [panGesture setDelegate:self];
-//        
-//        [_fractalView addGestureRecognizer: panGesture];
-//        
-//        UISwipeGestureRecognizer *rightSwipeGesture = [[UISwipeGestureRecognizer alloc]
-//                                                       initWithTarget:self
-//                                                       action:@selector(swipeFractal:)];
-//        
-//        rightSwipeGesture.numberOfTouchesRequired = 2;
-//        rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
-//        [rightSwipeGesture setDelegate:self];
-//        
-//        [_fractalView addGestureRecognizer: rightSwipeGesture];
-//        
-//        UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc]
-//                                                      initWithTarget:self
-//                                                      action:@selector(swipeFractal:)];
-//        
-//        leftSwipeGesture.numberOfTouchesRequired = 2;
-//        leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-//        [leftSwipeGesture setDelegate:self];
-//        
-//        [_fractalView addGestureRecognizer: leftSwipeGesture];
-//        
-//        [self setupLevelGeneratorForView: _fractalView name: @"fractalLevelN" forceLevel: -1];
-//    }
-//}
 
 -(CALayer*) fractalLevel0Layer {
     CALayer* subLayer;
@@ -724,24 +535,8 @@ static BOOL SIMULTOUCH = NO;
 //}
 
 -(void) refreshValueInputs {    
-    //    self.fractalAxiom.text = self.currentFractal.axiom;
-    //    
-    //    self.fractalLineLength.text =  [self.currentFractal.lineLength stringValue];
-    //    self.lineLengthStepper.value = [self.currentFractal.lineLength doubleValue];
-    //    
-    //    self.fractalWidth.text =  [self.currentFractal.lineWidth stringValue];
-    //    self.widthStepper.value = [self.currentFractal.lineWidth doubleValue];
-    //    self.widthSlider.value = [self.currentFractal.lineWidth doubleValue];
-    //    
-    //    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.currentFractal turningAngleAsDegree]];
-    
-    //    
-    //    self.fractalLevel.text = [self.currentFractal.level stringValue];
-    //    self.levelStepper.value = [self.currentFractal.level doubleValue];
     self.hudLevelStepper.value = [self.fractal.level integerValue];
     //    
-    //    self.strokeSwitch.on = [self.currentFractal.stroke boolValue];
-    //    self.fillSwitch.on = [self.currentFractal.fill boolValue];
     self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
 }
 
@@ -769,11 +564,6 @@ static BOOL SIMULTOUCH = NO;
     [self configureNavButtons];
 }
 
-//-(void) loadDefinitionViews {
-//    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionRulesView" owner: self options: nil];
-//    [[NSBundle mainBundle] loadNibNamed: @"FractalDefinitionAppearanceView" owner: self options: nil];
-//}
-
 -(void) useFractalDefinitionRulesView {
     
     if (self.fractalDefinitionAppearanceView.superview == nil) {
@@ -785,8 +575,6 @@ static BOOL SIMULTOUCH = NO;
                            options: UIViewAnimationOptionTransitionFlipFromLeft 
                         completion: NULL];
     }
-    //    self.fractalDefinitionRulesView.center = self.placeHolderCenter;
-    //    self.fractalDefinitionRulesView.bounds = self.placeHolderBounds;
     
 }
 
@@ -801,8 +589,6 @@ static BOOL SIMULTOUCH = NO;
                            options: UIViewAnimationOptionTransitionFlipFromRight 
                         completion: NULL];
     }
-    //    self.fractalDefinitionAppearanceView.center = self.placeHolderCenter;
-    //    self.fractalDefinitionAppearanceView.bounds = self.placeHolderBounds;
 }
 
 /*
@@ -972,48 +758,6 @@ static BOOL SIMULTOUCH = NO;
     self.cancelled = YES;
     [self setEditing: NO animated: YES];
 }
-
-//-(void) setEditMode: (BOOL) editing {
-//    UIColor* white = [UIColor colorWithWhite: 1.0 alpha: 1.0];
-//    for (UIControl* control in self.editControls) {
-//        control.enabled = editing;
-//        
-//        if ([control isKindOfClass:[UITextField class]]) {
-//            UITextField* tf = (UITextField*) control;
-//            tf.backgroundColor = editing ? white : nil;
-//            tf.opaque = editing;
-//            tf.borderStyle = editing ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
-//            
-//        } else if ([control isKindOfClass:[UITextView class]]) {
-//            UITextView* tf = (UITextView*) control;
-//            tf.editable = editing;
-//            tf.backgroundColor = editing ? white : nil;
-//            tf.opaque = editing;
-//            if (editing) {
-//                tf.layer.borderColor = [[UIColor colorWithWhite: 0.75 alpha: 1.0] CGColor];
-//                tf.layer.borderWidth = 1.0;
-//                tf.layer.cornerRadius = 8.0;
-//                // Would need to add another layer to have a shadow.
-//                //tf.layer.shadowOpacity = 0.5;
-//                //tf.layer.shadowOffset = CGSizeMake(5.0, 5.0);
-//                //tf.layer.masksToBounds = NO;
-//            } else {
-//                tf.layer.borderColor = [[UIColor colorWithWhite: 1.0 alpha: 1.0] CGColor];
-//                //tf.layer.shadowOpacity = 0.0;
-//            }
-//            
-//        } else  if ([control isKindOfClass:[UIStepper class]]) {
-//            UIStepper* tf = (UIStepper*) control;
-//            tf.hidden = !editing;
-//        } else if ([control isKindOfClass:[UISwitch class]]) {
-//            UISwitch* tf = (UISwitch*) control;
-//            tf.hidden = !editing;
-//        } else if ([control isKindOfClass:[UIButton class]]) {
-//            //            UIButton* tf = (UIButton*) control;
-//        }
-//    }
-//}
-
 
 -(void) updateViewsForEditMode:(BOOL)editing {
     
@@ -1342,20 +1086,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 
 - (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer {
-//    CGPoint locationInView = [gestureRecognizer locationInView: fractalView];
-//    subLayer.anchorPoint = CGPointMake(locationInView.x / fractalView.bounds.size.width, locationInView.y / fractalView.bounds.size.height);
-//    
-//    UIGestureRecognizerState state = gestureRecognizer.state;
-//    
-//    if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStateChanged) {
-//        CGPoint translation = [gestureRecognizer translationInView:fractalView];
-//        
-//        CATransform3D newTrans = CATransform3DTranslate(subLayer.transform, translation.x, translation.y, 0);
-//        subLayer.transform = newTrans;
-//        
-//        [gestureRecognizer setTranslation:CGPointZero inView: fractalView];
-//    }
-//    
+
     static CGPoint initialPosition;
 
     UIView *fractalView = [gestureRecognizer view];
@@ -1637,38 +1368,6 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 
 #pragma mark - control actions
-//- (IBAction)nameInputDidEnd:(UITextField*)sender {
-//    self.fractal.name = sender.text;
-//}
-
-//- (IBAction)selectStrokeColor:(UIButton*)sender {
-//    self.coloringKey = @"lineColor";
-//        
-//    ColorPickerController* colorPicker = (ColorPickerController*) self.colorPopover.contentViewController.navigationController.visibleViewController;
-//    colorPicker.selectedColor = [self.currentFractal lineColorAsUI];
-//    
-//    [self.colorPopover presentPopoverFromRect: sender.frame 
-//                                       inView: sender.superview 
-//                     permittedArrowDirections:UIPopoverArrowDirectionAny 
-//                                     animated: YES];
-//
-//}
-
-//- (IBAction)selectFillColor:(UIButton*)sender {
-//    self.coloringKey = @"fillColor";
-//    
-//    ColorPickerController* colorPicker = (ColorPickerController*) self.colorPopover.contentViewController.navigationController.visibleViewController;
-//    colorPicker.selectedColor = [self.currentFractal fillColorAsUI];
-//        
-//    [self.colorPopover presentPopoverFromRect: sender.frame 
-//                                       inView: sender.superview 
-//                     permittedArrowDirections:UIPopoverArrowDirectionAny 
-//                                     animated: YES];
-//
-//    [self performSegueWithIdentifier: @"ColorPickerPopoverSeque" sender: self];
-//
-//
-//}
 - (IBAction)incrementLineWidth:(id)sender {
     if ([self.fractal.isImmutable boolValue]) {
         self.fractal = [self.fractal mutableCopy];
@@ -1700,18 +1399,6 @@ static void countPathElements(void *info, const CGPathElement *element) {
     [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegree doubleValue] - 0.5)];
 }
-
-
-
-//- (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender {
-//    if (sender.selectedSegmentIndex == 0) {
-//        [self useFractalDefinitionRulesView];
-//        
-//    } else if(sender.selectedSegmentIndex == 1) {
-//        [self useFractalDefinitionAppearanceView];
-//    }
-//}
-
 
 // TODO: copy app delegate saveContext method
 

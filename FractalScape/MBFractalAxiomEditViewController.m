@@ -159,6 +159,7 @@
     [super viewDidAppear:animated];
     
     [self setEditing: YES animated: NO];
+//    [self.tableView reloadData];
 }
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
