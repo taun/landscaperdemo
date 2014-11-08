@@ -29,7 +29,7 @@
                                                 <subviews>
                                                     <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
                                                         <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
-                                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="SI8-00-oVr" appends="YES" id="UZp-7a-zNF"/>
@@ -44,7 +44,7 @@
                                                         </connections>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="leading" secondItem="L8D-tT-rkV" secondAttribute="leading" id="NN7-hq-z0r"/>
                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="bottom" secondItem="L8D-tT-rkV" secondAttribute="bottom" id="PHp-9G-V6n"/>
@@ -53,11 +53,15 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerView">
-                                                <rect key="frame" x="683" y="918" width="65" height="37"/>
+                                                <rect key="frame" x="688" y="918" width="60" height="37"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
-                                                        <rect key="frame" x="20" y="6" width="25" height="25"/>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
+                                                        <rect key="frame" x="0.0" y="6" width="60" height="25"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="YFf-52-wrK"/>
+                                                            <constraint firstAttribute="height" constant="25" id="s1d-sA-4aU"/>
+                                                        </constraints>
                                                         <size key="titleShadowOffset" width="0.0" height="2"/>
                                                         <state key="normal" image="tabBarRulesIcon">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,8 +76,8 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="X2L-iC-acQ" secondAttribute="bottom" constant="6" id="Cd6-g2-wPd"/>
                                                     <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="6" id="LaG-r5-4ck"/>
-                                                    <constraint firstAttribute="trailing" secondItem="X2L-iC-acQ" secondAttribute="trailing" constant="20" id="hS5-Rm-snq"/>
-                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="leading" secondItem="SdO-1x-rjL" secondAttribute="leading" constant="20" id="xCj-kA-f3t"/>
+                                                    <constraint firstAttribute="trailing" secondItem="X2L-iC-acQ" secondAttribute="trailing" id="hS5-Rm-snq"/>
+                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="leading" secondItem="SdO-1x-rjL" secondAttribute="leading" id="xCj-kA-f3t"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -85,6 +89,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="12"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
@@ -306,7 +311,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="0nq-ro-qdw"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
@@ -329,7 +334,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="ekL-TA-FTU" firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" id="QJk-1c-69Z"/>

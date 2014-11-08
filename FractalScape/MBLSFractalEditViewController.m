@@ -123,10 +123,10 @@ static BOOL SIMULTOUCH = NO;
     
     [super viewDidLoad];
         
-    UIImage* patternImage = [UIImage imageNamed: @"linen-fine"];
-    UIColor* newColor = [UIColor colorWithPatternImage: patternImage];
-    self.fractalViewRoot.backgroundColor = newColor;
-        
+//    UIImage* patternImage = [UIImage imageNamed: @"linen-fine"];
+//    UIColor* newColor = [UIColor colorWithPatternImage: patternImage];
+//    self.fractalViewRoot.backgroundColor = newColor;
+//        
 //    if (self.portraitViewFrames == nil) {
 //        // we want to save the frames as layed out in the nib.
 //        [self __savePortraitViewFrames];
