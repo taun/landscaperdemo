@@ -208,7 +208,8 @@
             CGPoint collectionLoc = [self convertPoint: point toView: strongCollectionView];
             NSIndexPath* rulesCollectionIndexPath = [self.collectionView indexPathForDropInSection: 0 atPoint: collectionLoc];
             
-            if (rulesCollectionIndexPath) {
+            if (rulesCollectionIndexPath && ![self.rules containsObject: draggingRule.rule]) {
+                // If the rule is already here and we are entering, it is a case where the rule was not removed on exit. This would be if it was the last/only rule in the set.
                 // is the touch over a cell or at the end. indexPath will be nil in cell margins.
                 reloadContainer = strongCollectionView.nextItemWillWrapLine;
                 [self willChangeNotify];
@@ -264,7 +265,7 @@
     BOOL reloadContainer = NO;
     MDKUICollectionViewScrollContentSized* strongCollectionView = self.collectionView;
 
-    if (!self.isReadOnly) {
+    if (!self.isReadOnly && self.rules.count > 1) {
         NSUInteger removeIndex = [self.rules indexOfObject: draggingRule.rule];
         if (removeIndex != NSNotFound) {
             [self willChangeNotify];
