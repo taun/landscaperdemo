@@ -111,35 +111,39 @@
 -(BOOL) moveRuleToArray: (id)aCollectionType indexPath:(NSIndexPath *)indexPath notify:(id)object forPropertyChange:(NSString *)property {
     BOOL resized = NO;
     
-    NSInteger lastCellRow = [self.lastDestinationCollection numberOfItemsInSection: 0] - 1;
+    NSMutableOrderedSet* strongLastDestinationArray = self.lastDestinationArray;
+    UICollectionView* strongLastDestinationCollection = self.lastDestinationCollection;
+
+    NSInteger lastCellRow = [strongLastDestinationCollection numberOfItemsInSection: 0] - 1;
 
     if (object!=nil && property != nil && property.length > 0) {
         [object willChangeValueForKey: property];
     }
     
-        if (self.lastDestinationArray) { // need to move item
-                                                      //
-            [self.lastDestinationArray exchangeObjectAtIndex: self.lastCollectionIndexPath.row withObjectAtIndex: indexPath.row];
-            [self.lastDestinationCollection moveItemAtIndexPath: self.lastCollectionIndexPath toIndexPath: indexPath];
-            
-            self.lastCollectionIndexPath = indexPath;
-            
-        } else { // need to append or insert, growing number of items
-            self.lastDestinationArray = aCollectionType;
-            
-            [self.lastDestinationArray insertObject: self.rule atIndex: indexPath.row];
-            [self.lastDestinationCollection insertItemsAtIndexPaths: @[indexPath]];
-            
-            self.lastCollectionIndexPath = indexPath;
-            CGFloat cellWidth = self.lastDestinationCollection.bounds.size.width;
-            UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)self.lastDestinationCollection.collectionViewLayout;
-            NSInteger itemsPerLine = (cellWidth / (layout.itemSize.width+2*layout.minimumInteritemSpacing));
-            CGFloat remainder = fmodf(lastCellRow+1, itemsPerLine);
-            if (remainder == 0.0) {
-                // flag to relayout collection with additional row
-                resized = YES;
-            }
+    
+    if (strongLastDestinationArray) { // need to move item
+                                     //
+        [strongLastDestinationArray exchangeObjectAtIndex: self.lastCollectionIndexPath.row withObjectAtIndex: indexPath.row];
+        [strongLastDestinationCollection moveItemAtIndexPath: self.lastCollectionIndexPath toIndexPath: indexPath];
+        
+        self.lastCollectionIndexPath = indexPath;
+        
+    } else { // need to append or insert, growing number of items
+        self.lastDestinationArray = aCollectionType;
+        
+        [aCollectionType insertObject: self.rule atIndex: indexPath.row];
+        [strongLastDestinationCollection insertItemsAtIndexPaths: @[indexPath]];
+        
+        self.lastCollectionIndexPath = indexPath;
+        CGFloat cellWidth = strongLastDestinationCollection.bounds.size.width;
+        UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)strongLastDestinationCollection.collectionViewLayout;
+        NSInteger itemsPerLine = (cellWidth / (layout.itemSize.width+2*layout.minimumInteritemSpacing));
+        CGFloat remainder = fmodf(lastCellRow+1, itemsPerLine);
+        if (remainder == 0.0) {
+            // flag to relayout collection with additional row
+            resized = YES;
         }
+    }
     
     if (object!=nil && property != nil && property.length > 0) {
         [object didChangeValueForKey: property];
@@ -147,18 +151,22 @@
     return resized;
 }
 -(void) removePreviousDropRepresentationNotify: (id)object forPropertyChange:(NSString*)property {
-    if (self.lastDestinationArray && self.lastCollectionIndexPath) {
+
+    NSMutableOrderedSet* strongLastDestinationArray = self.lastDestinationArray;
+    UICollectionView* strongLastDestinationCollection = self.lastDestinationCollection;
+
+    if (strongLastDestinationArray && self.lastCollectionIndexPath) {
         if (object!=nil && property != nil && property.length > 0) {
             [object willChangeValueForKey: property];
         }
         
-        [self.lastDestinationArray removeObject: _rule];
+        [strongLastDestinationArray removeObject: _rule];
         
         if (object!=nil && property != nil && property.length > 0) {
             [object didChangeValueForKey: property];
         }
         
-        [self.lastDestinationCollection deleteItemsAtIndexPaths: @[self.lastCollectionIndexPath]];
+        [strongLastDestinationCollection deleteItemsAtIndexPaths: @[self.lastCollectionIndexPath]];
     }
     [self resetDestination];
 }

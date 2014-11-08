@@ -41,7 +41,6 @@
 -(void) configureAppearance {
 //    self.translatesAutoresizingMaskIntoConstraints = NO;
     self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
-    self.backgroundColor = [UIColor clearColor];
 }
 -(NSLayoutConstraint*) currentWidthConstraint {
     if (!_currentWidthConstraint) {
@@ -158,8 +157,6 @@
  */
 -(void)prepareForReuse {
     self.isReadOnly = NO;
-    self.lastIndexPath = nil;
-    self.lastEnteredView = nil;
 }
 -(void) willChangeNotify {
     id strongObject = self.notifyObject;
@@ -179,7 +176,7 @@
 }
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
     UIView* returnView;
-    UICollectionView* strongCollectionView = self.collectionView;
+    MDKUICollectionViewScrollContentSized* strongCollectionView = self.collectionView;
     
     CGPoint collectionLoc = [self convertPoint: point toView: strongCollectionView];
     NSIndexPath* ruleIndexPath = [strongCollectionView indexPathForItemAtPoint: collectionLoc];
@@ -193,12 +190,7 @@
             draggedRule = collectionSourceCell.rule;
         }
         
-        self.lastEnteredView = strongCollectionView;
-        self.lastIndexPath = ruleIndexPath;
-        
         draggingRule.rule = draggedRule;
-        draggingRule.sourceCollection = strongCollectionView;
-        draggingRule.sourceCollectionIndexPath = ruleIndexPath;
         
         returnView = draggingRule.view;
     }
@@ -207,9 +199,7 @@
 #pragma message "There is a possibility this is entered for the same view right after the didStart"
 -(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
     BOOL reloadContainer = NO;
-    UICollectionView* strongCollectionView = self.collectionView;
-    UIView* strongLastEnteredView = self.lastEnteredView;
-    
+    MDKUICollectionViewScrollContentSized* strongCollectionView = self.collectionView;
 
     if (!self.isReadOnly) {
         CGRect collectionRect = [self convertRect: strongCollectionView.bounds fromView: strongCollectionView];
@@ -220,23 +210,15 @@
             
             if (rulesCollectionIndexPath) {
                 // is the touch over a cell or at the end. indexPath will be nil in cell margins.
+                reloadContainer = strongCollectionView.nextItemWillWrapLine;
                 [self willChangeNotify];
                 [self.rules insertObject: draggingRule.rule atIndex: rulesCollectionIndexPath.row];
                 [strongCollectionView insertItemsAtIndexPaths: @[rulesCollectionIndexPath]];
                 [self didChangeNotify];
-                
-                self.lastEnteredView = strongCollectionView;
-                self.lastIndexPath = rulesCollectionIndexPath;
-                
-                CGFloat remainder = fmodf([strongCollectionView numberOfItemsInSection: 0], 22.0);
-                if (remainder == 0.0) {
-                    // flag to relayout collection with additional row
-                    reloadContainer = YES;
-                }
             }
             
-        } else if (strongLastEnteredView == strongCollectionView) {
-            [self dragDidExitDraggingRule: draggingRule];
+//        } else if ([draggingRule.lastTableIndexPath compare: draggingRule.currentIndexPath] == NSOrderedSame) {
+//            [self dragDidExitDraggingRule: draggingRule];
         }
     }
     
@@ -244,13 +226,14 @@
 }
 -(BOOL) dragDidChangeToLocalPoint:(CGPoint)point draggingRule:(MBDraggingRule *)draggingRule {
     BOOL reloadContainer = NO;
-    UICollectionView* strongCollectionView = self.collectionView;
+    MDKUICollectionViewScrollContentSized* strongCollectionView = self.collectionView;
     
     if (!self.isReadOnly) {
         CGRect collectionRect = [self convertRect: strongCollectionView.bounds fromView: strongCollectionView];
         
         if (CGRectContainsPoint(collectionRect, point)) {
-            if (self.lastEnteredView == strongCollectionView) {
+            NSInteger oldIndex = [self.rules indexOfObject: draggingRule.rule];
+            if (oldIndex != NSNotFound) {
                 // was already here and just a change
                 // only change if collection indexPath changed.
                 CGPoint collectionLoc = [self convertPoint: point toView: strongCollectionView];
@@ -263,16 +246,15 @@
                     rulesCollectionIndexPath = [NSIndexPath indexPathForItem: rulesCollectionIndexPath.row-1 inSection: rulesCollectionIndexPath.section];
                 }
                 
-                if (rulesCollectionIndexPath != nil && self.lastIndexPath != nil && [rulesCollectionIndexPath compare: self.lastIndexPath] != NSOrderedSame) {
+                if (rulesCollectionIndexPath != nil && rulesCollectionIndexPath.row != oldIndex) {
                     [self willChangeNotify];
-                    [self.rules moveObjectsAtIndexes: [NSIndexSet indexSetWithIndex: self.lastIndexPath.row] toIndex: rulesCollectionIndexPath.row];
-                    [strongCollectionView moveItemAtIndexPath: self.lastIndexPath toIndexPath: rulesCollectionIndexPath];
+                    [self.rules moveObjectsAtIndexes: [NSIndexSet indexSetWithIndex: oldIndex] toIndex: rulesCollectionIndexPath.row];
+                    [strongCollectionView moveItemAtIndexPath: [NSIndexPath indexPathForRow: oldIndex inSection: 0] toIndexPath: rulesCollectionIndexPath];
                     [self didChangeNotify];
-                    
-                    self.lastIndexPath = rulesCollectionIndexPath;
                 }
             } else {
-                [self dragDidEnterAtLocalPoint: point draggingRule: draggingRule];
+                // rule was not found in collection so it is in enter state
+                reloadContainer = [self dragDidEnterAtLocalPoint: point draggingRule: draggingRule];
             }
         }
     }
@@ -280,7 +262,7 @@
 }
 -(BOOL) dragDidExitDraggingRule: (MBDraggingRule*) draggingRule {
     BOOL reloadContainer = NO;
-    UICollectionView* strongCollectionView = self.collectionView;
+    MDKUICollectionViewScrollContentSized* strongCollectionView = self.collectionView;
 
     if (!self.isReadOnly) {
         NSUInteger removeIndex = [self.rules indexOfObject: draggingRule.rule];
@@ -289,16 +271,13 @@
             [self.rules removeObjectAtIndex: removeIndex];
             [strongCollectionView deleteItemsAtIndexPaths: @[[NSIndexPath indexPathForRow: removeIndex inSection: 0]]];
             [self didChangeNotify];
+            reloadContainer = strongCollectionView.nextItemWillWrapLine; // If removing item unwraps, then reload to shrink.
         }
     }
-    self.lastEnteredView = nil;
-    self.lastIndexPath = nil;
     return reloadContainer;
 }
 -(BOOL) dragDidEndDraggingRule: (MBDraggingRule*) draggingRule {
     BOOL reloadContainer = NO;
-    self.lastEnteredView = nil;
-    self.lastIndexPath = nil;
     return reloadContainer;
 }
 

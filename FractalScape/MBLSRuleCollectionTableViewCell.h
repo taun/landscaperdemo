@@ -46,14 +46,6 @@
  DataSource for the embedded MDKUICollectionViewScrollContentSized
  */
 @property (nonatomic,strong) MBRuleCollectionDataSource                     *rulesSource;
-/*!
- State property. Need to know which view was last entered to handle drag and drop?
- */
-@property (nonatomic,weak) UIView                                           *lastEnteredView;
-/*!
- State property combined with lastEnteredView
- */
-@property (nonatomic,strong) NSIndexPath                                    *lastIndexPath;
 
 @property (nonatomic,strong) NSLayoutConstraint                             *currentWidthConstraint;
 @property (nonatomic,strong) NSLayoutConstraint                             *currentHeightConstraint;

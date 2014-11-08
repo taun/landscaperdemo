@@ -19,6 +19,10 @@
  */
 @property (nonatomic,strong) LSDrawingRule                      *rule;
 /*!
+ If a rule is overwritten, it is stored in case we need to restore the original rule.
+ */
+@property (nonatomic,strong) LSDrawingRule                      *oldReplacedRule;
+/*!
  A view representing the rule for dragging around on the screen.
  */
 @property (nonatomic,strong) UIView                             *view;
@@ -35,12 +39,37 @@
 @property (nonatomic,assign) CGPoint                            viewCenter;
 
 #pragma mark - state tracking properties
+/*!
+ Store the initial state.
+ */
 @property (nonatomic,copy) NSIndexPath                          *sourceTableIndexPath;
+/*!
+ Store the initial state.
+ */
 @property (nonatomic,weak) UICollectionView                     *sourceCollection;
+/*!
+ Store the initial state.
+ */
 @property (nonatomic,copy) NSIndexPath                          *sourceCollectionIndexPath;
+/*!
+ Store the current state.
+ */
+@property (nonatomic,copy) NSIndexPath                          *currentIndexPath;
+/*!
+ Store the previous state.
+ */
 @property (nonatomic,copy) NSIndexPath                          *lastTableIndexPath;
+/*!
+ Store the previous state.
+ */
 @property (nonatomic,copy) NSIndexPath                          *lastCollectionIndexPath;
+/*!
+ Store the previous state.
+ */
 @property (nonatomic,weak) UICollectionView                     *lastDestinationCollection;
+/*!
+ Store the previous state.
+ */
 @property (nonatomic,weak) NSMutableOrderedSet                  *lastDestinationArray;
 
 #pragma mark - Conveniences properties
