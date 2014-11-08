@@ -20,11 +20,11 @@
 #import "MBColor+addons.h"
 
 #import <QuartzCore/QuartzCore.h>
+#include <ImageIO/CGImageProperties.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MDUiKit/MDUiKit.h>
 
 #include <math.h>
-
 
 //
 //static inline double radians (double degrees) {return degrees * M_PI/180.0;}
@@ -1310,7 +1310,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 - (UIImage *)snapshot:(UIView *)view
 {
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
     [view drawViewHierarchyInRect: view.bounds afterScreenUpdates:YES];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -1325,13 +1325,65 @@ static void countPathElements(void *info, const CGPathElement *element) {
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
         
         UIImage* fractalImage = [self snapshot: self.fractalView];
+        NSData* pngImage = UIImagePNGRepresentation(fractalImage);
         
-        [library writeImageToSavedPhotosAlbum: [fractalImage CGImage] orientation: ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
+        // Format the current date and time
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
+        NSString *now = [formatter stringFromDate:[NSDate date]];
+        
+        NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+
+        // Exif metadata dictionary
+        // Includes date and time as well as image dimensions
+        NSDictionary *exifDictionary = @{(NSString *)kCGImagePropertyExifDateTimeOriginal:now,
+                                         (NSString *)kCGImagePropertyExifDateTimeDigitized:now,
+                                         (NSString *)kCGImagePropertyExifPixelXDimension:@(fractalImage.size.width),
+                                         (NSString *)kCGImagePropertyExifPixelYDimension:@(fractalImage.size.height),
+                                         (NSString *)kCGImagePropertyExifUserComment:self.fractal.name,
+                                         (NSString *)kCGImagePropertyExifLensMake:@"FractalScape",
+                                         (NSString *)kCGImagePropertyExifLensModel:version};
+        
+        // Tiff metadata dictionary
+        // Includes information about the application used to create the image
+        // "Make" is the name of the app, "Model" is the version of the app
+        NSMutableDictionary *tiffDictionary = [NSMutableDictionary dictionary];
+        [tiffDictionary setValue:now forKey:(NSString *)kCGImagePropertyTIFFDateTime];
+        [tiffDictionary setValue:@"FractalScape" forKey:(NSString *)kCGImagePropertyTIFFMake];
+        [tiffDictionary setValue:self.fractal.name forKey:(NSString *)kCGImagePropertyTIFFDocumentName];
+        [tiffDictionary setValue:self.fractal.descriptor forKey:(NSString *)kCGImagePropertyTIFFImageDescription];
+ 
+        [tiffDictionary setValue:[NSString stringWithFormat:@"%@ (%@)", version, build] forKey:(NSString *)kCGImagePropertyTIFFModel];
+        
+        NSDictionary* pngDictionary = @{(NSString *)kCGImagePropertyPNGDescription:self.fractal.descriptor,
+                                        (NSString *)kCGImagePropertyPNGTitle:self.fractal.name,
+                                        (NSString *)kCGImagePropertyPNGSoftware:@"FractalScape",
+                                        (NSString *)kCGImagePropertyPNGAuthor:@"FractalScape"};
+        
+        // Image metadata dictionary
+        // Includes image dimensions, as well as the EXIF and TIFF metadata
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setValue:[NSNumber numberWithFloat:fractalImage.size.width] forKey:(NSString *)kCGImagePropertyPixelWidth];
+        [dict setValue:[NSNumber numberWithFloat:fractalImage.size.height] forKey:(NSString *)kCGImagePropertyPixelHeight];
+        [dict setValue:exifDictionary forKey:(NSString *)kCGImagePropertyExifDictionary];
+        [dict setValue:tiffDictionary forKey:(NSString *)kCGImagePropertyTIFFDictionary];
+        [dict setValue:pngDictionary forKey:(NSString *)kCGImagePropertyPNGDictionary];
+
+        
+        [library writeImageDataToSavedPhotosAlbum: pngImage metadata: dict completionBlock:^(NSURL *assetURL, NSError *error) {
             // call method for UIAlert about successful save with save text
             [self showSharedCompletionAlertWithText: @"your camera roll." error: error];
             
             NSLog(@"Sharing to camera status %@.", error);
         }];
+
+//        [library writeImageToSavedPhotosAlbum: [fractalImage CGImage] orientation: ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
+//            // call method for UIAlert about successful save with save text
+//            [self showSharedCompletionAlertWithText: @"your camera roll." error: error];
+//            
+//            NSLog(@"Sharing to camera status %@.", error);
+//        }];
     }
     
     NSLog(@"Sharing to camera called.");

@@ -27,7 +27,7 @@
                                             <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                                 <subviews>
-                                                    <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
+                                                    <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
                                                         <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
