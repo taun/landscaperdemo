@@ -173,7 +173,7 @@
         } else {
             //increment
             [newComponents removeLastObject];
-            NSString* newCopyNumber = [NSString stringWithFormat: @" %ldi", (long)++lastCopyInteger];
+            NSString* newCopyNumber = [NSString stringWithFormat: @" %ld", (long)++lastCopyInteger];
             [newComponents addObject: newCopyNumber];
         }
     

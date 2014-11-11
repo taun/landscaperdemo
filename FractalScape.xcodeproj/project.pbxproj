@@ -53,6 +53,7 @@
 		C59E32171A111D020076B40B /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32161A111D020076B40B /* NSManagedObject+Shortcuts.m */; };
 		C59E321A1A1125F80076B40B /* MBColorCategory+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32191A1125F80076B40B /* MBColorCategory+addons.m */; };
 		C59E321D1A112EDB0076B40B /* MBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E321C1A112EDB0076B40B /* MBColorCategory.m */; };
+		C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */; };
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
 		C5A3EA6F16E7E6EF00D19155 /* MBColorCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A3EA6E16E7E6EF00D19155 /* MBColorCollectionViewController.m */; };
 		C5A3EA7416E8194100D19155 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A3EA7316E8194100D19155 /* Default-568h@2x.png */; };
@@ -231,6 +232,8 @@
 		C59E32191A1125F80076B40B /* MBColorCategory+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBColorCategory+addons.m"; path = "FractalScape/model/MBColorCategory+addons.m"; sourceTree = "<group>"; };
 		C59E321B1A112EDB0076B40B /* MBColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColorCategory.h; path = FractalScape/model/MBColorCategory.h; sourceTree = "<group>"; };
 		C59E321C1A112EDB0076B40B /* MBColorCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColorCategory.m; path = FractalScape/model/MBColorCategory.m; sourceTree = "<group>"; };
+		C59E321E1A12AB950076B40B /* MBFractalColorViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFractalColorViewContainer.h; sourceTree = "<group>"; };
+		C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFractalColorViewContainer.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A3EA6D16E7E6EF00D19155 /* MBColorCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBColorCollectionViewController.h; sourceTree = "<group>"; };
 		C5A3EA6E16E7E6EF00D19155 /* MBColorCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBColorCollectionViewController.m; sourceTree = "<group>"; };
@@ -543,6 +546,8 @@
 				C51DF52016E68DEC00FBDB8A /* MBFractalFillColorViewController.m */,
 				C5A3EA6D16E7E6EF00D19155 /* MBColorCollectionViewController.h */,
 				C5A3EA6E16E7E6EF00D19155 /* MBColorCollectionViewController.m */,
+				C59E321E1A12AB950076B40B /* MBFractalColorViewContainer.h */,
+				C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */,
 			);
 			name = Controllers;
 			path = FractalScape;
@@ -820,6 +825,7 @@
 				C5014792170B4EB400BD7488 /* LSReplacementRule+addons.m in Sources */,
 				C5EEC60E19DB0C9300D9C88F /* LSDrawingRule.m in Sources */,
 				C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */,
+				C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */,
 				C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
