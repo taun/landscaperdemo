@@ -1381,7 +1381,7 @@
             <objects>
                 <viewController storyboardIdentifier="FillColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBFractalFillColorViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="oGc-CD-mGf">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C4h-zc-Fd7">
@@ -1453,6 +1453,7 @@
                             <outlet property="delegate" destination="bRM-XI-8Xh" id="Cya-ED-FIf"/>
                         </connections>
                     </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Fill Colors" image="tabBarFillColorIcon" id="XzP-vF-Qi5"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1471,7 +1472,7 @@
             <objects>
                 <viewController storyboardIdentifier="StrokeColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TSZ-NG-w8m" customClass="MBFractalStrokeColorViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="549" verticalHuggingPriority="574" horizontalCompressionResistancePriority="384" verticalCompressionResistancePriority="384" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="wYq-wQ-gO2">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pTA-8R-u0K">
@@ -1543,6 +1544,7 @@
                             <outlet property="delegate" destination="TSZ-NG-w8m" id="Gj6-Sy-IHj"/>
                         </connections>
                     </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Line Colors" image="tabBarLineColorIcon" id="fRh-xF-oTr"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
