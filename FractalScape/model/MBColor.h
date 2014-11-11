@@ -2,14 +2,14 @@
 //  MBColor.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 04/02/13.
-//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 11/10/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class LSFractal;
+@class LSFractal, MBColorCategory;
 
 @interface MBColor : NSManagedObject
 
@@ -20,8 +20,10 @@
 @property (nonatomic, retain) NSString * imagePath;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * red;
+@property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) NSSet *fractalFills;
 @property (nonatomic, retain) NSSet *fractalLines;
+@property (nonatomic, retain) MBColorCategory *category;
 @end
 
 @interface MBColor (CoreDataGeneratedAccessors)

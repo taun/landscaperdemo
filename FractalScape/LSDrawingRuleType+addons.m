@@ -8,14 +8,18 @@
 
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @implementation LSDrawingRuleType (addons)
+
++ (NSString *)entityName {
+    return @"LSDrawingRuleType";
+}
 
 +(NSArray*) allRuleTypesInContext: (NSManagedObjectContext *)context {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LSDrawingRuleType"
-                                              inManagedObjectContext:context];
+    NSEntityDescription *entity = [LSDrawingRuleType entityDescriptionForContext: context];
     [fetchRequest setEntity:entity];
     
     NSError *error;
@@ -78,6 +82,47 @@
         
     }
     return [rulesArray copy];
+}
+
+-(NSInteger)loadRulesFromPListRulesArray: (NSArray*)rulesArray {
+    NSInteger addedRulesCount = 0;
+    
+    if (rulesArray) {
+        NSManagedObjectContext* context = self.managedObjectContext;
+        
+        
+        NSMutableOrderedSet* currentDefaultRules = [self mutableOrderedSetValueForKey: @"rules"];
+        // COuld convert set to dictionary and ise a lookup to detect existence but not worth it for a few rules.
+        
+        //Sort rules before adding so orderedSet is created in desired order.
+        //Will not work as desired if rules using same indexes already exist in LSDrawingRuleType.
+        NSSortDescriptor* ruleIndexSorting = [NSSortDescriptor sortDescriptorWithKey: @"displayIndex" ascending: YES];
+        NSSortDescriptor* ruleAlphaSorting = [NSSortDescriptor sortDescriptorWithKey: @"iconIdentifierString" ascending: YES];
+        NSArray* sortedRules = [rulesArray sortedArrayUsingDescriptors: @[ruleIndexSorting,ruleAlphaSorting]];
+        
+        for (NSDictionary* rule in sortedRules) {
+            BOOL alreadyExists = NO;
+            
+            for (NSManagedObject* existingRuleObject in currentDefaultRules) {
+                if ([existingRuleObject isKindOfClass: [LSDrawingRule class]]) {
+                    LSDrawingRule* existingRule = (LSDrawingRule*)existingRuleObject;
+                    if ([existingRule.productionString isEqualToString: rule[@"productionString"]]) {
+                        alreadyExists = YES;
+                    }
+                }
+            }
+            if (!alreadyExists) {
+                LSDrawingRule *newDrawingRule = [LSDrawingRule insertNewObjectIntoContext: context];
+                newDrawingRule.productionString = rule[@"productionString"];
+                newDrawingRule.drawingMethodString = rule[@"drawingMethodString"];
+                newDrawingRule.iconIdentifierString = rule[@"iconIdentifierString"];
+                newDrawingRule.displayIndex = rule[@"displayIndex"];
+                [currentDefaultRules addObject: newDrawingRule]; // this should also take care of relationship?
+                addedRulesCount += 1;
+            }
+        }
+    }
+    return addedRulesCount;
 }
 
 @end

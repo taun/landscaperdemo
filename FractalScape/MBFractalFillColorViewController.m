@@ -15,7 +15,7 @@
 @implementation MBFractalFillColorViewController
 
 +(NSString*) fractalPropertyKeypath {
-    return @"fillColor";
+    return @"fillColors";
 }
 
 #pragma mark - UICollectionViewDelegate

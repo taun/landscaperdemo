@@ -1386,7 +1386,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C4h-zc-Fd7">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
@@ -1428,6 +1428,26 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorsHeader" id="By0-GC-Oyx" customClass="MBCollectionFractalSupplementaryLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YH-h1-Uzu">
+                                    <rect key="frame" x="179" y="6" width="42" height="37"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="centerX" secondItem="2YH-h1-Uzu" secondAttribute="centerX" id="1vX-eI-j6l"/>
+                                <constraint firstAttribute="bottom" secondItem="2YH-h1-Uzu" secondAttribute="bottom" constant="7" id="dnK-BS-i6a"/>
+                                <constraint firstItem="2YH-h1-Uzu" firstAttribute="top" secondItem="By0-GC-Oyx" secondAttribute="top" constant="6" id="vsx-F9-R6R"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="textLabel" destination="2YH-h1-Uzu" id="WWy-CI-nUF"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="bRM-XI-8Xh" id="9Sl-lT-4fG"/>
                             <outlet property="delegate" destination="bRM-XI-8Xh" id="Cya-ED-FIf"/>
@@ -1456,7 +1476,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pTA-8R-u0K">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
@@ -1498,6 +1518,26 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorsHeader" id="064-p4-ISb" customClass="MBCollectionFractalSupplementaryLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ff2-AX-fbz">
+                                    <rect key="frame" x="179" y="6" width="42" height="37"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="ff2-AX-fbz" firstAttribute="top" secondItem="064-p4-ISb" secondAttribute="top" constant="6" id="5tk-n2-o5p"/>
+                                <constraint firstAttribute="bottom" secondItem="ff2-AX-fbz" secondAttribute="bottom" constant="7" id="P4u-e7-05d"/>
+                                <constraint firstAttribute="centerX" secondItem="ff2-AX-fbz" secondAttribute="centerX" id="XOX-eD-3QX"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="textLabel" destination="ff2-AX-fbz" id="uej-Vn-4CU"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="TSZ-NG-w8m" id="h2k-zk-1Rm"/>
                             <outlet property="delegate" destination="TSZ-NG-w8m" id="Gj6-Sy-IHj"/>

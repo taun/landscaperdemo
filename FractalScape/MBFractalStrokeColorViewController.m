@@ -15,7 +15,7 @@
 @implementation MBFractalStrokeColorViewController
 
 +(NSString*) fractalPropertyKeypath {
-    return @"lineColor";
+    return @"lineColors";
 }
 
 @end

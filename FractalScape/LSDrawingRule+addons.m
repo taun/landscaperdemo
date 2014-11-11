@@ -7,8 +7,13 @@
 //
 
 #import "LSDrawingRule+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @implementation LSDrawingRule (addons)
+
++ (NSString *)entityName {
+    return @"LSDrawingRule";
+}
 
 + (NSSet *)keysToBeCopied {
     static NSSet *keysToBeCopied = nil;
@@ -48,9 +53,7 @@
 }
 
 -(id) mutableCopy {
-    LSDrawingRule *ruleCopy = (LSDrawingRule*)[NSEntityDescription
-                                          insertNewObjectForEntityForName:@"LSDrawingRule"
-                                          inManagedObjectContext: self.managedObjectContext];
+    LSDrawingRule *ruleCopy = (LSDrawingRule*)[LSDrawingRule insertNewObjectIntoContext: self.managedObjectContext];
     
     if (ruleCopy) {
         for ( NSString* aKey in [LSDrawingRule keysToBeCopied]) {

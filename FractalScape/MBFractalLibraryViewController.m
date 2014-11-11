@@ -9,6 +9,8 @@
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
 #import "LSFractalGenerator.h"
+#import "LSFractal+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 #import "MBCollectionFractalCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
@@ -80,7 +82,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
         NSManagedObjectContext* fractalContext = self.fractal.managedObjectContext;
         
         NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription* entity = [NSEntityDescription entityForName: @"LSFractal" inManagedObjectContext: fractalContext];
+        NSEntityDescription* entity = [LSFractal entityDescriptionForContext: fractalContext];
         [fetchRequest setEntity: entity];
         [fetchRequest setFetchBatchSize: 20];
         NSSortDescriptor* nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"name" ascending: YES];

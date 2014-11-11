@@ -9,6 +9,12 @@
 #import "MBColorCollectionViewController.h"
 #import "MBAppDelegate.h"
 #import "MBCollectionColorCell.h"
+#import "MBColor+addons.h"
+#import "NSManagedObject+Shortcuts.h"
+
+
+#import "MBCollectionFractalSupplementaryLabel.h" // from Library collectionView
+static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
 
 @interface MBColorCollectionViewController ()
 
@@ -17,7 +23,7 @@
 @implementation MBColorCollectionViewController
 
 +(NSString*) fractalPropertyKeypath {
-    return @"lineColor";
+    return @"lineColors";
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -25,10 +31,18 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _colorsChanged = YES;
     }
     return self;
 }
-
+-(NSArray*)cachedFractalColors {
+    if (!_cachedFractalColors || self.colorsChanged) {
+        NSSet* colors = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
+        NSSortDescriptor* indexSort = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
+        _cachedFractalColors = [colors sortedArrayUsingDescriptors: @[indexSort]];
+    }
+    return _cachedFractalColors;
+}
 -(void) initControls {
     // need to set current selection
     // use selectItemAtIndexPath:animated:scrollPosition:
@@ -43,34 +57,37 @@
     
     return appContext;
 }
--(NSFetchedResultsController*) fetchedResultsController {
-    if (_fetchedResultsController == nil) {
+-(NSFetchedResultsController*) libraryColorsFetchedResultsController {
+    if (_libraryColorsFetchedResultsController == nil) {
         // instantiate
         NSManagedObjectContext* appContext = [self appManagedObjectContext];
         
         NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription* entity = [NSEntityDescription entityForName: @"MBColor" inManagedObjectContext:appContext];
+        NSEntityDescription* entity = [MBColor entityDescriptionForContext: appContext];
         [fetchRequest setEntity: entity];
-        [fetchRequest setFetchBatchSize: 20];
-        NSSortDescriptor* redSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"red" ascending: YES];
-        NSSortDescriptor* greenSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"green" ascending: YES];
-        NSSortDescriptor* blueSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"blue" ascending: YES];
-        NSArray* sortDescriptors = @[redSortDescriptor, greenSortDescriptor, blueSortDescriptor];
+        [fetchRequest setFetchBatchSize: 40];
+        
+        NSSortDescriptor* category = [NSSortDescriptor sortDescriptorWithKey: @"category.identifier" ascending: YES];
+        NSSortDescriptor* index = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
+        NSArray* sortDescriptors = @[category, index];
         [fetchRequest setSortDescriptors: sortDescriptors];
         
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: nil cacheName: @"strokeColors"];
+        NSPredicate* filterPredicate = [NSPredicate predicateWithFormat: @"category != NIL"];
+        [fetchRequest setPredicate: filterPredicate];
         
-        _fetchedResultsController.delegate = self;
+        _libraryColorsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: @"category.name" cacheName: [[self class]fractalPropertyKeypath]];
+        
+        _libraryColorsFetchedResultsController.delegate = self;
         
         NSError* error = nil;
         
-        if (![_fetchedResultsController performFetch: &error]) {
+        if (![_libraryColorsFetchedResultsController performFetch: &error]) {
             NSLog(@"Fetched Results Error %@, %@", error, [error userInfo]);
             abort();
         }
     }
     
-    return _fetchedResultsController;
+    return _libraryColorsFetchedResultsController;
 }
 #pragma mark - NSFetchedResultsControllerDelegate conformance -
 -(void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
@@ -79,12 +96,16 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [[self.fetchedResultsController sections] count];
+    return [[self.libraryColorsFetchedResultsController sections] count]+1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+    if (section == 0) {
+        return self.cachedFractalColors.count;
+    } else {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.libraryColorsFetchedResultsController sections][section-1];
+        return [sectionInfo numberOfObjects];
+    }
 }
 
 -(UIImage*) thumbnailForColor: (NSManagedObject*) mObject size: (CGSize) size {
@@ -109,6 +130,20 @@
     }
     return thumbnail;
 }
+- (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+                                                                                      withReuseIdentifier: kSupplementaryHeaderCellIdentifier
+                                                                                             forIndexPath: indexPath];
+    
+    if (indexPath.section == 0) {
+        rView.textLabel.text = @"Fractal Colors in order of use";
+    } else {
+        rView.textLabel.text = [[self.libraryColorsFetchedResultsController sections][indexPath.section-1] name];
+    }
+    
+    return rView;
+}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -119,25 +154,31 @@
     //    if (cell == nil) {
     //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     //    }
+    UIImageView* strongCellImageView = cell.imageView;
+    NSManagedObject* managedObjectColor;
     
-    
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    // Configure the cell with data from the managed object.
-    cell.imageView.image = [self thumbnailForColor: managedObject size: cell.bounds.size];
-    cell.imageView.highlightedImage = cell.imageView.image;
-    
-    MBColor* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
-    if (currentColor == managedObject) {
-        cell.selected = YES;
+    if (indexPath.section == 0) {
+        managedObjectColor = self.cachedFractalColors[indexPath.row];
+    } else {
+        NSIndexPath* adjustedPath = [NSIndexPath indexPathForRow: indexPath.row inSection: indexPath.section-1];
+        managedObjectColor = [self.libraryColorsFetchedResultsController objectAtIndexPath: adjustedPath];
     }
+    
+    strongCellImageView.image = [self thumbnailForColor: managedObjectColor size: cell.bounds.size];
+    strongCellImageView.highlightedImage = strongCellImageView.image;
+    
+//    MBColor* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
+//    if (currentColor == managedObject) {
+//        cell.selected = YES;
+//    }
     
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self.fractal setValue: (MBColor*)managedObject forKey: [[self class] fractalPropertyKeypath]];
-    [collectionView selectItemAtIndexPath: indexPath animated: YES scrollPosition:UICollectionViewScrollPositionNone] ;
+//    NSManagedObject *managedObject = [self.libraryColorsFetchedResultsController objectAtIndexPath:indexPath];
+//    [self.fractal setValue: (MBColor*)managedObject forKey: [[self class] fractalPropertyKeypath]];
+//    [collectionView selectItemAtIndexPath: indexPath animated: YES scrollPosition:UICollectionViewScrollPositionNone] ;
 }
 
 
@@ -147,10 +188,11 @@
 	// Do any additional setup after loading the view.
 }
 -(void)viewDidAppear:(BOOL)animated {
-    NSManagedObject* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
-    NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: currentColor];
+//    NSManagedObject* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
+//    NSIndexPath* selectIndex = [self.libraryColorsFetchedResultsController indexPathForObject: currentColor];
     
-    [self.colorCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
+//    [self.colorCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
+    [super viewDidAppear:animated];
 }
 - (void)didReceiveMemoryWarning
 {

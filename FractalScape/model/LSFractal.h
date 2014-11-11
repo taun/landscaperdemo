@@ -2,7 +2,7 @@
 //  LSFractal.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 10/16/14.
+//  Created by Taun Chapman on 11/10/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -34,14 +34,24 @@
 @property (nonatomic, retain) NSNumber * turningAngle;
 @property (nonatomic, retain) NSNumber * turningAngleIncrement;
 @property (nonatomic, retain) LSDrawingRuleType *drawingRulesType;
-@property (nonatomic, retain) MBColor *fillColor;
-@property (nonatomic, retain) MBColor *lineColor;
+@property (nonatomic, retain) NSSet *fillColors;
+@property (nonatomic, retain) NSSet *lineColors;
 @property (nonatomic, retain) NSSet *placements;
 @property (nonatomic, retain) NSOrderedSet *replacementRules;
 @property (nonatomic, retain) NSOrderedSet *startingRules;
 @end
 
 @interface LSFractal (CoreDataGeneratedAccessors)
+
+- (void)addFillColorsObject:(MBColor *)value;
+- (void)removeFillColorsObject:(MBColor *)value;
+- (void)addFillColors:(NSSet *)values;
+- (void)removeFillColors:(NSSet *)values;
+
+- (void)addLineColorsObject:(MBColor *)value;
+- (void)removeLineColorsObject:(MBColor *)value;
+- (void)addLineColors:(NSSet *)values;
+- (void)removeLineColors:(NSSet *)values;
 
 - (void)addPlacementsObject:(MBPlacedEntity *)value;
 - (void)removePlacementsObject:(MBPlacedEntity *)value;

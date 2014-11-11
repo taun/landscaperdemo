@@ -2,7 +2,7 @@
 //  LSFractal.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 10/16/14.
+//  Created by Taun Chapman on 11/10/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -37,8 +37,8 @@
 @dynamic turningAngle;
 @dynamic turningAngleIncrement;
 @dynamic drawingRulesType;
-@dynamic fillColor;
-@dynamic lineColor;
+@dynamic fillColors;
+@dynamic lineColors;
 @dynamic placements;
 @dynamic replacementRules;
 @dynamic startingRules;

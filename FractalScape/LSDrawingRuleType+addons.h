@@ -19,4 +19,5 @@
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary* rulesDictionary;
 -(NSArray*) rulesArrayFromRuleString: (NSString*) ruleString;
 
+-(NSInteger)loadRulesFromPListRulesArray: (NSArray*) rulesArray;
 @end

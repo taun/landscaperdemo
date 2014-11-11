@@ -12,11 +12,15 @@
 
 +(NSArray*) allColorsInContext: (NSManagedObjectContext *)context;
 
++(MBColor*) newMBColorWithPListDictionary: (NSDictionary*) colorDict inContext:(NSManagedObjectContext *)context;
+
 +(MBColor*) newMBColorWithUIColor: (UIColor*) color inContext: (NSManagedObjectContext*) context;
 
 +(MBColor*) findMBColorWithIdentifier: (NSString*) colorIdentifier inContext: (NSManagedObjectContext*) context;
 
 +(UIColor*) newDefaultUIColor;
+
++(NSSet*) keysToBeCopied;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *asUIColor;
 

@@ -22,31 +22,43 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  for cut and paste functionality
  */
 +(NSSet*) keysToBeCopied;
+/*!
+ A set of fractal property paths which effect the label views of the fractal. To be observed by presenters of the labels
+ 
+ @return a set of strings corresponding to fractal property key paths effecting the labels.
+ */
 +(NSSet*) labelProperties;
+/*!
+ A set of fractal property paths which effect the production of the final fractal generation. Such as rules, replacementRules, ...
+ 
+ @return a set of strings corresponding to fractal production generation key paths effecting the graphic views.
+ */
 +(NSSet*) productionRuleProperties;
+/*!
+ A set of fractal property paths which effect the appearance of the final fractal generation. Such as color, stroke, ...
+ 
+ @return a set of strings corresponding to fractal drawing key paths effecting the graphic views.
+ */
 +(NSSet*) appearanceProperties;
-
--(void) setLineColorFromIdentifier: (NSString*) colorIdentifier;
--(void) setFillColorFromIdentifier: (NSString*) colorIdentifier;
 
 -(NSArray*) allCategories;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString   *startingRulesString;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor    *lineColorAsUI;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor    *fillColorAsUI;
-
 @property (NS_NONATOMIC_IOSONLY) double                     lineLengthAsDouble;
 
 @property (NS_NONATOMIC_IOSONLY) double                     turningAngleAsDouble;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *turningAngleAsDegree;
+
 -(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
 
 @property (NS_NONATOMIC_IOSONLY) double                     turningAngleIncrementAsDouble;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *turningAngleIncrementAsDegree;
+
 -(void) setTurningAngleIncrementAsDegrees: (NSNumber*)      newAngle;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *baseAngleAsDegree;
+
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
 
 @end

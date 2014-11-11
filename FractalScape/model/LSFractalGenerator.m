@@ -37,6 +37,8 @@
 
 @property (nonatomic,assign,readwrite) CGRect       bounds;
 @property (nonatomic,strong) NSMutableDictionary*   cachedDrawingRules;
+@property (nonatomic,strong) NSArray*               cachedLineColors;
+@property (nonatomic,strong) NSArray*               cachedFillColors;
 
 @property (nonatomic,strong) MBFractalSegment*      currentSegment;
 
@@ -175,7 +177,9 @@
     }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([[LSFractal productionRuleProperties] containsObject: keyPath] || [keyPath isEqualToString: @"rules"] || [keyPath isEqualToString: @"contextRule"]) {
+    if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
+        [keyPath isEqualToString: @"rules"] ||
+        [keyPath isEqualToString: @"contextRule"]) {
         // productionRuleChanged
         [self productionRuleChanged];
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
@@ -386,8 +390,9 @@
         CGContextDrawPath(theContext, strokeOrFill);
     }
 
-    self.path = CGPathCreateCopy(fractalPath);
-
+    self.path = fractalPath;
+    CGPathRelease(fractalPath);
+    
     CGContextRestoreGState(theContext);
 }
 
@@ -421,7 +426,8 @@
     return _segmentStack;
 }
 
-//TODO: just reference the fractal in the segment?
+#pragma message "TODO: just reference the fractal in the segment?"
+#pragma message "TODO: fix color assignment to use correct index."
 -(MBFractalSegment*) currentSegment {
     if (_currentSegment == nil) {
         
@@ -430,9 +436,9 @@
         newSegment = [[MBFractalSegment alloc] init];
         
         // Copy the fractal core data values to the segment
-        newSegment.lineColor = [self.privateFractal lineColorAsUI].CGColor;
+        newSegment.lineColor = [self.cachedLineColors[0] asUIColor].CGColor;
         
-        newSegment.fillColor = [self.privateFractal fillColorAsUI].CGColor;
+        newSegment.fillColor = [self.cachedFillColors[0] asUIColor].CGColor;
         newSegment.fill = [self.privateFractal.fill boolValue];
         
         newSegment.lineLength = [self.privateFractal lineLengthAsDouble];
@@ -452,7 +458,22 @@
     }
     return _currentSegment;
 }
-
+-(NSArray*) cachedLineColors {
+    if (self.pathNeedsGenerating) {
+        NSSortDescriptor* sortIndex = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
+        _cachedLineColors = [self.privateFractal.lineColors sortedArrayUsingDescriptors: @[sortIndex]];
+    }
+    
+    return _cachedLineColors;
+}
+-(NSArray*) cachedFillColors {
+    if (self.pathNeedsGenerating) {
+        NSSortDescriptor* sortIndex = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
+        _cachedFillColors = [self.privateFractal.lineColors sortedArrayUsingDescriptors: @[sortIndex]];
+    }
+    
+    return _cachedFillColors;
+}
 -(NSMutableDictionary*) cachedDrawingRules {
     if (_cachedDrawingRules == nil) {
         

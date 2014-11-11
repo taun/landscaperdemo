@@ -12,6 +12,8 @@
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 #import "MBColor+addons.h"
+#import "MBColorCategory+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 #import "MBLSFractalEditViewController.h"
 
@@ -166,27 +168,6 @@
     [self saveContext];
 }
 
-//-(BOOL)coreDataDefaultsExist {
-//    BOOL result = NO;
-//    
-//    NSManagedObjectContext* context = self.managedObjectContext;
-//    
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LSFractal" inManagedObjectContext:context];
-//    [fetchRequest setEntity:entity];
-//    
-//    NSError *error = nil;
-//    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-//    if (fetchedObjects == nil) {
-//        // TODO: error handling
-//    } else if ([fetchedObjects count]>0){
-//        // really basic test, could be much more complete
-//        result = YES;
-//    }
-//    
-//    return result;
-//}
-
 /*
  utility method to return the contents of a plist
  */
@@ -216,9 +197,7 @@
         ruleType = [LSDrawingRuleType findRuleTypeWithIdentifier: plistDictRuleType[@"identifier"] inContext: context];
        
         if (!ruleType) {
-            ruleType = [NSEntityDescription
-                           insertNewObjectForEntityForName:@"LSDrawingRuleType"
-                           inManagedObjectContext: context];
+            ruleType = [LSDrawingRuleType insertNewObjectIntoContext: context];
             for (id propertyKey in plistDictRuleType) {
                 [ruleType setValue: plistDictRuleType[propertyKey] forKey: propertyKey];
             }            
@@ -228,51 +207,6 @@
     return ruleType;
 }
 
--(NSInteger)loadRules: (NSArray*)rulesArray forType: (LSDrawingRuleType*) ruleType {
-    NSInteger addedRulesCount = 0;
-    
-    if (ruleType && rulesArray) {
-        NSManagedObjectContext* context = self.managedObjectContext;
-        
-        
-        NSSet* currentDefaultRules = [ruleType.rules copy];
-        // COuld convert set to dictionary and ise a lookup to detect existence but not worth it for a few rules.
-        
-        //Sort rules before adding so orderedSet is created in desired order.
-        //Will not work as desired if rules using same indexes already exist in LSDrawingRuleType.
-        NSSortDescriptor* ruleIndexSorting = [NSSortDescriptor sortDescriptorWithKey: @"displayIndex" ascending: YES];
-        NSSortDescriptor* ruleAlphaSorting = [NSSortDescriptor sortDescriptorWithKey: @"iconIdentifierString" ascending: YES];
-        NSArray* sortedRules = [rulesArray sortedArrayUsingDescriptors: @[ruleIndexSorting,ruleAlphaSorting]];
-        
-        for (NSDictionary* rule in sortedRules) {
-            BOOL alreadyExists = NO;
-            
-            for (NSManagedObject* existingRuleObject in currentDefaultRules) {
-                if ([existingRuleObject isKindOfClass: [LSDrawingRule class]]) {
-                    LSDrawingRule* existingRule = (LSDrawingRule*)existingRuleObject;
-                    if ([existingRule.productionString isEqualToString: rule[@"productionString"]]) {
-                        alreadyExists = YES;
-                    }
-                }
-            }
-            if (!alreadyExists) {
-                LSDrawingRule *newDrawingRule = [NSEntityDescription
-                                                 insertNewObjectForEntityForName:@"LSDrawingRule"
-                                                 inManagedObjectContext: context];
-                newDrawingRule.type = ruleType;
-                newDrawingRule.productionString = rule[@"productionString"];
-                newDrawingRule.drawingMethodString = rule[@"drawingMethodString"];
-                newDrawingRule.iconIdentifierString = rule[@"iconIdentifierString"];
-                newDrawingRule.displayIndex = rule[@"displayIndex"];
-                addedRulesCount += 1;
-            }
-        }
-//        NSLog(@"Type: %@; Existing Rules: %@", ruleType, currentDefaultRules);
-//        NSLog(@"Type: %@; All Rules: %@", ruleType, ruleType.rules);
-    }
-    [self saveContext];
-    return addedRulesCount;
-}
 /*
  rules plist must have a root dictionary with two subDictionaries
  1) ruleType - key/values for the ruleType for all of the included rules
@@ -294,7 +228,7 @@
     
     LSDrawingRuleType* ruleType = [self loadLSDrawingRuleTypeFromPListDictionary: plistRuleType];
     
-    long addRulesCount = [self loadRules: plistRulesArray forType: ruleType];
+    long addRulesCount = [ruleType loadRulesFromPListRulesArray: plistRulesArray];
     
     NSLog(@"Added %ld rules.", addRulesCount);
 }
@@ -312,25 +246,28 @@
     }
 
 
-    NSArray* colorArray = (NSArray*) plistObject;
+    NSArray* colorCategoriesArray = (NSArray*) plistObject;
     
-    if (colorArray) {
+    if (colorCategoriesArray) {
         NSManagedObjectContext* context = self.managedObjectContext;
         
-        for (NSDictionary* colorDict in colorArray) {
-            if ([colorDict isKindOfClass: [NSDictionary class]]) {
+        for (NSDictionary* colorCategoryDict in colorCategoriesArray) {
+            if ([colorCategoryDict isKindOfClass: [NSDictionary class]]) {
                 
                 // only create new color if one with identifier doesn't already exist
-                NSString* identifier = colorDict[@"identifier"];
-                if ([MBColor findMBColorWithIdentifier: identifier inContext: context] == nil) {
-                    MBColor* newColor = [NSEntityDescription
-                                         insertNewObjectForEntityForName:@"MBColor"
-                                         inManagedObjectContext: context];
+                NSString* identifier = colorCategoryDict[@"identifier"];
+                MBColorCategory* colorCategory = [MBColorCategory findCategoryWithIdentifier: identifier inContext: context];
+                if (colorCategory == nil) {
+                    colorCategory = [MBColorCategory insertNewObjectIntoContext: context];
                     
+                    colorCategory.identifier = identifier;
+                    colorCategory.name = colorCategoryDict[@"name"];
+                    colorCategory.descriptor = colorCategoryDict[@"descriptor"];
                     
-                    for (id propertyKey in colorDict) {
-                        [newColor setValue: colorDict[propertyKey] forKey: propertyKey];
-                    }
+                }
+                NSArray* colorsArray = colorCategoryDict[@"colors"];
+                if (colorCategory && colorsArray.count > 0) {
+                    [colorCategory loadColorsFromPListColorsArray: colorsArray];
                 }
             }
         }
@@ -403,9 +340,7 @@
                 // only create new fractal if one with identifier doesn't already exist
                 NSString* fractalName = fractalDictionary[@"name"];
                 if ([LSFractal findFractalWithName: fractalName inContext: context] == nil) {
-                    LSFractal* fractal = [NSEntityDescription
-                                          insertNewObjectForEntityForName:@"LSFractal"
-                                          inManagedObjectContext: context];
+                    LSFractal* fractal = [LSFractal insertNewObjectIntoContext: context];
                     
                     //fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: [fractalDictionary objectForKey: @"drawingRulesType.identifier"] inContext: self.managedObjectContext];
                     //fractal.drawingRulesType = fractalDrawingRuleType;
@@ -424,38 +359,73 @@
                     
                     NSDictionary* availableRules = [fractal.drawingRulesType rulesDictionary];
 
-                    NSString* startingRulesString = mutableFractalDictionary[@"startingRules"];
+                    NSString* startingRulesKey = @"startingRules";
+                    NSString* startingRulesString = mutableFractalDictionary[startingRulesKey];
                     if (startingRulesString != nil && rulesTypeString.length > 0) {
-                        NSMutableOrderedSet* startingRules = [fractal mutableOrderedSetValueForKey: @"startingRules"];
+                        NSMutableOrderedSet* startingRules = [fractal mutableOrderedSetValueForKey: startingRulesKey];
                         
                         [self copyObjectFrom: availableRules usingKeysInString: startingRulesString toCollection: startingRules];
                         
-                        [mutableFractalDictionary removeObjectForKey: @"startingRules"];
+                        [mutableFractalDictionary removeObjectForKey: startingRulesKey];
                     }
                    
-                    NSDictionary* replacementRulesDict = mutableFractalDictionary[@"replacementRules"];
-                    if (replacementRulesDict.count > 0) {
+                    NSString* replacementRulesKey = @"replacementRules";
+                    NSString* rulesKey = @"rules";
+                    NSDictionary* replacementRulesDict = mutableFractalDictionary[replacementRulesKey];
+                    if (replacementRulesDict && replacementRulesDict.count > 0) {
                         NSDictionary* availableRules = [fractal.drawingRulesType rulesDictionary];
-                        NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: @"replacementRules"];
+                        NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: replacementRulesKey];
  
                         for (NSString* key in replacementRulesDict) {
                             //
-                            LSReplacementRule *newReplacementRule = [NSEntityDescription
-                                                                     insertNewObjectForEntityForName:@"LSReplacementRule"
-                                                                     inManagedObjectContext: context];
+                            LSReplacementRule *newReplacementRule = [LSReplacementRule insertNewObjectIntoContext: context];
                             
                             newReplacementRule.contextRule = availableRules[key];
                             
-                            NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: @"rules"];
+                            NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: rulesKey];
                             NSString* replacementRulesString = replacementRulesDict[key];
                             
                             [self copyObjectFrom: availableRules usingKeysInString: replacementRulesString toCollection: rules];
                             
                             [replacementRules addObject: newReplacementRule];
                         }
-                        [mutableFractalDictionary removeObjectForKey: @"replacementRules"];
+                        [mutableFractalDictionary removeObjectForKey: replacementRulesKey];
                     }
 
+                    NSString* lineColorsKey = @"lineColors";
+                    NSArray* lineColorsArray = mutableFractalDictionary[lineColorsKey];
+                    if (lineColorsArray && lineColorsArray.count > 0) {
+                        NSMutableSet* mutableColorsSet = [fractal mutableSetValueForKey: lineColorsKey];
+                        
+                        NSInteger colorIndex = 0;
+                        
+                        for (NSDictionary* colorDict in lineColorsArray) {
+                            MBColor* newColor = [MBColor newMBColorWithPListDictionary: colorDict inContext: fractal.managedObjectContext];
+                            newColor.index = [NSNumber numberWithInteger: colorIndex];
+                            colorIndex++;
+                            [mutableColorsSet addObject: newColor];
+                        }
+                        [mutableFractalDictionary removeObjectForKey: lineColorsKey];
+                    }
+                    
+                    NSString* fillColorsKey = @"fillColors";
+                    NSArray* fillColorsArray = mutableFractalDictionary[fillColorsKey];
+                    if (fillColorsArray && fillColorsArray.count > 0) {
+                        NSMutableSet* mutableColorsSet = [fractal mutableSetValueForKey: fillColorsKey];
+                        
+                        NSInteger colorIndex = 0;
+                        
+                        for (NSDictionary* colorDict in fillColorsArray) {
+                            MBColor* newColor = [MBColor newMBColorWithPListDictionary: colorDict inContext: fractal.managedObjectContext];
+                            // the order of colors in the PList array is the index order
+                            // if you want to change the color order, change it in the PList.
+                            newColor.index = [NSNumber numberWithInteger: colorIndex];
+                            colorIndex++;
+                           [mutableColorsSet addObject: newColor];
+                         }
+                        [mutableFractalDictionary removeObjectForKey: fillColorsKey];
+                    }
+                    
                     for (id propertyKey in mutableFractalDictionary) {
                         id propertyValue = mutableFractalDictionary[propertyKey];
                         // all but dictionaries should be key value

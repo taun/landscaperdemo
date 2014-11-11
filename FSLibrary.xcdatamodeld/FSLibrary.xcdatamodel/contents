@@ -36,8 +36,8 @@
         <attribute name="turningAngle" attributeType="Double" maxValueString="7" defaultValueString="0.0" syncable="YES"/>
         <attribute name="turningAngleIncrement" attributeType="Double" minValueString="0" maxValueString="7" defaultValueString="0.0" syncable="YES"/>
         <relationship name="drawingRulesType" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="LSDrawingRuleType" inverseName="fractals" inverseEntity="LSDrawingRuleType" syncable="YES"/>
-        <relationship name="fillColor" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalFills" inverseEntity="MBColor" syncable="YES"/>
-        <relationship name="lineColor" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalLines" inverseEntity="MBColor" syncable="YES"/>
+        <relationship name="fillColors" optional="YES" toMany="YES" maxCount="100" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalFills" inverseEntity="MBColor" syncable="YES"/>
+        <relationship name="lineColors" optional="YES" toMany="YES" maxCount="2" deletionRule="Nullify" destinationEntity="MBColor" inverseName="fractalLines" inverseEntity="MBColor" syncable="YES"/>
         <relationship name="placements" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBPlacedEntity" inverseName="lsFractal" inverseEntity="MBPlacedEntity" syncable="YES"/>
         <relationship name="replacementRules" optional="YES" toMany="YES" maxCount="20" deletionRule="Cascade" ordered="YES" destinationEntity="LSReplacementRule" inverseName="lsFractal" inverseEntity="LSReplacementRule" syncable="YES"/>
         <relationship name="startingRules" optional="YES" toMany="YES" maxCount="20" deletionRule="Cascade" ordered="YES" destinationEntity="LSDrawingRule" syncable="YES"/>
@@ -53,10 +53,18 @@
         <attribute name="green" attributeType="Double" maxValueString="1" defaultValueString="0.5" syncable="YES"/>
         <attribute name="identifier" attributeType="String" defaultValueString="NoneYet" syncable="YES"/>
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="1000" defaultValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="NoName" syncable="YES"/>
         <attribute name="red" attributeType="Double" maxValueString="1" defaultValueString="0.5" syncable="YES"/>
-        <relationship name="fractalFills" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="fillColor" inverseEntity="LSFractal" syncable="YES"/>
-        <relationship name="fractalLines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="lineColor" inverseEntity="LSFractal" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBColorCategory" inverseName="colors" inverseEntity="MBColorCategory" syncable="YES"/>
+        <relationship name="fractalFills" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="fillColors" inverseEntity="LSFractal" syncable="YES"/>
+        <relationship name="fractalLines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LSFractal" inverseName="lineColors" inverseEntity="LSFractal" syncable="YES"/>
+    </entity>
+    <entity name="MBColorCategory" representedClassName="MBColorCategory" syncable="YES">
+        <attribute name="descriptor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="colors" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="MBColor" inverseName="category" inverseEntity="MBColor" syncable="YES"/>
     </entity>
     <entity name="MBFractalScape" representedClassName="MBFractalScape" syncable="YES">
         <attribute name="descriptor" optional="YES" attributeType="String" syncable="YES"/>
@@ -77,15 +85,17 @@
     <fetchRequest name="LSDrawingRuleOfTypeAndName" entity="LSDrawingRule" predicateString="type.identifier == $TYPEIDENTIFIER AND productionString == $PRODUCTIONSTRING"/>
     <fetchRequest name="LSDrawingRuleTypeWithIdentifier" entity="LSDrawingRuleType" predicateString="identifier == $TYPEIDENTIFIER"/>
     <fetchRequest name="LSFractalWithName" entity="LSFractal" predicateString="name == $LSFRACTALNAME"/>
+    <fetchRequest name="MBColorCategoryWithIdentifier" entity="MBColorCategory" predicateString="identifier == $TYPEIDENTIFIER"/>
     <fetchRequest name="MBColorWithIdentifier" entity="MBColor" predicateString="identifier == $MBIDENTIFIER"/>
     <elements>
         <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="118"/>
         <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="118"/>
         <element name="LSFractal" positionX="160" positionY="192" width="128" height="433"/>
         <element name="LSReplacementRule" positionX="160" positionY="192" width="128" height="88"/>
-        <element name="MBColor" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="MBColor" positionX="160" positionY="192" width="128" height="208"/>
         <element name="MBFractalScape" positionX="160" positionY="192" width="128" height="120"/>
         <element name="MBPlacedEntity" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MBScapeBackground" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="MBColorCategory" positionX="171" positionY="342" width="128" height="103"/>
     </elements>
 </model>

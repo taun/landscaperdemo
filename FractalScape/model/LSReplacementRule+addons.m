@@ -8,8 +8,13 @@
 
 #import "LSReplacementRule+addons.h"
 #import "LSDrawingRule+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @implementation LSReplacementRule (addons)
+
++ (NSString *)entityName {
+    return @"LSReplacementRule";
+}
 
 + (NSSet *)keysToBeCopied {
     static NSSet *keysToBeCopied = nil;
@@ -22,9 +27,7 @@
 }
 
 -(id) mutableCopy {
-    LSReplacementRule *copy = (LSReplacementRule*)[NSEntityDescription
-                                                   insertNewObjectForEntityForName:@"LSReplacementRule"
-                                                   inManagedObjectContext: self.managedObjectContext];
+    LSReplacementRule *copy = [LSReplacementRule insertNewObjectIntoContext: self.managedObjectContext];
     
     if (copy) {
         for ( NSString* aKey in [LSReplacementRule keysToBeCopied]) {

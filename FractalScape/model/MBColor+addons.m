@@ -7,14 +7,19 @@
 //
 
 #import "MBColor+addons.h"
+#import "LSFractal+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @implementation MBColor (addons)
+
++ (NSString *)entityName {
+    return @"MBColor";
+}
 
 +(NSArray*) allColorsInContext: (NSManagedObjectContext *)context {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MBColor"
-                                              inManagedObjectContext:context];
+    NSEntityDescription *entity = [MBColor entityDescriptionForContext: context];
     [fetchRequest setEntity:entity];
     
     NSError *error;
@@ -29,11 +34,22 @@
     return [UIColor colorWithRed: 0.0 green: 0.0 blue: 1.0 alpha: 1.0];
 }
 
++(MBColor*) newMBColorWithPListDictionary:(NSDictionary *)colorDict inContext:(NSManagedObjectContext *)context {
+    
+    MBColor *newColor = [MBColor insertNewObjectIntoContext: context];
+    
+    if (newColor) {
+        for (id propertyKey in colorDict) {
+            [newColor setValue: colorDict[propertyKey] forKey: propertyKey];
+        }
+    }
+    return newColor;
+}
+
+
 +(MBColor*) newMBColorWithUIColor:(UIColor *)color inContext:(NSManagedObjectContext *)context {
     
-    MBColor *newColor = [NSEntityDescription
-                         insertNewObjectForEntityForName:@"MBColor"
-                         inManagedObjectContext: context];
+    MBColor *newColor = [MBColor insertNewObjectIntoContext: context];
     
     if (newColor) {
         CGFloat red;
@@ -79,6 +95,35 @@
     
     return node;
 }
+
++ (NSSet *)keysToBeCopied {
+    static NSSet *keysToBeCopied = nil;
+    if (keysToBeCopied == nil) {
+        keysToBeCopied = [[NSSet alloc] initWithObjects:
+                          @"alpha",
+                          @"blue",
+                          @"green",
+                          @"identifier",
+                          @"imagePath",
+                          @"name",
+                          @"red",
+                          nil];
+    }
+    return keysToBeCopied;
+}
+-(id) mutableCopy {
+    MBColor *entityCopy = (MBColor*)[MBColor insertNewObjectIntoContext: self.managedObjectContext];
+    
+    if (entityCopy) {
+        for ( NSString* aKey in [MBColor keysToBeCopied]) {
+            id value = [self valueForKey: aKey];
+            [entityCopy setValue: value forKey: aKey];
+        }
+        
+     }
+    return entityCopy;
+}
+
 
 -(UIColor*) asUIColor {
     

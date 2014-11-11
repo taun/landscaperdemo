@@ -304,54 +304,5 @@
 		<key>descriptor</key>
 		<string>Default rules</string>
 	</dict>
-	<key>rules</key>
-	<dict>
-		<key>F</key>
-		<string>commandDrawLine</string>
-		<key>f</key>
-		<string>commandMoveByLine</string>
-		<key>+</key>
-		<string>commandRotateCC</string>
-		<key>-</key>
-		<string>commandRotateC</string>
-		<key>|</key>
-		<string>commandReverseDirection</string>
-		<key>[</key>
-		<string>commandPush</string>
-		<key>]</key>
-		<string>commandPop</string>
-		<key>#</key>
-		<string>commandIncrementLineWidth</string>
-		<key>!</key>
-		<string>commandDecrementLineWidth</string>
-		<key>@</key>
-		<string>commandDrawDot</string>
-		<key>{</key>
-		<string>commandOpenPolygon</string>
-		<key>}</key>
-		<string>commandClosePolygon</string>
-		<key>&gt;</key>
-		<string>commandUpscaleLineLength</string>
-		<key>&lt;</key>
-		<string>commandDownscaleLineLength</string>
-		<key>&amp;</key>
-		<string>commandSwapRotation</string>
-		<key>(</key>
-		<string>commandDecrementAngle</string>
-		<key>)</key>
-		<string>commandIncrementAngle</string>
-		<key>s</key>
-		<string>commandStrokeOff</string>
-		<key>S</key>
-		<string>commandStrokeOn</string>
-		<key>l</key>
-		<string>commandFillOff</string>
-		<key>L</key>
-		<string>commandFillOn</string>
-		<key>r</key>
-		<string>commandRandomizeOff</string>
-		<key>R</key>
-		<string>commandRandomizeOn</string>
-	</dict>
 </dict>
 </plist>

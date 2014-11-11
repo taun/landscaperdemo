@@ -23,8 +23,6 @@
 		<integer>10</integer>
 		<key>lineLengthScaleFactor</key>
 		<real>1.36</real>
-		<key>lineColorFromIdentifier</key>
-		<string>green</string>
 		<key>lineWidth</key>
 		<integer>2</integer>
 		<key>lineWidthIncrement</key>
@@ -44,6 +42,25 @@
 			<key>C</key>
 			<string>[F+F+F+F[---C]+++++F++++++++F-F-F-F]</string>
 		</dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -66,8 +83,6 @@
 		<integer>10</integer>
 		<key>lineLengthScaleFactor</key>
 		<real>1.36</real>
-		<key>lineColorFromIdentifier</key>
-		<string>green</string>
 		<key>lineWidth</key>
 		<integer>2</integer>
 		<key>lineWidthIncrement</key>
@@ -91,6 +106,25 @@
 			<key>F</key>
 			<string>&gt;F&lt;</string>
 		</dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -128,6 +162,25 @@
 			<key>F</key>
 			<string>FF-F--F-F</string>
 		</dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -165,6 +218,25 @@
 			<key>F</key>
 			<string>FF-F-F-F-F-F+F</string>
 		</dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -202,6 +274,25 @@
 			<key>F</key>
 			<string>F+F-F-F+F</string>
 		</dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -241,8 +332,97 @@
 			<key>F</key>
 			<string>F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF</string>
 		</dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>White 25%</string>
+				<key>identifier</key>
+				<string>white25p</string>
+				<key>red</key>
+				<real>0.25</real>
+				<key>green</key>
+				<real>0.25</real>
+				<key>blue</key>
+				<real>0.25</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>fillColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>White 75%</string>
+				<key>identifier</key>
+				<string>white75p</string>
+				<key>red</key>
+				<real>0.75</real>
+				<key>green</key>
+				<real>0.75</real>
+				<key>blue</key>
+				<real>0.75</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -255,12 +435,8 @@
 		<string>F</string>
 		<key>fill</key>
 		<true/>
-		<key>fillColorFromIdentifier</key>
-		<string>white75p</string>
 		<key>stroke</key>
 		<true/>
-		<key>lineColorFromIdentifier</key>
-		<string>white25p</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -284,6 +460,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -323,6 +518,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -362,6 +576,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -399,6 +632,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -438,6 +690,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -452,8 +723,6 @@
 		<false/>
 		<key>stroke</key>
 		<true/>
-		<key>lineColorFromIdentifier</key>
-		<string>green</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -479,6 +748,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Plant</string>
 		<key>descriptor</key>
@@ -526,6 +814,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Plant</string>
 		<key>descriptor</key>
@@ -565,6 +872,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Plant</string>
 		<key>descriptor</key>
@@ -579,8 +905,6 @@
 		<false/>
 		<key>stroke</key>
 		<true/>
-		<key>lineColorFromIdentifier</key>
-		<string>green</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -606,6 +930,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Plant</string>
 		<key>descriptor</key>
@@ -647,6 +990,41 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>White 50%</string>
+				<key>identifier</key>
+				<string>white50p</string>
+				<key>red</key>
+				<real>0.5</real>
+				<key>green</key>
+				<real>0.5</real>
+				<key>blue</key>
+				<real>0.5</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -661,8 +1039,6 @@
 		<false/>
 		<key>stroke</key>
 		<true/>
-		<key>lineColorFromIdentifier</key>
-		<string>white50p</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -686,6 +1062,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -723,6 +1118,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Blue</string>
+				<key>identifier</key>
+				<string>blue</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>0</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Geometric</string>
 		<key>descriptor</key>
@@ -760,6 +1174,25 @@
 		</dict>
 	</dict>
 	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>category</key>
 		<string>Plant</string>
 		<key>descriptor</key>

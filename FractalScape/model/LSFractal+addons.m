@@ -11,14 +11,18 @@
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 #import "MBColor+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @implementation LSFractal (addons)
+
++ (NSString *)entityName {
+    return @"LSFractal";
+}
 
 +(NSArray*) allFractalsInContext: (NSManagedObjectContext *)context {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LSFractal"
-                                              inManagedObjectContext:context];
+    NSEntityDescription *entity = [LSFractal entityDescriptionForContext: context];
     [fetchRequest setEntity:entity];
     
     NSError *error;
@@ -73,8 +77,6 @@
                           @"turningAngleIncrement",
                           @"baseAngle",
                           @"drawingRulesType",
-                          @"fillColor",
-                          @"lineColor",
                           @"lineJoin",
                           @"lineCap",
                           @"name",
@@ -113,13 +115,13 @@
         appearanceProperties = [[NSSet alloc] initWithObjects:
                                 @"lineLength",
                                 @"lineWidth",
-                                @"lineColor",
+                                @"lineColors",
                                 @"lineJoin",
                                 @"lineCap",
                                 @"stroke",
                                 @"fill",
                                 @"eoFill",
-                                @"fillColor",
+                                @"fillColors",
                                 @"turningAngle",
                                 @"baseAngle",
                                 @"randomness",
@@ -130,9 +132,7 @@
 
 
 -(id) mutableCopy {
-    LSFractal *fractalCopy = (LSFractal*)[NSEntityDescription
-                              insertNewObjectForEntityForName:@"LSFractal"
-                              inManagedObjectContext: self.managedObjectContext];
+    LSFractal *fractalCopy = (LSFractal*)[LSFractal insertNewObjectIntoContext: self.managedObjectContext];
     
     if (fractalCopy) {
         for ( NSString* aKey in [LSFractal keysToBeCopied]) {
@@ -150,7 +150,34 @@
             [replacementRules addObject: [rule mutableCopy]];
         }
         
-        NSString* newName = [NSString stringWithFormat:@"%@ copy",[self valueForKey: @"name"]];
+        NSMutableSet* lineColorsMutableSet = [fractalCopy mutableSetValueForKey: @"lineColors"];
+        for (MBColor* object in self.lineColors) {
+            [lineColorsMutableSet addObject: [object mutableCopy]];
+        }
+        
+        NSMutableSet* fillColorsMutableSet = [fractalCopy mutableSetValueForKey: @"fillColors"];
+        for (MBColor* object in self.fillColors) {
+            [fillColorsMutableSet addObject: [object mutableCopy]];
+        }
+       
+        
+#pragma message "TODO: turn following code into generic NSString number append category"
+        NSString* oldName = [self valueForKey: @"name"];
+        NSArray* substrings = [oldName componentsSeparatedByString: @" "];
+        NSString* lastComponent = [substrings lastObject];
+        NSInteger lastCopyInteger = [lastComponent integerValue]; // 0 if not a number so never use 0
+        NSMutableArray* newComponents = [substrings mutableCopy];
+        if (!lastCopyInteger) {
+            // equal 0 so last compoenent was not a number
+            [newComponents addObject: @" 1"];
+        } else {
+            //increment
+            [newComponents removeLastObject];
+            NSString* newCopyNumber = [NSString stringWithFormat: @" %ldi", (long)++lastCopyInteger];
+            [newComponents addObject: newCopyNumber];
+        }
+    
+        NSString* newName = [newComponents componentsJoinedByString: @" "];
         [fractalCopy setValue: newName forKey: @"name"];
         [fractalCopy setValue: @NO forKey: @"isImmutable"];
         [fractalCopy setValue: @NO forKey: @"isReadOnly"];
@@ -161,8 +188,7 @@
 -(NSArray*)allCategories {
     NSString* fetchPropertyName = @"category";
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"LSFractal"
-                                              inManagedObjectContext: self.managedObjectContext];
+    NSEntityDescription *entity = [LSFractal entityDescriptionForContext: self.managedObjectContext];
 
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: entity];
@@ -186,15 +212,6 @@
     return [categories copy];
 }
 
--(void) setLineColorFromIdentifier:(NSString *)colorIdentifier {
-    MBColor* mbColor = [MBColor findMBColorWithIdentifier: colorIdentifier inContext: self.managedObjectContext];
-    self.lineColor = mbColor;
-}
--(void) setFillColorFromIdentifier:(NSString *)colorIdentifier {
-    MBColor* mbColor = [MBColor findMBColorWithIdentifier: colorIdentifier inContext: self.managedObjectContext];
-    self.fillColor = mbColor;
-}
-
 -(NSString*) startingRulesString {
     NSMutableString* rulesString = [[NSMutableString alloc]initWithCapacity: self.startingRules.count];
     for (LSDrawingRule* rule in self.startingRules) {
@@ -203,25 +220,6 @@
     return rulesString;
 }
 
--(UIColor*) lineColorAsUI {
-    UIColor* result = nil;
-    if (self.lineColor == nil) {
-        result = [MBColor newDefaultUIColor];
-    } else {
-        result = [self.lineColor asUIColor];
-    }
-    return result;
-}
-
--(UIColor*) fillColorAsUI {
-    UIColor* result = nil;
-    if (self.fillColor == nil) {
-        result = [MBColor newDefaultUIColor];
-    } else {
-        result = [self.fillColor asUIColor];
-    }
-    return result;
-}
 -(double) lineLengthAsDouble {
     return [self.lineLength doubleValue];
 }
