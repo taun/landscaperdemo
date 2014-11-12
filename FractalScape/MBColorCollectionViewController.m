@@ -28,6 +28,18 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     // need to determine index of selectedFractal
     // perhaps make part of selectedFractal setter?
 }
+
+- (IBAction)collectionLongPress:(UILongPressGestureRecognizer*)sender {
+    CGPoint touchPoint = [sender locationInView: self.collectionView];
+
+    MBColor* color;
+
+    if (sender.state == UIGestureRecognizerStateBegan) {
+         NSIndexPath* cellIndexPath = [self.collectionView indexPathForItemAtPoint: touchPoint];
+        MBCollectionColorCell* selectedCell = (MBCollectionColorCell*)[self.collectionView cellForItemAtIndexPath: cellIndexPath];
+        color = selectedCell.co
+    }
+}
 -(NSManagedObjectContext*) appManagedObjectContext {
     
     UIApplication* app = [UIApplication sharedApplication];
@@ -70,7 +82,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
 }
 #pragma mark - NSFetchedResultsControllerDelegate conformance -
 -(void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.colorCollectionView reloadData];
+    [self.collectionView reloadData];
 }
 #pragma mark - UICollectionViewDataSource
 
@@ -110,19 +122,11 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     
     strongCellImageView.image = [managedObjectColor thumbnailImageSize: cell.bounds.size];
     strongCellImageView.highlightedImage = strongCellImageView.image;
-    
-    //    MBColor* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
-    //    if (currentColor == managedObject) {
-    //        cell.selected = YES;
-    //    }
-    
+        
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //    NSManagedObject *managedObject = [self.libraryColorsFetchedResultsController objectAtIndexPath:indexPath];
-    //    [self.fractal setValue: (MBColor*)managedObject forKey: [[self class] fractalPropertyKeypath]];
-    //    [collectionView selectItemAtIndexPath: indexPath animated: YES scrollPosition:UICollectionViewScrollPositionNone] ;
 }
 
 
@@ -132,10 +136,6 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     // Do any additional setup after loading the view.
 }
 -(void)viewDidAppear:(BOOL)animated {
-    //    NSManagedObject* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
-    //    NSIndexPath* selectIndex = [self.libraryColorsFetchedResultsController indexPathForObject: currentColor];
-    
-    //    [self.colorCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
     [super viewDidAppear:animated];
 }
 - (void)didReceiveMemoryWarning

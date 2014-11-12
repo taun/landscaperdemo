@@ -1502,6 +1502,18 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
+                                        <point key="value" x="0.0" y="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa7-Ei-ma9" customClass="MDKLayerView">
@@ -1631,6 +1643,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="TeZ-3V-7pY" secondAttribute="trailing" id="31W-JG-jVi"/>
                             <constraint firstItem="maa-lX-Faf" firstAttribute="leading" secondItem="oO7-yh-6s1" secondAttribute="leading" constant="4" id="8fs-XE-rBH"/>
@@ -1659,6 +1672,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="6ep-nf-v8a" customClass="FractalScapeIconSet"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="avI-YA-c6g"/>
             </objects>
             <point key="canvasLocation" x="6594" y="346"/>
         </scene>
@@ -1823,6 +1837,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Uka-We-Yq1">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="50" height="50"/>
@@ -1888,10 +1903,21 @@
                                 <outlet property="textLabel" destination="FgG-Kq-48m" id="hI4-a7-p36"/>
                             </connections>
                         </collectionReusableView>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="08I-mD-YD4" appends="YES" id="CK4-AZ-zzt"/>
+                        </connections>
                     </collectionView>
                     <toolbarItems/>
+                    <connections>
+                        <outlet property="collectionView" destination="OEg-C9-0oF" id="skg-dP-Qka"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VUX-bQ-xj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="08I-mD-YD4">
+                    <connections>
+                        <action selector="collectionLongPress:" destination="jCJ-xE-OUn" id="NA4-tO-85H"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="7110" y="345.5"/>
         </scene>

@@ -30,6 +30,7 @@
     // this way it still takes the tintColor from IB.
     _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
     _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
+    [super viewDidLoad];
 }
 -(void)setFractal:(LSFractal *)fractal {
     _fractal = fractal;
@@ -100,7 +101,14 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    
+    if (collectionView == self.fractalLineColorsDestinationCollection) {
+        section = 0;
+    } else {
+        section = 1;
+    }
+    
+    return [self.cachedFractalColors[section] count] + 1;
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FractalControllerProtocol.h"
 #import "LSFractal+addons.h"
+#import "MBColor+addons.h"
 
 @interface MBFractalColorViewContainer : UIViewController <FractalControllerProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -23,5 +24,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *fractalFillColorsDestinationCollection;
 @property (weak, nonatomic) IBOutlet UIImageView *lineColorsTemplateImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *fillColorsTemplateImageView;
+
+-(void) draggingColor: (MBColor*)color withGesture: (UIGestureRecognizer*)gesture;
 
 @end

@@ -14,8 +14,6 @@
 
 @interface MBColorCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *colorCollectionView;
-
 
 @property (nonatomic, strong) NSFetchedResultsController*   libraryColorsFetchedResultsController;
 /*!
@@ -24,5 +22,6 @@
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSManagedObjectContext *appManagedObjectContext;
 -(void) initControls;
 
+- (IBAction)collectionLongPress:(id)sender;
 
 @end
