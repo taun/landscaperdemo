@@ -14,19 +14,6 @@
 
 @implementation MBFractalFillColorViewController
 
-+(NSString*) fractalPropertyKeypath {
-    return @"fillColors";
-}
-
-#pragma mark - UICollectionViewDelegate
--(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [super collectionView: collectionView didSelectItemAtIndexPath: indexPath];
-    
-//    if (![self.fractal.fill boolValue]) {
-//        self.fractal.fill = @(YES);
-//    }
-}
 
 
 @end

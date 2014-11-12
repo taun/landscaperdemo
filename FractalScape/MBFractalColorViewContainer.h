@@ -10,10 +10,16 @@
 #import "FractalControllerProtocol.h"
 #import "LSFractal+addons.h"
 
-@interface MBFractalColorViewContainer : UIViewController <FractalControllerProtocol>
+@interface MBFractalColorViewContainer : UIViewController <FractalControllerProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
+@property(nonatomic,strong) NSString            *fractalPropertyKeypath;
+
+@property (nonatomic,strong) NSArray            *cachedFractalColors;
+@property (nonatomic,assign) BOOL               colorsChanged;
+
 @property (weak, nonatomic) IBOutlet UIView *colorCollectionContainer;
+@property (weak, nonatomic) IBOutlet UICollectionView *fractalDestinationCollection;
 
 @end

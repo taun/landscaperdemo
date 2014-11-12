@@ -1447,8 +1447,39 @@
                             </containerView>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWu-7A-qBk">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sxJ-XN-8t3">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="F8P-fg-aXD">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="moq-kH-roD">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="TSZ-NG-w8m" id="IKl-r1-5TZ"/>
+                                            <outlet property="delegate" destination="TSZ-NG-w8m" id="PBE-bQ-EPc"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="sxJ-XN-8t3" firstAttribute="leading" secondItem="wWu-7A-qBk" secondAttribute="leading" id="HcT-WR-xiY"/>
+                                    <constraint firstAttribute="trailing" secondItem="sxJ-XN-8t3" secondAttribute="trailing" id="Ium-RC-pmj"/>
+                                    <constraint firstItem="sxJ-XN-8t3" firstAttribute="top" secondItem="wWu-7A-qBk" secondAttribute="top" id="ZJI-id-dWG"/>
+                                    <constraint firstAttribute="bottom" secondItem="sxJ-XN-8t3" secondAttribute="bottom" id="mo3-Q7-OIt"/>
                                     <constraint firstAttribute="height" constant="50" id="v5f-PQ-KwG"/>
                                 </constraints>
                             </view>
@@ -1470,6 +1501,7 @@
                     <size key="freeformSize" width="400" height="500"/>
                     <connections>
                         <outlet property="colorCollectionContainer" destination="pim-wk-ZGt" id="VzO-EU-2qb"/>
+                        <outlet property="fractalDestinationCollection" destination="sxJ-XN-8t3" id="kaa-Ps-aNz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ln-qV-G96" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,6 +10,24 @@
 
 @implementation MBFractalColorViewContainer
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        _colorsChanged = YES;
+    }
+    return self;
+}
+-(NSArray*)cachedFractalColors {
+    if (!_cachedFractalColors || self.colorsChanged) {
+        NSSet* colors = [self.fractal valueForKey: self.fractalPropertyKeypath];
+        NSSortDescriptor* indexSort = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
+        _cachedFractalColors = [colors sortedArrayUsingDescriptors: @[indexSort]];
+    }
+    return _cachedFractalColors;
+}
+
 -(void)viewWillLayoutSubviews {
     UIView* containerView = self.colorCollectionContainer;
     UIView* collectionViewWrapper = [containerView.subviews firstObject];
@@ -44,5 +62,14 @@
     [collectionView setTranslatesAutoresizingMaskIntoConstraints: NO];
     
 }
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
 
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.fractal.lineColors.count;
+}
+-(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+}
 @end
