@@ -25,16 +25,30 @@
     [super awakeFromNib];
     _colorsChanged = YES;
 }
+-(void)viewDidLoad {
+    // seems to be a bug in that the tintColor is not being used unless I re-set it.
+    // this way it still takes the tintColor from IB.
+    _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
+    _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
+}
 -(void)setFractal:(LSFractal *)fractal {
     _fractal = fractal;
     self.colorsChanged = YES;
-    [self.fractalDestinationCollection reloadData];
+    [self.fractalLineColorsDestinationCollection reloadData];
+    [self.fractalFillColorsDestinationCollection reloadData];
+
 }
 -(NSArray*)cachedFractalColors {
     if (_fractal && (!_cachedFractalColors || self.colorsChanged)) {
-        NSSet* colors = [self.fractal valueForKey: self.fractalPropertyKeypath];
         NSSortDescriptor* indexSort = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
-        _cachedFractalColors = [colors sortedArrayUsingDescriptors: @[indexSort]];
+
+        NSSet* lineColors = [self.fractal valueForKey: @"lineColors"];
+        NSArray* cachedFractalLineColors = [lineColors sortedArrayUsingDescriptors: @[indexSort]];
+
+        NSSet* fillColors = [self.fractal valueForKey: @"fillColors"];
+        NSArray* cachedFractalFillColors = [fillColors sortedArrayUsingDescriptors: @[indexSort]];
+        
+        _cachedFractalColors = @[cachedFractalLineColors,cachedFractalFillColors];
     }
     return _cachedFractalColors;
 }
@@ -44,24 +58,32 @@
     UIView* collectionViewWrapper = [containerView.subviews firstObject];
     UIView* collectionView = [collectionViewWrapper.subviews firstObject];
     
-    NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:collectionView
-                                                                       attribute:NSLayoutAttributeWidth
+    NSLayoutConstraint* leftConstraint = [NSLayoutConstraint constraintWithItem:collectionView
+                                                                       attribute:NSLayoutAttributeLeft
                                                                        relatedBy:NSLayoutRelationEqual
                                                                           toItem:collectionViewWrapper
-                                                                       attribute:NSLayoutAttributeWidth
+                                                                       attribute:NSLayoutAttributeLeft
+                                                                      multiplier:1.0
+                                                                        constant:0.0
+                                           ];
+    NSLayoutConstraint* rightConstraint = [NSLayoutConstraint constraintWithItem:collectionView
+                                                                       attribute:NSLayoutAttributeRight
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:collectionViewWrapper
+                                                                       attribute:NSLayoutAttributeRight
                                                                       multiplier:1.0
                                                                         constant:0.0
                                            ];
     
-    NSLayoutConstraint* heightConstraint1 = [NSLayoutConstraint constraintWithItem:collectionView
+    NSLayoutConstraint* topConstraint = [NSLayoutConstraint constraintWithItem:collectionView
                                                                          attribute:NSLayoutAttributeTop
                                                                          relatedBy:NSLayoutRelationEqual
                                                                             toItem:collectionViewWrapper
                                                                          attribute:NSLayoutAttributeTop
                                                                         multiplier:1.0
-                                                                          constant:50.0
+                                                                          constant:116.0
                                              ];
-    NSLayoutConstraint* heightConstraint2 = [NSLayoutConstraint constraintWithItem:collectionView
+    NSLayoutConstraint* bottomConstraint = [NSLayoutConstraint constraintWithItem:collectionView
                                                                          attribute:NSLayoutAttributeBottom
                                                                          relatedBy:NSLayoutRelationEqual
                                                                             toItem:collectionViewWrapper
@@ -69,7 +91,7 @@
                                                                         multiplier:1.0
                                                                           constant:0.0
                                              ];
-    [collectionViewWrapper addConstraints:@[widthConstraint,heightConstraint1,heightConstraint2]];
+    [collectionViewWrapper addConstraints:@[leftConstraint,rightConstraint,topConstraint,bottomConstraint]];
     [collectionView setTranslatesAutoresizingMaskIntoConstraints: NO];
     
 }
@@ -78,27 +100,36 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.cachedFractalColors.count;
+    return 10;
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"ColorSwatchCell";
     
+    NSInteger section;
+    
+    if (collectionView == self.fractalLineColorsDestinationCollection) {
+        section = 0;
+    } else {
+        section = 1;
+    }
+    
+    static NSString *CellIdentifier = @"ColorSwatchCell";
     MBCollectionColorCell *cell = (MBCollectionColorCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    //    if (cell == nil) {
-    //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    //    }
+
     UIImageView* strongCellImageView = cell.imageView;
     
-    MBColor* managedObjectColor = self.cachedFractalColors[indexPath.row];
+    if (indexPath.row < [self.cachedFractalColors[section] count]) {
+        // we have a color
+        MBColor* managedObjectColor = self.cachedFractalColors[section][indexPath.row];
+        strongCellImageView.image = [managedObjectColor thumbnailImageSize: cell.bounds.size];
+    } else {
+        // use a placeholder
+        UIImage* placeholder = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+        strongCellImageView.image = placeholder;
+    }
     
-    strongCellImageView.image = [managedObjectColor thumbnailImageSize: cell.bounds.size];
     strongCellImageView.highlightedImage = strongCellImageView.image;
     
-    //    MBColor* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
-    //    if (currentColor == managedObject) {
-    //        cell.selected = YES;
-    //    }
     
     return cell;
 }

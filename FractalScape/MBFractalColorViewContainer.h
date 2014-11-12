@@ -14,12 +14,14 @@
 
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
-@property(nonatomic,strong) NSString            *fractalPropertyKeypath;
 
 @property (nonatomic,strong) NSArray            *cachedFractalColors;
 @property (nonatomic,assign) BOOL               colorsChanged;
 
 @property (weak, nonatomic) IBOutlet UIView *colorCollectionContainer;
-@property (weak, nonatomic) IBOutlet UICollectionView *fractalDestinationCollection;
+@property (weak, nonatomic) IBOutlet UICollectionView *fractalLineColorsDestinationCollection;
+@property (weak, nonatomic) IBOutlet UICollectionView *fractalFillColorsDestinationCollection;
+@property (weak, nonatomic) IBOutlet UIImageView *lineColorsTemplateImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *fillColorsTemplateImageView;
 
 @end
