@@ -54,7 +54,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
         NSPredicate* filterPredicate = [NSPredicate predicateWithFormat: @"category != NIL"];
         [fetchRequest setPredicate: filterPredicate];
         
-        _libraryColorsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: @"category.name" cacheName: [[self class]fractalPropertyKeypath]];
+        _libraryColorsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: @"category.name" cacheName: @"colorLibraryCache"];
         
         _libraryColorsFetchedResultsController.delegate = self;
         
@@ -83,28 +83,6 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     return [sectionInfo numberOfObjects];
 }
 
--(UIImage*) thumbnailForColor: (NSManagedObject*) mObject size: (CGSize) size {
-    UIImage* thumbnail;
-    if ([mObject isKindOfClass: [MBColor class]]) {
-        //
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-        
-        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        CGContextSaveGState(context);
-        MBColor* color = (MBColor*)mObject;
-        UIColor* thumbNailBackground = [color asUIColor];
-        [thumbNailBackground setFill];
-        CGContextFillRect(context, viewRect);
-        CGContextRestoreGState(context);
-        
-        
-        thumbnail = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-    return thumbnail;
-}
 - (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
     MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
@@ -126,11 +104,11 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     //    }
     UIImageView* strongCellImageView = cell.imageView;
-    NSManagedObject* managedObjectColor;
+    MBColor* managedObjectColor;
     
-    managedObjectColor = [self.libraryColorsFetchedResultsController objectAtIndexPath: indexPath];
+    managedObjectColor = (MBColor*)[self.libraryColorsFetchedResultsController objectAtIndexPath: indexPath];
     
-    strongCellImageView.image = [self thumbnailForColor: managedObjectColor size: cell.bounds.size];
+    strongCellImageView.image = [managedObjectColor thumbnailImageSize: cell.bounds.size];
     strongCellImageView.highlightedImage = strongCellImageView.image;
     
     //    MBColor* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];

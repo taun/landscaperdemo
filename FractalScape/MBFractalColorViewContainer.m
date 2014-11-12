@@ -7,6 +7,8 @@
 //
 
 #import "MBFractalColorViewContainer.h"
+#import "MBCollectionColorCell.h"
+#import "MBColor+addons.h"
 
 @implementation MBFractalColorViewContainer
 
@@ -19,8 +21,17 @@
     }
     return self;
 }
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    _colorsChanged = YES;
+}
+-(void)setFractal:(LSFractal *)fractal {
+    _fractal = fractal;
+    self.colorsChanged = YES;
+    [self.fractalDestinationCollection reloadData];
+}
 -(NSArray*)cachedFractalColors {
-    if (!_cachedFractalColors || self.colorsChanged) {
+    if (_fractal && (!_cachedFractalColors || self.colorsChanged)) {
         NSSet* colors = [self.fractal valueForKey: self.fractalPropertyKeypath];
         NSSortDescriptor* indexSort = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
         _cachedFractalColors = [colors sortedArrayUsingDescriptors: @[indexSort]];
@@ -48,7 +59,7 @@
                                                                             toItem:collectionViewWrapper
                                                                          attribute:NSLayoutAttributeTop
                                                                         multiplier:1.0
-                                                                          constant:0.0
+                                                                          constant:50.0
                                              ];
     NSLayoutConstraint* heightConstraint2 = [NSLayoutConstraint constraintWithItem:collectionView
                                                                          attribute:NSLayoutAttributeBottom
@@ -67,9 +78,28 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.fractal.lineColors.count;
+    return self.cachedFractalColors.count;
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    static NSString *CellIdentifier = @"ColorSwatchCell";
+    
+    MBCollectionColorCell *cell = (MBCollectionColorCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    //    if (cell == nil) {
+    //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //    }
+    UIImageView* strongCellImageView = cell.imageView;
+    
+    MBColor* managedObjectColor = self.cachedFractalColors[indexPath.row];
+    
+    strongCellImageView.image = [managedObjectColor thumbnailImageSize: cell.bounds.size];
+    strongCellImageView.highlightedImage = strongCellImageView.image;
+    
+    //    MBColor* currentColor = [self.fractal valueForKey: [[self class] fractalPropertyKeypath]];
+    //    if (currentColor == managedObject) {
+    //        cell.selected = YES;
+    //    }
+    
+    return cell;
 }
 @end

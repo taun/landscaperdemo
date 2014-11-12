@@ -101,12 +101,13 @@
     if (keysToBeCopied == nil) {
         keysToBeCopied = [[NSSet alloc] initWithObjects:
                           @"alpha",
+                          @"red",
                           @"blue",
                           @"green",
                           @"identifier",
                           @"imagePath",
                           @"name",
-                          @"red",
+                          @"index",
                           nil];
     }
     return keysToBeCopied;
@@ -146,6 +147,27 @@
     }
     
     return newUIColor;
+}
+
+-(UIImage*) thumbnailImageSize: (CGSize) size {
+    UIImage* thumbnail;
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    
+    CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSaveGState(context);
+    UIColor* thumbNailBackground = [self asUIColor];
+    [thumbNailBackground setFill];
+    CGContextFillRect(context, viewRect);
+    CGContextRestoreGState(context);
+    
+    
+    thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return thumbnail;
 }
 
 @end

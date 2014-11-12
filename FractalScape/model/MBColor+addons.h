@@ -24,4 +24,6 @@
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *asUIColor;
 
+-(UIImage*) thumbnailImageSize: (CGSize) size;
+
 @end
