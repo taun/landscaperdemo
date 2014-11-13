@@ -52,7 +52,7 @@
                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="Vla-Kc-k4B"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerView">
+                                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="688" y="918" width="60" height="37"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
@@ -92,7 +92,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="10" y="10" width="376.5" height="39"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
@@ -181,7 +181,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="402" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal">
@@ -223,7 +223,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="232" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal">
@@ -265,7 +265,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerView">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000033" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="62" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal">
@@ -433,7 +433,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="sYo-Wa-K7H" customClass="FractalScapeIconSet"/>
                 <rotationGestureRecognizer id="SI8-00-oVr" userLabel="Fractal Rotation Gesture Recognizer">
                     <connections>
                         <action selector="rotateFractal:" destination="4nM-Pc-iAd" id="Fwx-oH-r76"/>
@@ -570,7 +569,7 @@
                                                 <constraint firstAttribute="width" priority="999" constant="130" id="GOX-0R-NiZ"/>
                                             </constraints>
                                         </pickerView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rd3-lb-tr2" customClass="MDKLayerView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rd3-lb-tr2" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="17" y="50" width="621" height="40"/>
                                             <subviews>
                                                 <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2p2-vO-5vR">
@@ -637,10 +636,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Eyx-KZ-uqZ" userLabel="OutlineView" customClass="MDKLayerView">
+                                        <view contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Eyx-KZ-uqZ" userLabel="OutlineView" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="1" y="1" width="779" height="30"/>
                                             <subviews>
-                                                <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="MqE-Iy-LEI" userLabel="RuleView" customClass="MDKLayerView">
+                                                <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="MqE-Iy-LEI" userLabel="RuleView" customClass="MDKLayerViewDesignable">
                                                     <rect key="frame" x="9" y="3" width="25" height="25"/>
                                                     <subviews>
                                                         <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlace0" translatesAutoresizingMaskIntoConstraints="NO" id="Ffk-kI-tOa">
@@ -706,7 +705,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="swP-lj-lq7" customClass="MDKLayerView">
+                                                                    <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="swP-lj-lq7" customClass="MDKLayerViewDesignable">
                                                                         <rect key="frame" x="1" y="1" width="24" height="24"/>
                                                                         <subviews>
                                                                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlace0" translatesAutoresizingMaskIntoConstraints="NO" id="BTZ-rI-Rhd">
@@ -828,7 +827,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="46" height="46"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHz-gX-Q6B" customClass="MDKLayerView">
+                                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHz-gX-Q6B" customClass="MDKLayerViewDesignable">
                                                                 <rect key="frame" x="1" y="1" width="44" height="44"/>
                                                                 <subviews>
                                                                     <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlace0" translatesAutoresizingMaskIntoConstraints="NO" id="BhZ-Oc-UKD">
@@ -905,7 +904,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="i77-9L-kuR" customClass="MDKLayerView">
+                                        <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="i77-9L-kuR" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="6" y="2" width="774" height="30"/>
                                             <subviews>
                                                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="V2g-YO-iUd" customClass="MDKUICollectionViewScrollContentSized">
@@ -930,7 +929,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KzV-fy-FyK" customClass="MDKLayerView">
+                                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KzV-fy-FyK" customClass="MDKLayerViewDesignable">
                                                                         <rect key="frame" x="1" y="1" width="24" height="24"/>
                                                                         <subviews>
                                                                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlace0" translatesAutoresizingMaskIntoConstraints="NO" id="DpS-IF-gOD">
@@ -1040,9 +1039,7 @@
                         <outlet property="fractalTableSource" destination="5ri-mz-AKR" id="GQs-ta-7Ya"/>
                     </connections>
                 </tableViewController>
-                <customObject id="Rjd-15-VLu" customClass="FractalScapeIconSet"/>
                 <customObject id="5ri-mz-AKR" customClass="MBFractalTableDataSource"/>
-                <customObject id="hrP-bc-aE6" customClass="FractalDefinitionKeyboardView"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqJ-1w-dtn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Jim-by-0WL" userLabel="ReplacementRuleDrag">
                     <connections>
@@ -1255,7 +1252,7 @@
                                         <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <size key="shadowOffset" width="0.0" height="2"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7i3-EF-sqE" customClass="MDKLayerView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7i3-EF-sqE" customClass="MDKLayerViewDesignable">
                                         <rect key="frame" x="346" y="9" width="400" height="151"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1371,7 +1368,6 @@
                         <outlet property="widthStepper" destination="k9B-kO-46M" id="QtG-ma-PMc"/>
                     </connections>
                 </viewController>
-                <customObject id="n7o-vg-l7l" customClass="FractalScapeIconSet"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6768" y="-197"/>
@@ -1395,63 +1391,81 @@
                                     <segue destination="jCJ-xE-OUn" kind="embed" id="9OA-gT-BhA"/>
                                 </connections>
                             </containerView>
-                            <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" customClass="MDKLayerView">
-                                <rect key="frame" x="4" y="4" width="392" height="58"/>
+                            <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" customClass="MDKLayerViewDesignable">
+                                <rect key="frame" x="4" y="4" width="392" height="44"/>
                                 <subviews>
-                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
-                                        <rect key="frame" x="4" y="9" width="40" height="40"/>
+                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
+                                        <rect key="frame" x="4" y="8" width="28" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="y20-fS-x0U" secondAttribute="height" id="Xig-yr-55y"/>
-                                            <constraint firstAttribute="width" constant="40" id="dAT-Ct-OMY"/>
+                                            <constraint firstAttribute="width" constant="28" id="dAT-Ct-OMY"/>
                                         </constraints>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MDKLayerView">
-                                        <rect key="frame" x="52" y="4" width="336" height="50"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MDKLayerViewDesignable">
+                                        <rect key="frame" x="40" y="4" width="348" height="36"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tfU-G6-f0o">
-                                                <rect key="frame" x="4" y="4" width="328" height="42"/>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="lineColorDestinationCollection" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tfU-G6-f0o" userLabel="lineColorDestinationCollection">
+                                                <rect key="frame" x="4" y="4" width="340" height="28"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="6" minimumInteritemSpacing="6" id="qYx-cW-tjK">
-                                                    <size key="itemSize" width="40" height="40"/>
+                                                    <size key="itemSize" width="26" height="26"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorSwatchCell" id="dbj-Pa-7b9" customClass="MBCollectionColorCell">
-                                                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DestinationColorSwatchCell" id="eW9-kt-WLH" customClass="MBLSRuleCollectionViewCell">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y2o-Np-VHs" userLabel="ImageFrame">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PgV-FM-6Qv" customClass="MDKLayerViewDesignable">
+                                                                    <rect key="frame" x="1" y="1" width="24" height="24"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="74G-iB-KMA">
-                                                                            <rect key="frame" x="1" y="1" width="38" height="38"/>
+                                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlaceEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="Mkq-ci-gik">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" secondItem="Mkq-ci-gik" secondAttribute="height" multiplier="1:1" id="KeX-XE-SFg"/>
+                                                                            </constraints>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="74G-iB-KMA" firstAttribute="leading" secondItem="Y2o-Np-VHs" secondAttribute="leading" constant="1" id="6sw-Wo-GBo"/>
-                                                                        <constraint firstItem="74G-iB-KMA" firstAttribute="top" secondItem="Y2o-Np-VHs" secondAttribute="top" constant="1" id="KAf-fU-K4P"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="74G-iB-KMA" secondAttribute="trailing" constant="1" id="aIJ-BP-u0J"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="74G-iB-KMA" secondAttribute="bottom" constant="1" id="sYd-8g-zg7"/>
-                                                                        <constraint firstAttribute="width" constant="40" id="wDk-Hi-Q46"/>
+                                                                        <constraint firstAttribute="centerY" secondItem="Mkq-ci-gik" secondAttribute="centerY" id="6f1-Sr-fkY"/>
+                                                                        <constraint firstAttribute="centerX" secondItem="Mkq-ci-gik" secondAttribute="centerX" id="7IE-Lm-pUY"/>
+                                                                        <constraint firstItem="Mkq-ci-gik" firstAttribute="leading" secondItem="PgV-FM-6Qv" secondAttribute="leading" id="XT4-W2-7Q6"/>
                                                                     </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="4"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                            <real key="value" value="1"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                            <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="margin">
+                                                                            <real key="value" value="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="centerX" secondItem="Y2o-Np-VHs" secondAttribute="centerX" id="KE8-gZ-U6i"/>
-                                                            <constraint firstAttribute="bottom" secondItem="Y2o-Np-VHs" secondAttribute="bottom" id="QFj-Iz-NDc"/>
-                                                            <constraint firstItem="Y2o-Np-VHs" firstAttribute="top" secondItem="dbj-Pa-7b9" secondAttribute="top" id="klA-Da-MS2"/>
+                                                            <constraint firstItem="PgV-FM-6Qv" firstAttribute="top" secondItem="eW9-kt-WLH" secondAttribute="top" constant="1" id="PtQ-uo-kpZ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="PgV-FM-6Qv" secondAttribute="trailing" constant="1" id="Yke-83-3fv"/>
+                                                            <constraint firstItem="PgV-FM-6Qv" firstAttribute="leading" secondItem="eW9-kt-WLH" secondAttribute="leading" constant="1" id="ZAJ-uX-tar"/>
+                                                            <constraint firstAttribute="bottom" secondItem="PgV-FM-6Qv" secondAttribute="bottom" constant="1" id="nks-gf-kjd"/>
                                                         </constraints>
+                                                        <size key="customSize" width="26" height="26"/>
                                                         <connections>
-                                                            <outlet property="imageFrame" destination="Y2o-Np-VHs" id="fFg-Vm-gl6"/>
-                                                            <outlet property="imageView" destination="74G-iB-KMA" id="4Kx-mb-sIP"/>
+                                                            <outlet property="customImageView" destination="Mkq-ci-gik" id="psT-gE-fkg"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -1488,7 +1502,7 @@
                                     <constraint firstAttribute="centerY" secondItem="y20-fS-x0U" secondAttribute="centerY" id="65Z-iO-7Vb"/>
                                     <constraint firstItem="JuG-Zf-Vvp" firstAttribute="top" secondItem="maa-lX-Faf" secondAttribute="top" constant="4" id="9Dr-PC-0wL"/>
                                     <constraint firstItem="JuG-Zf-Vvp" firstAttribute="leading" secondItem="y20-fS-x0U" secondAttribute="trailing" constant="8" symbolic="YES" id="lYP-94-cQ5"/>
-                                    <constraint firstAttribute="height" constant="58" id="n74-Ao-CGb"/>
+                                    <constraint firstAttribute="height" constant="44" id="n74-Ao-CGb"/>
                                     <constraint firstAttribute="bottom" secondItem="JuG-Zf-Vvp" secondAttribute="bottom" constant="4" id="xHh-bF-dnM"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1516,64 +1530,82 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa7-Ei-ma9" customClass="MDKLayerView">
-                                <rect key="frame" x="4" y="66" width="392" height="58"/>
+                            <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa7-Ei-ma9" customClass="MDKLayerViewDesignable">
+                                <rect key="frame" x="4" y="52" width="392" height="44"/>
                                 <subviews>
-                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
-                                        <rect key="frame" x="4" y="9.5" width="40" height="40"/>
+                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
+                                        <rect key="frame" x="4" y="8.5" width="28" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="sUp-Wy-sYl" secondAttribute="height" id="8Kt-u8-JCc"/>
-                                            <constraint firstAttribute="width" constant="40" id="qFI-t7-50E"/>
+                                            <constraint firstAttribute="width" constant="28" id="qFI-t7-50E"/>
                                         </constraints>
                                     </imageView>
-                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MDKLayerView">
-                                        <rect key="frame" x="52" y="4" width="336" height="50"/>
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MDKLayerViewDesignable">
+                                        <rect key="frame" x="40" y="4" width="348" height="36"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Rc-31-Bey">
-                                                <rect key="frame" x="4" y="4" width="328" height="42"/>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="fillColorDestinationCollection" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Rc-31-Bey" userLabel="fillColorDestinationCollection">
+                                                <rect key="frame" x="4" y="4" width="340" height="28"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="6" minimumInteritemSpacing="6" id="cUL-NO-om4">
-                                                    <size key="itemSize" width="40" height="40"/>
+                                                    <size key="itemSize" width="26" height="26"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorSwatchCell" id="uz0-QN-nOV" customClass="MBCollectionColorCell">
-                                                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DestinationColorSwatchCell" id="Sy0-iI-4LA" customClass="MBLSRuleCollectionViewCell">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXW-tf-d43" userLabel="ImageFrame">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mkm-B9-49V" customClass="MDKLayerViewDesignable">
+                                                                    <rect key="frame" x="1" y="1" width="24" height="24"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYi-3W-GFT">
-                                                                            <rect key="frame" x="1" y="1" width="38" height="38"/>
+                                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlaceEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="b4B-xG-OQ0">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" secondItem="b4B-xG-OQ0" secondAttribute="height" multiplier="1:1" id="5yh-5D-lCT"/>
+                                                                            </constraints>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="trailing" secondItem="xYi-3W-GFT" secondAttribute="trailing" constant="1" id="8AO-Pr-UW9"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="xYi-3W-GFT" secondAttribute="bottom" constant="1" id="CY0-Ml-sOB"/>
-                                                                        <constraint firstItem="xYi-3W-GFT" firstAttribute="top" secondItem="vXW-tf-d43" secondAttribute="top" constant="1" id="cQq-o6-E8N"/>
-                                                                        <constraint firstItem="xYi-3W-GFT" firstAttribute="leading" secondItem="vXW-tf-d43" secondAttribute="leading" constant="1" id="exP-E1-NkK"/>
-                                                                        <constraint firstAttribute="width" constant="40" id="m26-ZZ-g1C"/>
+                                                                        <constraint firstItem="b4B-xG-OQ0" firstAttribute="leading" secondItem="mkm-B9-49V" secondAttribute="leading" id="Oz3-AZ-0YY"/>
+                                                                        <constraint firstAttribute="centerY" secondItem="b4B-xG-OQ0" secondAttribute="centerY" id="fLH-AZ-h4o"/>
+                                                                        <constraint firstAttribute="centerX" secondItem="b4B-xG-OQ0" secondAttribute="centerX" id="mws-Cb-VVO"/>
                                                                     </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="4"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                            <real key="value" value="1"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                            <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="margin">
+                                                                            <real key="value" value="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="centerX" secondItem="vXW-tf-d43" secondAttribute="centerX" id="D5R-5E-AGo"/>
-                                                            <constraint firstItem="vXW-tf-d43" firstAttribute="top" secondItem="uz0-QN-nOV" secondAttribute="top" id="FY2-lQ-kka"/>
-                                                            <constraint firstAttribute="bottom" secondItem="vXW-tf-d43" secondAttribute="bottom" id="ZQ6-TA-9v8"/>
+                                                            <constraint firstAttribute="trailing" secondItem="mkm-B9-49V" secondAttribute="trailing" constant="1" id="46R-oj-4gq"/>
+                                                            <constraint firstItem="mkm-B9-49V" firstAttribute="leading" secondItem="Sy0-iI-4LA" secondAttribute="leading" constant="1" id="FVY-4K-hRT"/>
+                                                            <constraint firstAttribute="bottom" secondItem="mkm-B9-49V" secondAttribute="bottom" constant="1" id="KvE-tn-TMD"/>
+                                                            <constraint firstItem="mkm-B9-49V" firstAttribute="top" secondItem="Sy0-iI-4LA" secondAttribute="top" constant="1" id="hZ0-lE-pnv"/>
                                                         </constraints>
+                                                        <size key="customSize" width="26" height="26"/>
                                                         <connections>
-                                                            <outlet property="imageFrame" destination="vXW-tf-d43" id="INB-cQ-df0"/>
-                                                            <outlet property="imageView" destination="xYi-3W-GFT" id="J3x-Jm-TD7"/>
+                                                            <outlet property="customImageView" destination="b4B-xG-OQ0" id="Tyf-Zd-TUR"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -1614,7 +1646,7 @@
                                     <constraint firstItem="bZN-MH-WtZ" firstAttribute="leading" secondItem="sUp-Wy-sYl" secondAttribute="trailing" constant="8" symbolic="YES" id="QQF-Gv-o6i"/>
                                     <constraint firstAttribute="centerY" secondItem="sUp-Wy-sYl" secondAttribute="centerY" id="XtH-HD-tRf"/>
                                     <constraint firstItem="bZN-MH-WtZ" firstAttribute="top" secondItem="fa7-Ei-ma9" secondAttribute="top" constant="4" id="e7O-a2-9ow"/>
-                                    <constraint firstAttribute="height" constant="58" id="w7K-Yb-HNa"/>
+                                    <constraint firstAttribute="height" constant="44" id="w7K-Yb-HNa"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -1671,7 +1703,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="6ep-nf-v8a" customClass="FractalScapeIconSet"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="avI-YA-c6g"/>
             </objects>
             <point key="canvasLocation" x="6594" y="346"/>
@@ -1829,10 +1860,10 @@
             </objects>
             <point key="canvasLocation" x="4828.1599999999999" y="-928.42666666666673"/>
         </scene>
-        <!--Color Collection View Controller-->
+        <!--Color Source Collection View Controller-->
         <scene sceneID="xkG-Vn-vNl">
             <objects>
-                <viewController id="jCJ-xE-OUn" customClass="MBColorCollectionViewController" sceneMemberID="viewController">
+                <viewController id="jCJ-xE-OUn" customClass="MBColorSourceCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="OEg-C9-0oF">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1840,54 +1871,73 @@
                         <gestureRecognizers/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Uka-We-Yq1">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="44" height="44"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorSwatchCell" id="R92-lo-N6O" customClass="MBCollectionColorCell">
-                                <rect key="frame" x="10" y="10" width="50" height="50"/>
+                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" reuseIdentifier="SourceColorSwatchCell" id="0E3-ye-9O3" customClass="MBLSRuleCollectionViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="46" height="46"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzB-rd-PXr" userLabel="ImageFrame">
-                                            <rect key="frame" x="4.5" y="4" width="42" height="42"/>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpM-we-UQZ" customClass="MDKLayerViewDesignable">
+                                            <rect key="frame" x="1" y="1" width="44" height="44"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tIJ-62-kut">
-                                                    <rect key="frame" x="1" y="1" width="40" height="40"/>
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlaceEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="gOk-wk-UYy">
+                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="gOk-wk-UYy" secondAttribute="height" multiplier="1:1" id="EZJ-wn-xsn"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="42" id="bTR-Rf-ka7"/>
-                                                <constraint firstItem="tIJ-62-kut" firstAttribute="leading" secondItem="fzB-rd-PXr" secondAttribute="leading" constant="1" id="iyE-7q-Jq5"/>
-                                                <constraint firstAttribute="trailing" secondItem="tIJ-62-kut" secondAttribute="trailing" constant="1" id="jIf-kH-Wty"/>
-                                                <constraint firstAttribute="bottom" secondItem="tIJ-62-kut" secondAttribute="bottom" constant="1" id="sEj-l7-Ib0"/>
-                                                <constraint firstItem="tIJ-62-kut" firstAttribute="top" secondItem="fzB-rd-PXr" secondAttribute="top" constant="1" id="x0N-0Y-6iv"/>
+                                                <constraint firstAttribute="bottom" secondItem="gOk-wk-UYy" secondAttribute="bottom" id="Nhu-Od-VfT"/>
+                                                <constraint firstAttribute="trailing" secondItem="gOk-wk-UYy" secondAttribute="trailing" id="ueV-fH-rRf"/>
+                                                <constraint firstItem="gOk-wk-UYy" firstAttribute="leading" secondItem="xpM-we-UQZ" secondAttribute="leading" id="vBJ-m0-Ai7"/>
+                                                <constraint firstItem="gOk-wk-UYy" firstAttribute="top" secondItem="xpM-we-UQZ" secondAttribute="top" id="zRw-FM-aBF"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="margin">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="fzB-rd-PXr" secondAttribute="centerX" id="2cH-MO-1D0"/>
-                                    <constraint firstAttribute="bottom" secondItem="fzB-rd-PXr" secondAttribute="bottom" constant="4" id="ElB-hm-NzL"/>
-                                    <constraint firstItem="fzB-rd-PXr" firstAttribute="top" secondItem="R92-lo-N6O" secondAttribute="top" constant="4" id="yKi-YL-cUm"/>
+                                    <constraint firstItem="xpM-we-UQZ" firstAttribute="top" secondItem="0E3-ye-9O3" secondAttribute="top" constant="1" id="6fR-MI-8Tl"/>
+                                    <constraint firstAttribute="trailing" secondItem="xpM-we-UQZ" secondAttribute="trailing" constant="1" id="OV4-gp-feH"/>
+                                    <constraint firstItem="xpM-we-UQZ" firstAttribute="leading" secondItem="0E3-ye-9O3" secondAttribute="leading" constant="1" id="SQy-8k-VKm"/>
+                                    <constraint firstAttribute="bottom" secondItem="xpM-we-UQZ" secondAttribute="bottom" constant="1" id="Zu0-xj-U3t"/>
                                 </constraints>
+                                <size key="customSize" width="46" height="46"/>
                                 <connections>
-                                    <outlet property="imageFrame" destination="fzB-rd-PXr" id="3Hs-wd-CCk"/>
-                                    <outlet property="imageView" destination="tIJ-62-kut" id="nT4-hg-bB5"/>
+                                    <outlet property="customImageView" destination="gOk-wk-UYy" id="C8J-uu-dV9"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorsHeader" id="hb8-5G-IUx" customClass="MBCollectionFractalSupplementaryLabel">
-                            <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgG-Kq-48m">
-                                    <rect key="frame" x="179" y="6" width="42" height="37"/>
+                                    <rect key="frame" x="179" y="6" width="42" height="31"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
@@ -1924,6 +1974,7 @@
     </scenes>
     <resources>
         <image name="kBIconRulePlace0" width="40" height="40"/>
+        <image name="kBIconRulePlaceEmpty" width="40" height="40"/>
         <image name="tabBarFillColorIconTemplate" width="25" height="25"/>
         <image name="tabBarLineColorIcon" width="25" height="25"/>
         <image name="tabBarLineColorIconTemplate" width="25" height="25"/>

@@ -1,5 +1,5 @@
 //
-//  MBColorCollectionViewController.h
+//  MBColorSourceCollectionViewController.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 03/06/13.
@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "FractalControllerProtocol.h"
 #import "LSFractal+addons.h"
-
 #import "MBColor+addons.h"
+#import "MBLSRuleDragAndDropProtocol.h"
 
-@interface MBColorCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate>
+@interface MBColorSourceCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate, MBLSRuleDragAndDropProtocol>
 
 
 @property (nonatomic, strong) NSFetchedResultsController*   libraryColorsFetchedResultsController;

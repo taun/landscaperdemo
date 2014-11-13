@@ -12,20 +12,13 @@
 
 @implementation MBCollectionFractalCell
 
--(void) setImageFrame:(UIView *)imageFrame {
-    if (_imageFrame != imageFrame) {
-        _imageFrame = imageFrame;
-        _imageFrame.layer.shadowOpacity = 0.5;
-        _imageFrame.layer.shadowOffset = CGSizeMake(0, 3.0);
-    }
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self fixConstraints];
+        [self configureDefaults];
     }
     return self;
 }
@@ -33,9 +26,45 @@
     self = [super initWithCoder: aDecoder];
     if (self) {
         //
-        [self fixConstraints];
+        [self configureDefaults];
     }
     return self;
+}
+-(void) configureDefaults {
+    
+    [self fixConstraints];
+
+    _radius = 5.0;
+    
+    UIImage* placeholder = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+    UIImageView* strongImageView = self.imageView;
+    strongImageView.image = placeholder;
+    
+    self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
+}
+-(UIView*) configureSelectedBackgroundViewFrame: (CGRect) frame {
+    UIView *selectBackgroundView = [[UIView alloc] initWithFrame: frame];
+    selectBackgroundView.layer.cornerRadius = self.radius;
+    selectBackgroundView.layer.masksToBounds = NO;
+    UIColor* border = [UIColor grayColor];
+    CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
+    selectBackgroundView.layer.borderColor = colorCopy;
+    CGColorRelease(colorCopy);
+    selectBackgroundView.layer.borderWidth = 0.0;
+    selectBackgroundView.layer.shadowOpacity = 0.9;
+    selectBackgroundView.layer.shadowRadius = 2;
+    selectBackgroundView.layer.shadowOffset = CGSizeMake(2,2);
+    selectBackgroundView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+    selectBackgroundView.layer.backgroundColor = [[UIColor darkGrayColor] CGColor];
+    return selectBackgroundView;
+}
+
+-(void) setImageFrame:(UIView *)imageFrame {
+    if (_imageFrame != imageFrame) {
+        imageFrame.layer.shadowOpacity = 0.5;
+        imageFrame.layer.shadowOffset = CGSizeMake(0, 3.0);
+        _imageFrame = imageFrame;
+    }
 }
 
 /*!

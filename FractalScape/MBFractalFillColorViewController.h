@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBColorCollectionViewController.h"
+#import "MBColorSourceCollectionViewController.h"
 
-@interface MBFractalFillColorViewController : MBColorCollectionViewController
+@interface MBFractalFillColorViewController : MBColorSourceCollectionViewController
 
 @end

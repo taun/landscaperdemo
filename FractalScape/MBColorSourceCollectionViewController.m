@@ -1,26 +1,44 @@
 //
-//  MBColorCollectionViewController.m
+//  MBColorSourceCollectionViewController.m
 //  FractalScape
 //
 //  Created by Taun Chapman on 03/06/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBColorCollectionViewController.h"
+#import "MBColorSourceCollectionViewController.h"
 #import "MBAppDelegate.h"
-#import "MBCollectionColorCell.h"
+#import "MBLSRuleCollectionViewCell.h"
+#import "MBFractalColorViewContainer.h"
 #import "MBColor+addons.h"
 #import "NSManagedObject+Shortcuts.h"
+
+#import <MDUiKit/MDUiKit.h>
+#import "QuartzHelpers.h"
 
 
 #import "MBCollectionFractalSupplementaryLabel.h" // from Library collectionView
 static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
 
-@interface MBColorCollectionViewController ()
+@interface MBColorSourceCollectionViewController ()
+
+@property (nonatomic,strong) MBDraggingItem                     *draggingItem;
 
 @end
 
-@implementation MBColorCollectionViewController
+@implementation MBColorSourceCollectionViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 -(void) initControls {
     // need to set current selection
@@ -29,17 +47,6 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     // perhaps make part of selectedFractal setter?
 }
 
-- (IBAction)collectionLongPress:(UILongPressGestureRecognizer*)sender {
-    CGPoint touchPoint = [sender locationInView: self.collectionView];
-
-    MBColor* color;
-
-    if (sender.state == UIGestureRecognizerStateBegan) {
-         NSIndexPath* cellIndexPath = [self.collectionView indexPathForItemAtPoint: touchPoint];
-        MBCollectionColorCell* selectedCell = (MBCollectionColorCell*)[self.collectionView cellForItemAtIndexPath: cellIndexPath];
-        color = selectedCell.co
-    }
-}
 -(NSManagedObjectContext*) appManagedObjectContext {
     
     UIApplication* app = [UIApplication sharedApplication];
@@ -80,10 +87,12 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     
     return _libraryColorsFetchedResultsController;
 }
+
 #pragma mark - NSFetchedResultsControllerDelegate conformance -
 -(void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.collectionView reloadData];
 }
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -108,40 +117,80 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"ColorSwatchCell";
+    static NSString *CellIdentifier = @"SourceColorSwatchCell";
     
-    MBCollectionColorCell *cell = (MBCollectionColorCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    MBLSRuleCollectionViewCell *cell = (MBLSRuleCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     //    if (cell == nil) {
     //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     //    }
-    UIImageView* strongCellImageView = cell.imageView;
     MBColor* managedObjectColor;
     
     managedObjectColor = (MBColor*)[self.libraryColorsFetchedResultsController objectAtIndexPath: indexPath];
+    cell.cellItem = managedObjectColor;
     
-    strongCellImageView.image = [managedObjectColor thumbnailImageSize: cell.bounds.size];
-    strongCellImageView.highlightedImage = strongCellImageView.image;
-        
     return cell;
 }
+
 #pragma mark - UICollectionViewDelegate
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+- (IBAction)collectionLongPress:(UILongPressGestureRecognizer*)gesture {
+    UIGestureRecognizerState gestureState = gesture.state;
+    
+    MBFractalColorViewContainer* viewContainerController = (MBFractalColorViewContainer*)self.parentViewController;
+    
+    if (gestureState == UIGestureRecognizerStateBegan) {
+        [viewContainerController dragDidStartAtSourceCollection: self withGesture: gesture];
+        
+    } else if (gestureState == UIGestureRecognizerStateChanged) {
+        [viewContainerController dragDidChangeAtSourceCollection: self withGesture: gesture];
+        
+    } else if (gestureState == UIGestureRecognizerStateEnded) {
+        [viewContainerController dragDidEndAtSourceCollection: self withGesture: gesture];
+        
+    } else if (gestureState == UIGestureRecognizerStateCancelled) {
+        [viewContainerController dragCancelledAtSourceCollection: self withGesture: gesture];
+
+    }
 }
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
+    UIView* returnView;
+    UICollectionView* strongCollectionView = self.collectionView;
+    
+    NSIndexPath* cellIndexPath = [strongCollectionView indexPathForItemAtPoint: point];
+    MBLSRuleCollectionViewCell* collectionSourceCell = (MBLSRuleCollectionViewCell*)[strongCollectionView cellForItemAtIndexPath: cellIndexPath];
+    
+    if (collectionSourceCell) {
+        id draggedItem = [collectionSourceCell.cellItem mutableCopy];
+        
+        draggingItem.dragItem = draggedItem;
+        
+        returnView = draggingItem.view;
+    }
+    return returnView;
 }
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    BOOL reloadContainer = NO;
+    return reloadContainer;
 }
+-(BOOL) dragDidChangeToLocalPoint:(CGPoint)point draggingItem:(MBDraggingItem *)draggingRule {
+    BOOL reloadContainer = NO;
+    return reloadContainer;
+}
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+    BOOL reloadContainer = NO;
+    return reloadContainer;
+}
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+    BOOL reloadContainer = NO;
+    return reloadContainer;
+}
+
+
 
 @end

@@ -373,7 +373,6 @@
                     NSString* rulesKey = @"rules";
                     NSDictionary* replacementRulesDict = mutableFractalDictionary[replacementRulesKey];
                     if (replacementRulesDict && replacementRulesDict.count > 0) {
-                        NSDictionary* availableRules = [fractal.drawingRulesType rulesDictionary];
                         NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: replacementRulesKey];
  
                         for (NSString* key in replacementRulesDict) {

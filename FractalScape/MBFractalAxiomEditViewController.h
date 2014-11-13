@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "FractalControllerProtocol.h"
 #import "MBLSRuleTableViewCell.h"
-#import "FractalDefinitionKeyboardView.h"
 
 @class LSFractal;
 
@@ -18,9 +17,6 @@
                                                                         UIPickerViewDataSource,
                                                                         UIPickerViewDelegate,
                                                                         UITextViewDelegate>
-//{
-//    __strong NSArray        *_sortedReplacementRulesArray;
-//}
 
 @property (nonatomic,strong) LSFractal                                *fractal;
 @property (nonatomic,weak) NSUndoManager                            *fractalUndoManager;
@@ -28,26 +24,12 @@
 
 #pragma mark - Production Fields
 
-//@property (nonatomic, readonly) NSArray                                 *sortedReplacementRulesArray;
-
-/*!
- Custom keyboard for inputting fractal axioms and rules.
- Change to a popover?
- */
-@property (strong, nonatomic) FractalDefinitionKeyboardView             *fractalInputControl;
 @property (nonatomic, strong) NSMutableDictionary                       *rulesCellIndexPaths;
 
 @property (nonatomic, strong) NSNumberFormatter                         *twoPlaceFormatter;
 
-//-(void) reloadLabels;
-
-#pragma mark - Fractal Definition Input Protocol
-//- (void)keyTapped:(NSString*)title;
-//- (void)doneTapped;
 
 #pragma mark - Production Control Actions
-//- (IBAction)axiomInputChanged:(UITextField*)sender;
-//- (IBAction)axiomInputEnded:(UITextField*)sender;
 - (IBAction)nameInputDidEnd:(UITextField*)sender;
 - (IBAction)nameInputChanged:(id)sender;
 //- (IBAction)descriptorInputChanged:(id)sender;

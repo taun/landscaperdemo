@@ -12,7 +12,7 @@
 
 @interface MBLSRuleCollectionViewCell : UICollectionViewCell <MBLSRuleDragAndDropProtocol>
 
-@property (weak,nonatomic) LSDrawingRule            *rule;
+@property (weak,nonatomic) id                       cellItem;
 
 @property (weak,nonatomic) IBOutlet UIImageView     *customImageView;
 

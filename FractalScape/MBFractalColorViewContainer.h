@@ -10,8 +10,10 @@
 #import "FractalControllerProtocol.h"
 #import "LSFractal+addons.h"
 #import "MBColor+addons.h"
+#import "MBLSRuleDragAndDropProtocol.h"
+#import "MBColorSourceCollectionViewController.h"
 
-@interface MBFractalColorViewContainer : UIViewController <FractalControllerProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MBFractalColorViewContainer : UIViewController <FractalControllerProtocol, MBLSRuleDragAndDropProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
@@ -25,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *lineColorsTemplateImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *fillColorsTemplateImageView;
 
--(void) draggingColor: (MBColor*)color withGesture: (UIGestureRecognizer*)gesture;
+-(void)dragDidStartAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;
+-(void)dragDidChangeAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;
+-(void)dragDidEndAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;
+-(void)dragCancelledAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;
 
 @end

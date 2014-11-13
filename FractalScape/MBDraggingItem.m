@@ -1,30 +1,30 @@
 //
-//  MBDraggingRule.m
+//  MBDraggingItem.m
 //  FractalScape
 //
 //  Created by Taun Chapman on 10/09/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBDraggingRule.h"
-#import <MDUiKit/MDKLayerView.h>
+#import "MBDraggingItem.h"
+#import <MDUiKit/MDKLayerViewDesignable.h>
 
-@interface MBDraggingRule ()
+@interface MBDraggingItem ()
 
 @property (nonatomic,strong) CALayer*       imageLayer;
 @property (nonatomic,strong) UIImage*       image;
 
 @end
 
-@implementation MBDraggingRule
-+(instancetype) newWithRule:(LSDrawingRule *)rule size:(NSInteger)size {
-    return [[self alloc] initWithRule: rule size: size];
+@implementation MBDraggingItem
++(instancetype) newWithItem:(LSDrawingRule *)rule size:(NSInteger)size {
+    return [[self alloc] initWithItem: rule size: size];
 }
--(instancetype)initWithRule:(LSDrawingRule *)rule size:(NSInteger)size {
+-(instancetype)initWithItem:(LSDrawingRule *)rule size:(NSInteger)size {
     self = [super init];
     if (self) {
         _size = size;
-        _rule = rule;
+        _dragItem = rule;
         [self configureView];
         [self configureImage];
     }
@@ -60,16 +60,16 @@
     }
 }
 -(void) configureImage {
-    if (_rule) {
-        _image = [_rule asImage];
+    if (_dragItem) {
+        _image = [_dragItem asImage];
         if (_image) {
             _imageLayer.contents = (__bridge id)(_image.CGImage);
         }
     }
 }
--(void) setRule:(LSDrawingRule *)rule {
-    if (_rule != rule) {
-        _rule = rule;
+-(void) setDragItem:(LSDrawingRule *)rule {
+    if (_dragItem != rule) {
+        _dragItem = rule;
         [self configureImage];
     }
 }
@@ -131,7 +131,7 @@
     } else { // need to append or insert, growing number of items
         self.lastDestinationArray = aCollectionType;
         
-        [aCollectionType insertObject: self.rule atIndex: indexPath.row];
+        [aCollectionType insertObject: self.dragItem atIndex: indexPath.row];
         [strongLastDestinationCollection insertItemsAtIndexPaths: @[indexPath]];
         
         self.lastCollectionIndexPath = indexPath;
@@ -160,7 +160,7 @@
             [object willChangeValueForKey: property];
         }
         
-        [strongLastDestinationArray removeObject: _rule];
+        [strongLastDestinationArray removeObject: _dragItem];
         
         if (object!=nil && property != nil && property.length > 0) {
             [object didChangeValueForKey: property];

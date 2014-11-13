@@ -169,5 +169,8 @@
     
     return thumbnail;
 }
+-(UIImage*) asImage {
+    return [self thumbnailImageSize: CGSizeMake(40.0, 40.0)];
+}
 
 @end

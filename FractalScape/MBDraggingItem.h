@@ -1,5 +1,5 @@
 //
-//  MBDraggingRule.h
+//  MBDraggingItem.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 10/09/14.
@@ -8,20 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "LSDrawingRule+addons.h"
+#import "MBCollectionCellItemProtocol.h"
 
 /*!
  Class for easily handling dragging a rule around on the tableView.
  Encapsulates the rule, view, size.
  */
-@interface MBDraggingRule : NSObject
+@interface MBDraggingItem : NSObject
 /*!
  The rule to be represented. Generates the view when the rule property is changed.
  */
-@property (nonatomic,strong) LSDrawingRule                      *rule;
+@property (nonatomic,strong) id<MBCollectionCellItemProtocol>   dragItem;
 /*!
  If a rule is overwritten, it is stored in case we need to restore the original rule.
  */
-@property (nonatomic,strong) LSDrawingRule                      *oldReplacedRule;
+@property (nonatomic,strong) id<MBCollectionCellItemProtocol>   oldReplacedDragItem;
 /*!
  A view representing the rule for dragging around on the screen.
  */
@@ -84,7 +85,7 @@
  
  @return the instance
  */
-+(instancetype) newWithRule: (LSDrawingRule*)rule size: (NSInteger)size; //__attribute__((objc_method_family(new)))
++(instancetype) newWithItem: (LSDrawingRule*)rule size: (NSInteger)size; //__attribute__((objc_method_family(new)))
 /*!
  Designated intializer.
  
@@ -93,7 +94,7 @@
  
  @return the instance
  */
--(instancetype) initWithRule: (LSDrawingRule*)rule size: (NSInteger)size NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithItem: (LSDrawingRule*)rule size: (NSInteger)size NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - state change
 /*!

@@ -7,7 +7,7 @@
 //
 
 #import "MBLSRuleCollectionViewCell.h"
-#import <MDUiKit/MDKLayerView.h>
+#import <MDUiKit/MDKLayerViewDesignable.h>
 
 @implementation MBLSRuleCollectionViewCell
 
@@ -28,7 +28,7 @@
 -(void) awakeFromNib {
     [super awakeFromNib];
     
-    MDKLayerView* layerView = [[MDKLayerView alloc] initWithFrame: CGRectZero];
+    MDKLayerViewDesignable* layerView = [[MDKLayerViewDesignable alloc] initWithFrame: CGRectZero];
     
     layerView.maskToBounds = NO;
     layerView.cornerRadius = 4.0;
@@ -38,10 +38,10 @@
     self.selectedBackgroundView = layerView;
 }
 
--(void)setRule:(LSDrawingRule *)rule {
-    if (_rule != rule) {
-        _rule = rule;
-        self.customImageView.image = [_rule asImage];
+-(void)setCellItem:(id)item {
+    if (_cellItem != item) {
+        _cellItem = item;
+        self.customImageView.image = [_cellItem asImage];
     }
 }
 
@@ -130,13 +130,13 @@
     [super updateConstraints];
 }
 
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
     return nil;
 }
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
     return NO;
 }
--(BOOL) dragDidExitDraggingRule: (MBDraggingRule*) draggingRule {
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
     return NO;
 }
 

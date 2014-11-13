@@ -59,7 +59,7 @@
     self.replacementRule = nil;
 }
 
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingItem*) draggingRule {
     UIView* returnView;
     
     UICollectionView* strongCollectionView = self.collectionView;
@@ -71,13 +71,13 @@
     if (CGRectContainsPoint(collectionRect, point)) {
         // over collection
         // get data and collection and send to method
-        returnView = [super dragDidStartAtLocalPoint: point draggingRule: draggingRule];
+        returnView = [super dragDidStartAtLocalPoint: point draggingItem: draggingRule];
         
     } else if (CGRectContainsPoint(placeholderImageRect, point)) {
         // over rule placeholder imageView
         // ignoring readOnly for now
         // copy and leave placeholder in place to facillitate dragging placeholder into a replacement rules collection.
-        draggingRule.rule = [self.replacementRule.contextRule mutableCopy];
+        draggingRule.dragItem = [self.replacementRule.contextRule mutableCopy];
         returnView = draggingRule.view;
     }
     return returnView;
@@ -88,7 +88,7 @@
  @param point        drag point in coordinates of receiving view
  @param draggingRule the draggingRule
  */
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule {
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingItem*) draggingRule {
     BOOL reloadContainer = NO;
     
     UICollectionView* strongCollectionView = self.collectionView;
@@ -100,18 +100,18 @@
     if (CGRectContainsPoint(collectionRect, point)) {
         // over collection
         // get data and collection and send to method
-        reloadContainer = [super dragDidEnterAtLocalPoint: point draggingRule: draggingRule];
+        reloadContainer = [super dragDidEnterAtLocalPoint: point draggingItem: draggingRule];
         
     } else if (CGRectContainsPoint(placeholderImageRect, point)) {
         // over rule placeholder imageView
         // ignoring readOnly for now
-        draggingRule.oldReplacedRule = self.replacementRule.contextRule;
-        [self setContextRule: draggingRule.rule];
+        draggingRule.oldReplacedDragItem = self.replacementRule.contextRule;
+        [self setContextRule: draggingRule.dragItem];
     }
     // this will just fall through until the touch is in one of the subviews
     return reloadContainer;
 }
--(BOOL) dragDidChangeToLocalPoint:(CGPoint)point draggingRule:(MBDraggingRule *)draggingRule {
+-(BOOL) dragDidChangeToLocalPoint:(CGPoint)point draggingRule:(MBDraggingItem *)draggingRule {
     BOOL reloadContainer = NO;
 
     UICollectionView* strongCollectionView = self.collectionView;
@@ -123,44 +123,44 @@
     if (CGRectContainsPoint(collectionRect, point)) {
         // over collection
         // get data and collection and send to method
-        reloadContainer = [super dragDidChangeToLocalPoint: point draggingRule: draggingRule];
+        reloadContainer = [super dragDidChangeToLocalPoint: point draggingItem: draggingRule];
         
     } else if (CGRectContainsPoint(placeholderImageRect, point)) {
         // over rule placeholder imageView
         // ignoring readOnly for now
-        if (self.replacementRule.contextRule != draggingRule.rule) {
+        if (self.replacementRule.contextRule != draggingRule.dragItem) {
             // imageView rule is not already the dragging rule so enter fresh
-            reloadContainer = [self dragDidEnterAtLocalPoint: point draggingRule: draggingRule];
+            reloadContainer = [self dragDidEnterAtLocalPoint: point draggingItem: draggingRule];
         }
         // if point changing but still in view, do nothing
     } else {
         // in cell but not in either view
-        if (self.replacementRule.contextRule == draggingRule.rule || [self.rules containsObject: draggingRule.rule]) {
-            reloadContainer = [self dragDidExitDraggingRule: draggingRule];
+        if (self.replacementRule.contextRule == draggingRule.dragItem || [self.rules containsObject: draggingRule.dragItem]) {
+            reloadContainer = [self dragDidExitDraggingItem: draggingRule];
         }
     }
     return reloadContainer;
 }
--(BOOL) dragDidExitDraggingRule: (MBDraggingRule*) draggingRule {
+-(BOOL) dragDidExitDraggingRule: (MBDraggingItem*) draggingRule {
     BOOL reloadContainer = NO;
     
-    if ([self.replacementRule.rules containsObject: draggingRule.rule]) {
+    if ([self.replacementRule.rules containsObject: draggingRule.dragItem]) {
         // over collection
         // get data and collection and send to method
-        reloadContainer = [super dragDidExitDraggingRule: draggingRule];
+        reloadContainer = [super dragDidExitDraggingItem: draggingRule];
         
-    } else if (self.replacementRule.contextRule == draggingRule.rule) {
+    } else if (self.replacementRule.contextRule == draggingRule.dragItem) {
         // over rule placeholder imageView
         // ignoring readOnly for now
-        [self setContextRule: draggingRule.oldReplacedRule];
-        draggingRule.oldReplacedRule = nil;
+        [self setContextRule: draggingRule.oldReplacedDragItem];
+        draggingRule.oldReplacedDragItem = nil;
     }
     
     return reloadContainer;
 }
--(BOOL) dragDidEndDraggingRule: (MBDraggingRule*) draggingRule {
+-(BOOL) dragDidEndDraggingRule: (MBDraggingItem*) draggingRule {
     BOOL reloadContainer = NO;
-    reloadContainer = [super dragDidEndDraggingRule: draggingRule];
+    reloadContainer = [super dragDidEndDraggingItem: draggingRule];
     return reloadContainer;
 }
 

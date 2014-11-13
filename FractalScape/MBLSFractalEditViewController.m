@@ -1219,6 +1219,8 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 
 - (IBAction)toggleAutoScale:(id)sender {
+    UIView* strongFractalView = self.fractalView;
+    
     for (id object in self.generatorsArray) {
         if ([object isKindOfClass: [LSFractalGenerator class]]) {
             LSFractalGenerator* generator = (LSFractalGenerator*) object;
@@ -1226,8 +1228,8 @@ static void countPathElements(void *info, const CGPathElement *element) {
             NSLog(@"autoscale: %u;", generator.autoscale);
             if (generator.autoscale) {
                 // refit view frame and refresh layer
-                self.fractalView.transform = CGAffineTransformIdentity;
-                self.fractalView.frame = self.fractalViewParent.bounds;
+                strongFractalView.transform = CGAffineTransformIdentity;
+                strongFractalView.frame = self.fractalViewParent.bounds;
             }
         }
     }

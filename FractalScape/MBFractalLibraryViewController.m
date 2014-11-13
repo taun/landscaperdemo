@@ -14,7 +14,6 @@
 
 #import "MBCollectionFractalCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
-#import "MBColorCellSelectBackgroundView.h"
 #import "MBImmutableCellBackgroundView.h"
 
 #import <QuartzCore/QuartzCore.h>
@@ -213,8 +212,6 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     MBImmutableCellBackgroundView* newBackground =  [MBImmutableCellBackgroundView new];
     newBackground.readOnlyView = [cellFractal.isImmutable boolValue];
     cell.backgroundView = newBackground;
-
-    cell.selectedBackgroundView = [MBColorCellSelectBackgroundView new];
     
     if (self.fractal == cellFractal) {
         cell.selected = YES;

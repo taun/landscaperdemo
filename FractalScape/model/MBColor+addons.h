@@ -26,4 +26,5 @@
 
 -(UIImage*) thumbnailImageSize: (CGSize) size;
 
+-(UIImage*) asImage;
 @end

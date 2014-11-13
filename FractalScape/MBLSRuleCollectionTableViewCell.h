@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MBXibAutolayoutTableCell.h"
-#import <MDUiKit/MDUiKit.h>
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MBRuleCollectionDataSource.h"
+
+#import <MDUiKit/MDUiKit.h>
 
 @interface MBLSRuleCollectionTableViewCell : UITableViewCell <MBLSRuleDragAndDropProtocol>
 

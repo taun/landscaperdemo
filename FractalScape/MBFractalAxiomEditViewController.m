@@ -23,7 +23,7 @@
 #import "MBLSRuleDragAndDropProtocol.h"
 
 #import "MBStyleKitButton.h"
-#import "MBDraggingRule.h"
+#import "MBDraggingItem.h"
 #import "QuartzHelpers.h"
 
 #import <MDUIKit/UICollectionView+MDKDragAndDrop.h>
@@ -42,7 +42,7 @@
 @property (nonatomic,strong) NSArray                            *fractalTableSections;
 @property (nonatomic,strong) NSArray                            *fractalSectionDataMap;
 @property (nonatomic,strong) NSArray                            *fractalSectionKeyChangedMap;
-@property (nonatomic,strong) MBDraggingRule                     *draggingRule;
+@property (nonatomic,strong) MBDraggingItem                     *draggingRule;
 
 -(void) addReplacementRulesObserverFor: (LSFractal*)fractal;
 -(void) removeReplacementRulesObserverFor: (LSFractal*)fractal;
@@ -252,7 +252,7 @@
     BOOL reloadCell = NO;
     
     if (!self.draggingRule) {
-        self.draggingRule = [[MBDraggingRule alloc] initWithRule: nil size: 26.0];
+        self.draggingRule = [[MBDraggingItem alloc] initWithItem: nil size: 26.0];
         //        self.draggingRule = [[MBDraggingRule alloc] init];
         //        self.draggingRule.size = 30;
         self.draggingRule.touchToDragViewOffset = CGPointMake(0.0, -40.0);
@@ -294,7 +294,7 @@
         //
         CGPoint localSourceViewPoint = [self.tableView convertPoint: touchPoint toView: currentTableCell];
         
-        UIView* dragView = [currentTableCell dragDidStartAtLocalPoint: localSourceViewPoint draggingRule: self.draggingRule];
+        UIView* dragView = [currentTableCell dragDidStartAtLocalPoint: localSourceViewPoint draggingItem: self.draggingRule];
         if (dragView) {
             [self.tableView addSubview: dragView];
             [self.tableView bringSubviewToFront: dragView];
@@ -328,15 +328,15 @@
             if (self.draggingRule.lastTableIndexPath) {
                 UITableViewCell<MBLSRuleDragAndDropProtocol>* lastTableCell = (UITableViewCell<MBLSRuleDragAndDropProtocol>*)[self.tableView cellForRowAtIndexPath: self.draggingRule.lastTableIndexPath];
                 if (lastTableCell) {
-                    reloadCell = [lastTableCell dragDidExitDraggingRule: self.draggingRule];
+                    reloadCell = [lastTableCell dragDidExitDraggingItem: self.draggingRule];
                     if (reloadCell) {
                         [lastTableCell setNeedsUpdateConstraints];
                     }
                 }
             }
-            reloadCell = [currentTableCell dragDidEnterAtLocalPoint: localDropViewPoint draggingRule: self.draggingRule];
+            reloadCell = [currentTableCell dragDidEnterAtLocalPoint: localDropViewPoint draggingItem: self.draggingRule];
         } else {
-            reloadCell = [currentTableCell dragDidChangeToLocalPoint: localDropViewPoint draggingRule: self.draggingRule];
+            reloadCell = [currentTableCell dragDidChangeToLocalPoint: localDropViewPoint draggingItem: self.draggingRule];
         }
         self.draggingRule.lastTableIndexPath = tableInsertionIndexPath;
         
@@ -344,7 +344,7 @@
     }else if (gestureState == UIGestureRecognizerStateEnded) {
         if (currentTableCell) {
             // look for dragging cell and replace with real rule in fractal data then regen fractalTableData
-            reloadCell = [currentTableCell dragDidEndDraggingRule: self.draggingRule];
+            reloadCell = [currentTableCell dragDidEndDraggingItem: self.draggingRule];
         }
         [self.draggingRule.view removeFromSuperview];
         self.draggingRule = nil;

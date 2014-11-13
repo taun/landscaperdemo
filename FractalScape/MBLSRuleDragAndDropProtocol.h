@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #include <CoreGraphics/CoreGraphics.h>
-#import "MBDraggingRule.h"
+#import "MBDraggingItem.h"
 
 #pragma message "TODO move this to MDUIKit library"
 
@@ -31,7 +31,7 @@
  
  @return the view representation of the dragged item
  */
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
 /*!
  A dragged item is entering the view of the mini-controller and should be handled. Usually by showing the effect
  of dragging the item into the view such as inserting the item into the collection.
@@ -41,7 +41,7 @@
  
  @return YES if the view needs to be resized in the container due to an increase in size after inserting item.
  */
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
 /*!
  A dragged item is moving within the view of the mini-controller and should be handled. Usually by showing the effect
  of moving the item from one index to another of the collection.
@@ -51,7 +51,7 @@
  
  @return YES if the view needs to be resized in the container due to an increase in size after inserting item.
  */
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
 /*!
  A dragged item is staying in the view of the mini-controller and should be handled. Maybe by saving the changes if
  they haven't already been saved.
@@ -61,7 +61,7 @@
  
  @return YES if the view needs to be resized in the container due to an increase in size after inserting item.
  */
--(BOOL) dragDidEndDraggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule;
 /*!
  A dragged item is exiting the view of the mini-controller and should be handled. Usually by showing the effect
  of un-dropping the item since it is just passing through to another destination.
@@ -71,6 +71,6 @@
  
  @return YES if the view needs to be resized in the container due to an increase in size after inserting item.
  */
--(BOOL) dragDidExitDraggingRule: (MBDraggingRule*) draggingRule;
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule;
 
 @end

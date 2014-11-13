@@ -10,8 +10,6 @@
 #import "MBLSRuleCollectionViewCell.h"
 #import "LSDrawingRule+addons.h"
 
-#import "FractalScapeIconSet.h"
-
 @interface MBRuleCollectionDataSource ()
 @end
 
@@ -47,7 +45,7 @@
     
 //    CGFloat deviceScaleFactor = collectionView.contentScaleFactor;
     
-    newCell.rule = (LSDrawingRule*)self.rules[indexPath.row];
+    newCell.cellItem = (LSDrawingRule*)self.rules[indexPath.row];
     [newCell setNeedsUpdateConstraints];
 #pragma message "TODO have cell class monitor properties and call setNeedsUpdateConstraints as needed?"
     return newCell;
