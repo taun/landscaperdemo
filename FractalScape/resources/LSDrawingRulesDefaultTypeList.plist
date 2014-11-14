@@ -11,8 +11,6 @@
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePlace0</string>
-			<key>displayIndex</key>
-			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -21,8 +19,6 @@
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePlace1</string>
-			<key>displayIndex</key>
-			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -31,8 +27,6 @@
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePlace2</string>
-			<key>displayIndex</key>
-			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -41,8 +35,6 @@
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePlace3</string>
-			<key>displayIndex</key>
-			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -51,8 +43,6 @@
 			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePlace4</string>
-			<key>displayIndex</key>
-			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -61,8 +51,6 @@
 			<string>commandDrawLine</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDrawLine</string>
-			<key>displayIndex</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -71,8 +59,6 @@
 			<string>commandMoveByLine</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleMoveByLine</string>
-			<key>displayIndex</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -81,8 +67,6 @@
 			<string>commandRotateCC</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleRotateCC</string>
-			<key>displayIndex</key>
-			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -91,8 +75,6 @@
 			<string>commandRotateC</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleRotateC</string>
-			<key>displayIndex</key>
-			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -101,8 +83,6 @@
 			<string>commandReverseDirection</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleReverseDirection</string>
-			<key>displayIndex</key>
-			<integer>4</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -111,8 +91,6 @@
 			<string>commandPush</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePush</string>
-			<key>displayIndex</key>
-			<integer>5</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -121,8 +99,6 @@
 			<string>commandPop</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePop</string>
-			<key>displayIndex</key>
-			<integer>6</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -131,8 +107,6 @@
 			<string>commandIncrementLineWidth</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleIncrementLineWidth</string>
-			<key>displayIndex</key>
-			<integer>7</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -141,8 +115,6 @@
 			<string>commandDecrementLineWidth</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDecrementLineWidth</string>
-			<key>displayIndex</key>
-			<integer>8</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -151,8 +123,6 @@
 			<string>commandDrawDot</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDrawDot</string>
-			<key>displayIndex</key>
-			<integer>9</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -161,8 +131,6 @@
 			<string>commandDrawDotFilledNoStroke</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDrawDotFilledNoStroke</string>
-			<key>displayIndex</key>
-			<integer>9</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -171,8 +139,6 @@
 			<string>commandOpenPolygon</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleOpenPolygon</string>
-			<key>displayIndex</key>
-			<integer>10</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -181,8 +147,6 @@
 			<string>commandClosePolygon</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleClosePolygon</string>
-			<key>displayIndex</key>
-			<integer>11</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -191,8 +155,6 @@
 			<string>commandUpscaleLineLength</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleUpscaleLineLength</string>
-			<key>displayIndex</key>
-			<integer>12</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -201,8 +163,6 @@
 			<string>commandDownscaleLineLength</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDownscaleLineLength</string>
-			<key>displayIndex</key>
-			<integer>13</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -211,8 +171,6 @@
 			<string>commandSwapRotation</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleSwapRotation</string>
-			<key>displayIndex</key>
-			<integer>14</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -221,8 +179,6 @@
 			<string>commandIncrementAngle</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleIncrementAngle</string>
-			<key>displayIndex</key>
-			<integer>15</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -231,8 +187,6 @@
 			<string>commandDecrementAngle</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDecrementAngle</string>
-			<key>displayIndex</key>
-			<integer>16</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -241,8 +195,6 @@
 			<string>commandStrokeOff</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleStrokeOff</string>
-			<key>displayIndex</key>
-			<integer>17</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -251,8 +203,6 @@
 			<string>commandStrokeOn</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleStrokeOn</string>
-			<key>displayIndex</key>
-			<integer>18</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -261,8 +211,6 @@
 			<string>commandFillOff</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleFillOff</string>
-			<key>displayIndex</key>
-			<integer>19</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -271,8 +219,6 @@
 			<string>commandFillOn</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleFillOn</string>
-			<key>displayIndex</key>
-			<integer>20</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -281,8 +227,6 @@
 			<string>commandRandomizeOff</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleRandomizeOff</string>
-			<key>displayIndex</key>
-			<integer>21</integer>
 		</dict>
 		<dict>
 			<key>productionString</key>
@@ -291,8 +235,38 @@
 			<string>commandRandomizeOn</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleRandomizeOn</string>
-			<key>displayIndex</key>
-			<integer>22</integer>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>a</string>
+			<key>drawingMethodString</key>
+			<string>commandNextColor</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleNextColor</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>b</string>
+			<key>drawingMethodString</key>
+			<string>commandPreviousColor</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRulePreviousColor</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>c</string>
+			<key>drawingMethodString</key>
+			<string>commandNextFillColor</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleNextFillColor</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>d</string>
+			<key>drawingMethodString</key>
+			<string>commandPreviousFillColor</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRulePreviousColor</string>
 		</dict>
 	</array>
 	<key>ruleType</key>

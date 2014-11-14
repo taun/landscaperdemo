@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+/*!
+ A fractal path segment.
+ */
 @interface MBFractalSegment : NSObject {
     CGMutablePathRef    _path;
-    CGColorRef          _lineColor;
-    CGColorRef          _fillColor;
 }
 
 @property (nonatomic, assign) CGMutablePathRef      path;
@@ -24,15 +25,20 @@
 @property (nonatomic,assign) double                 lineWidthIncrement;
 @property (nonatomic,assign) double                 lineLengthScaleFactor;
 @property (nonatomic,assign) double                 randomness;
-@property (nonatomic,assign) CGColorRef             lineColor;
-@property (nonatomic,assign) CGColorRef             fillColor;
-@property (nonatomic, readwrite) BOOL               fill;
-@property (nonatomic, readwrite) BOOL               stroke;
+@property (nonatomic,readwrite) BOOL               fill;
+@property (nonatomic,readwrite) BOOL               stroke;
+
+@property (nonatomic,assign) NSInteger             lineColorIndex;
+@property (nonatomic,assign) NSInteger             fillColorIndex;
+@property (nonatomic,assign) BOOL                   randomize;
 
 @property (nonatomic,assign) CGAffineTransform      transform;
 
 +(NSArray*)settingsToCopy;
++(double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) MBFractalSegment *copySettings;
+
+-(double) randomScalar;
 
 @end

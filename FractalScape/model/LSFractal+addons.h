@@ -40,6 +40,12 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  @return a set of strings corresponding to fractal drawing key paths effecting the graphic views.
  */
 +(NSSet*) appearanceProperties;
+/*!
+ A set of fractal property paths which only effect drawing of the line segments. Menaing neither the production nor the segment deneration are effect.
+ 
+ @return a set of property path strings.
+ */
++(NSSet*) redrawProperties;
 
 -(NSArray*) allCategories;
 

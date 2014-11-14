@@ -11,7 +11,7 @@
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MBRuleCollectionDataSource.h"
 
-#import <MDUiKit/MDUiKit.h>
+@class MDKUICollectionViewScrollContentSized;
 
 @interface MBLSRuleCollectionTableViewCell : UITableViewCell <MBLSRuleDragAndDropProtocol>
 
@@ -42,7 +42,7 @@
 /*!
  The embedded MDKUICollectionViewScrollContentSized
  */
-@property (nonatomic,weak) IBOutlet MDKUICollectionViewScrollContentSized<MBLSRuleDragAndDropProtocol>  *collectionView;
+@property (nonatomic,weak) IBOutlet MDKUICollectionViewScrollContentSized <MBLSRuleDragAndDropProtocol>  *collectionView;
 /*!
  DataSource for the embedded MDKUICollectionViewScrollContentSized
  */

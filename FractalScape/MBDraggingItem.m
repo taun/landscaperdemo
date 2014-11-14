@@ -7,7 +7,6 @@
 //
 
 #import "MBDraggingItem.h"
-#import <MDUiKit/MDKLayerViewDesignable.h>
 
 @interface MBDraggingItem ()
 

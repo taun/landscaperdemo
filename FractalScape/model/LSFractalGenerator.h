@@ -9,33 +9,44 @@
 #import <Foundation/Foundation.h>
 
 /*!
- L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
- F: Move forward by line length drawing a line
- f: Move forward by line length without drawing a line
- +: Turn left by turning angle
- -: Turn right by turning angle
- |: Reverse direction (turn by 180)
- [: Push current drawing state onto stack
- ]: Pop current drawing state off stack
- #: Increment the line width by line width increment
- !: Decrement the line width by line width
- @: Draw a dot with line width radius
- {: Open a polygon
- }: Close a polygon and fill with fill color
- >: Multiply the line length by the line length scale factor
- <: Divide the line length by the line length scale factor
- &: Swap the meaning of + and -
- (: Decrement turning angle by turning angle increment
- ): Increment turning angle by turning angle increment
- 
-Added adhoc rules for more flexibility:
-  s: turn context stroke off - overrides global per context. push [s ...] context first
-  S: turn context stroke on
-  l: turn context fill off
-  L: turn context fill on
-  r: randomize context on
-  R: randomize context off
- 
+ 1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
+ 2   F :  Move forward by line length drawing a line
+ 3   f :  Move forward by line length without drawing a line
+ 4   + :  Turn left by turning angle
+ 5   - :  Turn right by turning angle
+ 6   | :  Reverse direction (turn by 180)
+ 7   [ :  Push current drawing state onto stack
+ 8   ] :  Pop current drawing state off stack
+ 9   # :  Increment the line width by line width increment
+10   ! :  Decrement the line width by line width
+11   O :  Draw a dot with line width radius - fill depends on fractal fill setting
+12   @ :  Draw a filled dot no stroke with line width radius - independent of fractal fill setting
+13   { :  Open a polygon
+14   } :  Close a polygon and fill with fill color
+15   > :  Multiply the line length by the line length scale factor
+16   < :  Divide the line length by the line length scale factor
+17   & :  Swap the meaning of + and -
+18   ( :  Decrement turning angle by turning angle increment
+19   ) :  Increment turning angle by turning angle increment
+     
+    Added adhoc rules for more flexibility:
+20   s :  turn context stroke off - overrides global per context. push [s ...] context first
+21   S :  turn context stroke on
+22   l :  turn context fill off
+23   L :  turn context fill on
+24   r :  randomize context on
+25   R :  randomize context off
+     
+26   A :  Noop placeholder
+27   B :  Noop placeholder
+28   C :  Noop placeholder
+29   D :  Noop placeholder
+30   E :  Noop placeholder
+
+31   a :  next line color - circular n.max++ -> n.min
+32   b :  previous line color
+33   c :  next fill color
+34   d :  previous fill color
  
  
  Variables
@@ -148,21 +159,21 @@ Added adhoc rules for more flexibility:
  */
 @interface LSFractalGenerator : NSObject
 
-@property (nonatomic, strong) LSFractal*        fractal;
+@property (nonatomic, strong) LSFractal*            fractal;
 
 /*!
  Overrides the fractal level in order to allow multiple views of the same fractal with different generation levels.
  */
-@property (nonatomic, assign) double            forceLevel;
+@property (nonatomic, assign) double                forceLevel;
 
-@property (nonatomic,assign,readonly) CGRect    bounds;
+@property (nonatomic,assign,readonly) CGRect        bounds;
 
-@property (nonatomic, assign) BOOL              autoscale;
-@property (nonatomic, assign) double            scale;
-@property (nonatomic, assign) CGPoint           translate;
-@property (nonatomic, assign) CGPathRef  path;
+@property (nonatomic, assign) BOOL                  autoscale;
+@property (nonatomic, assign) double                scale;
+@property (nonatomic, assign) CGPoint               translate;
+//@property (nonatomic, unsafe_unretained) CGPathRef  path;
+@property (nonatomic,unsafe_unretained) CGPathRef   fractalCGPathRef;
 
-+(double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber;
 @property (NS_NONATOMIC_IOSONLY, readonly) double randomScalar;
 /*
  The drawing rules are cached from the managed object. This is because the rules are returned as a set and we need to convert them to a dictionary. We only want to do this once unless the rules are changed. Need to observer the rules and if there is a change, clear the cache.
@@ -171,7 +182,7 @@ Added adhoc rules for more flexibility:
 
 -(void) productionRuleChanged;
 
--(void) appearanceChanged;
+-(void) geometryChanged;
 
 /*!
  Height/Width aspect ratio.
@@ -198,4 +209,36 @@ Added adhoc rules for more flexibility:
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext;
 
 //-(void) charge;
+
+#pragma mark Default Drawing Rule Methods
+-(void) commandDoNothing;
+-(void) commandDrawLine;
+-(void) commandMoveByLine;
+-(void) commandRotateCC;
+-(void) commandRotateC;
+-(void) commandReverseDirection;
+-(void) commandPush;
+-(void) commandPop;
+-(void) commandIncrementLineWidth;
+-(void) commandDecrementLineWidth;
+-(void) commandDrawDot;
+-(void) commandDrawDotFilledNoStroke;
+-(void) commandOpenPolygon;
+-(void) commandClosePolygon;
+-(void) commandUpscaleLineLength;
+-(void) commandDownscaleLineLength;
+-(void) commandSwapRotation;
+-(void) commandDecrementAngle;
+-(void) commandIncrementAngle;
+-(void) commandStrokeOff;
+-(void) commandStrokeOn;
+-(void) commandFillOn;
+-(void) commandFillOff;
+-(void) commandRandomizeOn;
+-(void) commandRandomizeOff;
+-(void) commandNextColor;
+-(void) commandPreviousColor;
+-(void) commandNextFillColor;
+-(void) commandPreviousFillColor;
+
 @end

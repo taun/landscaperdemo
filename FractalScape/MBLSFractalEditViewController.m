@@ -22,7 +22,6 @@
 #import <QuartzCore/QuartzCore.h>
 #include <ImageIO/CGImageProperties.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <MDUiKit/MDUiKit.h>
 
 #include <math.h>
 
@@ -292,11 +291,15 @@ static BOOL SIMULTOUCH = NO;
         
         self.fractal = self.libraryViewController.selectedFractal;
         
-    } else if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
+    } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
         
         [self refreshInterface];
         
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
+        
+        [self refreshInterface];
+        
+    } else if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
         
         [self refreshInterface];
         
@@ -439,8 +442,11 @@ static BOOL SIMULTOUCH = NO;
 }
 -(void) addObserversForFractal:(LSFractal *)fractal {
     if (fractal) {
-        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-        propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
+        NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
+        [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
+        [propertiesToObserve unionSet: [LSFractal redrawProperties]];
+        [propertiesToObserve unionSet: [LSFractal labelProperties]];
+        
         for (NSString* keyPath in propertiesToObserve) {
             [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
         }
@@ -452,8 +458,11 @@ static BOOL SIMULTOUCH = NO;
 }
 -(void) removeObserversForFractal:(LSFractal *)fractal {
     if (fractal) {
-        NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
-        propertiesToObserve = [propertiesToObserve setByAddingObjectsFromSet: [LSFractal labelProperties]];
+        NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
+        [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
+        [propertiesToObserve unionSet: [LSFractal redrawProperties]];
+        [propertiesToObserve unionSet: [LSFractal labelProperties]];
+
         for (NSString* keyPath in propertiesToObserve) {
             [fractal removeObserver: self forKeyPath: keyPath];
         }
@@ -955,7 +964,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (IBAction)playButtonPressed:(id)sender {
-    CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] path];
+    CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] fractalCGPathRef];
     
     CALayer* turtle = [[CALayer alloc] init];
     UIImage* turtleImage = [UIImage imageNamed: @"emptyStatus"];

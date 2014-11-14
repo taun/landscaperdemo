@@ -115,19 +115,28 @@
         appearanceProperties = [[NSSet alloc] initWithObjects:
                                 @"lineLength",
                                 @"lineWidth",
-                                @"lineColors",
-                                @"lineJoin",
-                                @"lineCap",
                                 @"stroke",
                                 @"fill",
-                                @"eoFill",
-                                @"fillColors",
                                 @"turningAngle",
                                 @"baseAngle",
                                 @"randomness",
                                 nil];
     }
     return appearanceProperties;
+}
+
++(NSSet*) redrawProperties {
+    static NSSet* redrawProperties = nil;
+    if (redrawProperties == nil) {
+        redrawProperties = [[NSSet alloc] initWithObjects:
+                            @"lineJoin",
+                            @"lineCap",
+                            @"eoFill",
+                            @"lineColors",
+                            @"fillColors",
+                                nil];
+    }
+    return redrawProperties;
 }
 
 

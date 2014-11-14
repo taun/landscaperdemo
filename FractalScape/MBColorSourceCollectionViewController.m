@@ -13,7 +13,6 @@
 #import "MBColor+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
-#import <MDUiKit/MDUiKit.h>
 #import "QuartzHelpers.h"
 
 

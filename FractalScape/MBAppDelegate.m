@@ -220,7 +220,6 @@
         NSLog(@"Error plistObject should be an dictionary with size > 1. is: %@", plistObject);
         return;
     }
-
     NSDictionary* plistRulesDict = (NSDictionary*)plistObject;
     NSDictionary* plistRuleType = plistRulesDict[@"ruleType"];
 //    NSDictionary* plistRules = plistRulesDict[@"rules"];

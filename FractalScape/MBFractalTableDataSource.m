@@ -22,7 +22,6 @@
 
 #import "MBAxiomEditorTableSection.h"
 
-#import <MDUiKit/MDKLayerViewDesignable.h>
 
 @interface MBFractalTableDataSource ()
 

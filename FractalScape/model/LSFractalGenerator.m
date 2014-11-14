@@ -16,7 +16,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#define MAXPRODUCTLENGTH 10000
+#define MAXPRODUCTLENGTH 20000
 
 #define SHOWDEBUGBORDER 0
 
@@ -32,6 +32,9 @@
 @property (nonatomic,assign) BOOL                   productNeedsGenerating;
 @property (nonatomic,assign) BOOL                   pathNeedsGenerating;
 
+//@property (nonatomic,strong) LSGeneratorStack       *stack;
+//@property (nonatomic,strong) MBFractalSegment*      currentSegment;
+@property (nonatomic,strong) NSMutableArray*        currentSegmentList;
 @property (nonatomic,strong) NSMutableArray*        finishedSegments;
 @property (nonatomic,strong) NSMutableArray*        segmentStack;
 
@@ -39,17 +42,17 @@
 @property (nonatomic,strong) NSMutableDictionary*   cachedDrawingRules;
 @property (nonatomic,strong) NSArray*               cachedLineColors;
 @property (nonatomic,strong) NSArray*               cachedFillColors;
+@property (nonatomic,strong) UIColor*               defaultColor;
 
-@property (nonatomic,strong) MBFractalSegment*      currentSegment;
+
 
 @property (nonatomic,strong) UIImage*               cachedImage;
 @property (nonatomic,strong) NSMutableDictionary*   cachedSelectors;
 
-@property (nonatomic,assign) BOOL                   randomize;
-
--(void) addSegment: (MBFractalSegment*) segment;
+-(void) startNewSegment;
 -(void) pushSegment;
 -(void) popSegment;
+-(void) addFinishedSegment: (MBFractalSegment*) segment;
 -(void) finalizeSegments;
 
 -(void) dispatchDrawingSelectorFromString:(NSString*)selector;
@@ -60,61 +63,26 @@
 -(void) generateProduct;
 -(void) generatePaths;
 
-#pragma mark Default Drawing Rule Methods
--(void) commandDoNothing;
--(void) commandDrawLine;
--(void) commandMoveByLine;
--(void) commandRotateCC;
--(void) commandRotateC;
--(void) commandReverseDirection;
--(void) commandPush;
--(void) commandPop;
--(void) commandIncrementLineWidth;
--(void) commandDecrementLineWidth;
--(void) commandDrawDot;
--(void) commandDrawDotFilledNoStroke;
--(void) commandOpenPolygon;
--(void) commandClosePolygon;
--(void) commandUpscaleLineLength;
--(void) commandDownscaleLineLength;
--(void) commandSwapRotation;
--(void) commandDecrementAngle;
--(void) commandIncrementAngle;
--(void) commandStrokeOff;
--(void) commandStrokeOn;
--(void) commandFillOn;
--(void) commandFillOff;
--(void) commandRandomizeOn;
--(void) commandRandomizeOff;
 @end
 
 #pragma mark - Implementation
 
-@implementation LSFractalGenerator 
+@implementation LSFractalGenerator
 
-@synthesize fractal = _fractal;
-@synthesize forceLevel = _forceLevel;
-@synthesize scale = _scale, autoscale = _autoscale, translate = _translate;
-@synthesize production = _production, productNeedsGenerating = _productNeedsGenerating;
-@synthesize pathNeedsGenerating = _pathNeedsGenerating;
-@synthesize finishedSegments = _segments;
-@synthesize segmentStack = _segmentStack, bounds = _bounds;
-@synthesize path = _path;
-
-@synthesize currentSegment = _currentSegment;
-@synthesize cachedDrawingRules = _cachedDrawingRules;
+@synthesize fractalCGPathRef = _fractalCGPathRef;
 
 - (instancetype)init {
     self = [super init];
     if (self) {
+
         _productNeedsGenerating = YES;
         _pathNeedsGenerating = YES;
         _forceLevel = -1.0;
         _scale = 1.0;
         _autoscale = YES;
         _translate = CGPointMake(0.0, 0.0);
-        _randomize = NO;
         _bounds = CGRectZero;
+        _defaultColor = [UIColor blueColor];
     }
     return self;
 }
@@ -137,6 +105,8 @@
         self.privateObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
         self.privateObjectContext.parentContext = _fractal.managedObjectContext;
 
+        [self cacheColors: _fractal];
+        
         [self addObserverForFractal: _fractal];
         [self productionRuleChanged];
     }
@@ -146,7 +116,9 @@
     if (fractal) {
         [fractal.managedObjectContext performBlock:^{
             
-            NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+            NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
+            [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
+            [propertiesToObserve unionSet: [LSFractal redrawProperties]];
             
             for (NSString* keyPath in propertiesToObserve) {
                 [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
@@ -163,7 +135,9 @@
     if (fractal) {
         [fractal.managedObjectContext performBlock:^{
             
-            NSSet* propertiesToObserve = [[LSFractal productionRuleProperties] setByAddingObjectsFromSet:[LSFractal appearanceProperties]];
+            NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
+            [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
+            [propertiesToObserve unionSet: [LSFractal redrawProperties]];
             
             for (NSString* keyPath in propertiesToObserve) {
                 [fractal removeObserver: self forKeyPath: keyPath];
@@ -184,7 +158,11 @@
         [self productionRuleChanged];
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
         // appearanceChanged
-        [self appearanceChanged];
+        [self geometryChanged];
+        
+    } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
+        [self cacheColors: _fractal];
+        
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -205,6 +183,31 @@
             boundsDescription,
             self.production];
 }
+#pragma mark - layer delegate
+/*!
+ Transforms note:
+ The transforms are the reverse of what I would expect.
+ Calling a translate transform then scale transform seems to apply the transform to the data points as a scale then translate.
+ 
+ Example point at 100@100
+ Translate -50@-50 then scale x2 should be point at 100@100 actual point seems to be 150@150
+ Scale x2 then translate -50@-50 results in 50@50, the desired location.
+ 
+ Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
+ */
+- (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
+    CGRect tempRect = theLayer.bounds;
+    CGRect layerBounds = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height);
+    [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
+}
+/*!
+ Can be called in a private thread, operation.
+
+ @param size
+ @param uiColor
+ 
+ @return
+ */
 -(UIImage*) generateImageSize:(CGSize)size withBackground:(UIColor*)uiColor {
     if (self.productNeedsGenerating || self.pathNeedsGenerating || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
         UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
@@ -238,6 +241,13 @@
     }
     return status;
 }
+/*!
+ Can be called in a private thread, operation
+ 
+ @param layerBounds
+ @param theContext
+ @param isFlipped
+ */
 -(void) drawInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
 
     __block BOOL eoFill = NO;
@@ -374,105 +384,102 @@
             } else {
                 strokeOrFill = kCGPathFillStroke;
             }
-            CGContextSetStrokeColorWithColor(theContext, segment.lineColor);
-            CGContextSetFillColorWithColor(theContext, segment.fillColor);
+            CGContextSetStrokeColorWithColor(theContext, [[self colorForIndex: segment.lineColorIndex inArray: self.cachedLineColors] CGColor]);
+            CGContextSetFillColorWithColor(theContext, [[self colorForIndex: segment.fillColorIndex inArray: self.cachedFillColors] CGColor]);
         } else if (segment.stroke) {
             strokeOrFill = kCGPathStroke;
-            CGContextSetStrokeColorWithColor(theContext, segment.lineColor);
+            CGContextSetStrokeColorWithColor(theContext, [[self colorForIndex: segment.lineColorIndex inArray: self.cachedLineColors] CGColor]);
         } else if (segment.fill) {
             if (eoFill) {
                 strokeOrFill = kCGPathEOFill;
             } else {
                 strokeOrFill = kCGPathFill;
             }
-            CGContextSetFillColorWithColor(theContext, segment.fillColor);
+            CGContextSetFillColorWithColor(theContext, [[self colorForIndex: segment.fillColorIndex inArray: self.cachedFillColors] CGColor] );
         }
         CGContextDrawPath(theContext, strokeOrFill);
     }
 
-    self.path = fractalPath;
+    self.fractalCGPathRef = fractalPath;
     CGPathRelease(fractalPath);
     
     CGContextRestoreGState(theContext);
 }
+-(UIColor*) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {
+    double count = (double)colorArray.count;
+    if (count == 0.0) {
+        return self.defaultColor;
+    }
+    
+    NSInteger moddedIndex = (NSInteger)fabs(fmod((double)index, count));
 
-#pragma mark layer delegate
-/*!
- Transforms note:
-    The transforms are the reverse of what I would expect.
-    Calling a translate transform then scale transform seems to apply the transform to the data points as a scale then translate.
- 
-    Example point at 100@100
-    Translate -50@-50 then scale x2 should be point at 100@100 actual point seems to be 150@150
-    Scale x2 then translate -50@-50 results in 50@50, the desired location.
- 
-    Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
- */
-- (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
-    CGRect tempRect = theLayer.bounds;
-    CGRect layerBounds = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height);
-    [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
+    MBColor* mbColor = colorArray[moddedIndex];
+
+    UIColor* newColor;
+    
+    if (!mbColor) {
+        newColor = self.defaultColor;
+    } else {
+        newColor = [mbColor asUIColor];
+    }
+    
+    return newColor;
 }
 
-#pragma mark lazy init getters
-//-(void)setSegmentStack:(NSMutableArray *)segmentStack {
-//    if (segmentStack != _segmentStack) {
-//        _segmentStack = segmentStack;
-//    }
-//}
+#pragma mark - lazy init getters
+
 -(NSMutableArray*) segmentStack {
     if (_segmentStack == nil) _segmentStack = [[NSMutableArray alloc] initWithCapacity: 1];
     
     return _segmentStack;
 }
-
-#pragma message "TODO: just reference the fractal in the segment?"
-#pragma message "TODO: fix color assignment to use correct index."
+-(NSMutableArray*) currentSegmentList {
+    if (_currentSegmentList == nil) {
+        _currentSegmentList = [[NSMutableArray alloc] initWithCapacity: 1];
+    }
+    return _currentSegmentList;
+}
 -(MBFractalSegment*) currentSegment {
-    if (_currentSegment == nil) {
+    if (!_currentSegmentList || _currentSegmentList.count == 0) {
         
-        MBFractalSegment* newSegment;
-        
-        newSegment = [[MBFractalSegment alloc] init];
+        MBFractalSegment* newSegment = [MBFractalSegment new];
         
         // Copy the fractal core data values to the segment
-        newSegment.lineColor = [self.cachedLineColors[0] asUIColor].CGColor;
         
-        newSegment.fillColor = [self.cachedFillColors[0] asUIColor].CGColor;
+        newSegment.lineColorIndex = 0;
+        newSegment.fillColorIndex = 0;
+        
         newSegment.fill = [self.privateFractal.fill boolValue];
         
         newSegment.lineLength = [self.privateFractal lineLengthAsDouble];
         newSegment.lineLengthScaleFactor = [self.privateFractal.lineLengthScaleFactor doubleValue];
+        
         newSegment.lineWidth = [self.privateFractal.lineWidth doubleValue];
         newSegment.lineWidthIncrement = [self.privateFractal.lineWidthIncrement doubleValue];
+        
         newSegment.stroke = [self.privateFractal.stroke boolValue];
         
         newSegment.turningAngle = [self.privateFractal turningAngleAsDouble];
         newSegment.turningAngleIncrement = [self.privateFractal.turningAngleIncrement doubleValue];
         
+        newSegment.randomize = [self.privateFractal.randomize boolValue];
         newSegment.randomness = [self.privateFractal.randomness doubleValue];
         
-        //code
-        _currentSegment = newSegment;
-        
+        [self.currentSegmentList addObject: newSegment];
     }
-    return _currentSegment;
+    return [self.currentSegmentList lastObject];
 }
--(NSArray*) cachedLineColors {
-    if (self.pathNeedsGenerating) {
-        NSSortDescriptor* sortIndex = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
-        _cachedLineColors = [self.privateFractal.lineColors sortedArrayUsingDescriptors: @[sortIndex]];
-    }
-    
-    return _cachedLineColors;
-}
--(NSArray*) cachedFillColors {
-    if (self.pathNeedsGenerating) {
-        NSSortDescriptor* sortIndex = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
-        _cachedFillColors = [self.privateFractal.lineColors sortedArrayUsingDescriptors: @[sortIndex]];
-    }
-    
-    return _cachedFillColors;
+/*!
+ Needs to only be called from the main thread or passed the privateFractal on the privateFractal thread.
+ If called on the private thread, what happens with the private thread colors.
+ 
+ @param fractal the fractal with the colors to be cached.
+ */
+#pragma message "TODO: change this to just cache the UIColors rather than MBColors to avoid thread problems?"
+-(void) cacheColors: (LSFractal*)fractal {
+    NSSortDescriptor* sortIndex = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
+    _cachedLineColors = [fractal.lineColors sortedArrayUsingDescriptors: @[sortIndex]];
+    _cachedFillColors = [fractal.fillColors sortedArrayUsingDescriptors: @[sortIndex]];
 }
 -(NSMutableDictionary*) cachedDrawingRules {
     if (_cachedDrawingRules == nil) {
@@ -515,141 +522,39 @@
 //}
 
 #pragma mark segment getter setters
--(CGPathRef) path {
-    if (_path == NULL) {
-        _path = CGPathCreateMutable();
-        CGPathRetain(_path);
+-(CGPathRef) fractalCGPathRef {
+    if (_fractalCGPathRef == NULL) {
+        _fractalCGPathRef = CGPathCreateMutable();
+        CGPathRetain(_fractalCGPathRef);
     }
-    return _path;
+    return _fractalCGPathRef;
 }
 
--(void) setPath:(CGPathRef)path {
-    if (CGPathEqualToPath(_path, path)) return;
+-(void) setFractalCGPathRef:(CGPathRef)path {
+    if (CGPathEqualToPath(_fractalCGPathRef, path)) return;
     
-    CGPathRelease(_path);
+    CGPathRelease(_fractalCGPathRef);
     if (path != NULL) {
-        _path = (CGMutablePathRef) CGPathRetain(path);
+        _fractalCGPathRef = (CGMutablePathRef) CGPathRetain(path);
     }
-}
--(double) randomness {
-    return self.currentSegment.randomness;
-}
--(double) turningAngle {
-    double value = self.currentSegment.turningAngle;
-    if (self.randomize) {
-        value *= [self randomScalar];
-    }
-    return value;
-}
-
--(void) setTurningAngle:(double)turningAngle {
-    self.currentSegment.turningAngle = turningAngle;
-}
-
--(double) turningAngleIncrement {
-    double value = self.currentSegment.turningAngleIncrement;
-    if (self.randomize) {
-        value *= [self randomScalar];
-    }
-    return value;
-}
-
--(void) setTurningAngleIncrement:(double)turningAngleIncrement {
-    self.currentSegment.turningAngleIncrement = turningAngleIncrement;
-}
-
--(double) lineLength {
-    double value = self.currentSegment.lineLength;
-    if (self.randomize) {
-        value *= [self randomScalar];
-    }
-    return value;
-}
-
--(void) setLineLength:(double)lineLength {
-    self.currentSegment.lineLength = lineLength;
-}
-
--(double) lineLengthScaleFactor {
-    double value = self.currentSegment.lineLengthScaleFactor;
-    if (self.randomize) {
-        value *= [self randomScalar];
-    }
-    return value;
-}
-
--(void) setLineLengthScaleFactor:(double)lineLengthScaleFactor {
-    self.currentSegment.lineLengthScaleFactor = lineLengthScaleFactor;
-}
-
--(double) lineWidth {
-    double value = fabs(self.currentSegment.lineWidth);
-    if (self.randomize) {
-        value *= [self randomScalar];
-    }
-    return value;
-}
-
--(void) setLineWidth:(double)lineWidth {
-    self.currentSegment.lineWidth = lineWidth;
-}
-
--(double) lineWidthIncrement {
-    double value = self.currentSegment.lineWidthIncrement;
-    if (self.randomize) {
-        value *= [self randomScalar];
-    }
-    return value;
-}
-
--(void) setLineWidthIncrement:(double)lineWidthIncrement {
-    self.currentSegment.lineWidthIncrement = lineWidthIncrement;
-}
-
--(CGColorRef) lineColor {
-    return self.currentSegment.lineColor;
-}
-
--(void) setLineColor:(CGColorRef)lineColor {
-    self.currentSegment.lineColor = lineColor;
-}
-
--(BOOL) stroke {
-    return self.currentSegment.stroke;
-}
-
--(void) setStroke:(BOOL)stroke {
-    self.currentSegment.stroke = stroke;
-}
-
--(CGColorRef) fillColor {
-    return self.currentSegment.fillColor;
-}
-
--(void) setFillColor:(CGColorRef)fillColor {
-    self.currentSegment.fillColor = fillColor;
-}
-
--(BOOL) fill {
-    return self.currentSegment.fill;
-}
-
--(void) setFill:(BOOL)fill {
-    self.currentSegment.fill = fill;
 }
 
 #pragma mark segment methods
-
+-(void) startNewSegment {
+    MBFractalSegment* newCurrentSegment = [[self.currentSegmentList lastObject] copySettings];
+    [self.currentSegmentList addObject: newCurrentSegment];
+}
 /*!
  Should always be an initial current segment.
  Push the currentSegment
  Create a new currentSegment copying the old segments settings
  */
 -(void) pushSegment {
-    [self.segmentStack addObject: self.currentSegment];
-    MBFractalSegment* newCurrentSegment = [self.currentSegment copySettings];
+    MBFractalSegment* newCurrentSegment = [[self.currentSegmentList lastObject] copySettings];
+    [self.segmentStack addObject: self.currentSegmentList];
+    self.currentSegmentList = nil; // force a new lazy list to be created
     
-    self.currentSegment = newCurrentSegment;
+    [self.currentSegmentList addObject: newCurrentSegment];
 }
 
 /*!
@@ -658,11 +563,16 @@
  */
 -(void) popSegment {
     if ([self.segmentStack count]>0) {
-        MBFractalSegment* olderCurrentSegment = [self.segmentStack lastObject];
-        [self.segmentStack removeLastObject];
         
-        [self addSegment: self.currentSegment];
-        self.currentSegment = olderCurrentSegment;
+        // add currentSegments to path
+        for (MBFractalSegment* currentSegment in self.currentSegmentList) {
+            [self addFinishedSegment: currentSegment];
+        }
+        
+        // restore popped segments
+        self.currentSegmentList = [self.segmentStack lastObject];
+        
+        [self.segmentStack removeLastObject];
     }
 }
 
@@ -671,22 +581,27 @@
  Check to see if there are any segments left on the stack and move them.
  */
 -(void) finalizeSegments {
-    [self addSegment: self.currentSegment];
+    for (MBFractalSegment* segment in self.currentSegmentList) {
+        [self addFinishedSegment: segment];
+    }
+    
     if (_segmentStack != nil) {
         // Copy segmentStack so it does not mutate during iteration.
         NSArray* localSegmentStackCopy = [self.segmentStack copy];
-        for (MBFractalSegment* segment in localSegmentStackCopy) {
-            [self addSegment: segment];
-            [self.segmentStack removeObject: segment];
+        for (NSArray* segmentList in [localSegmentStackCopy copy]) {
+            for (MBFractalSegment* segment in segmentList) {
+                [self addFinishedSegment: segment];
+                [self.segmentStack removeObject: segment];
+            }
         }
     }
 }
 
--(void) addSegment: (MBFractalSegment*) segment {
+-(void) addFinishedSegment: (MBFractalSegment*) segment {
     CGRect tempBounds = CGRectZero;
     
-    if (_segments == nil) {
-        _segments = [[NSMutableArray alloc] initWithCapacity: 2];
+    if (_finishedSegments == nil) {
+        _finishedSegments = [[NSMutableArray alloc] initWithCapacity: 2];
         
         // intiallize the bounds to the first segment
         tempBounds = CGPathGetBoundingBox(segment.path);
@@ -696,15 +611,11 @@
         self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
     }
     _maxLineWidth = MAX(_maxLineWidth, segment.lineWidth);
-    [_segments addObject: segment];
+    [_finishedSegments addObject: segment];
 }
 
 
 #pragma mark Custom Getter Setters
-
--(BOOL) productNeedsGenerating {
-    return _productNeedsGenerating;
-}
 
 -(void) setProductNeedsGenerating:(BOOL)productNeedsGenerating {
     _productNeedsGenerating = productNeedsGenerating;
@@ -719,8 +630,8 @@
 -(void) setPathNeedsGenerating:(BOOL)pathNeedsGenerating {
     _pathNeedsGenerating = pathNeedsGenerating;
     if (_pathNeedsGenerating) {
-        _currentSegment = nil;
-        _segments = nil;
+        _currentSegmentList = nil;
+        _finishedSegments = nil;
         _segmentStack = nil;
     }
 }
@@ -820,7 +731,7 @@
 
 #pragma mark path generation
 
--(void) appearanceChanged {
+-(void) geometryChanged {
     self.pathNeedsGenerating = YES;
 }
 /*!
@@ -843,7 +754,7 @@
             
             [self evaluateRule: rule];
         }
-        if (self.fill) {
+        if (self.currentSegment.fill) {
             CGPathCloseSubpath(self.currentSegment.path);
         }
         [self finalizeSegments];
@@ -903,26 +814,26 @@
 }
 
 -(void) commandDrawLine {
-    double tx = self.lineLength;
+    double tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
     CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0);
     self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
 }
 
 -(void) commandMoveByLine {
-    double tx = self.lineLength;
+    double tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
     CGPathMoveToPoint(self.currentSegment.path, &local, tx, 0);
     self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
 }
 
 -(void) commandRotateCC {
-    double theta = self.turningAngle;
+    double theta = self.currentSegment.turningAngle;
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -theta);
 }
 
 -(void) commandRotateC {
-    double theta = self.turningAngle;
+    double theta = self.currentSegment.turningAngle;
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, theta);
 }
 
@@ -939,15 +850,15 @@
 }
 
 -(void) commandIncrementLineWidth {
-    self.currentSegment.lineWidth += self.lineWidthIncrement;
+    self.currentSegment.lineWidth += self.currentSegment.lineWidthIncrement;
 }
 
 -(void) commandDecrementLineWidth {
-    self.currentSegment.lineWidth = fmax(0,(self.lineWidth - self.lineWidthIncrement));
+    self.currentSegment.lineWidth = fmax(0,(self.currentSegment.lineWidth - self.currentSegment.lineWidthIncrement));
 }
 
 -(void) commandDrawDot {
-    [self drawCircle: self.lineWidth];
+    [self drawCircle: self.currentSegment.lineWidth];
 }
 -(void) commandDrawDotFilledNoStroke {
     [self commandPush];
@@ -968,12 +879,12 @@
 }
 
 -(void) commandUpscaleLineLength {
-    self.currentSegment.lineLength *= self.lineLengthScaleFactor;
+    self.currentSegment.lineLength *= self.currentSegment.lineLengthScaleFactor;
 }
 
 -(void) commandDownscaleLineLength {
     if (self.currentSegment.lineLengthScaleFactor > 0) {
-        self.currentSegment.lineLength = fmax(0,(self.lineLength / self.lineLengthScaleFactor));
+        self.currentSegment.lineLength = fmax(0,(self.currentSegment.lineLength / self.currentSegment.lineLengthScaleFactor));
     }
 }
 
@@ -984,31 +895,51 @@
 }
 
 -(void) commandDecrementAngle {
-    self.currentSegment.turningAngle -= self.turningAngleIncrement;
+    self.currentSegment.turningAngle -= self.currentSegment.turningAngleIncrement;
 }
 
 -(void) commandIncrementAngle {
-    self.currentSegment.turningAngle += self.turningAngleIncrement;
+    self.currentSegment.turningAngle += self.currentSegment.turningAngleIncrement;
 }
 
 -(void) commandStrokeOff {
+    [self startNewSegment];
     self.currentSegment.stroke = NO;
 }
 
 -(void) commandStrokeOn {
+    [self startNewSegment];
     self.currentSegment.stroke = YES;
 }
 -(void) commandFillOff {
+    [self startNewSegment];
     self.currentSegment.fill = NO;
 }
 -(void) commandFillOn {
+    [self startNewSegment];
     self.currentSegment.fill = YES;
 }
 -(void) commandRandomizeOff {
-    self.randomize = NO;
+    self.currentSegment.randomize = NO;
 }
 -(void) commandRandomizeOn {
-    self.randomize = YES;
+    self.currentSegment.randomize = YES;
+}
+-(void)commandNextColor {
+    [self startNewSegment];
+    self.currentSegment.lineColorIndex = ++self.currentSegment.lineColorIndex;
+}
+-(void)commandPreviousColor {
+    [self startNewSegment];
+    self.currentSegment.lineColorIndex = --self.currentSegment.lineColorIndex;
+}
+-(void)commandNextFillColor {
+    [self startNewSegment];
+    self.currentSegment.fillColorIndex = ++self.currentSegment.fillColorIndex;
+}
+-(void)commandPreviousFillColor {
+    [self startNewSegment];
+    self.currentSegment.fillColorIndex = --self.currentSegment.fillColorIndex;
 }
 #pragma mark helper methods
 
@@ -1029,13 +960,6 @@
         result.width = width/height;
     }
     return result;
-}
--(double) randomScalar {
-    return [LSFractalGenerator randomDoubleBetween: (1.0 - self.randomness)  and: (1.0 + self.randomness)];
-}
-+ (double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber {
-    double diff = bigNumber - smallNumber;
-    return (((double) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
 }
 //TODO: why is this called. somehow related to adding a subview to LevelN view.
 // When the subview is touched even "charge" gets called to the delegate which seems to be the generator even though the generator is only the delegate of the LevelN view layer.

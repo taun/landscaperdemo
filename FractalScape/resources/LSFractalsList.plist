@@ -752,6 +752,22 @@
 		<array>
 			<dict>
 				<key>name</key>
+				<string>Brown 0</string>
+				<key>identifier</key>
+				<string>brown0</string>
+				<key>red</key>
+				<real>0.31</real>
+				<key>green</key>
+				<real>0.118</real>
+				<key>blue</key>
+				<real>0.078</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
 				<string>Green</string>
 				<key>identifier</key>
 				<string>green</string>
@@ -816,6 +832,22 @@
 	<dict>
 		<key>lineColors</key>
 		<array>
+			<dict>
+				<key>name</key>
+				<string>Brown 3</string>
+				<key>identifier</key>
+				<string>brown3</string>
+				<key>red</key>
+				<real>0.5921568627451</real>
+				<key>green</key>
+				<real>0.45882352941176</real>
+				<key>blue</key>
+				<real>0.28235294117647</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
 			<dict>
 				<key>name</key>
 				<string>Green</string>
@@ -932,6 +964,22 @@
 	<dict>
 		<key>lineColors</key>
 		<array>
+			<dict>
+				<key>name</key>
+				<string>Brown 3</string>
+				<key>identifier</key>
+				<string>brown3</string>
+				<key>red</key>
+				<real>0.5921568627451</real>
+				<key>green</key>
+				<real>0.45882352941176</real>
+				<key>blue</key>
+				<real>0.28235294117647</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
 			<dict>
 				<key>name</key>
 				<string>Green</string>
@@ -1176,6 +1224,22 @@
 	<dict>
 		<key>lineColors</key>
 		<array>
+			<dict>
+				<key>name</key>
+				<string>Brown 3</string>
+				<key>identifier</key>
+				<string>brown3</string>
+				<key>red</key>
+				<real>0.5921568627451</real>
+				<key>green</key>
+				<real>0.45882352941176</real>
+				<key>blue</key>
+				<real>0.28235294117647</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
 			<dict>
 				<key>name</key>
 				<string>Green</string>

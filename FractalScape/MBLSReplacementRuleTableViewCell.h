@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MBXibAutolayoutTableCell.h"
-#import <MDUiKit/MDUiKit.h>
 #import "LSDrawingRule+addons.h"
 #import "LSReplacementRule+addons.h"
 #import "MBLSRuleDragAndDropProtocol.h"

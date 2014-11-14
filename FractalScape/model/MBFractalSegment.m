@@ -15,22 +15,35 @@
 
 +(NSArray*)settingsToCopy {
     return @[@"turningAngle",
-            @"turningAngleIncrement",
-            @"lineLength", 
-            @"lineWidth",
-            @"lineWidthIncrement",
-            @"lineLengthScaleFactor",
-            @"randomness",
-            @"lineColor",
-            @"fillColor",
-            @"fill",
-            @"stroke",
-            @"transform"];
+             @"turningAngleIncrement",
+             @"lineLength",
+             @"lineWidth",
+             @"lineWidthIncrement",
+             @"lineLengthScaleFactor",
+             @"randomize",
+             @"randomness",
+             @"fill",
+             @"stroke",
+             @"transform",
+             @"lineColorIndex",
+             @"fillColorIndex"
+             ];
 }
+
++ (double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber {
+    double diff = bigNumber - smallNumber;
+    return (((double) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
+}
+
+-(double) randomScalar {
+    return [[self class] randomDoubleBetween: (1.0 - self.randomness)  and: (1.0 + self.randomness)];
+}
+
 
 - (instancetype)init {
     self = [super init];
     if (self) {
+        
         
         _turningAngle = M_PI_4;
         _turningAngleIncrement = 0.0;
@@ -59,45 +72,45 @@
     
     CGPathRelease(_path);
     if (path != NULL) {
-    	_path = (CGMutablePathRef) CGPathRetain(path);
+        _path = (CGMutablePathRef) CGPathRetain(path);
     }
 }
 
--(CGColorRef) lineColor {
-    if (_lineColor == NULL) {
-        _lineColor = CreateDeviceRGBColor(0.0, 0.0, 0.0, 1.0);
-        CGColorRetain(_lineColor);
-        self.stroke = YES;
-    }
-    return _lineColor;
-}
+//-(CGColorRef) lineColor {
+//    if (_lineColor == NULL) {
+//        _lineColor = CreateDeviceRGBColor(0.0, 0.0, 0.0, 1.0);
+//        CGColorRetain(_lineColor);
+//        self.stroke = YES;
+//    }
+//    return _lineColor;
+//}
 
--(void) setLineColor:(CGColorRef)lineColor {
-    if (CGColorEqualToColor(_lineColor,lineColor)) return;
-    
-    CGColorRelease(_lineColor);
-    if (lineColor != NULL) {
-    	_lineColor = CGColorRetain(lineColor);
-    }
-}
+//-(void) setLineColor:(CGColorRef)lineColor {
+//    if (CGColorEqualToColor(_lineColor,lineColor)) return;
+//    
+//    CGColorRelease(_lineColor);
+//    if (lineColor != NULL) {
+//        _lineColor = CGColorRetain(lineColor);
+//    }
+//}
 
--(CGColorRef) fillColor {
-    if (_fillColor == NULL) {
-        _fillColor = CreateDeviceGrayColor(0.8, 0.8);
-        CGColorRetain(_fillColor);
-        self.fill = NO;
-    }
-    return _fillColor;
-}
-
--(void) setFillColor:(CGColorRef)fillColor {
-    if (CGColorEqualToColor(_fillColor,fillColor)) return;
-    
-    CGColorRelease(_fillColor);
-    if (fillColor != NULL) {
-    	_fillColor = CGColorRetain(fillColor);
-    }
-}
+//-(CGColorRef) fillColor {
+//    if (_fillColor == NULL) {
+//        _fillColor = CreateDeviceGrayColor(0.8, 0.8);
+//        CGColorRetain(_fillColor);
+//        self.fill = NO;
+//    }
+//    return _fillColor;
+//}
+//
+//-(void) setFillColor:(CGColorRef)fillColor {
+//    if (CGColorEqualToColor(_fillColor,fillColor)) return;
+//    
+//    CGColorRelease(_fillColor);
+//    if (fillColor != NULL) {
+//        _fillColor = CGColorRetain(fillColor);
+//    }
+//}
 
 -(MBFractalSegment*) copySettings {
     MBFractalSegment* newSegment = [[MBFractalSegment alloc] init];
@@ -115,31 +128,83 @@
 #pragma mark - KVC overrides for CGColorRef properties
 
 - (id)valueForUndefinedKey:(NSString *)key {
-    if ([key isEqualToString:@"lineColor"]) {
-        return (id)self.lineColor;
-    } else if ([key isEqualToString:@"fillColor"]) {
-        return (id)self.fillColor;
-    }
+//    if ([key isEqualToString:@"lineColor"]) {
+//        return (id)self.lineColor;
+//    } else if ([key isEqualToString:@"fillColor"]) {
+//        return (id)self.fillColor;
+//    }
     
     return [super valueForUndefinedKey:key];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    if ([key isEqualToString:@"lineColor"]) {
-        self.lineColor = (__bridge CGColorRef) value;
-    } else if ([key isEqualToString:@"fillColor"]) {
-        self.fillColor = (__bridge CGColorRef) value;
-    } else {
+//    if ([key isEqualToString:@"lineColor"]) {
+//        self.lineColor = (__bridge CGColorRef) value;
+//    } else if ([key isEqualToString:@"fillColor"]) {
+//        self.fillColor = (__bridge CGColorRef) value;
+//    } else {
         [super setValue: value forUndefinedKey: key];
-    }
+//    }
 }
 
 -(void) dealloc {
     CGPathRelease(_path);
-    CGColorRelease(_lineColor);
-    CGColorRelease(_fillColor);
+//    CGColorRelease(_lineColor);
+//    CGColorRelease(_fillColor);
 }
 
+
+
+-(double) turningAngle {
+    double value = _turningAngle;
+    if (_randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
+}
+
+-(double) turningAngleIncrement {
+    double value = _turningAngleIncrement;
+    if (_randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
+}
+
+-(double) lineLength {
+    double value = _lineLength;
+    if (_randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
+}
+
+-(double) lineLengthScaleFactor {
+    double value = _lineLengthScaleFactor;
+    if (_randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
+}
+
+-(double) lineWidth {
+    double value = fabs(_lineWidth);
+    if (_randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
+}
+
+-(double) lineWidthIncrement {
+    double value = _lineWidthIncrement;
+    if (_randomize) {
+        value *= [self randomScalar];
+    }
+    return value;
+}
+
+
+#pragma message "TODO: move to a utility category of UIColor then use in MBColor debugDescription."
 -(NSString*) colorAsString: (CGColorRef) color {
     NSString* resultString;
     NSArray* componentsArray;
@@ -157,10 +222,10 @@
             // For RGB colors, we calculate luminance assuming sRGB Primaries as per
             // http://en.wikipedia.org/wiki/Luminance_(relative)
             componentsArray =@[@"RGB:",
-                              @(components[0]),
-                              @(components[1]),
-                              @(components[2]),
-                              @(components[3])];
+                               @(components[0]),
+                               @(components[1]),
+                               @(components[2]),
+                               @(components[3])];
             break;
             
         default:
@@ -176,12 +241,14 @@
 -(NSString*) debugDescription {
     NSString* stroke = self.stroke ? @"YES" : @"NO";
     NSString* fill = self.fill ? @"YES" : @"NO";
-    NSString* lineColorComponents = [self colorAsString: self.lineColor];
-    NSString* fillColorComponents = [self colorAsString: self.fillColor];
+//    NSString* lineColorComponents = [self colorAsString: self.lineColor];
+//    NSString* fillColorComponents = [self colorAsString: self.fillColor];
     
-    return [NSString stringWithFormat: @"Path %@; lineWidth = %g; LineColor = %@; stroke = %@; FillColor = %@; fill = %@", 
-            _path, _lineWidth, lineColorComponents, stroke, fillColorComponents, fill];
+    return [NSString stringWithFormat: @"Path %@; lineWidth = %g; LineColorIndex = %ld; stroke = %@; FillColorIndex = %ld; fill = %@",
+            _path, _lineWidth, (long)_lineColorIndex, stroke, (long)_fillColorIndex, fill];
 }
+
+
 
 
 @end
