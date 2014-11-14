@@ -96,11 +96,13 @@
         
         //Sort rules before adding so orderedSet is created in desired order.
         //Will not work as desired if rules using same indexes already exist in LSDrawingRuleType.
-        NSSortDescriptor* ruleIndexSorting = [NSSortDescriptor sortDescriptorWithKey: @"displayIndex" ascending: YES];
-        NSSortDescriptor* ruleAlphaSorting = [NSSortDescriptor sortDescriptorWithKey: @"iconIdentifierString" ascending: YES];
-        NSArray* sortedRules = [rulesArray sortedArrayUsingDescriptors: @[ruleIndexSorting,ruleAlphaSorting]];
+//        NSSortDescriptor* ruleIndexSorting = [NSSortDescriptor sortDescriptorWithKey: @"displayIndex" ascending: YES];
+//        NSSortDescriptor* ruleAlphaSorting = [NSSortDescriptor sortDescriptorWithKey: @"iconIdentifierString" ascending: YES];
+//        NSArray* sortedRules = [rulesArray sortedArrayUsingDescriptors: @[ruleIndexSorting,ruleAlphaSorting]];
         
-        for (NSDictionary* rule in sortedRules) {
+        NSUInteger ruleIndex = self.rules.count;
+        
+        for (NSDictionary* rule in rulesArray) {
             BOOL alreadyExists = NO;
             
             for (NSManagedObject* existingRuleObject in currentDefaultRules) {
@@ -116,10 +118,11 @@
                 newDrawingRule.productionString = rule[@"productionString"];
                 newDrawingRule.drawingMethodString = rule[@"drawingMethodString"];
                 newDrawingRule.iconIdentifierString = rule[@"iconIdentifierString"];
-                newDrawingRule.displayIndex = rule[@"displayIndex"];
+                newDrawingRule.displayIndex = @(ruleIndex);
                 [currentDefaultRules addObject: newDrawingRule]; // this should also take care of relationship?
                 addedRulesCount += 1;
             }
+            ruleIndex++;
         }
     }
     return addedRulesCount;
