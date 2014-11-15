@@ -44,6 +44,10 @@
 @property (nonatomic,strong) NSArray*               cachedFillColors;
 @property (nonatomic,strong) UIColor*               defaultColor;
 
+@property (nonatomic,assign) BOOL                   cachedEoFill;
+@property (nonatomic,assign) NSInteger              cachedLineCap;
+@property (nonatomic,assign) NSInteger              cachedLineJoin;
+
 
 
 @property (nonatomic,strong) UIImage*               cachedImage;
@@ -63,6 +67,8 @@
 -(void) generateProduct;
 -(void) generatePaths;
 
+-(void) cacheColors: (LSFractal*)fractal;
+-(void) cacheLineEnds: (LSFractal*)fractal;
 @end
 
 #pragma mark - Implementation
@@ -106,6 +112,7 @@
         self.privateObjectContext.parentContext = _fractal.managedObjectContext;
 
         [self cacheColors: _fractal];
+        [self cacheLineEnds: _fractal];
         
         [self addObserverForFractal: _fractal];
         [self productionRuleChanged];
@@ -156,12 +163,18 @@
         [keyPath isEqualToString: @"contextRule"]) {
         // productionRuleChanged
         [self productionRuleChanged];
+        [self cacheColors: _fractal];
+        [self cacheLineEnds: _fractal];
+        
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
         // appearanceChanged
         [self geometryChanged];
+        [self cacheColors: _fractal];
+        [self cacheLineEnds: _fractal];
         
     } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
         [self cacheColors: _fractal];
+        [self cacheLineEnds: _fractal];
         
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -250,9 +263,6 @@
  */
 -(void) drawInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
 
-    __block BOOL eoFill = NO;
-    __block CGLineCap lineCap = kCGLineCapButt;
-    __block CGLineJoin lineJoin = kCGLineJoinBevel;
     
     // Following is because layerBounds value disappears after 1st if statement line below.
     // cause totally unknown.
@@ -272,9 +282,6 @@
                 [self generatePaths];
             }
             
-            eoFill = [self.privateFractal.eoFill boolValue];
-            lineCap = [self.privateFractal.lineCap intValue];
-            lineJoin = [self.privateFractal.lineJoin intValue];
         }];
     }
     
@@ -368,8 +375,8 @@
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
 //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
         
-        CGContextSetLineCap(theContext,lineCap);
-        CGContextSetLineJoin(theContext, lineJoin);
+        CGContextSetLineCap(theContext,self.cachedLineCap);
+        CGContextSetLineJoin(theContext, self.cachedLineJoin);
         CGContextSetLineWidth(theContext, segment.lineWidth);
         
         CGAffineTransform ctm = CGContextGetCTM(theContext);
@@ -379,7 +386,7 @@
         
         CGPathDrawingMode strokeOrFill = kCGPathStroke;
         if (segment.fill && segment.stroke) {
-            if (eoFill) {
+            if (self.cachedEoFill) {
                 strokeOrFill = kCGPathEOFillStroke;
             } else {
                 strokeOrFill = kCGPathFillStroke;
@@ -390,7 +397,7 @@
             strokeOrFill = kCGPathStroke;
             CGContextSetStrokeColorWithColor(theContext, [[self colorForIndex: segment.lineColorIndex inArray: self.cachedLineColors] CGColor]);
         } else if (segment.fill) {
-            if (eoFill) {
+            if (self.cachedEoFill) {
                 strokeOrFill = kCGPathEOFill;
             } else {
                 strokeOrFill = kCGPathFill;
@@ -480,6 +487,11 @@
     NSSortDescriptor* sortIndex = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
     _cachedLineColors = [fractal.lineColors sortedArrayUsingDescriptors: @[sortIndex]];
     _cachedFillColors = [fractal.fillColors sortedArrayUsingDescriptors: @[sortIndex]];
+}
+-(void) cacheLineEnds: (LSFractal*)fractal {
+    _cachedEoFill = fractal.eoFill ? [fractal.eoFill boolValue] : NO;
+    _cachedLineCap = fractal.lineCap ? [fractal.lineCap intValue] : kCGLineCapButt;
+    _cachedLineJoin = fractal.lineJoin ? [fractal.lineJoin intValue] : kCGLineJoinBevel;
 }
 -(NSMutableDictionary*) cachedDrawingRules {
     if (_cachedDrawingRules == nil) {
