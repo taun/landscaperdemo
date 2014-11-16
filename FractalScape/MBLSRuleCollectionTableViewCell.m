@@ -9,6 +9,8 @@
 #import "MBLSRuleCollectionTableViewCell.h"
 #import "MBLSRuleCollectionViewCell.h"
 
+#import <MDUiKit/MDUiKit.h>
+
 @interface MBLSRuleCollectionTableViewCell ()
 
 

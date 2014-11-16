@@ -8,6 +8,8 @@
 
 #import "MBLSRuleCollectionViewCell.h"
 
+#import <MDUiKit/MDUiKit.h>
+
 @implementation MBLSRuleCollectionViewCell
 
 -(instancetype)initWithFrame:(CGRect)frame {
@@ -35,12 +37,18 @@
     layerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent: 0.15];
     
     self.selectedBackgroundView = layerView;
+    
+    self.defaultImage = self.customImageView.image;
 }
 
 -(void)setCellItem:(id)item {
     if (_cellItem != item) {
         _cellItem = item;
-        self.customImageView.image = [_cellItem asImage];
+        if (item) {
+            self.customImageView.image = [_cellItem asImage];
+        } else {
+            self.customImageView.image = self.defaultImage;
+        }
     }
 }
 

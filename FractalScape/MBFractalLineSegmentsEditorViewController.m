@@ -124,8 +124,6 @@
     self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];
     self.randomnessStepper.value = [[self.fractal randomness] doubleValue];
 
-    self.strokeSwitch.on = [self.fractal.stroke boolValue];
-    self.fillSwitch.on = [self.fractal.fill boolValue];
     self.fillEvenOddSwitch.on = [self.fractal.eoFill boolValue];
     
     self.lineCapSegment.selectedSegmentIndex = [self.fractal.lineCap intValue];

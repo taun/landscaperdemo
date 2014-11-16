@@ -38,6 +38,8 @@
     // this way it still takes the tintColor from IB.
     _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
     _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
+    _pageColorTemplateImage.tintColor = _pageColorTemplateImage.tintColor;
+    
     [super viewDidLoad];
 }
 -(void)setFractal:(LSFractal *)fractal {
@@ -174,42 +176,53 @@
         // Keep dragged view within the table bounds
         self.draggingItem.viewCenter = constrainedPoint;
         
+        CGRect pageColorFrame = self.pageColorDestinationImageView.bounds;
+        CGRect superPageColorRect = [self.view convertRect: pageColorFrame fromView: self.pageColorDestinationImageView];
+        BOOL overPageColor = CGRectContainsPoint(superPageColorRect, self.draggingItem.viewCenter);
         
-        CGPoint lineColorsCollectionPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalLineColorsDestinationCollection];
-        NSIndexPath* lineCellIndex = [self.fractalLineColorsDestinationCollection indexPathForItemAtPoint: lineColorsCollectionPoint];
-        if (lineCellIndex) {
-            MBLSRuleCollectionViewCell* destinationCell = (MBLSRuleCollectionViewCell*)[self.fractalLineColorsDestinationCollection cellForItemAtIndexPath: lineCellIndex];
-            MBColor* color = destinationCell.cellItem;
-            if (!color) {
-                // over a placeholder so replace with a color
-                if (self.draggingItem.dragItem != color) {
-                    // only add once
-                    NSInteger newIndex = [self.cachedFractalColors[0] count];
-                    MBColor* newColor = (MBColor*)self.draggingItem.dragItem;
-                    newColor.index = @(newIndex);
-                    [newColor addFractalLinesObject: self.fractal];
-                    self.colorsChanged = YES;
-                    [self.fractalLineColorsDestinationCollection reloadData];
-                    [self dragDidEndAtSourceCollection: collectionViewController withGesture: gesture];
-                }
+#pragma message "TODO: use the page cells did enter and exit protocol so color can be reverted when drag exits."
+        if (overPageColor) {
+            // drop for page color
+            if (self.pageColorDestinationImageView.image != [self.draggingItem.dragItem asImage]) {
+                self.pageColorDestinationImageView.image = [self.draggingItem.dragItem asImage];
             }
         } else {
-            CGPoint fillColorsCollectionPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalFillColorsDestinationCollection];
-            NSIndexPath* fillCellIndex = [self.fractalFillColorsDestinationCollection indexPathForItemAtPoint: fillColorsCollectionPoint];
-            if (fillCellIndex) {
-                MBLSRuleCollectionViewCell* destinationCell = (MBLSRuleCollectionViewCell*)[self.fractalFillColorsDestinationCollection cellForItemAtIndexPath: fillCellIndex];
+            CGPoint lineColorsCollectionPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalLineColorsDestinationCollection];
+            NSIndexPath* lineCellIndex = [self.fractalLineColorsDestinationCollection indexPathForItemAtPoint: lineColorsCollectionPoint];
+            if (lineCellIndex) {
+                MBLSRuleCollectionViewCell* destinationCell = (MBLSRuleCollectionViewCell*)[self.fractalLineColorsDestinationCollection cellForItemAtIndexPath: lineCellIndex];
                 MBColor* color = destinationCell.cellItem;
                 if (!color) {
                     // over a placeholder so replace with a color
                     if (self.draggingItem.dragItem != color) {
                         // only add once
-                        NSInteger newIndex = [self.cachedFractalColors[1] count];
+                        NSInteger newIndex = [self.cachedFractalColors[0] count];
                         MBColor* newColor = (MBColor*)self.draggingItem.dragItem;
                         newColor.index = @(newIndex);
-                        [newColor addFractalFillsObject: self.fractal];
+                        [newColor addFractalLinesObject: self.fractal];
                         self.colorsChanged = YES;
-                        [self.fractalFillColorsDestinationCollection reloadData];
+                        [self.fractalLineColorsDestinationCollection reloadData];
                         [self dragDidEndAtSourceCollection: collectionViewController withGesture: gesture];
+                    }
+                }
+            } else {
+                CGPoint fillColorsCollectionPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalFillColorsDestinationCollection];
+                NSIndexPath* fillCellIndex = [self.fractalFillColorsDestinationCollection indexPathForItemAtPoint: fillColorsCollectionPoint];
+                if (fillCellIndex) {
+                    MBLSRuleCollectionViewCell* destinationCell = (MBLSRuleCollectionViewCell*)[self.fractalFillColorsDestinationCollection cellForItemAtIndexPath: fillCellIndex];
+                    MBColor* color = destinationCell.cellItem;
+                    if (!color) {
+                        // over a placeholder so replace with a color
+                        if (self.draggingItem.dragItem != color) {
+                            // only add once
+                            NSInteger newIndex = [self.cachedFractalColors[1] count];
+                            MBColor* newColor = (MBColor*)self.draggingItem.dragItem;
+                            newColor.index = @(newIndex);
+                            [newColor addFractalFillsObject: self.fractal];
+                            self.colorsChanged = YES;
+                            [self.fractalFillColorsDestinationCollection reloadData];
+                            [self dragDidEndAtSourceCollection: collectionViewController withGesture: gesture];
+                        }
                     }
                 }
             }

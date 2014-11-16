@@ -28,8 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel        *fractalBaseAngle;
 
 
-@property (weak, nonatomic) IBOutlet UISwitch       *strokeSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch       *fillSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch       *fillEvenOddSwitch;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *lineCapSegment;

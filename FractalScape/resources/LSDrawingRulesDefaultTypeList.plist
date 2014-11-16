@@ -266,7 +266,7 @@
 			<key>drawingMethodString</key>
 			<string>commandPreviousFillColor</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRulePreviousColor</string>
+			<string>kBIconRulePreviousFillColor</string>
 		</dict>
 	</array>
 	<key>ruleType</key>

@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *fractalFillColorsDestinationCollection;
 @property (weak, nonatomic) IBOutlet UIImageView *lineColorsTemplateImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *fillColorsTemplateImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *pageColorTemplateImage;
+@property (weak, nonatomic) IBOutlet UIImageView *pageColorDestinationImageView;
 
 -(void)dragDidStartAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;
 -(void)dragDidChangeAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;

@@ -12,11 +12,7 @@
 		<key>name</key>
 		<string>A spiral</string>
 		<key>startingRules</key>
-		<string>AAAA</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlAAAA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -72,11 +68,7 @@
 		<key>name</key>
 		<string>A leaf</string>
 		<key>startingRules</key>
-		<string>A</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -136,11 +128,7 @@
 		<key>name</key>
 		<string>Von Koch Curve 3</string>
 		<key>startingRules</key>
-		<string>F-F-F-F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF-F-F-F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -192,11 +180,7 @@
 		<key>name</key>
 		<string>Von Koch Curve</string>
 		<key>startingRules</key>
-		<string>F-F-F-F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF-F-F-F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -248,11 +232,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
 		<key>startingRules</key>
-		<string>-F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>Sl-F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -304,11 +284,7 @@
 		<key>name</key>
 		<string>Islands and lakes</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF+F+F+F</string>
 		<key>level</key>
 		<integer>2</integer>
 		<key>lineLength</key>
@@ -432,11 +408,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake Curve</string>
 		<key>startingRules</key>
-		<string>F</string>
-		<key>fill</key>
-		<true/>
-		<key>stroke</key>
-		<true/>
+		<string>SLF</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -488,11 +460,7 @@
 		<key>name</key>
 		<string>Hilbert Curve</string>
 		<key>startingRules</key>
-		<string>A</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -546,11 +514,7 @@
 		<key>name</key>
 		<string>Sierpinsky Gasket</string>
 		<key>startingRules</key>
-		<string>FAF--FF--FF</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlFAF--FF--FF</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -604,11 +568,7 @@
 		<key>name</key>
 		<string>Sierpinsky Curve</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF+F+F+F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -660,11 +620,7 @@
 		<key>name</key>
 		<string>Peano Curve</string>
 		<key>startingRules</key>
-		<string>A</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -718,11 +674,7 @@
 		<key>name</key>
 		<string>Dragon Curve</string>
 		<key>startingRules</key>
-		<string>A</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -792,11 +744,7 @@
 		<key>name</key>
 		<string>Fern</string>
 		<key>startingRules</key>
-		<string>AEFFF</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlAEFFF</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -874,11 +822,7 @@
 		<key>name</key>
 		<string>Bush00</string>
 		<key>startingRules</key>
-		<string>F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -932,11 +876,7 @@
 		<key>name</key>
 		<string>Bush0</string>
 		<key>startingRules</key>
-		<string>F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1006,11 +946,7 @@
 		<key>name</key>
 		<string>Bush1</string>
 		<key>startingRules</key>
-		<string>A</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1082,11 +1018,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
 		<key>startingRules</key>
-		<string>F++F++F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF++F++F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1138,11 +1070,7 @@
 		<key>name</key>
 		<string>Von Koch Island</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF+F+F+F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1194,11 +1122,7 @@
 		<key>name</key>
 		<string>Von Koch Squares</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlF+F+F+F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1266,11 +1190,7 @@
 		<key>name</key>
 		<string>Flower</string>
 		<key>startingRules</key>
-		<string>A</string>
-		<key>fill</key>
-		<false/>
-		<key>stroke</key>
-		<true/>
+		<string>SlA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
