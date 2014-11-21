@@ -1140,46 +1140,66 @@ static void countPathElements(void *info, const CGPathElement *element) {
     [self convertPanToAngleAspectChange: gestureRecognizer
                                subLayer: self.fractalLevelNLayer
                               anglePath: @"turningAngle"
-                             angleScale: 1.0/40.0
+                             angleScale: 5.0/1.0
+                               minAngle: -180.0
+                               maxAngle:  180.0
                              aspectPath: @"lineWidth"
-                            aspectScale: 1.0/100.0];
+                            aspectScale: 1.0/100.0
+                              minAspect: 0.5
+                              maxAspect: 10.0];
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
                                subLayer: self.fractalLevel0Layer
                               anglePath: @"baseAngle"
-                             angleScale: 1.0/5.0
+                             angleScale: 20.0/1.0
+                               minAngle: -180.0
+                               maxAngle:  180.0
                              aspectPath: nil
-                            aspectScale: 0.0];
+                            aspectScale: 0.0
+                              minAspect: 0.0
+                              maxAspect: 0.0];
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
                                subLayer: self.fractalLevel1Layer
                               anglePath: @"turningAngle"
-                             angleScale: 1.0/20.0
+                             angleScale: 1.0/10.0
+                               minAngle: -180.0
+                               maxAngle:  180.0
                              aspectPath:@"lineWidth"
-                            aspectScale: 1.0/20.0];
+                            aspectScale: 1.0/5.0
+                              minAspect: 0.5
+                              maxAspect: 10.0];
 }
-
+#pragma message "TODO: need to add a step size and change turningAngleIncrement from degrees to percent"
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
                                subLayer: self.fractalLevel2Layer
                               anglePath: @"turningAngleIncrement"
-                             angleScale: 1.0/20.0
+                             angleScale: 1.0/50.0
+                               minAngle: 0.0
+                               maxAngle: 1.0
                              aspectPath: @"lineWidthIncrement"
-                            aspectScale: 1.0/20.0];
+                            aspectScale: 1.0/100.0
+                              minAspect: 0.05
+                              maxAspect: 1.0];
 }
 
 -(void) convertPanToAngleAspectChange: (UIPanGestureRecognizer*) gestureRecognizer
                              subLayer: (CALayer*) subLayer
                             anglePath: (NSString*) anglePath
-                           angleScale: (double) angleScale
+                           angleScale: (CGFloat) angleScale
+                             minAngle: (CGFloat) minAngle
+                             maxAngle: (CGFloat) maxAngle
                            aspectPath: (NSString*) aspectPath
-                          aspectScale: (double) aspectScale {
+                          aspectScale: (CGFloat) aspectScale
+                            minAspect: (CGFloat) minAspect
+                            maxAspect: (CGFloat) maxAspect {
     
     static CGPoint initialPosition;
-    static double  initialAngleDegrees;
-    static double  initialWidth;
+    static CGFloat  initialAngleDegrees;
+    static CGFloat  initialWidth;
     static NSInteger determinedState;
     static NSInteger axisState;
     
@@ -1194,10 +1214,10 @@ static void countPathElements(void *info, const CGPathElement *element) {
         initialPosition = subLayer.position;
         
         if (anglePath) {
-            initialAngleDegrees =  degrees([[self.fractal valueForKey: anglePath] doubleValue]);
+            initialAngleDegrees =  floorf(100.0 * degrees([[self.fractal valueForKey: anglePath] doubleValue])) / 100.0;
         }
         if (aspectPath) {
-            initialWidth = [[self.fractal valueForKey: aspectPath] doubleValue];
+            initialWidth = floorf(100.0 * [[self.fractal valueForKey: aspectPath] doubleValue]) / 100.0;
         }
     
 //        initialAngleDegrees = [self.fractal.turningAngleAsDegrees doubleValue];
@@ -1219,15 +1239,15 @@ static void countPathElements(void *info, const CGPathElement *element) {
         } else {
             if (axisState && aspectPath) {
                 // vertical, change aspect
-                double scaledWidth = floorf(translation.y * aspectScale);
-                double newWidth = fmax(initialWidth + scaledWidth, 1.0);
+                CGFloat scaledWidth = floorf(translation.y * aspectScale * 100.0)/100.0;
+                CGFloat newWidth = fminf(fmaxf(initialWidth + scaledWidth, minAspect), maxAspect);
                 [self.fractal setValue: @(newWidth) forKey: aspectPath];
                 //self.fractal.lineWidth = @(newidth);
                 
             } else if (!axisState && anglePath) {
                 // hosrizontal
-                double scaledStepAngle = floorf(translation.x * angleScale)/2.0;
-                double newAngleDegrees = initialAngleDegrees + scaledStepAngle;
+                CGFloat scaledStepAngle = floorf(translation.x * angleScale)/100;
+                CGFloat newAngleDegrees = fminf(fmaxf(initialAngleDegrees + scaledStepAngle, minAngle), maxAngle);
                 [self.fractal setValue: @(radians(newAngleDegrees)) forKey: anglePath];
 //                [self.fractal setTurningAngleAsDegrees:  @(newAngleDegrees)];
                 

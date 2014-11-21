@@ -860,13 +860,15 @@
 -(void) commandPop {
     [self popSegment];
 }
-
+/*!
+ Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
+ */
 -(void) commandIncrementLineWidth {
-    self.currentSegment.lineWidth += self.currentSegment.lineWidthIncrement;
+    self.currentSegment.lineWidth += self.currentSegment.lineWidth * self.currentSegment.lineWidthIncrement;
 }
 
 -(void) commandDecrementLineWidth {
-    self.currentSegment.lineWidth = fmax(0,(self.currentSegment.lineWidth - self.currentSegment.lineWidthIncrement));
+    self.currentSegment.lineWidth -= self.currentSegment.lineWidth * self.currentSegment.lineWidthIncrement;
 }
 
 -(void) commandDrawDot {
@@ -889,7 +891,7 @@
 -(void) commandClosePolygon {
     
 }
-
+#pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
 -(void) commandUpscaleLineLength {
     self.currentSegment.lineLength *= self.currentSegment.lineLengthScaleFactor;
 }
@@ -907,11 +909,11 @@
 }
 
 -(void) commandDecrementAngle {
-    self.currentSegment.turningAngle -= self.currentSegment.turningAngleIncrement;
+    self.currentSegment.turningAngle -= self.currentSegment.turningAngle * self.currentSegment.turningAngleIncrement;
 }
 
 -(void) commandIncrementAngle {
-    self.currentSegment.turningAngle += self.currentSegment.turningAngleIncrement;
+    self.currentSegment.turningAngle += self.currentSegment.turningAngle * self.currentSegment.turningAngleIncrement;
 }
 
 -(void) commandStrokeOff {
