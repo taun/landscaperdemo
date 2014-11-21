@@ -9,6 +9,7 @@
 #import "MBLSReplacementRuleTableViewCell.h"
 #import "MBRuleCollectionDataSource.h"
 #import "MBLSRuleDragAndDropProtocol.h"
+#import <MDUiKit/MDUiKit.h>
 
 @interface MBLSReplacementRuleTableViewCell ()
 
@@ -62,7 +63,7 @@
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingItem*) draggingRule {
     UIView* returnView;
     
-    UICollectionView* strongCollectionView = self.collectionView;
+    MDKUICollectionViewScrollContentSized* strongCollectionView = self.collectionView;
     UIImageView* strongImageView = self.customImageView;
     
     CGRect collectionRect = [self convertRect: strongCollectionView.bounds fromView: strongCollectionView];
@@ -91,7 +92,7 @@
 -(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingRule: (MBDraggingItem*) draggingRule {
     BOOL reloadContainer = NO;
     
-    UICollectionView* strongCollectionView = self.collectionView;
+    MDKUICollectionViewScrollContentSized* strongCollectionView = self.collectionView;
     UIImageView* strongImageView = self.customImageView;
 
     CGRect collectionRect = [self convertRect: strongCollectionView.bounds fromView: strongCollectionView];

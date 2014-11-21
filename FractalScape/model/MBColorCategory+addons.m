@@ -60,20 +60,33 @@
         NSManagedObjectContext* context = self.managedObjectContext;
         
         NSMutableSet* currentColors = [self mutableSetValueForKey: @"colors"];
+
+        NSMutableSet* colorIdentifiers = [NSMutableSet setWithCapacity: currentColors.count];
+        for (MBColor* color in currentColors) {
+            [colorIdentifiers addObject: color.identifier];
+        }
+        
         
         for (NSDictionary* colorDict in colorsArray) {
             // iterate each color definition dictionary in the category
             if ([colorDict isKindOfClass: [NSDictionary class]]) {
-                MBColor* newColor = [MBColor insertNewObjectIntoContext: context];
-                if (newColor) {
-                    for (id propertyKey in colorDict) {
-                        [newColor setValue: colorDict[propertyKey] forKey: propertyKey];
+                
+                NSString* colorIdentifier = colorDict[@"identifier"];
+                
+                // don't add if no identifier or identifier already exists
+                if (colorIdentifier && ![colorIdentifiers containsObject: colorIdentifier]) {
+                    MBColor* newColor = [MBColor insertNewObjectIntoContext: context];
+                    if (newColor) {
+                        for (id propertyKey in colorDict) {
+                            [newColor setValue: colorDict[propertyKey] forKey: propertyKey];
+                        }
+                        newColor.index = @(addedColorsCount);
+                        [currentColors addObject: newColor];
+                        addedColorsCount++;
                     }
-                    newColor.index = @(addedColorsCount);
-                    [currentColors addObject: newColor];
-                    addedColorsCount++;
                 }
-            }
+                
+             }
         }
         
     }

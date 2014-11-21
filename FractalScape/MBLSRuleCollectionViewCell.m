@@ -146,5 +146,10 @@
 -(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
     return NO;
 }
-
+-(BOOL) dragDidChangeToLocalPoint:(CGPoint)point draggingItem:(MBDraggingItem *)draggingRule {
+    return NO;
+}
+-(BOOL) dragDidEndDraggingItem:(MBDraggingItem *)draggingRule {
+    return NO;
+}
 @end

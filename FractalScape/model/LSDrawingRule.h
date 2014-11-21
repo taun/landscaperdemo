@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "MBCollectionCellItemProtocol.h"
 
 @class LSDrawingRuleType;
 
-@interface LSDrawingRule : NSManagedObject
+@interface LSDrawingRule : NSManagedObject <MBCollectionCellItemProtocol>
 
 @property (nonatomic, retain) NSNumber * displayIndex;
 @property (nonatomic, retain) NSString * drawingMethodString;

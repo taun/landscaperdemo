@@ -12,10 +12,12 @@
 #import "MBColor+addons.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
-@interface MBColorSourceCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate, MBLSRuleDragAndDropProtocol>
+@interface MBColorSourceCollectionViewController : UICollectionViewController <FractalControllerProtocol, NSFetchedResultsControllerDelegate, MBLSRuleDragAndDropProtocol>
 
+@property (nonatomic,strong) LSFractal                      *fractal;
+@property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
 
-@property (nonatomic, strong) NSFetchedResultsController*   libraryColorsFetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController    *libraryColorsFetchedResultsController;
 /*!
  Don't know why the app main thread context is used and not the fractal context. Probably something to do with threading. Will want to revisit sometime.
  */

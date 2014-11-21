@@ -42,6 +42,22 @@
     
     [super viewDidLoad];
 }
+-(void) viewDidAppear:(BOOL)animated {
+    [self setupChildViewController:(UIViewController<FractalControllerProtocol> *)[self.childViewControllers firstObject]];
+    
+    // must be after child setup
+    [super viewDidAppear:animated];
+}
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+-(void) setupChildViewController:(UIViewController<FractalControllerProtocol>*)fractalController {
+    fractalController.fractalUndoManager = self.fractalUndoManager;
+    fractalController.fractal = self.fractal;
+}
+
 -(void)setFractal:(LSFractal *)fractal {
     _fractal = fractal;
     self.colorsChanged = YES;

@@ -53,17 +53,17 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 @property (NS_NONATOMIC_IOSONLY) double                     lineLengthAsDouble;
 
-@property (NS_NONATOMIC_IOSONLY) double                     turningAngleAsDouble;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *turningAngleAsDegree;
+@property (NS_NONATOMIC_IOSONLY) double                         turningAngleAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber      *turningAngleAsDegrees;
 
 -(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
 
 @property (NS_NONATOMIC_IOSONLY) double                     turningAngleIncrementAsDouble;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *turningAngleIncrementAsDegree;
+@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber      *turningAngleIncrementAsDegrees;
 
 -(void) setTurningAngleIncrementAsDegrees: (NSNumber*)      newAngle;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSNumber   *baseAngleAsDegree;
+@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber      *baseAngleAsDegrees;
 
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
 

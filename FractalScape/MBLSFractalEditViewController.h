@@ -55,6 +55,9 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toggleFullScreenButton;
 
 #pragma mark FractalLevel0 Nib outlets
+@property (weak, nonatomic) IBOutlet UILabel *baseAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *turningAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *turnAngleIncrementLabel;
 
 #pragma mark FractalLevel1 Nib outlets
 
@@ -120,6 +123,10 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender;
 
 #pragma mark - Level1 Gesture Actions
+- (IBAction)panLevel1:(UIPanGestureRecognizer *)sender;
+
+#pragma mark - Level2 Gesture Actions
+- (IBAction)panLevel2:(UIPanGestureRecognizer *)sender;
 
 #pragma mark - Toolbar Button actions
 - (IBAction)undoEdit:(id)sender;

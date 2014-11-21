@@ -118,8 +118,8 @@
     self.fractalWidth.text =  [self.fractal.lineWidth stringValue];
     self.widthStepper.value = [self.fractal.lineWidth doubleValue];
 
-    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
-    self.turnAngleStepper.value = [[self.fractal turningAngleAsDegree] doubleValue];
+    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
+    self.turnAngleStepper.value = [[self.fractal turningAngleAsDegrees] doubleValue];
     
     self.randomness.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal randomness]];
     self.randomnessStepper.value = [[self.fractal randomness] doubleValue];
@@ -186,14 +186,14 @@
 //    [self.fractalUndoManager beginUndoGrouping];
 //    [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees: @(sender.value)];
-    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
+    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
 }
 - (IBAction)turningAngleTextInputChanged: (UITextField*)sender {
 //    [self.fractalUndoManager beginUndoGrouping];
 //    [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees: @([sender.text doubleValue])];
-    self.turnAngleStepper.value = [[self.fractal turningAngleAsDegree] doubleValue];
-    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
+    self.turnAngleStepper.value = [[self.fractal turningAngleAsDegrees] doubleValue];
+    self.fractalTurningAngle.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
 }
 
 

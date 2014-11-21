@@ -18,4 +18,5 @@
 @dynamic productionString;
 @dynamic type;
 
+
 @end

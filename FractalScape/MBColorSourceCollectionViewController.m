@@ -46,41 +46,55 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     // perhaps make part of selectedFractal setter?
 }
 
--(NSManagedObjectContext*) appManagedObjectContext {
-    
-    UIApplication* app = [UIApplication sharedApplication];
-    MBAppDelegate* appDelegate = [app delegate];
-    NSManagedObjectContext* appContext = appDelegate.managedObjectContext;
-    
-    return appContext;
+-(void)setFractal:(LSFractal *)fractal {
+    _fractal = fractal;
+    [self.collectionView reloadData];    
 }
+
+//-(NSManagedObjectContext*) appManagedObjectContext {
+//    
+//    UIApplication* app = [UIApplication sharedApplication];
+//    MBAppDelegate* appDelegate = [app delegate];
+//    NSManagedObjectContext* appContext = appDelegate.managedObjectContext;
+//    
+//    return appContext;
+//}
 -(NSFetchedResultsController*) libraryColorsFetchedResultsController {
     if (_libraryColorsFetchedResultsController == nil) {
         // instantiate
-        NSManagedObjectContext* appContext = [self appManagedObjectContext];
+        NSManagedObjectContext* context;
+        UIViewController<FractalControllerProtocol>* parent = (UIViewController<FractalControllerProtocol>*)self.parentViewController;
+        if (parent) {
+            context = parent.fractal.managedObjectContext;
+            
+            if (context) {
+                NSManagedObjectContext* appContext = context;
+                
+                NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+                NSEntityDescription* entity = [MBColor entityDescriptionForContext: context];
+                [fetchRequest setEntity: entity];
+                [fetchRequest setFetchBatchSize: 40];
+                
+                NSSortDescriptor* category = [NSSortDescriptor sortDescriptorWithKey: @"category.identifier" ascending: YES];
+                NSSortDescriptor* index = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
+                NSArray* sortDescriptors = @[category, index];
+                [fetchRequest setSortDescriptors: sortDescriptors];
+                
+                NSPredicate* filterPredicate = [NSPredicate predicateWithFormat: @"category != NIL"];
+                [fetchRequest setPredicate: filterPredicate];
+                
+                _libraryColorsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: @"category.name" cacheName: nil]; //@"colorLibraryCache"
+                
+                _libraryColorsFetchedResultsController.delegate = self;
+                
+                NSError* error = nil;
+                
+                if (![_libraryColorsFetchedResultsController performFetch: &error]) {
+                    NSLog(@"Fetched Results Error %@, %@", error, [error userInfo]);
+                    abort();
+                }
+            }
         
-        NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription* entity = [MBColor entityDescriptionForContext: appContext];
-        [fetchRequest setEntity: entity];
-        [fetchRequest setFetchBatchSize: 40];
-        
-        NSSortDescriptor* category = [NSSortDescriptor sortDescriptorWithKey: @"category.identifier" ascending: YES];
-        NSSortDescriptor* index = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
-        NSArray* sortDescriptors = @[category, index];
-        [fetchRequest setSortDescriptors: sortDescriptors];
-        
-        NSPredicate* filterPredicate = [NSPredicate predicateWithFormat: @"category != NIL"];
-        [fetchRequest setPredicate: filterPredicate];
-        
-        _libraryColorsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: appContext sectionNameKeyPath: @"category.name" cacheName: @"colorLibraryCache"];
-        
-        _libraryColorsFetchedResultsController.delegate = self;
-        
-        NSError* error = nil;
-        
-        if (![_libraryColorsFetchedResultsController performFetch: &error]) {
-            NSLog(@"Fetched Results Error %@, %@", error, [error userInfo]);
-            abort();
         }
     }
     

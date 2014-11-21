@@ -378,6 +378,7 @@ static BOOL SIMULTOUCH = NO;
     for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevel0"]) {
             subLayer = layer;
+            break;
         }
     }
     return subLayer;
@@ -387,6 +388,7 @@ static BOOL SIMULTOUCH = NO;
     for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevel1"]) {
             subLayer = layer;
+            break;
         }
     }
     return subLayer;
@@ -396,6 +398,7 @@ static BOOL SIMULTOUCH = NO;
     for (CALayer* layer in self.fractalViewLevel2.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevel2"]) {
             subLayer = layer;
+            break;
         }
     }
     return subLayer;
@@ -405,6 +408,7 @@ static BOOL SIMULTOUCH = NO;
     for (CALayer* layer in self.fractalView.layer.sublayers) {
         if ([layer.name isEqualToString: @"fractalLevelN"]) {
             subLayer = layer;
+            break;
         }
     }
     return subLayer;
@@ -546,12 +550,15 @@ static BOOL SIMULTOUCH = NO;
 -(void) refreshValueInputs {    
     self.hudLevelStepper.value = [self.fractal.level integerValue];
     //    
-    self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
+    self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: @(degrees([self.fractal.turningAngle doubleValue]))];
 }
 
 -(void) refreshLayers {
     self.hudText1.text = [self.fractal.level stringValue];
-    self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegree]];
+    self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
+    self.baseAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.baseAngle doubleValue])]];
+    self.turningAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.turningAngle doubleValue])]];
+    self.turnAngleIncrementLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.turningAngleIncrement doubleValue])]];
     
     //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
     //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
@@ -1130,6 +1137,46 @@ static void countPathElements(void *info, const CGPathElement *element) {
 /* want to use 2 finger pans for changing rotation and line thickness in place of swiping 
   need to lock in either horizontal or vertical panning view a state and state change */
 -(IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer {
+    [self convertPanToAngleAspectChange: gestureRecognizer
+                               subLayer: self.fractalLevelNLayer
+                              anglePath: @"turningAngle"
+                             angleScale: 1.0/40.0
+                             aspectPath: @"lineWidth"
+                            aspectScale: 1.0/100.0];
+}
+- (IBAction)panLevel0:(UIPanGestureRecognizer *)sender {
+    [self convertPanToAngleAspectChange: sender
+                               subLayer: self.fractalLevel0Layer
+                              anglePath: @"baseAngle"
+                             angleScale: 1.0/5.0
+                             aspectPath: nil
+                            aspectScale: 0.0];
+}
+- (IBAction)panLevel1:(UIPanGestureRecognizer *)sender {
+    [self convertPanToAngleAspectChange: sender
+                               subLayer: self.fractalLevel1Layer
+                              anglePath: @"turningAngle"
+                             angleScale: 1.0/20.0
+                             aspectPath:@"lineWidth"
+                            aspectScale: 1.0/20.0];
+}
+
+- (IBAction)panLevel2:(UIPanGestureRecognizer *)sender {
+    [self convertPanToAngleAspectChange: sender
+                               subLayer: self.fractalLevel2Layer
+                              anglePath: @"turningAngleIncrement"
+                             angleScale: 1.0/20.0
+                             aspectPath: @"lineWidthIncrement"
+                            aspectScale: 1.0/20.0];
+}
+
+-(void) convertPanToAngleAspectChange: (UIPanGestureRecognizer*) gestureRecognizer
+                             subLayer: (CALayer*) subLayer
+                            anglePath: (NSString*) anglePath
+                           angleScale: (double) angleScale
+                           aspectPath: (NSString*) aspectPath
+                          aspectScale: (double) aspectScale {
+    
     static CGPoint initialPosition;
     static double  initialAngleDegrees;
     static double  initialWidth;
@@ -1137,18 +1184,25 @@ static void countPathElements(void *info, const CGPathElement *element) {
     static NSInteger axisState;
     
     UIView *fractalView = [gestureRecognizer view];
-    CALayer* subLayer = [self fractalLevelNLayer];
     UIGestureRecognizerState state = gestureRecognizer.state;
     
     if (state == UIGestureRecognizerStateBegan) {
         
         [self.undoManager beginUndoGrouping];
         [self.fractal.managedObjectContext processPendingChanges];
-
+        
         initialPosition = subLayer.position;
-        initialAngleDegrees = [self.fractal.turningAngleAsDegree doubleValue];
-        initialWidth = [self.fractal.lineWidth doubleValue];
+        
+        if (anglePath) {
+            initialAngleDegrees =  degrees([[self.fractal valueForKey: anglePath] doubleValue]);
+        }
+        if (aspectPath) {
+            initialWidth = [[self.fractal valueForKey: aspectPath] doubleValue];
+        }
     
+//        initialAngleDegrees = [self.fractal.turningAngleAsDegrees doubleValue];
+//        initialWidth = [self.fractal.lineWidth doubleValue];
+        
         
         determinedState = 0;
         
@@ -1163,25 +1217,29 @@ static void countPathElements(void *info, const CGPathElement *element) {
             }
             determinedState = 1;
         } else {
-            if (axisState) {
-                // vertical, change angle
-                double scaledStepAngle = floorf(translation.y/20.0)/2.0;
-                double newAngleDegrees = initialAngleDegrees + scaledStepAngle;
-                [self.fractal setTurningAngleAsDegrees:  @(newAngleDegrees)];
-
-            } else {
+            if (axisState && aspectPath) {
+                // vertical, change aspect
+                double scaledWidth = floorf(translation.y * aspectScale);
+                double newWidth = fmax(initialWidth + scaledWidth, 1.0);
+                [self.fractal setValue: @(newWidth) forKey: aspectPath];
+                //self.fractal.lineWidth = @(newidth);
+                
+            } else if (!axisState && anglePath) {
                 // hosrizontal
-                double scaledWidth = floorf(translation.x/100);
-                double newidth = fmax(initialWidth + scaledWidth, 1.0);
-                self.fractal.lineWidth = @(newidth);
-
+                double scaledStepAngle = floorf(translation.x * angleScale)/2.0;
+                double newAngleDegrees = initialAngleDegrees + scaledStepAngle;
+                [self.fractal setValue: @(radians(newAngleDegrees)) forKey: anglePath];
+//                [self.fractal setTurningAngleAsDegrees:  @(newAngleDegrees)];
+                
             }
         }
         
     } else if (state == UIGestureRecognizerStateCancelled) {
         
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
-        [self.fractal setTurningAngleAsDegrees:  @(initialAngleDegrees)];
+        
+        [self.fractal setValue:  @(radians(initialAngleDegrees)) forKey: anglePath];
+        //[self.fractal setTurningAngleAsDegrees:  @(initialAngleDegrees)];
         determinedState = 0;
         if ([self.undoManager groupingLevel] > 0) {
             [self.undoManager endUndoGrouping];
@@ -1193,9 +1251,6 @@ static void countPathElements(void *info, const CGPathElement *element) {
         determinedState = 0;
         [self.fractal.managedObjectContext processPendingChanges];
     }
-}
-
-- (IBAction)panLevel0:(UIPanGestureRecognizer *)sender {
 }
 /* obsolete */
 - (IBAction)swipeFractal:(UISwipeGestureRecognizer *)gestureRecognizer {
@@ -1455,12 +1510,12 @@ static void countPathElements(void *info, const CGPathElement *element) {
 - (IBAction)incrementTurnAngle:(id)sender {
     [self.undoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
-    [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegree doubleValue] + 0.5)];
+    [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegrees doubleValue] + 0.5)];
 }
 - (IBAction)decrementTurnAngle:(id)sender {
     [self.undoManager beginUndoGrouping];
     [self.fractal.managedObjectContext processPendingChanges];
-    [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegree doubleValue] - 0.5)];
+    [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegrees doubleValue] - 0.5)];
 }
 
 // TODO: copy app delegate saveContext method

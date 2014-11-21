@@ -375,8 +375,8 @@
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
 //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
         
-        CGContextSetLineCap(theContext,self.cachedLineCap);
-        CGContextSetLineJoin(theContext, self.cachedLineJoin);
+        CGContextSetLineCap(theContext,(CGLineCap)self.cachedLineCap);
+        CGContextSetLineJoin(theContext, (CGLineJoin)self.cachedLineJoin);
         CGContextSetLineWidth(theContext, segment.lineWidth);
         
         CGAffineTransform ctm = CGContextGetCTM(theContext);

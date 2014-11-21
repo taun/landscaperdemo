@@ -114,10 +114,13 @@
     if (appearanceProperties == nil) {
         appearanceProperties = [[NSSet alloc] initWithObjects:
                                 @"lineLength",
+                                @"lineLengthScale",
                                 @"lineWidth",
+                                @"lineWidthIncrement",
                                 @"stroke",
                                 @"fill",
                                 @"turningAngle",
+                                @"turningAngleIncrement",
                                 @"baseAngle",
                                 @"randomness",
                                 nil];
@@ -238,7 +241,7 @@
 -(double) turningAngleAsDouble {
     return [self.turningAngle doubleValue];
 }
--(NSNumber*) turningAngleAsDegree {
+-(NSNumber*) turningAngleAsDegrees {
     return @(degrees([self.turningAngle doubleValue]));
 }
 -(void) setTurningAngleAsDouble:(double)newAngle {
@@ -251,7 +254,7 @@
 -(double) turningAngleIncrementAsDouble {
     return [self.turningAngleIncrement doubleValue];
 }
--(NSNumber*) turningAngleIncrementAsDegree {
+-(NSNumber*) turningAngleIncrementAsDegrees {
     return @(degrees([self.turningAngleIncrement doubleValue]));
 }
 -(void) setTurningAngleIncrementAsDouble:(double)newAngle {
@@ -261,7 +264,7 @@
     double inRadians = radians([newAngle doubleValue]);
     self.turningAngleIncrement = @(inRadians);
 }
--(NSNumber*) baseAngleAsDegree {
+-(NSNumber*) baseAngleAsDegrees {
     return @(degrees([self.baseAngle doubleValue]));
 }
 -(void) setBaseAngleAsDegrees:(NSNumber*)newAngle {
