@@ -1510,6 +1510,7 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="lineColorDestinationCollection" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tfU-G6-f0o" userLabel="lineColorDestinationCollection">
                                                 <rect key="frame" x="4" y="4" width="292" height="28"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="6" minimumInteritemSpacing="6" id="qYx-cW-tjK">
                                                     <size key="itemSize" width="26" height="26"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1575,6 +1576,7 @@
                                                 <connections>
                                                     <outlet property="dataSource" destination="bRM-XI-8Xh" id="r8K-oi-l8l"/>
                                                     <outlet property="delegate" destination="bRM-XI-8Xh" id="uP5-hf-vj0"/>
+                                                    <outletCollection property="gestureRecognizers" destination="Un1-kk-Y9t" appends="YES" id="0Wb-PX-a2U"/>
                                                 </connections>
                                             </collectionView>
                                         </subviews>
@@ -1715,6 +1717,7 @@
                                                 <connections>
                                                     <outlet property="dataSource" destination="bRM-XI-8Xh" id="0OQ-tP-haC"/>
                                                     <outlet property="delegate" destination="bRM-XI-8Xh" id="bym-iH-uon"/>
+                                                    <outletCollection property="gestureRecognizers" destination="avI-YA-c6g" appends="YES" id="0gz-rB-fNi"/>
                                                 </connections>
                                             </collectionView>
                                         </subviews>
@@ -1816,7 +1819,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="avI-YA-c6g"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="avI-YA-c6g" userLabel="fillColor long press">
+                    <connections>
+                        <action selector="fillColorLongPress:" destination="bRM-XI-8Xh" id="qkQ-st-hyD"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Un1-kk-Y9t" userLabel="lineColor long press">
+                    <connections>
+                        <action selector="lineColorLongPress:" destination="bRM-XI-8Xh" id="ggi-IC-7TB"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="6594" y="346"/>
         </scene>

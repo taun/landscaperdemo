@@ -2,7 +2,7 @@
 //  LSFractal.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/10/14.
+//  Created by Taun Chapman on 11/21/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -39,6 +39,7 @@
 @property (nonatomic, retain) NSSet *placements;
 @property (nonatomic, retain) NSOrderedSet *replacementRules;
 @property (nonatomic, retain) NSOrderedSet *startingRules;
+@property (nonatomic, retain) MBColor *backgroundColor;
 @end
 
 @interface LSFractal (CoreDataGeneratedAccessors)

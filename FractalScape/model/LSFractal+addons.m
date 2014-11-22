@@ -81,6 +81,7 @@
                           @"lineCap",
                           @"name",
                           @"randomness",
+                          @"backgroundColor",
                           nil];
     }
     return keysToBeCopied;
@@ -137,6 +138,7 @@
                             @"eoFill",
                             @"lineColors",
                             @"fillColors",
+                            @"backgroundColor",
                                 nil];
     }
     return redrawProperties;

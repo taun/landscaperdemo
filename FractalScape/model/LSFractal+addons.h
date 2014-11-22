@@ -19,10 +19,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 +(LSFractal*) findFractalWithName:(NSString *)fractalIdentifier inContext: (NSManagedObjectContext*) context;
 
 /*!
- for cut and paste functionality
- */
-+(NSSet*) keysToBeCopied;
-/*!
  A set of fractal property paths which effect the label views of the fractal. To be observed by presenters of the labels
  
  @return a set of strings corresponding to fractal property key paths effecting the labels.

@@ -24,4 +24,23 @@
                                               inManagedObjectContext:context];
     return entity;
 }
+
++ (NSSet *)keysToBeCopied {
+    static NSSet *keysToBeCopied = nil;
+    return keysToBeCopied;
+}
+
+-(id) mutableCopy {
+    id entityCopy = [[self class] insertNewObjectIntoContext: self.managedObjectContext];
+    
+    if (entityCopy) {
+        for ( NSString* aKey in [[self class] keysToBeCopied]) {
+            id value = [self valueForKey: aKey];
+            [entityCopy setValue: value forKey: aKey];
+        }
+        
+    }
+    return entityCopy;
+}
+
 @end

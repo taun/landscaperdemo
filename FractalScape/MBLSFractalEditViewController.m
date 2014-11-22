@@ -18,6 +18,10 @@
 #import "LSFractal+addons.h"
 #import "LSFractalGenerator.h"
 #import "MBColor+addons.h"
+#import "MBPlacedEntity+addons.h"
+#import "MBScapeBackground+addons.h"
+#import "MBFractalScape+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 #import <QuartzCore/QuartzCore.h>
 #include <ImageIO/CGImageProperties.h>
@@ -290,6 +294,29 @@ static BOOL SIMULTOUCH = NO;
     if ([keyPath isEqualToString: kLibrarySelectionKeypath] && object == self.libraryViewController) {
         
         self.fractal = self.libraryViewController.selectedFractal;
+//        if (!self.fractal.placements || self.fractal.placements.count == 0) {
+//            // currentl only on e default placement for each fractal, on scape and one background
+//            NSManagedObjectContext* fractalContext = self.fractal.managedObjectContext;
+//            
+//            MBFractalScape* defaultScape = [MBFractalScape insertNewObjectIntoContext: fractalContext];
+//            defaultScape.name = [NSString stringWithFormat: @"Default Scape for %@", self.fractal.name];
+//            
+//            MBScapeBackground* defaultBackground = [MBScapeBackground insertNewObjectIntoContext: fractalContext];
+//            defaultBackground.name = @"Default background";
+//            
+//            MBColor* clearColor = [MBColor newMBColorWithUIColor: [UIColor clearColor] inContext: fractalContext];
+//            clearColor.name = @"Clear";
+//            
+//            defaultBackground.color = clearColor;
+//            
+//            defaultScape.background = defaultBackground;
+//            
+//            
+//            MBPlacedEntity* placement = [MBPlacedEntity insertNewObjectIntoContext: fractalContext];
+//            placement.lsFractal = self.fractal;
+//            placement.fractalScape = defaultScape;
+//            
+//        }
         
     } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
         
@@ -570,6 +597,11 @@ static BOOL SIMULTOUCH = NO;
         [layer layoutIfNeeded];
         //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
         [layer setNeedsDisplay];
+    }
+
+    MBColor* backgroundColor = self.fractal.backgroundColor;
+    if (backgroundColor) {
+        self.fractalView.backgroundColor = [backgroundColor asUIColor];
     }
 }
 
@@ -1146,7 +1178,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                              aspectPath: @"lineWidth"
                             aspectScale: 1.0/100.0
                               minAspect: 0.5
-                              maxAspect: 10.0];
+                              maxAspect: 20.0];
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
@@ -1170,7 +1202,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                              aspectPath:@"lineWidth"
                             aspectScale: 1.0/5.0
                               minAspect: 0.5
-                              maxAspect: 10.0];
+                              maxAspect: 20.0];
 }
 #pragma message "TODO: need to add a step size and change turningAngleIncrement from degrees to percent"
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender {

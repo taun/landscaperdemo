@@ -168,6 +168,7 @@
     [super viewDidLayoutSubviews];
 }
 -(void) viewDidDisappear:(BOOL)animated {
+    [self saveContext];
     [super viewDidDisappear:animated];
     // removes all fractal observers.
     //    [self setSortedReplacementRulesArray: nil];
@@ -349,6 +350,8 @@
         [self.draggingRule.view removeFromSuperview];
         self.draggingRule = nil;
         
+        [self saveContext];
+        
     } else if (gestureState == UIGestureRecognizerStateCancelled) {
         [self.draggingRule.view removeFromSuperview];
         self.draggingRule = nil;
@@ -359,8 +362,7 @@
     }
 }
 
-- (void)saveContext
-{
+- (void)saveContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.fractal.managedObjectContext;
     if (managedObjectContext != nil) {

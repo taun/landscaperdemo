@@ -34,4 +34,7 @@
 -(void)dragDidEndAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;
 -(void)dragCancelledAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture;
 
+- (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender;
+- (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)sender;
+
 @end

@@ -2,7 +2,7 @@
 //  LSFractal.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/10/14.
+//  Created by Taun Chapman on 11/21/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -42,5 +42,6 @@
 @dynamic placements;
 @dynamic replacementRules;
 @dynamic startingRules;
+@dynamic backgroundColor;
 
 @end

@@ -48,6 +48,29 @@
     // must be after child setup
     [super viewDidAppear:animated];
 }
+-(void) viewDidDisappear:(BOOL)animated {
+    [self saveContext];
+    [super viewDidDisappear:animated];
+}
+- (void)saveContext {
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.fractal.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        } else {
+            //            self.fractalDataChanged = YES;
+        }
+    }
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -69,10 +92,10 @@
     if (_fractal && (!_cachedFractalColors || self.colorsChanged)) {
         NSSortDescriptor* indexSort = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
 
-        NSSet* lineColors = [self.fractal valueForKey: @"lineColors"];
+        NSSet* lineColors = self.fractal.lineColors;
         NSArray* cachedFractalLineColors = [lineColors sortedArrayUsingDescriptors: @[indexSort]];
 
-        NSSet* fillColors = [self.fractal valueForKey: @"fillColors"];
+        NSSet* fillColors = self.fractal.fillColors;
         NSArray* cachedFractalFillColors = [fillColors sortedArrayUsingDescriptors: @[indexSort]];
         
         _cachedFractalColors = @[cachedFractalLineColors,cachedFractalFillColors];
@@ -163,6 +186,68 @@
 
 #pragma mark - Drag&Drop
 
+- (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)gesture {
+    UIGestureRecognizerState gestureState = gesture.state;
+    
+    if (gestureState == UIGestureRecognizerStateBegan) {
+        [self dragDidStartAtSourceCollection: self withGesture: gesture];
+        
+    } else if (gestureState == UIGestureRecognizerStateChanged) {
+        [self dragDidChangeAtSourceCollection: self withGesture: gesture];
+        
+    } else if (gestureState == UIGestureRecognizerStateEnded) {
+        [self dragDidEndAtSourceCollection: self withGesture: gesture];
+        
+    } else if (gestureState == UIGestureRecognizerStateCancelled) {
+        [self dragCancelledAtSourceCollection: self withGesture: gesture];
+        
+    }
+}
+
+- (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)gesture {
+}
+
+-(UIView*) lineColorDragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    return nil;
+}
+
+-(BOOL) lineColorDragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+-(BOOL) lineColorDragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+-(BOOL) lineColorDragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+-(BOOL) lineColorDragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+-(UIView*) fillColorDragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    return nil;
+}
+
+-(BOOL) fillColorDragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+-(BOOL) fillColorDragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+-(BOOL) fillColorDragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+-(BOOL) fillColorDragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+    return NO;
+}
+
+
 -(void)dragDidStartAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture {
     CGPoint touchPoint = [gesture locationInView: collectionViewController.collectionView];
 
@@ -201,6 +286,7 @@
             // drop for page color
             if (self.pageColorDestinationImageView.image != [self.draggingItem.dragItem asImage]) {
                 self.pageColorDestinationImageView.image = [self.draggingItem.dragItem asImage];
+                self.fractal.backgroundColor = self.draggingItem.dragItem;
             }
         } else {
             CGPoint lineColorsCollectionPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalLineColorsDestinationCollection];
@@ -245,10 +331,12 @@
         }
     }
 }
+
 -(void)dragDidEndAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture {
     [self.draggingItem.view removeFromSuperview];
     self.draggingItem = nil;
 }
+
 -(void)dragCancelledAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture {
     [self.draggingItem.view removeFromSuperview];
     self.draggingItem = nil;
