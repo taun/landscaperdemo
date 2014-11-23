@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBLSRuleCollectionTableViewCell.h"
-#import "MBLSRuleCollectionViewCell.h"
+#import "MBLSRuleBaseCollectionTableViewCell.h"
+#import "MBLSRuleBaseCollectionViewCell.h"
 
 #import <MDUiKit/MDUiKit.h>
 
-@interface MBLSRuleCollectionTableViewCell ()
+@interface MBLSRuleBaseCollectionTableViewCell ()
 
 
 @end
 
-@implementation MBLSRuleCollectionTableViewCell
+@implementation MBLSRuleBaseCollectionTableViewCell
 
 /*!
  Initializes a table cell with a style and a reuse identifier and returns it to the caller.
@@ -146,6 +146,8 @@
 //-(void)layoutSubviews {
 //    UICollectionView* strongCollectionView = self.collectionView;
 //    [super layoutSubviews];
+//    [self setNeedsLayout];
+//    [self layoutIfNeeded];
 //    [self updateCollectionLayout];
 //    [super layoutSubviews];
 //    CGFloat cellWidth = strongCollectionView.bounds.size.width;
@@ -184,7 +186,7 @@
     
     CGPoint collectionLoc = [self convertPoint: point toView: strongCollectionView];
     NSIndexPath* ruleIndexPath = [strongCollectionView indexPathForItemAtPoint: collectionLoc];
-    MBLSRuleCollectionViewCell* collectionSourceCell = (MBLSRuleCollectionViewCell*)[strongCollectionView cellForItemAtIndexPath: ruleIndexPath];
+    MBLSRuleBaseCollectionViewCell* collectionSourceCell = (MBLSRuleBaseCollectionViewCell*)[strongCollectionView cellForItemAtIndexPath: ruleIndexPath];
     
     if (collectionSourceCell) {
         LSDrawingRule* draggedRule;

@@ -17,9 +17,9 @@
 #import "MBAxiomEditorTableSection.h"
 
 #import "MBLSReplacementRuleTableViewCell.h"
-#import "MBLSRuleCollectionTableViewCell.h"
+#import "MBLSRuleBaseCollectionTableViewCell.h"
 #import "MBLSRuleTableViewCell.h"
-#import "MBLSRuleCollectionViewCell.h"
+#import "MBLSRuleBaseCollectionViewCell.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
 #import "MBStyleKitButton.h"
@@ -348,6 +348,10 @@
             reloadCell = [currentTableCell dragDidEndDraggingItem: self.draggingRule];
         }
         [self.draggingRule.view removeFromSuperview];
+        LSDrawingRule* rule = (LSDrawingRule*) self.draggingRule.dragItem;
+        if (rule.fractalStart == nil && rule.replacementRule == nil && rule.type == nil) {
+            [rule.managedObjectContext deleteObject: rule];
+        }
         self.draggingRule = nil;
         
         [self saveContext];
@@ -413,7 +417,7 @@
 
     if (indexPath.section == TableSectionsAxiom) {
         // axiom
-        if (((MBLSRuleCollectionTableViewCell *)cell).collectionView.willScrollVertically) {
+        if (((MBLSRuleBaseCollectionTableViewCell *)cell).collectionView.willScrollVertically) {
             [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
         }
         //        newCell.isReadOnly = NO;
@@ -422,7 +426,7 @@
         
     } else if (indexPath.section == TableSectionsReplacement) {
         // rules
-        if (((MBLSRuleCollectionTableViewCell *)cell).collectionView.willScrollVertically) {
+        if (((MBLSRuleBaseCollectionTableViewCell *)cell).collectionView.willScrollVertically) {
             [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
         }
         //        newCell.isReadOnly = NO;
@@ -431,7 +435,7 @@
         
     } else if (indexPath.section == TableSectionsRules) {
         // Rule source section
-        if (((MBLSRuleCollectionTableViewCell *)cell).collectionView.willScrollVertically) {
+        if (((MBLSRuleBaseCollectionTableViewCell *)cell).collectionView.willScrollVertically) {
             [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
         }
         //        newCell.isReadOnly = YES;

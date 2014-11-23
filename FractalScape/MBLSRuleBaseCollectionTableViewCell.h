@@ -13,7 +13,7 @@
 
 @class MDKUICollectionViewScrollContentSized;
 
-@interface MBLSRuleCollectionTableViewCell : UITableViewCell <MBLSRuleDragAndDropProtocol>
+@interface MBLSRuleBaseCollectionTableViewCell : UITableViewCell <MBLSRuleDragAndDropProtocol>
 
 /*!
  Fractal rules

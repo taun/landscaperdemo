@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #import "LSFractal+addons.h"
+#import "MBLSReplacementRuleTableViewCell.h"
+#import "MBLSRuleSourceCollectionTableViewCell.h"
+#import "MBLSRuleDestinationCollectionTableViewCell.h"
 
 @interface MBFractalTableDataSource : NSObject <UITableViewDataSource>
 /*!
@@ -24,6 +27,7 @@
  Data source for UIPickerView embedded in table
  */
 @property (nonatomic,weak) id<UIPickerViewDataSource>                          pickerSource;
+
 
 +(instancetype) newSourceWithFractal: (LSFractal*) fractal tableSections: (NSArray*) sections;
 

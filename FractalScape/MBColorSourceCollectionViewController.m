@@ -8,7 +8,7 @@
 
 #import "MBColorSourceCollectionViewController.h"
 #import "MBAppDelegate.h"
-#import "MBLSRuleCollectionViewCell.h"
+#import "MBLSRuleBaseCollectionViewCell.h"
 #import "MBFractalColorViewContainer.h"
 #import "MBColor+addons.h"
 #import "NSManagedObject+Shortcuts.h"
@@ -132,7 +132,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     
     static NSString *CellIdentifier = @"SourceColorSwatchCell";
     
-    MBLSRuleCollectionViewCell *cell = (MBLSRuleCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    MBLSRuleBaseCollectionViewCell *cell = (MBLSRuleBaseCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     //    if (cell == nil) {
     //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -176,7 +176,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"ColorsHeader";
     UICollectionView* strongCollectionView = self.collectionView;
     
     NSIndexPath* cellIndexPath = [strongCollectionView indexPathForItemAtPoint: point];
-    MBLSRuleCollectionViewCell* collectionSourceCell = (MBLSRuleCollectionViewCell*)[strongCollectionView cellForItemAtIndexPath: cellIndexPath];
+    MBLSRuleBaseCollectionViewCell* collectionSourceCell = (MBLSRuleBaseCollectionViewCell*)[strongCollectionView cellForItemAtIndexPath: cellIndexPath];
     
     if (collectionSourceCell) {
         id draggedItem = [collectionSourceCell.cellItem mutableCopy];

@@ -792,7 +792,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MBLSRuleCollectionCell" id="aWV-fb-iww" customClass="MBLSRuleCollectionViewCell">
+                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MBLSRuleCollectionCell" id="aWV-fb-iww" customClass="MBLSRuleBaseCollectionViewCell">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -893,7 +893,7 @@
                                     <outlet property="customImageView" destination="Ffk-kI-tOa" id="5c8-cK-Tqk"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleCollectionTableCell" rowHeight="54" id="FFF-WA-aWO" customClass="MBLSRuleCollectionTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleCollectionTableCell" rowHeight="54" id="FFF-WA-aWO" customClass="MBLSRuleSourceCollectionTableViewCell">
                                 <rect key="frame" x="0.0" y="278" width="400" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="1000" tableViewCell="FFF-WA-aWO" id="hFf-fk-1mS">
@@ -914,7 +914,7 @@
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" reuseIdentifier="MBLSRuleCollectionCell" id="Cgz-MP-cBC" customClass="MBLSRuleCollectionViewCell">
+                                                <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" reuseIdentifier="MBLSRuleCollectionCell" id="Cgz-MP-cBC" customClass="MBLSRuleBaseCollectionViewCell">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -991,7 +991,7 @@
                                     <outlet property="collectionView" destination="xDw-d4-d3Z" id="xJv-LC-mKt"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleStartCollectionTableCell" rowHeight="34" id="Q3P-NQ-eNg" customClass="MBLSRuleCollectionTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MBLSRuleStartCollectionTableCell" rowHeight="34" id="Q3P-NQ-eNg" customClass="MBLSRuleDestinationCollectionTableViewCell">
                                 <rect key="frame" x="0.0" y="278" width="400" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="1000" tableViewCell="Q3P-NQ-eNg" id="B85-q1-6qW">
@@ -1016,7 +1016,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MBLSRuleCollectionCell" id="Bgm-6r-G2H" customClass="MBLSRuleCollectionViewCell">
+                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MBLSRuleCollectionCell" id="Bgm-6r-G2H" customClass="MBLSRuleBaseCollectionViewCell">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1106,6 +1106,7 @@
                                         <constraint firstAttribute="trailing" secondItem="i77-9L-kuR" secondAttribute="trailing" constant="20" symbolic="YES" id="wEc-7a-dTs"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Rule Source Collection">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -1518,7 +1519,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DestinationColorSwatchCell" id="eW9-kt-WLH" customClass="MBLSRuleCollectionViewCell">
+                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DestinationColorSwatchCell" id="eW9-kt-WLH" customClass="MBLSRuleBaseCollectionViewCell">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1659,7 +1660,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DestinationColorSwatchCell" id="Sy0-iI-4LA" customClass="MBLSRuleCollectionViewCell">
+                                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DestinationColorSwatchCell" id="Sy0-iI-4LA" customClass="MBLSRuleBaseCollectionViewCell">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2001,7 +2002,7 @@
                             <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" reuseIdentifier="SourceColorSwatchCell" id="0E3-ye-9O3" customClass="MBLSRuleCollectionViewCell">
+                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" reuseIdentifier="SourceColorSwatchCell" id="0E3-ye-9O3" customClass="MBLSRuleBaseCollectionViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

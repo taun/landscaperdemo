@@ -7,7 +7,7 @@
 //
 
 #import "MBFractalColorViewContainer.h"
-#import "MBLSRuleCollectionViewCell.h"
+#import "MBLSRuleBaseCollectionViewCell.h"
 #import "MBColor+addons.h"
 
 #import "QuartzHelpers.h"
@@ -170,7 +170,7 @@
     }
     
     static NSString *CellIdentifier = @"DestinationColorSwatchCell";
-    MBLSRuleCollectionViewCell *cell = (MBLSRuleCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    MBLSRuleBaseCollectionViewCell *cell = (MBLSRuleBaseCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         
     if (indexPath.row < [self.cachedFractalColors[section] count]) {
         // we have a color
@@ -188,18 +188,76 @@
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)gesture {
     UIGestureRecognizerState gestureState = gesture.state;
+    CGPoint touchPoint = [gesture locationInView: self.view];
+    
+    NSArray* collections = @[self.fractalLineColorsDestinationCollection, self.fractalFillColorsDestinationCollection];
+    
+    if (!self.draggingItem) {
+        self.draggingItem = [[MBDraggingItem alloc] initWithItem: nil size: 26.0];
+        //        self.draggingRule = [[MBDraggingRule alloc] init];
+        //        self.draggingRule.size = 30;
+        self.draggingItem.touchToDragViewOffset = CGPointMake(-10.0, -10.0);
+    }
+
+    CGRect viewBounds = CGRectInset(self.view.bounds, 3, 3);
+    CGPoint constrainedPoint = CGPointConfineToRect(touchPoint, viewBounds);
+    // Keep dragged view within the table bounds
+    self.draggingItem.viewCenter = constrainedPoint;
     
     if (gestureState == UIGestureRecognizerStateBegan) {
-        [self dragDidStartAtSourceCollection: self withGesture: gesture];
+        
+        CGPoint localDropViewPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalLineColorsDestinationCollection];
+        UIView* draggingView = [self dragDidStartAtLocalPoint: localDropViewPoint ofCollection: self.fractalLineColorsDestinationCollection withDraggingItem: self.draggingItem];
+        
+        if (draggingView) {
+            [self.view addSubview: draggingView];
+            [self.view bringSubviewToFront: draggingView];
+        }
         
     } else if (gestureState == UIGestureRecognizerStateChanged) {
-        [self dragDidChangeAtSourceCollection: self withGesture: gesture];
+        // need to detect whether the drag has entered or exited or changing collectionViews
+        BOOL overCollection = NO;
+
+        for (UICollectionView* collection in collections) {
+            
+            CGPoint localDropViewPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: collection];
+            
+            if (CGRectContainsPoint(collection.bounds, localDropViewPoint)) {
+                // in this collection
+                overCollection = YES;
+                if (self.draggingItem.lastDestinationCollection == collection) {
+                    // change in collection
+                    [self dragDidChangeToLocalPoint: localDropViewPoint ofCollection: collection withDraggingItem: self.draggingItem];
+                } else {
+                    // did enter
+                    [self dragDidEnterAtLocalPoint: localDropViewPoint ofCollection: collection withDraggingItem: self.draggingItem];
+                }
+            }
+        }
+        
+        if (!overCollection) {
+            // exited last collection
+            [self dragDidExitCollection: self.draggingItem.lastDestinationCollection withDraggingItem: self.draggingItem];
+            // above should set draggingItem.lastCollection to nil
+        }
         
     } else if (gestureState == UIGestureRecognizerStateEnded) {
-        [self dragDidEndAtSourceCollection: self withGesture: gesture];
+        [self dragDidEndDraggingItem: self.draggingItem];
+ 
+        [self.draggingItem.view removeFromSuperview];
         
+        MBColor* draggedColor = (MBColor*)self.draggingItem.dragItem;
+        if (draggedColor.backgrounds == nil && draggedColor.fractalFills.count == 0 && draggedColor.fractalLines.count == 0 && draggedColor.fractalColor == nil) {
+            // no references to managed object.
+            [draggedColor.managedObjectContext deleteObject: draggedColor];
+        }
+        self.draggingItem = nil;
+        
+        [self saveContext];
+
     } else if (gestureState == UIGestureRecognizerStateCancelled) {
-        [self dragCancelledAtSourceCollection: self withGesture: gesture];
+        [self.draggingItem.view removeFromSuperview];
+        self.draggingItem = nil;
         
     }
 }
@@ -207,45 +265,112 @@
 - (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)gesture {
 }
 
--(UIView*) lineColorDragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
-    return nil;
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point ofCollection: (UICollectionView*) collection withDraggingItem: (MBDraggingItem*) draggingRule {
+    UIView* returnView;
+
+    NSIndexPath* indexPath = [collection indexPathForItemAtPoint: point];
+    
+    MBLSRuleBaseCollectionViewCell* collectionSourceCell = (MBLSRuleBaseCollectionViewCell*)[collection cellForItemAtIndexPath: indexPath];
+    
+    if (collectionSourceCell) {
+        LSDrawingRule* draggedRule;
+        draggedRule = collectionSourceCell.cellItem;
+        
+        draggingRule.dragItem = draggedRule;
+        
+        returnView = draggingRule.view;
+    }
+
+    self.draggingItem.lastDestinationCollection = collection;
+    
+    return returnView;
 }
 
--(BOOL) lineColorDragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point ofCollection: (UICollectionView*) collection withDraggingItem: (MBDraggingItem*) draggingRule {
+    self.draggingItem.lastDestinationCollection = self.fractalLineColorsDestinationCollection;
     return NO;
 }
 
--(BOOL) lineColorDragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point ofCollection: (UICollectionView*) collection withDraggingItem: (MBDraggingItem*) draggingRule {
+   
+    NSIndexPath* newIndexPath = [collection indexPathForItemAtPoint: point];
+    
+    MBLSRuleBaseCollectionViewCell* collectionSourceCell = (MBLSRuleBaseCollectionViewCell*)[collection cellForItemAtIndexPath: newIndexPath];
+    MBColor* colorUnderDrag = (MBColor*)collectionSourceCell.cellItem;
+    
+    MBColor* draggedColor = (MBColor*)draggingRule.dragItem;
+    
+    if (colorUnderDrag != nil && colorUnderDrag != draggedColor) {
+        // move cell
+        /*
+         reordering color indexes
+         Initial Colors - a1 a2 a3 a4 a5 a6
+         Move a2 to before a5
+         for i < a2, leave alone
+         for i > a2 && < a6, decrement
+         for i > a5, leave alone
+         a2 changes to a5
+         */
+        NSUInteger underIndex = [colorUnderDrag.index unsignedIntegerValue];
+        NSUInteger oldIndex = [draggedColor.index unsignedIntegerValue];
+        
+        [self.fractal willChangeValueForKey: @"lineColors"];
+        
+        for (MBColor* color in self.fractal.lineColors) {
+            //
+            NSUInteger colorIndex = [color.index unsignedIntegerValue];
+            
+            if (colorIndex > oldIndex && colorIndex < (underIndex+1)) {
+                color.index = @(colorIndex - 1);
+                
+            } else if (colorIndex >= underIndex && colorIndex < oldIndex) {
+                color.index = @(colorIndex + 1);
+            }
+            draggedColor.index = @(underIndex);
+        }
+        
+        [self.fractal didChangeValueForKey: @"lineColors"];
+
+        NSIndexPath* oldIndexPath = [NSIndexPath indexPathForItem: oldIndex inSection: 0];
+        [collection moveItemAtIndexPath: oldIndexPath toIndexPath: newIndexPath];
+
+        self.colorsChanged = YES;
+        [self saveContext];
+    }
+    
     return NO;
 }
 
--(BOOL) lineColorDragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+    
     return NO;
 }
 
--(BOOL) lineColorDragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidExitCollection: (UICollectionView*) collection withDraggingItem: (MBDraggingItem*) draggingRule {
+    NSMutableSet* mutableColors = [self.fractal mutableSetValueForKey: @"lineColors"];
+    
+    MBColor* colorLeaving = (MBColor*)draggingRule.dragItem;
+    
+    if ([mutableColors containsObject: colorLeaving]) {
+        NSUInteger oldIndex = [colorLeaving.index unsignedIntegerValue];
+        colorLeaving.index = nil;
+        [mutableColors removeObject: colorLeaving];
+        
+        for (MBColor* color in self.fractal.lineColors) {
+            //
+            NSUInteger colorIndex = [color.index unsignedIntegerValue];
+            
+            if (colorIndex > oldIndex) {
+                color.index = @(colorIndex - 1);
+                
+            }
+        }
+        [self saveContext];
+        [collection deleteItemsAtIndexPaths: @[[NSIndexPath indexPathForItem: oldIndex inSection: 0]]];
+    }
     return NO;
 }
 
--(UIView*) fillColorDragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
-    return nil;
-}
-
--(BOOL) fillColorDragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
-    return NO;
-}
-
--(BOOL) fillColorDragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
-    return NO;
-}
-
--(BOOL) fillColorDragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
-    return NO;
-}
-
--(BOOL) fillColorDragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
-    return NO;
-}
 
 
 -(void)dragDidStartAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture {
@@ -292,7 +417,7 @@
             CGPoint lineColorsCollectionPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalLineColorsDestinationCollection];
             NSIndexPath* lineCellIndex = [self.fractalLineColorsDestinationCollection indexPathForItemAtPoint: lineColorsCollectionPoint];
             if (lineCellIndex) {
-                MBLSRuleCollectionViewCell* destinationCell = (MBLSRuleCollectionViewCell*)[self.fractalLineColorsDestinationCollection cellForItemAtIndexPath: lineCellIndex];
+                MBLSRuleBaseCollectionViewCell* destinationCell = (MBLSRuleBaseCollectionViewCell*)[self.fractalLineColorsDestinationCollection cellForItemAtIndexPath: lineCellIndex];
                 MBColor* color = destinationCell.cellItem;
                 if (!color) {
                     // over a placeholder so replace with a color
@@ -311,7 +436,7 @@
                 CGPoint fillColorsCollectionPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: self.fractalFillColorsDestinationCollection];
                 NSIndexPath* fillCellIndex = [self.fractalFillColorsDestinationCollection indexPathForItemAtPoint: fillColorsCollectionPoint];
                 if (fillCellIndex) {
-                    MBLSRuleCollectionViewCell* destinationCell = (MBLSRuleCollectionViewCell*)[self.fractalFillColorsDestinationCollection cellForItemAtIndexPath: fillCellIndex];
+                    MBLSRuleBaseCollectionViewCell* destinationCell = (MBLSRuleBaseCollectionViewCell*)[self.fractalFillColorsDestinationCollection cellForItemAtIndexPath: fillCellIndex];
                     MBColor* color = destinationCell.cellItem;
                     if (!color) {
                         // over a placeholder so replace with a color
@@ -445,10 +570,6 @@
 //            reloadContainer = strongCollectionView.nextItemWillWrapLine; // If removing item unwraps, then reload to shrink.
 //        }
 //    }
-    return reloadContainer;
-}
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
-    BOOL reloadContainer = NO;
     return reloadContainer;
 }
 

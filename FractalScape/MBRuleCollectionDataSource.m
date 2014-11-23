@@ -7,7 +7,7 @@
 //
 
 #import "MBRuleCollectionDataSource.h"
-#import "MBLSRuleCollectionViewCell.h"
+#import "MBLSRuleBaseCollectionViewCell.h"
 #import "LSDrawingRule+addons.h"
 
 @interface MBRuleCollectionDataSource ()
@@ -41,7 +41,7 @@
 }
 
 -(UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    MBLSRuleCollectionViewCell* newCell = [collectionView dequeueReusableCellWithReuseIdentifier: @"MBLSRuleCollectionCell" forIndexPath: indexPath];
+    MBLSRuleBaseCollectionViewCell* newCell = [collectionView dequeueReusableCellWithReuseIdentifier: @"MBLSRuleCollectionCell" forIndexPath: indexPath];
     
 //    CGFloat deviceScaleFactor = collectionView.contentScaleFactor;
     

@@ -1,5 +1,5 @@
 //
-//  MBLSRuleCollectionViewCell.h
+//  MBLSRuleBaseCollectionViewCell.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 09/29/14.
@@ -13,7 +13,7 @@
 /*!
  Add autoloayout, MDKLayerView and MBLSRuleDragAndDropProtocol to a UICollectionView.
  */
-@interface MBLSRuleCollectionViewCell : UICollectionViewCell <MBLSRuleDragAndDropProtocol>
+@interface MBLSRuleBaseCollectionViewCell : UICollectionViewCell <MBLSRuleDragAndDropProtocol>
 /*!
  The object to be stored in the cell. The fact that the actual object is stored in the cell is 
  used to facilitate the MBLSRuleDragAndDropProtocol implementation. It is assumed the cellItem has 

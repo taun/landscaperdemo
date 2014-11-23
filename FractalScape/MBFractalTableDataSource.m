@@ -15,8 +15,8 @@
 #import "LSDrawingRule+addons.h"
 
 #import "MBFractalDescriptionTableCell.h"
-#import "MBLSRuleCollectionTableViewCell.h"
-#import "MBLSRuleCollectionViewCell.h"
+#import "MBLSRuleBaseCollectionTableViewCell.h"
+#import "MBLSRuleBaseCollectionViewCell.h"
 #import "MBLSReplacementRuleTableViewCell.h"
 
 
@@ -151,9 +151,9 @@
         cell = newCell;
     } else if (indexPath.section == TableSectionsAxiom) {
         // axiom
-        MBLSRuleCollectionTableViewCell* newCell = nil;
+        MBLSRuleBaseCollectionTableViewCell* newCell = nil;
         if (!newCell) {
-            newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier forIndexPath: indexPath];
+            newCell = (MBLSRuleBaseCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: AxiomCellIdentifier forIndexPath: indexPath];
             newCell.rules = [strongFractalProperty mutableOrderedSetValueForKey: @"startingRules"];
             newCell.notifyObject = strongFractalProperty;
             newCell.notifyPath = @"startingRules";
@@ -187,9 +187,9 @@
         
     } else if (indexPath.section == TableSectionsRules) {
         // Rule source section
-        MBLSRuleCollectionTableViewCell *newCell = nil;
+        MBLSRuleBaseCollectionTableViewCell *newCell = nil;
         if (!newCell) {
-            newCell = (MBLSRuleCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
+            newCell = (MBLSRuleBaseCollectionTableViewCell *)[tableView dequeueReusableCellWithIdentifier: RuleSourceCellIdentifier forIndexPath: indexPath];
             newCell.rules = [strongFractalProperty.drawingRulesType mutableOrderedSetValueForKey: @"rules"];
             newCell.notifyObject = strongFractalProperty.drawingRulesType;
             newCell.notifyPath = @"rules";

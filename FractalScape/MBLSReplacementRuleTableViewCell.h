@@ -11,9 +11,9 @@
 #import "LSDrawingRule+addons.h"
 #import "LSReplacementRule+addons.h"
 #import "MBLSRuleDragAndDropProtocol.h"
-#import "MBLSRuleCollectionTableViewCell.h"
+#import "MBLSRuleBaseCollectionTableViewCell.h"
 
-@interface MBLSReplacementRuleTableViewCell : MBLSRuleCollectionTableViewCell <MBLSRuleDragAndDropProtocol>
+@interface MBLSReplacementRuleTableViewCell : MBLSRuleBaseCollectionTableViewCell <MBLSRuleDragAndDropProtocol>
 
 @property (weak,nonatomic) LSReplacementRule                                *replacementRule;
 

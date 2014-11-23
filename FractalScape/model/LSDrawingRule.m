@@ -2,12 +2,14 @@
 //  LSDrawingRule.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 10/09/14.
+//  Created by Taun Chapman on 11/22/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "LSDrawingRule.h"
 #import "LSDrawingRuleType.h"
+#import "LSFractal.h"
+#import "LSReplacementRule.h"
 
 
 @implementation LSDrawingRule
@@ -17,6 +19,7 @@
 @dynamic iconIdentifierString;
 @dynamic productionString;
 @dynamic type;
-
+@dynamic replacementRule;
+@dynamic fractalStart;
 
 @end
