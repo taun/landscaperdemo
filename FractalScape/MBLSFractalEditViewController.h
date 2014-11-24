@@ -10,7 +10,7 @@
 #import "MBLSFractalViewController.h"
 
 @class MBFractalLibraryViewController;
-@class MBFractalLineSegmentsEditorViewController;
+@class MBFractalRulesEditorViewController;
 @class MBFractalAxiomEditViewController;
 @class MBFractalAppearanceEditorViewController;
 
@@ -33,6 +33,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 /* a generator for each level being displayed. */
 @property (nonatomic, strong) NSMutableArray*               generatorsArray;
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
+@property (nonatomic, strong) NSNumberFormatter*            percentFormatter;
 #pragma message "Unused"
 @property (nonatomic, strong) UIBarButtonItem*              spaceButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
@@ -58,6 +59,9 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UILabel *baseAngleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *turningAngleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *turnAngleIncrementLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hudRandomnessLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hudLineAspectLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hudLineIncrementLabel;
 
 #pragma mark FractalLevel1 Nib outlets
 

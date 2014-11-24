@@ -2,7 +2,7 @@
 //  LSFractal.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/21/14.
+//  Created by Taun Chapman on 11/24/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -17,29 +17,25 @@
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSString * descriptor;
 @property (nonatomic, retain) NSNumber * eoFill;
-@property (nonatomic, retain) NSNumber * fill;
 @property (nonatomic, retain) NSNumber * isImmutable;
 @property (nonatomic, retain) NSNumber * isReadOnly;
 @property (nonatomic, retain) NSNumber * level;
-@property (nonatomic, retain) NSNumber * lineCap;
-@property (nonatomic, retain) NSNumber * lineJoin;
 @property (nonatomic, retain) NSNumber * lineLength;
 @property (nonatomic, retain) NSNumber * lineLengthScaleFactor;
 @property (nonatomic, retain) NSNumber * lineWidth;
 @property (nonatomic, retain) NSNumber * lineWidthIncrement;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * randomize;
 @property (nonatomic, retain) NSNumber * randomness;
-@property (nonatomic, retain) NSNumber * stroke;
 @property (nonatomic, retain) NSNumber * turningAngle;
 @property (nonatomic, retain) NSNumber * turningAngleIncrement;
+@property (nonatomic, retain) NSNumber * lineChangeFactor;
+@property (nonatomic, retain) MBColor *backgroundColor;
 @property (nonatomic, retain) LSDrawingRuleType *drawingRulesType;
 @property (nonatomic, retain) NSSet *fillColors;
 @property (nonatomic, retain) NSSet *lineColors;
 @property (nonatomic, retain) NSSet *placements;
 @property (nonatomic, retain) NSOrderedSet *replacementRules;
 @property (nonatomic, retain) NSOrderedSet *startingRules;
-@property (nonatomic, retain) MBColor *backgroundColor;
 @end
 
 @interface LSFractal (CoreDataGeneratedAccessors)

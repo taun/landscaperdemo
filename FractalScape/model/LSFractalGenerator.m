@@ -45,8 +45,6 @@
 @property (nonatomic,strong) UIColor*               defaultColor;
 
 @property (nonatomic,assign) BOOL                   cachedEoFill;
-@property (nonatomic,assign) NSInteger              cachedLineCap;
-@property (nonatomic,assign) NSInteger              cachedLineJoin;
 
 
 
@@ -375,8 +373,8 @@
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
 //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
         
-        CGContextSetLineCap(theContext,(CGLineCap)self.cachedLineCap);
-        CGContextSetLineJoin(theContext, (CGLineJoin)self.cachedLineJoin);
+        CGContextSetLineCap(theContext, segment.lineCap);
+        CGContextSetLineJoin(theContext, segment.lineJoin);
         CGContextSetLineWidth(theContext, segment.lineWidth);
         
         CGAffineTransform ctm = CGContextGetCTM(theContext);
@@ -456,21 +454,17 @@
         newSegment.lineColorIndex = 0;
         newSegment.fillColorIndex = 0;
         
-        newSegment.fill = [self.privateFractal.fill boolValue];
-        
         newSegment.lineLength = [self.privateFractal lineLengthAsDouble];
         newSegment.lineLengthScaleFactor = [self.privateFractal.lineLengthScaleFactor doubleValue];
         
         newSegment.lineWidth = [self.privateFractal.lineWidth doubleValue];
         newSegment.lineWidthIncrement = [self.privateFractal.lineWidthIncrement doubleValue];
         
-        newSegment.stroke = [self.privateFractal.stroke boolValue];
-        
         newSegment.turningAngle = [self.privateFractal turningAngleAsDouble];
         newSegment.turningAngleIncrement = [self.privateFractal.turningAngleIncrement doubleValue];
         
-        newSegment.randomize = [self.privateFractal.randomize boolValue];
         newSegment.randomness = [self.privateFractal.randomness doubleValue];
+        newSegment.lineChangeFactor = [self.privateFractal.lineChangeFactor doubleValue];
         
         [self.currentSegmentList addObject: newSegment];
     }
@@ -490,8 +484,6 @@
 }
 -(void) cacheLineEnds: (LSFractal*)fractal {
     _cachedEoFill = fractal.eoFill ? [fractal.eoFill boolValue] : NO;
-    _cachedLineCap = fractal.lineCap ? [fractal.lineCap intValue] : kCGLineCapButt;
-    _cachedLineJoin = fractal.lineJoin ? [fractal.lineJoin intValue] : kCGLineJoinBevel;
 }
 -(NSMutableDictionary*) cachedDrawingRules {
     if (_cachedDrawingRules == nil) {
@@ -864,11 +856,15 @@
  Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
  */
 -(void) commandIncrementLineWidth {
-    self.currentSegment.lineWidth += self.currentSegment.lineWidth * self.currentSegment.lineWidthIncrement;
+    if (self.currentSegment.lineChangeFactor > 0) {
+        self.currentSegment.lineWidth += self.currentSegment.lineWidth * self.currentSegment.lineChangeFactor;
+    }
 }
 
 -(void) commandDecrementLineWidth {
-    self.currentSegment.lineWidth -= self.currentSegment.lineWidth * self.currentSegment.lineWidthIncrement;
+    if (self.currentSegment.lineChangeFactor > 0) {
+        self.currentSegment.lineWidth -= self.currentSegment.lineWidth * self.currentSegment.lineChangeFactor;
+    }
 }
 
 -(void) commandDrawDot {
@@ -893,12 +889,14 @@
 }
 #pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
 -(void) commandUpscaleLineLength {
-    self.currentSegment.lineLength *= self.currentSegment.lineLengthScaleFactor;
+    if (self.currentSegment.lineChangeFactor > 0) {
+        self.currentSegment.lineLength += self.currentSegment.lineLength * self.currentSegment.lineChangeFactor;
+    }
 }
 
 -(void) commandDownscaleLineLength {
-    if (self.currentSegment.lineLengthScaleFactor > 0) {
-        self.currentSegment.lineLength = fmax(0,(self.currentSegment.lineLength / self.currentSegment.lineLengthScaleFactor));
+    if (self.currentSegment.lineChangeFactor > 0) {
+        self.currentSegment.lineLength -= self.currentSegment.lineLength * self.currentSegment.lineChangeFactor;
     }
 }
 
@@ -909,11 +907,15 @@
 }
 
 -(void) commandDecrementAngle {
-    self.currentSegment.turningAngle -= self.currentSegment.turningAngle * self.currentSegment.turningAngleIncrement;
+    if (self.currentSegment.turningAngleIncrement > 0) {
+        self.currentSegment.turningAngle -= self.currentSegment.turningAngle * self.currentSegment.turningAngleIncrement;
+    }
 }
 
 -(void) commandIncrementAngle {
-    self.currentSegment.turningAngle += self.currentSegment.turningAngle * self.currentSegment.turningAngleIncrement;
+    if (self.currentSegment.turningAngleIncrement > 0) {
+        self.currentSegment.turningAngle += self.currentSegment.turningAngle * self.currentSegment.turningAngleIncrement;
+    }
 }
 
 -(void) commandStrokeOff {
@@ -955,6 +957,25 @@
     [self startNewSegment];
     self.currentSegment.fillColorIndex = --self.currentSegment.fillColorIndex;
 }
+-(void)commandLineCapButt {
+    self.currentSegment.lineCap = kCGLineCapButt;
+}
+-(void)commandLineCapRound {
+    self.currentSegment.lineCap = kCGLineCapRound;
+}
+-(void)commandLineCapSquare {
+    self.currentSegment.lineCap = kCGLineCapSquare;
+}
+-(void)commandLineJoinMiter {
+    self.currentSegment.lineJoin = kCGLineJoinMiter;
+}
+-(void)commandLineJoinRound {
+    self.currentSegment.lineJoin = kCGLineJoinRound;
+}
+-(void)commandLineJoinBevel {
+    self.currentSegment.lineJoin = kCGLineJoinBevel;
+}
+
 #pragma mark helper methods
 
 -(double) aspectRatio {

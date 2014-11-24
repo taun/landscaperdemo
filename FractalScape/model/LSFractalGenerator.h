@@ -11,7 +11,7 @@
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
  2   F :  Move forward by line length drawing a line
- 3   f :  Move forward by line length without drawing a line
+ 3   G :  Move forward by line length without drawing a line
  4   + :  Turn left by turning angle
  5   - :  Turn right by turning angle
  6   | :  Reverse direction (turn by 180)
@@ -47,6 +47,12 @@
 32   b :  previous line color
 33   c :  next fill color
 34   d :  previous fill color
+34   e :  lineCapButt
+34   f :  round
+34   g :  square
+34   h :  lineJoin
+34   i :  lineJoin
+34   j :  lineJoin
  
  
  Variables
@@ -120,26 +126,26 @@
  
  Algae
  axiom = aF
- a -> FFFFFv[+++h][---q]fb
- b -> FFFFFv[+++h][---q]fc
- c -> FFFFFv[+++fa]fd
- d -> FFFFFv[+++h][---q]fe
- e -> FFFFFv[+++h][---q]fg
- g -> FFFFFv[---fa]fa
- h -> ifFF
- i -> fFFF[--m]j
- j -> fFFF[--n]k
- k -> fFFF[--o]l
- l -> fFFF[--p]
- m -> fFn
- n -> fFo
- o -> fFp
- p -> fF
- q -> rfF
- r -> fFFF[++m]s
- s -> fFFF[++n]t
- t -> fFFF[++o]u
- u -> fFFF[++p]
+ a -> FFFFFv[+++h][---q]Gb
+ b -> FFFFFv[+++h][---q]Gc
+ c -> FFFFFv[+++Ga]Gd
+ d -> FFFFFv[+++h][---q]Ge
+ e -> FFFFFv[+++h][---q]Gg
+ g -> FFFFFv[---Ga]Ga
+ h -> iGFF
+ i -> GFFF[--m]j
+ j -> GFFF[--n]k
+ k -> GFFF[--o]l
+ l -> GFFF[--p]
+ m -> GFn
+ n -> GFo
+ o -> GFp
+ p -> GF
+ q -> rGF
+ r -> GFFF[++m]s
+ s -> GFFF[++n]t
+ t -> GFFF[++o]u
+ u -> GFFF[++p]
  v -> Fv
  angle = 12
  
@@ -240,5 +246,12 @@
 -(void) commandPreviousColor;
 -(void) commandNextFillColor;
 -(void) commandPreviousFillColor;
+-(void) commandLineJoinMiter;
+-(void) commandLineJoinRound;
+-(void) commandLineJoinBevel;
+-(void) commandLineCapButt;
+-(void) commandLineCapRound;
+-(void) commandLineCapSquare;
+
 
 @end

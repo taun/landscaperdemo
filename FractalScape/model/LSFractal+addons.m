@@ -63,7 +63,6 @@
         keysToBeCopied = [[NSSet alloc] initWithObjects:
                           @"category",
                           @"descriptor",
-                          @"fill",
                           @"eoFill",
                           @"isImmutable",
                           @"isReadOnly",
@@ -72,13 +71,11 @@
                           @"lineLengthScaleFactor",
                           @"lineWidth",
                           @"lineWidthIncrement",
-                          @"stroke",
+                          @"lineChangeFactor",
                           @"turningAngle",
                           @"turningAngleIncrement",
                           @"baseAngle",
                           @"drawingRulesType",
-                          @"lineJoin",
-                          @"lineCap",
                           @"name",
                           @"randomness",
                           @"backgroundColor",
@@ -118,8 +115,7 @@
                                 @"lineLengthScale",
                                 @"lineWidth",
                                 @"lineWidthIncrement",
-                                @"stroke",
-                                @"fill",
+                                @"lineChangeFactor",
                                 @"turningAngle",
                                 @"turningAngleIncrement",
                                 @"baseAngle",
@@ -133,8 +129,6 @@
     static NSSet* redrawProperties = nil;
     if (redrawProperties == nil) {
         redrawProperties = [[NSSet alloc] initWithObjects:
-                            @"lineJoin",
-                            @"lineCap",
                             @"eoFill",
                             @"lineColors",
                             @"fillColors",

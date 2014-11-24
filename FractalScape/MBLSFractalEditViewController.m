@@ -11,7 +11,7 @@
 #import "MBFractalLibraryViewController.h"
 #import "MBFractalAxiomEditViewController.h"
 #import "MBFractalAppearanceEditorViewController.h"
-#import "MBFractalLineSegmentsEditorViewController.h"
+#import "MBFractalRulesEditorViewController.h"
 #import "FractalControllerProtocol.h"
 #import "LSReplacementRule.h"
 //#import "MBLSFractalLevelNView.h"
@@ -583,10 +583,17 @@ static BOOL SIMULTOUCH = NO;
 -(void) refreshLayers {
     self.hudText1.text = [self.fractal.level stringValue];
     self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
+
     self.baseAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.baseAngle doubleValue])]];
+    self.hudRandomnessLabel.text = [self.percentFormatter stringFromNumber: self.fractal.randomness];
+
+    self.hudLineAspectLabel.text = [self.percentFormatter stringFromNumber: @([self.fractal.lineWidth floatValue]/[self.fractal.lineLength floatValue])];
     self.turningAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.turningAngle doubleValue])]];
-    self.turnAngleIncrementLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.turningAngleIncrement doubleValue])]];
     
+    double turnAngleChangeInDegrees = degrees([self.fractal.turningAngleIncrement doubleValue] * [self.fractal.turningAngle doubleValue]);
+    self.turnAngleIncrementLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: turnAngleChangeInDegrees]];
+    
+    self.hudLineIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.lineChangeFactor];
     //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
     //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
     
@@ -1187,10 +1194,10 @@ static void countPathElements(void *info, const CGPathElement *element) {
                              angleScale: 20.0/1.0
                                minAngle: -180.0
                                maxAngle:  180.0
-                             aspectPath: nil
-                            aspectScale: 0.0
+                             aspectPath: @"randomness"
+                            aspectScale: -1.0/1000.0
                               minAspect: 0.0
-                              maxAspect: 0.0];
+                              maxAspect: 0.20];
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
@@ -1200,7 +1207,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                                minAngle: -180.0
                                maxAngle:  180.0
                              aspectPath:@"lineWidth"
-                            aspectScale: 1.0/5.0
+                            aspectScale: 1.0/50.0
                               minAspect: 0.5
                               maxAspect: 20.0];
 }
@@ -1209,11 +1216,11 @@ static void countPathElements(void *info, const CGPathElement *element) {
     [self convertPanToAngleAspectChange: sender
                                subLayer: self.fractalLevel2Layer
                               anglePath: @"turningAngleIncrement"
-                             angleScale: 1.0/50.0
+                             angleScale: 1.0/1.0
                                minAngle: 0.0
-                               maxAngle: 1.0
-                             aspectPath: @"lineWidthIncrement"
-                            aspectScale: 1.0/100.0
+                               maxAngle: 57.295779513
+                             aspectPath: @"lineChangeFactor"
+                            aspectScale: -1.0/1000.0
                               minAspect: 0.05
                               maxAspect: 1.0];
 }
@@ -1271,7 +1278,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
         } else {
             if (axisState && aspectPath) {
                 // vertical, change aspect
-                CGFloat scaledWidth = floorf(translation.y * aspectScale * 100.0)/100.0;
+                CGFloat scaledWidth = floorf(translation.y * aspectScale * 1000.0)/1000.0;
                 CGFloat newWidth = fminf(fmaxf(initialWidth + scaledWidth, minAspect), maxAspect);
                 [self.fractal setValue: @(newWidth) forKey: aspectPath];
                 //self.fractal.lineWidth = @(newidth);
@@ -1683,6 +1690,13 @@ static void countPathElements(void *info, const CGPathElement *element) {
         [_twoPlaceFormatter setNegativeFormat: @"-##0.00"];
     }
     return _twoPlaceFormatter;
+}
+-(NSNumberFormatter*) percentFormatter {
+    if (_percentFormatter == nil) {
+        _percentFormatter = [[NSNumberFormatter alloc] init];
+        _percentFormatter.numberStyle = NSNumberFormatterPercentStyle;
+    }
+    return _percentFormatter;
 }
 
 -(void) dealloc {

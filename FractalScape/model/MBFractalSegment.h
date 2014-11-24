@@ -24,13 +24,16 @@
 @property (nonatomic,assign) double                 lineWidth;
 @property (nonatomic,assign) double                 lineWidthIncrement;
 @property (nonatomic,assign) double                 lineLengthScaleFactor;
-@property (nonatomic,assign) double                 randomness;
-@property (nonatomic,readwrite) BOOL               fill;
-@property (nonatomic,readwrite) BOOL               stroke;
-
-@property (nonatomic,assign) NSInteger             lineColorIndex;
-@property (nonatomic,assign) NSInteger             fillColorIndex;
+@property (nonatomic,assign) double                 lineChangeFactor;
 @property (nonatomic,assign) BOOL                   randomize;
+@property (nonatomic,assign) double                 randomness;
+@property (nonatomic,assign) BOOL                   fill;
+@property (nonatomic,assign) BOOL                   stroke;
+@property (nonatomic,assign) CGLineCap              lineCap;
+@property (nonatomic,assign) CGLineJoin             lineJoin;
+
+@property (nonatomic,assign) NSInteger              lineColorIndex;
+@property (nonatomic,assign) NSInteger              fillColorIndex;
 
 @property (nonatomic,assign) CGAffineTransform      transform;
 

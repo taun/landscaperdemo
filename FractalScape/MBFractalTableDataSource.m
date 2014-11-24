@@ -24,6 +24,10 @@
 
 #import <MDUiKit/MDUiKit.h>
 
+static NSString *NameCellIdentifier = @"NameCell";
+static NSString *ReplacementRuleCellIdentifier = @"MBLSReplacementRuleCell";
+static NSString *AxiomCellIdentifier = @"MBLSRuleStartCollectionTableCell";
+static NSString *RuleSourceCellIdentifier = @"MBLSRuleCollectionTableCell";
 
 @interface MBFractalTableDataSource ()
 
@@ -131,12 +135,6 @@
     UITableViewCell *cell = nil;
     LSFractal* strongFractalProperty = self.fractal;
     
-    static NSString *NameCellIdentifier = @"NameCell";
-//    static NSString *CategoryCellIdentifier = @"CategoryCell";
-//    static NSString *DescriptionCellIdentifier = @"DescriptionCell";
-    static NSString *ReplacementRuleCellIdentifier = @"MBLSReplacementRuleCell";
-    static NSString *AxiomCellIdentifier = @"MBLSRuleStartCollectionTableCell";
-    static NSString *RuleSourceCellIdentifier = @"MBLSRuleCollectionTableCell";
     
     if (indexPath.section == TableSectionsDescription) {
         // description

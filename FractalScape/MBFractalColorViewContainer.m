@@ -131,7 +131,7 @@
                                                                             toItem:collectionViewWrapper
                                                                          attribute:NSLayoutAttributeTop
                                                                         multiplier:1.0
-                                                                          constant:56.0
+                                                                          constant:64.0
                                              ];
     NSLayoutConstraint* bottomConstraint = [NSLayoutConstraint constraintWithItem:collectionView
                                                                          attribute:NSLayoutAttributeBottom

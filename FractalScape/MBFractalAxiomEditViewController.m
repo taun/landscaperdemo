@@ -436,7 +436,9 @@
     } else if (indexPath.section == TableSectionsRules) {
         // Rule source section
         if (((MBLSRuleBaseCollectionTableViewCell *)cell).collectionView.willScrollVertically) {
-            [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationNone];
+            });
         }
         //        newCell.isReadOnly = YES;
         //        newCell.itemSize = 46.0;

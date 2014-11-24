@@ -54,7 +54,7 @@
 		</dict>
 		<dict>
 			<key>productionString</key>
-			<string>f</string>
+			<string>G</string>
 			<key>drawingMethodString</key>
 			<string>commandMoveByLine</string>
 			<key>iconIdentifierString</key>
@@ -267,6 +267,54 @@
 			<string>commandPreviousFillColor</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePreviousFillColor</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>e</string>
+			<key>drawingMethodString</key>
+			<string>commandLineCapButt</string>
+			<key>iconIdentifierString</key>
+			<string>kCGLineCapButtIcon</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>f</string>
+			<key>drawingMethodString</key>
+			<string>commandLineCapRound</string>
+			<key>iconIdentifierString</key>
+			<string>kCGLineCapRoundIcon</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>g</string>
+			<key>drawingMethodString</key>
+			<string>commandLineCapSquare</string>
+			<key>iconIdentifierString</key>
+			<string>kCGLineCapSquareIcon</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>h</string>
+			<key>drawingMethodString</key>
+			<string>commandLineJoinMiter</string>
+			<key>iconIdentifierString</key>
+			<string>kCGLineJoinMiterIcon</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>i</string>
+			<key>drawingMethodString</key>
+			<string>commandLineJoinRound</string>
+			<key>iconIdentifierString</key>
+			<string>kCGLineJoinRoundIcon</string>
+		</dict>
+		<dict>
+			<key>productionString</key>
+			<string>j</string>
+			<key>drawingMethodString</key>
+			<string>commandLineJoinBevel</string>
+			<key>iconIdentifierString</key>
+			<string>kCGLineJoinBevelIcon</string>
 		</dict>
 	</array>
 	<key>ruleType</key>

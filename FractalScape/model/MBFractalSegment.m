@@ -20,10 +20,13 @@
              @"lineWidth",
              @"lineWidthIncrement",
              @"lineLengthScaleFactor",
+             @"lineChangeFactor",
              @"randomize",
              @"randomness",
              @"fill",
              @"stroke",
+             @"lineCap",
+             @"lineJoin",
              @"transform",
              @"lineColorIndex",
              @"fillColorIndex"

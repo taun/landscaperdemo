@@ -26,7 +26,7 @@
 		<key>turningAngle</key>
 		<real>0.26179938779914</real>
 		<key>turningAngleIncrement</key>
-		<real>0.26179938779914</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -82,7 +82,7 @@
 		<key>turningAngle</key>
 		<real>0.7853981633974501</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -142,7 +142,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -194,7 +194,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -246,7 +246,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -298,15 +298,15 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
 		<dict>
-			<key>f</key>
-			<string>ffffff</string>
+			<key>G</key>
+			<string>GGGGGG</string>
 			<key>F</key>
-			<string>F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF</string>
+			<string>F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF</string>
 		</dict>
 		<key>lineColors</key>
 		<array>
@@ -422,7 +422,7 @@
 		<key>turningAngle</key>
 		<real>1.0471975511966</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -474,7 +474,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -528,7 +528,7 @@
 		<key>turningAngle</key>
 		<real>1.0471975511966</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -582,7 +582,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -688,7 +688,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -758,7 +758,7 @@
 		<key>turningAngle</key>
 		<real>0.31415926535898</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>baseAngle</key>
 		<real>1.5707963267949</real>
 		<key>drawingRulesType.identifier</key>
@@ -836,7 +836,7 @@
 		<key>turningAngle</key>
 		<real>0.39269908169872</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>baseAngle</key>
 		<real>1.5707963267949</real>
 		<key>drawingRulesType.identifier</key>
@@ -890,7 +890,7 @@
 		<key>turningAngle</key>
 		<real>0.44879895051283</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>baseAngle</key>
 		<real>1.5707963267949</real>
 		<key>drawingRulesType.identifier</key>
@@ -960,7 +960,7 @@
 		<key>turningAngle</key>
 		<real>0.44879895051283</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>baseAngle</key>
 		<real>1.5707963267949</real>
 		<key>drawingRulesType.identifier</key>
@@ -1032,7 +1032,7 @@
 		<key>turningAngle</key>
 		<real>1.0471975511966</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -1084,7 +1084,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -1136,7 +1136,7 @@
 		<key>turningAngle</key>
 		<real>1.5707963267949</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>drawingRulesType.identifier</key>
 		<string>default</string>
 		<key>replacementRules</key>
@@ -1204,7 +1204,7 @@
 		<key>turningAngle</key>
 		<real>0.45378560551851</real>
 		<key>turningAngleIncrement</key>
-		<real>0.08726646259972</real>
+		<integer>0</integer>
 		<key>baseAngle</key>
 		<real>1.5707963267949</real>
 		<key>drawingRulesType.identifier</key>
