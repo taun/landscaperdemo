@@ -378,7 +378,7 @@
                             //
                             LSReplacementRule *newReplacementRule = [LSReplacementRule insertNewObjectIntoContext: context];
                             
-                            newReplacementRule.contextRule = availableRules[key];
+                            newReplacementRule.contextRule = [availableRules[key] mutableCopy];
                             
                             NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: rulesKey];
                             NSString* replacementRulesString = replacementRulesDict[key];

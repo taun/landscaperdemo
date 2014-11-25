@@ -714,6 +714,7 @@
                                         </textField>
                                         <pickerView contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="o4o-nm-If5">
                                             <rect key="frame" x="650" y="-31" width="130" height="162"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="750" constant="100" id="9eU-zW-gcE"/>
                                                 <constraint firstAttribute="width" priority="999" constant="130" id="GOX-0R-NiZ"/>
@@ -1222,21 +1223,88 @@
         <!--Line Segments-->
         <scene sceneID="AoQ-mK-Ne2">
             <objects>
-                <viewController storyboardIdentifier="LineSegmentPopover" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bDY-89-tKS" customClass="MBFractalRulesEditorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LineSegmentsPopover" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bDY-89-tKS" customClass="MBFractalRulesEditorViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="C18-El-Nap"/>
                         <viewControllerLayoutGuide type="bottom" id="9ql-HA-CPu"/>
                     </layoutGuides>
-                    <view key="view" clipsSubviews="YES" contentMode="top" horizontalCompressionResistancePriority="250" id="ei1-2X-rGK">
+                    <view key="view" opaque="NO" clipsSubviews="YES" contentMode="top" horizontalCompressionResistancePriority="250" id="ei1-2X-rGK">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="301"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="301"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="800" height="301"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditView">
+                                                <rect key="frame" x="8" y="8" width="784" height="116"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRulesListTileView">
+                                                <rect key="frame" x="8" y="132" width="784" height="151"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="151" id="KJl-lS-bto"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
+                                                        <real key="value" value="26"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="tileMargin">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showBorder" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Zw0-gp-nOl" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="8" id="5MP-Xx-pL0"/>
+                                            <constraint firstAttribute="bottom" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" constant="18" id="7Ft-8g-6K2"/>
+                                            <constraint firstItem="Zw0-gp-nOl" firstAttribute="top" secondItem="4f0-9f-h9I" secondAttribute="top" constant="8" id="NdF-yI-U3K"/>
+                                            <constraint firstItem="zPi-Ea-Cqu" firstAttribute="top" secondItem="Zw0-gp-nOl" secondAttribute="bottom" constant="8" id="YDg-bM-rWH"/>
+                                            <constraint firstAttribute="trailing" secondItem="zPi-Ea-Cqu" secondAttribute="trailing" constant="8" id="agE-OE-AOk"/>
+                                            <constraint firstAttribute="width" priority="750" constant="800" id="ms0-5J-Hgn"/>
+                                            <constraint firstAttribute="trailing" secondItem="Zw0-gp-nOl" secondAttribute="trailing" constant="8" id="rZs-8N-oEu"/>
+                                            <constraint firstItem="zPi-Ea-Cqu" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="8" id="seG-1a-hTf"/>
+                                            <constraint firstAttribute="height" constant="301" id="vDN-6k-3s5"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="4f0-9f-h9I" firstAttribute="leading" secondItem="EJz-dI-EIj" secondAttribute="leading" id="4Wc-xI-sgm"/>
+                                    <constraint firstItem="4f0-9f-h9I" firstAttribute="top" secondItem="EJz-dI-EIj" secondAttribute="top" id="7pD-GZ-d4P"/>
+                                    <constraint firstAttribute="trailing" secondItem="4f0-9f-h9I" secondAttribute="trailing" id="Lok-kC-992"/>
+                                    <constraint firstAttribute="bottom" secondItem="4f0-9f-h9I" secondAttribute="bottom" id="qim-uQ-67e"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="4f0-9f-h9I" secondAttribute="width" id="DOs-Uo-fAL"/>
+                            <constraint firstItem="EJz-dI-EIj" firstAttribute="top" secondItem="ei1-2X-rGK" secondAttribute="top" id="Mzw-5t-gPL"/>
+                            <constraint firstItem="9ql-HA-CPu" firstAttribute="top" secondItem="EJz-dI-EIj" secondAttribute="bottom" id="Xzg-Ty-tfy"/>
+                            <constraint firstItem="EJz-dI-EIj" firstAttribute="leading" secondItem="ei1-2X-rGK" secondAttribute="leading" id="a2O-rc-hZ7"/>
+                            <constraint firstAttribute="trailing" secondItem="EJz-dI-EIj" secondAttribute="trailing" id="nWy-UK-c8y"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Line Segments" image="tabBarLinePropertiesIcon" id="dHW-xy-0Vv"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="350"/>
+                    <connections>
+                        <outlet property="fractalStartRulesListView" destination="zPi-Ea-Cqu" id="mPv-ib-w6t"/>
+                        <outlet property="fractalSummaryEditView" destination="Zw0-gp-nOl" id="DFg-0z-kQd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

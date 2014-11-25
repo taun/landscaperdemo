@@ -64,6 +64,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void) setFractal:(LSFractal *)fractal {
+    _fractal = fractal;
+    self.fractalSummaryEditView.fractal = _fractal;
+    self.fractalStartRulesListView.rules = [_fractal mutableOrderedSetValueForKey: @"startingRules"];
+}
 
 @end
