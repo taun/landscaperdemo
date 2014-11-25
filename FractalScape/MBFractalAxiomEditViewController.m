@@ -26,7 +26,8 @@
 #import "MBDraggingItem.h"
 #import "QuartzHelpers.h"
 
-#import <MDUiKit/MDUiKit.h>
+#import "MDKUICollectionViewScrollContentSized.h"
+
 
 @interface MBFractalAxiomEditViewController ()
 

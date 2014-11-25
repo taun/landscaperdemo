@@ -9,7 +9,8 @@
 #import "MBLSReplacementRuleTableViewCell.h"
 #import "MBRuleCollectionDataSource.h"
 #import "MBLSRuleDragAndDropProtocol.h"
-#import <MDUiKit/MDUiKit.h>
+
+#import "MDKUICollectionViewScrollContentSized.h"
 
 @interface MBLSReplacementRuleTableViewCell ()
 

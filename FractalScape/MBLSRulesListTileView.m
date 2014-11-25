@@ -9,26 +9,12 @@
 #import "MBLSRulesListTileView.h"
 
 #import "LSDrawingRule+addons.h"
+#import "MDBLSRuleImageView.h"
 
 #import "FractalScapeIconSet.h"
 
-@interface LSDrawingRuleProxy : NSObject
-@property (nonatomic,strong) NSString       *iconIdentifierString;
 
--(UIImage*) asImage;
-@end
-
-@implementation LSDrawingRuleProxy
-
--(UIImage*) asImage {
-    UIImage* cellImage = [FractalScapeIconSet imageOfKBIconRulePlace0];
-    return cellImage;
-}
-@end
-
-
-
-@implementation MBLSRulesListTileView
+@implementation MBLSRulesListTileViewer
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -67,25 +53,20 @@
     _rules = [NSMutableOrderedSet new];
     
     for (int i=0; i < 30 ; i++) {
-        LSDrawingRuleProxy *rule1 = [[LSDrawingRuleProxy alloc] init];
-        rule1.iconIdentifierString = @"kBIconRulePlace0";
+        MDBLSRuleImageView *rule1 = [[MDBLSRuleImageView alloc] initWithFrame: CGRectMake(0.0,0.0,_tileWidth,_tileWidth)];
         [_rules addObject: rule1];
     }
     
 #endif
     
     NSInteger hPlacement = 0;
-    for (id rule in _rules) {
-        UIImageView* newImageVIew = [[UIImageView alloc] initWithImage: [rule asImage]];
-        newImageVIew.contentMode = UIViewContentModeScaleAspectFit;
-        newImageVIew.translatesAutoresizingMaskIntoConstraints = NO;
+    for (MDBLSRuleImageView* rule in _rules) {
         
-        [self addSubview: newImageVIew];
-        newImageVIew.frame = CGRectMake(hPlacement, 0, _tileWidth, _tileWidth);
-        
-        newImageVIew.layer.borderColor = self.tintColor.CGColor;
-        newImageVIew.layer.borderWidth = _showBorder ? 1.0 : 0.0;
-        newImageVIew.layer.cornerRadius = 4.0;
+        [self addSubview: rule];
+        rule.frame = CGRectMake(hPlacement, 0, _tileWidth, _tileWidth);
+        rule.showBorder = _showBorder;
+        rule.width = _tileWidth;
+
         
         hPlacement += _tileWidth + _tileMargin;
     }
@@ -109,6 +90,12 @@
     NSInteger lines = ceilf(_rules.count / (float)itemsPerLine);
     CGFloat lineHeight = _tileWidth+_tileMargin;
     
+    CGFloat widthMargin = _tileMargin;
+    
+    if (_justify) {
+        //
+        widthMargin = (self.bounds.size.width - (itemsPerLine * _tileWidth)) / (itemsPerLine-1);
+    }
     
     NSArray* views = self.subviews;
     
@@ -121,7 +108,7 @@
         
         UIView* firstView = views[startIndex];
         NSDictionary* endViewsDictionary = NSDictionaryOfVariableBindings(firstView);
-        NSDictionary* metricsDictionary = @{@"width":@(_tileWidth),@"hmargin" : @(_tileMargin), @"vmargin":@(lineNumber*(_tileWidth+_tileMargin))};
+        NSDictionary* metricsDictionary = @{@"width":@(_tileWidth),@"hmargin" : @(widthMargin), @"vmargin":@(lineNumber*(_tileWidth+_tileMargin))};
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-vmargin-[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
@@ -148,8 +135,8 @@
 -(void) layoutSubviews {
     [super layoutSubviews];
     
-    for (UIView* view in self.subviews) {
-        view.layer.borderWidth = _showBorder ? 1.0 : 0.0;
+    for (MDBLSRuleImageView* view in self.subviews) {
+        view.showBorder = _showBorder;
     }
 }
 
@@ -157,12 +144,28 @@
     _rules = rules;
     [self setupSubviews];
 }
+
 -(void) setTileMargin:(CGFloat)tileMargin {
     _tileMargin = tileMargin;
     [self setNeedsUpdateConstraints];
 }
+
 -(void) setTileWidth:(CGFloat)tileWidth {
     _tileWidth = tileWidth;
+    
+    for (MDBLSRuleImageView* subview in self.subviews) {
+        subview.width = _tileWidth;
+    }
+    
     [self setNeedsUpdateConstraints];
+}
+
+-(void) setShowBorder:(BOOL)showBorder {
+    _showBorder = showBorder;
+    
+    for (MDBLSRuleImageView* subview in self.subviews) {
+        subview.showBorder = _showBorder;
+    }
+    
 }
 @end

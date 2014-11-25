@@ -9,6 +9,7 @@
 #import "MBFractalRulesEditorViewController.h"
 #import "LSFractal+addons.h"
 #import "MBColor+addons.h"
+#import "LSDrawingRuleType+addons.h"
 
 
 @interface MBFractalRulesEditorViewController ()
@@ -67,7 +68,8 @@
 -(void) setFractal:(LSFractal *)fractal {
     _fractal = fractal;
     self.fractalSummaryEditView.fractal = _fractal;
-    self.fractalStartRulesListView.rules = [_fractal mutableOrderedSetValueForKey: @"startingRules"];
+//    self.fractalStartRulesListView.rules = [_fractal mutableOrderedSetValueForKey: @"startingRules"];
+    self.fractalStartRulesListView.rules = [_fractal.drawingRulesType mutableOrderedSetValueForKey: @"rules"];
 }
 
 @end

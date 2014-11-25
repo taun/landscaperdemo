@@ -9,7 +9,9 @@
 #import "MBLSRuleBaseCollectionTableViewCell.h"
 #import "MBLSRuleBaseCollectionViewCell.h"
 
-#import <MDUiKit/MDUiKit.h>
+#import "MDKUICollectionViewScrollContentSized.h"
+#import "UICollectionView+MDKDragAndDrop.h"
+
 
 @interface MBLSRuleBaseCollectionTableViewCell ()
 

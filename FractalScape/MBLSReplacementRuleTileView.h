@@ -1,5 +1,5 @@
 //
-//  MBLSRulesListTileView.h
+//  MBLSReplacementRuleTileView.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 11/25/14.
@@ -8,12 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+#import "LSReplacementRule+addons.h"
+#import "LSDrawingRule+addons.h"
+
+#import "MBLSRulesListTileView.h"
 
 IB_DESIGNABLE
 
-@interface MBLSRulesListTileViewer : UIView
 
-@property (nonatomic,strong) NSMutableOrderedSet        *rules;
+@interface MBLSReplacementRuleTileView : UIView
+
+@property (nonatomic,strong) LSReplacementRule      *replacementRule;
+//@property (nonatomic,strong) UII
+
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
 @property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
 @property (nonatomic,assign) IBInspectable BOOL         showBorder;

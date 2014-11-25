@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "FractalControllerProtocol.h"
+
 #import "MBLSFractalSummaryEditView.h"
 #import "MBLSRulesListTileView.h"
+#import "MBLSReplacementRulesListView.h"
+#import "MBLSReplacementRuleTileView.h"
+#import "MBLSRuleTypeTileViewer.h"
 
 
 @class LSFractal;
@@ -19,7 +23,8 @@
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
 
-@property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditView *fractalSummaryEditView;
-@property (weak, nonatomic) IBOutlet MBLSRulesListTileView *fractalStartRulesListView;
+@property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditViewer   *fractalSummaryEditView;
+@property (weak, nonatomic) IBOutlet MBLSReplacementRulesListView   *replacementRules;
+@property (weak, nonatomic) IBOutlet MBLSRulesListTileViewer        *fractalStartRulesListView;
 
 @end

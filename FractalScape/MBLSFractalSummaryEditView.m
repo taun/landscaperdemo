@@ -8,7 +8,7 @@
 
 #import "MBLSFractalSummaryEditView.h"
 
-@implementation MBLSFractalSummaryEditView
+@implementation MBLSFractalSummaryEditViewer
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

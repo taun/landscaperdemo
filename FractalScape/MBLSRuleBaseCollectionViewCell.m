@@ -8,7 +8,7 @@
 
 #import "MBLSRuleBaseCollectionViewCell.h"
 
-#import <MDUiKit/MDUiKit.h>
+#import "MDKLayerViewDesignable.h"
 
 @implementation MBLSRuleBaseCollectionViewCell
 

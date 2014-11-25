@@ -22,7 +22,7 @@
 
 #import "MBAxiomEditorTableSection.h"
 
-#import <MDUiKit/MDUiKit.h>
+#import "MDKUICollectionViewScrollContentSized.h"
 
 static NSString *NameCellIdentifier = @"NameCell";
 static NSString *ReplacementRuleCellIdentifier = @"MBLSReplacementRuleCell";

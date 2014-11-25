@@ -1,5 +1,5 @@
 //
-//  MBLSSourceRulesTileView.h
+//  MBLSRuleTypeTileViewer.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 11/24/14.
@@ -12,7 +12,7 @@
 
 //IB_DESIGNABLE
 
-@interface MBLSSourceRulesTileView : UIView
+@interface MBLSRuleTypeTileViewer : UIView
 
 @property (nonatomic,strong) LSDrawingRuleType          *type;
 
