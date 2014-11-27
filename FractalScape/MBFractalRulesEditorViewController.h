@@ -25,8 +25,9 @@
 
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditViewer   *fractalSummaryEditView;
+@property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditViewer   *summaryEditView;
+@property (weak, nonatomic) IBOutlet MBLSRulesListTileViewer *rulesView;
 @property (weak, nonatomic) IBOutlet MBLSReplacementRulesListView   *replacementRules;
-@property (weak, nonatomic) IBOutlet MBLSRulesListTileViewer        *fractalStartRulesListView;
+@property (weak, nonatomic) IBOutlet MBLSRuleTypeTileViewer        *ruleTypeListView;
 
 @end

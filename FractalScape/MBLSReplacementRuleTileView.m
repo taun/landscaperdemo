@@ -50,9 +50,6 @@
     _tileWidth = 26.0;
     _tileMargin = 2.0;
     
-    self.layer.borderWidth = 1.0;
-    self.layer.cornerRadius = 6.0;
-    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
 -(void) setupSubviews {
     for (UIView* view in [self subviews]) {
@@ -173,6 +170,17 @@
 //    _ruleView.showBorder = _showBorder;
     _replacementsView.showBorder = _showBorder;
     
+}
+-(void) setShowOutline:(BOOL)showOutline {
+    _showOutline = showOutline;
+    
+    if (_showOutline) {
+        self.layer.borderWidth = 1.0;
+        self.layer.cornerRadius = 6.0;
+        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    } else {
+        self.layer.borderWidth = 0.0;
+    }
 }
 -(void) setJustify:(BOOL)justify {
     _justify = justify;

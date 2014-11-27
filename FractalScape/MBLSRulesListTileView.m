@@ -63,6 +63,7 @@
     
     _tileWidth = 26.0;
     _tileMargin = 2.0;
+    
 }
 -(void) populateRulesWithProxy {
     _rules = [[NSMutableOrderedSet alloc]initWithCapacity: 10];
@@ -120,9 +121,9 @@
             lines = ceilf(_rules.count / (float)itemsPerLine);
         }
         CGFloat lineHeight = _tileWidth+_tileMargin;
-        
         CGFloat widthMargin = _tileMargin;
-        
+        CGFloat outlineMargin = _showOutline ? 6.0 : 0.0;
+
         if (_justify) {
             //
             widthMargin = (self.bounds.size.width - (itemsPerLine * _tileWidth)) / (itemsPerLine-1);
@@ -139,10 +140,12 @@
             
             UIView* firstView = views[startIndex];
             NSDictionary* endViewsDictionary = NSDictionaryOfVariableBindings(firstView);
-            NSDictionary* metricsDictionary = @{@"width":@(_tileWidth),@"hmargin" : @(widthMargin), @"vmargin":@(lineNumber*(_tileWidth+_tileMargin))};
             
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-vmargin-[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
+            NSInteger vMargin = (lineNumber==0 && _showOutline) ? outlineMargin : lineNumber*(_tileWidth+_tileMargin);
+            NSDictionary* metricsDictionary = @{@"width":@(_tileWidth),@"hMargin" : @(widthMargin), @"vMargin":@(vMargin), @"outlineMargin":@(outlineMargin)};
+            
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-outlineMargin-[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-vMargin-[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
             
             NSInteger endIndex = MIN(_rules.count, startIndex+itemsPerLine);
             for (itemIndex = startIndex+1; itemIndex < endIndex; itemIndex++) {
@@ -150,13 +153,13 @@
                 UIView* prevView = views[itemIndex-1];
                 UIView* view = views[itemIndex];
                 NSDictionary* adjacentViewsDictionary = NSDictionaryOfVariableBindings(prevView,view);
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[prevView]-hmargin-[view(width)]" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-vmargin-[view(width)]" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[prevView]-hMargin-[view(width)]" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-vMargin-[view(width)]" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
             }
         }
         
         NSDictionary* selfViewDict = @{@"self":self};
-        NSDictionary* selfMetric = @{@"height": @(lines*lineHeight)};
+        NSDictionary* selfMetric = @{@"height": @(lines*lineHeight+2*outlineMargin)};
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[self(height)]" options: 0 metrics: selfMetric views: selfViewDict]];
         
     }
@@ -209,6 +212,17 @@
         subview.showBorder = _showBorder;
     }
     
+}
+-(void) setShowOutline:(BOOL)showOutline {
+    _showOutline = showOutline;
+    
+    if (_showOutline) {
+        self.layer.borderWidth = 1.0;
+        self.layer.cornerRadius = 6.0;
+        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    } else {
+        self.layer.borderWidth = 0.0;
+    }
 }
 -(void) setReadOnly:(BOOL)readOnly {
     _readOnly = readOnly;

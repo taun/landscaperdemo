@@ -22,6 +22,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
 @property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
 @property (nonatomic,assign) IBInspectable BOOL         showBorder;
+@property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 
 

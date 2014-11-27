@@ -69,6 +69,7 @@
         newRR.tileMargin = _tileMargin;
         newRR.tileWidth = _tileWidth;
         newRR.showBorder = _showBorder;
+        newRR.showOutline = YES;
         
         [self addSubview: newRR];
         
@@ -153,6 +154,17 @@
 
     for (MBLSReplacementRuleTileView* rrView in self.subviews) {
         rrView.showBorder = _showBorder;
+    }
+}
+-(void) setShowOutline:(BOOL)showOutline {
+    _showOutline = showOutline;
+    
+    if (_showOutline) {
+        self.layer.borderWidth = 1.0;
+        self.layer.cornerRadius = 6.0;
+        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    } else {
+        self.layer.borderWidth = 0.0;
     }
 }
 -(void) setJustify:(BOOL)justify {

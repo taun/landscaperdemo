@@ -67,10 +67,11 @@
 
 -(void) setFractal:(LSFractal *)fractal {
     _fractal = fractal;
-    self.fractalSummaryEditView.fractal = _fractal;
+    self.summaryEditView.fractal = self.fractal;
+    self.rulesView.rules = [self.fractal mutableOrderedSetValueForKey: @"startingRules"];
     self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: @"replacementRules"];
 //    self.fractalStartRulesListView.rules = [_fractal mutableOrderedSetValueForKey: @"startingRules"];
-    self.fractalStartRulesListView.rules = [_fractal.drawingRulesType mutableOrderedSetValueForKey: @"rules"];
+    self.ruleTypeListView.type = self.fractal.drawingRulesType;
     [self.view setNeedsUpdateConstraints];
 }
 
