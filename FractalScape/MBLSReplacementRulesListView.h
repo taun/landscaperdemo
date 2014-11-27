@@ -11,11 +11,14 @@
 #import "LSReplacementRule+addons.h"
 #import "LSDrawingRule+addons.h"
 
+IB_DESIGNABLE
+
 
 @interface MBLSReplacementRulesListView : UIView
 
 @property (nonatomic,strong) NSMutableOrderedSet      *replacementRules;
 
+@property (nonatomic,assign) IBInspectable CGFloat      rowSpacing;
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
 @property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
 @property (nonatomic,assign) IBInspectable BOOL         showBorder;

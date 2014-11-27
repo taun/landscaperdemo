@@ -10,9 +10,11 @@
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 
+#import "MBLSRulesListTileView.h"
+
 //IB_DESIGNABLE
 
-@interface MBLSRuleTypeTileViewer : UIView
+@interface MBLSRuleTypeTileViewer : MBLSRulesListTileViewer
 
 @property (nonatomic,strong) LSDrawingRuleType          *type;
 

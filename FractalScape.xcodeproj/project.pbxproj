@@ -29,6 +29,10 @@
 		C521B41E1A242A0D00A2E7BC /* LSDrawingRule.h in Headers */ = {isa = PBXBuildFile; fileRef = C521B41C1A242A0D00A2E7BC /* LSDrawingRule.h */; };
 		C521B41F1A242A0D00A2E7BC /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C521B41D1A242A0D00A2E7BC /* LSDrawingRule.m */; };
 		C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */; };
+		C52EA9AD1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h in Headers */ = {isa = PBXBuildFile; fileRef = C52EA9AB1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h */; };
+		C52EA9AE1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */; };
+		C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */ = {isa = PBXBuildFile; fileRef = C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */; };
+		C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */; };
 		C531F3F016E139D4007F4DD3 /* MBFractalAxiomEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EF16E139D4007F4DD3 /* MBFractalAxiomEditViewController.m */; };
 		C5329E871A24558F00056FB4 /* MBLSRulesListTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSRulesListTileView.h */; };
@@ -183,6 +187,10 @@
 		C521B41D1A242A0D00A2E7BC /* LSDrawingRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRule.m; path = FractalScape/model/LSDrawingRule.m; sourceTree = "<group>"; };
 		C525B9FA16F8A6C500CE2200 /* MBColorCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColorCellBackgroundView.h; path = FractalScape/MBColorCellBackgroundView.h; sourceTree = "<group>"; };
 		C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColorCellBackgroundView.m; path = FractalScape/MBColorCellBackgroundView.m; sourceTree = "<group>"; };
+		C52EA9AB1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKUITableViewDynamicRowHeights.h; path = FractalScape/MDUiKitFramework/MDUiKit/MDKUITableViewDynamicRowHeights.h; sourceTree = "<group>"; };
+		C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUITableViewDynamicRowHeights.m; path = FractalScape/MDUiKitFramework/MDUiKit/MDKUITableViewDynamicRowHeights.m; sourceTree = "<group>"; };
+		C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MDBAddons.h"; path = "FractalScape/NSLayoutConstraint+MDBAddons.h"; sourceTree = "<group>"; };
+		C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MDBAddons.m"; path = "FractalScape/NSLayoutConstraint+MDBAddons.m"; sourceTree = "<group>"; };
 		C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalRulesEditorViewController.h; path = FractalScape/MBFractalRulesEditorViewController.h; sourceTree = "<group>"; };
 		C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalRulesEditorViewController.m; path = FractalScape/MBFractalRulesEditorViewController.m; sourceTree = "<group>"; };
 		C531F3EE16E139D4007F4DD3 /* MBFractalAxiomEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalAxiomEditViewController.h; path = FractalScape/MBFractalAxiomEditViewController.h; sourceTree = "<group>"; };
@@ -468,6 +476,8 @@
 		C5C37C551A24E6A1008C5409 /* MDUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				C52EA9AB1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h */,
+				C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */,
 				C5C37C5A1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h */,
 				C5C37C5B1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m */,
 				C5C37C5C1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h */,
@@ -646,6 +656,8 @@
 				C5C37C631A24EC81008C5409 /* MBLSReplacementRulesListView.m */,
 				C5C19D6C1A241297000A1214 /* MBLSRuleTypeTileViewer.h */,
 				C5C19D6D1A241297000A1214 /* MBLSRuleTypeTileViewer.m */,
+				C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */,
+				C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */,
 			);
 			name = NewRulesEditView;
 			sourceTree = "<group>";
@@ -700,8 +712,10 @@
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
 				C5150F8A1A2036FA00DC8A0E /* MBColor.h in Headers */,
 				C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */,
+				C52EA9AD1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h in Headers */,
 				C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */,
 				C5150F7A1A202DDA00DC8A0E /* MBPlacedEntity+addons.h in Headers */,
+				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
 				C5150F761A202D9E00DC8A0E /* MBFractalScape+addons.h in Headers */,
 				C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */,
 				C5C37C6C1A24EF9F008C5409 /* MDBLSRuleImageView.h in Headers */,
@@ -858,6 +872,7 @@
 				C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */,
 				C5BA2B9314C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld in Sources */,
 				C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */,
+				C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */,
 				C5150F8B1A2036FA00DC8A0E /* MBColor.m in Sources */,
 				C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */,
 				C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */,
@@ -877,6 +892,7 @@
 				C5B3F18B19DCB77B00BDFAF5 /* MBLSReplacementRuleTableViewCell.m in Sources */,
 				C5DA480019F011A400A0A432 /* LSReplacementRule.m in Sources */,
 				C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */,
+				C52EA9AE1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m in Sources */,
 				C579626116DD480500A8BCDC /* MBCollectionFractalCell.m in Sources */,
 				C579626416DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m in Sources */,
 				C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */,

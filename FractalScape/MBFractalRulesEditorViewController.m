@@ -68,8 +68,37 @@
 -(void) setFractal:(LSFractal *)fractal {
     _fractal = fractal;
     self.fractalSummaryEditView.fractal = _fractal;
+    self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: @"replacementRules"];
 //    self.fractalStartRulesListView.rules = [_fractal mutableOrderedSetValueForKey: @"startingRules"];
     self.fractalStartRulesListView.rules = [_fractal.drawingRulesType mutableOrderedSetValueForKey: @"rules"];
+    [self.view setNeedsUpdateConstraints];
 }
+
+//- (void)viewWillLayoutSubviews {
+//    [self.contentView setNeedsLayout];
+//    [self.fractalSummaryEditView setNeedsUpdateConstraints];
+//    [self.replacementRules setNeedsUpdateConstraints];
+//    [self.fractalStartRulesListView setNeedsUpdateConstraints];
+//    [self.fractalStartRulesListView setNeedsUpdateConstraints];
+//}
+
+//- (void)viewWillTransitionToSize:(CGSize)size
+//       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+//    
+//    [super  viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+//    
+//    [self.fractalSummaryEditView setNeedsUpdateConstraints];
+//    
+//    [self.replacementRules setNeedsUpdateConstraints];
+//    
+//    [self.fractalStartRulesListView setNeedsUpdateConstraints];
+//    [self.fractalStartRulesListView layoutIfNeeded];
+//    
+//    [self.view setNeedsUpdateConstraints];
+//    
+//    [self.fractalSummaryEditView.superview setNeedsLayout];
+//    
+//    [self.view layoutIfNeeded];
+//}
 
 @end

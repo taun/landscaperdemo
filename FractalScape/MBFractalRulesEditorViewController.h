@@ -23,6 +23,8 @@
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
 
+
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditViewer   *fractalSummaryEditView;
 @property (weak, nonatomic) IBOutlet MBLSReplacementRulesListView   *replacementRules;
 @property (weak, nonatomic) IBOutlet MBLSRulesListTileViewer        *fractalStartRulesListView;

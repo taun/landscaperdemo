@@ -18,5 +18,8 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
 @property (nonatomic,assign) IBInspectable BOOL         showBorder;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
+@property (nonatomic,assign) IBInspectable BOOL         readOnly;
+
+@property (nonatomic,assign) CGRect    lastBounds;
 
 @end

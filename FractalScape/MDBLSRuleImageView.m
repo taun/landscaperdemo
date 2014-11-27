@@ -11,20 +11,6 @@
 #import "FractalScapeIconSet.h"
 
 
-@interface LSDrawingRuleProxy : NSObject
-@property (nonatomic,strong) NSString       *iconIdentifierString;
-
--(UIImage*) asImage;
-@end
-
-@implementation LSDrawingRuleProxy
-
--(UIImage*) asImage {
-    UIImage* cellImage = [FractalScapeIconSet imageOfKBIconRulePlace0];
-    return cellImage;
-}
-@end
-
 @implementation MDBLSRuleImageView
 
 
@@ -50,6 +36,7 @@
     self.translatesAutoresizingMaskIntoConstraints = NO;
     
     self.contentMode = UIViewContentModeScaleAspectFit;
+    self.userInteractionEnabled = YES;
 
     _cornerRadius = 4.0;
     _width = 52;
