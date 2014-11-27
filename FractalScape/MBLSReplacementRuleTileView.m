@@ -49,6 +49,10 @@
     
     _tileWidth = 26.0;
     _tileMargin = 2.0;
+    
+    self.layer.borderWidth = 1.0;
+    self.layer.cornerRadius = 6.0;
+    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
 -(void) setupSubviews {
     for (UIView* view in [self subviews]) {
@@ -97,11 +101,11 @@
     
     NSDictionary* metricsDictionary = @{@"width":@(_tileWidth*0.2)};
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_ruleView]-[_separator]-[_replacementsView]|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-6-[_ruleView]-[_separator]-[_replacementsView]-6-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
 //    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_ruleView(60)]-70-[_separator(30)]-[_replacementsView(200)]-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
 //    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_ruleView]-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
 //    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_separator]-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_replacementsView]|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[_replacementsView]-6-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
 
     [self addConstraint: [NSLayoutConstraint constraintWithItem: _replacementsView
                                                       attribute: NSLayoutAttributeCenterY
