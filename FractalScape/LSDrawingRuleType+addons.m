@@ -118,6 +118,7 @@
                 newDrawingRule.productionString = rule[@"productionString"];
                 newDrawingRule.drawingMethodString = rule[@"drawingMethodString"];
                 newDrawingRule.iconIdentifierString = rule[@"iconIdentifierString"];
+                newDrawingRule.descriptor = rule[@"descriptor"];
                 newDrawingRule.displayIndex = @(ruleIndex);
                 [currentDefaultRules addObject: newDrawingRule]; // this should also take care of relationship?
                 addedRulesCount += 1;

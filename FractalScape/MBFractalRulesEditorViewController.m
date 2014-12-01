@@ -11,9 +11,13 @@
 #import "MBColor+addons.h"
 #import "LSDrawingRuleType+addons.h"
 
+#import "MDBLSRuleImageView.h"
+#import "MBLSRuleDragAndDropProtocol.h"
 
 @interface MBFractalRulesEditorViewController ()
-
+@property (nonatomic,strong) UIMotionEffectGroup        *foregroundMotionEffect;
+@property (nonatomic,strong) UIMotionEffectGroup        *backgroundMotionEffect;
+@property (nonatomic,strong) UIView                     *lastDragViewContainer;
 @end
 
 @implementation MBFractalRulesEditorViewController
@@ -32,10 +36,44 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self configureParallax];
+}
+-(void) configureParallax {
+//    {
+//        UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+//        xAxis.minimumRelativeValue = @(-15.0);
+//        xAxis.maximumRelativeValue = @(15.0);
+//        
+//        UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+//        yAxis.minimumRelativeValue = @(-15.0);
+//        yAxis.maximumRelativeValue = @(15.0);
+//        
+//        self.foregroundMotionEffect = [[UIMotionEffectGroup alloc] init];
+//        self.foregroundMotionEffect.motionEffects = @[xAxis, yAxis];
+//        
+//        [self.foregroundView addMotionEffect:self.foregroundMotionEffect];
+//    }
+    
+    {
+        UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+        xAxis.minimumRelativeValue = @(25.0);
+        xAxis.maximumRelativeValue = @(-25.0);
+        
+        UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+        yAxis.minimumRelativeValue = @(32.0);
+        yAxis.maximumRelativeValue = @(-32.0);
+        
+        self.backgroundMotionEffect = [[UIMotionEffectGroup alloc] init];
+        self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
+        
+        [self.ruleTypeListView addMotionEffect:self.backgroundMotionEffect];
+    }
 }
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.editing = YES;
+    
+    [self.scrollView flashScrollIndicators];
 }
 -(void) viewDidDisappear:(BOOL)animated {
     [self saveContext];
@@ -102,4 +140,145 @@
 //    [self.view layoutIfNeeded];
 //}
 
+- (IBAction)ruleTypeLongGesture:(UILongPressGestureRecognizer *)sender {
+    UIGestureRecognizerState gestureState = sender.state;
+    BOOL reloadCell = NO;
+    
+    if (!self.draggingItem) {
+        self.draggingItem = [[MBDraggingItem alloc] initWithItem: nil size: self.rulesView.tileWidth];
+        //        self.draggingRule = [[MBDraggingRule alloc] init];
+        //        self.draggingRule.size = 30;
+        self.draggingItem.touchToDragViewOffset = CGPointMake(0.0, -40.0);
+    }
+    
+    
+    CGPoint touchPoint = [sender locationInView: self.view];
+    
+    if (self.draggingItem.view) {
+        self.draggingItem.viewCenter = touchPoint;
+    }
+    
+    // Scroll to keep dragging in view
+    {
+    CGFloat scrollTouchInsets = -20.0;
+    CGRect dropImageRect = CGRectInset(self.draggingItem.view.frame, scrollTouchInsets, scrollTouchInsets);
+    CGRect touchRect = CGRectInset(CGRectMake(touchPoint.x, touchPoint.y, 1, 1), scrollTouchInsets*2, scrollTouchInsets*2);
+    CGRect visibleRect = CGRectUnion(dropImageRect, touchRect);
+    CGFloat minX = CGRectGetMinX(visibleRect);
+    CGFloat maxX = CGRectGetMaxX(visibleRect);
+    CGFloat minY = CGRectGetMinY(visibleRect);
+    CGFloat maxY = CGRectGetMaxY(visibleRect);
+    CGPoint scrollTopLeft = [self.view convertPoint: CGPointMake(minX, minY) toView: self.scrollView];
+    // does not account for scroll zooming.
+    CGFloat width = maxX - minX;
+    CGFloat height = maxY - minY;
+    
+    CGRect scrollVisibleRect = CGRectMake(scrollTopLeft.x, scrollTopLeft.y, width, height);
+    [self.scrollView scrollRectToVisible: scrollVisibleRect animated: NO];
+    }
+    
+    UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
+    UIView<MBLSRuleDragAndDropProtocol>* viewUnderDragImage = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: self.draggingItem.viewCenter withEvent: nil];
+    
+    UIView<MBLSRuleDragAndDropProtocol>* ddViewContainer;
+    if ([viewUnderDragImage isKindOfClass: [MDBLSRuleImageView class]]) {
+        ddViewContainer = (UIView<MBLSRuleDragAndDropProtocol>*)viewUnderDragImage.superview;
+    } else if ([[viewUnderDragImage subviews].firstObject isKindOfClass: [MDBLSRuleImageView class]]) {
+        ddViewContainer = viewUnderDragImage;
+    }
+    
+    if (self.draggingItem && [self handlesDragAndDrop: viewUnderTouch] && gestureState == UIGestureRecognizerStateBegan) {
+        CGPoint localPoint = [self.view convertPoint: touchPoint toView: viewUnderTouch];
+        [viewUnderTouch dragDidStartAtLocalPoint: localPoint draggingItem: self.draggingItem];
+        if (self.draggingItem.view && self.draggingItem.dragItem) {
+            [self showInfoForView: viewUnderTouch];
+            self.draggingItem.view.userInteractionEnabled = NO;
+            [self.view addSubview: self.draggingItem.view];
+            [self.view bringSubviewToFront: self.draggingItem.view];
+        }
+        
+    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateChanged) {
+        
+        if (self.lastDragViewContainer == nil && ddViewContainer != nil && [self handlesDragAndDrop: ddViewContainer]) {
+            // entering
+            self.lastDragViewContainer = ddViewContainer;
+            
+        } else if (self.lastDragViewContainer != nil && ddViewContainer != nil && self.lastDragViewContainer == ddViewContainer) {
+            // changing
+        } else if (self.lastDragViewContainer != nil && (ddViewContainer == nil || self.lastDragViewContainer != ddViewContainer)) {
+            // leaving
+            self.lastDragViewContainer = nil;
+        }
+        
+    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateEnded) {
+        [self.draggingItem.view removeFromSuperview];
+        self.draggingItem = nil;
+        self.lastDragViewContainer = nil;
+        
+    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled) {
+        [self.draggingItem.view removeFromSuperview];
+        self.draggingItem = nil;
+        self.lastDragViewContainer = nil;
+        
+    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateFailed) {
+        [self.draggingItem.view removeFromSuperview];
+        self.draggingItem = nil;
+        self.lastDragViewContainer = nil;
+        
+    }
+}
+-(BOOL) handlesDragAndDrop: (id) anObject {
+    return [anObject conformsToProtocol: @protocol(MBLSRuleDragAndDropProtocol)];
+}
+- (IBAction)replacementRuleLongPressGesture:(id)sender {
+    [self ruleTypeLongGesture: sender];
+}
+
+- (IBAction)startRulesLongPressGesture:(UILongPressGestureRecognizer *)sender {
+    [self ruleTypeLongGesture: sender];
+}
+
+- (IBAction)ruleTypeTapGesture:(UITapGestureRecognizer *)sender {
+    CGPoint touchPoint = [sender locationInView: self.view];
+    UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
+    [self showInfoForView: viewUnderTouch];
+}
+-(void) showInfoForView: (UIView*) aView {
+    BOOL hasItem = [aView respondsToSelector: @selector(item)];
+    if (hasItem) {
+        id item = [aView valueForKey:@"item"];
+        BOOL hasDescriptorInfo = [item respondsToSelector: @selector(descriptor)];
+        
+        if (hasDescriptorInfo) {
+            NSString* infoString = [item valueForKey: @"descriptor"];
+            if ([infoString isKindOfClass: [NSString class]] && infoString.length > 0) {
+                self.ruleHelpLabel.text = infoString;
+                [self infoAnimateView: aView];
+            }
+        }
+    }
+
+}
+-(void) infoAnimateView: (UIView*) aView {
+    UIColor* oldColor = aView.backgroundColor;
+    aView.backgroundColor = [UIColor lightGrayColor];
+    [UIView animateWithDuration: 2.0 animations:^{
+        //
+        aView.backgroundColor = oldColor;
+        
+    } completion:^(BOOL finished) {
+        //
+    }];
+}
+- (IBAction)rulesStartTapGesture:(UITapGestureRecognizer *)sender {
+    NSString* infoString = @"Holder for the starting set of rules to draw.";
+    self.ruleHelpLabel.text = infoString;
+    [self infoAnimateView: self.rulesView];
+}
+
+- (IBAction)replacementTapGesture:(UITapGestureRecognizer *)sender {
+    NSString* infoString = @"Occurences of rule to left of ':' replaced by rules to the right.";
+    self.ruleHelpLabel.text = infoString;
+    [self infoAnimateView: self.replacementRules];
+}
 @end

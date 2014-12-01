@@ -15,6 +15,8 @@
 @interface MBFractalColorViewContainer ()
 
 @property (nonatomic,strong) MBDraggingItem                     *draggingItem;
+@property (nonatomic,strong) UIMotionEffectGroup        *foregroundMotionEffect;
+@property (nonatomic,strong) UIMotionEffectGroup        *backgroundMotionEffect;
 
 @end
 
@@ -41,7 +43,41 @@
     _pageColorTemplateImage.tintColor = _pageColorTemplateImage.tintColor;
     
     [super viewDidLoad];
+
+    [self configureParallax];
 }
+-(void) configureParallax {
+//    {
+//        UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+//        xAxis.minimumRelativeValue = @(-15.0);
+//        xAxis.maximumRelativeValue = @(15.0);
+//        
+//        UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+//        yAxis.minimumRelativeValue = @(-15.0);
+//        yAxis.maximumRelativeValue = @(15.0);
+//        
+//        self.foregroundMotionEffect = [[UIMotionEffectGroup alloc] init];
+//        self.foregroundMotionEffect.motionEffects = @[xAxis, yAxis];
+//        
+//        [self.propertiesGroupView addMotionEffect:self.foregroundMotionEffect];
+//    }
+    
+    {
+        UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+        xAxis.minimumRelativeValue = @(25.0);
+        xAxis.maximumRelativeValue = @(-25.0);
+        
+        UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+        yAxis.minimumRelativeValue = @(32.0);
+        yAxis.maximumRelativeValue = @(-32.0);
+        
+        self.backgroundMotionEffect = [[UIMotionEffectGroup alloc] init];
+        self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
+        
+        [self.colorCollectionContainer addMotionEffect:self.backgroundMotionEffect];
+    }
+}
+
 -(void) viewDidAppear:(BOOL)animated {
     [self setupChildViewController:(UIViewController<FractalControllerProtocol> *)[self.childViewControllers firstObject]];
     

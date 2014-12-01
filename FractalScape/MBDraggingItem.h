@@ -18,11 +18,11 @@
 /*!
  The rule to be represented. Generates the view when the rule property is changed.
  */
-@property (nonatomic,strong) id<MBCollectionCellItemProtocol>   dragItem;
+@property (nonatomic,strong) id   dragItem;
 /*!
  If a rule is overwritten, it is stored in case we need to restore the original rule.
  */
-@property (nonatomic,strong) id<MBCollectionCellItemProtocol>   oldReplacedDragItem;
+@property (nonatomic,strong) id   oldReplacedDragItem;
 /*!
  A view representing the rule for dragging around on the screen.
  */

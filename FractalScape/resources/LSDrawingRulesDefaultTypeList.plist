@@ -5,6 +5,8 @@
 	<key>rulesArray</key>
 	<array>
 		<dict>
+			<key>descriptor</key>
+			<string>Placeholder number 1</string>
 			<key>productionString</key>
 			<string>A</string>
 			<key>drawingMethodString</key>
@@ -13,6 +15,8 @@
 			<string>kBIconRulePlace0</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Placeholder number 2</string>
 			<key>productionString</key>
 			<string>B</string>
 			<key>drawingMethodString</key>
@@ -21,6 +25,8 @@
 			<string>kBIconRulePlace1</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Placeholder number 3</string>
 			<key>productionString</key>
 			<string>C</string>
 			<key>drawingMethodString</key>
@@ -29,6 +35,8 @@
 			<string>kBIconRulePlace2</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Placeholder number 4</string>
 			<key>productionString</key>
 			<string>D</string>
 			<key>drawingMethodString</key>
@@ -37,6 +45,8 @@
 			<string>kBIconRulePlace3</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Placeholder number 5</string>
 			<key>productionString</key>
 			<string>E</string>
 			<key>drawingMethodString</key>
@@ -45,6 +55,8 @@
 			<string>kBIconRulePlace4</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Draw a straight line of standard length and width.</string>
 			<key>productionString</key>
 			<string>F</string>
 			<key>drawingMethodString</key>
@@ -53,6 +65,8 @@
 			<string>kBIconRuleDrawLine</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Move the current position in a straight line.</string>
 			<key>productionString</key>
 			<string>G</string>
 			<key>drawingMethodString</key>
@@ -61,6 +75,8 @@
 			<string>kBIconRuleMoveByLine</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Rotate left before next move.</string>
 			<key>productionString</key>
 			<string>+</string>
 			<key>drawingMethodString</key>
@@ -69,6 +85,8 @@
 			<string>kBIconRuleRotateCC</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Rotate right before next move.</string>
 			<key>productionString</key>
 			<string>-</string>
 			<key>drawingMethodString</key>
@@ -77,6 +95,8 @@
 			<string>kBIconRuleRotateC</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Reverse direction.</string>
 			<key>productionString</key>
 			<string>|</string>
 			<key>drawingMethodString</key>
@@ -85,6 +105,8 @@
 			<string>kBIconRuleReverseDirection</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Save current direction and position.</string>
 			<key>productionString</key>
 			<string>[</string>
 			<key>drawingMethodString</key>
@@ -93,6 +115,8 @@
 			<string>kBIconRulePush</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Restore last saved direction and position.</string>
 			<key>productionString</key>
 			<string>]</string>
 			<key>drawingMethodString</key>
@@ -101,6 +125,8 @@
 			<string>kBIconRulePop</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Increase the line width.</string>
 			<key>productionString</key>
 			<string>#</string>
 			<key>drawingMethodString</key>
@@ -109,6 +135,8 @@
 			<string>kBIconRuleIncrementLineWidth</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Decrease the line width</string>
 			<key>productionString</key>
 			<string>!</string>
 			<key>drawingMethodString</key>
@@ -117,6 +145,8 @@
 			<string>kBIconRuleDecrementLineWidth</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Draw a circle.</string>
 			<key>productionString</key>
 			<string>O</string>
 			<key>drawingMethodString</key>
@@ -125,6 +155,8 @@
 			<string>kBIconRuleDrawDot</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Draw a filled circle.</string>
 			<key>productionString</key>
 			<string>@</string>
 			<key>drawingMethodString</key>
@@ -133,6 +165,8 @@
 			<string>kBIconRuleDrawDotFilledNoStroke</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Start an open polygon.</string>
 			<key>productionString</key>
 			<string>{</string>
 			<key>drawingMethodString</key>
@@ -141,6 +175,8 @@
 			<string>kBIconRuleOpenPolygon</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Start a closed polygon.</string>
 			<key>productionString</key>
 			<string>}</string>
 			<key>drawingMethodString</key>
@@ -149,6 +185,8 @@
 			<string>kBIconRuleClosePolygon</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Increase the line length.</string>
 			<key>productionString</key>
 			<string>&lt;</string>
 			<key>drawingMethodString</key>
@@ -157,6 +195,8 @@
 			<string>kBIconRuleUpscaleLineLength</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Decrease the line length.</string>
 			<key>productionString</key>
 			<string>&gt;</string>
 			<key>drawingMethodString</key>
@@ -165,6 +205,8 @@
 			<string>kBIconRuleDownscaleLineLength</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Swap the meaning of left and right turns.</string>
 			<key>productionString</key>
 			<string>&amp;</string>
 			<key>drawingMethodString</key>
@@ -173,6 +215,8 @@
 			<string>kBIconRuleSwapRotation</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Increase the turn angle.</string>
 			<key>productionString</key>
 			<string>(</string>
 			<key>drawingMethodString</key>
@@ -181,6 +225,8 @@
 			<string>kBIconRuleIncrementAngle</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Decrease the turn angle.</string>
 			<key>productionString</key>
 			<string>)</string>
 			<key>drawingMethodString</key>
@@ -189,6 +235,8 @@
 			<string>kBIconRuleDecrementAngle</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Turn the stroke off.</string>
 			<key>productionString</key>
 			<string>s</string>
 			<key>drawingMethodString</key>
@@ -197,6 +245,8 @@
 			<string>kBIconRuleStrokeOff</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Turn the stroke on.</string>
 			<key>productionString</key>
 			<string>S</string>
 			<key>drawingMethodString</key>
@@ -205,6 +255,8 @@
 			<string>kBIconRuleStrokeOn</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Turn the fill off.</string>
 			<key>productionString</key>
 			<string>l</string>
 			<key>drawingMethodString</key>
@@ -213,6 +265,8 @@
 			<string>kBIconRuleFillOff</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Turn the fill on.</string>
 			<key>productionString</key>
 			<string>L</string>
 			<key>drawingMethodString</key>
@@ -221,6 +275,8 @@
 			<string>kBIconRuleFillOn</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Turn Randomize off.</string>
 			<key>productionString</key>
 			<string>r</string>
 			<key>drawingMethodString</key>
@@ -229,6 +285,8 @@
 			<string>kBIconRuleRandomizeOff</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Randomize directions, angles and lengths.</string>
 			<key>productionString</key>
 			<string>R</string>
 			<key>drawingMethodString</key>
@@ -237,6 +295,8 @@
 			<string>kBIconRuleRandomizeOn</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use the next stroke color.</string>
 			<key>productionString</key>
 			<string>a</string>
 			<key>drawingMethodString</key>
@@ -245,6 +305,8 @@
 			<string>kBIconRuleNextColor</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use the previous stroke color.</string>
 			<key>productionString</key>
 			<string>b</string>
 			<key>drawingMethodString</key>
@@ -253,6 +315,8 @@
 			<string>kBIconRulePreviousColor</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use the next fill color.</string>
 			<key>productionString</key>
 			<string>c</string>
 			<key>drawingMethodString</key>
@@ -261,6 +325,8 @@
 			<string>kBIconRuleNextFillColor</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use the previous fill color.</string>
 			<key>productionString</key>
 			<string>d</string>
 			<key>drawingMethodString</key>
@@ -269,6 +335,8 @@
 			<string>kBIconRulePreviousFillColor</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use butt line ends.</string>
 			<key>productionString</key>
 			<string>e</string>
 			<key>drawingMethodString</key>
@@ -277,6 +345,8 @@
 			<string>kCGLineCapButtIcon</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use round line ends.</string>
 			<key>productionString</key>
 			<string>f</string>
 			<key>drawingMethodString</key>
@@ -285,6 +355,8 @@
 			<string>kCGLineCapRoundIcon</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use square line ends.</string>
 			<key>productionString</key>
 			<string>g</string>
 			<key>drawingMethodString</key>
@@ -293,6 +365,8 @@
 			<string>kCGLineCapSquareIcon</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use angled line joins.</string>
 			<key>productionString</key>
 			<string>h</string>
 			<key>drawingMethodString</key>
@@ -301,6 +375,8 @@
 			<string>kCGLineJoinMiterIcon</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use round line joins.</string>
 			<key>productionString</key>
 			<string>i</string>
 			<key>drawingMethodString</key>
@@ -309,6 +385,8 @@
 			<string>kCGLineJoinRoundIcon</string>
 		</dict>
 		<dict>
+			<key>descriptor</key>
+			<string>Use angled line joins.</string>
 			<key>productionString</key>
 			<string>j</string>
 			<key>drawingMethodString</key>

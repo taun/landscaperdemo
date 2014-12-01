@@ -1229,31 +1229,31 @@
                         <viewControllerLayoutGuide type="bottom" id="9ql-HA-CPu"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" contentMode="top" horizontalCompressionResistancePriority="250" id="ei1-2X-rGK" userLabel="RootView">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="371"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="451"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="371"/>
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="451"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="700"/>
                                         <subviews>
                                             <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="10" y="8" width="780" height="315"/>
+                                                <rect key="frame" x="10" y="8" width="780" height="337"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="value" white="0.66666666666666663" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="244" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
+                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="244" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
                                                 <rect key="frame" x="10" y="8" width="780" height="116"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1266,20 +1266,21 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
-                                                <rect key="frame" x="20" y="143" width="42" height="20.5"/>
+                                                <rect key="frame" x="20" y="150" width="42" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSRulesListTileViewer">
-                                                <rect key="frame" x="72" y="138" width="708" height="30"/>
+                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSRulesListTileViewer">
+                                                <rect key="frame" x="72" y="138" width="708" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="uVn-wE-dxO"/>
+                                                    <constraint firstAttribute="height" constant="44" id="uVn-wE-dxO"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
-                                                        <real key="value" value="26"/>
+                                                        <real key="value" value="30"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="tileMargin">
                                                         <real key="value" value="2"/>
@@ -1289,17 +1290,22 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="f5R-qi-g83" appends="YES" id="OXR-31-Krb"/>
+                                                    <outletCollection property="gestureRecognizers" destination="PYh-xI-OZ8" appends="YES" id="x8E-fA-6nK"/>
+                                                </connections>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
-                                                <rect key="frame" x="20" y="184" width="760" height="131"/>
+                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
+                                                <rect key="frame" x="20" y="198" width="760" height="139"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="750" constant="131" placeholder="YES" id="8MU-c4-54N"/>
                                                     <constraint firstAttribute="width" priority="750" constant="760" id="D3A-bc-MRO"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
-                                                        <real key="value" value="26"/>
+                                                        <real key="value" value="31"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="tileMargin">
                                                         <real key="value" value="2"/>
@@ -1311,12 +1317,17 @@
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="Boe-Sd-3Hq" appends="YES" id="NaA-zl-tSV"/>
+                                                    <outletCollection property="gestureRecognizers" destination="RmA-6C-sNQ" appends="YES" id="Fkt-K3-gX9"/>
+                                                </connections>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
-                                                <rect key="frame" x="20" y="335" width="760" height="52"/>
+                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
+                                                <rect key="frame" x="20" y="409" width="760" height="48"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="52" placeholder="YES" id="HqG-RB-WEJ"/>
+                                                    <constraint firstAttribute="height" constant="48" placeholder="YES" id="HqG-RB-WEJ"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="KJl-lS-bto"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -1329,16 +1340,61 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showBorder" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="justify" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="GOJ-hO-oEe" appends="YES" id="9PJ-36-o49"/>
+                                                    <outletCollection property="gestureRecognizers" destination="UIa-bT-3sC" appends="YES" id="avW-9g-yQ4"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eec-kO-1UV" customClass="MDKLayerViewDesignable">
+                                                <rect key="frame" x="10" y="353" width="780" height="44"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUS-oG-EcT">
+                                                        <rect key="frame" x="12" y="11" width="34" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rule help text ...." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
+                                                        <rect key="frame" x="54" y="12" width="123.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.89701704545454553" alpha="0.059999999999999998" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="centerY" secondItem="iUS-oG-EcT" secondAttribute="centerY" id="30M-GK-GDR"/>
+                                                    <constraint firstAttribute="centerY" secondItem="XzL-6k-qcb" secondAttribute="centerY" id="F8E-XR-z1h"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XzL-6k-qcb" secondAttribute="trailing" constant="10" id="FB7-6r-ARw"/>
+                                                    <constraint firstItem="iUS-oG-EcT" firstAttribute="leading" secondItem="Eec-kO-1UV" secondAttribute="leading" constant="12" id="VTE-FU-4M3"/>
+                                                    <constraint firstAttribute="height" constant="44" id="eB7-Qs-JBE"/>
+                                                    <constraint firstItem="XzL-6k-qcb" firstAttribute="leading" secondItem="iUS-oG-EcT" secondAttribute="trailing" constant="8" id="nb3-9K-7I6"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="1" alpha="0.78000000000000003" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="Eec-kO-1UV" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="10" id="07C-jp-3NN"/>
+                                            <constraint firstAttribute="trailing" secondItem="Eec-kO-1UV" secondAttribute="trailing" constant="10" id="0Mi-Sr-6x6"/>
                                             <constraint firstAttribute="trailing" secondItem="JJQ-Ty-aAw" secondAttribute="trailing" constant="20" id="2Lu-Fu-aWO"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" constant="20" id="2hd-ZB-e8n"/>
-                                            <constraint firstItem="zPi-Ea-Cqu" firstAttribute="top" secondItem="dnp-Hx-YZd" secondAttribute="bottom" constant="20" id="4Ai-pX-rUb"/>
+                                            <constraint firstItem="zPi-Ea-Cqu" firstAttribute="top" secondItem="Eec-kO-1UV" secondAttribute="bottom" constant="10" id="9du-oN-VLv"/>
                                             <constraint firstItem="dnp-Hx-YZd" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="20" symbolic="YES" id="ErR-BG-rEP"/>
                                             <constraint firstItem="JJQ-Ty-aAw" firstAttribute="leading" secondItem="eki-f5-HFG" secondAttribute="trailing" constant="10" id="GqB-An-nSa"/>
                                             <constraint firstItem="1Sj-KC-aPt" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="10" id="ISR-g1-XiB"/>
+                                            <constraint firstItem="Eec-kO-1UV" firstAttribute="top" secondItem="1Sj-KC-aPt" secondAttribute="bottom" constant="8" id="Kxy-6z-Qzp"/>
                                             <constraint firstAttribute="trailing" secondItem="zPi-Ea-Cqu" secondAttribute="trailing" constant="20" symbolic="YES" id="MJW-iV-SWY"/>
                                             <constraint firstItem="Zw0-gp-nOl" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="10" id="Y2v-vp-O9V"/>
                                             <constraint firstAttribute="trailing" secondItem="dnp-Hx-YZd" secondAttribute="trailing" constant="20" symbolic="YES" id="bE3-sj-MCf"/>
@@ -1379,16 +1435,48 @@
                     <tabBarItem key="tabBarItem" title="Line Segments" image="tabBarLinePropertiesIcon" id="dHW-xy-0Vv"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="800" height="420"/>
+                    <size key="freeformSize" width="800" height="500"/>
                     <connections>
                         <outlet property="contentView" destination="4f0-9f-h9I" id="cfF-xI-xvt"/>
                         <outlet property="replacementRules" destination="dnp-Hx-YZd" id="Qal-ex-igu"/>
+                        <outlet property="ruleHelpLabel" destination="XzL-6k-qcb" id="azE-yz-zn8"/>
                         <outlet property="ruleTypeListView" destination="zPi-Ea-Cqu" id="R1s-nU-JtB"/>
                         <outlet property="rulesView" destination="JJQ-Ty-aAw" id="i6Q-0q-kmu"/>
+                        <outlet property="scrollView" destination="EJz-dI-EIj" id="Bn3-MD-UWA"/>
                         <outlet property="summaryEditView" destination="Zw0-gp-nOl" id="9np-mi-NoF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="GOJ-hO-oEe" userLabel="Rule Type Long Gesture">
+                    <connections>
+                        <action selector="ruleTypeLongGesture:" destination="bDY-89-tKS" id="R0f-Zf-ddz"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Boe-Sd-3Hq" userLabel="Replacement Rule Long Gesture">
+                    <connections>
+                        <action selector="replacementRuleLongPressGesture:" destination="bDY-89-tKS" id="rFk-qZ-3nm"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="f5R-qi-g83" userLabel="Start Rules Long Gesture">
+                    <connections>
+                        <action selector="startRulesLongPressGesture:" destination="bDY-89-tKS" id="84o-Jw-fxL"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <tapGestureRecognizer id="UIa-bT-3sC" userLabel="RuleTypeTapGestures">
+                    <connections>
+                        <action selector="ruleTypeTapGesture:" destination="bDY-89-tKS" id="fOD-Cq-O4E"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="PYh-xI-OZ8" userLabel="RulesStartTapGesture">
+                    <connections>
+                        <action selector="rulesStartTapGesture:" destination="bDY-89-tKS" id="U0M-H4-9rN"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="RmA-6C-sNQ" userLabel="ReplacementRulesTapGesture">
+                    <connections>
+                        <action selector="replacementTapGesture:" destination="bDY-89-tKS" id="58n-VN-syb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="6768" y="-176"/>
         </scene>
@@ -1471,17 +1559,8 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
                                                 <point key="value" x="0.0" y="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                <real key="value" value="0.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                <real key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -1725,17 +1804,8 @@
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
                                                 <point key="value" x="0.0" y="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                <real key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                <real key="value" value="0.5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -1779,6 +1849,7 @@
                         <outlet property="lineColorsTemplateImageView" destination="y20-fS-x0U" id="xkn-bb-nj5"/>
                         <outlet property="pageColorDestinationImageView" destination="0co-CG-UUF" id="1OO-A9-95n"/>
                         <outlet property="pageColorTemplateImage" destination="cfw-9i-JeN" id="Ob2-cZ-wvw"/>
+                        <outlet property="propertiesGroupView" destination="9ba-HM-kSK" id="hT9-8J-4yP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1793,7 +1864,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6594" y="346"/>
+            <point key="canvasLocation" x="6568" y="550"/>
         </scene>
         <!--Fractal Appearance Editor View Controller-->
         <scene sceneID="vbC-pS-Rbr">
@@ -2057,7 +2128,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="7110" y="345.5"/>
+            <point key="canvasLocation" x="7105" y="549.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="YcL-EL-bqt">

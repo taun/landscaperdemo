@@ -48,6 +48,7 @@
     textViewBox.layer.borderColor = _borderColor ? _borderColor.CGColor : nil;
     textViewBox.layer.borderWidth = 1.0;
     textViewBox.layer.cornerRadius = 6.0;
+    textViewBox.layer.masksToBounds = YES;
     
     [self addSubview: textViewBox];
     

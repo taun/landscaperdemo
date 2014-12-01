@@ -12,6 +12,7 @@
 #import "MBColor+addons.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MBColorSourceCollectionViewController.h"
+#import "MDKLayerViewDesignable.h"
 
 @interface MBFractalColorViewContainer : UIViewController <FractalControllerProtocol, MBLSRuleDragAndDropProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -21,6 +22,7 @@
 @property (nonatomic,strong) NSArray            *cachedFractalColors;
 @property (nonatomic,assign) BOOL               colorsChanged;
 
+@property (weak, nonatomic) IBOutlet MDKLayerViewDesignable *propertiesGroupView;
 @property (weak, nonatomic) IBOutlet UIView *colorCollectionContainer;
 @property (weak, nonatomic) IBOutlet UICollectionView *fractalLineColorsDestinationCollection;
 @property (weak, nonatomic) IBOutlet UICollectionView *fractalFillColorsDestinationCollection;

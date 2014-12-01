@@ -12,6 +12,8 @@
 #import "MBLSReplacementRuleTileView.h"
 
 #import "NSLayoutConstraint+MDBAddons.h"
+#import "FractalScapeIconSet.h"
+
 
 @interface MBLSReplacementRulesListView ()
 @property (nonatomic,assign) CGRect                         lastBounds;
@@ -162,7 +164,7 @@
     if (_showOutline) {
         self.layer.borderWidth = 1.0;
         self.layer.cornerRadius = 6.0;
-        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.layer.borderColor = [FractalScapeIconSet groupBorderColor].CGColor;
     } else {
         self.layer.borderWidth = 0.0;
     }
@@ -175,6 +177,32 @@
     }
     
     [self setNeedsUpdateConstraints];
+}
+#pragma mark - Drag&Drop
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    UIView* dragView;
+    
+    return dragView;
+}
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
 }
 
 @end

@@ -23,6 +23,7 @@
                           @"drawingMethodString",
                           @"iconIdentifierString",
                           @"productionString",
+                          @"descriptor",
                           nil];
     }
     return keysToBeCopied;

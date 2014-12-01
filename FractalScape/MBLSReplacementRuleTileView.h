@@ -12,11 +12,12 @@
 #import "LSDrawingRule+addons.h"
 
 #import "MBLSRulesListTileView.h"
+#import "MBLSRuleDragAndDropProtocol.h"
 
 IB_DESIGNABLE
 
 
-@interface MBLSReplacementRuleTileView : UIView
+@interface MBLSReplacementRuleTileView : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) LSReplacementRule      *replacementRule;
 //@property (nonatomic,strong) UII
@@ -26,5 +27,11 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         showBorder;
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
+
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule;
 
 @end

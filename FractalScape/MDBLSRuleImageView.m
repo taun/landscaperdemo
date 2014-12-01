@@ -47,6 +47,15 @@
         [self sizeToFit];
         [self setNeedsUpdateConstraints];
     }
+    
+    UIView* backgroundView = [[UIView alloc] initWithFrame: CGRectZero];
+    
+    backgroundView.layer.masksToBounds = NO;
+    backgroundView.layer.cornerRadius = 4.0;
+    backgroundView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent: 0.15];
+    
+//    self.selectedBackgroundView = backgroundView;
+
 }
 
 -(void) setRule:(LSDrawingRule *)rule {
@@ -66,7 +75,9 @@
     _showBorder = showBorder;
     [self refreshAppearance];
 }
-
+-(id) item {
+    return self.rule;
+}
 -(void) refreshAppearance {
     self.layer.borderColor = self.tintColor.CGColor;
     self.layer.borderWidth = _showBorder ? 1.0 : 0.0;
@@ -86,6 +97,39 @@
     
     
     [super updateConstraints];
+}
+
+#pragma mark - Drag&Drop
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
+    
+    if (self.readOnly) {
+        LSDrawingRule* newRule = [self.rule mutableCopy];
+        draggingItem.dragItem = newRule;
+    } else {
+        draggingItem.dragItem = self.rule;
+    }
+
+    return draggingItem.view;
+}
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
 }
 
 @end

@@ -291,7 +291,7 @@
     if (![currentTableCell conformsToProtocol: @protocol(MBLSRuleDragAndDropProtocol) ]) {
         currentTableCell = nil;
     }
-    
+    // <MBCollectionCellItemProtocol>
     if (currentTableCell && gestureState == UIGestureRecognizerStateBegan) {
         //
         CGPoint localSourceViewPoint = [self.tableView convertPoint: touchPoint toView: currentTableCell];

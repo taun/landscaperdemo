@@ -1221,7 +1221,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                                maxAngle: 57.295779513
                              aspectPath: @"lineChangeFactor"
                             aspectScale: -1.0/1000.0
-                              minAspect: 0.05
+                              minAspect: 0.0
                               maxAspect: 1.0];
 }
 

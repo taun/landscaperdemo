@@ -11,10 +11,12 @@
 #import "LSReplacementRule+addons.h"
 #import "LSDrawingRule+addons.h"
 
+#import "MBLSRuleDragAndDropProtocol.h"
+
 IB_DESIGNABLE
 
 
-@interface MBLSReplacementRulesListView : UIView
+@interface MBLSReplacementRulesListView : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) NSMutableOrderedSet      *replacementRules;
 
@@ -25,5 +27,10 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule;
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule;
 
 @end

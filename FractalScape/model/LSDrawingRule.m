@@ -2,7 +2,7 @@
 //  LSDrawingRule.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/24/14.
+//  Created by Taun Chapman on 12/01/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -18,9 +18,10 @@
 @dynamic drawingMethodString;
 @dynamic iconIdentifierString;
 @dynamic productionString;
+@dynamic descriptor;
+@dynamic contexts;
 @dynamic fractalStart;
 @dynamic replacementRule;
 @dynamic type;
-@dynamic contexts;
 
 @end

@@ -13,6 +13,23 @@
 
 #import "FractalScapeIconSet.h"
 
+@implementation MDBListItemConstraints
+
++(instancetype) newItemConstraintsWithItem:(id)item hConstraint:(NSLayoutConstraint *)hc vConstraint:(NSLayoutConstraint *)vc {
+    return [[self alloc] initWithItem: item hConstraint: hc vConstraint: vc];
+}
+
+-(instancetype) initWithItem: (id) item hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc {
+    self = [super init];
+    if (self) {
+        _item = item;
+        _hConstraint = hc;
+        _vConstraint = vc;
+    }
+    return self;
+}
+
+@end
 
 @interface LSDrawingRuleProxy : NSObject
 
@@ -32,6 +49,7 @@
 @end
 
 @interface MBLSRulesListTileViewer ()
+
 @end
 
 @implementation MBLSRulesListTileViewer
@@ -63,6 +81,7 @@
     
     _tileWidth = 26.0;
     _tileMargin = 2.0;
+    _itemConstraints = [NSMutableArray new];
     
 }
 -(void) populateRulesWithProxy {
@@ -105,7 +124,13 @@
     [self setNeedsUpdateConstraints];
 }
 
+/*!
+ Offsets from the containing view edges rather than inter item margins are used so the items can 
+ be moved around using constraint animation. For example moving items to fill a gap would be done
+ by changing the offsets of the items > the gap.
+ */
 -(void) updateConstraints {
+    [self.itemConstraints removeAllObjects];
     [self removeConstraints: self.constraints];
     
     self.lastBounds = self.bounds;
@@ -139,29 +164,36 @@
             NSInteger startIndex = itemsPerLine*lineNumber;
             
             UIView* firstView = views[startIndex];
-            NSDictionary* endViewsDictionary = NSDictionaryOfVariableBindings(firstView);
             
             NSInteger vMargin = (lineNumber==0 && _showOutline) ? outlineMargin : lineNumber*(_tileWidth+_tileMargin);
-            NSDictionary* metricsDictionary = @{@"width":@(_tileWidth),@"hMargin" : @(widthMargin), @"vMargin":@(vMargin), @"outlineMargin":@(outlineMargin)};
             
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-outlineMargin-[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-vMargin-[firstView(width)]" options:0 metrics: metricsDictionary views: endViewsDictionary]];
+            [self addConstraint: [NSLayoutConstraint constraintWithItem: firstView attribute: NSLayoutAttributeWidth relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: _tileWidth]];
+            [self addConstraint: [NSLayoutConstraint constraintWithItem: firstView attribute: NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: _tileWidth]];
+
+            NSLayoutConstraint* hConstraint = [NSLayoutConstraint constraintWithItem: firstView attribute: NSLayoutAttributeLeft relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeLeft multiplier: 1.0 constant: outlineMargin];
+            NSLayoutConstraint* vConstraint = [NSLayoutConstraint constraintWithItem: firstView attribute: NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeTop multiplier: 1.0 constant: vMargin];
+            [self addConstraints: @[hConstraint,vConstraint]];
+            [self.itemConstraints addObject: [MDBListItemConstraints newItemConstraintsWithItem: firstView hConstraint: hConstraint vConstraint: vConstraint]];
             
             NSInteger endIndex = MIN(_rules.count, startIndex+itemsPerLine);
             for (itemIndex = startIndex+1; itemIndex < endIndex; itemIndex++) {
                 //
-                UIView* prevView = views[itemIndex-1];
                 UIView* view = views[itemIndex];
-                NSDictionary* adjacentViewsDictionary = NSDictionaryOfVariableBindings(prevView,view);
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[prevView]-hMargin-[view(width)]" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-vMargin-[view(width)]" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
+                CGFloat hOffset = outlineMargin + (_tileWidth + widthMargin) * (itemIndex - lineNumber*itemsPerLine);
+
+                [self addConstraint: [NSLayoutConstraint constraintWithItem: view attribute: NSLayoutAttributeWidth relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: _tileWidth]];
+                [self addConstraint: [NSLayoutConstraint constraintWithItem: view attribute: NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: _tileWidth]];
+                
+                hConstraint = [NSLayoutConstraint constraintWithItem: view attribute: NSLayoutAttributeLeft relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeLeft multiplier: 1.0 constant: hOffset];
+                vConstraint = [NSLayoutConstraint constraintWithItem: view attribute: NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeTop multiplier: 1.0 constant: vMargin];
+                [self addConstraints: @[hConstraint,vConstraint]];
+                [self.itemConstraints addObject: [MDBListItemConstraints newItemConstraintsWithItem: firstView hConstraint: hConstraint vConstraint: vConstraint]];
             }
         }
         
-        NSDictionary* selfViewDict = @{@"self":self};
-        NSDictionary* selfMetric = @{@"height": @(lines*lineHeight+2*outlineMargin)};
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[self(height)]" options: 0 metrics: selfMetric views: selfViewDict]];
-        
+        CGFloat fullHeight = lines*lineHeight+2*outlineMargin;
+        _heightConstraint = [NSLayoutConstraint constraintWithItem: self attribute: NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: fullHeight];
+        [self addConstraint: _heightConstraint];
     }
     
     [super updateConstraints];
@@ -219,7 +251,7 @@
     if (_showOutline) {
         self.layer.borderWidth = 1.0;
         self.layer.cornerRadius = 6.0;
-        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.layer.borderColor = [FractalScapeIconSet groupBorderColor].CGColor;
     } else {
         self.layer.borderWidth = 0.0;
     }
@@ -236,6 +268,32 @@
     _justify = justify;
     
     [self setNeedsUpdateConstraints];
+}
+#pragma mark - Drag&Drop
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    UIView* dragView;
+    
+    return dragView;
+}
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
+}
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+    BOOL needsLayout = NO;
+    
+    return needsLayout;
 }
 
 @end
