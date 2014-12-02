@@ -70,7 +70,7 @@
         newRR.justify = _justify;
         newRR.tileMargin = _tileMargin;
         newRR.tileWidth = _tileWidth;
-        newRR.showBorder = _showBorder;
+        newRR.showTileBorder = _showTileBorder;
         newRR.showOutline = YES;
         
         [self addSubview: newRR];
@@ -151,11 +151,11 @@
      [self setNeedsUpdateConstraints];
 }
 
--(void) setShowBorder:(BOOL)showBorder {
-    _showBorder = showBorder;
+-(void) setShowTileBorder:(BOOL)showTileBorder {
+    _showTileBorder = showTileBorder;
 
     for (MBLSReplacementRuleTileView* rrView in self.subviews) {
-        rrView.showBorder = _showBorder;
+        rrView.showTileBorder = _showTileBorder;
     }
 }
 -(void) setShowOutline:(BOOL)showOutline {

@@ -1,5 +1,5 @@
 //
-//  MDBLSRuleImageView.h
+//  MDBLSRuleTileView.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 11/25/14.
@@ -15,14 +15,14 @@
 IB_DESIGNABLE
 
 
-@interface MDBLSRuleImageView : UIImageView <MBLSRuleDragAndDropProtocol>
+@interface MDBLSRuleTileView : UIImageView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) LSDrawingRule*             rule;
 @property (nonatomic,readonly) id                       item;
 
 @property (nonatomic,assign) IBInspectable CGFloat      width;
-@property (nonatomic,assign) IBInspectable CGFloat      cornerRadius;
-@property (nonatomic,assign) IBInspectable BOOL         showBorder;
+@property (nonatomic,assign) IBInspectable CGFloat      tileCornerRadius;
+@property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
 @property (nonatomic,assign) IBInspectable BOOL         replaceable;
 

@@ -12,6 +12,9 @@
 
 +(LSDrawingRule*) findRuleWithType:(NSString *)ruleType productionString: (NSString*)production inContext: (NSManagedObjectContext*) context;
 
+
+@property (nonatomic,readonly) BOOL     isDefaultRule;
+
 -(UIImage*) asImage;
 
 @end

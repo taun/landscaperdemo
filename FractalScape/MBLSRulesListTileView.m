@@ -8,10 +8,10 @@
 
 #import "MBLSRulesListTileView.h"
 
-#import "LSDrawingRule+addons.h"
-#import "MDBLSRuleImageView.h"
+#import "MDBLSRuleTileView.h"
 
 #import "FractalScapeIconSet.h"
+
 
 @implementation MDBListItemConstraints
 
@@ -105,20 +105,24 @@
     NSInteger hPlacement = 0;
     for (LSDrawingRule* rule in _rules) {
         
-        MDBLSRuleImageView* ruleView = [[MDBLSRuleImageView alloc] initWithFrame: CGRectMake(0.0,0.0,_tileWidth,_tileWidth)];
-        [self addSubview: ruleView];
-        ruleView.frame = CGRectMake(hPlacement, 0, _tileWidth, _tileWidth);
-        ruleView.showBorder = _showBorder;
-        ruleView.width = _tileWidth;
-        ruleView.rule = rule;
-
+        MDBLSRuleTileView* newView = [self viewForRule: rule];
+        newView.frame = CGRectMake(hPlacement, 0, _tileWidth, _tileWidth);
+        [self addSubview: newView];
         
         hPlacement += _tileWidth + _tileMargin;
     }
     
     [self setupConstraints];
 }
+-(MDBLSRuleTileView*) viewForRule: (LSDrawingRule*) aRule {
+    
+    MDBLSRuleTileView* ruleView = [[MDBLSRuleTileView alloc] initWithFrame: CGRectMake(0.0, 0.0, _tileWidth, _tileWidth)];
+    ruleView.showTileBorder = _showTileBorder;
+    ruleView.width = _tileWidth;
+    ruleView.rule = aRule;
 
+    return ruleView;
+}
 -(void) setupConstraints {
         
     [self setNeedsUpdateConstraints];
@@ -135,7 +139,7 @@
     
     self.lastBounds = self.bounds;
     
-    if (_rules) {
+    if (_rules && _rules.count > 0) {
         NSInteger itemsPerLine = floorf(self.bounds.size.width / (_tileWidth+_tileMargin));
         
         NSInteger lines;
@@ -230,18 +234,18 @@
 -(void) setTileWidth:(CGFloat)tileWidth {
     _tileWidth = tileWidth;
     
-    for (MDBLSRuleImageView* subview in self.subviews) {
+    for (MDBLSRuleTileView* subview in self.subviews) {
         subview.width = _tileWidth;
     }
     
     [self setNeedsUpdateConstraints];
 }
 
--(void) setShowBorder:(BOOL)showBorder {
-    _showBorder = showBorder;
+-(void) setShowTileBorder:(BOOL)showTileBorder {
+    _showTileBorder = showTileBorder;
     
-    for (MDBLSRuleImageView* subview in self.subviews) {
-        subview.showBorder = _showBorder;
+    for (MDBLSRuleTileView* subview in self.subviews) {
+        subview.showTileBorder = _showTileBorder;
     }
     
 }
@@ -259,7 +263,7 @@
 -(void) setReadOnly:(BOOL)readOnly {
     _readOnly = readOnly;
     
-    for (MDBLSRuleImageView* subview in self.subviews) {
+    for (MDBLSRuleTileView* subview in self.subviews) {
         subview.readOnly = _readOnly;
     }
     
@@ -269,29 +273,171 @@
     
     [self setNeedsUpdateConstraints];
 }
+
+#pragma mark - Drag&Drop Implementation Details
+-(LSDrawingRule*) ruleUnderPoint:(CGPoint)aPoint {
+    LSDrawingRule* rule;
+    
+    UIView* viewUnderTouch = [self hitTest: aPoint withEvent: nil];
+    if ([viewUnderTouch isKindOfClass: [MDBLSRuleTileView class]]) {
+        rule = [(MDBLSRuleTileView*)viewUnderTouch rule];
+    }
+    
+    return rule;
+}
+-(NSUInteger) insertionIndexForPoint: (CGPoint) insertionPoint {
+    NSUInteger insertionIndex;
+    
+    LSDrawingRule* ruleUnderPoint = [self ruleUnderPoint: insertionPoint];
+    if (ruleUnderPoint) {
+        insertionIndex = [self.rules indexOfObject: ruleUnderPoint];
+    } else {
+        // are we in the view but inbetween or at the end of items?
+        NSUInteger lastIndex = self.itemConstraints.count - 1;
+        // We could use views but we arent keeping views in order.
+        MDBListItemConstraints* lastItemConstraints = self.itemConstraints[lastIndex];
+        CGFloat itemTopRightX = lastItemConstraints.hConstraint.constant + self.tileWidth;
+        CGFloat itemTopRightY = lastItemConstraints.vConstraint.constant;
+        CGFloat width = self.bounds.size.width - itemTopRightX;
+        CGFloat height = self.bounds.size.height - itemTopRightY;
+        CGRect endSpaceRect = CGRectMake(itemTopRightX, itemTopRightY, width, height);
+        if (CGRectContainsPoint(endSpaceRect, insertionPoint)) {
+            // we are at the end of the list
+            insertionIndex = self.rules.count;
+        } else {
+            insertionIndex = NSNotFound;
+        }
+    }
+    return insertionIndex;
+}
+
+-(void) moveRuleFrom: (NSUInteger) fromIndex to: (NSUInteger) toIndex {
+
+    BOOL alreadyThere = fromIndex == (toIndex -1) || fromIndex == toIndex;
+    // only move if the indexes are different
+    if (!alreadyThere) {
+        if (toIndex > fromIndex) {
+            toIndex -= 1; // allow for the removal of the from item
+        }
+        
+        LSDrawingRule* rule = [self.rules objectAtIndex: fromIndex];
+        [self.rules removeObjectAtIndex: fromIndex];
+        
+        UIView* viewToMove = self.subviews[fromIndex];
+        [viewToMove removeFromSuperview];
+        
+        [self.rules insertObject: rule atIndex: toIndex];
+        [self insertSubview: viewToMove atIndex: toIndex];
+        
+        [self setNeedsUpdateConstraints];
+    }
+}
+-(void) removeRule: (LSDrawingRule*) aRule {
+    NSUInteger ruleIndex = [self.rules indexOfObject: aRule];
+    
+    if (ruleIndex != NSNotFound) {
+        [self.rules removeObject: aRule];
+        UIView* ruleView = self.subviews[ruleIndex];
+        [ruleView removeFromSuperview];
+        
+        if (self.rules.count == 0) {
+            [_rules addObject: [LSDrawingRule insertNewObjectIntoContext: self.context]];
+            [self insertSubview: [self viewForRule: _rules[0]] atIndex: 0];
+        }
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+-(void) insertRule: (LSDrawingRule*) newRule atIndex: (NSUInteger) insertionIndex {
+    LSDrawingRule* firstRule = [self.rules firstObject];
+    
+    // check and replace if the default rule placeholder
+    if (firstRule.isDefaultRule) {
+        [self.rules removeObjectAtIndex: 0];
+        UIView* oldView = self.subviews[0];
+        [oldView removeFromSuperview];
+        
+    }
+    insertionIndex = MIN(self.rules.count - 1, insertionIndex);
+
+    
+    [self.rules insertObject: newRule atIndex: insertionIndex]; // works for index == count
+
+    [self insertSubview: [self viewForRule: newRule] atIndex: insertionIndex];
+    
+    [self setNeedsUpdateConstraints];
+}
+/*!
+ Needs to be able to handle insert/move. Is the rule already in the list or newly being added?
+ If it already exists, move.
+ 
+ @param aRule       the rule to insert/move
+ @param insertPoint the point over the list.
+ */
+-(void) insertRule:(LSDrawingRule *)aRule atPoint:(CGPoint)insertPoint {
+    if (aRule) {
+        
+        NSUInteger insertionIndex = [self insertionIndexForPoint: insertPoint];
+        
+        if (insertionIndex != NSNotFound) {
+            // NSNotFound might happen if the insertPoint is in between views.
+            NSUInteger currentIndex = [self.rules indexOfObject: aRule];
+            
+            if (currentIndex != NSNotFound) {
+                     [self moveRuleFrom: currentIndex to: insertionIndex];
+            } else {
+                // insert
+                [self insertRule: aRule atIndex: insertionIndex];
+            }
+        }
+
+    }
+}
+
+
 #pragma mark - Drag&Drop
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     UIView* dragView;
     
     return dragView;
 }
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
+    if (!self.readOnly) {
+        [self insertRule: (LSDrawingRule*)draggingItem.dragItem atPoint: point];
+    }
     
     return needsLayout;
 }
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
+    
+    if (!self.readOnly) {
+        [self insertRule: (LSDrawingRule*)draggingItem.dragItem atPoint: point];
+    }
     
     return needsLayout;
 }
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
+    
+    [self removeRule: draggingItem.dragItem];
     
     return needsLayout;
 }
--(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
+    
+    NSUInteger ruleIndex = [self.rules indexOfObject: draggingItem.dragItem];
+    
+    // note since readOnly copies, if the container was readOnly the rule would never be found in it.
+    if (ruleIndex != NSNotFound) {
+        [self.rules removeObject: draggingItem.dragItem];
+        UIView* oldView = self.subviews[ruleIndex];
+        [oldView removeFromSuperview];
+        
+        [self setNeedsUpdateConstraints];
+    }
     
     return needsLayout;
 }

@@ -11,13 +11,13 @@
 #import "MBColor+addons.h"
 #import "LSDrawingRuleType+addons.h"
 
-#import "MDBLSRuleImageView.h"
+#import "MDBLSRuleTileView.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
 @interface MBFractalRulesEditorViewController ()
-@property (nonatomic,strong) UIMotionEffectGroup        *foregroundMotionEffect;
-@property (nonatomic,strong) UIMotionEffectGroup        *backgroundMotionEffect;
-@property (nonatomic,strong) UIView                     *lastDragViewContainer;
+@property (nonatomic,strong) UIMotionEffectGroup                    *foregroundMotionEffect;
+@property (nonatomic,strong) UIMotionEffectGroup                    *backgroundMotionEffect;
+@property (nonatomic,strong) UIView<MBLSRuleDragAndDropProtocol>    *lastDragViewContainer;
 @end
 
 @implementation MBFractalRulesEditorViewController
@@ -107,38 +107,12 @@
     _fractal = fractal;
     self.summaryEditView.fractal = self.fractal;
     self.rulesView.rules = [self.fractal mutableOrderedSetValueForKey: @"startingRules"];
+    self.rulesView.context = self.fractal.managedObjectContext;
     self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: @"replacementRules"];
 //    self.fractalStartRulesListView.rules = [_fractal mutableOrderedSetValueForKey: @"startingRules"];
     self.ruleTypeListView.type = self.fractal.drawingRulesType;
     [self.view setNeedsUpdateConstraints];
 }
-
-//- (void)viewWillLayoutSubviews {
-//    [self.contentView setNeedsLayout];
-//    [self.fractalSummaryEditView setNeedsUpdateConstraints];
-//    [self.replacementRules setNeedsUpdateConstraints];
-//    [self.fractalStartRulesListView setNeedsUpdateConstraints];
-//    [self.fractalStartRulesListView setNeedsUpdateConstraints];
-//}
-
-//- (void)viewWillTransitionToSize:(CGSize)size
-//       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-//    
-//    [super  viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-//    
-//    [self.fractalSummaryEditView setNeedsUpdateConstraints];
-//    
-//    [self.replacementRules setNeedsUpdateConstraints];
-//    
-//    [self.fractalStartRulesListView setNeedsUpdateConstraints];
-//    [self.fractalStartRulesListView layoutIfNeeded];
-//    
-//    [self.view setNeedsUpdateConstraints];
-//    
-//    [self.fractalSummaryEditView.superview setNeedsLayout];
-//    
-//    [self.view layoutIfNeeded];
-//}
 
 - (IBAction)ruleTypeLongGesture:(UILongPressGestureRecognizer *)sender {
     UIGestureRecognizerState gestureState = sender.state;
@@ -181,9 +155,9 @@
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderDragImage = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: self.draggingItem.viewCenter withEvent: nil];
     
     UIView<MBLSRuleDragAndDropProtocol>* ddViewContainer;
-    if ([viewUnderDragImage isKindOfClass: [MDBLSRuleImageView class]]) {
+    if ([viewUnderDragImage isKindOfClass: [MDBLSRuleTileView class]]) {
         ddViewContainer = (UIView<MBLSRuleDragAndDropProtocol>*)viewUnderDragImage.superview;
-    } else if ([[viewUnderDragImage subviews].firstObject isKindOfClass: [MDBLSRuleImageView class]]) {
+    } else if ([[viewUnderDragImage subviews].firstObject isKindOfClass: [MDBLSRuleTileView class]]) {
         ddViewContainer = viewUnderDragImage;
     }
     
@@ -195,18 +169,26 @@
             self.draggingItem.view.userInteractionEnabled = NO;
             [self.view addSubview: self.draggingItem.view];
             [self.view bringSubviewToFront: self.draggingItem.view];
+            self.lastDragViewContainer = viewUnderTouch.superview;
         }
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateChanged) {
         
+        CGPoint localPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: ddViewContainer];
+
         if (self.lastDragViewContainer == nil && ddViewContainer != nil && [self handlesDragAndDrop: ddViewContainer]) {
             // entering
+            [ddViewContainer dragDidEnterAtLocalPoint: localPoint draggingItem: self.draggingItem];
             self.lastDragViewContainer = ddViewContainer;
             
         } else if (self.lastDragViewContainer != nil && ddViewContainer != nil && self.lastDragViewContainer == ddViewContainer) {
             // changing
+            [ddViewContainer dragDidChangeToLocalPoint: localPoint draggingItem: self.draggingItem];
+            
         } else if (self.lastDragViewContainer != nil && (ddViewContainer == nil || self.lastDragViewContainer != ddViewContainer)) {
             // leaving
+            [self.lastDragViewContainer dragDidEndDraggingItem: self.draggingItem];
+            
             self.lastDragViewContainer = nil;
         }
         
@@ -225,6 +207,10 @@
         self.draggingItem = nil;
         self.lastDragViewContainer = nil;
         
+    }
+    
+    if ([self.fractal hasChanges]) {
+        [self saveContext];
     }
 }
 -(BOOL) handlesDragAndDrop: (id) anObject {

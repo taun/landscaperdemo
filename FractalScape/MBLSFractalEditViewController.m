@@ -326,7 +326,9 @@ static BOOL SIMULTOUCH = NO;
         
         [self refreshInterface];
         
-    } else if ([[LSFractal productionRuleProperties] containsObject: keyPath]) {
+    } else if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
+               [keyPath isEqualToString: @"rules"] ||
+               [keyPath isEqualToString: @"contextRule"]) {
         
         [self refreshInterface];
         
@@ -481,9 +483,9 @@ static BOOL SIMULTOUCH = NO;
         for (NSString* keyPath in propertiesToObserve) {
             [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
         }
-        for (LSReplacementRule* rule in fractal.replacementRules) {
-            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-            [rule addObserver: self forKeyPath: keyPath options: 0 context: NULL];
+        for (LSReplacementRule* rRule in fractal.replacementRules) {
+            [rRule addObserver: self forKeyPath: @"contextRule" options: 0 context: NULL];
+            [rRule addObserver: self forKeyPath: @"rules" options: 0 context: NULL];
         }
     }
 }
@@ -498,8 +500,8 @@ static BOOL SIMULTOUCH = NO;
             [fractal removeObserver: self forKeyPath: keyPath];
         }
         for (LSReplacementRule* rule in fractal.replacementRules) {
-            NSString* keyPath = [NSString stringWithFormat: @"replacementString"];
-            [rule removeObserver: self forKeyPath: keyPath];
+            [rule removeObserver: self forKeyPath: @"contextRule"];
+            [rule removeObserver: self forKeyPath: @"rules"];
         }
     }
 }

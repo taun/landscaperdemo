@@ -19,11 +19,12 @@ IB_DESIGNABLE
 @interface MBLSReplacementRulesListView : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) NSMutableOrderedSet      *replacementRules;
+@property (nonatomic,weak) NSManagedObjectContext       *context;
 
 @property (nonatomic,assign) IBInspectable CGFloat      rowSpacing;
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
 @property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
-@property (nonatomic,assign) IBInspectable BOOL         showBorder;
+@property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 

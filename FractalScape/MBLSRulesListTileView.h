@@ -9,16 +9,21 @@
 #import <UIKit/UIKit.h>
 
 #import "MBLSRuleDragAndDropProtocol.h"
-
+#import "LSDrawingRule+addons.h"
+#import "NSManagedObject+Shortcuts.h"
 
 IB_DESIGNABLE
 
 @interface MBLSRulesListTileViewer : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) NSMutableOrderedSet        *rules;
+/*!
+ Save the context in case the rules go to zero.
+ */
+@property (nonatomic,weak) NSManagedObjectContext       *context;
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
 @property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
-@property (nonatomic,assign) IBInspectable BOOL         showBorder;
+@property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
@@ -26,6 +31,9 @@ IB_DESIGNABLE
 @property (nonatomic,assign) CGRect             lastBounds;
 @property (nonatomic,strong) NSLayoutConstraint *heightConstraint;
 @property (nonatomic,strong) NSMutableArray     *itemConstraints;
+
+-(LSDrawingRule*) ruleUnderPoint: (CGPoint) aPoint;
+-(void) insertRule: (LSDrawingRule*)aRule atPoint: (CGPoint)insertPoint;
 
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
 -(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;

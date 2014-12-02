@@ -129,9 +129,9 @@
                 [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
             }
                         
-            for (LSReplacementRule* rule in fractal.replacementRules) {
-                [rule addObserver: self forKeyPath: @"contextRule" options: 0 context: NULL];
-                [rule addObserver: self forKeyPath: @"rules" options: 0 context: NULL];
+            for (LSReplacementRule* rRule in fractal.replacementRules) {
+                [rRule addObserver: self forKeyPath: @"contextRule" options: 0 context: NULL];
+                [rRule addObserver: self forKeyPath: @"rules" options: 0 context: NULL];
             }
         }];
     }

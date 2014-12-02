@@ -45,19 +45,19 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 -(NSArray*) allCategories;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString   *startingRulesString;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString           *startingRulesString;
 
-@property (NS_NONATOMIC_IOSONLY) double                     lineLengthAsDouble;
+@property (NS_NONATOMIC_IOSONLY) double                             lineLengthAsDouble;
 
 @property (NS_NONATOMIC_IOSONLY) double                         turningAngleAsDouble;
 @property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber      *turningAngleAsDegrees;
 
 -(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
 
-@property (NS_NONATOMIC_IOSONLY) double                     turningAngleIncrementAsDouble;
+@property (NS_NONATOMIC_IOSONLY) double                            turningAngleIncrementAsDouble;
 @property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber      *turningAngleIncrementAsDegrees;
 
--(void) setTurningAngleIncrementAsDegrees: (NSNumber*)      newAngle;
+-(void) setTurningAngleIncrementAsDegrees: (NSNumber*)          newAngle;
 
 @property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber      *baseAngleAsDegrees;
 

@@ -9,6 +9,8 @@
 #import "LSDrawingRule+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
+static NSString* DefaultIconIdentifierString = @"kBIconRulePlaceEmpty";
+
 @implementation LSDrawingRule (addons)
 
 + (NSString *)entityName {
@@ -51,6 +53,28 @@
     }
     
     return node;
+}
+
+/*!
+ Override to create a default empty fractal definition.
+ 
+ @param context standard NSManagedObjectContext
+ 
+ @return aFractal
+ */
++ (instancetype)insertNewObjectIntoContext:(NSManagedObjectContext *)context {
+    LSDrawingRule* newRule = [super insertNewObjectIntoContext: context];
+    
+    newRule.descriptor = @"Default do nothing rule to be replaced by dragging a new rule.";
+    newRule.iconIdentifierString = DefaultIconIdentifierString;
+    newRule.drawingMethodString = @"commandDoNothing";
+    newRule.productionString = @"A";
+    
+    return newRule;
+}
+
+-(BOOL) isDefaultRule {
+    return ([self.iconIdentifierString compare: DefaultIconIdentifierString] == NSOrderedSame);
 }
 
 -(id) mutableCopy {

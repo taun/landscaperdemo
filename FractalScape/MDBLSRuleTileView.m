@@ -1,17 +1,17 @@
 //
-//  MDBLSRuleImageView.m
+//  MDBLSRuleTileView.m
 //  FractalScape
 //
 //  Created by Taun Chapman on 11/25/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import "MDBLSRuleImageView.h"
+#import "MDBLSRuleTileView.h"
 
 #import "FractalScapeIconSet.h"
 
 
-@implementation MDBLSRuleImageView
+@implementation MDBLSRuleTileView
 
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -38,7 +38,7 @@
     self.contentMode = UIViewContentModeScaleAspectFit;
     self.userInteractionEnabled = YES;
 
-    _cornerRadius = 4.0;
+    _tileCornerRadius = 4.0;
     _width = 52;
 
     if (_rule == nil) {
@@ -51,7 +51,7 @@
     UIView* backgroundView = [[UIView alloc] initWithFrame: CGRectZero];
     
     backgroundView.layer.masksToBounds = NO;
-    backgroundView.layer.cornerRadius = 4.0;
+    backgroundView.layer.cornerRadius = _tileCornerRadius;
     backgroundView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent: 0.15];
     
 //    self.selectedBackgroundView = backgroundView;
@@ -71,8 +71,8 @@
     _width = width;
     [self setNeedsUpdateConstraints];
 }
--(void) setShowBorder:(BOOL)showBorder {
-    _showBorder = showBorder;
+-(void) setShowTileBorder:(BOOL)showTileBorder {
+    _showTileBorder = showTileBorder;
     [self refreshAppearance];
 }
 -(id) item {
@@ -80,8 +80,8 @@
 }
 -(void) refreshAppearance {
     self.layer.borderColor = self.tintColor.CGColor;
-    self.layer.borderWidth = _showBorder ? 1.0 : 0.0;
-    self.layer.cornerRadius = _cornerRadius;
+    self.layer.borderWidth = _showTileBorder ? 1.0 : 0.0;
+    self.layer.cornerRadius = _tileCornerRadius;
     [self setNeedsDisplay];
 }
 

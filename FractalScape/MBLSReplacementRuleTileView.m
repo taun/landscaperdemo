@@ -7,14 +7,14 @@
 //
 
 #import "MBLSReplacementRuleTileView.h"
-#import "MDBLSRuleImageView.h"
+#import "MDBLSRuleTileView.h"
 #import "MBLSRulesListTileView.h"
 
 #import "FractalScapeIconSet.h"
 
 @interface MBLSReplacementRuleTileView ()
 
-@property (nonatomic,strong) MDBLSRuleImageView             *ruleView;
+@property (nonatomic,strong) MDBLSRuleTileView             *ruleView;
 @property (nonatomic,strong) UILabel                        *separator;
 @property (nonatomic,strong) MBLSRulesListTileViewer        *replacementsView;
 @property (nonatomic,assign) CGRect                         lastBounds;
@@ -58,8 +58,8 @@
     }
     
 
-    _ruleView = [[MDBLSRuleImageView alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
-    _ruleView.showBorder = YES;
+    _ruleView = [[MDBLSRuleTileView alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
+    _ruleView.showTileBorder = YES;
     _ruleView.width = _tileWidth;
     // Never remove rule unless it is being replaced by another.
     _ruleView.replaceable = YES;
@@ -80,7 +80,7 @@
     CGRect replacementRect = CGRectMake(_tileWidth*3, 0, _tileWidth*50, _tileWidth*2);
     _replacementsView = [[MBLSRulesListTileViewer alloc] initWithFrame: replacementRect];
     _replacementsView.justify = _justify;
-    _replacementsView.showBorder = _showBorder;
+    _replacementsView.showTileBorder = _showTileBorder;
     _replacementsView.tileWidth = _tileWidth;
     _replacementsView.tileMargin = _tileMargin;
     _replacementsView.readOnly = NO;
@@ -170,10 +170,10 @@
     [self setNeedsUpdateConstraints];
 }
 
--(void) setShowBorder:(BOOL)showBorder {
-    _showBorder = showBorder;
-//    _ruleView.showBorder = _showBorder;
-    _replacementsView.showBorder = _showBorder;
+-(void) setShowTileBorder:(BOOL)showTileBorder {
+    _showTileBorder = showTileBorder;
+//    _ruleView.showTileBorder = _showTileBorder;
+    _replacementsView.showTileBorder = _showTileBorder;
     
 }
 -(void) setShowOutline:(BOOL)showOutline {
