@@ -8,6 +8,8 @@
 
 #import "MBLSFractalSummaryEditView.h"
 
+#import "FractalScapeIconSet.h"
+
 @implementation MBLSFractalSummaryEditViewer
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -45,7 +47,7 @@
     [self addSubview: _category];
     
     UIView* textViewBox = [[UIView alloc] initWithFrame: CGRectMake(10, 60, 120, 88)];
-    textViewBox.layer.borderColor = _borderColor ? _borderColor.CGColor : nil;
+    textViewBox.layer.borderColor = [FractalScapeIconSet groupBorderColor].CGColor;
     textViewBox.layer.borderWidth = 1.0;
     textViewBox.layer.cornerRadius = 6.0;
     textViewBox.layer.masksToBounds = YES;
@@ -89,7 +91,7 @@
 -(void) layoutSubviews {
     [super layoutSubviews];
     
-    _descriptor.superview.layer.borderColor = _borderColor ? _borderColor.CGColor : nil;
+    _descriptor.superview.layer.borderColor = [FractalScapeIconSet groupBorderColor].CGColor;
     
     //    [self ];
 }
