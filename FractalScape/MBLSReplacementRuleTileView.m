@@ -19,6 +19,8 @@
 @property (nonatomic,strong) MBLSRulesListTileViewer        *replacementsView;
 @property (nonatomic,assign) CGRect                         lastBounds;
 
+-(void) updateRuleViewRule: (LSDrawingRule*) rule;
+
 @end
 
 @implementation MBLSReplacementRuleTileView
@@ -154,7 +156,10 @@
     
     [self setupSubviews];
 }
-
+-(void) updateRuleViewRule:(LSDrawingRule *)rule {
+    self.replacementRule.contextRule = rule;
+    self.ruleView.rule = rule;
+}
 -(void) setTileMargin:(CGFloat)tileMargin {
     _tileMargin = tileMargin;
     _replacementsView.tileMargin = _tileMargin;
@@ -193,29 +198,64 @@
     
     [self setNeedsUpdateConstraints];
 }
+
+#pragma mark - Drag&Drop Implementation Details
+-(BOOL) pointIsInContext: (CGPoint) aPoint {
+    CGPoint localPoint = [self convertPoint: aPoint toView: self.ruleView];
+    BOOL pointInside = [self.ruleView pointInside: localPoint withEvent: nil];
+    return pointInside;
+}
+
 #pragma mark - Drag&Drop
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
     UIView* dragView;
+    
+    if ([self pointIsInContext: point]) {
+        //
+    }
     
     return dragView;
 }
 -(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
     BOOL needsLayout = NO;
     
+    if ([self pointIsInContext: point]) {
+        //
+    }
+
     return needsLayout;
 }
 -(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
     BOOL needsLayout = NO;
     
+    if ([self pointIsInContext: point]) {
+        //
+        if (draggingRule.dragItem != self.ruleView.rule) {
+            draggingRule.oldReplacedDragItem = self.ruleView.rule;
+            [self updateRuleViewRule: draggingRule.dragItem];
+        }
+    }
+
     return needsLayout;
 }
 -(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
     BOOL needsLayout = NO;
     
+    //
+    LSDrawingRule* oldRule = draggingRule.oldReplacedDragItem;
+    if (oldRule) {
+        draggingRule.oldReplacedDragItem = nil;
+        [oldRule.managedObjectContext deleteObject: oldRule];
+    }
+
     return needsLayout;
 }
 -(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
     BOOL needsLayout = NO;
+    
+    if (draggingRule.dragItem == self.ruleView.rule) {
+        [self updateRuleViewRule: draggingRule.oldReplacedDragItem];
+    }
     
     return needsLayout;
 }

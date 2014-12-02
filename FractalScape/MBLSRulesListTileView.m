@@ -421,23 +421,13 @@
 -(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
-    [self removeRule: draggingItem.dragItem];
     
     return needsLayout;
 }
 -(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
-    NSUInteger ruleIndex = [self.rules indexOfObject: draggingItem.dragItem];
-    
-    // note since readOnly copies, if the container was readOnly the rule would never be found in it.
-    if (ruleIndex != NSNotFound) {
-        [self.rules removeObject: draggingItem.dragItem];
-        UIView* oldView = self.subviews[ruleIndex];
-        [oldView removeFromSuperview];
-        
-        [self setNeedsUpdateConstraints];
-    }
+    [self removeRule: draggingItem.dragItem];
     
     return needsLayout;
 }

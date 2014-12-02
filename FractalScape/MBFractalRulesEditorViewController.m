@@ -187,23 +187,29 @@
             
         } else if (self.lastDragViewContainer != nil && (ddViewContainer == nil || self.lastDragViewContainer != ddViewContainer)) {
             // leaving
-            [self.lastDragViewContainer dragDidEndDraggingItem: self.draggingItem];
+            [self.lastDragViewContainer dragDidExitDraggingItem: self.draggingItem];
             
             self.lastDragViewContainer = nil;
         }
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateEnded) {
         [self.draggingItem.view removeFromSuperview];
+        LSDrawingRule* draggedRule = self.draggingItem.dragItem;
+        [self deleteRuleIfUnreferenced: draggedRule];
         self.draggingItem = nil;
         self.lastDragViewContainer = nil;
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled) {
         [self.draggingItem.view removeFromSuperview];
+        LSDrawingRule* draggedRule = self.draggingItem.dragItem;
+        [self deleteRuleIfUnreferenced: draggedRule];
         self.draggingItem = nil;
         self.lastDragViewContainer = nil;
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateFailed) {
         [self.draggingItem.view removeFromSuperview];
+        LSDrawingRule* draggedRule = self.draggingItem.dragItem;
+        [self deleteRuleIfUnreferenced: draggedRule];
         self.draggingItem = nil;
         self.lastDragViewContainer = nil;
         
@@ -211,6 +217,13 @@
     
     if ([self.fractal hasChanges]) {
         [self saveContext];
+    }
+}
+-(void) deleteRuleIfUnreferenced: (LSDrawingRule*) rule {
+    if (rule) {
+        if (!rule.fractalStart && !rule.replacementRule && !rule.type && (rule.contexts != nil && rule.contexts.count == 0)) {
+            [rule.managedObjectContext deleteObject: rule];
+        }
     }
 }
 -(BOOL) handlesDragAndDrop: (id) anObject {
