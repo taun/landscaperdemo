@@ -73,7 +73,7 @@ static NSString* DefaultIconIdentifierString = @"kBIconRulePlaceEmpty";
     return newRule;
 }
 
--(BOOL) isDefaultRule {
+-(BOOL) isDefaultObject {
     return ([self.iconIdentifierString compare: DefaultIconIdentifierString] == NSOrderedSame);
 }
 

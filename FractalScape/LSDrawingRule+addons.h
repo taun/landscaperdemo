@@ -7,13 +7,15 @@
 //
 
 #import "LSDrawingRule.h"
+#import "MDBTileObjectProtocol.h"
 
-@interface LSDrawingRule (addons)
+
+@interface LSDrawingRule (addons) <MDBTileObjectProtocol>
 
 +(LSDrawingRule*) findRuleWithType:(NSString *)ruleType productionString: (NSString*)production inContext: (NSManagedObjectContext*) context;
 
 
-@property (nonatomic,readonly) BOOL     isDefaultRule;
+@property (nonatomic,readonly) BOOL     isDefaultObject;
 
 -(UIImage*) asImage;
 

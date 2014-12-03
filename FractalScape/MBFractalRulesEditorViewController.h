@@ -10,7 +10,7 @@
 #import "FractalControllerProtocol.h"
 
 #import "MBLSFractalSummaryEditView.h"
-#import "MBLSRulesListTileView.h"
+#import "MBLSObjectListTileViewer.h"
 #import "MBLSReplacementRulesListView.h"
 #import "MBLSReplacementRuleTileView.h"
 #import "MBLSRuleTypeTileViewer.h"
@@ -31,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIView                         *contentView;
 @property (weak, nonatomic) IBOutlet UIScrollView                   *scrollView;
 @property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditViewer   *summaryEditView;
-@property (weak, nonatomic) IBOutlet MBLSRulesListTileViewer        *rulesView;
+@property (weak, nonatomic) IBOutlet MBLSObjectListTileViewer       *rulesView;
 @property (weak, nonatomic) IBOutlet MBLSReplacementRulesListView   *replacementRules;
 @property (weak, nonatomic) IBOutlet MBLSRuleTypeTileViewer         *ruleTypeListView;
 @property (weak, nonatomic) IBOutlet UILabel                        *ruleHelpLabel;

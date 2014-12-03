@@ -11,13 +11,14 @@
 #import "LSDrawingRule+addons.h"
 
 #import "MBLSRuleDragAndDropProtocol.h"
+#import "MDBTileObjectProtocol.h"
 
 IB_DESIGNABLE
 
 
-@interface MDBLSRuleTileView : UIImageView <MBLSRuleDragAndDropProtocol>
+@interface MDBLSObjectTileView : UIImageView <MBLSRuleDragAndDropProtocol>
 
-@property (nonatomic,strong) LSDrawingRule*             rule;
+@property (nonatomic,strong) id<MDBTileObjectProtocol>  representedObject;
 @property (nonatomic,readonly) id                       item;
 
 @property (nonatomic,assign) IBInspectable CGFloat      width;
@@ -26,10 +27,10 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
 @property (nonatomic,assign) IBInspectable BOOL         replaceable;
 
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule;
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem;
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem;
 
 @end

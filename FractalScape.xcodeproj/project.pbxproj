@@ -35,8 +35,8 @@
 		C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */; };
 		C531F3F016E139D4007F4DD3 /* MBFractalAxiomEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EF16E139D4007F4DD3 /* MBFractalAxiomEditViewController.m */; };
-		C5329E871A24558F00056FB4 /* MBLSRulesListTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSRulesListTileView.h */; };
-		C5329E881A24558F00056FB4 /* MBLSRulesListTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSRulesListTileView.m */; };
+		C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */; };
+		C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */; };
 		C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E891A24566B00056FB4 /* MBLSFractalSummaryEditView.h */; };
 		C5329E8C1A24566B00056FB4 /* MBLSFractalSummaryEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E8A1A24566B00056FB4 /* MBLSFractalSummaryEditView.m */; };
 		C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */; };
@@ -98,11 +98,12 @@
 		C5C37C651A24EC81008C5409 /* MBLSReplacementRulesListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C631A24EC81008C5409 /* MBLSReplacementRulesListView.m */; };
 		C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C661A24ED70008C5409 /* MBLSReplacementRuleTileView.h */; };
 		C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C671A24ED70008C5409 /* MBLSReplacementRuleTileView.m */; };
-		C5C37C6C1A24EF9F008C5409 /* MDBLSRuleTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C6A1A24EF9F008C5409 /* MDBLSRuleTileView.h */; };
-		C5C37C6D1A24EF9F008C5409 /* MDBLSRuleTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C6B1A24EF9F008C5409 /* MDBLSRuleTileView.m */; };
+		C5C37C6C1A24EF9F008C5409 /* MDBLSObjectTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C6A1A24EF9F008C5409 /* MDBLSObjectTileView.h */; };
+		C5C37C6D1A24EF9F008C5409 /* MDBLSObjectTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */; };
 		C5CD99D819BA21FE0037E976 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CD99D719BA21FE0037E976 /* CloudKit.framework */; };
 		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
+		C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */; };
 		C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D99F51170270450025D5BB /* MBBasicLabelTextTableCell.m */; };
 		C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */; };
 		C5DA47E719EDC46600A0A432 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78514A5346300DA48BD /* CoreGraphics.framework */; };
@@ -192,8 +193,8 @@
 		C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalRulesEditorViewController.m; path = FractalScape/MBFractalRulesEditorViewController.m; sourceTree = "<group>"; };
 		C531F3EE16E139D4007F4DD3 /* MBFractalAxiomEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalAxiomEditViewController.h; path = FractalScape/MBFractalAxiomEditViewController.h; sourceTree = "<group>"; };
 		C531F3EF16E139D4007F4DD3 /* MBFractalAxiomEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalAxiomEditViewController.m; path = FractalScape/MBFractalAxiomEditViewController.m; sourceTree = "<group>"; };
-		C5329E851A24558F00056FB4 /* MBLSRulesListTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSRulesListTileView.h; path = FractalScape/MBLSRulesListTileView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C5329E861A24558F00056FB4 /* MBLSRulesListTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSRulesListTileView.m; path = FractalScape/MBLSRulesListTileView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSObjectListTileViewer.h; path = FractalScape/MBLSObjectListTileViewer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSObjectListTileViewer.m; path = FractalScape/MBLSObjectListTileViewer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5329E891A24566B00056FB4 /* MBLSFractalSummaryEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSFractalSummaryEditView.h; path = FractalScape/MBLSFractalSummaryEditView.h; sourceTree = "<group>"; };
 		C5329E8A1A24566B00056FB4 /* MBLSFractalSummaryEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSFractalSummaryEditView.m; path = FractalScape/MBLSFractalSummaryEditView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C53305C517985877005D2A18 /* History.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = History.rtf; path = resources/History.rtf; sourceTree = "<group>"; };
@@ -278,13 +279,14 @@
 		C5C37C631A24EC81008C5409 /* MBLSReplacementRulesListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSReplacementRulesListView.m; path = FractalScape/MBLSReplacementRulesListView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5C37C661A24ED70008C5409 /* MBLSReplacementRuleTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSReplacementRuleTileView.h; path = FractalScape/MBLSReplacementRuleTileView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C5C37C671A24ED70008C5409 /* MBLSReplacementRuleTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSReplacementRuleTileView.m; path = FractalScape/MBLSReplacementRuleTileView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C5C37C6A1A24EF9F008C5409 /* MDBLSRuleTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MDBLSRuleTileView.h; path = FractalScape/MDBLSRuleTileView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C5C37C6B1A24EF9F008C5409 /* MDBLSRuleTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MDBLSRuleTileView.m; path = FractalScape/MDBLSRuleTileView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C5C37C6A1A24EF9F008C5409 /* MDBLSObjectTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MDBLSObjectTileView.h; path = FractalScape/MDBLSObjectTileView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MDBLSObjectTileView.m; path = FractalScape/MDBLSObjectTileView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5CD99D619BA21F40037E976 /* FractalScape.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = FractalScape.entitlements; path = FractalScape/FractalScape.entitlements; sourceTree = "<group>"; };
 		C5CD99D719BA21FE0037E976 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalControllerProtocol.h; path = FractalScape/FractalControllerProtocol.h; sourceTree = "<group>"; };
+		C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBTileObjectProtocol.h; path = FractalScape/MDBTileObjectProtocol.h; sourceTree = "<group>"; };
 		C5D99F50170270450025D5BB /* MBBasicLabelTextTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBBasicLabelTextTableCell.h; path = FractalScape/MBBasicLabelTextTableCell.h; sourceTree = "<group>"; };
 		C5D99F51170270450025D5BB /* MBBasicLabelTextTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBBasicLabelTextTableCell.m; path = FractalScape/MBBasicLabelTextTableCell.m; sourceTree = "<group>"; };
 		C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLSFractalEditViewController.h; sourceTree = "<group>"; };
@@ -443,9 +445,6 @@
 			children = (
 				C531F3EE16E139D4007F4DD3 /* MBFractalAxiomEditViewController.h */,
 				C531F3EF16E139D4007F4DD3 /* MBFractalAxiomEditViewController.m */,
-				C564A32719E722FA00839D9E /* MBDraggingItem.h */,
-				C564A32819E722FA00839D9E /* MBDraggingItem.m */,
-				C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */,
 				C59AD2321A15434E00106614 /* MBCollectionCellItemProtocol.h */,
 				C564A32A19E725C800839D9E /* MBAxiomEditorTableSection.h */,
 				C564A32B19E725C800839D9E /* MBAxiomEditorTableSection.m */,
@@ -635,12 +634,16 @@
 			children = (
 				C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */,
 				C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */,
+				C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */,
+				C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */,
+				C564A32719E722FA00839D9E /* MBDraggingItem.h */,
+				C564A32819E722FA00839D9E /* MBDraggingItem.m */,
 				C5329E891A24566B00056FB4 /* MBLSFractalSummaryEditView.h */,
 				C5329E8A1A24566B00056FB4 /* MBLSFractalSummaryEditView.m */,
-				C5C37C6A1A24EF9F008C5409 /* MDBLSRuleTileView.h */,
-				C5C37C6B1A24EF9F008C5409 /* MDBLSRuleTileView.m */,
-				C5329E851A24558F00056FB4 /* MBLSRulesListTileView.h */,
-				C5329E861A24558F00056FB4 /* MBLSRulesListTileView.m */,
+				C5C37C6A1A24EF9F008C5409 /* MDBLSObjectTileView.h */,
+				C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */,
+				C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */,
+				C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */,
 				C5C37C661A24ED70008C5409 /* MBLSReplacementRuleTileView.h */,
 				C5C37C671A24ED70008C5409 /* MBLSReplacementRuleTileView.m */,
 				C5C37C621A24EC81008C5409 /* MBLSReplacementRulesListView.h */,
@@ -698,18 +701,19 @@
 				C5C37C5E1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h in Headers */,
 				C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */,
 				C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */,
-				C5329E871A24558F00056FB4 /* MBLSRulesListTileView.h in Headers */,
+				C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */,
 				C5A8B26C1A23C32A00A55847 /* LSFractal.h in Headers */,
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
 				C5150F8A1A2036FA00DC8A0E /* MBColor.h in Headers */,
 				C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */,
+				C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */,
 				C52EA9AD1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h in Headers */,
 				C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */,
 				C5150F7A1A202DDA00DC8A0E /* MBPlacedEntity+addons.h in Headers */,
 				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
 				C5150F761A202D9E00DC8A0E /* MBFractalScape+addons.h in Headers */,
 				C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */,
-				C5C37C6C1A24EF9F008C5409 /* MDBLSRuleTileView.h in Headers */,
+				C5C37C6C1A24EF9F008C5409 /* MDBLSObjectTileView.h in Headers */,
 				C5C37C601A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -890,7 +894,7 @@
 				C5A3EA6F16E7E6EF00D19155 /* MBColorSourceCollectionViewController.m in Sources */,
 				C5C37C591A24E6F1008C5409 /* MDKLayerViewDesignable.m in Sources */,
 				C5E22C2F19DA19CE00B91607 /* MBRuleCollectionDataSource.m in Sources */,
-				C5329E881A24558F00056FB4 /* MBLSRulesListTileView.m in Sources */,
+				C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */,
 				C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */,
 				C59E32171A111D020076B40B /* NSManagedObject+Shortcuts.m in Sources */,
 				C5150F831A20317100DC8A0E /* MBScapeBackground.m in Sources */,
@@ -907,7 +911,7 @@
 				C501478E170B47DB00BD7488 /* MBPlacedEntity.m in Sources */,
 				C5E22C2919DA105900B91607 /* MBLSRuleBaseCollectionTableViewCell.m in Sources */,
 				C5A8B26D1A23C32A00A55847 /* LSFractal.m in Sources */,
-				C5C37C6D1A24EF9F008C5409 /* MDBLSRuleTileView.m in Sources */,
+				C5C37C6D1A24EF9F008C5409 /* MDBLSObjectTileView.m in Sources */,
 				C59F54691A2191CF006EB684 /* MBLSRuleDestinationCollectionTableViewCell.m in Sources */,
 				C5C37C651A24EC81008C5409 /* MBLSReplacementRulesListView.m in Sources */,
 				C5014792170B4EB400BD7488 /* LSReplacementRule+addons.m in Sources */,

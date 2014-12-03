@@ -169,6 +169,11 @@
     
     return thumbnail;
 }
+
+-(BOOL) isDefaultObject {
+    return NO;
+}
+
 -(UIImage*) asImage {
     return [self thumbnailImageSize: CGSizeMake(40.0, 40.0)];
 }

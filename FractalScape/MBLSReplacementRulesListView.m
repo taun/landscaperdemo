@@ -109,16 +109,8 @@
     [super updateConstraints];
 }
 
-//-(void) layoutSubviews {
-//    [super layoutSubviews];
-//    
-//    if (!CGRectEqualToRect(self.bounds, self.lastBounds)) {
-//        //
-//        [self setNeedsUpdateConstraints];
-//    }
-//    
-//}
 
+#pragma mark - Setters & Getters
 -(void) setReplacementRules:(NSMutableOrderedSet *)replacementRules {
     _replacementRules = replacementRules;
     

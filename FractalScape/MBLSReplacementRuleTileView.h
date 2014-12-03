@@ -11,7 +11,7 @@
 #import "LSReplacementRule+addons.h"
 #import "LSDrawingRule+addons.h"
 
-#import "MBLSRulesListTileView.h"
+#import "MBLSObjectListTileViewer.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
 IB_DESIGNABLE

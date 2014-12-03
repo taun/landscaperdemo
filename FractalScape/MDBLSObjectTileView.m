@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import "MDBLSRuleTileView.h"
+#import "MDBLSObjectTileView.h"
 
 #import "FractalScapeIconSet.h"
 
 
-@implementation MDBLSRuleTileView
+@implementation MDBLSObjectTileView
 
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -41,7 +41,7 @@
     _tileCornerRadius = 4.0;
     _width = 52;
 
-    if (_rule == nil) {
+    if (_representedObject == nil) {
         UIImage* cellImage = [FractalScapeIconSet imageOfKBIconRulePlaceEmpty];
         self.image = cellImage;
         [self sizeToFit];
@@ -58,9 +58,9 @@
 
 }
 
--(void) setRule:(LSDrawingRule *)rule {
-    _rule = rule;
-    self.image = [rule asImage];
+-(void) setRepresentedObject:(id<MDBTileObjectProtocol>)object {
+    _representedObject = object;
+    self.image = [object asImage];
     [self sizeToFit];
     [self setNeedsUpdateConstraints];
 }
@@ -76,7 +76,7 @@
     [self refreshAppearance];
 }
 -(id) item {
-    return self.rule;
+    return self.representedObject;
 }
 -(void) refreshAppearance {
     self.layer.borderColor = self.tintColor.CGColor;
@@ -103,10 +103,10 @@
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     
     if (self.readOnly) {
-        LSDrawingRule* newRule = [self.rule mutableCopy];
-        draggingItem.dragItem = newRule;
+        id<MDBTileObjectProtocol> newObject = [self.representedObject mutableCopy];
+        draggingItem.dragItem = newObject;
     } else {
-        draggingItem.dragItem = self.rule;
+        draggingItem.dragItem = self.representedObject;
     }
 
     return draggingItem.view;

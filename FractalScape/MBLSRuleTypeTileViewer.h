@@ -10,12 +10,12 @@
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 
-#import "MBLSRulesListTileView.h"
+#import "MBLSObjectListTileViewer.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
 //IB_DESIGNABLE
 
-@interface MBLSRuleTypeTileViewer : MBLSRulesListTileViewer <MBLSRuleDragAndDropProtocol>
+@interface MBLSRuleTypeTileViewer : MBLSObjectListTileViewer <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) LSDrawingRuleType          *type;
 

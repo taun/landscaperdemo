@@ -1,6 +1,6 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf160
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 LucidaGrande;}
-{\colortbl;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;\red247\green247\blue247;}
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
@@ -106,5 +106,70 @@ Lots to do.\
 	Merge color stroke and fill shelf.\
 	Change from table to full layout in scroll view like MailBoxes messageView.\
 	Finish color drag and drop.\
+\
+2014-12-03\
+	Notes re. tile moves\
+\pard\pardeftab720\sl220
+\cf0 \cb2 Any time the new rule is first moved to a list, it would be an insert.\
+ \
+ Any subsequent move will on be a transposition of 2 ADJACENT VIEWS.\
+ This means just swapping the constraints of the view to the left or right of the view being moved.\
+ Only exception is a vertical move. However, in general, a move is a transfer of constraints. There\
+ are NO NEW CONSTRAINTS.\
+ \
+ Use two separate arrays. One for views and one for the constraints. Then insert or move view in \
+ views array and map constraints array to views. Check if constraint is deifferent and if so, re-assign.\
+ \
+ Further thoughts:\
+ A move is a transposition of constraint constants. Chaining from the lower index to higher index.\
+ An insert is a chaining of constraint constants from the insertion index to end index.\
+ A remove is a chaining of constraint constants from the removal index to the end index.\
+ \
+ Insertion:\
+    "Move group starting at index+0 right"\
+    Add view at insertion index.\
+    copy constraints from view already at insertion index.\
+    copy constraint constants from insertion index+1 to old view at index until reaching the end.\
+    calculate new constants for end view.\
+    Update views array and rules\
+ \
+ Removal:\
+    "Move group starting at index + 1 left."\
+    copy constraint constants from view at deletion index to view at index+1 until reaching end.\
+    Remove view at deletion index.\
+    Update views array and rules\
+ \
+ Transpose Left: fIndex, tIndex\
+    Swapping with a tile to the left\
+    Copy constraint constants from fIndex (movedView) to findex-1 until tIndex+1\
+    Copy constraint constants from tIndex to movedView.\
+    Update movedView and rule array position\
+ \
+ Transpose Right: fIndex, tIndex\
+    Swapping with a tile to the right\
+    Copy constraint constants from fIndex (movedView) to findex+1 until tIndex-1\
+    Copy constraint constants from tIndex to movedView.\
+    Update movedView and rule array position\
+ \
+ * Transpose Any Direction: fIndex, tIndex, direction (right = +1, left = -1)\
+    Swapping two tiles\
+    Copy constraint constants from fIndex (movedView) to findex+direction until tIndex-direction\
+    Copy constraint constants from tIndex to movedView.\
+    Update movedView and rule array position\
+\
+Went with --------\
+Important note\
+ \
+ Method to create a new constraint for a new view at insertion index.\
+ Call above method for updateConstraints.\
+ Stateless - calculates constants indepent of a loop.\
+ One method for creating constraint another for setting constants.\
+ updateConstraints -> ForIn rules to add views, constraints, constants\
+ insert/remove/trans - > ForIn views to change constants\
+ 2 arrays? before and after and animate\
+ Just re-run constants after inserting or deleting views. Use identifier to specify h vs v constraint?\
+\
+\
+\
 \
 }

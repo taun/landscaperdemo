@@ -8,7 +8,9 @@
 
 #import "MBColor.h"
 
-@interface MBColor (addons)
+#import "MDBTileObjectProtocol.h"
+
+@interface MBColor (addons) <MDBTileObjectProtocol>
 
 +(NSArray*) allColorsInContext: (NSManagedObjectContext *)context;
 
@@ -23,6 +25,9 @@
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *asUIColor;
 
 -(UIImage*) thumbnailImageSize: (CGSize) size;
+
+
+@property (nonatomic,readonly) BOOL     isDefaultObject;
 
 -(UIImage*) asImage;
 @end

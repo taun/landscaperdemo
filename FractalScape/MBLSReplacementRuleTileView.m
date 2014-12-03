@@ -7,16 +7,17 @@
 //
 
 #import "MBLSReplacementRuleTileView.h"
-#import "MDBLSRuleTileView.h"
-#import "MBLSRulesListTileView.h"
+#import "MDBLSObjectTileView.h"
+#import "MBLSObjectListTileViewer.h"
+#import "MDBTileObjectProtocol.h"
 
 #import "FractalScapeIconSet.h"
 
 @interface MBLSReplacementRuleTileView ()
 
-@property (nonatomic,strong) MDBLSRuleTileView             *ruleView;
+@property (nonatomic,strong) MDBLSObjectTileView             *ruleView;
 @property (nonatomic,strong) UILabel                        *separator;
-@property (nonatomic,strong) MBLSRulesListTileViewer        *replacementsView;
+@property (nonatomic,strong) MBLSObjectListTileViewer        *replacementsView;
 @property (nonatomic,assign) CGRect                         lastBounds;
 
 -(void) updateRuleViewRule: (LSDrawingRule*) rule;
@@ -60,7 +61,7 @@
     }
     
 
-    _ruleView = [[MDBLSRuleTileView alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
+    _ruleView = [[MDBLSObjectTileView alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
     _ruleView.showTileBorder = YES;
     _ruleView.width = _tileWidth;
     // Never remove rule unless it is being replaced by another.
@@ -68,7 +69,7 @@
     _ruleView.readOnly = YES;
     
 #if !TARGET_INTERFACE_BUILDER
-    _ruleView.rule = self.replacementRule.contextRule;
+    _ruleView.representedObject = self.replacementRule.contextRule;
 #endif
 
     [self addSubview: _ruleView];
@@ -80,7 +81,7 @@
     [self addSubview: _separator];
     
     CGRect replacementRect = CGRectMake(_tileWidth*3, 0, _tileWidth*50, _tileWidth*2);
-    _replacementsView = [[MBLSRulesListTileViewer alloc] initWithFrame: replacementRect];
+    _replacementsView = [[MBLSObjectListTileViewer alloc] initWithFrame: replacementRect];
     _replacementsView.justify = _justify;
     _replacementsView.showTileBorder = _showTileBorder;
     _replacementsView.tileWidth = _tileWidth;
@@ -88,7 +89,7 @@
     _replacementsView.readOnly = NO;
     
 #if !TARGET_INTERFACE_BUILDER
-    _replacementsView.rules = [self.replacementRule mutableOrderedSetValueForKey: @"rules"];
+    _replacementsView.objectList = [self.replacementRule mutableOrderedSetValueForKey: @"rules"];
 #endif
     
     [self addSubview: _replacementsView];
@@ -156,9 +157,9 @@
     
     [self setupSubviews];
 }
--(void) updateRuleViewRule:(LSDrawingRule *)rule {
+-(void) updateRuleViewRule:(id<MDBTileObjectProtocol>)rule {
     self.replacementRule.contextRule = rule;
-    self.ruleView.rule = rule;
+    self.ruleView.representedObject = rule;
 }
 -(void) setTileMargin:(CGFloat)tileMargin {
     _tileMargin = tileMargin;
@@ -230,8 +231,8 @@
     
     if ([self pointIsInContext: point]) {
         //
-        if (draggingRule.dragItem != self.ruleView.rule) {
-            draggingRule.oldReplacedDragItem = self.ruleView.rule;
+        if (draggingRule.dragItem != self.ruleView.representedObject) {
+            draggingRule.oldReplacedDragItem = self.ruleView.representedObject;
             [self updateRuleViewRule: draggingRule.dragItem];
         }
     }
@@ -253,7 +254,7 @@
 -(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
     BOOL needsLayout = NO;
     
-    if (draggingRule.dragItem == self.ruleView.rule) {
+    if (draggingRule.dragItem == self.ruleView.representedObject) {
         [self updateRuleViewRule: draggingRule.oldReplacedDragItem];
     }
     

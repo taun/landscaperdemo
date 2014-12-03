@@ -11,8 +11,10 @@
 #import "MBColor+addons.h"
 #import "LSDrawingRuleType+addons.h"
 
-#import "MDBLSRuleTileView.h"
+#import "MDBLSObjectTileView.h"
 #import "MBLSRuleDragAndDropProtocol.h"
+
+#import "FractalScapeIconSet.h"
 
 @interface MBFractalRulesEditorViewController ()
 @property (nonatomic,strong) UIMotionEffectGroup                    *foregroundMotionEffect;
@@ -106,7 +108,7 @@
 -(void) setFractal:(LSFractal *)fractal {
     _fractal = fractal;
     self.summaryEditView.fractal = self.fractal;
-    self.rulesView.rules = [self.fractal mutableOrderedSetValueForKey: @"startingRules"];
+    self.rulesView.objectList = [self.fractal mutableOrderedSetValueForKey: @"startingRules"];
     self.rulesView.context = self.fractal.managedObjectContext;
     self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: @"replacementRules"];
 //    self.fractalStartRulesListView.rules = [_fractal mutableOrderedSetValueForKey: @"startingRules"];
@@ -155,9 +157,9 @@
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderDragImage = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: self.draggingItem.viewCenter withEvent: nil];
     
     UIView<MBLSRuleDragAndDropProtocol>* ddViewContainer;
-    if ([viewUnderDragImage isKindOfClass: [MDBLSRuleTileView class]]) {
+    if ([viewUnderDragImage isKindOfClass: [MDBLSObjectTileView class]]) {
         ddViewContainer = (UIView<MBLSRuleDragAndDropProtocol>*)viewUnderDragImage.superview;
-    } else if ([[viewUnderDragImage subviews].firstObject isKindOfClass: [MDBLSRuleTileView class]]) {
+    } else if ([[viewUnderDragImage subviews].firstObject isKindOfClass: [MDBLSObjectTileView class]]) {
         ddViewContainer = viewUnderDragImage;
     }
     
@@ -169,7 +171,7 @@
             self.draggingItem.view.userInteractionEnabled = NO;
             [self.view addSubview: self.draggingItem.view];
             [self.view bringSubviewToFront: self.draggingItem.view];
-            self.lastDragViewContainer = viewUnderTouch.superview;
+            self.lastDragViewContainer = (UIView<MBLSRuleDragAndDropProtocol>*)viewUnderTouch.superview;
         }
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateChanged) {
@@ -260,10 +262,15 @@
 }
 -(void) infoAnimateView: (UIView*) aView {
     UIColor* oldColor = aView.backgroundColor;
-    aView.backgroundColor = [UIColor lightGrayColor];
+    aView.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
+    
+    UIColor* oldHelpColor = self.ruleHelpLabel.superview.backgroundColor;
+    self.ruleHelpLabel.superview.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
+    
     [UIView animateWithDuration: 2.0 animations:^{
         //
         aView.backgroundColor = oldColor;
+        self.ruleHelpLabel.superview.backgroundColor = oldHelpColor;
         
     } completion:^(BOOL finished) {
         //

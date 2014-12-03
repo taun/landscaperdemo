@@ -19,7 +19,8 @@
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
 
-@property (nonatomic,strong) NSArray            *cachedFractalColors;
+@property (nonatomic,strong) NSArray            *mutableColorSets;
+@property (nonatomic,strong) NSMutableArray     *cachedFractalColors;
 @property (nonatomic,assign) BOOL               colorsChanged;
 
 @property (weak, nonatomic) IBOutlet MDKLayerViewDesignable *propertiesGroupView;

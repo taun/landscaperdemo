@@ -119,20 +119,23 @@
 
 -(void)setFractal:(LSFractal *)fractal {
     _fractal = fractal;
+    NSMutableSet* lineColorSet = [self.fractal mutableSetValueForKey: @"lineColors"];
+    NSMutableSet* fillColorSet = [self.fractal mutableSetValueForKey: @"fillColors"];
+    
+    _mutableColorSets = @[lineColorSet, fillColorSet];
+    
     self.colorsChanged = YES;
     [self.fractalLineColorsDestinationCollection reloadData];
     [self.fractalFillColorsDestinationCollection reloadData];
 
 }
--(NSArray*)cachedFractalColors {
+-(NSMutableArray*)cachedFractalColors {
     if (_fractal && (!_cachedFractalColors || self.colorsChanged)) {
         NSSortDescriptor* indexSort = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
 
-        NSSet* lineColors = self.fractal.lineColors;
-        NSArray* cachedFractalLineColors = [lineColors sortedArrayUsingDescriptors: @[indexSort]];
+        NSMutableArray* cachedFractalLineColors = [[self.mutableColorSets[0] sortedArrayUsingDescriptors: @[indexSort]] mutableCopy];
 
-        NSSet* fillColors = self.fractal.fillColors;
-        NSArray* cachedFractalFillColors = [fillColors sortedArrayUsingDescriptors: @[indexSort]];
+        NSMutableArray* cachedFractalFillColors = [[self.mutableColorSets[1] sortedArrayUsingDescriptors: @[indexSort]] mutableCopy];
         
         _cachedFractalColors = @[cachedFractalLineColors,cachedFractalFillColors];
     }
@@ -350,19 +353,20 @@
         NSUInteger underIndex = [colorUnderDrag.index unsignedIntegerValue];
         NSUInteger oldIndex = [draggedColor.index unsignedIntegerValue];
         
+        if (underIndex > oldIndex) {
+            --underIndex;
+        }
+        
+        [self.cachedFractalColors[0] removeObjectAtIndex: oldIndex];
+        [self.cachedFractalColors[0] insertObject: draggedColor atIndex: underIndex];
+        
         [self.fractal willChangeValueForKey: @"lineColors"];
         
-        for (MBColor* color in self.fractal.lineColors) {
-            //
-            NSUInteger colorIndex = [color.index unsignedIntegerValue];
-            
-            if (colorIndex > oldIndex && colorIndex < (underIndex+1)) {
-                color.index = @(colorIndex - 1);
-                
-            } else if (colorIndex >= underIndex && colorIndex < oldIndex) {
-                color.index = @(colorIndex + 1);
+        for (int i=0; i < [self.cachedFractalColors[0] count]; i++) {
+            MBColor* color = self.cachedFractalColors[0][i];
+            if ([color.index integerValue] != i ) {
+                color.index = @(i);
             }
-            draggedColor.index = @(underIndex);
         }
         
         [self.fractal didChangeValueForKey: @"lineColors"];
@@ -459,11 +463,7 @@
                     // over a placeholder so replace with a color
                     if (self.draggingItem.dragItem != color) {
                         // only add once
-                        NSInteger newIndex = [self.cachedFractalColors[0] count];
-                        MBColor* newColor = (MBColor*)self.draggingItem.dragItem;
-                        newColor.index = @(newIndex);
-                        [newColor addFractalLinesObject: self.fractal];
-                        self.colorsChanged = YES;
+                        [self addNewColorForRow: 0];
                         [self.fractalLineColorsDestinationCollection reloadData];
                         [self dragDidEndAtSourceCollection: collectionViewController withGesture: gesture];
                     }
@@ -478,11 +478,7 @@
                         // over a placeholder so replace with a color
                         if (self.draggingItem.dragItem != color) {
                             // only add once
-                            NSInteger newIndex = [self.cachedFractalColors[1] count];
-                            MBColor* newColor = (MBColor*)self.draggingItem.dragItem;
-                            newColor.index = @(newIndex);
-                            [newColor addFractalFillsObject: self.fractal];
-                            self.colorsChanged = YES;
+                            [self addNewColorForRow: 0];
                             [self.fractalFillColorsDestinationCollection reloadData];
                             [self dragDidEndAtSourceCollection: collectionViewController withGesture: gesture];
                         }
@@ -492,7 +488,15 @@
         }
     }
 }
+-(void) addNewColorForRow: (NSUInteger) row {
+    NSInteger newIndex = [self.cachedFractalColors[row] count];
+    MBColor* newColor = (MBColor*)self.draggingItem.dragItem;
+    newColor.index = @(newIndex);
+    
+    [self.mutableColorSets[row] addObject: newColor];
 
+    self.colorsChanged = YES;
+}
 -(void)dragDidEndAtSourceCollection: (MBColorSourceCollectionViewController*) collectionViewController withGesture: (UIGestureRecognizer*) gesture {
     [self.draggingItem.view removeFromSuperview];
     self.draggingItem = nil;
