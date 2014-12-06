@@ -1269,12 +1269,14 @@
 		<integer>10</integer>
 		<key>lineLengthScaleFactor</key>
 		<real>1.25</real>
+		<key>lineChangeFactor</key>
+		<real>0.4560000002384186</real>
 		<key>lineWidth</key>
-		<integer>2</integer>
+		<real>0.7900000214576721</real>
 		<key>lineWidthIncrement</key>
 		<real>0.25</real>
 		<key>turningAngle</key>
-		<real>0.45378560551851</real>
+		<real>0.15378560551851</real>
 		<key>turningAngleIncrement</key>
 		<integer>0</integer>
 		<key>baseAngle</key>
@@ -1284,7 +1286,7 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>F</key>
-			<string>&gt;H[+++++F][-------F]-H[++++H][------H]-H[+++F][-----F]-HF</string>
+			<string>a!&gt;H[+++++F][-------F]-H[++++F][------F]-H[+++F][-----F]-HF</string>
 		</dict>
 	</dict>
 </array>
