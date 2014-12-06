@@ -2,7 +2,7 @@
 //  MBColorCategory.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/10/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 

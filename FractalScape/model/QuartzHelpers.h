@@ -9,6 +9,8 @@
 #ifndef FractalScape_QuartzHelpers_h
 #define FractalScape_QuartzHelpers_h
 
+#import <UIKit/UIKit.h>
+
 #import <QuartzCore/QuartzCore.h>
 #import <CoreGraphics/CoreGraphics.h>
 

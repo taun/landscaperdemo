@@ -2,7 +2,7 @@
 //  MBColorCategory.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/10/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -16,14 +16,19 @@
 @property (nonatomic, retain) NSString * descriptor;
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *colors;
+@property (nonatomic, retain) NSOrderedSet *colors;
 @end
 
 @interface MBColorCategory (CoreDataGeneratedAccessors)
 
+- (void)insertObject:(MBColor *)value inColorsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromColorsAtIndex:(NSUInteger)idx;
+- (void)insertColors:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeColorsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInColorsAtIndex:(NSUInteger)idx withObject:(MBColor *)value;
+- (void)replaceColorsAtIndexes:(NSIndexSet *)indexes withColors:(NSArray *)values;
 - (void)addColorsObject:(MBColor *)value;
 - (void)removeColorsObject:(MBColor *)value;
-- (void)addColors:(NSSet *)values;
-- (void)removeColors:(NSSet *)values;
-
+- (void)addColors:(NSOrderedSet *)values;
+- (void)removeColors:(NSOrderedSet *)values;
 @end

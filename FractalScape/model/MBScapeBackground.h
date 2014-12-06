@@ -2,7 +2,7 @@
 //  MBScapeBackground.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/21/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -14,8 +14,8 @@
 @interface MBScapeBackground : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *fractalScapes;
 @property (nonatomic, retain) MBColor *color;
+@property (nonatomic, retain) NSSet *fractalScapes;
 @end
 
 @interface MBScapeBackground (CoreDataGeneratedAccessors)

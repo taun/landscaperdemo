@@ -66,6 +66,16 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
+			<string>Draw a straight line of decreasing length per generation.</string>
+			<key>productionString</key>
+			<string>H</string>
+			<key>drawingMethodString</key>
+			<string>commandDrawLineVarLength</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDrawLineVarD</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
 			<string>Move the current position in a straight line.</string>
 			<key>productionString</key>
 			<string>G</string>

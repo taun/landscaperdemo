@@ -8,7 +8,7 @@
 
 #import "MBAppDelegate.h"
 #import "LSFractal+addons.h"
-#import "LSReplacementRule.h"
+#import "LSReplacementRule+addons.h"
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 #import "MBColor+addons.h"
@@ -222,7 +222,6 @@
     }
     NSDictionary* plistRulesDict = (NSDictionary*)plistObject;
     NSDictionary* plistRuleType = plistRulesDict[@"ruleType"];
-//    NSDictionary* plistRules = plistRulesDict[@"rules"];
     NSArray* plistRulesArray = plistRulesDict[@"rulesArray"];
     
     LSDrawingRuleType* ruleType = [self loadLSDrawingRuleTypeFromPListDictionary: plistRuleType];
@@ -264,7 +263,7 @@
                     colorCategory.descriptor = colorCategoryDict[@"descriptor"];
                     
                 }
-                NSArray* colorsArray = colorCategoryDict[@"colors"];
+                NSArray* colorsArray = colorCategoryDict[[MBColorCategory colorsKey]];
                 if (colorCategory && colorsArray.count > 0) {
                     [colorCategory loadColorsFromPListColorsArray: colorsArray];
                 }
@@ -358,7 +357,7 @@
                     
                     NSDictionary* availableRules = [fractal.drawingRulesType rulesDictionary];
 
-                    NSString* startingRulesKey = @"startingRules";
+                    NSString* startingRulesKey = [LSFractal startingRulesKey];
                     NSString* startingRulesString = mutableFractalDictionary[startingRulesKey];
                     if (startingRulesString != nil && rulesTypeString.length > 0) {
                         NSMutableOrderedSet* startingRules = [fractal mutableOrderedSetValueForKey: startingRulesKey];
@@ -368,8 +367,7 @@
                         [mutableFractalDictionary removeObjectForKey: startingRulesKey];
                     }
                    
-                    NSString* replacementRulesKey = @"replacementRules";
-                    NSString* rulesKey = @"rules";
+                    NSString* replacementRulesKey = [LSFractal replacementRulesKey];
                     NSDictionary* replacementRulesDict = mutableFractalDictionary[replacementRulesKey];
                     if (replacementRulesDict && replacementRulesDict.count > 0) {
                         NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: replacementRulesKey];
@@ -380,7 +378,7 @@
                             
                             newReplacementRule.contextRule = [availableRules[key] mutableCopy];
                             
-                            NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: rulesKey];
+                            NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
                             NSString* replacementRulesString = replacementRulesDict[key];
                             
                             [self copyObjectFrom: availableRules usingKeysInString: replacementRulesString toCollection: rules];
@@ -390,10 +388,9 @@
                         [mutableFractalDictionary removeObjectForKey: replacementRulesKey];
                     }
 
-                    NSString* lineColorsKey = @"lineColors";
-                    NSArray* lineColorsArray = mutableFractalDictionary[lineColorsKey];
+                    NSArray* lineColorsArray = mutableFractalDictionary[[LSFractal lineColorsKey]];
                     if (lineColorsArray && lineColorsArray.count > 0) {
-                        NSMutableSet* mutableColorsSet = [fractal mutableSetValueForKey: lineColorsKey];
+                        NSMutableOrderedSet* mutableColorsSet = [fractal mutableOrderedSetValueForKey: [LSFractal lineColorsKey]];
                         
                         NSInteger colorIndex = 0;
                         
@@ -403,13 +400,12 @@
                             colorIndex++;
                             [mutableColorsSet addObject: newColor];
                         }
-                        [mutableFractalDictionary removeObjectForKey: lineColorsKey];
+                        [mutableFractalDictionary removeObjectForKey: [LSFractal lineColorsKey]];
                     }
                     
-                    NSString* fillColorsKey = @"fillColors";
-                    NSArray* fillColorsArray = mutableFractalDictionary[fillColorsKey];
+                    NSArray* fillColorsArray = mutableFractalDictionary[[LSFractal fillColorsKey]];
                     if (fillColorsArray && fillColorsArray.count > 0) {
-                        NSMutableSet* mutableColorsSet = [fractal mutableSetValueForKey: fillColorsKey];
+                        NSMutableOrderedSet* mutableColorsSet = [fractal mutableOrderedSetValueForKey: [LSFractal fillColorsKey]];
                         
                         NSInteger colorIndex = 0;
                         
@@ -421,7 +417,7 @@
                             colorIndex++;
                            [mutableColorsSet addObject: newColor];
                          }
-                        [mutableFractalDictionary removeObjectForKey: fillColorsKey];
+                        [mutableFractalDictionary removeObjectForKey: [LSFractal fillColorsKey]];
                     }
                     
                     for (id propertyKey in mutableFractalDictionary) {

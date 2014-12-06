@@ -2,7 +2,7 @@
 //  LSDrawingRule.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 12/01/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -13,11 +13,11 @@
 
 @interface LSDrawingRule : NSManagedObject
 
+@property (nonatomic, retain) NSString * descriptor;
 @property (nonatomic, retain) NSNumber * displayIndex;
 @property (nonatomic, retain) NSString * drawingMethodString;
 @property (nonatomic, retain) NSString * iconIdentifierString;
 @property (nonatomic, retain) NSString * productionString;
-@property (nonatomic, retain) NSString * descriptor;
 @property (nonatomic, retain) NSSet *contexts;
 @property (nonatomic, retain) LSFractal *fractalStart;
 @property (nonatomic, retain) LSReplacementRule *replacementRule;

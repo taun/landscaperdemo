@@ -2,7 +2,7 @@
 //  LSFractal.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/24/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSNumber * isImmutable;
 @property (nonatomic, retain) NSNumber * isReadOnly;
 @property (nonatomic, retain) NSNumber * level;
+@property (nonatomic, retain) NSNumber * lineChangeFactor;
 @property (nonatomic, retain) NSNumber * lineLength;
 @property (nonatomic, retain) NSNumber * lineLengthScaleFactor;
 @property (nonatomic, retain) NSNumber * lineWidth;
@@ -28,11 +29,10 @@
 @property (nonatomic, retain) NSNumber * randomness;
 @property (nonatomic, retain) NSNumber * turningAngle;
 @property (nonatomic, retain) NSNumber * turningAngleIncrement;
-@property (nonatomic, retain) NSNumber * lineChangeFactor;
 @property (nonatomic, retain) MBColor *backgroundColor;
 @property (nonatomic, retain) LSDrawingRuleType *drawingRulesType;
-@property (nonatomic, retain) NSSet *fillColors;
-@property (nonatomic, retain) NSSet *lineColors;
+@property (nonatomic, retain) NSOrderedSet *fillColors;
+@property (nonatomic, retain) NSOrderedSet *lineColors;
 @property (nonatomic, retain) NSSet *placements;
 @property (nonatomic, retain) NSOrderedSet *replacementRules;
 @property (nonatomic, retain) NSOrderedSet *startingRules;
@@ -40,16 +40,26 @@
 
 @interface LSFractal (CoreDataGeneratedAccessors)
 
+- (void)insertObject:(MBColor *)value inFillColorsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromFillColorsAtIndex:(NSUInteger)idx;
+- (void)insertFillColors:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeFillColorsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInFillColorsAtIndex:(NSUInteger)idx withObject:(MBColor *)value;
+- (void)replaceFillColorsAtIndexes:(NSIndexSet *)indexes withFillColors:(NSArray *)values;
 - (void)addFillColorsObject:(MBColor *)value;
 - (void)removeFillColorsObject:(MBColor *)value;
-- (void)addFillColors:(NSSet *)values;
-- (void)removeFillColors:(NSSet *)values;
-
+- (void)addFillColors:(NSOrderedSet *)values;
+- (void)removeFillColors:(NSOrderedSet *)values;
+- (void)insertObject:(MBColor *)value inLineColorsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromLineColorsAtIndex:(NSUInteger)idx;
+- (void)insertLineColors:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeLineColorsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInLineColorsAtIndex:(NSUInteger)idx withObject:(MBColor *)value;
+- (void)replaceLineColorsAtIndexes:(NSIndexSet *)indexes withLineColors:(NSArray *)values;
 - (void)addLineColorsObject:(MBColor *)value;
 - (void)removeLineColorsObject:(MBColor *)value;
-- (void)addLineColors:(NSSet *)values;
-- (void)removeLineColors:(NSSet *)values;
-
+- (void)addLineColors:(NSOrderedSet *)values;
+- (void)removeLineColors:(NSOrderedSet *)values;
 - (void)addPlacementsObject:(MBPlacedEntity *)value;
 - (void)removePlacementsObject:(MBPlacedEntity *)value;
 - (void)addPlacements:(NSSet *)values;

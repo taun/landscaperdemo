@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 #import "MBColor.h"
 
 #import "MDBTileObjectProtocol.h"
@@ -21,6 +23,15 @@
 +(MBColor*) findMBColorWithIdentifier: (NSString*) colorIdentifier inContext: (NSManagedObjectContext*) context;
 
 +(UIColor*) newDefaultUIColor;
+/*!
+ This string is assigned by default in the CoreData model definition for the MBColor property identifier.
+
+ 
+ @return The class default identifier string used to identify placeholder object.
+ */
++(NSString*) defaultIdentifierString;
+
++(NSSortDescriptor*) colorsSortDescriptor;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *asUIColor;
 
@@ -28,6 +39,8 @@
 
 
 @property (nonatomic,readonly) BOOL     isDefaultObject;
+
+@property (nonatomic,readonly) BOOL     isReferenced;
 
 -(UIImage*) asImage;
 @end

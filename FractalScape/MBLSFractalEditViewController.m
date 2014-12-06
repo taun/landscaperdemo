@@ -327,8 +327,8 @@ static BOOL SIMULTOUCH = NO;
         [self refreshInterface];
         
     } else if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
-               [keyPath isEqualToString: @"rules"] ||
-               [keyPath isEqualToString: @"contextRule"]) {
+               [keyPath isEqualToString: [LSReplacementRule rulesKey]] ||
+               [keyPath isEqualToString: [LSReplacementRule contextRuleKey]]) {
         
         [self refreshInterface];
         
@@ -484,8 +484,8 @@ static BOOL SIMULTOUCH = NO;
             [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
         }
         for (LSReplacementRule* rRule in fractal.replacementRules) {
-            [rRule addObserver: self forKeyPath: @"contextRule" options: 0 context: NULL];
-            [rRule addObserver: self forKeyPath: @"rules" options: 0 context: NULL];
+            [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
+            [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
         }
     }
 }
@@ -500,8 +500,8 @@ static BOOL SIMULTOUCH = NO;
             [fractal removeObserver: self forKeyPath: keyPath];
         }
         for (LSReplacementRule* rule in fractal.replacementRules) {
-            [rule removeObserver: self forKeyPath: @"contextRule"];
-            [rule removeObserver: self forKeyPath: @"rules"];
+            [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
+            [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
         }
     }
 }

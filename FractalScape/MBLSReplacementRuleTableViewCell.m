@@ -37,7 +37,7 @@
         _replacementRule = replacementRule;
         
         if (_replacementRule) {
-            self.rules = [_replacementRule mutableOrderedSetValueForKey: @"rules"];
+            self.rules = [_replacementRule mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
 
             self.customImageView.image = [_replacementRule.contextRule asImage];
         } else {

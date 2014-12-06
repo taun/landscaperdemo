@@ -2,8 +2,8 @@
 //  MBFractalScape.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 04/02/13.
-//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 12/06/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "MBFractalScape.h"

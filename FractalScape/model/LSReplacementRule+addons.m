@@ -15,12 +15,19 @@
 + (NSString *)entityName {
     return @"LSReplacementRule";
 }
-
++(NSString*) rulesKey {
+    static NSString* rulesKeyString = @"rules";
+    return rulesKeyString;
+}
++(NSString*) contextRuleKey {
+    static NSString* contextRuleKeyString = @"contextRule";
+    return contextRuleKeyString;
+}
 + (NSSet *)keysToBeCopied {
     static NSSet *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {
         keysToBeCopied = [[NSSet alloc] initWithObjects:
-                          @"contextRule",
+                          [LSReplacementRule contextRuleKey],
                           nil];
     }
     return keysToBeCopied;
@@ -39,7 +46,7 @@
     //contextRule
     //rules
     
-    NSMutableOrderedSet* rules = [copy mutableOrderedSetValueForKey: @"rules"];
+    NSMutableOrderedSet* rules = [copy mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
     for (LSDrawingRule* rule in self.rules) {
         [rules addObject: [rule mutableCopy]];
     }

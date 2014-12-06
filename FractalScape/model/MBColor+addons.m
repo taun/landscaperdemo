@@ -15,7 +15,11 @@
 + (NSString *)entityName {
     return @"MBColor";
 }
-
++(instancetype) insertNewObjectIntoContext:(NSManagedObjectContext *)context {
+    MBColor* newInstance = [super insertNewObjectIntoContext: context];
+    newInstance.imagePath = @"kBIconRulePlaceEmpty";
+    return newInstance;
+}
 +(NSArray*) allColorsInContext: (NSManagedObjectContext *)context {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -33,7 +37,11 @@
 +(UIColor*) newDefaultUIColor {
     return [UIColor colorWithRed: 0.0 green: 0.0 blue: 1.0 alpha: 1.0];
 }
-
++(NSString*) defaultIdentifierString {
+    // This string is assigned by default in the CoreData model definition for the MBColor property identifier.
+    static NSString* MBColorDefaultIdentifierString = @"NoneYet";
+    return MBColorDefaultIdentifierString;
+}
 +(MBColor*) newMBColorWithPListDictionary:(NSDictionary *)colorDict inContext:(NSManagedObjectContext *)context {
     
     MBColor *newColor = [MBColor insertNewObjectIntoContext: context];
@@ -65,6 +73,8 @@
             newColor.green = [NSNumber numberWithDouble: green];
             newColor.alpha = [NSNumber numberWithDouble: alpha];
         }
+        
+        newColor.imagePath = @"";
     }
     return newColor;
 }
@@ -94,6 +104,9 @@
     }
     
     return node;
+}
++(NSSortDescriptor*) colorsSortDescriptor {
+    return  [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
 }
 
 + (NSSet *)keysToBeCopied {
@@ -171,9 +184,16 @@
 }
 
 -(BOOL) isDefaultObject {
-    return NO;
+    return [[MBColor defaultIdentifierString] isEqualToString: self.identifier];
 }
-
+-(BOOL) isReferenced {
+    BOOL referenced = (self.background !=nil
+                       || self.category != nil
+                       || self.fractalColor != nil
+                       || self.fractalFill != nil
+                       || self.fractalLine != nil);
+    return referenced;
+}
 -(UIImage*) asImage {
     return [self thumbnailImageSize: CGSizeMake(40.0, 40.0)];
 }

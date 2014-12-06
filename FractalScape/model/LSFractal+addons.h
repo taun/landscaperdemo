@@ -43,6 +43,11 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  */
 +(NSSet*) redrawProperties;
 
++(NSString*) startingRulesKey;
++(NSString*) replacementRulesKey;
++(NSString*) lineColorsKey;
++(NSString*) fillColorsKey;
+
 -(NSArray*) allCategories;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString           *startingRulesString;
@@ -62,5 +67,6 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber              *baseAngleAsDegrees;
 
 -(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
+
 
 @end

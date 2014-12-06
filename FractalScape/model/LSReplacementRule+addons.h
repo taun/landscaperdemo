@@ -10,6 +10,8 @@
 
 @interface LSReplacementRule (addons)
 
++(NSString*) rulesKey;
++(NSString*) contextRuleKey;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString   *rulesString;
 
 @end

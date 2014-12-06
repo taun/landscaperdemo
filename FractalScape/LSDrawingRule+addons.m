@@ -9,12 +9,15 @@
 #import "LSDrawingRule+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
-static NSString* DefaultIconIdentifierString = @"kBIconRulePlaceEmpty";
 
 @implementation LSDrawingRule (addons)
 
 + (NSString *)entityName {
     return @"LSDrawingRule";
+}
++(NSString*) defaultIdentifierString {
+    static NSString* LSDrawingRuleDefaultIdentifierString = @"kBIconRulePlaceEmpty";
+    return LSDrawingRuleDefaultIdentifierString;
 }
 
 + (NSSet *)keysToBeCopied {
@@ -66,7 +69,7 @@ static NSString* DefaultIconIdentifierString = @"kBIconRulePlaceEmpty";
     LSDrawingRule* newRule = [super insertNewObjectIntoContext: context];
     
     newRule.descriptor = @"Default do nothing rule to be replaced by dragging a new rule.";
-    newRule.iconIdentifierString = DefaultIconIdentifierString;
+    newRule.iconIdentifierString = [LSDrawingRule defaultIdentifierString];
     newRule.drawingMethodString = @"commandDoNothing";
     newRule.productionString = @"A";
     
@@ -74,7 +77,7 @@ static NSString* DefaultIconIdentifierString = @"kBIconRulePlaceEmpty";
 }
 
 -(BOOL) isDefaultObject {
-    return ([self.iconIdentifierString compare: DefaultIconIdentifierString] == NSOrderedSame);
+    return ([self.iconIdentifierString compare: [LSDrawingRule defaultIdentifierString]] == NSOrderedSame);
 }
 
 -(id) mutableCopy {
@@ -88,6 +91,14 @@ static NSString* DefaultIconIdentifierString = @"kBIconRulePlaceEmpty";
         
     }
     return ruleCopy;
+}
+
+-(BOOL) isReferenced {
+    BOOL referenced = (self.fractalStart != nil
+                       || self.type != nil
+                       || self.replacementRule != nil
+                       || (self.contexts != nil && self.contexts.count > 0));
+    return referenced;
 }
 
 -(UIImage*) asImage {

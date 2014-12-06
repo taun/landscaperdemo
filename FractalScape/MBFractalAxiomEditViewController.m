@@ -53,7 +53,7 @@
 #pragma mark - Implementation
 @implementation MBFractalAxiomEditViewController
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString: @"replacementRules"]) {
+    if ([keyPath isEqualToString: [LSFractal replacementRulesKey]]) {
         
 //        self.fractalDataChanged = YES;
         
@@ -62,14 +62,14 @@
 }
 -(void) addReplacementRulesObserverFor:(LSFractal *)fractal {
     if (fractal) {
-        [fractal addObserver: self forKeyPath: @"replacementRules" options:0 context:NULL];
+        [fractal addObserver: self forKeyPath: [LSFractal replacementRulesKey] options:0 context:NULL];
         //        NSLog(@"Add Observer: %@ for fractal: %@", self, fractal.name);
     }
 }
 -(void) removeReplacementRulesObserverFor:(LSFractal *)fractal {
     @try {
         if (fractal) {
-            [fractal removeObserver: self forKeyPath:@"replacementRules"];
+            [fractal removeObserver: self forKeyPath: [LSFractal replacementRulesKey]];
             //            NSLog(@"Remove Observer: %@ for fractal: %@", self, fractal.name);
         }
     }
@@ -89,12 +89,12 @@
         
         if (_fractal) {
             _fractalSectionKeyChangedMap = @[@"",
-                                             @"startingRules",
-                                             @"replacementRules",
+                                             [LSFractal startingRulesKey],
+                                             [LSFractal replacementRulesKey],
                                              @""];
             _fractalSectionDataMap = @[@"not used",
-                                       [_fractal mutableOrderedSetValueForKey: @"startingRules"],
-                                       [_fractal mutableOrderedSetValueForKey: @"replacementRules"],
+                                       [_fractal mutableOrderedSetValueForKey: [LSFractal startingRulesKey]],
+                                       [_fractal mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]],
                                        [_fractal mutableOrderedSetValueForKeyPath: @"drawingRulesType.rules"]];
         }
         

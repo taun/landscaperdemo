@@ -42,10 +42,7 @@
     _width = 52;
 
     if (_representedObject == nil) {
-        UIImage* cellImage = [FractalScapeIconSet imageOfKBIconRulePlaceEmpty];
-        self.image = cellImage;
-        [self sizeToFit];
-        [self setNeedsUpdateConstraints];
+        self.representedObject = [MDBTileObjectProxy new];
     }
     
     UIView* backgroundView = [[UIView alloc] initWithFrame: CGRectZero];
@@ -82,6 +79,7 @@
     self.layer.borderColor = self.tintColor.CGColor;
     self.layer.borderWidth = _showTileBorder ? 1.0 : 0.0;
     self.layer.cornerRadius = _tileCornerRadius;
+    self.layer.masksToBounds = YES;
     [self setNeedsDisplay];
 }
 

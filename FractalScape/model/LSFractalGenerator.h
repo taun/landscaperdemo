@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
  2   F :  Move forward by line length drawing a line
  3   G :  Move forward by line length without drawing a line
+     H :  Move forward by line length drawing a line. Shorten line by line length scale each generation.
  4   + :  Turn left by turning angle
  5   - :  Turn right by turning angle
  6   | :  Reverse direction (turn by 180)
@@ -219,6 +221,7 @@
 #pragma mark Default Drawing Rule Methods
 -(void) commandDoNothing;
 -(void) commandDrawLine;
+-(void) commandDrawLineVarLength;
 -(void) commandMoveByLine;
 -(void) commandRotateCC;
 -(void) commandRotateC;

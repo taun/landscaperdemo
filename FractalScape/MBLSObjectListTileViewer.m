@@ -109,6 +109,17 @@
     
     [self setNeedsUpdateConstraints];
 }
+-(void) setDefaultObjectClass:(Class)defaultObjectClass {
+    _defaultObjectClass = defaultObjectClass;
+    
+    if (_objectList.count == 0) {
+        [self setupSubviews];
+    }
+}
+-(void) setDefaultObjectClass:(Class)defaultObjectClass inContext: (NSManagedObjectContext*) context {
+    _context = context;
+    self.defaultObjectClass = defaultObjectClass;
+}
 
 #pragma mark - View Layout Details
 -(void) setupSubviews {
@@ -126,7 +137,9 @@
     [self populateRulesWithProxy];
 #endif
     
-#pragma message "Need to add a proxy object for IB"
+    if (_objectList.count == 0 && _defaultObjectClass && self.context) {
+        [_objectList addObject: [_defaultObjectClass insertNewObjectIntoContext: self.context]];
+    }
     
     NSInteger index = 0;
     for (int i = 0; i < _objectList.count; i++) {
@@ -184,24 +197,25 @@
  
  Does not calculate constraints.
   */
--(MDBLSObjectTileView*) addViewForRepresentedObject: (id<MDBTileObjectProtocol>) aRule atIndex: (NSUInteger) index {
+-(MDBLSObjectTileView*) addViewForRepresentedObject: (id<MDBTileObjectProtocol>) aTileableObject atIndex: (NSUInteger) index {
     
-    MDBLSObjectTileView* ruleView = [[MDBLSObjectTileView alloc] initWithFrame: CGRectMake(0.0, 0.0, _tileWidth, _tileWidth)];
-    ruleView.showTileBorder = _showTileBorder;
-    ruleView.width = _tileWidth;
-    ruleView.representedObject = aRule;
+    MDBLSObjectTileView* tileView = [[MDBLSObjectTileView alloc] initWithFrame: CGRectMake(0.0, 0.0, _tileWidth, _tileWidth)];
+    tileView.showTileBorder = _showTileBorder;
+    tileView.width = _tileWidth;
+    tileView.readOnly = _readOnly;
+    tileView.representedObject = aTileableObject;
     
-    [self insertSubview: ruleView atIndex: index];
+    [self insertSubview: tileView atIndex: index];
     
-    NSLayoutConstraint* hConstraint = [NSLayoutConstraint constraintWithItem: ruleView attribute: NSLayoutAttributeLeft relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeLeft multiplier: 1.0 constant: 0.0];
-    NSLayoutConstraint* vConstraint = [NSLayoutConstraint constraintWithItem: ruleView attribute: NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeTop multiplier: 1.0 constant: 0.0];
+    NSLayoutConstraint* hConstraint = [NSLayoutConstraint constraintWithItem: tileView attribute: NSLayoutAttributeLeft relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeLeft multiplier: 1.0 constant: 0.0];
+    NSLayoutConstraint* vConstraint = [NSLayoutConstraint constraintWithItem: tileView attribute: NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeTop multiplier: 1.0 constant: 0.0];
     [self addConstraints: @[hConstraint,vConstraint]];
     
-    [self.itemConstraints insertObject: [MDBListItemConstraints newItemConstraintsWithView: ruleView hConstraint: hConstraint vConstraint: vConstraint]  atIndex: index];
+    [self.itemConstraints insertObject: [MDBListItemConstraints newItemConstraintsWithView: tileView hConstraint: hConstraint vConstraint: vConstraint]  atIndex: index];
     
     [self calcConstraintConstantsForIndex: index];
     
-    return ruleView;
+    return tileView;
 }
 /*!
  Move the view in the container and itemContraints array
@@ -257,11 +271,16 @@
 #endif
 }
 -(void) assignAllConstraintConstants {
-    for (int i=0 ; i < _objectList.count; i++ ) {
-        
-        [self calcConstraintConstantsForIndex: i ];
-        
-        self.heightConstraint.constant = self.lines*self.lineHeight+2*self.outlineMargin;
+    
+    if (_objectList.count == self.subviews.count) {
+        // a way to check if all of the subviews have been laid out.
+        // it is possible for update constraints to be called while subviews are still being laid out.
+        for (int i=0 ; i < _objectList.count; i++ ) {
+            
+            [self calcConstraintConstantsForIndex: i ];
+            
+            self.heightConstraint.constant = self.lines*self.lineHeight+2*self.outlineMargin;
+        }
     }
     
 }
@@ -290,7 +309,7 @@
 -(void) populateRulesWithProxy {
     _objectList = [[NSMutableOrderedSet alloc]initWithCapacity: 10];
     for (int i=0; i<10; i++) {
-        [_objectList addObject: [LSDrawingRuleProxy new]];
+        [_objectList addObject: [MDBTileObjectProxy new]];
     }
 }
 
@@ -365,10 +384,12 @@
     if (firstObject.isDefaultObject) {
         [self.objectList removeObjectAtIndex: 0];
         [self removeViewForRepresentedObjectAtIndex: 0];
+        if ([firstObject isKindOfClass: [NSManagedObject class]] && self.context) {
+            [self.context deleteObject: firstObject];
+        }
+        insertionIndex = 0;
     }
-    
-    insertionIndex = MIN(self.objectList.count - 1, insertionIndex);
-    
+        
     
     [self.objectList insertObject: newRule atIndex: insertionIndex]; // works for index == count
     [self addViewForRepresentedObject: newRule atIndex: insertionIndex];
@@ -386,31 +407,35 @@
         }
         
         
-        id<MDBTileObjectProtocol> rule = [self.objectList objectAtIndex: fromIndex];
-        [self.objectList removeObjectAtIndex: fromIndex];
-        [self.objectList insertObject: rule atIndex: adjustedToIndex];
+        id<MDBTileObjectProtocol> object = [self.objectList objectAtIndex: fromIndex];
+        [self.objectList removeObject: object];
+        [self.objectList insertObject: object atIndex: adjustedToIndex];
 
         [self moveViewForRepresentedObjectFrom: fromIndex to: toIndex];
         
         [self animateConstraintChanges];
     }
 }
--(void) removeRepresentedObject: (id<MDBTileObjectProtocol>) aRule {
-    NSUInteger ruleIndex = [self.objectList indexOfObject: aRule];
+-(void) removeRepresentedObject: (id<MDBTileObjectProtocol>) object {
+    NSUInteger objectIndex = [self.objectList indexOfObject: object];
     
-    if (ruleIndex != NSNotFound) {
-        [self.objectList removeObject: aRule];
+    if (objectIndex != NSNotFound) {
+        [self.objectList removeObject: object];
         
-        [self removeViewForRepresentedObjectAtIndex: ruleIndex];
+        [self removeViewForRepresentedObjectAtIndex: objectIndex];
         
-        if (self.objectList.count == 0) {
-            [_objectList addObject: [LSDrawingRule insertNewObjectIntoContext: self.context]];
-            [self addViewForRepresentedObject: _objectList[0] atIndex: 0];
+        if (self.objectList.count == 0 && self.defaultObjectClass && self.context) {
+            [self insertNewDefaultObjectOfClass: self.defaultObjectClass atIndex: 0];
         }
         [self animateConstraintChanges];
     }
 }
 
+-(void) insertNewDefaultObjectOfClass: (Class) aClass atIndex: (NSUInteger)index {
+    
+    [_objectList addObject: [aClass insertNewObjectIntoContext: self.context]];
+    [self addViewForRepresentedObject: _objectList[index] atIndex: index];
+}
 
 #pragma mark - Drag&Drop
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
@@ -469,7 +494,11 @@
 
 @end
 
-@implementation LSDrawingRuleProxy
+@implementation MDBTileObjectProxy
+
+-(BOOL) isDefaultObject {
+    return YES;
+}
 
 -(UIImage*) asImage {
     UIImage* cellImage = [FractalScapeIconSet imageOfKBIconRulePlaceEmpty];

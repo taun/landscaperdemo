@@ -12,6 +12,8 @@
 
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MDBTileObjectProtocol.h"
+#import "MBLSObjectListTileViewer.h"
+
 
 IB_DESIGNABLE
 

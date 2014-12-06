@@ -2,7 +2,7 @@
 //  MBColor.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/21/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -21,23 +21,10 @@
 @property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * red;
+@property (nonatomic, retain) MBScapeBackground *background;
 @property (nonatomic, retain) MBColorCategory *category;
-@property (nonatomic, retain) NSSet *fractalFills;
-@property (nonatomic, retain) NSSet *fractalLines;
-@property (nonatomic, retain) MBScapeBackground *backgrounds;
 @property (nonatomic, retain) LSFractal *fractalColor;
-@end
-
-@interface MBColor (CoreDataGeneratedAccessors)
-
-- (void)addFractalFillsObject:(LSFractal *)value;
-- (void)removeFractalFillsObject:(LSFractal *)value;
-- (void)addFractalFills:(NSSet *)values;
-- (void)removeFractalFills:(NSSet *)values;
-
-- (void)addFractalLinesObject:(LSFractal *)value;
-- (void)removeFractalLinesObject:(LSFractal *)value;
-- (void)addFractalLines:(NSSet *)values;
-- (void)removeFractalLines:(NSSet *)values;
+@property (nonatomic, retain) LSFractal *fractalFill;
+@property (nonatomic, retain) LSFractal *fractalLine;
 
 @end

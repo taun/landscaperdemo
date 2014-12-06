@@ -8,7 +8,6 @@
 
 #import "MBLSReplacementRuleTileView.h"
 #import "MDBLSObjectTileView.h"
-#import "MBLSObjectListTileViewer.h"
 #import "MDBTileObjectProtocol.h"
 
 #import "FractalScapeIconSet.h"
@@ -27,8 +26,7 @@
 @implementation MBLSReplacementRuleTileView
 
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -75,7 +73,7 @@
     [self addSubview: _ruleView];
     
     _separator = [[UILabel alloc] initWithFrame: CGRectMake(_tileWidth*2, 0, _tileWidth, _tileWidth)];
-    _separator.text = @":";
+    _separator.text = @"=>";
     _separator.translatesAutoresizingMaskIntoConstraints = NO;
 
     [self addSubview: _separator];
@@ -89,7 +87,8 @@
     _replacementsView.readOnly = NO;
     
 #if !TARGET_INTERFACE_BUILDER
-    _replacementsView.objectList = [self.replacementRule mutableOrderedSetValueForKey: @"rules"];
+    _replacementsView.objectList = [self.replacementRule mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
+    [_replacementsView setDefaultObjectClass: [LSDrawingRule class] inContext: self.replacementRule.managedObjectContext];
 #endif
     
     [self addSubview: _replacementsView];

@@ -2,7 +2,7 @@
 //  MBColor.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 11/21/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -22,10 +22,10 @@
 @dynamic index;
 @dynamic name;
 @dynamic red;
+@dynamic background;
 @dynamic category;
-@dynamic fractalFills;
-@dynamic fractalLines;
-@dynamic backgrounds;
 @dynamic fractalColor;
+@dynamic fractalFill;
+@dynamic fractalLine;
 
 @end

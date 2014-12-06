@@ -1217,5 +1217,75 @@
 			<string>B[-FFF][+FFF]FB</string>
 		</dict>
 	</dict>
+	<dict>
+		<key>lineColors</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Brown 3</string>
+				<key>identifier</key>
+				<string>brown3</string>
+				<key>red</key>
+				<real>0.5921568627451</real>
+				<key>green</key>
+				<real>0.45882352941176</real>
+				<key>blue</key>
+				<real>0.28235294117647</real>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Green</string>
+				<key>identifier</key>
+				<string>green</string>
+				<key>red</key>
+				<integer>0</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>0</integer>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>category</key>
+		<string>Plant</string>
+		<key>descriptor</key>
+		<string>L-System Tree</string>
+		<key>isImmutable</key>
+		<true/>
+		<key>name</key>
+		<string>Tree</string>
+		<key>startingRules</key>
+		<string>SlF</string>
+		<key>level</key>
+		<integer>4</integer>
+		<key>lineLength</key>
+		<integer>10</integer>
+		<key>lineLengthScaleFactor</key>
+		<real>1.25</real>
+		<key>lineWidth</key>
+		<integer>2</integer>
+		<key>lineWidthIncrement</key>
+		<real>0.25</real>
+		<key>turningAngle</key>
+		<real>0.45378560551851</real>
+		<key>turningAngleIncrement</key>
+		<integer>0</integer>
+		<key>baseAngle</key>
+		<real>1.5707963267949</real>
+		<key>drawingRulesType.identifier</key>
+		<string>default</string>
+		<key>replacementRules</key>
+		<dict>
+			<key>F</key>
+			<string>&gt;H[+++++F][-------F]-H[++++H][------H]-H[+++F][-----F]-HF</string>
+		</dict>
+	</dict>
 </array>
 </plist>

@@ -16,7 +16,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#define MAXPRODUCTLENGTH 20000
+#define MAXPRODUCTLENGTH 200000
 
 #define SHOWDEBUGBORDER 0
 
@@ -130,8 +130,8 @@
             }
                         
             for (LSReplacementRule* rRule in fractal.replacementRules) {
-                [rRule addObserver: self forKeyPath: @"contextRule" options: 0 context: NULL];
-                [rRule addObserver: self forKeyPath: @"rules" options: 0 context: NULL];
+                [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
+                [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
             }
         }];
     }
@@ -149,16 +149,16 @@
             }
             
             for (LSReplacementRule* rule in fractal.replacementRules) {
-                [rule removeObserver: self forKeyPath: @"contextRule"];
-                [rule removeObserver: self forKeyPath: @"rules"];
+                [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
+                [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
             }
         }];
     }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
-        [keyPath isEqualToString: @"rules"] ||
-        [keyPath isEqualToString: @"contextRule"]) {
+        [keyPath isEqualToString: [LSReplacementRule rulesKey]] ||
+        [keyPath isEqualToString: [LSReplacementRule contextRuleKey]]) {
         // productionRuleChanged
         [self productionRuleChanged];
         [self cacheColors: _fractal];
@@ -478,9 +478,8 @@
  */
 #pragma message "TODO: change this to just cache the UIColors rather than MBColors to avoid thread problems?"
 -(void) cacheColors: (LSFractal*)fractal {
-    NSSortDescriptor* sortIndex = [NSSortDescriptor sortDescriptorWithKey: @"index" ascending: YES];
-    _cachedLineColors = [fractal.lineColors sortedArrayUsingDescriptors: @[sortIndex]];
-    _cachedFillColors = [fractal.fillColors sortedArrayUsingDescriptors: @[sortIndex]];
+    _cachedLineColors = [fractal.lineColors array];
+    _cachedFillColors = [fractal.fillColors array];
 }
 -(void) cacheLineEnds: (LSFractal*)fractal {
     _cachedEoFill = fractal.eoFill ? [fractal.eoFill boolValue] : NO;
@@ -709,6 +708,8 @@
             // If a specific rule is missing for a character, use the character
             if (replacement==nil) {
                 replacement = key;
+            } else {
+//                replacement = [NSString stringWithFormat: @"[%@]", replacement];
             }
             [destinationData appendString: replacement];
         }
@@ -818,6 +819,13 @@
 }
 
 -(void) commandDrawLine {
+    double tx = self.currentSegment.lineLength;
+    CGAffineTransform local = self.currentSegment.transform;
+    CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0);
+    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
+}
+
+-(void) commandDrawLineVarLength {
     double tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
     CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0);

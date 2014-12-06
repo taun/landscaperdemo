@@ -10,6 +10,7 @@
 
 @interface LSDrawingRuleType (addons)
 
++(NSString*) rulesKey;
 +(NSArray*) allRuleTypesInContext: (NSManagedObjectContext *)context;
 +(LSDrawingRuleType*) findRuleTypeWithIdentifier:(NSString *)identifier inContext: (NSManagedObjectContext*) context;
 

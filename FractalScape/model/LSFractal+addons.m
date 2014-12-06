@@ -18,7 +18,22 @@
 + (NSString *)entityName {
     return @"LSFractal";
 }
-
++(NSString*) startingRulesKey {
+    static NSString*  startingRulesKeyString = @"startingRules";
+    return startingRulesKeyString;
+}
++(NSString*) replacementRulesKey {
+    static NSString*  replacementRulesKeyString = @"replacementRules";
+    return replacementRulesKeyString;
+}
++(NSString*) lineColorsKey {
+    static NSString*  fractalLineColorsString = @"lineColors";
+    return fractalLineColorsString;
+}
++(NSString*) fillColorsKey {
+    static NSString*  fractalFillColorsString = @"fillColors";
+    return fractalFillColorsString;
+}
 +(NSArray*) allFractalsInContext: (NSManagedObjectContext *)context {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -99,8 +114,8 @@
     static NSSet* productionRuleProperties = nil;
     if (productionRuleProperties == nil) {
         productionRuleProperties = [[NSSet alloc] initWithObjects:
-                                    @"startingRules",
-                                    @"replacementRules", 
+                                    [LSFractal startingRulesKey],
+                                    [LSFractal replacementRulesKey],
                                     @"level",
                                     nil];
     }
@@ -148,22 +163,22 @@
             [fractalCopy setValue: value forKey: aKey];
         }
         
-        NSMutableOrderedSet* startingRules = [fractalCopy mutableOrderedSetValueForKey: @"startingRules"];
+        NSMutableOrderedSet* startingRules = [fractalCopy mutableOrderedSetValueForKey: [LSFractal startingRulesKey]];
         for (LSDrawingRule* rule in self.startingRules) {
             [startingRules addObject: [rule mutableCopy]];
         }
                 
-        NSMutableOrderedSet* replacementRules = [fractalCopy mutableOrderedSetValueForKey: @"replacementRules"];
+        NSMutableOrderedSet* replacementRules = [fractalCopy mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
         for (LSReplacementRule* rule in self.replacementRules) {
             [replacementRules addObject: [rule mutableCopy]];
         }
         
-        NSMutableSet* lineColorsMutableSet = [fractalCopy mutableSetValueForKey: @"lineColors"];
+        NSMutableOrderedSet* lineColorsMutableSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal lineColorsKey]];
         for (MBColor* object in self.lineColors) {
             [lineColorsMutableSet addObject: [object mutableCopy]];
         }
         
-        NSMutableSet* fillColorsMutableSet = [fractalCopy mutableSetValueForKey: @"fillColors"];
+        NSMutableOrderedSet* fillColorsMutableSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal fillColorsKey]];
         for (MBColor* object in self.fillColors) {
             [fillColorsMutableSet addObject: [object mutableCopy]];
         }
@@ -267,5 +282,6 @@
     double inRadians = radians([newAngle doubleValue]);
     self.baseAngle = @(inRadians);
 }
+
 
 @end

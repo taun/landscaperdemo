@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
+#import <UIKit/UIKit.h> 
 #import "MBFractalSegment.h"
 #include "QuartzHelpers.h"
 #include <math.h>

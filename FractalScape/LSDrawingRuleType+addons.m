@@ -15,7 +15,10 @@
 + (NSString *)entityName {
     return @"LSDrawingRuleType";
 }
-
++(NSString*) rulesKey {
+    static NSString* typeRulesKeyString = @"rules";
+    return typeRulesKeyString;
+}
 +(NSArray*) allRuleTypesInContext: (NSManagedObjectContext *)context {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -91,7 +94,7 @@
         NSManagedObjectContext* context = self.managedObjectContext;
         
         
-        NSMutableOrderedSet* currentDefaultRules = [self mutableOrderedSetValueForKey: @"rules"];
+        NSMutableOrderedSet* currentDefaultRules = [self mutableOrderedSetValueForKey: [LSDrawingRuleType rulesKey]];
         // COuld convert set to dictionary and ise a lookup to detect existence but not worth it for a few rules.
         
         //Sort rules before adding so orderedSet is created in desired order.

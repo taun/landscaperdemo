@@ -15,12 +15,18 @@
 + (NSString *)entityName {
     return @"MBColorCategory";
 }
-
++(NSString*) colorsKey {
+    static NSString* categoryColorsKeyString = @"colors";
+    return categoryColorsKeyString;
+}
 +(NSArray*) allCatetegoriesInContext: (NSManagedObjectContext *)context {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [MBColorCategory entityDescriptionForContext: context];
     [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor* byIndentifier = [NSSortDescriptor sortDescriptorWithKey: @"identifier" ascending: YES];
+    [fetchRequest setSortDescriptors: @[byIndentifier]];
     
     NSError *error;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -59,7 +65,7 @@
     if (colorsArray) {
         NSManagedObjectContext* context = self.managedObjectContext;
         
-        NSMutableSet* currentColors = [self mutableSetValueForKey: @"colors"];
+        NSMutableOrderedSet* currentColors = [self mutableOrderedSetValueForKey: [MBColorCategory colorsKey]];
 
         NSMutableSet* colorIdentifiers = [NSMutableSet setWithCapacity: currentColors.count];
         for (MBColor* color in currentColors) {

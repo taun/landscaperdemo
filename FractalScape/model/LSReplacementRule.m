@@ -2,7 +2,7 @@
 //  LSReplacementRule.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 10/16/14.
+//  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -13,8 +13,8 @@
 
 @implementation LSReplacementRule
 
-@dynamic lsFractal;
 @dynamic contextRule;
+@dynamic lsFractal;
 @dynamic rules;
 
 @end
