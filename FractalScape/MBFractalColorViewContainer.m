@@ -7,7 +7,6 @@
 //
 
 #import "MBFractalColorViewContainer.h"
-#import "MBLSRuleBaseCollectionViewCell.h"
 #import "MBColor+addons.h"
 
 #import "QuartzHelpers.h"

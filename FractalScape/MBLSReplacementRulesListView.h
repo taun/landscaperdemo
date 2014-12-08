@@ -13,7 +13,7 @@
 
 #import "MBLSRuleDragAndDropProtocol.h"
 
-IB_DESIGNABLE
+//IB_DESIGNABLE
 
 
 @interface MBLSReplacementRulesListView : UIView <MBLSRuleDragAndDropProtocol>

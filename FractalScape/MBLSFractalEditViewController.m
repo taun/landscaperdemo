@@ -9,7 +9,6 @@
 #import "MBAppDelegate.h"
 #import "MBLSFractalEditViewController.h"
 #import "MBFractalLibraryViewController.h"
-#import "MBFractalAxiomEditViewController.h"
 #import "MBFractalAppearanceEditorViewController.h"
 #import "MBFractalRulesEditorViewController.h"
 #import "FractalControllerProtocol.h"

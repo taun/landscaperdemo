@@ -71,7 +71,7 @@
     BOOL reloadCell = NO;
     
     if (!self.draggingItem) {
-        self.draggingItem = [[MBDraggingItem alloc] initWithItem: nil size: self.destinationView.tileWidth];
+        self.draggingItem = [MBDraggingItem newWithItem: nil size: self.destinationView.tileWidth];
         //        self.draggingRule = [[MBDraggingRule alloc] init];
         //        self.draggingRule.size = 30;
         self.draggingItem.touchToDragViewOffset = CGPointMake(0.0, -30.0);

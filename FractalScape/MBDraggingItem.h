@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "LSDrawingRule+addons.h"
-#import "MBCollectionCellItemProtocol.h"
 
 /*!
  Class for easily handling dragging a rule around on the tableView.
@@ -45,14 +44,6 @@
  */
 @property (nonatomic,copy) NSIndexPath                          *sourceTableIndexPath;
 /*!
- Store the initial state.
- */
-@property (nonatomic,weak) UICollectionView                     *sourceCollection;
-/*!
- Store the initial state.
- */
-@property (nonatomic,copy) NSIndexPath                          *sourceCollectionIndexPath;
-/*!
  Store the current state.
  */
 @property (nonatomic,copy) NSIndexPath                          *currentIndexPath;
@@ -60,21 +51,7 @@
  Store the previous state.
  */
 @property (nonatomic,copy) NSIndexPath                          *lastTableIndexPath;
-/*!
- Store the previous state.
- */
-@property (nonatomic,copy) NSIndexPath                          *lastCollectionIndexPath;
-/*!
- Store the previous state.
- */
-@property (nonatomic,weak) UICollectionView                     *lastDestinationCollection;
-/*!
- Store the previous state.
- */
-@property (nonatomic,weak) NSMutableOrderedSet                  *lastDestinationArray;
 
-#pragma mark - Conveniences properties
-@property (nonatomic,readonly) BOOL                             isAlreadyDropped;
 
 #pragma mark - instantiation
 /*!
@@ -85,7 +62,7 @@
  
  @return the instance
  */
-+(instancetype) newWithItem: (LSDrawingRule*)rule size: (NSInteger)size; //__attribute__((objc_method_family(new)))
++(instancetype) newWithItem: (id)representedObject size: (NSInteger)size; //__attribute__((objc_method_family(new)))
 /*!
  Designated intializer.
  
@@ -94,26 +71,6 @@
  
  @return the instance
  */
--(instancetype) initWithItem: (LSDrawingRule*)rule size: (NSInteger)size NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithItem: (id)representedObject size: (NSInteger)size NS_DESIGNATED_INITIALIZER;
 
-#pragma mark - state change
-/*!
- Has side effects! If the new value is different from the old, then all of the state values are nil'd.
- Reasoning - If the new value for the 'lastTableIndexPath' is different from the old, it means we are
- in a different table cell and need to start over with the drop. Starting over means removing any previous
- dropped representation in the other table cell and setting the other associated values to nil.
- */
--(void) setLastTableIndexPath:(NSIndexPath *)lastTableIndexPath andResetRuleIfDifferent: (BOOL) reset notify: (id)object forPropertyChange:(NSString*)property;
--(void) removePreviousDropRepresentationNotify: (id)object forPropertyChange:(NSString*)property;
-/*!
- move the rule either between collections or within a collection.
- 
- @param aCollectionType a collection which handles insert and move
- @param indexPath       indexPath to place the rule
- @param object          object to notify of change
- @param property        object property being changed
- 
- @return BOOL = YES if collection has added a row needed the eclosing view to be resized.
- */
--(BOOL) moveRuleToArray: (id)aCollectionType indexPath: (NSIndexPath*) indexPath notify: (id)object forPropertyChange:(NSString*)property;
 @end

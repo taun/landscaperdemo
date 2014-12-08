@@ -16,14 +16,14 @@
 @end
 
 @implementation MBDraggingItem
-+(instancetype) newWithItem:(LSDrawingRule *)rule size:(NSInteger)size {
-    return [[self alloc] initWithItem: rule size: size];
++(instancetype) newWithItem:(id)representedObject size:(NSInteger)size {
+    return [[self alloc] initWithItem: representedObject size: size];
 }
--(instancetype)initWithItem:(LSDrawingRule *)rule size:(NSInteger)size {
+-(instancetype)initWithItem:(id)representedObject size:(NSInteger)size {
     self = [super init];
     if (self) {
         _size = size;
-        _dragItem = rule;
+        _dragItem = representedObject;
         [self configureView];
         [self configureImage];
     }
@@ -89,91 +89,5 @@
 -(UIImage*)asImage {
     return _image;
 }
-#pragma mark - Convenience Properties
--(BOOL) isAlreadyDropped {
-    return (self.lastDestinationArray != nil);
-}
-#pragma mark - Dragging state changes
--(void) setLastTableIndexPath:(NSIndexPath *)lastTableIndexPath andResetRuleIfDifferent: (BOOL) reset notify: (id)object forPropertyChange:(NSString*)property {
-    BOOL lastIsNotNil = _lastTableIndexPath != nil;
-    BOOL newIsNotNil = lastTableIndexPath != nil;
-    BOOL indexesBothNotNil = lastIsNotNil & newIsNotNil;
-    BOOL onlyOneIsNotNil = lastIsNotNil ^ newIsNotNil;
-    if (onlyOneIsNotNil || (indexesBothNotNil && [lastTableIndexPath compare: _lastTableIndexPath]!=NSOrderedSame)) {
-        // Table index is different so all of the saved values are obsolete and lastDrop destination needs to be removed
-        if (reset) {
-            [self removePreviousDropRepresentationNotify: object forPropertyChange: property];
-        }
-    }
-    self.lastTableIndexPath = lastTableIndexPath;
-}
--(BOOL) moveRuleToArray: (id)aCollectionType indexPath:(NSIndexPath *)indexPath notify:(id)object forPropertyChange:(NSString *)property {
-    BOOL resized = NO;
-    
-    NSMutableOrderedSet* strongLastDestinationArray = self.lastDestinationArray;
-    UICollectionView* strongLastDestinationCollection = self.lastDestinationCollection;
 
-    NSInteger lastCellRow = [strongLastDestinationCollection numberOfItemsInSection: 0] - 1;
-
-    if (object!=nil && property != nil && property.length > 0) {
-        [object willChangeValueForKey: property];
-    }
-    
-    
-    if (strongLastDestinationArray) { // need to move item
-                                     //
-        [strongLastDestinationArray exchangeObjectAtIndex: self.lastCollectionIndexPath.row withObjectAtIndex: indexPath.row];
-        [strongLastDestinationCollection moveItemAtIndexPath: self.lastCollectionIndexPath toIndexPath: indexPath];
-        
-        self.lastCollectionIndexPath = indexPath;
-        
-    } else { // need to append or insert, growing number of items
-        self.lastDestinationArray = aCollectionType;
-        
-        [aCollectionType insertObject: self.dragItem atIndex: indexPath.row];
-        [strongLastDestinationCollection insertItemsAtIndexPaths: @[indexPath]];
-        
-        self.lastCollectionIndexPath = indexPath;
-        CGFloat cellWidth = strongLastDestinationCollection.bounds.size.width;
-        UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)strongLastDestinationCollection.collectionViewLayout;
-        NSInteger itemsPerLine = (cellWidth / (layout.itemSize.width+2*layout.minimumInteritemSpacing));
-        CGFloat remainder = fmodf(lastCellRow+1, itemsPerLine);
-        if (remainder == 0.0) {
-            // flag to relayout collection with additional row
-            resized = YES;
-        }
-    }
-    
-    if (object!=nil && property != nil && property.length > 0) {
-        [object didChangeValueForKey: property];
-    }
-    return resized;
-}
--(void) removePreviousDropRepresentationNotify: (id)object forPropertyChange:(NSString*)property {
-
-    NSMutableOrderedSet* strongLastDestinationArray = self.lastDestinationArray;
-    UICollectionView* strongLastDestinationCollection = self.lastDestinationCollection;
-
-    if (strongLastDestinationArray && self.lastCollectionIndexPath) {
-        if (object!=nil && property != nil && property.length > 0) {
-            [object willChangeValueForKey: property];
-        }
-        
-        [strongLastDestinationArray removeObject: _dragItem];
-        
-        if (object!=nil && property != nil && property.length > 0) {
-            [object didChangeValueForKey: property];
-        }
-        
-        [strongLastDestinationCollection deleteItemsAtIndexPaths: @[self.lastCollectionIndexPath]];
-    }
-    [self resetDestination];
-}
-
--(void) resetDestination {
-    self.lastCollectionIndexPath = nil;
-    self.lastDestinationCollection = nil;
-    self.lastDestinationArray = nil;
-    self.lastTableIndexPath = nil;
-}
 @end

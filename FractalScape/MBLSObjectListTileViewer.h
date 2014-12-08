@@ -13,7 +13,7 @@
 #import "NSManagedObject+Shortcuts.h"
 #import "MDBTileObjectProtocol.h"
 
-IB_DESIGNABLE
+//IB_DESIGNABLE
 
 /*!
  A UICollectionView style IB_Designable view without the NScrollView subclassing and issues.
@@ -122,8 +122,14 @@ IB_DESIGNABLE
 @interface MDBTileObjectProxy : NSObject <MDBTileObjectProtocol>
 
 @property (nonatomic,strong) id             rule;
-//@property (nonatomic,strong) NSString       *iconIdentifierString;
-
+/*!
+ Allow the proxy object and coredata objects to both be instantiated by same method signature.
+ 
+ @param managedObjectContext nil if not a coredata object.
+ 
+ @return the <MDBTileObjectProtocol> compliant instance.
+ */
++(instancetype) insertNewObjectIntoContext: (id) managedObjectContext;
 /*!
  Required for the protocol.
  

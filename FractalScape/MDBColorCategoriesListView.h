@@ -10,7 +10,7 @@
 #import "MBColorCategory+addons.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
-IB_DESIGNABLE
+//IB_DESIGNABLE
 
 
 @interface MDBColorCategoriesListView : UIView  <MBLSRuleDragAndDropProtocol>

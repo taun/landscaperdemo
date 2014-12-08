@@ -15,7 +15,7 @@
 #import "MBLSObjectListTileViewer.h"
 
 
-IB_DESIGNABLE
+//IB_DESIGNABLE
 
 
 @interface MDBLSObjectTileView : UIImageView <MBLSRuleDragAndDropProtocol>

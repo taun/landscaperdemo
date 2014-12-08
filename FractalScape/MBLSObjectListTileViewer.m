@@ -496,6 +496,10 @@
 
 @implementation MDBTileObjectProxy
 
++(instancetype) insertNewObjectIntoContext:(id)managedObjectContext {
+    return [[[self class] alloc] init];
+}
+
 -(BOOL) isDefaultObject {
     return YES;
 }
