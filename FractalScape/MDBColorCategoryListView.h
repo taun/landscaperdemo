@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 #import "MBColorCategory+addons.h"
 #import "MBLSObjectListTileViewer.h"
@@ -26,11 +27,5 @@
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
-
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule;
--(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule;
 
 @end

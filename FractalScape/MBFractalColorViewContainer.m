@@ -64,7 +64,9 @@
 
 -(void) deleteObjectIfUnreferenced: (MBColor*) color {
     if (color != nil && !color.isReferenced) {
-        [color.managedObjectContext deleteObject: color];
+        if ([color isKindOfClass: [NSManagedObject class]]) {
+            [((NSManagedObject*)color).managedObjectContext deleteObject: color];
+        }
     }
 }
 

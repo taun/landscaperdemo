@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+
 #import "LSDrawingRuleType+addons.h"
 #import "LSDrawingRule+addons.h"
 

@@ -8,20 +8,11 @@
 
 #import "MBLSObjectListTileViewer.h"
 
-#import "MDBLSObjectTileView.h"
 
-#import "FractalScapeIconSet.h"
-
-
-
-@interface MBLSObjectListTileViewer ()
-
-@end
 
 @implementation MBLSObjectListTileViewer
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -190,7 +181,6 @@
     listItemConstraints.vConstraint.constant = vOffset;
 }
 
-#pragma message "TODO: make for generic using protocol so can be used for colors"
 /*!
  Creates and adds the view to the subviews for the tile item.
  Also adds generic constraints for the view and adds both to the itemConstraints property.
@@ -502,6 +492,10 @@
 
 -(BOOL) isDefaultObject {
     return YES;
+}
+
+-(BOOL) isReferenced {
+    return NO;
 }
 
 -(UIImage*) asImage {

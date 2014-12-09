@@ -158,36 +158,38 @@
 #pragma mark - Drag&Drop Implementation Details
 
 #pragma mark - Drag&Drop
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     UIView* dragView;
     
     return dragView;
 }
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     
     return needsLayout;
 }
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     
     return needsLayout;
 }
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     //
-    LSDrawingRule* oldRule = draggingRule.oldReplacedDragItem;
-    if (oldRule) {
-        draggingRule.oldReplacedDragItem = nil;
-        [oldRule.managedObjectContext deleteObject: oldRule];
+    id<MDBTileObjectProtocol> color = draggingItem.oldReplacedDragItem;
+    if (color && !color.isReferenced) {
+        draggingItem.oldReplacedDragItem = nil;
+        if ([color isKindOfClass: [NSManagedObject class]]) {
+            [((NSManagedObject*)color).managedObjectContext deleteObject: color];
+        }
     }
     
     return needsLayout;
 }
--(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     return needsLayout;

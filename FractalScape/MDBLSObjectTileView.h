@@ -14,8 +14,9 @@
 #import "MDBTileObjectProtocol.h"
 #import "MBLSObjectListTileViewer.h"
 
+#import "FractalScapeIconSet.h"
 
-//IB_DESIGNABLE
+IB_DESIGNABLE
 
 
 @interface MDBLSObjectTileView : UIImageView <MBLSRuleDragAndDropProtocol>
@@ -28,11 +29,5 @@
 @property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
 @property (nonatomic,assign) IBInspectable BOOL         replaceable;
-
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem;
 
 @end

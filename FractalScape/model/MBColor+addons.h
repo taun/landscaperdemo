@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "MBColor.h"
-
+#import "NSManagedObject+Shortcuts.h"
 #import "MDBTileObjectProtocol.h"
 
 @interface MBColor (addons) <MDBTileObjectProtocol>
@@ -37,10 +37,4 @@
 
 -(UIImage*) thumbnailImageSize: (CGSize) size;
 
-
-@property (nonatomic,readonly) BOOL     isDefaultObject;
-
-@property (nonatomic,readonly) BOOL     isReferenced;
-
--(UIImage*) asImage;
 @end

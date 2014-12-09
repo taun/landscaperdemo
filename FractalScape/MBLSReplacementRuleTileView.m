@@ -75,6 +75,7 @@
     _separator = [[UILabel alloc] initWithFrame: CGRectMake(_tileWidth*2, 0, _tileWidth, _tileWidth)];
     _separator.text = @"=>";
     _separator.translatesAutoresizingMaskIntoConstraints = NO;
+    _separator.textColor = self.tintColor;
 
     [self addSubview: _separator];
     

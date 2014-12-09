@@ -11,8 +11,6 @@
 #include <CoreGraphics/CoreGraphics.h>
 #import "MBDraggingItem.h"
 
-#pragma message "TODO move this to MDUIKit library"
-
 /*!
  A protocol to facillitate the drag and drop between embedded views independent of the containing controllers.
  Drag and drop is trivial when there is one controller with a table or collection view. FractalScape uses 

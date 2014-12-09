@@ -10,7 +10,7 @@
 
 #import "LSFractal+addons.h"
 
-//IB_DESIGNABLE
+IB_DESIGNABLE
 
 
 @interface MBLSFractalSummaryEditViewer : UIView <UIPickerViewDataSource, UIPickerViewDelegate>

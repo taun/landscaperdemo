@@ -177,27 +177,27 @@
 }
 
 #pragma mark - Drag&Drop
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     UIView* dragView;
     
     return dragView;
 }
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     return needsLayout;
 }
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     return needsLayout;
 }
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     return needsLayout;
 }
--(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingRule {
+-(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
     
     return needsLayout;

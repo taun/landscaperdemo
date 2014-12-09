@@ -7,7 +7,6 @@
 //
 
 #import "LSDrawingRule+addons.h"
-#import "NSManagedObject+Shortcuts.h"
 
 
 @implementation LSDrawingRule (addons)

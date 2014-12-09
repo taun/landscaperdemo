@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+
 #import "FractalControllerProtocol.h"
 #import "LSFractal+addons.h"
 #import "MBColor+addons.h"

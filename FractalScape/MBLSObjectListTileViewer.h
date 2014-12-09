@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
-#import "MBLSRuleDragAndDropProtocol.h"
-#import "LSDrawingRule+addons.h"
-#import "NSManagedObject+Shortcuts.h"
 #import "MDBTileObjectProtocol.h"
+#import "MDBLSObjectTileView.h"
+#import "MBLSRuleDragAndDropProtocol.h"
 
-//IB_DESIGNABLE
+#import "NSManagedObject+Shortcuts.h"
+#import "LSDrawingRule+addons.h"
+
+#import "FractalScapeIconSet.h"
+
+IB_DESIGNABLE
 
 /*!
  A UICollectionView style IB_Designable view without the NScrollView subclassing and issues.
@@ -84,12 +89,6 @@
 -(NSUInteger) insertionIndexForPoint: (CGPoint) insertionPoint;
 -(void) insertRepresentedObject: (id<MDBTileObjectProtocol>)aRule atPoint: (CGPoint)insertPoint;
 
--(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidEnterAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidChangeToLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem;
--(BOOL) dragDidExitDraggingItem: (MBDraggingItem*) draggingItem;
-
 @end
 
 /*!
@@ -121,21 +120,6 @@
  */
 @interface MDBTileObjectProxy : NSObject <MDBTileObjectProtocol>
 
-@property (nonatomic,strong) id             rule;
-/*!
- Allow the proxy object and coredata objects to both be instantiated by same method signature.
- 
- @param managedObjectContext nil if not a coredata object.
- 
- @return the <MDBTileObjectProtocol> compliant instance.
- */
-+(instancetype) insertNewObjectIntoContext: (id) managedObjectContext;
-/*!
- Required for the protocol.
- 
- @return returns a default UIImage.
- */
--(UIImage*) asImage;
 
 @end
 

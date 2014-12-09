@@ -8,14 +8,12 @@
 
 #import "MDBLSObjectTileView.h"
 
-#import "FractalScapeIconSet.h"
 
 
 @implementation MDBLSObjectTileView
 
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
