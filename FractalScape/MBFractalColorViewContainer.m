@@ -23,7 +23,6 @@
     // this way it still takes the tintColor from IB.
     _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
     _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
-    _pageColorTemplateImage.tintColor = _pageColorTemplateImage.tintColor;
     
     [super viewDidLoad];
 }
@@ -39,6 +38,8 @@
     
     self.destinationView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal lineColorsKey]];
     self.fillColorsListView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal fillColorsKey]];
+    
+    self.pageColorDestinationTileView.fractal = self.fractal;
     
     self.colorsChanged = YES;
 

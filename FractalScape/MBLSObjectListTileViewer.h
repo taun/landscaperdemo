@@ -52,12 +52,14 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
 
-@property (nonatomic,assign) CGRect             lastBounds;
-@property (nonatomic,strong) NSLayoutConstraint *heightConstraint;
-@property (nonatomic,strong) NSMutableArray     *itemConstraints;
-@property (nonatomic,readonly) NSUInteger       itemsPerLine;
-@property (nonatomic,readonly) NSUInteger       lines;
-@property (nonatomic,readonly) NSUInteger       lineHeight;
+@property (nonatomic,assign) CGRect                     lastBounds;
+@property (nonatomic,strong) NSLayoutConstraint         *heightConstraint;
+#pragma message "TODO change from array to dictionary with view as key? then check for presence or absence of view before updating constraints"
+@property (nonatomic,strong) NSMapTable                 *itemConstraintsObjectViewMap;
+@property (nonatomic,readonly) NSUInteger               itemsPerLine;
+@property (nonatomic,readonly) NSUInteger               lines;
+@property (nonatomic,readonly) NSUInteger               lineHeight;
+@property (nonatomic,assign) BOOL                       didSetupSubviews;
 
 /*!
  Should really add checks for whether context is needed in the method implementations.
@@ -96,10 +98,8 @@ IB_DESIGNABLE
  Holding the constraints and changing the constraint constants allows the movements to be animated.
  */
 @interface MDBListItemConstraints : NSObject
-/*!
- The item supplying the view for the tile. Must be protocol compliant.
- */
-@property (nonatomic,strong) UIView                 *view;
+
+@property (nonatomic,strong) id<MDBTileObjectProtocol> view;
 /*!
  The horizontal constraint. Specified from the container left boundary for each tile.
  This facilitates moving tiles by changing the constraint constant and updating the layout.
@@ -111,8 +111,8 @@ IB_DESIGNABLE
  */
 @property (nonatomic,strong) NSLayoutConstraint     *vConstraint;
 
-+(instancetype) newItemConstraintsWithView:  (UIView*) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
--(instancetype) initWithView: (UIView*) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
++(instancetype) newItemView: (id<MDBTileObjectProtocol>) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
+-(instancetype) initWithView: (id<MDBTileObjectProtocol>) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
 @end
 
 /*!

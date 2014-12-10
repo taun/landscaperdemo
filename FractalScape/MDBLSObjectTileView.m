@@ -54,8 +54,13 @@
 }
 
 -(void) setRepresentedObject:(id<MDBTileObjectProtocol>)object {
-    _representedObject = object;
-    self.image = [object asImage];
+    if (object == nil) {
+        _representedObject = [MDBTileObjectProxy new];
+    } else {
+        _representedObject = object;
+    }
+    
+    self.image = [_representedObject asImage];
     [self sizeToFit];
     [self setNeedsUpdateConstraints];
 }

@@ -19,7 +19,7 @@
 IB_DESIGNABLE
 
 
-@interface MDBLSObjectTileView : UIImageView <MBLSRuleDragAndDropProtocol>
+@interface MDBLSObjectTileView : UIImageView <MBLSRuleDragAndDropProtocol,MDBTileObjectProtocol>
 
 @property (nonatomic,strong) id<MDBTileObjectProtocol>  representedObject;
 @property (nonatomic,readonly) id                       item;

@@ -18,16 +18,16 @@
 #import "MDBColorCategoryListView.h"
 #import "MBLSObjectListTileViewer.h"
 #import "MDBLSObjectTilesViewBaseController.h"
+#import "MDBFractalPageColorTileView.h"
 
 @interface MBFractalColorViewContainer : MDBLSObjectTilesViewBaseController
 
 
 @property (weak, nonatomic) IBOutlet MBLSObjectListTileViewer       *fillColorsListView;
 
-@property (weak, nonatomic) IBOutlet UIImageView *lineColorsTemplateImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *fillColorsTemplateImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *pageColorTemplateImage;
-@property (weak, nonatomic) IBOutlet UIImageView *pageColorDestinationImageView;
+@property (weak, nonatomic) IBOutlet UIImageView                    *lineColorsTemplateImageView;
+@property (weak, nonatomic) IBOutlet UIImageView                    *fillColorsTemplateImageView;
+@property (weak, nonatomic) IBOutlet MDBFractalPageColorTileView    *pageColorDestinationTileView;
 
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender;

@@ -8,7 +8,7 @@
         <!--FractalName-->
         <scene sceneID="Vzi-SL-M21">
             <objects>
-                <viewController title="FractalName" definesPresentationContext="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
+                <viewController title="FractalName" extendedLayoutIncludesOpaqueBars="YES" definesPresentationContext="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sft-HR-kri"/>
                         <viewControllerLayoutGuide type="bottom" id="Awh-gB-3mV"/>
@@ -18,16 +18,16 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
-                                <rect key="frame" x="0.0" y="65" width="768" height="959"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
-                                                <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="MBFractalExamineView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="959"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <connections>
@@ -52,7 +52,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="688" y="918" width="60" height="37"/>
+                                                <rect key="frame" x="688" y="963" width="60" height="37"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
                                                         <rect key="frame" x="0.0" y="6" width="60" height="25"/>
@@ -92,7 +92,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="10" y="10" width="271.5" height="39"/>
+                                                <rect key="frame" x="10" y="55" width="271.5" height="39"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
                                                         <rect key="frame" x="5" y="5" width="261.5" height="29"/>
@@ -184,7 +184,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="402" width="296" height="156"/>
+                                                <rect key="frame" x="12" y="447" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -275,7 +275,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="232" width="296" height="156"/>
+                                                <rect key="frame" x="12" y="277" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -366,7 +366,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="62" width="296" height="156"/>
+                                                <rect key="frame" x="12" y="107" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -464,7 +464,7 @@
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="0nq-ro-qdw"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
-                                            <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="10" id="5dp-ny-2EX"/>
+                                            <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="55" id="5dp-ny-2EX"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="height" secondItem="wmh-En-OwM" secondAttribute="height" id="GDc-sq-pmy"/>
                                             <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="4" id="H3F-eo-44g"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
@@ -478,7 +478,7 @@
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="i9u-dn-N5F"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="height" secondItem="dJU-MH-ihA" secondAttribute="height" id="jrp-ld-dDR"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="top" secondItem="dJU-MH-ihA" secondAttribute="bottom" constant="10" id="tjp-aS-CJK"/>
-                                            <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="60" id="xaH-sh-hHq"/>
+                                            <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="105" id="xaH-sh-hHq"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -491,7 +491,7 @@
                                     <constraint firstItem="ekL-TA-FTU" firstAttribute="leading" secondItem="TbU-WI-8ja" secondAttribute="leading" id="bJ6-fM-n25"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjZ-fb-Tj5">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjZ-fb-Tj5">
                                 <rect key="frame" x="0.0" y="20" width="768" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Xch-7H-rSH"/>
@@ -539,7 +539,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TbU-WI-8ja" firstAttribute="top" secondItem="zjZ-fb-Tj5" secondAttribute="bottom" id="71u-Ke-8LE"/>
                             <constraint firstAttribute="centerX" secondItem="hsw-ym-KtT" secondAttribute="centerX" id="CPT-BK-amD"/>
                             <constraint firstItem="hsw-ym-KtT" firstAttribute="centerY" secondItem="zjZ-fb-Tj5" secondAttribute="centerY" id="HAn-tm-eqg"/>
                             <constraint firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" id="IdL-jb-QvC"/>
@@ -547,10 +546,10 @@
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" id="YF5-t7-Zlt"/>
                             <constraint firstItem="zjZ-fb-Tj5" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" id="aV3-ad-ubB"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" id="ea9-du-8sk"/>
+                            <constraint firstItem="TbU-WI-8ja" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" id="nta-6z-PaY"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" id="zI8-i5-HMe"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Editor" id="5yD-Jb-xIT"/>
                     <connections>
@@ -682,7 +681,7 @@
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
                                                 <subviews>
-                                                    <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
+                                                    <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
                                                         <rect key="frame" x="10" y="8" width="780" height="337"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
@@ -965,7 +964,7 @@
                                             <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrT-kZ-Fno">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" customClass="MDBColorCategoriesListView">
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" customClass="MDBColorCategoriesListView">
                                                         <rect key="frame" x="0.0" y="100" width="400" height="351"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1021,65 +1020,19 @@
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                                             <subviews>
-                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDKLayerViewDesignable">
+                                                <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="100"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarPageColorIcon" translatesAutoresizingMaskIntoConstraints="NO" id="cfw-9i-JeN">
-                                                            <rect key="frame" x="9" y="12" width="25" height="25"/>
-                                                        </imageView>
-                                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpG-O8-Bpa" customClass="MDKLayerViewDesignable">
-                                                            <rect key="frame" x="10" y="59" width="24" height="24"/>
-                                                            <subviews>
-                                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kBIconRulePlaceEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="0co-CG-UUF">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" secondItem="0co-CG-UUF" secondAttribute="height" multiplier="1:1" id="fTN-ie-uot"/>
-                                                                    </constraints>
-                                                                </imageView>
-                                                            </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="24" id="GDa-Mf-m4M"/>
-                                                                <constraint firstItem="0co-CG-UUF" firstAttribute="leading" secondItem="mpG-O8-Bpa" secondAttribute="leading" id="LwE-d7-iGB"/>
-                                                                <constraint firstAttribute="centerY" secondItem="0co-CG-UUF" secondAttribute="centerY" id="Z40-tL-Edm"/>
-                                                                <constraint firstAttribute="height" constant="24" id="xmg-zU-VbL"/>
-                                                                <constraint firstAttribute="centerX" secondItem="0co-CG-UUF" secondAttribute="centerX" id="yUr-zL-NEF"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="4"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                    <real key="value" value="1"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                    <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="margin">
-                                                                    <real key="value" value="0.0"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </view>
-                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="centerX" secondItem="mpG-O8-Bpa" secondAttribute="centerX" id="W6H-rI-d4d"/>
-                                                        <constraint firstAttribute="centerX" secondItem="cfw-9i-JeN" secondAttribute="centerX" id="gM2-3e-h1f"/>
                                                         <constraint firstAttribute="width" constant="44" id="p60-hJ-K77"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="8"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="tileCornerRadius">
+                                                            <real key="value" value="4"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
+                                                            <real key="value" value="24"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
-                                                            <point key="value" x="0.0" y="4"/>
-                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
@@ -1174,10 +1127,8 @@
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="bottom" secondItem="maa-lX-Faf" secondAttribute="bottom" id="0Rk-WO-2wT"/>
                                                 <constraint firstAttribute="trailing" secondItem="maa-lX-Faf" secondAttribute="trailing" id="517-a7-0Rw"/>
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="top" secondItem="maa-lX-Faf" secondAttribute="top" id="Gdn-WN-ALB"/>
-                                                <constraint firstItem="y20-fS-x0U" firstAttribute="centerY" secondItem="cfw-9i-JeN" secondAttribute="centerY" id="Lzc-Mb-Sc6"/>
                                                 <constraint firstAttribute="bottom" secondItem="HMf-cF-wSc" secondAttribute="bottom" id="Oih-dm-2E0"/>
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="leading" secondItem="9ba-HM-kSK" secondAttribute="leading" id="b8m-g2-GLO"/>
-                                                <constraint firstItem="mpG-O8-Bpa" firstAttribute="centerY" secondItem="sUp-Wy-sYl" secondAttribute="centerY" id="bCx-Kp-l5Y"/>
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="top" secondItem="9ba-HM-kSK" secondAttribute="top" id="ufE-FT-gqu"/>
                                                 <constraint firstItem="maa-lX-Faf" firstAttribute="leading" secondItem="HMf-cF-wSc" secondAttribute="trailing" constant="4" id="wBF-OS-o2o"/>
                                             </constraints>
@@ -1217,8 +1168,7 @@
                         <outlet property="fillColorsListView" destination="bZN-MH-WtZ" id="21B-kc-1Tu"/>
                         <outlet property="fillColorsTemplateImageView" destination="sUp-Wy-sYl" id="adf-dW-TpC"/>
                         <outlet property="lineColorsTemplateImageView" destination="y20-fS-x0U" id="xkn-bb-nj5"/>
-                        <outlet property="pageColorDestinationImageView" destination="0co-CG-UUF" id="1OO-A9-95n"/>
-                        <outlet property="pageColorTemplateImage" destination="cfw-9i-JeN" id="Ob2-cZ-wvw"/>
+                        <outlet property="pageColorDestinationTileView" destination="HMf-cF-wSc" id="aR6-AN-WjS"/>
                         <outlet property="scrollView" destination="4QD-IE-s5T" id="kg7-RI-thB"/>
                         <outlet property="sourceListView" destination="uMw-Vl-Ltb" id="SM8-VP-lQh"/>
                     </connections>
@@ -1398,14 +1348,12 @@
     <resources>
         <image name="kBIconRuleDecrementAngle" width="40" height="40"/>
         <image name="kBIconRuleIncrementLineWidth" width="40" height="40"/>
-        <image name="kBIconRulePlaceEmpty" width="40" height="40"/>
         <image name="kBIconRuleRandomizeOn" width="40" height="40"/>
         <image name="kBIconRuleRotateCC" width="40" height="40"/>
         <image name="kBIconRuleUpscaleLineLength" width="40" height="40"/>
         <image name="tabBarFillColorIconTemplate" width="25" height="25"/>
         <image name="tabBarLineColorIcon" width="25" height="25"/>
         <image name="tabBarLineColorIconTemplate" width="25" height="25"/>
-        <image name="tabBarPageColorIcon" width="25" height="25"/>
         <image name="tabBarRulesIcon" width="25" height="25"/>
         <image name="toolBarCopyIcon" width="28" height="28"/>
         <image name="toolBarHUDScreenIcon" width="28" height="28"/>

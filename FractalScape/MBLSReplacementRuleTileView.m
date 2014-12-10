@@ -243,10 +243,12 @@
     BOOL needsLayout = NO;
     
     //
-    LSDrawingRule* oldRule = draggingRule.oldReplacedDragItem;
-    if (oldRule) {
+    id<MDBTileObjectProtocol> oldRule = draggingRule.oldReplacedDragItem;
+    if (oldRule != nil && !oldRule.isReferenced) {
         draggingRule.oldReplacedDragItem = nil;
-        [oldRule.managedObjectContext deleteObject: oldRule];
+        if ([oldRule isKindOfClass: [NSManagedObject class]]) {
+            [((NSManagedObject*)oldRule).managedObjectContext deleteObject: oldRule];
+        }
     }
 
     return needsLayout;

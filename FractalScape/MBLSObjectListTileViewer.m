@@ -39,7 +39,8 @@
     _tileWidth = 26.0;
     _tileMargin = 2.0;
     _outlineMargin = 6.0;
-    _itemConstraints = [NSMutableArray new];
+    _didSetupSubviews = NO;
+    _itemConstraintsObjectViewMap = [NSMapTable strongToStrongObjectsMapTable];
     
 }
 //-(void) drawRect:(CGRect)rect {
@@ -114,12 +115,13 @@
 
 #pragma mark - View Layout Details
 -(void) setupSubviews {
+    self.didSetupSubviews = NO;
     
     for (UIView* view in [self subviews]) {
         [view removeFromSuperview];
     }
     
-    [self.itemConstraints removeAllObjects];
+    [self.itemConstraintsObjectViewMap removeAllObjects];
     
     [self removeConstraints: self.constraints];
 
@@ -142,6 +144,7 @@
     _heightConstraint = [NSLayoutConstraint constraintWithItem: self attribute: NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: 26.0];
     [self addConstraint: _heightConstraint];
 
+    self.didSetupSubviews = YES;
     [self setNeedsUpdateConstraints];
 }
 
@@ -164,7 +167,7 @@
     return _tileWidth+_tileMargin;
 }
 
--(void) calcConstraintConstantsForIndex: (NSUInteger) index {
+-(void) calcHConstraint: (NSLayoutConstraint*)hConstraint vConstraint: (NSLayoutConstraint*) vConstraint forIndex: (NSUInteger) index {
     
     NSUInteger itemsPerLine = self.itemsPerLine;
     
@@ -176,14 +179,13 @@
     
     NSInteger vOffset = (lineNumber==0 && _showOutline) ? self.outlineMargin : lineNumber*(_tileWidth+_tileMargin);
 
-    MDBListItemConstraints* listItemConstraints = self.itemConstraints[index];
-    listItemConstraints.hConstraint.constant = hOffset;
-    listItemConstraints.vConstraint.constant = vOffset;
+    hConstraint.constant = hOffset;
+    vConstraint.constant = vOffset;
 }
 
 /*!
  Creates and adds the view to the subviews for the tile item.
- Also adds generic constraints for the view and adds both to the itemConstraints property.
+ Also adds generic constraints for the view and adds both to the itemConstraintsObjectViewMap property.
  
  Does not calculate constraints.
   */
@@ -201,9 +203,9 @@
     NSLayoutConstraint* vConstraint = [NSLayoutConstraint constraintWithItem: tileView attribute: NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeTop multiplier: 1.0 constant: 0.0];
     [self addConstraints: @[hConstraint,vConstraint]];
     
-    [self.itemConstraints insertObject: [MDBListItemConstraints newItemConstraintsWithView: tileView hConstraint: hConstraint vConstraint: vConstraint]  atIndex: index];
+    [self.itemConstraintsObjectViewMap setObject: [MDBListItemConstraints newItemView: tileView hConstraint: hConstraint vConstraint: vConstraint] forKey: aTileableObject];
     
-    [self calcConstraintConstantsForIndex: index];
+    [self calcHConstraint: hConstraint vConstraint: vConstraint forIndex: index];
     
     return tileView;
 }
@@ -213,18 +215,18 @@
  @param fIndex initial index
  @param tIndex destination index
  */
--(void) moveViewForRepresentedObjectFrom: (NSUInteger) fIndex to: (NSUInteger) tIndex {
-    MDBListItemConstraints* itemToMove = self.itemConstraints[fIndex];
-    [self.itemConstraints removeObjectAtIndex: fIndex];
-    
-    [self insertSubview: itemToMove.view atIndex: tIndex];
-    
-    if (fIndex < tIndex) tIndex--;
-    
-    [self.itemConstraints insertObject: itemToMove atIndex: tIndex];
-}
+//-(void) moveViewForRepresentedObjectFrom: (NSUInteger) fIndex to: (NSUInteger) tIndex {
+//    MDBListItemConstraints* itemToMove = self.itemConstraintsObjectViewMap[fIndex];
+//    [self.itemConstraintsObjectViewMap removeObjectAtIndex: fIndex];
+//    
+//    [self insertSubview: itemToMove.view atIndex: tIndex];
+//    
+//    if (fIndex < tIndex) tIndex--;
+//    
+//    [self.itemConstraintsObjectViewMap insertObject: itemToMove atIndex: tIndex];
+//}
 /*!
- Removes the item view and constraints from the superview and itemConstraints.
+ Removes the item view and constraints from the superview and itemConstraintsObjectViewMap.
  
  Does not recalculate constraints.
  
@@ -232,16 +234,16 @@
  
  @return the removed view
  */
--(MDBLSObjectTileView*) removeViewForRepresentedObjectAtIndex: (NSUInteger) index {
-    
-    MDBLSObjectTileView* removedView = self.subviews[index];
-    
-    [self.itemConstraints removeObjectAtIndex: index];
-    
-    [removedView removeFromSuperview];
-    
-    return removedView;
-}
+//-(MDBLSObjectTileView*) removeViewForRepresentedObjectAtIndex: (NSUInteger) index {
+//    
+//    MDBLSObjectTileView* removedView = self.subviews[index];
+//    
+//    [self.itemConstraintsObjectViewMap removeObjectAtIndex: index];
+//    
+//    [removedView removeFromSuperview];
+//    
+//    return removedView;
+//}
 
 /*!
  Offsets from the containing view edges rather than inter item margins are used so the items can
@@ -260,23 +262,63 @@
     self.backgroundColor = [UIColor greenColor];
 #endif
 }
+/*!
+ Assumes the objectList has changed and we need to handle to additions and removals here.
+ 
+ Need to find 2 cases
+    views no longer represented in objectList
+    objects in list without a view.
+ */
 -(void) assignAllConstraintConstants {
     
-    if (_objectList.count == self.subviews.count) {
+    if (self.didSetupSubviews && self.objectList != nil && self.objectList.count > 0) {
         // a way to check if all of the subviews have been laid out.
         // it is possible for update constraints to be called while subviews are still being laid out.
-        for (int i=0 ; i < _objectList.count; i++ ) {
+    
+        // Get set of objects already represented
+        NSMutableSet* representedObjectsSet = [[NSMutableSet alloc] initWithCapacity: self.subviews.count];
+        NSArray* subviewsCopy = [self.subviews copy];
+        
+        // remove the old
+        for (MDBLSObjectTileView* view in subviewsCopy) {
+            id representedObject = view.representedObject;
             
-            [self calcConstraintConstantsForIndex: i ];
-            
-            self.heightConstraint.constant = self.lines*self.lineHeight+2*self.outlineMargin;
+            if (![self.objectList containsObject: representedObject]) {
+                // views representedObject no longer in master list, remove it
+                MDBListItemConstraints* item = [self.itemConstraintsObjectViewMap objectForKey: representedObject];
+                [self.itemConstraintsObjectViewMap removeObjectForKey: representedObject];
+                [(UIView*)item.view removeFromSuperview];
+            } else {
+                [representedObjectsSet addObject: representedObject];
+            }
         }
+        
+        // add the new
+        NSMutableSet* representationsToAdd = [self.objectList.set mutableCopy];
+        [representationsToAdd minusSet: representedObjectsSet];
+        
+        for (id object in representationsToAdd) {
+            NSUInteger newIndex = [self.objectList indexOfObject: object];
+            [self addViewForRepresentedObject: object atIndex: newIndex];
+        }
+        
+        // re-flow
+        for (int i=0 ; i < self.objectList.count; i++ ) {
+            id object = self.objectList[i];
+            MDBListItemConstraints* item = [self.itemConstraintsObjectViewMap objectForKey: object];
+            NSLayoutConstraint* hConstraint = item.hConstraint;
+            NSLayoutConstraint* vConstraint = item.vConstraint;
+            
+            [self calcHConstraint: hConstraint vConstraint: vConstraint forIndex: i ];
+        }
+        self.heightConstraint.constant = self.lines*self.lineHeight+2*self.outlineMargin;
+
     }
     
 }
 -(void) animateConstraintChanges {
     [self layoutIfNeeded]; // Ensures that all pending layout operations have been completed
-    [UIView animateWithDuration: 0.5 animations:^{
+    [UIView animateWithDuration: 0.1 animations:^{
         // Make all constraint changes here
         
         [self assignAllConstraintConstants];
@@ -322,9 +364,10 @@
         insertionIndex = [self.objectList indexOfObject: objectUnderPoint];
     } else {
         // are we in the view but inbetween or at the end of items?
-        NSUInteger lastIndex = self.itemConstraints.count - 1;
+        id lastObject = [self.objectList lastObject];
+        
         // We could use views but we arent keeping views in order.
-        MDBListItemConstraints* lastItemConstraints = self.itemConstraints[lastIndex];
+        MDBListItemConstraints* lastItemConstraints = [self.itemConstraintsObjectViewMap objectForKey: lastObject];
         CGFloat itemTopRightX = lastItemConstraints.hConstraint.constant + self.tileWidth;
         CGFloat itemTopRightY = lastItemConstraints.vConstraint.constant;
         CGFloat width = self.bounds.size.width - itemTopRightX;
@@ -373,7 +416,6 @@
     // check and replace if the default rule placeholder
     if (firstObject.isDefaultObject) {
         [self.objectList removeObjectAtIndex: 0];
-        [self removeViewForRepresentedObjectAtIndex: 0];
         if ([firstObject isKindOfClass: [NSManagedObject class]] && self.context) {
             [self.context deleteObject: firstObject];
         }
@@ -382,7 +424,6 @@
         
     
     [self.objectList insertObject: newRule atIndex: insertionIndex]; // works for index == count
-    [self addViewForRepresentedObject: newRule atIndex: insertionIndex];
     
     [self animateConstraintChanges];
 }
@@ -400,8 +441,6 @@
         id<MDBTileObjectProtocol> object = [self.objectList objectAtIndex: fromIndex];
         [self.objectList removeObject: object];
         [self.objectList insertObject: object atIndex: adjustedToIndex];
-
-        [self moveViewForRepresentedObjectFrom: fromIndex to: toIndex];
         
         [self animateConstraintChanges];
     }
@@ -411,8 +450,6 @@
     
     if (objectIndex != NSNotFound) {
         [self.objectList removeObject: object];
-        
-        [self removeViewForRepresentedObjectAtIndex: objectIndex];
         
         if (self.objectList.count == 0 && self.defaultObjectClass && self.context) {
             [self insertNewDefaultObjectOfClass: self.defaultObjectClass atIndex: 0];
@@ -468,11 +505,11 @@
 
 @implementation MDBListItemConstraints
 
-+(instancetype) newItemConstraintsWithView:(UIView*)view hConstraint:(NSLayoutConstraint *)hc vConstraint:(NSLayoutConstraint *)vc {
++(instancetype) newItemView: (id<MDBTileObjectProtocol>) view hConstraint:(NSLayoutConstraint *)hc vConstraint:(NSLayoutConstraint *)vc {
     return [[self alloc] initWithView: view hConstraint: hc vConstraint: vc];
 }
 
--(instancetype) initWithView: (UIView*) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc {
+-(instancetype) initWithView: (id<MDBTileObjectProtocol>) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc {
     self = [super init];
     if (self) {
         _view = view;
