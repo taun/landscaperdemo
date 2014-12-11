@@ -135,6 +135,12 @@
     }
     
 }
+-(void) setFractal:(LSFractal *)fractal {
+    if (_fractal != fractal) {
+        _fractal = fractal;
+        self.backgroundColorView.representedObject = self.fractal.backgroundColor;
+    }
+}
 
 -(void) updateColor:(id<MDBTileObjectProtocol>)color {
     self.fractal.backgroundColor = color;
