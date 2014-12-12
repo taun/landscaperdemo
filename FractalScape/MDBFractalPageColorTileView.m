@@ -143,7 +143,9 @@
 }
 
 -(void) updateColor:(id<MDBTileObjectProtocol>)color {
-    self.fractal.backgroundColor = color;
+    if ([color isKindOfClass: [MBColor class]]) {
+        self.fractal.backgroundColor = color;
+    }
     self.backgroundColorView.representedObject = color;
 }
 

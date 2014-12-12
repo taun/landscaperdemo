@@ -149,7 +149,12 @@
 }
 
 -(NSUInteger) itemsPerLine {
-    return floorf(self.bounds.size.width / (_tileWidth+_tileMargin));
+    NSUInteger itemsPerLine = floorf(self.bounds.size.width / (_tileWidth+_tileMargin));
+    
+    if (itemsPerLine == 0) {
+        itemsPerLine = 1;
+    }
+    return itemsPerLine;
 }
 
 -(NSUInteger) lines {
@@ -179,6 +184,15 @@
     
     NSInteger vOffset = (lineNumber==0 && _showOutline) ? self.outlineMargin : lineNumber*(_tileWidth+_tileMargin);
 
+#pragma message "TODO: fix constraint limits to ? hardware?"
+    if (vOffset < 0) {
+        NSAssert(YES, @"Constraint out of range");
+    }
+    hOffset = hOffset < 0 ? 0 : hOffset;
+    vOffset = vOffset < 0 ? 0 : vOffset;
+    hOffset = hOffset > 1024 ? 1024 : hOffset;
+    vOffset = vOffset > 1024 ? 1024 : vOffset;
+    
     hConstraint.constant = hOffset;
     vConstraint.constant = vOffset;
 }

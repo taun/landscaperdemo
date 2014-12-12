@@ -528,7 +528,6 @@
 -(CGPathRef) fractalCGPathRef {
     if (_fractalCGPathRef == NULL) {
         _fractalCGPathRef = CGPathCreateMutable();
-        CGPathRetain(_fractalCGPathRef);
     }
     return _fractalCGPathRef;
 }
@@ -633,8 +632,22 @@
 -(void) setPathNeedsGenerating:(BOOL)pathNeedsGenerating {
     _pathNeedsGenerating = pathNeedsGenerating;
     if (_pathNeedsGenerating) {
+        for (MBFractalSegment* segment in _currentSegmentList) {
+            [segment setPath: NULL];
+        }
+        [_currentSegmentList removeAllObjects];
         _currentSegmentList = nil;
+
+        for (MBFractalSegment* segment in _finishedSegments) {
+            [segment setPath: NULL];
+        }
+        [_finishedSegments removeAllObjects];
         _finishedSegments = nil;
+
+        for (MBFractalSegment* segment in _segmentStack) {
+            [segment setPath: NULL];
+        }
+        [_segmentStack removeAllObjects];
         _segmentStack = nil;
     }
 }

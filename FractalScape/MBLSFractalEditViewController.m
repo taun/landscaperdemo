@@ -113,11 +113,6 @@ static BOOL SIMULTOUCH = NO;
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
-    // Release any cached data, images, etc that aren't in use.
-//    [self setPopover: nil];
-//    [self setLibraryViewController: nil];
-//    [self setPropertiesViewController: nil];
-//    [self setAppearanceViewController: nil];
 }
 
 
@@ -125,21 +120,6 @@ static BOOL SIMULTOUCH = NO;
     
     [super viewDidLoad];
         
-//    UIImage* patternImage = [UIImage imageNamed: @"linen-fine"];
-//    UIColor* newColor = [UIColor colorWithPatternImage: patternImage];
-//    self.fractalViewRoot.backgroundColor = newColor;
-//        
-//    if (self.portraitViewFrames == nil) {
-//        // we want to save the frames as layed out in the nib.
-//        [self __savePortraitViewFrames];
-//    }
-
-//    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalRightSwipeGR];//obsolete replace with 2 finger pan
-//    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalLeftSwipeGR];
-//    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalUpSwipeGR];
-//    [self.fractalPanGR requireGestureRecognizerToFail: self.fractalDownSwipeGR];
-//    [self.fractal2PanGR requireGestureRecognizerToFail: self.fractalPinchGR];
-//    [self.fractal2PanGR requireGestureRecognizerToFail: self.fractalRotationGR];
 }
 
 /*!
@@ -676,60 +656,6 @@ static BOOL SIMULTOUCH = NO;
     self.toolbarTitle.text = _fractal.name;
 }
 
--(void)configureLandscapeViewFrames {
-    
-    // Temporarily disable
-//    if (nil && self.portraitViewFrames) {
-//    if (self.portraitViewFrames != nil && self.editing) {
-        // should always not be nil
-//        CGRect portrait0 = self.fractalViewLevel0.superview.frame;
-//        CGRect portrait1 = self.fractalViewLevel1.superview.frame;
-//        CGRect portraitN = self.fractalView.frame;
-//        
-//        CGRect new0;
-//        CGRect new1;
-//        CGRect newN;
-//        
-//        
-//        newN = CGRectUnion(portrait0, portrait1);
-//        
-//        // Portrait
-//        // Swap position of N with 0 & 1
-//        CGRectDivide(portraitN, &new0, &new1, portraitN.size.width/2.0, CGRectMinXEdge);        
-//        [UIView animateWithDuration:1.0 animations:^{
-//            // move N to empty spot
-//            self.fractalView.superview.frame = newN;
-//            
-//            // move 0 & 1 to empty N spot
-//            self.fractalViewLevel0.superview.frame = new0;
-//            self.fractalViewLevel1.superview.frame = new1;
-//        }];
-//        
-//    }
-}
-
--(void) restorePortraitViewFrames {
-//    if (self.portraitViewFrames != nil) {
-//        // should always not be nil
-//        CGRect portrait0;
-//        CGRect portrait1;
-//        CGRect portraitN;
-//        
-//        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame0"], &portrait0);
-//        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frame1"], &portrait1);
-//        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(self.portraitViewFrames)[@"frameN"], &portraitN);
-//        
-//        [UIView animateWithDuration:1.0 animations:^{
-//            // move N to empty spot
-//            self.fractalView.superview.frame = portraitN;
-//            
-//            // move 0 & 1 to empty N spot
-//            self.fractalViewLevel0.superview.frame = portrait0;
-//            self.fractalViewLevel1.superview.frame = portrait1;
-//        }];
-//        
-//    }
-}
 
 #pragma mark - action utility methods
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio {
@@ -748,16 +674,7 @@ static BOOL SIMULTOUCH = NO;
         newRotation = deltaGestureRotation - deltaAngle/deltaAngleToDeltaGestureRatio;
         sender.rotation = newRotation;
     }
-    //    NSLog(@"rotation: %g; sign: %g; rotated: %g; remainder: %g; deltaGestureRotation: %g; velocity: %g; newRotation: %g",
-    //          degrees(sender.rotation),
-    //          copysign(1.0, sender.rotation),
-    //          degrees(sender.rotation + copysign(M_PI, sender.rotation)),
-    //          degrees(remainder(sender.rotation + copysign(M_PI, sender.rotation), 2*M_PI)),
-    //          degrees(deltaGestureRotation),
-    //          sender.velocity,
-    //          newRotation);
-    
-    //    NSLog(@"deltaAngleSteps = %g; deltaAngle = %g;", deltaAngleSteps, degrees(deltaAngle));
+
     return deltaAngle;
 }
 - (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
@@ -828,20 +745,6 @@ static BOOL SIMULTOUCH = NO;
     }
 }
 
--(void) moveEditorHeightTo:(NSInteger)height {
-//    UIView* editorHolderView = self.fractalEditorsHolder;
-//    [editorHolderView removeConstraint: self.fractalEditorsHolderHeightConstraint];
-//    
-//    NSDictionary *views = NSDictionaryOfVariableBindings(editorHolderView);
-//    NSString* formatString = [NSString stringWithFormat:@"V:[editorHolderView(%u)]",height];
-//    NSArray* newConstraints = [NSLayoutConstraint constraintsWithVisualFormat:formatString options:0 metrics:nil views:views];
-//    
-//    self.fractalEditorsHolderHeightConstraint = newConstraints.count > 0 ? [newConstraints objectAtIndex: 0] : nil;
-//    
-//    [editorHolderView addConstraint: self.fractalEditorsHolderHeightConstraint];
-}
-
-
 -(void) updateViewConstraints {
     [super updateViewConstraints];
 }
@@ -857,18 +760,18 @@ static BOOL SIMULTOUCH = NO;
 /*
  from landscape to portrait, move the views after the rotation
  */
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    //NSLog(@"%@", NSStringFromSelector(_cmd));
-        
-    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation) && UIDeviceOrientationIsLandscape(fromInterfaceOrientation)) {
-        
-        [self restorePortraitViewFrames];
-    } else {
-        
-        [self configureLandscapeViewFrames];
-        
-    }
-}
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//    //NSLog(@"%@", NSStringFromSelector(_cmd));
+//        
+//    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation) && UIDeviceOrientationIsLandscape(fromInterfaceOrientation)) {
+//        
+//        [self restorePortraitViewFrames];
+//    } else {
+//        
+//        [self configureLandscapeViewFrames];
+//        
+//    }
+//}
 
 
 #pragma mark - Gesture & Button Actions

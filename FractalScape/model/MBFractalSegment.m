@@ -66,7 +66,6 @@
 -(CGMutablePathRef) path {
     if (_path == NULL) {
         _path = CGPathCreateMutable();
-        CGPathRetain(_path);
     }
     return _path;
 }
@@ -75,6 +74,8 @@
     if (CGPathEqualToPath(_path, path)) return;
     
     CGPathRelease(_path);
+    _path = NULL;
+    
     if (path != NULL) {
         _path = (CGMutablePathRef) CGPathRetain(path);
     }
