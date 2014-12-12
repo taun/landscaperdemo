@@ -213,9 +213,9 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     newBackground.readOnlyView = [cellFractal.isImmutable boolValue];
     cell.backgroundView = newBackground;
     
-    if (self.fractal == cellFractal) {
-        cell.selected = YES;
-    }
+//    if (self.fractal == cellFractal) {
+//        cell.selected = YES;
+//    }
     
     return cell;
 }

@@ -227,6 +227,10 @@
         CGContextRef context = UIGraphicsGetCurrentContext();
         
         NSAssert(context, @"NULL Context being used. Context must be non-null.");
+        MBColor* pageColor = self.fractal.backgroundColor;
+        if (pageColor) {
+            uiColor = [pageColor asUIColor];
+        }
         
         CGContextSaveGState(context);
         UIColor* thumbNailBackground = [UIColor colorWithCGColor: uiColor.CGColor];

@@ -51,6 +51,8 @@ static BOOL SIMULTOUCH = NO;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
 
 @property (nonatomic,weak) UIViewController*        currentPresentedController;
+@property (nonatomic,assign) CGSize                 popoverPortraitSize;
+@property (nonatomic,assign) CGSize                 popoverLandscapeSize;
 
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
@@ -118,6 +120,9 @@ static BOOL SIMULTOUCH = NO;
 
 -(void)viewDidLoad {
     
+    _popoverPortraitSize = CGSizeMake(748.0,350.0);
+    _popoverLandscapeSize = CGSizeMake(400.0,650.0);
+
     [super viewDidLoad];
         
 }
@@ -197,6 +202,26 @@ static BOOL SIMULTOUCH = NO;
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
+}
+
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+    
+    // Could use GLKVector2 but chose not to. This works at the expense of a little verbosity but avoiding adding GLK dependence.
+    CGPoint currentCenter = self.view.center;
+    CGPoint newCenter = CGPointMake(size.width/2.0, size.height/2.0);
+    CGPoint translation = CGPointMake(newCenter.x-currentCenter.x, newCenter.y-currentCenter.y);
+    CGPoint fractalCenter = [[self fractalLevelNLayer] position];
+    CGPoint fractalNewPosition = CGPointMake(fractalCenter.x+translation.x, fractalCenter.y+translation.y);
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        //
+        self.fractalLevelNLayer.position = fractalNewPosition;
+        
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        //
+    }];
+//    subLayer.position = self.fractalView.center;
 }
 
 
@@ -351,16 +376,16 @@ static BOOL SIMULTOUCH = NO;
 -(UIViewController*) appearanceViewController {
     if (_appearanceViewController==nil) {
         MBFractalAppearanceEditorViewController* viewController = (MBFractalAppearanceEditorViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
-        viewController.portraitSize = CGSizeMake(748.0,350.0);
-        viewController.landscapeSize = CGSizeMake(400.0,650.0);
+        viewController.portraitSize = self.popoverPortraitSize;
+        viewController.landscapeSize = self.popoverLandscapeSize;
         viewController.modalPresentationStyle = UIModalPresentationPopover;
-        viewController.popoverPresentationController.passthroughViews = @[self.fractalViewRoot,
-                                                                                     self.fractalViewHolder,
-                                                                                     self.hudViewBackground,
-                                                                                     self.hudLevelStepper,
-                                                                                     self.fractalViewLevel0,
-                                                                                     self.fractalViewLevel1,
-                                                                                     self.fractalViewLevel2];
+        viewController.popoverPresentationController.passthroughViews = @[ self.fractalViewRoot,
+                                                                           self.fractalViewHolder,
+                                                                           self.hudViewBackground,
+                                                                           self.hudLevelStepper,
+                                                                           self.fractalViewLevel0,
+                                                                           self.fractalViewLevel1,
+                                                                           self.fractalViewLevel2];
         viewController.popoverPresentationController.delegate = self;
         _appearanceViewController = viewController;
     }
@@ -492,10 +517,10 @@ static BOOL SIMULTOUCH = NO;
                 generator.fractal = fractal;
             }
         } else {
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" forceLevel: -1];
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" forceLevel: 0];
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" forceLevel: 1];
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel2 name: @"fractalLevel2" forceLevel: 2];
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" margin: 10.0 forceLevel: 0];
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" margin: 10.0 forceLevel: 1];
+            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel2 name: @"fractalLevel2" margin: 10.0 forceLevel: 2];
         }
     }
 }
@@ -519,7 +544,7 @@ static BOOL SIMULTOUCH = NO;
     layerInner.position = CGPointMake(boundsOuter.size.width/2, boundsOuter.size.height/2);
 }
 
--(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel {
+-(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel {
     CALayer* aLayer = [[CALayer alloc] init];
     aLayer.name = name;
     aLayer.needsDisplayOnBoundsChange = YES;
@@ -527,7 +552,7 @@ static BOOL SIMULTOUCH = NO;
     aLayer.drawsAsynchronously = YES;
     aLayer.contentsScale = 2.0 * aView.layer.contentsScale;
     
-    [self fitLayer: aLayer inLayer: aView.layer margin: 10];
+    [self fitLayer: aLayer inLayer: aView.layer margin: margin];
     [aView.layer addSublayer: aLayer];
     
     
@@ -590,6 +615,8 @@ static BOOL SIMULTOUCH = NO;
     MBColor* backgroundColor = self.fractal.backgroundColor;
     if (backgroundColor) {
         self.fractalView.backgroundColor = [backgroundColor asUIColor];
+    } else {
+        self.fractalView.backgroundColor = [UIColor clearColor];
     }
 }
 
@@ -748,31 +775,6 @@ static BOOL SIMULTOUCH = NO;
 -(void) updateViewConstraints {
     [super updateViewConstraints];
 }
-/* 
- For portrait to landscape, move the views before the rotation.
- 
- */
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    //NSLog(@"%@", NSStringFromSelector(_cmd));
-
-}
-
-/*
- from landscape to portrait, move the views after the rotation
- */
-//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-//    //NSLog(@"%@", NSStringFromSelector(_cmd));
-//        
-//    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation) && UIDeviceOrientationIsLandscape(fromInterfaceOrientation)) {
-//        
-//        [self restorePortraitViewFrames];
-//    } else {
-//        
-//        [self configureLandscapeViewFrames];
-//        
-//    }
-//}
-
 
 #pragma mark - Gesture & Button Actions
 // ensure that the pinch, pan and rotate gesture recognizers on a particular view can all recognize simultaneously
@@ -1244,7 +1246,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 - (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender {
     
 }
-
+#pragma message "Unused code"
 - (IBAction)toggleAutoScale:(id)sender {
     UIView* strongFractalView = self.fractalView;
     
@@ -1256,7 +1258,15 @@ static void countPathElements(void *info, const CGPathElement *element) {
             if (generator.autoscale) {
                 // refit view frame and refresh layer
                 strongFractalView.transform = CGAffineTransformIdentity;
-                strongFractalView.frame = self.fractalViewParent.bounds;
+                CGPoint containerOrigin = self.fractalViewParent.bounds.origin;
+                CGSize containerSize = self.fractalViewParent.bounds.size;
+                CGFloat toolbarHeight = 45.0;
+                CGRect boundsMinusToolbar = CGRectMake(containerOrigin.x,
+                                                       (containerOrigin.y + toolbarHeight),
+                                                       containerSize.width,
+                                                       (containerSize.height - toolbarHeight));
+                
+                strongFractalView.frame = boundsMinusToolbar;
             }
         }
     }
