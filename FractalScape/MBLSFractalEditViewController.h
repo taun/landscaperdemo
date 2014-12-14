@@ -106,7 +106,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 #pragma mark - Generation and Display
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo;
 
--(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name forceLevel: (NSInteger) aLevel;
+-(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel;
 -(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin;
 -(void) configureNavButtons;
 -(void) refreshLayers;

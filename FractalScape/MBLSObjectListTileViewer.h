@@ -54,7 +54,6 @@ IB_DESIGNABLE
 
 @property (nonatomic,assign) CGRect                     lastBounds;
 @property (nonatomic,strong) NSLayoutConstraint         *heightConstraint;
-#pragma message "TODO change from array to dictionary with view as key? then check for presence or absence of view before updating constraints"
 @property (nonatomic,strong) NSMapTable                 *itemConstraintsObjectViewMap;
 @property (nonatomic,readonly) NSUInteger               itemsPerLine;
 @property (nonatomic,readonly) NSUInteger               lines;
@@ -93,13 +92,15 @@ IB_DESIGNABLE
 
 @end
 
+@class MDBLSObjectTileView;
+
 /*!
  A class to hold tile constraints so they can be updated as tiles are inserted/removed and transposed.
  Holding the constraints and changing the constraint constants allows the movements to be animated.
  */
 @interface MDBListItemConstraints : NSObject
 
-@property (nonatomic,strong) id<MDBTileObjectProtocol> view;
+@property (nonatomic,strong) MDBLSObjectTileView* view;
 /*!
  The horizontal constraint. Specified from the container left boundary for each tile.
  This facilitates moving tiles by changing the constraint constant and updating the layout.
@@ -111,8 +112,8 @@ IB_DESIGNABLE
  */
 @property (nonatomic,strong) NSLayoutConstraint     *vConstraint;
 
-+(instancetype) newItemView: (id<MDBTileObjectProtocol>) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
--(instancetype) initWithView: (id<MDBTileObjectProtocol>) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
++(instancetype) newItemView: (MDBLSObjectTileView*) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
+-(instancetype) initWithView: (MDBLSObjectTileView*) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc;
 @end
 
 /*!

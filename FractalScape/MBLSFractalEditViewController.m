@@ -68,7 +68,6 @@ static BOOL SIMULTOUCH = NO;
 
 //-(void) setEditMode: (BOOL) editing;
 -(void) updateViewsForEditMode: (BOOL) editing;
--(void) moveEditorHeightTo: (NSInteger) height;
 -(void) fullScreenOn;
 -(void) fullScreenOff;
 
@@ -145,7 +144,6 @@ static BOOL SIMULTOUCH = NO;
  
  */
 -(void) viewWillLayoutSubviews {
-    //    [self updateViewsForEditMode: self.editing];
     [super viewWillLayoutSubviews];
 }
 
@@ -232,8 +230,6 @@ static BOOL SIMULTOUCH = NO;
                        options:UIViewAnimationOptionCurveEaseInOut
                     animations:^{ [self updateViewsForEditMode: editing]; }
                     completion:^(BOOL finished){ [self autoScale:nil]; }];
-    
-    //    [self updateViewsForEditMode: editing];
     
     [super setEditing:editing animated:animated];
     

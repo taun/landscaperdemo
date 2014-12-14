@@ -519,11 +519,11 @@
 
 @implementation MDBListItemConstraints
 
-+(instancetype) newItemView: (id<MDBTileObjectProtocol>) view hConstraint:(NSLayoutConstraint *)hc vConstraint:(NSLayoutConstraint *)vc {
++(instancetype) newItemView: (MDBLSObjectTileView*) view hConstraint:(NSLayoutConstraint *)hc vConstraint:(NSLayoutConstraint *)vc {
     return [[self alloc] initWithView: view hConstraint: hc vConstraint: vc];
 }
 
--(instancetype) initWithView: (id<MDBTileObjectProtocol>) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc {
+-(instancetype) initWithView: (MDBLSObjectTileView*) view hConstraint: (NSLayoutConstraint*) hc vConstraint: (NSLayoutConstraint*) vc {
     self = [super init];
     if (self) {
         _view = view;
