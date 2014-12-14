@@ -89,7 +89,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
         NSArray* sortDescriptors = @[catSortDescriptor, nameSortDescriptor];
         [fetchRequest setSortDescriptors: sortDescriptors];
         
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: fractalContext sectionNameKeyPath: @"category" cacheName: @"root"];
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: fractalContext sectionNameKeyPath: @"category" cacheName: nil];
 
         _fetchedResultsController.delegate = self;
         

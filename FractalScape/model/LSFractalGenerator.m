@@ -648,8 +648,10 @@
         [_finishedSegments removeAllObjects];
         _finishedSegments = nil;
 
-        for (MBFractalSegment* segment in _segmentStack) {
-            [segment setPath: NULL];
+        for (NSArray* segmentArray in _segmentStack) {
+            for (MBFractalSegment* segment in segmentArray) {
+                [segment setPath: NULL];
+            }
         }
         [_segmentStack removeAllObjects];
         _segmentStack = nil;
@@ -717,6 +719,8 @@
         NSString* key;
         NSString* replacement;
         
+        
+        // Replace each character for this level
         for (int y=0; y < sourceLength; y++) {
             //
             key = [sourceData substringWithRange: NSMakeRange(y, 1)];

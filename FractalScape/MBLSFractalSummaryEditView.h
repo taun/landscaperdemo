@@ -13,7 +13,10 @@
 IB_DESIGNABLE
 
 
-@interface MBLSFractalSummaryEditViewer : UIView <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface MBLSFractalSummaryEditViewer : UIView <UIPickerViewDataSource,
+                                                    UIPickerViewDelegate,
+                                                    UITextFieldDelegate,
+                                                    UITextViewDelegate>
 
 @property (nonatomic,strong) LSFractal              *fractal;
 @property (nonatomic,strong) UITextField            *name;

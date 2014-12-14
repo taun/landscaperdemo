@@ -32,6 +32,7 @@
 
 -(void) setupSubviews {
     _name = [[UITextField alloc] initWithFrame: CGRectMake(10, 10, 220, 44)];
+    _name.delegate = self;
 #if TARGET_INTERFACE_BUILDER
     _name.text = @"Just testing";
 #endif
@@ -55,6 +56,7 @@
     [self addSubview: textViewBox];
     
     _descriptor = [[UITextView alloc] initWithFrame: CGRectMake(0, 0, 120, 88)];
+    _descriptor.delegate = self;
 #if TARGET_INTERFACE_BUILDER
     _descriptor.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 #endif
@@ -103,6 +105,18 @@
     NSInteger categoryIndex = [[self.fractal allCategories] indexOfObject: self.fractal.category];
     [_category reloadAllComponents];
     [_category selectRow: categoryIndex inComponent: 0 animated: YES];
+}
+#pragma mark - UITextFieldDelegate
+-(void) textFieldDidEndEditing:(UITextField *)textField {
+    if (textField == _name) {
+        self.fractal.name = textField.text;
+    }
+}
+#pragma mark - UITextViewDelegate
+-(void) textViewDidEndEditing:(UITextView *)textView {
+    if (textView == _descriptor) {
+        self.fractal.descriptor = textView.text;
+    }
 }
 
 #pragma mark - UIPickerSource
