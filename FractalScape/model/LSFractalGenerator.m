@@ -909,12 +909,14 @@
 
 #pragma message "TODO: implement openPolygon"
 -(void) commandOpenPolygon {
-    
+    [self commandPush];
+    [self commandStrokeOff];
+    [self commandFillOn];
 }
 
 #pragma message "TODO: implement closePolygon"
 -(void) commandClosePolygon {
-    
+    [self commandPop];
 }
 #pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
 -(void) commandUpscaleLineLength {

@@ -374,6 +374,7 @@ static BOOL SIMULTOUCH = NO;
         MBFractalAppearanceEditorViewController* viewController = (MBFractalAppearanceEditorViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
         viewController.portraitSize = self.popoverPortraitSize;
         viewController.landscapeSize = self.popoverLandscapeSize;
+
         viewController.modalPresentationStyle = UIModalPresentationPopover;
         viewController.popoverPresentationController.passthroughViews = @[ self.fractalViewRoot,
                                                                            self.fractalViewHolder,
@@ -385,6 +386,16 @@ static BOOL SIMULTOUCH = NO;
         viewController.popoverPresentationController.delegate = self;
         _appearanceViewController = viewController;
     }
+
+    CGSize viewSize = self.view.bounds.size;
+    if (viewSize.height > viewSize.width) {
+        // portrait
+        _appearanceViewController.preferredContentSize = _appearanceViewController.portraitSize;
+    } else {
+        // landscape
+        _appearanceViewController.preferredContentSize = _appearanceViewController.landscapeSize;
+    }
+
     return _appearanceViewController;
 }
 

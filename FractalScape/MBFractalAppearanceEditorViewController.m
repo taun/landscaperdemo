@@ -24,23 +24,23 @@
 }
 -(void) viewWillAppear:(BOOL)animated {
 
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    if (orientation == UIDeviceOrientationUnknown) {
-        self.preferredContentSize = _portraitSize;
-    } else if (orientation == UIDeviceOrientationPortrait) {
-        self.preferredContentSize = _portraitSize;
-    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
-        self.preferredContentSize = _portraitSize;
-    } else if (orientation == UIDeviceOrientationLandscapeLeft) {
-        self.preferredContentSize = _landscapeSize;
-    } else if (orientation == UIDeviceOrientationLandscapeRight) {
-        self.preferredContentSize = _landscapeSize;
-    } else if (orientation == UIDeviceOrientationFaceUp) {
-        self.preferredContentSize = _portraitSize;
-    } else if (orientation == UIDeviceOrientationFaceDown) {
-        self.preferredContentSize = _portraitSize;
-    }
-    
+//    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+//    if (orientation == UIDeviceOrientationUnknown) {
+//        self.preferredContentSize = _portraitSize;
+//    } else if (orientation == UIDeviceOrientationPortrait) {
+//        self.preferredContentSize = _portraitSize;
+//    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+//        self.preferredContentSize = _portraitSize;
+//    } else if (orientation == UIDeviceOrientationLandscapeLeft) {
+//        self.preferredContentSize = _landscapeSize;
+//    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+//        self.preferredContentSize = _landscapeSize;
+//    } else if (orientation == UIDeviceOrientationFaceUp) {
+//        self.preferredContentSize = _portraitSize;
+//    } else if (orientation == UIDeviceOrientationFaceDown) {
+//        self.preferredContentSize = _portraitSize;
+//    }
+//    
     
     [super viewWillAppear:animated];
 }
@@ -65,6 +65,7 @@
     } else {
         self.preferredContentSize = _portraitSize;
     }
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 #pragma mark - TabBarDelegateProtocol
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
