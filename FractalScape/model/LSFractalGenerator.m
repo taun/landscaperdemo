@@ -899,6 +899,16 @@
 -(void) commandReverseDirection {
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, M_PI);
 }
+-(void) commandCurveC {
+    [self commandCurvePoint];
+    [self commandRotateC];
+    [self commandDrawLine];
+}
+-(void) commandCurveCC {
+    [self commandCurvePoint];
+    [self commandRotateCC];
+    [self commandDrawLine];
+}
 -(void) commandCurvePoint {
     self.previousNode = CGPathGetCurrentPoint(self.currentSegment.path);
 

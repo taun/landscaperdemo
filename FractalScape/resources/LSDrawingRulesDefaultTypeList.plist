@@ -414,6 +414,26 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleCurvePoint</string>
 		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Insert a clockwise curve</string>
+			<key>productionString</key>
+			<string>`</string>
+			<key>drawingMethodString</key>
+			<string>commandCurveC</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleCurveC</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Insert a counterclockwise curve</string>
+			<key>productionString</key>
+			<string>,</string>
+			<key>drawingMethodString</key>
+			<string>commandCurveCC</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleCurveCC</string>
+		</dict>
 	</array>
 	<key>ruleType</key>
 	<dict>

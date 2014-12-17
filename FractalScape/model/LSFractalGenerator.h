@@ -31,6 +31,8 @@
 18   ( :  Decrement turning angle by turning angle increment
 19   ) :  Increment turning angle by turning angle increment
      . ;  Insert a curve point node
+     , ;  Insert a curve CC
+     ` ;  Insert a curve C
      
     Added adhoc rules for more flexibility:
 20   s :  turn context stroke off - overrides global per context. push [s ...] context first
@@ -257,5 +259,7 @@
 -(void) commandLineCapRound;
 -(void) commandLineCapSquare;
 -(void) commandCurvePoint;
+-(void) commandCurveCC;
+-(void) commandCurveC;
 
 @end

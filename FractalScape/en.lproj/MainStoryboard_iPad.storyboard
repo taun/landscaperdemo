@@ -785,6 +785,7 @@
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="RmA-6C-sNQ" appends="YES" id="Fkt-K3-gX9"/>
                                                             <outletCollection property="gestureRecognizers" destination="Boe-Sd-3Hq" appends="YES" id="NaA-zl-tSV"/>
+                                                            <outletCollection property="gestureRecognizers" destination="h8l-YQ-mPR" appends="YES" id="tY5-fZ-aar"/>
                                                         </connections>
                                                     </view>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
@@ -962,6 +963,11 @@
                         <action selector="replacementTapGesture:" destination="bDY-89-tKS" id="58n-VN-syb"/>
                     </connections>
                 </tapGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="h8l-YQ-mPR">
+                    <connections>
+                        <action selector="replacementSwipeGesture:" destination="bDY-89-tKS" id="Sty-SG-dft"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="6768" y="-176"/>
         </scene>
