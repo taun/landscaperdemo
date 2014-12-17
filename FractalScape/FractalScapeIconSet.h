@@ -119,9 +119,9 @@
 + (void)drawKCGLineCapSquareIcon;
 + (void)drawKCGLineCapRoundIcon;
 + (void)drawKCGLineCapButtIcon;
-+ (void)drawKCGLineJoinBevelIcon;
-+ (void)drawKCGLineJoinRoundIcon;
 + (void)drawKCGLineJoinMiterIcon;
++ (void)drawKCGLineJoinRoundIcon;
++ (void)drawKCGLineJoinBevelIcon;
 + (void)drawControlDragCircle;
 
 // Generated Images

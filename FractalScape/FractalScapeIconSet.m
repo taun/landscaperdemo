@@ -773,6 +773,8 @@ static UIImage* _imageOfIPad2x = nil;
     [polygon2Path addLineToPoint: CGPointMake(10.01, 35.66)];
     [polygon2Path addLineToPoint: CGPointMake(3.83, 16.09)];
     [polygon2Path closePath];
+    [FractalScapeIconSet.white5050 setFill];
+    [polygon2Path fill];
     [FractalScapeIconSet.white5050 setStroke];
     polygon2Path.lineWidth = 1;
     [polygon2Path stroke];
@@ -784,6 +786,8 @@ static UIImage* _imageOfIPad2x = nil;
     [polygonPath addLineToPoint: CGPointMake(10.01, 35.66)];
     [polygonPath addLineToPoint: CGPointMake(3.83, 16.09)];
     [polygonPath addLineToPoint: CGPointMake(20, 4)];
+    [FractalScapeIconSet.symbolFillColor setFill];
+    [polygonPath fill];
     [FractalScapeIconSet.symbolFillColor setStroke];
     polygonPath.lineWidth = 1;
     [polygonPath stroke];
@@ -802,6 +806,8 @@ static UIImage* _imageOfIPad2x = nil;
     [polygon2Path addLineToPoint: CGPointMake(10.01, 35.66)];
     [polygon2Path addLineToPoint: CGPointMake(3.83, 16.09)];
     [polygon2Path closePath];
+    [FractalScapeIconSet.white5050 setFill];
+    [polygon2Path fill];
     [FractalScapeIconSet.white5050 setStroke];
     polygon2Path.lineWidth = 1;
     [polygon2Path stroke];
@@ -817,6 +823,8 @@ static UIImage* _imageOfIPad2x = nil;
     [polygonPath addLineToPoint: CGPointMake(6.18, 31.66)];
     [polygonPath addLineToPoint: CGPointMake(0, 12.09)];
     [polygonPath addLineToPoint: CGPointMake(16.17, 0)];
+    [FractalScapeIconSet.symbolFillColor setFill];
+    [polygonPath fill];
     [FractalScapeIconSet.symbolFillColor setStroke];
     polygonPath.lineWidth = 1;
     [polygonPath stroke];
@@ -2549,7 +2557,7 @@ static UIImage* _imageOfIPad2x = nil;
     [bezierPath fill];
 }
 
-+ (void)drawKCGLineJoinBevelIcon
++ (void)drawKCGLineJoinMiterIcon
 {
 
     //// Bezier 2 Drawing
@@ -2681,7 +2689,7 @@ static UIImage* _imageOfIPad2x = nil;
     [bezier2Path fill];
 }
 
-+ (void)drawKCGLineJoinMiterIcon
++ (void)drawKCGLineJoinBevelIcon
 {
 
     //// Bezier 3 Drawing

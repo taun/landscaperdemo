@@ -46,6 +46,9 @@
 
 @property (nonatomic,assign) BOOL                   cachedEoFill;
 
+@property (nonatomic,assign) BOOL                   controlPointOn;
+@property (nonatomic,assign) CGPoint                controlPointNode;
+@property (nonatomic,assign) CGPoint                previousNode;
 
 
 @property (nonatomic,strong) UIImage*               cachedImage;
@@ -87,6 +90,7 @@
         _translate = CGPointMake(0.0, 0.0);
         _bounds = CGRectZero;
         _defaultColor = [UIColor blueColor];
+        _controlPointOn = NO;
     }
     return self;
 }
@@ -766,6 +770,8 @@
 -(void) generatePaths {
     if (self.pathNeedsGenerating) {
         
+        self.controlPointNode = CGPointMake(0.0, 0.0);
+        
         CGPathMoveToPoint(self.currentSegment.path, NULL, 0.0f, 0.0f);
         
         double startingRotation;
@@ -824,14 +830,14 @@
 
 -(void) drawCircle: (double) radius {
     CGAffineTransform local = self.currentSegment.transform;
-    CGPathAddEllipseInRect(self.currentSegment.path, &local, CGRectMake(0, -radius, radius*2.0, radius*2.0));
-    CGPathMoveToPoint(self.currentSegment.path, &local, radius*2, 0);
+    CGPathAddEllipseInRect(self.currentSegment.path, &local, CGRectMake(0.0, -radius, radius*2.0, radius*2.0));
+    CGPathMoveToPoint(self.currentSegment.path, &local, radius*2.0, 0.0);
 }
 
 -(void) drawSquare: (double) width {
     CGAffineTransform local = self.currentSegment.transform;
-    CGPathAddRect(self.currentSegment.path, &local, CGRectMake(0, -width/2.0, width, width));
-    CGPathMoveToPoint(self.currentSegment.path, &local, 0, 0);
+    CGPathAddRect(self.currentSegment.path, &local, CGRectMake(0.0, -width/2.0, width, width));
+    CGPathMoveToPoint(self.currentSegment.path, &local, 0.0, 0.0);
 }
 
 #pragma mark Public Rule Methods
@@ -842,22 +848,42 @@
 -(void) commandDrawLine {
     double tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
-    CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0);
-    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
+
+    if (self.controlPointOn) {
+        CGAffineTransform inverted = CGAffineTransformInvert(local);
+        CGPoint p1 = CGPointApplyAffineTransform(self.previousNode, inverted);
+        CGPoint cp0 = CGPointApplyAffineTransform(self.controlPointNode, inverted);
+//        CGPoint cp1 = 
+        CGPathAddCurveToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
+        self.controlPointOn = NO;
+    } else {
+        CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0.0);
+    }
+    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0);
 }
 
 -(void) commandDrawLineVarLength {
     double tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
-    CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0);
-    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
+
+    if (self.controlPointOn) {
+        CGAffineTransform inverted = CGAffineTransformInvert(local);
+        CGPoint p1 = CGPointApplyAffineTransform(self.previousNode, inverted);
+        CGPoint cp0 = CGPointApplyAffineTransform(self.controlPointNode, inverted);
+        //        CGPoint cp1 =
+        CGPathAddCurveToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
+        self.controlPointOn = NO;
+    } else {
+        CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0.0);
+    }
+    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0);
 }
 
 -(void) commandMoveByLine {
     double tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
-    CGPathMoveToPoint(self.currentSegment.path, &local, tx, 0);
-    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0f);
+    CGPathMoveToPoint(self.currentSegment.path, &local, tx, 0.0);
+    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0);
 }
 
 -(void) commandRotateCC {
@@ -872,6 +898,17 @@
 
 -(void) commandReverseDirection {
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, M_PI);
+}
+-(void) commandCurvePoint {
+    self.previousNode = CGPathGetCurrentPoint(self.currentSegment.path);
+
+    double tx = self.currentSegment.lineLength;
+    self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0);
+    
+    CGAffineTransform local = self.currentSegment.transform;
+    
+    self.controlPointNode = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), local);
+    self.controlPointOn = YES;
 }
 
 -(void) commandPush {

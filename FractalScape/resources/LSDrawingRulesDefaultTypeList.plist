@@ -404,6 +404,16 @@
 			<key>iconIdentifierString</key>
 			<string>kCGLineJoinBevelIcon</string>
 		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Insert a curve node</string>
+			<key>productionString</key>
+			<string>.</string>
+			<key>drawingMethodString</key>
+			<string>commandCurvePoint</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleCurvePoint</string>
+		</dict>
 	</array>
 	<key>ruleType</key>
 	<dict>
