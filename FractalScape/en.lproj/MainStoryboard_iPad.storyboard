@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--FractalName-->
@@ -183,7 +184,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="432" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal">
@@ -274,7 +275,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="262" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal">
@@ -365,7 +366,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="92" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal">
@@ -699,8 +700,8 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="451"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
+                                            <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                                <rect key="frame" x="0.0" y="0.0" width="800" height="405"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
                                                         <rect key="frame" x="10" y="8" width="780" height="337"/>
@@ -717,7 +718,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="244" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="244" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
                                                         <rect key="frame" x="10" y="8" width="780" height="116"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -735,12 +736,12 @@
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
                                                         <rect key="frame" x="72" y="138" width="708" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="44" id="uVn-wE-dxO"/>
+                                                            <constraint firstAttribute="height" priority="250" constant="44" id="uVn-wE-dxO"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
@@ -791,7 +792,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="48" placeholder="YES" id="HqG-RB-WEJ"/>
+                                                            <constraint firstAttribute="height" priority="250" constant="48" placeholder="YES" id="HqG-RB-WEJ"/>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="KJl-lS-bto"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -831,7 +832,7 @@
                                                     <constraint firstItem="zPi-Ea-Cqu" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="20" symbolic="YES" id="oOw-qP-mac"/>
                                                     <constraint firstItem="1Sj-KC-aPt" firstAttribute="top" secondItem="4f0-9f-h9I" secondAttribute="top" constant="8" id="pol-5e-DtZ"/>
                                                     <constraint firstItem="JJQ-Ty-aAw" firstAttribute="top" secondItem="Zw0-gp-nOl" secondAttribute="bottom" constant="14" id="uVU-pa-QoR"/>
-                                                    <constraint firstAttribute="height" constant="500" placeholder="YES" id="v7K-av-6xt"/>
+                                                    <constraint firstAttribute="height" priority="250" constant="500" placeholder="YES" id="v7K-av-6xt"/>
                                                     <constraint firstItem="eki-f5-HFG" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="20" id="wrn-Zw-8a5"/>
                                                 </constraints>
                                             </view>
@@ -986,7 +987,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" customClass="MDBColorCategoriesListView">
-                                                        <rect key="frame" x="0.0" y="100" width="400" height="351"/>
+                                                        <rect key="frame" x="20" y="140" width="360" height="291"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1007,11 +1008,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="top" secondItem="SrT-kZ-Fno" secondAttribute="top" constant="100" id="HIZ-NY-NnN"/>
-                                                    <constraint firstAttribute="bottom" secondItem="uMw-Vl-Ltb" secondAttribute="bottom" id="Sks-jf-sWb"/>
+                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="top" secondItem="SrT-kZ-Fno" secondAttribute="top" constant="140" placeholder="YES" id="7cO-em-wTD"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uMw-Vl-Ltb" secondAttribute="bottom" constant="20" symbolic="YES" id="Sks-jf-sWb"/>
                                                     <constraint firstAttribute="height" constant="451" placeholder="YES" id="UBc-Lj-NFn"/>
-                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="leading" secondItem="SrT-kZ-Fno" secondAttribute="leading" id="eD0-ip-KoO"/>
-                                                    <constraint firstAttribute="trailing" secondItem="uMw-Vl-Ltb" secondAttribute="trailing" id="iwd-4y-zU8"/>
+                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="leading" secondItem="SrT-kZ-Fno" secondAttribute="leading" constant="20" symbolic="YES" id="eD0-ip-KoO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uMw-Vl-Ltb" secondAttribute="trailing" constant="20" symbolic="YES" id="iwd-4y-zU8"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -1032,16 +1033,16 @@
                                     <constraint firstItem="4QD-IE-s5T" firstAttribute="leading" secondItem="HCL-AF-c5r" secondAttribute="leading" id="yqg-Lg-rbv"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TLs-EA-bzv">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
+                                        <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                                             <subviews>
-                                                <view opaque="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
+                                                <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="p60-hJ-K77"/>
@@ -1056,19 +1057,22 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
+                                                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
                                                     <rect key="frame" x="48" y="0.0" width="352" height="100"/>
                                                     <subviews>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
                                                             <rect key="frame" x="4" y="11" width="28" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="y20-fS-x0U" secondAttribute="height" id="Xig-yr-55y"/>
                                                                 <constraint firstAttribute="width" constant="28" id="dAT-Ct-OMY"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <view opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MBLSObjectListTileViewer">
+                                                        <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MBLSObjectListTileViewer">
                                                             <rect key="frame" x="40" y="4" width="308" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="250" constant="42" id="Hb2-gw-2Pm"/>
+                                                            </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
                                                                     <real key="value" value="28"/>
@@ -1084,7 +1088,7 @@
                                                                 <outletCollection property="gestureRecognizers" destination="Un1-kk-Y9t" appends="YES" id="ifb-J8-Wa7"/>
                                                             </connections>
                                                         </view>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
                                                             <rect key="frame" x="4" y="57" width="28" height="28"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -1092,9 +1096,12 @@
                                                                 <constraint firstAttribute="width" constant="28" id="qFI-t7-50E"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <view opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MBLSObjectListTileViewer">
+                                                        <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MBLSObjectListTileViewer">
                                                             <rect key="frame" x="40" y="50" width="308" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="250" constant="42" id="VPJ-6d-gLU"/>
+                                                            </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
                                                                     <real key="value" value="28"/>
@@ -1116,13 +1123,14 @@
                                                         <constraint firstAttribute="trailing" secondItem="JuG-Zf-Vvp" secondAttribute="trailing" constant="4" id="32u-l3-yFT"/>
                                                         <constraint firstItem="bZN-MH-WtZ" firstAttribute="centerY" secondItem="sUp-Wy-sYl" secondAttribute="centerY" id="3FI-KR-5hf"/>
                                                         <constraint firstItem="JuG-Zf-Vvp" firstAttribute="top" secondItem="maa-lX-Faf" secondAttribute="top" constant="4" id="9Dr-PC-0wL"/>
+                                                        <constraint firstAttribute="bottom" secondItem="bZN-MH-WtZ" secondAttribute="bottom" constant="8" id="JBp-4s-XXn"/>
                                                         <constraint firstItem="JuG-Zf-Vvp" firstAttribute="leading" secondItem="bZN-MH-WtZ" secondAttribute="leading" id="JLy-Kf-Kkd"/>
                                                         <constraint firstItem="y20-fS-x0U" firstAttribute="centerY" secondItem="JuG-Zf-Vvp" secondAttribute="centerY" id="K1D-0y-WPZ"/>
                                                         <constraint firstItem="JuG-Zf-Vvp" firstAttribute="leading" secondItem="bZN-MH-WtZ" secondAttribute="leading" id="N6d-UM-Vpk"/>
                                                         <constraint firstItem="JuG-Zf-Vvp" firstAttribute="width" secondItem="bZN-MH-WtZ" secondAttribute="width" id="S8n-b9-pX3"/>
                                                         <constraint firstItem="y20-fS-x0U" firstAttribute="centerX" secondItem="sUp-Wy-sYl" secondAttribute="centerX" id="jxn-Ba-8pI"/>
                                                         <constraint firstItem="JuG-Zf-Vvp" firstAttribute="leading" secondItem="y20-fS-x0U" secondAttribute="trailing" constant="8" symbolic="YES" id="lYP-94-cQ5"/>
-                                                        <constraint firstAttribute="height" constant="100" id="n74-Ao-CGb"/>
+                                                        <constraint firstAttribute="height" priority="250" constant="100" placeholder="YES" id="n74-Ao-CGb"/>
                                                         <constraint firstItem="y20-fS-x0U" firstAttribute="centerX" secondItem="sUp-Wy-sYl" secondAttribute="centerX" id="qmA-h7-UwU"/>
                                                         <constraint firstItem="bZN-MH-WtZ" firstAttribute="top" secondItem="JuG-Zf-Vvp" secondAttribute="bottom" constant="4" id="yku-Hc-gNh"/>
                                                     </constraints>
@@ -1150,6 +1158,7 @@
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="top" secondItem="maa-lX-Faf" secondAttribute="top" id="Gdn-WN-ALB"/>
                                                 <constraint firstAttribute="bottom" secondItem="HMf-cF-wSc" secondAttribute="bottom" id="Oih-dm-2E0"/>
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="leading" secondItem="9ba-HM-kSK" secondAttribute="leading" id="b8m-g2-GLO"/>
+                                                <constraint firstAttribute="bottom" secondItem="maa-lX-Faf" secondAttribute="bottom" id="iX2-Te-Q33"/>
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="top" secondItem="9ba-HM-kSK" secondAttribute="top" id="ufE-FT-gqu"/>
                                                 <constraint firstItem="maa-lX-Faf" firstAttribute="leading" secondItem="HMf-cF-wSc" secondAttribute="trailing" constant="4" id="wBF-OS-o2o"/>
                                             </constraints>
@@ -1157,12 +1166,13 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="9ba-HM-kSK" firstAttribute="leading" secondItem="TLs-EA-bzv" secondAttribute="leading" id="SXT-AS-2mm"/>
+                                        <constraint firstAttribute="bottom" secondItem="9ba-HM-kSK" secondAttribute="bottom" id="bkS-BO-x6u"/>
                                         <constraint firstAttribute="trailing" secondItem="9ba-HM-kSK" secondAttribute="trailing" id="co4-38-14h"/>
                                         <constraint firstItem="9ba-HM-kSK" firstAttribute="top" secondItem="TLs-EA-bzv" secondAttribute="top" id="rfv-Gu-Q0N"/>
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="MBs-MG-wJS"/>
+                                    <constraint firstAttribute="height" priority="250" constant="100" id="MBs-MG-wJS"/>
                                 </constraints>
                                 <blurEffect style="light"/>
                             </visualEffectView>
@@ -1171,8 +1181,8 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="HCL-AF-c5r" firstAttribute="top" secondItem="EQP-8Z-UFL" secondAttribute="bottom" id="6UJ-C4-9Ra"/>
+                            <constraint firstItem="jQ1-fw-lLr" firstAttribute="top" secondItem="oO7-yh-6s1" secondAttribute="topMargin" id="EzK-IS-qBw"/>
                             <constraint firstItem="HCL-AF-c5r" firstAttribute="leading" secondItem="oO7-yh-6s1" secondAttribute="leading" id="QaJ-LZ-XBJ"/>
-                            <constraint firstItem="jQ1-fw-lLr" firstAttribute="top" secondItem="EQP-8Z-UFL" secondAttribute="bottom" id="YtE-un-53J"/>
                             <constraint firstItem="CdH-Y3-gp7" firstAttribute="top" secondItem="HCL-AF-c5r" secondAttribute="bottom" id="ZD5-GS-Jvk"/>
                             <constraint firstItem="jQ1-fw-lLr" firstAttribute="leading" secondItem="oO7-yh-6s1" secondAttribute="leading" id="cdL-31-2Wh"/>
                             <constraint firstAttribute="trailing" secondItem="jQ1-fw-lLr" secondAttribute="trailing" id="sdX-iH-mOm"/>
@@ -1192,6 +1202,7 @@
                         <outlet property="pageColorDestinationTileView" destination="HMf-cF-wSc" id="aR6-AN-WjS"/>
                         <outlet property="scrollView" destination="4QD-IE-s5T" id="kg7-RI-thB"/>
                         <outlet property="sourceListView" destination="uMw-Vl-Ltb" id="SM8-VP-lQh"/>
+                        <outlet property="visualEffectView" destination="jQ1-fw-lLr" id="pC7-YE-4YL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>

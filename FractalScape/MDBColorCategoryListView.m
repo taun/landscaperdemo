@@ -97,6 +97,14 @@
     //    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_separator]-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[_categoryLabel]-[_colorListView]-6-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
     
+    [self addConstraint: [NSLayoutConstraint constraintWithItem: _categoryLabel
+                                                      attribute: NSLayoutAttributeCenterX
+                                                      relatedBy: NSLayoutRelationEqual
+                                                         toItem: self
+                                                      attribute: NSLayoutAttributeCenterX
+                                                     multiplier: 1.0
+                                                       constant: 0.0]];
+    
     [_colorListView setContentHuggingPriority: UILayoutPriorityDefaultLow - 1 forAxis: UILayoutConstraintAxisHorizontal];
     [_colorListView setContentCompressionResistancePriority: UILayoutPriorityFittingSizeLevel forAxis: UILayoutConstraintAxisHorizontal];
     [_colorListView setNeedsUpdateConstraints];

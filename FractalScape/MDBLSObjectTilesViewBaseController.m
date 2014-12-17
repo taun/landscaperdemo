@@ -34,6 +34,13 @@
     // Do any additional setup after loading the view.
     [self configureParallax];
 }
+-(void) viewWillLayoutSubviews {
+//    [self.sourceListView setNeedsUpdateConstraints];
+    [self.sourceListView setNeedsLayout];
+//    [self.destinationView setNeedsUpdateConstraints];
+    [self.destinationView setNeedsLayout];
+    [super viewWillLayoutSubviews];
+}
 -(void) configureParallax {
     //    {
     //        UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];

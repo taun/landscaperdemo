@@ -149,7 +149,7 @@
 }
 
 -(NSUInteger) itemsPerLine {
-    NSUInteger itemsPerLine = floorf(self.bounds.size.width / (_tileWidth+_tileMargin));
+    NSUInteger itemsPerLine = floorf((self.bounds.size.width - self.outlineMargin*2.0) / (_tileWidth+_tileMargin));
     
     if (itemsPerLine == 0) {
         itemsPerLine = 1;
@@ -176,7 +176,7 @@
     
     NSUInteger itemsPerLine = self.itemsPerLine;
     
-    NSUInteger widthMargin = _justify ? (self.bounds.size.width - (itemsPerLine * _tileWidth)) / (itemsPerLine-1) : _tileMargin;
+    NSUInteger widthMargin = _justify ? (self.bounds.size.width - 2.0*self.outlineMargin - (itemsPerLine * _tileWidth)) / (itemsPerLine-1) : _tileMargin;
 
     NSUInteger lineNumber = floorf((float)index/(float)itemsPerLine);
     
