@@ -56,11 +56,11 @@
                                                 <rect key="frame" x="688" y="923" width="60" height="37"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
-                                                        <rect key="frame" x="0.0" y="6" width="60" height="25"/>
+                                                        <rect key="frame" x="0.0" y="3" width="60" height="31"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="YFf-52-wrK"/>
-                                                            <constraint firstAttribute="height" constant="25" id="s1d-sA-4aU"/>
+                                                            <constraint firstAttribute="height" constant="31" id="s1d-sA-4aU"/>
                                                         </constraints>
                                                         <size key="titleShadowOffset" width="0.0" height="2"/>
                                                         <state key="normal" image="tabBarRulesIcon">
@@ -74,8 +74,8 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="X2L-iC-acQ" secondAttribute="bottom" constant="6" id="Cd6-g2-wPd"/>
-                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="6" id="LaG-r5-4ck"/>
+                                                    <constraint firstAttribute="bottom" secondItem="X2L-iC-acQ" secondAttribute="bottom" constant="3" id="Cd6-g2-wPd"/>
+                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="3" id="LaG-r5-4ck"/>
                                                     <constraint firstAttribute="trailing" secondItem="X2L-iC-acQ" secondAttribute="trailing" id="hS5-Rm-snq"/>
                                                     <constraint firstItem="X2L-iC-acQ" firstAttribute="leading" secondItem="SdO-1x-rjL" secondAttribute="leading" id="xCj-kA-f3t"/>
                                                 </constraints>
@@ -93,7 +93,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="10" y="30" width="307.5" height="39"/>
+                                                <rect key="frame" x="10" y="20" width="307.5" height="39"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
                                                         <rect key="frame" x="5" y="5" width="297.5" height="29"/>
@@ -185,7 +185,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="432" width="296" height="156"/>
+                                                <rect key="frame" x="12" y="412" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -276,7 +276,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="262" width="296" height="156"/>
+                                                <rect key="frame" x="12" y="242" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -367,7 +367,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="92" width="296" height="156"/>
+                                                <rect key="frame" x="12" y="72" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -465,7 +465,7 @@
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="0nq-ro-qdw"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
-                                            <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="30" id="5dp-ny-2EX"/>
+                                            <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="20" id="5dp-ny-2EX"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="height" secondItem="wmh-En-OwM" secondAttribute="height" id="GDc-sq-pmy"/>
                                             <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="4" id="H3F-eo-44g"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
@@ -479,7 +479,7 @@
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="i9u-dn-N5F"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="height" secondItem="dJU-MH-ihA" secondAttribute="height" id="jrp-ld-dDR"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="top" secondItem="dJU-MH-ihA" secondAttribute="bottom" constant="10" id="tjp-aS-CJK"/>
-                                            <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="90" id="xaH-sh-hHq"/>
+                                            <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="70" id="xaH-sh-hHq"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -730,7 +730,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
                                                         <rect key="frame" x="20" y="150" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

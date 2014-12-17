@@ -2,58 +2,51 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>rulesArray</key>
+	<key>archivedRulesArray</key>
 	<array>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 1</string>
+			<string>Turn Randomize off.</string>
 			<key>productionString</key>
-			<string>A</string>
+			<string>r</string>
 			<key>drawingMethodString</key>
-			<string>commandDoNothing</string>
+			<string>commandRandomizeOff</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRulePlace0</string>
+			<string>kBIconRuleRandomizeOff</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 2</string>
+			<string>Use the previous stroke color.</string>
 			<key>productionString</key>
-			<string>B</string>
+			<string>b</string>
 			<key>drawingMethodString</key>
-			<string>commandDoNothing</string>
+			<string>commandPreviousColor</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRulePlace1</string>
+			<string>kBIconRulePreviousColor</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 3</string>
+			<string>Use the previous fill color.</string>
 			<key>productionString</key>
-			<string>C</string>
+			<string>d</string>
 			<key>drawingMethodString</key>
-			<string>commandDoNothing</string>
+			<string>commandPreviousFillColor</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRulePlace2</string>
+			<string>kBIconRulePreviousFillColor</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 4</string>
+			<string>Insert a curve node</string>
 			<key>productionString</key>
-			<string>D</string>
+			<string>.</string>
 			<key>drawingMethodString</key>
-			<string>commandDoNothing</string>
+			<string>commandCurvePoint</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRulePlace3</string>
+			<string>kBIconRuleCurvePoint</string>
 		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Placeholder number 5</string>
-			<key>productionString</key>
-			<string>E</string>
-			<key>drawingMethodString</key>
-			<string>commandDoNothing</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRulePlace4</string>
-		</dict>
+	</array>
+	<key>rulesArray</key>
+	<array>
 		<dict>
 			<key>descriptor</key>
 			<string>Draw a straight line of standard length and width.</string>
@@ -86,6 +79,26 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
+			<string>Insert a clockwise curve</string>
+			<key>productionString</key>
+			<string>`</string>
+			<key>drawingMethodString</key>
+			<string>commandCurveC</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleCurveC</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Insert a counterclockwise curve</string>
+			<key>productionString</key>
+			<string>,</string>
+			<key>drawingMethodString</key>
+			<string>commandCurveCC</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleCurveCC</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
 			<string>Rotate left before next move.</string>
 			<key>productionString</key>
 			<string>+</string>
@@ -103,56 +116,6 @@
 			<string>commandRotateC</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleRotateC</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Reverse direction.</string>
-			<key>productionString</key>
-			<string>|</string>
-			<key>drawingMethodString</key>
-			<string>commandReverseDirection</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleReverseDirection</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Save current direction and position.</string>
-			<key>productionString</key>
-			<string>[</string>
-			<key>drawingMethodString</key>
-			<string>commandPush</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRulePush</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Restore last saved direction and position.</string>
-			<key>productionString</key>
-			<string>]</string>
-			<key>drawingMethodString</key>
-			<string>commandPop</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRulePop</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Increase the line width.</string>
-			<key>productionString</key>
-			<string>#</string>
-			<key>drawingMethodString</key>
-			<string>commandIncrementLineWidth</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleIncrementLineWidth</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Decrease the line width</string>
-			<key>productionString</key>
-			<string>!</string>
-			<key>drawingMethodString</key>
-			<string>commandDecrementLineWidth</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleDecrementLineWidth</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
@@ -196,6 +159,56 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
+			<string>Save current direction and position.</string>
+			<key>productionString</key>
+			<string>[</string>
+			<key>drawingMethodString</key>
+			<string>commandPush</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRulePush</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Restore last saved direction and position.</string>
+			<key>productionString</key>
+			<string>]</string>
+			<key>drawingMethodString</key>
+			<string>commandPop</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRulePop</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Reverse direction.</string>
+			<key>productionString</key>
+			<string>|</string>
+			<key>drawingMethodString</key>
+			<string>commandReverseDirection</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleReverseDirection</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Increase the line width.</string>
+			<key>productionString</key>
+			<string>#</string>
+			<key>drawingMethodString</key>
+			<string>commandIncrementLineWidth</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleIncrementLineWidth</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Decrease the line width</string>
+			<key>productionString</key>
+			<string>!</string>
+			<key>drawingMethodString</key>
+			<string>commandDecrementLineWidth</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDecrementLineWidth</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
 			<string>Increase the line length.</string>
 			<key>productionString</key>
 			<string>&lt;</string>
@@ -213,16 +226,6 @@
 			<string>commandDownscaleLineLength</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleDownscaleLineLength</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Swap the meaning of left and right turns.</string>
-			<key>productionString</key>
-			<string>&amp;</string>
-			<key>drawingMethodString</key>
-			<string>commandSwapRotation</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleSwapRotation</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
@@ -246,6 +249,16 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
+			<string>Swap the meaning of left and right turns.</string>
+			<key>productionString</key>
+			<string>&amp;</string>
+			<key>drawingMethodString</key>
+			<string>commandSwapRotation</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleSwapRotation</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
 			<string>Turn the stroke off.</string>
 			<key>productionString</key>
 			<string>s</string>
@@ -263,6 +276,16 @@
 			<string>commandStrokeOn</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleStrokeOn</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Use the next stroke color.</string>
+			<key>productionString</key>
+			<string>a</string>
+			<key>drawingMethodString</key>
+			<string>commandNextColor</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleNextColor</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
@@ -286,46 +309,6 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Turn Randomize off.</string>
-			<key>productionString</key>
-			<string>r</string>
-			<key>drawingMethodString</key>
-			<string>commandRandomizeOff</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleRandomizeOff</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Randomize directions, angles and lengths.</string>
-			<key>productionString</key>
-			<string>R</string>
-			<key>drawingMethodString</key>
-			<string>commandRandomizeOn</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleRandomizeOn</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Use the next stroke color.</string>
-			<key>productionString</key>
-			<string>a</string>
-			<key>drawingMethodString</key>
-			<string>commandNextColor</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleNextColor</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Use the previous stroke color.</string>
-			<key>productionString</key>
-			<string>b</string>
-			<key>drawingMethodString</key>
-			<string>commandPreviousColor</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRulePreviousColor</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
 			<string>Use the next fill color.</string>
 			<key>productionString</key>
 			<string>c</string>
@@ -336,13 +319,13 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use the previous fill color.</string>
+			<string>Randomize directions, angles and lengths.</string>
 			<key>productionString</key>
-			<string>d</string>
+			<string>R</string>
 			<key>drawingMethodString</key>
-			<string>commandPreviousFillColor</string>
+			<string>commandRandomizeOn</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRulePreviousFillColor</string>
+			<string>kBIconRuleRandomizeOn</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
@@ -406,33 +389,53 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Insert a curve node</string>
+			<string>Placeholder number 1</string>
 			<key>productionString</key>
-			<string>.</string>
+			<string>A</string>
 			<key>drawingMethodString</key>
-			<string>commandCurvePoint</string>
+			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRuleCurvePoint</string>
+			<string>kBIconRulePlace0</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Insert a clockwise curve</string>
+			<string>Placeholder number 2</string>
 			<key>productionString</key>
-			<string>`</string>
+			<string>B</string>
 			<key>drawingMethodString</key>
-			<string>commandCurveC</string>
+			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRuleCurveC</string>
+			<string>kBIconRulePlace1</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Insert a counterclockwise curve</string>
+			<string>Placeholder number 3</string>
 			<key>productionString</key>
-			<string>,</string>
+			<string>C</string>
 			<key>drawingMethodString</key>
-			<string>commandCurveCC</string>
+			<string>commandDoNothing</string>
 			<key>iconIdentifierString</key>
-			<string>kBIconRuleCurveCC</string>
+			<string>kBIconRulePlace2</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Placeholder number 4</string>
+			<key>productionString</key>
+			<string>D</string>
+			<key>drawingMethodString</key>
+			<string>commandDoNothing</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRulePlace3</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Placeholder number 5</string>
+			<key>productionString</key>
+			<string>E</string>
+			<key>drawingMethodString</key>
+			<string>commandDoNothing</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRulePlace4</string>
 		</dict>
 	</array>
 	<key>ruleType</key>

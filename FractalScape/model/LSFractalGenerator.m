@@ -474,6 +474,9 @@
         newSegment.randomness = [self.privateFractal.randomness doubleValue];
         newSegment.lineChangeFactor = [self.privateFractal.lineChangeFactor doubleValue];
         
+        newSegment.stroke = YES;
+        newSegment.fill = NO;
+        
         [self.currentSegmentList addObject: newSegment];
     }
     return [self.currentSegmentList lastObject];

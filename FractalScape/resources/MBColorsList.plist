@@ -5,6 +5,22 @@
 	<dict>
 		<key>colors</key>
 		<array>
+            <dict>
+                <key>name</key>
+                <string>Marble</string>
+                <key>identifier</key>
+                <string>marble1</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>marble</string>
+            </dict>
 			<dict>
 				<key>name</key>
 				<string>Marble Dark</string>
@@ -101,6 +117,134 @@
 				<key>imagePath</key>
 				<string>imitation_leather</string>
 			</dict>
+            <dict>
+                <key>name</key>
+                <string>Wood</string>
+                <key>identifier</key>
+                <string>wood1</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>wood</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Wood V</string>
+                <key>identifier</key>
+                <string>wood2</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>WoodV</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Aluminum</string>
+                <key>identifier</key>
+                <string>aluminum1</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>Aluminum</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Aluminum Small</string>
+                <key>identifier</key>
+                <string>aluminum2</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>AluminumInvSmall</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Aluminum Small Gold</string>
+                <key>identifier</key>
+                <string>aluminum3</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>AluminumVSmallGold</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Aluminum Gold</string>
+                <key>identifier</key>
+                <string>aluminum2</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>AluminumGold</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Aluminum Small Red</string>
+                <key>identifier</key>
+                <string>aluminum4</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>AluminumVSmallRed</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Aluminum Red</string>
+                <key>identifier</key>
+                <string>aluminum5</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>AluminumRed</string>
+            </dict>
 			<dict>
 				<key>name</key>
 				<string>Bulging</string>
@@ -117,11 +261,59 @@
 				<key>imagePath</key>
 				<string>bulging</string>
 			</dict>
+            <dict>
+                <key>name</key>
+                <string>Aqua</string>
+                <key>identifier</key>
+                <string>aqua1</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>aqua</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Pool</string>
+                <key>identifier</key>
+                <string>pool1</string>
+                <key>red</key>
+                <integer>1</integer>
+                <key>green</key>
+                <integer>1</integer>
+                <key>blue</key>
+                <integer>1</integer>
+                <key>alpha</key>
+                <integer>1</integer>
+                <key>imagePath</key>
+                <string>pool</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Fuzzy Blue</string>
+                <key>identifier</key>
+                <string>fuzzyBlue1</string>
+                <key>red</key>
+                <integer>1</integer>
+                <key>green</key>
+                <integer>1</integer>
+                <key>blue</key>
+                <integer>1</integer>
+                <key>alpha</key>
+                <integer>1</integer>
+                <key>imagePath</key>
+                <string>fuzzy-blue</string>
+            </dict>
 			<dict>
 				<key>name</key>
-				<string>Sky</string>
+				<string>Lawn</string>
 				<key>identifier</key>
-				<string>sky1</string>
+				<string>lawn1</string>
 				<key>red</key>
 				<real>1</real>
 				<key>green</key>
@@ -131,13 +323,61 @@
 				<key>alpha</key>
 				<real>1</real>
 				<key>imagePath</key>
-				<string>sky</string>
+				<string>lawn</string>
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>Space</string>
+				<string>Lawn Artifical</string>
 				<key>identifier</key>
-				<string>space1</string>
+				<string>lawnArtificial1</string>
+				<key>red</key>
+				<integer>1</integer>
+				<key>green</key>
+				<real>1</real>
+				<key>blue</key>
+				<real>1</real>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string>lawn-artificial</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Lino Green</string>
+				<key>identifier</key>
+				<string>lino-green1</string>
+				<key>red</key>
+				<integer>1</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string>lino-green</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Blow Green</string>
+				<key>identifier</key>
+				<string>blowGreen1</string>
+				<key>red</key>
+				<integer>1</integer>
+				<key>green</key>
+				<integer>1</integer>
+				<key>blue</key>
+				<integer>1</integer>
+				<key>alpha</key>
+				<integer>1</integer>
+				<key>imagePath</key>
+				<string>blow_green</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Ice</string>
+				<key>identifier</key>
+				<string>ice1</string>
 				<key>red</key>
 				<real>1</real>
 				<key>green</key>
@@ -147,8 +387,40 @@
 				<key>alpha</key>
 				<real>1</real>
 				<key>imagePath</key>
-				<string>space</string>
+				<string>ice-blue</string>
 			</dict>
+            <dict>
+                <key>name</key>
+                <string>Sky</string>
+                <key>identifier</key>
+                <string>sky1</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>sky</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Space</string>
+                <key>identifier</key>
+                <string>space1</string>
+                <key>red</key>
+                <real>1</real>
+                <key>green</key>
+                <real>1</real>
+                <key>blue</key>
+                <real>1</real>
+                <key>alpha</key>
+                <real>1</real>
+                <key>imagePath</key>
+                <string>space</string>
+            </dict>
 		</array>
 		<key>name</key>
 		<string>Textures</string>

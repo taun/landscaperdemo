@@ -12,7 +12,7 @@
 		<key>name</key>
 		<string>A spiral</string>
 		<key>startingRules</key>
-		<string>SlAAAA</string>
+		<string>AAAA</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -68,7 +68,7 @@
 		<key>name</key>
 		<string>A leaf</string>
 		<key>startingRules</key>
-		<string>SlA</string>
+		<string>A</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -128,7 +128,7 @@
 		<key>name</key>
 		<string>Von Koch Curve 3</string>
 		<key>startingRules</key>
-		<string>SlF-F-F-F</string>
+		<string>F-F-F-F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -180,7 +180,7 @@
 		<key>name</key>
 		<string>Von Koch Curve</string>
 		<key>startingRules</key>
-		<string>SlF-F-F-F</string>
+		<string>F-F-F-F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -232,7 +232,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
 		<key>startingRules</key>
-		<string>Sl-F</string>
+		<string>-F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -284,7 +284,7 @@
 		<key>name</key>
 		<string>Islands and lakes</string>
 		<key>startingRules</key>
-		<string>SlF+F+F+F</string>
+		<string>F+F+F+F</string>
 		<key>level</key>
 		<integer>2</integer>
 		<key>lineLength</key>
@@ -460,7 +460,7 @@
 		<key>name</key>
 		<string>Hilbert Curve</string>
 		<key>startingRules</key>
-		<string>SlA</string>
+		<string>A</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -514,7 +514,7 @@
 		<key>name</key>
 		<string>Sierpinsky Gasket</string>
 		<key>startingRules</key>
-		<string>SlFAF--FF--FF</string>
+		<string>FAF--FF--FF</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -568,7 +568,7 @@
 		<key>name</key>
 		<string>Sierpinsky Curve</string>
 		<key>startingRules</key>
-		<string>SlF+F+F+F</string>
+		<string>F+F+F+F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -620,7 +620,7 @@
 		<key>name</key>
 		<string>Peano Curve</string>
 		<key>startingRules</key>
-		<string>SlA</string>
+		<string>A</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -674,7 +674,7 @@
 		<key>name</key>
 		<string>Dragon Curve</string>
 		<key>startingRules</key>
-		<string>SlA</string>
+		<string>A</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -744,7 +744,7 @@
 		<key>name</key>
 		<string>Fern</string>
 		<key>startingRules</key>
-		<string>SlAEFFF</string>
+		<string>AEFFF</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -822,7 +822,7 @@
 		<key>name</key>
 		<string>Bush00</string>
 		<key>startingRules</key>
-		<string>SlF</string>
+		<string>F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -876,7 +876,7 @@
 		<key>name</key>
 		<string>Bush0</string>
 		<key>startingRules</key>
-		<string>SlF</string>
+		<string>F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -946,7 +946,7 @@
 		<key>name</key>
 		<string>Bush1</string>
 		<key>startingRules</key>
-		<string>SlA</string>
+		<string>A</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1018,7 +1018,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
 		<key>startingRules</key>
-		<string>SlF++F++F</string>
+		<string>F++F++F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1070,7 +1070,7 @@
 		<key>name</key>
 		<string>Von Koch Island</string>
 		<key>startingRules</key>
-		<string>SlF+F+F+F</string>
+		<string>F+F+F+F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1122,7 +1122,7 @@
 		<key>name</key>
 		<string>Von Koch Squares</string>
 		<key>startingRules</key>
-		<string>SlF+F+F+F</string>
+		<string>F+F+F+F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1190,7 +1190,7 @@
 		<key>name</key>
 		<string>Flower</string>
 		<key>startingRules</key>
-		<string>SlA</string>
+		<string>A</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1262,7 +1262,7 @@
 		<key>name</key>
 		<string>Tree</string>
 		<key>startingRules</key>
-		<string>SlF</string>
+		<string>F</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1334,7 +1334,7 @@
 		<key>name</key>
 		<string>Bush with leaves</string>
 		<key>startingRules</key>
-		<string>SlA</string>
+		<string>A</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
