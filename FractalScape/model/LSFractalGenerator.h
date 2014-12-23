@@ -47,6 +47,7 @@
 28   C :  Noop placeholder
 29   D :  Noop placeholder
 30   E :  Noop placeholder
+     Z :  Noop placeholder - for internal default rule when there is no rule
 
 31   a :  next line color - circular n.max++ -> n.min
 32   b :  previous line color
@@ -175,17 +176,17 @@
 /*!
  Overrides the fractal level in order to allow multiple views of the same fractal with different generation levels.
  */
-@property (nonatomic, assign) double                forceLevel;
+@property (nonatomic, assign) CGFloat                forceLevel;
 
 @property (nonatomic,assign,readonly) CGRect        bounds;
 
 @property (nonatomic, assign) BOOL                  autoscale;
-@property (nonatomic, assign) double                scale;
+@property (nonatomic, assign) CGFloat                scale;
 @property (nonatomic, assign) CGPoint               translate;
 //@property (nonatomic, unsafe_unretained) CGPathRef  path;
 @property (nonatomic,unsafe_unretained) CGPathRef   fractalCGPathRef;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) double randomScalar;
+@property (NS_NONATOMIC_IOSONLY, readonly) CGFloat randomScalar;
 /*
  The drawing rules are cached from the managed object. This is because the rules are returned as a set and we need to convert them to a dictionary. We only want to do this once unless the rules are changed. Need to observer the rules and if there is a change, clear the cache.
  */
@@ -198,7 +199,7 @@
 /*!
  Height/Width aspect ratio.
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) double aspectRatio;
+@property (NS_NONATOMIC_IOSONLY, readonly) CGFloat aspectRatio;
 
 /*!
  Returns the width and height of maximum close fitting dimension of the fractal which will fit in a 1x1 box.

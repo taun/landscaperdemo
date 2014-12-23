@@ -18,15 +18,15 @@
 
 @property (nonatomic, assign) CGMutablePathRef      path;
 
-@property (nonatomic,assign) double                 turningAngle;
-@property (nonatomic,assign) double                 turningAngleIncrement;
-@property (nonatomic,assign) double                 lineLength;
-@property (nonatomic,assign) double                 lineWidth;
-@property (nonatomic,assign) double                 lineWidthIncrement;
-@property (nonatomic,assign) double                 lineLengthScaleFactor;
-@property (nonatomic,assign) double                 lineChangeFactor;
+@property (nonatomic,assign) CGFloat                 turningAngle;
+@property (nonatomic,assign) CGFloat                 turningAngleIncrement;
+@property (nonatomic,assign) CGFloat                 lineLength;
+@property (nonatomic,assign) CGFloat                 lineWidth;
+@property (nonatomic,assign) CGFloat                 lineWidthIncrement;
+@property (nonatomic,assign) CGFloat                 lineLengthScaleFactor;
+@property (nonatomic,assign) CGFloat                 lineChangeFactor;
 @property (nonatomic,assign) BOOL                   randomize;
-@property (nonatomic,assign) double                 randomness;
+@property (nonatomic,assign) CGFloat                 randomness;
 @property (nonatomic,assign) BOOL                   fill;
 @property (nonatomic,assign) BOOL                   stroke;
 @property (nonatomic,assign) CGLineCap              lineCap;
@@ -38,7 +38,7 @@
 @property (nonatomic,assign) CGAffineTransform      transform;
 
 +(NSArray*)settingsToCopy;
-+(double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber;
++(CGFloat)randomDoubleBetween:(CGFloat)smallNumber and:(CGFloat)bigNumber;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) MBFractalSegment *copySettings;
 

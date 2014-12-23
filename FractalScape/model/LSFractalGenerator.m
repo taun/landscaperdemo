@@ -21,7 +21,7 @@
 #define SHOWDEBUGBORDER 0
 
 @interface LSFractalGenerator () {
-    double _maxLineWidth;
+    CGFloat _maxLineWidth;
 }
 @property (nonatomic,strong) NSManagedObjectID      *fractalID;
 @property (nonatomic,strong) NSManagedObjectContext *parentObjectContext;
@@ -332,12 +332,12 @@
     
     if (self.autoscale) {
         // Scaling
-        double scaleWidth = localBounds.size.width/self.bounds.size.width;
-        double scaleHeight = localBounds.size.height/self.bounds.size.height;
+        CGFloat scaleWidth = localBounds.size.width/self.bounds.size.width;
+        CGFloat scaleHeight = localBounds.size.height/self.bounds.size.height;
         
         self.scale = MIN(scaleHeight, scaleWidth);
         
-        //    double margin = -0.0/scale;
+        //    CGFloat margin = -0.0/scale;
         
         //    CGContextScaleCTM(theContext, scale, scale);
         //    NSLog(@"Min Layer/Fractal Scale = %g", scale);
@@ -346,11 +346,11 @@
         //    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
         
         // Translating
-        double fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
-        double fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
+        CGFloat fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
+        CGFloat fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
         
-        double lCenterX = localBounds.origin.x + localBounds.size.width/2.0;
-        double lCenterY = localBounds.origin.y + localBounds.size.height/2.0;
+        CGFloat lCenterX = localBounds.origin.x + localBounds.size.width/2.0;
+        CGFloat lCenterY = localBounds.origin.y + localBounds.size.height/2.0;
         
         self.translate = CGPointMake(lCenterX - (fCenterX*self.scale), lCenterY - (fCenterY*self.scale));
     }
@@ -419,12 +419,12 @@
     CGContextRestoreGState(theContext);
 }
 -(UIColor*) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {
-    double count = (double)colorArray.count;
+    CGFloat count = (CGFloat)colorArray.count;
     if (count == 0.0) {
         return self.defaultColor;
     }
     
-    NSInteger moddedIndex = (NSInteger)fabs(fmod((double)index, count));
+    NSInteger moddedIndex = (NSInteger)fabs(fmod((CGFloat)index, count));
 
     MBColor* mbColor = colorArray[moddedIndex];
 
@@ -463,16 +463,19 @@
         newSegment.fillColorIndex = 0;
         
         newSegment.lineLength = [self.privateFractal lineLengthAsDouble];
-        newSegment.lineLengthScaleFactor = [self.privateFractal.lineLengthScaleFactor doubleValue];
+        newSegment.lineLengthScaleFactor = [self.privateFractal.lineLengthScaleFactor floatValue];
         
-        newSegment.lineWidth = [self.privateFractal.lineWidth doubleValue];
-        newSegment.lineWidthIncrement = [self.privateFractal.lineWidthIncrement doubleValue];
+        newSegment.lineWidth = [self.privateFractal.lineWidth floatValue];
+        newSegment.lineWidthIncrement = [self.privateFractal.lineWidthIncrement floatValue];
         
         newSegment.turningAngle = [self.privateFractal turningAngleAsDouble];
-        newSegment.turningAngleIncrement = [self.privateFractal.turningAngleIncrement doubleValue];
+        newSegment.turningAngleIncrement = [self.privateFractal.turningAngleIncrement floatValue];
         
-        newSegment.randomness = [self.privateFractal.randomness doubleValue];
-        newSegment.lineChangeFactor = [self.privateFractal.lineChangeFactor doubleValue];
+        newSegment.randomness = [self.privateFractal.randomness floatValue];
+        newSegment.lineChangeFactor = [self.privateFractal.lineChangeFactor floatValue];
+        
+        newSegment.lineCap = kCGLineCapRound;
+        newSegment.lineJoin = kCGLineJoinRound;
         
         newSegment.stroke = YES;
         newSegment.fill = NO;
@@ -525,7 +528,7 @@
 
 -(CGRect) bounds {
     // adjust for the lineWidth
-    double margin = _maxLineWidth*2.0+1.0;
+    CGFloat margin = _maxLineWidth*2.0+1.0;
     CGRect result = CGRectInset(_bounds, -margin, -margin);
     return result;
 //    return _bounds;
@@ -695,9 +698,9 @@
     NSMutableDictionary* localReplacementRules;
     NSMutableString* sourceData;
     NSInteger productionLength;
-    double localLevel;
+    CGFloat localLevel;
     
-    localLevel = [self.privateFractal.level doubleValue];
+    localLevel = [self.privateFractal.level floatValue];
     if (self.forceLevel >= 0) {
         localLevel = self.forceLevel;
     }
@@ -777,9 +780,9 @@
         
         CGPathMoveToPoint(self.currentSegment.path, NULL, 0.0f, 0.0f);
         
-        double startingRotation;
+        CGFloat startingRotation;
         
-        startingRotation = [self.privateFractal.baseAngle doubleValue];
+        startingRotation = [self.privateFractal.baseAngle floatValue];
         
         self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -startingRotation);
 
@@ -831,13 +834,13 @@
 
 #pragma clang diagnostic pop
 
--(void) drawCircle: (double) radius {
+-(void) drawCircle: (CGFloat) radius {
     CGAffineTransform local = self.currentSegment.transform;
     CGPathAddEllipseInRect(self.currentSegment.path, &local, CGRectMake(0.0, -radius, radius*2.0, radius*2.0));
     CGPathMoveToPoint(self.currentSegment.path, &local, radius*2.0, 0.0);
 }
 
--(void) drawSquare: (double) width {
+-(void) drawSquare: (CGFloat) width {
     CGAffineTransform local = self.currentSegment.transform;
     CGPathAddRect(self.currentSegment.path, &local, CGRectMake(0.0, -width/2.0, width, width));
     CGPathMoveToPoint(self.currentSegment.path, &local, 0.0, 0.0);
@@ -849,7 +852,7 @@
 }
 
 -(void) commandDrawLine {
-    double tx = self.currentSegment.lineLength;
+    CGFloat tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
 
     if (self.controlPointOn) {
@@ -857,7 +860,9 @@
         CGPoint p1 = CGPointApplyAffineTransform(self.previousNode, inverted);
         CGPoint cp0 = CGPointApplyAffineTransform(self.controlPointNode, inverted);
 //        CGPoint cp1 = 
-        CGPathAddCurveToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
+//        CGPathAddCurveToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
+        CGPathAddArcToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, tx, 0.0, tx);
+        CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0.0);
         self.controlPointOn = NO;
     } else {
         CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0.0);
@@ -866,7 +871,7 @@
 }
 
 -(void) commandDrawLineVarLength {
-    double tx = self.currentSegment.lineLength;
+    CGFloat tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
 
     if (self.controlPointOn) {
@@ -883,19 +888,19 @@
 }
 
 -(void) commandMoveByLine {
-    double tx = self.currentSegment.lineLength;
+    CGFloat tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
     CGPathMoveToPoint(self.currentSegment.path, &local, tx, 0.0);
     self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0);
 }
 
 -(void) commandRotateCC {
-    double theta = self.currentSegment.turningAngle;
+    CGFloat theta = self.currentSegment.turningAngle;
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -theta);
 }
 
 -(void) commandRotateC {
-    double theta = self.currentSegment.turningAngle;
+    CGFloat theta = self.currentSegment.turningAngle;
     self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, theta);
 }
 
@@ -915,7 +920,7 @@
 -(void) commandCurvePoint {
     self.previousNode = CGPathGetCurrentPoint(self.currentSegment.path);
 
-    double tx = self.currentSegment.lineLength;
+    CGFloat tx = self.currentSegment.lineLength;
     self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0);
     
     CGAffineTransform local = self.currentSegment.transform;
@@ -1059,14 +1064,14 @@
 
 #pragma mark helper methods
 
--(double) aspectRatio {
+-(CGFloat) aspectRatio {
     return self.bounds.size.height/self.bounds.size.width;
 }
 
 -(CGSize) unitBox {
     CGSize result = {1.0,1.0};
-    double width = self.bounds.size.width;
-    double height = self.bounds.size.height;
+    CGFloat width = self.bounds.size.width;
+    CGFloat height = self.bounds.size.height;
     
     if (width >= height) {
         // wider than tall width is 1.0

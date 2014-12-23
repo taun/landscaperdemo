@@ -34,12 +34,12 @@
              ];
 }
 
-+ (double)randomDoubleBetween:(double)smallNumber and:(double)bigNumber {
-    double diff = bigNumber - smallNumber;
-    return (((double) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
++ (CGFloat)randomDoubleBetween:(CGFloat)smallNumber and:(CGFloat)bigNumber {
+    CGFloat diff = bigNumber - smallNumber;
+    return (((CGFloat) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
 }
 
--(double) randomScalar {
+-(CGFloat) randomScalar {
     return [[self class] randomDoubleBetween: (1.0 - self.randomness)  and: (1.0 + self.randomness)];
 }
 
@@ -120,10 +120,42 @@
 -(MBFractalSegment*) copySettings {
     MBFractalSegment* newSegment = [[MBFractalSegment alloc] init];
     
-    for (id aSetting in [[self class] settingsToCopy]) {
-        [newSegment setValue:[self valueForKey: aSetting] forKey: aSetting];
+    if (!_randomize) {
+        [newSegment setTurningAngle: _turningAngle];
+        [newSegment setTurningAngleIncrement: _turningAngleIncrement];
+        newSegment.lineLength = self.lineLength;
+        newSegment.lineWidth = self.lineWidth;
+        newSegment.lineWidthIncrement = self.lineWidthIncrement;
+        newSegment.lineLengthScaleFactor = self.lineLengthScaleFactor;
+        newSegment.lineChangeFactor = self.lineChangeFactor;
+        newSegment.randomize = self.randomize;
+        newSegment.randomness = self.randomness;
+        newSegment.fill = self.fill;
+        newSegment.stroke = self.stroke;
+        newSegment.lineCap = self.lineCap;
+        newSegment.lineJoin = self.lineJoin;
+        newSegment.transform = self.transform;
+        newSegment.lineColorIndex = self.lineColorIndex;
+        newSegment.fillColorIndex = self.fillColorIndex;
+    } else {
+        newSegment.turningAngle = self.turningAngle;
+        newSegment.turningAngleIncrement = self.turningAngleIncrement;
+        newSegment.lineLength = self.lineLength;
+        newSegment.lineWidth = self.lineWidth;
+        newSegment.lineWidthIncrement = self.lineWidthIncrement;
+        newSegment.lineLengthScaleFactor = self.lineLengthScaleFactor;
+        newSegment.lineChangeFactor = self.lineChangeFactor;
+        newSegment.randomize = self.randomize;
+        newSegment.randomness = self.randomness;
+        newSegment.fill = self.fill;
+        newSegment.stroke = self.stroke;
+        newSegment.lineCap = self.lineCap;
+        newSegment.lineJoin = self.lineJoin;
+        newSegment.transform = self.transform;
+        newSegment.lineColorIndex = self.lineColorIndex;
+        newSegment.fillColorIndex = self.fillColorIndex;
     }
-    
+   
     CGAffineTransform currentTransform = newSegment.transform;
     CGPathMoveToPoint(newSegment.path, &currentTransform, 0, 0);
     
@@ -160,48 +192,48 @@
 
 
 
--(double) turningAngle {
-    double value = _turningAngle;
+-(CGFloat) turningAngle {
+    CGFloat value = _turningAngle;
     if (_randomize) {
         value *= [self randomScalar];
     }
     return value;
 }
 
--(double) turningAngleIncrement {
-    double value = _turningAngleIncrement;
+-(CGFloat) turningAngleIncrement {
+    CGFloat value = _turningAngleIncrement;
     if (_randomize) {
         value *= [self randomScalar];
     }
     return value;
 }
 
--(double) lineLength {
-    double value = _lineLength;
+-(CGFloat) lineLength {
+    CGFloat value = _lineLength;
     if (_randomize) {
         value *= [self randomScalar];
     }
     return value;
 }
 
--(double) lineLengthScaleFactor {
-    double value = _lineLengthScaleFactor;
+-(CGFloat) lineLengthScaleFactor {
+    CGFloat value = _lineLengthScaleFactor;
     if (_randomize) {
         value *= [self randomScalar];
     }
     return value;
 }
 
--(double) lineWidth {
-    double value = fabs(_lineWidth);
+-(CGFloat) lineWidth {
+    CGFloat value = fabs(_lineWidth);
     if (_randomize) {
         value *= [self randomScalar];
     }
     return value;
 }
 
--(double) lineWidthIncrement {
-    double value = _lineWidthIncrement;
+-(CGFloat) lineWidthIncrement {
+    CGFloat value = _lineWidthIncrement;
     if (_randomize) {
         value *= [self randomScalar];
     }

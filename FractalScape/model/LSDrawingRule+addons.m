@@ -70,7 +70,7 @@
     newRule.descriptor = @"Default do nothing rule to be replaced by dragging a new rule.";
     newRule.iconIdentifierString = [LSDrawingRule defaultIdentifierString];
     newRule.drawingMethodString = @"commandDoNothing";
-    newRule.productionString = @"A";
+    newRule.productionString = @"Z";
     
     return newRule;
 }

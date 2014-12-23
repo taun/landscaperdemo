@@ -1095,6 +1095,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                              angleScale: 5.0/1.0
                                minAngle: -180.0
                                maxAngle:  180.0
+                              angleStep:    3.0
                              aspectPath: @"lineWidth"
                             aspectScale: 1.0/100.0
                               minAspect: 0.5
@@ -1104,9 +1105,10 @@ static void countPathElements(void *info, const CGPathElement *element) {
     [self convertPanToAngleAspectChange: sender
                                subLayer: self.fractalLevel0Layer
                               anglePath: @"baseAngle"
-                             angleScale: 20.0/1.0
+                             angleScale: 5.0/1.0
                                minAngle: -180.0
                                maxAngle:  180.0
+                              angleStep:    5.0
                              aspectPath: @"randomness"
                             aspectScale: -1.0/1000.0
                               minAspect: 0.0
@@ -1119,6 +1121,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                              angleScale: 1.0/10.0
                                minAngle: -180.0
                                maxAngle:  180.0
+                              angleStep:    0.25
                              aspectPath:@"lineWidth"
                             aspectScale: 1.0/50.0
                               minAspect: 0.5
@@ -1132,6 +1135,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                              angleScale: 1.0/1.0
                                minAngle: 0.0
                                maxAngle: 57.295779513
+                              angleStep: 0.0
                              aspectPath: @"lineChangeFactor"
                             aspectScale: -1.0/1000.0
                               minAspect: 0.0
@@ -1144,6 +1148,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
                            angleScale: (CGFloat) angleScale
                              minAngle: (CGFloat) minAngle
                              maxAngle: (CGFloat) maxAngle
+                            angleStep: (CGFloat) stepAngle
                            aspectPath: (NSString*) aspectPath
                           aspectScale: (CGFloat) aspectScale
                             minAspect: (CGFloat) minAspect
@@ -1153,6 +1158,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
     static CGFloat  initialAngleDegrees;
     static CGFloat  initialWidth;
     static NSInteger determinedState;
+    static BOOL     isIncreasing;
     static NSInteger axisState;
     
     UIView *fractalView = [gestureRecognizer view];
@@ -1177,10 +1183,13 @@ static void countPathElements(void *info, const CGPathElement *element) {
         
         
         determinedState = 0;
+        isIncreasing = NO;
         
     } else if (state == UIGestureRecognizerStateChanged) {
         
         CGPoint translation = [gestureRecognizer translationInView: fractalView];
+        CGPoint velocity = [gestureRecognizer velocityInView: fractalView];
+        
         if (determinedState==0) {
             if (fabsf(translation.x) >= fabsf(translation.y)) {
                 axisState = 0;
@@ -1198,8 +1207,18 @@ static void countPathElements(void *info, const CGPathElement *element) {
                 
             } else if (!axisState && anglePath) {
                 // hosrizontal
+                CGFloat closeEnough = stepAngle/5.0;
+                
                 CGFloat scaledStepAngle = floorf(translation.x * angleScale)/100;
                 CGFloat newAngleDegrees = fminf(fmaxf(initialAngleDegrees + scaledStepAngle, minAngle), maxAngle);
+                if (stepAngle > 0) {
+                    CGFloat proximity = fmodf(newAngleDegrees, stepAngle);
+                    if (fabsf(proximity) < closeEnough) {
+                        newAngleDegrees = floorf(newAngleDegrees/stepAngle)*stepAngle;
+                    } else if (velocity.x > 0.0) {
+                        newAngleDegrees -= closeEnough;
+                    }
+                }
                 [self.fractal setValue: @(radians(newAngleDegrees)) forKey: anglePath];
 //                [self.fractal setTurningAngleAsDegrees:  @(newAngleDegrees)];
                 
@@ -1221,7 +1240,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
         
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
         determinedState = 0;
-        [self.fractal.managedObjectContext processPendingChanges];
+        [self saveContext];
     }
 }
 /* obsolete */

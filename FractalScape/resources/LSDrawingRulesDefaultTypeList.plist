@@ -34,16 +34,6 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRulePreviousFillColor</string>
 		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Insert a curve node</string>
-			<key>productionString</key>
-			<string>.</string>
-			<key>drawingMethodString</key>
-			<string>commandCurvePoint</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleCurvePoint</string>
-		</dict>
 	</array>
 	<key>rulesArray</key>
 	<array>
@@ -97,6 +87,16 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleCurveCC</string>
 		</dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Insert a curve node</string>
+            <key>productionString</key>
+            <string>.</string>
+            <key>drawingMethodString</key>
+            <string>commandCurvePoint</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleCurvePoint</string>
+        </dict>
 		<dict>
 			<key>descriptor</key>
 			<string>Rotate left before next move.</string>
