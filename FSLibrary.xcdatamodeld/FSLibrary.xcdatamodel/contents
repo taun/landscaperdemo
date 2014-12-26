@@ -29,7 +29,7 @@
         <attribute name="lineChangeFactor" optional="YES" attributeType="Double" minValueString="0" maxValueString="1" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lineLength" attributeType="Double" minValueString="1" maxValueString="100" defaultValueString="10" syncable="YES"/>
         <attribute name="lineLengthScaleFactor" attributeType="Double" maxValueString="2" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="lineWidth" attributeType="Double" minValueString="0.5" maxValueString="50" defaultValueString="1" syncable="YES"/>
+        <attribute name="lineWidth" attributeType="Double" minValueString="0.5" maxValueString="100" defaultValueString="1" syncable="YES"/>
         <attribute name="lineWidthIncrement" attributeType="Double" minValueString="0" maxValueString="100" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="randomness" optional="YES" attributeType="Double" minValueString="0" maxValueString="1" defaultValueString="0.0" syncable="YES"/>
@@ -94,7 +94,7 @@
     <elements>
         <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="180"/>
         <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="118"/>
-        <element name="LSFractal" positionX="160" positionY="192" width="128" height="388"/>
+        <element name="LSFractal" positionX="160" positionY="192" width="128" height="390"/>
         <element name="LSReplacementRule" positionX="160" positionY="192" width="128" height="88"/>
         <element name="MBColor" positionX="160" positionY="192" width="128" height="238"/>
         <element name="MBColorCategory" positionX="171" positionY="342" width="128" height="103"/>

@@ -128,6 +128,7 @@
 + (void)drawKCGLineJoinRoundIcon;
 + (void)drawKCGLineJoinBevelIcon;
 + (void)drawControlDragCircle;
++ (void)drawControlSliderBackgroundWithFrame: (CGRect)frame;
 
 // Generated Images
 + (UIImage*)imageOfTabBarLineColorIcon;
@@ -170,6 +171,7 @@
 + (UIImage*)imageOfKPathArrow;
 + (UIImage*)imageOfLineEditControllerWithFrame: (CGRect)frame;
 + (UIImage*)imageOfControlDragCircle;
++ (UIImage*)imageOfControlSliderBackgroundWithFrame: (CGRect)frame;
 + (UIImage*)imageOfIPad76;
 + (UIImage*)imageOfIPad2x;
 

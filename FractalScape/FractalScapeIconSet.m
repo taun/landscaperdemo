@@ -2910,6 +2910,26 @@ static UIImage* _imageOfIPad2x = nil;
     CGContextRestoreGState(context);
 }
 
++ (void)drawControlSliderBackgroundWithFrame: (CGRect)frame
+{
+    //// Color Declarations
+    UIColor* white90 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.899];
+
+    //// Rectangle Drawing
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(CGRectGetMinX(frame) + 3, CGRectGetMinY(frame) + 3, CGRectGetWidth(frame) - 6, CGRectGetHeight(frame) - 6) cornerRadius: 4];
+    [FractalScapeIconSet.symbolFillColor setFill];
+    [rectanglePath fill];
+
+
+    //// Rectangle 2 Drawing
+    UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(CGRectGetMinX(frame) + 6, CGRectGetMinY(frame) + 6, CGRectGetWidth(frame) - 12, CGRectGetHeight(frame) - 12) cornerRadius: 2];
+    [white90 setFill];
+    [rectangle2Path fill];
+    [FractalScapeIconSet.selectionBackgrundColor setStroke];
+    rectangle2Path.lineWidth = 1;
+    [rectangle2Path stroke];
+}
+
 + (void)drawIPad76
 {
 }
@@ -3475,6 +3495,17 @@ static UIImage* _imageOfIPad2x = nil;
     UIGraphicsEndImageContext();
 
     return _imageOfControlDragCircle;
+}
+
++ (UIImage*)imageOfControlSliderBackgroundWithFrame: (CGRect)frame
+{
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0f);
+    [FractalScapeIconSet drawControlSliderBackgroundWithFrame: frame];
+
+    UIImage* imageOfControlSliderBackground = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets: UIEdgeInsetsMake(7, 9, 7, 8) resizingMode: UIImageResizingModeStretch];
+    UIGraphicsEndImageContext();
+
+    return imageOfControlSliderBackground;
 }
 
 + (UIImage*)imageOfIPad76

@@ -116,11 +116,44 @@ static BOOL SIMULTOUCH = NO;
     
 }
 
-
+#pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad {
     
     _popoverPortraitSize = CGSizeMake(748.0,350.0);
     _popoverLandscapeSize = CGSizeMake(400.0,650.0);
+    
+    _randomnessVerticalSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    [_randomnessVerticalSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
+    _randomnessVerticalSlider.minimumValue = 0.0;
+    _randomnessVerticalSlider.maximumValue = 0.2;
+    _randomnessVerticalSlider.value = 0.0;
+    
+    _widthDecrementVerticalSlider.transform = CGAffineTransformMakeRotation(M_PI_2);
+    [_widthDecrementVerticalSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
+    _widthDecrementVerticalSlider.minimumValue = 0.0;
+    _widthDecrementVerticalSlider.maximumValue = 6.0;
+    _widthDecrementVerticalSlider.value = 0.0;
+
+    _lengthIncrementVerticalSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    [_lengthIncrementVerticalSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
+    _lengthIncrementVerticalSlider.minimumValue = 0.0;
+    _lengthIncrementVerticalSlider.maximumValue = 1.0;
+    _lengthIncrementVerticalSlider.value = 0.0;
+
+    [_baseAngleSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
+    _baseAngleSlider.minimumValue = -180.0;
+    _baseAngleSlider.maximumValue = 180.0;
+    _baseAngleSlider.value = 0.0;
+    
+    [_turnAngleSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
+    _turnAngleSlider.minimumValue = 0.0;
+    _turnAngleSlider.maximumValue = 180.0;
+    _turnAngleSlider.value = 0.0;
+    
+    [_turnIncrementSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
+    _turnIncrementSlider.minimumValue = 0.0;
+    _turnIncrementSlider.maximumValue = 1.0;
+    _turnIncrementSlider.value = 0.0;
 
     [super viewDidLoad];
         
@@ -596,17 +629,25 @@ static BOOL SIMULTOUCH = NO;
 -(void) refreshLayers {
     self.hudText1.text = [self.fractal.level stringValue];
     self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
+    self.turnAngleSlider.value = [[self.fractal turningAngleAsDegrees] floatValue];
 
     self.baseAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.baseAngle doubleValue])]];
+    self.baseAngleSlider.value = degrees([self.fractal.baseAngle doubleValue]);
+    
     self.hudRandomnessLabel.text = [self.percentFormatter stringFromNumber: self.fractal.randomness];
+    self.randomnessVerticalSlider.value = self.fractal.randomness.floatValue;
 
-    self.hudLineAspectLabel.text = [self.percentFormatter stringFromNumber: @([self.fractal.lineWidth floatValue]/[self.fractal.lineLength floatValue])];
+    self.hudLineAspectLabel.text = [self.twoPlaceFormatter stringFromNumber: @([self.fractal.lineWidth floatValue]/[self.fractal.lineLength floatValue])];
+    self.widthDecrementVerticalSlider.value = [self.fractal.lineWidth floatValue]/[self.fractal.lineLength floatValue];
+
     self.turningAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.turningAngle doubleValue])]];
+    self.turnAngleSlider.value =  degrees([self.fractal.turningAngle doubleValue]);
     
     double turnAngleChangeInDegrees = degrees([self.fractal.turningAngleIncrement doubleValue] * [self.fractal.turningAngle doubleValue]);
     self.turnAngleIncrementLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: turnAngleChangeInDegrees]];
     
     self.hudLineIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.lineChangeFactor];
+    self.lengthIncrementVerticalSlider.value = self.fractal.lineChangeFactor.floatValue;
     //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
     //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
     
@@ -1123,9 +1164,9 @@ static void countPathElements(void *info, const CGPathElement *element) {
                                maxAngle:  180.0
                               angleStep:    0.25
                              aspectPath:@"lineWidth"
-                            aspectScale: 1.0/50.0
+                            aspectScale: 5.0/50.0
                               minAspect: 0.5
-                              maxAspect: 20.0];
+                              maxAspect: 60.0];
 }
 #pragma message "TODO: need to add a step size and change turningAngleIncrement from degrees to percent"
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender {

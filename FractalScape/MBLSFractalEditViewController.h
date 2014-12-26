@@ -90,6 +90,12 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel0;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
 @property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel2;
+@property (weak, nonatomic) IBOutlet UISlider *baseAngleSlider;
+@property (weak, nonatomic) IBOutlet UISlider *randomnessVerticalSlider;
+@property (weak, nonatomic) IBOutlet UISlider *turnAngleSlider;
+@property (weak, nonatomic) IBOutlet UISlider *turnIncrementSlider;
+@property (weak, nonatomic) IBOutlet UISlider *widthDecrementVerticalSlider;
+@property (weak, nonatomic) IBOutlet UISlider *lengthIncrementVerticalSlider;
 
 
 #pragma mark - Popovers

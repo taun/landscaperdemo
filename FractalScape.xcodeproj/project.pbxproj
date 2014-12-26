@@ -60,6 +60,9 @@
 		C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */; };
 		C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */; };
 		C588E23A19B7D8C60061B34A /* MBStyleKitButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C588E23919B7D8C60061B34A /* MBStyleKitButton.m */; };
+		C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */; };
+		C58A75761A4A194100309BE0 /* MDBSliderControle.h in Headers */ = {isa = PBXBuildFile; fileRef = C58A75741A4A194100309BE0 /* MDBSliderControle.h */; };
+		C58A75771A4A194100309BE0 /* MDBSliderControle.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A75751A4A194100309BE0 /* MDBSliderControle.m */; };
 		C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
 		C5914AD014C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
 		C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5419DC776000774441 /* RulesIcons.xcassets */; };
@@ -229,6 +232,9 @@
 		C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBXibAutolayoutTableCell.m; path = FractalScape/MBXibAutolayoutTableCell.m; sourceTree = "<group>"; };
 		C588E23819B7D8C60061B34A /* MBStyleKitButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBStyleKitButton.h; sourceTree = "<group>"; };
 		C588E23919B7D8C60061B34A /* MBStyleKitButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBStyleKitButton.m; sourceTree = "<group>"; };
+		C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SliderControlMedia.xcassets; sourceTree = "<group>"; };
+		C58A75741A4A194100309BE0 /* MDBSliderControle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBSliderControle.h; path = FractalScape/MDBSliderControle.h; sourceTree = "<group>"; };
+		C58A75751A4A194100309BE0 /* MDBSliderControle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBSliderControle.m; path = FractalScape/MDBSliderControle.m; sourceTree = "<group>"; };
 		C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSDrawingRulesDefaultTypeList.plist; path = resources/LSDrawingRulesDefaultTypeList.plist; sourceTree = "<group>"; };
 		C59AAE5419DC776000774441 /* RulesIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RulesIcons.xcassets; sourceTree = "<group>"; };
 		C59AAE5619DC77CE00774441 /* UIMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UIMedia.xcassets; sourceTree = "<group>"; };
@@ -437,6 +443,8 @@
 				C5C37C5D1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m */,
 				C5C37C561A24E6F1008C5409 /* MDKLayerViewDesignable.h */,
 				C5C37C571A24E6F1008C5409 /* MDKLayerViewDesignable.m */,
+				C58A75741A4A194100309BE0 /* MDBSliderControle.h */,
+				C58A75751A4A194100309BE0 /* MDBSliderControle.m */,
 			);
 			name = MDUIKit;
 			sourceTree = "<group>";
@@ -526,6 +534,7 @@
 				C59AAE5619DC77CE00774441 /* UIMedia.xcassets */,
 				C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */,
 				C5B3F18519DC804100BDFAF5 /* FractalMedia.xcassets */,
+				C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */,
 			);
 			name = "Supporting Files";
 			path = FractalScape;
@@ -678,6 +687,7 @@
 				C5150F7A1A202DDA00DC8A0E /* MBPlacedEntity+addons.h in Headers */,
 				C5D5423F1A30EDE4006CD47A /* MBColor.h in Headers */,
 				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
+				C58A75761A4A194100309BE0 /* MDBSliderControle.h in Headers */,
 				C5150F761A202D9E00DC8A0E /* MBFractalScape+addons.h in Headers */,
 				C5D542371A300FFA006CD47A /* MDBColorCategoriesListView.h in Headers */,
 				C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */,
@@ -782,6 +792,7 @@
 				C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */,
 				C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */,
 				C5E556D914E2E6B300CAAB33 /* Localizable.strings in Resources */,
+				C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */,
 				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C579625E16DC3E1200A8BCDC /* Root.plist in Resources */,
@@ -849,6 +860,7 @@
 				C571B5CC1A377B430075D977 /* LSDrawingRule+addons.m in Sources */,
 				C59E321A1A1125F80076B40B /* MBColorCategory+addons.m in Sources */,
 				C5AF42D414EC3E8200D3308F /* MBFractalExamineView.m in Sources */,
+				C58A75771A4A194100309BE0 /* MDBSliderControle.m in Sources */,
 				C5C37C611A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m in Sources */,
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,
 				C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */,
