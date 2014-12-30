@@ -164,9 +164,12 @@
         [keyPath isEqualToString: [LSReplacementRule rulesKey]] ||
         [keyPath isEqualToString: [LSReplacementRule contextRuleKey]]) {
         // productionRuleChanged
-        [self productionRuleChanged];
-        [self cacheColors: _fractal];
-        [self cacheLineEnds: _fractal];
+        if (!(self.forceLevel > -1 && [keyPath isEqualToString: @"level"])) {
+            [self productionRuleChanged];
+            [self cacheColors: _fractal];
+            [self cacheLineEnds: _fractal];
+        }
+
         
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
         // appearanceChanged
@@ -211,9 +214,13 @@
  Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
  */
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
+    CGRect tileBoundingRect = CGContextGetClipBoundingBox(theContext);
     CGRect tempRect = theLayer.bounds;
     CGRect layerBounds = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height);
-    [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
+    [self.privateObjectContext performBlockAndWait:^{
+        [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
+    }];
+
 }
 /*!
  Can be called in a private thread, operation.
@@ -260,6 +267,21 @@
     }
     return status;
 }
+#pragma message "TODO async recursive version of drawInBounds. Can use context as is"
+/*
+    Need all coreData information to use the privateContext.
+    Get privateContext fractal and all subsequent data from privateFractal
+    Need a separate method which gets called with private fractal, context, segment information?
+    Want to draw directly to context which means on the fly width, length, color, fill, stroke, angle
+    All draw commands use segment which is a problem here.
+    Need to pass a struct with all of segment information. Pass struct to commands and return struck to draw path.
+    Flag in struct for whether to stroke with values before using new values. For example, if changing the width, need to stroke with old width first.
+ */
+
+-(void) drawAsyncInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
+    
+}
+
 /*!
  Can be called in a private thread, operation
  
@@ -269,26 +291,39 @@
  */
 -(void) drawInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
 
+    NSDate *methodStart;
+    
+    NSTimeInterval executionTime = 0.0;
+    __block NSTimeInterval productExecutionTime = 0.0;
+    __block NSTimeInterval pathExecutionTime = 0.0;
     
     // Following is because layerBounds value disappears after 1st if statement line below.
     // cause totally unknown.
     CGRect localBounds = layerBounds;
     
     if (self.productNeedsGenerating || self.pathNeedsGenerating) {
-        [self.privateObjectContext performBlockAndWait:^{
+//        [self.privateObjectContext performBlockAndWait:^{
         
             [self.privateObjectContext reset];
             self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
 //            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
+            NSDate *blockMethodStart;
+            NSDate *blockMethodFinish;
             
             if (self.productNeedsGenerating) {
+                blockMethodStart = [NSDate date];
                 [self generateProduct];
+                blockMethodFinish = [NSDate date];
+                productExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
             }
             if (self.pathNeedsGenerating) {
+                blockMethodStart = [NSDate date];
                 [self generatePaths];
+                blockMethodFinish = [NSDate date];
+                pathExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
             }
             
-        }];
+//        }];
     }
     
 
@@ -366,6 +401,8 @@
 //    CGAffineTransform pathTransform = CGAffineTransformIdentity;
 //    CGPointMake(localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
 
+    methodStart = [NSDate date];
+    
     CGMutablePathRef fractalPath = CGPathCreateMutable();
 //    CGPathMoveToPoint(fractalPath, NULL, localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
 
@@ -414,10 +451,18 @@
     }
 
     self.fractalCGPathRef = fractalPath;
-    CGPathRelease(fractalPath);
     
     CGContextRestoreGState(theContext);
+
+    NSDate *methodFinish = [NSDate date];
+    executionTime = floorf(1000.0*[methodFinish timeIntervalSinceDate:methodStart]);
+
+    CGPathRelease(fractalPath);
+//    NSLog(@"production executionTime = %f", productExecutionTime);
+//    NSLog(@"path executionTime = %f", pathExecutionTime);
+//    NSLog(@"drawing executionTime = %f", executionTime);
 }
+
 -(UIColor*) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {
     CGFloat count = (CGFloat)colorArray.count;
     if (count == 0.0) {
@@ -547,7 +592,7 @@
 }
 
 -(void) setFractalCGPathRef:(CGPathRef)path {
-    if (CGPathEqualToPath(_fractalCGPathRef, path)) return;
+    if (_fractalCGPathRef == path) return;
     
     CGPathRelease(_fractalCGPathRef);
     if (path != NULL) {
