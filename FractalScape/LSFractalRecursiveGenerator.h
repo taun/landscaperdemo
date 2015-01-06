@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "MBFractalSegment.h"
+
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
  2   F :  Move forward by line length drawing a line
@@ -160,6 +162,9 @@
 
 @class LSFractal;
 
+typedef void (*MBFractalCommandFunction) (MBSegmentStruct segment);
+
+
 /*!
  Takes an LSFractal definition given to it from core data and generates the production string and core graphics path.
  
@@ -184,7 +189,6 @@
 @property (nonatomic, assign) CGFloat                scale;
 @property (nonatomic, assign) CGPoint               translate;
 //@property (nonatomic, unsafe_unretained) CGPathRef  path;
-@property (nonatomic,unsafe_unretained) CGPathRef   fractalCGPathRef;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) CGFloat randomScalar;
 /*
@@ -211,7 +215,7 @@
 // */
 //-(void) setInitialTransform: (CGAffineTransform) transform;
 
--(void) drawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
+-(void) recursiveDrawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
 
 -(UIImage*)generateImageSize: (CGSize)size withBackground: (UIColor*)uiColor;
 
@@ -222,45 +226,48 @@
 
 //-(void) charge;
 
-#pragma mark Default Drawing Rule Methods
--(void) commandDoNothing;
--(void) commandDrawLine;
--(void) commandDrawLineVarLength;
--(void) commandMoveByLine;
--(void) commandRotateCC;
--(void) commandRotateC;
--(void) commandReverseDirection;
--(void) commandPush;
--(void) commandPop;
--(void) commandIncrementLineWidth;
--(void) commandDecrementLineWidth;
--(void) commandDrawDot;
--(void) commandDrawDotFilledNoStroke;
--(void) commandOpenPolygon;
--(void) commandClosePolygon;
--(void) commandUpscaleLineLength;
--(void) commandDownscaleLineLength;
--(void) commandSwapRotation;
--(void) commandDecrementAngle;
--(void) commandIncrementAngle;
--(void) commandStrokeOff;
--(void) commandStrokeOn;
--(void) commandFillOn;
--(void) commandFillOff;
--(void) commandRandomizeOn;
--(void) commandRandomizeOff;
--(void) commandNextColor;
--(void) commandPreviousColor;
--(void) commandNextFillColor;
--(void) commandPreviousFillColor;
--(void) commandLineJoinMiter;
--(void) commandLineJoinRound;
--(void) commandLineJoinBevel;
--(void) commandLineCapButt;
--(void) commandLineCapRound;
--(void) commandLineCapSquare;
--(void) commandCurvePoint;
--(void) commandCurveCC;
--(void) commandCurveC;
+
 
 @end
+
+#pragma mark Default Drawing Rule Methods
+void MBCGCommandDoNothingOnSegment(MBSegmentStruct segment);
+void MBCGCommandDrawLineOnSegment(MBSegmentStruct segment);
+void MBCGCommandDrawLineVarLengthOnSegment(MBSegmentStruct segment);
+void MBCGCommandMoveByLineOnSegment(MBSegmentStruct segment);
+void MBCGCommandRotateCCOnSegment(MBSegmentStruct segment);
+void MBCGCommandRotateCOnSegment(MBSegmentStruct segment);
+void MBCGCommandReverseDirectionOnSegment(MBSegmentStruct segment);
+void MBCGCommandPushOnSegment(MBSegmentStruct segment);
+void MBCGCommandPopOnSegment(MBSegmentStruct segment);
+void MBCGCommandIncrementLineWidthOnSegment(MBSegmentStruct segment);
+void MBCGCommandDecrementLineWidthOnSegment(MBSegmentStruct segment);
+void MBCGCommandDrawDotOnSegment(MBSegmentStruct segment);
+void MBCGCommandDrawDotFilledNoStrokeOnSegment(MBSegmentStruct segment);
+void MBCGCommandOpenPolygonOnSegment(MBSegmentStruct segment);
+void MBCGCommandClosePolygonOnSegment(MBSegmentStruct segment);
+void MBCGCommandUpscaleLineLengthOnSegment(MBSegmentStruct segment);
+void MBCGCommandDownscaleLineLengthOnSegment(MBSegmentStruct segment);
+void MBCGCommandSwapRotationOnSegment(MBSegmentStruct segment);
+void MBCGCommandDecrementAngleOnSegment(MBSegmentStruct segment);
+void MBCGCommandIncrementAngleOnSegment(MBSegmentStruct segment);
+void MBCGCommandStrokeOffOnSegment(MBSegmentStruct segment);
+void MBCGCommandStrokeOnOnSegment(MBSegmentStruct segment);
+void MBCGCommandFillOnOnSegment(MBSegmentStruct segment);
+void MBCGCommandFillOffOnSegment(MBSegmentStruct segment);
+void MBCGCommandRandomizeOnOnSegment(MBSegmentStruct segment);
+void MBCGCommandRandomizeOffOnSegment(MBSegmentStruct segment);
+void MBCGCommandNextColorOnSegment(MBSegmentStruct segment);
+void MBCGCommandPreviousColorOnSegment(MBSegmentStruct segment);
+void MBCGCommandNextFillColorOnSegment(MBSegmentStruct segment);
+void MBCGCommandPreviousFillColorOnSegment(MBSegmentStruct segment);
+void MBCGCommandLineJoinMiterOnSegment(MBSegmentStruct segment);
+void MBCGCommandLineJoinRoundOnSegment(MBSegmentStruct segment);
+void MBCGCommandLineJoinBevelOnSegment(MBSegmentStruct segment);
+void MBCGCommandLineCapButtOnSegment(MBSegmentStruct segment);
+void MBCGCommandLineCapRoundOnSegment(MBSegmentStruct segment);
+void MBCGCommandLineCapSquareOnSegment(MBSegmentStruct segment);
+void MBCGCommandCurvePointOnSegment(MBSegmentStruct segment);
+void MBCGCommandCurveCCOnSegment(MBSegmentStruct segment);
+void MBCGCommandCurveCOnSegment(MBSegmentStruct segment);
+

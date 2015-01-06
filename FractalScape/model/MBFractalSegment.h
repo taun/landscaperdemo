@@ -9,6 +9,31 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+struct MBSegmentStruct {
+    CGContextRef        context;
+    CGMutablePathRef    path;
+    CGAffineTransform   transform;
+    CGFloat             turningAngle;
+    CGFloat             turningAngleIncrement;
+    BOOL                stroke;
+    CGLineCap           lineCap;
+    CGLineJoin          lineJoin;
+    NSInteger           lineColorIndex;
+    CGFloat             lineLength;
+    CGFloat             lineWidth;
+    CGFloat             lineWidthIncrement;
+    CGFloat             lineLengthScaleFactor;
+    CGFloat             lineChangeFactor;
+    BOOL                fill;
+    BOOL                EOFill;
+    NSInteger           fillColorIndex;
+    BOOL                randomize;
+    CGFloat             randomness;
+} ;
+typedef struct MBSegmentStruct MBSegmentStruct;
+
+
+
 /*!
  A fractal path segment.
  */
