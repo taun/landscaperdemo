@@ -1,12 +1,13 @@
 //
-//  LSFractalGenerator.m
+//  LSFractalRecursiveGenerator.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 01/19/12.
-//  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 01/05/15.
+//  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import "LSFractalGenerator.h"
+#import "LSFractalRecursiveGenerator.h"
+
 #import "LSFractal+addons.h"
 #import "MBColor+addons.h"
 #import "MBFractalSegment.h"
@@ -20,7 +21,7 @@
 
 #define SHOWDEBUGBORDER 0
 
-@interface LSFractalGenerator () {
+@interface LSFractalRecursiveGenerator () {
     CGFloat _maxLineWidth;
 }
 @property (nonatomic,strong) NSManagedObjectID      *fractalID;
@@ -74,14 +75,14 @@
 
 #pragma mark - Implementation
 
-@implementation LSFractalGenerator
+@implementation LSFractalRecursiveGenerator
 
 @synthesize fractalCGPathRef = _fractalCGPathRef;
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-
+        
         _productNeedsGenerating = YES;
         _pathNeedsGenerating = YES;
         _forceLevel = -1.0;
@@ -112,7 +113,7 @@
         self.fractalID = _fractal.objectID;
         self.privateObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
         self.privateObjectContext.parentContext = _fractal.managedObjectContext;
-
+        
         [self cacheColors: _fractal];
         [self cacheLineEnds: _fractal];
         
@@ -132,7 +133,7 @@
             for (NSString* keyPath in propertiesToObserve) {
                 [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
             }
-                        
+            
             for (LSReplacementRule* rRule in fractal.replacementRules) {
                 [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
                 [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
@@ -169,7 +170,7 @@
             [self cacheColors: _fractal];
             [self cacheLineEnds: _fractal];
         }
-
+        
         
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
         // appearanceChanged
@@ -195,9 +196,9 @@
     CFRelease(boundsDict);
     
     return [NSString stringWithFormat: @"<%@: fractal = %@; forceLevel = %g; bounds = %@; production = %@>",
-            NSStringFromClass([self class]), 
-            self.fractal, 
-            self.forceLevel, 
+            NSStringFromClass([self class]),
+            self.fractal,
+            self.forceLevel,
             boundsDescription,
             self.production];
 }
@@ -220,11 +221,11 @@
     [self.privateObjectContext performBlockAndWait:^{
         [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
     }];
-
+    
 }
 /*!
  Can be called in a private thread, operation.
-
+ 
  @param size
  @param uiColor
  
@@ -276,7 +277,7 @@
  @param isFlipped
  */
 -(void) drawInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
-
+    
     NSDate *methodStart;
     
     NSTimeInterval executionTime = 0.0;
@@ -288,31 +289,31 @@
     CGRect localBounds = layerBounds;
     
     if (self.productNeedsGenerating || self.pathNeedsGenerating) {
-//        [self.privateObjectContext performBlockAndWait:^{
+        //        [self.privateObjectContext performBlockAndWait:^{
         
-            [self.privateObjectContext reset];
-            self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
-//            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
-            NSDate *blockMethodStart;
-            NSDate *blockMethodFinish;
-            
-            if (self.productNeedsGenerating) {
-                blockMethodStart = [NSDate date];
-                [self generateProduct];
-                blockMethodFinish = [NSDate date];
-                productExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
-            }
-            if (self.pathNeedsGenerating) {
-                blockMethodStart = [NSDate date];
-                [self generatePaths];
-                blockMethodFinish = [NSDate date];
-                pathExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
-            }
-            
-//        }];
+        [self.privateObjectContext reset];
+        self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
+        //            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
+        NSDate *blockMethodStart;
+        NSDate *blockMethodFinish;
+        
+        if (self.productNeedsGenerating) {
+            blockMethodStart = [NSDate date];
+            [self generateProduct];
+            blockMethodFinish = [NSDate date];
+            productExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
+        }
+        if (self.pathNeedsGenerating) {
+            blockMethodStart = [NSDate date];
+            [self generatePaths];
+            blockMethodFinish = [NSDate date];
+            pathExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
+        }
+        
+        //        }];
     }
     
-
+    
     CGContextSaveGState(theContext);
     
     if (SHOWDEBUGBORDER) {
@@ -382,16 +383,16 @@
     
     //    NSLog(@"Translation FCenter = %g@%g; LCenter = %g@%g; tx = %g; ty = %g",
     //          fCenterX, fCenterY, lCenterX, lCenterY, tx, ty);
-//    CGRect localBounds = self.fractalLevelNLayer.bounds;
+    //    CGRect localBounds = self.fractalLevelNLayer.bounds;
     
-//    CGAffineTransform pathTransform = CGAffineTransformIdentity;
-//    CGPointMake(localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
-
+    //    CGAffineTransform pathTransform = CGAffineTransformIdentity;
+    //    CGPointMake(localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
+    
     methodStart = [NSDate date];
     
     CGMutablePathRef fractalPath = CGPathCreateMutable();
-//    CGPathMoveToPoint(fractalPath, NULL, localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
-
+    //    CGPathMoveToPoint(fractalPath, NULL, localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
+    
     for (MBFractalSegment* segment in self.finishedSegments) {
         // stroke and or fill each segment
         CGContextBeginPath(theContext);
@@ -402,7 +403,7 @@
         
         // Scale the lineWidth to compensate for the overall scaling
         //        CGContextSetLineWidth(ctx, segment.lineWidth);
-//        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
+        //        CGContextSetLineWidth(theContext, segment.lineWidth/self.scale);
         
         CGContextSetLineCap(theContext, segment.lineCap);
         CGContextSetLineJoin(theContext, segment.lineJoin);
@@ -435,18 +436,18 @@
         }
         CGContextDrawPath(theContext, strokeOrFill);
     }
-
+    
     self.fractalCGPathRef = fractalPath;
     
     CGContextRestoreGState(theContext);
-
+    
     NSDate *methodFinish = [NSDate date];
     executionTime = floorf(1000.0*[methodFinish timeIntervalSinceDate:methodStart]);
-
+    
     CGPathRelease(fractalPath);
-//    NSLog(@"production executionTime = %f", productExecutionTime);
-//    NSLog(@"path executionTime = %f", pathExecutionTime);
-//    NSLog(@"drawing executionTime = %f", executionTime);
+    //    NSLog(@"production executionTime = %f", productExecutionTime);
+    //    NSLog(@"path executionTime = %f", pathExecutionTime);
+    //    NSLog(@"drawing executionTime = %f", executionTime);
 }
 
 -(UIColor*) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {
@@ -456,9 +457,9 @@
     }
     
     NSInteger moddedIndex = (NSInteger)fabs(fmod((CGFloat)index, count));
-
+    
     MBColor* mbColor = colorArray[moddedIndex];
-
+    
     UIColor* newColor;
     
     if (!mbColor) {
@@ -562,7 +563,7 @@
     CGFloat margin = _maxLineWidth*2.0+1.0;
     CGRect result = CGRectInset(_bounds, -margin, -margin);
     return result;
-//    return _bounds;
+    //    return _bounds;
 }
 
 //-(void) setBounds:(CGRect)bounds {
@@ -682,13 +683,13 @@
         }
         [_currentSegmentList removeAllObjects];
         _currentSegmentList = nil;
-
+        
         for (MBFractalSegment* segment in _finishedSegments) {
             [segment setPath: NULL];
         }
         [_finishedSegments removeAllObjects];
         _finishedSegments = nil;
-
+        
         for (NSArray* segmentArray in _segmentStack) {
             for (MBFractalSegment* segment in segmentArray) {
                 [segment setPath: NULL];
@@ -708,7 +709,7 @@
 //}
 //
 //-(void) setCurrentTransform:(CGAffineTransform)currentTransform {
-//    
+//
 //}
 
 
@@ -771,7 +772,7 @@
             if (replacement==nil) {
                 replacement = key;
             } else {
-//                replacement = [NSString stringWithFormat: @"[%@]", replacement];
+                //                replacement = [NSString stringWithFormat: @"[%@]", replacement];
             }
             [destinationData appendString: replacement];
         }
@@ -816,7 +817,7 @@
         startingRotation = [self.privateFractal.baseAngle floatValue];
         
         self.currentSegment.transform = CGAffineTransformRotate(self.currentSegment.transform, -startingRotation);
-
+        
         
         for (int c=0; c < [self.production length]; c++) {
             NSString* rule = [self.production substringWithRange: NSMakeRange(c , 1)];
@@ -834,8 +835,88 @@
     self.pathNeedsGenerating = NO;
 }
 
+-(void) recursiveDrawInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
+    NSDate *methodStart;
+    
+    NSTimeInterval executionTime = 0.0;
+    __block NSTimeInterval productExecutionTime = 0.0;
+    __block NSTimeInterval pathExecutionTime = 0.0;
+    
+    // Following is because layerBounds value disappears after 1st if statement line below.
+    // cause totally unknown.
+    CGRect localBounds = layerBounds;
+    
+    CGContextSaveGState(theContext);
+    
+    methodStart = [NSDate date];
+    
+    CGMutablePathRef fractalPath = CGPathCreateMutable();
+    
+    
+    
+    self.fractalCGPathRef = fractalPath;
+    
+    CGContextRestoreGState(theContext);
+    
+    NSDate *methodFinish = [NSDate date];
+    executionTime = floorf(1000.0*[methodFinish timeIntervalSinceDate:methodStart]);
+    
+    CGPathRelease(fractalPath);
+    
+}
 
--(void) evaluateRule:(NSString *)rule {    
+-(void) createFractalLevel: (NSUInteger) level withContext: (CGContextRef) cgContext{
+    NSOrderedSet* rules = self.fractal.startingRules;
+    
+//    [self cgContext: cgContext recursiveReplacementOf: rules replacements: self.cachedReplacementRules currentLevel: 0 desiredLevel: level];
+}
+/*
+ A
+ A+BF+
+ -FA-B
+ 
+ 0: A
+ 1: A+BF+
+ 2: A+BF++-FA-BF+
+ 
+ */
+
+-(CGContextRef) cgContext: (CGContextRef)cgContext recursiveReplacementOf: (NSOrderedSet*) rules replacements: (NSDictionary*) replacementRules currentLevel: (NSUInteger) currentLevel desiredLevel: (NSUInteger) desiredLevel {
+    
+    CGContextRef localContext = cgContext;
+    
+//    for (LSDrawingRule* rule in rules) {
+//        //
+//        if (currentLevel < desiredLevel) {
+//            // replace if necessary
+//            LSReplacementRule* replacementRule = replacementRules[rule.productionString];
+//            if (replacementRule) {
+//                NSOrderedSet* newRules = replacementRule.rules;
+//                CGContextRef newContext = [self cgContext: localContext recursiveReplacementOf: newRules replacements: replacementRules currentLevel: currentLevel+1 desiredLevel: desiredLevel];
+//                if (localContext) {
+//                    localContext = newContext;
+//                }
+//            } else {
+//                // no replacement rule so just use the rule for a node
+//                id node = [self evaluateRule: rule.productionString withParent: localParentNode withName: rule.productionString];
+//                if (node) {
+//                    localParentNode = node;
+//                }
+//            }
+//        } else {
+//            // return node for current rule
+//            id node = [self evaluateRule: rule.productionString withParent: localParentNode withName: rule.productionString];
+//            if (node) {
+//                localParentNode = node;
+//            }
+//        }
+//    }
+//    
+    return localContext;
+}
+
+
+-(void) evaluateRule:(NSString *)rule {
     //
     id selectorId = (self.cachedDrawingRules)[rule];
     if ([selectorId isKindOfClass: [NSString class]]) {
@@ -861,7 +942,7 @@
     }
     
     [self performSelector: cachedSelector];
-
+    
 }
 
 #pragma clang diagnostic pop
@@ -886,13 +967,13 @@
 -(void) commandDrawLine {
     CGFloat tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
-
+    
     if (self.controlPointOn) {
         CGAffineTransform inverted = CGAffineTransformInvert(local);
         CGPoint p1 = CGPointApplyAffineTransform(self.previousNode, inverted);
         CGPoint cp0 = CGPointApplyAffineTransform(self.controlPointNode, inverted);
-//        CGPoint cp1 = 
-//        CGPathAddCurveToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
+        //        CGPoint cp1 =
+        //        CGPathAddCurveToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
         CGPathAddArcToPoint(self.currentSegment.path, &local, cp0.x, cp0.y, tx, 0.0, tx);
         CGPathAddLineToPoint(self.currentSegment.path, &local, tx, 0.0);
         self.controlPointOn = NO;
@@ -905,7 +986,7 @@
 -(void) commandDrawLineVarLength {
     CGFloat tx = self.currentSegment.lineLength;
     CGAffineTransform local = self.currentSegment.transform;
-
+    
     if (self.controlPointOn) {
         CGAffineTransform inverted = CGAffineTransformInvert(local);
         CGPoint p1 = CGPointApplyAffineTransform(self.previousNode, inverted);
@@ -951,7 +1032,7 @@
 }
 -(void) commandCurvePoint {
     self.previousNode = CGPathGetCurrentPoint(self.currentSegment.path);
-
+    
     CGFloat tx = self.currentSegment.lineLength;
     self.currentSegment.transform = CGAffineTransformTranslate(self.currentSegment.transform, tx, 0.0);
     

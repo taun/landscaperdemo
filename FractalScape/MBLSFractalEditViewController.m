@@ -585,10 +585,10 @@ static BOOL SIMULTOUCH = NO;
 }
 
 -(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel {
-    CATiledLayer* aLayer = [[CATiledLayer alloc] init];
+//    CATiledLayer* aLayer = [[CATiledLayer alloc] init];
 //    aLayer.tileSize = CGSizeMake(5120.0, 5120.0);
 //    CAShapeLayer* aLayer = [[CAShapeLayer alloc] init];
-//    CALayer* aLayer = [[CALayer alloc] init];
+    CALayer* aLayer = [[CALayer alloc] init];
     aLayer.drawsAsynchronously = YES;
     aLayer.name = name;
     aLayer.needsDisplayOnBoundsChange = YES;
