@@ -580,7 +580,7 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     // Start path generation
     // ---------
     
-    if (self.autoscale) {
+    if (!self.autoscale) {
         
         // Scaling
         CGFloat scaleWidth = localBounds.size.width/self.bounds.size.width;
@@ -669,7 +669,7 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     CGRect pathBounds = CGContextGetPathBoundingBox(startingSegment.context);
     CGRect tempBounds = CGRectUnion(_bounds, pathBounds);
     self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
-    NSLog(@"Fractal PathBounds: %@; total bounds: %@", NSStringFromCGRect(pathBounds),NSStringFromCGRect(tempBounds));
+//    NSLog(@"Fractal PathBounds: %@; total bounds: %@", NSStringFromCGRect(pathBounds),NSStringFromCGRect(tempBounds));
     CGContextDrawPath(startingSegment.context, startingSegment.mode);
     
 //    CGRect pathBounds = CGContextGetPathBoundingBox(cgContext);
