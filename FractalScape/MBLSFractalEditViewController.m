@@ -15,12 +15,14 @@
 #import "LSReplacementRule.h"
 //#import "MBLSFractalLevelNView.h"
 #import "LSFractal+addons.h"
-#import "LSFractalGenerator.h"
 #import "MBColor+addons.h"
 #import "MBPlacedEntity+addons.h"
 #import "MBScapeBackground+addons.h"
 #import "MBFractalScape+addons.h"
 #import "NSManagedObject+Shortcuts.h"
+
+#import "LSFractalGenerator.h"
+#import "LSFractalRecursiveGenerator.h"
 
 #import <QuartzCore/QuartzCore.h>
 #include <ImageIO/CGImageProperties.h>
@@ -557,7 +559,7 @@ static BOOL SIMULTOUCH = NO;
                 generator.fractal = fractal;
             }
         } else {
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
+            [self setupRecursiveLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" margin: 10.0 forceLevel: 0];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" margin: 10.0 forceLevel: 1];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel2 name: @"fractalLevel2" margin: 10.0 forceLevel: 2];
@@ -600,6 +602,40 @@ static BOOL SIMULTOUCH = NO;
     
     
     LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
+    
+    if (generator) {
+        NSUInteger arrayCount = [self.generatorsArray count];
+        
+        generator.fractal = fractal;
+        generator.forceLevel = aLevel;
+        
+        aLayer.delegate = generator;
+        [aLayer setValue: [NSNumber numberWithInteger: arrayCount] forKey: @"arrayCount"];
+        
+        [self.fractalDisplayLayersArray addObject: aLayer];
+        [self.generatorsArray addObject: generator];
+    }
+}
+-(void) setupRecursiveLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel {
+    //    CATiledLayer* aLayer = [[CATiledLayer alloc] init];
+    //    aLayer.tileSize = CGSizeMake(5120.0, 5120.0);
+    //    CAShapeLayer* aLayer = [[CAShapeLayer alloc] init];
+    CALayer* aLayer = [[CALayer alloc] init];
+    aLayer.drawsAsynchronously = YES;
+    aLayer.name = name;
+    aLayer.needsDisplayOnBoundsChange = YES;
+    aLayer.speed = 1.0;
+    //    aLayer.contentsScale = 2.0 * aView.layer.contentsScale;
+    
+    [self fitLayer: aLayer inLayer: aView.layer margin: margin];
+    
+    CGRect bounds = aLayer.bounds;
+    aLayer.bounds = CGRectInset(bounds, -4000.0, -4000.0);
+    
+    [aView.layer addSublayer: aLayer];
+    
+    
+    LSFractalRecursiveGenerator* generator = [[LSFractalRecursiveGenerator alloc] init];
     
     if (generator) {
         NSUInteger arrayCount = [self.generatorsArray count];

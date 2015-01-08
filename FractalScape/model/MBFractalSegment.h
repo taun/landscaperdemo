@@ -11,7 +11,7 @@
 
 struct MBSegmentStruct {
     CGContextRef        context;
-    CGMutablePathRef    path;
+    CGPathDrawingMode   mode;
     CGAffineTransform   transform;
     CGFloat             turningAngle;
     CGFloat             turningAngleIncrement;
@@ -67,6 +67,6 @@ typedef struct MBSegmentStruct MBSegmentStruct;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) MBFractalSegment *copySettings;
 
--(double) randomScalar;
+-(CGFloat) randomScalar;
 
 @end
