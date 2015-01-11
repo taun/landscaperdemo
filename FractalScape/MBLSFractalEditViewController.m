@@ -560,6 +560,7 @@ static BOOL SIMULTOUCH = NO;
             }
         } else {
             [self setupRecursiveLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
+//            [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" margin: 10.0 forceLevel: 0];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" margin: 10.0 forceLevel: 1];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel2 name: @"fractalLevel2" margin: 10.0 forceLevel: 2];

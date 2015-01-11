@@ -441,12 +441,15 @@
     CGContextRestoreGState(theContext);
 
     NSDate *methodFinish = [NSDate date];
-    executionTime = floorf(1000.0*[methodFinish timeIntervalSinceDate:methodStart]);
+    executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
 
     CGPathRelease(fractalPath);
-//    NSLog(@"production executionTime = %f", productExecutionTime);
-//    NSLog(@"path executionTime = %f", pathExecutionTime);
-//    NSLog(@"drawing executionTime = %f", executionTime);
+    if (self.forceLevel == -1) {
+        NSLog(@"production executionTime = %.2fms", productExecutionTime);
+        NSLog(@"path executionTime = %.2fms", pathExecutionTime);
+        NSLog(@"drawing executionTime = %.2fms", executionTime);
+        NSLog(@"Total executionTime = %.2fms", executionTime+pathExecutionTime+productExecutionTime);
+    }
 }
 
 -(UIColor*) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {
