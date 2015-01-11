@@ -484,6 +484,8 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
         [mapTable setObject: (__bridge id)((void*)MBCGCommandStrokeOffOnSegment) forKey: @"commandStrokeOff"];
         [mapTable setObject: (__bridge id)((void*)MBCGCommandFillOnOnSegment) forKey: @"commandFillOn"];
         [mapTable setObject: (__bridge id)((void*)MBCGCommandFillOffOnSegment) forKey: @"commandFillOff"];
+        [mapTable setObject: (__bridge id)((void*)MBCGCommandPushOnSegment) forKey: @"commandPush"];
+        [mapTable setObject: (__bridge id)((void*)MBCGCommandPopOnSegment) forKey: @"commandPop"];
         
         
         _cachedDrawingFunctions = mapTable;
@@ -566,6 +568,7 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     NSDate *methodStart;
     
     NSTimeInterval executionTime = 0.0;
+    
     __block NSTimeInterval productExecutionTime = 0.0;
     __block NSTimeInterval pathExecutionTime = 0.0;
     
@@ -575,7 +578,7 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     
     CGContextSaveGState(cgContext);
     
-//    methodStart = [NSDate date];
+    methodStart = [NSDate date];
     
     // Start path generation
     // ---------
@@ -607,7 +610,7 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     }
 
     
-    [self createFractalLevel: [self.fractal.level unsignedIntegerValue]  withContext: cgContext];
+    [self createFractalLevel: [self.fractal.level unsignedIntegerValue] - 1 withContext: cgContext];
     
     // ---------
     // End path generation
@@ -615,9 +618,9 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     CGContextRestoreGState(cgContext);
     
     
-//    NSDate *methodFinish = [NSDate date];
-//    executionTime = floorf(1000.0*[methodFinish timeIntervalSinceDate:methodStart]);
-    
+    NSDate *methodFinish = [NSDate date];
+    executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"Recursive execution time: %.2fms", executionTime);
 }
 /*
  How to handle scaling?
@@ -629,15 +632,18 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
 -(void) createFractalLevel: (NSUInteger) level withContext: (CGContextRef) cgContext{
     NSOrderedSet* rules = self.fractal.startingRules;
     
-    
-    CGContextTranslateCTM(cgContext, self.translate.x, self.translate.y);
-    
-    CGContextScaleCTM(cgContext, self.scale, self.scale);
+    CGAffineTransform initialTransform = CGContextGetCTM(cgContext);
+//    CGContextTranslateCTM(cgContext, self.translate.x, self.translate.y);
+//    
+//    CGContextScaleCTM(cgContext, self.scale, self.scale);
 
 //    CGContextTranslateCTM(cgContext, 300.5, 300.5);
 //    CGContextScaleCTM(cgContext, 0.1, 0.1);
     CGContextScaleCTM(cgContext, 1.0, -1.0);
 
+    CGContextDrawImage(cgContext, CGRectMake(-18, -18, 36, 36), [[UIImage imageNamed: @"controlDragCircle"] CGImage]);
+    CGContextDrawImage(cgContext, CGRectMake(-12, -12, 24, 24), [[UIImage imageNamed: @"controlDragCircle16px"] CGImage]);
+    
     CGContextBeginPath(cgContext);
     CGContextMoveToPoint(cgContext, 0.5f, 0.5f);
     
@@ -646,7 +652,8 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
 
     MBSegmentStruct startingSegment = [self initialSegment];
     startingSegment.context = cgContext;
-    CGContextConcatCTM(cgContext, startingSegment.transform);
+    CGContextRotateCTM(startingSegment.context, [self.fractal.baseAngle floatValue]);
+//    CGContextConcatCTM(cgContext, startingSegment.transform);
 
     BOOL stroke = startingSegment.stroke;
     BOOL fill = startingSegment.fill;
@@ -666,10 +673,16 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
 
     [self segment: &startingSegment recursiveReplacementOf: rules replacements: self.cachedReplacementRules currentLevel: 0 desiredLevel: level];
 
-    CGRect pathBounds = CGContextGetPathBoundingBox(startingSegment.context);
-    CGRect tempBounds = CGRectUnion(_bounds, pathBounds);
-    self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
-//    NSLog(@"Fractal PathBounds: %@; total bounds: %@", NSStringFromCGRect(pathBounds),NSStringFromCGRect(tempBounds));
+    CGRect pathBounds = CGContextGetPathBoundingBox(startingSegment.context); // path based on current transform! 0,0 is top left corner of screen
+    
+    CGAffineTransform pathTransform = CGContextGetCTM(startingSegment.context);
+    CGAffineTransform pathInverse = CGAffineTransformInvert(pathTransform);
+    CGRect normalizedRect = CGRectApplyAffineTransform(CGRectApplyAffineTransform(pathBounds, initialTransform ), pathInverse);
+    
+//    CGRect deviceBounds = CGContextConvertRectToDeviceSpace(startingSegment.context, pathBounds);
+//    CGRect tempBounds = CGRectUnion(_bounds, deviceBounds);
+//    self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
+//    NSLog(@"Fractal \nPathBounds:\t %@;\nNorm Bounds:\t %@;\nTotal bounds: %@", NSStringFromCGRect(pathBounds), NSStringFromCGRect(normalizedRect),NSStringFromCGRect(tempBounds));
     CGContextDrawPath(startingSegment.context, startingSegment.mode);
     
 //    CGRect pathBounds = CGContextGetPathBoundingBox(cgContext);
@@ -859,10 +872,12 @@ void MBCGCommandCurvePointOnSegment(MBSegmentStruct* segmentPtr) {
 }
 
 void MBCGCommandPushOnSegment(MBSegmentStruct* segmentPtr) {
+    CGContextSaveGState(segmentPtr->context);
     //    [self pushSegment];
 }
 
 void MBCGCommandPopOnSegment(MBSegmentStruct* segmentPtr) {
+    CGContextRestoreGState(segmentPtr->context);
     //    [self popSegment];
 }
 /*!
