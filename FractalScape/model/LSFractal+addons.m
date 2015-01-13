@@ -16,8 +16,8 @@
 #define kLSMaxLevel0CacheSize 100
 #define kLSMaxLevel1CacheSize 100
 #define kLSMaxLevel2CacheSize 500
-#define kLSMaxLevelNCacheSize 500000
-#define kLSLevelCacheIncrement 500000
+#define kLSMaxLevelNCacheSize 1000000
+#define kLSLevelCacheIncrement 1000000
 
 
 @implementation LSFractal (addons)

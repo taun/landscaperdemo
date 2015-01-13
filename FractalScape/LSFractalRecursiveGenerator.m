@@ -570,7 +570,6 @@ void MBCGDrawSquare(MBSegmentStackStruct* stackPtr, CGFloat width);
     
     NSTimeInterval executionTime = 0.0;
     
-    __block NSTimeInterval productExecutionTime = 0.0;
     __block NSTimeInterval pathExecutionTime = 0.0;
     
     // Following is because layerBounds value disappears after 1st if statement line below.
@@ -623,7 +622,7 @@ void MBCGDrawSquare(MBSegmentStackStruct* stackPtr, CGFloat width);
     
     NSDate *methodFinish = [NSDate date];
     executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"Recursive execution time: %.2fms", executionTime);
+    NSLog(@"Recursive total execution time: %.2fms", executionTime);
 }
 /*
  How to handle scaling?
@@ -687,6 +686,9 @@ void MBCGDrawSquare(MBSegmentStackStruct* stackPtr, CGFloat width);
         localLevel = self.forceLevel;
     }
     
+    NSTimeInterval productExecutionTime = 0.0;
+    NSDate *productionStart = [NSDate date];
+    
     if (localLevel == 0) {
         levelCommandsArray = [self.fractal level0Rules];
     } else if (localLevel == 1) {
@@ -696,6 +698,10 @@ void MBCGDrawSquare(MBSegmentStackStruct* stackPtr, CGFloat width);
     } else {
         levelCommandsArray = [self.fractal levelNRules];
     }
+    
+    NSDate *productionFinish = [NSDate date];
+    CGFloat productionTime = 1000.0*[productionFinish timeIntervalSinceDate: productionStart];
+    NSLog(@"Recursive production time: %.2fms", productionTime);
 
     for (int i=0; i < levelCommandsArray.count; i++) {
         NSString* command = [levelCommandsArray pointerAtIndex: i];
