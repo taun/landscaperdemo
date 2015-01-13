@@ -13,6 +13,13 @@
 #import "MBColor+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
+#define kLSMaxLevel0CacheSize 100
+#define kLSMaxLevel1CacheSize 100
+#define kLSMaxLevel2CacheSize 500
+#define kLSMaxLevelNCacheSize 500000
+#define kLSLevelCacheIncrement 500000
+
+
 @implementation LSFractal (addons)
 
 + (NSString *)entityName {
@@ -235,6 +242,14 @@
     return [categories copy];
 }
 
+- (void)setLevel:(NSNumber*)newLevel {
+    [self willChangeValueForKey:@"level"];
+    [self setPrimitiveValue: newLevel forKey: @"level"];
+    self.levelUnchanged = NO;
+    [self didChangeValueForKey:@"level"];
+}
+
+
 -(NSString*) startingRulesString {
     NSMutableString* rulesString = [[NSMutableString alloc]initWithCapacity: self.startingRules.count];
     for (LSDrawingRule* rule in self.startingRules) {
@@ -282,6 +297,78 @@
     double inRadians = radians([newAngle doubleValue]);
     self.baseAngle = @(inRadians);
 }
+-(NSDictionary*) replacementRulesDictionary {
+    NSMutableDictionary* tempDictionary = [[NSMutableDictionary alloc] initWithCapacity: self.replacementRules.count];
+    NSOrderedSet* replacementRules =  self.replacementRules;
+    for (LSReplacementRule* replacementRule in replacementRules) {
+        [tempDictionary setObject: replacementRule forKey: replacementRule.contextRule.productionString];
+    }
+    return [tempDictionary copy];
+}
+-(NSPointerArray*) fillRulesArray: (NSPointerArray*)ruleArray forLevel: (NSUInteger) level {
+    NSDictionary* replacementRulesDict = self.replacementRulesDictionary;
+    
+    NSUInteger leafRuleIndex = 0;
+    [self recurseRules: self.startingRules replacementRules: replacementRulesDict currentLevel: 0 desiredLevel: level ruleArray: ruleArray leafRuleIndex: &leafRuleIndex];
+    [ruleArray replacePointerAtIndex: leafRuleIndex withPointer: NULL];
+    
+    return ruleArray;
+}
+-(void) recurseRules: (NSOrderedSet*)rules replacementRules: (NSDictionary*)replacementRulesDict currentLevel: (NSUInteger)currentLevel desiredLevel: (NSUInteger) desiredLevel ruleArray: (NSPointerArray*)leafRulesArray leafRuleIndex: (NSUInteger*) leafIndexPtr {
+    for (LSDrawingRule* rule in rules) {
+        LSReplacementRule* replacementRule = replacementRulesDict[rule.productionString];
+        if (currentLevel == desiredLevel || !replacementRule) {
+            // if we are at the right level OR there is NO replacement rule, add the leaf
+            NSUInteger arraySize = leafRulesArray.count;
+            if (*leafIndexPtr+1 >= arraySize) {
+                NSUInteger newArraySize = arraySize + kLSLevelCacheIncrement;
+                [leafRulesArray setCount: newArraySize];
+            }
+            [leafRulesArray replacePointerAtIndex: (*leafIndexPtr)++ withPointer: (__bridge void *)(rule.drawingMethodString)];
+        } else if (currentLevel < desiredLevel && replacementRule) {
+            // if we are not at the right level AND there IS a replacement rule, recurse
+            [self recurseRules: replacementRule.rules replacementRules: replacementRulesDict currentLevel: currentLevel+1 desiredLevel: desiredLevel ruleArray: leafRulesArray leafRuleIndex: leafIndexPtr];
+        }
+    }
+}
 
+-(NSPointerArray*) level0Rules {
+    if (!self.level0RulesCache) {
+        self.level0RulesCache = [NSPointerArray weakObjectsPointerArray];
+        self.level0RulesCache.count = kLSMaxLevel0CacheSize;
+    }
+    NSUInteger ruleIndex = 0;
+    for (LSDrawingRule* rule in self.startingRules) {
+        [self.level0RulesCache replacePointerAtIndex: ruleIndex++ withPointer: (__bridge void *)(rule.drawingMethodString)];
+    }
+    [self.level0RulesCache replacePointerAtIndex: ruleIndex withPointer: NULL];
 
+    return self.level0RulesCache;
+}
+-(NSPointerArray*) level1Rules {
+    if (!self.level1RulesCache) {
+        self.level1RulesCache = [NSPointerArray weakObjectsPointerArray];
+        self.level1RulesCache.count = kLSMaxLevel1CacheSize;
+    }
+    return [self fillRulesArray: self.level1RulesCache forLevel: 1];
+}
+-(NSPointerArray*) level2Rules {
+    if (!self.level2RulesCache) {
+        self.level2RulesCache = [NSPointerArray weakObjectsPointerArray];
+        self.level2RulesCache.count = kLSMaxLevel2CacheSize;
+    }
+    return [self fillRulesArray: self.level2RulesCache forLevel: 2];
+}
+-(NSPointerArray*) levelNRules {
+    if (!self.levelNRulesCache) {
+        self.levelNRulesCache = [NSPointerArray weakObjectsPointerArray];
+        self.levelNRulesCache.count = kLSMaxLevelNCacheSize;
+    }
+    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+        [self fillRulesArray: self.levelNRulesCache forLevel: [self.level unsignedIntegerValue]];
+        self.levelUnchanged = YES;
+        self.rulesUnchanged = YES;
+    }
+    return self.levelNRulesCache;
+}
 @end

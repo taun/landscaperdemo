@@ -40,4 +40,6 @@
 @dynamic replacementRules;
 @dynamic startingRules;
 
+@synthesize  rulesUnchanged, levelUnchanged, level0RulesCache, level1RulesCache, level2RulesCache, levelNRulesCache;
+
 @end

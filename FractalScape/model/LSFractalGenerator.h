@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class LSFractal;
+
+
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
  2   F :  Move forward by line length drawing a line
@@ -157,8 +160,6 @@
  
  
  */
-
-@class LSFractal;
 
 /*!
  Takes an LSFractal definition given to it from core data and generates the production string and core graphics path.

@@ -632,9 +632,10 @@ static BOOL SIMULTOUCH = NO;
     
     CGRect bounds = aLayer.bounds;
     aLayer.bounds = CGRectInset(bounds, -4000.0, -4000.0);
-    
+
+
     [aView.layer addSublayer: aLayer];
-    
+//    aLayer.anchorPoint = CGPointMake(0.0, 0.0);
     
     LSFractalRecursiveGenerator* generator = [[LSFractalRecursiveGenerator alloc] init];
     

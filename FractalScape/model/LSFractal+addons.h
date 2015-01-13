@@ -10,9 +10,19 @@
 
 #include <math.h>
 
+/*!
+ Convenience functions which should be in a math library.
+ 
+ @param degrees angle in degrees
+ 
+ @return angle in radians
+ */
 static inline double radians (double degrees) {return degrees * M_PI/180.0;}
 static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
+/*!
+ An Lindenmaier System Fractal. Using a CoreData persistence layer. Probably should have just used PList archiving for persistence.
+ */
 @interface LSFractal (addons)
 
 +(NSArray*) allFractalsInContext: (NSManagedObjectContext *)context;
@@ -42,31 +52,55 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  @return a set of property path strings.
  */
 +(NSSet*) redrawProperties;
-
+/*!
+ NSString for startingRules property to be used for KVO
+ 
+ @return NSString representing the startingRules property
+ */
 +(NSString*) startingRulesKey;
+/*!
+ NSString for replacementRules property to be used for KVO
+ 
+ @return NSString representing the replacementRules property
+ */
 +(NSString*) replacementRulesKey;
+/*!
+ NSString for lineColors property to be used for KVO
+ 
+ @return NSString representing the lineColors property
+ */
 +(NSString*) lineColorsKey;
+/*!
+ NSString for fillColors property to be used for KVO
+ 
+ @return NSString representing the fillColors property
+ */
 +(NSString*) fillColorsKey;
-
+/*!
+ Returns an array of all the available fractal categories.
+ 
+ @return array of category NSString
+ */
 -(NSArray*) allCategories;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString           *startingRulesString;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString               *startingRulesString;
+@property (NS_NONATOMIC_IOSONLY) double                                 lineLengthAsDouble;
+@property (NS_NONATOMIC_IOSONLY) double                                turningAngleAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber             *turningAngleAsDegrees;
+@property (NS_NONATOMIC_IOSONLY) double                                turningAngleIncrementAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber             *turningAngleIncrementAsDegrees;
+@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber             *baseAngleAsDegrees;
 
-@property (NS_NONATOMIC_IOSONLY) double                             lineLengthAsDouble;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSDictionary                *replacementRulesDictionary;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *level0Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *level1Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *level2Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *levelNRules;
 
-@property (NS_NONATOMIC_IOSONLY) double                                 turningAngleAsDouble;
-@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber              *turningAngleAsDegrees;
-
--(void) setTurningAngleAsDegrees: (NSNumber*) newAngle;
-
-@property (NS_NONATOMIC_IOSONLY) double                                 turningAngleIncrementAsDouble;
-@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber              *turningAngleIncrementAsDegrees;
 
 -(void) setTurningAngleIncrementAsDegrees: (NSNumber*)              newAngle;
-
-@property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber              *baseAngleAsDegrees;
-
--(void) setBaseAngleAsDegrees: (NSNumber*) newAngle;
+-(void) setBaseAngleAsDegrees: (NSNumber*)                          newAngle;
+-(void) setTurningAngleAsDegrees: (NSNumber*)                       newAngle;
 
 
 @end

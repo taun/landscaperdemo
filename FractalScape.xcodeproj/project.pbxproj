@@ -65,6 +65,48 @@
 		C58A75771A4A194100309BE0 /* MDBSliderControle.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A75751A4A194100309BE0 /* MDBSliderControle.m */; };
 		C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
 		C5914AD014C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
+		C59953D51A6462790093CF50 /* FSLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5BA2B9114C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld */; };
+		C59953D71A6462D90093CF50 /* LSDrawingRule+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C571B5C81A377B430075D977 /* LSDrawingRule+addons.m */; };
+		C59953D91A6462D90093CF50 /* LSDrawingRuleType+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C571B5CA1A377B430075D977 /* LSDrawingRuleType+addons.m */; };
+		C59953DB1A6462D90093CF50 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
+		C59953DD1A6462D90093CF50 /* MBColor+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C540634114DADC6A00FBDEA4 /* MBColor+addons.m */; };
+		C59953DF1A6462D90093CF50 /* MBColorCategory+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32191A1125F80076B40B /* MBColorCategory+addons.m */; };
+		C59953E11A6462D90093CF50 /* LSReplacementRule+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014791170B4EB300BD7488 /* LSReplacementRule+addons.m */; };
+		C59953E31A6462D90093CF50 /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32161A111D020076B40B /* NSManagedObject+Shortcuts.m */; };
+		C59953E51A6462D90093CF50 /* MBFractalScape+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150F751A202D9E00DC8A0E /* MBFractalScape+addons.m */; };
+		C59953E71A6462D90093CF50 /* MBPlacedEntity+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150F791A202DDA00DC8A0E /* MBPlacedEntity+addons.m */; };
+		C59953E91A6462D90093CF50 /* MBScapeBackground+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150F7D1A202E0B00DC8A0E /* MBScapeBackground+addons.m */; };
+		C59953EB1A6462D90093CF50 /* MBFractalScape.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014780170B47DB00BD7488 /* MBFractalScape.m */; };
+		C59953ED1A6462D90093CF50 /* MBPlacedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014784170B47DB00BD7488 /* MBPlacedEntity.m */; };
+		C59953EF1A6462D90093CF50 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764681A33A537009DDF83 /* LSDrawingRuleType.m */; };
+		C59953F11A6462D90093CF50 /* MBScapeBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = C507646C1A33A537009DDF83 /* MBScapeBackground.m */; };
+		C59953F31A6462D90093CF50 /* LSReplacementRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764741A33A537009DDF83 /* LSReplacementRule.m */; };
+		C59953F51A6462D90093CF50 /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764701A33A537009DDF83 /* LSFractal.m */; };
+		C59953F71A6462DA0093CF50 /* MBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5423A1A30EDE3006CD47A /* MBColorCategory.m */; };
+		C59953F91A6462DA0093CF50 /* MBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5423E1A30EDE4006CD47A /* MBColor.m */; };
+		C59953FB1A6462DA0093CF50 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */; };
+		C59954051A6465270093CF50 /* FractalScapeFractalModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */; };
+		C599540B1A6465710093CF50 /* LSDrawingRule+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C571B5C81A377B430075D977 /* LSDrawingRule+addons.m */; };
+		C599540C1A6465710093CF50 /* LSDrawingRuleType+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C571B5CA1A377B430075D977 /* LSDrawingRuleType+addons.m */; };
+		C599540D1A6465710093CF50 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
+		C599540E1A6465710093CF50 /* MBColor+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C540634114DADC6A00FBDEA4 /* MBColor+addons.m */; };
+		C599540F1A6465710093CF50 /* MBColorCategory+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32191A1125F80076B40B /* MBColorCategory+addons.m */; };
+		C59954101A6465710093CF50 /* LSReplacementRule+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014791170B4EB300BD7488 /* LSReplacementRule+addons.m */; };
+		C59954111A6465710093CF50 /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32161A111D020076B40B /* NSManagedObject+Shortcuts.m */; };
+		C59954121A6465710093CF50 /* MBFractalScape+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150F751A202D9E00DC8A0E /* MBFractalScape+addons.m */; };
+		C59954131A6465710093CF50 /* MBPlacedEntity+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150F791A202DDA00DC8A0E /* MBPlacedEntity+addons.m */; };
+		C59954141A6465710093CF50 /* MBScapeBackground+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150F7D1A202E0B00DC8A0E /* MBScapeBackground+addons.m */; };
+		C59954151A6465710093CF50 /* MBFractalScape.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014780170B47DB00BD7488 /* MBFractalScape.m */; };
+		C59954161A6465710093CF50 /* MBPlacedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C5014784170B47DB00BD7488 /* MBPlacedEntity.m */; };
+		C59954171A6465710093CF50 /* FSLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5BA2B9114C6F2BE00F2B9D0 /* FSLibrary.xcdatamodeld */; };
+		C59954181A6465710093CF50 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764681A33A537009DDF83 /* LSDrawingRuleType.m */; };
+		C59954191A6465710093CF50 /* MBScapeBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = C507646C1A33A537009DDF83 /* MBScapeBackground.m */; };
+		C599541A1A6465710093CF50 /* LSReplacementRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764741A33A537009DDF83 /* LSReplacementRule.m */; };
+		C599541B1A6465710093CF50 /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764701A33A537009DDF83 /* LSFractal.m */; };
+		C599541C1A6465710093CF50 /* MBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5423A1A30EDE3006CD47A /* MBColorCategory.m */; };
+		C599541D1A6465710093CF50 /* MBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5423E1A30EDE4006CD47A /* MBColor.m */; };
+		C599541E1A6465710093CF50 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */; };
+		C599541F1A6466D20093CF50 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5419DC776000774441 /* RulesIcons.xcassets */; };
 		C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5619DC77CE00774441 /* UIMedia.xcassets */; };
 		C59E32171A111D020076B40B /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32161A111D020076B40B /* NSManagedObject+Shortcuts.m */; };
@@ -135,6 +177,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C59954061A6465270093CF50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5E6B77414A5346200DA48BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5E6B77C14A5346200DA48BD;
+			remoteInfo = FractalScape;
+		};
 		C5E6B7B114A5346300DA48BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C5E6B77414A5346200DA48BD /* Project object */;
@@ -238,6 +287,9 @@
 		C58A75741A4A194100309BE0 /* MDBSliderControle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBSliderControle.h; path = FractalScape/MDBSliderControle.h; sourceTree = "<group>"; };
 		C58A75751A4A194100309BE0 /* MDBSliderControle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBSliderControle.m; path = FractalScape/MDBSliderControle.m; sourceTree = "<group>"; };
 		C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSDrawingRulesDefaultTypeList.plist; path = resources/LSDrawingRulesDefaultTypeList.plist; sourceTree = "<group>"; };
+		C59954001A6465270093CF50 /* FractalScapeFractalModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FractalScapeFractalModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C59954031A6465270093CF50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FractalScapeFractalModelTests.m; sourceTree = "<group>"; };
 		C59AAE5419DC776000774441 /* RulesIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RulesIcons.xcassets; sourceTree = "<group>"; };
 		C59AAE5619DC77CE00774441 /* UIMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UIMedia.xcassets; sourceTree = "<group>"; };
 		C59E32151A111D020076B40B /* NSManagedObject+Shortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Shortcuts.h"; path = "FractalScape/model/NSManagedObject+Shortcuts.h"; sourceTree = "<group>"; };
@@ -322,6 +374,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C59953FD1A6465270093CF50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C599541F1A6466D20093CF50 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C5E6B77A14A5346200DA48BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -436,6 +496,23 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
+		C59954011A6465270093CF50 /* FractalScapeFractalModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */,
+				C59954021A6465270093CF50 /* Supporting Files */,
+			);
+			path = FractalScapeFractalModelTests;
+			sourceTree = "<group>";
+		};
+		C59954021A6465270093CF50 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C59954031A6465270093CF50 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C5C37C551A24E6A1008C5409 /* MDUIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +553,7 @@
 				C5E6B78814A5346300DA48BD /* Supporting Files */,
 				C5FFAB131A14FA3400662211 /* OldUnused */,
 				C5E6B7B314A5346300DA48BD /* Tests */,
+				C59954011A6465270093CF50 /* FractalScapeFractalModelTests */,
 				C5E6B78014A5346300DA48BD /* Frameworks */,
 				C5E6B77E14A5346300DA48BD /* Products */,
 			);
@@ -486,6 +564,7 @@
 			children = (
 				C5E6B77D14A5346300DA48BD /* FractalScape.app */,
 				C5E6B7AC14A5346300DA48BD /* FractalScapeTests.xctest */,
+				C59954001A6465270093CF50 /* FractalScapeFractalModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -523,8 +602,8 @@
 			children = (
 				C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */,
 				C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */,
-				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
 				C5CE9458170C9389002EF5FD /* MBColorsList.plist */,
+				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
 				C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */,
 				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
 				C5E6B78914A5346300DA48BD /* FractalScape-Info.plist */,
@@ -708,6 +787,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C59953FF1A6465270093CF50 /* FractalScapeFractalModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C59954081A6465270093CF50 /* Build configuration list for PBXNativeTarget "FractalScapeFractalModelTests" */;
+			buildPhases = (
+				C59953FC1A6465270093CF50 /* Sources */,
+				C59953FD1A6465270093CF50 /* Frameworks */,
+				C59953FE1A6465270093CF50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C59954071A6465270093CF50 /* PBXTargetDependency */,
+			);
+			name = FractalScapeFractalModelTests;
+			productName = FractalScapeFractalModelTests;
+			productReference = C59954001A6465270093CF50 /* FractalScapeFractalModelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C5E6B77C14A5346200DA48BD /* FractalScape */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5E6B7BE14A5346300DA48BD /* Build configuration list for PBXNativeTarget "FractalScape" */;
@@ -757,6 +854,10 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "MOEDAE LLC";
 				TargetAttributes = {
+					C59953FF1A6465270093CF50 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = C5E6B77C14A5346200DA48BD;
+					};
 					C5E6B77C14A5346200DA48BD = {
 						DevelopmentTeam = 6569EWWSLR;
 						SystemCapabilities = {
@@ -764,6 +865,9 @@
 								enabled = 1;
 							};
 						};
+					};
+					C5E6B7AB14A5346300DA48BD = {
+						TestTargetID = C5E6B77C14A5346200DA48BD;
 					};
 				};
 			};
@@ -781,11 +885,19 @@
 			targets = (
 				C5E6B77C14A5346200DA48BD /* FractalScape */,
 				C5E6B7AB14A5346300DA48BD /* FractalScapeTests */,
+				C59953FF1A6465270093CF50 /* FractalScapeFractalModelTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C59953FE1A6465270093CF50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C5E6B77B14A5346200DA48BD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -836,6 +948,34 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C59953FC1A6465270093CF50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C599540B1A6465710093CF50 /* LSDrawingRule+addons.m in Sources */,
+				C599540C1A6465710093CF50 /* LSDrawingRuleType+addons.m in Sources */,
+				C599540D1A6465710093CF50 /* LSFractal+addons.m in Sources */,
+				C599540E1A6465710093CF50 /* MBColor+addons.m in Sources */,
+				C599540F1A6465710093CF50 /* MBColorCategory+addons.m in Sources */,
+				C59954101A6465710093CF50 /* LSReplacementRule+addons.m in Sources */,
+				C59954111A6465710093CF50 /* NSManagedObject+Shortcuts.m in Sources */,
+				C59954121A6465710093CF50 /* MBFractalScape+addons.m in Sources */,
+				C59954131A6465710093CF50 /* MBPlacedEntity+addons.m in Sources */,
+				C59954141A6465710093CF50 /* MBScapeBackground+addons.m in Sources */,
+				C59954151A6465710093CF50 /* MBFractalScape.m in Sources */,
+				C59954161A6465710093CF50 /* MBPlacedEntity.m in Sources */,
+				C59954171A6465710093CF50 /* FSLibrary.xcdatamodeld in Sources */,
+				C59954181A6465710093CF50 /* LSDrawingRuleType.m in Sources */,
+				C59954191A6465710093CF50 /* MBScapeBackground.m in Sources */,
+				C599541A1A6465710093CF50 /* LSReplacementRule.m in Sources */,
+				C599541B1A6465710093CF50 /* LSFractal.m in Sources */,
+				C599541C1A6465710093CF50 /* MBColorCategory.m in Sources */,
+				C599541D1A6465710093CF50 /* MBColor.m in Sources */,
+				C599541E1A6465710093CF50 /* LSDrawingRule.m in Sources */,
+				C59954051A6465270093CF50 /* FractalScapeFractalModelTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C5E6B77914A5346200DA48BD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -911,14 +1051,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C59953D71A6462D90093CF50 /* LSDrawingRule+addons.m in Sources */,
+				C59953D91A6462D90093CF50 /* LSDrawingRuleType+addons.m in Sources */,
+				C59953DB1A6462D90093CF50 /* LSFractal+addons.m in Sources */,
+				C59953DD1A6462D90093CF50 /* MBColor+addons.m in Sources */,
+				C59953DF1A6462D90093CF50 /* MBColorCategory+addons.m in Sources */,
+				C59953E11A6462D90093CF50 /* LSReplacementRule+addons.m in Sources */,
+				C59953E31A6462D90093CF50 /* NSManagedObject+Shortcuts.m in Sources */,
+				C59953E51A6462D90093CF50 /* MBFractalScape+addons.m in Sources */,
+				C59953E71A6462D90093CF50 /* MBPlacedEntity+addons.m in Sources */,
+				C59953E91A6462D90093CF50 /* MBScapeBackground+addons.m in Sources */,
+				C59953EB1A6462D90093CF50 /* MBFractalScape.m in Sources */,
+				C59953ED1A6462D90093CF50 /* MBPlacedEntity.m in Sources */,
+				C59953EF1A6462D90093CF50 /* LSDrawingRuleType.m in Sources */,
+				C59953F11A6462D90093CF50 /* MBScapeBackground.m in Sources */,
+				C59953F31A6462D90093CF50 /* LSReplacementRule.m in Sources */,
+				C59953F51A6462D90093CF50 /* LSFractal.m in Sources */,
+				C59953F71A6462DA0093CF50 /* MBColorCategory.m in Sources */,
+				C59953F91A6462DA0093CF50 /* MBColor.m in Sources */,
+				C59953FB1A6462DA0093CF50 /* LSDrawingRule.m in Sources */,
 				C5E6B7BB14A5346300DA48BD /* FractalScapeTests.m in Sources */,
 				C5A464F314C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */,
+				C59953D51A6462790093CF50 /* FSLibrary.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C59954071A6465270093CF50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5E6B77C14A5346200DA48BD /* FractalScape */;
+			targetProxy = C59954061A6465270093CF50 /* PBXContainerItemProxy */;
+		};
 		C5E6B7B214A5346300DA48BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C5E6B77C14A5346200DA48BD /* FractalScape */;
@@ -978,6 +1143,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C59954091A6465270093CF50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = FractalScapeFractalModelTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractalScape.app/FractalScape";
+			};
+			name = Debug;
+		};
+		C599540A1A6465270093CF50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = FractalScapeFractalModelTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractalScape.app/FractalScape";
+			};
+			name = Release;
+		};
 		C5E6B7BC14A5346300DA48BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1113,7 +1320,7 @@
 		C5E6B7C214A5346300DA48BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FractalScape.app/FractalScape";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1123,14 +1330,14 @@
 				GCC_PREFIX_HEADER = "FractalScape/FractalScape-Prefix.pch";
 				INFOPLIST_FILE = "Tests/FractalScapeTests-Info.plist";
 				PRODUCT_NAME = FractalScapeTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractalScape.app/FractalScape";
 			};
 			name = Debug;
 		};
 		C5E6B7C314A5346300DA48BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FractalScape.app/FractalScape";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1140,13 +1347,21 @@
 				GCC_PREFIX_HEADER = "FractalScape/FractalScape-Prefix.pch";
 				INFOPLIST_FILE = "Tests/FractalScapeTests-Info.plist";
 				PRODUCT_NAME = FractalScapeTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractalScape.app/FractalScape";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C59954081A6465270093CF50 /* Build configuration list for PBXNativeTarget "FractalScapeFractalModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C59954091A6465270093CF50 /* Debug */,
+				C599540A1A6465270093CF50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C5E6B77714A5346200DA48BD /* Build configuration list for PBXProject "FractalScape" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

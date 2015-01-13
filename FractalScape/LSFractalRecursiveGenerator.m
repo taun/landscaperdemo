@@ -17,13 +17,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define MAXPRODUCTLENGTH 200000
+#define kLSMaxLevels 20
 
 
 
-typedef void (*MBFractalHelperFunction) (MBSegmentStruct* segmentPtr, CGFloat value);
+typedef void (*MBFractalHelperFunction) (MBSegmentStackStruct* stackPtr, CGFloat value);
 
-void MBCGDrawCircle(MBSegmentStruct* segmentPtr, CGFloat radius);
-void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
+void MBCGDrawCircle(MBSegmentStackStruct* stackPtr, CGFloat radius);
+void MBCGDrawSquare(MBSegmentStackStruct* stackPtr, CGFloat width);
 
 
 
@@ -610,7 +611,9 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     }
 
     
-    [self createFractalLevel: [self.fractal.level unsignedIntegerValue] - 1 withContext: cgContext];
+    CGContextTranslateCTM(cgContext, CGRectGetMidX(layerBounds), CGRectGetMidY(layerBounds));
+    
+    [self createFractalWithContext: cgContext];
     
     // ---------
     // End path generation
@@ -629,10 +632,9 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     2. Redraw at best scale.
     3. Change scale as necessary when changing properties but only draw once and cache scale.
  */
--(void) createFractalLevel: (NSUInteger) level withContext: (CGContextRef) cgContext{
-    NSOrderedSet* rules = self.fractal.startingRules;
+-(void) createFractalWithContext: (CGContextRef) cgContext{
     
-    CGAffineTransform initialTransform = CGContextGetCTM(cgContext);
+//    CGAffineTransform initialTransform = CGContextGetCTM(cgContext);
 //    CGContextTranslateCTM(cgContext, self.translate.x, self.translate.y);
 //    
 //    CGContextScaleCTM(cgContext, self.scale, self.scale);
@@ -650,6 +652,9 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     CGContextSetStrokeColorWithColor(cgContext, [[UIColor blueColor] CGColor]);
     CGContextSetFillColorWithColor(cgContext, [[UIColor yellowColor] CGColor]);
 
+    MBSegmentStackStruct segmentStack;
+    segmentStack.stackIndex = 0;
+    
     MBSegmentStruct startingSegment = [self initialSegment];
     startingSegment.context = cgContext;
     CGContextRotateCTM(startingSegment.context, [self.fractal.baseAngle floatValue]);
@@ -670,75 +675,65 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
     }
     
     startingSegment.mode = strokeOrFill;
+    startingSegment.lastPoint = CGPointMake(0.0, 0.0);
+    for (int i=0; i<20; i++) {
+        segmentStack.segmentStack[i] = startingSegment;
+    }
 
-    [self segment: &startingSegment recursiveReplacementOf: rules replacements: self.cachedReplacementRules currentLevel: 0 desiredLevel: level];
-
-    CGRect pathBounds = CGContextGetPathBoundingBox(startingSegment.context); // path based on current transform! 0,0 is top left corner of screen
+    NSPointerArray* levelCommandsArray;
     
-    CGAffineTransform pathTransform = CGContextGetCTM(startingSegment.context);
-    CGAffineTransform pathInverse = CGAffineTransformInvert(pathTransform);
-    CGRect normalizedRect = CGRectApplyAffineTransform(CGRectApplyAffineTransform(pathBounds, initialTransform ), pathInverse);
+    CGFloat localLevel = [self.fractal.level floatValue];
+    if (self.forceLevel >= 0) {
+        localLevel = self.forceLevel;
+    }
+    
+    if (localLevel == 0) {
+        levelCommandsArray = [self.fractal level0Rules];
+    } else if (localLevel == 1) {
+        levelCommandsArray = [self.fractal level1Rules];
+    } else if (localLevel == 2) {
+        levelCommandsArray = [self.fractal level2Rules];
+    } else {
+        levelCommandsArray = [self.fractal levelNRules];
+    }
+
+    for (int i=0; i < levelCommandsArray.count; i++) {
+        NSString* command = [levelCommandsArray pointerAtIndex: i];
+        if (command) {
+            //
+            [self evaluateRule: command onSegment: &segmentStack];
+
+        } else {
+            break;
+        }
+    }
+    
+//    [self segment: &startingSegment recursiveReplacementOf: rules replacements: self.cachedReplacementRules currentLevel: 0 desiredLevel: level];
+
+//    CGRect pathBounds = CGContextGetPathBoundingBox(startingSegment.context); // path based on current transform! 0,0 is top left corner of screen
+    
+//    CGAffineTransform pathTransform = CGContextGetCTM(startingSegment.context);
+//    CGAffineTransform pathInverse = CGAffineTransformInvert(pathTransform);
+//    CGRect normalizedRect = CGRectApplyAffineTransform(CGRectApplyAffineTransform(pathBounds, initialTransform ), pathInverse);
     
 //    CGRect deviceBounds = CGContextConvertRectToDeviceSpace(startingSegment.context, pathBounds);
 //    CGRect tempBounds = CGRectUnion(_bounds, deviceBounds);
 //    self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
 //    NSLog(@"Fractal \nPathBounds:\t %@;\nNorm Bounds:\t %@;\nTotal bounds: %@", NSStringFromCGRect(pathBounds), NSStringFromCGRect(normalizedRect),NSStringFromCGRect(tempBounds));
-    CGContextDrawPath(startingSegment.context, startingSegment.mode);
+    MBCGDrawPathOnSegment(&segmentStack);
     
 //    CGRect pathBounds = CGContextGetPathBoundingBox(cgContext);
 //    NSLog(@"Path Bounds: %@", NSStringFromCGRect(pathBounds));
 //    NSLog(@"LineLength: %f; LineWidth: %f",startingSegment.lineLength, startingSegment.lineWidth);
 }
 
-/*
- A
- A+BF+
- -FA-B
- 
- 0: A
- 1: A+BF+
- 2: A+BF++-FA-BF+
- 
- */
 
--(void) segment: (MBSegmentStruct*)segmentPtr recursiveReplacementOf: (NSOrderedSet*) rules replacements: (NSDictionary*) replacementRules currentLevel: (NSUInteger) currentLevel desiredLevel: (NSUInteger) desiredLevel {
-    
-    for (LSDrawingRule* rule in rules) {
-        //
-        if (currentLevel < desiredLevel) {
-            // replace if necessary
-            LSReplacementRule* replacementRule = replacementRules[rule.productionString];
-            if (replacementRule) {
-                NSOrderedSet* newRules = replacementRule.rules;
-                [self segment: segmentPtr recursiveReplacementOf: newRules replacements: replacementRules currentLevel: currentLevel+1 desiredLevel: desiredLevel];
-            } else {
-                // no replacement rule so just use the rule for a node
-                [self evaluateRule: rule.drawingMethodString onSegment: segmentPtr];
-            }
-        } else {
-            // return node for current rule
-            [self evaluateRule: rule.drawingMethodString onSegment: segmentPtr];
-        }
-    }
-    
-//    CGRect pathBounds = CGContextGetPathBoundingBox(segmentPtr->context);
-//    CGRect tempBounds = CGRectUnion(_bounds, pathBounds);
-//    self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
-//    //    NSLog(@"Fractal PathBounds: %@; total bounds: %@", NSStringFromCGRect(pathBounds),NSStringFromCGRect(tempBounds));
-//    
-//    CGPoint lastPoint = CGContextGetPathCurrentPoint(segmentPtr->context);
-//    CGContextDrawPath(segmentPtr->context, segmentPtr->mode);
-//    CGContextBeginPath(segmentPtr->context);
-//    CGContextMoveToPoint(segmentPtr->context, lastPoint.x, lastPoint.y);
-}
-
-
--(void) evaluateRule:(NSString *)rule onSegment: (MBSegmentStruct*) segmentPtr{
+-(void) evaluateRule:(NSString *)rule onSegment: (MBSegmentStackStruct*) stackPtr{
     //
 //    NSLog(@"Evaluating rule: %@", rule);
     MBFractalCommandFunction commandFunction = (__bridge void*)[self.cachedDrawingFunctions objectForKey: rule];
     if (commandFunction != NULL) {
-        commandFunction(segmentPtr);
+        commandFunction(stackPtr);
     }
 }
 
@@ -774,26 +769,67 @@ void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width);
 @end
 
 
-void MBCGDrawCircle(MBSegmentStruct* segmentPtr, CGFloat radius) {
-    CGContextAddEllipseInRect(segmentPtr->context, CGRectMake(0.0, -radius, radius*2.0, radius*2.0));
-    CGContextMoveToPoint(segmentPtr->context, radius*2.0, 0.0);
+void MBCGDrawPathOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    CGContextDrawPath(segment.context, segment.mode);
+    CGContextBeginPath(segment.context);
 }
 
-void MBCGDrawSquare(MBSegmentStruct* segmentPtr, CGFloat width) {
-    CGContextAddRect(segmentPtr->context, CGRectMake(0.0, -width/2.0, width, width));
-    CGContextMoveToPoint(segmentPtr->context, 0.0, 0.0);
+void MBCGDrawCircle(MBSegmentStackStruct* stackPtr, CGFloat radius) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    CGContextAddEllipseInRect(segment.context, CGRectMake(0.0, -radius, radius*2.0, radius*2.0));
+    CGContextMoveToPoint(segment.context, radius*2.0, 0.0);
+}
+
+void MBCGDrawSquare(MBSegmentStackStruct* stackPtr, CGFloat width) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    CGContextAddRect(segment.context, CGRectMake(0.0, -width/2.0, width, width));
+    CGContextMoveToPoint(segment.context, 0.0, 0.0);
 }
 
 
 
 #pragma mark Public Rule Methods
 
-void MBCGCommandDoNothingOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandDoNothingOnSegment(MBSegmentStackStruct* stackPtr) {
 }
 
-void MBCGCommandDrawLineOnSegment(MBSegmentStruct* segmentPtr) {
-    CGContextRef aCGContext = segmentPtr->context;
-    CGFloat tx = segmentPtr->lineLength;
+void MBCGCommandPushOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.lastPoint = CGContextGetPathCurrentPoint(segment.context);
+    stackPtr->stackIndex++;
+    stackPtr->segmentStack[stackPtr->stackIndex] = segment;
+    
+    MBCGDrawPathOnSegment(stackPtr);
+    CGContextSaveGState(segment.context);
+    
+    CGContextSetStrokeColorWithColor(segment.context, [[UIColor greenColor] CGColor]);
+    
+    CGContextBeginPath(segment.context);
+    CGContextMoveToPoint(segment.context, segment.lastPoint.x, segment.lastPoint.y);
+    //    [self pushSegment];
+}
+
+void MBCGCommandPopOnSegment(MBSegmentStackStruct* stackPtr) {
+    NSInteger index = stackPtr->stackIndex;
+    if (index > 0) {
+        stackPtr->stackIndex = --index;
+    }
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    
+    MBCGDrawPathOnSegment(stackPtr);
+    
+    CGContextRestoreGState(segment.context);
+    
+    CGContextBeginPath(segment.context);
+    CGContextMoveToPoint(segment.context, segment.lastPoint.x, segment.lastPoint.y);
+    //    [self popSegment];
+}
+
+void MBCGCommandDrawLineOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    CGContextRef aCGContext = segment.context;
+    CGFloat tx = segment.lineLength;
     
     //    if (self.controlPointOn) {
     //        CGAffineTransform inverted = CGAffineTransformInvert(local);
@@ -810,9 +846,10 @@ void MBCGCommandDrawLineOnSegment(MBSegmentStruct* segmentPtr) {
     CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
-void MBCGCommandDrawLineVarLengthOnSegment(MBSegmentStruct* segmentPtr) {
-    CGContextRef aCGContext = segmentPtr->context;
-    CGFloat tx = segmentPtr->lineLength;
+void MBCGCommandDrawLineVarLengthOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    CGContextRef aCGContext = segment.context;
+    CGFloat tx = segment.lineLength;
     
     //    if (self.controlPointOn) {
     //        CGAffineTransform inverted = CGAffineTransformInvert(local);
@@ -827,180 +864,198 @@ void MBCGCommandDrawLineVarLengthOnSegment(MBSegmentStruct* segmentPtr) {
     CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
-void MBCGCommandMoveByLineOnSegment(MBSegmentStruct* segmentPtr) {
-    CGContextRef aCGContext = segmentPtr->context;
-    CGFloat tx = segmentPtr->lineLength;
+void MBCGCommandMoveByLineOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+   CGContextRef aCGContext = segment.context;
+    CGFloat tx = segment.lineLength;
     CGContextMoveToPoint(aCGContext, tx, 0.0);
     CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
-void MBCGCommandRotateCCOnSegment(MBSegmentStruct* segmentPtr) {
-    CGContextRef aCGContext = segmentPtr->context;
-    CGFloat theta = segmentPtr->turningAngle;
+void MBCGCommandRotateCCOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    CGContextRef aCGContext = segment.context;
+    CGFloat theta = segment.turningAngle;
     CGContextRotateCTM(aCGContext, theta);
 }
 
-void MBCGCommandRotateCOnSegment(MBSegmentStruct* segmentPtr) {
-    CGContextRef aCGContext = segmentPtr->context;
-    CGFloat theta = segmentPtr->turningAngle;
+void MBCGCommandRotateCOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    CGContextRef aCGContext = segment.context;
+    CGFloat theta = segment.turningAngle;
     CGContextRotateCTM(aCGContext, -theta);
 }
 
-void MBCGCommandReverseDirectionOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->transform = CGAffineTransformRotate(segmentPtr->transform, M_PI);
+void MBCGCommandReverseDirectionOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.transform = CGAffineTransformRotate(segment.transform, M_PI);
 }
-void MBCGCommandCurveCOnSegment(MBSegmentStruct* segmentPtr) {
-    MBCGCommandCurvePointOnSegment(segmentPtr);
-    MBCGCommandRotateCOnSegment(segmentPtr);
-    MBCGCommandDrawLineOnSegment(segmentPtr);
+void MBCGCommandCurveCOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBCGCommandCurvePointOnSegment(stackPtr);
+    MBCGCommandRotateCOnSegment(stackPtr);
+    MBCGCommandDrawLineOnSegment(stackPtr);
 }
-void MBCGCommandCurveCCOnSegment(MBSegmentStruct* segmentPtr) {
-    MBCGCommandCurvePointOnSegment(segmentPtr);
-    MBCGCommandRotateCCOnSegment(segmentPtr);
-    MBCGCommandDrawLineOnSegment(segmentPtr);
+void MBCGCommandCurveCCOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBCGCommandCurvePointOnSegment(stackPtr);
+    MBCGCommandRotateCCOnSegment(stackPtr);
+    MBCGCommandDrawLineOnSegment(stackPtr);
 }
-void MBCGCommandCurvePointOnSegment(MBSegmentStruct* segmentPtr) {
-    //    self.previousNode = CGPathGetCurrentPoint(segmentPtr->path);
+void MBCGCommandCurvePointOnSegment(MBSegmentStackStruct* stackPtr) {
+    //    self.previousNode = CGPathGetCurrentPoint(segment.path);
     //
-    //    CGFloat tx = segmentPtr->lineLength;
-    //    segmentPtr->transform = CGAffineTransformTranslate(segmentPtr->transform, tx, 0.0);
+    //    CGFloat tx = segment.lineLength;
+    //    segment.transform = CGAffineTransformTranslate(segment.transform, tx, 0.0);
     //
-    //    CGAffineTransform local = segmentPtr->transform;
+    //    CGAffineTransform local = segment.transform;
     //
     //    self.controlPointNode = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), local);
     //    self.controlPointOn = YES;
 }
 
-void MBCGCommandPushOnSegment(MBSegmentStruct* segmentPtr) {
-    CGContextSaveGState(segmentPtr->context);
-    //    [self pushSegment];
-}
-
-void MBCGCommandPopOnSegment(MBSegmentStruct* segmentPtr) {
-    CGContextRestoreGState(segmentPtr->context);
-    //    [self popSegment];
-}
 /*!
  Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
  */
-void MBCGCommandIncrementLineWidthOnSegment(MBSegmentStruct* segmentPtr) {
-    if (segmentPtr->lineChangeFactor > 0) {
-        segmentPtr->lineWidth += segmentPtr->lineWidth * segmentPtr->lineChangeFactor;
+void MBCGCommandIncrementLineWidthOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    if (segment.lineChangeFactor > 0) {
+        segment.lineWidth += segment.lineWidth * segment.lineChangeFactor;
     }
 }
 
-void MBCGCommandDecrementLineWidthOnSegment(MBSegmentStruct* segmentPtr) {
-    if (segmentPtr->lineChangeFactor > 0) {
-        segmentPtr->lineWidth -= segmentPtr->lineWidth * segmentPtr->lineChangeFactor;
+void MBCGCommandDecrementLineWidthOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    if (segment.lineChangeFactor > 0) {
+        segment.lineWidth -= segment.lineWidth * segment.lineChangeFactor;
     }
 }
 
-void MBCGCommandDrawDotOnSegment(MBSegmentStruct* segmentPtr) {
-    MBCGDrawCircle(segmentPtr, segmentPtr->lineWidth);
+void MBCGCommandDrawDotOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    MBCGDrawCircle(stackPtr, segment.lineWidth);
 }
-void MBCGCommandDrawDotFilledNoStrokeOnSegment(MBSegmentStruct* segmentPtr) {
-    MBCGCommandPushOnSegment(segmentPtr);
-    MBCGCommandStrokeOffOnSegment(segmentPtr);
-    MBCGCommandFillOnOnSegment(segmentPtr);
-    MBCGCommandDrawDotOnSegment(segmentPtr);
-    MBCGCommandPopOnSegment(segmentPtr);
-}
-
-void MBCGCommandOpenPolygonOnSegment(MBSegmentStruct* segmentPtr) {
-    MBCGCommandPushOnSegment(segmentPtr);
-    MBCGCommandStrokeOffOnSegment(segmentPtr);
-    MBCGCommandFillOnOnSegment(segmentPtr);
+void MBCGCommandDrawDotFilledNoStrokeOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBCGCommandPushOnSegment(stackPtr);
+    MBCGCommandStrokeOffOnSegment(stackPtr);
+    MBCGCommandFillOnOnSegment(stackPtr);
+    MBCGCommandDrawDotOnSegment(stackPtr);
+    MBCGCommandPopOnSegment(stackPtr);
 }
 
-void MBCGCommandClosePolygonOnSegment(MBSegmentStruct* segmentPtr) {
-    MBCGCommandPopOnSegment(segmentPtr);
+void MBCGCommandOpenPolygonOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBCGCommandPushOnSegment(stackPtr);
+    MBCGCommandStrokeOffOnSegment(stackPtr);
+    MBCGCommandFillOnOnSegment(stackPtr);
+}
+
+void MBCGCommandClosePolygonOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBCGCommandPopOnSegment(stackPtr);
 }
 #pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
-void MBCGCommandUpscaleLineLengthOnSegment(MBSegmentStruct* segmentPtr) {
-    if (segmentPtr->lineChangeFactor > 0) {
-        segmentPtr->lineLength += segmentPtr->lineLength * segmentPtr->lineChangeFactor;
+void MBCGCommandUpscaleLineLengthOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    if (segment.lineChangeFactor > 0) {
+        segment.lineLength += segment.lineLength * segment.lineChangeFactor;
     }
 }
 
-void MBCGCommandDownscaleLineLengthOnSegment(MBSegmentStruct* segmentPtr) {
-    if (segmentPtr->lineChangeFactor > 0) {
-        segmentPtr->lineLength -= segmentPtr->lineLength * segmentPtr->lineChangeFactor;
+void MBCGCommandDownscaleLineLengthOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    if (segment.lineChangeFactor > 0) {
+        segment.lineLength -= segment.lineLength * segment.lineChangeFactor;
     }
 }
 
-void MBCGCommandSwapRotationOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandSwapRotationOnSegment(MBSegmentStackStruct* stackPtr) {
     //    id tempMinusRule = (self.cachedDrawingRules)[@"-"];
     //    (self.cachedDrawingRules)[@"-"] = (self.cachedDrawingRules)[@"+"];
     //    (self.cachedDrawingRules)[@"+"] = tempMinusRule;
 }
 
-void MBCGCommandDecrementAngleOnSegment(MBSegmentStruct* segmentPtr) {
-    if (segmentPtr->turningAngleIncrement > 0) {
-        segmentPtr->turningAngle -= segmentPtr->turningAngle * segmentPtr->turningAngleIncrement;
+void MBCGCommandDecrementAngleOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    if (segment.turningAngleIncrement > 0) {
+        segment.turningAngle -= segment.turningAngle * segment.turningAngleIncrement;
     }
 }
 
-void MBCGCommandIncrementAngleOnSegment(MBSegmentStruct* segmentPtr) {
-    if (segmentPtr->turningAngleIncrement > 0) {
-        segmentPtr->turningAngle += segmentPtr->turningAngle * segmentPtr->turningAngleIncrement;
+void MBCGCommandIncrementAngleOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    if (segment.turningAngleIncrement > 0) {
+        segment.turningAngle += segment.turningAngle * segment.turningAngleIncrement;
     }
 }
 
-void MBCGCommandStrokeOffOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandStrokeOffOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->stroke = NO;
+    segment.stroke = NO;
 }
 
-void MBCGCommandStrokeOnOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandStrokeOnOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->stroke = YES;
+    segment.stroke = YES;
 }
-void MBCGCommandFillOffOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandFillOffOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->fill = NO;
+    segment.fill = NO;
 }
-void MBCGCommandFillOnOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandFillOnOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->fill = YES;
+    segment.fill = YES;
 }
-void MBCGCommandRandomizeOffOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->randomize = NO;
+void MBCGCommandRandomizeOffOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.randomize = NO;
 }
-void MBCGCommandRandomizeOnOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->randomize = YES;
+void MBCGCommandRandomizeOnOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.randomize = YES;
 }
-void MBCGCommandNextColorOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandNextColorOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->lineColorIndex = ++segmentPtr->lineColorIndex;
+    segment.lineColorIndex = ++segment.lineColorIndex;
 }
-void MBCGCommandPreviousColorOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandPreviousColorOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->lineColorIndex = --segmentPtr->lineColorIndex;
+    segment.lineColorIndex = --segment.lineColorIndex;
 }
-void MBCGCommandNextFillColorOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandNextFillColorOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->fillColorIndex = ++segmentPtr->fillColorIndex;
+    segment.fillColorIndex = ++segment.fillColorIndex;
 }
-void MBCGCommandPreviousFillColorOnSegment(MBSegmentStruct* segmentPtr) {
+void MBCGCommandPreviousFillColorOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
     //    [self startNewSegment];
-    segmentPtr->fillColorIndex = --segmentPtr->fillColorIndex;
+    segment.fillColorIndex = --segment.fillColorIndex;
 }
-void MBCGCommandLineCapButtOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->lineCap = kCGLineCapButt;
+void MBCGCommandLineCapButtOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.lineCap = kCGLineCapButt;
 }
-void MBCGCommandLineCapRoundOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->lineCap = kCGLineCapRound;
+void MBCGCommandLineCapRoundOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.lineCap = kCGLineCapRound;
 }
-void MBCGCommandLineCapSquareOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->lineCap = kCGLineCapSquare;
+void MBCGCommandLineCapSquareOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.lineCap = kCGLineCapSquare;
 }
-void MBCGCommandLineJoinMiterOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->lineJoin = kCGLineJoinMiter;
+void MBCGCommandLineJoinMiterOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.lineJoin = kCGLineJoinMiter;
 }
-void MBCGCommandLineJoinRoundOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->lineJoin = kCGLineJoinRound;
+void MBCGCommandLineJoinRoundOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.lineJoin = kCGLineJoinRound;
 }
-void MBCGCommandLineJoinBevelOnSegment(MBSegmentStruct* segmentPtr) {
-    segmentPtr->lineJoin = kCGLineJoinBevel;
+void MBCGCommandLineJoinBevelOnSegment(MBSegmentStackStruct* stackPtr) {
+    MBSegmentStruct segment = stackPtr->segmentStack[stackPtr->stackIndex];
+    segment.lineJoin = kCGLineJoinBevel;
 }
 

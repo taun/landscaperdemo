@@ -20,21 +20,45 @@
                ReferencedContainer = "container:FractalScape.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C59953FF1A6465270093CF50"
+               BuildableName = "FractalScapeFractalModelTests.xctest"
+               BlueprintName = "FractalScapeFractalModelTests"
+               ReferencedContainer = "container:FractalScape.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5E6B7AB14A5346300DA48BD"
                BuildableName = "FractalScapeTests.xctest"
                BlueprintName = "FractalScapeTests"
+               ReferencedContainer = "container:FractalScape.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C59953FF1A6465270093CF50"
+               BuildableName = "FractalScapeFractalModelTests.xctest"
+               BlueprintName = "FractalScapeFractalModelTests"
                ReferencedContainer = "container:FractalScape.xcodeproj">
             </BuildableReference>
          </TestableReference>

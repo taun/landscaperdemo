@@ -18,5 +18,14 @@
 +(LSDrawingRule*) findRuleWithType:(NSString *)ruleType productionString: (NSString*)production inContext: (NSManagedObjectContext*) context;
 +(NSString*) defaultIdentifierString;
 
+/*!
+ Do two rules have the same property values?
+ Does not include/check relationships.
+ 
+ @param object the other rule
+ 
+ @return YES if the properties are the same.
+ */
+-(BOOL) isSimilar:(id)object;
 
 @end

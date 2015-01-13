@@ -91,7 +91,20 @@
     }
     return ruleCopy;
 }
-
+-(BOOL) isSimilar:(id)object {
+    BOOL result = NO;
+    
+    if ([object isMemberOfClass: [self class]]) {
+        LSDrawingRule* objectAsRule = (LSDrawingRule*) object;
+        
+        result = [self.descriptor isEqualToString: objectAsRule.descriptor];
+        result = result && [self.iconIdentifierString isEqualToString: objectAsRule.iconIdentifierString];
+        result = result && [self.drawingMethodString isEqualToString: objectAsRule.drawingMethodString];
+        result = result && [self.productionString isEqualToString: objectAsRule.productionString];
+    }
+    
+    return result;
+}
 -(BOOL) isReferenced {
     BOOL referenced = (self.fractalStart != nil
                        || self.type != nil

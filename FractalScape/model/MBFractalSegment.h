@@ -11,6 +11,7 @@
 
 struct MBSegmentStruct {
     CGContextRef        context;
+    CGPoint             lastPoint;
     CGPathDrawingMode   mode;
     CGAffineTransform   transform;
     CGFloat             turningAngle;
@@ -33,6 +34,11 @@ struct MBSegmentStruct {
 typedef struct MBSegmentStruct MBSegmentStruct;
 
 
+struct MBSegmentStackStruct {
+    NSUInteger          stackIndex;
+    MBSegmentStruct     segmentStack[20];
+};
+typedef struct MBSegmentStackStruct MBSegmentStackStruct;
 
 /*!
  A fractal path segment.
