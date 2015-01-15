@@ -92,11 +92,10 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber             *baseAngleAsDegrees;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSDictionary                *replacementRulesDictionary;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *level0Rules;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *level1Rules;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *level2Rules;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSPointerArray              *levelNRules;
-
+@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *level0Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *level1Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *level2Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *levelNRules;
 
 -(void) setTurningAngleIncrementAsDegrees: (NSNumber*)              newAngle;
 -(void) setBaseAngleAsDegrees: (NSNumber*)                          newAngle;

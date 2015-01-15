@@ -9,13 +9,21 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+static const NSInteger kLSMaxSegmentPointsSize = 30;
+static const NSInteger kLSMaxSegmentStackSize = 21;
+static const NSInteger kLSMaxLevels = 21;
+
 struct MBSegmentStruct {
     CGContextRef        context;
-    CGPoint             lastPoint;
+    CGPoint             points[kLSMaxSegmentPointsSize]; // connected path points
+    NSInteger           pointIndex; // index points to current valid point. init to -1
     CGPathDrawingMode   mode;
-    CGAffineTransform   transform;
+    CGAffineTransform   transform; // Local transform so points can be used. Transform point before adding to points.
+    BOOL                noDrawPath;
+    CGFloat             baseAngle;
     CGFloat             turningAngle;
     CGFloat             turningAngleIncrement;
+    BOOL                drawingModeUnchanged;
     BOOL                stroke;
     CGLineCap           lineCap;
     CGLineJoin          lineJoin;
@@ -32,13 +40,8 @@ struct MBSegmentStruct {
     CGFloat             randomness;
 } ;
 typedef struct MBSegmentStruct MBSegmentStruct;
+typedef MBSegmentStruct* MBSegmentRef;
 
-
-struct MBSegmentStackStruct {
-    NSUInteger          stackIndex;
-    MBSegmentStruct     segmentStack[20];
-};
-typedef struct MBSegmentStackStruct MBSegmentStackStruct;
 
 /*!
  A fractal path segment.

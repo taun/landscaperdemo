@@ -13,9 +13,6 @@
 
 @class LSFractal;
 
-typedef void (*MBFractalCommandFunction) (MBSegmentStackStruct* stack);
-
-
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
  2   F :  Move forward by line length drawing a line
@@ -166,10 +163,11 @@ typedef void (*MBFractalCommandFunction) (MBSegmentStackStruct* stack);
  */
 
 /*!
- Takes an LSFractal definition given to it from core data and generates the production string and core graphics path.
+ A LSFractal path generation class. Takes an LSFractal definition given to it from core data and generates the core graphics path.
+ Intended to be a delegate to a CALayer, CGImage, ... CGContext.
  
  Need an LSFractal controller which intermediates between view and model.
- Gets context from view and segments from LSFractalGenerator?
+ Gets CGContext from a CALayer or View.
  
  Internally, the generator uses a private queue for the fractal context.
  This should avoid problems where generator operations are performed on separate threads by callers.
@@ -226,49 +224,47 @@ typedef void (*MBFractalCommandFunction) (MBSegmentStackStruct* stack);
 
 //-(void) charge;
 
-
+#pragma mark Default Drawing Rule Methods
+-(void) commandDoNothing;
+-(void) commandDrawLine;
+-(void) commandDrawLineVarLength;
+-(void) commandMoveByLine;
+-(void) commandRotateCC;
+-(void) commandRotateC;
+-(void) commandReverseDirection;
+-(void) commandPush;
+-(void) commandPop;
+-(void) commandIncrementLineWidth;
+-(void) commandDecrementLineWidth;
+-(void) commandDrawDot;
+-(void) commandDrawDotFilledNoStroke;
+-(void) commandOpenPolygon;
+-(void) commandClosePolygon;
+-(void) commandUpscaleLineLength;
+-(void) commandDownscaleLineLength;
+-(void) commandSwapRotation;
+-(void) commandDecrementAngle;
+-(void) commandIncrementAngle;
+-(void) commandStrokeOff;
+-(void) commandStrokeOn;
+-(void) commandFillOn;
+-(void) commandFillOff;
+-(void) commandRandomizeOn;
+-(void) commandRandomizeOff;
+-(void) commandNextColor;
+-(void) commandPreviousColor;
+-(void) commandNextFillColor;
+-(void) commandPreviousFillColor;
+-(void) commandLineJoinMiter;
+-(void) commandLineJoinRound;
+-(void) commandLineJoinBevel;
+-(void) commandLineCapButt;
+-(void) commandLineCapRound;
+-(void) commandLineCapSquare;
+-(void) commandCurvePoint;
+-(void) commandCurveCC;
+-(void) commandCurveC;
 
 @end
 
-#pragma mark Default Drawing Rule Methods
-void MBCGDrawPathOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDoNothingOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDrawLineOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDrawLineVarLengthOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandMoveByLineOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandRotateCCOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandRotateCOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandReverseDirectionOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandPushOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandPopOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandIncrementLineWidthOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDecrementLineWidthOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDrawDotOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDrawDotFilledNoStrokeOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandOpenPolygonOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandClosePolygonOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandUpscaleLineLengthOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDownscaleLineLengthOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandSwapRotationOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandDecrementAngleOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandIncrementAngleOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandStrokeOffOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandStrokeOnOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandFillOnOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandFillOffOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandRandomizeOnOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandRandomizeOffOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandNextColorOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandPreviousColorOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandNextFillColorOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandPreviousFillColorOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandLineJoinMiterOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandLineJoinRoundOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandLineJoinBevelOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandLineCapButtOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandLineCapRoundOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandLineCapSquareOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandCurvePointOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandCurveCCOnSegment(MBSegmentStackStruct* stack);
-void MBCGCommandCurveCOnSegment(MBSegmentStackStruct* stack);
 

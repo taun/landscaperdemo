@@ -718,6 +718,7 @@
 #pragma mark Product Generation
 
 -(void) productionRuleChanged {
+    
     self.productNeedsGenerating = YES;
 }
 #pragma message "TODO convert from NSString to NSData"

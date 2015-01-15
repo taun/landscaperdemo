@@ -92,30 +92,15 @@
 -(void) testLevel1RulesCreation {
     LSFractal *fractal = [self createDefaultFractal];
     
-    NSPointerArray* level1Rules = [fractal level1Rules];
-    
-    NSUInteger leafCount = 0;
-    for (int i = 0; i < level1Rules.count; i++) {
-        if (![level1Rules pointerAtIndex: i]) {
-            leafCount = i+1;
-            break;
-        }
-    }
-    XCTAssert(leafCount == 8, @"Wrong number of leaf rules");
+    NSString* level1Rules = fractal.level1Rules;
+    XCTAssert(level1Rules.length == 7, @"Wrong number of leaf rules");
 }
 -(void) testLevel5RulesCreation {
     LSFractal *fractal = [self createDefaultFractal];
     fractal.level = @5;
-    NSPointerArray* levelNRules = [fractal levelNRules];
+    NSString* levelNRules = fractal.levelNRules;
     
-    NSUInteger leafCount = 0;
-    for (int i = 0; i < levelNRules.count; i++) {
-        if (![levelNRules pointerAtIndex: i]) {
-            leafCount = i+1;
-            break;
-        }
-    }
-    XCTAssert(leafCount == 488, @"Wrong number of leaf rules");
+    XCTAssert(levelNRules.length == 487, @"Wrong number of leaf rules");
 }
 /*!
  -generateProduct production: @"FF+[+F-F-F]-[-F+F+F]"
@@ -125,34 +110,22 @@
 -(void) testBushLevel1RulesCreation {
     LSFractal *fractal = [self createBushFractal];
     
-    NSPointerArray* level1Rules = [fractal level1Rules];
-    
-    NSUInteger leafCount = 0;
-    for (int i = 0; i < level1Rules.count; i++) {
-        if (![level1Rules pointerAtIndex: i]) {
-            leafCount = i+1;
-            break;
-        }
-    }
-    
-    NSString* resultString = [self stringFromRuleSet: level1Rules];
+    NSString* resultString = fractal.level1Rules;
     NSString* answer = @"FF+[+F-F-F]-[-F+F+F]";
     XCTAssert([answer isEqualToString: resultString], @"Rule should be:\n%@ \nis\n%@",answer,resultString);
 }
 -(void) testBushLevel2RulesCreation {
     LSFractal *fractal = [self createBushFractal];
     
-    NSPointerArray* level2Rules = [fractal level2Rules];
+    NSString* resultString = fractal.level2Rules;
+    NSString* answer = @"FF+[+F-F-F]-[-F+F+F]FF+[+F-F-F]-[-F+F+F]+[+FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]]-[-FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]]";
+    XCTAssert([answer isEqualToString: resultString], @"Rule should be:\n%@ \nis\n%@",answer,resultString);
+}
+-(void) testBushLevel2NRulesCreation {
+    LSFractal *fractal = [self createBushFractal];
+    fractal.level = @2;
     
-    NSUInteger leafCount = 0;
-    for (int i = 0; i < level2Rules.count; i++) {
-        if (![level2Rules pointerAtIndex: i]) {
-            leafCount = i+1;
-            break;
-        }
-    }
-    
-    NSString* resultString = [self stringFromRuleSet: level2Rules];
+    NSString* resultString = fractal.levelNRules;
     NSString* answer = @"FF+[+F-F-F]-[-F+F+F]FF+[+F-F-F]-[-F+F+F]+[+FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]]-[-FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]]";
     XCTAssert([answer isEqualToString: resultString], @"Rule should be:\n%@ \nis\n%@",answer,resultString);
 }
@@ -162,7 +135,7 @@
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createDefaultFractal];
         
-        NSPointerArray* level1Rules = [fractal level1Rules];
+        fractal.level1Rules;
     }];
 }
 
@@ -173,7 +146,7 @@
         LSFractal *fractal = [self createDefaultFractal];
         fractal.level = @5;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 
@@ -184,7 +157,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = @5;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 
@@ -195,7 +168,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = @6;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 
@@ -206,7 +179,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = @7;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 
@@ -217,7 +190,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = @8;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 
@@ -228,7 +201,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = @9;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 
@@ -236,10 +209,10 @@
     // This is an example of a performance test case.
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
-        LSFractal *fractal = [self createSierpinskiGasketFractal];
+        LSFractal *fractal = [self createBushFractal];
         fractal.level = @5;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 
@@ -247,43 +220,10 @@
     // This is an example of a performance test case.
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
-        LSFractal *fractal = [self createSierpinskiGasketFractal];
+        LSFractal *fractal = [self createBushFractal];
         fractal.level = @6;
         
-        NSPointerArray* levelNRules = [fractal levelNRules];
-    }];
-}
-
-- (void)testBushFractalLevel7Performance {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-        LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @7;
-        
-        NSPointerArray* levelNRules = [fractal levelNRules];
-    }];
-}
-
-- (void)testBushFractalLevel8Performance {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-        LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @8;
-        
-        NSPointerArray* levelNRules = [fractal levelNRules];
-    }];
-}
-
-- (void)testBushFractalLevel9Performance {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-        LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @9;
-        
-        NSPointerArray* levelNRules = [fractal levelNRules];
+        fractal.levelNRules;
     }];
 }
 

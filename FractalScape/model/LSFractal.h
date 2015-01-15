@@ -40,10 +40,10 @@
 // Manually added. Need to re-add if model is changed and exported from Xcode
 @property (nonatomic,assign) BOOL                   rulesUnchanged;
 @property (nonatomic,assign) BOOL                   levelUnchanged;
-@property (nonatomic,strong) NSPointerArray         *level0RulesCache;
-@property (nonatomic,strong) NSPointerArray         *level1RulesCache;
-@property (nonatomic,strong) NSPointerArray         *level2RulesCache;
-@property (nonatomic,strong) NSPointerArray         *levelNRulesCache;
+@property (nonatomic,strong) NSMutableString         *level0RulesCache;
+@property (nonatomic,strong) NSMutableString         *level1RulesCache;
+@property (nonatomic,strong) NSMutableString         *level2RulesCache;
+@property (nonatomic,strong) NSMutableString         *levelNRulesCache;
 
 @end
 

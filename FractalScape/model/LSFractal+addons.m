@@ -332,43 +332,123 @@
     }
 }
 
--(NSPointerArray*) level0Rules {
-    if (!self.level0RulesCache) {
-        self.level0RulesCache = [NSPointerArray weakObjectsPointerArray];
-        self.level0RulesCache.count = kLSMaxLevel0CacheSize;
+-(NSString*) level0Rules {
+    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+        [self cacheLevelNRulesStrings];
     }
-    NSUInteger ruleIndex = 0;
-    for (LSDrawingRule* rule in self.startingRules) {
-        [self.level0RulesCache replacePointerAtIndex: ruleIndex++ withPointer: (__bridge void *)(rule.drawingMethodString)];
-    }
-    [self.level0RulesCache replacePointerAtIndex: ruleIndex withPointer: NULL];
-
+    
     return self.level0RulesCache;
 }
--(NSPointerArray*) level1Rules {
-    if (!self.level1RulesCache) {
-        self.level1RulesCache = [NSPointerArray weakObjectsPointerArray];
-        self.level1RulesCache.count = kLSMaxLevel1CacheSize;
-    }
-    return [self fillRulesArray: self.level1RulesCache forLevel: 1];
-}
--(NSPointerArray*) level2Rules {
-    if (!self.level2RulesCache) {
-        self.level2RulesCache = [NSPointerArray weakObjectsPointerArray];
-        self.level2RulesCache.count = kLSMaxLevel2CacheSize;
-    }
-    return [self fillRulesArray: self.level2RulesCache forLevel: 2];
-}
--(NSPointerArray*) levelNRules {
-    if (!self.levelNRulesCache) {
-        self.levelNRulesCache = [NSPointerArray weakObjectsPointerArray];
-        self.levelNRulesCache.count = kLSMaxLevelNCacheSize;
-    }
+-(NSString*) level1Rules {
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
-        [self fillRulesArray: self.levelNRulesCache forLevel: [self.level unsignedIntegerValue]];
+        [self cacheLevelNRulesStrings];
+    }
+    
+    return self.level1RulesCache;
+}
+-(NSString*) level2Rules {
+    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+        [self cacheLevelNRulesStrings];
+    }
+    
+    return self.level2RulesCache;
+}
+-(NSString*) levelNRules {
+    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+            //
+        [self cacheLevelNRulesStrings];
+    }
+    
+    NSUInteger levelN = [self.level unsignedIntegerValue];
+    
+    if (levelN == 0) {
+        return self.level0RulesCache;
+    } else if (levelN == 1) {
+        return self.level1RulesCache;
+    } else if (levelN == 2) {
+        return self.level2RulesCache;
+    } else {
+        return self.levelNRulesCache;
+    }
+}
+
+-(void) cacheLevelNRulesStrings {
+    //estimate the length
+    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+        
+        NSMutableDictionary* localReplacementRules;
+        NSMutableString* sourceData;
+        NSInteger productionLength;
+        CGFloat localLevel;
+        
+        localLevel = [self.level floatValue];
+        if (localLevel < 2) {
+            // always generate at least 2 levels
+            localLevel = 2;
+        }
+        
+        productionLength = [self.startingRules count] * localLevel;
+        
+        sourceData = [[NSMutableString alloc] initWithCapacity: productionLength];
+        [sourceData appendString: self.startingRulesString];
+        self.level0RulesCache = [sourceData mutableCopy];
+        
+        // Create a local dictionary version of the replacement rules
+        localReplacementRules = [[NSMutableDictionary alloc] initWithCapacity: [self.replacementRules count]];
+        for (LSReplacementRule* replacementRule in self.replacementRules) {
+            localReplacementRules[replacementRule.contextRule.productionString] = replacementRule.rulesString;
+        }
+        
+        NSMutableString* destinationData = [[NSMutableString alloc] initWithCapacity: productionLength];
+        NSMutableString* tempData = nil;
+        
+        
+        for (int i = 0; i < localLevel ; i++) {
+            NSUInteger sourceLength = sourceData.length;
+            if (sourceLength > kLSMaxLevelNCacheSize) {
+                break;
+            }
+            
+            NSString* key;
+            NSString* replacement;
+            
+            
+            // Replace each character for this level
+            for (int y=0; y < sourceLength; y++) {
+                //
+                key = [sourceData substringWithRange: NSMakeRange(y, 1)];
+                
+                replacement = localReplacementRules[key];
+                // If a specific rule is missing for a character, use the character
+                if (replacement==nil) {
+                    replacement = key;
+                } else {
+                    //                replacement = [NSString stringWithFormat: @"[%@]", replacement];
+                }
+                [destinationData appendString: replacement];
+            }
+            //swap source and destination
+            tempData = sourceData;
+            sourceData = destinationData;
+            destinationData = tempData;
+            //zero out destination
+            [destinationData deleteCharactersInRange: NSMakeRange(0, destinationData.length)];
+            
+            if (i == 0) {
+                self.level1RulesCache = [sourceData mutableCopy];
+            } else if (i == 1) {
+                self.level2RulesCache = [sourceData mutableCopy];
+            }
+        }
+        
+        
+        destinationData = nil;
+        tempData = nil;
+        
+        self.levelNRulesCache = sourceData;
         self.levelUnchanged = YES;
         self.rulesUnchanged = YES;
     }
-    return self.levelNRulesCache;
 }
+
 @end
