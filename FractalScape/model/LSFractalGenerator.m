@@ -214,13 +214,9 @@
  Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
  */
 - (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
-    CGRect tileBoundingRect = CGContextGetClipBoundingBox(theContext);
     CGRect tempRect = theLayer.bounds;
     CGRect layerBounds = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height);
-    [self.privateObjectContext performBlockAndWait:^{
-        [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
-    }];
-
+    [self drawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
 }
 /*!
  Can be called in a private thread, operation.
@@ -277,39 +273,26 @@
  */
 -(void) drawInBounds:(CGRect)layerBounds withContext:(CGContextRef)theContext flipped:(BOOL)isFlipped {
 
-    NSDate *methodStart;
-    
-    NSTimeInterval executionTime = 0.0;
-    __block NSTimeInterval productExecutionTime = 0.0;
-    __block NSTimeInterval pathExecutionTime = 0.0;
     
     // Following is because layerBounds value disappears after 1st if statement line below.
     // cause totally unknown.
     CGRect localBounds = layerBounds;
     
     if (self.productNeedsGenerating || self.pathNeedsGenerating) {
-//        [self.privateObjectContext performBlockAndWait:^{
+        [self.privateObjectContext performBlockAndWait:^{
         
             [self.privateObjectContext reset];
             self.privateFractal = (LSFractal*)[self.privateObjectContext objectWithID: self.fractalID];
 //            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
-            NSDate *blockMethodStart;
-            NSDate *blockMethodFinish;
             
             if (self.productNeedsGenerating) {
-                blockMethodStart = [NSDate date];
                 [self generateProduct];
-                blockMethodFinish = [NSDate date];
-                productExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
             }
             if (self.pathNeedsGenerating) {
-                blockMethodStart = [NSDate date];
                 [self generatePaths];
-                blockMethodFinish = [NSDate date];
-                pathExecutionTime = floorf(1000.0*[blockMethodFinish timeIntervalSinceDate: blockMethodStart]);
             }
             
-//        }];
+        }];
     }
     
 
@@ -387,8 +370,6 @@
 //    CGAffineTransform pathTransform = CGAffineTransformIdentity;
 //    CGPointMake(localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
 
-    methodStart = [NSDate date];
-    
     CGMutablePathRef fractalPath = CGPathCreateMutable();
 //    CGPathMoveToPoint(fractalPath, NULL, localBounds.origin.x, localBounds.origin.y + localBounds.size.height);
 
@@ -437,19 +418,9 @@
     }
 
     self.fractalCGPathRef = fractalPath;
+    CGPathRelease(fractalPath);
     
     CGContextRestoreGState(theContext);
-
-    NSDate *methodFinish = [NSDate date];
-    executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
-
-    CGPathRelease(fractalPath);
-    if (self.forceLevel == -1) {
-        NSLog(@"production executionTime = %.2fms", productExecutionTime);
-        NSLog(@"path executionTime = %.2fms", pathExecutionTime);
-        NSLog(@"drawing executionTime = %.2fms", executionTime);
-        NSLog(@"Total executionTime = %.2fms", executionTime+pathExecutionTime+productExecutionTime);
-    }
 }
 
 -(UIColor*) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {

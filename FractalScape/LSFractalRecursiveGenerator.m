@@ -257,56 +257,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             self.forceLevel,
             boundsDescription];
 }
-/*!
- Can be called in a private thread, operation.
- 
- @param size
- @param uiColor
- 
- @return
- */
--(UIImage*) generateImageSize:(CGSize)size withBackground:(UIColor*)uiColor {
-    if ( self.pathNeedsGenerating || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-        
-        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        NSAssert(context, @"NULL Context being used. Context must be non-null.");
-        
-        __block UIColor* pageColor = [UIColor clearColor]; // default
-        
-        __block LSFractal* aPrivateFractal;
-        NSManagedObjectID *mainID = _fractalID;
-        NSManagedObjectContext* pcon = _privateObjectContext;
-        
-        [_privateObjectContext performBlockAndWait:^{
-            aPrivateFractal = (LSFractal*)[pcon objectWithID: mainID];
-            
-            MBColor* mbPageColor = aPrivateFractal.backgroundColor;
-            if (mbPageColor) {
-                pageColor = [mbPageColor asUIColor];
-            }
-        }];
-
-        
-        CGContextSaveGState(context);
-        UIColor* thumbNailBackground = [UIColor colorWithCGColor: pageColor.CGColor];
-        [thumbNailBackground setFill];
-        CGContextFillRect(context, viewRect);
-        CGContextRestoreGState(context);
-        
-        [self recursiveDrawInBounds: viewRect
-               withContext: context
-                   flipped: NO];
-        
-        UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        self.cachedImage = thumbnail;
-    }
-    return self.cachedImage;
-}
 -(BOOL)hasImageSize:(CGSize)size {
     BOOL status = YES;
     if ((self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
@@ -447,6 +397,56 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     [self recursiveDrawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
 }
 
+/*!
+ Can be called in a private thread, operation.
+ 
+ @param size
+ @param uiColor
+ 
+ @return
+ */
+-(UIImage*) generateImageSize:(CGSize)size withBackground:(UIColor*)uiColor {
+    if ( self.pathNeedsGenerating || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+        
+        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        NSAssert(context, @"NULL Context being used. Context must be non-null.");
+        
+        __block UIColor* pageColor = [UIColor clearColor]; // default
+        
+        __block LSFractal* aPrivateFractal;
+        NSManagedObjectID *mainID = _fractalID;
+        NSManagedObjectContext* pcon = _privateObjectContext;
+        
+        [_privateObjectContext performBlockAndWait:^{
+            aPrivateFractal = (LSFractal*)[pcon objectWithID: mainID];
+            
+            MBColor* mbPageColor = aPrivateFractal.backgroundColor;
+            if (mbPageColor) {
+                pageColor = [mbPageColor asUIColor];
+            }
+        }];
+        
+        
+        CGContextSaveGState(context);
+        UIColor* thumbNailBackground = [UIColor colorWithCGColor: pageColor.CGColor];
+        [thumbNailBackground setFill];
+        CGContextFillRect(context, viewRect);
+        CGContextRestoreGState(context);
+        
+        [self recursiveDrawInBounds: viewRect
+                        withContext: context
+                            flipped: NO];
+        
+        UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        self.cachedImage = thumbnail;
+    }
+    return self.cachedImage;
+}
 -(void) recursiveDrawInBounds:(CGRect)layerBounds withContext:(CGContextRef)cgContext flipped:(BOOL)isFlipped {
     NSDate *methodStart;
     

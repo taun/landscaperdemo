@@ -213,7 +213,15 @@
 //-(void) setInitialTransform: (CGAffineTransform) transform;
 
 -(void) drawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
-
+/*!
+ Draws the fractal onto an image canvas.
+ Usually called on a background thread so the image gneration is non-blocking.
+ 
+ @param size    desired image size
+ @param uiColor background color
+ 
+ @return Returns an image representation of the fractal.
+ */
 -(UIImage*)generateImageSize: (CGSize)size withBackground: (UIColor*)uiColor;
 
 -(BOOL)hasImageSize: (CGSize) size;
