@@ -17,8 +17,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define MAXPRODUCTLENGTH 200000
-#define kLSMaxRules 256
-#define kLSMaxCommandLength 64
 
 struct MBCommandsStruct {
     char        command[kLSMaxRules][kLSMaxCommandLength];
@@ -551,7 +549,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     NSDate *productionStart = [NSDate date];
 
     __block CGFloat localLevel;
-    __block  NSString* levelCommandsArray;
+    __block  NSData* levelXRuleData;
 
     __block LSFractal* aPrivateFractal;
     NSManagedObjectID *mainID = _fractalID;
@@ -568,13 +566,13 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         
         if (localLevel == 0) {
-            levelCommandsArray = aPrivateFractal.level0Rules;
+            levelXRuleData = aPrivateFractal.level0Rules;
         } else if (localLevel == 1) {
-            levelCommandsArray = aPrivateFractal.level1Rules;
+            levelXRuleData = aPrivateFractal.level1Rules;
         } else if (localLevel == 2) {
-            levelCommandsArray = aPrivateFractal.level2Rules;
+            levelXRuleData = aPrivateFractal.level2Rules;
         } else {
-            levelCommandsArray = aPrivateFractal.levelNRules;
+            levelXRuleData = aPrivateFractal.levelNRules;
         }
     }];
     
@@ -586,23 +584,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     CGFloat scaleLevel = 4.0 / (localLevel + 1);
     CGContextScaleCTM(aCGContext, scaleLevel, scaleLevel);
 
-    NSData* levelCommandsData = [levelCommandsArray dataUsingEncoding: NSASCIIStringEncoding];
-    char* bytes = (char*)levelCommandsData.bytes;
+    char* bytes = (char*)levelXRuleData.bytes;
     
-    NSRange ruleRange = NSMakeRange(0, 1);
-    for (long i=0; i < levelCommandsArray.length; i++) {
-        ruleRange.location = i;
-    
-        char commandByte = bytes[i];
-        
-//        NSString* commandKey = [levelCommandsArray substringWithRange: ruleRange];
-        if (commandByte > 0 && commandByte < kLSMaxRules) {
-            //
-            [self evaluateRule: commandByte];
+    for (long i=0; i < levelXRuleData.length; i++) {
+            
+        [self evaluateRule: bytes[i]];
 
-        } else {
-            break;
-        }
     }
     
     [self drawPath];
@@ -635,11 +622,15 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     char* commandCStr = _commandsStruct.command[rule];
     SEL cachedSelector = _selectorsStruct.selector[rule];
     if (!cachedSelector) {
-        SEL uncachedSelector = NSSelectorFromString([NSString stringWithCString: commandCStr encoding: NSASCIIStringEncoding]);
+        NSString* selectorString = [NSString stringWithCString: commandCStr encoding: NSASCIIStringEncoding];
+        SEL uncachedSelector = NSSelectorFromString(selectorString);
         
         if ([self respondsToSelector: uncachedSelector]) {
             cachedSelector = uncachedSelector;
             _selectorsStruct.selector[rule] = cachedSelector;
+        } else {
+            NSLog(@"FractalScape error: missing command for key '%@'",selectorString);
+            return;
         }
     }
     [self performSelector: cachedSelector];

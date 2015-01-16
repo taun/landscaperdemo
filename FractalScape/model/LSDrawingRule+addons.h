@@ -13,6 +13,8 @@
 
 #import "NSManagedObject+Shortcuts.h"
 
+#define kLSMaxCommandLength 64
+
 @interface LSDrawingRule (addons) <MDBTileObjectProtocol>
 
 +(LSDrawingRule*) findRuleWithType:(NSString *)ruleType productionString: (NSString*)production inContext: (NSManagedObjectContext*) context;

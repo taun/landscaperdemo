@@ -10,6 +10,8 @@
 
 #include <math.h>
 
+#define kLSMaxRules 256
+
 /*!
  Convenience functions which should be in a math library.
  
@@ -92,10 +94,10 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (NS_NONATOMIC_IOSONLY, readwrite, copy) NSNumber             *baseAngleAsDegrees;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSDictionary                *replacementRulesDictionary;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *level0Rules;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *level1Rules;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *level2Rules;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSString              *levelNRules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData              *level0Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData              *level1Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData              *level2Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData              *levelNRules;
 
 -(void) setTurningAngleIncrementAsDegrees: (NSNumber*)              newAngle;
 -(void) setBaseAngleAsDegrees: (NSNumber*)                          newAngle;

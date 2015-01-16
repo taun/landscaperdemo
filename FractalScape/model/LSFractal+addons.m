@@ -19,6 +19,11 @@
 #define kLSMaxLevelNCacheSize 1000000
 #define kLSLevelCacheIncrement 1000000
 
+struct MBReplacementRulesStruct {
+    char        replacementString[kLSMaxRules][kLSMaxReplacementRules];
+};
+typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
+
 
 @implementation LSFractal (addons)
 
@@ -305,15 +310,6 @@
     }
     return [tempDictionary copy];
 }
--(NSPointerArray*) fillRulesArray: (NSPointerArray*)ruleArray forLevel: (NSUInteger) level {
-    NSDictionary* replacementRulesDict = self.replacementRulesDictionary;
-    
-    NSUInteger leafRuleIndex = 0;
-    [self recurseRules: self.startingRules replacementRules: replacementRulesDict currentLevel: 0 desiredLevel: level ruleArray: ruleArray leafRuleIndex: &leafRuleIndex];
-    [ruleArray replacePointerAtIndex: leafRuleIndex withPointer: NULL];
-    
-    return ruleArray;
-}
 -(void) recurseRules: (NSOrderedSet*)rules replacementRules: (NSDictionary*)replacementRulesDict currentLevel: (NSUInteger)currentLevel desiredLevel: (NSUInteger) desiredLevel ruleArray: (NSPointerArray*)leafRulesArray leafRuleIndex: (NSUInteger*) leafIndexPtr {
     for (LSDrawingRule* rule in rules) {
         LSReplacementRule* replacementRule = replacementRulesDict[rule.productionString];
@@ -332,28 +328,28 @@
     }
 }
 
--(NSString*) level0Rules {
+-(NSData*) level0Rules {
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
         [self cacheLevelNRulesStrings];
     }
     
     return self.level0RulesCache;
 }
--(NSString*) level1Rules {
+-(NSData*) level1Rules {
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
         [self cacheLevelNRulesStrings];
     }
     
     return self.level1RulesCache;
 }
--(NSString*) level2Rules {
+-(NSData*) level2Rules {
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
         [self cacheLevelNRulesStrings];
     }
     
     return self.level2RulesCache;
 }
--(NSString*) levelNRules {
+-(NSData*) levelNRules {
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
             //
         [self cacheLevelNRulesStrings];
@@ -371,84 +367,105 @@
         return self.levelNRulesCache;
     }
 }
+-(void) initialiseRuleCaches {
+    if (!self.level1RulesCache) {
+        self.level1RulesCache = [NSMutableData dataWithCapacity: 100];
+    } else {
+        self.level1RulesCache.length = 0;
+    }
+    if (!self.level2RulesCache) {
+        self.level2RulesCache = [NSMutableData dataWithCapacity: kLSMaxLevel2CacheSize];
+    } else {
+        self.level2RulesCache.length = 0;
+    }
 
+    if (!self.levelNRulesCache) {
+        self.levelNRulesCache = [NSMutableData dataWithCapacity: kLSMaxLevelNCacheSize];
+    } else {
+        self.levelNRulesCache.length = 0;
+    }
+
+
+}
 -(void) cacheLevelNRulesStrings {
     //estimate the length
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
         
-        NSMutableDictionary* localReplacementRules;
-        NSMutableString* sourceData;
-        NSInteger productionLength;
+        [self initialiseRuleCaches];
+        MBReplacementRulesStruct replacementRulesCache;
+        for (int i =0; i < kLSMaxRules; i++) {
+            replacementRulesCache.replacementString[i][0] = 0;
+        }
+        
+        NSMutableData* destinationData = [NSMutableData dataWithLength: self.levelNRulesCache.length];
+        
         CGFloat localLevel;
         
         localLevel = [self.level floatValue];
-        if (localLevel < 2) {
-            // always generate at least 2 levels
-            localLevel = 2;
-        }
+        localLevel = localLevel < 2 ? 2 : localLevel;
         
-        productionLength = [self.startingRules count] * localLevel;
+        self.level0RulesCache = [self.startingRulesString dataUsingEncoding: NSUTF8StringEncoding];
         
-        sourceData = [[NSMutableString alloc] initWithCapacity: productionLength];
-        [sourceData appendString: self.startingRulesString];
-        self.level0RulesCache = [sourceData mutableCopy];
         
         // Create a local dictionary version of the replacement rules
-        localReplacementRules = [[NSMutableDictionary alloc] initWithCapacity: [self.replacementRules count]];
         for (LSReplacementRule* replacementRule in self.replacementRules) {
-            localReplacementRules[replacementRule.contextRule.productionString] = replacementRule.rulesString;
+            NSData* ruleData = [replacementRule.contextRule.productionString dataUsingEncoding: NSUTF8StringEncoding];
+            char* ruleBytes = (char*)ruleData.bytes;
+            NSData* replacementData = [replacementRule.rulesString dataUsingEncoding: NSUTF8StringEncoding];
+            char* replacementCString = (char*)replacementData.bytes;
+            strncpy(replacementRulesCache.replacementString[ruleBytes[0]], replacementCString, replacementData.length);
+            replacementRulesCache.replacementString[ruleBytes[0]][replacementData.length] = 0;
         }
+
+        [self generateNextLevelWithSource: self.level0RulesCache destination: self.level1RulesCache replacementsCache: replacementRulesCache];
+        [self generateNextLevelWithSource: self.level1RulesCache destination: self.level2RulesCache replacementsCache: replacementRulesCache];
         
-        NSMutableString* destinationData = [[NSMutableString alloc] initWithCapacity: productionLength];
-        NSMutableString* tempData = nil;
+        // initialise buffer
+        [self.levelNRulesCache appendBytes: self.level2RulesCache.bytes length: self.level2RulesCache.length];
         
-        
-        for (int i = 0; i < localLevel ; i++) {
-            NSUInteger sourceLength = sourceData.length;
-            if (sourceLength > kLSMaxLevelNCacheSize) {
-                break;
-            }
-            
-            NSString* key;
-            NSString* replacement;
-            
-            
-            // Replace each character for this level
-            for (int y=0; y < sourceLength; y++) {
-                //
-                key = [sourceData substringWithRange: NSMakeRange(y, 1)];
-                
-                replacement = localReplacementRules[key];
-                // If a specific rule is missing for a character, use the character
-                if (replacement==nil) {
-                    replacement = key;
-                } else {
-                    //                replacement = [NSString stringWithFormat: @"[%@]", replacement];
-                }
-                [destinationData appendString: replacement];
-            }
-            //swap source and destination
-            tempData = sourceData;
-            sourceData = destinationData;
-            destinationData = tempData;
-            //zero out destination
-            [destinationData deleteCharactersInRange: NSMakeRange(0, destinationData.length)];
-            
-            if (i == 0) {
-                self.level1RulesCache = [sourceData mutableCopy];
-            } else if (i == 1) {
-                self.level2RulesCache = [sourceData mutableCopy];
-            }
+        for (int i = 2; i < localLevel ; i++) {
+            [self generateNextLevelWithSource: self.levelNRulesCache destination: destinationData replacementsCache: replacementRulesCache];
+            // swap buffers before next interation
+            NSMutableData* newDestination = self.levelNRulesCache;
+            self.levelNRulesCache = destinationData;
+            destinationData = newDestination;
+            destinationData.length = 0;
         }
         
         
         destinationData = nil;
-        tempData = nil;
         
-        self.levelNRulesCache = sourceData;
         self.levelUnchanged = YES;
         self.rulesUnchanged = YES;
     }
+}
+
+-(void) generateNextLevelWithSource: (NSData*) sourceData destination: (NSMutableData*) destinationData replacementsCache: (MBReplacementRulesStruct) replacementRulesStruct {
+    
+    char* sourceBytes = (char*)sourceData.bytes;
+    
+    for (long i=0; i < sourceData.length; i++) {
+        UInt8 rule = sourceBytes[i];
+
+        if (rule > 250) {
+            break;
+        }
+        
+        if (i < kLSMaxLevelNCacheSize-1) {
+            
+            char interString[kLSMaxReplacementRules];
+            
+            strcpy(interString, replacementRulesStruct.replacementString[rule]);
+            if (strlen(interString) == 0) {
+                interString[0] = rule;
+                interString[1] = 0;
+            }
+            
+            [destinationData appendBytes: interString length: strlen(interString)];
+        }
+    }
+//    UInt8 terminator[1] = "";
+//    [destinationData appendBytes: terminator length: 1];
 }
 
 @end

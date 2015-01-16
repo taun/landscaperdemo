@@ -92,13 +92,13 @@
 -(void) testLevel1RulesCreation {
     LSFractal *fractal = [self createDefaultFractal];
     
-    NSString* level1Rules = fractal.level1Rules;
+    NSString* level1Rules = [[NSString alloc] initWithData: fractal.level1Rules encoding: NSUTF8StringEncoding] ;
     XCTAssert(level1Rules.length == 7, @"Wrong number of leaf rules");
 }
 -(void) testLevel5RulesCreation {
     LSFractal *fractal = [self createDefaultFractal];
     fractal.level = @5;
-    NSString* levelNRules = fractal.levelNRules;
+    NSString* levelNRules = [[NSString alloc] initWithData: fractal.levelNRules encoding: NSUTF8StringEncoding];
     
     XCTAssert(levelNRules.length == 487, @"Wrong number of leaf rules");
 }
@@ -110,14 +110,14 @@
 -(void) testBushLevel1RulesCreation {
     LSFractal *fractal = [self createBushFractal];
     
-    NSString* resultString = fractal.level1Rules;
-    NSString* answer = @"FF+[+F-F-F]-[-F+F+F]";
+    NSString* resultString = [[NSString alloc] initWithData: fractal.level1Rules encoding: NSUTF8StringEncoding];
+    NSString* answer = [NSString stringWithCString: "FF+[+F-F-F]-[-F+F+F]" encoding: NSUTF8StringEncoding];
     XCTAssert([answer isEqualToString: resultString], @"Rule should be:\n%@ \nis\n%@",answer,resultString);
 }
 -(void) testBushLevel2RulesCreation {
     LSFractal *fractal = [self createBushFractal];
     
-    NSString* resultString = fractal.level2Rules;
+    NSString* resultString = [[NSString alloc] initWithData: fractal.level2Rules encoding: NSUTF8StringEncoding];
     NSString* answer = @"FF+[+F-F-F]-[-F+F+F]FF+[+F-F-F]-[-F+F+F]+[+FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]]-[-FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]]";
     XCTAssert([answer isEqualToString: resultString], @"Rule should be:\n%@ \nis\n%@",answer,resultString);
 }
@@ -125,7 +125,7 @@
     LSFractal *fractal = [self createBushFractal];
     fractal.level = @2;
     
-    NSString* resultString = fractal.levelNRules;
+    NSString* resultString = [[NSString alloc] initWithData: fractal.levelNRules encoding: NSUTF8StringEncoding];
     NSString* answer = @"FF+[+F-F-F]-[-F+F+F]FF+[+F-F-F]-[-F+F+F]+[+FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]]-[-FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]]";
     XCTAssert([answer isEqualToString: resultString], @"Rule should be:\n%@ \nis\n%@",answer,resultString);
 }
