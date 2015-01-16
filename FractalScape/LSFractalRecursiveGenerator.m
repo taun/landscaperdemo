@@ -38,9 +38,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     MBCommandSelectorsStruct _selectorsStruct;
 }
 
-@property (nonatomic,strong) NSManagedObjectID      *fractalID;
-@property (nonatomic,strong) NSManagedObjectContext *privateObjectContext;
-
 @property (nonatomic,assign) BOOL                   pathNeedsGenerating;
 
 @property (nonatomic,assign,readwrite) CGRect       bounds;
@@ -93,10 +90,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         _fractal = fractal;
         
-        _fractalID = _fractal.objectID;
-        _privateObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
-        _privateObjectContext.parentContext = _fractal.managedObjectContext;
-        
         [self cacheDrawingRules];
         [self addObserverForFractal: _fractal];
         [self productionRuleChanged];
@@ -134,16 +127,16 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 -(void) cacheDrawingRules {
     
-        __block NSPointerArray* tempArray;
+        NSPointerArray* tempArray;
         
-        __block LSFractal* aPrivateFractal;
-        NSManagedObjectID *mainID = _fractalID;
-        NSManagedObjectContext* pcon = _privateObjectContext;
-        
-        [_privateObjectContext performBlockAndWait:^{
-            aPrivateFractal = (LSFractal*)[pcon objectWithID: mainID];
-            
-            NSOrderedSet* rules = aPrivateFractal.drawingRulesType.rules;
+//        __block LSFractal* self.fractal;
+//        NSManagedObjectID *mainID = _fractalID;
+//        NSManagedObjectContext* pcon = _privateObjectContext;
+//        
+//        [_privateObjectContext performBlockAndWait:^{
+//            self.fractal = (LSFractal*)[pcon objectWithID: mainID];
+    
+            NSOrderedSet* rules = self.fractal.drawingRulesType.rules;
 
             for (LSDrawingRule* rule in rules) {
                 NSData* ruleData = [rule.productionString dataUsingEncoding: NSASCIIStringEncoding];
@@ -166,7 +159,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
                              commandLength);
                 }
              }
-        }];
+//        }];
     // clear selectors
     int i = 0;
     for (i=0; i < kLSMaxRules; i++) {
@@ -181,8 +174,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 /* will this cause threading problems? */
 -(void) addObserverForFractal:(LSFractal *)fractal {
     if (fractal) {
-        [fractal.managedObjectContext performBlock:^{
-            
+//        [fractal.managedObjectContext performBlock:^{
+        
             NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
             [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
             [propertiesToObserve unionSet: [LSFractal redrawProperties]];
@@ -195,13 +188,13 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
                 [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
                 [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
             }
-        }];
+//        }];
     }
 }
 -(void) removeObserverForFractal:(LSFractal *)fractal {
     if (fractal) {
-        [fractal.managedObjectContext performBlock:^{
-            
+//        [fractal.managedObjectContext performBlock:^{
+        
             NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
             [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
             [propertiesToObserve unionSet: [LSFractal redrawProperties]];
@@ -214,7 +207,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
                 [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
                 [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
             }
-        }];
+//        }];
     }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -289,53 +282,53 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     // Copy the fractal core data values to the segment
     
-    [self.privateObjectContext reset];
+//    [self.privateObjectContext reset];
     //            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
 
     _segmentIndex = 0;
-    __block MBSegmentStruct newSegment;
+    MBSegmentStruct newSegment;
     
-    __block LSFractal* aPrivateFractal;
-    NSManagedObjectID *mainID = _fractalID;
-    NSManagedObjectContext* pcon = _privateObjectContext;
-    
-    [self.privateObjectContext performBlockAndWait:^{
+//    __block LSFractal* self.fractal;
+//    NSManagedObjectID *mainID = _fractalID;
+//    NSManagedObjectContext* pcon = _privateObjectContext;
+//    
+//    [self.privateObjectContext performBlockAndWait:^{
 
-        aPrivateFractal = (LSFractal*)[pcon objectWithID: mainID];
+//        self.fractal = (LSFractal*)[pcon objectWithID: mainID];
 
         newSegment.lineColorIndex = 0;
         newSegment.fillColorIndex = 0;
         
-        newSegment.lineLength = [aPrivateFractal.lineLength floatValue];
-        newSegment.lineLengthScaleFactor = [aPrivateFractal.lineLengthScaleFactor floatValue];
+        newSegment.lineLength = [self.fractal.lineLength floatValue];
+        newSegment.lineLengthScaleFactor = [self.fractal.lineLengthScaleFactor floatValue];
         
-        newSegment.lineWidth = [aPrivateFractal.lineWidth floatValue];
-        newSegment.lineWidthIncrement = [aPrivateFractal.lineWidthIncrement floatValue];
+        newSegment.lineWidth = [self.fractal.lineWidth floatValue];
+        newSegment.lineWidthIncrement = [self.fractal.lineWidthIncrement floatValue];
         
-        newSegment.turningAngle = [aPrivateFractal turningAngleAsDouble];
-        newSegment.turningAngleIncrement = [aPrivateFractal.turningAngleIncrement floatValue];
+        newSegment.turningAngle = [self.fractal turningAngleAsDouble];
+        newSegment.turningAngleIncrement = [self.fractal.turningAngleIncrement floatValue];
         
-        newSegment.randomness = [aPrivateFractal.randomness floatValue];
-        newSegment.lineChangeFactor = [aPrivateFractal.lineChangeFactor floatValue];
+        newSegment.randomness = [self.fractal.randomness floatValue];
+        newSegment.lineChangeFactor = [self.fractal.lineChangeFactor floatValue];
         
         newSegment.lineCap = kCGLineCapRound;
         newSegment.lineJoin = kCGLineJoinRound;
         
         newSegment.stroke = YES;
         newSegment.fill = NO;
-        newSegment.EOFill = aPrivateFractal.eoFill ? [aPrivateFractal.eoFill boolValue] : NO;
+        newSegment.EOFill = self.fractal.eoFill ? [self.fractal.eoFill boolValue] : NO;
         
         newSegment.drawingModeUnchanged = NO;
         
-        newSegment.transform = CGAffineTransformRotate(CGAffineTransformIdentity, -[aPrivateFractal.baseAngle floatValue]);
+        newSegment.transform = CGAffineTransformRotate(CGAffineTransformIdentity, -[self.fractal.baseAngle floatValue]);
         
         newSegment.points[0] = CGPointMake(0.0, 0.0);
         newSegment.pointIndex = -1;
         
-        newSegment.baseAngle = [aPrivateFractal.baseAngle floatValue];
+        newSegment.baseAngle = [self.fractal.baseAngle floatValue];
         newSegment.context = aCGContext;
         
-    }];
+//    }];
     self->_segmentStack[0] = newSegment;
 
 }
@@ -414,20 +407,20 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         NSAssert(context, @"NULL Context being used. Context must be non-null.");
         
-        __block UIColor* pageColor = [UIColor clearColor]; // default
+        UIColor* pageColor = [UIColor clearColor]; // default
         
-        __block LSFractal* aPrivateFractal;
-        NSManagedObjectID *mainID = _fractalID;
-        NSManagedObjectContext* pcon = _privateObjectContext;
+//        __block LSFractal* self.fractal;
+//        NSManagedObjectID *mainID = _fractalID;
+//        NSManagedObjectContext* pcon = _privateObjectContext;
         
-        [_privateObjectContext performBlockAndWait:^{
-            aPrivateFractal = (LSFractal*)[pcon objectWithID: mainID];
-            
-            MBColor* mbPageColor = aPrivateFractal.backgroundColor;
+//        [_privateObjectContext performBlockAndWait:^{
+//            self.fractal = (LSFractal*)[pcon objectWithID: mainID];
+        
+            MBColor* mbPageColor = self.fractal.backgroundColor;
             if (mbPageColor) {
                 pageColor = [mbPageColor asUIColor];
             }
-        }];
+//        }];
         
         
         CGContextSaveGState(context);
@@ -452,7 +445,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     NSTimeInterval executionTime = 0.0;
     
-    __block NSTimeInterval pathExecutionTime = 0.0;
+    NSTimeInterval pathExecutionTime = 0.0;
     
     // Following is because layerBounds value disappears after 1st if statement line below.
     // cause totally unknown.
@@ -497,9 +490,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     CGContextTranslateCTM(cgContext, CGRectGetMidX(layerBounds), CGRectGetMidY(layerBounds));
     
-    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [self createFractalWithContext: cgContext];
-    });
+//    });
     
     // ---------
     // End path generation
@@ -548,33 +541,33 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     NSTimeInterval productExecutionTime = 0.0;
     NSDate *productionStart = [NSDate date];
 
-    __block CGFloat localLevel;
-    __block  NSData* levelXRuleData;
+    CGFloat localLevel;
+    NSData* levelXRuleData;
 
-    __block LSFractal* aPrivateFractal;
-    NSManagedObjectID *mainID = _fractalID;
-    NSManagedObjectContext* pcon = _privateObjectContext;
+//    __block LSFractal* self.fractal;
+//    NSManagedObjectID *mainID = _fractalID;
+//    NSManagedObjectContext* pcon = _privateObjectContext;
     
-    [self.privateObjectContext performBlockAndWait:^{
-        
-        aPrivateFractal = (LSFractal*)[pcon objectWithID: mainID];
-        
-        localLevel = [aPrivateFractal.level floatValue];
+//    [self.privateObjectContext performBlockAndWait:^{
+    
+//        self.fractal = (LSFractal*)[pcon objectWithID: mainID];
+    
+        localLevel = [self.fractal.level floatValue];
         if (self.forceLevel >= 0) {
             localLevel = self.forceLevel;
         }
         
         
         if (localLevel == 0) {
-            levelXRuleData = aPrivateFractal.level0Rules;
+            levelXRuleData = self.fractal.level0Rules;
         } else if (localLevel == 1) {
-            levelXRuleData = aPrivateFractal.level1Rules;
+            levelXRuleData = self.fractal.level1Rules;
         } else if (localLevel == 2) {
-            levelXRuleData = aPrivateFractal.level2Rules;
+            levelXRuleData = self.fractal.level2Rules;
         } else {
-            levelXRuleData = aPrivateFractal.levelNRules;
+            levelXRuleData = self.fractal.levelNRules;
         }
-    }];
+//    }];
     
     
     NSDate *productionFinish = [NSDate date];
