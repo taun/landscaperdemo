@@ -559,7 +559,7 @@ static BOOL SIMULTOUCH = NO;
                 generator.fractal = fractal;
             }
         } else {
-            [self setupRecursiveLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
+            [self setupRecursiveLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 20.0 forceLevel: -1];
 //            [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" margin: 10.0 forceLevel: 0];
             [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" margin: 10.0 forceLevel: 1];
@@ -631,10 +631,11 @@ static BOOL SIMULTOUCH = NO;
     [self fitLayer: aLayer inLayer: aView.layer margin: margin];
     
     CGRect bounds = aLayer.bounds;
-    aLayer.bounds = CGRectInset(bounds, -4000.0, -4000.0);
+//    aLayer.bounds = CGRectInset(bounds, -4000.0, -4000.0);
 
 
     [aView.layer addSublayer: aLayer];
+    aLayer.bounds = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
 //    aLayer.anchorPoint = CGPointMake(0.0, 0.0);
     
     LSFractalRecursiveGenerator* generator = [[LSFractalRecursiveGenerator alloc] init];

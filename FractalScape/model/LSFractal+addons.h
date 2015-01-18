@@ -49,7 +49,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  */
 +(NSSet*) appearanceProperties;
 /*!
- A set of fractal property paths which only effect drawing of the line segments. Menaing neither the production nor the segment deneration are effect.
+ A set of fractal property paths which only effect drawing of the line segments. Meaning neither the production nor the segment deneration are effect.
  
  @return a set of property path strings.
  */

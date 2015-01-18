@@ -20,7 +20,7 @@
 #define kLSLevelCacheIncrement 1000000
 
 struct MBReplacementRulesStruct {
-    char        replacementString[kLSMaxRules][kLSMaxReplacementRules];
+    char        replacementCString[kLSMaxRules][kLSMaxReplacementRules];
 };
 typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 
@@ -370,31 +370,23 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 -(void) initialiseRuleCaches {
     if (!self.level1RulesCache) {
         self.level1RulesCache = [NSMutableData dataWithCapacity: 100];
-    } else {
-        self.level1RulesCache.length = 0;
     }
     if (!self.level2RulesCache) {
         self.level2RulesCache = [NSMutableData dataWithCapacity: kLSMaxLevel2CacheSize];
-    } else {
-        self.level2RulesCache.length = 0;
     }
-
+    
     if (!self.levelNRulesCache) {
         self.levelNRulesCache = [NSMutableData dataWithCapacity: kLSMaxLevelNCacheSize];
-    } else {
-        self.levelNRulesCache.length = 0;
     }
-
-
 }
 -(void) cacheLevelNRulesStrings {
-    //estimate the length
+    // if level or rules changed, reproduce cache
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
         
         [self initialiseRuleCaches];
         MBReplacementRulesStruct replacementRulesCache;
         for (int i =0; i < kLSMaxRules; i++) {
-            replacementRulesCache.replacementString[i][0] = 0;
+            replacementRulesCache.replacementCString[i][0] = 0;
         }
         
         NSMutableData* destinationData = [NSMutableData dataWithLength: self.levelNRulesCache.length];
@@ -409,32 +401,32 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         
         // Create a local dictionary version of the replacement rules
         for (LSReplacementRule* replacementRule in self.replacementRules) {
-            NSData* ruleData = [replacementRule.contextRule.productionString dataUsingEncoding: NSUTF8StringEncoding];
-            char* ruleBytes = (char*)ruleData.bytes;
-            NSData* replacementData = [replacementRule.rulesString dataUsingEncoding: NSUTF8StringEncoding];
-            char* replacementCString = (char*)replacementData.bytes;
-            strncpy(replacementRulesCache.replacementString[ruleBytes[0]], replacementCString, replacementData.length);
-            replacementRulesCache.replacementString[ruleBytes[0]][replacementData.length] = 0;
+            const char* ruleBytes = replacementRule.contextRule.productionString.UTF8String;
+            
+            const char* replacementCString = replacementRule.rulesString.UTF8String;
+            
+            strcpy(replacementRulesCache.replacementCString[ruleBytes[0]], replacementCString);
         }
-
+        
         [self generateNextLevelWithSource: self.level0RulesCache destination: self.level1RulesCache replacementsCache: replacementRulesCache];
         [self generateNextLevelWithSource: self.level1RulesCache destination: self.level2RulesCache replacementsCache: replacementRulesCache];
         
         // initialise buffer
+        self.levelNRulesCache.length = 0;
         [self.levelNRulesCache appendBytes: self.level2RulesCache.bytes length: self.level2RulesCache.length];
         
-        for (int i = 2; i < localLevel ; i++) {
+        
+        for (unsigned long i = 2; i < localLevel ; i++) {
             [self generateNextLevelWithSource: self.levelNRulesCache destination: destinationData replacementsCache: replacementRulesCache];
             // swap buffers before next interation
             NSMutableData* newDestination = self.levelNRulesCache;
             self.levelNRulesCache = destinationData;
             destinationData = newDestination;
-            destinationData.length = 0;
         }
         
         
-        destinationData = nil;
         
+        destinationData = nil;
         self.levelUnchanged = YES;
         self.rulesUnchanged = YES;
     }
@@ -443,6 +435,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 -(void) generateNextLevelWithSource: (NSData*) sourceData destination: (NSMutableData*) destinationData replacementsCache: (MBReplacementRulesStruct) replacementRulesStruct {
     
     char* sourceBytes = (char*)sourceData.bytes;
+    destinationData.length = 0;
     
     for (long i=0; i < sourceData.length; i++) {
         UInt8 rule = sourceBytes[i];
@@ -453,15 +446,15 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         
         if (i < kLSMaxLevelNCacheSize-1) {
             
-            char interString[kLSMaxReplacementRules];
+            char interCString[kLSMaxReplacementRules];
             
-            strcpy(interString, replacementRulesStruct.replacementString[rule]);
-            if (strlen(interString) == 0) {
-                interString[0] = rule;
-                interString[1] = 0;
+            strcpy(interCString, replacementRulesStruct.replacementCString[rule]);
+            if (strlen(interCString) == 0) {
+                interCString[0] = rule;
+                interCString[1] = 0;
             }
             
-            [destinationData appendBytes: interString length: strlen(interString)];
+            [destinationData appendBytes: interCString length: strlen(interCString)]; // don't include null terminator
         }
     }
 //    UInt8 terminator[1] = "";

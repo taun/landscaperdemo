@@ -17,6 +17,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define MAXPRODUCTLENGTH 200000
+//#define LSDEBUGPERFORMANCE
 
 struct MBCommandsStruct {
     char        command[kLSMaxRules][kLSMaxCommandLength];
@@ -139,19 +140,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             NSOrderedSet* rules = self.fractal.drawingRulesType.rules;
 
             for (LSDrawingRule* rule in rules) {
-                NSData* ruleData = [rule.productionString dataUsingEncoding: NSASCIIStringEncoding];
-                char* ruleBytes = (char*)ruleData.bytes;
-                char ruleIndex = ruleBytes[0];
+                unsigned char ruleIndex = rule.productionString.UTF8String[0];
                 
                 NSUInteger commandLength = rule.drawingMethodString.length;
                 if (commandLength < kLSMaxCommandLength) {
-                    NSData* ruleMethodData = [rule.drawingMethodString dataUsingEncoding: NSASCIIStringEncoding];
-                    char* ruleString = (char*)ruleMethodData.bytes;
-                    int i = 0;
-                    for (i=0; i<commandLength; i++) {
-                        self->_commandsStruct.command[ruleIndex][i] = ruleString[i];
-                    }
-                    self->_commandsStruct.command[ruleIndex][i] = 0; // null terminate
+                    strcpy(_commandsStruct.command[ruleIndex], rule.drawingMethodString.UTF8String);
+                    
                 } else {
                     NSAssert(YES, @"FractalScapeError: Rule CommandString '%@' is too long. Max length: %d, actual length: %lu",
                              rule.drawingMethodString,
@@ -165,6 +159,16 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     for (i=0; i < kLSMaxRules; i++) {
         _selectorsStruct.selector[i] = NULL;
     }
+}
+-(void) cacheReplacementRules {
+    NSMutableDictionary* tempDictionary = [[NSMutableDictionary alloc] initWithCapacity: _fractal.replacementRules.count];
+    
+    NSOrderedSet* replacementRules =  _fractal.replacementRules;
+    for (LSReplacementRule* replacementRule in replacementRules) {
+        [tempDictionary setObject: replacementRule forKey: replacementRule.contextRule.productionString];
+    }
+    
+    self.cachedReplacementRules = [tempDictionary copy];
 }
 -(void) clearCache {
     self.cachedImage = nil;
@@ -223,11 +227,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
-        // appearanceChanged
+        // appearanceChanged - need to redo everything but rules
         [self geometryChanged];
 //        [self cacheLineEnds: _fractal];
         
     } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
+        // bounds won't change for autoscaling but will need to redraw image.
 //        [self cacheColors: _fractal];
 //        [self cacheLineEnds: _fractal];
         
@@ -349,14 +354,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 #pragma mark Product Generation
 
 -(void) productionRuleChanged {
-    NSMutableDictionary* tempDictionary = [[NSMutableDictionary alloc] initWithCapacity: _fractal.replacementRules.count];
-    
-    NSOrderedSet* replacementRules =  _fractal.replacementRules;
-    for (LSReplacementRule* replacementRule in replacementRules) {
-        [tempDictionary setObject: replacementRule forKey: replacementRule.contextRule.productionString];
-    }
-    
-    self.cachedReplacementRules = [tempDictionary copy];
+    self.fractal.rulesUnchanged = NO;
+    [self cacheReplacementRules];
     self.bounds = CGRectZero;
 
     [self geometryChanged];
@@ -409,19 +408,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         UIColor* pageColor = [UIColor clearColor]; // default
         
-//        __block LSFractal* self.fractal;
-//        NSManagedObjectID *mainID = _fractalID;
-//        NSManagedObjectContext* pcon = _privateObjectContext;
         
-//        [_privateObjectContext performBlockAndWait:^{
-//            self.fractal = (LSFractal*)[pcon objectWithID: mainID];
-        
-            MBColor* mbPageColor = self.fractal.backgroundColor;
-            if (mbPageColor) {
-                pageColor = [mbPageColor asUIColor];
-            }
-//        }];
-        
+        MBColor* mbPageColor = self.fractal.backgroundColor;
+        if (mbPageColor) pageColor = [mbPageColor asUIColor];
         
         CGContextSaveGState(context);
         UIColor* thumbNailBackground = [UIColor colorWithCGColor: pageColor.CGColor];
@@ -440,69 +429,104 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
     return self.cachedImage;
 }
--(void) recursiveDrawInBounds:(CGRect)layerBounds withContext:(CGContextRef)cgContext flipped:(BOOL)isFlipped {
+-(void) recursiveDrawInBounds:(CGRect)imageBounds withContext:(CGContextRef)aCGContext flipped:(BOOL)isFlipped {
     NSDate *methodStart;
     
+#ifdef LSDEBUGPERFORMANCE
     NSTimeInterval executionTime = 0.0;
-    
     NSTimeInterval pathExecutionTime = 0.0;
-    
-    // Following is because layerBounds value disappears after 1st if statement line below.
+    methodStart = [NSDate date];
+#endif
+    // Following is because imageBounds value disappears after 1st if statement line below.
     // cause totally unknown.
     
-    self.bounds = CGRectZero;
+    CGRect localBounds = imageBounds;
     
-    CGRect localBounds = layerBounds;
+    CGContextSaveGState(aCGContext);
     
-    CGContextSaveGState(cgContext);
     
-    methodStart = [NSDate date];
+    CGContextTranslateCTM(aCGContext, CGRectGetMidX(imageBounds), CGRectGetMidY(imageBounds));
     
-    // Start path generation
-    // ---------
-    
-    if ((NO) || self.autoscale) {
-        
-        // Scaling
-        CGFloat scaleWidth = localBounds.size.width/self.bounds.size.width;
-        CGFloat scaleHeight = localBounds.size.height/self.bounds.size.height;
-        
-        self.scale = MIN(scaleHeight, scaleWidth);
-        
-        //    CGFloat margin = -0.0/scale;
-        
-        //    CGContextScaleCTM(theContext, scale, scale);
-        //    NSLog(@"Min Layer/Fractal Scale = %g", scale);
-        
-        
-        //    CGRect fBounds = CGRectStandardize(CGRectInset(self.bounds, margin, margin) );
-        
-        // Translating
-        CGFloat fCenterX = (self.bounds.origin.x + self.bounds.size.width/2.0);
-        CGFloat fCenterY = (self.bounds.origin.y + self.bounds.size.height/2.0);
-        
-        CGFloat lCenterX = localBounds.origin.x + localBounds.size.width/2.0;
-        CGFloat lCenterY = localBounds.origin.y + localBounds.size.height/2.0;
-        
-        self.translate = CGPointMake(lCenterX - (fCenterX*self.scale), lCenterY - (fCenterY*self.scale));
-    }
+    //    CGContextDrawImage(aCGContext, CGRectMake(-18, -18, 36, 36), [[UIImage imageNamed: @"controlDragCircle"] CGImage]);
+    CGFloat yOrientation = isFlipped ? -1.0 : 1.0;
 
     
-    CGContextTranslateCTM(cgContext, CGRectGetMidX(layerBounds), CGRectGetMidY(layerBounds));
+    [self initialiseSegmentWithContext: aCGContext];
+    _segmentStack[_segmentIndex].noDrawPath = YES;
+    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
+    self.bounds = CGRectZero;
+
+    CGContextSaveGState(aCGContext);
+    [self createFractalWithContext: aCGContext];
+    CGContextRestoreGState(aCGContext);
+
+
+    [self initialiseSegmentWithContext: aCGContext];
+    _segmentStack[_segmentIndex].noDrawPath = NO;
+    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
+
+    CGFloat scale = 1.0;
+    
+    if ((YES) || self.autoscale) {
+        
+        // Scaling
+        CGFloat scaleWidth = (localBounds.size.width-40.0)/self.bounds.size.width;
+        CGFloat scaleHeight = (localBounds.size.height-40.0)/self.bounds.size.height;
+        
+        scale = MIN(scaleHeight, scaleWidth);
+        
+        // Translating
+        CGFloat fractalCenterX = CGRectGetMidX(self.bounds);
+        CGFloat fractalCenterY = CGRectGetMidY(self.bounds)*yOrientation; //130
+        
+        CGFloat viewCenterX = CGRectGetMidX(localBounds);
+        CGFloat viewCenterY = CGRectGetMidY(localBounds)*yOrientation; // -434
+        
+//        _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, viewCenterX, viewCenterY);
+        _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, scale, scale);
+//        _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, -fractalCenterX, -fractalCenterY);
+    }
+    
+    if ((YES)) {
+        // origin markers
+        CGContextSaveGState(aCGContext);
+        CGAffineTransform userToContextTransform = CGAffineTransformInvert(_segmentStack[_segmentIndex].transform);
+        CGPoint contextZero = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), userToContextTransform);
+        CGRect zeroCentered = CGRectMake(-contextZero.x*scale, -contextZero.y*scale, 1.0, 1.0);
+        CGContextScaleCTM(aCGContext, 1.0, yOrientation);
+        CGContextDrawImage(aCGContext, CGRectInset(zeroCentered, -20.0, -20.0), [[UIImage imageNamed: @"kPathArrow"] CGImage]);
+        CGContextDrawImage(aCGContext, CGRectInset(zeroCentered, -12.0, -12.0), [[UIImage imageNamed: @"controlDragCircle16px"] CGImage]);
+        CGContextRestoreGState(aCGContext);
+    }
+
+
+    [self createFractalWithContext: aCGContext];
+
+
+    //    CGAffineTransform initialTransform = CGContextGetCTM(cgContext);
+    //    CGContextTranslateCTM(cgContext, self.translate.x, self.translate.y);
+    //
+    //    CGContextScaleCTM(cgContext, self.scale, self.scale);
+    
+    //    CGContextTranslateCTM(cgContext, 300.5, 300.5);
+    //    CGContextScaleCTM(cgContext, 0.1, 0.1);
+    
+     
+    ////    CGContextConcatCTM(cgContext, _currentSegment->transform);
     
 //    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [self createFractalWithContext: cgContext];
 //    });
     
     // ---------
     // End path generation
     
-    CGContextRestoreGState(cgContext);
+    CGContextRestoreGState(aCGContext);
     
-    
-    NSDate *methodFinish = [NSDate date];
-    executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"Recursive total execution time: %.2fms", executionTime);
+#ifdef LSDEBUGPERFORMANCE
+        NSDate *methodFinish = [NSDate date];
+        executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
+        NSLog(@"Recursive total execution time: %.2fms", executionTime);
+#endif
 }
 /*
  How to handle scaling?
@@ -512,78 +536,46 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     3. Change scale as necessary when changing properties but only draw once and cache scale.
  */
 -(void) createFractalWithContext: (CGContextRef) aCGContext {
+
+#ifdef LSDEBUGPERFORMANCE
+    NSTimeInterval productExecutionTime = 0.0;
+    NSDate *productionStart = [NSDate date];
+#endif
     
-//    CGAffineTransform initialTransform = CGContextGetCTM(cgContext);
-//    CGContextTranslateCTM(cgContext, self.translate.x, self.translate.y);
-//    
-//    CGContextScaleCTM(cgContext, self.scale, self.scale);
-
-//    CGContextTranslateCTM(cgContext, 300.5, 300.5);
-//    CGContextScaleCTM(cgContext, 0.1, 0.1);
-    CGContextScaleCTM(aCGContext, -1.0, 1.0);
-
-//    CGContextDrawImage(aCGContext, CGRectMake(-18, -18, 36, 36), [[UIImage imageNamed: @"controlDragCircle"] CGImage]);
-    CGContextDrawImage(aCGContext, CGRectMake(-12, -12, 24, 24), [[UIImage imageNamed: @"controlDragCircle16px"] CGImage]);
+    CGFloat localLevel;
+    NSData* levelXRuleData;
+    
+    localLevel = [self.fractal.level floatValue];
+    if (self.forceLevel >= 0) {
+        localLevel = self.forceLevel;
+    }
+    
+    
+    if (localLevel == 0) {
+        levelXRuleData = self.fractal.level0Rules;
+    } else if (localLevel == 1) {
+        levelXRuleData = self.fractal.level1Rules;
+    } else if (localLevel == 2) {
+        levelXRuleData = self.fractal.level2Rules;
+    } else {
+        levelXRuleData = self.fractal.levelNRules;
+    }
+    
+#ifdef LSDEBUGPERFORMANCE
+    NSDate *productionFinish = [NSDate date];
+    CGFloat productionTime = 1000.0*[productionFinish timeIntervalSinceDate: productionStart];
+    NSLog(@"Recursive production time: %.2fms", productionTime);
+#endif
     
     CGContextBeginPath(aCGContext);
-    CGContextMoveToPoint(aCGContext, 0.5f, 0.5f);
+    CGContextMoveToPoint(aCGContext, 0.0f, 0.0f);
     
     CGContextSetStrokeColorWithColor(aCGContext, [[UIColor blueColor] CGColor]);
     CGContextSetFillColorWithColor(aCGContext, [[UIColor yellowColor] CGColor]);
     
-    [self initialiseSegmentWithContext: aCGContext];
-    _segmentStack[_segmentIndex].noDrawPath = NO;
-    
-////    CGContextConcatCTM(cgContext, _currentSegment->transform);
-
-    
-    
-    NSTimeInterval productExecutionTime = 0.0;
-    NSDate *productionStart = [NSDate date];
-
-    CGFloat localLevel;
-    NSData* levelXRuleData;
-
-//    __block LSFractal* self.fractal;
-//    NSManagedObjectID *mainID = _fractalID;
-//    NSManagedObjectContext* pcon = _privateObjectContext;
-    
-//    [self.privateObjectContext performBlockAndWait:^{
-    
-//        self.fractal = (LSFractal*)[pcon objectWithID: mainID];
-    
-        localLevel = [self.fractal.level floatValue];
-        if (self.forceLevel >= 0) {
-            localLevel = self.forceLevel;
-        }
-        
-        
-        if (localLevel == 0) {
-            levelXRuleData = self.fractal.level0Rules;
-        } else if (localLevel == 1) {
-            levelXRuleData = self.fractal.level1Rules;
-        } else if (localLevel == 2) {
-            levelXRuleData = self.fractal.level2Rules;
-        } else {
-            levelXRuleData = self.fractal.levelNRules;
-        }
-//    }];
-    
-    
-    NSDate *productionFinish = [NSDate date];
-    CGFloat productionTime = 1000.0*[productionFinish timeIntervalSinceDate: productionStart];
-    NSLog(@"Recursive production time: %.2fms", productionTime);
-
-    CGFloat scaleLevel = 4.0 / (localLevel + 1);
-    CGContextScaleCTM(aCGContext, scaleLevel, scaleLevel);
-
     char* bytes = (char*)levelXRuleData.bytes;
     
-    for (long i=0; i < levelXRuleData.length; i++) {
-            
-        [self evaluateRule: bytes[i]];
-
-    }
+    for (long i=0; i < levelXRuleData.length; i++) {[self evaluateRule: bytes[i]];}
     
     [self drawPath];
     
@@ -612,10 +604,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 -(void) evaluateRule:(char)rule {
     //
-    char* commandCStr = _commandsStruct.command[rule];
     SEL cachedSelector = _selectorsStruct.selector[rule];
     if (!cachedSelector) {
-        NSString* selectorString = [NSString stringWithCString: commandCStr encoding: NSASCIIStringEncoding];
+        NSString* selectorString = [NSString stringWithUTF8String: _commandsStruct.command[rule]];
         SEL uncachedSelector = NSSelectorFromString(selectorString);
         
         if ([self respondsToSelector: uncachedSelector]) {
@@ -740,7 +731,9 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 }
 
 -(void) setCGGraphicsStateFromCurrentSegment {
-
+    CGContextSetLineJoin(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineJoin);
+    CGContextSetLineCap(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineCap);
+    CGContextSetLineWidth(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineWidth);
     CGContextSetFillColorWithColor(_segmentStack[_segmentIndex].context, [self colorForIndex: _segmentStack[_segmentIndex].fillColorIndex inArray: self.cachedFillUIColors]);
     CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, [self colorForIndex: _segmentStack[_segmentIndex].lineColorIndex inArray: self.cachedLineUIColors]);
 }
