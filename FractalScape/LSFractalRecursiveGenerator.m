@@ -235,6 +235,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
     } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
         // bounds won't change for autoscaling but will need to redraw image.
+        [self geometryChanged];
 //        [self cacheColors: _fractal];
 //        [self cacheLineEnds: _fractal];
         
@@ -506,9 +507,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         CGContextSaveGState(aCGContext);
         {
             CGContextConcatCTM(aCGContext, _segmentStack[_segmentIndex].transform);
-            UIImage* originImage = [UIImage imageNamed: @"kBIconRuleDrawLine"]; // kBIconRuleDrawLine  kNorthArrow
-            CGRect originRect = CGRectMake(0.0, -(originImage.size.height/2.0)/scale, originImage.size.width/scale, originImage.size.height/scale);
-            CGContextDrawImage(aCGContext, originRect, [originImage CGImage]);
+            UIImage* originDirectionImage = [UIImage imageNamed: @"kBIconRuleDrawLine"]; // kBIconRuleDrawLine  kNorthArrow
+            CGRect originDirectionRect = CGRectMake(0.0, -(originDirectionImage.size.height/2.0)/scale, originDirectionImage.size.width/scale, originDirectionImage.size.height/scale);
+            CGContextDrawImage(aCGContext, originDirectionRect, [originDirectionImage CGImage]);
+            
+            UIImage* originCircle = [UIImage imageNamed: @"controlDragCircle16px"];
+            CGRect originCircleRect = CGRectMake(-(originCircle.size.width/2.0)/scale, -(originCircle.size.height/2.0)/scale, originCircle.size.width/scale, originCircle.size.height/scale);
+            CGContextDrawImage(aCGContext, originCircleRect, [originCircle CGImage]);
+
         }
         CGContextRestoreGState(aCGContext);
     }
@@ -787,6 +793,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 }
 
 -(void) drawCircleRadius: (CGFloat) radius {
+    [self setCGGraphicsStateFromCurrentSegment];
     CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
     CGContextAddEllipseInRect(_segmentStack[_segmentIndex].context, transformedRect);
     CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
@@ -794,6 +801,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 }
 
 -(void) drawSquareWidth: (CGFloat) width {
+    [self setCGGraphicsStateFromCurrentSegment];
     CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -width/2.0, width, width), _segmentStack[_segmentIndex].transform);
     CGContextAddRect(_segmentStack[_segmentIndex].context, transformedRect);
 }
@@ -806,16 +814,16 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 -(void) commandPush {
     [self drawPath]; // draw before saving state
 
-    _segmentIndex++;
+    _segmentIndex = _segmentIndex < kLSMaxSegmentStackSize ? ++_segmentIndex : _segmentIndex;
     _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
+    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
 }
 
 -(void) commandPop {
     [self drawPath]; // draw before restoring previous state
     
-    if (_segmentIndex > 0) {
-        _segmentIndex--;
-    }
+    _segmentIndex = _segmentIndex > 0 ? --_segmentIndex : _segmentIndex;
+    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
 }
 
 -(void) commandDrawLine {
@@ -945,20 +953,20 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
     [self drawCircleRadius: _segmentStack[_segmentIndex].lineWidth];
 }
 -(void) commandDrawDotFilledNoStroke {
-    [self commandPush];
+//    [self commandPush];
     [self commandStrokeOff];
     [self commandFillOn];
     [self commandDrawDot];
-    [self commandPop];
+//    [self commandPop];
 }
 
 -(void) commandOpenPolygon {
     [self commandPush];
+    [self commandStrokeOff];
+    [self commandFillOn];
 }
 
 -(void) commandClosePolygon {
-    [self commandStrokeOff];
-    [self commandFillOn];
     [self commandPop];
 }
 #pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
@@ -1008,59 +1016,75 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
  */
 -(void) commandStrokeOff {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].stroke = NO;
 }
 
 -(void) commandStrokeOn {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].stroke = YES;
 }
 -(void) commandFillOff {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].fill = NO;
 }
 -(void) commandFillOn {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].fill = YES;
 }
 -(void) commandRandomizeOff {
+    [self drawPath];
     _segmentStack[_segmentIndex].randomize = NO;
 }
 -(void) commandRandomizeOn {
+    [self drawPath];
     _segmentStack[_segmentIndex].randomize = YES;
 }
 -(void) commandNextColor {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].lineColorIndex = ++_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandPreviousColor {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].lineColorIndex = --_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandNextFillColor {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].fillColorIndex = ++_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandPreviousFillColor {
     //    [self startNewSegment];
+    [self drawPath];
     _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandLineCapButt {
+    [self drawPath];
     _segmentStack[_segmentIndex].lineCap = kCGLineCapButt;
 }
 -(void) commandLineCapRound {
+    [self drawPath];
     _segmentStack[_segmentIndex].lineCap = kCGLineCapRound;
 }
 -(void) commandLineCapSquare {
+    [self drawPath];
     _segmentStack[_segmentIndex].lineCap = kCGLineCapSquare;
 }
 -(void) commandLineJoinMiter {
+    [self drawPath];
     _segmentStack[_segmentIndex].lineJoin = kCGLineJoinMiter;
 }
 -(void) commandLineJoinRound {
+    [self drawPath];
     _segmentStack[_segmentIndex].lineJoin = kCGLineJoinRound;
 }
 -(void) commandLineJoinBevel {
+    [self drawPath];
     _segmentStack[_segmentIndex].lineJoin = kCGLineJoinBevel;
 }
 
