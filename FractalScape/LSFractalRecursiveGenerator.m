@@ -18,6 +18,7 @@
 
 #define MAXPRODUCTLENGTH 200000
 //#define LSDEBUGPERFORMANCE
+//#define LSDEBUGPOSITION
 
 struct MBCommandsStruct {
     char        command[kLSMaxRules][kLSMaxCommandLength];
@@ -68,7 +69,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _pathNeedsGenerating = YES;
         _forceLevel = -1.0;
         _scale = 1.0;
-        _autoscale = NO;
+        _autoscale = YES;
+        _showOrigin = YES;
         _translate = CGPointMake(0.0, 0.0);
         _bounds =  CGRectMake(0, 0, 300, 300);
         _defaultColor = [UIColor blueColor];
@@ -298,42 +300,42 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 //    NSManagedObjectContext* pcon = _privateObjectContext;
 //    
 //    [self.privateObjectContext performBlockAndWait:^{
-
-//        self.fractal = (LSFractal*)[pcon objectWithID: mainID];
-
-        newSegment.lineColorIndex = 0;
-        newSegment.fillColorIndex = 0;
-        
-        newSegment.lineLength = [self.fractal.lineLength floatValue];
-        newSegment.lineLengthScaleFactor = [self.fractal.lineLengthScaleFactor floatValue];
-        
-        newSegment.lineWidth = [self.fractal.lineWidth floatValue];
-        newSegment.lineWidthIncrement = [self.fractal.lineWidthIncrement floatValue];
-        
-        newSegment.turningAngle = [self.fractal turningAngleAsDouble];
-        newSegment.turningAngleIncrement = [self.fractal.turningAngleIncrement floatValue];
-        
-        newSegment.randomness = [self.fractal.randomness floatValue];
-        newSegment.lineChangeFactor = [self.fractal.lineChangeFactor floatValue];
-        
-        newSegment.lineCap = kCGLineCapRound;
-        newSegment.lineJoin = kCGLineJoinRound;
-        
-        newSegment.stroke = YES;
-        newSegment.fill = NO;
-        newSegment.EOFill = self.fractal.eoFill ? [self.fractal.eoFill boolValue] : NO;
-        
-        newSegment.drawingModeUnchanged = NO;
-        
-        newSegment.transform = CGAffineTransformRotate(CGAffineTransformIdentity, -[self.fractal.baseAngle floatValue]);
-        
-        newSegment.points[0] = CGPointMake(0.0, 0.0);
-        newSegment.pointIndex = -1;
-        
-        newSegment.baseAngle = [self.fractal.baseAngle floatValue];
-        newSegment.context = aCGContext;
-        
-//    }];
+    
+    //        self.fractal = (LSFractal*)[pcon objectWithID: mainID];
+    
+    newSegment.lineColorIndex = 0;
+    newSegment.fillColorIndex = 0;
+    
+    newSegment.lineLength = [self.fractal.lineLength floatValue];
+    newSegment.lineLengthScaleFactor = [self.fractal.lineLengthScaleFactor floatValue];
+    
+    newSegment.lineWidth = [self.fractal.lineWidth floatValue];
+    newSegment.lineWidthIncrement = [self.fractal.lineWidthIncrement floatValue];
+    
+    newSegment.turningAngle = [self.fractal turningAngleAsDouble];
+    newSegment.turningAngleIncrement = [self.fractal.turningAngleIncrement floatValue];
+    
+    newSegment.randomness = [self.fractal.randomness floatValue];
+    newSegment.lineChangeFactor = [self.fractal.lineChangeFactor floatValue];
+    
+    newSegment.lineCap = kCGLineCapRound;
+    newSegment.lineJoin = kCGLineJoinRound;
+    
+    newSegment.stroke = YES;
+    newSegment.fill = NO;
+    newSegment.EOFill = self.fractal.eoFill ? [self.fractal.eoFill boolValue] : NO;
+    
+    newSegment.drawingModeUnchanged = NO;
+    
+    newSegment.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0.0);//-[self.fractal.baseAngle floatValue]);
+    
+    newSegment.points[0] = CGPointMake(0.0, 0.0);
+    newSegment.pointIndex = -1;
+    
+    newSegment.baseAngle = [self.fractal.baseAngle floatValue];
+    newSegment.context = aCGContext;
+    
+    //    }];
     self->_segmentStack[0] = newSegment;
 
 }
@@ -444,82 +446,79 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     CGContextSaveGState(aCGContext);
     
-    
-    CGContextTranslateCTM(aCGContext, CGRectGetMidX(imageBounds), CGRectGetMidY(imageBounds));
-    
-    //    CGContextDrawImage(aCGContext, CGRectMake(-18, -18, 36, 36), [[UIImage imageNamed: @"controlDragCircle"] CGImage]);
     CGFloat yOrientation = isFlipped ? -1.0 : 1.0;
 
-    
-    [self initialiseSegmentWithContext: aCGContext];
-    _segmentStack[_segmentIndex].noDrawPath = YES;
-    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
-    self.bounds = CGRectZero;
-
-    CGContextSaveGState(aCGContext);
-    [self createFractalWithContext: aCGContext];
-    CGContextRestoreGState(aCGContext);
-
-
-    [self initialiseSegmentWithContext: aCGContext];
-    _segmentStack[_segmentIndex].noDrawPath = NO;
-    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
-
     CGFloat scale = 1.0;
+    CGFloat translationX = 0.0;
+    CGFloat translationY = 0.0;
     
-    if ((YES) || self.autoscale) {
+    if (self.autoscale) {
         
-        // Scaling
+        /*
+         
+         fractal segment transforms in order
+            initial:    identity
+            scale:      yOrientation
+            rotate:     baseRotation - rotation is about (0,0) which in iOS is top left corner
+         
+         Record self.bounds applying segment transform fractalPoints to viewPoints
+         
+         +if Autoscaling
+            translate:  toViewCenter
+            scale:      scaleToFillView
+            translate:  to -fractalCenter
+         */
+        
+        [self findFractalUntransformedBoundsForContext: aCGContext flipped: isFlipped];
+        
+         // Scaling
         CGFloat scaleWidth = (localBounds.size.width-40.0)/self.bounds.size.width;
         CGFloat scaleHeight = (localBounds.size.height-40.0)/self.bounds.size.height;
         
         scale = MIN(scaleHeight, scaleWidth);
         
         // Translating
-        CGFloat fractalCenterX = CGRectGetMidX(self.bounds);
-        CGFloat fractalCenterY = CGRectGetMidY(self.bounds)*yOrientation; //130
+        CGFloat fractalCenterX = scale * CGRectGetMidX(self.bounds);
+        CGFloat fractalCenterY = scale * CGRectGetMidY(self.bounds)*yOrientation; //130
         
         CGFloat viewCenterX = CGRectGetMidX(localBounds);
         CGFloat viewCenterY = CGRectGetMidY(localBounds)*yOrientation; // -434
         
-//        _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, viewCenterX, viewCenterY);
-        _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, scale, scale);
-//        _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, -fractalCenterX, -fractalCenterY);
+        translationX = viewCenterX - fractalCenterX;
+        translationY = viewCenterY - fractalCenterY;
+        
+#ifdef LSDEBUGPOSITION
+        NSLog(@"\nBounds pre-autoscale layout: %@", NSStringFromCGRect(self.bounds));
+#endif
+    } else {
+        CGContextTranslateCTM(aCGContext, CGRectGetMidX(imageBounds), CGRectGetMidY(imageBounds));
     }
     
-    if ((YES)) {
+    [self initialiseSegmentWithContext: aCGContext];
+    _segmentStack[_segmentIndex].noDrawPath = NO;
+    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
+    _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, translationX, translationY);
+    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, scale, scale);
+    _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, [self.fractal.baseAngle floatValue]);
+
+    if (self.showOrigin) {
         // origin markers
         CGContextSaveGState(aCGContext);
-        CGAffineTransform userToContextTransform = CGAffineTransformInvert(_segmentStack[_segmentIndex].transform);
-        CGPoint contextZero = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), userToContextTransform);
-        CGRect zeroCentered = CGRectMake(-contextZero.x*scale, -contextZero.y*scale, 1.0, 1.0);
-        CGContextScaleCTM(aCGContext, 1.0, yOrientation);
-        CGContextDrawImage(aCGContext, CGRectInset(zeroCentered, -20.0, -20.0), [[UIImage imageNamed: @"kPathArrow"] CGImage]);
-        CGContextDrawImage(aCGContext, CGRectInset(zeroCentered, -12.0, -12.0), [[UIImage imageNamed: @"controlDragCircle16px"] CGImage]);
+        {
+            CGContextConcatCTM(aCGContext, _segmentStack[_segmentIndex].transform);
+            UIImage* originImage = [UIImage imageNamed: @"kBIconRuleDrawLine"]; // kBIconRuleDrawLine  kNorthArrow
+            CGRect originRect = CGRectMake(0.0, -(originImage.size.height/2.0)/scale, originImage.size.width/scale, originImage.size.height/scale);
+            CGContextDrawImage(aCGContext, originRect, [originImage CGImage]);
+        }
         CGContextRestoreGState(aCGContext);
     }
 
 
     [self createFractalWithContext: aCGContext];
+#ifdef LSDEBUGPOSITION
+    NSLog(@"Bounds post-autoscale layout: %@", NSStringFromCGRect(self.bounds));
+#endif
 
-
-    //    CGAffineTransform initialTransform = CGContextGetCTM(cgContext);
-    //    CGContextTranslateCTM(cgContext, self.translate.x, self.translate.y);
-    //
-    //    CGContextScaleCTM(cgContext, self.scale, self.scale);
-    
-    //    CGContextTranslateCTM(cgContext, 300.5, 300.5);
-    //    CGContextScaleCTM(cgContext, 0.1, 0.1);
-    
-     
-    ////    CGContextConcatCTM(cgContext, _currentSegment->transform);
-    
-//    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-//    });
-    
-    // ---------
-    // End path generation
-    
     CGContextRestoreGState(aCGContext);
     
 #ifdef LSDEBUGPERFORMANCE
@@ -527,6 +526,19 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
         NSLog(@"Recursive total execution time: %.2fms", executionTime);
 #endif
+}
+-(void) findFractalUntransformedBoundsForContext: (CGContextRef) aCGContext flipped:(BOOL)isFlipped {
+    CGFloat yOrientation = isFlipped ? -1.0 : 1.0;
+
+    [self initialiseSegmentWithContext: aCGContext];
+    _segmentStack[_segmentIndex].noDrawPath = YES;
+    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
+    _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, [self.fractal.baseAngle floatValue]);
+    self.bounds = CGRectZero;
+    
+    CGContextSaveGState(aCGContext);
+    [self createFractalWithContext: aCGContext];
+    CGContextRestoreGState(aCGContext);
 }
 /*
  How to handle scaling?
@@ -688,9 +700,10 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 //    [self updateBoundsWithPoint: aUserPoint];
     
     if (_segmentStack[_segmentIndex].pointIndex >= (kLSMaxSegmentPointsSize-1)) {
-        [self drawPath];
+        CGContextAddLines(_segmentStack[_segmentIndex].context,_segmentStack[_segmentIndex].points,_segmentStack[_segmentIndex].pointIndex+1);
+        _segmentStack[_segmentIndex].pointIndex = -1;
     }
-    if (_segmentStack[_segmentIndex].pointIndex < 1) {
+    if (_segmentStack[_segmentIndex].pointIndex < 0) {
         // no start point so add default (0,0)
         CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
         _segmentStack[_segmentIndex].pointIndex += 1;
@@ -762,14 +775,14 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 //                }
 //                CGContextStrokeLineSegments(_segmentStack[_segmentIndex].context, doubledPoints, di);
 //            } else {
-                // need to fill
-                CGContextAddLines(_segmentStack[_segmentIndex].context,_segmentStack[_segmentIndex].points,_segmentStack[_segmentIndex].pointIndex+1);
-                CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
+            // need to fill
+            CGContextAddLines(_segmentStack[_segmentIndex].context,_segmentStack[_segmentIndex].points,_segmentStack[_segmentIndex].pointIndex+1);
+            _segmentStack[_segmentIndex].pointIndex = -1;
+            CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
 //            }
             
         }
         
-        _segmentStack[_segmentIndex].pointIndex = -1;
     }
 }
 
@@ -784,8 +797,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
     CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -width/2.0, width, width), _segmentStack[_segmentIndex].transform);
     CGContextAddRect(_segmentStack[_segmentIndex].context, transformedRect);
 }
-
-
 
 #pragma mark - Public Rule Draw Methods
 

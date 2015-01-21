@@ -183,9 +183,10 @@
 
 @property (nonatomic,assign,readonly) CGRect        bounds;
 
-@property (nonatomic, assign) BOOL                  autoscale;
-@property (nonatomic, assign) CGFloat                scale;
-@property (nonatomic, assign) CGPoint               translate;
+@property (nonatomic,assign) BOOL                   autoscale;
+@property (nonatomic,assign) BOOL                   showOrigin;
+@property (nonatomic,assign) CGFloat                scale;
+@property (nonatomic,assign) CGPoint                translate;
 //@property (nonatomic, unsafe_unretained) CGPathRef  path;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) CGFloat randomScalar;
