@@ -28,6 +28,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     CGSize _cachedThumbnailSize;
 }
 
+@property (nonatomic,strong) UIImage                        *cachedPlaceholderImage;
 @property (nonatomic, strong) NSFetchedResultsController*   fetchedResultsController;
 
 @property (nonatomic,strong) NSMutableDictionary*           fractalToThumbnailGenerators;
@@ -121,19 +122,25 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 }
 
 -(UIImage*) placeHolderImageSized: (CGSize)size background: (UIColor*) uiColor {
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-    
-    CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSaveGState(context);
-    [uiColor setFill];
-    CGContextFillRect(context, viewRect);
-    CGContextRestoreGState(context);
+    if (self.cachedPlaceholderImage && CGSizeEqualToSize(self.cachedPlaceholderImage.size, size)) {
+        return self.cachedPlaceholderImage;
+    } else {
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
         
-    UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return thumbnail;
+        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGContextSaveGState(context);
+        [uiColor setFill];
+        CGContextFillRect(context, viewRect);
+        CGContextRestoreGState(context);
+        
+        UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        self.cachedPlaceholderImage = thumbnail;
+        return thumbnail;
+    }
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     

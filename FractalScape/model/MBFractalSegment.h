@@ -19,6 +19,7 @@ struct MBSegmentStruct {
     NSInteger           pointIndex; // index points to current valid point. init to -1
     CGPathDrawingMode   mode;
     CGAffineTransform   transform; // Local transform so points can be used. Transform point before adding to points.
+    CGFloat             scale;
     BOOL                noDrawPath;
     CGFloat             baseAngle;
     CGFloat             turningAngle;

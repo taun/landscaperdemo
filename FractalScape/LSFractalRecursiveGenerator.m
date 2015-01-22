@@ -17,7 +17,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define MAXPRODUCTLENGTH 200000
-//#define LSDEBUGPERFORMANCE
+#define LSDEBUGPERFORMANCE
 //#define LSDEBUGPOSITION
 
 struct MBCommandsStruct {
@@ -177,6 +177,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 
 #pragma mark Fractal Property KVO
+#pragma message "TODO remove observers. Just generate image and depend on caller to cancel."
 /* will this cause threading problems? */
 -(void) addObserverForFractal:(LSFractal *)fractal {
     if (fractal) {
@@ -329,6 +330,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     newSegment.drawingModeUnchanged = NO;
     
     newSegment.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0.0);//-[self.fractal.baseAngle floatValue]);
+    newSegment.scale = 1.0;
     
     newSegment.points[0] = CGPointMake(0.0, 0.0);
     newSegment.pointIndex = -1;
@@ -401,8 +403,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
  @return
  */
 -(UIImage*) generateImageSize:(CGSize)size withBackground:(UIColor*)uiColor {
-    if ( self.pathNeedsGenerating || (self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+        UIGraphicsBeginImageContextWithOptions(size, NO, 4.0);
         
         CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -423,15 +424,15 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         [self recursiveDrawInBounds: viewRect
                         withContext: context
-                            flipped: NO];
+                            flipped: YES];
         
-        UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
+        UIImage* fractalImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        self.cachedImage = thumbnail;
-    }
-    return self.cachedImage;
+    return fractalImage;
 }
+#pragma message "TODO update caches before generating image."
+#pragma message "TODO ability to cancel image generation in NSOperation queue when production changes"
 -(void) recursiveDrawInBounds:(CGRect)imageBounds withContext:(CGContextRef)aCGContext flipped:(BOOL)isFlipped {
     NSDate *methodStart;
     
@@ -501,12 +502,21 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, translationX, translationY);
     _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, scale, scale);
     _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, [self.fractal.baseAngle floatValue]);
+    _segmentStack[_segmentIndex].scale = scale;
+    
+    CGAffineTransform fractalOriginTransform = _segmentStack[_segmentIndex].transform;
+
+
+    [self createFractalWithContext: aCGContext];
+
 
     if (self.showOrigin) {
-        // origin markers
+        // put origin markers on top of fractal so draw after fractal
         CGContextSaveGState(aCGContext);
         {
-            CGContextConcatCTM(aCGContext, _segmentStack[_segmentIndex].transform);
+            UIColor* shadowColor = [UIColor colorWithWhite: 1.0 alpha: 0.85];
+            CGContextSetShadowWithColor(aCGContext, CGSizeMake(1.0, 1.0), 0.0, [shadowColor CGColor]);
+            CGContextConcatCTM(aCGContext, fractalOriginTransform);
             UIImage* originDirectionImage = [UIImage imageNamed: @"kBIconRuleDrawLine"]; // kBIconRuleDrawLine  kNorthArrow
             CGRect originDirectionRect = CGRectMake(0.0, -(originDirectionImage.size.height/2.0)/scale, originDirectionImage.size.width/scale, originDirectionImage.size.height/scale);
             CGContextDrawImage(aCGContext, originDirectionRect, [originDirectionImage CGImage]);
@@ -514,13 +524,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             UIImage* originCircle = [UIImage imageNamed: @"controlDragCircle16px"];
             CGRect originCircleRect = CGRectMake(-(originCircle.size.width/2.0)/scale, -(originCircle.size.height/2.0)/scale, originCircle.size.width/scale, originCircle.size.height/scale);
             CGContextDrawImage(aCGContext, originCircleRect, [originCircle CGImage]);
-
+            
         }
         CGContextRestoreGState(aCGContext);
     }
 
-
-    [self createFractalWithContext: aCGContext];
 #ifdef LSDEBUGPOSITION
     NSLog(@"Bounds post-autoscale layout: %@", NSStringFromCGRect(self.bounds));
 #endif
@@ -752,7 +760,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 -(void) setCGGraphicsStateFromCurrentSegment {
     CGContextSetLineJoin(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineJoin);
     CGContextSetLineCap(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineCap);
-    CGContextSetLineWidth(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineWidth);
+    CGContextSetLineWidth(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].scale);
     CGContextSetFillColorWithColor(_segmentStack[_segmentIndex].context, [self colorForIndex: _segmentStack[_segmentIndex].fillColorIndex inArray: self.cachedFillUIColors]);
     CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, [self colorForIndex: _segmentStack[_segmentIndex].lineColorIndex inArray: self.cachedLineUIColors]);
 }

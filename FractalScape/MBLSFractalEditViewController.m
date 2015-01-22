@@ -56,7 +56,13 @@ static BOOL SIMULTOUCH = NO;
 @property (nonatomic,assign) CGSize                 popoverPortraitSize;
 @property (nonatomic,assign) CGSize                 popoverLandscapeSize;
 
+#pragma message "TODO eliminate. used for edit mode which is now unused."
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
+
+/*!
+ Fractal background image generation queue.
+ */
+@property (nonatomic,strong) NSOperationQueue              *privateQueue;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel0Layer;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel1Layer;
@@ -433,7 +439,12 @@ static BOOL SIMULTOUCH = NO;
 
     return _appearanceViewController;
 }
-
+-(NSOperationQueue*) privateQueue {
+    if (!_privateQueue) {
+        _privateQueue = [[NSOperationQueue alloc] init];
+    }
+    return _privateQueue;
+}
 -(NSMutableArray*) generatorsArray {
     if (_generatorsArray == nil) {
         _generatorsArray = [[NSMutableArray alloc] initWithCapacity: 3];
@@ -504,8 +515,12 @@ static BOOL SIMULTOUCH = NO;
 //            fractal = [fractal mutableCopy];
 //        }
 
+        [_privateQueue cancelAllOperations];
+        
         [self removeObserversForFractal: _fractal];
+        
         _fractal = fractal;
+        
         [self addObserversForFractal: _fractal];
 
         [self updateGeneratorsForFractal: _fractal];
@@ -626,6 +641,7 @@ static BOOL SIMULTOUCH = NO;
     aLayer.name = name;
     aLayer.needsDisplayOnBoundsChange = YES;
     aLayer.speed = 1.0;
+    aLayer.contentsScale = aView.layer.contentsScale;
     //    aLayer.contentsScale = 2.0 * aView.layer.contentsScale;
     
     [self fitLayer: aLayer inLayer: aView.layer margin: margin];
@@ -667,7 +683,22 @@ static BOOL SIMULTOUCH = NO;
     //    
     self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: @(degrees([self.fractal.turningAngle doubleValue]))];
 }
-
+#pragma message "TODO queue fractal image operations"
+/*!
+ Want to queue
+ If HUDs are showing
+    Level 0 image for level0 HUD
+    Level 1 image for level1 HUD
+    Level 2 image for level2 HUD
+ 
+ LevelN images in serial order with callbacks
+    level0 image
+    level1 image
+    level2 image
+    levelN image
+ 
+ Cancel image still in operation queue when gestures are in progress and turn off autoscaling and show origin
+ */
 -(void) refreshLayers {
     self.hudText1.text = [self.fractal.level stringValue];
     self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
@@ -693,20 +724,32 @@ static BOOL SIMULTOUCH = NO;
     //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
     //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
     
-    for (CALayer* layer in self.fractalDisplayLayersArray) {
-        layer.contents = nil;
-        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
-        [layer setNeedsLayout];
-        [layer layoutIfNeeded];
-        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
-        [layer setNeedsDisplay];
-    }
+//    for (CALayer* layer in self.fractalDisplayLayersArray) {
+////        layer.contents = nil;
+//        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
+//        [layer setNeedsLayout];
+//        [layer layoutIfNeeded];
+//        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
+//        [layer setNeedsDisplay];
+//    }
 
     MBColor* backgroundColor = self.fractal.backgroundColor;
     if (backgroundColor) {
         self.fractalView.backgroundColor = [backgroundColor asUIColor];
     } else {
         self.fractalView.backgroundColor = [UIColor clearColor];
+    }
+    if (self.generatorsArray.count >= 4) {
+        LSFractalRecursiveGenerator* generatorN = self.generatorsArray[0];
+        [CATransaction begin];
+        [CATransaction setValue:(id)kCFBooleanTrue
+                         forKey:kCATransactionDisableActions];
+        
+        UIImage* fractalImage = [generatorN generateImageSize: self.fractalLevelNLayer.bounds.size withBackground: [UIColor clearColor]];
+        
+        self.fractalLevelNLayer.contents = CFBridgingRelease([fractalImage CGImage]);
+        
+        [CATransaction commit];
     }
 }
 
@@ -966,8 +1009,12 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
 }
-
-- (IBAction)shareButtonPressed:(id)sender {
+/*!
+ Obsoleted by UIActivityViewController code below.
+ 
+ @param sender share button
+ */
+- (IBAction)shareButtonPressedOld:(id)sender {
 //    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
                                                                    message: @"How would you like to share the image?"
@@ -1004,7 +1051,37 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     [self presentViewController:alert animated:YES completion:nil];
 }
+/*!
+ See AirDropSample code for more UIActivityViewController  details.
+ 
+ @param sender share button
+ */
+- (IBAction)shareButtonPressed:(id)sender {
+    
+    UIImage* fractalImage = [self snapshot: self.fractalView];
+    NSData* pngImage = UIImagePNGRepresentation(fractalImage);
 
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pngImage] applicationActivities:nil];
+    
+    
+    UIPopoverPresentationController* ppc = activityViewController.popoverPresentationController;
+    
+
+    if ([sender isKindOfClass: [UIBarButtonItem class]]) {
+        ppc.barButtonItem = sender;
+    } else {
+                
+        ppc.sourceView = sender;
+        ppc.sourceRect = [sender bounds];
+    }
+    
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController: activityViewController animated: YES completion: ^{
+        //
+//        self.currentPresentedController = newController;
+    }];
+}
 - (IBAction)playButtonPressed:(id)sender {
     CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] fractalCGPathRef];
     

@@ -169,8 +169,7 @@
  Need an LSFractal controller which intermediates between view and model.
  Gets CGContext from a CALayer or View.
  
- Internally, the generator uses a private queue for the fractal context.
- This should avoid problems where generator operations are performed on separate threads by callers.
+ A separate fractalGenerator should be used for each image size and level. 
  */
 @interface LSFractalRecursiveGenerator : NSObject
 
@@ -209,10 +208,6 @@
  */
 @property (NS_NONATOMIC_IOSONLY, readonly) CGSize unitBox;
 
-///*!
-// Use to flip or rotate the fractal before generating the path.
-// */
-//-(void) setInitialTransform: (CGAffineTransform) transform;
 
 -(void) recursiveDrawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
 
