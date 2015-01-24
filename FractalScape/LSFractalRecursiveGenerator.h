@@ -163,34 +163,40 @@
  */
 
 /*!
- A LSFractal path generation class. Takes an LSFractal definition given to it from core data and generates the core graphics path.
- Intended to be a delegate to a CALayer, CGImage, ... CGContext.
+ Given a levelData and property data from a fractal, this class will draw the image in either a given context 
+ or create it's own bitmap image save in the image property.
  
- Need an LSFractal controller which intermediates between view and model.
- Gets CGContext from a CALayer or View.
+ The generator is designed to be used in an operation block therefore it does not keep any reference to the 
+ fractal object. All data needs to be given to the generator before it is dispatched to generate the image.
+ If the imageView property is set, the generator will set the imageView.image to the generated image on the 
+ main thread. 
  
- A separate fractalGenerator should be used for each image size and level. 
+ The same generator can not be used in multiple concurrent operations.
+ A separate fractalGenerator should be used for each image size and level.
  */
 @interface LSFractalRecursiveGenerator : NSObject
 
 +(instancetype) newGeneratorWithFractal: (LSFractal*)aFractal;
 -(instancetype) initWithFractal: (LSFractal*) aFractal;
-
+/*!
+ For convenience during debugging multiple threads/operations.
+ */
 @property (nonatomic,strong) NSString               *name;
 /*!
- Overrides the fractal level in order to allow multiple views of the same fractal with different generation levels.
+ Points to inset the image within the bounds.
  */
 @property (nonatomic,assign) CGFloat                margin;
+/*!
+ Whether the image should be flipped vertically.
+ */
 @property (nonatomic,assign) BOOL                   flipY;
-@property (atomic,assign) CGRect                 imageBounds;
 @property (nonatomic,assign) CGFloat                pixelScale;
 @property (nonatomic,copy) UIColor                  *backgroundColor;
-
-@property (atomic,weak) UIImageView              *imageView;
+@property (atomic,weak) UIImageView                 *imageView;
 @property (nonatomic,assign,readonly) CGRect        rawFractalPathBounds;
 @property (nonatomic,copy) NSData                   *levelData;
-@property (nonatomic,assign) MBSegmentStruct        baseSegment;
-@property (atomic,strong) UIImage                *image;
+@property (nonatomic,assign) CGFloat                renderTime;
+@property (atomic,strong) UIImage                   *image;
 @property (nonatomic,assign) BOOL                   autoscale;
 @property (nonatomic,assign) BOOL                   showOrigin;
 @property (nonatomic,assign) CGFloat                scale;
@@ -212,7 +218,7 @@
 -(void) setValuesForFractal:(LSFractal *)aFractal;
 
 -(void) generateImage;
--(void) drawInContext: (CGContextRef) aCGContext;
+-(void) drawInContext: (CGContextRef) aCGContext size: (CGSize)size;
 
 
 //-(void) charge;

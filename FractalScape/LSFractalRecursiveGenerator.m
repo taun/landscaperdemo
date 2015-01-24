@@ -40,11 +40,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     MBCommandSelectorsStruct _selectorsStruct;
 }
 
+@property (nonatomic,assign) MBSegmentStruct        baseSegment;
 @property (nonatomic,assign,readwrite) CGRect       rawFractalPathBounds;
 @property (nonatomic,strong) NSArray*               cachedLineUIColors;
 @property (nonatomic,strong) NSArray*               cachedFillUIColors;
 @property (nonatomic,strong) UIColor*               defaultColor;
-
 @property (nonatomic,assign) BOOL                   controlPointOn;
 @property (nonatomic,assign) CGPoint                controlPointNode;
 @property (nonatomic,assign) CGPoint                previousNode;
@@ -184,7 +184,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     return newColor.CGColor;
 }
-
 #pragma mark - lazy init getters
 -(void) setBaseSegmentForFractal: (LSFractal*)aFractal {
     _baseSegment.lineColorIndex = 0;
@@ -228,16 +227,16 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _segmentStack[_segmentIndex] = newSegment;
 }
 -(void) generateImage {
-    if (self.imageView && self.operation && self.operation.isCancelled) {
+    if (!self.imageView || (self.operation && self.operation.isCancelled)) {
         return;
     }
     
-    CGSize size = self.imageView ? self.imageView.bounds.size : self.imageBounds.size;
+    CGSize size = self.imageView.bounds.size;
     
     UIGraphicsBeginImageContextWithOptions(size, NO, self.pixelScale);
     {
         CGContextRef aCGontext = UIGraphicsGetCurrentContext();
-        [self drawInContext: aCGontext];
+        [self drawInContext: aCGontext size: size];
         self.image = UIGraphicsGetImageFromCurrentImageContext();
     }
     UIGraphicsEndImageContext();
@@ -255,35 +254,27 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         });
     }
 }
--(void) fillBackgroundInContext: (CGContextRef)aCGContext {
+-(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size{
     
-    CGRect bounds = self.imageView ? self.imageView.bounds : self.imageBounds;
-
     CGContextSaveGState(aCGContext);
     {
         UIColor* thumbNailBackground = self.backgroundColor;
         [thumbNailBackground setFill];
-        CGContextFillRect(aCGContext, bounds);
+        CGContextFillRect(aCGContext, CGRectMake(0.0, 0.0, size.width, size.height));
     }
     CGContextRestoreGState(aCGContext);
 }
--(void) drawInContext:(CGContextRef)aCGContext {
+-(void) drawInContext:(CGContextRef)aCGContext size: (CGSize)size{
 
     NSAssert(aCGContext, @"NULL Context being used. Context must be non-null.");
     
-    [self fillBackgroundInContext: aCGContext];
-
-    CGRect bounds = self.imageView ? self.imageView.bounds : self.imageBounds;
+    [self fillBackgroundInContext: aCGContext size: size];
 
     NSDate *methodStart;
     
-#ifdef LSDEBUGPERFORMANCE
     NSTimeInterval executionTime = 0.0;
     NSTimeInterval pathExecutionTime = 0.0;
     methodStart = [NSDate date];
-#endif
-    // Following is because imageBounds value disappears after 1st if statement line below.
-    // cause totally unknown.
 
     CGContextSaveGState(aCGContext);
     
@@ -309,8 +300,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         [self findFractalUntransformedBoundsForContext: aCGContext];
         
          // Scaling
-        CGFloat scaleWidth = (bounds.size.width-2.0*self.margin)/self.rawFractalPathBounds.size.width;
-        CGFloat scaleHeight = (bounds.size.height-2.0*self.margin)/self.rawFractalPathBounds.size.height;
+        CGFloat scaleWidth = (size.width-2.0*self.margin)/self.rawFractalPathBounds.size.width;
+        CGFloat scaleHeight = (size.height-2.0*self.margin)/self.rawFractalPathBounds.size.height;
         
         _scale = MIN(scaleHeight, scaleWidth);
         
@@ -318,8 +309,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         CGFloat fractalCenterX = _scale * CGRectGetMidX(self.rawFractalPathBounds);
         CGFloat fractalCenterY = _scale * CGRectGetMidY(self.rawFractalPathBounds)*yOrientation; //130
         
-        CGFloat viewCenterX = CGRectGetMidX(bounds);
-        CGFloat viewCenterY = CGRectGetMidY(bounds)*yOrientation; // -434
+        CGFloat viewCenterX = (size.width/2.0);
+        CGFloat viewCenterY = (size.height/2.0)*yOrientation; // -434
         
         _translateX = viewCenterX - fractalCenterX;
         _translateY = viewCenterY - fractalCenterY;
@@ -368,10 +359,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
     CGContextRestoreGState(aCGContext);
     
+    NSDate *methodFinish = [NSDate date];
+    _renderTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
 #ifdef LSDEBUGPERFORMANCE
-        NSDate *methodFinish = [NSDate date];
-        executionTime = 1000.0*[methodFinish timeIntervalSinceDate:methodStart];
-        NSLog(@"Recursive total execution time: %.2fms", executionTime);
+        NSLog(@"Recursive total execution time: %.2fms", _renderTime);
 #endif
 }
 -(void) findFractalUntransformedBoundsForContext: (CGContextRef) aCGContext {

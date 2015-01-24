@@ -523,7 +523,6 @@ static BOOL SIMULTOUCH = NO;
             _fractalGeneratorL0 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
             _fractalGeneratorL0.name = @"_fractalGeneratorL0";
             _fractalGeneratorL0.imageView = self.fractalViewLevel0;
-            _fractalGeneratorL0.imageBounds = self.fractalViewLevel0.bounds;
             _fractalGeneratorL0.pixelScale = self.fractalViewLevel0.contentScaleFactor;
             _fractalGeneratorL0.flipY = YES;
             _fractalGeneratorL0.margin = 30.0;
@@ -539,7 +538,6 @@ static BOOL SIMULTOUCH = NO;
             _fractalGeneratorL1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
             _fractalGeneratorL1.name = @"_fractalGeneratorL1";
             _fractalGeneratorL1.imageView = self.fractalViewLevel1;
-            _fractalGeneratorL1.imageBounds = self.fractalViewLevel1.bounds;
             _fractalGeneratorL1.pixelScale = self.fractalViewLevel1.contentScaleFactor;
             _fractalGeneratorL1.flipY = YES;
             _fractalGeneratorL1.margin = 30.0;
@@ -555,7 +553,6 @@ static BOOL SIMULTOUCH = NO;
             _fractalGeneratorL2 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
             _fractalGeneratorL2.name = @"_fractalGeneratorL2";
             _fractalGeneratorL2.imageView = self.fractalViewLevel2;
-            _fractalGeneratorL2.imageBounds = self.fractalViewLevel2.bounds;
             _fractalGeneratorL2.pixelScale = self.fractalViewLevel2.contentScaleFactor;
             _fractalGeneratorL2.flipY = YES;
             _fractalGeneratorL2.margin = 30.0;
@@ -571,7 +568,6 @@ static BOOL SIMULTOUCH = NO;
             _fractalGeneratorLN2S1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
             _fractalGeneratorLN2S1.name = @"_fractalGeneratorLN2S1";
             _fractalGeneratorLN2S1.imageView = self.fractalView;
-            _fractalGeneratorLN2S1.imageBounds = self.fractalView.bounds;
             _fractalGeneratorLN2S1.pixelScale = self.fractalView.contentScaleFactor;
             _fractalGeneratorLN2S1.flipY = YES;
             _fractalGeneratorLN2S1.margin = 50.0;
@@ -587,7 +583,6 @@ static BOOL SIMULTOUCH = NO;
             _fractalGeneratorLNS1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
             _fractalGeneratorLNS1.name = @"_fractalGeneratorLNS1";
             _fractalGeneratorLNS1.imageView = self.fractalView;
-            _fractalGeneratorLNS1.imageBounds = self.fractalView.bounds;
             _fractalGeneratorLNS1.pixelScale = self.fractalView.contentScaleFactor;
             _fractalGeneratorLNS1.flipY = YES;
             _fractalGeneratorLNS1.margin = 50.0;
@@ -603,7 +598,6 @@ static BOOL SIMULTOUCH = NO;
             _fractalGeneratorLNS4 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
             _fractalGeneratorLNS4.name = @"_fractalGeneratorLNS4";
             _fractalGeneratorLNS4.imageView = self.fractalView;
-            _fractalGeneratorLNS4.imageBounds = self.fractalView.bounds;
             _fractalGeneratorLNS4.pixelScale = self.fractalView.contentScaleFactor*2.0;
             _fractalGeneratorLNS4.flipY = YES;
             _fractalGeneratorLNS4.margin = 50.0;
@@ -1578,7 +1572,27 @@ static void countPathElements(void *info, const CGPathElement *element) {
     
     return image;
 }
-
+-(void) createPDF {
+    CGRect imageBounds = CGRectMake(0, 0, 1024, 1024);
+    
+    LSFractalRecursiveGenerator* generator = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+    generator.levelData = self.levelDataArray[3];
+    generator.name = @"PDF Generator";
+    generator.margin = 72.0;
+    generator.autoscale = YES;
+    
+    NSMutableData* pdfData = [NSMutableData data];
+    NSDictionary* pdfMetaData = @{(NSString*)kCGPDFContextCreator:@"FractalScape", (NSString*)kCGPDFContextTitle:self.fractal.name, (NSString*)kCGPDFContextKeywords:self.fractal.category};
+    
+    UIGraphicsBeginPDFContextToData(pdfData, imageBounds, pdfMetaData);
+    {
+        UIGraphicsBeginPDFPage();
+        CGContextRef pdfContext = UIGraphicsGetCurrentContext();
+        [generator drawInContext: pdfContext size: imageBounds.size];
+    }
+    UIGraphicsEndPDFContext();
+                                    
+}
 -(void) shareFractalToCameraRoll {
     ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
 
