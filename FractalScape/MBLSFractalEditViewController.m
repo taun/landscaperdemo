@@ -1082,8 +1082,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     UIImage* fractalImage = [self snapshot: self.fractalView];
     NSData* pngImage = UIImagePNGRepresentation(fractalImage);
+    
+    NSData* pdfData = [self createPDF];
 
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pngImage] applicationActivities:nil];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pngImage,pdfData] applicationActivities:nil];
     
     
     UIPopoverPresentationController* ppc = activityViewController.popoverPresentationController;
@@ -1572,7 +1574,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
     
     return image;
 }
--(void) createPDF {
+-(NSData*) createPDF {
     CGRect imageBounds = CGRectMake(0, 0, 1024, 1024);
     
     LSFractalRecursiveGenerator* generator = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
@@ -1591,7 +1593,11 @@ static void countPathElements(void *info, const CGPathElement *element) {
         [generator drawInContext: pdfContext size: imageBounds.size];
     }
     UIGraphicsEndPDFContext();
-                                    
+    
+//    CFDataRef myPDFData        = (CFDataRef)pdfData;
+//    CGDataProviderRef provider = CGDataProviderCreateWithCFData(myPDFData);
+//    CGPDFDocumentRef pdf       = CGPDFDocumentCreateWithProvider(provider);
+    return pdfData;
 }
 -(void) shareFractalToCameraRoll {
     ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
