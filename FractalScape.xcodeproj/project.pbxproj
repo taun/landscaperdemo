@@ -115,7 +115,6 @@
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
 		C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
 		C5A464F314C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
-		C5AF42D414EC3E8200D3308F /* MBFractalExamineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */; };
 		C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */; };
 		C5B3F18619DC804100BDFAF5 /* FractalMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18519DC804100BDFAF5 /* FractalMedia.xcassets */; };
 		C5B3F18819DC80C100BDFAF5 /* ColorPickerMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18719DC80C100BDFAF5 /* ColorPickerMedia.xcassets */; };
@@ -301,8 +300,6 @@
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A464F014C90BFA002BF0A3 /* LSFractalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalGenerator.h; path = FractalScape/model/LSFractalGenerator.h; sourceTree = "<group>"; };
 		C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalGenerator.m; path = FractalScape/model/LSFractalGenerator.m; sourceTree = "<group>"; };
-		C5AF42D214EC3E8200D3308F /* MBFractalExamineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalExamineView.h; path = FractalScape/MBFractalExamineView.h; sourceTree = "<group>"; };
-		C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalExamineView.m; path = FractalScape/MBFractalExamineView.m; sourceTree = "<group>"; };
 		C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		C5B3F18519DC804100BDFAF5 /* FractalMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FractalMedia.xcassets; sourceTree = "<group>"; };
 		C5B3F18719DC80C100BDFAF5 /* ColorPickerMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPickerMedia.xcassets; sourceTree = "<group>"; };
@@ -442,8 +439,6 @@
 			isa = PBXGroup;
 			children = (
 				C57F32B8170209610072FE75 /* TableCells */,
-				C5AF42D214EC3E8200D3308F /* MBFractalExamineView.h */,
-				C5AF42D314EC3E8200D3308F /* MBFractalExamineView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1006,7 +1001,6 @@
 				C5E556D614E2E24F00CAAB33 /* GradientView.m in Sources */,
 				C571B5CC1A377B430075D977 /* LSDrawingRule+addons.m in Sources */,
 				C59E321A1A1125F80076B40B /* MBColorCategory+addons.m in Sources */,
-				C5AF42D414EC3E8200D3308F /* MBFractalExamineView.m in Sources */,
 				C58A75771A4A194100309BE0 /* MDBSliderControle.m in Sources */,
 				C5C37C611A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m in Sources */,
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,
@@ -1361,6 +1355,7 @@
 				C599540A1A6465270093CF50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C5E6B77714A5346200DA48BD /* Build configuration list for PBXProject "FractalScape" */ = {
 			isa = XCConfigurationList;

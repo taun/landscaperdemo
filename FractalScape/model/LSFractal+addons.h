@@ -99,6 +99,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (NS_NONATOMIC_IOSONLY, readonly) NSData              *level2Rules;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSData              *levelNRules;
 
+-(void) generateLevelData;
 -(void) setTurningAngleIncrementAsDegrees: (NSNumber*)              newAngle;
 -(void) setBaseAngleAsDegrees: (NSNumber*)                          newAngle;
 -(void) setTurningAngleAsDegrees: (NSNumber*)                       newAngle;

@@ -173,31 +173,32 @@
  */
 @interface LSFractalRecursiveGenerator : NSObject
 
-@property (nonatomic, strong) LSFractal*            fractal;
++(instancetype) newGeneratorWithFractal: (LSFractal*)aFractal;
+-(instancetype) initWithFractal: (LSFractal*) aFractal;
 
+@property (nonatomic,strong) NSString               *name;
 /*!
  Overrides the fractal level in order to allow multiple views of the same fractal with different generation levels.
  */
-@property (nonatomic, assign) CGFloat                forceLevel;
+@property (nonatomic,assign) CGFloat                margin;
+@property (nonatomic,assign) BOOL                   flipY;
+@property (atomic,assign) CGRect                 imageBounds;
+@property (nonatomic,assign) CGFloat                pixelScale;
+@property (nonatomic,copy) UIColor                  *backgroundColor;
 
-@property (nonatomic,assign,readonly) CGRect        bounds;
-
+@property (atomic,weak) UIImageView              *imageView;
+@property (nonatomic,assign,readonly) CGRect        rawFractalPathBounds;
+@property (nonatomic,copy) NSData                   *levelData;
+@property (nonatomic,assign) MBSegmentStruct        baseSegment;
+@property (atomic,strong) UIImage                *image;
 @property (nonatomic,assign) BOOL                   autoscale;
 @property (nonatomic,assign) BOOL                   showOrigin;
 @property (nonatomic,assign) CGFloat                scale;
-@property (nonatomic,assign) CGPoint                translate;
+@property (nonatomic,assign) CGFloat                translateX;
+@property (nonatomic,assign) CGFloat                translateY;
+@property (nonatomic,weak) NSBlockOperation         *operation;
 //@property (nonatomic, unsafe_unretained) CGPathRef  path;
-
 @property (NS_NONATOMIC_IOSONLY, readonly) CGFloat randomScalar;
-/*
- The drawing rules are cached from the managed object. This is because the rules are returned as a set and we need to convert them to a dictionary. We only want to do this once unless the rules are changed. Need to observer the rules and if there is a change, clear the cache.
- */
--(void) clearCache;
-
--(void) productionRuleChanged;
-
--(void) geometryChanged;
-
 /*!
  Height/Width aspect ratio.
  */
@@ -208,15 +209,11 @@
  */
 @property (NS_NONATOMIC_IOSONLY, readonly) CGSize unitBox;
 
+-(void) setValuesForFractal:(LSFractal *)aFractal;
 
--(void) recursiveDrawInBounds: (CGRect) layerBounds withContext: (CGContextRef) theContext flipped: (BOOL) isFlipped;
+-(void) generateImage;
+-(void) drawInContext: (CGContextRef) aCGContext;
 
--(UIImage*)generateImageSize: (CGSize)size withBackground: (UIColor*)uiColor;
-
--(BOOL)hasImageSize: (CGSize) size;
-
-#pragma mark - layer delegate
-- (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext;
 
 //-(void) charge;
 

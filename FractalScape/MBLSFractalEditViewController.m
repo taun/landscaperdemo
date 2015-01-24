@@ -21,7 +21,7 @@
 #import "MBFractalScape+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
-#import "LSFractalGenerator.h"
+//#import "LSFractalGenerator.h"
 #import "LSFractalRecursiveGenerator.h"
 
 #import <QuartzCore/QuartzCore.h>
@@ -59,15 +59,28 @@ static BOOL SIMULTOUCH = NO;
 #pragma message "TODO eliminate. used for edit mode which is now unused."
 @property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
 
+@property (nonatomic,strong) NSManagedObjectContext        *privateFractalContext;
+@property (nonatomic,strong) LSFractal                     *privateQueueFractal;
+@property (nonatomic,strong) NSManagedObjectID             *fractalID;
+@property (nonatomic,strong) NSArray                       *levelDataArray;
 /*!
  Fractal background image generation queue.
  */
 @property (nonatomic,strong) NSOperationQueue              *privateQueue;
+@property (nonatomic,strong) UIImage                       *fractalGeneratorL0Image;
+@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorL0;
+@property (nonatomic,strong) UIImage                       *fractalGeneratorL1Image;
+@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorL1;
+@property (nonatomic,strong) UIImage                       *fractalGeneratorL2Image;
+@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorL2;
+@property (nonatomic,strong) UIImage                       *fractalGeneratorLN2S1Image;
+@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorLN2S1;
+@property (nonatomic,strong) UIImage                       *fractalGeneratorLNS1Image;
+@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorLNS1;
+@property (nonatomic,strong) UIImage                       *fractalGeneratorLNS4Image;
+@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorLNS4;
+@property (nonatomic,assign) BOOL                          autoscaleN;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel0Layer;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel1Layer;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevel2Layer;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) CALayer *fractalLevelNLayer;
 
 -(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) fractal;
 -(void) updateGeneratorsForFractal: (LSFractal*) fractal;
@@ -163,6 +176,13 @@ static BOOL SIMULTOUCH = NO;
     _turnIncrementSlider.maximumValue = 1.0;
     _turnIncrementSlider.value = 0.0;
 
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL fullScreenState = [defaults boolForKey: kPrefFullScreenState];
+    if (fullScreenState) {
+        [self fullScreenOn];
+    }
+
     [super viewDidLoad];
         
 }
@@ -202,12 +222,6 @@ static BOOL SIMULTOUCH = NO;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
     
     [self autoScale: nil];
-        
-    if (!self.editing) {
-        [self fitLayer: [self fractalLevel0Layer] inLayer: self.fractalViewLevel0.superview.layer margin: 5];
-        [self fitLayer: [self fractalLevel1Layer] inLayer: self.fractalViewLevel1.superview.layer margin: 5];
-        [self fitLayer: [self fractalLevel2Layer] inLayer: self.fractalViewLevel2.superview.layer margin: 5];
-    }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -222,13 +236,15 @@ static BOOL SIMULTOUCH = NO;
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self refreshContents];
+//    [self refreshContents];
 
-    self.editing = YES;
+//    self.editing = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     
+    [_privateQueue cancelAllOperations];
+
     if (self.editing) {
         [self.fractal.managedObjectContext save: nil];
         [self setUndoManager: nil];
@@ -236,6 +252,7 @@ static BOOL SIMULTOUCH = NO;
         // undo all non-saved changes
         [self.fractal.managedObjectContext rollback];
     }
+    
     [super viewWillDisappear:animated];
 }
 
@@ -250,12 +267,12 @@ static BOOL SIMULTOUCH = NO;
     CGPoint currentCenter = self.view.center;
     CGPoint newCenter = CGPointMake(size.width/2.0, size.height/2.0);
     CGPoint translation = CGPointMake(newCenter.x-currentCenter.x, newCenter.y-currentCenter.y);
-    CGPoint fractalCenter = [[self fractalLevelNLayer] position];
-    CGPoint fractalNewPosition = CGPointMake(fractalCenter.x+translation.x, fractalCenter.y+translation.y);
+//    CGPoint fractalCenter = self.fractalView.position;
+//    CGPoint fractalNewPosition = CGPointMake(fractalCenter.x+translation.x, fractalCenter.y+translation.y);
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         //
-        self.fractalLevelNLayer.position = fractalNewPosition;
+//        self.fractalView.position = fractalNewPosition;
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         //
@@ -313,7 +330,7 @@ static BOOL SIMULTOUCH = NO;
         [self becomeFirstResponder];
     }
     
-    [self refreshContents];
+    [self updateInterface];
     // Hide the back button when editing starts, and show it again when editing finishes.
     [self.navigationItem setHidesBackButton:editing animated:animated];
     
@@ -325,13 +342,15 @@ static BOOL SIMULTOUCH = NO;
     // Return YES for supported orientations
 	return YES;
 }
--(void) refreshInterface {
-    [self refreshValueInputs];
-    [self refreshLayers];
-}
-// TODO: Check for fractal name change to update window title
+#pragma message  "TODO: Check for fractal name change to update window title"
 /* observer fractal.replacementRules */
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+
+    NSUInteger changeCount = 0;
+    if ([object isKindOfClass:[NSManagedObject class]]) {
+        NSDictionary* changes = [object changedValuesForCurrentEvent];
+        changeCount = changes.count;
+    }
     if ([keyPath isEqualToString: kLibrarySelectionKeypath] && object == self.libraryViewController) {
         
         self.fractal = self.libraryViewController.selectedFractal;
@@ -361,22 +380,31 @@ static BOOL SIMULTOUCH = NO;
         
     } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
         
-        [self refreshInterface];
+        if (changeCount) {
+            [self queueFractalImageUpdates];
+            [self updateInterface];
+        }
         
     } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
         
-        [self refreshInterface];
+        if (changeCount) {
+            [self queueFractalImageUpdates];
+            [self updateInterface];
+        }
         
     } else if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
                [keyPath isEqualToString: [LSReplacementRule rulesKey]] ||
                [keyPath isEqualToString: [LSReplacementRule contextRuleKey]]) {
         
-        [self refreshInterface];
+        if (changeCount) {
+            [self regenerateLevels];
+            [self updateInterface];
+        }
         
 //    } else if ([[LSFractal labelProperties] containsObject: keyPath]) {
 //        [self reloadLabels];
     } else if ([keyPath isEqualToString: @"name"]) {
-        [self configureNavButtons];
+        [self updateNavButtons];
                 
     } else if ([keyPath isEqualToString: @"category"]) {
         
@@ -424,6 +452,7 @@ static BOOL SIMULTOUCH = NO;
                                                                            self.fractalViewLevel0,
                                                                            self.fractalViewLevel1,
                                                                            self.fractalViewLevel2];
+#pragma message "TODO missing self.fractalView as a passthrough above?"
         viewController.popoverPresentationController.delegate = self;
         _appearanceViewController = viewController;
     }
@@ -442,62 +471,9 @@ static BOOL SIMULTOUCH = NO;
 -(NSOperationQueue*) privateQueue {
     if (!_privateQueue) {
         _privateQueue = [[NSOperationQueue alloc] init];
+        _privateQueue.name = @"FractalImageGenerationQueue";
     }
     return _privateQueue;
-}
--(NSMutableArray*) generatorsArray {
-    if (_generatorsArray == nil) {
-        _generatorsArray = [[NSMutableArray alloc] initWithCapacity: 3];
-    }
-    return _generatorsArray;
-}
-
--(NSMutableArray*) fractalDisplayLayersArray {
-    if (_fractalDisplayLayersArray == nil) {
-        _fractalDisplayLayersArray = [[NSMutableArray alloc] initWithCapacity: 3];
-    }
-    return _fractalDisplayLayersArray;
-}
-
--(CALayer*) fractalLevel0Layer {
-    CALayer* subLayer;
-    for (CALayer* layer in self.fractalViewLevel0.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevel0"]) {
-            subLayer = layer;
-            break;
-        }
-    }
-    return subLayer;
-}
--(CALayer*) fractalLevel1Layer {
-    CALayer* subLayer;
-    for (CALayer* layer in self.fractalViewLevel1.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevel1"]) {
-            subLayer = layer;
-            break;
-        }
-    }
-    return subLayer;
-}
--(CALayer*) fractalLevel2Layer {
-    CALayer* subLayer;
-    for (CALayer* layer in self.fractalViewLevel2.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevel2"]) {
-            subLayer = layer;
-            break;
-        }
-    }
-    return subLayer;
-}
--(CALayer*) fractalLevelNLayer {
-    CALayer* subLayer;
-    for (CALayer* layer in self.fractalView.layer.sublayers) {
-        if ([layer.name isEqualToString: @"fractalLevelN"]) {
-            subLayer = layer;
-            break;
-        }
-    }
-    return subLayer;
 }
 
 
@@ -519,20 +495,123 @@ static BOOL SIMULTOUCH = NO;
         
         [self removeObserversForFractal: _fractal];
         
+        _autoscaleN = YES;
+        
         _fractal = fractal;
+        
+        _privateFractalContext = [[NSManagedObjectContext alloc]initWithConcurrencyType: NSPrivateQueueConcurrencyType];
+        _privateFractalContext.parentContext = _fractal.managedObjectContext;
+        _fractalID = _fractal.objectID;
+        
+        [_privateFractalContext performBlockAndWait:^{
+            self->_privateQueueFractal = [self->_privateFractalContext objectWithID: _fractalID];
+        }];
         
         [self addObserversForFractal: _fractal];
 
-        [self updateGeneratorsForFractal: _fractal];
         
         if (_fractal != nil) {
+            [self regenerateLevels];
             [self saveToUserPreferencesAsLastEditedFractal: fractal];
         }
-        [self refreshContents];
+        [self updateInterface];
     }
 }
--(LSFractal*) fractal {
-    return _fractal;
+-(LSFractalRecursiveGenerator*) fractalGeneratorL0 {
+    if (!_fractalGeneratorL0) {
+        if (self.fractal) {
+            _fractalGeneratorL0 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorL0.name = @"_fractalGeneratorL0";
+            _fractalGeneratorL0.imageView = self.fractalViewLevel0;
+            _fractalGeneratorL0.imageBounds = self.fractalViewLevel0.bounds;
+            _fractalGeneratorL0.pixelScale = self.fractalViewLevel0.contentScaleFactor;
+            _fractalGeneratorL0.flipY = YES;
+            _fractalGeneratorL0.margin = 30.0;
+            _fractalGeneratorL0.showOrigin = NO;
+            _fractalGeneratorL0.autoscale = YES;
+        }
+    }
+    return _fractalGeneratorL0;
+}
+-(LSFractalRecursiveGenerator*) fractalGeneratorL1 {
+    if (!_fractalGeneratorL1) {
+        if (self.fractal) {
+            _fractalGeneratorL1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorL1.name = @"_fractalGeneratorL1";
+            _fractalGeneratorL1.imageView = self.fractalViewLevel1;
+            _fractalGeneratorL1.imageBounds = self.fractalViewLevel1.bounds;
+            _fractalGeneratorL1.pixelScale = self.fractalViewLevel1.contentScaleFactor;
+            _fractalGeneratorL1.flipY = YES;
+            _fractalGeneratorL1.margin = 30.0;
+            _fractalGeneratorL1.showOrigin = NO;
+            _fractalGeneratorL1.autoscale = YES;
+        }
+    }
+    return _fractalGeneratorL1;
+}
+-(LSFractalRecursiveGenerator*) fractalGeneratorL2 {
+    if (!_fractalGeneratorL2) {
+        if (self.fractal) {
+            _fractalGeneratorL2 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorL2.name = @"_fractalGeneratorL2";
+            _fractalGeneratorL2.imageView = self.fractalViewLevel2;
+            _fractalGeneratorL2.imageBounds = self.fractalViewLevel2.bounds;
+            _fractalGeneratorL2.pixelScale = self.fractalViewLevel2.contentScaleFactor;
+            _fractalGeneratorL2.flipY = YES;
+            _fractalGeneratorL2.margin = 30.0;
+            _fractalGeneratorL2.showOrigin = NO;
+            _fractalGeneratorL2.autoscale = YES;
+        }
+    }
+    return _fractalGeneratorL2;
+}
+-(LSFractalRecursiveGenerator*) fractalGeneratorLN2S1 {
+    if (!_fractalGeneratorLN2S1) {
+        if (self.fractal) {
+            _fractalGeneratorLN2S1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorLN2S1.name = @"_fractalGeneratorLN2S1";
+            _fractalGeneratorLN2S1.imageView = self.fractalView;
+            _fractalGeneratorLN2S1.imageBounds = self.fractalView.bounds;
+            _fractalGeneratorLN2S1.pixelScale = self.fractalView.contentScaleFactor;
+            _fractalGeneratorLN2S1.flipY = YES;
+            _fractalGeneratorLN2S1.margin = 50.0;
+            _fractalGeneratorLN2S1.showOrigin = NO;
+            _fractalGeneratorLN2S1.autoscale = YES;
+        }
+    }
+    return _fractalGeneratorLN2S1;
+}
+-(LSFractalRecursiveGenerator*) fractalGeneratorLNS1 {
+    if (!_fractalGeneratorLNS1) {
+        if (self.fractal) {
+            _fractalGeneratorLNS1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorLNS1.name = @"_fractalGeneratorLNS1";
+            _fractalGeneratorLNS1.imageView = self.fractalView;
+            _fractalGeneratorLNS1.imageBounds = self.fractalView.bounds;
+            _fractalGeneratorLNS1.pixelScale = self.fractalView.contentScaleFactor;
+            _fractalGeneratorLNS1.flipY = YES;
+            _fractalGeneratorLNS1.margin = 50.0;
+            _fractalGeneratorLNS1.showOrigin = NO;
+            _fractalGeneratorLNS1.autoscale = YES;
+        }
+    }
+    return _fractalGeneratorLNS1;
+}
+-(LSFractalRecursiveGenerator*) fractalGeneratorLNS4 {
+    if (!_fractalGeneratorLNS4) {
+        if (self.fractal) {
+            _fractalGeneratorLNS4 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorLNS4.name = @"_fractalGeneratorLNS4";
+            _fractalGeneratorLNS4.imageView = self.fractalView;
+            _fractalGeneratorLNS4.imageBounds = self.fractalView.bounds;
+            _fractalGeneratorLNS4.pixelScale = self.fractalView.contentScaleFactor*2.0;
+            _fractalGeneratorLNS4.flipY = YES;
+            _fractalGeneratorLNS4.margin = 50.0;
+            _fractalGeneratorLNS4.showOrigin = YES;
+            _fractalGeneratorLNS4.autoscale = YES;
+        }
+    }
+    return _fractalGeneratorLNS4;
 }
 -(void) addObserversForFractal:(LSFractal *)fractal {
     if (fractal) {
@@ -566,108 +645,15 @@ static BOOL SIMULTOUCH = NO;
         }
     }
 }
--(void) updateGeneratorsForFractal:(LSFractal *)fractal {
-    if (fractal) {
-        // If the generators have been created, the fractal needs to be replaced.
-        if ([self.generatorsArray count] > 0) {
-            for (LSFractalGenerator* generator in self.generatorsArray) {
-                generator.fractal = fractal;
-            }
-        } else {
-            [self setupRecursiveLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 20.0 forceLevel: -1];
-//            [self setupLevelGeneratorForFractal: fractal View: self.fractalView name: @"fractalLevelN" margin: 50.0 forceLevel: -1];
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel0 name: @"fractalLevel0" margin: 10.0 forceLevel: 0];
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel1 name: @"fractalLevel1" margin: 10.0 forceLevel: 1];
-            [self setupLevelGeneratorForFractal: fractal View: self.fractalViewLevel2 name: @"fractalLevel2" margin: 10.0 forceLevel: 2];
-        }
-    }
-}
--(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) fractal {
+-(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) aFractal {
     // If the new fractal was just copied, then it has a temporary objectID and needs to be save first
-    NSManagedObjectID* fractalID = fractal.objectID;
+    NSManagedObjectID* fractalID = aFractal.objectID;
     if (fractalID.isTemporaryID) {
-        [fractal.managedObjectContext save: nil];
+        [aFractal.managedObjectContext save: nil];
     }
-    NSURL* selectedFractalURL = [fractal.objectID URIRepresentation];
+    NSURL* selectedFractalURL = [aFractal.objectID URIRepresentation];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setURL: selectedFractalURL forKey: kLastEditedFractalURI];
-}
--(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin {
-    
-    CGRect boundsOuter = layerOuter.bounds;
-    
-    CGRect boundsInner = CGRectInset(boundsOuter, margin, margin);
-    
-    layerInner.bounds = boundsInner;
-    layerInner.position = CGPointMake(boundsOuter.size.width/2, boundsOuter.size.height/2);
-}
-
--(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel {
-//    CATiledLayer* aLayer = [[CATiledLayer alloc] init];
-//    aLayer.tileSize = CGSizeMake(5120.0, 5120.0);
-//    CAShapeLayer* aLayer = [[CAShapeLayer alloc] init];
-    CALayer* aLayer = [[CALayer alloc] init];
-    aLayer.drawsAsynchronously = YES;
-    aLayer.name = name;
-    aLayer.needsDisplayOnBoundsChange = YES;
-    aLayer.speed = 1.0;
-//    aLayer.contentsScale = 2.0 * aView.layer.contentsScale;
-    
-    [self fitLayer: aLayer inLayer: aView.layer margin: margin];
-    [aView.layer addSublayer: aLayer];
-    
-    
-    LSFractalGenerator* generator = [[LSFractalGenerator alloc] init];
-    
-    if (generator) {
-        NSUInteger arrayCount = [self.generatorsArray count];
-        
-        generator.fractal = fractal;
-        generator.forceLevel = aLevel;
-        
-        aLayer.delegate = generator;
-        [aLayer setValue: [NSNumber numberWithInteger: arrayCount] forKey: @"arrayCount"];
-        
-        [self.fractalDisplayLayersArray addObject: aLayer];
-        [self.generatorsArray addObject: generator];
-    }
-}
--(void) setupRecursiveLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel {
-    //    CATiledLayer* aLayer = [[CATiledLayer alloc] init];
-    //    aLayer.tileSize = CGSizeMake(5120.0, 5120.0);
-    //    CAShapeLayer* aLayer = [[CAShapeLayer alloc] init];
-    CALayer* aLayer = [[CALayer alloc] init];
-    aLayer.drawsAsynchronously = YES;
-    aLayer.name = name;
-    aLayer.needsDisplayOnBoundsChange = YES;
-    aLayer.speed = 1.0;
-    aLayer.contentsScale = aView.layer.contentsScale;
-    //    aLayer.contentsScale = 2.0 * aView.layer.contentsScale;
-    
-    [self fitLayer: aLayer inLayer: aView.layer margin: margin];
-    
-    CGRect bounds = aLayer.bounds;
-//    aLayer.bounds = CGRectInset(bounds, -4000.0, -4000.0);
-
-
-    [aView.layer addSublayer: aLayer];
-    aLayer.bounds = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
-//    aLayer.anchorPoint = CGPointMake(0.0, 0.0);
-    
-    LSFractalRecursiveGenerator* generator = [[LSFractalRecursiveGenerator alloc] init];
-    
-    if (generator) {
-        NSUInteger arrayCount = [self.generatorsArray count];
-        
-        generator.fractal = fractal;
-        generator.forceLevel = aLevel;
-        
-        aLayer.delegate = generator;
-        [aLayer setValue: [NSNumber numberWithInteger: arrayCount] forKey: @"arrayCount"];
-        
-        [self.fractalDisplayLayersArray addObject: aLayer];
-        [self.generatorsArray addObject: generator];
-    }
+    [defaults setURL: selectedFractalURL forKey: kPrefLastEditedFractalURI];
 }
 
 #pragma mark - view utility methods
@@ -678,7 +664,13 @@ static BOOL SIMULTOUCH = NO;
 //    self.fractalDescriptor.text = self.fractal.descriptor;
 //}
 
--(void) refreshValueInputs {    
+-(void) updateInterface {
+    [self updateValueInputs];
+    [self updateLabelsAndControls];
+    [self updateNavButtons];
+}
+
+-(void) updateValueInputs {
     self.hudLevelStepper.value = [self.fractal.level integerValue];
     //    
     self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: @(degrees([self.fractal.turningAngle doubleValue]))];
@@ -699,7 +691,7 @@ static BOOL SIMULTOUCH = NO;
  
  Cancel image still in operation queue when gestures are in progress and turn off autoscaling and show origin
  */
--(void) refreshLayers {
+-(void) updateLabelsAndControls {
     self.hudText1.text = [self.fractal.level stringValue];
     self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: [self.fractal turningAngleAsDegrees]];
     self.turnAngleSlider.value = [[self.fractal turningAngleAsDegrees] floatValue];
@@ -721,45 +713,98 @@ static BOOL SIMULTOUCH = NO;
     
     self.hudLineIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.lineChangeFactor];
     self.lengthIncrementVerticalSlider.value = self.fractal.lineChangeFactor.floatValue;
-    //    [self logBounds: self.fractalViewLevelN.bounds info: @"fractalViewN Bounds"];
-    //    [self logBounds: self.fractalViewLevelN.layer.bounds info: @"fractalViewN Layer Bounds"];
+
+}
+-(void) regenerateLevels {
+    NSManagedObjectContext* pc = self.privateFractalContext;
+    NSManagedObjectID* fid = self.fractalID;
     
-//    for (CALayer* layer in self.fractalDisplayLayersArray) {
-////        layer.contents = nil;
-//        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
-//        [layer setNeedsLayout];
-//        [layer layoutIfNeeded];
-//        //        [self logBounds: layer.bounds info: @"newLayer Bounds"];
-//        [layer setNeedsDisplay];
-//    }
-
-    MBColor* backgroundColor = self.fractal.backgroundColor;
-    if (backgroundColor) {
-        self.fractalView.backgroundColor = [backgroundColor asUIColor];
-    } else {
-        self.fractalView.backgroundColor = [UIColor clearColor];
-    }
-    if (self.generatorsArray.count >= 4) {
-        LSFractalRecursiveGenerator* generatorN = self.generatorsArray[0];
-        [CATransaction begin];
-        [CATransaction setValue:(id)kCFBooleanTrue
-                         forKey:kCATransactionDisableActions];
+    [pc performBlock:^{
+        [pc reset];
+        LSFractal* fractal = (LSFractal*)[pc objectWithID: fid];
+        fractal.rulesUnchanged = NO;
+        [fractal generateLevelData];
         
-        UIImage* fractalImage = [generatorN generateImageSize: self.fractalLevelNLayer.bounds.size withBackground: [UIColor clearColor]];
+        NSArray* levelDataArray = @[fractal.level0RulesCache, fractal.level1RulesCache, fractal.level2RulesCache, fractal.levelNRulesCache];
         
-        self.fractalLevelNLayer.contents = CFBridgingRelease([fractalImage CGImage]);
-        
-        [CATransaction commit];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateGeneratorLevels: levelDataArray];
+        });
+    }];
+}
+-(void) updateGeneratorLevels: (NSArray*)levelDataArray {
+    self.levelDataArray = levelDataArray;
+    
+    if (self.levelDataArray.count == 4) {
+        self.fractalGeneratorL0.levelData = self.levelDataArray[0];
+        self.fractalGeneratorL1.levelData = self.levelDataArray[1];
+        self.fractalGeneratorL2.levelData = self.levelDataArray[2];
+//        self.fractalGeneratorLN2S1.levelData = self.levelDataArray[2];
+        self.fractalGeneratorLNS1.levelData = self.levelDataArray[3];
+        self.fractalGeneratorLNS4.levelData = self.levelDataArray[3];
+        [self queueFractalImageUpdates];
     }
 }
+-(void) queueFractalImageUpdates {
 
--(void) refreshContents {
-//    [self reloadLabels];
-    [self refreshValueInputs];
-    [self refreshLayers];
-    [self configureNavButtons];
+    if (self.fractalGeneratorLNS4.operation && !self.fractalGeneratorLNS4.operation.isFinished) {
+        [self.fractalGeneratorLNS4.operation cancel];
+    }
+
+    if (self.fractalGeneratorLNS1.operation && !self.fractalGeneratorLNS1.operation.isFinished) {
+        [self.fractalGeneratorLNS4.operation cancel];
+        [self.fractalGeneratorLNS1.operation cancel];
+    }
+
+    [self.privateQueue waitUntilAllOperationsAreFinished];
+
+    [self queueHudImageUpdates];
+    
+    self.fractalGeneratorLNS1.autoscale = self.autoscaleN;
+    NSBlockOperation* operationNN1 = [self operationForGenerator: self.fractalGeneratorLNS1];
+    
+    self.fractalGeneratorLNS4.autoscale = self.autoscaleN;
+    NSBlockOperation* operationNN4 = [self operationForGenerator: self.fractalGeneratorLNS4];
+
+    [operationNN4 addDependency: operationNN1];
+    
+    [self.privateQueue addOperation: operationNN1];
+    [self.privateQueue addOperation: operationNN4];
 }
+-(void) queueHudImageUpdates {
+    if (!self.fractalViewLevel0.superview.hidden) {
+        NSBlockOperation* operation0 = [self operationForGenerator: self.fractalGeneratorL0];
+        self.fractalGeneratorL0.backgroundColor = [UIColor clearColor];
+        [self.privateQueue addOperation: operation0];
+    }
+    
+    if (!self.fractalViewLevel1.superview.hidden) {
+        NSBlockOperation* operation1 = [self operationForGenerator: self.fractalGeneratorL1];
+        self.fractalGeneratorL1.backgroundColor = [UIColor clearColor];
+        [self.privateQueue addOperation: operation1];
+    }
+    
+    if (!self.fractalViewLevel2.superview.hidden) {
+        NSBlockOperation* operation2 = [self operationForGenerator: self.fractalGeneratorL2];
+        self.fractalGeneratorL2.backgroundColor = [UIColor clearColor];
+        [self.privateQueue addOperation: operation2];
+    }
+}
+-(NSBlockOperation*) operationForGenerator: (LSFractalRecursiveGenerator*)generator {
+    
+    [generator setValuesForFractal: self.fractal];
 
+    NSBlockOperation* operation = [NSBlockOperation new];
+    generator.operation = operation;
+    
+    [operation addExecutionBlock: ^{
+        //code
+        if (!generator.operation.isCancelled) {
+            [generator generateImage];
+        }
+    }];
+    return operation;
+}
 -(void) useFractalDefinitionRulesView {
     
     if (self.fractalDefinitionAppearanceView.superview == nil) {
@@ -811,7 +856,7 @@ static BOOL SIMULTOUCH = NO;
 }
 
 //TODO: add Undo and Redo buttons for editing
-- (void) configureNavButtons {
+- (void) updateNavButtons {
     self.title = _fractal.name;
     self.toolbarTitle.text = _fractal.name;
 }
@@ -887,23 +932,6 @@ static BOOL SIMULTOUCH = NO;
 /*
  since we are using core data, all we need to do to undo all changes and cancel the edit session is not save the core data and use rollback.
  */
-- (IBAction)cancelEdit:(id)sender {
-    self.cancelled = YES;
-    [self setEditing: NO animated: YES];
-}
-
--(void) updateViewsForEditMode:(BOOL)editing {
-    
-    CGRect viewBounds = self.view.bounds;
-    [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-
-    if (!editing) {
-        [self fullScreenOn];
-        
-    } else {
-        [self fullScreenOff];
-    }
-}
 
 -(void) updateViewConstraints {
     [super updateViewConstraints];
@@ -1083,69 +1111,69 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }];
 }
 - (IBAction)playButtonPressed:(id)sender {
-    CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] fractalCGPathRef];
+//    CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] fractalCGPathRef];
     
-    CALayer* turtle = [[CALayer alloc] init];
-    UIImage* turtleImage = [UIImage imageNamed: @"emptyStatus"];
-    turtle.contents = (__bridge id)([turtleImage CGImage]);
-    turtle.bounds = CGRectMake(0., 0., turtleImage.size.width, turtleImage.size.height);
-    turtle.position = CGPointMake(-10000.0, -10000.0);
+//    CALayer* turtle = [[CALayer alloc] init];
+//    UIImage* turtleImage = [UIImage imageNamed: @"emptyStatus"];
+//    turtle.contents = (__bridge id)([turtleImage CGImage]);
+//    turtle.bounds = CGRectMake(0., 0., turtleImage.size.width, turtleImage.size.height);
+//    turtle.position = CGPointMake(-10000.0, -10000.0);
     
-    CALayer* fractalLayer = self.fractalLevelNLayer;
-    [fractalLayer addSublayer: turtle];
-
-    CGRect layerBounds = fractalLayer.bounds;
-    CGFloat layerScale = fractalLayer.contentsScale;
-    CGFloat flipFactor = fractalLayer.contentsAreFlipped ? -1.0 : 1.0;
+//    CALayer* fractalLayer = self.fractalLevelNLayer;
+//    [fractalLayer addSublayer: turtle];
+//
+//    CGRect layerBounds = fractalLayer.bounds;
+//    CGFloat layerScale = fractalLayer.contentsScale;
+//    CGFloat flipFactor = fractalLayer.contentsAreFlipped ? -1.0 : 1.0;
     
-    CGAffineTransform pathTransform = CGAffineTransformIdentity;
-    // flip the Y axis so +Y is up direction from origin
-    CGAffineTransform scaleTrans = CGAffineTransformScale(pathTransform, 1.0/layerScale, flipFactor/layerScale);
-    CGAffineTransform moveTrans = CGAffineTransformTranslate(scaleTrans, layerScale*layerBounds.origin.x, flipFactor*layerScale*(layerBounds.origin.y + layerBounds.size.height));
-    
-    CGPathRef transPath = CGPathCreateCopyByTransformingPath(thePath, &moveTrans);
-    
-    NSMutableArray* countArray = [NSMutableArray arrayWithObjects: @0, nil];
-    CGPathApply(transPath, (void *)countArray, countPathElements);
-    // want the animatino to use less time for fewer elements
-    NSInteger elementCount = [countArray[0] integerValue];
-    CGFloat duration = 10.0;
-    if (elementCount < 100) {
-        duration = 5.0;
-    } else if (elementCount < 1000) {
-        duration = 10.0;
-    } else if (elementCount <10000) {
-        duration = 20.0;
-    } else {
-        duration = 30.0;
-    }
-    
-    [CATransaction begin];
-    
-    [CATransaction setCompletionBlock:^{
-        // This will be performed after actions added after the block
-        CGPathRelease(transPath);
-        [turtle removeFromSuperlayer];
-        self.playButton.enabled = YES;
-        
-        // check for leak
-    }];
-    
-    self.playButton.enabled = NO;
-    
-    CAKeyframeAnimation * theAnimation;
-    
-    // Create the animation object, specifying the position property as the key path.
-    theAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
-    //        theAnimation.rotationMode = kCAAnimationRotateAuto;
-    theAnimation.calculationMode = kCAAnimationPaced;
-    theAnimation.path = transPath;
-    theAnimation.duration = duration;
-    
-    turtle.hidden = NO;
-    [turtle addAnimation:theAnimation forKey:@"position"];
-    
-    [CATransaction commit];
+//    CGAffineTransform pathTransform = CGAffineTransformIdentity;
+//    // flip the Y axis so +Y is up direction from origin
+//    CGAffineTransform scaleTrans = CGAffineTransformScale(pathTransform, 1.0/layerScale, flipFactor/layerScale);
+//    CGAffineTransform moveTrans = CGAffineTransformTranslate(scaleTrans, layerScale*layerBounds.origin.x, flipFactor*layerScale*(layerBounds.origin.y + layerBounds.size.height));
+//    
+//    CGPathRef transPath = CGPathCreateCopyByTransformingPath(thePath, &moveTrans);
+//    
+//    NSMutableArray* countArray = [NSMutableArray arrayWithObjects: @0, nil];
+//    CGPathApply(transPath, (void *)countArray, countPathElements);
+//    // want the animatino to use less time for fewer elements
+//    NSInteger elementCount = [countArray[0] integerValue];
+//    CGFloat duration = 10.0;
+//    if (elementCount < 100) {
+//        duration = 5.0;
+//    } else if (elementCount < 1000) {
+//        duration = 10.0;
+//    } else if (elementCount <10000) {
+//        duration = 20.0;
+//    } else {
+//        duration = 30.0;
+//    }
+//    
+//    [CATransaction begin];
+//    
+//    [CATransaction setCompletionBlock:^{
+//        // This will be performed after actions added after the block
+//        CGPathRelease(transPath);
+//        [turtle removeFromSuperlayer];
+//        self.playButton.enabled = YES;
+//        
+//        // check for leak
+//    }];
+//    
+//    self.playButton.enabled = NO;
+//    
+//    CAKeyframeAnimation * theAnimation;
+//    
+//    // Create the animation object, specifying the position property as the key path.
+//    theAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
+//    //        theAnimation.rotationMode = kCAAnimationRotateAuto;
+//    theAnimation.calculationMode = kCAAnimationPaced;
+//    theAnimation.path = transPath;
+//    theAnimation.duration = duration;
+//    
+//    turtle.hidden = NO;
+//    [turtle addAnimation:theAnimation forKey:@"position"];
+//    
+//    [CATransaction commit];
     
 }
 static void countPathElements(void *info, const CGPathElement *element) {
@@ -1218,7 +1246,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
     static CGPoint initialPosition;
 
     UIView *fractalView = [gestureRecognizer view];
-    CALayer* subLayer = [self fractalLevelNLayer];
+//    CALayer* subLayer = [self fractalLevelNLayer];
     UIGestureRecognizerState state = gestureRecognizer.state;
     
     [CATransaction begin];
@@ -1227,17 +1255,17 @@ static void countPathElements(void *info, const CGPathElement *element) {
     
     if (state == UIGestureRecognizerStateBegan) {
         
-        initialPosition = subLayer.position;
+//        initialPosition = subLayer.position;
         
     } else if (state == UIGestureRecognizerStateChanged) {
         
         CGPoint translation = [gestureRecognizer translationInView: fractalView];
-        subLayer.position = CGPointMake(initialPosition.x+translation.x,initialPosition.y+translation.y);
+//        subLayer.position = CGPointMake(initialPosition.x+translation.x,initialPosition.y+translation.y);
         
     } else if (state == UIGestureRecognizerStateCancelled) {
         
-        subLayer.position = initialPosition;
-        [gestureRecognizer setTranslation: CGPointZero inView: fractalView];        
+//        subLayer.position = initialPosition;
+        [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
         
     } else if (state == UIGestureRecognizerStateEnded) {
         
@@ -1250,7 +1278,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
   need to lock in either horizontal or vertical panning view a state and state change */
 -(IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer {
     [self convertPanToAngleAspectChange: gestureRecognizer
-                               subLayer: self.fractalLevelNLayer
+                               subLayer: self.fractalView
                               anglePath: @"turningAngle"
                              angleScale: 5.0/1.0
                                minAngle: -180.0
@@ -1263,7 +1291,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
-                               subLayer: self.fractalLevel0Layer
+                               subLayer: self.fractalViewLevel0
                               anglePath: @"baseAngle"
                              angleScale: 5.0/1.0
                                minAngle: -180.0
@@ -1276,7 +1304,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
-                               subLayer: self.fractalLevel1Layer
+                               subLayer: self.fractalViewLevel1
                               anglePath: @"turningAngle"
                              angleScale: 1.0/10.0
                                minAngle: -180.0
@@ -1290,7 +1318,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 #pragma message "TODO: need to add a step size and change turningAngleIncrement from degrees to percent"
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
-                               subLayer: self.fractalLevel2Layer
+                               subLayer: self.fractalViewLevel2
                               anglePath: @"turningAngleIncrement"
                              angleScale: 1.0/1.0
                                minAngle: 0.0
@@ -1325,11 +1353,12 @@ static void countPathElements(void *info, const CGPathElement *element) {
     UIGestureRecognizerState state = gestureRecognizer.state;
     
     if (state == UIGestureRecognizerStateBegan) {
+        self.autoscaleN = NO;
         
         [self.undoManager beginUndoGrouping];
         [self.fractal.managedObjectContext processPendingChanges];
         
-        initialPosition = subLayer.position;
+        initialPosition = CGPointZero;//subLayer.position;
         
         if (anglePath) {
             initialAngleDegrees =  floorf(100.0 * degrees([[self.fractal valueForKey: anglePath] doubleValue])) / 100.0;
@@ -1401,6 +1430,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
         determinedState = 0;
         [self saveContext];
+        self.autoscaleN = YES;
     }
 }
 /* obsolete */
@@ -1436,33 +1466,33 @@ static void countPathElements(void *info, const CGPathElement *element) {
 - (IBAction)toggleAutoScale:(id)sender {
     UIView* strongFractalView = self.fractalView;
     
-    for (id object in self.generatorsArray) {
-        if ([object isKindOfClass: [LSFractalGenerator class]]) {
-            LSFractalGenerator* generator = (LSFractalGenerator*) object;
-            generator.autoscale = !generator.autoscale;
-            NSLog(@"autoscale: %u;", generator.autoscale);
-            if (generator.autoscale) {
-                // refit view frame and refresh layer
-                strongFractalView.transform = CGAffineTransformIdentity;
-                CGPoint containerOrigin = self.fractalViewParent.bounds.origin;
-                CGSize containerSize = self.fractalViewParent.bounds.size;
-                CGFloat toolbarHeight = 45.0;
-                CGRect boundsMinusToolbar = CGRectMake(containerOrigin.x,
-                                                       (containerOrigin.y + toolbarHeight),
-                                                       containerSize.width,
-                                                       (containerSize.height - toolbarHeight));
-                
-                strongFractalView.frame = boundsMinusToolbar;
-            }
-        }
-    }
+//    for (id object in self.generatorsArray) {
+//        if ([object isKindOfClass: [LSFractalGenerator class]]) {
+//            LSFractalGenerator* generator = (LSFractalGenerator*) object;
+//            generator.autoscale = !generator.autoscale;
+//            NSLog(@"autoscale: %u;", generator.autoscale);
+//            if (generator.autoscale) {
+//                // refit view frame and refresh layer
+//                strongFractalView.transform = CGAffineTransformIdentity;
+//                CGPoint containerOrigin = self.fractalViewParent.bounds.origin;
+//                CGSize containerSize = self.fractalViewParent.bounds.size;
+//                CGFloat toolbarHeight = 45.0;
+//                CGRect boundsMinusToolbar = CGRectMake(containerOrigin.x,
+//                                                       (containerOrigin.y + toolbarHeight),
+//                                                       containerSize.width,
+//                                                       (containerSize.height - toolbarHeight));
+//                
+//                strongFractalView.frame = boundsMinusToolbar;
+//            }
+//        }
+//    }
 }
 
 - (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer {
     
     static CATransform3D initialTransform;
 
-    CALayer* subLayer = [self fractalLevelNLayer];
+    CALayer* subLayer = nil;//[self fractalLevelNLayer];
     UIGestureRecognizerState state = gestureRecognizer.state;
     
     [CATransaction begin];
@@ -1492,18 +1522,24 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 
 -(IBAction) autoScale:(id)sender {
-    CALayer* subLayer = [self fractalLevelNLayer];
+    CALayer* subLayer = nil; //[self fractalLevelNLayer];
     subLayer.transform = CATransform3DIdentity;
     subLayer.position = self.fractalView.center;
     // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
 }
 
 - (IBAction)toggleFullScreen:(id)sender {
+    BOOL fullScreenState;
     if (self.fractalViewLevel0.superview.hidden == YES) {
         [self fullScreenOff];
+        fullScreenState = NO;
     } else {
         [self fullScreenOn];
+        fullScreenState = YES;
     }
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool: fullScreenState forKey: kPrefFullScreenState];
+    [defaults synchronize];
 }
 -(void) fullScreenOn {
     //    [self moveEditorHeightTo: 0];
@@ -1525,7 +1561,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
     self.fractalViewLevel0.superview.hidden = NO;
     self.fractalViewLevel1.superview.hidden = NO;
     self.fractalViewLevel2.superview.hidden = NO;
-    
+    [self queueHudImageUpdates];
     [UIView animateWithDuration:0.5
                      animations:^{
                          self.fractalViewLevel0.superview.alpha = 0.75;
@@ -1738,12 +1774,12 @@ static void countPathElements(void *info, const CGPathElement *element) {
 
 
 - (void)undoManagerDidUndo:(NSNotification *)notification {
-    [self refreshContents];
+    [self updateInterface];
 }
 
 
 - (void)undoManagerDidRedo:(NSNotification *)notification {
-    [self refreshContents];
+    [self updateInterface];
 }
 - (void)saveContext
 {

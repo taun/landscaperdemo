@@ -163,7 +163,7 @@ Important note\
  \
  Method to create a new constraint for a new view at insertion index.\
  Call above method for updateConstraints.\
- Stateless - calculates constants indepent of a loop.\
+ Stateless - calculates constants independent of a loop.\
  One method for creating constraint another for setting constants.\
  updateConstraints -> ForIn rules to add views, constraints, constants\
  insert/remove/trans - > ForIn views to change constants\
@@ -194,6 +194,19 @@ Important note\
 				loop replacement\
 			else evaluate current rule\
 \
+\
+2015-01-22\
+regenerateRules called for production changes calls updateGeneratorLevels on main queue when done\
+updateGeneratorLevels sets generator level data\
+updateImageViews called for appearance and angle changes, sets segment data and initializes caches (generate cache in fractal and pass to generator?)\
+\
+Use a private queue fractal to generate production levels (regenerateRules) then use a call back when done to update fractal views (updateImageViews). main queue \
+Callback initiates getting levels from privateFractal\
+remember to reset private queue context (to acquire changes) before generating levels.\
+in updateImageViews privateFractalBlock, set generator nsdata, baseSegment, level?...\
+Then queue up generator operations.\
+\
+set generator segment when setting fractal and set fractal in privateFractal block during updateImageViews, level will have already been set in updateGeneratorLevels\
 \
 \
 \

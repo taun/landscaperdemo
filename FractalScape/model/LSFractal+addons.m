@@ -327,7 +327,11 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         }
     }
 }
-
+-(void) generateLevelData {
+    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+        [self cacheLevelNRulesStrings];
+    }
+}
 -(NSData*) level0Rules {
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
         [self cacheLevelNRulesStrings];

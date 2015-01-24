@@ -19,7 +19,8 @@
 @class MBLSFractalLevelNView;
 
 // Application preference keys
-static NSString*  kLastEditedFractalURI = @"lastEditedFractalURI";
+static NSString*  kPrefLastEditedFractalURI = @"lastEditedFractalURI";
+static NSString*  kPrefFullScreenState = @"fullScreenState";
 
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
@@ -45,7 +46,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewRoot;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewParent;
-@property (weak, nonatomic) IBOutlet UIView        *fractalView;
+@property (weak, nonatomic) IBOutlet UIImageView   *fractalView;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *fractalPanGR;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *fractal2PanGR;
 @property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *fractalRightSwipeGR;
@@ -87,9 +88,9 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 
 #pragma mark - Drawing Views
 //@property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel0;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel1;
-@property (weak, nonatomic) IBOutlet UIView         *fractalViewLevel2;
+@property (weak, nonatomic) IBOutlet UIImageView    *fractalViewLevel0;
+@property (weak, nonatomic) IBOutlet UIImageView    *fractalViewLevel1;
+@property (weak, nonatomic) IBOutlet UIImageView    *fractalViewLevel2;
 @property (weak, nonatomic) IBOutlet UISlider       *baseAngleSlider;
 @property (weak, nonatomic) IBOutlet UISlider       *randomnessVerticalSlider;
 @property (weak, nonatomic) IBOutlet UISlider       *turnAngleSlider;
@@ -114,10 +115,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 
 -(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel;
 -(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin;
--(void) configureNavButtons;
--(void) refreshLayers;
--(void) refreshValueInputs;
--(void) refreshContents;
+-(void) updateNavButtons;
 
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio;
 

@@ -436,7 +436,7 @@
     // Then defaultFractal will be nil.
     
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-    NSURL* selectedFractalURL = [userDefaults URLForKey: kLastEditedFractalURI];
+    NSURL* selectedFractalURL = [userDefaults URLForKey: kPrefLastEditedFractalURI];
     if (selectedFractalURL == nil) {
         // use a default
         defaultFractal = lastFractal;

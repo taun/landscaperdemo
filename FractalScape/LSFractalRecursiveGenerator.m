@@ -17,7 +17,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define MAXPRODUCTLENGTH 200000
-#define LSDEBUGPERFORMANCE
+//#define LSDEBUGPERFORMANCE
 //#define LSDEBUGPOSITION
 
 struct MBCommandsStruct {
@@ -40,9 +40,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     MBCommandSelectorsStruct _selectorsStruct;
 }
 
-@property (nonatomic,assign) BOOL                   pathNeedsGenerating;
-
-@property (nonatomic,assign,readwrite) CGRect       bounds;
+@property (nonatomic,assign,readwrite) CGRect       rawFractalPathBounds;
 @property (nonatomic,strong) NSArray*               cachedLineUIColors;
 @property (nonatomic,strong) NSArray*               cachedFillUIColors;
 @property (nonatomic,strong) UIColor*               defaultColor;
@@ -51,59 +49,48 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 @property (nonatomic,assign) CGPoint                controlPointNode;
 @property (nonatomic,assign) CGPoint                previousNode;
 
-
-@property (nonatomic,strong) UIImage*               cachedImage;
-@property (nonatomic,strong) NSDictionary*          cachedReplacementRules;
-
 @end
 
 #pragma mark - Implementation
 
 @implementation LSFractalRecursiveGenerator
 
++(instancetype) newGeneratorWithFractal:(LSFractal *)aFractal {
+    LSFractalRecursiveGenerator* newGenerator = [[LSFractalRecursiveGenerator alloc] initWithFractal: aFractal];
+    return newGenerator;
+}
 
-- (instancetype)init {
+-(instancetype) initWithFractal: (LSFractal*) aFractal {
     self = [super init];
     if (self) {
-        
-        _pathNeedsGenerating = YES;
-        _forceLevel = -1.0;
         _scale = 1.0;
         _autoscale = YES;
         _showOrigin = YES;
-        _translate = CGPointMake(0.0, 0.0);
-        _bounds =  CGRectMake(0, 0, 300, 300);
+        _translateX = 0.0;
+        _translateY = 0.0;
+        _rawFractalPathBounds =  CGRectZero;
         _defaultColor = [UIColor blueColor];
         _controlPointOn = NO;
         _segmentIndex = 0;
+        _margin = 0;
+        _backgroundColor = [UIColor clearColor];
+        
+        [self setValuesForFractal: aFractal];
     }
     return self;
 }
 
-- (void) dealloc {
-    // removes observer
-    self.fractal = nil;
+- (instancetype)init {
+    self = [self initWithFractal: nil];
+    return self;
 }
+
 #pragma mark - getters setters
 /* If fractal is not save, below will return nil for privateFractal. What to do? */
--(void) setFractal:(LSFractal *)fractal {
-    if (_fractal != fractal) {
-        
-        [self removeObserverForFractal: _fractal];
-        
-        _fractal = fractal;
-        
-        [self cacheDrawingRules];
-        [self addObserverForFractal: _fractal];
-        [self productionRuleChanged];
-    }
-}
--(CGRect) bounds {
-    // adjust for the lineWidth
-    CGFloat margin = _maxLineWidth*2.0+1.0;
-    CGRect result = CGRectInset(_bounds, -margin, -margin);
-    return result;
-    //    return _bounds;
+-(void) setValuesForFractal:(LSFractal *)aFractal {
+    [self cacheColors: aFractal];
+    [self cacheDrawingRules: aFractal];
+    [self setBaseSegmentForFractal: aFractal];
 }
 /*!
  Needs to only be called from the main thread or passed the privateFractal on the privateFractal thread.
@@ -112,6 +99,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
  @param fractal the fractal with the colors to be cached.
  */
 -(void) cacheColors: (LSFractal*)fractal {
+    MBColor* background = fractal.backgroundColor;
+    if (background) {
+        _backgroundColor = [background asUIColor];
+    } else {
+        _backgroundColor = [UIColor clearColor];
+    }
+    
+    
     NSMutableArray* tempColors = [[NSMutableArray alloc] initWithCapacity: fractal.lineColors.count];
     
     for (MBColor* color in fractal.lineColors) {
@@ -128,7 +123,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _cachedFillUIColors = [tempColors copy];
 }
 
--(void) cacheDrawingRules {
+-(void) cacheDrawingRules: (LSFractal*)aFractal {
     
         NSPointerArray* tempArray;
         
@@ -139,7 +134,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 //        [_privateObjectContext performBlockAndWait:^{
 //            self.fractal = (LSFractal*)[pcon objectWithID: mainID];
     
-            NSOrderedSet* rules = self.fractal.drawingRulesType.rules;
+            NSOrderedSet* rules = aFractal.drawingRulesType.rules;
 
             for (LSDrawingRule* rule in rules) {
                 unsigned char ruleIndex = rule.productionString.UTF8String[0];
@@ -162,111 +157,16 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _selectorsStruct.selector[i] = NULL;
     }
 }
--(void) cacheReplacementRules {
-    NSMutableDictionary* tempDictionary = [[NSMutableDictionary alloc] initWithCapacity: _fractal.replacementRules.count];
-    
-    NSOrderedSet* replacementRules =  _fractal.replacementRules;
-    for (LSReplacementRule* replacementRule in replacementRules) {
-        [tempDictionary setObject: replacementRule forKey: replacementRule.contextRule.productionString];
-    }
-    
-    self.cachedReplacementRules = [tempDictionary copy];
-}
--(void) clearCache {
-    self.cachedImage = nil;
-}
 
-#pragma mark Fractal Property KVO
-#pragma message "TODO remove observers. Just generate image and depend on caller to cancel."
-/* will this cause threading problems? */
--(void) addObserverForFractal:(LSFractal *)fractal {
-    if (fractal) {
-//        [fractal.managedObjectContext performBlock:^{
-        
-            NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
-            [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
-            [propertiesToObserve unionSet: [LSFractal redrawProperties]];
-            
-            for (NSString* keyPath in propertiesToObserve) {
-                [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
-            }
-            
-            for (LSReplacementRule* rRule in fractal.replacementRules) {
-                [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
-                [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
-            }
-//        }];
-    }
-}
--(void) removeObserverForFractal:(LSFractal *)fractal {
-    if (fractal) {
-//        [fractal.managedObjectContext performBlock:^{
-        
-            NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
-            [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
-            [propertiesToObserve unionSet: [LSFractal redrawProperties]];
-            
-            for (NSString* keyPath in propertiesToObserve) {
-                [fractal removeObserver: self forKeyPath: keyPath];
-            }
-            
-            for (LSReplacementRule* rule in fractal.replacementRules) {
-                [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
-                [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
-            }
-//        }];
-    }
-}
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
-        [keyPath isEqualToString: [LSReplacementRule rulesKey]] ||
-        [keyPath isEqualToString: [LSReplacementRule contextRuleKey]]) {
-        // productionRuleChanged
-        if (!(self.forceLevel > -1 && [keyPath isEqualToString: @"level"])) {
-            [self productionRuleChanged];
-//            [self cacheColors: _fractal];
-//            [self cacheLineEnds: _fractal];
-        }
-        
-        
-    } else if ([[LSFractal appearanceProperties] containsObject: keyPath]) {
-        // appearanceChanged - need to redo everything but rules
-        [self geometryChanged];
-//        [self cacheLineEnds: _fractal];
-        
-    } else if ([[LSFractal redrawProperties] containsObject: keyPath]) {
-        // bounds won't change for autoscaling but will need to redraw image.
-        [self geometryChanged];
-//        [self cacheColors: _fractal];
-//        [self cacheLineEnds: _fractal];
-        
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
-/*
- <CALayer:0x6d6b0c0; position = CGPoint (578.5 110.5); bounds = CGRect (0 0; 369 211); delegate = <LSFractalGenerator: 0x6d6bd30>; borderWidth = 1; cornerRadius = 20; backgroundColor = <CGColor 0x6d6b260> [<CGColorSpace 0x6d38c80> (kCGColorSpaceDeviceRGB)] ( 1 1 1 1 )>
- */
 -(NSString*) debugDescription {
-    CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(_bounds);
+    CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(_rawFractalPathBounds);
     NSString* boundsDescription = [(__bridge NSDictionary*)boundsDict description];
     CFRelease(boundsDict);
     
-    return [NSString stringWithFormat: @"<%@: fractal = %@; forceLevel = %g; bounds = %@>",
+    return [NSString stringWithFormat: @"<%@: bounds = %@>",
             NSStringFromClass([self class]),
-            self.fractal,
-            self.forceLevel,
             boundsDescription];
 }
--(BOOL)hasImageSize:(CGSize)size {
-    BOOL status = YES;
-    if ((self.cachedImage == nil) || !CGSizeEqualToSize(self.cachedImage.size, size)) {
-        status = NO;
-    }
-    return status;
-}
-
 
 -(CGColorRef) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {
     CGFloat count = (CGFloat)colorArray.count;
@@ -286,154 +186,95 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 
 #pragma mark - lazy init getters
-
+-(void) setBaseSegmentForFractal: (LSFractal*)aFractal {
+    _baseSegment.lineColorIndex = 0;
+    _baseSegment.fillColorIndex = 0;
+    
+    _baseSegment.lineLength = [aFractal.lineLength floatValue];
+    _baseSegment.lineLengthScaleFactor = [aFractal.lineLengthScaleFactor floatValue];
+    
+    _baseSegment.lineWidth = [aFractal.lineWidth floatValue];
+    _baseSegment.lineWidthIncrement = [aFractal.lineWidthIncrement floatValue];
+    
+    _baseSegment.turningAngle = [aFractal turningAngleAsDouble];
+    _baseSegment.turningAngleIncrement = [aFractal.turningAngleIncrement floatValue];
+    
+    _baseSegment.randomness = [aFractal.randomness floatValue];
+    _baseSegment.lineChangeFactor = [aFractal.lineChangeFactor floatValue];
+    
+    _baseSegment.lineCap = kCGLineCapRound;
+    _baseSegment.lineJoin = kCGLineJoinRound;
+    
+    _baseSegment.stroke = YES;
+    _baseSegment.fill = NO;
+    _baseSegment.EOFill = aFractal.eoFill ? [aFractal.eoFill boolValue] : NO;
+    
+    _baseSegment.drawingModeUnchanged = NO;
+    
+    _baseSegment.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0.0);//-[aFractal.baseAngle floatValue]);
+    _baseSegment.scale = 1.0;
+    
+    _baseSegment.points[0] = CGPointMake(0.0, 0.0);
+    _baseSegment.pointIndex = -1;
+    
+    _baseSegment.baseAngle = [aFractal.baseAngle floatValue];
+}
 -(void) initialiseSegmentWithContext: (CGContextRef)aCGContext {
     
-    // Copy the fractal core data values to the segment
-    
-//    [self.privateObjectContext reset];
-    //            [self.privateObjectContext refreshObject: self.privateFractal mergeChanges: NO];
-
-    _segmentIndex = 0;
-    MBSegmentStruct newSegment;
-    
-//    __block LSFractal* self.fractal;
-//    NSManagedObjectID *mainID = _fractalID;
-//    NSManagedObjectContext* pcon = _privateObjectContext;
-//    
-//    [self.privateObjectContext performBlockAndWait:^{
-    
-    //        self.fractal = (LSFractal*)[pcon objectWithID: mainID];
-    
-    newSegment.lineColorIndex = 0;
-    newSegment.fillColorIndex = 0;
-    
-    newSegment.lineLength = [self.fractal.lineLength floatValue];
-    newSegment.lineLengthScaleFactor = [self.fractal.lineLengthScaleFactor floatValue];
-    
-    newSegment.lineWidth = [self.fractal.lineWidth floatValue];
-    newSegment.lineWidthIncrement = [self.fractal.lineWidthIncrement floatValue];
-    
-    newSegment.turningAngle = [self.fractal turningAngleAsDouble];
-    newSegment.turningAngleIncrement = [self.fractal.turningAngleIncrement floatValue];
-    
-    newSegment.randomness = [self.fractal.randomness floatValue];
-    newSegment.lineChangeFactor = [self.fractal.lineChangeFactor floatValue];
-    
-    newSegment.lineCap = kCGLineCapRound;
-    newSegment.lineJoin = kCGLineJoinRound;
-    
-    newSegment.stroke = YES;
-    newSegment.fill = NO;
-    newSegment.EOFill = self.fractal.eoFill ? [self.fractal.eoFill boolValue] : NO;
-    
-    newSegment.drawingModeUnchanged = NO;
-    
-    newSegment.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0.0);//-[self.fractal.baseAngle floatValue]);
-    newSegment.scale = 1.0;
-    
-    newSegment.points[0] = CGPointMake(0.0, 0.0);
-    newSegment.pointIndex = -1;
-    
-    newSegment.baseAngle = [self.fractal.baseAngle floatValue];
+    MBSegmentStruct newSegment = _baseSegment;
     newSegment.context = aCGContext;
     
-    //    }];
-    self->_segmentStack[0] = newSegment;
-
+    _segmentIndex = 0;
+    _segmentStack[_segmentIndex] = newSegment;
 }
-
-//-(void) setInitialTransform:(CGAffineTransform)transform {
-//    _segmentStack[_segmentIndex].transform = transform;
-//}
-
-//-(CGAffineTransform) currentTransform {
-//    return _currentTransform;
-//}
-//
-//-(void) setCurrentTransform:(CGAffineTransform)currentTransform {
-//
-//}
-
-
-#pragma mark Product Generation
-
--(void) productionRuleChanged {
-    self.fractal.rulesUnchanged = NO;
-    [self cacheReplacementRules];
-    self.bounds = CGRectZero;
-
-    [self geometryChanged];
-}
-
-#pragma mark path generation
-
--(void) geometryChanged {
-    [self cacheColors: _fractal];
+-(void) generateImage {
+    if (self.imageView && self.operation && self.operation.isCancelled) {
+        return;
+    }
     
-    self.pathNeedsGenerating = YES;
+    CGSize size = self.imageView ? self.imageView.bounds.size : self.imageBounds.size;
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.pixelScale);
+    {
+        CGContextRef aCGontext = UIGraphicsGetCurrentContext();
+        [self drawInContext: aCGontext];
+        self.image = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    UIGraphicsEndImageContext();
+    
+    if (self.imageView && self.operation) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+//            [CATransaction begin];
+//            [CATransaction setValue:(id)kCFBooleanTrue
+//                             forKey:kCATransactionDisableActions];
+            
+            self.imageView.image = self.image;
+            
+//            [CATransaction commit];
+        });
+    }
 }
+-(void) fillBackgroundInContext: (CGContextRef)aCGContext {
+    
+    CGRect bounds = self.imageView ? self.imageView.bounds : self.imageBounds;
 
-#pragma mark - layer delegate
-/*!
- Transforms note:
- The transforms are the reverse of what I would expect.
- Calling a translate transform then scale transform seems to apply the transform to the data points as a scale then translate.
- 
- Example point at 100@100
- Translate -50@-50 then scale x2 should be point at 100@100 actual point seems to be 150@150
- Scale x2 then translate -50@-50 results in 50@50, the desired location.
- 
- Transforms seem to be stacked then applied as they are pulled off the stack. LIFO.
- */
-- (void)drawLayer:(CALayer *)theLayer inContext:(CGContextRef)theContext {
-    //    CGRect tileBoundingRect = CGContextGetClipBoundingBox(theContext);
-    //    CALayer* containerLayer = theLayer.superlayer;
-    CGRect tempRect = theLayer.bounds;
-    CGRect layerBounds = CGRectMake(tempRect.origin.x, tempRect.origin.y, tempRect.size.width, tempRect.size.height);
-    [self recursiveDrawInBounds: layerBounds withContext: theContext flipped: [theLayer contentsAreFlipped]];
-}
-
-/*!
- Can be called in a private thread, operation.
- 
- @param size
- @param uiColor
- 
- @return
- */
--(UIImage*) generateImageSize:(CGSize)size withBackground:(UIColor*)uiColor {
-        UIGraphicsBeginImageContextWithOptions(size, NO, 4.0);
-        
-        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        NSAssert(context, @"NULL Context being used. Context must be non-null.");
-        
-        UIColor* pageColor = [UIColor clearColor]; // default
-        
-        
-        MBColor* mbPageColor = self.fractal.backgroundColor;
-        if (mbPageColor) pageColor = [mbPageColor asUIColor];
-        
-        CGContextSaveGState(context);
-        UIColor* thumbNailBackground = [UIColor colorWithCGColor: pageColor.CGColor];
+    CGContextSaveGState(aCGContext);
+    {
+        UIColor* thumbNailBackground = self.backgroundColor;
         [thumbNailBackground setFill];
-        CGContextFillRect(context, viewRect);
-        CGContextRestoreGState(context);
-        
-        [self recursiveDrawInBounds: viewRect
-                        withContext: context
-                            flipped: YES];
-        
-        UIImage* fractalImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-    return fractalImage;
+        CGContextFillRect(aCGContext, bounds);
+    }
+    CGContextRestoreGState(aCGContext);
 }
-#pragma message "TODO update caches before generating image."
-#pragma message "TODO ability to cancel image generation in NSOperation queue when production changes"
--(void) recursiveDrawInBounds:(CGRect)imageBounds withContext:(CGContextRef)aCGContext flipped:(BOOL)isFlipped {
+-(void) drawInContext:(CGContextRef)aCGContext {
+
+    NSAssert(aCGContext, @"NULL Context being used. Context must be non-null.");
+    
+    [self fillBackgroundInContext: aCGContext];
+
+    CGRect bounds = self.imageView ? self.imageView.bounds : self.imageBounds;
+
     NSDate *methodStart;
     
 #ifdef LSDEBUGPERFORMANCE
@@ -443,16 +284,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 #endif
     // Following is because imageBounds value disappears after 1st if statement line below.
     // cause totally unknown.
-    
-    CGRect localBounds = imageBounds;
-    
+
     CGContextSaveGState(aCGContext);
     
-    CGFloat yOrientation = isFlipped ? -1.0 : 1.0;
-
-    CGFloat scale = 1.0;
-    CGFloat translationX = 0.0;
-    CGFloat translationY = 0.0;
+    CGFloat yOrientation = self.flipY ? -1.0 : 1.0;
     
     if (self.autoscale) {
         
@@ -471,43 +306,41 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             translate:  to -fractalCenter
          */
         
-        [self findFractalUntransformedBoundsForContext: aCGContext flipped: isFlipped];
+        [self findFractalUntransformedBoundsForContext: aCGContext];
         
          // Scaling
-        CGFloat scaleWidth = (localBounds.size.width-40.0)/self.bounds.size.width;
-        CGFloat scaleHeight = (localBounds.size.height-40.0)/self.bounds.size.height;
+        CGFloat scaleWidth = (bounds.size.width-2.0*self.margin)/self.rawFractalPathBounds.size.width;
+        CGFloat scaleHeight = (bounds.size.height-2.0*self.margin)/self.rawFractalPathBounds.size.height;
         
-        scale = MIN(scaleHeight, scaleWidth);
+        _scale = MIN(scaleHeight, scaleWidth);
         
         // Translating
-        CGFloat fractalCenterX = scale * CGRectGetMidX(self.bounds);
-        CGFloat fractalCenterY = scale * CGRectGetMidY(self.bounds)*yOrientation; //130
+        CGFloat fractalCenterX = _scale * CGRectGetMidX(self.rawFractalPathBounds);
+        CGFloat fractalCenterY = _scale * CGRectGetMidY(self.rawFractalPathBounds)*yOrientation; //130
         
-        CGFloat viewCenterX = CGRectGetMidX(localBounds);
-        CGFloat viewCenterY = CGRectGetMidY(localBounds)*yOrientation; // -434
+        CGFloat viewCenterX = CGRectGetMidX(bounds);
+        CGFloat viewCenterY = CGRectGetMidY(bounds)*yOrientation; // -434
         
-        translationX = viewCenterX - fractalCenterX;
-        translationY = viewCenterY - fractalCenterY;
+        _translateX = viewCenterX - fractalCenterX;
+        _translateY = viewCenterY - fractalCenterY;
         
 #ifdef LSDEBUGPOSITION
-        NSLog(@"\nBounds pre-autoscale layout: %@", NSStringFromCGRect(self.bounds));
+        NSLog(@"\nBounds pre-autoscale layout: %@", NSStringFromCGRect(self.rawFractalPathBounds));
 #endif
-    } else {
-        CGContextTranslateCTM(aCGContext, CGRectGetMidX(imageBounds), CGRectGetMidY(imageBounds));
     }
     
     [self initialiseSegmentWithContext: aCGContext];
     _segmentStack[_segmentIndex].noDrawPath = NO;
     _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
-    _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, translationX, translationY);
-    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, scale, scale);
-    _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, [self.fractal.baseAngle floatValue]);
-    _segmentStack[_segmentIndex].scale = scale;
+    _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, _translateX, _translateY);
+    _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, _scale, _scale);
+    _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, _segmentStack[_segmentIndex].baseAngle);
+    _segmentStack[_segmentIndex].scale = _scale;
     
     CGAffineTransform fractalOriginTransform = _segmentStack[_segmentIndex].transform;
 
 
-    [self createFractalWithContext: aCGContext];
+    [self createFractalInContext: aCGContext];
 
 
     if (self.showOrigin) {
@@ -518,11 +351,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             CGContextSetShadowWithColor(aCGContext, CGSizeMake(1.0, 1.0), 0.0, [shadowColor CGColor]);
             CGContextConcatCTM(aCGContext, fractalOriginTransform);
             UIImage* originDirectionImage = [UIImage imageNamed: @"kBIconRuleDrawLine"]; // kBIconRuleDrawLine  kNorthArrow
-            CGRect originDirectionRect = CGRectMake(0.0, -(originDirectionImage.size.height/2.0)/scale, originDirectionImage.size.width/scale, originDirectionImage.size.height/scale);
+            CGRect originDirectionRect = CGRectMake(0.0, -(originDirectionImage.size.height/2.0)/_scale, originDirectionImage.size.width/_scale, originDirectionImage.size.height/_scale);
             CGContextDrawImage(aCGContext, originDirectionRect, [originDirectionImage CGImage]);
             
             UIImage* originCircle = [UIImage imageNamed: @"controlDragCircle16px"];
-            CGRect originCircleRect = CGRectMake(-(originCircle.size.width/2.0)/scale, -(originCircle.size.height/2.0)/scale, originCircle.size.width/scale, originCircle.size.height/scale);
+            CGRect originCircleRect = CGRectMake(-(originCircle.size.width/2.0)/_scale, -(originCircle.size.height/2.0)/_scale, originCircle.size.width/_scale, originCircle.size.height/_scale);
             CGContextDrawImage(aCGContext, originCircleRect, [originCircle CGImage]);
             
         }
@@ -530,7 +363,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
 
 #ifdef LSDEBUGPOSITION
-    NSLog(@"Bounds post-autoscale layout: %@", NSStringFromCGRect(self.bounds));
+    NSLog(@"Bounds post-autoscale layout: %@", NSStringFromCGRect(self.rawFractalPathBounds));
 #endif
 
     CGContextRestoreGState(aCGContext);
@@ -541,17 +374,17 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         NSLog(@"Recursive total execution time: %.2fms", executionTime);
 #endif
 }
--(void) findFractalUntransformedBoundsForContext: (CGContextRef) aCGContext flipped:(BOOL)isFlipped {
-    CGFloat yOrientation = isFlipped ? -1.0 : 1.0;
+-(void) findFractalUntransformedBoundsForContext: (CGContextRef) aCGContext {
+    CGFloat yOrientation = self.flipY ? -1.0 : 1.0;
 
     [self initialiseSegmentWithContext: aCGContext];
     _segmentStack[_segmentIndex].noDrawPath = YES;
     _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
-    _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, [self.fractal.baseAngle floatValue]);
-    self.bounds = CGRectZero;
+    _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, _segmentStack[_segmentIndex].baseAngle);
+    self.rawFractalPathBounds = CGRectZero;
     
     CGContextSaveGState(aCGContext);
-    [self createFractalWithContext: aCGContext];
+    [self createFractalInContext: aCGContext];
     CGContextRestoreGState(aCGContext);
 }
 /*
@@ -561,31 +394,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     2. Redraw at best scale.
     3. Change scale as necessary when changing properties but only draw once and cache scale.
  */
--(void) createFractalWithContext: (CGContextRef) aCGContext {
+-(void) createFractalInContext: (CGContextRef) aCGContext {
 
 #ifdef LSDEBUGPERFORMANCE
     NSTimeInterval productExecutionTime = 0.0;
     NSDate *productionStart = [NSDate date];
 #endif
-    
-    CGFloat localLevel;
-    NSData* levelXRuleData;
-    
-    localLevel = [self.fractal.level floatValue];
-    if (self.forceLevel >= 0) {
-        localLevel = self.forceLevel;
-    }
-    
-    
-    if (localLevel == 0) {
-        levelXRuleData = self.fractal.level0Rules;
-    } else if (localLevel == 1) {
-        levelXRuleData = self.fractal.level1Rules;
-    } else if (localLevel == 2) {
-        levelXRuleData = self.fractal.level2Rules;
-    } else {
-        levelXRuleData = self.fractal.levelNRules;
-    }
     
 #ifdef LSDEBUGPERFORMANCE
     NSDate *productionFinish = [NSDate date];
@@ -596,33 +410,17 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     CGContextBeginPath(aCGContext);
     CGContextMoveToPoint(aCGContext, 0.0f, 0.0f);
     
-    CGContextSetStrokeColorWithColor(aCGContext, [[UIColor blueColor] CGColor]);
-    CGContextSetFillColorWithColor(aCGContext, [[UIColor yellowColor] CGColor]);
+    char* bytes = (char*)self.levelData.bytes;
     
-    char* bytes = (char*)levelXRuleData.bytes;
-    
-    for (long i=0; i < levelXRuleData.length; i++) {[self evaluateRule: bytes[i]];}
+    for (long i=0; i < self.levelData.length; i++) {
+        [self evaluateRule: bytes[i]];
+        if (self.operation.isCancelled) {
+            break;
+        }
+    }
     
     [self drawPath];
     
-//    NSLog(@"Bounds: %@", NSStringFromCGRect(_bounds));
-    
-//    [self segment: &startingSegment recursiveReplacementOf: rules replacements: self.cachedReplacementRules currentLevel: 0 desiredLevel: level];
-
-//    CGRect pathBounds = CGContextGetPathBoundingBox(_currentSegment->context); // path based on current transform! 0,0 is top left corner of screen
-    
-//    CGAffineTransform pathTransform = CGContextGetCTM(_currentSegment->context);
-//    CGAffineTransform pathInverse = CGAffineTransformInvert(pathTransform);
-//    CGRect normalizedRect = CGRectApplyAffineTransform(CGRectApplyAffineTransform(pathBounds, initialTransform ), pathInverse);
-    
-//    CGRect deviceBounds = CGContextConvertRectToDeviceSpace(_currentSegment->context, pathBounds);
-//    CGRect tempBounds = CGRectUnion(_bounds, deviceBounds);
-//    self.bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
-//    NSLog(@"Fractal \nPathBounds:\t %@;\nNorm Bounds:\t %@;\nTotal bounds: %@", NSStringFromCGRect(pathBounds), NSStringFromCGRect(normalizedRect),NSStringFromCGRect(tempBounds));
-    
-//    CGRect pathBounds = CGContextGetPathBoundingBox(cgContext);
-//    NSLog(@"Path Bounds: %@", NSStringFromCGRect(pathBounds));
-//    NSLog(@"LineLength: %f; LineWidth: %f",_currentSegment->lineLength, _currentSegment->lineWidth);
 }
 
 #pragma clang diagnostic push
@@ -646,34 +444,16 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     [self performSelector: cachedSelector];
 }
 
-
-//-(void) dispatchDrawingSelectorFromCString:(char*)selector {
-//    // Using cached selectors was a 50% performance improvement. Calling NSSelectorFromString is very expensive.
-//    SEL cachedSelector = [[self.cachedSelectors objectForKey: selector] pointerValue];
-//    
-//    if (!cachedSelector) {
-//        SEL uncachedSelector = NSSelectorFromString(selector);
-//        
-//        if ([self respondsToSelector: uncachedSelector]) {
-//            cachedSelector = uncachedSelector;
-//            [self.cachedSelectors setObject: [NSValue valueWithPointer: uncachedSelector] forKey: selector];
-//        }
-//    }
-//    
-//    [self performSelector: cachedSelector];
-//    
-//}
-
 #pragma mark helper methods
 
 -(CGFloat) aspectRatio {
-    return self.bounds.size.height/self.bounds.size.width;
+    return self.rawFractalPathBounds.size.height/self.rawFractalPathBounds.size.width;
 }
 
 -(CGSize) unitBox {
     CGSize result = {1.0,1.0};
-    CGFloat width = self.bounds.size.width;
-    CGFloat height = self.bounds.size.height;
+    CGFloat width = self.rawFractalPathBounds.size.width;
+    CGFloat height = self.rawFractalPathBounds.size.height;
     
     if (width >= height) {
         // wider than tall width is 1.0
@@ -686,8 +466,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 
 -(void) updateBoundsWithPoint: (CGPoint) aPoint {
-    CGRect tempBounds = CGRectUnion(_bounds, CGRectMake(aPoint.x, aPoint.y, 1.0, 1.0));
-    _bounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
+    CGRect tempBounds = CGRectUnion(_rawFractalPathBounds, CGRectMake(aPoint.x, aPoint.y, 1.0, 1.0));
+    _rawFractalPathBounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
 }
 /*!
  static inline without method dispatch saves 50ms out of 850ms.
@@ -728,7 +508,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
     _segmentStack[_segmentIndex].pointIndex += 1;
     _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedPoint;
     
-    _bounds = inlineUpdateBounds(_bounds, transformedPoint);
+    _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint);
 }
 
 -(NSUInteger) segmentPointCount {
