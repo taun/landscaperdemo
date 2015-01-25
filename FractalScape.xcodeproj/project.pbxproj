@@ -113,6 +113,7 @@
 		C59E321A1A1125F80076B40B /* MBColorCategory+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E32191A1125F80076B40B /* MBColorCategory+addons.m */; };
 		C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */; };
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
+		C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */; };
 		C5A464F214C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
 		C5A464F314C90BFA002BF0A3 /* LSFractalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */; };
 		C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */; };
@@ -298,6 +299,7 @@
 		C59E321E1A12AB950076B40B /* MBFractalColorViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalColorViewContainer.h; path = FractalScape/MBFractalColorViewContainer.h; sourceTree = "<group>"; };
 		C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalColorViewContainer.m; path = FractalScape/MBFractalColorViewContainer.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5A464F014C90BFA002BF0A3 /* LSFractalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalGenerator.h; path = FractalScape/model/LSFractalGenerator.h; sourceTree = "<group>"; };
 		C5A464F114C90BFA002BF0A3 /* LSFractalGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalGenerator.m; path = FractalScape/model/LSFractalGenerator.m; sourceTree = "<group>"; };
 		C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
+				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,
 				C5C37C551A24E6A1008C5409 /* MDUIKit */,
 				C5CD99D619BA21F40037E976 /* FractalScape.entitlements */,
 				C5E6B7C414A5359A00DA48BD /* Model */,
@@ -910,6 +913,7 @@
 				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C579625E16DC3E1200A8BCDC /* Root.plist in Resources */,
+				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
 				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
 				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);

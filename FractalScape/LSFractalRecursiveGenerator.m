@@ -240,19 +240,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         self.image = UIGraphicsGetImageFromCurrentImageContext();
     }
     UIGraphicsEndImageContext();
-    
-    if (self.imageView && self.operation) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-//            [CATransaction begin];
-//            [CATransaction setValue:(id)kCFBooleanTrue
-//                             forKey:kCATransactionDisableActions];
-            
-            self.imageView.image = self.image;
-            
-//            [CATransaction commit];
-        });
-    }
 }
 -(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size{
     

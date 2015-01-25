@@ -24,7 +24,7 @@ static NSString*  kPrefFullScreenState = @"fullScreenState";
 
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
-UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate>
+UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate>
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;
@@ -46,6 +46,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewRoot;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewParent;
+@property (weak, nonatomic) IBOutlet UIScrollView  *fractalScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView   *fractalView;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *fractalPanGR;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *fractal2PanGR;
@@ -113,8 +114,6 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 #pragma mark - Generation and Display
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo;
 
--(void) setupLevelGeneratorForFractal: (LSFractal*) fractal View: (UIView*) aView name: (NSString*) name margin: (CGFloat) margin forceLevel: (NSInteger) aLevel;
--(void) fitLayer: (CALayer*) layerInner inLayer: (CALayer*) layerOuter margin: (double) margin;
 -(void) updateNavButtons;
 
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio;

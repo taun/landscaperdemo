@@ -83,12 +83,10 @@ static BOOL SIMULTOUCH = NO;
 
 
 -(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) fractal;
--(void) updateGeneratorsForFractal: (LSFractal*) fractal;
 -(void) addObserversForFractal: (LSFractal*) fractal;
 -(void) removeObserversForFractal: (LSFractal*) fractal;
 
 //-(void) setEditMode: (BOOL) editing;
--(void) updateViewsForEditMode: (BOOL) editing;
 -(void) fullScreenOn;
 -(void) fullScreenOff;
 
@@ -280,64 +278,6 @@ static BOOL SIMULTOUCH = NO;
 //    subLayer.position = self.fractalView.center;
 }
 
-
-// TODO: generate a thumbnail whenever saving. add thumbnails to coreData
--(void)setEditing:(BOOL)editing animated:(BOOL)animated {
-    [UIView transitionWithView: self.view
-                      duration:0.5
-                       options:UIViewAnimationOptionCurveEaseInOut
-                    animations:^{ [self updateViewsForEditMode: editing]; }
-                    completion:^(BOOL finished){ [self autoScale:nil]; }];
-    
-    [super setEditing:editing animated:animated];
-    
-    /*
-     When editing starts, create and set an undo manager to track edits. Then register as an observer of undo manager change notifications, so that if an undo or redo operation is performed, the table view can be reloaded.
-     When editing ends, de-register from the notification center and remove the undo manager, and save the changes.
-     */
-    if (editing) {
-        // reset cancelled status
-        self.cancelled = NO;
-        
-        [self.undoManager beginUndoGrouping];
-        
-        
-    } else {
-        
-        //[self.undoManager endUndoGrouping];
-        
-        if (self.isCancelled) {
-            //            NSManagedObjectID* objectID = self.currentFractal.objectID;
-            //            NSManagedObjectContext* moc = self.currentFractal.managedObjectContext;
-            
-            [self.fractal.managedObjectContext rollback];
-            self.cancelled = NO;
-            // reload fractal from store.
-            //            self.currentFractal = (LSFractal*)[moc objectRegisteredForID: objectID];
-        } else {
-            // Save the changes.
-            NSError *error;
-            if (![self.fractal.managedObjectContext save:&error]) {
-                // Update to handle the error appropriately.
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                // exit(-1);  // Fail
-                // TODO: alert here?
-                
-            }
-        }
-        [self.undoManager removeAllActions];
-        [self setUndoManager: nil];
-        [self becomeFirstResponder];
-    }
-    
-    [self updateInterface];
-    // Hide the back button when editing starts, and show it again when editing finishes.
-    [self.navigationItem setHidesBackButton:editing animated:animated];
-    
-//    [self setEditMode: editing];
-//    [self.fractalPropertiesTableView setEditing: editing animated: animated];
-}
-
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     // Return YES for supported orientations
 	return YES;
@@ -504,7 +444,7 @@ static BOOL SIMULTOUCH = NO;
         _fractalID = _fractal.objectID;
         
         [_privateFractalContext performBlockAndWait:^{
-            self->_privateQueueFractal = [self->_privateFractalContext objectWithID: _fractalID];
+            self->_privateQueueFractal = (LSFractal*)[self->_privateFractalContext objectWithID: self->_fractalID];
         }];
         
         [self addObserversForFractal: _fractal];
@@ -795,6 +735,11 @@ static BOOL SIMULTOUCH = NO;
         //code
         if (!generator.operation.isCancelled) {
             [generator generateImage];
+            if (generator.imageView && generator.image) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    generator.imageView.image = generator.image;
+                }];
+            }
         }
     }];
     return operation;
@@ -1274,7 +1219,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
   need to lock in either horizontal or vertical panning view a state and state change */
 -(IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer {
     [self convertPanToAngleAspectChange: gestureRecognizer
-                               subLayer: self.fractalView
+                               imageView: self.fractalView
                               anglePath: @"turningAngle"
                              angleScale: 5.0/1.0
                                minAngle: -180.0
@@ -1287,7 +1232,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
-                               subLayer: self.fractalViewLevel0
+                               imageView: self.fractalViewLevel0
                               anglePath: @"baseAngle"
                              angleScale: 5.0/1.0
                                minAngle: -180.0
@@ -1300,7 +1245,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
-                               subLayer: self.fractalViewLevel1
+                               imageView: self.fractalViewLevel1
                               anglePath: @"turningAngle"
                              angleScale: 1.0/10.0
                                minAngle: -180.0
@@ -1314,7 +1259,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 #pragma message "TODO: need to add a step size and change turningAngleIncrement from degrees to percent"
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender {
     [self convertPanToAngleAspectChange: sender
-                               subLayer: self.fractalViewLevel2
+                               imageView: self.fractalViewLevel2
                               anglePath: @"turningAngleIncrement"
                              angleScale: 1.0/1.0
                                minAngle: 0.0
@@ -1327,7 +1272,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 
 -(void) convertPanToAngleAspectChange: (UIPanGestureRecognizer*) gestureRecognizer
-                             subLayer: (CALayer*) subLayer
+                             imageView: (UIImageView*) subLayer
                             anglePath: (NSString*) anglePath
                            angleScale: (CGFloat) angleScale
                              minAngle: (CGFloat) minAngle
@@ -1518,10 +1463,11 @@ static void countPathElements(void *info, const CGPathElement *element) {
 }
 
 -(IBAction) autoScale:(id)sender {
-    CALayer* subLayer = nil; //[self fractalLevelNLayer];
-    subLayer.transform = CATransform3DIdentity;
-    subLayer.position = self.fractalView.center;
+//    CALayer* subLayer = nil; //[self fractalLevelNLayer];
+//    subLayer.transform = CATransform3DIdentity;
+//    subLayer.position = self.fractalView.center;
     // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
+    [self.fractalScrollView setZoomScale: 1.0 animated: YES];
 }
 
 - (IBAction)toggleFullScreen:(id)sender {
@@ -1582,6 +1528,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
     generator.name = @"PDF Generator";
     generator.margin = 72.0;
     generator.autoscale = YES;
+    generator.flipY = NO;
     
     NSMutableData* pdfData = [NSMutableData data];
     NSDictionary* pdfMetaData = @{(NSString*)kCGPDFContextCreator:@"FractalScape", (NSString*)kCGPDFContextTitle:self.fractal.name, (NSString*)kCGPDFContextKeywords:self.fractal.category};
@@ -1699,7 +1646,13 @@ static void countPathElements(void *info, const CGPathElement *element) {
     [self presentViewController:alert animated:YES completion:nil];
     
 }
-
+#pragma mark - UIScrollViewDelegate
+-(UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.fractalView.superview;
+}
+-(void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+    // TODO: if view is smaller than scrollview, center view in scrollview.
+}
 #pragma mark - control actions
 - (IBAction)incrementLineWidth:(id)sender {
     if ([self.fractal.isImmutable boolValue]) {

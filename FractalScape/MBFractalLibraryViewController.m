@@ -8,7 +8,7 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
-#import "LSFractalGenerator.h"
+#import "LSFractalRecursiveGenerator.h"
 #import "LSFractal+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
@@ -168,23 +168,32 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     cell.textLabel.text = cellFractal.name;
     cell.detailTextLabel.text = cellFractal.descriptor;
     
-    LSFractalGenerator* generator = (self.fractalToThumbnailGenerators)[objectID];
+    LSFractalRecursiveGenerator* generator = (self.fractalToThumbnailGenerators)[objectID];
     
     CGSize thumbnailSize = [self cachedThumbnailSizeForCell: cell];
     
     UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
     
-    if ([generator hasImageSize: thumbnailSize]) {
-        cell.imageView.image = [generator generateImageSize: thumbnailSize withBackground: thumbNailBackground];
+#pragma message "TODO replace (NO) with code to get fractal CoreData thumbnail in background."
+    if ((NO)) {
+        //cell.imageView.image = [generator generateImageSize: thumbnailSize withBackground: thumbNailBackground];
     } else {
         if (!generator) {
             // No generator yet
-            generator = [[LSFractalGenerator alloc] init];
-            generator.fractal = cellFractal;
+            generator = [LSFractalRecursiveGenerator newGeneratorWithFractal: cellFractal];
+            generator.imageView = cell.imageView;
+            generator.flipY = YES;
+            generator.margin = 10.0;
+            generator.showOrigin = NO;
+            generator.autoscale = YES;
+#pragma message "TODO move generateLevelData to a privateQueue in case of large levels or just limit level?"
+            [cellFractal generateLevelData];
+            generator.levelData = cellFractal.levelNRulesCache;
+            
             (self.fractalToThumbnailGenerators)[objectID] = generator;
         }
             
-        NSOperation* operation = (self.fractalToGeneratorOperations)[objectID];
+        NSBlockOperation* operation = generator.operation;
         
         // if the operation exists and is finished
         //      remove and queue a new operation
@@ -194,35 +203,35 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
         //      queue new operation
         
         if (operation && operation.isFinished) {
-            [self.fractalToGeneratorOperations removeObjectForKey: objectID];
+            generator.operation = nil;
             operation = nil;
         }
         
         if (!operation) {
-            operation = [NSBlockOperation blockOperationWithBlock:^{
+            operation = [NSBlockOperation new];
+            generator.operation = operation;
+            
+            [operation addExecutionBlock: ^{
                 //code
-                UIImage* fractalImage = [generator generateImageSize: thumbnailSize withBackground: thumbNailBackground];
-                
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    //code
-                    [[(MBCollectionFractalCell*)[collectionView cellForItemAtIndexPath: indexPath] imageView] setImage: fractalImage];
-                }];
+                if (!generator.operation.isCancelled) {
+                    [generator generateImage];
+                    
+                    if (generator.imageView && generator.image) {
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [[(MBCollectionFractalCell*)[collectionView cellForItemAtIndexPath: indexPath] imageView] setImage: generator.image];
+                        }];
+                    }
+                }
             }];
-            (self.fractalToGeneratorOperations)[objectID] = operation;
             [self.privateQueue addOperation: operation];
         }
     
         cell.imageView.image = [self placeHolderImageSized: thumbnailSize background: thumbNailBackground];
     }
     
-//    cell.imageView.highlightedImage = cell.imageView.image;
     MBImmutableCellBackgroundView* newBackground =  [MBImmutableCellBackgroundView new];
     newBackground.readOnlyView = [cellFractal.isImmutable boolValue];
     cell.backgroundView = newBackground;
-    
-//    if (self.fractal == cellFractal) {
-//        cell.selected = YES;
-//    }
     
     return cell;
 }
