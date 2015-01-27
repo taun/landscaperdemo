@@ -227,7 +227,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _segmentStack[_segmentIndex] = newSegment;
 }
 -(void) generateImage {
-    if (!self.imageView || (self.operation && self.operation.isCancelled)) {
+    [self generateImagePercent: 100.0];
+}
+-(void) generateImagePercent:(CGFloat)percent {
+    if (!self.imageView || (self.operation && self.operation.isCancelled) || percent <= 0.0) {
         return;
     }
     
@@ -236,7 +239,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     UIGraphicsBeginImageContextWithOptions(size, NO, self.pixelScale);
     {
         CGContextRef aCGontext = UIGraphicsGetCurrentContext();
-        [self drawInContext: aCGontext size: size];
+        [self drawInContext: aCGontext size: size percent: percent];
         self.image = UIGraphicsGetImageFromCurrentImageContext();
     }
     UIGraphicsEndImageContext();
@@ -251,7 +254,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
     CGContextRestoreGState(aCGContext);
 }
--(void) drawInContext:(CGContextRef)aCGContext size: (CGSize)size{
+-(void) drawInContext:(CGContextRef)aCGContext size:(CGSize)size {
+    [self drawInContext: aCGContext size: size percent: 100.0];
+}
+-(void) drawInContext:(CGContextRef)aCGContext size: (CGSize)size percent:(CGFloat)percent {
 
     NSAssert(aCGContext, @"NULL Context being used. Context must be non-null.");
     
@@ -318,7 +324,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     CGAffineTransform fractalOriginTransform = _segmentStack[_segmentIndex].transform;
 
 
-    [self createFractalInContext: aCGContext];
+    [self createFractalInContext: aCGContext percent: percent];
 
 
     if (self.showOrigin) {
@@ -362,7 +368,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     self.rawFractalPathBounds = CGRectZero;
     
     CGContextSaveGState(aCGContext);
-    [self createFractalInContext: aCGContext];
+    [self createFractalInContext: aCGContext percent: 100.0];
     CGContextRestoreGState(aCGContext);
 }
 /*
@@ -372,7 +378,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     2. Redraw at best scale.
     3. Change scale as necessary when changing properties but only draw once and cache scale.
  */
--(void) createFractalInContext: (CGContextRef) aCGContext {
+-(void) createFractalInContext: (CGContextRef) aCGContext percent: (CGFloat)percent {
 
 #ifdef LSDEBUGPERFORMANCE
     NSTimeInterval productExecutionTime = 0.0;
@@ -390,7 +396,13 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     char* bytes = (char*)self.levelData.bytes;
     
-    for (long i=0; i < self.levelData.length; i++) {
+    CGFloat maxPercent = MIN(100.0, percent);
+    CGFloat minPercent = (MAX(1.0, maxPercent))/100.0;
+    long dataLength = minPercent >= 0.99 ? self.levelData.length : minPercent*self.levelData.length;
+    
+    dataLength = dataLength > self.levelData.length ? self.levelData.length : dataLength;
+    
+    for (long i=0; i < dataLength; i++) {
         [self evaluateRule: bytes[i]];
         if (self.operation.isCancelled) {
             break;
