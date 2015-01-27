@@ -163,7 +163,6 @@
 		C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B78A14A5346300DA48BD /* InfoPlist.strings */; };
 		C5E6B78E14A5346300DA48BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B78D14A5346300DA48BD /* main.m */; };
 		C5E6B79214A5346300DA48BD /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79114A5346300DA48BD /* MBAppDelegate.m */; };
-		C5E6B79514A5346300DA48BD /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */; };
 		C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */; };
 		C5E6B79B14A5346300DA48BD /* MBFractalLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */; };
 		C5E6B7AF14A5346300DA48BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78114A5346300DA48BD /* UIKit.framework */; };
@@ -355,7 +354,6 @@
 		C5E6B78F14A5346300DA48BD /* FractalScape-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FractalScape-Prefix.pch"; sourceTree = "<group>"; };
 		C5E6B79014A5346300DA48BD /* MBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBAppDelegate.h; sourceTree = "<group>"; };
 		C5E6B79114A5346300DA48BD /* MBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBAppDelegate.m; sourceTree = "<group>"; };
-		C5E6B79414A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		C5E6B79714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		C5E6B79914A5346300DA48BD /* MBFractalLibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBFractalLibraryViewController.h; path = FractalScape/MBFractalLibraryViewController.h; sourceTree = "<group>"; };
 		C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MBFractalLibraryViewController.m; path = FractalScape/MBFractalLibraryViewController.m; sourceTree = "<group>"; };
@@ -583,7 +581,6 @@
 				C5E6B79014A5346300DA48BD /* MBAppDelegate.h */,
 				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
 				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
-				C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */,
 				C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */,
 				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
 			);
@@ -895,7 +892,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */,
-				C5E6B79514A5346300DA48BD /* MainStoryboard_iPhone.storyboard in Resources */,
 				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
 				C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
 				C5B3F18619DC804100BDFAF5 /* FractalMedia.xcassets in Resources */,
@@ -1106,14 +1102,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		C5E6B79314A5346300DA48BD /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C5E6B79414A5346300DA48BD /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
 		C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1278,6 +1266,7 @@
 				PRODUCT_NAME = FractalScape;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1303,6 +1292,7 @@
 				PRODUCT_NAME = FractalScape;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
