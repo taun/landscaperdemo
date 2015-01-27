@@ -1,5 +1,5 @@
 //
-//  LSFractalRecursiveGenerator.h
+//  LSFractalRenderer.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 01/05/15.
@@ -174,9 +174,9 @@
  The same generator can not be used in multiple concurrent operations.
  A separate fractalGenerator should be used for each image size and level.
  */
-@interface LSFractalRecursiveGenerator : NSObject
+@interface LSFractalRenderer : NSObject
 
-+(instancetype) newGeneratorWithFractal: (LSFractal*)aFractal;
++(instancetype) newRendererForFractal: (LSFractal*)aFractal;
 -(instancetype) initWithFractal: (LSFractal*) aFractal;
 /*!
  For convenience during debugging multiple threads/operations.

@@ -169,8 +169,8 @@
 		C5E6B7B014A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
 		C5E6B7B814A5346300DA48BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B7B614A5346300DA48BD /* InfoPlist.strings */; };
 		C5E6B7BB14A5346300DA48BD /* FractalScapeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B7BA14A5346300DA48BD /* FractalScapeTests.m */; };
-		C5F544821A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F544801A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.h */; };
-		C5F544831A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F544811A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.m */; };
+		C5F544821A5B56B3000EE8B9 /* LSFractalRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F544801A5B56B3000EE8B9 /* LSFractalRenderer.h */; };
+		C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F544811A5B56B3000EE8B9 /* LSFractalRenderer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -362,8 +362,8 @@
 		C5E6B7B714A5346300DA48BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C5E6B7B914A5346300DA48BD /* FractalScapeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FractalScapeTests.h; sourceTree = "<group>"; };
 		C5E6B7BA14A5346300DA48BD /* FractalScapeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FractalScapeTests.m; sourceTree = "<group>"; };
-		C5F544801A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalRecursiveGenerator.h; path = FractalScape/LSFractalRecursiveGenerator.h; sourceTree = "<group>"; };
-		C5F544811A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalRecursiveGenerator.m; path = FractalScape/LSFractalRecursiveGenerator.m; sourceTree = "<group>"; };
+		C5F544801A5B56B3000EE8B9 /* LSFractalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalRenderer.h; path = FractalScape/LSFractalRenderer.h; sourceTree = "<group>"; };
+		C5F544811A5B56B3000EE8B9 /* LSFractalRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalRenderer.m; path = FractalScape/LSFractalRenderer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -637,8 +637,8 @@
 			isa = PBXGroup;
 			children = (
 				C5914AAC14C9ED2C00856F57 /* CoreData */,
-				C5F544801A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.h */,
-				C5F544811A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.m */,
+				C5F544801A5B56B3000EE8B9 /* LSFractalRenderer.h */,
+				C5F544811A5B56B3000EE8B9 /* LSFractalRenderer.m */,
 				C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */,
 				C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */,
 				C53956FD14BF5B0000D7301B /* QuartzHelpers.h */,
@@ -756,7 +756,7 @@
 				C5D5423B1A30EDE3006CD47A /* MBColorCategory.h in Headers */,
 				C5D542331A300FC6006CD47A /* MDBColorCategoryListView.h in Headers */,
 				C50764691A33A537009DDF83 /* LSDrawingRuleType.h in Headers */,
-				C5F544821A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.h in Headers */,
+				C5F544821A5B56B3000EE8B9 /* LSFractalRenderer.h in Headers */,
 				C52EA9AD1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h in Headers */,
 				C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */,
 				C5150F7A1A202DDA00DC8A0E /* MBPlacedEntity+addons.h in Headers */,
@@ -1018,7 +1018,7 @@
 				C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */,
 				C50764761A33A537009DDF83 /* LSReplacementRule.m in Sources */,
 				C501478C170B47DB00BD7488 /* MBFractalScape.m in Sources */,
-				C5F544831A5B56B3000EE8B9 /* LSFractalRecursiveGenerator.m in Sources */,
+				C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */,
 				C5D542401A30EDE4006CD47A /* MBColor.m in Sources */,
 				C564A32919E722FA00839D9E /* MBDraggingItem.m in Sources */,
 				C5C37C5F1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m in Sources */,

@@ -21,7 +21,7 @@
 #import "MBFractalScape+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
-#import "LSFractalRecursiveGenerator.h"
+#import "LSFractalRenderer.h"
 
 #import <QuartzCore/QuartzCore.h>
 #include <ImageIO/CGImageProperties.h>
@@ -64,17 +64,17 @@ static BOOL SIMULTOUCH = NO;
  */
 @property (nonatomic,strong) NSOperationQueue              *privateImageGenerationQueue;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorL0Image;
-@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorL0;
+@property (nonatomic,strong) LSFractalRenderer   *fractalGeneratorL0;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorL1Image;
-@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorL1;
+@property (nonatomic,strong) LSFractalRenderer   *fractalGeneratorL1;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorL2Image;
-@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorL2;
+@property (nonatomic,strong) LSFractalRenderer   *fractalGeneratorL2;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorLN2S1Image;
-@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorLN2S1;
+@property (nonatomic,strong) LSFractalRenderer   *fractalGeneratorLN2S1;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorLNS1Image;
-@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorLNS1;
+@property (nonatomic,strong) LSFractalRenderer   *fractalGeneratorLNS1;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorLNS4Image;
-@property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorLNS4;
+@property (nonatomic,strong) LSFractalRenderer   *fractalGeneratorLNS4;
 @property (nonatomic,assign) BOOL                          autoscaleN;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
@@ -434,10 +434,10 @@ static BOOL SIMULTOUCH = NO;
         [self updateInterface];
     }
 }
--(LSFractalRecursiveGenerator*) fractalGeneratorL0 {
+-(LSFractalRenderer*) fractalGeneratorL0 {
     if (!_fractalGeneratorL0) {
         if (self.fractal) {
-            _fractalGeneratorL0 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorL0 = [LSFractalRenderer newRendererForFractal: self.fractal];
             _fractalGeneratorL0.name = @"_fractalGeneratorL0";
             _fractalGeneratorL0.imageView = self.fractalViewLevel0;
             _fractalGeneratorL0.pixelScale = self.fractalViewLevel0.contentScaleFactor;
@@ -449,10 +449,10 @@ static BOOL SIMULTOUCH = NO;
     }
     return _fractalGeneratorL0;
 }
--(LSFractalRecursiveGenerator*) fractalGeneratorL1 {
+-(LSFractalRenderer*) fractalGeneratorL1 {
     if (!_fractalGeneratorL1) {
         if (self.fractal) {
-            _fractalGeneratorL1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorL1 = [LSFractalRenderer newRendererForFractal: self.fractal];
             _fractalGeneratorL1.name = @"_fractalGeneratorL1";
             _fractalGeneratorL1.imageView = self.fractalViewLevel1;
             _fractalGeneratorL1.pixelScale = self.fractalViewLevel1.contentScaleFactor;
@@ -464,10 +464,10 @@ static BOOL SIMULTOUCH = NO;
     }
     return _fractalGeneratorL1;
 }
--(LSFractalRecursiveGenerator*) fractalGeneratorL2 {
+-(LSFractalRenderer*) fractalGeneratorL2 {
     if (!_fractalGeneratorL2) {
         if (self.fractal) {
-            _fractalGeneratorL2 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorL2 = [LSFractalRenderer newRendererForFractal: self.fractal];
             _fractalGeneratorL2.name = @"_fractalGeneratorL2";
             _fractalGeneratorL2.imageView = self.fractalViewLevel2;
             _fractalGeneratorL2.pixelScale = self.fractalViewLevel2.contentScaleFactor;
@@ -479,10 +479,10 @@ static BOOL SIMULTOUCH = NO;
     }
     return _fractalGeneratorL2;
 }
--(LSFractalRecursiveGenerator*) fractalGeneratorLN2S1 {
+-(LSFractalRenderer*) fractalGeneratorLN2S1 {
     if (!_fractalGeneratorLN2S1) {
         if (self.fractal) {
-            _fractalGeneratorLN2S1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorLN2S1 = [LSFractalRenderer newRendererForFractal: self.fractal];
             _fractalGeneratorLN2S1.name = @"_fractalGeneratorLN2S1";
             _fractalGeneratorLN2S1.imageView = self.fractalView;
             _fractalGeneratorLN2S1.pixelScale = self.fractalView.contentScaleFactor;
@@ -494,10 +494,10 @@ static BOOL SIMULTOUCH = NO;
     }
     return _fractalGeneratorLN2S1;
 }
--(LSFractalRecursiveGenerator*) fractalGeneratorLNS1 {
+-(LSFractalRenderer*) fractalGeneratorLNS1 {
     if (!_fractalGeneratorLNS1) {
         if (self.fractal) {
-            _fractalGeneratorLNS1 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorLNS1 = [LSFractalRenderer newRendererForFractal: self.fractal];
             _fractalGeneratorLNS1.name = @"_fractalGeneratorLNS1";
             _fractalGeneratorLNS1.imageView = self.fractalView;
             _fractalGeneratorLNS1.pixelScale = self.fractalView.contentScaleFactor;
@@ -509,10 +509,10 @@ static BOOL SIMULTOUCH = NO;
     }
     return _fractalGeneratorLNS1;
 }
--(LSFractalRecursiveGenerator*) fractalGeneratorLNS4 {
+-(LSFractalRenderer*) fractalGeneratorLNS4 {
     if (!_fractalGeneratorLNS4) {
         if (self.fractal) {
-            _fractalGeneratorLNS4 = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+            _fractalGeneratorLNS4 = [LSFractalRenderer newRendererForFractal: self.fractal];
             _fractalGeneratorLNS4.name = @"_fractalGeneratorLNS4";
             _fractalGeneratorLNS4.imageView = self.fractalView;
             _fractalGeneratorLNS4.pixelScale = self.fractalView.contentScaleFactor*2.0;
@@ -643,16 +643,21 @@ static BOOL SIMULTOUCH = NO;
         });
     }];
 }
+-(NSUInteger) levelNIndex {
+    NSUInteger levelNIndex = [self.fractal.level integerValue] > 3 ? 3 : [self.fractal.level integerValue];
+    return levelNIndex;
+}
 -(void) updateGeneratorLevels: (NSArray*)levelDataArray {
     self.levelDataArray = levelDataArray;
+    
     
     if (self.levelDataArray.count == 4) {
         self.fractalGeneratorL0.levelData = self.levelDataArray[0];
         self.fractalGeneratorL1.levelData = self.levelDataArray[1];
         self.fractalGeneratorL2.levelData = self.levelDataArray[2];
 //        self.fractalGeneratorLN2S1.levelData = self.levelDataArray[2];
-        self.fractalGeneratorLNS1.levelData = self.levelDataArray[3];
-        self.fractalGeneratorLNS4.levelData = self.levelDataArray[3];
+        self.fractalGeneratorLNS1.levelData = self.levelDataArray[[self levelNIndex]];
+        self.fractalGeneratorLNS4.levelData = self.levelDataArray[[self levelNIndex]];
         [self queueFractalImageUpdates];
     }
 }
@@ -671,15 +676,18 @@ static BOOL SIMULTOUCH = NO;
 
     [self queueHudImageUpdates];
     
-    self.fractalGeneratorLNS1.autoscale = self.autoscaleN;
-    NSBlockOperation* operationNN1 = [self operationForGenerator: self.fractalGeneratorLNS1];
-    
     self.fractalGeneratorLNS4.autoscale = self.autoscaleN;
     NSBlockOperation* operationNN4 = [self operationForGenerator: self.fractalGeneratorLNS4];
 
-    [operationNN4 addDependency: operationNN1];
+    if ([self.fractal.level integerValue] > 4) {
+        self.fractalGeneratorLNS1.autoscale = self.autoscaleN;
+        NSBlockOperation* operationNN1 = [self operationForGenerator: self.fractalGeneratorLNS1];
+        
+        [operationNN4 addDependency: operationNN1];
+        
+        [self.privateImageGenerationQueue addOperation: operationNN1];
+    }
     
-    [self.privateImageGenerationQueue addOperation: operationNN1];
     [self.privateImageGenerationQueue addOperation: operationNN4];
 }
 -(void) queueHudImageUpdates {
@@ -701,7 +709,7 @@ static BOOL SIMULTOUCH = NO;
         [self.privateImageGenerationQueue addOperation: operation2];
     }
 }
--(NSBlockOperation*) operationForGenerator: (LSFractalRecursiveGenerator*)generator {
+-(NSBlockOperation*) operationForGenerator: (LSFractalRenderer*)generator {
     
     [generator setValuesForFractal: self.fractal];
 
@@ -1046,7 +1054,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }];
 }
 
--(NSBlockOperation*) operationForGenerator: (LSFractalRecursiveGenerator*)generator percent: (CGFloat)percent {
+-(NSBlockOperation*) operationForGenerator: (LSFractalRenderer*)generator percent: (CGFloat)percent {
     
     NSBlockOperation* operation = [NSBlockOperation new];
     generator.operation = operation;
@@ -1069,16 +1077,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
 #pragma message "TODO use generator.renderTime to determine the percent increment."
     self.fractalGeneratorLNS1.autoscale = NO;
-    LSFractalRecursiveGenerator* generator;
+    LSFractalRenderer* generator;
     NSBlockOperation* operation;
     NSBlockOperation* prevOperation;
-    CGFloat percent = 0.0;
     
-    CGFloat time = self.fractalGeneratorLNS1.renderTime;
+//    CGFloat time = self.fractalGeneratorLNS1.renderTime;
+//    CGFloat stepSize = 0.0 * time;
     
     prevOperation = [self operationForGenerator: self.fractalGeneratorLNS1 percent: 1.0];
 
-    for (percent = 2.0; percent <= 100; percent += 1.0) {
+    for (CGFloat percent = 2.0; percent <= 100; percent += 1.0) {
         operation = [self operationForGenerator: self.fractalGeneratorLNS1 percent: percent];
         [operation addDependency: prevOperation];
         [self.privateImageGenerationQueue addOperation: prevOperation];
@@ -1318,7 +1326,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(NSData*) createPDF {
     CGRect imageBounds = CGRectMake(0, 0, 1024, 1024);
     
-    LSFractalRecursiveGenerator* generator = [LSFractalRecursiveGenerator newGeneratorWithFractal: self.fractal];
+    LSFractalRenderer* generator = [LSFractalRenderer newRendererForFractal: self.fractal];
     generator.levelData = self.levelDataArray[3];
     generator.name = @"PDF Generator";
     generator.margin = 72.0;

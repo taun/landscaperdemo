@@ -8,7 +8,7 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
-#import "LSFractalRecursiveGenerator.h"
+#import "LSFractalRenderer.h"
 #import "LSFractal+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
@@ -168,7 +168,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     cell.textLabel.text = cellFractal.name;
     cell.detailTextLabel.text = cellFractal.descriptor;
     
-    LSFractalRecursiveGenerator* generator = (self.fractalToThumbnailGenerators)[objectID];
+    LSFractalRenderer* generator = (self.fractalToThumbnailGenerators)[objectID];
     
     CGSize thumbnailSize = [self cachedThumbnailSizeForCell: cell];
     
@@ -179,7 +179,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     } else {
         if (!generator) {
             // No generator yet
-            generator = [LSFractalRecursiveGenerator newGeneratorWithFractal: cellFractal];
+            generator = [LSFractalRenderer newRendererForFractal: cellFractal];
             generator.imageView = cell.imageView;
             generator.flipY = YES;
             generator.margin = 10.0;

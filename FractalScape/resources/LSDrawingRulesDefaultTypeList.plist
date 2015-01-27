@@ -87,16 +87,16 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleCurveCC</string>
 		</dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Insert a curve node</string>
-            <key>productionString</key>
-            <string>.</string>
-            <key>drawingMethodString</key>
-            <string>commandCurvePoint</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleCurvePoint</string>
-        </dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Insert a curve node</string>
+			<key>productionString</key>
+			<string>.</string>
+			<key>drawingMethodString</key>
+			<string>commandCurvePoint</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleCurvePoint</string>
+		</dict>
 		<dict>
 			<key>descriptor</key>
 			<string>Rotate left before next move.</string>
@@ -139,7 +139,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Start an open polygon.</string>
+			<string>Start a polygon shape. Add a fillOn for filled polygon. *Do not put a polygon in a polygon!</string>
 			<key>productionString</key>
 			<string>{</string>
 			<key>drawingMethodString</key>
@@ -149,7 +149,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Start a closed polygon.</string>
+			<string>Close the polygon.</string>
 			<key>productionString</key>
 			<string>}</string>
 			<key>drawingMethodString</key>

@@ -1,12 +1,12 @@
 //
-//  LSFractalRecursiveGenerator.m
+//  LSFractalRenderer.m
 //  FractalScape
 //
 //  Created by Taun Chapman on 01/05/15.
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import "LSFractalRecursiveGenerator.h"
+#import "LSFractalRenderer.h"
 
 #import "LSFractal+addons.h"
 #import "MBColor+addons.h"
@@ -31,7 +31,7 @@ struct MBCommandSelectorsStruct {
 typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 
-@interface LSFractalRecursiveGenerator () {
+@interface LSFractalRenderer () {
     CGFloat             _maxLineWidth;
     MBSegmentStruct     _segmentStack[kLSMaxLevels];
     NSUInteger          _segmentIndex;
@@ -53,10 +53,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 #pragma mark - Implementation
 
-@implementation LSFractalRecursiveGenerator
+@implementation LSFractalRenderer
 
-+(instancetype) newGeneratorWithFractal:(LSFractal *)aFractal {
-    LSFractalRecursiveGenerator* newGenerator = [[LSFractalRecursiveGenerator alloc] initWithFractal: aFractal];
++(instancetype) newRendererForFractal:(LSFractal *)aFractal {
+    LSFractalRenderer* newGenerator = [[LSFractalRenderer alloc] initWithFractal: aFractal];
     return newGenerator;
 }
 
@@ -537,36 +537,27 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 
 #pragma mark - Private Draw Methods
 -(void) drawPath {
+    [self drawPathClosed: NO];
+}
+
+-(void) drawPathClosed: (BOOL)closed {
     
-    if (_segmentStack[_segmentIndex].pointIndex > 0) {
+    if (_segmentStack[_segmentIndex].pointIndex > 0)
+    {
         // need at least two points
-        if (!_segmentStack[_segmentIndex].noDrawPath) {
+        if (!_segmentStack[_segmentIndex].noDrawPath)
+        {
             [self setCGGraphicsStateFromCurrentSegment];
             
-            // Not worth using CGContextStrokeLineSegments
-//            CGPathDrawingMode mode = [self getSegmentDrawingMode];
-//            if (mode == kCGPathStroke) {
-//                // use faster drawing
-//                CGPoint p1;
-//                CGPoint p2;
-//                long pointsCount = _segmentStack[_segmentIndex].pointIndex + 1;
-//                long di = 0;
-//                CGPoint doubledPoints[2*pointsCount];
-//                for (long i=1; i < pointsCount; i++) {
-//                    di = 2*i;
-//                    doubledPoints[di-2] = _segmentStack[_segmentIndex].points[i-1];
-//                    doubledPoints[di-1] = _segmentStack[_segmentIndex].points[i];
-//                }
-//                CGContextStrokeLineSegments(_segmentStack[_segmentIndex].context, doubledPoints, di);
-//            } else {
-            // need to fill
             CGContextAddLines(_segmentStack[_segmentIndex].context,_segmentStack[_segmentIndex].points,_segmentStack[_segmentIndex].pointIndex+1);
             _segmentStack[_segmentIndex].pointIndex = -1;
-            CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
-//            }
             
+            if (closed || _segmentStack[_segmentIndex].fill)
+            {
+                CGContextClosePath(_segmentStack[_segmentIndex].context);
+            }
+            CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
         }
-        
     }
 }
 
@@ -584,24 +575,29 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
     CGContextAddRect(_segmentStack[_segmentIndex].context, transformedRect);
 }
 
+-(void) pushCurrentPath {
+    _segmentIndex = _segmentIndex < kLSMaxSegmentStackSize ? ++_segmentIndex : _segmentIndex;
+    _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
+    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
+}
+-(void) popCurrentPath {
+    _segmentIndex = _segmentIndex > 0 ? --_segmentIndex : _segmentIndex;
+    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
+}
+
 #pragma mark - Public Rule Draw Methods
 
 -(void) commandDoNothing {
 }
 
 -(void) commandPush {
-    [self drawPath]; // draw before saving state
-
-    _segmentIndex = _segmentIndex < kLSMaxSegmentStackSize ? ++_segmentIndex : _segmentIndex;
-    _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
-    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
+    [self drawPath];
+    [self pushCurrentPath];
 }
 
 -(void) commandPop {
-    [self drawPath]; // draw before restoring previous state
-    
-    _segmentIndex = _segmentIndex > 0 ? --_segmentIndex : _segmentIndex;
-    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
+    [self drawPath];
+    [self popCurrentPath];
 }
 
 -(void) commandDrawLine {
@@ -731,22 +727,23 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
     [self drawCircleRadius: _segmentStack[_segmentIndex].lineWidth];
 }
 -(void) commandDrawDotFilledNoStroke {
-//    [self commandPush];
     [self commandStrokeOff];
     [self commandFillOn];
     [self commandDrawDot];
-//    [self commandPop];
 }
 
 -(void) commandOpenPolygon {
-    [self commandPush];
+    [self drawPath]; // draw before saving state
+    [self pushCurrentPath];
     [self commandStrokeOff];
     [self commandFillOn];
 }
 
 -(void) commandClosePolygon {
-    [self commandPop];
+    [self drawPathClosed: YES];
+    [self popCurrentPath];
 }
+
 #pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
 -(void) commandUpscaleLineLength {
     [self drawPath];
@@ -771,16 +768,12 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 }
 
 -(void) commandDecrementAngle {
-    [self drawPath];
-    
     if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
         _segmentStack[_segmentIndex].turningAngle -= _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
     }
 }
 
 -(void) commandIncrementAngle {
-    [self drawPath];
-    
     if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
         _segmentStack[_segmentIndex].turningAngle += _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
     }
@@ -793,23 +786,19 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
  through the block, it would split the drawing operation into two separate draws eliminating the desired fill.
  */
 -(void) commandStrokeOff {
-    //    [self startNewSegment];
     [self drawPath];
     _segmentStack[_segmentIndex].stroke = NO;
 }
 
 -(void) commandStrokeOn {
-    //    [self startNewSegment];
     [self drawPath];
     _segmentStack[_segmentIndex].stroke = YES;
 }
 -(void) commandFillOff {
-    //    [self startNewSegment];
     [self drawPath];
     _segmentStack[_segmentIndex].fill = NO;
 }
 -(void) commandFillOn {
-    //    [self startNewSegment];
     [self drawPath];
     _segmentStack[_segmentIndex].fill = YES;
 }
