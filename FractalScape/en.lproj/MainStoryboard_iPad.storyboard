@@ -27,39 +27,32 @@
                                             <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="964"/>
                                                 <subviews>
-                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" minimumZoomScale="0.5" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="K7q-IS-pfO">
+                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="K7q-IS-pfO">
                                                         <rect key="frame" x="0.0" y="0.0" width="768" height="964"/>
                                                         <subviews>
-                                                            <view contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-5R-WKj">
-                                                                <rect key="frame" x="-616" y="-468" width="2000" height="2000"/>
+                                                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-5R-WKj">
+                                                                <rect key="frame" x="0.0" y="0.0" width="768" height="964"/>
                                                                 <subviews>
                                                                     <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="UIImageView">
-                                                                        <rect key="frame" x="616" y="518" width="768" height="964"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="964"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <gestureRecognizers/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="768" id="BOX-Ga-iCv"/>
-                                                                            <constraint firstAttribute="height" constant="964" id="epl-mw-rUj"/>
-                                                                        </constraints>
                                                                         <connections>
-                                                                            <outletCollection property="gestureRecognizers" destination="usL-KC-8Lh" appends="YES" id="DSc-sO-Smp"/>
-                                                                            <outletCollection property="gestureRecognizers" destination="acZ-Cu-g4T" appends="YES" id="RX0-e9-zlz"/>
                                                                             <outletCollection property="gestureRecognizers" destination="AiJ-gH-Iwz" appends="YES" id="H0h-WS-kTt"/>
-                                                                            <outletCollection property="gestureRecognizers" destination="Fp9-fg-OXf" appends="YES" id="8UY-Hh-9RN"/>
                                                                             <outletCollection property="gestureRecognizers" destination="wp3-t2-GY6" appends="YES" id="vpi-Uw-Isd"/>
-                                                                            <outletCollection property="gestureRecognizers" destination="5hS-Q6-3ge" appends="YES" id="hux-71-ZzP"/>
                                                                         </connections>
                                                                     </view>
                                                                 </subviews>
-                                                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="centerY" secondItem="QA7-0x-p1h" secondAttribute="centerY" id="Ctk-y8-4YU"/>
                                                                     <constraint firstAttribute="centerX" secondItem="QA7-0x-p1h" secondAttribute="centerX" id="Jhx-T6-Q7X"/>
-                                                                    <constraint firstAttribute="width" constant="2000" id="PUh-ST-RN7"/>
-                                                                    <constraint firstAttribute="height" constant="2000" id="coh-pC-YZr"/>
+                                                                    <constraint firstItem="QA7-0x-p1h" firstAttribute="height" secondItem="9wd-5R-WKj" secondAttribute="height" id="LJF-oi-p6Z"/>
+                                                                    <constraint firstItem="QA7-0x-p1h" firstAttribute="width" secondItem="9wd-5R-WKj" secondAttribute="width" id="cd2-Ml-Uae"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
+                                                        <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="centerY" secondItem="9wd-5R-WKj" secondAttribute="centerY" id="hKJ-k9-Sfv"/>
                                                             <constraint firstAttribute="centerX" secondItem="9wd-5R-WKj" secondAttribute="centerX" id="qis-Lk-h88"/>
@@ -72,9 +65,11 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="K7q-IS-pfO" secondAttribute="trailing" id="GLO-TA-tnq"/>
+                                                    <constraint firstAttribute="width" secondItem="9wd-5R-WKj" secondAttribute="width" id="Mwq-Ch-RLn"/>
                                                     <constraint firstItem="K7q-IS-pfO" firstAttribute="leading" secondItem="L8D-tT-rkV" secondAttribute="leading" id="WF5-Bd-UWv"/>
                                                     <constraint firstAttribute="bottom" secondItem="K7q-IS-pfO" secondAttribute="bottom" id="biS-mC-3aL"/>
                                                     <constraint firstItem="K7q-IS-pfO" firstAttribute="top" secondItem="L8D-tT-rkV" secondAttribute="top" id="dAz-gs-pgq"/>
+                                                    <constraint firstAttribute="height" secondItem="9wd-5R-WKj" secondAttribute="height" id="vR1-JI-2Jq"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerViewDesignable">
@@ -348,7 +343,7 @@
                                                                 </constraints>
                                                             </slider>
                                                             <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="eWI-3g-lQK" userLabel="lineThicknessIncrementSlider">
-                                                                <rect key="frame" x="-38" y="35" width="118" height="96"/>
+                                                                <rect key="frame" x="-38" y="35" width="118" height="31"/>
                                                                 <accessibility key="accessibilityConfiguration" label="Randomness"/>
                                                             </slider>
                                                         </subviews>
@@ -631,13 +626,7 @@
                         <outlet property="baseAngleSlider" destination="gy6-SY-i9T" id="S85-G3-sVr"/>
                         <outlet property="editButton" destination="X2L-iC-acQ" id="Lo3-pv-esw"/>
                         <outlet property="fractal2PanGR" destination="wp3-t2-GY6" id="BSt-we-AGL"/>
-                        <outlet property="fractalDownSwipeGR" destination="usL-KC-8Lh" id="GwR-hC-rsJ"/>
-                        <outlet property="fractalLeftSwipeGR" destination="5hS-Q6-3ge" id="cdI-7f-iYB"/>
-                        <outlet property="fractalPanGR" destination="x2O-Yf-evw" id="aML-tj-gHv"/>
-                        <outlet property="fractalPinchGR" destination="KmT-IC-2J0" id="V3O-Zf-LrU"/>
-                        <outlet property="fractalRightSwipeGR" destination="Fp9-fg-OXf" id="8Il-o7-2DJ"/>
                         <outlet property="fractalScrollView" destination="K7q-IS-pfO" id="6ID-cf-h70"/>
-                        <outlet property="fractalUpSwipeGR" destination="acZ-Cu-g4T" id="Epu-uD-bYG"/>
                         <outlet property="fractalView" destination="QA7-0x-p1h" id="PkH-4W-exl"/>
                         <outlet property="fractalViewHolder" destination="TbU-WI-8ja" id="RPw-mZ-aWX"/>
                         <outlet property="fractalViewLevel0" destination="a6O-Vz-bO2" id="HuL-uc-thg"/>
@@ -667,42 +656,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="KmT-IC-2J0" userLabel="Fractal Pinch Gesture Recognizer">
-                    <connections>
-                        <action selector="scaleFractal:" destination="4nM-Pc-iAd" id="1fM-nB-Vc6"/>
-                        <outlet property="delegate" destination="4nM-Pc-iAd" id="SVU-As-rgp"/>
-                    </connections>
-                </pinchGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="x2O-Yf-evw" userLabel="Fractal Pan Gesture Recognizer">
-                    <connections>
-                        <action selector="panFractal:" destination="4nM-Pc-iAd" id="NIe-EZ-raW"/>
-                        <outlet property="delegate" destination="4nM-Pc-iAd" id="15P-TM-NU5"/>
-                    </connections>
-                </panGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="Fp9-fg-OXf" userLabel="Fractal Right Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="swipeFractal:" destination="4nM-Pc-iAd" id="ev3-9n-eDB"/>
-                        <outlet property="delegate" destination="4nM-Pc-iAd" id="wm2-Js-HyZ"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="5hS-Q6-3ge" userLabel="Fractal Left Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="swipeFractal:" destination="4nM-Pc-iAd" id="XGZ-rQ-BAx"/>
-                        <outlet property="delegate" destination="4nM-Pc-iAd" id="V2H-Ni-9hB"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="up" id="acZ-Cu-g4T" userLabel="Fractal Up Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="swipeFractal:" destination="4nM-Pc-iAd" id="5pc-j9-7Qa"/>
-                        <outlet property="delegate" destination="4nM-Pc-iAd" id="MNa-C2-Iqn"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="down" id="usL-KC-8Lh" userLabel="Fractal Down Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="swipeFractal:" destination="4nM-Pc-iAd" id="p9k-zN-AYN"/>
-                        <outlet property="delegate" destination="4nM-Pc-iAd" id="tM9-aL-rax"/>
-                    </connections>
-                </swipeGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="2" maximumNumberOfTouches="2" id="wp3-t2-GY6" userLabel="Fractal 2Finger Pan Gesture Recognizer">
                     <connections>
                         <action selector="twoFingerPanFractal:" destination="4nM-Pc-iAd" id="tNE-9P-ick"/>

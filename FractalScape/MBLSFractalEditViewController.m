@@ -21,7 +21,6 @@
 #import "MBFractalScape+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
-//#import "LSFractalGenerator.h"
 #import "LSFractalRecursiveGenerator.h"
 
 #import <QuartzCore/QuartzCore.h>
@@ -56,9 +55,6 @@ static BOOL SIMULTOUCH = NO;
 @property (nonatomic,assign) CGSize                 popoverPortraitSize;
 @property (nonatomic,assign) CGSize                 popoverLandscapeSize;
 
-#pragma message "TODO eliminate. used for edit mode which is now unused."
-@property (nonatomic,assign,getter=isCancelled) BOOL cancelled;
-
 @property (nonatomic,strong) NSManagedObjectContext        *privateFractalContext;
 @property (nonatomic,strong) LSFractal                     *privateQueueFractal;
 @property (nonatomic,strong) NSManagedObjectID             *fractalID;
@@ -66,7 +62,7 @@ static BOOL SIMULTOUCH = NO;
 /*!
  Fractal background image generation queue.
  */
-@property (nonatomic,strong) NSOperationQueue              *privateQueue;
+@property (nonatomic,strong) NSOperationQueue              *privateImageGenerationQueue;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorL0Image;
 @property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorL0;
 @property (nonatomic,strong) UIImage                       *fractalGeneratorL1Image;
@@ -81,6 +77,7 @@ static BOOL SIMULTOUCH = NO;
 @property (nonatomic,strong) LSFractalRecursiveGenerator   *fractalGeneratorLNS4;
 @property (nonatomic,assign) BOOL                          autoscaleN;
 
+@property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 
 -(void) saveToUserPreferencesAsLastEditedFractal: (LSFractal*) fractal;
 -(void) addObserversForFractal: (LSFractal*) fractal;
@@ -89,10 +86,6 @@ static BOOL SIMULTOUCH = NO;
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
 -(void) fullScreenOff;
-
--(void) useFractalDefinitionRulesView;
--(void) useFractalDefinitionAppearanceView;
-//-(void) loadDefinitionViews;
 
 - (void)updateUndoRedoBarButtonState;
 - (void)setUpUndoManager;
@@ -174,6 +167,13 @@ static BOOL SIMULTOUCH = NO;
     _turnIncrementSlider.maximumValue = 1.0;
     _turnIncrementSlider.value = 0.0;
 
+    UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
+    self.fractalScrollView.contentInset = scrollInsets;
+    UIView* fractalCanvas = self.fractalView.superview;
+    fractalCanvas.layer.shadowColor = [[UIColor blackColor] CGColor];
+    fractalCanvas.layer.shadowOffset = CGSizeMake(5.0, 5.0);
+    fractalCanvas.layer.shadowOpacity = 0.3;
+    fractalCanvas.layer.shadowRadius = 3.0;
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL fullScreenState = [defaults boolForKey: kPrefFullScreenState];
@@ -185,23 +185,6 @@ static BOOL SIMULTOUCH = NO;
         
 }
 
-/*!
- Initial view autolayout of the nib is done between viewDidLoad and viewWillAppear.
- viewDiDLoad has the nib view size without a toolbar
- viewWillAppear has the nib view after being resized.
- 
- viewDidLoad is portrait but 20 pixels taller when started in landscape orientation.
- Does not become landscape until viewWillAppear.
- */
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//
-//    [self setEditMode: YES];
-//}
-
-/*
- 
- */
 -(void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
 }
@@ -241,7 +224,7 @@ static BOOL SIMULTOUCH = NO;
 
 -(void)viewWillDisappear:(BOOL)animated {
     
-    [_privateQueue cancelAllOperations];
+    [_privateImageGenerationQueue cancelAllOperations];
 
     if (self.editing) {
         [self.fractal.managedObjectContext save: nil];
@@ -261,15 +244,9 @@ static BOOL SIMULTOUCH = NO;
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
     
-    // Could use GLKVector2 but chose not to. This works at the expense of a little verbosity but avoiding adding GLK dependence.
-    CGPoint currentCenter = self.view.center;
-    CGPoint newCenter = CGPointMake(size.width/2.0, size.height/2.0);
-    CGPoint translation = CGPointMake(newCenter.x-currentCenter.x, newCenter.y-currentCenter.y);
-//    CGPoint fractalCenter = self.fractalView.position;
-//    CGPoint fractalNewPosition = CGPointMake(fractalCenter.x+translation.x, fractalCenter.y+translation.y);
-    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         //
+        [self queueFractalImageUpdates];
 //        self.fractalView.position = fractalNewPosition;
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
@@ -408,12 +385,12 @@ static BOOL SIMULTOUCH = NO;
 
     return _appearanceViewController;
 }
--(NSOperationQueue*) privateQueue {
-    if (!_privateQueue) {
-        _privateQueue = [[NSOperationQueue alloc] init];
-        _privateQueue.name = @"FractalImageGenerationQueue";
+-(NSOperationQueue*) privateImageGenerationQueue {
+    if (!_privateImageGenerationQueue) {
+        _privateImageGenerationQueue = [[NSOperationQueue alloc] init];
+        _privateImageGenerationQueue.name = @"FractalImageGenerationQueue";
     }
-    return _privateQueue;
+    return _privateImageGenerationQueue;
 }
 
 
@@ -431,7 +408,7 @@ static BOOL SIMULTOUCH = NO;
 //            fractal = [fractal mutableCopy];
 //        }
 
-        [_privateQueue cancelAllOperations];
+        [_privateImageGenerationQueue cancelAllOperations];
         
         [self removeObserversForFractal: _fractal];
         
@@ -609,7 +586,7 @@ static BOOL SIMULTOUCH = NO;
     //    
     self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: @(degrees([self.fractal.turningAngle doubleValue]))];
 }
-#pragma message "TODO queue fractal image operations"
+
 /*!
  Want to queue
  If HUDs are showing
@@ -690,7 +667,7 @@ static BOOL SIMULTOUCH = NO;
         [self.fractalGeneratorLNS1.operation cancel];
     }
 
-    [self.privateQueue waitUntilAllOperationsAreFinished];
+    [self.privateImageGenerationQueue waitUntilAllOperationsAreFinished];
 
     [self queueHudImageUpdates];
     
@@ -702,26 +679,26 @@ static BOOL SIMULTOUCH = NO;
 
     [operationNN4 addDependency: operationNN1];
     
-    [self.privateQueue addOperation: operationNN1];
-    [self.privateQueue addOperation: operationNN4];
+    [self.privateImageGenerationQueue addOperation: operationNN1];
+    [self.privateImageGenerationQueue addOperation: operationNN4];
 }
 -(void) queueHudImageUpdates {
     if (!self.fractalViewLevel0.superview.hidden) {
         NSBlockOperation* operation0 = [self operationForGenerator: self.fractalGeneratorL0];
         self.fractalGeneratorL0.backgroundColor = [UIColor clearColor];
-        [self.privateQueue addOperation: operation0];
+        [self.privateImageGenerationQueue addOperation: operation0];
     }
     
     if (!self.fractalViewLevel1.superview.hidden) {
         NSBlockOperation* operation1 = [self operationForGenerator: self.fractalGeneratorL1];
         self.fractalGeneratorL1.backgroundColor = [UIColor clearColor];
-        [self.privateQueue addOperation: operation1];
+        [self.privateImageGenerationQueue addOperation: operation1];
     }
     
     if (!self.fractalViewLevel2.superview.hidden) {
         NSBlockOperation* operation2 = [self operationForGenerator: self.fractalGeneratorL2];
         self.fractalGeneratorL2.backgroundColor = [UIColor clearColor];
-        [self.privateQueue addOperation: operation2];
+        [self.privateImageGenerationQueue addOperation: operation2];
     }
 }
 -(NSBlockOperation*) operationForGenerator: (LSFractalRecursiveGenerator*)generator {
@@ -743,32 +720,6 @@ static BOOL SIMULTOUCH = NO;
         }
     }];
     return operation;
-}
--(void) useFractalDefinitionRulesView {
-    
-    if (self.fractalDefinitionAppearanceView.superview == nil) {
-        [self.fractalDefinitionPlaceholderView addSubview: self.fractalDefinitionRulesView];
-    } else {
-        [UIView transitionFromView: self.fractalDefinitionAppearanceView 
-                            toView: self.fractalDefinitionRulesView 
-                          duration: 0.3 
-                           options: UIViewAnimationOptionTransitionFlipFromLeft 
-                        completion: NULL];
-    }
-    
-}
-
--(void) useFractalDefinitionAppearanceView {
-    
-    if (self.fractalDefinitionRulesView.superview == nil) {
-        [self.fractalDefinitionPlaceholderView addSubview: self.fractalDefinitionAppearanceView];
-    } else {
-        [UIView transitionFromView: self.fractalDefinitionRulesView 
-                            toView: self.fractalDefinitionAppearanceView 
-                          duration: 0.3 
-                           options: UIViewAnimationOptionTransitionFlipFromRight 
-                        completion: NULL];
-    }
 }
 
 /*
@@ -1024,22 +975,65 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
  @param sender share button
  */
 - (IBAction)shareButtonPressed:(id)sender {
+    [self shareWithDocumentInteractionController: sender];
+}
+
+- (IBAction)shareWithDocumentInteractionController:(id)sender {
+    
+    NSData* pdfData = [self createPDF];
+    
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    // The file extension is important so that some mime magic happens!
+    NSString* fileName = [NSString stringWithFormat: @"%@.pdf",self.fractal.name];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: fileName];
+    NSURL *fileUrl     = [NSURL fileURLWithPath:filePath];
+    
+    [pdfData writeToURL:fileUrl atomically:YES]; // save the file
+
+
+    _documentShareController = [UIDocumentInteractionController interactionControllerWithURL: fileUrl];
+//    documentSharer.UTI = @"com.adobe.pdf";
+    _documentShareController.delegate = self;
+    
+    NSArray* iconList = _documentShareController.icons;
+    if (iconList.count > 0) {
+        if ([sender isKindOfClass: [UIBarButtonItem class]]) {
+            BOOL success = [_documentShareController presentOptionsMenuFromBarButtonItem: sender animated: YES];
+            //        BOOL result = [documentSharer presentOpenInMenuFromBarButtonItem: sender animated: YES];
+        } else {
+            [_documentShareController presentOpenInMenuFromRect: [sender bounds] inView: self.fractalViewRoot animated: YES];
+        }
+    }
+}
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application {
+    _documentShareController = nil;
+}
+- (IBAction)shareWithActivityControler:(id)sender {
     
     UIImage* fractalImage = [self snapshot: self.fractalView];
     NSData* pngImage = UIImagePNGRepresentation(fractalImage);
     
     NSData* pdfData = [self createPDF];
-
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pngImage,pdfData] applicationActivities:nil];
+    
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    // The file extension is important so that some mime magic happens!
+    NSString* fileName = [NSString stringWithFormat: @"%@.pdf",self.fractal.name];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: fileName];
+    NSURL *fileUrl     = [NSURL fileURLWithPath:filePath];
+    
+    [pdfData writeToURL:fileUrl atomically:YES]; // save the file
+    
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pngImage, pdfData] applicationActivities:nil];
     
     
     UIPopoverPresentationController* ppc = activityViewController.popoverPresentationController;
     
-
+    
     if ([sender isKindOfClass: [UIBarButtonItem class]]) {
         ppc.barButtonItem = sender;
     } else {
-                
+        
         ppc.sourceView = sender;
         ppc.sourceRect = [sender bounds];
     }
@@ -1048,9 +1042,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     [self presentViewController: activityViewController animated: YES completion: ^{
         //
-//        self.currentPresentedController = newController;
+        //        self.currentPresentedController = newController;
     }];
 }
+
 - (IBAction)playButtonPressed:(id)sender {
 //    CGPathRef thePath = (CGPathRef)[(LSFractalGenerator*)[self.generatorsArray firstObject] fractalCGPathRef];
     
@@ -1117,12 +1112,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 //    [CATransaction commit];
     
 }
-static void countPathElements(void *info, const CGPathElement *element) {
-    
-    NSMutableArray *countArray = (__bridge NSMutableArray *)info;
-    countArray[0] = [NSNumber numberWithInteger: ([countArray[0] integerValue]+1)];
-}
-- (IBAction)copyFractal:(id)sender {    
+- (IBAction)copyFractal:(id)sender {
     // copy
     self.fractal = [self.fractal mutableCopy];
     
@@ -1135,87 +1125,8 @@ static void countPathElements(void *info, const CGPathElement *element) {
     self.fractal.level = roundedNumber;
 }
 
--(IBAction) rotateTurningAngle:(UIRotationGestureRecognizer*)sender {
-    if (self.editing) {
-        
-//        NSIndexPath* turnAngleIndex = (self.appearanceCellIndexPaths)[@"turningAngle"];
-//        
-//        if (turnAngleIndex) {
-//            [self.fractalPropertiesTableView scrollToRowAtIndexPath: turnAngleIndex
-//                                                   atScrollPosition: UITableViewScrollPositionMiddle
-//                                                           animated: YES];
-//            
-//        }
-//        
-        
-        //        double stepRadians = radians(self.turnAngleStepper.stepValue);
-        double stepRadians = radians(2.5);
-        // 2.5 degrees -> radians
-        
-        double deltaTurnToDeltaGestureRatio = 1.0/6.0;
-        // reduce the sensitivity to make it easier to rotate small degrees
-        
-        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender
-                                                              quanta: stepRadians
-                                                               ratio: deltaTurnToDeltaGestureRatio];
-        
-        if (deltaTurnAngle != 0.0 ) {
-            double newAngle = remainder([self.fractal.turningAngle doubleValue]-deltaTurnAngle, M_PI*2);
-            self.fractal.turningAngle = @(newAngle);
-        }
-    }
-}
 
--(IBAction) rotateFractal:(UIRotationGestureRecognizer*)sender {
-    if (self.editing) {
-        
-        double stepRadians = radians(15.0);
-        
-        double deltaTurnToDeltaGestureRatio = 1.0;
-        
-        double deltaTurnAngle = [self convertAndQuantizeRotationFrom: sender quanta: stepRadians ratio: deltaTurnToDeltaGestureRatio];
-        
-        if (deltaTurnAngle != 0) {
-            double newAngle = remainder([self.fractal.baseAngle doubleValue]-deltaTurnAngle, M_PI*2);
-            self.fractal.baseAngle = @(newAngle);
-        }
-    }
-}
-
-- (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer {
-
-    static CGPoint initialPosition;
-
-    UIView *fractalView = [gestureRecognizer view];
-//    CALayer* subLayer = [self fractalLevelNLayer];
-    UIGestureRecognizerState state = gestureRecognizer.state;
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
-    
-    if (state == UIGestureRecognizerStateBegan) {
-        
-//        initialPosition = subLayer.position;
-        
-    } else if (state == UIGestureRecognizerStateChanged) {
-        
-        CGPoint translation = [gestureRecognizer translationInView: fractalView];
-//        subLayer.position = CGPointMake(initialPosition.x+translation.x,initialPosition.y+translation.y);
-        
-    } else if (state == UIGestureRecognizerStateCancelled) {
-        
-//        subLayer.position = initialPosition;
-        [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
-        
-    } else if (state == UIGestureRecognizerStateEnded) {
-        
-        [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
-    }
-
-    [CATransaction commit];
-}
-/* want to use 2 finger pans for changing rotation and line thickness in place of swiping 
+/* want to use 2 finger pans for changing rotation and line thickness in place of swiping
   need to lock in either horizontal or vertical panning view a state and state change */
 -(IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer {
     [self convertPanToAngleAspectChange: gestureRecognizer
@@ -1307,10 +1218,6 @@ static void countPathElements(void *info, const CGPathElement *element) {
         if (aspectPath) {
             initialWidth = floorf(100.0 * [[self.fractal valueForKey: aspectPath] doubleValue]) / 100.0;
         }
-    
-//        initialAngleDegrees = [self.fractal.turningAngleAsDegrees doubleValue];
-//        initialWidth = [self.fractal.lineWidth doubleValue];
-        
         
         determinedState = 0;
         isIncreasing = NO;
@@ -1350,7 +1257,6 @@ static void countPathElements(void *info, const CGPathElement *element) {
                     }
                 }
                 [self.fractal setValue: @(radians(newAngleDegrees)) forKey: anglePath];
-//                [self.fractal setTurningAngleAsDegrees:  @(newAngleDegrees)];
                 
             }
         }
@@ -1374,93 +1280,6 @@ static void countPathElements(void *info, const CGPathElement *element) {
         self.autoscaleN = YES;
     }
 }
-/* obsolete */
-- (IBAction)swipeFractal:(UISwipeGestureRecognizer *)gestureRecognizer {
-    
-    if (self.editing) {
-        UIGestureRecognizerState state = gestureRecognizer.state;
-        
-        if (state == UIGestureRecognizerStatePossible) {
-            
-        } else if (state == UIGestureRecognizerStateRecognized) {
-            
-//            if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-//                [self decrementLineWidth: nil];
-//            } else if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-//                [self incrementLineWidth: nil];
-//            } else if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
-//                [self incrementTurnAngle: nil];
-//            } else if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionDown) {
-//                [self decrementTurnAngle: nil];
-//            }
-        } else if (state == UIGestureRecognizerStateCancelled) {
-            
-        } 
-        
-    }
-}
-
-- (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)sender {
-    
-}
-#pragma message "Unused code"
-- (IBAction)toggleAutoScale:(id)sender {
-    UIView* strongFractalView = self.fractalView;
-    
-//    for (id object in self.generatorsArray) {
-//        if ([object isKindOfClass: [LSFractalGenerator class]]) {
-//            LSFractalGenerator* generator = (LSFractalGenerator*) object;
-//            generator.autoscale = !generator.autoscale;
-//            NSLog(@"autoscale: %u;", generator.autoscale);
-//            if (generator.autoscale) {
-//                // refit view frame and refresh layer
-//                strongFractalView.transform = CGAffineTransformIdentity;
-//                CGPoint containerOrigin = self.fractalViewParent.bounds.origin;
-//                CGSize containerSize = self.fractalViewParent.bounds.size;
-//                CGFloat toolbarHeight = 45.0;
-//                CGRect boundsMinusToolbar = CGRectMake(containerOrigin.x,
-//                                                       (containerOrigin.y + toolbarHeight),
-//                                                       containerSize.width,
-//                                                       (containerSize.height - toolbarHeight));
-//                
-//                strongFractalView.frame = boundsMinusToolbar;
-//            }
-//        }
-//    }
-}
-
-- (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer {
-    
-    static CATransform3D initialTransform;
-
-    CALayer* subLayer = nil;//[self fractalLevelNLayer];
-    UIGestureRecognizerState state = gestureRecognizer.state;
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
-    
-    if (state == UIGestureRecognizerStateBegan) {
-        
-        initialTransform = subLayer.transform;
-        
-    } else if (state == UIGestureRecognizerStateChanged) {
-
-        CATransform3D newTrans = CATransform3DScale(initialTransform, [gestureRecognizer scale], [gestureRecognizer scale], 1);
-        subLayer.transform = newTrans;
-
-    } else if (state == UIGestureRecognizerStateCancelled) {
-        
-        subLayer.transform = initialTransform;
-        [gestureRecognizer setScale:1];
-        
-    } else if (state == UIGestureRecognizerStateEnded) {
-    
-        [gestureRecognizer setScale:1];
-
-    }
-    [CATransaction commit];
-}
 
 -(IBAction) autoScale:(id)sender {
 //    CALayer* subLayer = nil; //[self fractalLevelNLayer];
@@ -1468,6 +1287,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
 //    subLayer.position = self.fractalView.center;
     // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
     [self.fractalScrollView setZoomScale: 1.0 animated: YES];
+    self.fractalScrollView.contentOffset = CGPointZero;
 }
 
 - (IBAction)toggleFullScreen:(id)sender {
@@ -1528,7 +1348,7 @@ static void countPathElements(void *info, const CGPathElement *element) {
     generator.name = @"PDF Generator";
     generator.margin = 72.0;
     generator.autoscale = YES;
-    generator.flipY = NO;
+    generator.flipY = YES;
     
     NSMutableData* pdfData = [NSMutableData data];
     NSDictionary* pdfMetaData = @{(NSString*)kCGPDFContextCreator:@"FractalScape", (NSString*)kCGPDFContextTitle:self.fractal.name, (NSString*)kCGPDFContextKeywords:self.fractal.category};
@@ -1810,9 +1630,6 @@ static void countPathElements(void *info, const CGPathElement *element) {
 
 -(void) dealloc {
     self.fractal = nil; // removes observers via custom setter call
-    for (CALayer* layer in self.fractalDisplayLayersArray) {
-        layer.delegate = nil;
-    }
 }
 
 @end

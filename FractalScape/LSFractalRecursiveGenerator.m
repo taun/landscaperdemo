@@ -147,7 +147,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
                     NSAssert(YES, @"FractalScapeError: Rule CommandString '%@' is too long. Max length: %d, actual length: %lu",
                              rule.drawingMethodString,
                              kLSMaxCommandLength,
-                             commandLength);
+                             (unsigned long)commandLength);
                 }
              }
 //        }];

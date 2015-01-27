@@ -174,9 +174,8 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
     
-#pragma message "TODO replace (NO) with code to get fractal CoreData thumbnail in background."
-    if ((NO)) {
-        //cell.imageView.image = [generator generateImageSize: thumbnailSize withBackground: thumbNailBackground];
+    if (generator.image) {
+        cell.imageView.image = generator.image;
     } else {
         if (!generator) {
             // No generator yet

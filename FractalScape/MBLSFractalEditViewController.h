@@ -24,19 +24,13 @@ static NSString*  kPrefFullScreenState = @"fullScreenState";
 
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
-UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate>
+UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UIDocumentInteractionControllerDelegate>
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;
 
-/* So a setNeedsDisplay can be sent to each layer when a fractal property is changed. */
-@property (nonatomic, strong) NSMutableArray*               fractalDisplayLayersArray;
-/* a generator for each level being displayed. */
-@property (nonatomic, strong) NSMutableArray*               generatorsArray;
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
 @property (nonatomic, strong) NSNumberFormatter*            percentFormatter;
-#pragma message "Unused"
-@property (nonatomic, strong) UIBarButtonItem*              spaceButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
 @property (weak, nonatomic) IBOutlet UIToolbar              *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem        *playButton;
@@ -48,14 +42,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewParent;
 @property (weak, nonatomic) IBOutlet UIScrollView  *fractalScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView   *fractalView;
-@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *fractalPanGR;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *fractal2PanGR;
-@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *fractalRightSwipeGR;
-@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *fractalLeftSwipeGR;
-@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *fractalUpSwipeGR;
-@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *fractalDownSwipeGR;
-@property (weak, nonatomic) IBOutlet UIPinchGestureRecognizer *fractalPinchGR;
-@property (weak, nonatomic) IBOutlet UIRotationGestureRecognizer *fractalRotationGR;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toggleFullScreenButton;
 
 #pragma mark FractalLevel0 Nib outlets
@@ -66,8 +53,6 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UILabel *hudLineAspectLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hudLineIncrementLabel;
 
-#pragma mark FractalLevel1 Nib outlets
-
 #pragma mark Info HUD
 @property (weak, nonatomic) IBOutlet UIView        *hudViewBackground;
 @property (weak, nonatomic) IBOutlet UILabel       *hudLabel;
@@ -76,19 +61,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UIStepper     *hudLevelStepper;
 
 
-#pragma mark Obsolete
-//@property (weak, nonatomic) IBOutlet UIView         *fractalPropertiesView;
-@property (weak, nonatomic) IBOutlet UIView         *fractalDefinitionPlaceholderView;
-@property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionRulesView;
-@property (strong, nonatomic) IBOutlet UIView       *fractalDefinitionAppearanceView;
-
-#pragma mark Property Input Views
-@property (weak, nonatomic) IBOutlet UIView             *fractalEditorsHolder;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fractalEditorsHolderHeightConstraint;
-
-
 #pragma mark - Drawing Views
-//@property (weak, nonatomic) IBOutlet UILabel        *fractalViewLevelNLabel;
 @property (weak, nonatomic) IBOutlet UIImageView    *fractalViewLevel0;
 @property (weak, nonatomic) IBOutlet UIImageView    *fractalViewLevel1;
 @property (weak, nonatomic) IBOutlet UIImageView    *fractalViewLevel2;
@@ -106,8 +79,6 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 
 //@property (strong, nonatomic) UIActionSheet                             *shareActionsSheet;
 
-@property (nonatomic, strong) NSDictionary                              *portraitViewFrames;
-
 @property (nonatomic, strong) NSUndoManager                             *undoManager;
 
 
@@ -119,12 +90,6 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio;
 
 #pragma mark - Gesture Actions
-- (IBAction)rotateTurningAngle:(UIRotationGestureRecognizer*)gestureRecognizer;
-- (IBAction)panFractal:(UIPanGestureRecognizer *)gestureRecognizer;
-- (IBAction)swipeFractal:(UISwipeGestureRecognizer *)gestureRecognizer; //obsolete
-- (IBAction)rotateFractal:(UIRotationGestureRecognizer*)gestureRecognizer;
-- (IBAction)magnifyFractal:(UILongPressGestureRecognizer*)gestureRecognizer;
-- (IBAction)scaleFractal:(UIPinchGestureRecognizer *)gestureRecognizer;
 - (IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer;
 
 #pragma mark - Level0 Gesture Actions
@@ -139,7 +104,6 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 #pragma mark - Toolbar Button actions
 - (IBAction)undoEdit:(id)sender;
 - (IBAction)redoEdit:(id)sender;
-- (IBAction)cancelEdit:(id)sender;
 - (IBAction)info:(id)sender;
 - (IBAction)toggleFullScreen:(id)sender;
 - (IBAction)libraryButtonPressed:(id)sender;
@@ -151,22 +115,5 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)copyFractal:(id)sender;
 - (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction)autoScale:(id)sender;
-
-#pragma mark - Description Control Actions
-//- (IBAction)nameInputDidEnd:(UITextField*)sender;
-//- (IBAction)switchFractalDefinitionView:(UISegmentedControl*)sender;
-
-
-#pragma mark - Appearance Control Actions
-//- (IBAction)lineLengthInputChanged: (UIStepper*)sender;
-//- (IBAction)lineLengthScaleFactorInputChanged: (UIStepper*)sender;
-//- (IBAction)lineWidthInputChanged: (id)sender;
-//- (IBAction)lineWidthIncrementInputChanged: (id)sender;
-//- (IBAction)turningAngleInputChanged: (UIStepper*)sender;
-//- (IBAction)turningAngleIncrementInputChanged: (UIStepper*)sender;
-- (IBAction)incrementLineWidth: (id) sender;
-- (IBAction)decrementLineWidth: (id) sender;
-- (IBAction)incrementTurnAngle: (id) sender;
-- (IBAction)decrementTurnAngle: (id) sender;
 
 @end

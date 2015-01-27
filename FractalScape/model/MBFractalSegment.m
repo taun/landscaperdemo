@@ -241,7 +241,6 @@
 }
 
 
-#pragma message "TODO: move to a utility category of UIColor then use in MBColor debugDescription."
 -(NSString*) colorAsString: (CGColorRef) color {
     NSString* resultString;
     NSArray* componentsArray;
