@@ -31,7 +31,7 @@
 -(void)loadMBColorsPList: (NSString*) plist;
 -(LSDrawingRuleType*)loadLSDrawingRuleTypeFromPListDictionary: (NSDictionary*) plistDictRuleType;
 -(void)loadLSDrawingRulesPList: (NSString*) plist;
--(LSFractal*)loadLSFractalsPListAndReturnLastSelected: (NSString*) plist;
+-(void)loadLSFractalsPListAndReturnLastSelected: (NSString*) plist;
 
 @end
 
@@ -158,20 +158,7 @@
     // rules are needed by fractals so need to be loaded before fractals
     [self loadLSDrawingRulesPList: @"LSDrawingRulesDefaultTypeList"];
     // fractals should always be loaded last
-    LSFractal* selectedFractal = [self loadLSFractalsPListAndReturnLastSelected: @"LSFractalsList"];
-    
-    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)self.window.rootViewController;
-    [editController setFractal: selectedFractal];
-    
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
-    editController.showPerformanceData = showPerformanceDataSetting;
-    /*
-     FractalScape rendering is much faster on the 64bit devices.
-     Coincidentally, the 64 bit devices all have the MotionProcessor which can store activity data.
-     We use the isActivityAvailable call to set app performance parameters.
-     */
-    editController.lowPerformanceDevice = ![CMMotionActivityManager isActivityAvailable];
+    [self loadLSFractalsPListAndReturnLastSelected: @"LSFractalsList"];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -323,13 +310,12 @@
 /*
  Fractals plist is a root array full of fractal dictionaries.
  */
--(LSFractal*)loadLSFractalsPListAndReturnLastSelected: (NSString*) plistFileName {
+-(void)loadLSFractalsPListAndReturnLastSelected: (NSString*) plistFileName {
     
     id plistObject = [self plistFileToObject: plistFileName];
     
     if (![plistObject isKindOfClass: [NSArray class]] || ([plistObject count] == 0)) {
         NSLog(@"Error plistObject should be an array with size > 1. is: %@", plistObject);
-        return nil;
     }
     
     NSArray* fractalList = (NSArray*) plistObject;
@@ -451,23 +437,6 @@
     }
     // What if the kLastEditedFractalURI is missing and yet defaults don't need to be loaded?
     // Then defaultFractal will be nil.
-    
-    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-    NSURL* selectedFractalURL = [userDefaults URLForKey: kPrefLastEditedFractalURI];
-    if (selectedFractalURL == nil) {
-        // use a default
-        defaultFractal = lastFractal;
-    } else {
-        // instantiate the saved default URI
-        NSPersistentStoreCoordinator* store = self.managedObjectContext.persistentStoreCoordinator;
-        NSManagedObjectID* objectID = [store managedObjectIDForURIRepresentation: selectedFractalURL];
-        if (objectID != nil) {
-            defaultFractal = (LSFractal*)[self.managedObjectContext objectWithID: objectID];
-        } else {
-            defaultFractal = lastFractal;
-        }
-    }
-    return defaultFractal;
 }
 
 #pragma mark - Core Data stack

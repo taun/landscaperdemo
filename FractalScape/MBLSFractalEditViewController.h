@@ -42,11 +42,11 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
 @property (nonatomic, strong) NSNumberFormatter*            percentFormatter;
-@property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
-@property (weak, nonatomic) IBOutlet UIToolbar              *toolbar;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem        *playButton;
+//@property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
+//@property (weak, nonatomic) IBOutlet UIToolbar              *toolbar;
+@property (strong, nonatomic)  UIBarButtonItem        *playButton;
+@property (strong, nonatomic)  UIBarButtonItem        *stopButton;
 @property (weak, nonatomic) IBOutlet UIButton               *editButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem        *stopButton;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
@@ -115,6 +115,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender;
 
 #pragma mark - Toolbar Button actions
+- (IBAction)copyFractal:(id)sender;
 - (IBAction)undoEdit:(id)sender;
 - (IBAction)redoEdit:(id)sender;
 - (IBAction)info:(id)sender;
@@ -126,7 +127,6 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)stopButtonPressed:(id)sender;
 
 #pragma mark - Screen Controller Actions
-- (IBAction)copyFractal:(id)sender;
 - (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction)autoScale:(id)sender;
 

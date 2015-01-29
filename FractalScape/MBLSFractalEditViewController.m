@@ -126,6 +126,13 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
 {
     [super awakeFromNib];
     _minImagePersistence = 1.0/kHighPerformanceFrameRate;
+    
+    /*
+     FractalScape rendering is much faster on the 64bit devices.
+     Coincidentally, the 64 bit devices all have the MotionProcessor which can store activity data.
+     We use the isActivityAvailable call to set app performance parameters.
+     */
+    self.lowPerformanceDevice = ![CMMotionActivityManager isActivityAvailable];
 }
 
 #pragma mark - UIViewController Methods
@@ -135,11 +142,49 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
     [super didReceiveMemoryWarning];
     
 }
-
+-(void) configureNavBarButtons
+{
+    self.playButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemPlay
+                                                                   target: self
+                                                                   action: @selector(playButtonPressed:)];
+    
+    self.stopButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemStop
+                                                                   target: self
+                                                                   action: @selector(stopButtonPressed:)];
+    
+    UIBarButtonItem* copyButton = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"toolBarCopyIcon"]
+                                                                  style: UIBarButtonItemStylePlain
+                                                                 target: self
+                                                                 action: @selector(copyFractal:)];
+    
+    UIBarButtonItem* shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
+                                                                 target: self
+                                                                 action: @selector(shareButtonPressed:)];
+    
+    NSMutableArray* items = [self.navigationItem.leftBarButtonItems mutableCopy];
+    [items addObject: copyButton];
+    [items addObject: shareButton];
+    [self.navigationItem setLeftBarButtonItems: items];
+    
+    items = [self.navigationItem.rightBarButtonItems mutableCopy];
+    [items addObject: self.playButton];
+    [self.navigationItem setRightBarButtonItems: items];
+}
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
+    [self configureNavBarButtons];
     
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
+    self.showPerformanceData = showPerformanceDataSetting;
+
+    BOOL fullScreenState = [defaults boolForKey: kPrefFullScreenState];
+    if (fullScreenState)
+    {
+        [self fullScreenOn];
+    }
+
     _popoverPortraitSize = CGSizeMake(748.0,350.0);
     _popoverLandscapeSize = CGSizeMake(400.0,650.0);
     
@@ -178,13 +223,6 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
     
     _lastImageUpdateTime = [NSDate date];
     
-
-    NSArray* barItemsArray = self.toolbar.items;
-    NSMutableArray* noStopButtonBar = [barItemsArray mutableCopy];
-    [noStopButtonBar removeObject: self.stopButton];
-    [self.toolbar setItems: noStopButtonBar animated: NO];
-    self.toolbar.barTintColor = [UIColor clearColor];
-
     // Setup the scrollView to allow the fractal image to float.
     // This is to allow the user to move the fractal out from under the HUD display.
     UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
@@ -195,17 +233,36 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
     fractalCanvas.layer.shadowOpacity = 0.3;
     fractalCanvas.layer.shadowRadius = 3.0;
     
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL fullScreenState = [defaults boolForKey: kPrefFullScreenState];
-    if (fullScreenState)
-    {
-        [self fullScreenOn];
-    }
+    self.fractal = [self getUsersLastFractal];
     
     [super viewDidLoad];
-    
 }
 
+-(LSFractal*) getUsersLastFractal
+{
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    NSURL* selectedFractalURL = [userDefaults URLForKey: kPrefLastEditedFractalURI];
+    LSFractal* defaultFractal;
+    
+    MBAppDelegate* appDelegate = (MBAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext*context = [appDelegate managedObjectContext];
+
+    if (selectedFractalURL == nil) {
+        // use a default
+        NSArray* allFractals = [LSFractal allFractalsInContext: context];
+        if (allFractals.count > 0) {
+            defaultFractal = allFractals[0];
+        }
+    } else {
+        // instantiate the saved default URI
+        NSPersistentStoreCoordinator* store = context.persistentStoreCoordinator;
+        NSManagedObjectID* objectID = [store managedObjectIDForURIRepresentation: selectedFractalURL];
+        if (objectID != nil) {
+            defaultFractal = (LSFractal*)[context objectWithID: objectID];
+        }
+    }
+    return defaultFractal;
+}
 -(void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -836,7 +893,7 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
 - (void) updateNavButtons
 {
     self.title = _fractal.name;
-    self.toolbarTitle.text = _fractal.name;
+    self.navigationItem.title = _fractal.name;
 }
 
 
@@ -1226,7 +1283,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 -(void) swapOldButton: (UIBarButtonItem*)oldButton withNewButton: (UIBarButtonItem*)newButton
 {
-    NSArray* barItemsArray = self.toolbar.items;
+    NSArray* barItemsArray = self.navigationItem.rightBarButtonItems;
     NSUInteger buttonIndex = 0;
     BOOL foundButton = NO;
     for (UIBarButtonItem* item in barItemsArray) {
@@ -1241,7 +1298,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         [newItems removeObjectAtIndex: buttonIndex];
         [newItems insertObject: newButton atIndex: buttonIndex];
     }
-    [self.toolbar setItems: newItems animated: YES];
+    [self.navigationItem setRightBarButtonItems: newItems animated: YES];
 }
 - (IBAction)playButtonPressed: (id)sender
 {
