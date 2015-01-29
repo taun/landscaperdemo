@@ -185,6 +185,10 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
         [self fullScreenOn];
     }
 
+    _playbackSlider.hidden = YES;
+    _playbackSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    [_playbackSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle"] forState: UIControlStateNormal];
+
     _popoverPortraitSize = CGSizeMake(748.0,350.0);
     _popoverLandscapeSize = CGSizeMake(400.0,650.0);
     
@@ -1069,6 +1073,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 -(IBAction)appearanceButtonPressed:(id)sender
 {
+    [self stopButtonPressed: nil];
+    
     if (self.presentedViewController == self.appearanceViewController)
     {
         [self dismissViewControllerAnimated: YES completion:^{
@@ -1304,6 +1310,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     [self.playbackTimer invalidate];
     [self swapOldButton: self.playButton withNewButton: self.stopButton];
+    self.playbackSlider.hidden = NO;
     
     LSFractalRenderer* playback1 = [self newPlaybackRenderer: @"Playback1"];
     LSFractalRenderer* playback2 = [self newPlaybackRenderer: @"Playback2"];
@@ -1338,6 +1345,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         
         self.playIsPercentCompleted += self.playFrameIncrement;
         
+        self.playbackSlider.value = self.playIsPercentCompleted;
+        
         NSBlockOperation* operation = [self operationForRenderer: availableRender percent: self.playIsPercentCompleted];
         
         [self.privateImageGenerationQueue addOperation: operation];
@@ -1359,35 +1368,48 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 -(IBAction) pauseButtonPressed: (id)sender
 {
-    if (self.playbackTimer)
+    if ([sender isKindOfClass: [UISlider class]])
     {
-        //pause
+        // just pause for slider movement
         [self.playbackTimer invalidate];
         self.playbackTimer = nil;
     }
     else
     {
-        //resume
-        [self resumePlayback];
+        if (self.playbackTimer)
+        {
+            //pause
+            [self.playbackTimer invalidate];
+            self.playbackTimer = nil;
+        }
+        else
+        {
+            //resume
+            [self resumePlayback];
+        }
     }
 }
 -(IBAction) stopButtonPressed: (id)sender
 {
-    if (self.playbackTimer)
-    {
-        //pause
-        [self.playbackTimer invalidate];
-        self.playbackTimer = nil;
+    if (!self.playbackSlider.hidden) {
+        if (self.playbackTimer)
+        {
+            //pause
+            [self.playbackTimer invalidate];
+            self.playbackTimer = nil;
+        }
+        
+        [self queueFractalImageUpdates];
+        self.playbackRenderers = nil;
+        
+        [self swapOldButton: self.stopButton withNewButton: self.playButton];
+        self.playbackSlider.hidden = YES;
     }
-    
-    [self queueFractalImageUpdates];
-    self.playbackRenderers = nil;
-    
-    [self swapOldButton: self.stopButton withNewButton: self.playButton];
 }
--(void) playSliderChangedValue: (UISlider*)slider
+-(IBAction) playSliderChangedValue: (UISlider*)slider
 {
-    
+    self.playIsPercentCompleted = slider.value;
+    [self playNextFrame: nil];
 }
 - (IBAction)copyFractal:(id)sender
 {

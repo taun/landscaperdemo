@@ -40,13 +40,14 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
  */
 @property (nonatomic, assign) CGFloat              minImagePersistence;
 
-@property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
-@property (nonatomic, strong) NSNumberFormatter*            percentFormatter;
+@property (nonatomic, strong) NSNumberFormatter*    twoPlaceFormatter;
+@property (nonatomic, strong) NSNumberFormatter*    percentFormatter;
 //@property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
 //@property (weak, nonatomic) IBOutlet UIToolbar              *toolbar;
-@property (strong, nonatomic)  UIBarButtonItem        *playButton;
-@property (strong, nonatomic)  UIBarButtonItem        *stopButton;
-@property (weak, nonatomic) IBOutlet UIButton               *editButton;
+@property (strong, nonatomic)  UIBarButtonItem      *playButton;
+@property (strong, nonatomic)  UIBarButtonItem      *stopButton;
+@property (weak, nonatomic) IBOutlet UIButton       *editButton;
+@property (weak, nonatomic) IBOutlet UISlider       *playbackSlider;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
@@ -124,7 +125,9 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)appearanceButtonPressed:(id)sender;
 - (IBAction)shareButtonPressed:(id)sender;
 - (IBAction)playButtonPressed:(id)sender;
+-(IBAction) pauseButtonPressed: (id)sender;
 - (IBAction)stopButtonPressed:(id)sender;
+-(IBAction) playSliderChangedValue: (UISlider*)slider;
 
 #pragma mark - Screen Controller Actions
 - (IBAction)levelInputChanged: (UIControl*)sender;

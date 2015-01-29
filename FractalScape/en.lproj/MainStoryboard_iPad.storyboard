@@ -515,11 +515,22 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="fN9-Mq-Ukg" userLabel="playbackSlider">
+                                                <rect key="frame" x="432" y="330" width="504" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="500" id="djp-OB-WlZ"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="pauseButtonPressed:" destination="4nM-Pc-iAd" eventType="touchDown" id="qsU-xu-VZo"/>
+                                                    <action selector="playSliderChangedValue:" destination="4nM-Pc-iAd" eventType="valueChanged" id="TfB-9n-wgV"/>
+                                                </connections>
+                                            </slider>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="0nq-ro-qdw"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
+                                            <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-166" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="80" id="5dp-ny-2EX"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="height" secondItem="wmh-En-OwM" secondAttribute="height" id="GDc-sq-pmy"/>
@@ -529,6 +540,7 @@
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="wmh-En-OwM" secondAttribute="width" id="Tgk-ig-GfA"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="dJU-MH-ihA" secondAttribute="width" id="WFl-b4-lj2"/>
+                                            <constraint firstItem="fN9-Mq-Ukg" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="330" id="Xsd-ch-fTN"/>
                                             <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="20" id="dWF-E9-FbC"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="bottom" constant="13" id="er1-62-2EY"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="leading" secondItem="dJU-MH-ihA" secondAttribute="leading" id="fcH-Cx-ND2"/>
@@ -592,6 +604,7 @@
                         <outlet property="hudText2" destination="s4f-oD-mXM" id="KLy-sp-9Ia"/>
                         <outlet property="hudViewBackground" destination="3Df-59-GZt" id="jQD-Z3-ikN"/>
                         <outlet property="lengthIncrementVerticalSlider" destination="5kb-du-Imb" id="CXJ-Nt-CQG"/>
+                        <outlet property="playbackSlider" destination="fN9-Mq-Ukg" id="c0O-Rw-Ku3"/>
                         <outlet property="randomnessVerticalSlider" destination="p0o-A9-ELt" id="l2K-Ys-EvS"/>
                         <outlet property="renderTimeLabel" destination="lOu-PR-QW2" id="RTa-Ld-ZOt"/>
                         <outlet property="turnAngleIncrementLabel" destination="AUJ-mW-uO9" id="goq-SY-Wqc"/>
