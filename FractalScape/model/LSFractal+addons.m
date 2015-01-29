@@ -13,6 +13,7 @@
 #import "MBColor+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
+#define kLSMaxProductLength 200000
 #define kLSMaxLevel0CacheSize 100
 #define kLSMaxLevel1CacheSize 100
 #define kLSMaxLevel2CacheSize 500

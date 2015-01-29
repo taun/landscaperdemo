@@ -21,6 +21,7 @@
 // Application preference keys
 static NSString*  kPrefLastEditedFractalURI = @"lastEditedFractalURI";
 static NSString*  kPrefFullScreenState = @"fullScreenState";
+static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
@@ -28,6 +29,12 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;
+@property (nonatomic, assign) BOOL                 showPerformanceData;
+/*!
+ When updating the image due to gestures or playback, allow the image to stay on the screen at least
+ minImagePersistence seconds. This value can be varied depending on the device performance or user input.
+ */
+@property (nonatomic, assign) CGFloat              minImagePersistence;
 
 @property (nonatomic, strong) NSNumberFormatter*            twoPlaceFormatter;
 @property (nonatomic, strong) NSNumberFormatter*            percentFormatter;
@@ -59,6 +66,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UILabel       *hudText1;
 @property (weak, nonatomic) IBOutlet UILabel       *hudText2;
 @property (weak, nonatomic) IBOutlet UIStepper     *hudLevelStepper;
+@property (weak, nonatomic) IBOutlet UILabel       *renderTimeLabel;
 
 
 #pragma mark - Drawing Views

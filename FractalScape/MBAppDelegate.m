@@ -17,6 +17,7 @@
 
 #import "MBLSFractalEditViewController.h"
 
+#import "UIDevice_Hardware.h"
 
 @interface MBAppDelegate ()
 @property (readwrite, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -138,6 +139,12 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    
+    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)self.window.rootViewController;
+
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
+    editController.showPerformanceData = showPerformanceDataSetting;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -145,6 +152,18 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    CGFloat minImagePersistance;
+    /*
+     FractalScape rendering is much faster on the 64bit devices.
+     Coincidentally, the 64 bit devices all have the MotionProcessor which can store activity data.
+     We use the isActivityAvailable call to set app performance parameters.
+     */
+    BOOL activity = [CMMotionActivityManager isActivityAvailable];
+    if (activity) {
+        minImagePersistance = 0.05; // iPad Air and above
+    } else {
+        minImagePersistance = 0.125;
+    }
     // order of loading is important
     // colors are needed by fractals so need to be loaded before fractals
     [self loadMBColorsPList: @"MBColorsList"];
@@ -153,8 +172,13 @@
     // fractals should always be loaded last
     LSFractal* selectedFractal = [self loadLSFractalsPListAndReturnLastSelected: @"LSFractalsList"];
     
+    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)self.window.rootViewController;
+    [editController setFractal: selectedFractal];
     
-    [(MBLSFractalEditViewController*)self.window.rootViewController setFractal: selectedFractal];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
+    editController.showPerformanceData = showPerformanceDataSetting;
+    editController.minImagePersistence = minImagePersistance;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

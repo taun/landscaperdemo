@@ -42,9 +42,17 @@
                                                                             <outletCollection property="gestureRecognizers" destination="wp3-t2-GY6" appends="YES" id="vpi-Uw-Isd"/>
                                                                         </connections>
                                                                     </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
+                                                                        <rect key="frame" x="20" y="923" width="93" height="20.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
+                                                                    <constraint firstItem="lOu-PR-QW2" firstAttribute="leading" secondItem="9wd-5R-WKj" secondAttribute="leading" constant="20" symbolic="YES" id="7gV-zP-FSC"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="lOu-PR-QW2" secondAttribute="bottom" constant="20" symbolic="YES" id="A9R-gT-KJd"/>
                                                                     <constraint firstAttribute="centerY" secondItem="QA7-0x-p1h" secondAttribute="centerY" id="Ctk-y8-4YU"/>
                                                                     <constraint firstAttribute="centerX" secondItem="QA7-0x-p1h" secondAttribute="centerX" id="Jhx-T6-Q7X"/>
                                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="height" secondItem="9wd-5R-WKj" secondAttribute="height" id="LJF-oi-p6Z"/>
@@ -645,6 +653,7 @@
                         <outlet property="lengthIncrementVerticalSlider" destination="5kb-du-Imb" id="CXJ-Nt-CQG"/>
                         <outlet property="playButton" destination="ec5-JZ-eZx" id="jUC-RT-uMt"/>
                         <outlet property="randomnessVerticalSlider" destination="p0o-A9-ELt" id="l2K-Ys-EvS"/>
+                        <outlet property="renderTimeLabel" destination="lOu-PR-QW2" id="RTa-Ld-ZOt"/>
                         <outlet property="toggleFullScreenButton" destination="Xn2-fr-47f" id="IZm-KY-tza"/>
                         <outlet property="toolbar" destination="zjZ-fb-Tj5" id="7UT-sD-Rn3"/>
                         <outlet property="toolbarTitle" destination="hsw-ym-KtT" id="F9f-Zx-raW"/>

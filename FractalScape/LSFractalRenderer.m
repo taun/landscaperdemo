@@ -16,7 +16,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#define MAXPRODUCTLENGTH 200000
 //#define LSDEBUGPERFORMANCE
 //#define LSDEBUGPOSITION
 
