@@ -29,6 +29,10 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;
+/*!
+ Change some performance parameters based the device. Default is high performance.
+ */
+@property (nonatomic, assign) BOOL                 lowPerformanceDevice;
 @property (nonatomic, assign) BOOL                 showPerformanceData;
 /*!
  When updating the image due to gestures or playback, allow the image to stay on the screen at least
@@ -40,8 +44,9 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (nonatomic, strong) NSNumberFormatter*            percentFormatter;
 @property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
 @property (weak, nonatomic) IBOutlet UIToolbar              *toolbar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem        *playButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem        *playButton;
 @property (weak, nonatomic) IBOutlet UIButton               *editButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem        *stopButton;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
@@ -118,6 +123,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)appearanceButtonPressed:(id)sender;
 - (IBAction)shareButtonPressed:(id)sender;
 - (IBAction)playButtonPressed:(id)sender;
+- (IBAction)stopButtonPressed:(id)sender;
 
 #pragma mark - Screen Controller Actions
 - (IBAction)copyFractal:(id)sender;

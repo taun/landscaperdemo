@@ -152,18 +152,6 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    CGFloat minImagePersistance;
-    /*
-     FractalScape rendering is much faster on the 64bit devices.
-     Coincidentally, the 64 bit devices all have the MotionProcessor which can store activity data.
-     We use the isActivityAvailable call to set app performance parameters.
-     */
-    BOOL activity = [CMMotionActivityManager isActivityAvailable];
-    if (activity) {
-        minImagePersistance = 0.05; // iPad Air and above
-    } else {
-        minImagePersistance = 0.125;
-    }
     // order of loading is important
     // colors are needed by fractals so need to be loaded before fractals
     [self loadMBColorsPList: @"MBColorsList"];
@@ -178,7 +166,12 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
     editController.showPerformanceData = showPerformanceDataSetting;
-    editController.minImagePersistence = minImagePersistance;
+    /*
+     FractalScape rendering is much faster on the 64bit devices.
+     Coincidentally, the 64 bit devices all have the MotionProcessor which can store activity data.
+     We use the isActivityAvailable call to set app performance parameters.
+     */
+    editController.lowPerformanceDevice = ![CMMotionActivityManager isActivityAvailable];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

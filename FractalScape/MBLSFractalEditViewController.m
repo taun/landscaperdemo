@@ -35,8 +35,10 @@
 #define LOGBOUNDS 0
 #define DEBUGRENDERTIME
 
-static NSString* kLibrarySelectionKeypath = @"selectedFractal";
-static BOOL SIMULTOUCH = NO;
+static const NSString* kLibrarySelectionKeypath = @"selectedFractal";
+static const BOOL SIMULTOUCH = NO;
+static const CGFloat kHighPerformanceFrameRate = 20.0;
+static const CGFloat kLowPerformanceFrameRate = 8.0;
 
 @interface MBLSFractalEditViewController ()
 
@@ -64,16 +66,17 @@ static BOOL SIMULTOUCH = NO;
  Fractal background image generation queue.
  */
 @property (nonatomic,strong) NSOperationQueue              *privateImageGenerationQueue;
-@property (nonatomic,strong) UIImage                       *fractalRendererL0Image;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL0;
-@property (nonatomic,strong) UIImage                       *fractalRendererL1Image;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL1;
-@property (nonatomic,strong) UIImage                       *fractalRendererL2Image;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL2;
-@property (nonatomic,strong) UIImage                       *fractalRendererLNImage;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererLN;
 @property (nonatomic,assign) BOOL                          autoscaleN;
 @property (nonatomic,strong) NSDate                        *lastImageUpdateTime;
+
+@property (nonatomic,strong) NSTimer                       *playbackTimer;
+@property (nonatomic,assign) CGFloat                       playFrameIncrement;
+@property (nonatomic,assign) CGFloat                       playIsPercentCompleted;
+@property (nonatomic,strong) NSArray                       *playbackRenderers;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 
@@ -84,6 +87,8 @@ static BOOL SIMULTOUCH = NO;
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
 -(void) fullScreenOff;
+
+-(void) playNextFrame: (NSTimer*)timer;
 
 - (void)updateUndoRedoBarButtonState;
 - (void)setUpUndoManager;
@@ -120,6 +125,7 @@ static BOOL SIMULTOUCH = NO;
 -(void) awakeFromNib
 {
     [super awakeFromNib];
+    _minImagePersistence = 1.0/kHighPerformanceFrameRate;
 }
 
 #pragma mark - UIViewController Methods
@@ -172,6 +178,13 @@ static BOOL SIMULTOUCH = NO;
     
     _lastImageUpdateTime = [NSDate date];
     
+
+    NSArray* barItemsArray = self.toolbar.items;
+    NSMutableArray* noStopButtonBar = [barItemsArray mutableCopy];
+    [noStopButtonBar removeObject: self.stopButton];
+    [self.toolbar setItems: noStopButtonBar animated: NO];
+    self.toolbar.barTintColor = [UIColor clearColor];
+
     // Setup the scrollView to allow the fractal image to float.
     // This is to allow the user to move the fractal out from under the HUD display.
     UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
@@ -529,7 +542,7 @@ static BOOL SIMULTOUCH = NO;
             _fractalRendererLN.pixelScale = self.fractalView.contentScaleFactor;
             _fractalRendererLN.flipY = YES;
             _fractalRendererLN.margin = 50.0;
-            _fractalRendererLN.showOrigin = NO;
+            _fractalRendererLN.showOrigin = YES;
             _fractalRendererLN.autoscale = YES;
         }
     }
@@ -586,6 +599,18 @@ static BOOL SIMULTOUCH = NO;
     NSURL* selectedFractalURL = [aFractal.objectID URIRepresentation];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setURL: selectedFractalURL forKey: kPrefLastEditedFractalURI];
+}
+-(void) setLowPerformanceDevice:(BOOL)lowPerformanceDevice {
+    _lowPerformanceDevice = lowPerformanceDevice;
+    
+    if (_lowPerformanceDevice)
+    {
+        self.minImagePersistence = 1.0 / kLowPerformanceFrameRate;
+    }
+    else
+    {
+        self.minImagePersistence = 1.0 / kHighPerformanceFrameRate;
+    }
 }
 -(void) setShowPerformanceData:(BOOL)showPerformanceData
 {
@@ -711,7 +736,16 @@ static BOOL SIMULTOUCH = NO;
     [self queueHudImageUpdates];
     
     self.fractalRendererLN.autoscale = self.autoscaleN;
+    if (!self.lowPerformanceDevice || self.fractalRendererLN.levelData.length < 150000)
+    {
+        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor * 2.0;
+    }
+    else
+    {
+        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;
+    }
     NSBlockOperation* operationNN1 = [self operationForRenderer: self.fractalRendererLN];
+    
     
     [self.privateImageGenerationQueue addOperation: operationNN1];
     self.lastImageUpdateTime = [NSDate date];
@@ -1006,7 +1040,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
  
  @param sender share button
  */
-- (IBAction)shareButtonPressedOld:(id)sender
+- (IBAction)shareButtonPressed:(id)sender
 {
     //    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
@@ -1019,14 +1053,21 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     if (cameraAuthStatus == ALAuthorizationStatusNotDetermined || cameraAuthStatus == ALAuthorizationStatusAuthorized)
     {
-        UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"Camera Roll" style:UIAlertActionStyleDefault
+        UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"Export as Image" style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                           [self shareFractalToCameraRoll];
+                                           [self shareWithActivityControler: sender];
                                        }];
         [alert addAction: cameraAction];
     }
+    UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Export as Vector PDF" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action)
+                                   {
+                                       [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                       [self shareWithDocumentInteractionController: sender];
+                                   }];
+    [alert addAction: vectorPDF];
     UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
@@ -1053,7 +1094,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
  
  @param sender share button
  */
-- (IBAction)shareButtonPressed:(id)sender
+- (IBAction)shareButtonPressedObs:(id)sender
 {
     [self shareWithDocumentInteractionController: sender];
 }
@@ -1082,6 +1123,14 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         if ([sender isKindOfClass: [UIBarButtonItem class]])
         {
             BOOL success = [_documentShareController presentOptionsMenuFromBarButtonItem: sender animated: YES];
+            if (success)
+            {
+                //
+            }
+            else
+            {
+                
+            }
             //        BOOL result = [documentSharer presentOpenInMenuFromBarButtonItem: sender animated: YES];
         } else
         {
@@ -1155,38 +1204,133 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }];
     return operation;
 }
-#pragma message "TODO Add pause and stop buttons."
-- (IBAction)playButtonPressed:(id)sender
-{
-    
-#pragma message "TODO use renderer.renderTime to determine the percent increment."
-    self.fractalRendererLN.autoscale = NO;
-    LSFractalRenderer* renderer;
-    NSBlockOperation* operation;
-    NSBlockOperation* prevOperation;
-    
-    //    CGFloat time = self.fractalRendererLNS1.renderTime;
-    //    CGFloat stepSize = 0.0 * time;
-    
-    prevOperation = [self operationForRenderer: self.fractalRendererLN percent: 1.0];
-    
-    for (CGFloat percent = 2.0; percent <= 100; percent += 0.5)
-    {
-        NSBlockOperation* operationDelay = [NSBlockOperation blockOperationWithBlock:^{
-            //
-            usleep(100000);
-        }];
 
-        operation = [self operationForRenderer: self.fractalRendererLN percent: percent];
-        [operation addDependency: prevOperation];
-        [operation addDependency: operationDelay]; // wait a minimum amount of time between frames.
-        [self.privateImageGenerationQueue addOperation: prevOperation];
-        [self.privateImageGenerationQueue addOperation: operationDelay];
+-(LSFractalRenderer*) newPlaybackRenderer: (NSString*)name
+{
+    LSFractalRenderer*newRenderer;
+    
+    if (self.fractal)
+    {
+        NSUInteger levelIndex = MIN(3, [self.fractal.level unsignedIntegerValue]);
+        newRenderer = [LSFractalRenderer newRendererForFractal: self.fractal];
+        newRenderer.name = name;
+        newRenderer.imageView = self.fractalView;
+        newRenderer.pixelScale = self.fractalView.contentScaleFactor;
+        newRenderer.flipY = YES;
+        newRenderer.margin = 50.0;
+        newRenderer.showOrigin = YES;
+        newRenderer.autoscale = YES;
+        newRenderer.levelData = self.levelDataArray[levelIndex];
+    }
+    return newRenderer;
+}
+-(void) swapOldButton: (UIBarButtonItem*)oldButton withNewButton: (UIBarButtonItem*)newButton
+{
+    NSArray* barItemsArray = self.toolbar.items;
+    NSUInteger buttonIndex = 0;
+    BOOL foundButton = NO;
+    for (UIBarButtonItem* item in barItemsArray) {
+        if (item == oldButton) {
+            foundButton = YES;
+            break;
+        }
+        buttonIndex++;
+    }
+    NSMutableArray* newItems = [barItemsArray mutableCopy];
+    if (foundButton) {
+        [newItems removeObjectAtIndex: buttonIndex];
+        [newItems insertObject: newButton atIndex: buttonIndex];
+    }
+    [self.toolbar setItems: newItems animated: YES];
+}
+- (IBAction)playButtonPressed: (id)sender
+{
+    [self.playbackTimer invalidate];
+    [self swapOldButton: self.playButton withNewButton: self.stopButton];
+    
+    LSFractalRenderer* playback1 = [self newPlaybackRenderer: @"Playback1"];
+    LSFractalRenderer* playback2 = [self newPlaybackRenderer: @"Playback2"];
+    LSFractalRenderer* playback3 = [self newPlaybackRenderer: @"Playback3"];
+
+    if (playback1 && playback2 && playback3) {
+        self.playbackRenderers = @[playback1,playback2,playback3];
         
-        prevOperation = operation;
+        self.playFrameIncrement = 0.5;
+        self.playIsPercentCompleted = 0.0;
+        
+        [self resumePlayback];
+    }
+}
+
+-(void) playNextFrame: (NSTimer*)timer
+{
+    NSMutableSet* finishedRenderers = [NSMutableSet new];
+    /*!
+     TODO: add a dependency here so operations don't finish out of order?
+     */
+    for (LSFractalRenderer*renderer in self.playbackRenderers) {
+        if (renderer.operation == nil || renderer.operation.isFinished) {
+            [finishedRenderers addObject: renderer];
+        }
     }
     
-    [self.privateImageGenerationQueue addOperation: prevOperation];
+    if (finishedRenderers.count > 0)
+    {
+        // queue up the next operation
+        LSFractalRenderer* availableRender = [finishedRenderers anyObject];
+        
+        self.playIsPercentCompleted += self.playFrameIncrement;
+        
+        NSBlockOperation* operation = [self operationForRenderer: availableRender percent: self.playIsPercentCompleted];
+        
+        [self.privateImageGenerationQueue addOperation: operation];
+        
+        if (self.playIsPercentCompleted >= 100.0)
+        {
+            [self stopButtonPressed: nil];
+        }
+    }
+}
+-(IBAction) resumePlayback
+{
+    self.playbackTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1
+                                                          target: self
+                                                        selector: @selector(playNextFrame:)
+                                                        userInfo: nil
+                                                         repeats: YES];
+    self.playbackTimer.tolerance = 0.05;
+}
+-(IBAction) pauseButtonPressed: (id)sender
+{
+    if (self.playbackTimer)
+    {
+        //pause
+        [self.playbackTimer invalidate];
+        self.playbackTimer = nil;
+    }
+    else
+    {
+        //resume
+        [self resumePlayback];
+    }
+}
+-(IBAction) stopButtonPressed: (id)sender
+{
+    if (self.playbackTimer)
+    {
+        //pause
+        [self.playbackTimer invalidate];
+        self.playbackTimer = nil;
+    }
+    
+    [self queueFractalImageUpdates];
+    self.playbackRenderers = nil;
+    
+    [self swapOldButton: self.stopButton withNewButton: self.playButton];
+}
+-(void) playSliderChangedValue: (UISlider*)slider
+{
+    
 }
 - (IBAction)copyFractal:(id)sender
 {

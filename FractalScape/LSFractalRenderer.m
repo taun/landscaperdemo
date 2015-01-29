@@ -54,6 +54,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 @implementation LSFractalRenderer
 
+@synthesize pixelScale = _pixelScale;
+
 +(instancetype) newRendererForFractal:(LSFractal *)aFractal {
     LSFractalRenderer* newGenerator = [[LSFractalRenderer alloc] initWithFractal: aFractal];
     return newGenerator;
@@ -85,8 +87,19 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 
 #pragma mark - getters setters
+-(void) setPixelScale:(CGFloat)pixelScale
+{
+    NSAssert(pixelScale < 8.0, @"FractalScape:Error out of range pixelScale. Should be < 8, is: %f",pixelScale);
+    _pixelScale = pixelScale;
+}
+-(CGFloat) pixelScale
+{
+    NSAssert(_pixelScale < 8.0, @"FractalScape:Error out of range pixelScale. Should be < 8, is: %f",_pixelScale);
+    return _pixelScale;
+}
 /* If fractal is not save, below will return nil for privateFractal. What to do? */
--(void) setValuesForFractal:(LSFractal *)aFractal {
+-(void) setValuesForFractal:(LSFractal *)aFractal
+{
     [self cacheColors: aFractal];
     [self cacheDrawingRules: aFractal];
     [self setBaseSegmentForFractal: aFractal];
@@ -97,11 +110,15 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
  
  @param fractal the fractal with the colors to be cached.
  */
--(void) cacheColors: (LSFractal*)fractal {
+-(void) cacheColors: (LSFractal*)fractal
+{
     MBColor* background = fractal.backgroundColor;
-    if (background) {
+    if (background)
+    {
         _backgroundColor = [background asUIColor];
-    } else {
+    }
+    else
+    {
         _backgroundColor = [UIColor clearColor];
     }
     
@@ -115,7 +132,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     tempColors = [[NSMutableArray alloc] initWithCapacity: fractal.fillColors.count];
     
-    for (MBColor* color in fractal.fillColors) {
+    for (MBColor* color in fractal.fillColors)
+    {
         [tempColors addObject: color.asUIColor];
     }
     
@@ -135,14 +153,18 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
             NSOrderedSet* rules = aFractal.drawingRulesType.rules;
 
-            for (LSDrawingRule* rule in rules) {
+            for (LSDrawingRule* rule in rules)
+            {
                 unsigned char ruleIndex = rule.productionString.UTF8String[0];
                 
                 NSUInteger commandLength = rule.drawingMethodString.length;
-                if (commandLength < kLSMaxCommandLength) {
+                if (commandLength < kLSMaxCommandLength)
+                {
                     strcpy(_commandsStruct.command[ruleIndex], rule.drawingMethodString.UTF8String);
                     
-                } else {
+                }
+                else
+                {
                     NSAssert(YES, @"FractalScapeError: Rule CommandString '%@' is too long. Max length: %d, actual length: %lu",
                              rule.drawingMethodString,
                              kLSMaxCommandLength,
@@ -152,7 +174,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 //        }];
     // clear selectors
     int i = 0;
-    for (i=0; i < kLSMaxRules; i++) {
+    for (i=0; i < kLSMaxRules; i++)
+    {
         _selectorsStruct.selector[i] = NULL;
     }
 }
@@ -272,7 +295,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     CGFloat yOrientation = self.flipY ? -1.0 : 1.0;
     
-    if (self.autoscale) {
+    if (self.autoscale)
+    {
         
         /*
          
@@ -295,7 +319,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         CGFloat scaleWidth = (size.width-2.0*self.margin)/self.rawFractalPathBounds.size.width;
         CGFloat scaleHeight = (size.height-2.0*self.margin)/self.rawFractalPathBounds.size.height;
         
-        _scale = MIN(scaleHeight, scaleWidth);
+        // scale > 1 means grow, < 1 means shrink,
+        // only scale if we need to shrink to fit
+        _scale = MIN(1.0,MIN(scaleHeight, scaleWidth));
         
         // Translating
         CGFloat fractalCenterX = _scale * CGRectGetMidX(self.rawFractalPathBounds);
@@ -326,7 +352,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     [self createFractalInContext: aCGContext percent: percent];
 
 
-    if (self.showOrigin) {
+    if (self.showOrigin)
+    {
         // put origin markers on top of fractal so draw after fractal
         CGContextSaveGState(aCGContext);
         {
@@ -357,7 +384,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         NSLog(@"Recursive total execution time: %.2fms", _renderTime);
 #endif
 }
--(void) findFractalUntransformedBoundsForContext: (CGContextRef) aCGContext {
+-(void) findFractalUntransformedBoundsForContext: (CGContextRef) aCGContext
+{
     CGFloat yOrientation = self.flipY ? -1.0 : 1.0;
 
     [self initialiseSegmentWithContext: aCGContext];
@@ -377,7 +405,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     2. Redraw at best scale.
     3. Change scale as necessary when changing properties but only draw once and cache scale.
  */
--(void) createFractalInContext: (CGContextRef) aCGContext percent: (CGFloat)percent {
+-(void) createFractalInContext: (CGContextRef) aCGContext percent: (CGFloat)percent
+{
 
 #ifdef LSDEBUGPERFORMANCE
     NSTimeInterval productExecutionTime = 0.0;
@@ -401,9 +430,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     dataLength = dataLength > self.levelData.length ? self.levelData.length : dataLength;
     
-    for (long i=0; i < dataLength; i++) {
+    for (long i=0; i < dataLength; i++)
+    {
         [self evaluateRule: bytes[i]];
-        if (self.operation.isCancelled) {
+        if (self.operation.isCancelled)
+        {
             break;
         }
     }
@@ -415,17 +446,21 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
--(void) evaluateRule:(char)rule {
+-(void) evaluateRule:(char)rule
+{
     //
     SEL cachedSelector = _selectorsStruct.selector[rule];
-    if (!cachedSelector) {
+    if (!cachedSelector)
+    {
         NSString* selectorString = [NSString stringWithUTF8String: _commandsStruct.command[rule]];
         SEL uncachedSelector = NSSelectorFromString(selectorString);
         
-        if ([self respondsToSelector: uncachedSelector]) {
+        if ([self respondsToSelector: uncachedSelector])
+        {
             cachedSelector = uncachedSelector;
             _selectorsStruct.selector[rule] = cachedSelector;
-        } else {
+        } else
+        {
             NSLog(@"FractalScape error: missing command for key '%@'",selectorString);
             return;
         }
@@ -439,22 +474,26 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     return self.rawFractalPathBounds.size.height/self.rawFractalPathBounds.size.width;
 }
 
--(CGSize) unitBox {
+-(CGSize) unitBox
+{
     CGSize result = {1.0,1.0};
     CGFloat width = self.rawFractalPathBounds.size.width;
     CGFloat height = self.rawFractalPathBounds.size.height;
     
-    if (width >= height) {
+    if (width >= height)
+    {
         // wider than tall width is 1.0
         result.height = height/width;
-    } else {
+    } else
+    {
         // taller than wide height is 1.0
         result.width = width/height;
     }
     return result;
 }
 
--(void) updateBoundsWithPoint: (CGPoint) aPoint {
+-(void) updateBoundsWithPoint: (CGPoint) aPoint
+{
     CGRect tempBounds = CGRectUnion(_rawFractalPathBounds, CGRectMake(aPoint.x, aPoint.y, 1.0, 1.0));
     _rawFractalPathBounds = CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
 }
@@ -466,7 +505,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
  
  @return new potentially larger bounds
  */
-static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
+static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
+{
     CGRect tempBounds = CGRectUnion(bounds, CGRectMake(aPoint.x, aPoint.y, 1.0, 1.0));
     return CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
 }
@@ -479,7 +519,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
 
 #pragma mark - Segment routines
 
--(void) segmentAddPoint: (CGPoint) aUserPoint {
+-(void) segmentAddPoint: (CGPoint) aUserPoint
+{
 //    [self updateBoundsWithPoint: aUserPoint];
     
     if (_segmentStack[_segmentIndex].pointIndex >= (kLSMaxSegmentPointsSize-1)) {
@@ -500,11 +541,13 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
     _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint);
 }
 
--(NSUInteger) segmentPointCount {
+-(NSUInteger) segmentPointCount
+{
     return _segmentStack[_segmentIndex].pointIndex + 1;
 }
 
--(CGPathDrawingMode) getSegmentDrawingMode {
+-(CGPathDrawingMode) getSegmentDrawingMode
+{
     
     if (!_segmentStack[_segmentIndex].drawingModeUnchanged) {
         BOOL stroke = _segmentStack[_segmentIndex].stroke;
@@ -513,11 +556,14 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
         
         CGPathDrawingMode strokeOrFill = kCGPathStroke;
         
-        if (fill && stroke) {
+        if (fill && stroke)
+        {
             strokeOrFill = eoFill ? kCGPathEOFillStroke : kCGPathFillStroke;
-        } else if (stroke && !fill) {
+        } else if (stroke && !fill)
+        {
             strokeOrFill = kCGPathStroke;
-        } else if (fill && !stroke) {
+        } else if (fill && !stroke)
+        {
             strokeOrFill = eoFill ? kCGPathEOFill : kCGPathFill;
         }
         
@@ -539,7 +585,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint) {
     [self drawPathClosed: NO];
 }
 
--(void) drawPathClosed: (BOOL)closed {
+-(void) drawPathClosed: (BOOL)closed
+{
     
     if (_segmentStack[_segmentIndex].pointIndex > 0)
     {

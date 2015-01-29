@@ -42,17 +42,9 @@
                                                                             <outletCollection property="gestureRecognizers" destination="wp3-t2-GY6" appends="YES" id="vpi-Uw-Isd"/>
                                                                         </connections>
                                                                     </view>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
-                                                                        <rect key="frame" x="20" y="923" width="93" height="20.5"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="lOu-PR-QW2" firstAttribute="leading" secondItem="9wd-5R-WKj" secondAttribute="leading" constant="20" symbolic="YES" id="7gV-zP-FSC"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="lOu-PR-QW2" secondAttribute="bottom" constant="20" symbolic="YES" id="A9R-gT-KJd"/>
                                                                     <constraint firstAttribute="centerY" secondItem="QA7-0x-p1h" secondAttribute="centerY" id="Ctk-y8-4YU"/>
                                                                     <constraint firstAttribute="centerX" secondItem="QA7-0x-p1h" secondAttribute="centerX" id="Jhx-T6-Q7X"/>
                                                                     <constraint firstItem="QA7-0x-p1h" firstAttribute="height" secondItem="9wd-5R-WKj" secondAttribute="height" id="LJF-oi-p6Z"/>
@@ -69,11 +61,19 @@
                                                             <outlet property="delegate" destination="4nM-Pc-iAd" id="Lqm-gO-T05"/>
                                                         </connections>
                                                     </scrollView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
+                                                        <rect key="frame" x="20" y="923.5" width="93" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="lOu-PR-QW2" firstAttribute="leading" secondItem="L8D-tT-rkV" secondAttribute="leading" constant="20" symbolic="YES" id="051-ev-7Zf"/>
                                                     <constraint firstAttribute="trailing" secondItem="K7q-IS-pfO" secondAttribute="trailing" id="GLO-TA-tnq"/>
                                                     <constraint firstAttribute="width" secondItem="9wd-5R-WKj" secondAttribute="width" id="Mwq-Ch-RLn"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lOu-PR-QW2" secondAttribute="bottom" constant="20" symbolic="YES" id="UDT-gd-pst"/>
                                                     <constraint firstItem="K7q-IS-pfO" firstAttribute="leading" secondItem="L8D-tT-rkV" secondAttribute="leading" id="WF5-Bd-UWv"/>
                                                     <constraint firstAttribute="bottom" secondItem="K7q-IS-pfO" secondAttribute="bottom" id="biS-mC-3aL"/>
                                                     <constraint firstItem="K7q-IS-pfO" firstAttribute="top" secondItem="L8D-tT-rkV" secondAttribute="top" id="dAz-gs-pgq"/>
@@ -554,7 +554,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjZ-fb-Tj5">
+                                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjZ-fb-Tj5">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="45"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -584,6 +584,11 @@
                                                         <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="FyM-N5-rEQ"/>
                                                     </connections>
                                                 </barButtonItem>
+                                                <barButtonItem systemItem="stop" id="CSZ-jq-y3V">
+                                                    <connections>
+                                                        <action selector="stopButtonPressed:" destination="4nM-Pc-iAd" id="xO5-0v-YvZ"/>
+                                                    </connections>
+                                                </barButtonItem>
                                                 <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="2oT-13-Oji"/>
                                                 <barButtonItem image="toolBarHUDScreenIcon" style="plain" id="Xn2-fr-47f" userLabel="FullScreen">
                                                     <connections>
@@ -594,6 +599,7 @@
                                             <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </toolbar>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="zjZ-fb-Tj5" firstAttribute="top" secondItem="qWd-z2-1Mp" secondAttribute="top" id="fxa-gg-AoS"/>
                                         <constraint firstItem="zjZ-fb-Tj5" firstAttribute="leading" secondItem="qWd-z2-1Mp" secondAttribute="leading" id="n5z-WT-KSy"/>
@@ -654,8 +660,9 @@
                         <outlet property="playButton" destination="ec5-JZ-eZx" id="jUC-RT-uMt"/>
                         <outlet property="randomnessVerticalSlider" destination="p0o-A9-ELt" id="l2K-Ys-EvS"/>
                         <outlet property="renderTimeLabel" destination="lOu-PR-QW2" id="RTa-Ld-ZOt"/>
+                        <outlet property="stopButton" destination="CSZ-jq-y3V" id="PvM-rF-ohh"/>
                         <outlet property="toggleFullScreenButton" destination="Xn2-fr-47f" id="IZm-KY-tza"/>
-                        <outlet property="toolbar" destination="zjZ-fb-Tj5" id="7UT-sD-Rn3"/>
+                        <outlet property="toolbar" destination="zjZ-fb-Tj5" id="VyY-ay-uIw"/>
                         <outlet property="toolbarTitle" destination="hsw-ym-KtT" id="F9f-Zx-raW"/>
                         <outlet property="turnAngleIncrementLabel" destination="AUJ-mW-uO9" id="goq-SY-Wqc"/>
                         <outlet property="turnAngleSlider" destination="rPE-Sl-13x" id="Y5C-GZ-nNZ"/>
