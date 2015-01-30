@@ -198,6 +198,7 @@
 @property (nonatomic,assign) CGFloat                renderTime;
 @property (atomic,strong) UIImage                   *image;
 @property (nonatomic,assign) BOOL                   autoscale;
+@property (nonatomic,assign) BOOL                   autoExpand;
 @property (nonatomic,assign) BOOL                   showOrigin;
 @property (nonatomic,assign) CGFloat                scale;
 @property (nonatomic,assign) CGFloat                translateX;

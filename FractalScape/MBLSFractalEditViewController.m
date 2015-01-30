@@ -53,6 +53,9 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
+@property (nonatomic, strong) UIBarButtonItem*      autoExpandOn;
+@property (nonatomic, strong) UIBarButtonItem*      autoExpandOff;
+@property (nonatomic, strong) NSArray*              disabledDuringPlaybackButtons;
 
 @property (nonatomic,weak) UIViewController*        currentPresentedController;
 @property (nonatomic,assign) CGSize                 popoverPortraitSize;
@@ -71,6 +74,7 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL2;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererLN;
 @property (nonatomic,assign) BOOL                          autoscaleN;
+@property (nonatomic,assign) BOOL                          autoExpandFractal;
 @property (nonatomic,strong) NSDate                        *lastImageUpdateTime;
 
 @property (nonatomic,strong) NSTimer                       *playbackTimer;
@@ -144,7 +148,18 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
 }
 -(void) configureNavBarButtons
 {
-    self.playButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemPlay
+    
+    self.autoExpandOn = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"toolBarFullScreenIcon"]
+                                                                  style: UIBarButtonItemStylePlain
+                                                                 target: self
+                                                                 action: @selector(toggleAutoExpandFractal:)];
+
+    self.autoExpandOff = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"toolBarFullScreenIconOff"]
+                                                                        style: UIBarButtonItemStylePlain
+                                                                       target: self
+                                                                       action: @selector(toggleAutoExpandFractal:)];
+    
+   self.playButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemPlay
                                                                    target: self
                                                                    action: @selector(playButtonPressed:)];
     
@@ -161,12 +176,15 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
                                                                  target: self
                                                                  action: @selector(shareButtonPressed:)];
     
+    _disabledDuringPlaybackButtons = @[self.autoExpandOff, self.autoExpandOn, copyButton, shareButton];
+    
     NSMutableArray* items = [self.navigationItem.leftBarButtonItems mutableCopy];
     [items addObject: copyButton];
     [items addObject: shareButton];
     [self.navigationItem setLeftBarButtonItems: items];
     
     items = [self.navigationItem.rightBarButtonItems mutableCopy];
+    [items addObject: self.autoExpandOn];
     [items addObject: self.playButton];
     [self.navigationItem setRightBarButtonItems: items];
 }
@@ -689,6 +707,7 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
 
 -(void) updateInterface
 {
+    [self stopButtonPressed: nil];
     [self updateValueInputs];
     [self updateLabelsAndControls];
     [self updateNavButtons];
@@ -797,6 +816,8 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
     [self queueHudImageUpdates];
     
     self.fractalRendererLN.autoscale = self.autoscaleN;
+    self.fractalRendererLN.autoExpand = self.autoExpandFractal;
+    
     if (!self.lowPerformanceDevice || self.fractalRendererLN.levelData.length < 150000)
     {
         self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor * 2.0;
@@ -1028,7 +1049,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                          sender: (id) sender
                    otherPopover: (UIViewController<FractalControllerProtocol>*) otherController
 {
-    
+    [self stopButtonPressed: nil];
+
     if (self.currentPresentedController != nil)
     {
         [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
@@ -1073,8 +1095,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 -(IBAction)appearanceButtonPressed:(id)sender
 {
-    [self stopButtonPressed: nil];
-    
     if (self.presentedViewController == self.appearanceViewController)
     {
         [self dismissViewControllerAnimated: YES completion:^{
@@ -1283,6 +1303,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         newRenderer.margin = 50.0;
         newRenderer.showOrigin = YES;
         newRenderer.autoscale = YES;
+        newRenderer.autoExpand = self.autoExpandFractal;
         newRenderer.levelData = self.levelDataArray[levelIndex];
     }
     return newRenderer;
@@ -1309,6 +1330,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (IBAction)playButtonPressed: (id)sender
 {
     [self.playbackTimer invalidate];
+    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
+    {
+        button.enabled = NO;
+    }
+
     [self swapOldButton: self.playButton withNewButton: self.stopButton];
     self.playbackSlider.hidden = NO;
     
@@ -1391,6 +1417,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 -(IBAction) stopButtonPressed: (id)sender
 {
+    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
+    {
+        button.enabled = YES;
+    }
+
     if (!self.playbackSlider.hidden) {
         if (self.playbackTimer)
         {
@@ -1410,6 +1441,18 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     self.playIsPercentCompleted = slider.value;
     [self playNextFrame: nil];
+}
+-(IBAction)toggleAutoExpandFractal:(id)sender
+{
+    self.autoExpandFractal = !self.autoExpandFractal;
+    if (self.autoExpandFractal) {
+        [self swapOldButton: self.autoExpandOn withNewButton: self.autoExpandOff];
+    }
+    else
+    {
+        [self swapOldButton: self.autoExpandOff withNewButton: self.autoExpandOn];
+    }
+    [self queueFractalImageUpdates];
 }
 - (IBAction)copyFractal:(id)sender
 {

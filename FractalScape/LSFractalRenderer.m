@@ -321,7 +321,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         // scale > 1 means grow, < 1 means shrink,
         // only scale if we need to shrink to fit
-        _scale = MIN(1.0,MIN(scaleHeight, scaleWidth));
+        if (self.autoExpand)
+        {
+            _scale = MIN(scaleHeight, scaleWidth);
+        }
+        else
+        {
+            _scale = MIN(1.0,MIN(scaleHeight, scaleWidth));
+        }
         
         // Translating
         CGFloat fractalCenterX = _scale * CGRectGetMidX(self.rawFractalPathBounds);

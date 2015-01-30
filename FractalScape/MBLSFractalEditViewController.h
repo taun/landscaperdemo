@@ -128,6 +128,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 -(IBAction) pauseButtonPressed: (id)sender;
 - (IBAction)stopButtonPressed:(id)sender;
 -(IBAction) playSliderChangedValue: (UISlider*)slider;
+-(IBAction) toggleAutoExpandFractal:(id)sender;
 
 #pragma mark - Screen Controller Actions
 - (IBAction)levelInputChanged: (UIControl*)sender;
