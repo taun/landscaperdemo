@@ -15,6 +15,7 @@ static const NSInteger kLSMaxLevels = 21;
 
 struct MBSegmentStruct {
     CGContextRef        context;
+    CGMutablePathRef    path;
     CGPoint             points[kLSMaxSegmentPointsSize]; // connected path points
     NSInteger           pointIndex; // index points to current valid point. init to -1
     CGPathDrawingMode   mode;

@@ -180,7 +180,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
 }
 
--(NSString*) debugDescription {
+-(NSString*) debugDescription
+{
     CFDictionaryRef boundsDict = CGRectCreateDictionaryRepresentation(_rawFractalPathBounds);
     NSString* boundsDescription = [(__bridge NSDictionary*)boundsDict description];
     CFRelease(boundsDict);
@@ -190,7 +191,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             boundsDescription];
 }
 
--(CGColorRef) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray {
+-(CGColorRef) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray
+{
     CGFloat count = (CGFloat)colorArray.count;
     if (count == 0.0) {
         return self.defaultColor.CGColor;
@@ -207,7 +209,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     return newColor.CGColor;
 }
 #pragma mark - lazy init getters
--(void) setBaseSegmentForFractal: (LSFractal*)aFractal {
+-(void) setBaseSegmentForFractal: (LSFractal*)aFractal
+{
     _baseSegment.lineColorIndex = 0;
     _baseSegment.fillColorIndex = 0;
     
@@ -240,7 +243,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     _baseSegment.baseAngle = [aFractal.baseAngle floatValue];
 }
--(void) initialiseSegmentWithContext: (CGContextRef)aCGContext {
+-(void) initialiseSegmentWithContext: (CGContextRef)aCGContext
+{
     
     MBSegmentStruct newSegment = _baseSegment;
     newSegment.context = aCGContext;
@@ -248,11 +252,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _segmentIndex = 0;
     _segmentStack[_segmentIndex] = newSegment;
 }
--(void) generateImage {
+-(void) generateImage
+{
     [self generateImagePercent: 100.0];
 }
--(void) generateImagePercent:(CGFloat)percent {
-    if (!self.imageView || (self.operation && self.operation.isCancelled) || percent <= 0.0) {
+-(void) generateImagePercent:(CGFloat)percent
+{
+    if (!self.imageView || (self.operation && self.operation.isCancelled) || percent <= 0.0)
+    {
         return;
     }
     
@@ -266,7 +273,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
     UIGraphicsEndImageContext();
 }
--(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size{
+-(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size
+{
     
     CGContextSaveGState(aCGContext);
     {
@@ -276,10 +284,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
     CGContextRestoreGState(aCGContext);
 }
--(void) drawInContext:(CGContextRef)aCGContext size:(CGSize)size {
+-(void) drawInContext:(CGContextRef)aCGContext size:(CGSize)size
+{
     [self drawInContext: aCGContext size: size percent: 100.0];
 }
--(void) drawInContext:(CGContextRef)aCGContext size: (CGSize)size percent:(CGFloat)percent {
+-(void) drawInContext:(CGContextRef)aCGContext size: (CGSize)size percent:(CGFloat)percent
+{
 
     NSAssert(aCGContext, @"NULL Context being used. Context must be non-null.");
     
@@ -357,7 +367,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 
     [self createFractalInContext: aCGContext percent: percent];
-
+    if (_segmentStack[_segmentIndex].path != NULL)
+    {
+        CGPathRelease(_segmentStack[_segmentIndex].path);
+        _segmentStack[_segmentIndex].path = NULL;
+    }
 
     if (self.showOrigin)
     {
@@ -447,7 +461,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
     
     [self drawPath];
-    
 }
 
 #pragma clang diagnostic push
@@ -525,29 +538,29 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 //}
 
 #pragma mark - Segment routines
-
 -(void) segmentAddPoint: (CGPoint) aUserPoint
 {
-//    [self updateBoundsWithPoint: aUserPoint];
-    
-    if (_segmentStack[_segmentIndex].pointIndex >= (kLSMaxSegmentPointsSize-1))
-    {
-        CGContextAddLines(_segmentStack[_segmentIndex].context,_segmentStack[_segmentIndex].points,_segmentStack[_segmentIndex].pointIndex+1);
-        _segmentStack[_segmentIndex].pointIndex = -1;
-        NSLog(@"Line Limit reached");
-    }
-    
-    if (_segmentStack[_segmentIndex].pointIndex < 0)
-    {
-        // no start point so add default (0,0)
-        CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
-        _segmentStack[_segmentIndex].pointIndex += 1;
-        _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedSPoint;
-    }
-
     CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, _segmentStack[_segmentIndex].transform);
-    _segmentStack[_segmentIndex].pointIndex += 1;
-    _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedPoint;
+
+    if (!_segmentStack[_segmentIndex].noDrawPath)
+    {
+        if (_segmentStack[_segmentIndex].path == NULL)
+        {
+            // the first point in a continuous path
+            _segmentStack[_segmentIndex].path = CGPathCreateMutable();
+        }
+        
+        BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+        
+        if (emptyPath || CGPointEqualToPoint(CGPathGetCurrentPoint(_segmentStack[_segmentIndex].path), CGPointZero))
+        {
+            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
+            CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
+        }
+        
+        CGPathAddLineToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
+    }
+    
     
     _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint);
 }
@@ -599,24 +612,21 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 -(void) drawPathClosed: (BOOL)closed
 {
     
-    if (_segmentStack[_segmentIndex].pointIndex > 0)
-    {
-        // need at least two points
         if (!_segmentStack[_segmentIndex].noDrawPath)
         {
             [self setCGGraphicsStateFromCurrentSegment];
             
-            CGContextAddLines(_segmentStack[_segmentIndex].context,_segmentStack[_segmentIndex].points,_segmentStack[_segmentIndex].pointIndex+1);
-            _segmentStack[_segmentIndex].pointIndex = -1;
-            
             if (closed || _segmentStack[_segmentIndex].fill)
             {
-                CGContextClosePath(_segmentStack[_segmentIndex].context);
+                CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
             }
+            
+            CGContextAddPath(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].path);
+            CGPathRelease(_segmentStack[_segmentIndex].path);
+            _segmentStack[_segmentIndex].path = NULL;
             
             CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
         }
-    }
 }
 
 -(void) drawCircleRadius: (CGFloat) radius {
@@ -636,9 +646,14 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 -(void) pushCurrentPath {
     _segmentIndex = _segmentIndex < kLSMaxSegmentStackSize ? ++_segmentIndex : _segmentIndex;
     _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
+    _segmentStack[_segmentIndex].path = CGPathCreateMutable();
     NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
 }
 -(void) popCurrentPath {
+    if (_segmentStack[_segmentIndex].path != NULL) {
+        CGPathRelease(_segmentStack[_segmentIndex].path);
+        _segmentStack[_segmentIndex].path = NULL;
+    }
     _segmentIndex = _segmentIndex > 0 ? --_segmentIndex : _segmentIndex;
     NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
 }
