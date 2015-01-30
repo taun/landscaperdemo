@@ -35,7 +35,7 @@
 #define LOGBOUNDS 0
 #define DEBUGRENDERTIME
 
-static const NSString* kLibrarySelectionKeypath = @"selectedFractal";
+static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 static const BOOL SIMULTOUCH = NO;
 static const CGFloat kHighPerformanceFrameRate = 20.0;
 static const CGFloat kLowPerformanceFrameRate = 8.0;
@@ -368,7 +368,7 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
     // Return YES for supported orientations
     return YES;
 }
-#pragma message  "TODO: Check for fractal name change to update window title"
+
 /* observer fractal.replacementRules */
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -1329,6 +1329,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 - (IBAction)playButtonPressed: (id)sender
 {
+    if (!self.fractal) {
+        return;
+    }
+    
     [self.playbackTimer invalidate];
     for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
     {

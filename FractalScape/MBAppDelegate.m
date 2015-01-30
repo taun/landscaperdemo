@@ -139,8 +139,10 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    UINavigationController* navCon = (UINavigationController*)self.window.rootViewController;
+    NSArray* controllers = navCon.viewControllers;
     
-    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)self.window.rootViewController;
+    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)controllers[0];
 
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];

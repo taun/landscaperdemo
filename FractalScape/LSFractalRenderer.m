@@ -530,11 +530,15 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 {
 //    [self updateBoundsWithPoint: aUserPoint];
     
-    if (_segmentStack[_segmentIndex].pointIndex >= (kLSMaxSegmentPointsSize-1)) {
+    if (_segmentStack[_segmentIndex].pointIndex >= (kLSMaxSegmentPointsSize-1))
+    {
         CGContextAddLines(_segmentStack[_segmentIndex].context,_segmentStack[_segmentIndex].points,_segmentStack[_segmentIndex].pointIndex+1);
         _segmentStack[_segmentIndex].pointIndex = -1;
+        NSLog(@"Line Limit reached");
     }
-    if (_segmentStack[_segmentIndex].pointIndex < 0) {
+    
+    if (_segmentStack[_segmentIndex].pointIndex < 0)
+    {
         // no start point so add default (0,0)
         CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
         _segmentStack[_segmentIndex].pointIndex += 1;
@@ -609,6 +613,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
             {
                 CGContextClosePath(_segmentStack[_segmentIndex].context);
             }
+            
             CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
         }
     }
