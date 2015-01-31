@@ -329,32 +329,26 @@
         NSManagedObjectContext* context = self.managedObjectContext;
     
         LSDrawingRuleType* fractalDrawingRuleType;
-        
-        
-        //NSArray* fractals = defaults[@"InitialLSFractals"];
-        
-        //@"drawingRulesType.identifier";
-        
             
-        for (id fractalDictionary in fractalList) {
-            if ([fractalDictionary isKindOfClass: [NSDictionary class]]) {
+        for (id fractalDictionary in fractalList)
+        {
+            if ([fractalDictionary isKindOfClass: [NSDictionary class]])
+            {
                 // create the fractal
                 
                 // only create new fractal if one with identifier doesn't already exist
                 NSString* fractalName = fractalDictionary[@"name"];
-                if ([LSFractal findFractalWithName: fractalName inContext: context] == nil) {
+                if ([LSFractal findFractalWithName: fractalName inContext: context] == nil)
+                {
                     LSFractal* fractal = [LSFractal insertNewObjectIntoContext: context];
-                    
-                    //fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: [fractalDictionary objectForKey: @"drawingRulesType.identifier"] inContext: self.managedObjectContext];
-                    //fractal.drawingRulesType = fractalDrawingRuleType;
-                    lastFractal = fractal;
                     
                     // handle special cases
                     NSMutableDictionary* mutableFractalDictionary = [fractalDictionary mutableCopy];
                     
                     // need rules type before we can handle starting rules and replacement rules
                     NSString* rulesTypeString = mutableFractalDictionary[@"drawingRulesType.identifier"];
-                    if (rulesTypeString != nil && rulesTypeString.length > 0) {
+                    if (rulesTypeString != nil && rulesTypeString.length > 0)
+                    {
                         fractalDrawingRuleType = [LSDrawingRuleType findRuleTypeWithIdentifier: rulesTypeString inContext: self.managedObjectContext];
                         fractal.drawingRulesType = fractalDrawingRuleType;
                         [mutableFractalDictionary removeObjectForKey: @"drawingRulesType.identifier"];
@@ -364,7 +358,8 @@
 
                     NSString* startingRulesKey = [LSFractal startingRulesKey];
                     NSString* startingRulesString = mutableFractalDictionary[startingRulesKey];
-                    if (startingRulesString != nil && rulesTypeString.length > 0) {
+                    if (startingRulesString != nil && rulesTypeString.length > 0)
+                    {
                         NSMutableOrderedSet* startingRules = [fractal mutableOrderedSetValueForKey: startingRulesKey];
                         
                         [self copyObjectFrom: availableRules usingKeysInString: startingRulesString toCollection: startingRules];
@@ -374,7 +369,8 @@
                    
                     NSString* replacementRulesKey = [LSFractal replacementRulesKey];
                     NSDictionary* replacementRulesDict = mutableFractalDictionary[replacementRulesKey];
-                    if (replacementRulesDict && replacementRulesDict.count > 0) {
+                    if (replacementRulesDict && replacementRulesDict.count > 0)
+                    {
                         NSMutableOrderedSet* replacementRules = [fractal mutableOrderedSetValueForKey: replacementRulesKey];
  
                         for (NSString* key in replacementRulesDict) {
@@ -394,12 +390,14 @@
                     }
 
                     NSArray* lineColorsArray = mutableFractalDictionary[[LSFractal lineColorsKey]];
-                    if (lineColorsArray && lineColorsArray.count > 0) {
+                    if (lineColorsArray && lineColorsArray.count > 0)
+                    {
                         NSMutableOrderedSet* mutableColorsSet = [fractal mutableOrderedSetValueForKey: [LSFractal lineColorsKey]];
                         
                         NSInteger colorIndex = 0;
                         
-                        for (NSDictionary* colorDict in lineColorsArray) {
+                        for (NSDictionary* colorDict in lineColorsArray)
+                        {
                             MBColor* newColor = [MBColor newMBColorWithPListDictionary: colorDict inContext: fractal.managedObjectContext];
                             newColor.index = [NSNumber numberWithInteger: colorIndex];
                             colorIndex++;
@@ -409,12 +407,14 @@
                     }
                     
                     NSArray* fillColorsArray = mutableFractalDictionary[[LSFractal fillColorsKey]];
-                    if (fillColorsArray && fillColorsArray.count > 0) {
+                    if (fillColorsArray && fillColorsArray.count > 0)
+                    {
                         NSMutableOrderedSet* mutableColorsSet = [fractal mutableOrderedSetValueForKey: [LSFractal fillColorsKey]];
                         
                         NSInteger colorIndex = 0;
                         
-                        for (NSDictionary* colorDict in fillColorsArray) {
+                        for (NSDictionary* colorDict in fillColorsArray)
+                        {
                             MBColor* newColor = [MBColor newMBColorWithPListDictionary: colorDict inContext: fractal.managedObjectContext];
                             // the order of colors in the PList array is the index order
                             // if you want to change the color order, change it in the PList.
@@ -425,7 +425,8 @@
                         [mutableFractalDictionary removeObjectForKey: [LSFractal fillColorsKey]];
                     }
                     
-                    for (id propertyKey in mutableFractalDictionary) {
+                    for (id propertyKey in mutableFractalDictionary)
+                    {
                         id propertyValue = mutableFractalDictionary[propertyKey];
                         // all but dictionaries should be key value
                         [fractal setValue: propertyValue forKey: propertyKey];

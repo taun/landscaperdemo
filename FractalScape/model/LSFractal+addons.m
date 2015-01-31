@@ -311,23 +311,6 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     }
     return [tempDictionary copy];
 }
--(void) recurseRules: (NSOrderedSet*)rules replacementRules: (NSDictionary*)replacementRulesDict currentLevel: (NSUInteger)currentLevel desiredLevel: (NSUInteger) desiredLevel ruleArray: (NSPointerArray*)leafRulesArray leafRuleIndex: (NSUInteger*) leafIndexPtr {
-    for (LSDrawingRule* rule in rules) {
-        LSReplacementRule* replacementRule = replacementRulesDict[rule.productionString];
-        if (currentLevel == desiredLevel || !replacementRule) {
-            // if we are at the right level OR there is NO replacement rule, add the leaf
-            NSUInteger arraySize = leafRulesArray.count;
-            if (*leafIndexPtr+1 >= arraySize) {
-                NSUInteger newArraySize = arraySize + kLSLevelCacheIncrement;
-                [leafRulesArray setCount: newArraySize];
-            }
-            [leafRulesArray replacePointerAtIndex: (*leafIndexPtr)++ withPointer: (__bridge void *)(rule.drawingMethodString)];
-        } else if (currentLevel < desiredLevel && replacementRule) {
-            // if we are not at the right level AND there IS a replacement rule, recurse
-            [self recurseRules: replacementRule.rules replacementRules: replacementRulesDict currentLevel: currentLevel+1 desiredLevel: desiredLevel ruleArray: leafRulesArray leafRuleIndex: leafIndexPtr];
-        }
-    }
-}
 -(void) generateLevelData {
     if (!(self.levelUnchanged && self.rulesUnchanged)) {
         [self cacheLevelNRulesStrings];
@@ -384,6 +367,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         self.levelNRulesCache = [NSMutableData dataWithCapacity: kLSMaxLevelNCacheSize];
     }
 }
+#pragma message "TODO add set of placeholder rules and remove them before returning the NSData. Saves time during rendering evaluation."
 -(void) cacheLevelNRulesStrings {
     // if level or rules changed, reproduce cache
     if (!(self.levelUnchanged && self.rulesUnchanged)) {

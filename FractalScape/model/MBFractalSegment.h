@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-static const NSInteger kLSMaxSegmentPointsSize = 30;
-static const NSInteger kLSMaxSegmentStackSize = 21;
-static const NSInteger kLSMaxLevels = 21;
+static const NSUInteger kLSMaxSegmentPointsSize = 30;
+static const NSUInteger kLSMaxSegmentStackSize = 21;
+static const NSUInteger kLSMaxLevels = 21;
+static const NSUInteger kLSMaxColors = 20;
 
 struct MBSegmentStruct {
     CGContextRef        context;
     CGMutablePathRef    path;
     CGPoint             points[kLSMaxSegmentPointsSize]; // connected path points
-    NSInteger           pointIndex; // index points to current valid point. init to -1
+    NSInteger          pointIndex; // index points to current valid point. init to -1
     CGPathDrawingMode   mode;
     CGAffineTransform   transform; // Local transform so points can be used. Transform point before adding to points.
     CGFloat             scale;
@@ -29,7 +30,10 @@ struct MBSegmentStruct {
     BOOL                stroke;
     CGLineCap           lineCap;
     CGLineJoin          lineJoin;
-    NSInteger           lineColorIndex;
+    CGColorRef          defaultLineColor;
+    NSUInteger           lineColorsCount;
+    NSUInteger           lineColorIndex;
+    CGColorRef          lineColors[kLSMaxColors];
     CGFloat             lineLength;
     CGFloat             lineWidth;
     CGFloat             lineWidthIncrement;
@@ -37,7 +41,10 @@ struct MBSegmentStruct {
     CGFloat             lineChangeFactor;
     BOOL                fill;
     BOOL                EOFill;
-    NSInteger           fillColorIndex;
+    CGColorRef          defaultFillColor;
+    NSUInteger           fillColorsCount;
+    NSUInteger           fillColorIndex;
+    CGColorRef          fillColors[kLSMaxColors];
     BOOL                randomize;
     CGFloat             randomness;
 } ;

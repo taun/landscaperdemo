@@ -876,7 +876,8 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
                     {
                         UIDevice* device = [UIDevice currentDevice];
                         NSString* deviceIdentifier = device.model;
-                        self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, \tRender Time: %0.0fms, \tNodes: %lu", deviceIdentifier,self.fractalRendererLN.renderTime,self.fractalRendererLN.levelData.length];
+                        self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, \tRender Time: %0.0fms, \tNodes: %lu",
+                                                     deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
                     }
                 }];
             }

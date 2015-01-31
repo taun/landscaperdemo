@@ -191,6 +191,8 @@
  */
 @property (nonatomic,assign) BOOL                   flipY;
 @property (nonatomic,assign) CGFloat                pixelScale;
+@property (nonatomic,strong) UIColor*               defaultLineColor;
+@property (nonatomic,strong) UIColor*               defaultFillColor;
 @property (nonatomic,copy) UIColor                  *backgroundColor;
 @property (atomic,weak) UIImageView                 *imageView;
 @property (nonatomic,assign,readonly) CGRect        rawFractalPathBounds;

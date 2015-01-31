@@ -41,9 +41,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 @property (nonatomic,assign) MBSegmentStruct        baseSegment;
 @property (nonatomic,assign,readwrite) CGRect       rawFractalPathBounds;
-@property (nonatomic,strong) NSArray*               cachedLineUIColors;
-@property (nonatomic,strong) NSArray*               cachedFillUIColors;
-@property (nonatomic,strong) UIColor*               defaultColor;
 @property (nonatomic,assign) BOOL                   controlPointOn;
 @property (nonatomic,assign) CGPoint                controlPointNode;
 @property (nonatomic,assign) CGPoint                previousNode;
@@ -70,12 +67,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _translateX = 0.0;
         _translateY = 0.0;
         _rawFractalPathBounds =  CGRectZero;
-        _defaultColor = [UIColor blueColor];
+        _defaultLineColor = [UIColor blueColor];
+        _defaultFillColor = [UIColor whiteColor];
         _controlPointOn = NO;
         _segmentIndex = 0;
         _margin = 0;
         _backgroundColor = [UIColor clearColor];
         
+        [self nullOutBaseSegment];
         [self setValuesForFractal: aFractal];
     }
     return self;
@@ -84,6 +83,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 - (instancetype)init {
     self = [self initWithFractal: nil];
     return self;
+}
+-(void) dealloc
+{
+    [self releaseSegmentCGReferences];
 }
 
 #pragma mark - getters setters
@@ -100,82 +103,41 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 /* If fractal is not save, below will return nil for privateFractal. What to do? */
 -(void) setValuesForFractal:(LSFractal *)aFractal
 {
-    [self cacheColors: aFractal];
     [self cacheDrawingRules: aFractal];
     [self setBaseSegmentForFractal: aFractal];
 }
-/*!
- Needs to only be called from the main thread or passed the privateFractal on the privateFractal thread.
- If called on the private thread, what happens with the private thread colors.
- 
- @param fractal the fractal with the colors to be cached.
- */
--(void) cacheColors: (LSFractal*)fractal
+
+-(void) cacheDrawingRules: (LSFractal*)aFractal
 {
-    MBColor* background = fractal.backgroundColor;
-    if (background)
+    NSOrderedSet* rules = aFractal.drawingRulesType.rules;
+    
+    // setup internal noop rule placeholder "Z"
+    unsigned char zIndex = [@"Z" UTF8String][0];
+    strcpy(_commandsStruct.command[zIndex], [@"commandDoNothing" UTF8String]);
+    
+    for (LSDrawingRule* rule in rules)
     {
-        _backgroundColor = [background asUIColor];
-    }
-    else
-    {
-        _backgroundColor = [UIColor clearColor];
-    }
-    
-    
-    NSMutableArray* tempColors = [[NSMutableArray alloc] initWithCapacity: fractal.lineColors.count];
-    
-    for (MBColor* color in fractal.lineColors) {
-        [tempColors addObject: color.asUIColor];
-    }
-    _cachedLineUIColors = [tempColors copy];
-    
-    tempColors = [[NSMutableArray alloc] initWithCapacity: fractal.fillColors.count];
-    
-    for (MBColor* color in fractal.fillColors)
-    {
-        [tempColors addObject: color.asUIColor];
-    }
-    
-    _cachedFillUIColors = [tempColors copy];
-}
-
--(void) cacheDrawingRules: (LSFractal*)aFractal {
-    
-        NSPointerArray* tempArray;
+        unsigned char ruleIndex = rule.productionString.UTF8String[0];
         
-//        __block LSFractal* self.fractal;
-//        NSManagedObjectID *mainID = _fractalID;
-//        NSManagedObjectContext* pcon = _privateObjectContext;
-//        
-//        [_privateObjectContext performBlockAndWait:^{
-//            self.fractal = (LSFractal*)[pcon objectWithID: mainID];
+        NSUInteger commandLength = rule.drawingMethodString.length;
+        if (commandLength < kLSMaxCommandLength)
+        {
+            strcpy(_commandsStruct.command[ruleIndex], rule.drawingMethodString.UTF8String);
+            
+        }
+        else
+        {
+            NSAssert(YES, @"FractalScapeError: Rule CommandString '%@' is too long. Max length: %d, actual length: %lu",
+                     rule.drawingMethodString,
+                     kLSMaxCommandLength,
+                     (unsigned long)commandLength);
+        }
+    }
     
-            NSOrderedSet* rules = aFractal.drawingRulesType.rules;
-
-            for (LSDrawingRule* rule in rules)
-            {
-                unsigned char ruleIndex = rule.productionString.UTF8String[0];
-                
-                NSUInteger commandLength = rule.drawingMethodString.length;
-                if (commandLength < kLSMaxCommandLength)
-                {
-                    strcpy(_commandsStruct.command[ruleIndex], rule.drawingMethodString.UTF8String);
-                    
-                }
-                else
-                {
-                    NSAssert(YES, @"FractalScapeError: Rule CommandString '%@' is too long. Max length: %d, actual length: %lu",
-                             rule.drawingMethodString,
-                             kLSMaxCommandLength,
-                             (unsigned long)commandLength);
-                }
-             }
-//        }];
-    // clear selectors
     int i = 0;
     for (i=0; i < kLSMaxRules; i++)
     {
+        // initialize all selector slots to NULL. They will be filled lazily.
         _selectorsStruct.selector[i] = NULL;
     }
 }
@@ -191,28 +153,25 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             boundsDescription];
 }
 
--(CGColorRef) colorForIndex: (NSInteger)index inArray: (NSArray*) colorArray
-{
-    CGFloat count = (CGFloat)colorArray.count;
-    if (count == 0.0) {
-        return self.defaultColor.CGColor;
-    }
-    
-    NSInteger moddedIndex = (NSInteger)fabs(fmod((CGFloat)index, count));
-    
-    UIColor* newColor = colorArray[moddedIndex];
-    
-    if (!newColor) {
-        newColor = self.defaultColor;
-    }
-    
-    return newColor.CGColor;
-}
 #pragma mark - lazy init getters
+-(void) nullOutBaseSegment
+{
+    _baseSegment.path = NULL;
+    _baseSegment.context = NULL;
+    
+    _baseSegment.defaultLineColor = NULL;
+    _baseSegment.defaultFillColor = NULL;
+    
+    for (NSUInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
+    {
+        _baseSegment.lineColors[colorIndex] = NULL;
+        _baseSegment.fillColors[colorIndex] = NULL;
+    }
+
+}
 -(void) setBaseSegmentForFractal: (LSFractal*)aFractal
 {
-    _baseSegment.lineColorIndex = 0;
-    _baseSegment.fillColorIndex = 0;
+    [self releaseSegmentCGReferences];
     
     _baseSegment.lineLength = [aFractal.lineLength floatValue];
     _baseSegment.lineLengthScaleFactor = [aFractal.lineLengthScaleFactor floatValue];
@@ -242,6 +201,57 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _baseSegment.pointIndex = -1;
     
     _baseSegment.baseAngle = [aFractal.baseAngle floatValue];
+    
+    _baseSegment.defaultLineColor = [self.defaultLineColor CGColor];
+    _baseSegment.defaultFillColor = [self.defaultFillColor CGColor];
+    
+    NSUInteger colorIndex;
+    
+    for (colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
+    {
+        _baseSegment.lineColors[colorIndex] = NULL;
+        _baseSegment.fillColors[colorIndex] = NULL;
+    }
+    
+    colorIndex = 0;
+    for (MBColor* mbColor in aFractal.lineColors)
+    {
+        _baseSegment.lineColors[colorIndex] = CGColorCreateCopy([[mbColor asUIColor] CGColor]);
+        colorIndex++;
+    }
+    _baseSegment.lineColorsCount = aFractal.lineColors.count;
+    _baseSegment.lineColorIndex = 0;
+    
+    
+    colorIndex = 0;
+    for (MBColor* mbColor in aFractal.fillColors)
+    {
+        _baseSegment.fillColors[colorIndex] = CGColorCreateCopy([[mbColor asUIColor] CGColor]);
+        colorIndex++;
+    }
+    _baseSegment.fillColorsCount = aFractal.fillColors.count;
+    _baseSegment.fillColorIndex = 0;
+    
+}
+-(void) releaseSegmentCGReferences {
+    // all other segments are just copied references with no retains.
+    CGPathRef pathRef = _baseSegment.path;
+    if (pathRef != NULL) CGPathRelease(pathRef);
+    _baseSegment.path = NULL;
+    
+    CGColorRef color;
+    // default line and fill color are local properties and released using ARC.
+    
+    for (NSUInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
+    {
+        color = _baseSegment.lineColors[colorIndex];
+        if (color != NULL) CGColorRelease(color);
+        _baseSegment.lineColors[colorIndex] = NULL;
+        
+        color = _baseSegment.fillColors[colorIndex];
+        if (color != NULL) CGColorRelease(color);
+        _baseSegment.fillColors[colorIndex] = NULL;
+    }
 }
 -(void) initialiseSegmentWithContext: (CGContextRef)aCGContext
 {
@@ -481,7 +491,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             _selectorsStruct.selector[rule] = cachedSelector;
         } else
         {
-            NSLog(@"FractalScape error: missing command for key '%@'",selectorString);
+            NSLog(@"FractalScape error: missing command for key '%c'",rule);
             return;
         }
     }
@@ -596,12 +606,47 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     return _segmentStack[_segmentIndex].mode;
 }
 
+-(CGColorRef) currentLineColor
+{
+    NSUInteger count = _segmentStack[_segmentIndex].lineColorsCount;
+    if (count == 0) {
+        return _segmentStack[_segmentIndex].defaultLineColor;
+    }
+    
+    NSUInteger moddedIndex =  _segmentStack[_segmentIndex].lineColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
+    
+    CGColorRef newColor = _segmentStack[_segmentIndex].lineColors[moddedIndex];
+    
+    if (newColor == NULL) {
+        newColor = _segmentStack[_segmentIndex].defaultLineColor;
+    }
+    
+    return newColor;
+}
+-(CGColorRef) currentFillColor
+{
+    NSUInteger count = _segmentStack[_segmentIndex].fillColorsCount;
+    if (count == 0) {
+        return _segmentStack[_segmentIndex].defaultFillColor;
+    }
+    
+    NSUInteger moddedIndex =  _segmentStack[_segmentIndex].fillColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
+    
+    CGColorRef newColor = _segmentStack[_segmentIndex].fillColors[moddedIndex];
+    
+    if (newColor == NULL) {
+        newColor = _segmentStack[_segmentIndex].defaultFillColor;
+    }
+    
+    return newColor;
+}
+
 -(void) setCGGraphicsStateFromCurrentSegment {
     CGContextSetLineJoin(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineJoin);
     CGContextSetLineCap(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineCap);
     CGContextSetLineWidth(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].scale);
-    CGContextSetFillColorWithColor(_segmentStack[_segmentIndex].context, [self colorForIndex: _segmentStack[_segmentIndex].fillColorIndex inArray: self.cachedFillUIColors]);
-    CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, [self colorForIndex: _segmentStack[_segmentIndex].lineColorIndex inArray: self.cachedLineUIColors]);
+    CGContextSetFillColorWithColor(_segmentStack[_segmentIndex].context, [self currentFillColor]);
+    CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, [self currentLineColor]);
 }
 
 #pragma mark - Private Draw Methods
@@ -618,7 +663,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
             
             if (closed || _segmentStack[_segmentIndex].fill)
             {
-                CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
+                BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+                if (!emptyPath) CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
             }
             
             CGContextAddPath(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].path);
