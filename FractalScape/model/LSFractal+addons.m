@@ -13,7 +13,6 @@
 #import "MBColor+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
-#define kLSMaxProductLength 200000
 #define kLSMaxLevel0CacheSize 100
 #define kLSMaxLevel1CacheSize 100
 #define kLSMaxLevel2CacheSize 500
@@ -404,15 +403,19 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         self.levelNRulesCache.length = 0;
         [self.levelNRulesCache appendBytes: self.level2RulesCache.bytes length: self.level2RulesCache.length];
         
+        CGFloat growthRate = 0.0;
         
         for (unsigned long i = 2; i < localLevel ; i++) {
             [self generateNextLevelWithSource: self.levelNRulesCache destination: destinationData replacementsCache: replacementRulesCache];
             // swap buffers before next interation
+             growthRate = (CGFloat)destinationData.length / (CGFloat)self.levelNRulesCache.length;
+            
             NSMutableData* newDestination = self.levelNRulesCache;
             self.levelNRulesCache = destinationData;
             destinationData = newDestination;
         }
         
+        self.levelGrowthRate = [NSNumber numberWithFloat: growthRate];
         
         
         destinationData = nil;

@@ -44,6 +44,7 @@
 @property (nonatomic,strong) NSMutableData          *level1RulesCache;
 @property (nonatomic,strong) NSMutableData          *level2RulesCache;
 @property (nonatomic,strong) NSMutableData          *levelNRulesCache;
+@property (nonatomic,strong) NSNumber               *levelGrowthRate;
 
 @end
 

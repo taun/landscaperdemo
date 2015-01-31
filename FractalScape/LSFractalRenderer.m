@@ -710,7 +710,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 }
 
 -(void) commandPush {
-    [self drawPath];
+//    [self drawPath];
     [self pushCurrentPath];
 }
 

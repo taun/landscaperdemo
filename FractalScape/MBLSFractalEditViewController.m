@@ -39,6 +39,7 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 static const BOOL SIMULTOUCH = NO;
 static const CGFloat kHighPerformanceFrameRate = 20.0;
 static const CGFloat kLowPerformanceFrameRate = 8.0;
+static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 
 @interface MBLSFractalEditViewController ()
 
@@ -53,6 +54,7 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
+#pragma message "TODO Add autoExpand as LSFractal model property."
 @property (nonatomic, strong) UIBarButtonItem*      autoExpandOn;
 @property (nonatomic, strong) UIBarButtonItem*      autoExpandOff;
 @property (nonatomic, strong) NSArray*              disabledDuringPlaybackButtons;
@@ -528,11 +530,12 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
         //            fractal = [fractal mutableCopy];
         //        }
         
-        [_privateImageGenerationQueue cancelAllOperations];
+        [self.privateImageGenerationQueue cancelAllOperations];
         
         [self removeObserversForFractal: _fractal];
         
-        _autoscaleN = YES;
+        self.autoscaleN = YES;
+        self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
         
         _fractal = fractal;
         
@@ -771,7 +774,7 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
         fractal.rulesUnchanged = NO;
         [fractal generateLevelData];
         
-        NSArray* levelDataArray = @[fractal.level0RulesCache, fractal.level1RulesCache, fractal.level2RulesCache, fractal.levelNRulesCache];
+        NSArray* levelDataArray = @[fractal.level0RulesCache, fractal.level1RulesCache, fractal.level2RulesCache, fractal.levelNRulesCache, fractal.levelGrowthRate];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateRendererLevels: levelDataArray];
@@ -788,13 +791,26 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
     self.levelDataArray = levelDataArray;
     
     
-    if (self.levelDataArray.count == 4)
+    if (self.levelDataArray.count == 5)
     {
         self.fractalRendererL0.levelData = self.levelDataArray[0];
         self.fractalRendererL1.levelData = self.levelDataArray[1];
         self.fractalRendererL2.levelData = self.levelDataArray[2];
         self.fractalRendererLN.levelData = self.levelDataArray[[self levelNIndex]];
         [self queueFractalImageUpdates];
+        
+        NSUInteger nodeLimit = self.lowPerformanceDevice ? kLSMaxNodesLoPerf: kLSMaxNodesHiPerf;
+        
+        CGFloat currentNodeCount = (CGFloat)[(NSData*)self.levelDataArray[3] length];
+        CGFloat estimatedNextNode = currentNodeCount * [self.levelDataArray[4] floatValue];
+//        NSLog(@"growth rate %f",[self.fractal.levelGrowthRate floatValue]);
+        if (estimatedNextNode > nodeLimit)
+        {
+            self.hudLevelStepper.maximumValue = self.hudLevelStepper.value;
+        } else if (self.hudLevelStepper.maximumValue == self.hudLevelStepper.value)
+        {
+            self.hudLevelStepper.maximumValue = self.hudLevelStepper.value + 1;
+        }
     }
 }
 -(void) queueFractalImageUpdates
@@ -872,6 +888,10 @@ static const CGFloat kLowPerformanceFrameRate = 8.0;
             {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     renderer.imageView.image = renderer.image;
+                    if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
+                    {
+                        [self.activityIndicator stopAnimating];
+                    }
                     if (!self.renderTimeLabel.hidden && renderer == self.fractalRendererLN)
                     {
                         UIDevice* device = [UIDevice currentDevice];
@@ -1472,6 +1492,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     double rawValue = [[sender valueForKey: @"value"] doubleValue];
     NSNumber* roundedNumber = @(lround(rawValue));
     self.fractal.level = roundedNumber;
+    [self.activityIndicator startAnimating];
 }
 
 

@@ -23,6 +23,10 @@ static NSString*  kPrefLastEditedFractalURI = @"lastEditedFractalURI";
 static NSString*  kPrefFullScreenState = @"fullScreenState";
 static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 
+#pragma message "TODO The MaxNodes should be in something like a plist settings file so it can be easily updated"
+#define kLSMaxNodesHiPerf 900000
+#define kLSMaxNodesLoPerf 400000
+
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
 UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UIDocumentInteractionControllerDelegate>
@@ -73,6 +77,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UILabel       *hudText2;
 @property (weak, nonatomic) IBOutlet UIStepper     *hudLevelStepper;
 @property (weak, nonatomic) IBOutlet UILabel       *renderTimeLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 #pragma mark - Drawing Views
