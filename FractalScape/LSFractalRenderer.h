@@ -27,8 +27,8 @@
  10   ! :  Decrement the line width by line width
  11   O :  Draw a dot with line width radius - fill depends on fractal fill setting
  12   @ :  Draw a filled dot no stroke with line width radius - independent of fractal fill setting
- 13   { :  Open a polygon
- 14   } :  Close a polygon and fill with fill color
+X 13   { :  Open a polygon -> change to start curve
+X 14   } :  Close a polygon and fill with fill color - > change to end curve
  15   > :  Multiply the line length by the line length scale factor
  16   < :  Divide the line length by the line length scale factor
  17   & :  Swap the meaning of + and -
@@ -37,6 +37,9 @@
  . ;  Insert a curve point node
  , ;  Insert a curve CC
  ` ;  Insert a curve C
+ 
+X :   draw applying current settings
+X ;   close path
  
  Added adhoc rules for more flexibility:
  20   s :  turn context stroke off - overrides global per context. push [s ...] context first
@@ -226,8 +229,22 @@
 -(void) drawInContext: (CGContextRef) aCGContext size: (CGSize)size percent: (CGFloat)percent;
 
 //-(void) charge;
-
-#pragma mark Default Drawing Rule Methods
+/*!
+ There are 2 basic categories of command.
+ Those that change a path property and those that don't. Commands which change a path property can only be assured 
+ of action if the current path is drawn before setting the property. This is because path properties only take effect
+ when the path is drawn. If we change a property twice but do not draw the path in between changes, the first change
+ is lost. For example, stroke color is a path property. All of the path has the same color. That color is whichever color property
+ is current at the time the path is drawn. Therefore, to change the color of the path, it needs to be stroked with the first color
+ then a new path defined for the second color. 
+ 
+ This has certain side effects on other rules and properties. For example:
+ 
+    Can not have a fill in a shape which has changing stroke colors. Changing the stroke results in two separate paths which then can't be filled?
+ 
+ */
+#pragma mark - Drawing Rule Methods
+#pragma mark Non path properties
 -(void) commandDoNothing;
 -(void) commandDrawLine;
 -(void) commandDrawLineVarLength;
@@ -235,10 +252,6 @@
 -(void) commandRotateCC;
 -(void) commandRotateC;
 -(void) commandReverseDirection;
--(void) commandPush;
--(void) commandPop;
--(void) commandIncrementLineWidth;
--(void) commandDecrementLineWidth;
 -(void) commandDrawDot;
 -(void) commandDrawDotFilledNoStroke;
 -(void) commandOpenPolygon;
@@ -248,25 +261,34 @@
 -(void) commandSwapRotation;
 -(void) commandDecrementAngle;
 -(void) commandIncrementAngle;
--(void) commandStrokeOff;
--(void) commandStrokeOn;
--(void) commandFillOn;
--(void) commandFillOff;
 -(void) commandRandomizeOn;
 -(void) commandRandomizeOff;
--(void) commandNextColor;
--(void) commandPreviousColor;
--(void) commandNextFillColor;
--(void) commandPreviousFillColor;
+-(void) commandCurvePoint;
+-(void) commandCurveCC;
+-(void) commandCurveC;
+-(void) commandStartCurve;
+-(void) commandEndCurve;
+-(void) commandDrawPath;
+-(void) commandClosePath;
+-(void) commandPush;
+#pragma mark Path Properties
+-(void) commandPop;
+-(void) commandStrokeOff;
+-(void) commandStrokeOn;
 -(void) commandLineJoinMiter;
 -(void) commandLineJoinRound;
 -(void) commandLineJoinBevel;
 -(void) commandLineCapButt;
 -(void) commandLineCapRound;
 -(void) commandLineCapSquare;
--(void) commandCurvePoint;
--(void) commandCurveCC;
--(void) commandCurveC;
+-(void) commandIncrementLineWidth;
+-(void) commandDecrementLineWidth;
+-(void) commandFillOn;
+-(void) commandFillOff;
+-(void) commandNextColor;
+-(void) commandPreviousColor;
+-(void) commandNextFillColor;
+-(void) commandPreviousFillColor;
 
 @end
 

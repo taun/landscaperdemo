@@ -32,8 +32,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 @interface LSFractalRenderer () {
     CGFloat             _maxLineWidth;
-    MBSegmentStruct     _segmentStack[kLSMaxLevels];
-    NSUInteger          _segmentIndex;
+    MBSegmentStruct     _segmentStack[kLSMaxSegmentStackSize];
+    NSInteger           _segmentIndex;
     MBSegmentRef        _currentSegment;
     MBCommandsStruct    _commandsStruct;
     MBCommandSelectorsStruct _selectorsStruct;
@@ -119,7 +119,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     {
         unsigned char ruleIndex = rule.productionString.UTF8String[0];
         
-        NSUInteger commandLength = rule.drawingMethodString.length;
+        NSInteger commandLength = rule.drawingMethodString.length;
         if (commandLength < kLSMaxCommandLength)
         {
             strcpy(_commandsStruct.command[ruleIndex], rule.drawingMethodString.UTF8String);
@@ -162,7 +162,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _baseSegment.defaultLineColor = NULL;
     _baseSegment.defaultFillColor = NULL;
     
-    for (NSUInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
+    for (NSInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
     {
         _baseSegment.lineColors[colorIndex] = NULL;
         _baseSegment.fillColors[colorIndex] = NULL;
@@ -205,9 +205,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _baseSegment.defaultLineColor = [self.defaultLineColor CGColor];
     _baseSegment.defaultFillColor = [self.defaultFillColor CGColor];
     
-    NSUInteger colorIndex;
+    NSInteger colorIndex;
     
-    for (colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
+    for (colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
     {
         _baseSegment.lineColors[colorIndex] = NULL;
         _baseSegment.fillColors[colorIndex] = NULL;
@@ -218,8 +218,13 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     {
         _baseSegment.lineColors[colorIndex] = CGColorCreateCopy([[mbColor asUIColor] CGColor]);
         colorIndex++;
+        if(colorIndex >= kLSMaxColors)
+        {
+            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",kLSMaxColors);
+            break;
+        }
     }
-    _baseSegment.lineColorsCount = aFractal.lineColors.count;
+    _baseSegment.lineColorsCount = MIN(aFractal.lineColors.count,kLSMaxColors);
     _baseSegment.lineColorIndex = 0;
     
     
@@ -228,8 +233,13 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     {
         _baseSegment.fillColors[colorIndex] = CGColorCreateCopy([[mbColor asUIColor] CGColor]);
         colorIndex++;
+        if(colorIndex >= kLSMaxColors)
+        {
+            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",kLSMaxColors);
+            break;
+        }
     }
-    _baseSegment.fillColorsCount = aFractal.fillColors.count;
+    _baseSegment.fillColorsCount = MIN(aFractal.fillColors.count, kLSMaxColors);
     _baseSegment.fillColorIndex = 0;
     
 }
@@ -242,7 +252,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     CGColorRef color;
     // default line and fill color are local properties and released using ARC.
     
-    for (NSUInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
+    for (NSInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
     {
         color = _baseSegment.lineColors[colorIndex];
         if (color != NULL) CGColorRelease(color);
@@ -575,7 +585,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint);
 }
 
--(NSUInteger) segmentPointCount
+-(NSInteger) segmentPointCount
 {
     return _segmentStack[_segmentIndex].pointIndex + 1;
 }
@@ -608,12 +618,12 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(CGColorRef) currentLineColor
 {
-    NSUInteger count = _segmentStack[_segmentIndex].lineColorsCount;
+    NSInteger count = _segmentStack[_segmentIndex].lineColorsCount;
     if (count == 0) {
         return _segmentStack[_segmentIndex].defaultLineColor;
     }
     
-    NSUInteger moddedIndex =  _segmentStack[_segmentIndex].lineColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
+    NSInteger moddedIndex =  _segmentStack[_segmentIndex].lineColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
     
     CGColorRef newColor = _segmentStack[_segmentIndex].lineColors[moddedIndex];
     
@@ -625,12 +635,12 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 }
 -(CGColorRef) currentFillColor
 {
-    NSUInteger count = _segmentStack[_segmentIndex].fillColorsCount;
+    NSInteger count = _segmentStack[_segmentIndex].fillColorsCount;
     if (count == 0) {
         return _segmentStack[_segmentIndex].defaultFillColor;
     }
     
-    NSUInteger moddedIndex =  _segmentStack[_segmentIndex].fillColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
+    NSInteger moddedIndex =  _segmentStack[_segmentIndex].fillColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
     
     CGColorRef newColor = _segmentStack[_segmentIndex].fillColors[moddedIndex];
     
@@ -690,10 +700,13 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 }
 
 -(void) pushCurrentPath {
-    _segmentIndex = _segmentIndex < kLSMaxSegmentStackSize ? ++_segmentIndex : _segmentIndex;
+    if (_segmentIndex+1 == kLSMaxSegmentStackSize) {
+        NSLog(@"FractalScape:Warning push limit of %ld reached", (long)kLSMaxSegmentStackSize);
+    }
+    _segmentIndex = _segmentIndex+1 < kLSMaxSegmentStackSize ? ++_segmentIndex : _segmentIndex;
+    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
     _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
     _segmentStack[_segmentIndex].path = CGPathCreateMutable();
-    NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
 }
 -(void) popCurrentPath {
     if (_segmentStack[_segmentIndex].path != NULL) {
@@ -706,20 +719,11 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 #pragma mark - Public Rule Draw Methods
 
--(void) commandDoNothing {
+-(void) commandDoNothing
+{
 }
-
--(void) commandPush {
-//    [self drawPath];
-    [self pushCurrentPath];
-}
-
--(void) commandPop {
-    [self drawPath];
-    [self popCurrentPath];
-}
-
--(void) commandDrawLine {
+-(void) commandDrawLine
+{
     
     CGFloat tx = _segmentStack[_segmentIndex].lineLength;
     [self segmentAddPoint: CGPointMake(tx, 0.0)];
@@ -742,7 +746,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 //    CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
--(void) commandDrawLineVarLength {
+-(void) commandDrawLineVarLength
+{
     
     CGFloat tx = _segmentStack[_segmentIndex].lineLength;
     [self segmentAddPoint: CGPointMake(tx, 0.0)];
@@ -762,7 +767,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 //    CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
--(void) commandMoveByLine {
+-(void) commandMoveByLine
+{
     [self drawPath]; // Draw all points before moving on
     
     
@@ -777,7 +783,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 //    CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
--(void) commandRotateCC {
+-(void) commandRotateCC
+{
 
     CGFloat theta = _segmentStack[_segmentIndex].turningAngle;
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, theta);
@@ -786,30 +793,35 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     //    CGContextRotateCTM(aCGContext, theta);
 }
 
--(void) commandRotateC {
+-(void) commandRotateC
+{
     
     CGFloat theta = _segmentStack[_segmentIndex].turningAngle;
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, -theta);
     _segmentStack[_segmentIndex].transform = newTransform;
 }
 
--(void) commandReverseDirection {
+-(void) commandReverseDirection
+{
     
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, M_PI);
     _segmentStack[_segmentIndex].transform = newTransform;
 }
 
--(void) commandCurveC {
+-(void) commandCurveC
+{
     [self commandCurvePoint];
     [self commandRotateC];
     [self commandDrawLine];
 }
--(void) commandCurveCC {
+-(void) commandCurveCC
+{
     [self commandCurvePoint];
     [self commandRotateCC];
     [self commandDrawLine];
 }
--(void) commandCurvePoint {
+-(void) commandCurvePoint
+{
     //    self.previousNode = CGPathGetCurrentPoint(_segmentStack[_segmentIndex].path);
     //
     //    CGFloat tx = _segmentStack[_segmentIndex].lineLength;
@@ -821,10 +833,184 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     //    self.controlPointOn = YES;
 }
 
+-(void) commandDrawDot
+{
+    [self drawCircleRadius: _segmentStack[_segmentIndex].lineWidth];
+}
+-(void) commandDrawDotFilledNoStroke
+{
+    [self commandStrokeOff];
+    [self commandFillOn];
+    [self commandDrawDot];
+}
+
+-(void) commandOpenPolygon
+{
+//    [self drawPath]; // draw before saving state
+//    [self pushCurrentPath];
+//    [self commandStrokeOff];
+//    [self commandFillOn];
+    [self commandStartCurve];
+}
+
+-(void) commandClosePolygon
+{
+//    [self drawPathClosed: YES];
+//    [self popCurrentPath];
+    [self commandEndCurve];
+}
+
+#pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
+-(void) commandUpscaleLineLength
+{
+    [self drawPath];
+    
+    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
+        _segmentStack[_segmentIndex].lineLength += _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
+    }
+}
+
+-(void) commandDownscaleLineLength
+{
+    [self drawPath];
+    
+    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
+        _segmentStack[_segmentIndex].lineLength -= _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
+    }
+}
+
+-(void) commandSwapRotation
+{
+    //    id tempMinusRule = (self.cachedDrawingRules)[@"-"];
+    //    (self.cachedDrawingRules)[@"-"] = (self.cachedDrawingRules)[@"+"];
+    //    (self.cachedDrawingRules)[@"+"] = tempMinusRule;
+}
+
+-(void) commandDecrementAngle
+{
+    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
+        _segmentStack[_segmentIndex].turningAngle -= _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
+    }
+}
+
+-(void) commandIncrementAngle
+{
+    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
+        _segmentStack[_segmentIndex].turningAngle += _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
+    }
+}
+-(void) commandRandomizeOff
+{
+    _segmentStack[_segmentIndex].randomize = NO;
+}
+-(void) commandRandomizeOn
+{
+    _segmentStack[_segmentIndex].randomize = YES;
+}
+-(void) commandStartCurve
+{
+    
+}
+-(void) commandEndCurve
+{
+    
+}
+-(void) commandDrawPath
+{
+    [self drawPath];
+}
+-(void) commandClosePath
+{
+    
+}
+-(void) commandPush
+{
+    //    [self drawPath];
+    [self pushCurrentPath];
+}
+
+#pragma mark - block [] level drawing commands. IE. they do not force a draw
+#pragma mark Path Properties
+/*!
+ Forcing the following draw commands to drawPath after setting would mess with fills.
+ If the user wants a filled rectangle but they are dragging the fill or stroke or any of the following
+ through the block, it would split the drawing operation into two separate draws eliminating the desired fill.
+ */
+
+-(void) commandPop
+{
+    [self drawPath];
+    [self popCurrentPath];
+}
+
+-(void) commandStrokeOff
+{
+    _segmentStack[_segmentIndex].stroke = NO;
+}
+
+-(void) commandStrokeOn
+{
+    _segmentStack[_segmentIndex].stroke = YES;
+}
+-(void) commandFillOff
+{
+//    [self drawPath];
+    _segmentStack[_segmentIndex].fill = NO;
+}
+-(void) commandFillOn
+{
+//    [self drawPath];
+    _segmentStack[_segmentIndex].fill = YES;
+}
+-(void) commandNextColor
+{
+    //    [self startNewSegment];
+    _segmentStack[_segmentIndex].lineColorIndex = ++_segmentStack[_segmentIndex].lineColorIndex;
+}
+-(void) commandPreviousColor
+{
+    //    [self startNewSegment];
+    _segmentStack[_segmentIndex].lineColorIndex = --_segmentStack[_segmentIndex].lineColorIndex;
+}
+-(void) commandNextFillColor
+{
+    //    [self startNewSegment];
+    _segmentStack[_segmentIndex].fillColorIndex = ++_segmentStack[_segmentIndex].fillColorIndex;
+}
+-(void) commandPreviousFillColor
+{
+    //    [self startNewSegment];
+    _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
+}
+-(void) commandLineCapButt
+{
+    _segmentStack[_segmentIndex].lineCap = kCGLineCapButt;
+}
+-(void) commandLineCapRound
+{
+    _segmentStack[_segmentIndex].lineCap = kCGLineCapRound;
+}
+-(void) commandLineCapSquare
+{
+    _segmentStack[_segmentIndex].lineCap = kCGLineCapSquare;
+}
+-(void) commandLineJoinMiter
+{
+    _segmentStack[_segmentIndex].lineJoin = kCGLineJoinMiter;
+}
+-(void) commandLineJoinRound
+{
+    _segmentStack[_segmentIndex].lineJoin = kCGLineJoinRound;
+}
+-(void) commandLineJoinBevel
+{
+    _segmentStack[_segmentIndex].lineJoin = kCGLineJoinBevel;
+}
 /*!
  Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
  */
--(void) commandIncrementLineWidth {
+-(void) commandIncrementLineWidth
+{
     [self drawPath];
     
     
@@ -833,7 +1019,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     }
 }
 
--(void) commandDecrementLineWidth {
+-(void) commandDecrementLineWidth
+{
     [self drawPath];
     
     
@@ -841,139 +1028,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
         _segmentStack[_segmentIndex].lineWidth -= _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }
 }
-
--(void) commandDrawDot {
-    [self drawCircleRadius: _segmentStack[_segmentIndex].lineWidth];
-}
--(void) commandDrawDotFilledNoStroke {
-    [self commandStrokeOff];
-    [self commandFillOn];
-    [self commandDrawDot];
-}
-
--(void) commandOpenPolygon {
-    [self drawPath]; // draw before saving state
-    [self pushCurrentPath];
-    [self commandStrokeOff];
-    [self commandFillOn];
-}
-
--(void) commandClosePolygon {
-    [self drawPathClosed: YES];
-    [self popCurrentPath];
-}
-
-#pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
--(void) commandUpscaleLineLength {
-    [self drawPath];
-    
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        _segmentStack[_segmentIndex].lineLength += _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
-    }
-}
-
--(void) commandDownscaleLineLength {
-    [self drawPath];
-    
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        _segmentStack[_segmentIndex].lineLength -= _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
-    }
-}
-
--(void) commandSwapRotation {
-    //    id tempMinusRule = (self.cachedDrawingRules)[@"-"];
-    //    (self.cachedDrawingRules)[@"-"] = (self.cachedDrawingRules)[@"+"];
-    //    (self.cachedDrawingRules)[@"+"] = tempMinusRule;
-}
-
--(void) commandDecrementAngle {
-    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
-        _segmentStack[_segmentIndex].turningAngle -= _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
-    }
-}
-
--(void) commandIncrementAngle {
-    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
-        _segmentStack[_segmentIndex].turningAngle += _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
-    }
-}
-
-#pragma mark - block [] level drawing commands. IE. they do not force a draw
-/*!
- Forcing the following draw commands to drawPath after setting would mess with fills.
- If the user wants a filled rectangle but they are dragging the fill or stroke or any of the following
- through the block, it would split the drawing operation into two separate draws eliminating the desired fill.
- */
--(void) commandStrokeOff {
-    [self drawPath];
-    _segmentStack[_segmentIndex].stroke = NO;
-}
-
--(void) commandStrokeOn {
-    [self drawPath];
-    _segmentStack[_segmentIndex].stroke = YES;
-}
--(void) commandFillOff {
-    [self drawPath];
-    _segmentStack[_segmentIndex].fill = NO;
-}
--(void) commandFillOn {
-    [self drawPath];
-    _segmentStack[_segmentIndex].fill = YES;
-}
--(void) commandRandomizeOff {
-    [self drawPath];
-    _segmentStack[_segmentIndex].randomize = NO;
-}
--(void) commandRandomizeOn {
-    [self drawPath];
-    _segmentStack[_segmentIndex].randomize = YES;
-}
--(void) commandNextColor {
-    //    [self startNewSegment];
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineColorIndex = ++_segmentStack[_segmentIndex].lineColorIndex;
-}
--(void) commandPreviousColor {
-    //    [self startNewSegment];
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineColorIndex = --_segmentStack[_segmentIndex].lineColorIndex;
-}
--(void) commandNextFillColor {
-    //    [self startNewSegment];
-    [self drawPath];
-    _segmentStack[_segmentIndex].fillColorIndex = ++_segmentStack[_segmentIndex].fillColorIndex;
-}
--(void) commandPreviousFillColor {
-    //    [self startNewSegment];
-    [self drawPath];
-    _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
-}
--(void) commandLineCapButt {
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineCap = kCGLineCapButt;
-}
--(void) commandLineCapRound {
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineCap = kCGLineCapRound;
-}
--(void) commandLineCapSquare {
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineCap = kCGLineCapSquare;
-}
--(void) commandLineJoinMiter {
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineJoin = kCGLineJoinMiter;
-}
--(void) commandLineJoinRound {
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineJoin = kCGLineJoinRound;
-}
--(void) commandLineJoinBevel {
-    [self drawPath];
-    _segmentStack[_segmentIndex].lineJoin = kCGLineJoinBevel;
-}
-
 @end
 
 

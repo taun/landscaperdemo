@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-static const NSUInteger kLSMaxSegmentPointsSize = 30;
-static const NSUInteger kLSMaxSegmentStackSize = 21;
-static const NSUInteger kLSMaxLevels = 21;
-static const NSUInteger kLSMaxColors = 20;
+static const NSInteger kLSMaxSegmentPointsSize = 30;
+static const NSInteger kLSMaxSegmentStackSize = 30;
+static const NSInteger kLSMaxColors = 20;
 
 struct MBSegmentStruct {
     CGContextRef        context;
@@ -31,8 +30,8 @@ struct MBSegmentStruct {
     CGLineCap           lineCap;
     CGLineJoin          lineJoin;
     CGColorRef          defaultLineColor;
-    NSUInteger           lineColorsCount;
-    NSUInteger           lineColorIndex;
+    NSInteger           lineColorsCount;
+    NSInteger           lineColorIndex;
     CGColorRef          lineColors[kLSMaxColors];
     CGFloat             lineLength;
     CGFloat             lineWidth;
@@ -42,8 +41,8 @@ struct MBSegmentStruct {
     BOOL                fill;
     BOOL                EOFill;
     CGColorRef          defaultFillColor;
-    NSUInteger           fillColorsCount;
-    NSUInteger           fillColorIndex;
+    NSInteger           fillColorsCount;
+    NSInteger           fillColorIndex;
     CGColorRef          fillColors[kLSMaxColors];
     BOOL                randomize;
     CGFloat             randomness;

@@ -614,6 +614,7 @@
                         <outlet property="playbackSlider" destination="fN9-Mq-Ukg" id="c0O-Rw-Ku3"/>
                         <outlet property="randomnessVerticalSlider" destination="p0o-A9-ELt" id="l2K-Ys-EvS"/>
                         <outlet property="renderTimeLabel" destination="lOu-PR-QW2" id="RTa-Ld-ZOt"/>
+                        <outlet property="toggleFullScreenButton" destination="Kgo-6O-GAI" id="Nou-hs-yUO"/>
                         <outlet property="turnAngleIncrementLabel" destination="AUJ-mW-uO9" id="goq-SY-Wqc"/>
                         <outlet property="turnAngleSlider" destination="rPE-Sl-13x" id="Y5C-GZ-nNZ"/>
                         <outlet property="turnIncrementSlider" destination="An9-9l-3Tm" id="C8D-9O-Mch"/>

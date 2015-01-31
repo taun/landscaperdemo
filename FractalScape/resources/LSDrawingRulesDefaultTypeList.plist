@@ -139,23 +139,43 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Start a polygon shape. Add a fillOn for filled polygon. *Do not put a polygon in a polygon!</string>
+			<string>Start a curve sequence. Lines between start and end curve will be curved.</string>
 			<key>productionString</key>
 			<string>{</string>
 			<key>drawingMethodString</key>
-			<string>commandOpenPolygon</string>
+			<string>commandStartCurve</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleOpenPolygon</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Close the polygon.</string>
+			<string>End the curve. Must have a start curve first.</string>
 			<key>productionString</key>
 			<string>}</string>
 			<key>drawingMethodString</key>
-			<string>commandClosePolygon</string>
+			<string>commandEndCurve</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleClosePolygon</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Close the shape</string>
+			<key>productionString</key>
+			<string>;</string>
+			<key>drawingMethodString</key>
+			<string>commandClosePath</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleClosePath</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Draw the previous rules. Use to draw then change color or line type</string>
+			<key>productionString</key>
+			<string>:</string>
+			<key>drawingMethodString</key>
+			<string>commandDrawPath</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDrawPath</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>

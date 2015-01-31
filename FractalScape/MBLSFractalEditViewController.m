@@ -58,6 +58,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 @property (nonatomic, strong) UIBarButtonItem*      autoExpandOn;
 @property (nonatomic, strong) UIBarButtonItem*      autoExpandOff;
 @property (nonatomic, strong) NSArray*              disabledDuringPlaybackButtons;
+@property (nonatomic, strong) NSArray*              editPassThroughViews;
 
 @property (nonatomic,weak) UIViewController*        currentPresentedController;
 @property (nonatomic,assign) CGSize                 popoverPortraitSize;
@@ -375,7 +376,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     
-    NSUInteger changeCount = 0;
+    NSInteger changeCount = 0;
     if ([object isKindOfClass:[NSManagedObject class]])
     {
         NSDictionary* changes = [object changedValuesForCurrentEvent];
@@ -484,7 +485,8 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
                                                                            self.hudLevelStepper,
                                                                            self.fractalViewLevel0,
                                                                            self.fractalViewLevel1,
-                                                                           self.fractalViewLevel2];
+                                                                           self.fractalViewLevel2,
+                                                                           self.toggleFullScreenButton];
 #pragma message "TODO missing self.fractalView as a passthrough above?"
         viewController.popoverPresentationController.delegate = self;
         _appearanceViewController = viewController;
@@ -781,9 +783,9 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         });
     }];
 }
--(NSUInteger) levelNIndex
+-(NSInteger) levelNIndex
 {
-    NSUInteger levelNIndex = [self.fractal.level integerValue] > 3 ? 3 : [self.fractal.level integerValue];
+    NSInteger levelNIndex = [self.fractal.level integerValue] > 3 ? 3 : [self.fractal.level integerValue];
     return levelNIndex;
 }
 -(void) updateRendererLevels: (NSArray*)levelDataArray
@@ -799,7 +801,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         self.fractalRendererLN.levelData = self.levelDataArray[[self levelNIndex]];
         [self queueFractalImageUpdates];
         
-        NSUInteger nodeLimit = self.lowPerformanceDevice ? kLSMaxNodesLoPerf: kLSMaxNodesHiPerf;
+        NSInteger nodeLimit = self.lowPerformanceDevice ? kLSMaxNodesLoPerf: kLSMaxNodesHiPerf;
         
         CGFloat currentNodeCount = (CGFloat)[(NSData*)self.levelDataArray[3] length];
         CGFloat estimatedNextNode = currentNodeCount * [self.levelDataArray[4] floatValue];
@@ -1129,14 +1131,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         self.fractal = [self.fractal mutableCopy];
     }
     
-    self.appearanceViewController.popoverPresentationController.passthroughViews = @[self.fractalViewRoot,
-                                                                                     self.fractalViewHolder,
-                                                                                     self.hudViewBackground,
-                                                                                     self.hudLevelStepper,
-                                                                                     self.fractalViewLevel0,
-                                                                                     self.fractalViewLevel1,
-                                                                                     self.fractalViewLevel2];
-    
     [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
 }
 /*!
@@ -1315,7 +1309,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     if (self.fractal)
     {
-        NSUInteger levelIndex = MIN(3, [self.fractal.level unsignedIntegerValue]);
+        NSInteger levelIndex = MIN(3, [self.fractal.level integerValue]);
         newRenderer = [LSFractalRenderer newRendererForFractal: self.fractal];
         newRenderer.name = name;
         newRenderer.imageView = self.fractalView;
@@ -1332,7 +1326,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(void) swapOldButton: (UIBarButtonItem*)oldButton withNewButton: (UIBarButtonItem*)newButton
 {
     NSArray* barItemsArray = self.navigationItem.rightBarButtonItems;
-    NSUInteger buttonIndex = 0;
+    NSInteger buttonIndex = 0;
     BOOL foundButton = NO;
     for (UIBarButtonItem* item in barItemsArray) {
         if (item == oldButton) {
