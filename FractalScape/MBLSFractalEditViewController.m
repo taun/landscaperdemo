@@ -1102,6 +1102,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     [self presentViewController: newController animated: YES completion: ^{
         //
+        BOOL enabled = self.navigationController.navigationBar.isUserInteractionEnabled;
         self.currentPresentedController = newController;
     }];
     
@@ -1129,7 +1130,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     NSMutableArray* passThroughViews = [NSMutableArray arrayWithArray: existingPassthroughs];
     
     [passThroughViews addObjectsFromArray: @[ self.fractalViewRoot]];
-    [passThroughViews addObjectsFromArray:     @[ self.fractalViewRoot,
+    [passThroughViews addObjectsFromArray:     @[ self.view, self.navigationController.navigationBar,self.fractalViewRoot,
                                                   self.fractalViewHolder,
                                                   self.hudViewBackground,
                                                   self.hudLevelStepper,
