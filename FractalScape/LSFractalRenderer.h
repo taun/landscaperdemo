@@ -17,7 +17,7 @@
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
  2   F :  Move forward by line length drawing a line
  3   G :  Move forward by line length without drawing a line
- H :  Move forward by line length drawing a line. Shorten line by line length scale each generation.
+     H :  Move forward by line length drawing a line. Shorten line by line length scale each generation.
  4   + :  Turn left by turning angle
  5   - :  Turn right by turning angle
  6   | :  Reverse direction (turn by 180)
@@ -67,6 +67,27 @@ X ;   close path
  34   i :  lineJoin
  34   j :  lineJoin
  
+ Added:
+    : drawPath
+    ; closePath
+ 
+ Changed:
+    { was polygon, now start curve
+    } was polygon, now end curve
+ 
+ Swapped
+    ^ from # increment line width
+    ` from ! decrement line width
+ 
+    ! from : drawPath
+    . from ; closePath
+ 
+ 
+ Removed 
+    . insert curve point node
+    , Insert a curve CC
+    ` Insert a curve C
+
  
  Variables
  LineLength
@@ -263,9 +284,6 @@ X ;   close path
 -(void) commandIncrementAngle;
 -(void) commandRandomizeOn;
 -(void) commandRandomizeOff;
--(void) commandCurvePoint;
--(void) commandCurveCC;
--(void) commandCurveC;
 -(void) commandStartCurve;
 -(void) commandEndCurve;
 -(void) commandDrawPath;

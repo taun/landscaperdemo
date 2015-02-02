@@ -12,7 +12,7 @@
 		<key>name</key>
 		<string>A spiral</string>
 		<key>startingRules</key>
-		<string>AAAA</string>
+		<string>AAAA!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -34,9 +34,9 @@
 			<key>A</key>
 			<string>B+B+B+B+B+B+</string>
 			<key>B</key>
-			<string>[F+F+F+F[---B-C]+++++F++++++++F-F-F-F]</string>
+			<string>[F+F+F+F[---B-C!]+++++F++++++++F-F-F-F!]</string>
 			<key>C</key>
-			<string>[F+F+F+F[---C]+++++F++++++++F-F-F-F]</string>
+			<string>[F+F+F+F[---C!]+++++F++++++++F-F-F-F!]</string>
 		</dict>
 		<key>lineColors</key>
 		<array>
@@ -68,7 +68,7 @@
 		<key>name</key>
 		<string>A leaf</string>
 		<key>startingRules</key>
-		<string>A</string>
+		<string>A!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -88,9 +88,9 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>A</key>
-			<string>F[+C]FB</string>
+			<string>F[+C!]FB</string>
 			<key>B</key>
-			<string>F[-D]FA</string>
+			<string>F[-D!]FA</string>
 			<key>C</key>
 			<string>A</string>
 			<key>D</key>
@@ -128,7 +128,7 @@
 		<key>name</key>
 		<string>Von Koch Curve 3</string>
 		<key>startingRules</key>
-		<string>F-F-F-F</string>
+		<string>F-F-F-F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -180,7 +180,7 @@
 		<key>name</key>
 		<string>Von Koch Curve</string>
 		<key>startingRules</key>
-		<string>F-F-F-F</string>
+		<string>F-F-F-F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -232,7 +232,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
 		<key>startingRules</key>
-		<string>-F</string>
+		<string>-F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -284,7 +284,7 @@
 		<key>name</key>
 		<string>Islands and lakes</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
+		<string>F+F+F+F!</string>
 		<key>level</key>
 		<integer>2</integer>
 		<key>lineLength</key>
@@ -408,7 +408,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake Curve</string>
 		<key>startingRules</key>
-		<string>SLF</string>
+		<string>LF!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -460,7 +460,7 @@
 		<key>name</key>
 		<string>Hilbert Curve</string>
 		<key>startingRules</key>
-		<string>A</string>
+		<string>A!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -514,7 +514,7 @@
 		<key>name</key>
 		<string>Sierpinsky Gasket</string>
 		<key>startingRules</key>
-		<string>FAF--FF--FF</string>
+		<string>FAF--FF--FF!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -568,7 +568,7 @@
 		<key>name</key>
 		<string>Sierpinsky Curve</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
+		<string>F+F+F+F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -620,7 +620,7 @@
 		<key>name</key>
 		<string>Peano Curve</string>
 		<key>startingRules</key>
-		<string>A</string>
+		<string>A!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -674,7 +674,7 @@
 		<key>name</key>
 		<string>Dragon Curve</string>
 		<key>startingRules</key>
-		<string>A</string>
+		<string>A!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -744,7 +744,7 @@
 		<key>name</key>
 		<string>Fern</string>
 		<key>startingRules</key>
-		<string>AEFFF</string>
+		<string>AEFFF!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -766,15 +766,15 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>A</key>
-			<string>[+++B][---B]DA</string>
+			<string>[+++B!][---B!]DA</string>
 			<key>B</key>
-			<string>+C[-B]E</string>
+			<string>+C[-B!]E</string>
 			<key>C</key>
-			<string>-B[+C]E</string>
+			<string>-B[+C!]E</string>
 			<key>D</key>
 			<string>DE</string>
 			<key>E</key>
-			<string>[-FFF][+FFF]F</string>
+			<string>[-FFF!][+FFF!]F</string>
 		</dict>
 	</dict>
 	<dict>
@@ -822,7 +822,7 @@
 		<key>name</key>
 		<string>Bush00</string>
 		<key>startingRules</key>
-		<string>F</string>
+		<string>F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -844,7 +844,7 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>F</key>
-			<string>FF+[+F-F-F]-[-F+F+F]</string>
+			<string>FF+[+F-F-F!]-[-F+F+F!]</string>
 		</dict>
 	</dict>
 	<dict>
@@ -876,7 +876,7 @@
 		<key>name</key>
 		<string>Bush0</string>
 		<key>startingRules</key>
-		<string>F</string>
+		<string>F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -898,7 +898,7 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>F</key>
-			<string>F[+F]F[-F]F</string>
+			<string>F[+F!]F[-F!]F</string>
 		</dict>
 	</dict>
 	<dict>
@@ -968,9 +968,9 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>A</key>
-			<string>AFB[+A][-A]</string>
+			<string>AFB[+A!][-A!]</string>
 			<key>B</key>
-			<string>B[-FFF][+FFF]FB</string>
+			<string>B[-FFF!][+FFF!]FB</string>
 		</dict>
 	</dict>
 	<dict>
@@ -1018,7 +1018,7 @@
 		<key>name</key>
 		<string>Von Koch Snowflake</string>
 		<key>startingRules</key>
-		<string>F++F++F</string>
+		<string>F++F++F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1070,7 +1070,7 @@
 		<key>name</key>
 		<string>Von Koch Island</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
+		<string>F+F+F+F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1122,7 +1122,7 @@
 		<key>name</key>
 		<string>Von Koch Squares</string>
 		<key>startingRules</key>
-		<string>F+F+F+F</string>
+		<string>F+F+F+F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1190,7 +1190,7 @@
 		<key>name</key>
 		<string>Flower</string>
 		<key>startingRules</key>
-		<string>A</string>
+		<string>A!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1212,9 +1212,9 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>A</key>
-			<string>AFB[+A][-A]</string>
+			<string>AFB[+A!][-A!]</string>
 			<key>B</key>
-			<string>B[-FFF][+FFF]FB</string>
+			<string>B[-FFF!][+FFF!]FB</string>
 		</dict>
 	</dict>
 	<dict>
@@ -1262,7 +1262,7 @@
 		<key>name</key>
 		<string>Tree</string>
 		<key>startingRules</key>
-		<string>F</string>
+		<string>F!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1286,7 +1286,7 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>F</key>
-			<string>a!&gt;H[+++++F][-------F]-H[++++F][------F]-H[+++F][-----F]-HF</string>
+			<string>a`&gt;H[+++++F!][-------F!]-H[++++F!][------F!]-H[+++F!][-----F!]-HF</string>
 		</dict>
 	</dict>
 	<dict>
@@ -1334,7 +1334,7 @@
 		<key>name</key>
 		<string>Bush with leaves</string>
 		<key>startingRules</key>
-		<string>A</string>
+		<string>A!</string>
 		<key>level</key>
 		<integer>4</integer>
 		<key>lineLength</key>
@@ -1358,11 +1358,11 @@
 		<key>replacementRules</key>
 		<dict>
 			<key>A</key>
-			<string>B+[A]--[--C]B[++C]-[A]++A</string>
+			<string>B+[A!]--[--C!]B[++C!]-[A!]++A</string>
 			<key>B</key>
-			<string>F[--C][++C]F</string>
+			<string>F[--C!][++C!]F</string>
 			<key>C</key>
-			<string>{+H-.-H+|+H-.-H}</string>
+			<string>{+H--H+|+H--H}</string>
 			<key>F</key>
 			<string>FF</string>
 		</dict>

@@ -113,6 +113,13 @@
 //    if (![self coreDataDefaultsExist]) {
 //        [self addDefaultCoreDataData];
 //    }
+// order of loading is important
+// colors are needed by fractals so need to be loaded before fractals
+    [self loadMBColorsPList: @"MBColorsList"];
+    // rules are needed by fractals so need to be loaded before fractals
+    [self loadLSDrawingRulesPList: @"LSDrawingRulesDefaultTypeList"];
+    // fractals should always be loaded last
+    [self loadLSFractalsPListAndReturnLastSelected: @"LSFractalsList"];
     return YES;
 }
 							
@@ -154,13 +161,6 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    // order of loading is important
-    // colors are needed by fractals so need to be loaded before fractals
-    [self loadMBColorsPList: @"MBColorsList"];
-    // rules are needed by fractals so need to be loaded before fractals
-    [self loadLSDrawingRulesPList: @"LSDrawingRulesDefaultTypeList"];
-    // fractals should always be loaded last
-    [self loadLSFractalsPListAndReturnLastSelected: @"LSFractalsList"];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

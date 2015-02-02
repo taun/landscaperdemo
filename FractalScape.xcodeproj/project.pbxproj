@@ -407,6 +407,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C527D5ED1A7FE9C600CF9B30 /* DragAndDropTiles */ = {
+			isa = PBXGroup;
+			children = (
+				C5D5422E1A2FC68C006CD47A /* MDBLSObjectTilesViewBaseController.h */,
+				C5D5422F1A2FC68C006CD47A /* MDBLSObjectTilesViewBaseController.m */,
+				C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */,
+				C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */,
+				C564A32719E722FA00839D9E /* MBDraggingItem.h */,
+				C564A32819E722FA00839D9E /* MBDraggingItem.m */,
+				C5C37C6A1A24EF9F008C5409 /* MDBLSObjectTileView.h */,
+				C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */,
+				C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */,
+				C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */,
+				C5FFAB101A14F8BD00662211 /* RulesEditView */,
+				C5FFAB0F1A14F8B300662211 /* ColorsEdit */,
+			);
+			name = DragAndDropTiles;
+			sourceTree = "<group>";
+		};
 		C540634414DADC7500FBDEA4 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,8 +685,7 @@
 				C51DF52216E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.h */,
 				C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */,
 				C5FFAB121A14F90B00662211 /* Library */,
-				C5FFAB101A14F8BD00662211 /* RulesEditView */,
-				C5FFAB0F1A14F8B300662211 /* ColorsEdit */,
+				C527D5ED1A7FE9C600CF9B30 /* DragAndDropTiles */,
 			);
 			name = Popovers;
 			sourceTree = "<group>";
@@ -690,20 +708,10 @@
 		C5FFAB101A14F8BD00662211 /* RulesEditView */ = {
 			isa = PBXGroup;
 			children = (
-				C5D5422E1A2FC68C006CD47A /* MDBLSObjectTilesViewBaseController.h */,
-				C5D5422F1A2FC68C006CD47A /* MDBLSObjectTilesViewBaseController.m */,
 				C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */,
 				C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */,
-				C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */,
-				C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */,
-				C564A32719E722FA00839D9E /* MBDraggingItem.h */,
-				C564A32819E722FA00839D9E /* MBDraggingItem.m */,
 				C5329E891A24566B00056FB4 /* MBLSFractalSummaryEditView.h */,
 				C5329E8A1A24566B00056FB4 /* MBLSFractalSummaryEditView.m */,
-				C5C37C6A1A24EF9F008C5409 /* MDBLSObjectTileView.h */,
-				C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */,
-				C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */,
-				C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */,
 				C5C37C661A24ED70008C5409 /* MBLSReplacementRuleTileView.h */,
 				C5C37C671A24ED70008C5409 /* MBLSReplacementRuleTileView.m */,
 				C5C37C621A24EC81008C5409 /* MBLSReplacementRulesListView.h */,

@@ -37,9 +37,19 @@
 	</array>
 	<key>rulesArray</key>
 	<array>
+        <dict>
+            <key>descriptor</key>
+            <string>Have the turtle draw all the rules added since the last draw! Nothing will draw without this! Use to draw some rules then change color or line type.</string>
+            <key>productionString</key>
+            <string>!</string>
+            <key>drawingMethodString</key>
+            <string>commandDrawPath</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleDrawPath</string>
+        </dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Draw a straight line of standard length and width.</string>
+			<string>Draw a line by moving the turtle in a straight line for the standard distance. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>F</string>
 			<key>drawingMethodString</key>
@@ -49,7 +59,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Draw a straight line of decreasing length per generation.</string>
+			<string>Draw a straight line of decreasing length and thickness per generation. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>H</string>
 			<key>drawingMethodString</key>
@@ -59,7 +69,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Move the current position in a straight line.</string>
+			<string>Move the turtle in the current direction in a straight line. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>G</string>
 			<key>drawingMethodString</key>
@@ -67,39 +77,59 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleMoveByLine</string>
 		</dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Close the shape since the last drawPath or bracket rule. Takes effect immediately.</string>
+            <key>productionString</key>
+            <string>.</string>
+            <key>drawingMethodString</key>
+            <string>commandClosePath</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleClosePath</string>
+        </dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Increase the line width. Only the last width before the drawPath! is used.</string>
+            <key>productionString</key>
+            <string>^</string>
+            <key>drawingMethodString</key>
+            <string>commandIncrementLineWidth</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleIncrementLineWidth</string>
+        </dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Decrease the line width. Only the last width before the drawPath! is used.</string>
+            <key>productionString</key>
+            <string>`</string>
+            <key>drawingMethodString</key>
+            <string>commandDecrementLineWidth</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleDecrementLineWidth</string>
+        </dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Increase the line length. Takes effect immediately.</string>
+            <key>productionString</key>
+            <string>&lt;</string>
+            <key>drawingMethodString</key>
+            <string>commandUpscaleLineLength</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleUpscaleLineLength</string>
+        </dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Decrease the line length. Takes effect immediately.</string>
+            <key>productionString</key>
+            <string>&gt;</string>
+            <key>drawingMethodString</key>
+            <string>commandDownscaleLineLength</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleDownscaleLineLength</string>
+        </dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Insert a clockwise curve</string>
-			<key>productionString</key>
-			<string>`</string>
-			<key>drawingMethodString</key>
-			<string>commandCurveC</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleCurveC</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Insert a counterclockwise curve</string>
-			<key>productionString</key>
-			<string>,</string>
-			<key>drawingMethodString</key>
-			<string>commandCurveCC</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleCurveCC</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Insert a curve node</string>
-			<key>productionString</key>
-			<string>.</string>
-			<key>drawingMethodString</key>
-			<string>commandCurvePoint</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleCurvePoint</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Rotate left before next move.</string>
+			<string>Rotate the turtle left. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>+</string>
 			<key>drawingMethodString</key>
@@ -109,7 +139,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Rotate right before next move.</string>
+			<string>Rotate the turtle right. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>-</string>
 			<key>drawingMethodString</key>
@@ -117,9 +147,49 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleRotateC</string>
 		</dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Reverse the turtle&apos;s direction.</string>
+            <key>productionString</key>
+            <string>|</string>
+            <key>drawingMethodString</key>
+            <string>commandReverseDirection</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleReverseDirection</string>
+        </dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Swap the meaning of left and right turns. Takes effect immediately.</string>
+            <key>productionString</key>
+            <string>&amp;</string>
+            <key>drawingMethodString</key>
+            <string>commandSwapRotation</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleSwapRotation</string>
+        </dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Increase the turn angle.  Takes effect immediately.</string>
+            <key>productionString</key>
+            <string>(</string>
+            <key>drawingMethodString</key>
+            <string>commandIncrementAngle</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleIncrementAngle</string>
+        </dict>
+        <dict>
+            <key>descriptor</key>
+            <string>Decrease the turn angle. Takes effect immediately.</string>
+            <key>productionString</key>
+            <string>)</string>
+            <key>drawingMethodString</key>
+            <string>commandDecrementAngle</string>
+            <key>iconIdentifierString</key>
+            <string>kBIconRuleDecrementAngle</string>
+        </dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Draw a circle.</string>
+			<string>Draw a circle. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>O</string>
 			<key>drawingMethodString</key>
@@ -129,7 +199,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Draw a filled circle.</string>
+			<string>Shortcut to draw a circle filled with no outline. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>@</string>
 			<key>drawingMethodString</key>
@@ -149,7 +219,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>End the curve. Must have a start curve first.</string>
+			<string>End the curve. Must have a start curve rule first. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>}</string>
 			<key>drawingMethodString</key>
@@ -159,27 +229,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Close the shape</string>
-			<key>productionString</key>
-			<string>;</string>
-			<key>drawingMethodString</key>
-			<string>commandClosePath</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleClosePath</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Draw the previous rules. Use to draw then change color or line type</string>
-			<key>productionString</key>
-			<string>:</string>
-			<key>drawingMethodString</key>
-			<string>commandDrawPath</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleDrawPath</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Save current direction and position.</string>
+			<string>Save the turtle&apos;s current direction and position. They will be restored after a close bracket rule.</string>
 			<key>productionString</key>
 			<string>[</string>
 			<key>drawingMethodString</key>
@@ -189,7 +239,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Restore last saved direction and position.</string>
+			<string>Return the turtle to it&apos;s position and direction of the previous starting bracket.</string>
 			<key>productionString</key>
 			<string>]</string>
 			<key>drawingMethodString</key>
@@ -199,87 +249,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Reverse direction.</string>
-			<key>productionString</key>
-			<string>|</string>
-			<key>drawingMethodString</key>
-			<string>commandReverseDirection</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleReverseDirection</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Increase the line width.</string>
-			<key>productionString</key>
-			<string>#</string>
-			<key>drawingMethodString</key>
-			<string>commandIncrementLineWidth</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleIncrementLineWidth</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Decrease the line width</string>
-			<key>productionString</key>
-			<string>!</string>
-			<key>drawingMethodString</key>
-			<string>commandDecrementLineWidth</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleDecrementLineWidth</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Increase the line length.</string>
-			<key>productionString</key>
-			<string>&lt;</string>
-			<key>drawingMethodString</key>
-			<string>commandUpscaleLineLength</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleUpscaleLineLength</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Decrease the line length.</string>
-			<key>productionString</key>
-			<string>&gt;</string>
-			<key>drawingMethodString</key>
-			<string>commandDownscaleLineLength</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleDownscaleLineLength</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Increase the turn angle.</string>
-			<key>productionString</key>
-			<string>(</string>
-			<key>drawingMethodString</key>
-			<string>commandIncrementAngle</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleIncrementAngle</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Decrease the turn angle.</string>
-			<key>productionString</key>
-			<string>)</string>
-			<key>drawingMethodString</key>
-			<string>commandDecrementAngle</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleDecrementAngle</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Swap the meaning of left and right turns.</string>
-			<key>productionString</key>
-			<string>&amp;</string>
-			<key>drawingMethodString</key>
-			<string>commandSwapRotation</string>
-			<key>iconIdentifierString</key>
-			<string>kBIconRuleSwapRotation</string>
-		</dict>
-		<dict>
-			<key>descriptor</key>
-			<string>Turn the stroke off.</string>
+			<string>Turn the stroke off. Only the last stroke, fill or color before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>s</string>
 			<key>drawingMethodString</key>
@@ -289,7 +259,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Turn the stroke on.</string>
+			<string>Turn the stroke on. Only the last stroke, fill or color before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>S</string>
 			<key>drawingMethodString</key>
@@ -299,7 +269,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use the next stroke color.</string>
+			<string>Use the next stroke color. Only the last stroke, fill or color before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>a</string>
 			<key>drawingMethodString</key>
@@ -309,7 +279,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Turn the fill off.</string>
+			<string>Turn the fill off. Only the last stroke, fill or color before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>l</string>
 			<key>drawingMethodString</key>
@@ -319,7 +289,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Turn the fill on.</string>
+			<string>Turn the fill on. Only the last stroke, fill or color before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>L</string>
 			<key>drawingMethodString</key>
@@ -329,7 +299,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use the next fill color.</string>
+			<string>Use the next fill color. Only the last stroke, fill or color before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>c</string>
 			<key>drawingMethodString</key>
@@ -339,7 +309,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Randomize directions, angles and lengths.</string>
+			<string>Randomize directions, angles and lengths. Takes effect immediately.</string>
 			<key>productionString</key>
 			<string>R</string>
 			<key>drawingMethodString</key>
@@ -349,7 +319,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use butt line ends.</string>
+			<string>Use butt line ends. Only the last end or join type before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>e</string>
 			<key>drawingMethodString</key>
@@ -359,7 +329,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use round line ends.</string>
+			<string>Use round line ends. Only the last end or join type before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>f</string>
 			<key>drawingMethodString</key>
@@ -369,7 +339,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use square line ends.</string>
+			<string>Use square line ends. Only the last end or join type before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>g</string>
 			<key>drawingMethodString</key>
@@ -379,7 +349,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use angled line joins.</string>
+			<string>Use angled line joins. Only the last end or join type before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>h</string>
 			<key>drawingMethodString</key>
@@ -389,7 +359,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use round line joins.</string>
+			<string>Use round line joins. Only the last end or join type before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>i</string>
 			<key>drawingMethodString</key>
@@ -399,7 +369,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Use angled line joins.</string>
+			<string>Use angled line joins. Only the last end or join type before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>j</string>
 			<key>drawingMethodString</key>
@@ -409,7 +379,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 1</string>
+			<string>Placeholder number 1. Use to define a replacement rule. Replace occurrences of 1 with....</string>
 			<key>productionString</key>
 			<string>A</string>
 			<key>drawingMethodString</key>
@@ -419,7 +389,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 2</string>
+			<string>Placeholder number 2 Use to define a replacement rule. Replace occurrences of 2 with....</string>
 			<key>productionString</key>
 			<string>B</string>
 			<key>drawingMethodString</key>
@@ -429,7 +399,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 3</string>
+			<string>Placeholder number 3 Use to define a replacement rule. Replace occurrences of 3 with....</string>
 			<key>productionString</key>
 			<string>C</string>
 			<key>drawingMethodString</key>
@@ -439,7 +409,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 4</string>
+			<string>Placeholder number 4 Use to define a replacement rule. Replace occurrences of 4 with....</string>
 			<key>productionString</key>
 			<string>D</string>
 			<key>drawingMethodString</key>
@@ -449,7 +419,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Placeholder number 5</string>
+			<string>Placeholder number 5 Use to define a replacement rule. Replace occurrences of 5 with....</string>
 			<key>productionString</key>
 			<string>E</string>
 			<key>drawingMethodString</key>

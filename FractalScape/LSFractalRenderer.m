@@ -480,7 +480,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         }
     }
     
-    [self drawPath];
+//    [self drawPath];
 }
 
 #pragma clang diagnostic push
@@ -558,38 +558,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 //}
 
 #pragma mark - Segment routines
--(void) segmentAddPoint: (CGPoint) aUserPoint
-{
-    CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, _segmentStack[_segmentIndex].transform);
-
-    if (!_segmentStack[_segmentIndex].noDrawPath)
-    {
-        if (_segmentStack[_segmentIndex].path == NULL)
-        {
-            // the first point in a continuous path
-            _segmentStack[_segmentIndex].path = CGPathCreateMutable();
-        }
-        
-        BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
-        
-        if (emptyPath || CGPointEqualToPoint(CGPathGetCurrentPoint(_segmentStack[_segmentIndex].path), CGPointZero))
-        {
-            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
-            CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
-        }
-        
-        CGPathAddLineToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
-    }
-    
-    
-    _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint);
-}
-
--(NSInteger) segmentPointCount
-{
-    return _segmentStack[_segmentIndex].pointIndex + 1;
-}
-
 -(CGPathDrawingMode) getSegmentDrawingMode
 {
     
@@ -659,6 +627,38 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, [self currentLineColor]);
 }
 
+-(NSInteger) segmentPointCount
+{
+    return _segmentStack[_segmentIndex].pointIndex + 1;
+}
+
+-(void) segmentAddLineToPoint: (CGPoint) aUserPoint
+{
+    CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, _segmentStack[_segmentIndex].transform);
+    
+    if (!_segmentStack[_segmentIndex].noDrawPath)
+    {
+        if (_segmentStack[_segmentIndex].path == NULL)
+        {
+            // the first point in a continuous path
+            _segmentStack[_segmentIndex].path = CGPathCreateMutable();
+        }
+        
+        BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+        
+        if (emptyPath || CGPointEqualToPoint(CGPathGetCurrentPoint(_segmentStack[_segmentIndex].path), CGPointZero))
+        {
+            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
+            CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
+        }
+        
+        CGPathAddLineToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
+    }
+    
+    
+    _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint);
+}
+
 #pragma mark - Private Draw Methods
 -(void) drawPath {
     [self drawPathClosed: NO];
@@ -673,8 +673,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
             
             if (closed || _segmentStack[_segmentIndex].fill)
             {
-                BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
-                if (!emptyPath) CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
+                [self closePath];
             }
             
             CGContextAddPath(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].path);
@@ -684,19 +683,33 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
             CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
         }
 }
-
--(void) drawCircleRadius: (CGFloat) radius {
-    [self setCGGraphicsStateFromCurrentSegment];
-    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
-    CGContextAddEllipseInRect(_segmentStack[_segmentIndex].context, transformedRect);
-    CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
-    [self segmentAddPoint: CGPointMake(radius*2.0, 0.0)];
+-(void) closePath
+{
+    BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+    if (!emptyPath) CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
 }
-
+-(void) drawCurve
+{
+    
+}
+-(void) drawCircleRadius: (CGFloat) radius {
+//    [self setCGGraphicsStateFromCurrentSegment];
+    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
+    CGPathAddEllipseInRect(_segmentStack[_segmentIndex].path, NULL, transformedRect);
+//    CGContextAddEllipseInRect(_segmentStack[_segmentIndex].context, transformedRect);
+//    CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
+//    [self segmentAddPoint: CGPointMake(radius*2.0, 0.0)];
+    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, radius*2, 0.0);
+    _segmentStack[_segmentIndex].transform = newTransform;
+}
+// unused
 -(void) drawSquareWidth: (CGFloat) width {
-    [self setCGGraphicsStateFromCurrentSegment];
+//    [self setCGGraphicsStateFromCurrentSegment];
     CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -width/2.0, width, width), _segmentStack[_segmentIndex].transform);
-    CGContextAddRect(_segmentStack[_segmentIndex].context, transformedRect);
+    CGPathAddRect(_segmentStack[_segmentIndex].path, NULL, transformedRect);
+//    CGContextAddRect(_segmentStack[_segmentIndex].context, transformedRect);
+    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, width, 0.0);
+    _segmentStack[_segmentIndex].transform = newTransform;
 }
 
 -(void) pushCurrentPath {
@@ -724,9 +737,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 }
 -(void) commandDrawLine
 {
-    
     CGFloat tx = _segmentStack[_segmentIndex].lineLength;
-    [self segmentAddPoint: CGPointMake(tx, 0.0)];
+    [self segmentAddLineToPoint: CGPointMake(tx, 0.0)];
     
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
@@ -745,12 +757,12 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     //    }
 //    CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
-
+#pragma message "TODO: how to implement variable line length? or just a second line command? Already have line increment/decrement."
 -(void) commandDrawLineVarLength
 {
     
     CGFloat tx = _segmentStack[_segmentIndex].lineLength;
-    [self segmentAddPoint: CGPointMake(tx, 0.0)];
+    [self segmentAddLineToPoint: CGPointMake(tx, 0.0)];
     
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
@@ -769,11 +781,11 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandMoveByLine
 {
-    [self drawPath]; // Draw all points before moving on
-    
-    
     CGFloat tx = _segmentStack[_segmentIndex].lineLength;
-    
+    CGPoint transformedPoint = CGPointApplyAffineTransform(CGPointMake(tx, 0.0), _segmentStack[_segmentIndex].transform);
+#pragma message "TODO: not sure this move is necessary."
+    CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
+
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
 
@@ -785,7 +797,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandRotateCC
 {
-
     CGFloat theta = _segmentStack[_segmentIndex].turningAngle;
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, theta);
     _segmentStack[_segmentIndex].transform = newTransform;
@@ -795,7 +806,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandRotateC
 {
-    
     CGFloat theta = _segmentStack[_segmentIndex].turningAngle;
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, -theta);
     _segmentStack[_segmentIndex].transform = newTransform;
@@ -803,34 +813,8 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandReverseDirection
 {
-    
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, M_PI);
     _segmentStack[_segmentIndex].transform = newTransform;
-}
-
--(void) commandCurveC
-{
-    [self commandCurvePoint];
-    [self commandRotateC];
-    [self commandDrawLine];
-}
--(void) commandCurveCC
-{
-    [self commandCurvePoint];
-    [self commandRotateCC];
-    [self commandDrawLine];
-}
--(void) commandCurvePoint
-{
-    //    self.previousNode = CGPathGetCurrentPoint(_segmentStack[_segmentIndex].path);
-    //
-    //    CGFloat tx = _segmentStack[_segmentIndex].lineLength;
-    //    _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
-    //
-    //    CGAffineTransform local = _segmentStack[_segmentIndex].transform;
-    //
-    //    self.controlPointNode = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), local);
-    //    self.controlPointOn = YES;
 }
 
 -(void) commandDrawDot
@@ -863,8 +847,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 #pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
 -(void) commandUpscaleLineLength
 {
-    [self drawPath];
-    
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
         _segmentStack[_segmentIndex].lineLength += _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
     }
@@ -872,8 +854,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandDownscaleLineLength
 {
-    [self drawPath];
-    
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
         _segmentStack[_segmentIndex].lineLength -= _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
     }
@@ -881,9 +861,19 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandSwapRotation
 {
-    //    id tempMinusRule = (self.cachedDrawingRules)[@"-"];
-    //    (self.cachedDrawingRules)[@"-"] = (self.cachedDrawingRules)[@"+"];
-    //    (self.cachedDrawingRules)[@"+"] = tempMinusRule;
+    char turnLeft = '+'; // need to not hard code this.
+    char turnRight = '-'; // same as above
+    
+    char* currentLeftCommand = _commandsStruct.command[turnLeft];
+    char* currentRightCommand = _commandsStruct.command[turnRight];
+    SEL currentLeftSelector = _selectorsStruct.selector[turnLeft];
+    SEL currentRightSelector = _selectorsStruct.selector[turnRight];
+    
+    strcpy(_commandsStruct.command[turnLeft], currentRightCommand);
+    strcpy(_commandsStruct.command[turnRight], currentLeftCommand);
+    
+    _selectorsStruct.selector[turnLeft] = currentRightSelector;
+    _selectorsStruct.selector[turnRight] = currentLeftSelector;
 }
 
 -(void) commandDecrementAngle
@@ -909,11 +899,12 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 }
 -(void) commandStartCurve
 {
-    
+    _segmentStack[_segmentIndex].inCurve = YES;
 }
 -(void) commandEndCurve
 {
-    
+    [self drawCurve];
+    _segmentStack[_segmentIndex].inCurve = NO;
 }
 -(void) commandDrawPath
 {
@@ -921,7 +912,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 }
 -(void) commandClosePath
 {
-    
+    [self closePath];
 }
 -(void) commandPush
 {
@@ -939,7 +930,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandPop
 {
-    [self drawPath];
     [self popCurrentPath];
 }
 
@@ -1011,9 +1001,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
  */
 -(void) commandIncrementLineWidth
 {
-    [self drawPath];
-    
-    
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
         _segmentStack[_segmentIndex].lineWidth += _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }
@@ -1021,9 +1008,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 
 -(void) commandDecrementLineWidth
 {
-    [self drawPath];
-    
-    
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
         _segmentStack[_segmentIndex].lineWidth -= _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }

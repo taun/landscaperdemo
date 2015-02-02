@@ -17,7 +17,7 @@ struct MBSegmentStruct {
     CGContextRef        context;
     CGMutablePathRef    path;
     CGPoint             points[kLSMaxSegmentPointsSize]; // connected path points
-    NSInteger          pointIndex; // index points to current valid point. init to -1
+    NSInteger           pointIndex; // index points to current valid point. init to -1
     CGPathDrawingMode   mode;
     CGAffineTransform   transform; // Local transform so points can be used. Transform point before adding to points.
     CGFloat             scale;
@@ -46,6 +46,7 @@ struct MBSegmentStruct {
     CGColorRef          fillColors[kLSMaxColors];
     BOOL                randomize;
     CGFloat             randomness;
+    BOOL                inCurve;
 } ;
 typedef struct MBSegmentStruct MBSegmentStruct;
 typedef MBSegmentStruct* MBSegmentRef;

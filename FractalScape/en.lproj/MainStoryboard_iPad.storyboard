@@ -703,7 +703,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
                                                         <rect key="frame" x="20" y="150" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1062,6 +1062,7 @@
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="justify" value="YES"/>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="NO"/>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <outletCollection property="gestureRecognizers" destination="Un1-kk-Y9t" appends="YES" id="ifb-J8-Wa7"/>
@@ -1091,6 +1092,7 @@
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="justify" value="YES"/>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="NO"/>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <outletCollection property="gestureRecognizers" destination="avI-YA-c6g" appends="YES" id="ous-j9-g4a"/>
@@ -1365,6 +1367,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bKg-aJ-g7d">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="4nM-Pc-iAd" kind="relationship" relationship="rootViewController" id="KOU-qq-5Sj"/>
                     </connections>

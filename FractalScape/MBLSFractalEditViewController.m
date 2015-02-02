@@ -262,7 +262,17 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     
     [super viewDidLoad];
 }
-
+-(LSFractal*) getDefaultFractal: (NSManagedObjectContext*)context
+{
+    LSFractal* defaultFractal;
+    
+    NSArray* allFractals = [LSFractal allFractalsInContext: context];
+#pragma message "TODO: don't just get the first. Might be wrong category?"
+    if (allFractals.count > 0) {
+        defaultFractal = allFractals[0];
+    }
+    return defaultFractal;
+}
 -(LSFractal*) getUsersLastFractal
 {
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
@@ -272,20 +282,20 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     MBAppDelegate* appDelegate = (MBAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext*context = [appDelegate managedObjectContext];
 
-    if (selectedFractalURL == nil) {
-        // use a default
-        NSArray* allFractals = [LSFractal allFractalsInContext: context];
-        if (allFractals.count > 0) {
-            defaultFractal = allFractals[0];
-        }
-    } else {
-        // instantiate the saved default URI
+    if (selectedFractalURL != nil)
+    {
         NSPersistentStoreCoordinator* store = context.persistentStoreCoordinator;
         NSManagedObjectID* objectID = [store managedObjectIDForURIRepresentation: selectedFractalURL];
-        if (objectID != nil) {
+        if (objectID != nil)
+        {
             defaultFractal = (LSFractal*)[context objectWithID: objectID];
         }
     }
+    
+    if (!defaultFractal) {
+        defaultFractal = [self getDefaultFractal: context];
+    }
+
     return defaultFractal;
 }
 -(void) viewWillLayoutSubviews
@@ -307,31 +317,25 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
     
-    [self autoScale: nil];
+//    [self autoScale: nil];
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-    //    self.editing = NO;
     [super viewWillAppear:animated];
-    
 }
 
 /* on staartup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated
 {
+    [self autoScale: nil];
     [super viewDidAppear:animated];
-    
-    //    [self refreshContents];
-    
-    //    self.editing = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    
     [_privateImageGenerationQueue cancelAllOperations];
     
     if (self.editing)
@@ -479,16 +483,6 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         viewController.landscapeSize = self.popoverLandscapeSize;
         
         viewController.modalPresentationStyle = UIModalPresentationPopover;
-        viewController.popoverPresentationController.passthroughViews = @[ self.fractalViewRoot,
-                                                                           self.fractalViewHolder,
-                                                                           self.hudViewBackground,
-                                                                           self.hudLevelStepper,
-                                                                           self.fractalViewLevel0,
-                                                                           self.fractalViewLevel1,
-                                                                           self.fractalViewLevel2,
-                                                                           self.toggleFullScreenButton];
-#pragma message "TODO missing self.fractalView as a passthrough above?"
-        viewController.popoverPresentationController.delegate = self;
         _appearanceViewController = viewController;
     }
     
@@ -558,6 +552,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
             [self saveToUserPreferencesAsLastEditedFractal: fractal];
         }
         [self updateInterface];
+        [self autoScale: nil];
     }
 }
 -(LSFractalRenderer*) fractalRendererL0
@@ -1099,7 +1094,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         //        CGFloat halfWidth = 44.0;
         //        CGFloat height = 0.0;
         //        CGRect sourceRect = CGRectMake(centerX - halfWidth, bottomY - height, 2*halfWidth, height);
-        
         ppc.sourceView = sender;
         ppc.sourceRect = [sender bounds];
     }
@@ -1131,6 +1125,37 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         self.fractal = [self.fractal mutableCopy];
     }
     
+    NSArray* existingPassthroughs = self.appearanceViewController.popoverPresentationController.passthroughViews;
+    NSMutableArray* passThroughViews = [NSMutableArray arrayWithArray: existingPassthroughs];
+    
+    [passThroughViews addObjectsFromArray: @[ self.fractalViewRoot]];
+    [passThroughViews addObjectsFromArray:     @[ self.fractalViewRoot,
+                                                  self.fractalViewHolder,
+                                                  self.hudViewBackground,
+                                                  self.hudLevelStepper,
+                                                  self.fractalViewLevel0,
+                                                  self.fractalViewLevel1,
+                                                  self.fractalViewLevel2,
+                                                  self.toggleFullScreenButton]];
+
+//    [passThroughViews addObject: self.view];
+
+    
+    self.appearanceViewController.popoverPresentationController.passthroughViews = passThroughViews;
+    
+    /*
+     @[ self.fractalViewRoot,
+     self.fractalViewHolder,
+     self.hudViewBackground,
+     self.hudLevelStepper,
+     self.fractalViewLevel0,
+     self.fractalViewLevel1,
+     self.fractalViewLevel2,
+     self.toggleFullScreenButton];
+     */
+    
+    self.appearanceViewController.popoverPresentationController.delegate = self;
+
     [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
 }
 /*!
