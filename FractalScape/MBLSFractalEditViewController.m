@@ -1070,14 +1070,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         ppc.barButtonItem = sender;
     } else
     {
-        
-        // imaginary button at bottom of screen/view
-        //        CGRect viewBounds = self.fractalViewRoot.bounds;
-        //        CGFloat bottomY = viewBounds.origin.y + viewBounds.size.height;
-        //        CGFloat centerX = viewBounds.origin.x + (viewBounds.size.width / 2.0);
-        //        CGFloat halfWidth = 44.0;
-        //        CGFloat height = 0.0;
-        //        CGRect sourceRect = CGRectMake(centerX - halfWidth, bottomY - height, 2*halfWidth, height);
         ppc.sourceView = sender;
         ppc.sourceRect = [sender bounds];
     }
@@ -1121,11 +1113,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [passThroughViews addObjectsFromArray: @[ self.fractalViewRoot]];
     [passThroughViews addObjectsFromArray: @[ self.autoExpandOff, self.autoExpandOn, self.toggleFullScreenButton]];
 
-    
     self.appearanceViewController.popoverPresentationController.passthroughViews = passThroughViews;
     
-    self.appearanceViewController.popoverPresentationController.delegate = self;
-
     [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
 }
 /*!
