@@ -55,8 +55,6 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
 #pragma message "TODO Add autoExpand as LSFractal model property."
-@property (nonatomic, strong) UIBarButtonItem*      autoExpandOn;
-@property (nonatomic, strong) UIBarButtonItem*      autoExpandOff;
 @property (nonatomic, strong) NSArray*              disabledDuringPlaybackButtons;
 @property (nonatomic, strong) NSArray*              editPassThroughViews;
 
@@ -152,20 +150,6 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 -(void) configureNavBarButtons
 {
     
-    self.autoExpandOn = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"toolBarFullScreenIcon"]
-                                                                  style: UIBarButtonItemStylePlain
-                                                                 target: self
-                                                                 action: @selector(toggleAutoExpandFractal:)];
-
-    self.autoExpandOff = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"toolBarFullScreenIconOff"]
-                                                                        style: UIBarButtonItemStylePlain
-                                                                       target: self
-                                                                       action: @selector(toggleAutoExpandFractal:)];
-    
-   self.playButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemPlay
-                                                                   target: self
-                                                                   action: @selector(playButtonPressed:)];
-    
     self.stopButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemStop
                                                                    target: self
                                                                    action: @selector(stopButtonPressed:)];
@@ -186,10 +170,10 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     [items addObject: shareButton];
     [self.navigationItem setLeftBarButtonItems: items];
     
-    items = [self.navigationItem.rightBarButtonItems mutableCopy];
-    [items addObject: self.autoExpandOn];
-    [items addObject: self.playButton];
-    [self.navigationItem setRightBarButtonItems: items];
+//    items = [self.navigationItem.rightBarButtonItems mutableCopy];
+//    [items addObject: self.autoExpandOn];
+//    [items addObject: self.playButton];
+//    [self.navigationItem setRightBarButtonItems: items];
 }
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
@@ -1102,13 +1086,18 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     [self presentViewController: newController animated: YES completion: ^{
         //
-        BOOL enabled = self.navigationController.navigationBar.isUserInteractionEnabled;
         self.currentPresentedController = newController;
     }];
     
 }
 -(IBAction)libraryButtonPressed:(id)sender
 {
+    NSArray* existingPassthroughs = self.appearanceViewController.popoverPresentationController.passthroughViews;
+    NSMutableArray* passThroughViews = [NSMutableArray arrayWithArray: existingPassthroughs];
+    
+    [passThroughViews addObjectsFromArray: @[ self.editButton]];
+    self.libraryViewController.popoverPresentationController.passthroughViews = passThroughViews;
+    
     [self handleNewPopoverRequest: self.libraryViewController sender: sender otherPopover: self.appearanceViewController];
 }
 -(IBAction)appearanceButtonPressed:(id)sender
@@ -1130,30 +1119,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     NSMutableArray* passThroughViews = [NSMutableArray arrayWithArray: existingPassthroughs];
     
     [passThroughViews addObjectsFromArray: @[ self.fractalViewRoot]];
-    [passThroughViews addObjectsFromArray:     @[ self.view, self.navigationController.navigationBar,self.fractalViewRoot,
-                                                  self.fractalViewHolder,
-                                                  self.hudViewBackground,
-                                                  self.hudLevelStepper,
-                                                  self.fractalViewLevel0,
-                                                  self.fractalViewLevel1,
-                                                  self.fractalViewLevel2,
-                                                  self.toggleFullScreenButton]];
-
-//    [passThroughViews addObject: self.view];
+    [passThroughViews addObjectsFromArray: @[ self.autoExpandOff, self.autoExpandOn, self.toggleFullScreenButton]];
 
     
     self.appearanceViewController.popoverPresentationController.passthroughViews = passThroughViews;
-    
-    /*
-     @[ self.fractalViewRoot,
-     self.fractalViewHolder,
-     self.hudViewBackground,
-     self.hudLevelStepper,
-     self.fractalViewLevel0,
-     self.fractalViewLevel1,
-     self.fractalViewLevel2,
-     self.toggleFullScreenButton];
-     */
     
     self.appearanceViewController.popoverPresentationController.delegate = self;
 
@@ -1381,6 +1350,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
 
     [self swapOldButton: self.playButton withNewButton: self.stopButton];
+
     self.playbackSlider.hidden = NO;
     
     LSFractalRenderer* playback1 = [self newPlaybackRenderer: @"Playback1"];
@@ -1490,13 +1460,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(IBAction)toggleAutoExpandFractal:(id)sender
 {
     self.autoExpandFractal = !self.autoExpandFractal;
-    if (self.autoExpandFractal) {
-        [self swapOldButton: self.autoExpandOn withNewButton: self.autoExpandOff];
-    }
-    else
-    {
-        [self swapOldButton: self.autoExpandOff withNewButton: self.autoExpandOn];
-    }
+    self.autoExpandOn.hidden = !self.autoExpandFractal;
+    self.autoExpandOff.hidden = self.autoExpandFractal;
+
     [self queueFractalImageUpdates];
 }
 - (IBAction)copyFractal:(id)sender

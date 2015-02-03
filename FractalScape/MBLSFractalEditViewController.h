@@ -48,10 +48,13 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (nonatomic, strong) NSNumberFormatter*    percentFormatter;
 //@property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
 //@property (weak, nonatomic) IBOutlet UIToolbar              *toolbar;
-@property (strong, nonatomic)  UIBarButtonItem      *playButton;
+@property (strong, nonatomic)  IBOutlet UIBarButtonItem      *playButton;
 @property (strong, nonatomic)  UIBarButtonItem      *stopButton;
 @property (weak, nonatomic) IBOutlet UIButton       *editButton;
 @property (weak, nonatomic) IBOutlet UISlider       *playbackSlider;
+@property (weak, nonatomic) IBOutlet UIButton*      toggleFullScreenButton;
+@property (weak, nonatomic) IBOutlet UIButton*      autoExpandOn;
+@property (weak, nonatomic) IBOutlet UIButton*      autoExpandOff;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
@@ -60,7 +63,6 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 @property (weak, nonatomic) IBOutlet UIScrollView  *fractalScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView   *fractalView;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *fractal2PanGR;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *toggleFullScreenButton;
 
 #pragma mark FractalLevel0 Nib outlets
 @property (weak, nonatomic) IBOutlet UILabel *baseAngleLabel;

@@ -80,11 +80,24 @@
                                                     <constraint firstItem="9wd-5R-WKj" firstAttribute="height" secondItem="L8D-tT-rkV" secondAttribute="height" constant="-40" id="jvk-A6-QP9"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="688" y="983" width="60" height="37"/>
+                                            <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" customClass="MDKLayerViewDesignable">
+                                                <rect key="frame" x="508" y="983" width="240" height="37"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ">
-                                                        <rect key="frame" x="0.0" y="3" width="60" height="31"/>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHl-Gk-KjU" userLabel="autoExpandOn">
+                                                        <rect key="frame" x="90" y="-1" width="60" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="GxI-3U-DoW"/>
+                                                            <constraint firstAttribute="width" constant="60" id="d6M-tA-Q9m"/>
+                                                        </constraints>
+                                                        <state key="normal" image="toolBarFullScreenIcon">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="toggleAutoExpandFractal:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="o6h-Rh-qfy"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ" userLabel="editRules">
+                                                        <rect key="frame" x="180" y="3" width="60" height="31"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="YFf-52-wrK"/>
@@ -99,13 +112,45 @@
                                                             <action selector="appearanceButtonPressed:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="zfy-FG-2iU"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRx-ub-5v2" userLabel="fullScreen">
+                                                        <rect key="frame" x="0.0" y="-2" width="60" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="5Uy-2C-CkX"/>
+                                                            <constraint firstAttribute="height" constant="40" id="f1z-Bq-xiJ"/>
+                                                        </constraints>
+                                                        <state key="normal" image="toolBarHUDScreenIcon">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="toggleFullScreen:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="1vY-J3-TPA"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gB3-UB-mha" userLabel="autoexpandOff">
+                                                        <rect key="frame" x="90" y="-1.5" width="60" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="5DW-hd-enF"/>
+                                                            <constraint firstAttribute="width" constant="60" id="dVp-UF-uEj"/>
+                                                        </constraints>
+                                                        <state key="normal" image="toolBarFullScreenIconOff">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="toggleAutoExpandFractal:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="oeC-Oh-jeM"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.81000000000000005" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="X2L-iC-acQ" secondAttribute="bottom" constant="3" id="Cd6-g2-wPd"/>
+                                                    <constraint firstAttribute="centerY" secondItem="CHl-Gk-KjU" secondAttribute="centerY" id="Eb5-Ne-Jfh"/>
                                                     <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="3" id="LaG-r5-4ck"/>
+                                                    <constraint firstAttribute="centerY" secondItem="gB3-UB-mha" secondAttribute="centerY" id="PeD-Bo-eka"/>
+                                                    <constraint firstAttribute="centerX" secondItem="gB3-UB-mha" secondAttribute="centerX" id="R56-mq-GPO"/>
+                                                    <constraint firstAttribute="centerX" secondItem="CHl-Gk-KjU" secondAttribute="centerX" id="bik-OK-XOd"/>
                                                     <constraint firstAttribute="trailing" secondItem="X2L-iC-acQ" secondAttribute="trailing" id="hS5-Rm-snq"/>
-                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="leading" secondItem="SdO-1x-rjL" secondAttribute="leading" id="xCj-kA-f3t"/>
+                                                    <constraint firstAttribute="centerY" secondItem="YRx-ub-5v2" secondAttribute="centerY" id="ilB-wK-qtn"/>
+                                                    <constraint firstItem="YRx-ub-5v2" firstAttribute="leading" secondItem="SdO-1x-rjL" secondAttribute="leading" id="k2q-XY-xUv"/>
+                                                    <constraint firstAttribute="width" constant="240" id="uZW-zz-flP"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -213,7 +258,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="472" width="296" height="156"/>
+                                                <rect key="frame" x="10" y="472" width="300" height="160"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -313,7 +358,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="302" width="296" height="156"/>
+                                                <rect key="frame" x="10" y="302" width="300" height="160"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -413,7 +458,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="132" width="296" height="156"/>
+                                                <rect key="frame" x="10" y="132" width="300" height="160"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
@@ -582,14 +627,16 @@
                                 <action selector="libraryButtonPressed:" destination="4nM-Pc-iAd" id="FVn-2f-qKg"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="toolBarHUDScreenIcon" id="Kgo-6O-GAI">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="play" id="Kgo-6O-GAI">
                             <connections>
-                                <action selector="toggleFullScreen:" destination="4nM-Pc-iAd" id="MJ8-zI-g7n"/>
+                                <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="chz-4Y-vsU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="4tK-dc-Bzb" id="xUo-K7-m2K"/>
+                        <outlet property="autoExpandOff" destination="gB3-UB-mha" id="dFh-fR-gBn"/>
+                        <outlet property="autoExpandOn" destination="CHl-Gk-KjU" id="t4i-Yb-3xi"/>
                         <outlet property="baseAngleLabel" destination="guc-ko-0z2" id="qNE-2M-bYm"/>
                         <outlet property="baseAngleSlider" destination="gy6-SY-i9T" id="S85-G3-sVr"/>
                         <outlet property="editButton" destination="X2L-iC-acQ" id="Lo3-pv-esw"/>
@@ -611,10 +658,11 @@
                         <outlet property="hudText2" destination="s4f-oD-mXM" id="KLy-sp-9Ia"/>
                         <outlet property="hudViewBackground" destination="3Df-59-GZt" id="jQD-Z3-ikN"/>
                         <outlet property="lengthIncrementVerticalSlider" destination="5kb-du-Imb" id="CXJ-Nt-CQG"/>
+                        <outlet property="playButton" destination="Kgo-6O-GAI" id="qgF-mz-xQQ"/>
                         <outlet property="playbackSlider" destination="fN9-Mq-Ukg" id="c0O-Rw-Ku3"/>
                         <outlet property="randomnessVerticalSlider" destination="p0o-A9-ELt" id="l2K-Ys-EvS"/>
                         <outlet property="renderTimeLabel" destination="lOu-PR-QW2" id="RTa-Ld-ZOt"/>
-                        <outlet property="toggleFullScreenButton" destination="Kgo-6O-GAI" id="Nou-hs-yUO"/>
+                        <outlet property="toggleFullScreenButton" destination="YRx-ub-5v2" id="9Bg-e4-3hf"/>
                         <outlet property="turnAngleIncrementLabel" destination="AUJ-mW-uO9" id="goq-SY-Wqc"/>
                         <outlet property="turnAngleSlider" destination="rPE-Sl-13x" id="Y5C-GZ-nNZ"/>
                         <outlet property="turnIncrementSlider" destination="An9-9l-3Tm" id="C8D-9O-Mch"/>
@@ -1390,6 +1438,8 @@
         <image name="tabBarLineColorIcon" width="25" height="25"/>
         <image name="tabBarLineColorIconTemplate" width="25" height="25"/>
         <image name="tabBarRulesIcon" width="25" height="25"/>
+        <image name="toolBarFullScreenIcon" width="28" height="28"/>
+        <image name="toolBarFullScreenIconOff" width="28" height="28"/>
         <image name="toolBarHUDScreenIcon" width="28" height="28"/>
         <image name="zensand" width="72" height="71"/>
     </resources>
