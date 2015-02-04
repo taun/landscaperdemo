@@ -39,6 +39,11 @@
     [self.sourceListView setNeedsLayout];
 //    [self.destinationView setNeedsUpdateConstraints];
     [self.destinationView setNeedsLayout];
+
+    // Hack to get the label to adjust size after the transition.
+    NSString* info = self.ruleHelpLabel.text;
+    self.ruleHelpLabel.text = info;
+    
     [super viewWillLayoutSubviews];
 }
 -(void) configureParallax {

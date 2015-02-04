@@ -667,21 +667,21 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 -(void) drawPathClosed: (BOOL)closed
 {
     
-        if (!_segmentStack[_segmentIndex].noDrawPath)
+    if (!_segmentStack[_segmentIndex].noDrawPath)
+    {
+        [self setCGGraphicsStateFromCurrentSegment];
+        
+        if (closed || _segmentStack[_segmentIndex].fill)
         {
-            [self setCGGraphicsStateFromCurrentSegment];
-            
-            if (closed || _segmentStack[_segmentIndex].fill)
-            {
-                [self closePath];
-            }
-            
-            CGContextAddPath(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].path);
-            CGPathRelease(_segmentStack[_segmentIndex].path);
-            _segmentStack[_segmentIndex].path = NULL;
-            
-            CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
+            [self closePath];
         }
+        
+        CGContextAddPath(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].path);
+        CGPathRelease(_segmentStack[_segmentIndex].path);
+        _segmentStack[_segmentIndex].path = NULL;
+        
+        CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
+    }
 }
 -(void) closePath
 {

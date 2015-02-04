@@ -1097,6 +1097,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (self.presentedViewController == self.appearanceViewController)
     {
         [self dismissViewControllerAnimated: YES completion:^{
+            self.navigationController.navigationBarHidden = NO;
             self.currentPresentedController = nil;
         }];
         return;
@@ -1114,6 +1115,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [passThroughViews addObjectsFromArray: @[ self.autoExpandOff, self.autoExpandOn, self.toggleFullScreenButton]];
 
     self.appearanceViewController.popoverPresentationController.passthroughViews = passThroughViews;
+    
+    self.navigationController.navigationBarHidden = YES;
     
     [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
 }
