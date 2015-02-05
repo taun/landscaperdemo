@@ -1985,8 +1985,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.fractal.managedObjectContext;
-    if (managedObjectContext != nil)
-        
+    if (managedObjectContext != nil && ![self.fractal.isImmutable boolValue])
     {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
             
