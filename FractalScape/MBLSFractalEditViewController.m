@@ -821,7 +821,11 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     [self queueHudImageUpdates];
     
     self.fractalRendererLN.autoscale = self.autoscaleN;
-    self.fractalRendererLN.autoExpand = self.autoExpandFractal;
+    self.fractalRendererLN.autoExpand = [self.fractal.autoExpand boolValue];
+    
+    UIColor* backgroundColor = [self.fractal.backgroundColor asUIColor];
+    if (!backgroundColor) backgroundColor = [UIColor clearColor];
+    self.fractalRendererLN.backgroundColor = backgroundColor;
     
     if (!self.lowPerformanceDevice || self.fractalRendererLN.levelData.length < 150000)
     {
@@ -1902,8 +1906,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self.fractal.managedObjectContext processPendingChanges];
     [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegrees doubleValue] - 0.5)];
 }
-
-// TODO: copy app delegate saveContext method
 
 #pragma mark - core data
 -(void) setUndoManager:(NSUndoManager *)undoManager

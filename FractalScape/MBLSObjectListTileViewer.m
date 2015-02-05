@@ -428,16 +428,19 @@
     id<MDBTileObjectProtocol> firstObject = [self.objectList firstObject];
     
     // check and replace if the default rule placeholder
-    if (firstObject.isDefaultObject) {
-        [self.objectList removeObjectAtIndex: 0];
-        if ([firstObject isKindOfClass: [NSManagedObject class]] && self.context) {
+    if (firstObject.isDefaultObject)
+    {
+        [self.objectList replaceObjectAtIndex: 0 withObject: newRule];
+        
+        if ([firstObject isKindOfClass: [NSManagedObject class]] && self.context)
+        {
             [self.context deleteObject: firstObject];
         }
-        insertionIndex = 0;
     }
-        
-    
-    [self.objectList insertObject: newRule atIndex: insertionIndex]; // works for index == count
+    else
+    {
+        [self.objectList insertObject: newRule atIndex: insertionIndex]; // works for index == count
+    }
     
     [self animateConstraintChanges];
 }

@@ -162,7 +162,7 @@
         [self deleteObjectIfUnreferenced: draggedRule];
         self.draggingItem = nil;
         self.lastDragViewContainer = nil;
-        
+        [self saveContext];        
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled) {
         [self.draggingItem.view removeFromSuperview];
         LSDrawingRule* draggedRule = self.draggingItem.dragItem;

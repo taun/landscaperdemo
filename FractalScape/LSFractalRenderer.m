@@ -754,7 +754,10 @@ void MBCGQuadCurvedPathWithPoints(CGMutablePathRef path, CGPoint* points, NSInte
  */
 void MBCGQuadCurvedPathWithPoints(CGMutablePathRef path, CGPoint* points, NSInteger count, bool finish)
 {
-//    CGPoint p0 = CGPathGetCurrentPoint(path);
+    if (CGPathIsEmpty(path)) {
+        CGPoint p0 = midPointForPoints(points[0], points[1]);
+        CGPathMoveToPoint(path, NULL, p0.x, p0.y);
+    }
     CGPoint p1 = points[1]; // p0 should be same as current path point
     
     if (count == 2)
@@ -772,13 +775,18 @@ void MBCGQuadCurvedPathWithPoints(CGMutablePathRef path, CGPoint* points, NSInte
         p2 = points[i];
         
         midPointP12 = midPointForPoints(p1, p2);
-        CGPathAddQuadCurveToPoint(path, NULL, p1.x, p1.y, midPointP12.x, midPointP12.y);
+        if (finish && i+1==count)
+        {
+            // take the last curve to the end.
+            CGPathAddQuadCurveToPoint(path, NULL, p1.x, p1.y, p2.x, p2.y);
+        }
+        else
+        {
+            CGPathAddQuadCurveToPoint(path, NULL, p1.x, p1.y, midPointP12.x, midPointP12.y);
+        }
         
         p1 = p2;
     }
-    
-    // finish the last line
-    if (finish) CGPathAddLineToPoint(path, NULL, p2.x, p2.y);
     
     return;
 }
