@@ -857,6 +857,7 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
     _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
     _segmentStack[_segmentIndex].path = CGPathCreateMutable();
+    _segmentStack[_segmentIndex].inCurve = NO; // reset to no curve. can always re-add curve rule but can't remove curve rule.
 }
 -(void) popCurrentPath {
     if (_segmentStack[_segmentIndex].path != NULL) {
@@ -993,6 +994,22 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 {
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
         _segmentStack[_segmentIndex].lineLength -= _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
+    }
+}
+/*!
+ Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
+ */
+-(void) commandIncrementLineWidth
+{
+    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
+        _segmentStack[_segmentIndex].lineWidth += _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
+    }
+}
+
+-(void) commandDecrementLineWidth
+{
+    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
+        _segmentStack[_segmentIndex].lineWidth -= _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }
 }
 
@@ -1132,22 +1149,6 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandLineJoinBevel
 {
     _segmentStack[_segmentIndex].lineJoin = kCGLineJoinBevel;
-}
-/*!
- Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
- */
--(void) commandIncrementLineWidth
-{
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        _segmentStack[_segmentIndex].lineWidth += _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
-    }
-}
-
--(void) commandDecrementLineWidth
-{
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        _segmentStack[_segmentIndex].lineWidth -= _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
-    }
 }
 @end
 

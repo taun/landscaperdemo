@@ -174,24 +174,25 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
     
-    if (generator.image) {
+    if (generator.image && [cellFractal.levelUnchanged boolValue] && [cellFractal.rulesUnchanged boolValue]) {
         cell.imageView.image = generator.image;
     } else {
         if (!generator) {
             // No generator yet
             generator = [LSFractalRenderer newRendererForFractal: cellFractal];
+            generator.name = cellFractal.name;
             generator.imageView = cell.imageView;
             generator.flipY = YES;
             generator.margin = 10.0;
             generator.showOrigin = NO;
             generator.autoscale = YES;
 #pragma message "TODO move generateLevelData to a privateQueue in case of large levels or just limit level?"
-            [cellFractal generateLevelData];
-            generator.levelData = cellFractal.levelNRulesCache;
             
             (self.fractalToThumbnailGenerators)[objectID] = generator;
         }
-            
+        [cellFractal generateLevelData];
+        generator.levelData = cellFractal.levelNRulesCache;
+        
         NSBlockOperation* operation = generator.operation;
         
         // if the operation exists and is finished

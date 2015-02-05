@@ -403,6 +403,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         
         if (changeCount)
         {
+            [self.fractal setPrimitiveValue: @NO forKey: @"rulesUnchanged"];
             [self regenerateLevels];
             [self updateInterface];
         }
@@ -760,7 +761,6 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     [pc performBlock:^{
         [pc reset];
         LSFractal* fractal = (LSFractal*)[pc objectWithID: fid];
-        fractal.rulesUnchanged = @NO;
         [fractal generateLevelData];
         
         NSArray* levelDataArray = @[fractal.level0RulesCache, fractal.level1RulesCache, fractal.level2RulesCache, fractal.levelNRulesCache, fractal.levelGrowthRate];
@@ -1479,7 +1479,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     double rawValue = [[sender valueForKey: @"value"] doubleValue];
     NSNumber* roundedNumber = @(lround(rawValue));
+    [self.fractal setPrimitiveValue: @NO forKey: @"levelUnchanged"];
     self.fractal.level = roundedNumber;
+    [self saveContext];
     [self.activityIndicator startAnimating];
 }
 
