@@ -106,6 +106,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                           @"name",
                           @"randomness",
                           @"backgroundColor",
+                          @"autoExpand",
                           nil];
     }
     return keysToBeCopied;
@@ -250,7 +251,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 - (void)setLevel:(NSNumber*)newLevel {
     [self willChangeValueForKey:@"level"];
     [self setPrimitiveValue: newLevel forKey: @"level"];
-    self.levelUnchanged = NO;
+    self.levelUnchanged = @NO;
     [self didChangeValueForKey:@"level"];
 }
 
@@ -311,33 +312,33 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     return [tempDictionary copy];
 }
 -(void) generateLevelData {
-    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+    if (!([self.levelUnchanged boolValue] && [self.rulesUnchanged boolValue])) {
         [self cacheLevelNRulesStrings];
     }
 }
 -(NSData*) level0Rules {
-    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+    if (!([self.levelUnchanged boolValue] && [self.rulesUnchanged boolValue])) {
         [self cacheLevelNRulesStrings];
     }
     
     return self.level0RulesCache;
 }
 -(NSData*) level1Rules {
-    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+    if (!([self.levelUnchanged boolValue] && [self.rulesUnchanged boolValue])) {
         [self cacheLevelNRulesStrings];
     }
     
     return self.level1RulesCache;
 }
 -(NSData*) level2Rules {
-    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+    if (!([self.levelUnchanged boolValue] && [self.rulesUnchanged boolValue])) {
         [self cacheLevelNRulesStrings];
     }
     
     return self.level2RulesCache;
 }
 -(NSData*) levelNRules {
-    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+    if (!([self.levelUnchanged boolValue] && [self.rulesUnchanged boolValue])) {
             //
         [self cacheLevelNRulesStrings];
     }
@@ -354,30 +355,22 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         return self.levelNRulesCache;
     }
 }
--(void) initialiseRuleCaches {
-    if (!self.level1RulesCache) {
-        self.level1RulesCache = [NSMutableData dataWithCapacity: 100];
-    }
-    if (!self.level2RulesCache) {
-        self.level2RulesCache = [NSMutableData dataWithCapacity: kLSMaxLevel2CacheSize];
-    }
-    
-    if (!self.levelNRulesCache) {
-        self.levelNRulesCache = [NSMutableData dataWithCapacity: kLSMaxLevelNCacheSize];
-    }
-}
+
 #pragma message "TODO add set of placeholder rules and remove them before returning the NSData. Saves time during rendering evaluation."
 -(void) cacheLevelNRulesStrings {
     // if level or rules changed, reproduce cache
-    if (!(self.levelUnchanged && self.rulesUnchanged)) {
+    if (!([self.levelUnchanged boolValue] && [self.rulesUnchanged boolValue])) {
         
-        [self initialiseRuleCaches];
+        NSMutableData* level1RulesCache = [NSMutableData dataWithCapacity: 100];
+        NSMutableData* level2RulesCache = [NSMutableData dataWithCapacity: kLSMaxLevel2CacheSize];
+        NSMutableData* levelNRulesCache = [NSMutableData dataWithCapacity: kLSMaxLevelNCacheSize];
+
         MBReplacementRulesStruct replacementRulesCache;
         for (int i =0; i < kLSMaxRules; i++) {
             replacementRulesCache.replacementCString[i][0] = 0;
         }
         
-        NSMutableData* destinationData = [NSMutableData dataWithLength: self.levelNRulesCache.length];
+        NSMutableData* destinationData = [NSMutableData dataWithLength: levelNRulesCache.length];
         
         CGFloat localLevel;
         
@@ -396,31 +389,35 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
             strcpy(replacementRulesCache.replacementCString[ruleBytes[0]], replacementCString);
         }
         
-        [self generateNextLevelWithSource: self.level0RulesCache destination: self.level1RulesCache replacementsCache: replacementRulesCache];
-        [self generateNextLevelWithSource: self.level1RulesCache destination: self.level2RulesCache replacementsCache: replacementRulesCache];
+        [self generateNextLevelWithSource: self.level0RulesCache destination: level1RulesCache replacementsCache: replacementRulesCache];
+        self.level1RulesCache = level1RulesCache;
+        
+        [self generateNextLevelWithSource: level1RulesCache destination: level2RulesCache replacementsCache: replacementRulesCache];
+        self.level2RulesCache = level2RulesCache;
         
         // initialise buffer
-        self.levelNRulesCache.length = 0;
-        [self.levelNRulesCache appendBytes: self.level2RulesCache.bytes length: self.level2RulesCache.length];
+        levelNRulesCache.length = 0;
+        [levelNRulesCache appendBytes: level2RulesCache.bytes length: level2RulesCache.length];
         
         CGFloat growthRate = 0.0;
         
         for (unsigned long i = 2; i < localLevel ; i++) {
-            [self generateNextLevelWithSource: self.levelNRulesCache destination: destinationData replacementsCache: replacementRulesCache];
+            [self generateNextLevelWithSource: levelNRulesCache destination: destinationData replacementsCache: replacementRulesCache];
             // swap buffers before next interation
-             growthRate = (CGFloat)destinationData.length / (CGFloat)self.levelNRulesCache.length;
+             growthRate = (CGFloat)destinationData.length / (CGFloat)levelNRulesCache.length;
             
-            NSMutableData* newDestination = self.levelNRulesCache;
-            self.levelNRulesCache = destinationData;
+            NSMutableData* newDestination = levelNRulesCache;
+            levelNRulesCache = destinationData;
             destinationData = newDestination;
         }
         
+        self.levelNRulesCache = levelNRulesCache;
         self.levelGrowthRate = [NSNumber numberWithFloat: growthRate];
         
         
         destinationData = nil;
-        self.levelUnchanged = YES;
-        self.rulesUnchanged = YES;
+        self.levelUnchanged = @YES;
+        self.rulesUnchanged = @YES;
     }
 }
 

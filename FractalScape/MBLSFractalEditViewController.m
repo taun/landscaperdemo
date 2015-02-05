@@ -518,6 +518,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
         
         _fractal = fractal;
+        _autoExpandFractal = [_fractal.autoExpand boolValue];
         
         _privateFractalContext = [[NSManagedObjectContext alloc]initWithConcurrencyType: NSPrivateQueueConcurrencyType];
         _privateFractalContext.parentContext = _fractal.managedObjectContext;
@@ -538,6 +539,11 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         [self updateInterface];
         [self autoScale: nil];
     }
+}
+-(void) setAutoExpandFractal:(BOOL)autoExpandFractal {
+    _autoExpandFractal = autoExpandFractal;
+    _fractal.autoExpand = [NSNumber numberWithBool: autoExpandFractal];
+    [self saveContext];
 }
 -(LSFractalRenderer*) fractalRendererL0
 {
@@ -743,6 +749,8 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     self.hudLineIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.lineChangeFactor];
     self.lengthIncrementVerticalSlider.value = self.fractal.lineChangeFactor.floatValue;
     
+    self.autoExpandOn.hidden = !_autoExpandFractal;
+    self.autoExpandOff.hidden = _autoExpandFractal;
 }
 -(void) regenerateLevels
 {
@@ -752,7 +760,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     [pc performBlock:^{
         [pc reset];
         LSFractal* fractal = (LSFractal*)[pc objectWithID: fid];
-        fractal.rulesUnchanged = NO;
+        fractal.rulesUnchanged = @NO;
         [fractal generateLevelData];
         
         NSArray* levelDataArray = @[fractal.level0RulesCache, fractal.level1RulesCache, fractal.level2RulesCache, fractal.levelNRulesCache, fractal.levelGrowthRate];
@@ -1452,9 +1460,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(IBAction)toggleAutoExpandFractal:(id)sender
 {
     self.autoExpandFractal = !self.autoExpandFractal;
-    self.autoExpandOn.hidden = !self.autoExpandFractal;
-    self.autoExpandOff.hidden = self.autoExpandFractal;
-
+    
     [self queueFractalImageUpdates];
 }
 - (IBAction)copyFractal:(id)sender

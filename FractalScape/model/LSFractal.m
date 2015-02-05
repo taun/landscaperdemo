@@ -2,8 +2,8 @@
 //  LSFractal.m
 //  FractalScape
 //
-//  Created by Taun Chapman on 12/06/14.
-//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 02/05/15.
+//  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
 #import "LSFractal.h"
@@ -32,6 +32,14 @@
 @dynamic randomness;
 @dynamic turningAngle;
 @dynamic turningAngleIncrement;
+@dynamic autoExpand;
+@dynamic level0RulesCache;
+@dynamic level1RulesCache;
+@dynamic level2RulesCache;
+@dynamic levelNRulesCache;
+@dynamic levelGrowthRate;
+@dynamic rulesUnchanged;
+@dynamic levelUnchanged;
 @dynamic backgroundColor;
 @dynamic drawingRulesType;
 @dynamic fillColors;
@@ -39,7 +47,5 @@
 @dynamic placements;
 @dynamic replacementRules;
 @dynamic startingRules;
-
-@synthesize  rulesUnchanged, levelUnchanged, level0RulesCache, level1RulesCache, level2RulesCache, levelNRulesCache, levelGrowthRate;
 
 @end

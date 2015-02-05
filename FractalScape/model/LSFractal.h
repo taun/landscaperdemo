@@ -2,8 +2,8 @@
 //  LSFractal.h
 //  FractalScape
 //
-//  Created by Taun Chapman on 12/06/14.
-//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 02/05/15.
+//  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -29,6 +29,14 @@
 @property (nonatomic, retain) NSNumber * randomness;
 @property (nonatomic, retain) NSNumber * turningAngle;
 @property (nonatomic, retain) NSNumber * turningAngleIncrement;
+@property (nonatomic, retain) NSNumber * autoExpand;
+@property (nonatomic, retain) NSData * level0RulesCache;
+@property (nonatomic, retain) NSData * level1RulesCache;
+@property (nonatomic, retain) NSData * level2RulesCache;
+@property (nonatomic, retain) NSData * levelNRulesCache;
+@property (nonatomic, retain) NSNumber * levelGrowthRate;
+@property (nonatomic, retain) NSNumber * rulesUnchanged;
+@property (nonatomic, retain) NSNumber * levelUnchanged;
 @property (nonatomic, retain) MBColor *backgroundColor;
 @property (nonatomic, retain) LSDrawingRuleType *drawingRulesType;
 @property (nonatomic, retain) NSOrderedSet *fillColors;
@@ -36,16 +44,6 @@
 @property (nonatomic, retain) NSSet *placements;
 @property (nonatomic, retain) NSOrderedSet *replacementRules;
 @property (nonatomic, retain) NSOrderedSet *startingRules;
-
-// Manually added. Need to re-add if model is changed and exported from Xcode
-@property (nonatomic,assign) BOOL                   rulesUnchanged;
-@property (nonatomic,assign) BOOL                   levelUnchanged;
-@property (nonatomic,strong) NSData                 *level0RulesCache;
-@property (nonatomic,strong) NSMutableData          *level1RulesCache;
-@property (nonatomic,strong) NSMutableData          *level2RulesCache;
-@property (nonatomic,strong) NSMutableData          *levelNRulesCache;
-@property (nonatomic,strong) NSNumber               *levelGrowthRate;
-
 @end
 
 @interface LSFractal (CoreDataGeneratedAccessors)

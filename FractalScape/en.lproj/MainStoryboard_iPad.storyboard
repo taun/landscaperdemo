@@ -261,7 +261,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="454" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
@@ -363,7 +363,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="284" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
@@ -465,7 +465,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="114" width="296" height="156"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
@@ -749,7 +749,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="244" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="244" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
                                                         <rect key="frame" x="10" y="8" width="780" height="116"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -767,7 +767,7 @@
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
                                                         <rect key="frame" x="72" y="138" width="708" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1073,16 +1073,16 @@
                                     <constraint firstItem="4QD-IE-s5T" firstAttribute="leading" secondItem="HCL-AF-c5r" secondAttribute="leading" id="yqg-Lg-rbv"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="250" id="TLs-EA-bzv">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                                             <subviews>
-                                                <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
+                                                <view opaque="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="p60-hJ-K77"/>
@@ -1097,17 +1097,17 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
+                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
                                                     <rect key="frame" x="48" y="0.0" width="352" height="100"/>
                                                     <subviews>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
                                                             <rect key="frame" x="4" y="11" width="28" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="y20-fS-x0U" secondAttribute="height" id="Xig-yr-55y"/>
                                                                 <constraint firstAttribute="width" constant="28" id="dAT-Ct-OMY"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MBLSObjectListTileViewer">
+                                                        <view opaque="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MBLSObjectListTileViewer">
                                                             <rect key="frame" x="40" y="4" width="308" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -1129,7 +1129,7 @@
                                                                 <outletCollection property="gestureRecognizers" destination="Un1-kk-Y9t" appends="YES" id="ifb-J8-Wa7"/>
                                                             </connections>
                                                         </view>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
                                                             <rect key="frame" x="4" y="57" width="28" height="28"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -1137,7 +1137,7 @@
                                                                 <constraint firstAttribute="width" constant="28" id="qFI-t7-50E"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MBLSObjectListTileViewer">
+                                                        <view opaque="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MBLSObjectListTileViewer">
                                                             <rect key="frame" x="40" y="50" width="308" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
