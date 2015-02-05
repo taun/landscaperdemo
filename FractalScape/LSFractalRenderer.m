@@ -480,7 +480,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         }
     }
     
-//    [self drawPath];
+    if (percent < 100.0) {
+        [self drawPathClosed: NO];
+    }
 }
 
 #pragma clang diagnostic push
@@ -646,17 +648,144 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
         
         BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
         
-        if (emptyPath || CGPointEqualToPoint(CGPathGetCurrentPoint(_segmentStack[_segmentIndex].path), CGPointZero))
+        if (emptyPath)
         {
             CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
             CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
         }
         
-        CGPathAddLineToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
+        if (!_segmentStack[_segmentIndex].inCurve)
+        {
+            CGPathAddLineToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
+        }
+        else
+        {
+            // handle adding points for the curve
+            [self addCurvePoint: aUserPoint];
+        }
     }
     
-    
     _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint);
+}
+-(void) addCurvePoint: (CGPoint)aUserPoint
+{
+    if (_segmentStack[_segmentIndex].pointIndex+1 >= kLSMaxSegmentPointsSize) {
+        // save last two endpoints
+        CGPoint p0 = _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex-1];
+        CGPoint p1 = _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex];
+        [self drawFinishedCurve: NO];
+        // put last two endpoints back. p1 will be the new control point
+        _segmentStack[_segmentIndex].points[0] = p0;
+        _segmentStack[_segmentIndex].points[1] = p1;
+        _segmentStack[_segmentIndex].pointIndex = 1;
+    }
+    else if (_segmentStack[_segmentIndex].pointIndex < 0)
+    {
+        // no start point so add default (0,0)
+        CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
+        _segmentStack[_segmentIndex].pointIndex += 1;
+        _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedSPoint;
+    }
+    
+    CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, _segmentStack[_segmentIndex].transform);
+    if (_segmentStack[_segmentIndex].pointIndex+1 < kLSMaxSegmentPointsSize)
+    {
+        _segmentStack[_segmentIndex].pointIndex += 1;
+    }
+    else{
+        NSLog(@"FractalScape:Warning reached end of segment point buffer %ld",kLSMaxSegmentPointsSize);
+    }
+    _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedPoint;
+}
+/*!
+ Called at the end of the commandStartCurve, commandEndCurve sequence.
+ Rotates and moves within the sequence are treating as per normal.
+ commandDrawLine adds the line point to the points array which has a klsMaxSegmentPoints limit.
+ At the end of the sequence, the curve is drawn where each point is considered an arc control point.
+ 
+ Current implementation would be messed up by circles, move, and other non-line commands.
+ */
+-(void) drawFinishedCurve: (BOOL)finish
+{
+    if (!_segmentStack[_segmentIndex].noDrawPath && _segmentStack[_segmentIndex].pointIndex > 1)
+    {
+        NSInteger count = _segmentStack[_segmentIndex].pointIndex + 1;
+        
+        MBCGQuadCurvedPathWithPoints(_segmentStack[_segmentIndex].path,_segmentStack[_segmentIndex].points, count, finish);
+        // reset points array
+        _segmentStack[_segmentIndex].pointIndex = -1;
+    }
+}
+void MBCGQuadCurvedPathWithPoints(CGMutablePathRef path, CGPoint* points, NSInteger count, bool finish);
+/*!
+ Code from
+ 
+ http://stackoverflow.com/questions/8702696/drawing-smooth-curves-methods-needed user1244109 :
+ 
+     UIBezierPath *path = [UIBezierPath bezierPath];
+     
+     NSValue *value = points[0];
+     CGPoint p1 = [value CGPointValue];
+     [path moveToPoint:p1];
+     
+     if (points.count == 2) {
+     value = points[1];
+     CGPoint p2 = [value CGPointValue];
+     [path addLineToPoint:p2];
+     return path;
+     }
+     
+     for (NSUInteger i = 1; i < points.count; i++) {
+     value = points[i];
+     CGPoint p2 = [value CGPointValue];
+     
+     CGPoint midPoint = midPointForPoints(p1, p2);
+     [path addQuadCurveToPoint:midPoint controlPoint:controlPointForPoints(midPoint, p1)];
+     [path addQuadCurveToPoint:p2 controlPoint:controlPointForPoints(midPoint, p2)];
+     
+     p1 = p2;
+     }
+     return path;
+
+ 
+ @param path   path to modify
+ @param points array of points
+ @param count  count of points
+ */
+void MBCGQuadCurvedPathWithPoints(CGMutablePathRef path, CGPoint* points, NSInteger count, bool finish)
+{
+//    CGPoint p0 = CGPathGetCurrentPoint(path);
+    CGPoint p1 = points[1]; // p0 should be same as current path point
+    
+    if (count == 2)
+    {
+        CGPathAddLineToPoint(path, NULL, p1.x, p1.y);
+        return;
+    }
+    
+    //
+    CGPoint midPointP12 = CGPointZero;
+    CGPoint p2 = CGPointZero;
+    
+    for (NSUInteger i = 2; i < count; i++)
+    {
+        p2 = points[i];
+        
+        midPointP12 = midPointForPoints(p1, p2);
+        CGPathAddQuadCurveToPoint(path, NULL, p1.x, p1.y, midPointP12.x, midPointP12.y);
+        
+        p1 = p2;
+    }
+    
+    // finish the last line
+    if (finish) CGPathAddLineToPoint(path, NULL, p2.x, p2.y);
+    
+    return;
+}
+
+static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
+{
+    return CGPointMake((p1.x + p2.x) / 2.0, (p1.y + p2.y) / 2.0);
 }
 
 #pragma mark - Private Draw Methods
@@ -670,6 +799,10 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     if (!_segmentStack[_segmentIndex].noDrawPath)
     {
         [self setCGGraphicsStateFromCurrentSegment];
+        
+        if (_segmentStack[_segmentIndex].inCurve) {
+            [self drawFinishedCurve: YES];
+        }
         
         if (closed || _segmentStack[_segmentIndex].fill)
         {
@@ -687,10 +820,6 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 {
     BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
     if (!emptyPath) CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
-}
--(void) drawCurve
-{
-    
 }
 -(void) drawCircleRadius: (CGFloat) radius {
 //    [self setCGGraphicsStateFromCurrentSegment];
@@ -903,7 +1032,7 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
 }
 -(void) commandEndCurve
 {
-    [self drawCurve];
+    [self drawFinishedCurve: YES];
     _segmentStack[_segmentIndex].inCurve = NO;
 }
 -(void) commandDrawPath

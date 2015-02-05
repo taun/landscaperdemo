@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-static const NSInteger kLSMaxSegmentPointsSize = 30;
+static const NSInteger kLSMaxSegmentPointsSize = 60;
 static const NSInteger kLSMaxSegmentStackSize = 30;
 static const NSInteger kLSMaxColors = 20;
 
