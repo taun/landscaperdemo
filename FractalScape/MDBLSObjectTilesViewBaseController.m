@@ -111,8 +111,11 @@
         CGFloat width = maxX - minX;
         CGFloat height = maxY - minY;
         
-        CGRect scrollVisibleRect = CGRectMake(scrollTopLeft.x, scrollTopLeft.y, width, height);
-        [self.scrollView scrollRectToVisible: scrollVisibleRect animated: NO];
+        if (scrollTopLeft.y > 0.0) {
+            CGRect scrollVisibleRect = CGRectMake(scrollTopLeft.x, scrollTopLeft.y, width, height);
+//            NSString* scrollDescription = NSStringFromCGRect(scrollVisibleRect);
+            [self.scrollView scrollRectToVisible: scrollVisibleRect animated: NO];
+        }
     }
     
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];

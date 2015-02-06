@@ -730,7 +730,7 @@
         <!--Fractal Rules Editor View Controller-->
         <scene sceneID="AoQ-mK-Ne2">
             <objects>
-                <viewController storyboardIdentifier="LineSegmentsPopover" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bDY-89-tKS" customClass="MBFractalRulesEditorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RulesPopover" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bDY-89-tKS" customClass="MBFractalRulesEditorViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="C18-El-Nap"/>
                         <viewControllerLayoutGuide type="bottom" id="9ql-HA-CPu"/>
@@ -746,7 +746,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="484"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="800" height="405"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
                                                         <rect key="frame" x="10" y="8" width="780" height="337"/>
@@ -891,13 +891,13 @@
                                                         <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Eec-kO-1UV">
                                                             <rect key="frame" x="0.0" y="0.0" width="800" height="44"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUS-oG-EcT">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Help:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUS-oG-EcT">
                                                                     <rect key="frame" x="12" y="11" width="40.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
                                                                     <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -966,7 +966,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="YgS-do-bQk">
-                        <barButtonItem key="rightBarButtonItem" title="Fractal" style="done" id="dSn-FI-zwe">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="dSn-FI-zwe">
                             <connections>
                                 <segue destination="SUr-BP-LKd" kind="unwind" unwindAction="unwindToEditorFromAppearanceEditor:" id="xss-iM-ydt"/>
                             </connections>
@@ -1028,7 +1028,7 @@
         <!--Fractal Color View Container-->
         <scene sceneID="ahc-Pz-mGd">
             <objects>
-                <viewController storyboardIdentifier="FractalColorsCollection" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBFractalColorViewContainer" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FractalColorsCollection" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBFractalColorViewContainer" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EQP-8Z-UFL"/>
                         <viewControllerLayoutGuide type="bottom" id="CdH-Y3-gp7"/>
@@ -1047,7 +1047,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" customClass="MDBColorCategoriesListView">
-                                                        <rect key="frame" x="20" y="140" width="360" height="291"/>
+                                                        <rect key="frame" x="20" y="0.0" width="360" height="431"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1068,25 +1068,88 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="top" secondItem="SrT-kZ-Fno" secondAttribute="top" constant="140" placeholder="YES" id="7cO-em-wTD"/>
+                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="top" secondItem="SrT-kZ-Fno" secondAttribute="top" id="7cO-em-wTD"/>
                                                     <constraint firstAttribute="bottom" secondItem="uMw-Vl-Ltb" secondAttribute="bottom" constant="20" symbolic="YES" id="Sks-jf-sWb"/>
                                                     <constraint firstAttribute="height" constant="451" placeholder="YES" id="UBc-Lj-NFn"/>
                                                     <constraint firstItem="uMw-Vl-Ltb" firstAttribute="leading" secondItem="SrT-kZ-Fno" secondAttribute="leading" constant="20" symbolic="YES" id="eD0-ip-KoO"/>
                                                     <constraint firstAttribute="trailing" secondItem="uMw-Vl-Ltb" secondAttribute="trailing" constant="20" symbolic="YES" id="iwd-4y-zU8"/>
                                                 </constraints>
                                             </view>
+                                            <visualEffectView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4BU-94-61F">
+                                                <rect key="frame" x="0.0" y="363" width="400" height="44"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="7tg-JB-ub2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="6WO-67-Voa">
+                                                            <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Help:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrG-It-MQq">
+                                                                    <rect key="frame" x="12" y="11" width="40.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4b-HN-Ruh">
+                                                                    <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Q4b-HN-Ruh" secondAttribute="trailing" constant="10" id="4bW-lu-22F"/>
+                                                                <constraint firstAttribute="centerY" secondItem="Q4b-HN-Ruh" secondAttribute="centerY" id="6zq-z7-DFQ"/>
+                                                                <constraint firstItem="Q4b-HN-Ruh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6WO-67-Voa" secondAttribute="top" constant="2" id="Ihc-aO-Dzy"/>
+                                                                <constraint firstItem="mrG-It-MQq" firstAttribute="leading" secondItem="6WO-67-Voa" secondAttribute="leading" constant="12" id="YJq-ov-kS4"/>
+                                                                <constraint firstItem="Q4b-HN-Ruh" firstAttribute="leading" secondItem="mrG-It-MQq" secondAttribute="trailing" constant="8" id="emk-ry-n3C"/>
+                                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Q4b-HN-Ruh" secondAttribute="bottom" constant="2" id="kkn-bW-L93"/>
+                                                                <constraint firstAttribute="centerY" secondItem="mrG-It-MQq" secondAttribute="centerY" id="yRR-8p-Aau"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="6WO-67-Voa" firstAttribute="top" secondItem="7tg-JB-ub2" secondAttribute="top" id="3Xt-J7-6JS"/>
+                                                        <constraint firstAttribute="bottom" secondItem="6WO-67-Voa" secondAttribute="bottom" id="EFd-hM-dVq"/>
+                                                        <constraint firstItem="6WO-67-Voa" firstAttribute="leading" secondItem="7tg-JB-ub2" secondAttribute="leading" id="irN-Pj-yo6"/>
+                                                        <constraint firstAttribute="trailing" secondItem="6WO-67-Voa" secondAttribute="trailing" id="sTJ-bL-hnn"/>
+                                                    </constraints>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" priority="250" constant="44" id="kfI-5D-VkV"/>
+                                                </constraints>
+                                                <blurEffect style="light"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </visualEffectView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="SrT-kZ-Fno" firstAttribute="leading" secondItem="4QD-IE-s5T" secondAttribute="leading" id="BBc-59-SFQ"/>
+                                            <constraint firstItem="4BU-94-61F" firstAttribute="leading" secondItem="4QD-IE-s5T" secondAttribute="leading" id="Cc0-Vn-Y1b"/>
                                             <constraint firstAttribute="trailing" secondItem="SrT-kZ-Fno" secondAttribute="trailing" id="DSK-Pr-Mqv"/>
+                                            <constraint firstAttribute="bottom" secondItem="4BU-94-61F" secondAttribute="bottom" constant="44" id="HAa-ZQ-sX2"/>
+                                            <constraint firstAttribute="trailing" secondItem="4BU-94-61F" secondAttribute="trailing" id="S44-qi-dPU"/>
                                             <constraint firstItem="SrT-kZ-Fno" firstAttribute="top" secondItem="4QD-IE-s5T" secondAttribute="top" id="gkg-Cz-ZGH"/>
-                                            <constraint firstAttribute="bottom" secondItem="SrT-kZ-Fno" secondAttribute="bottom" constant="44" id="xBl-dD-2Z8"/>
+                                            <constraint firstAttribute="bottom" secondItem="SrT-kZ-Fno" secondAttribute="bottom" id="xBl-dD-2Z8"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Cc0-Vn-Y1b"/>
+                                                <exclude reference="HAa-ZQ-sX2"/>
+                                                <exclude reference="S44-qi-dPU"/>
+                                            </mask>
+                                        </variation>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="SrT-kZ-Fno" firstAttribute="height" relation="greaterThanOrEqual" secondItem="HCL-AF-c5r" secondAttribute="height" id="1cM-N8-IWn"/>
+                                    <constraint firstAttribute="bottom" secondItem="4BU-94-61F" secondAttribute="bottom" id="5uL-Bm-abe"/>
+                                    <constraint firstItem="4BU-94-61F" firstAttribute="leading" secondItem="HCL-AF-c5r" secondAttribute="leading" id="6cU-ov-7PJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="4BU-94-61F" secondAttribute="trailing" id="GSv-Hw-aWn"/>
                                     <constraint firstItem="SrT-kZ-Fno" firstAttribute="width" secondItem="HCL-AF-c5r" secondAttribute="width" id="Op6-f5-W9p"/>
                                     <constraint firstAttribute="trailing" secondItem="4QD-IE-s5T" secondAttribute="trailing" id="POa-k6-6ay"/>
                                     <constraint firstAttribute="bottom" secondItem="4QD-IE-s5T" secondAttribute="bottom" id="gNN-PD-fwa"/>
@@ -1217,7 +1280,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="bottom" secondItem="maa-lX-Faf" secondAttribute="bottom" id="0Rk-WO-2wT"/>
-                                                <constraint firstAttribute="trailing" secondItem="maa-lX-Faf" secondAttribute="trailing" id="517-a7-0Rw"/>
+                                                <constraint firstAttribute="trailing" secondItem="maa-lX-Faf" secondAttribute="trailing" constant="2" id="517-a7-0Rw"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="100" id="Bpd-bZ-nsw"/>
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="top" secondItem="maa-lX-Faf" secondAttribute="top" id="Gdn-WN-ALB"/>
                                                 <constraint firstAttribute="bottom" secondItem="HMf-cF-wSc" secondAttribute="bottom" id="Oih-dm-2E0"/>
@@ -1226,13 +1289,24 @@
                                                 <constraint firstItem="HMf-cF-wSc" firstAttribute="top" secondItem="9ba-HM-kSK" secondAttribute="top" id="ufE-FT-gqu"/>
                                                 <constraint firstItem="maa-lX-Faf" firstAttribute="leading" secondItem="HMf-cF-wSc" secondAttribute="trailing" constant="4" id="wBF-OS-o2o"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="leading" secondItem="TLs-EA-bzv" secondAttribute="leading" id="SXT-AS-2mm"/>
-                                        <constraint firstAttribute="bottom" secondItem="9ba-HM-kSK" secondAttribute="bottom" id="bkS-BO-x6u"/>
-                                        <constraint firstAttribute="trailing" secondItem="9ba-HM-kSK" secondAttribute="trailing" id="co4-38-14h"/>
-                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="top" secondItem="TLs-EA-bzv" secondAttribute="top" id="rfv-Gu-Q0N"/>
+                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="leading" secondItem="TLs-EA-bzv" secondAttribute="leading" constant="10" id="SXT-AS-2mm"/>
+                                        <constraint firstAttribute="bottom" secondItem="9ba-HM-kSK" secondAttribute="bottom" constant="8" id="bkS-BO-x6u"/>
+                                        <constraint firstAttribute="trailing" secondItem="9ba-HM-kSK" secondAttribute="trailing" constant="10" id="co4-38-14h"/>
+                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="top" secondItem="TLs-EA-bzv" secondAttribute="top" constant="10" id="rfv-Gu-Q0N"/>
                                     </constraints>
                                 </view>
                                 <constraints>
@@ -1263,7 +1337,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="keD-VQ-9M6">
-                        <barButtonItem key="rightBarButtonItem" title="Fractal" style="done" id="pU8-XW-LYh">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="pU8-XW-LYh">
                             <connections>
                                 <segue destination="JUF-Xs-Iff" kind="unwind" unwindAction="unwindToEditorFromAppearanceEditor:" id="pAD-3w-POe"/>
                             </connections>
@@ -1278,6 +1352,7 @@
                         <outlet property="fillColorsTemplateImageView" destination="sUp-Wy-sYl" id="adf-dW-TpC"/>
                         <outlet property="lineColorsTemplateImageView" destination="y20-fS-x0U" id="xkn-bb-nj5"/>
                         <outlet property="pageColorDestinationTileView" destination="HMf-cF-wSc" id="aR6-AN-WjS"/>
+                        <outlet property="ruleHelpLabel" destination="Q4b-HN-Ruh" id="36g-Kl-E5U"/>
                         <outlet property="scrollView" destination="4QD-IE-s5T" id="kg7-RI-thB"/>
                         <outlet property="sourceListView" destination="uMw-Vl-Ltb" id="SM8-VP-lQh"/>
                         <outlet property="visualEffectView" destination="jQ1-fw-lLr" id="pC7-YE-4YL"/>
@@ -1306,7 +1381,7 @@
         <!--Fractal Appearance Editor View Controller-->
         <scene sceneID="vbC-pS-Rbr">
             <objects>
-                <tabBarController storyboardIdentifier="AppearancePopover" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="frN-XI-f6b" customClass="MBFractalAppearanceEditorViewController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="AppearancePopover" definesPresentationContext="YES" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="frN-XI-f6b" customClass="MBFractalAppearanceEditorViewController" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="800" height="400"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -1441,7 +1516,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Library" id="uJn-Hw-dsJ">
-                        <barButtonItem key="rightBarButtonItem" title="Fractal" style="done" id="Pfw-Wr-cl9">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="Pfw-Wr-cl9">
                             <connections>
                                 <segue destination="Aum-QI-fMm" kind="unwind" unwindAction="unwindToEditorFromLibrary:" id="6Ad-Cc-DQw"/>
                             </connections>
@@ -1488,7 +1563,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jth-yK-sR7">
             <objects>
-                <navigationController modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" id="tpb-gq-tvK" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LibraryNavCon" modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tpb-gq-tvK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="510" height="600"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1509,7 +1584,7 @@
         <!--Rules-->
         <scene sceneID="M0i-xl-FcE">
             <objects>
-                <navigationController modalPresentationStyle="overCurrentContext" id="yYC-4z-0Da" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RulesNavCon" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yYC-4z-0Da" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Rules" image="tabBarRulesIcon" id="dHW-xy-0Vv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gqA-wB-5rr">
@@ -1528,7 +1603,7 @@
         <!--Colors-->
         <scene sceneID="w3F-vD-9bK">
             <objects>
-                <navigationController modalPresentationStyle="overCurrentContext" id="77i-f5-a79" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ColorsNavCon" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="77i-f5-a79" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Colors" image="tabBarLineColorIcon" id="XzP-vF-Qi5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="x8W-Hw-E0T">

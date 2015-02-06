@@ -14,24 +14,10 @@
 @interface MBFractalColorViewContainer ()
 @property (nonatomic,strong) NSArray*               categories;
 @property (nonatomic,assign) BOOL                   colorsChanged;
-@property (nonatomic,strong) NSLayoutConstraint*    sourceHeightOffset;
 @end
 
 @implementation MBFractalColorViewContainer
 
--(NSLayoutConstraint*) sourceHeightOffset {
-    if (!_sourceHeightOffset) {
-        UIView* superview = [(UIView*)self.sourceListView superview];
-        _sourceHeightOffset = [NSLayoutConstraint constraintWithItem: self.sourceListView
-                                                           attribute: NSLayoutAttributeTop
-                                                           relatedBy: NSLayoutRelationEqual
-                                                              toItem: superview
-                                                           attribute: NSLayoutAttributeTop
-                                                          multiplier: 1.0 constant: 100.0];
-        [superview addConstraint: _sourceHeightOffset];
-    }
-    return _sourceHeightOffset;
-}
 -(void)viewDidLoad {
     // seems to be a bug in that the tintColor is not being used unless I re-set it.
     // this way it still takes the tintColor from IB.
@@ -42,19 +28,13 @@
 }
 #pragma message "TODO: handle scrollView contentInset's"
 -(void) viewWillLayoutSubviews {
-//    [self.fillColorsListView setNeedsLayout];
-//    [self.pageColorDestinationTileView setNeedsLayout];
-//    [self.view setNeedsUpdateConstraints];
     [self.view setNeedsLayout];
-//    [self.visualEffectView setNeedsUpdateConstraints];
     [self.visualEffectView setNeedsLayout];
     
     [super viewWillLayoutSubviews];
 }
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-//    [self.view setNeedsUpdateConstraints];
     [self.view setNeedsLayout];
-//    [self.visualEffectView setNeedsUpdateConstraints];
     [self.visualEffectView setNeedsLayout];
     [self updateViewConstraints];
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
@@ -63,9 +43,11 @@
     [super updateViewConstraints];
     [self.visualEffectView layoutIfNeeded];
     CGFloat effectHeight = self.visualEffectView.bounds.size.height;
-    self.sourceHeightOffset.constant = effectHeight;
+    
     [self.sourceListView setNeedsLayout];
     [self.sourceListView layoutIfNeeded];
+    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
 }
 -(void) updateFractalDependents {
     _categories = [MBColorCategory allCatetegoriesInContext: self.fractal.managedObjectContext];
