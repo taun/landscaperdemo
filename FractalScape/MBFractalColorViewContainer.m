@@ -40,6 +40,7 @@
     
     [super viewDidLoad];
 }
+#pragma message "TODO: handle scrollView contentInset's"
 -(void) viewWillLayoutSubviews {
 //    [self.fillColorsListView setNeedsLayout];
 //    [self.pageColorDestinationTileView setNeedsLayout];

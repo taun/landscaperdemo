@@ -1025,6 +1025,12 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
             //
             [self appearanceControllerWasDismissed];
         }];
+    } else if ([identifier isEqualToString:@"LibrarySegue"] && [self.currentPresentedController isKindOfClass:[MBFractalLibraryViewController class]]) {
+        should = NO;
+        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
+            //
+            [self libraryControllerWasDismissed];
+        }];
     }
     return should;
 }

@@ -648,9 +648,7 @@
                     <navigationItem key="navigationItem" title="FractalScape" id="5yD-Jb-xIT">
                         <barButtonItem key="leftBarButtonItem" title="Library" id="X7f-AM-yeZ">
                             <connections>
-                                <segue destination="tpb-gq-tvK" kind="popoverPresentation" identifier="LibrarySegue" popoverAnchorBarButtonItem="X7f-AM-yeZ" id="06u-pY-Hz4">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
+                                <segue destination="tpb-gq-tvK" kind="presentation" identifier="LibrarySegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="06u-pY-Hz4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="play" id="Kgo-6O-GAI">
@@ -732,22 +730,22 @@
         <!--Fractal Rules Editor View Controller-->
         <scene sceneID="AoQ-mK-Ne2">
             <objects>
-                <viewController storyboardIdentifier="LineSegmentsPopover" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bDY-89-tKS" customClass="MBFractalRulesEditorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LineSegmentsPopover" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bDY-89-tKS" customClass="MBFractalRulesEditorViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="C18-El-Nap"/>
                         <viewControllerLayoutGuide type="bottom" id="9ql-HA-CPu"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" contentMode="top" horizontalCompressionResistancePriority="250" id="ei1-2X-rGK" userLabel="RootView">
+                    <view key="view" contentMode="top" horizontalCompressionResistancePriority="250" id="ei1-2X-rGK" userLabel="RootView">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="528"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5r4-s6-OhH" userLabel="ScrollContainer">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5r4-s6-OhH" userLabel="ScrollContainer">
                                 <rect key="frame" x="0.0" y="44" width="800" height="484"/>
                                 <subviews>
-                                    <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="484"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="405"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
@@ -777,7 +775,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
                                                         <rect key="frame" x="20" y="150" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -958,7 +956,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="5r4-s6-OhH" secondAttribute="trailing" id="38o-KI-6bO"/>
                             <constraint firstItem="9ql-HA-CPu" firstAttribute="top" secondItem="5r4-s6-OhH" secondAttribute="bottom" id="Bzp-JS-pYQ"/>
@@ -1030,22 +1028,22 @@
         <!--Fractal Color View Container-->
         <scene sceneID="ahc-Pz-mGd">
             <objects>
-                <viewController storyboardIdentifier="FractalColorsCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBFractalColorViewContainer" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FractalColorsCollection" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bRM-XI-8Xh" customClass="MBFractalColorViewContainer" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EQP-8Z-UFL"/>
                         <viewControllerLayoutGuide type="bottom" id="CdH-Y3-gp7"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="oO7-yh-6s1">
+                    <view key="view" contentMode="scaleToFill" id="oO7-yh-6s1">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCL-AF-c5r" userLabel="ScrollContainer">
                                 <rect key="frame" x="0.0" y="44" width="400" height="407"/>
                                 <subviews>
-                                    <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QD-IE-s5T">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QD-IE-s5T">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="407"/>
                                         <subviews>
-                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrT-kZ-Fno">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrT-kZ-Fno">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" customClass="MDBColorCategoriesListView">
@@ -1243,7 +1241,7 @@
                                 <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="HCL-AF-c5r" firstAttribute="top" secondItem="EQP-8Z-UFL" secondAttribute="bottom" id="6UJ-C4-9Ra"/>
@@ -1331,11 +1329,11 @@
         <!--Library-->
         <scene sceneID="iKT-0y-poi">
             <objects>
-                <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
                         <rect key="frame" x="0.0" y="0.0" width="510" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="0.48999999999999999" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.94000000000000006" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="tuN-UJ-qld">
                             <size key="itemSize" width="154" height="262"/>
                             <size key="headerReferenceSize" width="50" height="44"/>
@@ -1490,7 +1488,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jth-yK-sR7">
             <objects>
-                <navigationController modalTransitionStyle="flipHorizontal" id="tpb-gq-tvK" sceneMemberID="viewController">
+                <navigationController modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" id="tpb-gq-tvK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="510" height="600"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1511,7 +1509,7 @@
         <!--Rules-->
         <scene sceneID="M0i-xl-FcE">
             <objects>
-                <navigationController id="yYC-4z-0Da" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="overCurrentContext" id="yYC-4z-0Da" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Rules" image="tabBarRulesIcon" id="dHW-xy-0Vv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gqA-wB-5rr">
@@ -1530,7 +1528,7 @@
         <!--Colors-->
         <scene sceneID="w3F-vD-9bK">
             <objects>
-                <navigationController id="77i-f5-a79" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="overCurrentContext" id="77i-f5-a79" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Colors" image="tabBarLineColorIcon" id="XzP-vF-Qi5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="x8W-Hw-E0T">
