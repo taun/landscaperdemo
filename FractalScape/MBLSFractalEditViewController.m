@@ -1011,6 +1011,49 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 -(void) updateViewConstraints
 {
     [super updateViewConstraints];
+    [self configurePlayBackSliderConstraints];
+}
+/*!
+ Note the playbackSlider is horizontal and will be rotated vertical.
+ Constraints are applied in the horizontal configuration.
+ Therefore we want the center of the slider to be just inside the right edge.
+ The length of the slider to be margins less than the height of the container.
+ The vertical space of the slider to locate the center of the slider in the center of container height.
+ */
+-(void) configurePlayBackSliderConstraints
+{
+    UIView* slider = self.playbackSlider;
+    UIView* container = self.playbackSlider.superview;
+    
+    CGFloat topBarOffset = self.topLayoutGuide.length;
+    CGFloat verticalMargins = 100.0;
+    
+//    [slider removeConstraints: slider.constraints];
+    
+    
+    [container addConstraint: [NSLayoutConstraint constraintWithItem: slider
+                                                         attribute: NSLayoutAttributeWidth
+                                                         relatedBy: NSLayoutRelationEqual
+                                                            toItem: container
+                                                         attribute: NSLayoutAttributeHeight
+                                                        multiplier: 1.0
+                                                          constant: -2.0*verticalMargins]];
+    
+    [container addConstraint: [NSLayoutConstraint constraintWithItem: slider
+                                                         attribute: NSLayoutAttributeCenterY
+                                                         relatedBy: NSLayoutRelationEqual
+                                                            toItem: container
+                                                         attribute: NSLayoutAttributeCenterY
+                                                        multiplier: 1.0
+                                                          constant: topBarOffset/2.0]];
+
+    [container addConstraint: [NSLayoutConstraint constraintWithItem: slider
+                                                         attribute: NSLayoutAttributeCenterX
+                                                         relatedBy: NSLayoutRelationEqual
+                                                            toItem: container
+                                                         attribute: NSLayoutAttributeTrailing
+                                                        multiplier: 1.0
+                                                          constant: -30.0]];
 }
 
 #pragma mark - Segues

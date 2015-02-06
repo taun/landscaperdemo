@@ -587,7 +587,7 @@
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="fN9-Mq-Ukg" userLabel="playbackSlider">
                                                 <rect key="frame" x="280" y="330" width="504" height="31"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="500" id="djp-OB-WlZ"/>
+                                                    <constraint firstAttribute="width" constant="500" placeholder="YES" id="djp-OB-WlZ"/>
                                                 </constraints>
                                                 <connections>
                                                     <action selector="pauseButtonPressed:" destination="4nM-Pc-iAd" eventType="touchDown" id="qsU-xu-VZo"/>
@@ -603,7 +603,7 @@
                                         <constraints>
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="0nq-ro-qdw"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
-                                            <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" id="5Ot-TV-dl0"/>
+                                            <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="height" secondItem="wmh-En-OwM" secondAttribute="height" id="GDc-sq-pmy"/>
                                             <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="8" id="H3F-eo-44g"/>
@@ -612,7 +612,7 @@
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="wmh-En-OwM" secondAttribute="width" id="Tgk-ig-GfA"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="dJU-MH-ihA" secondAttribute="width" id="WFl-b4-lj2"/>
-                                            <constraint firstItem="fN9-Mq-Ukg" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="330" id="Xsd-ch-fTN"/>
+                                            <constraint firstItem="fN9-Mq-Ukg" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="330" placeholder="YES" id="Xsd-ch-fTN"/>
                                             <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="8" id="dWF-E9-FbC"/>
                                             <constraint firstAttribute="centerY" secondItem="4tK-dc-Bzb" secondAttribute="centerY" id="ejH-jn-cwF"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="bottom" constant="13" id="er1-62-2EY"/>
@@ -651,7 +651,7 @@
                                 <segue destination="tpb-gq-tvK" kind="presentation" identifier="LibrarySegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="06u-pY-Hz4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="play" id="Kgo-6O-GAI">
+                        <barButtonItem key="rightBarButtonItem" image="toolBarPlay" style="plain" id="Kgo-6O-GAI">
                             <connections>
                                 <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="chz-4Y-vsU"/>
                             </connections>
@@ -966,7 +966,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="YgS-do-bQk">
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="dSn-FI-zwe">
+                        <barButtonItem key="rightBarButtonItem" title="Fractal" style="done" id="dSn-FI-zwe">
                             <connections>
                                 <segue destination="SUr-BP-LKd" kind="unwind" unwindAction="unwindToEditorFromAppearanceEditor:" id="xss-iM-ydt"/>
                             </connections>
@@ -1263,7 +1263,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="keD-VQ-9M6">
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="pU8-XW-LYh">
+                        <barButtonItem key="rightBarButtonItem" title="Fractal" style="done" id="pU8-XW-LYh">
                             <connections>
                                 <segue destination="JUF-Xs-Iff" kind="unwind" unwindAction="unwindToEditorFromAppearanceEditor:" id="pAD-3w-POe"/>
                             </connections>
@@ -1441,7 +1441,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Library" id="uJn-Hw-dsJ">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="Pfw-Wr-cl9">
+                        <barButtonItem key="rightBarButtonItem" title="Fractal" style="done" id="Pfw-Wr-cl9">
                             <connections>
                                 <segue destination="Aum-QI-fMm" kind="unwind" unwindAction="unwindToEditorFromLibrary:" id="6Ad-Cc-DQw"/>
                             </connections>
@@ -1559,6 +1559,7 @@
         <image name="toolBarFullScreenIcon" width="28" height="28"/>
         <image name="toolBarFullScreenIconOff" width="28" height="28"/>
         <image name="toolBarHUDScreenIcon" width="28" height="28"/>
+        <image name="toolBarPlay" width="28" height="28"/>
         <image name="zensand" width="72" height="71"/>
     </resources>
 </document>

@@ -49,11 +49,18 @@ static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 
 @property (nonatomic, strong) NSNumberFormatter*    twoPlaceFormatter;
 @property (nonatomic, strong) NSNumberFormatter*    percentFormatter;
-//@property (weak, nonatomic) IBOutlet UILabel                *toolbarTitle;
-//@property (weak, nonatomic) IBOutlet UIToolbar              *toolbar;
-@property (strong, nonatomic)  IBOutlet UIBarButtonItem      *playButton;
-@property (strong, nonatomic)  UIBarButtonItem      *stopButton;
+/*!
+ Strong retain so the button can be removed from the navigationBar without being released.
+ */
+@property (strong,nonatomic)  IBOutlet UIBarButtonItem      *playButton;
+/*!
+ Strong retain so the button can be removed from the navigationBar without being released.
+ */
+@property (strong,nonatomic)  UIBarButtonItem      *stopButton;
 @property (weak, nonatomic) IBOutlet UIButton       *editButton;
+/*!
+ Playback slider constraints are configured in code. The storyboard constraints are all removed at build time.
+ */
 @property (weak, nonatomic) IBOutlet UISlider       *playbackSlider;
 @property (weak, nonatomic) IBOutlet UIButton*      toggleFullScreenButton;
 @property (weak, nonatomic) IBOutlet UIButton*      autoExpandOn;
@@ -98,6 +105,9 @@ static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 
 
 #pragma mark - Popovers
+/*!
+ Retained. May need to be manually nil'd to save memory. Each image generator retains/caches the image for the collectionView.
+ */
 @property (strong, nonatomic) MBFractalLibraryViewController            *libraryViewController;
 @property (strong, nonatomic) MBFractalAppearanceEditorViewController   *appearanceViewController;
 
