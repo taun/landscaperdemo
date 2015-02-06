@@ -372,35 +372,28 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     }
     if ([keyPath isEqualToString: kLibrarySelectionKeypath] && object == self.libraryViewController)
     {
-        
         self.fractal = self.libraryViewController.selectedFractal;
-        
     }
     else if ([[LSFractal redrawProperties] containsObject: keyPath])
     {
-        
         if (changeCount)
         {
             [self queueFractalImageUpdates];
             [self updateInterface];
         }
-        
     }
     else if ([[LSFractal appearanceProperties] containsObject: keyPath])
     {
-        
         if (changeCount)
         {
             [self queueFractalImageUpdates];
             [self updateInterface];
         }
-        
     }
     else if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
              [keyPath isEqualToString: [LSReplacementRule rulesKey]] ||
              [keyPath isEqualToString: [LSReplacementRule contextRuleKey]])
     {
-        
         if (changeCount)
         {
             [self.fractal setPrimitiveValue: @NO forKey: @"rulesUnchanged"];
@@ -448,42 +441,42 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         }
     }
 }
--(UIViewController*) libraryViewController
-{
-    if (_libraryViewController==nil)
-    {
-        [self setLibraryViewController: [self.storyboard instantiateViewControllerWithIdentifier:@"LibraryPopover"]];
-        [_libraryViewController setPreferredContentSize: CGSizeMake(510, 600)];
-        _libraryViewController.modalPresentationStyle = UIModalPresentationPopover;
-        _libraryViewController.popoverPresentationController.delegate = self;
-    }
-    return _libraryViewController;
-}
--(UIViewController*) appearanceViewController
-{
-    if (_appearanceViewController==nil)
-    {
-        MBFractalAppearanceEditorViewController* viewController = (MBFractalAppearanceEditorViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
-        viewController.portraitSize = self.popoverPortraitSize;
-        viewController.landscapeSize = self.popoverLandscapeSize;
-        
-        viewController.modalPresentationStyle = UIModalPresentationPopover;
-        _appearanceViewController = viewController;
-    }
-    
-    CGSize viewSize = self.view.bounds.size;
-    if (viewSize.height > viewSize.width)
-    {
-        // portrait
-        _appearanceViewController.preferredContentSize = _appearanceViewController.portraitSize;
-    } else
-    {
-        // landscape
-        _appearanceViewController.preferredContentSize = _appearanceViewController.landscapeSize;
-    }
-    
-    return _appearanceViewController;
-}
+//-(UIViewController*) libraryViewController
+//{
+//    if (_libraryViewController==nil)
+//    {
+//        [self setLibraryViewController: [self.storyboard instantiateViewControllerWithIdentifier:@"LibraryPopover"]];
+//        [_libraryViewController setPreferredContentSize: CGSizeMake(510, 600)];
+//        _libraryViewController.modalPresentationStyle = UIModalPresentationPopover;
+//        _libraryViewController.popoverPresentationController.delegate = self;
+//    }
+//    return _libraryViewController;
+//}
+//-(UIViewController*) appearanceViewController
+//{
+//    if (_appearanceViewController==nil)
+//    {
+//        MBFractalAppearanceEditorViewController* viewController = (MBFractalAppearanceEditorViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
+//        viewController.portraitSize = self.popoverPortraitSize;
+//        viewController.landscapeSize = self.popoverLandscapeSize;
+//        
+//        viewController.modalPresentationStyle = UIModalPresentationPopover;
+//        _appearanceViewController = viewController;
+//    }
+//    
+//    CGSize viewSize = self.view.bounds.size;
+//    if (viewSize.height > viewSize.width)
+//    {
+//        // portrait
+//        _appearanceViewController.preferredContentSize = _appearanceViewController.portraitSize;
+//    } else
+//    {
+//        // landscape
+//        _appearanceViewController.preferredContentSize = _appearanceViewController.landscapeSize;
+//    }
+//    
+//    return _appearanceViewController;
+//}
 -(NSOperationQueue*) privateImageGenerationQueue
 {
     if (!_privateImageGenerationQueue)
@@ -1020,118 +1013,135 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     [super updateViewConstraints];
 }
 
-#pragma mark - Gesture & Button Actions
-// ensure that the pinch, pan and rotate gesture recognizers on a particular view can all recognize simultaneously
-// prevent other gesture recognizers from recognizing simultaneously
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    // if the gesture recognizers's view isn't one of our pieces, don't allow simultaneous recognition
-    if (gestureRecognizer.view != self.fractalView)
-        return NO;
-    
-    // if the gesture recognizers are on different views, don't allow simultaneous recognition
-    if (gestureRecognizer.view != otherGestureRecognizer.view)
-        return NO;
-    
-    // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
-    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
-        return NO;
-    
-    //    return YES;
-    return SIMULTOUCH;
-}
+#pragma mark - Segues
 /* close any existing popover before opening a new one.
  do not open a new one if the new popover is the same as the current */
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     BOOL should = YES;
+    if ([identifier isEqualToString:@"EditSegue"] && [self.currentPresentedController isKindOfClass:[MBFractalAppearanceEditorViewController class]]) {
+        should = NO;
+        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
+            //
+            [self appearanceControllerWasDismissed];
+        }];
+    }
     return should;
 }
-/* The popover controller does not call this method in response to programmatic calls to the
- dismissPopoverAnimated: method. If you dismiss the popover programmatically, you should perform
- any cleanup actions immediately after calling the dismissPopoverAnimated: method. */
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{
-    NSLog(@"%@ Popover dismissed", popoverController.description);
-}
--(void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
-{
-    //    NSLog(@"%@ Popover dismissed", popoverPresentationController.description);
-    self.currentPresentedController = nil;
-}
--(void) handleNewPopoverRequest:(UIViewController<FractalControllerProtocol>*)newController
-                         sender: (id) sender
-                   otherPopover: (UIViewController<FractalControllerProtocol>*) otherController
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [self stopButtonPressed: nil];
-
-    if (self.currentPresentedController != nil)
+    
+    UIViewController<FractalControllerProtocol>* newController;
+    
+    if ([segue.identifier isEqualToString: @"EditSegue"])
     {
-        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
-            self.currentPresentedController = nil;
-        }];
+        newController = (UIViewController<FractalControllerProtocol>*)segue.destinationViewController;
+        [self appearanceControllerIsPresenting: newController];
     }
-    
-    newController.fractal = self.fractal;
-    newController.fractalUndoManager = self.undoManager;
-    
-    UIPopoverPresentationController* ppc = newController.popoverPresentationController;
-    
-    if ([sender isKindOfClass: [UIBarButtonItem class]])
+    else if ([segue.identifier isEqualToString: @"LibrarySegue"])
     {
-        ppc.barButtonItem = sender;
-    } else
-    {
-        ppc.sourceView = sender;
-        ppc.sourceRect = [sender bounds];
+        UINavigationController* navCon = segue.destinationViewController;
+        newController = (UIViewController<FractalControllerProtocol>*)navCon.topViewController;
+        [self libraryControllerIsPresenting: newController];
     }
-    
-    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    
-    [self presentViewController: newController animated: YES completion: ^{
+}
+- (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue
+{
+    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
         //
-        self.currentPresentedController = newController;
+        [self appearanceControllerWasDismissed];
     }];
-    
 }
--(IBAction)libraryButtonPressed:(id)sender
+- (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue
 {
-    NSArray* existingPassthroughs = self.appearanceViewController.popoverPresentationController.passthroughViews;
-    NSMutableArray* passThroughViews = [NSMutableArray arrayWithArray: existingPassthroughs];
-    
-    [passThroughViews addObjectsFromArray: @[ self.editButton]];
-    self.libraryViewController.popoverPresentationController.passthroughViews = passThroughViews;
-    
-    [self handleNewPopoverRequest: self.libraryViewController sender: sender otherPopover: self.appearanceViewController];
+    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
+        //
+        [self libraryControllerWasDismissed];
+    }];
 }
--(IBAction)appearanceButtonPressed:(id)sender
+#pragma mark - UIPopoverPresentationControllerDelegate
+- (void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
 {
-    if (self.presentedViewController == self.appearanceViewController)
+    int i = 10;
+}
+- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    return YES;
+}
+/*!
+ Called when the popover button is pressed a second time. 
+ 
+ Not called when the Done button is pressed.
+ 
+ @param popoverPresentationController
+ */
+-(void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    if ([popoverPresentationController.presentedViewController isKindOfClass: [MBFractalAppearanceEditorViewController class]])
     {
-        [self dismissViewControllerAnimated: YES completion:^{
-            self.navigationController.navigationBarHidden = NO;
-            self.currentPresentedController = nil;
+        [self appearanceControllerWasDismissed];
+    }
+    else if ([popoverPresentationController.presentedViewController isKindOfClass: [MBFractalLibraryViewController class]])
+    {
+        [self libraryControllerWasDismissed];
+    }
+}
+-(void) libraryControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
+{
+    [self setLibraryViewController: controller];
+    
+    controller.fractal = self.fractal;
+    controller.fractalUndoManager = self.undoManager;
+    controller.landscapeSize = self.popoverLandscapeSize;
+    controller.portraitSize = self.popoverPortraitSize;
+    CGSize viewSize = self.view.bounds.size;
+    controller.preferredContentSize = viewSize.height > viewSize.width ? self.popoverPortraitSize : self.popoverLandscapeSize;
+    controller.popoverPresentationController.delegate = self;
+    
+    self.currentPresentedController = controller;
+}
+-(BOOL) wasLibraryPopoverPresentedAndNowDismissed
+{
+    BOOL wasPresented = NO;
+    
+    if ([self.currentPresentedController isKindOfClass: [MBFractalLibraryViewController class]]) {
+        wasPresented = YES;
+        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
+            //
+            [self libraryControllerWasDismissed];
         }];
-        return;
     }
     
-    if ([self.fractal.isImmutable boolValue])
-    {
-        self.fractal = [self.fractal mutableCopy];
-    }
-    
-    NSArray* existingPassthroughs = self.appearanceViewController.popoverPresentationController.passthroughViews;
-    NSMutableArray* passThroughViews = [NSMutableArray arrayWithArray: existingPassthroughs];
-    
-    [passThroughViews addObjectsFromArray: @[ self.fractalViewRoot]];
-    [passThroughViews addObjectsFromArray: @[ self.autoExpandOff, self.autoExpandOn, self.toggleFullScreenButton]];
-
-    self.appearanceViewController.popoverPresentationController.passthroughViews = passThroughViews;
-    
-    self.navigationController.navigationBarHidden = YES;
-    
-    [self handleNewPopoverRequest: self.appearanceViewController sender: sender otherPopover: self.libraryViewController];
+    return wasPresented;
 }
+-(void) libraryControllerWasDismissed
+{
+    self.currentPresentedController = nil;
+}
+-(void) appearanceControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
+{
+    if ([self.fractal.isImmutable boolValue]) self.fractal = [self.fractal mutableCopy];
+    
+    controller.fractal = self.fractal;
+    controller.fractalUndoManager = self.undoManager;
+    controller.landscapeSize = self.popoverLandscapeSize;
+    controller.portraitSize = self.popoverPortraitSize;
+    CGSize viewSize = self.view.bounds.size;
+    controller.preferredContentSize = viewSize.height > viewSize.width ? self.popoverPortraitSize : self.popoverLandscapeSize;
+    controller.popoverPresentationController.delegate = self;
+    controller.popoverPresentationController.passthroughViews = @[self.fractalViewRoot];
+    
+    self.currentPresentedController = controller;
+    self.navigationController.navigationBarHidden = YES;
+}
+-(void) appearanceControllerWasDismissed
+{
+    self.navigationController.navigationBarHidden = NO;
+    self.currentPresentedController = nil;
+}
+
+#pragma mark - Control Actions
 /*!
  Obsoleted by UIActivityViewController code below.
  
@@ -1139,6 +1149,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
  */
 - (IBAction)shareButtonPressed:(id)sender
 {
+    if ([self wasLibraryPopoverPresentedAndNowDismissed]) {
+        return;
+    }
     //    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
                                                                    message: @"How would you like to share the image?"
@@ -1343,6 +1356,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 - (IBAction)playButtonPressed: (id)sender
 {
+    if ([self wasLibraryPopoverPresentedAndNowDismissed]) {
+        return;
+    }
+    
     if (!self.fractal) {
         return;
     }
@@ -1469,6 +1486,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 - (IBAction)copyFractal:(id)sender
 {
+    if ([self wasLibraryPopoverPresentedAndNowDismissed]) {
+        return;
+    }
     // copy
     self.fractal = [self.fractal mutableCopy];
     
@@ -1485,7 +1505,26 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self.activityIndicator startAnimating];
 }
 
-
+#pragma mark - Gestures
+// ensure that the pinch, pan and rotate gesture recognizers on a particular view can all recognize simultaneously
+// prevent other gesture recognizers from recognizing simultaneously
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    // if the gesture recognizers's view isn't one of our pieces, don't allow simultaneous recognition
+    if (gestureRecognizer.view != self.fractalView)
+        return NO;
+    
+    // if the gesture recognizers are on different views, don't allow simultaneous recognition
+    if (gestureRecognizer.view != otherGestureRecognizer.view)
+        return NO;
+    
+    // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+        return NO;
+    
+    //    return YES;
+    return SIMULTOUCH;
+}
 /* want to use 2 finger pans for changing rotation and line thickness in place of swiping
  need to lock in either horizontal or vertical panning view a state and state change */
 -(IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer
@@ -1871,43 +1910,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     // TODO: if view is smaller than scrollview, center view in scrollview.
 }
-#pragma mark - control actions
-- (IBAction)incrementLineWidth:(id)sender
-{
-    if ([self.fractal.isImmutable boolValue])
-    {
-        self.fractal = [self.fractal mutableCopy];
-    }
-    double width = [self.fractal.lineWidth doubleValue];
-    double increment = [self.fractal.lineWidthIncrement doubleValue];
-    
-    [self.undoManager beginUndoGrouping];
-    self.fractal.lineWidth = @(fmax(width+increment, 1.0));
-}
-
-- (IBAction)decrementLineWidth:(id)sender
-{
-    double width = [self.fractal.lineWidth doubleValue];
-    double increment = [self.fractal.lineWidthIncrement doubleValue];
-    
-    [self.undoManager beginUndoGrouping];
-    self.fractal.lineWidth = @(fmax(width-increment, 1.0));
-}
-
-//TODO: User preference for turnAngle swipe increment
-//Obsolete replaced with 2 finger pan
-- (IBAction)incrementTurnAngle:(id)sender
-{
-    [self.undoManager beginUndoGrouping];
-    [self.fractal.managedObjectContext processPendingChanges];
-    [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegrees doubleValue] + 0.5)];
-}
-- (IBAction)decrementTurnAngle:(id)sender
-{
-    [self.undoManager beginUndoGrouping];
-    [self.fractal.managedObjectContext processPendingChanges];
-    [self.fractal setTurningAngleAsDegrees:  @([self.fractal.turningAngleAsDegrees doubleValue] - 0.5)];
-}
 
 #pragma mark - core data
 -(void) setUndoManager:(NSUndoManager *)undoManager
@@ -2001,7 +2003,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
 }
 
-#pragma Utilities
+#pragma mark - Utilities
 
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo
 {

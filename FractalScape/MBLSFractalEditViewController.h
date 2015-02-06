@@ -29,7 +29,10 @@ static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 
 
 @interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
-UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UIDocumentInteractionControllerDelegate>
+                                                                UIActionSheetDelegate,
+                                                                UIPopoverPresentationControllerDelegate,
+                                                                UIScrollViewDelegate,
+                                                                UIDocumentInteractionControllerDelegate>
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;
@@ -141,4 +144,7 @@ UIPopoverControllerDelegate, UIActionSheetDelegate, UIPopoverPresentationControl
 - (IBAction)levelInputChanged: (UIControl*)sender;
 - (IBAction)autoScale:(id)sender;
 
+#pragma mark - Segue Actions
+- (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue;
+- (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
 @end

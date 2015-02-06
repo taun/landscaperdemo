@@ -23,4 +23,7 @@
 /* internally set to the current selection */
 @property (strong, nonatomic) LSFractal                 *selectedFractal;
 
+@property(nonatomic,assign) CGSize            portraitSize;
+@property(nonatomic,assign) CGSize            landscapeSize;
+
 @end

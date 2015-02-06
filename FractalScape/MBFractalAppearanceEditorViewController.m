@@ -55,7 +55,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void) setupChildViewController:(UIViewController<FractalControllerProtocol>*)fractalController {
+-(void) setupChildViewController: (UIViewController*)controller {
+    UINavigationController* navCon = (UINavigationController*)controller;
+    UIViewController<FractalControllerProtocol>*fractalController = (UIViewController<FractalControllerProtocol>*)navCon.topViewController;
     fractalController.fractalUndoManager = self.fractalUndoManager;
     fractalController.fractal = self.fractal;
 }

@@ -262,47 +262,8 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
         [self.fractalToGeneratorOperations removeObjectForKey: objectID];
     }
 }
-#pragma mark - Seque Handling -
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString: @"FractalEditorSegue"]) {
-        UIViewController<FractalControllerProtocol>* viewer = segue.destinationViewController;
-        LSFractal* passedFractal = nil;
 
-        // pass the selected fractal
-        NSIndexPath* indexPath;
-        NSArray* indexPaths = [self.fractalCollectionView indexPathsForSelectedItems];
-        if (indexPaths.count > 0) {
-            indexPath = indexPaths[0];
-        }
-        
-        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
-        if ([managedObject isKindOfClass:[LSFractal class]]) {
-
-            LSFractal* fractal = (LSFractal*) managedObject;
-            
-            if ([fractal.isImmutable boolValue]) {
-                passedFractal = [fractal mutableCopy];
-                NSError *error;
-                if (![passedFractal.managedObjectContext save:&error]) {
-                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                }
-            } else {
-                passedFractal = fractal;
-            }
-        }
-        viewer.fractal = passedFractal;        
-    }
-}
-
-#pragma mark - State handling -
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
+#pragma mark - State handling
 
 - (void)viewDidLoad
 {
@@ -333,27 +294,6 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    [self.navigationController setToolbarHidden: YES animated: YES];
-//}
-
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//}
-
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//	[super viewWillDisappear:animated];
-//}
-
-//- (void)viewDidDisappear:(BOOL)animated
-//{
-//	[super viewDidDisappear:animated];
-//}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

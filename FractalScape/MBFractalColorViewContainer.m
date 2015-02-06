@@ -102,6 +102,13 @@
     [self sourceDragLongGesture: sender];
 }
 
+- (IBAction)dismissModal:(id)sender
+{
+    [self dismissViewControllerAnimated: YES completion:^{
+        //
+    }];
+}
+
 -(void) deleteObjectIfUnreferenced: (MBColor*) color {
     if (color != nil && !color.isReferenced) {
         if ([color isKindOfClass: [NSManagedObject class]]) {

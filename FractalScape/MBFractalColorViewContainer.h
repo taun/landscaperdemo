@@ -33,5 +33,6 @@
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender;
 - (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)sender;
+- (IBAction)dismissModal:(id)sender;
 
 @end
