@@ -66,6 +66,9 @@ static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 @property (weak, nonatomic) IBOutlet UIButton*      autoExpandOn;
 @property (weak, nonatomic) IBOutlet UIButton*      autoExpandOff;
 
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootSingleTapRecognizer;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootDoubleTapRecognizer;
+
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewRoot;
@@ -149,6 +152,7 @@ static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 - (IBAction)stopButtonPressed:(id)sender;
 -(IBAction) playSliderChangedValue: (UISlider*)slider;
 -(IBAction) toggleAutoExpandFractal:(id)sender;
+- (IBAction)toggleNavBar:(id)sender;
 
 #pragma mark - Screen Controller Actions
 - (IBAction)levelInputChanged: (UIControl*)sender;
@@ -157,4 +161,6 @@ static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 #pragma mark - Segue Actions
 - (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue;
 - (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
+
+-(void) libraryControllerWasDismissed;
 @end

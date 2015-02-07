@@ -18,47 +18,17 @@
 
 @implementation MBFractalColorViewContainer
 
--(void)viewDidLoad {
-    // seems to be a bug in that the tintColor is not being used unless I re-set it.
-    // this way it still takes the tintColor from IB.
-    _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
-    _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
-    
-    [super viewDidLoad];
-}
-#pragma message "TODO: handle scrollView contentInset's"
--(void) viewWillLayoutSubviews {
-    [self.view setNeedsLayout];
-    [self.visualEffectView setNeedsLayout];
-    
-    [super viewWillLayoutSubviews];
-}
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [self.view setNeedsLayout];
-    [self.visualEffectView setNeedsLayout];
-    [self updateViewConstraints];
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-}
--(void) updateViewConstraints {
-    [super updateViewConstraints];
-    [self.visualEffectView layoutIfNeeded];
-    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
-    
-    [self.sourceListView setNeedsLayout];
-    [self.sourceListView layoutIfNeeded];
-    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
-    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
-}
--(void) updateFractalDependents {
-    _categories = [MBColorCategory allCatetegoriesInContext: self.fractal.managedObjectContext];
+-(void) updateFractalDependents
+{
+    self.categories = [MBColorCategory allCatetegoriesInContext: self.fractal.managedObjectContext];
     
     MDBColorCategoriesListView* categoriesView = (MDBColorCategoriesListView*) self.sourceListView;
-    categoriesView.colorCategories = _categories;
+    categoriesView.colorCategories = self.categories;
     
     [self.destinationView setDefaultObjectClass: [MBColor class] inContext: self.fractal.managedObjectContext];
-    [self.fillColorsListView setDefaultObjectClass: [MBColor class] inContext: self.fractal.managedObjectContext];
-    
     self.destinationView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal lineColorsKey]];
+
+    [self.fillColorsListView setDefaultObjectClass: [MBColor class] inContext: self.fractal.managedObjectContext];
     self.fillColorsListView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal fillColorsKey]];
     
     self.pageColorDestinationTileView.fractal = self.fractal;
@@ -66,6 +36,47 @@
     self.colorsChanged = YES;
 
     [self.view setNeedsUpdateConstraints];
+}
+
+-(void)viewDidLoad
+{
+    // seems to be a bug in that the tintColor is not being used unless I re-set it.
+    // this way it still takes the tintColor from IB.
+    _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
+    _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
+    
+    [super viewDidLoad];
+}
+
+-(void) viewWillLayoutSubviews
+{
+    [self.fillColorsListView setNeedsLayout];
+    [self.view setNeedsLayout];
+    [self.visualEffectView setNeedsLayout];
+    
+    [super viewWillLayoutSubviews];
+}
+
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [self.view setNeedsLayout];
+    [self.visualEffectView setNeedsLayout];
+    [self updateViewConstraints];
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+}
+
+-(void) updateViewConstraints
+{
+    [super updateViewConstraints];
+    
+    [self.visualEffectView layoutIfNeeded];
+    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
+    
+    [self.sourceListView setNeedsLayout];
+    [self.sourceListView layoutIfNeeded];
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
 }
 
 //-(void) addNewColorForRow: (NSUInteger) row {
@@ -78,23 +89,45 @@
 //    self.colorsChanged = YES;
 //}
 
-- (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender {
-    [self sourceDragLongGesture: sender];
-}
-- (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)sender {
-    [self sourceDragLongGesture: sender];
-}
-
-- (IBAction)dismissModal:(id)sender
+- (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender
 {
-    [self dismissViewControllerAnimated: YES completion:^{
-        //
-    }];
+    [self sourceDragLongGesture: sender];
+}
+- (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)sender
+{
+    [self sourceDragLongGesture: sender];
 }
 
--(void) deleteObjectIfUnreferenced: (MBColor*) color {
-    if (color != nil && !color.isReferenced) {
-        if ([color isKindOfClass: [NSManagedObject class]]) {
+- (IBAction)colorSourceTapGesture:(UITapGestureRecognizer *)sender {
+    CGPoint touchPoint = [sender locationInView: self.view];
+    UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
+    [self showInfoForView: viewUnderTouch];
+}
+
+- (IBAction)pageColorTapGesture:(UITapGestureRecognizer *)sender {
+    NSString* infoString = @"Page background color. Default is clear.";
+    self.ruleHelpLabel.text = infoString;
+    [self infoAnimateView: self.pageColorDestinationTileView];
+}
+
+- (IBAction)lineColorTapGesture:(UITapGestureRecognizer *)sender {
+    NSString* infoString = @"Line colors.";
+    self.ruleHelpLabel.text = infoString;
+    [self infoAnimateView: self.destinationView];
+}
+
+- (IBAction)fillColorTapGesture:(UITapGestureRecognizer *)sender {
+    NSString* infoString = @"Fill colors.";
+    self.ruleHelpLabel.text = infoString;
+    [self infoAnimateView: self.fillColorsListView];
+}
+
+-(void) deleteObjectIfUnreferenced: (MBColor*) color
+{
+    if (color != nil && !color.isReferenced)
+    {
+        if ([color isKindOfClass: [NSManagedObject class]])
+        {
             [((NSManagedObject*)color).managedObjectContext deleteObject: color];
         }
     }

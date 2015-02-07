@@ -33,6 +33,10 @@
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender;
 - (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)sender;
-- (IBAction)dismissModal:(id)sender;
+
+- (IBAction)colorSourceTapGesture:(UITapGestureRecognizer *)sender;
+- (IBAction)pageColorTapGesture:(UITapGestureRecognizer *)sender;
+- (IBAction)lineColorTapGesture:(UITapGestureRecognizer *)sender;
+- (IBAction)fillColorTapGesture:(UITapGestureRecognizer *)sender;
 
 @end

@@ -74,4 +74,8 @@
  */
 - (void)saveContext;
 
+-(void) showInfoForView: (UIView*) aView;
+-(void) infoAnimateView: (UIView*) aView;
+
+
 @end

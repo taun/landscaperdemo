@@ -27,11 +27,22 @@
 -(void) updateFractalDependents {
     
 }
-
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    UITraitCollection* traits = self.traitCollection;
+    NSLog(@"Trait collection: %@", traits);
+}
+/*!
+ It appears, sometimes the tabView has loaded the childViewController's view before setting the fractal and sometimes after.
+ By ensuring the fractalDependents are updated after viewDidLoad, it doesn't matter which happens first.
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.fractal) {
+        [self updateFractalDependents];
+    }
     [self configureParallax];
 }
 -(void) viewWillLayoutSubviews {
@@ -46,23 +57,8 @@
     
     [super viewWillLayoutSubviews];
 }
--(void) configureParallax {
-    //    {
-    //        UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-    //        xAxis.minimumRelativeValue = @(-15.0);
-    //        xAxis.maximumRelativeValue = @(15.0);
-    //
-    //        UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-    //        yAxis.minimumRelativeValue = @(-15.0);
-    //        yAxis.maximumRelativeValue = @(15.0);
-    //
-    //        self.foregroundMotionEffect = [[UIMotionEffectGroup alloc] init];
-    //        self.foregroundMotionEffect.motionEffects = @[xAxis, yAxis];
-    //
-    //        [self.foregroundView addMotionEffect:self.foregroundMotionEffect];
-    //    }
-    
-    {
+-(void) configureParallax
+{
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
         xAxis.minimumRelativeValue = @(25.0);
         xAxis.maximumRelativeValue = @(-25.0);
@@ -75,7 +71,6 @@
         self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
         
         [self.sourceListView addMotionEffect:self.backgroundMotionEffect];
-    }
 }
 
 - (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender {
@@ -189,12 +184,49 @@
 -(BOOL) handlesDragAndDrop: (id) anObject {
     return [anObject conformsToProtocol: @protocol(MBLSRuleDragAndDropProtocol)];
 }
+
 -(void) showInfoForView: (UIView*) aView {
+    BOOL hasItem = [aView respondsToSelector: @selector(item)];
+    if (hasItem) {
+        id item = [aView valueForKey:@"item"];
+        
+        NSString* infoString;
+        
+        BOOL hasName = [item respondsToSelector: @selector(name)];
+        BOOL hasDescriptorInfo = [item respondsToSelector: @selector(descriptor)];
+        
+        if (hasDescriptorInfo)
+        {
+            infoString = [item valueForKey: @"descriptor"];
+        } else if (hasName)
+        {
+            infoString = [item valueForKey: @"name"];
+        }
+        
+        if ([infoString isKindOfClass: [NSString class]] && infoString.length > 0) {
+            self.ruleHelpLabel.text = infoString;
+            [self infoAnimateView: aView];
+        }
+    }
     
 }
 -(void) infoAnimateView: (UIView*) aView {
+    UIColor* oldColor = aView.backgroundColor;
+    aView.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
     
+    UIColor* oldHelpColor = self.ruleHelpLabel.superview.backgroundColor;
+    self.ruleHelpLabel.superview.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
+    
+    [UIView animateWithDuration: 2.0 animations:^{
+        //
+        aView.backgroundColor = oldColor;
+        self.ruleHelpLabel.superview.backgroundColor = oldHelpColor;
+        
+    } completion:^(BOOL finished) {
+        //
+    }];
 }
+
 - (void)saveContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.fractal.managedObjectContext;

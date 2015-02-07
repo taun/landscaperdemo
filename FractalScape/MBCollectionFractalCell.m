@@ -32,7 +32,7 @@
 }
 -(void) configureDefaults {
     
-    [self fixConstraints];
+//    [self fixConstraints];
 
     _radius = 5.0;
     
@@ -71,29 +71,29 @@
  Seems to be a bug in iOS 8 beta#?
  Cannont add constraints to the contentView using IB so we do it manually.
  */
--(void) fixConstraints {
-    
-    NSMutableArray* constraints = [[NSMutableArray alloc] init];
-    
-    [constraints addObject: [NSLayoutConstraint
-                             constraintWithItem: self
-                             attribute: NSLayoutAttributeHeight
-                             relatedBy:NSLayoutRelationEqual
-                             toItem: nil
-                             attribute: 0
-                             multiplier: 1.0
-                             constant: 262.0]];
-    [constraints addObject: [NSLayoutConstraint
-                             constraintWithItem: self
-                             attribute: NSLayoutAttributeWidth
-                             relatedBy:NSLayoutRelationEqual
-                             toItem: nil
-                             attribute: 0
-                             multiplier: 1.0
-                             constant: 154.]];
-    
-    [self addConstraints: constraints];
-}
+//-(void) fixConstraints {
+//    
+//    NSMutableArray* constraints = [[NSMutableArray alloc] init];
+//    
+//    [constraints addObject: [NSLayoutConstraint
+//                             constraintWithItem: self
+//                             attribute: NSLayoutAttributeHeight
+//                             relatedBy:NSLayoutRelationEqual
+//                             toItem: nil
+//                             attribute: 0
+//                             multiplier: 1.0
+//                             constant: 262.0]];
+//    [constraints addObject: [NSLayoutConstraint
+//                             constraintWithItem: self
+//                             attribute: NSLayoutAttributeWidth
+//                             relatedBy:NSLayoutRelationEqual
+//                             toItem: nil
+//                             attribute: 0
+//                             multiplier: 1.0
+//                             constant: 154.]];
+//    
+//    [self addConstraints: constraints];
+//}
 
 /*
 // Only override drawRect: if you perform custom drawing.

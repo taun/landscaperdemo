@@ -25,7 +25,6 @@
     
     [self.destinationView setDefaultObjectClass: [LSDrawingRule class] inContext: self.fractal.managedObjectContext];
     self.destinationView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal startingRulesKey]];
-    self.destinationView.context = self.fractal.managedObjectContext;
     
     self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
     [self.sourceListView setValue: self.fractal.drawingRulesType forKey: @"type"];
@@ -46,6 +45,7 @@
     [super viewDidDisappear:animated];
 }
 
+#pragma mark - Drag & Drop
 -(void) deleteObjectIfUnreferenced: (LSDrawingRule*) rule {
     if (rule != nil && !rule.isReferenced) {
         [rule.managedObjectContext deleteObject: rule];
@@ -74,39 +74,6 @@
     NSString* infoString = @"Occurences of rule to left of ':' replaced by rules to the right.";
     self.ruleHelpLabel.text = infoString;
     [self infoAnimateView: self.replacementRules];
-}
-
--(void) showInfoForView: (UIView*) aView {
-    BOOL hasItem = [aView respondsToSelector: @selector(item)];
-    if (hasItem) {
-        id item = [aView valueForKey:@"item"];
-        BOOL hasDescriptorInfo = [item respondsToSelector: @selector(descriptor)];
-        
-        if (hasDescriptorInfo) {
-            NSString* infoString = [item valueForKey: @"descriptor"];
-            if ([infoString isKindOfClass: [NSString class]] && infoString.length > 0) {
-                self.ruleHelpLabel.text = infoString;
-                [self infoAnimateView: aView];
-            }
-        }
-    }
-    
-}
--(void) infoAnimateView: (UIView*) aView {
-    UIColor* oldColor = aView.backgroundColor;
-    aView.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
-    
-    UIColor* oldHelpColor = self.ruleHelpLabel.superview.backgroundColor;
-    self.ruleHelpLabel.superview.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
-    
-    [UIView animateWithDuration: 2.0 animations:^{
-        //
-        aView.backgroundColor = oldColor;
-        self.ruleHelpLabel.superview.backgroundColor = oldHelpColor;
-        
-    } completion:^(BOOL finished) {
-        //
-    }];
 }
 
 - (IBAction)replacementSwipeGesture:(id)sender {

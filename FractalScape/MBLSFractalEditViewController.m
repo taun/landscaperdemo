@@ -190,6 +190,8 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         [self fullScreenOn];
     }
 
+    [self.fractalViewRootSingleTapRecognizer requireGestureRecognizerToFail: self.fractalViewRootDoubleTapRecognizer];
+    
     _playbackSlider.hidden = YES;
     _playbackSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
     [_playbackSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle"] forState: UIControlStateNormal];
@@ -370,11 +372,12 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         NSDictionary* changes = [object changedValuesForCurrentEvent];
         changeCount = changes.count;
     }
-    if ([keyPath isEqualToString: kLibrarySelectionKeypath] && object == self.libraryViewController)
-    {
-        self.fractal = self.libraryViewController.selectedFractal;
-    }
-    else if ([[LSFractal redrawProperties] containsObject: keyPath])
+//    if ([keyPath isEqualToString: kLibrarySelectionKeypath] && object == self.libraryViewController)
+//    {
+//        self.fractal = self.libraryViewController.selectedFractal;
+//    }
+//    else
+        if ([[LSFractal redrawProperties] containsObject: keyPath])
     {
         if (changeCount)
         {
@@ -426,21 +429,21 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 
 #pragma mark - Getters & Setters
 
--(void) setLibraryViewController:(MBFractalLibraryViewController *)libraryViewController
-{
-    if (_libraryViewController!=libraryViewController)
-    {
-        if (_libraryViewController!=nil)
-        {
-            [_libraryViewController removeObserver: self forKeyPath: kLibrarySelectionKeypath];
-        }
-        _libraryViewController = libraryViewController;
-        if (_libraryViewController != nil)
-        {
-            [_libraryViewController addObserver: self forKeyPath: kLibrarySelectionKeypath options: 0 context: NULL];
-        }
-    }
-}
+//-(void) setLibraryViewController:(MBFractalLibraryViewController *)libraryViewController
+//{
+//    if (_libraryViewController!=libraryViewController)
+//    {
+//        if (_libraryViewController!=nil)
+//        {
+//            [_libraryViewController removeObserver: self forKeyPath: kLibrarySelectionKeypath];
+//        }
+//        _libraryViewController = libraryViewController;
+//        if (_libraryViewController != nil)
+//        {
+//            [_libraryViewController addObserver: self forKeyPath: kLibrarySelectionKeypath options: 0 context: NULL];
+//        }
+//    }
+//}
 //-(UIViewController*) libraryViewController
 //{
 //    if (_libraryViewController==nil)
@@ -1028,7 +1031,6 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     CGFloat topBarOffset = self.topLayoutGuide.length;
     CGFloat verticalMargins = 100.0;
     
-//    [slider removeConstraints: slider.constraints];
     
     
     [container addConstraint: [NSLayoutConstraint constraintWithItem: slider
@@ -1039,14 +1041,18 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
                                                         multiplier: 1.0
                                                           constant: -2.0*verticalMargins]];
     
-    [container addConstraint: [NSLayoutConstraint constraintWithItem: slider
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem: slider
                                                          attribute: NSLayoutAttributeCenterY
                                                          relatedBy: NSLayoutRelationEqual
                                                             toItem: container
                                                          attribute: NSLayoutAttributeCenterY
                                                         multiplier: 1.0
-                                                          constant: topBarOffset/2.0]];
+                                                          constant: topBarOffset/2.0];
 
+    // lower priority to prevent warnings during orientation changes
+    constraint.priority = UILayoutPriorityDefaultHigh;
+    [container addConstraint: constraint];
+    
     [container addConstraint: [NSLayoutConstraint constraintWithItem: slider
                                                          attribute: NSLayoutAttributeCenterX
                                                          relatedBy: NSLayoutRelationEqual
@@ -1102,6 +1108,11 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         [self appearanceControllerWasDismissed];
     }];
 }
+/*!
+ This gets called when cancelled.
+ 
+ @param segue 
+ */
 - (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue
 {
     [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
@@ -1114,6 +1125,12 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 {
     int i = 10;
 }
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
 - (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
 {
     return YES;
@@ -1138,8 +1155,6 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 }
 -(void) libraryControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
 {
-    [self setLibraryViewController: controller];
-    
     controller.fractal = self.fractal;
     controller.fractalUndoManager = self.undoManager;
     controller.landscapeSize = self.popoverLandscapeSize;
@@ -1149,6 +1164,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     controller.popoverPresentationController.delegate = self;
     
     self.currentPresentedController = controller;
+    self.navigationController.navigationBarHidden = YES;
 }
 -(BOOL) wasLibraryPopoverPresentedAndNowDismissed
 {
@@ -1166,6 +1182,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 }
 -(void) libraryControllerWasDismissed
 {
+    self.navigationController.navigationBarHidden = NO;
     self.currentPresentedController = nil;
 }
 -(void) appearanceControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
@@ -1182,11 +1199,11 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     controller.popoverPresentationController.passthroughViews = @[self.fractalViewRoot];
     
     self.currentPresentedController = controller;
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
 }
 -(void) appearanceControllerWasDismissed
 {
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
     self.currentPresentedController = nil;
 }
 
@@ -1430,7 +1447,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     if (playback1 && playback2 && playback3) {
         self.playbackRenderers = @[playback1,playback2,playback3];
         
-        self.playFrameIncrement = 0.5;
+        self.playFrameIncrement = 1.0;
         self.playIsPercentCompleted = 0.0;
         
         [self resumePlayback];
@@ -1532,6 +1549,12 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     self.autoExpandFractal = !self.autoExpandFractal;
     
     [self queueFractalImageUpdates];
+}
+
+- (IBAction)toggleNavBar:(id)sender
+{
+    self.navigationController.navigationBar.hidden = !self.navigationController.navigationBar.isHidden;
+    [self.view setNeedsLayout];
 }
 - (IBAction)copyFractal:(id)sender
 {

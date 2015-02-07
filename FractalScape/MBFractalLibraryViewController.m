@@ -8,6 +8,7 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
+#import "MBLSFractalEditViewController.h"
 #import "LSFractalRenderer.h"
 #import "LSFractal+addons.h"
 #import "NSManagedObject+Shortcuts.h"
@@ -79,6 +80,8 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 -(NSFetchedResultsController*) fetchedResultsController {
     if (self.fractal != nil && _fetchedResultsController == nil) {
         // instantiate
+        _selectedFractal = self.fractal;
+        
         NSManagedObjectContext* fractalContext = self.fractal.managedObjectContext;
         
         NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
@@ -165,6 +168,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     NSAssert(cellFractal, @"Managed object should be a fractal.");
     
     // Configure the cell with data from the managed object.
+    cell.fractal = cellFractal;
     cell.textLabel.text = cellFractal.name;
     cell.detailTextLabel.text = cellFractal.descriptor;
     
@@ -218,7 +222,12 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
                     
                     if (generator.imageView && generator.image) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [[(MBCollectionFractalCell*)[collectionView cellForItemAtIndexPath: indexPath] imageView] setImage: generator.image];
+                            MBCollectionFractalCell* fractalCell = (MBCollectionFractalCell*)[collectionView cellForItemAtIndexPath: indexPath];
+                            [fractalCell.imageView setImage: generator.image];
+                            if (fractalCell.fractal == self.selectedFractal) {
+                                NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.selectedFractal];
+                                [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: NO scrollPosition: UICollectionViewScrollPositionNone];
+                            }
                         }];
                     }
                 }
@@ -232,6 +241,12 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     MBImmutableCellBackgroundView* newBackground =  [MBImmutableCellBackgroundView new];
     newBackground.readOnlyView = [cellFractal.isImmutable boolValue];
     cell.backgroundView = newBackground;
+    
+//    if (cellFractal == self.selectedFractal) {
+//        cell.selected = YES;
+//    } else {
+//        cell.selected = NO;
+//    }
     
     return cell;
 }
@@ -251,6 +266,14 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     self.selectedFractal = (LSFractal*)managedObject;
+    LSFractal* selectedFractal = (LSFractal*)managedObject;
+    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)self.presentingViewController;
+    
+    [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
+        //
+        [editController setFractal: selectedFractal];
+        [editController libraryControllerWasDismissed];
+    }];
 }
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -278,8 +301,12 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 }
 -(void)viewDidAppear:(BOOL)animated {
     [self.fractalCollectionView reloadData];
-    NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.fractal];
-    [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionTop];
+    /*!
+     With the cell images being set in the background, the selectItemIndexPath:... may be called too soon.
+     We call it again in cell background operation of cellForItemAtIndexPath:.
+     */
+    NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.selectedFractal];
+    [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionCenteredVertically];
     [super viewDidAppear:animated];
 }
 -(void)viewDidDisappear:(BOOL)animated {
