@@ -1492,7 +1492,7 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 -(IBAction) resumePlayback
 {
-    self.playbackTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1
+    self.playbackTimer = [NSTimer scheduledTimerWithTimeInterval: 0.07
                                                           target: self
                                                         selector: @selector(playNextFrame:)
                                                         userInfo: nil
