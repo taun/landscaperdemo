@@ -40,6 +40,7 @@ static const BOOL SIMULTOUCH = NO;
 static const CGFloat kHighPerformanceFrameRate = 20.0;
 static const CGFloat kLowPerformanceFrameRate = 8.0;
 static const CGFloat kHudLevelStepperDefaultMax = 16.0;
+static const CGFloat kLevelNMargin = 40.0;
 
 @interface MBLSFractalEditViewController ()
 
@@ -607,7 +608,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
             _fractalRendererLN.imageView = self.fractalView;
             _fractalRendererLN.pixelScale = self.fractalView.contentScaleFactor;
             _fractalRendererLN.flipY = YES;
-            _fractalRendererLN.margin = 50.0;
+            _fractalRendererLN.margin = kLevelNMargin;
             _fractalRendererLN.showOrigin = YES;
             _fractalRendererLN.autoscale = YES;
         }
@@ -818,7 +819,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     
     self.fractalRendererLN.autoscale = self.autoscaleN;
     self.fractalRendererLN.autoExpand = [self.fractal.autoExpand boolValue];
-    
+#pragma message "TODO define a property for the default fractal background color. Currently manually spread throughout code."
     UIColor* backgroundColor = [self.fractal.backgroundColor asUIColor];
     if (!backgroundColor) backgroundColor = [UIColor clearColor];
     self.fractalRendererLN.backgroundColor = backgroundColor;
@@ -885,7 +886,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
                     {
                         UIDevice* device = [UIDevice currentDevice];
                         NSString* deviceIdentifier = device.model;
-                        self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, \tRender Time: %0.0fms, \tNodes: %lu",
+                        self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, Render Time: %0.0fms, Nodes: %lu",
                                                      deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
                     }
                 }];
@@ -1164,7 +1165,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
     controller.popoverPresentationController.delegate = self;
     
     self.currentPresentedController = controller;
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
 }
 -(BOOL) wasLibraryPopoverPresentedAndNowDismissed
 {
@@ -1182,7 +1183,8 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 }
 -(void) libraryControllerWasDismissed
 {
-    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    [self.view setNeedsLayout];
     self.currentPresentedController = nil;
 }
 -(void) appearanceControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
@@ -1393,11 +1395,14 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
         newRenderer.imageView = self.fractalView;
         newRenderer.pixelScale = self.fractalView.contentScaleFactor;
         newRenderer.flipY = YES;
-        newRenderer.margin = 50.0;
+        newRenderer.margin = kLevelNMargin;
         newRenderer.showOrigin = YES;
         newRenderer.autoscale = YES;
         newRenderer.autoExpand = self.autoExpandFractal;
         newRenderer.levelData = self.levelDataArray[levelIndex];
+        UIColor* backgroundColor = [self.fractal.backgroundColor asUIColor];
+        if (!backgroundColor) backgroundColor = [UIColor clearColor];
+        newRenderer.backgroundColor = backgroundColor;
     }
     return newRenderer;
 }
@@ -1553,6 +1558,7 @@ static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 
 - (IBAction)toggleNavBar:(id)sender
 {
+//    [self.navigationController setNavigationBarHidden: !self.navigationController.navigationBar.isHidden animated: NO];
     self.navigationController.navigationBar.hidden = !self.navigationController.navigationBar.isHidden;
     [self.view setNeedsLayout];
 }

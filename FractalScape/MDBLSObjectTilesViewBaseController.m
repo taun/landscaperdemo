@@ -92,6 +92,7 @@
     }
     
     // Scroll to keep dragging in view
+    if (self.autoScroll)
     {
         CGFloat scrollTouchInsets = -15.0;
         CGRect dropImageRect = CGRectInset(self.draggingItem.view.frame, scrollTouchInsets, scrollTouchInsets);
@@ -109,7 +110,11 @@
         if (scrollTopLeft.y > 0.0) {
             CGRect scrollVisibleRect = CGRectMake(scrollTopLeft.x, scrollTopLeft.y, width, height);
 //            NSString* scrollDescription = NSStringFromCGRect(scrollVisibleRect);
-            [self.scrollView scrollRectToVisible: scrollVisibleRect animated: NO];
+            // animation block because no animation scrolls too quickly on iPhone
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.05];
+            [self.scrollView scrollRectToVisible: scrollVisibleRect animated: YES];
+            [UIView commitAnimations];
         }
     }
     

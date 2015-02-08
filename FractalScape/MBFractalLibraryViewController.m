@@ -11,6 +11,7 @@
 #import "MBLSFractalEditViewController.h"
 #import "LSFractalRenderer.h"
 #import "LSFractal+addons.h"
+#import "MBColor+addons.h"
 #import "NSManagedObject+Shortcuts.h"
 
 #import "MBCollectionFractalCell.h"
@@ -190,6 +191,9 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
             generator.margin = 10.0;
             generator.showOrigin = NO;
             generator.autoscale = YES;
+            UIColor* backgroundColor = [cellFractal.backgroundColor asUIColor];
+            if (!backgroundColor) backgroundColor = [UIColor clearColor];
+            generator.backgroundColor = backgroundColor;
 #pragma message "TODO move generateLevelData to a privateQueue in case of large levels or just limit level?"
             
             (self.fractalToThumbnailGenerators)[objectID] = generator;
@@ -268,10 +272,10 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     self.selectedFractal = (LSFractal*)managedObject;
     LSFractal* selectedFractal = (LSFractal*)managedObject;
     MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)self.presentingViewController;
-    
+    [editController setFractal: selectedFractal];
+
     [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
         //
-        [editController setFractal: selectedFractal];
         [editController libraryControllerWasDismissed];
     }];
 }

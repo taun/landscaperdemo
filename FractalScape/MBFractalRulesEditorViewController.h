@@ -30,6 +30,7 @@
 - (IBAction)ruleTypeTapGesture:(UITapGestureRecognizer *)sender;
 - (IBAction)rulesStartTapGesture:(UITapGestureRecognizer *)sender;
 - (IBAction)replacementTapGesture:(UITapGestureRecognizer *)sender;
-- (IBAction)replacementSwipeGesture:(id)sender;
+- (IBAction)replacementAddSwipeGesture:(id)sender;
+- (IBAction)replacementDeleteSwipeGesture:(id)sender;
 
 @end

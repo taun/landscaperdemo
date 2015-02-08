@@ -14,26 +14,26 @@
                         <viewControllerLayoutGuide type="bottom" id="Awh-gB-3mV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pSX-p9-jkP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                                 <subviews>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="K7q-IS-pfO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                                         <subviews>
                                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-5R-WKj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                                                 <subviews>
                                                                     <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="UIImageView">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <gestureRecognizers/>
                                                                         <connections>
@@ -64,11 +64,13 @@
                                                             <outlet property="delegate" destination="4nM-Pc-iAd" id="Lqm-gO-T05"/>
                                                         </connections>
                                                     </scrollView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
-                                                        <rect key="frame" x="20" y="559" width="93" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
+                                                        <rect key="frame" x="20" y="659" width="88" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
+                                                        <color key="shadowColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                                        <size key="shadowOffset" width="1" height="1"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -82,9 +84,14 @@
                                                     <constraint firstItem="K7q-IS-pfO" firstAttribute="top" secondItem="L8D-tT-rkV" secondAttribute="top" id="dAz-gs-pgq"/>
                                                     <constraint firstItem="9wd-5R-WKj" firstAttribute="height" secondItem="L8D-tT-rkV" secondAttribute="height" id="jvk-A6-QP9"/>
                                                 </constraints>
+                                                <variation key="heightClass=regular-widthClass=compact">
+                                                    <mask key="subviews">
+                                                        <exclude reference="lOu-PR-QW2"/>
+                                                    </mask>
+                                                </variation>
                                             </view>
                                             <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" userLabel="Toolbar" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="352" y="555" width="240" height="37"/>
+                                                <rect key="frame" x="352" y="655" width="240" height="37"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHl-Gk-KjU" userLabel="autoExpandOn">
                                                         <rect key="frame" x="90" y="-1" width="60" height="40"/>
@@ -554,7 +561,7 @@
                                                     <constraint firstItem="a6O-Vz-bO2" firstAttribute="leading" secondItem="wmh-En-OwM" secondAttribute="leading" id="2Kr-KS-BMt"/>
                                                     <constraint firstAttribute="width" constant="300" id="4zO-4V-EGf">
                                                         <variation key="heightClass=compact" constant="150"/>
-                                                        <variation key="widthClass=compact" constant="250"/>
+                                                        <variation key="widthClass=compact" constant="240"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="a6O-Vz-bO2" secondAttribute="trailing" id="IAk-Sa-6Ly"/>
                                                     <constraint firstItem="a6O-Vz-bO2" firstAttribute="top" secondItem="wmh-En-OwM" secondAttribute="top" id="QU9-ol-Cvr"/>
@@ -598,7 +605,7 @@
                                                     <action selector="playSliderChangedValue:" destination="4nM-Pc-iAd" eventType="valueChanged" id="TfB-9n-wgV"/>
                                                 </connections>
                                             </slider>
-                                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4tK-dc-Bzb">
+                                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4tK-dc-Bzb">
                                                 <rect key="frame" x="281" y="281" width="37" height="37"/>
                                                 <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </activityIndicatorView>
@@ -610,6 +617,7 @@
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
+                                            <constraint firstAttribute="centerX" secondItem="SdO-1x-rjL" secondAttribute="centerX" priority="750" id="BxP-hq-3ic"/>
                                             <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="8" id="H3F-eo-44g"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
@@ -618,6 +626,7 @@
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="dJU-MH-ihA" secondAttribute="width" id="WFl-b4-lj2"/>
                                             <constraint firstItem="fN9-Mq-Ukg" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="330" placeholder="YES" id="Xsd-ch-fTN"/>
                                             <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="8" id="dWF-E9-FbC"/>
+                                            <constraint firstItem="SdO-1x-rjL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lOu-PR-QW2" secondAttribute="trailing" constant="8" id="dqt-rN-Xw7"/>
                                             <constraint firstAttribute="centerY" secondItem="4tK-dc-Bzb" secondAttribute="centerY" id="ejH-jn-cwF"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="bottom" constant="13" id="er1-62-2EY"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="leading" secondItem="dJU-MH-ihA" secondAttribute="leading" id="fcH-Cx-ND2"/>
@@ -626,6 +635,17 @@
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="top" secondItem="dJU-MH-ihA" secondAttribute="bottom" constant="10" id="tjp-aS-CJK"/>
                                             <constraint firstAttribute="centerX" secondItem="4tK-dc-Bzb" secondAttribute="centerX" id="x7f-gJ-1tF"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="BxP-hq-3ic"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="BxP-hq-3ic"/>
+                                                <exclude reference="dWF-E9-FbC"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="a5g-Cn-9Bi" appends="YES" id="CrL-Un-DIB"/>
                                         </connections>
@@ -663,6 +683,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="700"/>
                     <connections>
                         <outlet property="activityIndicator" destination="4tK-dc-Bzb" id="xUo-K7-m2K"/>
                         <outlet property="autoExpandOff" destination="gB3-UB-mha" id="dFh-fR-gBn"/>
@@ -859,6 +881,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="RmA-6C-sNQ" appends="YES" id="Fkt-K3-gX9"/>
                                                             <outletCollection property="gestureRecognizers" destination="Boe-Sd-3Hq" appends="YES" id="NaA-zl-tSV"/>
                                                             <outletCollection property="gestureRecognizers" destination="h8l-YQ-mPR" appends="YES" id="tY5-fZ-aar"/>
+                                                            <outletCollection property="gestureRecognizers" destination="a1w-iQ-gef" appends="YES" id="Jh1-RB-0TR"/>
                                                         </connections>
                                                     </view>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
@@ -955,8 +978,6 @@
                                                         <constraint firstItem="Eec-kO-1UV" firstAttribute="top" secondItem="QZg-3r-uUa" secondAttribute="top" id="Lrf-fs-ImY"/>
                                                         <constraint firstItem="Eec-kO-1UV" firstAttribute="leading" secondItem="QZg-3r-uUa" secondAttribute="leading" id="oa3-qW-pP2"/>
                                                     </constraints>
-                                                    <variation key="widthClass=compact"/>
-                                                    <variation key="heightClass=compact-widthClass=regular"/>
                                                 </view>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="250" constant="44" id="R8h-kc-Baq"/>
@@ -1063,9 +1084,14 @@
                         <action selector="replacementTapGesture:" destination="bDY-89-tKS" id="58n-VN-syb"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="h8l-YQ-mPR">
+                <swipeGestureRecognizer direction="right" id="h8l-YQ-mPR" userLabel="Replacement Swipe Add Gesture Recognizer">
                     <connections>
-                        <action selector="replacementSwipeGesture:" destination="bDY-89-tKS" id="Sty-SG-dft"/>
+                        <action selector="replacementAddSwipeGesture:" destination="bDY-89-tKS" id="WXF-6o-pGj"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="a1w-iQ-gef" userLabel="Replacement Swipe Delete Gesture Recognizer">
+                    <connections>
+                        <action selector="replacementDeleteSwipeGesture:" destination="bDY-89-tKS" id="r6F-YF-Ad9"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -1508,7 +1534,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
                         <rect key="frame" x="0.0" y="44" width="510" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.94000000000000006" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="tuN-UJ-qld">
                             <size key="itemSize" width="146" height="254"/>
                             <size key="headerReferenceSize" width="50" height="44"/>
@@ -1598,10 +1624,12 @@
                                         <constraint firstAttribute="height" constant="21" id="cWI-Hz-w47"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <size key="shadowOffset" width="0.0" height="0.0"/>
                                 </label>
                             </subviews>
+                            <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.31" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="CBu-fT-DpV" firstAttribute="centerX" secondItem="R8j-MN-2F0" secondAttribute="centerX" id="7Q3-f3-Zhb"/>
                                 <constraint firstItem="CBu-fT-DpV" firstAttribute="top" secondItem="R8j-MN-2F0" secondAttribute="top" constant="11" id="HUo-74-l1T"/>

@@ -398,8 +398,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         // put origin markers on top of fractal so draw after fractal
         CGContextSaveGState(aCGContext);
         {
-            UIColor* shadowColor = [UIColor colorWithWhite: 1.0 alpha: 0.85];
-            CGContextSetShadowWithColor(aCGContext, CGSizeMake(1.0, 1.0), 0.0, [shadowColor CGColor]);
+//            UIColor* shadowColor = [UIColor colorWithWhite: 1.0 alpha: 0.85];
+//            CGContextSetShadowWithColor(aCGContext, CGSizeMake(1.0, 1.0), 0.0, [shadowColor CGColor]);
             CGContextConcatCTM(aCGContext, fractalOriginTransform);
             UIImage* originDirectionImage = [UIImage imageNamed: @"kBIconRuleDrawLine"]; // kBIconRuleDrawLine  kNorthArrow
             CGRect originDirectionRect = CGRectMake(0.0, -(originDirectionImage.size.height/2.0)/_scale, originDirectionImage.size.width/_scale, originDirectionImage.size.height/_scale);

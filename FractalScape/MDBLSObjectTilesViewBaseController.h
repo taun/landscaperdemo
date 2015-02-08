@@ -19,7 +19,14 @@
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
 @property (nonatomic,strong) MBDraggingItem     *draggingItem;
-
+/*!
+ When dragging an item in the scroll content, autoScroll yes will scroll the content as the 
+ dragged item gets to the top or bottom. Good if the drag destination is somewhere in the 
+ scrollView content. 
+ 
+ Default is no.
+ */
+@property (nonatomic,assign) BOOL               autoScroll;
 /*!
  To be instantiated with a view class representing the source of the tiles.
  */

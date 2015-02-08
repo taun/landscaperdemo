@@ -28,6 +28,10 @@
     
     self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
     [self.sourceListView setValue: self.fractal.drawingRulesType forKey: @"type"];
+    
+    // a convenient place to override autoScroll. Should be in viewDidLoad but this is fine.
+    self.autoScroll = YES;
+    
     [self.view setNeedsUpdateConstraints];
 }
 
@@ -76,7 +80,11 @@
     [self infoAnimateView: self.replacementRules];
 }
 
-- (IBAction)replacementSwipeGesture:(id)sender {
+- (IBAction)replacementAddSwipeGesture:(id)sender {
 }
+
+- (IBAction)replacementDeleteSwipeGesture:(id)sender {
+}
+
 
 @end
