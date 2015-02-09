@@ -11,6 +11,7 @@
 #import "LSReplacementRule+addons.h"
 #import "MBLSReplacementRuleTileView.h"
 
+#import "MDBLSObjectTileListAddDeleteView.h"
 #import "NSLayoutConstraint+MDBAddons.h"
 #import "FractalScapeIconSet.h"
 
@@ -24,7 +25,8 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         // Initialization code
         [self setupDefaults];
         [self setupSubviews];
@@ -32,48 +34,72 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
     self = [super initWithCoder:coder];
-    if (self) {
+    if (self)
+    {
         [self setupDefaults];
         [self setupSubviews];
     }
     return self;
 }
 
--(void) setupDefaults {
+-(void) setupDefaults
+{
     self.translatesAutoresizingMaskIntoConstraints = NO;
     
     _rowSpacing = 0.0;
     _tileWidth = 26.0;
     _tileMargin = 2.0;
 }
--(void) setupSubviews {
-    for (UIView* view in [self subviews]) {
+-(void) setupSubviews
+{
+    for (UIView* view in [self subviews])
+    {
         [view removeFromSuperview];
     }
 
     NSInteger lineNum = 0;
     
     NSInteger rrCount;
+    
 #if !TARGET_INTERFACE_BUILDER
-    for (LSReplacementRule* replacementRule in self.replacementRules) {
+    for (LSReplacementRule* replacementRule in self.replacementRules)
+    {
 #else
-    for (rrCount = 0; rrCount < 3; rrCount++) {
+    for (rrCount = 0; rrCount < 2; rrCount++)
+    {
 #endif
     
         CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
         MBLSReplacementRuleTileView* newRR = [[MBLSReplacementRuleTileView alloc] initWithFrame: rrFrame];
+        
 #if !TARGET_INTERFACE_BUILDER
         newRR.replacementRule = replacementRule;
 #endif
+        
         newRR.justify = _justify;
         newRR.tileMargin = _tileMargin;
         newRR.tileWidth = _tileWidth;
         newRR.showTileBorder = _showTileBorder;
         newRR.showOutline = YES;
         
-        [self addSubview: newRR];
+        MDBLSObjectTileListAddDeleteView* addDeleteContainer = [[MDBLSObjectTileListAddDeleteView alloc] initWithFrame: rrFrame];
+        [self addSubview: addDeleteContainer];
+        addDeleteContainer.delegate = self;
+        [addDeleteContainer addSubview: newRR];
+        
+        NSDictionary* viewsDict = @{@"newRR":newRR};
+        
+        [addDeleteContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[newRR]-0-|"
+                                                                                    options: 0
+                                                                                    metrics: nil
+                                                                                      views: viewsDict]];
+        [addDeleteContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[newRR]-0-|"
+                                                                                    options: 0
+                                                                                    metrics: nil
+                                                                                      views: viewsDict]];
         
         lineNum++;
 #if !TARGET_INTERFACE_BUILDER
@@ -195,6 +221,12 @@
     BOOL needsLayout = NO;
     
     return needsLayout;
+}
+
+- (IBAction)replacementAddSwipeGesture:(id)sender {
+}
+
+- (IBAction)replacementDeleteSwipeGesture:(id)sender {
 }
 
 @end

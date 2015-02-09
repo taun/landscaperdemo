@@ -149,7 +149,7 @@
     if (!tView)
     {
         tView = [[UILabel alloc] init];
-        [tView setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+        [tView setFont:[UIFont systemFontOfSize: 18]];
         //[tView setTextAlignment:UITextAlignmentLeft];
         tView.numberOfLines=1;
     }

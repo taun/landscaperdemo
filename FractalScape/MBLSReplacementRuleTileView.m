@@ -14,10 +14,10 @@
 
 @interface MBLSReplacementRuleTileView ()
 
-@property (nonatomic,strong) MDBLSObjectTileView             *ruleView;
-@property (nonatomic,strong) UILabel                        *separator;
-@property (nonatomic,strong) MBLSObjectListTileViewer        *replacementsView;
-@property (nonatomic,assign) CGRect                         lastBounds;
+@property (nonatomic,strong) IBOutlet MDBLSObjectTileView             *ruleView;
+@property (nonatomic,strong) IBOutlet UILabel                         *separator;
+@property (nonatomic,strong) IBOutlet MBLSObjectListTileViewer        *replacementsView;
+@property (nonatomic,assign) CGRect                                    lastBounds;
 
 -(void) updateRuleViewRule: (LSDrawingRule*) rule;
 
@@ -57,42 +57,24 @@
     for (UIView* view in [self subviews]) {
         [view removeFromSuperview];
     }
-    
 
-    _ruleView = [[MDBLSObjectTileView alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
-    _ruleView.showTileBorder = YES;
-    _ruleView.width = _tileWidth;
-    // Never remove rule unless it is being replaced by another.
-    _ruleView.replaceable = YES;
-    _ruleView.readOnly = YES;
+    UIView* view = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
+    [self addSubview: view];
+    view.frame = self.bounds;
+
     
 #if !TARGET_INTERFACE_BUILDER
     _ruleView.representedObject = self.replacementRule.contextRule;
 #endif
-
-    [self addSubview: _ruleView];
     
-    _separator = [[UILabel alloc] initWithFrame: CGRectMake(_tileWidth*2, 0, _tileWidth, _tileWidth)];
-    _separator.text = @"=>";
     _separator.translatesAutoresizingMaskIntoConstraints = NO;
     _separator.textColor = self.tintColor;
-
-    [self addSubview: _separator];
     
-    CGRect replacementRect = CGRectMake(_tileWidth*3, 0, _tileWidth*50, _tileWidth*2);
-    _replacementsView = [[MBLSObjectListTileViewer alloc] initWithFrame: replacementRect];
-    _replacementsView.justify = _justify;
-    _replacementsView.showTileBorder = _showTileBorder;
-    _replacementsView.tileWidth = _tileWidth;
-    _replacementsView.tileMargin = _tileMargin;
-    _replacementsView.readOnly = NO;
-    
-#if !TARGET_INTERFACE_BUILDER
+#if !TARGET_INTERFACE_BUILDER    
     _replacementsView.objectList = [self.replacementRule mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
     [_replacementsView setDefaultObjectClass: [LSDrawingRule class] inContext: self.replacementRule.managedObjectContext];
 #endif
     
-    [self addSubview: _replacementsView];
 }
 //-(void) layoutSubviews {
 //    [self setupSubviews];
@@ -102,42 +84,6 @@
 
     self.lastBounds = self.bounds;
     
-    NSDictionary* adjacentViewsDictionary = NSDictionaryOfVariableBindings(_ruleView,_separator,_replacementsView);
-    
-    NSDictionary* metricsDictionary = @{@"width":@(_tileWidth*0.2)};
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-6-[_ruleView]-[_separator]-[_replacementsView]-6-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_ruleView(60)]-70-[_separator(30)]-[_replacementsView(200)]-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_ruleView]-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_separator]-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[_replacementsView]-6-|" options: 0 metrics: metricsDictionary views: adjacentViewsDictionary]];
-
-    [self addConstraint: [NSLayoutConstraint constraintWithItem: _replacementsView
-                                                      attribute: NSLayoutAttributeCenterY
-                                                      relatedBy: NSLayoutRelationEqual
-                                                         toItem: self
-                                                      attribute: NSLayoutAttributeCenterY
-                                                     multiplier: 1.0 constant: 0]];
-    
-    [self addConstraint: [NSLayoutConstraint constraintWithItem: _ruleView
-                                                      attribute: NSLayoutAttributeCenterY
-                                                      relatedBy: NSLayoutRelationEqual
-                                                         toItem: self
-                                                      attribute: NSLayoutAttributeCenterY
-                                                     multiplier: 1.0 constant: 0]];
-    
-    [self addConstraint: [NSLayoutConstraint constraintWithItem: _separator
-                                                      attribute: NSLayoutAttributeCenterY
-                                                      relatedBy: NSLayoutRelationEqual
-                                                         toItem: self
-                                                      attribute: NSLayoutAttributeCenterY
-                                                     multiplier: 1.0 constant: 0]];
-    
-    [_ruleView setContentHuggingPriority: UILayoutPriorityDefaultLow + 1 forAxis: UILayoutConstraintAxisHorizontal];
-//    [_ruleView setContentHuggingPriority: UILayoutPriorityDefaultLow - 1 forAxis: UILayoutConstraintAxisVertical];
-    [_ruleView setContentCompressionResistancePriority: UILayoutPriorityRequired forAxis: UILayoutConstraintAxisHorizontal];
-    [_replacementsView setContentHuggingPriority: UILayoutPriorityDefaultLow - 1 forAxis: UILayoutConstraintAxisHorizontal];
-    [_replacementsView setContentCompressionResistancePriority: UILayoutPriorityFittingSizeLevel forAxis: UILayoutConstraintAxisHorizontal];
     [_replacementsView setNeedsUpdateConstraints];
     
     [super updateConstraints];

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBLSReplacementRuleTileView">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
+                    <real key="value" value="31"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="tileMargin">
+                    <real key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="YES"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="replacementsView" destination="n3V-aN-9mA" id="PnO-QE-IVO"/>
+                <outlet property="ruleView" destination="hIB-sd-gNV" id="7v7-um-4Yi"/>
+                <outlet property="separator" destination="K8w-fu-Gnb" id="tyT-bU-cLJ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="57"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hIB-sd-gNV" userLabel="RuleView" customClass="MDBLSObjectTileView">
+                    <rect key="frame" x="6" y="13" width="31" height="31"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="width">
+                            <real key="value" value="31"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="replaceable" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="=&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8w-fu-Gnb">
+                    <rect key="frame" x="43" y="18.5" width="21" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.4784313738" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="50" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3V-aN-9mA" userLabel="ReplacementRulesList" customClass="MBLSObjectListTileViewer">
+                    <rect key="frame" x="70" y="6" width="464" height="45"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
+                            <real key="value" value="31"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="tileMargin">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="NO"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="NO"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="NO"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="n3V-aN-9mA" firstAttribute="leading" secondItem="K8w-fu-Gnb" secondAttribute="trailing" constant="6" id="EwL-of-bzD"/>
+                <constraint firstItem="K8w-fu-Gnb" firstAttribute="centerY" secondItem="hIB-sd-gNV" secondAttribute="centerY" id="M0j-o5-9bT"/>
+                <constraint firstItem="hIB-sd-gNV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="W6g-pU-mSH"/>
+                <constraint firstAttribute="bottom" secondItem="n3V-aN-9mA" secondAttribute="bottom" constant="6" id="cAe-6w-P6h"/>
+                <constraint firstAttribute="trailing" secondItem="n3V-aN-9mA" secondAttribute="trailing" constant="6" id="kEi-KT-6e2"/>
+                <constraint firstItem="n3V-aN-9mA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="moh-vP-xOP"/>
+                <constraint firstItem="K8w-fu-Gnb" firstAttribute="leading" secondItem="hIB-sd-gNV" secondAttribute="trailing" constant="6" id="wAI-TC-PNx"/>
+                <constraint firstAttribute="centerY" secondItem="hIB-sd-gNV" secondAttribute="centerY" id="xtL-iT-WhQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="692" y="343"/>
+        </view>
+    </objects>
+</document>

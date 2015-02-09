@@ -872,7 +872,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
-                                                        <rect key="frame" x="10" y="8" width="780" height="337"/>
+                                                        <rect key="frame" x="2" y="2" width="796" height="314"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -910,8 +910,8 @@
                                                             <rect key="frame" x="10" y="0.0" width="780" height="116"/>
                                                         </variation>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
-                                                        <rect key="frame" x="12" y="-1084.5" width="42" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                        <rect key="frame" x="12" y="144" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -923,7 +923,7 @@
                                                         </variation>
                                                     </label>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
-                                                        <rect key="frame" x="72" y="138" width="708" height="44"/>
+                                                        <rect key="frame" x="66" y="132" width="722" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
@@ -956,7 +956,7 @@
                                                         </connections>
                                                     </view>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
-                                                        <rect key="frame" x="20" y="198" width="760" height="139"/>
+                                                        <rect key="frame" x="12" y="192" width="776" height="116"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
@@ -992,13 +992,11 @@
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="RmA-6C-sNQ" appends="YES" id="Fkt-K3-gX9"/>
                                                             <outletCollection property="gestureRecognizers" destination="Boe-Sd-3Hq" appends="YES" id="NaA-zl-tSV"/>
-                                                            <outletCollection property="gestureRecognizers" destination="h8l-YQ-mPR" appends="YES" id="tY5-fZ-aar"/>
-                                                            <outletCollection property="gestureRecognizers" destination="a1w-iQ-gef" appends="YES" id="Jh1-RB-0TR"/>
                                                         </connections>
                                                     </view>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
                                                         <rect key="frame" x="20" y="357" width="760" height="48"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" priority="250" constant="48" placeholder="YES" id="HqG-RB-WEJ"/>
@@ -1032,7 +1030,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="JJQ-Ty-aAw" secondAttribute="trailing" constant="12" id="2Lu-Fu-aWO"/>
-                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" constant="50" id="2hd-ZB-e8n"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" id="2hd-ZB-e8n"/>
                                                     <constraint firstItem="zPi-Ea-Cqu" firstAttribute="top" secondItem="1Sj-KC-aPt" secondAttribute="bottom" constant="12" id="6Uz-eQ-9sr"/>
                                                     <constraint firstItem="dnp-Hx-YZd" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="12" id="ErR-BG-rEP"/>
                                                     <constraint firstItem="JJQ-Ty-aAw" firstAttribute="leading" secondItem="eki-f5-HFG" secondAttribute="trailing" constant="12" id="GqB-An-nSa"/>
@@ -1202,16 +1200,6 @@
                         <action selector="replacementTapGesture:" destination="bDY-89-tKS" id="58n-VN-syb"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="h8l-YQ-mPR" userLabel="Replacement Swipe Add Gesture Recognizer">
-                    <connections>
-                        <action selector="replacementAddSwipeGesture:" destination="bDY-89-tKS" id="WXF-6o-pGj"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="a1w-iQ-gef" userLabel="Replacement Swipe Delete Gesture Recognizer">
-                    <connections>
-                        <action selector="replacementDeleteSwipeGesture:" destination="bDY-89-tKS" id="r6F-YF-Ad9"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4030.5" y="1029.5"/>
         </scene>
@@ -1562,10 +1550,10 @@
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="leading" secondItem="TLs-EA-bzv" secondAttribute="leading" constant="10" id="SXT-AS-2mm"/>
-                                        <constraint firstAttribute="bottom" secondItem="9ba-HM-kSK" secondAttribute="bottom" constant="8" id="bkS-BO-x6u"/>
-                                        <constraint firstAttribute="trailing" secondItem="9ba-HM-kSK" secondAttribute="trailing" constant="10" id="co4-38-14h"/>
-                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="top" secondItem="TLs-EA-bzv" secondAttribute="top" constant="10" id="rfv-Gu-Q0N"/>
+                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="leading" secondItem="TLs-EA-bzv" secondAttribute="leading" constant="2" id="SXT-AS-2mm"/>
+                                        <constraint firstAttribute="bottom" secondItem="9ba-HM-kSK" secondAttribute="bottom" constant="2" id="bkS-BO-x6u"/>
+                                        <constraint firstAttribute="trailing" secondItem="9ba-HM-kSK" secondAttribute="trailing" constant="2" id="co4-38-14h"/>
+                                        <constraint firstItem="9ba-HM-kSK" firstAttribute="top" secondItem="TLs-EA-bzv" secondAttribute="top" constant="2" id="rfv-Gu-Q0N"/>
                                     </constraints>
                                 </view>
                                 <constraints>

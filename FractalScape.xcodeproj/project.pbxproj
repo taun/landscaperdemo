@@ -21,6 +21,10 @@
 		C51130791A38C93F0083B178 /* MDBFractalPageColorTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51130771A38C93F0083B178 /* MDBFractalPageColorTileView.h */; };
 		C511307A1A38C93F0083B178 /* MDBFractalPageColorTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51130781A38C93F0083B178 /* MDBFractalPageColorTileView.m */; };
 		C511BA131A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = C511BA121A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib */; };
+		C511BA151A894515004FD0BB /* MBLSReplacementRuleTileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C511BA141A894515004FD0BB /* MBLSReplacementRuleTileView.xib */; };
+		C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */ = {isa = PBXBuildFile; fileRef = C511BA161A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h */; };
+		C511BA191A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = C511BA171A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m */; };
+		C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C511BA1A1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib */; };
 		C51215C614DA2E70007ED367 /* LSFractal+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C51215C514DA2E70007ED367 /* LSFractal+addons.m */; };
 		C5150F761A202D9E00DC8A0E /* MBFractalScape+addons.h in Headers */ = {isa = PBXBuildFile; fileRef = C5150F741A202D9E00DC8A0E /* MBFractalScape+addons.h */; };
 		C5150F771A202D9E00DC8A0E /* MBFractalScape+addons.m in Sources */ = {isa = PBXBuildFile; fileRef = C5150F751A202D9E00DC8A0E /* MBFractalScape+addons.m */; };
@@ -223,6 +227,10 @@
 		C51130771A38C93F0083B178 /* MDBFractalPageColorTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalPageColorTileView.h; path = FractalScape/MDBFractalPageColorTileView.h; sourceTree = "<group>"; };
 		C51130781A38C93F0083B178 /* MDBFractalPageColorTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalPageColorTileView.m; path = FractalScape/MDBFractalPageColorTileView.m; sourceTree = "<group>"; };
 		C511BA121A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MBLSFractalSummaryEditViewer.xib; path = FractalScape/MBLSFractalSummaryEditViewer.xib; sourceTree = "<group>"; };
+		C511BA141A894515004FD0BB /* MBLSReplacementRuleTileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MBLSReplacementRuleTileView.xib; path = FractalScape/MBLSReplacementRuleTileView.xib; sourceTree = "<group>"; };
+		C511BA161A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBLSObjectTileListAddDeleteView.h; path = FractalScape/MDBLSObjectTileListAddDeleteView.h; sourceTree = "<group>"; };
+		C511BA171A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBLSObjectTileListAddDeleteView.m; path = FractalScape/MDBLSObjectTileListAddDeleteView.m; sourceTree = "<group>"; };
+		C511BA1A1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MDBLSObjectTileListAddDeleteView.xib; path = FractalScape/MDBLSObjectTileListAddDeleteView.xib; sourceTree = "<group>"; };
 		C51215C414DA2E6F007ED367 /* LSFractal+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LSFractal+addons.h"; path = "FractalScape/model/LSFractal+addons.h"; sourceTree = "<group>"; };
 		C51215C514DA2E70007ED367 /* LSFractal+addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LSFractal+addons.m"; path = "FractalScape/model/LSFractal+addons.m"; sourceTree = "<group>"; };
 		C5150F741A202D9E00DC8A0E /* MBFractalScape+addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBFractalScape+addons.h"; path = "FractalScape/model/MBFractalScape+addons.h"; sourceTree = "<group>"; };
@@ -716,12 +724,16 @@
 				C511BA121A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib */,
 				C5C37C661A24ED70008C5409 /* MBLSReplacementRuleTileView.h */,
 				C5C37C671A24ED70008C5409 /* MBLSReplacementRuleTileView.m */,
+				C511BA141A894515004FD0BB /* MBLSReplacementRuleTileView.xib */,
 				C5C37C621A24EC81008C5409 /* MBLSReplacementRulesListView.h */,
 				C5C37C631A24EC81008C5409 /* MBLSReplacementRulesListView.m */,
 				C5C19D6C1A241297000A1214 /* MBLSRuleTypeTileViewer.h */,
 				C5C19D6D1A241297000A1214 /* MBLSRuleTypeTileViewer.m */,
 				C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */,
 				C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */,
+				C511BA161A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h */,
+				C511BA171A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m */,
+				C511BA1A1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib */,
 			);
 			name = RulesEditView;
 			sourceTree = "<group>";
@@ -776,6 +788,7 @@
 				C507646D1A33A537009DDF83 /* MBScapeBackground.h in Headers */,
 				C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */,
 				C5D5423B1A30EDE3006CD47A /* MBColorCategory.h in Headers */,
+				C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */,
 				C5D542331A300FC6006CD47A /* MDBColorCategoryListView.h in Headers */,
 				C50764691A33A537009DDF83 /* LSDrawingRuleType.h in Headers */,
 				C5F544821A5B56B3000EE8B9 /* LSFractalRenderer.h in Headers */,
@@ -924,10 +937,12 @@
 				C5E556D914E2E6B300CAAB33 /* Localizable.strings in Resources */,
 				C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */,
 				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
+				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C579625E16DC3E1200A8BCDC /* Root.plist in Resources */,
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
 				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
+				C511BA151A894515004FD0BB /* MBLSReplacementRuleTileView.xib in Resources */,
 				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1051,6 +1066,7 @@
 				C5014792170B4EB400BD7488 /* LSReplacementRule+addons.m in Sources */,
 				C5150F7B1A202DDA00DC8A0E /* MBPlacedEntity+addons.m in Sources */,
 				C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */,
+				C511BA191A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m in Sources */,
 				C5C19D6F1A241297000A1214 /* MBLSRuleTypeTileViewer.m in Sources */,
 				C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */,
 				C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */,

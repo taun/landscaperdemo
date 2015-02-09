@@ -32,4 +32,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 
+- (IBAction)replacementAddSwipeGesture:(id)sender;
+- (IBAction)replacementDeleteSwipeGesture:(id)sender;
+
 @end

@@ -80,11 +80,4 @@
     [self infoAnimateView: self.replacementRules];
 }
 
-- (IBAction)replacementAddSwipeGesture:(id)sender {
-}
-
-- (IBAction)replacementDeleteSwipeGesture:(id)sender {
-}
-
-
 @end
