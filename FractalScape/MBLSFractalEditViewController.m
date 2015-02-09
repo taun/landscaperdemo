@@ -76,7 +76,6 @@ static const CGFloat kLevelNMargin = 40.0;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL2;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererLN;
 @property (nonatomic,assign) BOOL                          autoscaleN;
-@property (nonatomic,assign) BOOL                          autoExpandFractal;
 @property (nonatomic,strong) NSDate                        *lastImageUpdateTime;
 
 @property (nonatomic,strong) NSTimer                       *playbackTimer;
@@ -373,12 +372,8 @@ static const CGFloat kLevelNMargin = 40.0;
         NSDictionary* changes = [object changedValuesForCurrentEvent];
         changeCount = changes.count;
     }
-//    if ([keyPath isEqualToString: kLibrarySelectionKeypath] && object == self.libraryViewController)
-//    {
-//        self.fractal = self.libraryViewController.selectedFractal;
-//    }
-//    else
-        if ([[LSFractal redrawProperties] containsObject: keyPath])
+
+    if ([[LSFractal redrawProperties] containsObject: keyPath])
     {
         if (changeCount)
         {
@@ -404,9 +399,6 @@ static const CGFloat kLevelNMargin = 40.0;
             [self regenerateLevels];
             [self updateInterface];
         }
-        
-        //    } else if ([[LSFractal labelProperties] containsObject: keyPath]){
-        //        [self reloadLabels];
     }
     else if ([keyPath isEqualToString: @"name"])
     {
@@ -516,7 +508,6 @@ static const CGFloat kLevelNMargin = 40.0;
         self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
         
         _fractal = fractal;
-        _autoExpandFractal = [_fractal.autoExpand boolValue];
         
         _privateFractalContext = [[NSManagedObjectContext alloc]initWithConcurrencyType: NSPrivateQueueConcurrencyType];
         _privateFractalContext.parentContext = _fractal.managedObjectContext;
@@ -537,11 +528,6 @@ static const CGFloat kLevelNMargin = 40.0;
         [self updateInterface];
         [self autoScale: nil];
     }
-}
--(void) setAutoExpandFractal:(BOOL)autoExpandFractal {
-    _autoExpandFractal = autoExpandFractal;
-    _fractal.autoExpand = [NSNumber numberWithBool: autoExpandFractal];
-    [self saveContext];
 }
 -(LSFractalRenderer*) fractalRendererL0
 {
@@ -747,8 +733,8 @@ static const CGFloat kLevelNMargin = 40.0;
     self.hudLineIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.lineChangeFactor];
     self.lengthIncrementVerticalSlider.value = self.fractal.lineChangeFactor.floatValue;
     
-    self.autoExpandOn.hidden = !_autoExpandFractal;
-    self.autoExpandOff.hidden = _autoExpandFractal;
+    self.autoExpandOn.hidden = ![self.fractal.autoExpand boolValue];
+    self.autoExpandOff.hidden = [self.fractal.autoExpand boolValue];
 }
 -(void) regenerateLevels
 {
@@ -1398,7 +1384,7 @@ static const CGFloat kLevelNMargin = 40.0;
         newRenderer.margin = kLevelNMargin;
         newRenderer.showOrigin = YES;
         newRenderer.autoscale = YES;
-        newRenderer.autoExpand = self.autoExpandFractal;
+        newRenderer.autoExpand = [self.fractal.autoExpand boolValue];
         newRenderer.levelData = self.levelDataArray[levelIndex];
         UIColor* backgroundColor = [self.fractal.backgroundColor asUIColor];
         if (!backgroundColor) backgroundColor = [UIColor clearColor];
@@ -1551,9 +1537,8 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 -(IBAction)toggleAutoExpandFractal:(id)sender
 {
-    self.autoExpandFractal = !self.autoExpandFractal;
-    
-    [self queueFractalImageUpdates];
+    self.fractal.autoExpand = [NSNumber numberWithBool: ![self.fractal.autoExpand boolValue]];
+    [self saveContext];
 }
 
 - (IBAction)toggleNavBar:(id)sender
@@ -1570,7 +1555,7 @@ static const CGFloat kLevelNMargin = 40.0;
     // copy
     self.fractal = [self.fractal mutableCopy];
     
-    [self appearanceButtonPressed: self.editButton];
+    [self performSegueWithIdentifier: @"EditSegue" sender: self];
 }
 
 - (IBAction)levelInputChanged:(UIControl*)sender

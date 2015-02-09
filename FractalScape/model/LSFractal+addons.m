@@ -161,6 +161,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                             @"lineColors",
                             @"fillColors",
                             @"backgroundColor",
+                            @"autoExpand",
                                 nil];
     }
     return redrawProperties;

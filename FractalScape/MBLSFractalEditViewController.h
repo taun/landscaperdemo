@@ -144,8 +144,6 @@ static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 - (IBAction)redoEdit:(id)sender;
 - (IBAction)info:(id)sender;
 - (IBAction)toggleFullScreen:(id)sender;
-- (IBAction)libraryButtonPressed:(id)sender;
-- (IBAction)appearanceButtonPressed:(id)sender;
 - (IBAction)shareButtonPressed:(id)sender;
 - (IBAction)playButtonPressed:(id)sender;
 -(IBAction) pauseButtonPressed: (id)sender;

@@ -18,6 +18,9 @@
 IB_DESIGNABLE
 
 
+/*!
+ Shows the replacement rule in the form of "ruleTile => replacementRulesTiles"
+ */
 @interface MBLSReplacementRuleTileView : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) LSReplacementRule          *replacementRule;

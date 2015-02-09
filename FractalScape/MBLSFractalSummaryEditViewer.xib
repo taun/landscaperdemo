@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBLSFractalSummaryEditViewer">
+            <connections>
+                <outlet property="category" destination="NuC-S2-DFE" id="agH-Xw-hAS"/>
+                <outlet property="descriptor" destination="dq3-wA-cTv" id="N8m-RV-2cP"/>
+                <outlet property="name" destination="fRO-2T-ujC" id="37O-wH-PSJ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="116"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fRO-2T-ujC">
+                    <rect key="frame" x="8" y="8" width="346" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="8lm-dY-hRp"/>
+                    </connections>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Uk-uo-7wU" customClass="MDKLayerViewDesignable">
+                    <rect key="frame" x="8" y="46" width="346" height="62"/>
+                    <subviews>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dq3-wA-cTv">
+                            <rect key="frame" x="2" y="2" width="342" height="58"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="2WE-ig-Ani"/>
+                            </connections>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="dq3-wA-cTv" firstAttribute="leading" secondItem="4Uk-uo-7wU" secondAttribute="leading" constant="2" id="3DY-lA-9Gt"/>
+                        <constraint firstAttribute="trailing" secondItem="dq3-wA-cTv" secondAttribute="trailing" constant="2" id="QfV-dx-nLk"/>
+                        <constraint firstAttribute="bottom" secondItem="dq3-wA-cTv" secondAttribute="bottom" constant="2" id="t9a-aZ-3JV"/>
+                        <constraint firstItem="dq3-wA-cTv" firstAttribute="top" secondItem="4Uk-uo-7wU" secondAttribute="top" constant="2" id="z1E-Wb-Whi"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <pickerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NuC-S2-DFE">
+                    <rect key="frame" x="362" y="-23" width="130" height="162"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="130" id="DoI-Ch-iNd">
+                            <variation key="widthClass=compact" constant="100"/>
+                        </constraint>
+                        <constraint firstAttribute="height" constant="100" id="cZQ-j1-dnh"/>
+                    </constraints>
+                    <variation key="widthClass=compact"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="J1N-2I-bAw"/>
+                        <outlet property="delegate" destination="-1" id="ylI-NW-6CW"/>
+                    </connections>
+                </pickerView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="NuC-S2-DFE" secondAttribute="bottom" constant="8" id="ANs-bh-yh5"/>
+                <constraint firstItem="NuC-S2-DFE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="HEp-yh-OrR"/>
+                <constraint firstItem="NuC-S2-DFE" firstAttribute="leading" secondItem="fRO-2T-ujC" secondAttribute="trailing" constant="8" id="I59-e1-rGU"/>
+                <constraint firstItem="NuC-S2-DFE" firstAttribute="leading" secondItem="4Uk-uo-7wU" secondAttribute="trailing" constant="8" id="OEU-yD-siU"/>
+                <constraint firstItem="4Uk-uo-7wU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="SwG-vx-u2H"/>
+                <constraint firstAttribute="trailing" secondItem="NuC-S2-DFE" secondAttribute="trailing" constant="8" id="TYj-dq-VLk"/>
+                <constraint firstItem="fRO-2T-ujC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="pEC-ul-c0y"/>
+                <constraint firstItem="4Uk-uo-7wU" firstAttribute="top" secondItem="fRO-2T-ujC" secondAttribute="bottom" constant="8" symbolic="YES" id="sjb-mA-Nst"/>
+                <constraint firstAttribute="bottom" secondItem="4Uk-uo-7wU" secondAttribute="bottom" constant="8" id="tG5-Oj-9yq"/>
+                <constraint firstItem="fRO-2T-ujC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="vw5-lF-AYa"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="491" y="384.5"/>
+        </view>
+    </objects>
+</document>

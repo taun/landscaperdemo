@@ -7,7 +7,7 @@
 //
 
 #import "MBLSFractalSummaryEditView.h"
-
+#import "MDKLayerViewDesignable.h"
 #import "FractalScapeIconSet.h"
 
 @implementation MBLSFractalSummaryEditViewer
@@ -31,36 +31,23 @@
 }
 
 -(void) setupSubviews {
-    _name = [[UITextField alloc] initWithFrame: CGRectMake(10, 10, 220, 44)];
-    _name.delegate = self;
+    UIView* view = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
+    [self addSubview: view];
+    view.frame = self.bounds;
+    
 #if TARGET_INTERFACE_BUILDER
     _name.text = @"Just testing";
 #endif
-    _name.borderStyle = UITextBorderStyleRoundedRect;
-    [self addSubview: _name];
     
-    _category = [[UIPickerView alloc] initWithFrame: CGRectMake(300, 10, 130, 100)];
-    _category.dataSource = self;
-    _category.delegate = self;
-    _category.showsSelectionIndicator = YES;
-    _category.backgroundColor = [UIColor clearColor];
     [_category selectRow: 2 inComponent: 0 animated: NO];
-    [self addSubview: _category];
     
-    UIView* textViewBox = [[UIView alloc] initWithFrame: CGRectMake(10, 60, 120, 88)];
-    textViewBox.layer.borderColor = [FractalScapeIconSet groupBorderColor].CGColor;
-    textViewBox.layer.borderWidth = 1.0;
-    textViewBox.layer.cornerRadius = 6.0;
-    textViewBox.layer.masksToBounds = YES;
+    MDKLayerViewDesignable* layerView = (MDKLayerViewDesignable*)_descriptor.superview;
+    layerView.borderColor = [FractalScapeIconSet groupBorderColor];
     
-    [self addSubview: textViewBox];
     
-    _descriptor = [[UITextView alloc] initWithFrame: CGRectMake(0, 0, 120, 88)];
-    _descriptor.delegate = self;
 #if TARGET_INTERFACE_BUILDER
     _descriptor.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 #endif
-    [textViewBox addSubview: _descriptor];
     
     [self setupConstraints];
     
@@ -76,16 +63,16 @@
     descriptorBox.translatesAutoresizingMaskIntoConstraints = NO;
     //    descriptorBox.con
     
-    NSDictionary* viewsDictionary = NSDictionaryOfVariableBindings(_name, _descriptor, _category, descriptorBox);
-    
-    [descriptorBox addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_descriptor]|" options:0 metrics: 0 views:viewsDictionary]];
-    [descriptorBox addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_descriptor]|" options:0 metrics: 0 views:viewsDictionary]];
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_name]-20-[_category(130)]-8-|" options:0 metrics: 0 views:viewsDictionary]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[descriptorBox(_name)]" options:0 metrics: 0 views:viewsDictionary]];
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_category(100)]-8-|" options:0 metrics: 0 views:viewsDictionary]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_name]-[descriptorBox]-8-|" options:0 metrics: 0 views:viewsDictionary]];
+//    NSDictionary* viewsDictionary = NSDictionaryOfVariableBindings(_name, _descriptor, _category, descriptorBox);
+//    
+//    [descriptorBox addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_descriptor]|" options:0 metrics: 0 views:viewsDictionary]];
+//    [descriptorBox addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_descriptor]|" options:0 metrics: 0 views:viewsDictionary]];
+//    
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_name]-20-[_category(130)]-8-|" options:0 metrics: 0 views:viewsDictionary]];
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[descriptorBox(_name)]" options:0 metrics: 0 views:viewsDictionary]];
+//    
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_category(100)]-8-|" options:0 metrics: 0 views:viewsDictionary]];
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_name]-[descriptorBox]-8-|" options:0 metrics: 0 views:viewsDictionary]];
     
     [self setNeedsLayout];
 }
@@ -93,7 +80,8 @@
 -(void) layoutSubviews {
     [super layoutSubviews];
     
-    _descriptor.superview.layer.borderColor = [FractalScapeIconSet groupBorderColor].CGColor;
+    MDKLayerViewDesignable* layerView = (MDKLayerViewDesignable*)_descriptor.superview;
+    layerView.borderColor = [FractalScapeIconSet groupBorderColor];
     
     //    [self ];
 }
@@ -113,17 +101,20 @@
     }
 }
 #pragma mark - UITextViewDelegate
--(void) textViewDidEndEditing:(UITextView *)textView {
+-(void) textViewDidEndEditing:(UITextView *)textView
+{
     if (textView == _descriptor) {
         self.fractal.descriptor = textView.text;
     }
 }
 
 #pragma mark - UIPickerSource
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
     return 1;
 }
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
 #if TARGET_INTERFACE_BUILDER
     return 4;
 #else
@@ -132,13 +123,17 @@
 }
 
 #pragma mark - UIPickerDelegate
--(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
     return 24.0;
 }
--(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    return 120.0;
+-(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
+{
+    CGFloat width = _category.bounds.size.width;
+    return width*(120.0/130.0);
 }
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
     NSArray* categories;
     
 #if TARGET_INTERFACE_BUILDER
@@ -148,7 +143,20 @@
 #endif
     return categories[row];
 }
-
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel* tView = (UILabel*)view;
+    if (!tView)
+    {
+        tView = [[UILabel alloc] init];
+        [tView setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+        //[tView setTextAlignment:UITextAlignmentLeft];
+        tView.numberOfLines=1;
+    }
+    // Fill the label text here
+    tView.text = [self.fractal allCategories][row];
+    return tView;
+}
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSString* category = [self.fractal allCategories][row];
     self.fractal.category = category;

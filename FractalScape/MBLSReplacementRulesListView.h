@@ -17,6 +17,9 @@
 IB_DESIGNABLE
 
 
+/*!
+ View to show a vertical list of MBLSReplacementRuleTileView(s).
+ */
 @interface MBLSReplacementRulesListView : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) NSMutableOrderedSet      *replacementRules;
