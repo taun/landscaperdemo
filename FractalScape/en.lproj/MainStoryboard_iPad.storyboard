@@ -868,8 +868,8 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="484"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                                <rect key="frame" x="0.0" y="0.0" width="800" height="1328"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
                                                         <rect key="frame" x="2" y="2" width="796" height="314"/>
@@ -1030,7 +1030,9 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="JJQ-Ty-aAw" secondAttribute="trailing" constant="12" id="2Lu-Fu-aWO"/>
-                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" id="2hd-ZB-e8n"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" priority="750" constant="50" id="2hd-ZB-e8n">
+                                                        <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
+                                                    </constraint>
                                                     <constraint firstItem="zPi-Ea-Cqu" firstAttribute="top" secondItem="1Sj-KC-aPt" secondAttribute="bottom" constant="12" id="6Uz-eQ-9sr"/>
                                                     <constraint firstItem="dnp-Hx-YZd" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="12" id="ErR-BG-rEP"/>
                                                     <constraint firstItem="JJQ-Ty-aAw" firstAttribute="leading" secondItem="eki-f5-HFG" secondAttribute="trailing" constant="12" id="GqB-An-nSa"/>
@@ -1113,12 +1115,9 @@
                                             <constraint firstAttribute="bottom" secondItem="4f0-9f-h9I" secondAttribute="bottom" id="qim-uQ-67e"/>
                                             <constraint firstAttribute="trailing" secondItem="4f0-9f-h9I" secondAttribute="trailing" id="sPG-Qh-JqG"/>
                                         </constraints>
-                                        <variation key="heightClass=compact">
-                                            <mask key="subviews">
-                                                <exclude reference="yL0-eh-jBi"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="widthClass=compact">
+                                        <variation key="heightClass=compact"/>
+                                        <variation key="widthClass=compact"/>
+                                        <variation key="heightClass=compact-widthClass=compact">
                                             <mask key="subviews">
                                                 <exclude reference="yL0-eh-jBi"/>
                                             </mask>
