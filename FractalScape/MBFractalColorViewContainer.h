@@ -20,6 +20,9 @@
 #import "MDBLSObjectTilesViewBaseController.h"
 #import "MDBFractalPageColorTileView.h"
 
+#import "MBFractalPrefConstants.h"
+
+
 @interface MBFractalColorViewContainer : MDBLSObjectTilesViewBaseController
 
 

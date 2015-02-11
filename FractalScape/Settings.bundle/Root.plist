@@ -5,28 +5,20 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Title</key>
-			<string>Group</string>
 			<key>Type</key>
-			<string>PSGroupSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Paralax Effect Off</string>
+			<key>Key</key>
+			<string>paralaxOff</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 		<dict>
-			<key>AutocapitalizationType</key>
-			<string>None</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>name_preference</string>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
 			<key>Title</key>
-			<string>Name</string>
+			<string>Troubleshooting</string>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -37,16 +29,6 @@
 			<string>showPerformanceData</string>
 			<key>DefaultValue</key>
 			<false/>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>enabled_preference</string>
-			<key>Title</key>
-			<string>Reset Data</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

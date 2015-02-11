@@ -14,6 +14,8 @@
 #import "MBLSObjectListTileViewer.h"
 #import "MDBLSObjectTileView.h"
 
+#import "MBFractalPrefConstants.h"
+
 @interface MDBLSObjectTilesViewBaseController : UIViewController <FractalControllerProtocol>
 
 @property (nonatomic,strong) LSFractal          *fractal;

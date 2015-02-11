@@ -373,6 +373,7 @@
 		C5E6B7BA14A5346300DA48BD /* FractalScapeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FractalScapeTests.m; sourceTree = "<group>"; };
 		C5F544801A5B56B3000EE8B9 /* LSFractalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalRenderer.h; path = FractalScape/LSFractalRenderer.h; sourceTree = "<group>"; };
 		C5F544811A5B56B3000EE8B9 /* LSFractalRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalRenderer.m; path = FractalScape/LSFractalRenderer.m; sourceTree = "<group>"; };
+		C5FDC1E21A8BF83D004BE617 /* MBFractalPrefConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBFractalPrefConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -621,6 +622,7 @@
 				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
 				C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */,
 				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
+				C5FDC1E21A8BF83D004BE617 /* MBFractalPrefConstants.h */,
 			);
 			name = "FractalScape Main";
 			path = FractalScape;

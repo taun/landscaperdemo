@@ -45,6 +45,7 @@
     }
     [self configureParallax];
 }
+
 -(void) viewWillLayoutSubviews {
 //    [self.sourceListView setNeedsUpdateConstraints];
     [self.sourceListView setNeedsLayout];
@@ -57,8 +58,13 @@
     
     [super viewWillLayoutSubviews];
 }
+
 -(void) configureParallax
 {
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL showParalax = ![defaults boolForKey: kPrefParalaxOff];
+
+    if (showParalax) {
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
         xAxis.minimumRelativeValue = @(25.0);
         xAxis.maximumRelativeValue = @(-25.0);
@@ -71,6 +77,14 @@
         self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
         
         [self.sourceListView addMotionEffect:self.backgroundMotionEffect];
+    }
+}
+
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [self.sourceListView setNeedsUpdateConstraints];
+    [self.destinationView setNeedsUpdateConstraints];
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
 - (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender {
@@ -222,7 +236,7 @@
     UIColor* oldHelpColor = self.ruleHelpLabel.superview.backgroundColor;
     self.ruleHelpLabel.superview.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
     
-    [UIView animateWithDuration: 2.0 animations:^{
+    [UIView animateWithDuration: 0.5 animations:^{
         //
         aView.backgroundColor = oldColor;
         self.ruleHelpLabel.superview.backgroundColor = oldHelpColor;

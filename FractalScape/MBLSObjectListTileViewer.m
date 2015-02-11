@@ -341,7 +341,7 @@
     }];
 }
 -(void) layoutSubviews {
-    [super layoutSubviews];
+//    [super layoutSubviews];
     
     if (!CGRectEqualToRect(self.bounds, self.lastBounds)) {
         //

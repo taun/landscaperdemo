@@ -106,6 +106,10 @@
     if (self.subviews.count > 0) {
         [self removeConstraints: self.constraints];
         
+        if (self.currentAddDeleteView) {
+            // Close AND get rid of all behaviors.
+            [self.currentAddDeleteView animateClosed: NO];
+        }
         
         NSInteger lineNumber;
         // anchor each line
@@ -221,13 +225,13 @@
     
     if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
         // already have one open so close it first
-        [self.currentAddDeleteView animateClosed];
+        [self.currentAddDeleteView animateClosed: YES];
         self.currentAddDeleteView = addDeleteView;
     }
     
     if (state != MDBLSNeutral) {
         // stuck in wrong state somehow
-        [addDeleteView animateClosed];
+        [addDeleteView animateClosed: YES];
         self.currentAddDeleteView = nil;
     }
     else
@@ -244,7 +248,7 @@
     
     if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
         // already have one open so close it first
-        [self.currentAddDeleteView animateClosed];
+        [self.currentAddDeleteView animateClosed: YES];
         self.currentAddDeleteView = addDeleteView;
     }
     
@@ -259,7 +263,7 @@
 
     if (state != MDBLSNeutral) {
         // stuck in wrong state somehow
-        [addDeleteView animateClosed];
+        [addDeleteView animateClosed: YES];
         self.currentAddDeleteView = nil;
     }
     else

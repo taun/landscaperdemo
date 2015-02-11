@@ -13,6 +13,7 @@
 #import "MBLSReplacementRuleTileView.h"
 #import "MBLSRuleTypeTileViewer.h"
 
+#import "MBFractalPrefConstants.h"
 
 
 @class LSFractal;

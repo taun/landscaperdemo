@@ -26,7 +26,7 @@ typedef enum MDBLSAddDeleteState MDBLSAddDeleteState;
 @property (weak, nonatomic) IBOutlet UIView                     *content;
 @property (strong, nonatomic) NSLayoutConstraint                *leftConstraint;
 @property (strong, nonatomic) NSLayoutConstraint                *rightConstraint;
-@property (readonly, nonatomic) MDBLSAddDeleteState               state;
+@property (readonly,nonatomic) MDBLSAddDeleteState               state;
 
 - (IBAction)deletePressed:(id)sender;
 - (IBAction)addPressed:(id)sender;
@@ -34,7 +34,7 @@ typedef enum MDBLSAddDeleteState MDBLSAddDeleteState;
 - (IBAction)addSwipeRecognized:(id)sender;
 - (IBAction)deleteSwipeRecognized:(id)sender;
 
--(void) animateClosed;
+-(void) animateClosed: (BOOL)animate;
 -(void) animateSlideForAdd;
 -(void) animateSlideForDelete;
 

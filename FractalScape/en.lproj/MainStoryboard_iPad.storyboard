@@ -766,7 +766,7 @@
                                 <segue destination="tpb-gq-tvK" kind="presentation" identifier="LibrarySegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="flipHorizontal" id="06u-pY-Hz4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="toolBarPlay" style="plain" id="Kgo-6O-GAI">
+                        <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI">
                             <connections>
                                 <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="chz-4Y-vsU"/>
                             </connections>
@@ -956,7 +956,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="f5R-qi-g83" appends="YES" id="OXR-31-Krb"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
+                                                    <view opaque="NO" contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
                                                         <rect key="frame" x="12" y="192" width="776" height="116"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1309,12 +1309,9 @@
                                             <constraint firstItem="SrT-kZ-Fno" firstAttribute="top" secondItem="4QD-IE-s5T" secondAttribute="top" id="gkg-Cz-ZGH"/>
                                             <constraint firstAttribute="bottom" secondItem="SrT-kZ-Fno" secondAttribute="bottom" id="xBl-dD-2Z8"/>
                                         </constraints>
-                                        <variation key="heightClass=compact">
-                                            <mask key="subviews">
-                                                <exclude reference="4BU-94-61F"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="widthClass=compact">
+                                        <variation key="heightClass=compact"/>
+                                        <variation key="widthClass=compact"/>
+                                        <variation key="heightClass=compact-widthClass=compact">
                                             <mask key="subviews">
                                                 <exclude reference="4BU-94-61F"/>
                                             </mask>
@@ -1707,14 +1704,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="AYV-rN-sBG" secondAttribute="bottom" constant="4" id="s04-t5-Qgh"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="Subtitle and lots more text, ipsem and more. And more and more and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
-                                            <rect key="frame" x="6" y="167" width="134" height="81"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
-                                            <size key="shadowOffset" width="0.0" height="0.0"/>
-                                        </label>
                                         <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Title" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
                                             <rect key="frame" x="59" y="148" width="28.5" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -1722,14 +1711,30 @@
                                             <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="Subtitle and lots more text, ipsem and more. And more and more and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
+                                            <rect key="frame" x="6" y="165" width="134" height="65"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ratingBarImage" translatesAutoresizingMaskIntoConstraints="NO" id="2Fm-ZR-Mrh">
+                                            <rect key="frame" x="4" y="227" width="100" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="bkA-0k-t7x"/>
+                                                <constraint firstAttribute="height" constant="24" id="pmb-d4-F0D"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="top" secondItem="PV1-X5-WaQ" secondAttribute="bottom" constant="2" id="BFo-bf-0xi"/>
+                                    <constraint firstItem="2Fm-ZR-Mrh" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="4" id="5Up-Qo-KjE"/>
+                                    <constraint firstItem="6en-9e-q6w" firstAttribute="top" secondItem="PV1-X5-WaQ" secondAttribute="bottom" id="BFo-bf-0xi"/>
                                     <constraint firstItem="6en-9e-q6w" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="6" id="EH2-do-xPp"/>
-                                    <constraint firstAttribute="bottom" secondItem="6en-9e-q6w" secondAttribute="bottom" constant="6" id="HEx-pi-enY"/>
+                                    <constraint firstAttribute="bottom" secondItem="6en-9e-q6w" secondAttribute="bottom" constant="24" id="HEx-pi-enY"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="top" secondItem="OPm-W7-tPA" secondAttribute="top" constant="4" id="WAu-ao-5TD"/>
                                     <constraint firstAttribute="centerX" secondItem="PV1-X5-WaQ" secondAttribute="centerX" id="cWj-M2-1xW"/>
                                     <constraint firstItem="PV1-X5-WaQ" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="bottom" constant="6" id="don-Qz-0qU"/>
@@ -1738,6 +1743,7 @@
                                     <constraint firstAttribute="trailing" secondItem="6en-9e-q6w" secondAttribute="trailing" constant="6" id="kWp-hJ-UIz"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="4" id="kl7-au-tsS"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PV1-X5-WaQ" secondAttribute="trailing" constant="6" id="nhX-MF-snD"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Fm-ZR-Mrh" secondAttribute="bottom" constant="3" id="qdz-53-MkA"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="detailTextLabel" destination="6en-9e-q6w" id="GMq-49-tGr"/>
@@ -1776,6 +1782,13 @@
                             <outlet property="delegate" destination="o9m-5w-n8i" id="x3Y-Qc-Wmr"/>
                         </connections>
                     </collectionView>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" title="My Fractals" id="TCd-3L-Rnk"/>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="HGq-Kb-RoW"/>
+                        <barButtonItem enabled="NO" title="Top Rated" id="RjF-u4-225"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="sJd-aq-2Gt"/>
+                        <barButtonItem enabled="NO" systemItem="search" id="d4O-oq-l77"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Library" id="uJn-Hw-dsJ">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" style="done" id="Pfw-Wr-cl9">
                             <connections>
@@ -1786,7 +1799,6 @@
                     <value key="contentSizeForViewInPopover" type="size" width="510" height="600"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="510" height="600"/>
@@ -1824,7 +1836,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jth-yK-sR7">
             <objects>
-                <navigationController storyboardIdentifier="LibraryNavCon" modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tpb-gq-tvK" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LibraryNavCon" modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" toolbarHidden="NO" id="tpb-gq-tvK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="510" height="600"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1834,6 +1846,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="BwG-zn-Ql6">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="o9m-5w-n8i" kind="relationship" relationship="rootViewController" id="U0i-iK-GeP"/>
                     </connections>
@@ -1888,6 +1903,7 @@
         <image name="kBIconRuleRandomizeOn" width="40" height="40"/>
         <image name="kBIconRuleRotateCCSmall" width="30" height="30"/>
         <image name="kBIconRuleUpscaleLineLength" width="40" height="40"/>
+        <image name="ratingBarImage" width="138" height="24"/>
         <image name="tabBarFillColorIconTemplate" width="25" height="25"/>
         <image name="tabBarLineColorIcon" width="25" height="25"/>
         <image name="tabBarLineColorIconTemplate" width="25" height="25"/>

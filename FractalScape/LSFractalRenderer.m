@@ -360,6 +360,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             _scale = MIN(1.0,MIN(scaleHeight, scaleWidth));
         }
         
+        CGFloat scaledLineWidth = _scale * _baseSegment.lineWidth;
+        _baseSegment.lineWidth = MAX(scaledLineWidth, 0.5); // don't let the line get too thin and disappear
+        
         // Translating
         CGFloat fractalCenterX = _scale * CGRectGetMidX(self.rawFractalPathBounds);
         CGFloat fractalCenterY = _scale * CGRectGetMidY(self.rawFractalPathBounds)*yOrientation; //130

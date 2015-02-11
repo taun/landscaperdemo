@@ -1224,12 +1224,16 @@ static const CGFloat kLevelNMargin = 40.0;
     controller.popoverPresentationController.passthroughViews = @[self.fractalViewRoot];
     
     self.currentPresentedController = controller;
-//    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    self.fractalViewRootSingleTapRecognizer.enabled = NO;
+    [self.view setNeedsLayout];
 }
 -(void) appearanceControllerWasDismissed
 {
-//    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    self.fractalViewRootSingleTapRecognizer.enabled = NO;
     self.currentPresentedController = nil;
+    [self.view setNeedsLayout];
 }
 
 #pragma mark - Control Actions

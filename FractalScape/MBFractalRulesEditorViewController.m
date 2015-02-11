@@ -51,6 +51,13 @@
     [super viewDidDisappear:animated];
 }
 
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [self.view setNeedsUpdateConstraints];
+    [self.replacementRules setNeedsUpdateConstraints];
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+}
+
 #pragma mark - Drag & Drop
 -(void) deleteObjectIfUnreferenced: (LSDrawingRule*) rule {
     if (rule != nil && !rule.isReferenced) {
