@@ -21,9 +21,9 @@
         [self.layer addSublayer: temp];
         _outlineLayer = temp;
         _outlineLayer.frame = CGRectInset(frame, -6.0, -6.0);
-        _outlineLayer.borderWidth = 1.0;
+        _outlineLayer.borderWidth = 2.0;
         _outlineLayer.cornerRadius = 6.0;
-        _outlineLayer.zPosition = 300.0;
+        _outlineLayer.zPosition = 1000.0;
     }
     return self;
 }
@@ -37,6 +37,7 @@
     
     CGColorRef colorCopy = CGColorCreateCopy(border.CGColor);
     self.outlineLayer.borderColor = colorCopy;
+//    self.outlineLayer.backgroundColor = colorCopy;
     CGColorRelease(colorCopy);
 }
 /*

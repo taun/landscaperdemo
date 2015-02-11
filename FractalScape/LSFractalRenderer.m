@@ -387,11 +387,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 
     [self createFractalInContext: aCGContext percent: percent];
-    if (_segmentStack[_segmentIndex].path != NULL)
-    {
-        CGPathRelease(_segmentStack[_segmentIndex].path);
-        _segmentStack[_segmentIndex].path = NULL;
-    }
 
     if (self.showOrigin)
     {
@@ -489,6 +484,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         CGPathRef oldPath = _segmentStack[i].path;
         if (oldPath != NULL) {
             CGPathRelease(oldPath);
+            _segmentStack[i].path = NULL;
         }
     }
 }
@@ -969,14 +965,14 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandDrawDot
 {
     [self pushCurrentPath];
-    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness)];
+    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth, _segmentStack[_segmentIndex].randomness)];
     [self drawPath];
     [self popCurrentPath];
 }
 -(void) commandDrawDotFilledNoStroke
 {
     [self pushCurrentPath];
-    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness)];
+    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth, _segmentStack[_segmentIndex].randomness)];
     [self commandStrokeOff];
     [self commandFillOn];
     [self drawPath];

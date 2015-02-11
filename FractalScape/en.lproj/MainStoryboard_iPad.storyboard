@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -1667,7 +1668,7 @@
         <scene sceneID="iKT-0y-poi">
             <objects>
                 <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
                         <rect key="frame" x="0.0" y="44" width="510" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
@@ -1678,14 +1679,14 @@
                             <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryListCell" id="OPm-W7-tPA" customClass="MBCollectionFractalCell">
+                            <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="OPm-W7-tPA" customClass="MBCollectionFractalCell">
                                 <rect key="frame" x="8" y="52" width="154" height="262"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="146" height="254"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
+                                        <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
                                             <rect key="frame" x="4" y="4" width="138" height="138"/>
                                             <subviews>
                                                 <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="zensand" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
@@ -1700,47 +1701,43 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="AYV-rN-sBG" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="top" constant="4" id="G6y-YK-QcH"/>
+                                                <constraint firstAttribute="width" secondItem="z47-1a-Cob" secondAttribute="height" multiplier="1:1" id="cDf-VM-Sj1"/>
                                                 <constraint firstItem="AYV-rN-sBG" firstAttribute="leading" secondItem="z47-1a-Cob" secondAttribute="leading" constant="4" id="lQb-9Y-CZq"/>
                                                 <constraint firstAttribute="trailing" secondItem="AYV-rN-sBG" secondAttribute="trailing" constant="4" id="mpl-II-0ep"/>
                                                 <constraint firstAttribute="bottom" secondItem="AYV-rN-sBG" secondAttribute="bottom" constant="4" id="s04-t5-Qgh"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
-                                            <rect key="frame" x="8" y="150" width="130" height="22"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="22" id="drB-lz-sKf"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
-                                            <size key="shadowOffset" width="0.0" height="1"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle and lots more text, ipsem and more. And more and more and more." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
-                                            <rect key="frame" x="8" y="180" width="130" height="74"/>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="Subtitle and lots more text, ipsem and more. And more and more and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
+                                            <rect key="frame" x="6" y="167" width="134" height="81"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="74" id="48S-hd-Zfd"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
-                                            <size key="shadowOffset" width="0.0" height="1"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Title" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
+                                            <rect key="frame" x="59" y="148" width="28.5" height="17"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="top" secondItem="PV1-X5-WaQ" secondAttribute="bottom" constant="8" symbolic="YES" id="BZg-mQ-thB"/>
-                                    <constraint firstItem="AYV-rN-sBG" firstAttribute="width" secondItem="PV1-X5-WaQ" secondAttribute="width" id="ERf-Ru-606"/>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="leading" secondItem="PV1-X5-WaQ" secondAttribute="leading" id="TJf-cQ-4pC"/>
+                                    <constraint firstItem="6en-9e-q6w" firstAttribute="top" secondItem="PV1-X5-WaQ" secondAttribute="bottom" constant="2" id="BFo-bf-0xi"/>
+                                    <constraint firstItem="6en-9e-q6w" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="6" id="EH2-do-xPp"/>
+                                    <constraint firstAttribute="bottom" secondItem="6en-9e-q6w" secondAttribute="bottom" constant="6" id="HEx-pi-enY"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="top" secondItem="OPm-W7-tPA" secondAttribute="top" constant="4" id="WAu-ao-5TD"/>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="width" secondItem="PV1-X5-WaQ" secondAttribute="width" id="eH2-I3-BhS"/>
-                                    <constraint firstItem="AYV-rN-sBG" firstAttribute="leading" secondItem="PV1-X5-WaQ" secondAttribute="leading" id="fgk-Gv-1RW"/>
-                                    <constraint firstItem="PV1-X5-WaQ" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="bottom" constant="8" symbolic="YES" id="gOd-2L-omk"/>
+                                    <constraint firstAttribute="centerX" secondItem="PV1-X5-WaQ" secondAttribute="centerX" id="cWj-M2-1xW"/>
+                                    <constraint firstItem="PV1-X5-WaQ" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="bottom" constant="6" id="don-Qz-0qU"/>
+                                    <constraint firstItem="PV1-X5-WaQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OPm-W7-tPA" secondAttribute="leadingMargin" constant="6" id="e4u-Um-LqZ"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="trailing" secondItem="OPm-W7-tPA" secondAttribute="trailing" constant="-4" id="k1B-Je-zPk"/>
+                                    <constraint firstAttribute="trailing" secondItem="6en-9e-q6w" secondAttribute="trailing" constant="6" id="kWp-hJ-UIz"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="4" id="kl7-au-tsS"/>
-                                    <constraint firstItem="6en-9e-q6w" firstAttribute="bottom" secondItem="OPm-W7-tPA" secondAttribute="bottom" id="mlZ-f9-Rjc"/>
+                                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PV1-X5-WaQ" secondAttribute="trailing" constant="6" id="nhX-MF-snD"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="detailTextLabel" destination="6en-9e-q6w" id="GMq-49-tGr"/>
@@ -1800,7 +1797,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Aum-QI-fMm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6265.5" y="-248"/>
+            <point key="canvasLocation" x="6265" y="-248"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ECf-kR-spw">
