@@ -202,6 +202,17 @@
             break;
     }
 }
+-(IBAction) deleteButtonEnabled:(BOOL)enabled
+{
+    if (enabled)
+    {
+        self.deleteButton.enabled = YES;
+    }
+    else
+    {
+        self.deleteButton.enabled = NO;
+    }
+}
 -(void) animateClosed: (BOOL)animate {
     self.state = MDBLSNeutral;
     

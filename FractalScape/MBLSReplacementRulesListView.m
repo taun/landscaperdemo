@@ -254,11 +254,9 @@
     
     if (self.replacementRules.count == 1) {
         // don't allow the last one to be deleted
-        addDeleteView.deleteButton.enabled = NO;
-        addDeleteView.deleteButton.alpha = 0.5;
+        [addDeleteView deleteButtonEnabled: NO];
     } else {
-        addDeleteView.deleteButton.enabled = YES;
-        addDeleteView.deleteButton.alpha = 1.0;
+        [addDeleteView deleteButtonEnabled: YES];
     }
 
     if (state != MDBLSNeutral) {
