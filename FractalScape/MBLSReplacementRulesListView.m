@@ -18,6 +18,7 @@
 
 @interface MBLSReplacementRulesListView ()
 @property (nonatomic,assign) CGRect                         lastBounds;
+@property (nonatomic,weak) MDBLSObjectTileListAddDeleteView*currentAddDeleteView;
 @end
 
 @implementation MBLSReplacementRulesListView
@@ -88,18 +89,8 @@
         MDBLSObjectTileListAddDeleteView* addDeleteContainer = [[MDBLSObjectTileListAddDeleteView alloc] initWithFrame: rrFrame];
         [self addSubview: addDeleteContainer];
         addDeleteContainer.delegate = self;
-        [addDeleteContainer addSubview: newRR];
+        [addDeleteContainer setContent: newRR];
         
-        NSDictionary* viewsDict = @{@"newRR":newRR};
-        
-        [addDeleteContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[newRR]-0-|"
-                                                                                    options: 0
-                                                                                    metrics: nil
-                                                                                      views: viewsDict]];
-        [addDeleteContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[newRR]-0-|"
-                                                                                    options: 0
-                                                                                    metrics: nil
-                                                                                      views: viewsDict]];
         
         lineNum++;
 #if !TARGET_INTERFACE_BUILDER
@@ -223,10 +214,120 @@
     return needsLayout;
 }
 
-- (IBAction)replacementAddSwipeGesture:(id)sender {
+- (IBAction)addSwipeRecognized:(id)sender
+{
+    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)[sender view];
+    MDBLSAddDeleteState state = addDeleteView.state;
+    
+    if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
+        // already have one open so close it first
+        [self.currentAddDeleteView animateClosed];
+        self.currentAddDeleteView = addDeleteView;
+    }
+    
+    if (state != MDBLSNeutral) {
+        // stuck in wrong state somehow
+        [addDeleteView animateClosed];
+        self.currentAddDeleteView = nil;
+    }
+    else
+    {
+        [addDeleteView animateSlideForAdd];
+        self.currentAddDeleteView = addDeleteView;
+    }
 }
 
-- (IBAction)replacementDeleteSwipeGesture:(id)sender {
+- (IBAction)deleteSwipeRecognized:(id)sender
+{
+    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)[sender view];
+    MDBLSAddDeleteState state = addDeleteView.state;
+    
+    if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
+        // already have one open so close it first
+        [self.currentAddDeleteView animateClosed];
+        self.currentAddDeleteView = addDeleteView;
+    }
+    
+    if (self.replacementRules.count == 1) {
+        // don't allow the last one to be deleted
+        addDeleteView.deleteButton.enabled = NO;
+        addDeleteView.deleteButton.alpha = 0.5;
+    } else {
+        addDeleteView.deleteButton.enabled = YES;
+        addDeleteView.deleteButton.alpha = 1.0;
+    }
+
+    if (state != MDBLSNeutral) {
+        // stuck in wrong state somehow
+        [addDeleteView animateClosed];
+        self.currentAddDeleteView = nil;
+    }
+    else
+    {
+        [addDeleteView animateSlideForDelete];
+        self.currentAddDeleteView = addDeleteView;
+    }
+}
+
+- (IBAction) deletePressed:(id)sender
+{
+    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)sender;
+
+    MBLSReplacementRuleTileView* callerRRuleView = (MBLSReplacementRuleTileView*)addDeleteView.content;
+    LSReplacementRule* callerRRule = callerRRuleView.replacementRule;
+
+    [UIView animateWithDuration: 0.25 animations:^{
+        // Make all constraint changes here
+        [self.replacementRules removeObject: callerRRule];
+        
+        [self.context deleteObject: callerRRule];
+                
+        [self saveContext];
+         [self setupSubviews];
+    }];
+}
+
+- (IBAction)addPressed:(id)sender
+{
+    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)sender;
+
+    MBLSReplacementRuleTileView* callerRRuleView = (MBLSReplacementRuleTileView*)addDeleteView.content;
+    LSReplacementRule* callerRRule = callerRRuleView.replacementRule;
+    
+    NSInteger ruleIndex = [self.replacementRules indexOfObject: callerRRule];
+    
+    LSReplacementRule* newReplacementRule = [LSReplacementRule insertNewObjectIntoContext: self.context];
+    LSDrawingRule* newContextRule = [LSDrawingRule insertNewObjectIntoContext: self.context];
+    LSDrawingRule* newReplacementHolder = [LSDrawingRule insertNewObjectIntoContext: self.context];
+    
+    newReplacementRule.contextRule = newContextRule;
+    NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: @"rules"];
+    [rules addObject: newReplacementHolder];
+    
+    [self layoutIfNeeded];
+    [UIView animateWithDuration: 0.25 animations:^{
+        // Make all constraint changes here
+        [self.replacementRules insertObject: newReplacementRule atIndex: ruleIndex+1];
+        [self saveContext];
+        [self setupSubviews];
+    }];
+}
+
+- (void)saveContext {
+    NSError *error = nil;
+    if (_context != nil) {
+        if ([_context hasChanges] && ![_context save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        } else {
+            //            self.fractalDataChanged = YES;
+        }
+    }
 }
 
 @end

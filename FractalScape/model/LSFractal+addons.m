@@ -387,7 +387,9 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
             
             const char* replacementCString = replacementRule.rulesString.UTF8String;
             
-            strcpy(replacementRulesCache.replacementCString[ruleBytes[0]], replacementCString);
+            if (ruleBytes != NULL && replacementCString != NULL && strlen(replacementCString) > 0) {
+                strcpy(replacementRulesCache.replacementCString[ruleBytes[0]], replacementCString);
+            }
         }
         
         [self generateNextLevelWithSource: self.level0RulesCache destination: level1RulesCache replacementsCache: replacementRulesCache];

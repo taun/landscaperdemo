@@ -115,6 +115,9 @@
 //    }
 // order of loading is important
 // colors are needed by fractals so need to be loaded before fractals
+
+    srand48(time(0));
+    
     [self loadMBColorsPList: @"MBColorsList"];
     // rules are needed by fractals so need to be loaded before fractals
     [self loadLSDrawingRulesPList: @"LSDrawingRulesDefaultTypeList"];

@@ -552,6 +552,34 @@ static inline CGRect inlineUpdateBounds(CGRect bounds, CGPoint aPoint)
     CGRect tempBounds = CGRectUnion(bounds, CGRectMake(aPoint.x, aPoint.y, 1.0, 1.0));
     return CGRectEqualToRect(tempBounds, CGRectNull) ? CGRectZero : tempBounds;
 }
+
+/*!
+ Randomize a scalar value to it's value plus or minus a randomness percent of its value.
+ If randomness = 20%, the return value would be plus or minus 20%
+ 
+ @param apply      whether to randomize
+ @param scalar     the scalar to be randomized
+ @param randomness the degree of randomness
+ 
+ @return a potentially randomized scalar.
+ */
+static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomness)
+{
+    CGFloat rscalar;
+    if (apply) {
+        /*!
+         drand48() returns value from 0.0 to 1.0
+         want 0.5 to leave scalar unchanged and 1.0 to be scalar*(1+randomness)
+         scalar*(1+(drand48()-0.5)*randomness)
+         scalar+scalar*randomness*(drand48()-0.5)
+        */
+        rscalar = scalar+scalar*randomness*(drand48()-0.5);
+    } else {
+        rscalar =  scalar;
+    }
+    return rscalar;
+}
+
 //TODO: why is this called. somehow related to adding a subview to LevelN view.
 // When the subview is touched even "charge" gets called to the delegate which seems to be the generator even though the generator is only the delegate of the LevelN view layer.
 //-(void) charge {
@@ -830,21 +858,24 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     if (!emptyPath) CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
 }
 -(void) drawCircleRadius: (CGFloat) radius {
-//    [self setCGGraphicsStateFromCurrentSegment];
     CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
+
+    BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+    
+    if (emptyPath)
+    {
+        CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
+        CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
+    }
+
     CGPathAddEllipseInRect(_segmentStack[_segmentIndex].path, NULL, transformedRect);
-//    CGContextAddEllipseInRect(_segmentStack[_segmentIndex].context, transformedRect);
-//    CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
-//    [self segmentAddPoint: CGPointMake(radius*2.0, 0.0)];
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, radius*2, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
 }
 // unused
 -(void) drawSquareWidth: (CGFloat) width {
-//    [self setCGGraphicsStateFromCurrentSegment];
     CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -width/2.0, width, width), _segmentStack[_segmentIndex].transform);
     CGPathAddRect(_segmentStack[_segmentIndex].path, NULL, transformedRect);
-//    CGContextAddRect(_segmentStack[_segmentIndex].context, transformedRect);
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, width, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
 }
@@ -875,76 +906,48 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 }
 -(void) commandDrawLine
 {
-    CGFloat tx = _segmentStack[_segmentIndex].lineLength;
+    CGFloat tx = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness);
+
     [self segmentAddLineToPoint: CGPointMake(tx, 0.0)];
     
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
-    
-    //    if (self.controlPointOn) {
-    //        CGAffineTransform inverted = CGAffineTransformInvert(local);
-    //        CGPoint p1 = CGPointApplyAffineTransform(self.previousNode, inverted);
-    //        CGPoint cp0 = CGPointApplyAffineTransform(self.controlPointNode, inverted);
-    //        //        CGPoint cp1 =
-    //        //        CGPathAddCurveToPoint(_segmentStack[_segmentIndex].path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
-    //        CGPathAddArcToPoint(_segmentStack[_segmentIndex].path, &local, cp0.x, cp0.y, tx, 0.0, tx);
-    //        CGPathAddLineToPoint(_segmentStack[_segmentIndex].path, &local, tx, 0.0);
-    //        self.controlPointOn = NO;
-    //    } else {
-//    CGContextAddLineToPoint(aCGContext, tx, 0.0);
-    //    }
-//    CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 #pragma message "TODO: how to implement variable line length? or just a second line command? Already have line increment/decrement."
 -(void) commandDrawLineVarLength
 {
+    CGFloat tx = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness);
     
-    CGFloat tx = _segmentStack[_segmentIndex].lineLength;
     [self segmentAddLineToPoint: CGPointMake(tx, 0.0)];
     
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
-    //    if (self.controlPointOn) {
-    //        CGAffineTransform inverted = CGAffineTransformInvert(local);
-    //        CGPoint p1 = CGPointApplyAffineTransform(self.previousNode, inverted);
-    //        CGPoint cp0 = CGPointApplyAffineTransform(self.controlPointNode, inverted);
-    //        //        CGPoint cp1 =
-    //        CGPathAddCurveToPoint(_segmentStack[_segmentIndex].path, &local, cp0.x, cp0.y, cp0.x, cp0.y, tx, 0.0);
-    //        self.controlPointOn = NO;
-    //    } else {
-//    CGContextAddLineToPoint(aCGContext, tx, 0.0);
-    //    }
-//    CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
 -(void) commandMoveByLine
 {
-    CGFloat tx = _segmentStack[_segmentIndex].lineLength;
+    CGFloat tx = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness);
+
     CGPoint transformedPoint = CGPointApplyAffineTransform(CGPointMake(tx, 0.0), _segmentStack[_segmentIndex].transform);
 #pragma message "TODO: not sure this move is necessary."
     CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
 
     CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
     _segmentStack[_segmentIndex].transform = newTransform;
-
-////   CGContextRef aCGContext = _segmentStack[_segmentIndex].context;
-//    CGFloat tx = _segmentStack[_segmentIndex].lineLength;
-//    CGContextMoveToPoint(aCGContext, tx, 0.0);
-//    CGContextTranslateCTM(aCGContext, tx, 0.0);
 }
 
 -(void) commandRotateCC
 {
-    CGFloat theta = _segmentStack[_segmentIndex].turningAngle;
+    CGFloat theta = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].turningAngle, _segmentStack[_segmentIndex].randomness);
+
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, theta);
     _segmentStack[_segmentIndex].transform = newTransform;
-
-    //    CGContextRotateCTM(aCGContext, theta);
 }
 
 -(void) commandRotateC
 {
-    CGFloat theta = _segmentStack[_segmentIndex].turningAngle;
+    CGFloat theta = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].turningAngle, _segmentStack[_segmentIndex].randomness);
+    
     CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, -theta);
     _segmentStack[_segmentIndex].transform = newTransform;
 }
@@ -957,28 +960,28 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 
 -(void) commandDrawDot
 {
-    [self drawCircleRadius: _segmentStack[_segmentIndex].lineWidth];
+    [self pushCurrentPath];
+    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness)];
+    [self drawPath];
+    [self popCurrentPath];
 }
 -(void) commandDrawDotFilledNoStroke
 {
+    [self pushCurrentPath];
+    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness)];
     [self commandStrokeOff];
     [self commandFillOn];
-    [self commandDrawDot];
+    [self drawPath];
+    [self popCurrentPath];
 }
 
 -(void) commandOpenPolygon
 {
-//    [self drawPath]; // draw before saving state
-//    [self pushCurrentPath];
-//    [self commandStrokeOff];
-//    [self commandFillOn];
     [self commandStartCurve];
 }
 
 -(void) commandClosePolygon
 {
-//    [self drawPathClosed: YES];
-//    [self popCurrentPath];
     [self commandEndCurve];
 }
 
@@ -1098,32 +1101,26 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 }
 -(void) commandFillOff
 {
-//    [self drawPath];
     _segmentStack[_segmentIndex].fill = NO;
 }
 -(void) commandFillOn
 {
-//    [self drawPath];
     _segmentStack[_segmentIndex].fill = YES;
 }
 -(void) commandNextColor
 {
-    //    [self startNewSegment];
     _segmentStack[_segmentIndex].lineColorIndex = ++_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandPreviousColor
 {
-    //    [self startNewSegment];
     _segmentStack[_segmentIndex].lineColorIndex = --_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandNextFillColor
 {
-    //    [self startNewSegment];
     _segmentStack[_segmentIndex].fillColorIndex = ++_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandPreviousFillColor
 {
-    //    [self startNewSegment];
     _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandLineCapButt

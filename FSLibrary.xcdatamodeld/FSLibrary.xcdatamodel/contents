@@ -100,14 +100,14 @@
     <fetchRequest name="MBColorCategoryWithIdentifier" entity="MBColorCategory" predicateString="identifier == $TYPEIDENTIFIER"/>
     <fetchRequest name="MBColorWithIdentifier" entity="MBColor" predicateString="identifier == $MBIDENTIFIER"/>
     <elements>
-        <element name="LSDrawingRule" positionX="160" positionY="192" width="128" height="180"/>
-        <element name="LSDrawingRuleType" positionX="160" positionY="192" width="128" height="118"/>
-        <element name="LSFractal" positionX="160" positionY="192" width="128" height="510"/>
-        <element name="LSReplacementRule" positionX="160" positionY="192" width="128" height="88"/>
-        <element name="MBColor" positionX="160" positionY="192" width="128" height="238"/>
-        <element name="MBColorCategory" positionX="171" positionY="342" width="128" height="103"/>
-        <element name="MBFractalScape" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="MBPlacedEntity" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="MBScapeBackground" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="LSDrawingRule" positionX="412" positionY="729" width="128" height="180"/>
+        <element name="LSDrawingRuleType" positionX="232" positionY="603" width="128" height="118"/>
+        <element name="LSFractal" positionX="-45" positionY="342" width="128" height="510"/>
+        <element name="LSReplacementRule" positionX="207" positionY="749" width="128" height="88"/>
+        <element name="MBColor" positionX="187" positionY="-45" width="128" height="238"/>
+        <element name="MBColorCategory" positionX="-99" positionY="176" width="128" height="103"/>
+        <element name="MBFractalScape" positionX="-432" positionY="216" width="128" height="120"/>
+        <element name="MBPlacedEntity" positionX="-263" positionY="297" width="128" height="90"/>
+        <element name="MBScapeBackground" positionX="-263" positionY="45" width="128" height="90"/>
     </elements>
 </model>

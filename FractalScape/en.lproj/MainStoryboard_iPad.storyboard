@@ -865,10 +865,10 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5r4-s6-OhH" userLabel="ScrollContainer">
                                 <rect key="frame" x="0.0" y="44" width="800" height="484"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="484"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="1328"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
@@ -994,7 +994,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="Boe-Sd-3Hq" appends="YES" id="NaA-zl-tSV"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
                                                         <rect key="frame" x="20" y="357" width="760" height="48"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1115,8 +1115,6 @@
                                             <constraint firstAttribute="bottom" secondItem="4f0-9f-h9I" secondAttribute="bottom" id="qim-uQ-67e"/>
                                             <constraint firstAttribute="trailing" secondItem="4f0-9f-h9I" secondAttribute="trailing" id="sPG-Qh-JqG"/>
                                         </constraints>
-                                        <variation key="heightClass=compact"/>
-                                        <variation key="widthClass=compact"/>
                                         <variation key="heightClass=compact-widthClass=compact">
                                             <mask key="subviews">
                                                 <exclude reference="yL0-eh-jBi"/>

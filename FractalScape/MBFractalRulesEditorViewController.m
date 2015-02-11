@@ -27,6 +27,8 @@
     self.destinationView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal startingRulesKey]];
     
     self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
+    self.replacementRules.context = self.fractal.managedObjectContext;
+    
     [self.sourceListView setValue: self.fractal.drawingRulesType forKey: @"type"];
     
     // a convenient place to override autoScroll. Should be in viewDidLoad but this is fine.
@@ -73,9 +75,9 @@
     self.ruleHelpLabel.text = infoString;
     [self infoAnimateView: self.destinationView];
 }
-
+#pragma message "TODO move info string to proper class instance."
 - (IBAction)replacementTapGesture:(UITapGestureRecognizer *)sender {
-    NSString* infoString = @"Occurences of rule to left of ':' replaced by rules to the right.";
+    NSString* infoString = @"Occurences of rule to left of '=>' replaced by rules to the right.";
     self.ruleHelpLabel.text = infoString;
     [self infoAnimateView: self.replacementRules];
 }

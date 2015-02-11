@@ -44,6 +44,7 @@ static const CGFloat kLevelNMargin = 40.0;
 
 @interface MBLSFractalEditViewController ()
 
+@property (nonatomic,strong) NSMutableOrderedSet    *observedReplacementRules;
 @property (nonatomic, assign) BOOL                  startedInLandscape;
 
 //@property (nonatomic, strong) NSSet*                editControls;
@@ -178,6 +179,8 @@ static const CGFloat kLevelNMargin = 40.0;
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
+    _observedReplacementRules = [NSMutableOrderedSet new];
+    
     [self configureNavBarButtons];
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -202,7 +205,7 @@ static const CGFloat kLevelNMargin = 40.0;
     _randomnessVerticalSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
     [_randomnessVerticalSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
     _randomnessVerticalSlider.minimumValue = 0.0;
-    _randomnessVerticalSlider.maximumValue = 0.2;
+    _randomnessVerticalSlider.maximumValue = 0.5;
     _randomnessVerticalSlider.value = 0.0;
     
     _widthDecrementVerticalSlider.transform = CGAffineTransformMakeRotation(M_PI_2);
@@ -396,6 +399,11 @@ static const CGFloat kLevelNMargin = 40.0;
         if (changeCount)
         {
             [self.fractal setPrimitiveValue: @NO forKey: @"rulesUnchanged"];
+            
+            if ([keyPath isEqualToString:[LSFractal replacementRulesKey]]) {
+                [self updateObserversForReplacementRules: self.fractal.replacementRules];
+            }
+            
             [self regenerateLevels];
             [self updateInterface];
         }
@@ -618,7 +626,35 @@ static const CGFloat kLevelNMargin = 40.0;
         {
             [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
             [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
+            [self.observedReplacementRules addObject: rRule];
         }
+    }
+}
+-(void) updateObserversForReplacementRules: (NSOrderedSet*) newReplacementRules {
+    // need to find rules missing from registered observers.
+    
+    NSMutableOrderedSet* copyOfCurrent = [newReplacementRules mutableCopy];
+    NSMutableOrderedSet* copyOfPrevious = [self.observedReplacementRules mutableCopy];
+    
+    NSMutableOrderedSet* repRulesToUnobserve = [copyOfPrevious mutableCopy];
+    [repRulesToUnobserve minusOrderedSet: copyOfCurrent];
+    
+    
+    for (LSReplacementRule* rule in repRulesToUnobserve)
+    {
+        [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
+        [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
+        [self.observedReplacementRules removeObject: rule];
+    }
+    
+    NSMutableOrderedSet* repRulesToAddObserver = [copyOfCurrent mutableCopy];
+    [repRulesToAddObserver minusOrderedSet: self.observedReplacementRules];
+    
+    for (LSReplacementRule* rRule in repRulesToAddObserver)
+    {
+        [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
+        [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
+        [self.observedReplacementRules addObject: rRule];
     }
 }
 -(void) removeObserversForFractal:(LSFractal *)fractal
@@ -638,6 +674,7 @@ static const CGFloat kLevelNMargin = 40.0;
         {
             [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
             [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
+            [self.observedReplacementRules removeObject: rule];
         }
     }
 }
@@ -1616,7 +1653,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                              aspectPath: @"randomness"
                             aspectScale: -1.0/1000.0
                               minAspect: 0.0
-                              maxAspect: 0.20];
+                              maxAspect: 0.50];
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender
 {
@@ -1822,12 +1859,26 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 - (UIImage *)snapshot:(UIView *)view
 {
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
-    [view drawViewHierarchyInRect: view.bounds afterScreenUpdates:YES];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage* imageExport;
+    CGSize imageSize = CGSizeMake(1024.0, 1024.0);
+    
+    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractal];
+    renderer.levelData = self.levelDataArray[3];
+    renderer.name = @"PDF renderer";
+    renderer.margin = 72.0;
+    renderer.autoscale = YES;
+    renderer.flipY = YES;
+    renderer.showOrigin = NO;
+    
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 2.0);
+    {
+        CGContextRef aCGontext = UIGraphicsGetCurrentContext();
+        [renderer drawInContext: aCGontext size: imageSize];
+        imageExport = UIGraphicsGetImageFromCurrentImageContext();
+    }
     UIGraphicsEndImageContext();
     
-    return image;
+    return imageExport;
 }
 -(NSData*) createPDF
 {
@@ -1839,6 +1890,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     renderer.margin = 72.0;
     renderer.autoscale = YES;
     renderer.flipY = YES;
+    renderer.showOrigin = NO;
     
     NSMutableData* pdfData = [NSMutableData data];
     NSDictionary* pdfMetaData = @{(NSString*)kCGPDFContextCreator:@"FractalScape", (NSString*)kCGPDFContextTitle:self.fractal.name, (NSString*)kCGPDFContextKeywords:self.fractal.category};
