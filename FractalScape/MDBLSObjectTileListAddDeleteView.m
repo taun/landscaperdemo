@@ -12,8 +12,8 @@
 
 @property(nonatomic,strong) UISwipeGestureRecognizer     *addSwipeGesture;
 @property(nonatomic,strong) UISwipeGestureRecognizer     *deleteSwipeGesture;
-
-
+@property(nonatomic,strong) UIDynamicAnimator            *cellAnimator;
+@property(nonatomic,strong) UISnapBehavior               *snapBehaviour;
 @end
 
 @implementation MDBLSObjectTileListAddDeleteView
@@ -66,6 +66,7 @@
     }
     _content = content;
     [self addSubview: _content];
+    self.cellAnimator = [[UIDynamicAnimator alloc]initWithReferenceView: self];
 
     NSDictionary* viewsDict = @{@"content": _content};
     
@@ -130,14 +131,22 @@
         [self.delegate deleteSwipeRecognized: sender];
     }
 }
--(void) animateContentsToPosition: (CGFloat) position {
-    [self layoutIfNeeded];
-    [UIView animateWithDuration: 0.5 animations:^{
+-(void) animateContentsToPosition: (CGFloat) position
+{
+    [self.cellAnimator removeBehavior: self.snapBehaviour];
+    CGPoint currentPosition = self.content.center;
+    CGPoint newPosition = CGPointMake(self.content.bounds.size.width/2.0 + position, currentPosition.y);
+    self.snapBehaviour = [[UISnapBehavior alloc]initWithItem: self.content snapToPoint: newPosition];
+    self.snapBehaviour.damping = 0.9;
+    [self.cellAnimator addBehavior: self.snapBehaviour];
+    
+//    [self layoutIfNeeded];
+//    [UIView animateWithDuration: 0.5 animations:^{
         // Make all constraint changes here
         self.leftConstraint.constant = position;
         self.rightConstraint.constant = position;
         [self layoutIfNeeded];
-    }];
+//    }];
 
 }
 -(MDBLSAddDeleteState) state {
