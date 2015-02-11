@@ -483,6 +483,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     if (percent < 100.0) {
         [self drawPathClosed: NO];
     }
+    
+    // release paths leftover from an operation cancel
+    for (int i = 0; i< kLSMaxSegmentStackSize; i++) {
+        CGPathRef oldPath = _segmentStack[i].path;
+        if (oldPath != NULL) {
+            CGPathRelease(oldPath);
+        }
+    }
 }
 
 #pragma clang diagnostic push
