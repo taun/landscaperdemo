@@ -43,6 +43,10 @@
     return self;
 }
 
+-(BOOL) canBecomeFirstResponder
+{
+    return YES;
+}
 
 -(void) setupSubviews {
     self.clipsToBounds = NO;
@@ -177,7 +181,6 @@
     {
         self.state = state;
     }
-
 }
 -(IBAction) deleteButtonEnabled:(BOOL)enabled
 {
@@ -210,18 +213,21 @@
             [self setContentViewEnabled:YES];
             self.addButton.alpha = 0.0;
             self.deleteButton.alpha = 0.0;
+            [self resignFirstResponder];
             break;
             
         case MDBLSAdding:
             position = self.addButton.bounds.size.width + 8;
             [self setContentViewEnabled:NO];
             self.addButton.alpha = 1.0;
+            [self becomeFirstResponder]; // to dismiss any text editing
             break;
             
         case MDBLSDeleting:
             position = -(self.deleteButton.bounds.size.width + 8);
             [self setContentViewEnabled:NO];
             self.deleteButton.alpha = 1.0;
+            [self becomeFirstResponder];
             break;
         default:
             break;

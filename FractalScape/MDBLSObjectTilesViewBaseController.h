@@ -44,6 +44,7 @@
  */
 @property (weak, nonatomic) IBOutlet UIScrollView                   *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel                        *ruleHelpLabel;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView             *ruleHelpView;
 
 @property (nonatomic,strong) UIMotionEffectGroup                    *foregroundMotionEffect;
 @property (nonatomic,strong) UIMotionEffectGroup                    *backgroundMotionEffect;

@@ -8,6 +8,10 @@
 
 #import "MDBLSObjectTilesViewBaseController.h"
 
+@interface MDBLSObjectTilesViewBaseController ()
+
+@end
+
 @implementation MDBLSObjectTilesViewBaseController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -108,7 +112,7 @@
     // Scroll to keep dragging in view
     if (self.autoScroll)
     {
-        CGFloat scrollTouchInsets = -15.0;
+        CGFloat scrollTouchInsets = -5.0;
         CGRect dropImageRect = CGRectInset(self.draggingItem.view.frame, scrollTouchInsets, scrollTouchInsets);
         CGRect touchRect = CGRectInset(CGRectMake(touchPoint.x, touchPoint.y, 1, 1), scrollTouchInsets*2, scrollTouchInsets*2);
         CGRect visibleRect = CGRectUnion(dropImageRect, touchRect);
@@ -125,10 +129,18 @@
             CGRect scrollVisibleRect = CGRectMake(scrollTopLeft.x, scrollTopLeft.y, width, height);
 //            NSString* scrollDescription = NSStringFromCGRect(scrollVisibleRect);
             // animation block because no animation scrolls too quickly on iPhone
-            [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:0.05];
-            [self.scrollView scrollRectToVisible: scrollVisibleRect animated: YES];
-            [UIView commitAnimations];
+            if (!self.isAnimatingScroll)
+            {
+                [UIView animateKeyframesWithDuration: 1.0
+                                               delay: 0.0
+                                             options: UIViewAnimationOptionAllowAnimatedContent | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
+                                          animations:^{
+                                              //
+                                              [self.scrollView scrollRectToVisible: scrollVisibleRect animated: NO];
+                                          } completion:^(BOOL finished) {
+                                              //
+                                          }];
+            }
         }
     }
     
@@ -143,6 +155,8 @@
     }
     
     if (self.draggingItem && [self handlesDragAndDrop: viewUnderTouch] && gestureState == UIGestureRecognizerStateBegan) {
+        self.ruleHelpView.hidden = YES; // hide during dragging
+        
         CGPoint localPoint = [self.view convertPoint: touchPoint toView: viewUnderTouch];
         [viewUnderTouch dragDidStartAtLocalPoint: localPoint draggingItem: self.draggingItem];
         if (self.draggingItem.view && self.draggingItem.dragItem) {
@@ -174,31 +188,27 @@
         }
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateEnded) {
-        [self.draggingItem.view removeFromSuperview];
-        LSDrawingRule* draggedRule = self.draggingItem.dragItem;
-        [self deleteObjectIfUnreferenced: draggedRule];
-        self.draggingItem = nil;
-        self.lastDragViewContainer = nil;
-        [self saveContext];        
+        [self cleanupAfterDrag];
+        [self saveContext];
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled) {
-        [self.draggingItem.view removeFromSuperview];
-        LSDrawingRule* draggedRule = self.draggingItem.dragItem;
-        [self deleteObjectIfUnreferenced: draggedRule];
-        self.draggingItem = nil;
-        self.lastDragViewContainer = nil;
+        [self cleanupAfterDrag];
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateFailed) {
-        [self.draggingItem.view removeFromSuperview];
-        LSDrawingRule* draggedRule = self.draggingItem.dragItem;
-        [self deleteObjectIfUnreferenced: draggedRule];
-        self.draggingItem = nil;
-        self.lastDragViewContainer = nil;
-        
+        [self cleanupAfterDrag];
     }
     
     if ([self.fractal hasChanges]) {
         [self saveContext];
     }
+}
+-(void)cleanupAfterDrag
+{
+    [self.draggingItem.view removeFromSuperview];
+    LSDrawingRule* draggedRule = self.draggingItem.dragItem;
+    [self deleteObjectIfUnreferenced: draggedRule];
+    self.draggingItem = nil;
+    self.lastDragViewContainer = nil;
+    self.ruleHelpView.hidden = NO;
 }
 -(BOOL) handlesDragAndDrop: (id) anObject {
     return [anObject conformsToProtocol: @protocol(MBLSRuleDragAndDropProtocol)];

@@ -18,6 +18,10 @@
 
 @implementation MBLSFractalSummaryEditViewer
 
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -103,7 +107,7 @@
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact)
+    if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
         self.category.hidden = YES;
         self.oldCategoryWidth = self.pickerViewWidthConstraint.constant;
@@ -133,7 +137,7 @@
         
         [textView resignFirstResponder];
         
-        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact)
+        if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
             self.category.hidden = NO;
             self.pickerViewWidthConstraint.constant = self.oldCategoryWidth;
@@ -205,6 +209,7 @@
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSString* category = [self.fractal allCategories][row];
     self.fractal.category = category;
+    [self becomeFirstResponder];
     [self saveContext];
 }
 // TODO: change to sendActionsFor...

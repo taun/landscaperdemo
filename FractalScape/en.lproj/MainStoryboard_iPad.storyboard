@@ -1181,6 +1181,7 @@
                         <outlet property="destinationView" destination="JJQ-Ty-aAw" id="hu8-8t-gkV"/>
                         <outlet property="replacementRules" destination="dnp-Hx-YZd" id="Qal-ex-igu"/>
                         <outlet property="ruleHelpLabel" destination="XzL-6k-qcb" id="azE-yz-zn8"/>
+                        <outlet property="ruleHelpView" destination="yL0-eh-jBi" id="nO8-VB-jSA"/>
                         <outlet property="scrollView" destination="EJz-dI-EIj" id="Bn3-MD-UWA"/>
                         <outlet property="sourceListView" destination="zPi-Ea-Cqu" id="dOP-l2-E1o"/>
                         <outlet property="summaryEditView" destination="Zw0-gp-nOl" id="9np-mi-NoF"/>
@@ -1611,6 +1612,7 @@
                         <outlet property="lineColorsTemplateImageView" destination="y20-fS-x0U" id="xkn-bb-nj5"/>
                         <outlet property="pageColorDestinationTileView" destination="HMf-cF-wSc" id="aR6-AN-WjS"/>
                         <outlet property="ruleHelpLabel" destination="Q4b-HN-Ruh" id="36g-Kl-E5U"/>
+                        <outlet property="ruleHelpView" destination="jQ1-fw-lLr" id="2Fv-hb-ITj"/>
                         <outlet property="scrollView" destination="4QD-IE-s5T" id="kg7-RI-thB"/>
                         <outlet property="sourceListView" destination="uMw-Vl-Ltb" id="SM8-VP-lQh"/>
                         <outlet property="visualEffectView" destination="jQ1-fw-lLr" id="pC7-YE-4YL"/>

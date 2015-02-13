@@ -31,6 +31,11 @@
     return self;
 }
 
+-(BOOL) canBecomeFirstResponder
+{
+    return YES;
+}
+
 -(void) setupDefaults {
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.opaque = NO;
