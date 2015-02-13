@@ -360,9 +360,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             _scale = MIN(1.0,MIN(scaleHeight, scaleWidth));
         }
         
-        CGFloat scaledLineWidth = _scale * _baseSegment.lineWidth;
-        _baseSegment.lineWidth = MAX(scaledLineWidth, 0.5); // don't let the line get too thin and disappear
-        
         // Translating
         CGFloat fractalCenterX = _scale * CGRectGetMidX(self.rawFractalPathBounds);
         CGFloat fractalCenterY = _scale * CGRectGetMidY(self.rawFractalPathBounds)*yOrientation; //130
@@ -379,6 +376,21 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
     
     [self initialiseSegmentWithContext: aCGContext];
+    /*
+     If the scale is less then 1.0, then the screen lineWidth = scale * lineWidth.
+     For scale < 1.0 and lineWidth = 1.0, this result in a lineWidth less than 1.
+     We want a minimum lineWidth which would result in 1.0 on screen.
+     For scale = 0.25, lineWidth = 1.0, screenLine = 0.25*1.0 = 0.25
+     need initial lineWidth to be lineWidth/scale for scale < 1.0
+     */
+//    CGFloat minWidth = 0.25;
+//    if (_scale > 0.0 && _scale*_baseSegment.lineWidth < minWidth) {
+//        _segmentStack[_segmentIndex].lineWidth = minWidth*_baseSegment.lineWidth/_scale;
+//    }
+//    else{
+//       _segmentStack[_segmentIndex].lineWidth =  _baseSegment.lineWidth;
+//    }
+    CGFloat actualWidth = _scale * _segmentStack[_segmentIndex].lineWidth;
     _segmentStack[_segmentIndex].noDrawPath = NO;
     _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
     _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, _translateX, _translateY);

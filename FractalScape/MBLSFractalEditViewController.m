@@ -195,45 +195,49 @@ static const CGFloat kLevelNMargin = 40.0;
 
     [self.fractalViewRootSingleTapRecognizer requireGestureRecognizerToFail: self.fractalViewRootDoubleTapRecognizer];
     
+    self.fractal = [self getUsersLastFractal];
+    
+    UIImage* sliderCircleImage = [UIImage imageNamed: @"controlDragCircle"];
+
     _playbackSlider.hidden = YES;
     _playbackSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    [_playbackSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle"] forState: UIControlStateNormal];
+    [_playbackSlider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
 
     _popoverPortraitSize = CGSizeMake(748.0,350.0);
     _popoverLandscapeSize = CGSizeMake(400.0,650.0);
     
     _randomnessVerticalSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    [_randomnessVerticalSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
-    _randomnessVerticalSlider.minimumValue = 0.0;
-    _randomnessVerticalSlider.maximumValue = 0.5;
-    _randomnessVerticalSlider.value = 0.0;
+    [_randomnessVerticalSlider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
+    _randomnessVerticalSlider.minimumValue = [self.fractal minValueForProperty: @"randomness"];
+    _randomnessVerticalSlider.maximumValue = [self.fractal maxValueForProperty: @"randomness"];
+    _randomnessVerticalSlider.value = [self.fractal.randomness floatValue];
     
-    _widthDecrementVerticalSlider.transform = CGAffineTransformMakeRotation(M_PI_2);
-    [_widthDecrementVerticalSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
-    _widthDecrementVerticalSlider.minimumValue = 0.0;
-    _widthDecrementVerticalSlider.maximumValue = 6.0;
-    _widthDecrementVerticalSlider.value = 0.0;
+    [_baseAngleSlider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
+    _baseAngleSlider.minimumValue = [self.fractal minValueForProperty: @"baseAngle"];
+    _baseAngleSlider.maximumValue = [self.fractal maxValueForProperty: @"baseAngle"];
+    _baseAngleSlider.value = degrees([self.fractal.baseAngle doubleValue]);
+    
+    _lineWidthVerticalSlider.transform = CGAffineTransformMakeRotation(M_PI_2);
+    [_lineWidthVerticalSlider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
+    _lineWidthVerticalSlider.minimumValue = [self.fractal minValueForProperty: @"lineWidth"];
+    _lineWidthVerticalSlider.maximumValue = [self.fractal maxValueForProperty: @"lineWidth"];
+    _lineWidthVerticalSlider.value = [self.fractal.lineWidth floatValue];
+    
+    [_turnAngleSlider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
+    _turnAngleSlider.minimumValue = [self.fractal minValueForProperty: @"turningAngle"];
+    _turnAngleSlider.maximumValue = [self.fractal maxValueForProperty: @"turningAngle"];
+    _turnAngleSlider.value = degrees([self.fractal.turningAngle doubleValue]);
     
     _lengthIncrementVerticalSlider.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    [_lengthIncrementVerticalSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
+    [_lengthIncrementVerticalSlider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
     _lengthIncrementVerticalSlider.minimumValue = 0.0;
     _lengthIncrementVerticalSlider.maximumValue = 1.0;
     _lengthIncrementVerticalSlider.value = 0.0;
     
-    [_baseAngleSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
-    _baseAngleSlider.minimumValue = -180.0;
-    _baseAngleSlider.maximumValue = 180.0;
-    _baseAngleSlider.value = 0.0;
-    
-    [_turnAngleSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
-    _turnAngleSlider.minimumValue = 0.0;
-    _turnAngleSlider.maximumValue = 180.0;
-    _turnAngleSlider.value = 0.0;
-    
-    [_turnIncrementSlider setThumbImage: [UIImage imageNamed: @"controlDragCircle16px"] forState: UIControlStateNormal];
-    _turnIncrementSlider.minimumValue = 0.0;
-    _turnIncrementSlider.maximumValue = 1.0;
-    _turnIncrementSlider.value = 0.0;
+    [_turningAngleIncrementSlider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
+    _turningAngleIncrementSlider.minimumValue = [self.fractal minValueForProperty: @"turningAngleIncrement"];
+    _turningAngleIncrementSlider.maximumValue = [self.fractal maxValueForProperty: @"turningAngleIncrement"];
+    _turningAngleIncrementSlider.value = [self.fractal.turningAngleIncrement floatValue];
     
     _lastImageUpdateTime = [NSDate date];
     
@@ -246,8 +250,6 @@ static const CGFloat kLevelNMargin = 40.0;
     fractalCanvas.layer.shadowOffset = CGSizeMake(5.0, 5.0);
     fractalCanvas.layer.shadowOpacity = 0.3;
     fractalCanvas.layer.shadowRadius = 3.0;
-    
-    self.fractal = [self getUsersLastFractal];
     
     [super viewDidLoad];
 }
@@ -508,6 +510,17 @@ static const CGFloat kLevelNMargin = 40.0;
         //            fractal = [fractal mutableCopy];
         //        }
         
+//        [LSFractal entityDescriptionForContext: fractal.managedObjectContext];
+//        NSDictionary* fractalProperties = fractal.entity.propertiesByName;
+//        NSAttributeDescription* levelProp = fractalProperties[@"level"];
+//        NSArray* validations = levelProp.validationPredicates;
+//        NSDictionary* userInfo = levelProp.userInfo;
+//        NSString* maxString = userInfo[@"maxValue"];
+//        double maxLevel = 0;
+//        if (maxString) {
+//            maxLevel = [maxString doubleValue];
+//        }
+        
         [self.privateImageGenerationQueue cancelAllOperations];
         
         [self removeObserversForFractal: _fractal];
@@ -758,14 +771,15 @@ static const CGFloat kLevelNMargin = 40.0;
     self.hudRandomnessLabel.text = [self.percentFormatter stringFromNumber: self.fractal.randomness];
     self.randomnessVerticalSlider.value = self.fractal.randomness.floatValue;
     
-    self.hudLineAspectLabel.text = [self.twoPlaceFormatter stringFromNumber: @([self.fractal.lineWidth floatValue]/[self.fractal.lineLength floatValue])];
-    self.widthDecrementVerticalSlider.value = [self.fractal.lineWidth floatValue]/[self.fractal.lineLength floatValue];
+    self.hudLineAspectLabel.text = [NSString stringWithFormat: @"%@px by 10px long",[self.twoPlaceFormatter stringFromNumber: self.fractal.lineWidth]];
+    self.lineWidthVerticalSlider.value = [self.fractal.lineWidth floatValue];
     
     self.turningAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees([self.fractal.turningAngle doubleValue])]];
     self.turnAngleSlider.value =  degrees([self.fractal.turningAngle doubleValue]);
     
-    double turnAngleChangeInDegrees = degrees([self.fractal.turningAngleIncrement doubleValue] * [self.fractal.turningAngle doubleValue]);
-    self.turnAngleIncrementLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: turnAngleChangeInDegrees]];
+//    double turnAngleChangeInDegrees = degrees([self.fractal.turningAngleIncrement doubleValue] * [self.fractal.turningAngle doubleValue]);
+    self.turnAngleIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.turningAngleIncrement];
+    self.turningAngleIncrementSlider.value = [self.fractal.turningAngleIncrement floatValue];
     
     self.hudLineIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.lineChangeFactor];
     self.lengthIncrementVerticalSlider.value = self.fractal.lineChangeFactor.floatValue;
@@ -1231,7 +1245,7 @@ static const CGFloat kLevelNMargin = 40.0;
 -(void) appearanceControllerWasDismissed
 {
     self.navigationController.navigationBar.hidden = NO;
-    self.fractalViewRootSingleTapRecognizer.enabled = NO;
+    self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.currentPresentedController = nil;
     [self.view setNeedsLayout];
 }
@@ -1588,6 +1602,7 @@ static const CGFloat kLevelNMargin = 40.0;
     self.navigationController.navigationBar.hidden = !self.navigationController.navigationBar.isHidden;
     [self.view setNeedsLayout];
 }
+
 - (IBAction)copyFractal:(id)sender
 {
     if ([self wasLibraryPopoverPresentedAndNowDismissed]) {
@@ -1598,7 +1613,6 @@ static const CGFloat kLevelNMargin = 40.0;
     
     [self performSegueWithIdentifier: @"EditSegue" sender: self];
 }
-
 - (IBAction)levelInputChanged:(UIControl*)sender
 {
     double rawValue = [[sender valueForKey: @"value"] doubleValue];
@@ -1608,6 +1622,44 @@ static const CGFloat kLevelNMargin = 40.0;
     [self saveContext];
     [self.activityIndicator startAnimating];
 }
+
+#pragma mark - HUD Slider Actions
+- (IBAction)baseAngleSliderChanged:(UISlider*)sender
+{
+    CGFloat newAngleDegrees = sender.value;
+    self.fractal.baseAngle = @(radians(newAngleDegrees));
+}
+
+- (IBAction)turnAngleSliderChanged:(UISlider*)sender
+{
+    CGFloat newAngleDegrees = sender.value;
+    self.fractal.turningAngle = @(radians(newAngleDegrees));
+}
+
+- (IBAction)turningAngleIncrementSliderChanged:(UISlider*)sender
+{
+    CGFloat percent = sender.value;
+    self.fractal.turningAngleIncrement = @(percent);
+}
+
+- (IBAction)randomnessSliderChanged:(UISlider*)sender
+{
+    CGFloat percent = sender.value;
+    self.fractal.randomness = @(percent);
+}
+
+- (IBAction)lineWidthSliderChanged:(UISlider*)sender
+{
+    CGFloat percent = sender.value;
+    self.fractal.lineWidth = @(percent);
+}
+
+- (IBAction)lineLengthIncrementSliderChanged:(UISlider*)sender
+{
+    CGFloat percent = sender.value;
+    self.fractal.lineChangeFactor = @(percent);
+}
+
 
 #pragma mark - Gestures
 // ensure that the pinch, pan and rotate gesture recognizers on a particular view can all recognize simultaneously
@@ -1637,13 +1689,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                               imageView: self.fractalView
                               anglePath: @"turningAngle"
                              angleScale: 5.0/1.0
-                               minAngle: -180.0
-                               maxAngle:  180.0
+                               minAngle: [self.fractal minValueForProperty: @"turningAngle"]
+                               maxAngle: [self.fractal maxValueForProperty: @"turningAngle"]
                               angleStep:    3.0
                              aspectPath: @"lineWidth"
                             aspectScale: 1.0/100.0
-                              minAspect: 0.5
-                              maxAspect: 20.0];
+                              minAspect: [self.fractal minValueForProperty: @"lineWidth"]
+                              maxAspect: [self.fractal maxValueForProperty: @"lineWidth"]];
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender
 {
@@ -1651,13 +1703,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                               imageView: self.fractalViewLevel0
                               anglePath: @"baseAngle"
                              angleScale: 5.0/1.0
-                               minAngle: -180.0
-                               maxAngle:  180.0
+                               minAngle: [self.fractal minValueForProperty: @"baseAngle"]
+                               maxAngle: [self.fractal maxValueForProperty: @"baseAngle"]
                               angleStep:    5.0
                              aspectPath: @"randomness"
                             aspectScale: -1.0/1000.0
-                              minAspect: 0.0
-                              maxAspect: 0.50];
+                              minAspect: [self.fractal minValueForProperty: @"randomness"]
+                              maxAspect: [self.fractal maxValueForProperty: @"randomness"]];
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender
 {
@@ -1665,13 +1717,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                               imageView: self.fractalViewLevel1
                               anglePath: @"turningAngle"
                              angleScale: 1.0/10.0
-                               minAngle: -180.0
-                               maxAngle:  180.0
+                               minAngle: [self.fractal minValueForProperty: @"turningAngle"]
+                               maxAngle: [self.fractal maxValueForProperty: @"turningAngle"]
                               angleStep:    0.25
                              aspectPath:@"lineWidth"
                             aspectScale: 5.0/50.0
-                              minAspect: 0.5
-                              maxAspect: 60.0];
+                              minAspect: [self.fractal minValueForProperty: @"lineWidth"]
+                              maxAspect: [self.fractal maxValueForProperty: @"lineWidth"]];
 }
 #pragma message "TODO: need to add a step size and change turningAngleIncrement from degrees to percent"
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender
@@ -1716,8 +1768,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     {
         self.autoscaleN = NO;
         
-        [self.undoManager beginUndoGrouping];
-        [self.fractal.managedObjectContext processPendingChanges];
+//        [self.undoManager beginUndoGrouping];
+//        [self.fractal.managedObjectContext processPendingChanges];
         
         initialPosition = CGPointZero;//subLayer.position;
         
@@ -1790,11 +1842,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         [self.fractal setValue:  @(radians(initialAngleDegrees)) forKey: anglePath];
         //[self.fractal setTurningAngleAsDegrees:  @(initialAngleDegrees)];
         determinedState = 0;
-        if ([self.undoManager groupingLevel] > 0)
-        {
-            [self.undoManager endUndoGrouping];
-            [self.undoManager undoNestedGroup];
-        }
+//        if ([self.undoManager groupingLevel] > 0)
+//        {
+//            [self.undoManager endUndoGrouping];
+//            [self.undoManager undoNestedGroup];
+//        }
     } else if (state == UIGestureRecognizerStateEnded)
     {
         

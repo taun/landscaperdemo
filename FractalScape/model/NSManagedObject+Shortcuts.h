@@ -8,9 +8,17 @@
 
 #import <CoreData/CoreData.h>
 
+static NSString* kMBPropertyMaxValueKey = @"maxValue";
+static NSString* kMBPropertyMinValueKey = @"minValue";
+static NSString* kMBPropertyUnitValueKey = @"valueUnit";
+
+
 @interface NSManagedObject (Shortcuts)
 
 + (NSString *)entityName;
 + (instancetype)insertNewObjectIntoContext:(NSManagedObjectContext *)context;
 + (NSEntityDescription*)entityDescriptionForContext: (NSManagedObjectContext*)context;
+
+-(double) maxValueForProperty: (NSString*)propertyName;
+-(double) minValueForProperty: (NSString*)propertyName;
 @end

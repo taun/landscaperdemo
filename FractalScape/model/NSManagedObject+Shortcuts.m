@@ -43,4 +43,40 @@
     return entityCopy;
 }
 
+-(double) maxValueForProperty:(NSString *)propertyName {
+    double rValue = 0.0;
+    
+    NSString* limitString = [self getPropertyName: propertyName infoName: kMBPropertyMaxValueKey];
+    rValue = [limitString doubleValue];
+    
+    return rValue;
+}
+
+-(double) minValueForProperty:(NSString *)propertyName {
+    double rValue = 0.0;
+    
+    NSString* limitString = [self getPropertyName: propertyName infoName: kMBPropertyMinValueKey];
+    rValue = [limitString doubleValue];
+    
+    return rValue;
+}
+
+-(NSString*) getPropertyName: (NSString*)propertyName infoName: (NSString*)infoName
+{
+    NSString* rString;
+    
+    NSDictionary* entityProperties = self.entity.propertiesByName;
+    NSAttributeDescription* prop = entityProperties[propertyName];
+    if (prop) {
+        NSDictionary* userInfo = prop.userInfo;
+        rString = userInfo[infoName];
+    }
+    return rString;
+}
+
+-(BOOL)isNonEmptyString: (NSString*)aPossibleString
+{
+    return (aPossibleString && [aPossibleString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]].length > 0);
+}
+
 @end

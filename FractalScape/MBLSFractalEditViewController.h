@@ -96,8 +96,8 @@
 @property (weak, nonatomic) IBOutlet UISlider       *baseAngleSlider;
 @property (weak, nonatomic) IBOutlet UISlider       *randomnessVerticalSlider;
 @property (weak, nonatomic) IBOutlet UISlider       *turnAngleSlider;
-@property (weak, nonatomic) IBOutlet UISlider       *turnIncrementSlider;
-@property (weak, nonatomic) IBOutlet UISlider       *widthDecrementVerticalSlider;
+@property (weak, nonatomic) IBOutlet UISlider       *turningAngleIncrementSlider;
+@property (weak, nonatomic) IBOutlet UISlider       *lineWidthVerticalSlider;
 @property (weak, nonatomic) IBOutlet UISlider       *lengthIncrementVerticalSlider;
 
 
@@ -145,6 +145,14 @@
 -(IBAction) playSliderChangedValue: (UISlider*)slider;
 -(IBAction) toggleAutoExpandFractal:(id)sender;
 - (IBAction)toggleNavBar:(id)sender;
+
+#pragma mark - HUD Sliders
+- (IBAction)baseAngleSliderChanged:(id)sender;
+- (IBAction)turnAngleSliderChanged:(id)sender;
+- (IBAction)turningAngleIncrementSliderChanged:(id)sender;
+- (IBAction)randomnessSliderChanged:(id)sender;
+- (IBAction)lineWidthSliderChanged:(id)sender;
+- (IBAction)lineLengthIncrementSliderChanged:(id)sender;
 
 #pragma mark - Screen Controller Actions
 - (IBAction)levelInputChanged: (UIControl*)sender;
