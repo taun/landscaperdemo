@@ -63,6 +63,7 @@ static const CGFloat kLevelNMargin = 40.0;
 @property (nonatomic,weak) UIViewController*        currentPresentedController;
 @property (nonatomic,assign) CGSize                 popoverPortraitSize;
 @property (nonatomic,assign) CGSize                 popoverLandscapeSize;
+@property (nonatomic,assign) BOOL                   previousNavBarState;
 
 @property (nonatomic,strong) NSManagedObjectContext        *privateFractalContext;
 @property (nonatomic,strong) LSFractal                     *privateQueueFractal;
@@ -164,7 +165,7 @@ static const CGFloat kLevelNMargin = 40.0;
                                                                  target: self
                                                                  action: @selector(shareButtonPressed:)];
     
-    _disabledDuringPlaybackButtons = @[self.autoExpandOff, self.autoExpandOn, copyButton, shareButton];
+    _disabledDuringPlaybackButtons = @[self.autoExpandOff, copyButton, shareButton];
     
     NSMutableArray* items = [self.navigationItem.leftBarButtonItems mutableCopy];
     [items addObject: copyButton];
@@ -190,7 +191,7 @@ static const CGFloat kLevelNMargin = 40.0;
     BOOL fullScreenState = [defaults boolForKey: kPrefFullScreenState];
     if (fullScreenState)
     {
-        [self fullScreenOn];
+        [self fullScreenOnDuration: 0.0];
     }
 
     [self.fractalViewRootSingleTapRecognizer requireGestureRecognizerToFail: self.fractalViewRootDoubleTapRecognizer];
@@ -784,8 +785,7 @@ static const CGFloat kLevelNMargin = 40.0;
     self.hudLineIncrementLabel.text = [self.percentFormatter stringFromNumber: self.fractal.lineChangeFactor];
     self.lengthIncrementVerticalSlider.value = self.fractal.lineChangeFactor.floatValue;
     
-    self.autoExpandOn.hidden = ![self.fractal.autoExpand boolValue];
-    self.autoExpandOff.hidden = [self.fractal.autoExpand boolValue];
+    self.autoExpandOff.selected = [self.fractal.autoExpand boolValue];
 }
 -(void) regenerateLevels
 {
@@ -1202,6 +1202,7 @@ static const CGFloat kLevelNMargin = 40.0;
     controller.popoverPresentationController.delegate = self;
     
     self.currentPresentedController = controller;
+    self.previousNavBarState = self.navigationController.navigationBar.hidden;
     self.navigationController.navigationBar.hidden = YES;
 }
 -(BOOL) wasLibraryPopoverPresentedAndNowDismissed
@@ -1220,7 +1221,7 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 -(void) libraryControllerWasDismissed
 {
-    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = self.previousNavBarState;
     [self.view setNeedsLayout];
     self.currentPresentedController = nil;
 }
@@ -1238,13 +1239,14 @@ static const CGFloat kLevelNMargin = 40.0;
     controller.popoverPresentationController.passthroughViews = @[self.fractalViewRoot];
     
     self.currentPresentedController = controller;
+    self.previousNavBarState = self.navigationController.navigationBar.hidden;
     self.navigationController.navigationBar.hidden = YES;
     self.fractalViewRootSingleTapRecognizer.enabled = NO;
     [self.view setNeedsLayout];
 }
 -(void) appearanceControllerWasDismissed
 {
-    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = self.previousNavBarState;
     self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.currentPresentedController = nil;
     [self.view setNeedsLayout];
@@ -1598,9 +1600,21 @@ static const CGFloat kLevelNMargin = 40.0;
 
 - (IBAction)toggleNavBar:(id)sender
 {
-//    [self.navigationController setNavigationBarHidden: !self.navigationController.navigationBar.isHidden animated: NO];
-    self.navigationController.navigationBar.hidden = !self.navigationController.navigationBar.isHidden;
-    [self.view setNeedsLayout];
+
+    [UIView animateWithDuration: 0.25
+                          delay: 0.0
+                        options: UIViewAnimationOptionLayoutSubviews
+                     animations:^{
+                         //
+                         [self.navigationController setNavigationBarHidden: !self.navigationController.navigationBar.isHidden animated: NO];
+//                         self.navigationController.navigationBar.hidden = !self.navigationController.navigationBar.isHidden;
+                         self.previousNavBarState = self.navigationController.navigationBar.hidden;
+                         self.fractalScrollView.contentOffset = CGPointZero;
+//                         [self.view setNeedsLayout];
+
+                     } completion:^(BOOL finished) {
+                         //
+                     }];
 }
 
 - (IBAction)copyFractal:(id)sender
@@ -1883,10 +1897,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [defaults setBool: fullScreenState forKey: kPrefFullScreenState];
     [defaults synchronize];
 }
--(void) fullScreenOn
+
+-(void) fullScreenOnDuration: (NSTimeInterval)duration
 {
-    //    [self moveEditorHeightTo: 0];
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration: duration
                      animations:^{
                          self.fractalViewLevel0.superview.alpha = 0;
                          self.fractalViewLevel1.superview.alpha = 0;
@@ -1897,6 +1911,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                          self.fractalViewLevel1.superview.hidden = YES;
                          self.fractalViewLevel2.superview.hidden = YES;
                      }];
+}
+
+-(void) fullScreenOn
+{
+    [self fullScreenOnDuration: 0.5];
 }
 
 -(void) fullScreenOff

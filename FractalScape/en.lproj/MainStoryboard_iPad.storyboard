@@ -92,27 +92,15 @@
                                                     </mask>
                                                 </variation>
                                             </view>
-                                            <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" userLabel="Toolbar" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="552" y="512" width="60" height="200"/>
+                                            <view opaque="NO" alpha="0.80000000000000004" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" userLabel="Toolbar" customClass="MDKLayerViewDesignable">
+                                                <rect key="frame" x="552" y="502" width="60" height="210"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHl-Gk-KjU" userLabel="autoExpandOn">
-                                                        <rect key="frame" x="8" y="80" width="44" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="GxI-3U-DoW"/>
-                                                            <constraint firstAttribute="width" constant="44" id="d6M-tA-Q9m"/>
-                                                        </constraints>
-                                                        <state key="normal" image="toolBarFullScreenIcon">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="toggleAutoExpandFractal:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="o6h-Rh-qfy"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRx-ub-5v2" userLabel="fullScreen">
-                                                        <rect key="frame" x="8" y="8" width="44" height="44"/>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRx-ub-5v2" userLabel="fullScreen">
+                                                        <rect key="frame" x="8" y="8" width="44" height="60"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="5Uy-2C-CkX"/>
-                                                            <constraint firstAttribute="height" constant="44" id="f1z-Bq-xiJ"/>
+                                                            <constraint firstAttribute="height" constant="60" id="f1z-Bq-xiJ"/>
                                                         </constraints>
                                                         <state key="normal" image="toolBarHUDScreenIcon">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,25 +109,27 @@
                                                             <action selector="toggleFullScreen:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="1vY-J3-TPA"/>
                                                         </connections>
                                                     </button>
-                                                    <button hidden="YES" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gB3-UB-mha" userLabel="autoexpandOff">
-                                                        <rect key="frame" x="8" y="78" width="44" height="44"/>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gB3-UB-mha" userLabel="autoexpandOff">
+                                                        <rect key="frame" x="8" y="68" width="44" height="60"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="44" id="5DW-hd-enF"/>
+                                                            <constraint firstAttribute="height" constant="60" id="5DW-hd-enF"/>
                                                             <constraint firstAttribute="width" constant="44" id="dVp-UF-uEj"/>
                                                         </constraints>
                                                         <state key="normal" image="toolBarFullScreenIconOff">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <state key="selected" image="toolBarFullScreenIcon"/>
                                                         <connections>
                                                             <action selector="toggleAutoExpandFractal:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="oeC-Oh-jeM"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ" userLabel="editRules">
-                                                        <rect key="frame" x="8" y="140" width="44" height="60"/>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ" userLabel="editRules">
+                                                        <rect key="frame" x="8" y="136" width="44" height="74"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="YFf-52-wrK"/>
-                                                            <constraint firstAttribute="height" constant="60" id="s1d-sA-4aU"/>
+                                                            <constraint firstAttribute="height" constant="74" id="s1d-sA-4aU"/>
                                                         </constraints>
                                                         <state key="normal" image="tabBarRulesIconLeft">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -152,17 +142,13 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.81000000000000005" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="centerX" secondItem="CHl-Gk-KjU" secondAttribute="centerX" id="D1o-Ex-WOT"/>
-                                                    <constraint firstAttribute="centerY" secondItem="gB3-UB-mha" secondAttribute="centerY" id="GJx-OJ-CIt"/>
+                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="gB3-UB-mha" secondAttribute="bottom" constant="8" id="F0I-1k-KUR"/>
                                                     <constraint firstItem="YRx-ub-5v2" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="8" id="KEz-7F-Ahj"/>
-                                                    <constraint firstAttribute="centerY" secondItem="CHl-Gk-KjU" secondAttribute="centerY" id="Seu-yA-NpJ"/>
-                                                    <constraint firstItem="gB3-UB-mha" firstAttribute="centerY" secondItem="CHl-Gk-KjU" secondAttribute="centerY" id="U0B-PZ-SF9"/>
+                                                    <constraint firstItem="gB3-UB-mha" firstAttribute="top" secondItem="YRx-ub-5v2" secondAttribute="bottom" id="RR6-3u-l0z"/>
                                                     <constraint firstAttribute="centerX" secondItem="gB3-UB-mha" secondAttribute="centerX" id="VUx-WO-Mh9"/>
-                                                    <constraint firstItem="gB3-UB-mha" firstAttribute="centerX" secondItem="CHl-Gk-KjU" secondAttribute="centerX" id="Zh7-tT-cAG"/>
                                                     <constraint firstAttribute="centerX" secondItem="X2L-iC-acQ" secondAttribute="centerX" id="hVM-v1-JMv"/>
-                                                    <constraint firstAttribute="height" constant="200" id="leM-Ir-Y85"/>
                                                     <constraint firstAttribute="width" constant="60" id="uZW-zz-flP"/>
                                                     <constraint firstAttribute="bottom" secondItem="X2L-iC-acQ" secondAttribute="bottom" id="vrg-T8-PSq"/>
                                                     <constraint firstAttribute="centerX" secondItem="YRx-ub-5v2" secondAttribute="centerX" id="ycu-T3-LOb"/>
@@ -797,7 +783,6 @@
                     <connections>
                         <outlet property="activityIndicator" destination="4tK-dc-Bzb" id="xUo-K7-m2K"/>
                         <outlet property="autoExpandOff" destination="gB3-UB-mha" id="dFh-fR-gBn"/>
-                        <outlet property="autoExpandOn" destination="CHl-Gk-KjU" id="t4i-Yb-3xi"/>
                         <outlet property="baseAngleLabel" destination="guc-ko-0z2" id="qNE-2M-bYm"/>
                         <outlet property="baseAngleSlider" destination="gy6-SY-i9T" id="S85-G3-sVr"/>
                         <outlet property="editButton" destination="X2L-iC-acQ" id="Lo3-pv-esw"/>
@@ -889,7 +874,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="484"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="1328"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
@@ -931,7 +916,7 @@
                                                             <rect key="frame" x="10" y="0.0" width="780" height="116"/>
                                                         </variation>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
                                                         <rect key="frame" x="12" y="144" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

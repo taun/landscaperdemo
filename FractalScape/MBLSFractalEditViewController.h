@@ -57,7 +57,6 @@
  */
 @property (weak, nonatomic) IBOutlet UISlider       *playbackSlider;
 @property (weak, nonatomic) IBOutlet UIButton*      toggleFullScreenButton;
-@property (weak, nonatomic) IBOutlet UIButton*      autoExpandOn;
 @property (weak, nonatomic) IBOutlet UIButton*      autoExpandOff;
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootSingleTapRecognizer;
