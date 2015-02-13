@@ -20,6 +20,9 @@
 
 @property (nonatomic,strong) LSFractal          *fractal;
 @property (nonatomic,weak) NSUndoManager        *fractalUndoManager;
+@property(nonatomic,assign) CGSize              portraitSize;
+@property(nonatomic,assign) CGSize              landscapeSize;
+
 @property (nonatomic,strong) MBDraggingItem     *draggingItem;
 /*!
  When dragging an item in the scroll content, autoScroll yes will scroll the content as the 

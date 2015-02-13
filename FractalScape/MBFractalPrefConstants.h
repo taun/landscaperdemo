@@ -13,6 +13,7 @@ static NSString*  kPrefLastEditedFractalURI = @"lastEditedFractalURI";
 static NSString*  kPrefFullScreenState = @"fullScreenState";
 static NSString*  kPrefShowPerformanceData = @"showPerformanceData";
 static NSString*  kPrefParalaxOff = @"paralaxOff";
+static NSString*  kPrefShowHelpTips = @"showEditHelp";
 
 #pragma message "TODO The MaxNodes should be in something like a plist settings file so it can be easily updated"
 #define kLSMaxNodesHiPerf 900000

@@ -43,13 +43,17 @@
 {
     /*  */
     
-//    NSString *pathStr = [[NSBundle mainBundle] bundlePath];
-    //        NSString *settingsBundlePath = [pathStr stringByAppendingPathComponent:@"Settings.bundle"];
-//    NSString *finalPath = [pathStr stringByAppendingPathComponent:@"Root.plist"];
+    NSString *pathStr = [[NSBundle mainBundle] bundlePath];
+//    NSString *settingsBundlePath = [pathStr stringByAppendingPathComponent:@"Settings.bundle"];
+    NSString *finalPath = [pathStr stringByAppendingPathComponent:@"Root.plist"];
     
-//    NSDictionary *settingsDict = [NSDictionary dictionaryWithContentsOfFile:finalPath];
-//    NSArray *prefSpecifierArray = [settingsDict objectForKey:@"PreferenceSpecifiers"];
-//    
+    NSDictionary *settingsDict = [NSDictionary dictionaryWithContentsOfFile:finalPath];
+    NSArray *prefSpecifierArray = [settingsDict objectForKey:@"PreferenceSpecifiers"];
+    
+    NSNumber* showHelp = @NO;
+    NSNumber* showFullScreen = @YES;
+    NSNumber* parallaxOff = @NO;
+//
 //    NSNumber *difficultyLevel = @0;
 //    NSNumber *volume = @1.0;
 //    NSNumber *theme = @0;
@@ -58,24 +62,24 @@
 //    
 //    NSMutableArray* highScores = [NSMutableArray array];
     
-//    NSDictionary *prefItem;
-//    for (prefItem in prefSpecifierArray)
-//    {
-//        NSString *keyValueStr = [prefItem objectForKey:@"Key"];
-//        id defaultValue = [prefItem objectForKey:@"DefaultValue"];
-//        
-//        if ([keyValueStr isEqualToString:kLastEditedFractalURI])
-//        {
-//            difficultyLevel = defaultValue;
-//        }
-//        else if ([keyValueStr isEqualToString:kVolumeKey])
-//        {
-//            volume = defaultValue;
-//        }
-//        else if ([keyValueStr isEqualToString:kThemeKey])
-//        {
-//            theme = defaultValue;
-//        }
+    NSDictionary *prefItem;
+    for (prefItem in prefSpecifierArray)
+    {
+        NSString *keyValueStr = [prefItem objectForKey:@"Key"];
+        id defaultValue = [prefItem objectForKey:@"DefaultValue"];
+
+        if ([keyValueStr isEqualToString: kPrefShowHelpTips])
+        {
+            showHelp = defaultValue;
+        }
+        else if ([keyValueStr isEqualToString: kPrefFullScreenState])
+        {
+            showFullScreen = defaultValue;
+        }
+        else if ([keyValueStr isEqualToString: kPrefParalaxOff])
+        {
+            parallaxOff = defaultValue;
+        }
 //        else if ([keyValueStr isEqualToString:kShowIntroKey])
 //        {
 //            showIntro = defaultValue;
@@ -91,20 +95,22 @@
 //                [highScores addObject: @0];
 //            }
 //        }
-//    }
-//    
+    }
+//
 //    // since no default values have been set, create them here
-//    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:
-//                                  difficultyLevel, kDifficultyLevelKey,
+    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:
+                                  showHelp,
+                                  parallaxOff,
+                                  showFullScreen,
 //                                  volume, kVolumeKey,
 //                                  theme, kThemeKey,
 //                                  showIntro, kShowIntroKey,
 //                                  highScores, kHighScoresKey,
 //                                  resetHighScores, kResetScoresKey,
-//                                  nil];
-//    
-//    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+                                  nil];
+//
+    [[NSUserDefaults standardUserDefaults] registerDefaults: appDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -117,6 +123,8 @@
 // colors are needed by fractals so need to be loaded before fractals
 
     srand48(time(0));
+    
+//    [MBAppDelegate registerDefaults];
     
     [self loadMBColorsPList: @"MBColorsList"];
     // rules are needed by fractals so need to be loaded before fractals

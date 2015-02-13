@@ -9,7 +9,7 @@
 #import "MDBLSObjectTilesViewBaseController.h"
 
 @interface MDBLSObjectTilesViewBaseController ()
-
+@property (readonly) BOOL       showHelpView;
 @end
 
 @implementation MDBLSObjectTilesViewBaseController
@@ -22,7 +22,11 @@
     }
     return self;
 }
-
+-(BOOL) showHelpView
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey: kPrefShowHelpTips];
+}
 -(void) setFractal:(LSFractal *)fractal {
     _fractal = fractal;
     [self updateFractalDependents];
@@ -51,14 +55,19 @@
 }
 
 -(void) viewWillLayoutSubviews {
+    
 //    [self.sourceListView setNeedsUpdateConstraints];
     [self.sourceListView setNeedsLayout];
 //    [self.destinationView setNeedsUpdateConstraints];
     [self.destinationView setNeedsLayout];
 
     // Hack to get the label to adjust size after the transition.
-    NSString* info = self.ruleHelpLabel.text;
-    self.ruleHelpLabel.text = info;
+    if (self.showHelpView) {
+        NSString* info = self.ruleHelpLabel.text;
+        self.ruleHelpLabel.text = info;
+    } else {
+        self.ruleHelpView.hidden = YES;
+    }
     
     [super viewWillLayoutSubviews];
 }
@@ -129,7 +138,7 @@
             CGRect scrollVisibleRect = CGRectMake(scrollTopLeft.x, scrollTopLeft.y, width, height);
 //            NSString* scrollDescription = NSStringFromCGRect(scrollVisibleRect);
             // animation block because no animation scrolls too quickly on iPhone
-            if (!self.isAnimatingScroll)
+            if ((YES))
             {
                 [UIView animateKeyframesWithDuration: 1.0
                                                delay: 0.0
@@ -155,7 +164,7 @@
     }
     
     if (self.draggingItem && [self handlesDragAndDrop: viewUnderTouch] && gestureState == UIGestureRecognizerStateBegan) {
-        self.ruleHelpView.hidden = YES; // hide during dragging
+        self.ruleHelpView.hidden = YES; // hide during dragging if not already hidden
         
         CGPoint localPoint = [self.view convertPoint: touchPoint toView: viewUnderTouch];
         [viewUnderTouch dragDidStartAtLocalPoint: localPoint draggingItem: self.draggingItem];
@@ -208,7 +217,9 @@
     [self deleteObjectIfUnreferenced: draggedRule];
     self.draggingItem = nil;
     self.lastDragViewContainer = nil;
-    self.ruleHelpView.hidden = NO;
+    if (self.showHelpView) {
+        self.ruleHelpView.hidden = NO;
+    }
 }
 -(BOOL) handlesDragAndDrop: (id) anObject {
     return [anObject conformsToProtocol: @protocol(MBLSRuleDragAndDropProtocol)];

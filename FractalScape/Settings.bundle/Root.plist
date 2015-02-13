@@ -8,9 +8,29 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Show Help Tips</string>
+			<key>Key</key>
+			<string>showEditHelp</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Paralax Effect Off</string>
 			<key>Key</key>
 			<string>paralaxOff</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Hide HUDs</string>
+			<key>Key</key>
+			<string>fullScreenState</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
