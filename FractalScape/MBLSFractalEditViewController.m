@@ -1097,7 +1097,7 @@ static const CGFloat kLevelNMargin = 40.0;
                                                             toItem: container
                                                          attribute: NSLayoutAttributeTrailing
                                                         multiplier: 1.0
-                                                          constant: -30.0]];
+                                                          constant: -80.0]];
 }
 
 #pragma mark - Segues
