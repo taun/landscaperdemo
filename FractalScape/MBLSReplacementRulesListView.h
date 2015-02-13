@@ -13,6 +13,7 @@
 #import "LSDrawingRule+addons.h"
 
 #import "MBLSRuleDragAndDropProtocol.h"
+#import "MDBLSObjectTileListAddDeleteView.h"
 
 IB_DESIGNABLE
 
@@ -31,6 +32,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
+@property (readonly) MDBLSAddDeleteState        addDeleteState;
 
 - (IBAction)addSwipeRecognized:(id)sender;
 - (IBAction)deleteSwipeRecognized:(id)sender;

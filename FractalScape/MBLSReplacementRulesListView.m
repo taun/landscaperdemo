@@ -229,6 +229,14 @@
 }
 
 #pragma mark - Add & Delete
+-(MDBLSAddDeleteState) addDeleteState
+{
+    if (self.currentAddDeleteView) {
+        return self.currentAddDeleteView.state;
+    } else {
+        return MDBLSNeutral;
+    }
+}
 -(void) setCurrentAddDeleteView:(MDBLSObjectTileListAddDeleteView *)currentAddDeleteView
 {
     _currentAddDeleteView = currentAddDeleteView;

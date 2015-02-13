@@ -59,13 +59,24 @@
 }
 
 #pragma mark - Drag & Drop
+- (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender {
+    if (self.replacementRules.addDeleteState != MDBLSNeutral) {
+        [self.replacementRules tapGestureRecognized: nil];
+    } else {
+        [super sourceDragLongGesture: sender];
+    }
+}
 -(void) deleteObjectIfUnreferenced: (LSDrawingRule*) rule {
     if (rule != nil && !rule.isReferenced) {
         [rule.managedObjectContext deleteObject: rule];
     }
 }
 - (IBAction)replacementRuleLongPressGesture:(id)sender {
-    [self sourceDragLongGesture: sender];
+    if (self.replacementRules.addDeleteState != MDBLSNeutral) {
+        [self.replacementRules tapGestureRecognized: nil];
+    } else {
+        [self sourceDragLongGesture: sender];
+    }
 }
 
 - (IBAction)startRulesLongPressGesture:(UILongPressGestureRecognizer *)sender {
@@ -73,14 +84,22 @@
 }
 
 - (IBAction)ruleTypeTapGesture:(UITapGestureRecognizer *)sender {
-    CGPoint touchPoint = [sender locationInView: self.view];
-    UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
-    [self showInfoForView: viewUnderTouch];
+    if (self.replacementRules.addDeleteState != MDBLSNeutral) {
+        [self.replacementRules tapGestureRecognized: nil];
+    } else {
+        CGPoint touchPoint = [sender locationInView: self.view];
+        UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
+        [self showInfoForView: viewUnderTouch];
+    }
 }
 - (IBAction)rulesStartTapGesture:(UITapGestureRecognizer *)sender {
-    NSString* infoString = @"Holder for the starting set of rules to draw.";
-    self.ruleHelpLabel.text = infoString;
-    [self infoAnimateView: self.destinationView];
+    if (self.replacementRules.addDeleteState != MDBLSNeutral) {
+        [self.replacementRules tapGestureRecognized: nil];
+    } else {
+        NSString* infoString = @"Holder for the starting set of rules to draw.";
+        self.ruleHelpLabel.text = infoString;
+        [self infoAnimateView: self.destinationView];
+    }
 }
 #pragma message "TODO move info string to proper class instance."
 - (IBAction)replacementTapGesture:(UITapGestureRecognizer *)sender {
