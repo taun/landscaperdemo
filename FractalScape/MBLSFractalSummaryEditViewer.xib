@@ -9,6 +9,7 @@
                 <outlet property="category" destination="NuC-S2-DFE" id="agH-Xw-hAS"/>
                 <outlet property="descriptor" destination="dq3-wA-cTv" id="N8m-RV-2cP"/>
                 <outlet property="name" destination="fRO-2T-ujC" id="37O-wH-PSJ"/>
+                <outlet property="pickerViewWidthConstraint" destination="DoI-Ch-iNd" id="OYB-i8-Vh0"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -74,12 +75,14 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fRO-2T-ujC" secondAttribute="trailing" constant="8" id="7He-Ks-cT5"/>
                 <constraint firstAttribute="bottom" secondItem="NuC-S2-DFE" secondAttribute="bottom" constant="8" id="ANs-bh-yh5"/>
                 <constraint firstItem="NuC-S2-DFE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="HEp-yh-OrR"/>
                 <constraint firstItem="NuC-S2-DFE" firstAttribute="leading" secondItem="fRO-2T-ujC" secondAttribute="trailing" constant="8" id="I59-e1-rGU"/>
                 <constraint firstItem="NuC-S2-DFE" firstAttribute="leading" secondItem="4Uk-uo-7wU" secondAttribute="trailing" constant="8" id="OEU-yD-siU"/>
                 <constraint firstItem="4Uk-uo-7wU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="SwG-vx-u2H"/>
                 <constraint firstAttribute="trailing" secondItem="NuC-S2-DFE" secondAttribute="trailing" constant="8" id="TYj-dq-VLk"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Uk-uo-7wU" secondAttribute="trailing" constant="8" id="nkt-Fc-zQy"/>
                 <constraint firstItem="fRO-2T-ujC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="pEC-ul-c0y"/>
                 <constraint firstItem="4Uk-uo-7wU" firstAttribute="top" secondItem="fRO-2T-ujC" secondAttribute="bottom" constant="8" symbolic="YES" id="sjb-mA-Nst"/>
                 <constraint firstAttribute="bottom" secondItem="4Uk-uo-7wU" secondAttribute="bottom" constant="8" id="tG5-Oj-9yq"/>

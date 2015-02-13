@@ -10,6 +10,12 @@
 #import "MDKLayerViewDesignable.h"
 #import "FractalScapeIconSet.h"
 
+@interface MBLSFractalSummaryEditViewer ()
+@property (nonatomic,weak) UIView   *contentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerViewWidthConstraint;
+@property (nonatomic,assign) CGFloat                    oldCategoryWidth;
+@end
+
 @implementation MBLSFractalSummaryEditViewer
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -31,9 +37,9 @@
 }
 
 -(void) setupSubviews {
-    UIView* view = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
-    [self addSubview: view];
-    view.frame = self.bounds;
+    _contentView = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
+    [self addSubview: _contentView];
+    _contentView.frame = self.bounds;
     
 #if TARGET_INTERFACE_BUILDER
     _name.text = @"Just testing";
@@ -95,12 +101,25 @@
     [_category selectRow: categoryIndex inComponent: 0 animated: YES];
 }
 #pragma mark - UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact)
+    {
+        self.category.hidden = YES;
+        self.oldCategoryWidth = self.pickerViewWidthConstraint.constant;
+        self.pickerViewWidthConstraint.constant = 0.0;
+        
+        [self.name setNeedsLayout];
+    }
+}
+
 -(BOOL) textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     [self.descriptor becomeFirstResponder];
-    return YES;
+    return NO;
 }
+
 -(void) textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == _name) {
@@ -113,6 +132,13 @@
     if ([text isEqualToString:@"\n"]) {
         
         [textView resignFirstResponder];
+        
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact)
+        {
+            self.category.hidden = NO;
+            self.pickerViewWidthConstraint.constant = self.oldCategoryWidth;
+        }
+        [self.category becomeFirstResponder];
         // Return FALSE so that the final '\n' character doesn't get added
         return NO;
     }
