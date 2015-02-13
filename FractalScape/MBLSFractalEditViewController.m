@@ -1067,7 +1067,7 @@ static const CGFloat kLevelNMargin = 40.0;
     UIView* container = self.playbackSlider.superview;
     
     CGFloat topBarOffset = self.topLayoutGuide.length;
-    CGFloat verticalMargins = 100.0;
+    CGFloat verticalMargins = 80.0;
     
     
     

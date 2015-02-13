@@ -33,6 +33,7 @@ typedef enum MDBLSAddDeleteState MDBLSAddDeleteState;
 
 - (IBAction)addSwipeRecognized:(id)sender;
 - (IBAction)deleteSwipeRecognized:(id)sender;
+- (IBAction)tapGestureRecognized:(id)sender;
 
 -(IBAction)deleteButtonEnabled:(BOOL)enabled;
 

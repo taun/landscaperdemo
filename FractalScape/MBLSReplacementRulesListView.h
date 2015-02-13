@@ -34,6 +34,7 @@ IB_DESIGNABLE
 
 - (IBAction)addSwipeRecognized:(id)sender;
 - (IBAction)deleteSwipeRecognized:(id)sender;
+- (IBAction)tapGestureRecognized:(id)sender;
 
 - (IBAction)addPressed:(id)sender;
 - (IBAction)deletePressed:(id)sender;

@@ -19,6 +19,8 @@
 @interface MBLSReplacementRulesListView ()
 @property (nonatomic,assign) CGRect                         lastBounds;
 @property (nonatomic,weak) MDBLSObjectTileListAddDeleteView*currentAddDeleteView;
+@property(nonatomic,strong) UITapGestureRecognizer       *tapGesture;
+@property(nonatomic,strong) UILongPressGestureRecognizer *pressGesture;
 @end
 
 @implementation MBLSReplacementRulesListView
@@ -56,6 +58,14 @@
 }
 -(void) setupSubviews
 {
+    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
+    [self addGestureRecognizer: _tapGesture];
+    _tapGesture.enabled = NO;
+    
+    _pressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
+    [self addGestureRecognizer: _pressGesture];
+    _pressGesture.enabled = NO;
+
     for (UIView* view in [self subviews])
     {
         [view removeFromSuperview];
@@ -218,9 +228,24 @@
     return needsLayout;
 }
 
+#pragma mark - Add & Delete
+-(void) setCurrentAddDeleteView:(MDBLSObjectTileListAddDeleteView *)currentAddDeleteView
+{
+    _currentAddDeleteView = currentAddDeleteView;
+    if (_currentAddDeleteView) {
+        self.tapGesture.enabled = YES;
+        self.pressGesture.enabled = YES;
+    }
+    else
+    {
+        self.tapGesture.enabled = NO;
+        self.pressGesture.enabled = NO;
+    }
+}
+
 - (IBAction)addSwipeRecognized:(id)sender
 {
-    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)[sender view];
+    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)sender;
     MDBLSAddDeleteState state = addDeleteView.state;
     
     if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
@@ -243,7 +268,7 @@
 
 - (IBAction)deleteSwipeRecognized:(id)sender
 {
-    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)[sender view];
+    MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)sender;
     MDBLSAddDeleteState state = addDeleteView.state;
     
     if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
@@ -271,6 +296,13 @@
     }
 }
 
+- (IBAction)tapGestureRecognized:(id)sender
+{
+    if (self.currentAddDeleteView) {
+        [self.currentAddDeleteView animateClosed: YES];
+        self.currentAddDeleteView = nil;
+    }
+}
 - (IBAction) deletePressed:(id)sender
 {
     MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)sender;

@@ -95,12 +95,31 @@
     [_category selectRow: categoryIndex inComponent: 0 animated: YES];
 }
 #pragma mark - UITextFieldDelegate
--(void) textFieldDidEndEditing:(UITextField *)textField {
+-(BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self.descriptor becomeFirstResponder];
+    return YES;
+}
+-(void) textFieldDidEndEditing:(UITextField *)textField
+{
     if (textField == _name) {
         self.fractal.name = textField.text;
     }
 }
 #pragma mark - UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        
+        [textView resignFirstResponder];
+        // Return FALSE so that the final '\n' character doesn't get added
+        return NO;
+    }
+    // For any other character return TRUE so that the text gets added to the view
+    return YES;
+}
+
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
     if (textView == _descriptor) {

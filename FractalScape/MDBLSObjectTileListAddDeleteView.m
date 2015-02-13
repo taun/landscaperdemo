@@ -47,8 +47,6 @@
 -(void) setupSubviews {
     self.clipsToBounds = NO;
     
-    _state = MDBLSNeutral;
-
     _addSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget: self action: @selector(addSwipeRecognized:)];
     _addSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self addGestureRecognizer: _addSwipeGesture];
@@ -69,13 +67,13 @@
     [self addSubview: view];
     view.frame = self.bounds;
     
-    [self updateButtonAlphas];
-    
 #if TARGET_INTERFACE_BUILDER
 #endif
 
     [self setupConstraints];
     
+    // state must come after constraints due to constraints dependency
+    self.state = MDBLSNeutral;
 }
 
 -(void) setContent:(UIView *)content {
@@ -139,23 +137,23 @@
 - (IBAction)addSwipeRecognized:(id)sender
 {
     if ([self.delegate respondsToSelector: @selector(addSwipeRecognized:)]) {
-        [self.delegate addSwipeRecognized: sender];
+        [self.delegate addSwipeRecognized: self];
     }
 }
 
 - (IBAction)deleteSwipeRecognized:(id)sender
 {
     if ([self.delegate respondsToSelector: @selector(deleteSwipeRecognized:)]) {
-        [self.delegate deleteSwipeRecognized: sender];
+        [self.delegate deleteSwipeRecognized: self];
     }
 }
 -(IBAction)tapGestureRecognized:(id)sender
 {
     if (self.state != MDBLSNeutral) {
-        [self animateClosed: YES];
+        [self.delegate tapGestureRecognized: self];
     }
 }
--(void) animate: (BOOL)animate contentsToPosition: (CGFloat) position
+-(void) animate: (BOOL)animate toState: (MDBLSAddDeleteState) state
 {
 //    [self.cellAnimator removeBehavior: self.snapBehaviour];
 //    if (animate) {
@@ -171,36 +169,15 @@
         [self layoutIfNeeded];
         [UIView animateWithDuration: 0.5 animations:^{
             // Make all constraint changes here
-            [self updateButtonAlphas];
-            self.leftConstraint.constant = position;
-            self.rightConstraint.constant = position;
+            self.state = state;
             [self layoutIfNeeded];
         }];
     }
     else
     {
-        [self updateButtonAlphas];
-        self.leftConstraint.constant = position;
-        self.rightConstraint.constant = position;
+        self.state = state;
     }
 
-}
--(void) updateButtonAlphas
-{
-    switch (_state) {
-        case MDBLSNeutral:
-            self.addButton.alpha = 0.0;
-            self.deleteButton.alpha = 0.0;
-            break;
-        case MDBLSAdding:
-            self.addButton.alpha = 1.0;
-            break;
-        case MDBLSDeleting:
-            self.deleteButton.alpha = 1.0;
-            
-        default:
-            break;
-    }
 }
 -(IBAction) deleteButtonEnabled:(BOOL)enabled
 {
@@ -214,24 +191,44 @@
     }
 }
 -(void) animateClosed: (BOOL)animate {
-    self.state = MDBLSNeutral;
-    
-    [self animate: (BOOL) animate contentsToPosition: 0.0];
-    [self setContentViewEnabled: YES];
+    [self animate: (BOOL) animate toState: MDBLSNeutral];
 }
 -(void) animateSlideForAdd {
-    self.state = MDBLSAdding;
-    
-    CGFloat position = self.addButton.bounds.size.width + 8;
-    [self setContentViewEnabled: NO];
-    [self animate: YES contentsToPosition: position];
+    [self animate: YES toState: MDBLSAdding];
 }
 -(void) animateSlideForDelete {
-    self.state = MDBLSDeleting;
+    [self animate: YES toState: MDBLSDeleting];
+}
+-(void) setState:(MDBLSAddDeleteState)state
+{
+    _state = state;
+    
+    CGFloat position = 0;
+    
+    switch (_state) {
+        case MDBLSNeutral:
+            [self setContentViewEnabled:YES];
+            self.addButton.alpha = 0.0;
+            self.deleteButton.alpha = 0.0;
+            break;
+            
+        case MDBLSAdding:
+            position = self.addButton.bounds.size.width + 8;
+            [self setContentViewEnabled:NO];
+            self.addButton.alpha = 1.0;
+            break;
+            
+        case MDBLSDeleting:
+            position = -(self.deleteButton.bounds.size.width + 8);
+            [self setContentViewEnabled:NO];
+            self.deleteButton.alpha = 1.0;
+            break;
+        default:
+            break;
+    }
 
-    CGFloat position = self.deleteButton.bounds.size.width + 8;
-    [self setContentViewEnabled: NO];
-    [self animate: YES contentsToPosition: -position];
+    self.leftConstraint.constant = position;
+    self.rightConstraint.constant = position;
 }
 
 -(void) setContentViewEnabled: (BOOL)enabled

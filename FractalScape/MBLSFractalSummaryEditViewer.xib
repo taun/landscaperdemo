@@ -19,7 +19,7 @@
                 <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fRO-2T-ujC">
                     <rect key="frame" x="8" y="8" width="346" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="words" enablesReturnKeyAutomatically="YES"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="8lm-dY-hRp"/>
                     </connections>
@@ -31,7 +31,7 @@
                             <rect key="frame" x="2" y="2" width="342" height="58"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="2WE-ig-Ani"/>
                             </connections>
@@ -66,7 +66,6 @@
                         </constraint>
                         <constraint firstAttribute="height" constant="100" id="cZQ-j1-dnh"/>
                     </constraints>
-                    <variation key="widthClass=compact"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="J1N-2I-bAw"/>
                         <outlet property="delegate" destination="-1" id="ylI-NW-6CW"/>
