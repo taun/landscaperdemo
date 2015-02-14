@@ -59,7 +59,7 @@
     }
     
 
-    self.backgroundColor = [UIColor whiteColor];
+//    self.backgroundColor = [UIColor whiteColor];
     
     _ruleView = [[MDBLSObjectTileView alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
     _ruleView.showTileBorder = YES;
