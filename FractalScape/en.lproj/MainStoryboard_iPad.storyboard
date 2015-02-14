@@ -93,7 +93,7 @@
                                                 </variation>
                                             </view>
                                             <view opaque="NO" alpha="0.80000000000000004" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" userLabel="Toolbar" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="552" y="502" width="60" height="210"/>
+                                                <rect key="frame" x="552" y="502" width="60" height="196"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRx-ub-5v2" userLabel="fullScreen">
                                                         <rect key="frame" x="8" y="8" width="44" height="60"/>
@@ -125,11 +125,11 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ" userLabel="editRules">
-                                                        <rect key="frame" x="8" y="136" width="44" height="74"/>
+                                                        <rect key="frame" x="8" y="128" width="44" height="68"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="YFf-52-wrK"/>
-                                                            <constraint firstAttribute="height" constant="74" id="s1d-sA-4aU"/>
+                                                            <constraint firstAttribute="height" constant="68" id="s1d-sA-4aU"/>
                                                         </constraints>
                                                         <state key="normal" image="tabBarRulesIconLeft">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,7 +144,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="gB3-UB-mha" secondAttribute="bottom" constant="8" id="F0I-1k-KUR"/>
+                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="top" secondItem="gB3-UB-mha" secondAttribute="bottom" id="F0I-1k-KUR"/>
                                                     <constraint firstItem="YRx-ub-5v2" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="8" id="KEz-7F-Ahj"/>
                                                     <constraint firstItem="gB3-UB-mha" firstAttribute="top" secondItem="YRx-ub-5v2" secondAttribute="bottom" id="RR6-3u-l0z"/>
                                                     <constraint firstAttribute="centerX" secondItem="gB3-UB-mha" secondAttribute="centerX" id="VUx-WO-Mh9"/>
@@ -253,7 +253,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.8784313725490196" green="0.8784313725490196" blue="0.89411764705882357" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
                                                         <point key="value" x="1" y="2"/>
@@ -382,7 +382,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.87843137250000003" green="0.87843137250000003" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
                                                         <point key="value" x="1" y="2"/>
@@ -518,7 +518,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.87843137250000003" green="0.87843137250000003" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
                                                         <point key="value" x="1" y="2"/>
@@ -654,7 +654,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.87843137250000003" green="0.87843137250000003" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
                                                         <point key="value" x="1" y="2"/>
@@ -692,7 +692,7 @@
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
-                                            <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="-12" id="H3F-eo-44g"/>
+                                            <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="2" id="H3F-eo-44g"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
