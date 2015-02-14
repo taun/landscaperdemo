@@ -12,7 +12,7 @@
 
 @interface MBFractalLibraryViewController : UICollectionViewController <FractalControllerProtocol>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *fractalCollectionView;
+//@property (weak, nonatomic) IBOutlet UICollectionView *fractalCollectionView;
 
 /* if set, make the initial selection in the collection.
  There must always be a fractal or there is no managedObjectContext. */

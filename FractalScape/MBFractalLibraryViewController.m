@@ -111,7 +111,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 
 #pragma mark - NSFetchedResultsControllerDelegate conformance -
 -(void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.fractalCollectionView reloadData];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -230,7 +230,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
                             [fractalCell.imageView setImage: generator.image];
                             if (fractalCell.fractal == self.selectedFractal) {
                                 NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.selectedFractal];
-                                [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: NO scrollPosition: UICollectionViewScrollPositionNone];
+                                [self.collectionView selectItemAtIndexPath: selectIndex animated: NO scrollPosition: UICollectionViewScrollPositionNone];
                             }
                         }];
                     }
@@ -296,7 +296,10 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 {
     [super viewDidLoad];
     
-    [self.fractalCollectionView reloadData];
+    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight]];
+    self.collectionView.backgroundView = blurEffectView;
+
+    [self.collectionView reloadData];
     
 }
 -(void)viewWillAppear:(BOOL)animated {
@@ -304,13 +307,13 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     [self initControls];
 }
 -(void)viewDidAppear:(BOOL)animated {
-    [self.fractalCollectionView reloadData];
+    [self.collectionView reloadData];
     /*!
      With the cell images being set in the background, the selectItemIndexPath:... may be called too soon.
      We call it again in cell background operation of cellForItemAtIndexPath:.
      */
     NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.selectedFractal];
-    [self.fractalCollectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionCenteredVertically];
+    [self.collectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionCenteredVertically];
     [super viewDidAppear:animated];
 }
 -(void)viewDidDisappear:(BOOL)animated {
@@ -320,7 +323,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 - (void)viewDidUnload
 {
 //    [self setMainFractalView:nil];
-    [self setFractalCollectionView:nil];
+//    [self setFractalCollectionView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

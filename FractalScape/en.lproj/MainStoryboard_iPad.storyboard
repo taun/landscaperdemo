@@ -769,7 +769,7 @@
                     <navigationItem key="navigationItem" title="FractalScape" id="5yD-Jb-xIT">
                         <barButtonItem key="leftBarButtonItem" title="Library" id="X7f-AM-yeZ">
                             <connections>
-                                <segue destination="tpb-gq-tvK" kind="presentation" identifier="LibrarySegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="flipHorizontal" id="06u-pY-Hz4"/>
+                                <segue destination="tpb-gq-tvK" kind="presentation" identifier="LibrarySegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="flipHorizontal" id="06u-pY-Hz4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI">
@@ -1684,11 +1684,11 @@
         <!--Library-->
         <scene sceneID="iKT-0y-poi">
             <objects>
-                <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
                         <rect key="frame" x="0.0" y="44" width="510" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="tuN-UJ-qld">
                             <size key="itemSize" width="146" height="254"/>
                             <size key="headerReferenceSize" width="50" height="44"/>
@@ -1778,12 +1778,12 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
-                                    <rect key="frame" x="179" y="11" width="152" height="21"/>
+                                    <rect key="frame" x="177" y="11" width="156" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="cWI-Hz-w47"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                 </label>
@@ -1822,9 +1822,6 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="510" height="600"/>
-                    <connections>
-                        <outlet property="fractalCollectionView" destination="Zoz-c2-VEt" id="5AD-P9-Ot0"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Aum-QI-fMm" userLabel="Exit" sceneMemberID="exit"/>
@@ -1856,7 +1853,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jth-yK-sR7">
             <objects>
-                <navigationController storyboardIdentifier="LibraryNavCon" modalTransitionStyle="flipHorizontal" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" toolbarHidden="NO" id="tpb-gq-tvK" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LibraryNavCon" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" toolbarHidden="NO" id="tpb-gq-tvK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="510" height="600"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
