@@ -37,8 +37,8 @@
 }
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
-    UITraitCollection* traits = self.traitCollection;
-    NSLog(@"Trait collection: %@", traits);
+//    UITraitCollection* traits = self.traitCollection;
+//    NSLog(@"Trait collection: %@", traits);
 }
 /*!
  It appears, sometimes the tabView has loaded the childViewController's view before setting the fractal and sometimes after.

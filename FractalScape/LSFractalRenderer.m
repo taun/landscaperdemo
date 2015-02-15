@@ -220,7 +220,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         colorIndex++;
         if(colorIndex >= kLSMaxColors)
         {
-            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",kLSMaxColors);
+            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",(long)kLSMaxColors);
             break;
         }
     }
@@ -235,7 +235,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         colorIndex++;
         if(colorIndex >= kLSMaxColors)
         {
-            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",kLSMaxColors);
+            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",(long)kLSMaxColors);
             break;
         }
     }
@@ -390,7 +390,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 //    else{
 //       _segmentStack[_segmentIndex].lineWidth =  _baseSegment.lineWidth;
 //    }
-    CGFloat actualWidth = _scale * _segmentStack[_segmentIndex].lineWidth;
+//    CGFloat actualWidth = _scale * _segmentStack[_segmentIndex].lineWidth;
     _segmentStack[_segmentIndex].noDrawPath = NO;
     _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
     _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, _translateX, _translateY);
@@ -740,7 +740,7 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
         _segmentStack[_segmentIndex].pointIndex += 1;
     }
     else{
-        NSLog(@"FractalScape:Warning reached end of segment point buffer %ld",kLSMaxSegmentPointsSize);
+        NSLog(@"FractalScape:Warning reached end of segment point buffer %ld",(long)kLSMaxSegmentPointsSize);
     }
     _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedPoint;
 }

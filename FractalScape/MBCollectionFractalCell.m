@@ -51,18 +51,24 @@
     selectBackgroundView.layer.borderColor = colorCopy;
     CGColorRelease(colorCopy);
     selectBackgroundView.layer.borderWidth = 0.0;
-//    selectBackgroundView.layer.shadowOpacity = 0.9;
-//    selectBackgroundView.layer.shadowRadius = 2;
-//    selectBackgroundView.layer.shadowOffset = CGSizeMake(2,2);
-//    selectBackgroundView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+    
+    if ((YES)) {
+        selectBackgroundView.layer.shadowOpacity = 0.9;
+        selectBackgroundView.layer.shadowRadius = 2;
+        selectBackgroundView.layer.shadowOffset = CGSizeMake(2,2);
+        selectBackgroundView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+    }
+    
     selectBackgroundView.layer.backgroundColor = [[UIColor darkGrayColor] CGColor];
     return selectBackgroundView;
 }
 
 -(void) setImageFrame:(UIView *)imageFrame {
     if (_imageFrame != imageFrame) {
-//        imageFrame.layer.shadowOpacity = 0.5;
-//        imageFrame.layer.shadowOffset = CGSizeMake(0, 3.0);
+        if ((YES)) {
+            imageFrame.layer.shadowOpacity = 0.5;
+            imageFrame.layer.shadowOffset = CGSizeMake(0, 3.0);
+        }
         _imageFrame = imageFrame;
     }
 }

@@ -271,12 +271,11 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     self.selectedFractal = (LSFractal*)managedObject;
     LSFractal* selectedFractal = (LSFractal*)managedObject;
-    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)self.presentingViewController;
-    [editController setFractal: selectedFractal];
+    [self.delegate setFractal: selectedFractal];
 
     [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
         //
-        [editController libraryControllerWasDismissed];
+        [self.delegate libraryControllerWasDismissed];
     }];
 }
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {

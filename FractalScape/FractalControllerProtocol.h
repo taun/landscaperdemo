@@ -9,12 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "LSFractal+addons.h"
 
+@protocol FractalControllerDelegate <NSObject>
+-(void) setFractal: (LSFractal*) fractal;
+-(void) libraryControllerWasDismissed; // temporary hack
+@end
+
 @protocol FractalControllerProtocol <NSObject>
 
-@property (nonatomic,strong) LSFractal        *fractal;
-@property (nonatomic,weak) NSUndoManager    *fractalUndoManager;
-
-@property(nonatomic,assign) CGSize            portraitSize;
-@property(nonatomic,assign) CGSize            landscapeSize;
+@property (nonatomic,strong) LSFractal                                  *fractal;
+@property (nonatomic,weak) NSUndoManager                                *fractalUndoManager;
+@property (nonatomic,weak) id<FractalControllerDelegate>                 delegate;
+@property(nonatomic,assign) CGSize                                      portraitSize;
+@property(nonatomic,assign) CGSize                                      landscapeSize;
 
 @end
+

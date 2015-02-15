@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5E6B77C14A5346200DA48BD"
-               BuildableName = "FractalScape.app"
-               BlueprintName = "FractalScape"
-               ReferencedContainer = "container:FractalScape.xcodeproj">
+               BuildableName = "FractalScapes.app"
+               BlueprintName = "FractalScapes"
+               ReferencedContainer = "container:FractalScapes.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C59953FF1A6465270093CF50"
-               BuildableName = "FractalScapeFractalModelTests.xctest"
-               BlueprintName = "FractalScapeFractalModelTests"
-               ReferencedContainer = "container:FractalScape.xcodeproj">
+               BuildableName = "FractalScapesFractalModelTests.xctest"
+               BlueprintName = "FractalScapesFractalModelTests"
+               ReferencedContainer = "container:FractalScapes.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5E6B7AB14A5346300DA48BD"
-               BuildableName = "FractalScapeTests.xctest"
-               BlueprintName = "FractalScapeTests"
-               ReferencedContainer = "container:FractalScape.xcodeproj">
+               BuildableName = "FractalScapesTests.xctest"
+               BlueprintName = "FractalScapesTests"
+               ReferencedContainer = "container:FractalScapes.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -57,9 +57,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C59953FF1A6465270093CF50"
-               BuildableName = "FractalScapeFractalModelTests.xctest"
-               BlueprintName = "FractalScapeFractalModelTests"
-               ReferencedContainer = "container:FractalScape.xcodeproj">
+               BuildableName = "FractalScapesFractalModelTests.xctest"
+               BlueprintName = "FractalScapesFractalModelTests"
+               ReferencedContainer = "container:FractalScapes.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -67,9 +67,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5E6B77C14A5346200DA48BD"
-            BuildableName = "FractalScape.app"
-            BlueprintName = "FractalScape"
-            ReferencedContainer = "container:FractalScape.xcodeproj">
+            BuildableName = "FractalScapes.app"
+            BlueprintName = "FractalScapes"
+            ReferencedContainer = "container:FractalScapes.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5E6B77C14A5346200DA48BD"
-            BuildableName = "FractalScape.app"
-            BlueprintName = "FractalScape"
-            ReferencedContainer = "container:FractalScape.xcodeproj">
+            BuildableName = "FractalScapes.app"
+            BlueprintName = "FractalScapes"
+            ReferencedContainer = "container:FractalScapes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -110,9 +110,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5E6B77C14A5346200DA48BD"
-            BuildableName = "FractalScape.app"
-            BlueprintName = "FractalScape"
-            ReferencedContainer = "container:FractalScape.xcodeproj">
+            BuildableName = "FractalScapes.app"
+            BlueprintName = "FractalScapes"
+            ReferencedContainer = "container:FractalScapes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

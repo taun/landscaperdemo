@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MBLSFractalViewController.h"
+#import "FractalControllerProtocol.h"
 #import "MBFractalPrefConstants.h"
 
 @class MBFractalLibraryViewController;
@@ -26,7 +27,8 @@
                                                                 UIActionSheetDelegate,
                                                                 UIPopoverPresentationControllerDelegate,
                                                                 UIScrollViewDelegate,
-                                                                UIDocumentInteractionControllerDelegate>
+                                                                UIDocumentInteractionControllerDelegate,
+                                                                FractalControllerDelegate>
 
 #pragma mark Model
 @property (nonatomic, strong) LSFractal            *fractal;

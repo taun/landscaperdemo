@@ -23,9 +23,13 @@
         self.layer.borderColor = colorCopy;
         CGColorRelease(colorCopy);
         self.layer.borderWidth = 1.0;
-//        self.layer.shadowOpacity = 0.75;
-//        self.layer.shadowRadius = 1;
-//        self.layer.shadowOffset = CGSizeMake(0,2);
+        
+        if ((YES)) {
+            self.layer.shadowOpacity = 0.75;
+            self.layer.shadowRadius = 1;
+            self.layer.shadowOffset = CGSizeMake(0,2);
+        }
+        
         self.layer.backgroundColor = [[UIColor whiteColor] CGColor];
     }
     return self;

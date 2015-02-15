@@ -1193,6 +1193,7 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 -(void) libraryControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
 {
+    controller.delegate = self;
     controller.fractal = self.fractal;
     controller.fractalUndoManager = self.undoManager;
     controller.landscapeSize = self.popoverLandscapeSize;
@@ -2043,7 +2044,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             // call method for UIAlert about successful save with save text
             [self showSharedCompletionAlertWithText: @"your camera roll." error: error];
             
-            NSLog(@"Sharing to camera status %@.", error);
+//            NSLog(@"Sharing to camera status %@.", error);
         }];
         
         //        [library writeImageToSavedPhotosAlbum: [fractalImage CGImage] orientation: ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error){
@@ -2054,7 +2055,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         //        }];
     }
     
-    NSLog(@"Sharing to camera called.");
+//    NSLog(@"Sharing to camera called.");
 }
 -(void) shareFractalToPublicCloud
 {
