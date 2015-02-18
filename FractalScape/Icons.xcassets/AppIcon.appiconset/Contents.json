@@ -3,85 +3,85 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "TempIcon29@2x.png",
+      "filename" : "iCon29@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "TempIcon29@3x.png",
+      "filename" : "iCon29@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "TempIcon40@2x-1.png",
+      "filename" : "icon40@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "TempIcon40@3x.png",
+      "filename" : "icon40@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "TempIcon60@2x.png",
+      "filename" : "iCon60@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "TempIcon60@3x.png",
+      "filename" : "iCon60@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "TempIcon29.png",
+      "filename" : "iCon29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "TempIcon29@2x-1.png",
+      "filename" : "iCon29@2x-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "TempIcon40.png",
+      "filename" : "icon40.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "TempIcon40@2x.png",
+      "filename" : "icon40@2x-1.png",
       "scale" : "2x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "TempIcon50.png",
+      "filename" : "iCon50.png",
       "scale" : "1x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "TempIcon50@2x.png",
+      "filename" : "iCon50@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "TempIcon228.png",
+      "filename" : "iPad76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "TempIcon228@2.png",
+      "filename" : "iPad76@2x.png",
       "scale" : "2x"
     }
   ],

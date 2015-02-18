@@ -26,6 +26,7 @@
 //    _filters = [CIFilter filterNamesInCategory: kCICategoryTileEffect];
     NSMutableArray* tempArray = [NSMutableArray new];
     [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryTileEffect]];
+    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryColorEffect]];
     [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryDistortionEffect]];
     [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryBlur]];
     _filters = [tempArray copy];
