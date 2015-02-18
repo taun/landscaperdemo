@@ -60,6 +60,7 @@
     UIViewController<FractalControllerProtocol>*fractalController = (UIViewController<FractalControllerProtocol>*)navCon.topViewController;
     fractalController.fractalUndoManager = self.fractalUndoManager;
     fractalController.fractal = self.fractal;
+    fractalController.fractalControllerDelegate = self.fractalControllerDelegate;
 }
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     if (size.width > size.height) {

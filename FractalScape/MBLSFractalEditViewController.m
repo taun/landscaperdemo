@@ -8,10 +8,11 @@
 
 #import "MBAppDelegate.h"
 #import "MBLSFractalEditViewController.h"
+#import "FractalControllerProtocol.h"
 #import "MBFractalLibraryViewController.h"
 #import "MBFractalAppearanceEditorViewController.h"
 #import "MBFractalRulesEditorViewController.h"
-#import "FractalControllerProtocol.h"
+#import "MDBFractalFiltersControllerViewController.h"
 #import "LSReplacementRule.h"
 //#import "MBLSFractalLevelNView.h"
 #import "LSFractal+addons.h"
@@ -84,6 +85,7 @@ static const CGFloat kLevelNMargin = 40.0;
 @property (nonatomic,assign) CGFloat                       playFrameIncrement;
 @property (nonatomic,assign) CGFloat                       playIsPercentCompleted;
 @property (nonatomic,strong) NSArray                       *playbackRenderers;
+@property (readonly,strong) CIContext                      *filterContext;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 
@@ -116,8 +118,8 @@ static const CGFloat kLevelNMargin = 40.0;
 @implementation MBLSFractalEditViewController
 
 @synthesize undoManager = _undoManager;
-@synthesize fractal = _fractal;
-@synthesize libraryViewController = _libraryViewController;
+//@synthesize fractal = _fractal;
+@synthesize filterContext = _filterContext;
 
 #pragma mark Init
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -728,6 +730,12 @@ static const CGFloat kLevelNMargin = 40.0;
         _renderTimeLabel.hidden = YES;
     }
 }
+-(CIContext*) filterContext {
+    if (!_filterContext) {
+        _filterContext = [CIContext contextWithOptions: nil];
+    }
+    return _filterContext;
+}
 #pragma mark - view utility methods
 
 -(void) updateInterface
@@ -1193,7 +1201,7 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 -(void) libraryControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
 {
-    controller.delegate = self;
+    controller.fractalControllerDelegate = self;
     controller.fractal = self.fractal;
     controller.fractalUndoManager = self.undoManager;
     controller.landscapeSize = self.popoverLandscapeSize;
@@ -1230,6 +1238,7 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     if ([self.fractal.isImmutable boolValue]) self.fractal = [self.fractal mutableCopy];
     
+    controller.fractalControllerDelegate = self;
     controller.fractal = self.fractal;
     controller.fractalUndoManager = self.undoManager;
     controller.landscapeSize = self.popoverLandscapeSize;
@@ -1673,6 +1682,42 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     CGFloat percent = sender.value;
     self.fractal.lineChangeFactor = @(percent);
+}
+
+#pragma mark - Filter Actions
+- (IBAction)applyFilter:(CIFilter*)filter
+{
+    CGFloat scale = self.fractalRendererLN.image.scale;
+    CGSize imageSize = self.fractalRendererLN.image.size;
+    CGRect imageBounds = CGRectMake(0.0, 0.0, imageSize.width*scale, imageSize.height*scale);
+    CGFloat midX = scale*imageSize.width/2.0;
+    CGFloat midY = scale*imageSize.height/2.0;
+    CIVector* filterCenter = [CIVector vectorWithX: midX Y: midY];
+    CIImage *image = [CIImage imageWithCGImage: self.fractalRendererLN.image.CGImage];
+
+    [filter setDefaults];
+    NSDictionary* filterAttributes = [filter attributes];
+    if (filterAttributes[kCIInputCenterKey]) {
+        [filter setValue: filterCenter forKey: kCIInputCenterKey];
+    }
+    if (filterAttributes[@"inputPoint"]) {
+        [filter setValue: filterCenter forKey: @"inputPoint"];
+    }
+    
+    if (filterAttributes[kCIInputWidthKey]) {
+        CGFloat width = self.fractalRendererLN.rawFractalPathBounds.size.width/2.0;
+        [filter setValue: @(width) forKey: kCIInputWidthKey];
+    }
+    [filter setValue:image forKey:kCIInputImageKey];
+
+    CIImage *filteredImage = [filter valueForKey:kCIOutputImageKey];
+    
+    CGImageRef cgImage = [self.filterContext createCGImage: filteredImage fromRect: imageBounds];
+    
+    UIImage* filteredUIImage = [UIImage imageWithCGImage: cgImage scale: scale orientation: UIImageOrientationUp];
+    
+    self.fractalView.image = filteredUIImage;
+    CGImageRelease(cgImage);
 }
 
 

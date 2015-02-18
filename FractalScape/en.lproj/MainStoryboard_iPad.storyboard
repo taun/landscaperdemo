@@ -856,6 +856,112 @@
             </objects>
             <point key="canvasLocation" x="4513.28125" y="135.9375"/>
         </scene>
+        <!--Filters-->
+        <scene sceneID="GlJ-fF-gPe">
+            <objects>
+                <navigationController storyboardIdentifier="FiltersNavCon" modalPresentationStyle="overCurrentContext" id="ko1-1e-ftD" userLabel="Filters" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Filters" image="tabBarFillColorIcon" id="aIQ-UF-ZEG"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yyv-ZW-fjS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mtR-yj-lqv" kind="relationship" relationship="rootViewController" id="7Ed-Ce-ptU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="52B-LO-Zy5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4232" y="996"/>
+        </scene>
+        <!--Fractal FIlters Controller-->
+        <scene sceneID="U9M-3b-HZb">
+            <objects>
+                <viewController storyboardIdentifier="FiltersPopover" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mtR-yj-lqv" userLabel="Fractal FIlters Controller" customClass="MDBFractalFiltersControllerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d5n-t7-Ec8"/>
+                        <viewControllerLayoutGuide type="bottom" id="k5Z-pK-dg0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5kI-d1-yEr">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qOW-vz-zam" userLabel="ScrollContainer">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0d-fD-dP1">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-N1-HPR" userLabel="ScrollContents">
+                                                <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                                                <subviews>
+                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bas-Fp-0Ke" userLabel="FilterPicker">
+                                                        <rect key="frame" x="0.0" y="8" width="400" height="162"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="162" id="06c-8p-Y8d"/>
+                                                            <constraint firstAttribute="width" constant="400" placeholder="YES" id="kNc-cd-zWs"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="162" id="sv6-9F-hfR"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="mtR-yj-lqv" id="peF-iq-xkz"/>
+                                                            <outlet property="delegate" destination="mtR-yj-lqv" id="jSp-y0-fmw"/>
+                                                        </connections>
+                                                    </pickerView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls">
+                                                        <rect key="frame" x="0.0" y="178" width="400" height="322"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="Bas-Fp-0Ke" firstAttribute="top" secondItem="Qlc-N1-HPR" secondAttribute="top" constant="8" id="CXx-nr-kQu"/>
+                                                    <constraint firstAttribute="height" constant="500" id="HMf-HR-g8s"/>
+                                                    <constraint firstItem="DPs-RN-Xhr" firstAttribute="top" secondItem="Bas-Fp-0Ke" secondAttribute="bottom" constant="8" id="Omu-XY-kvg"/>
+                                                    <constraint firstAttribute="width" constant="400" placeholder="YES" id="QEC-2R-0hL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="DPs-RN-Xhr" secondAttribute="bottom" id="Rdm-W8-R4o"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Bas-Fp-0Ke" secondAttribute="trailing" id="XaJ-u8-7fp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DPs-RN-Xhr" secondAttribute="trailing" id="c2d-EY-uOP"/>
+                                                    <constraint firstItem="Bas-Fp-0Ke" firstAttribute="leading" secondItem="Qlc-N1-HPR" secondAttribute="leading" id="ebU-mW-AdN"/>
+                                                    <constraint firstItem="DPs-RN-Xhr" firstAttribute="leading" secondItem="Qlc-N1-HPR" secondAttribute="leading" id="jgm-I9-bYv"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Qlc-N1-HPR" firstAttribute="leading" secondItem="Q0d-fD-dP1" secondAttribute="leading" id="8eq-x5-TKE"/>
+                                            <constraint firstAttribute="bottom" secondItem="Qlc-N1-HPR" secondAttribute="bottom" id="RHe-rV-N8V"/>
+                                            <constraint firstAttribute="trailing" secondItem="Qlc-N1-HPR" secondAttribute="trailing" id="VbK-8t-eBy"/>
+                                            <constraint firstItem="Qlc-N1-HPR" firstAttribute="top" secondItem="Q0d-fD-dP1" secondAttribute="top" id="aPq-DJ-eYE"/>
+                                        </constraints>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Qlc-N1-HPR" secondAttribute="width" id="BdW-RJ-P4B"/>
+                                    <constraint firstAttribute="trailing" secondItem="Q0d-fD-dP1" secondAttribute="trailing" id="NLR-eh-7iR"/>
+                                    <constraint firstItem="Q0d-fD-dP1" firstAttribute="top" secondItem="qOW-vz-zam" secondAttribute="top" id="SLT-AW-ETi"/>
+                                    <constraint firstItem="Q0d-fD-dP1" firstAttribute="leading" secondItem="qOW-vz-zam" secondAttribute="leading" id="bxk-NG-FBB"/>
+                                    <constraint firstAttribute="bottom" secondItem="Q0d-fD-dP1" secondAttribute="bottom" id="se5-hO-MqY"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qOW-vz-zam" firstAttribute="top" secondItem="5kI-d1-yEr" secondAttribute="top" id="2cW-Jl-Bzm"/>
+                            <constraint firstAttribute="bottom" secondItem="qOW-vz-zam" secondAttribute="bottom" id="AGh-9C-3wp"/>
+                            <constraint firstItem="qOW-vz-zam" firstAttribute="leading" secondItem="5kI-d1-yEr" secondAttribute="leading" id="cws-Tj-Uoe"/>
+                            <constraint firstAttribute="trailing" secondItem="qOW-vz-zam" secondAttribute="trailing" id="gFW-xQ-6lC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="r3F-3x-tED"/>
+                    <connections>
+                        <outlet property="filterPicker" destination="Bas-Fp-0Ke" id="d8Z-bw-tIw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z1E-Yr-P2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4232" y="1617"/>
+        </scene>
         <!--Fractal Rules Editor View Controller-->
         <scene sceneID="AoQ-mK-Ne2">
             <objects>
@@ -874,7 +980,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="484"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="1328"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
@@ -916,7 +1022,7 @@
                                                             <rect key="frame" x="10" y="0.0" width="780" height="116"/>
                                                         </variation>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
                                                         <rect key="frame" x="12" y="144" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1205,7 +1311,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4030.5" y="1029.5"/>
+            <point key="canvasLocation" x="5022" y="1679.5"/>
         </scene>
         <!--Fractal Color View Container-->
         <scene sceneID="ahc-Pz-mGd">
@@ -1656,7 +1762,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6330" y="996"/>
+            <point key="canvasLocation" x="5665" y="1646"/>
         </scene>
         <!--Fractal Appearance Editor View Controller-->
         <scene sceneID="vbC-pS-Rbr">
@@ -1675,6 +1781,7 @@
                     <connections>
                         <segue destination="yYC-4z-0Da" kind="relationship" relationship="viewControllers" id="oHJ-kA-6B6"/>
                         <segue destination="77i-f5-a79" kind="relationship" relationship="viewControllers" id="aZC-2p-DC2"/>
+                        <segue destination="ko1-1e-ftD" kind="relationship" relationship="viewControllers" id="pz1-9R-ftW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCg-OZ-rZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1921,6 +2028,7 @@
         <image name="kBIconRuleRotateCCSmall" width="30" height="30"/>
         <image name="kBIconRuleUpscaleLineLength" width="40" height="40"/>
         <image name="ratingBarImage" width="138" height="24"/>
+        <image name="tabBarFillColorIcon" width="25" height="25"/>
         <image name="tabBarFillColorIconTemplate" width="25" height="25"/>
         <image name="tabBarLineColorIcon" width="25" height="25"/>
         <image name="tabBarLineColorIconTemplate" width="25" height="25"/>

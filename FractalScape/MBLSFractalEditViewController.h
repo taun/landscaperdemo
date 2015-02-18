@@ -15,6 +15,7 @@
 @class MBFractalRulesEditorViewController;
 @class MBFractalAxiomEditViewController;
 @class MBFractalAppearanceEditorViewController;
+@class MDBFractalFiltersControllerViewController;
 
 @class MBFractalPropertyTableHeaderView;
 @class LSFractal;
@@ -164,4 +165,7 @@
 - (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
 
 -(void) libraryControllerWasDismissed;
+
+#pragma mark - Filter Actions
+- (IBAction)applyFilter:(CIFilter*)filter;
 @end

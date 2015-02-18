@@ -17,7 +17,7 @@
 /* if set, make the initial selection in the collection.
  There must always be a fractal or there is no managedObjectContext. */
 @property (strong, nonatomic) LSFractal                     *fractal;
-@property (weak,nonatomic) id<FractalControllerDelegate>    delegate;
+@property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;
 @property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
 
 /* internally set to the current selection */

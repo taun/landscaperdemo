@@ -214,6 +214,14 @@ set generator segment when setting fractal and set fractal in privateFractal blo
 	controller should change trait size class depending on orientation. compact width for landscape mode. Compact height for portrait mode.\
 	Override using setOverrideTraitCollection: forChildViewController: in which controller? Set in a parent or containing controller.\
 \
+2015-02-15\
+Rethinking core-date for persistence and how to get cloud sync and share.\
+\
+1) ONLY the fractal needs to be saved/persisted. The colors and rules are read-only and static. Perhaps should be loaded from Plist at startup, stored in a non-coreData object and used as the source. There is no writing of colors or rules!\
+2) Seriously considering document model. Just save the fractal as an xml document or plist. Same plist as is used to load the sample fractals just in reverse. Basically the equivalent of saving a couple of sentences.\
+\
+Need plist of available filters.\
+Need filter property for fractal.\
 \
 \
 \
