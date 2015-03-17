@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
+@import Foundation;
+
+@import QuartzCore;
 
 static const NSInteger kLSMaxSegmentPointsSize = 60;
 static const NSInteger kLSMaxSegmentStackSize = 30;

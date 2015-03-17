@@ -6,13 +6,16 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
+
+
 #import "FractalControllerProtocol.h"
 
 
 @interface MDBFractalFiltersControllerViewController : UIViewController <FractalControllerProtocol, UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic,strong) LSFractal                      *fractal;
+@property (nonatomic,strong) MDBFractalDocument                      *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
 @property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;
 @property(nonatomic,assign) CGSize                          portraitSize;

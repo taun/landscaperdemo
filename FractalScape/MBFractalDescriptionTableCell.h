@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
+@import Foundation;
+@import UIKit;
+
 #import "MBXibAutolayoutTableCell.h"
 
 @interface MBFractalDescriptionTableCell : MBXibAutolayoutTableCell

@@ -6,24 +6,28 @@
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
+
 #import "FractalControllerProtocol.h"
-@class LSFractal;
 
-@interface MBFractalLibraryViewController : UICollectionViewController <FractalControllerProtocol>
+@class MDBFractalDocument;
+@class MDBDocumentController;
 
-//@property (weak, nonatomic) IBOutlet UICollectionView *fractalCollectionView;
+/*!
+ Facilitates the selection of a MDBFractalDocumentInfo and passes it to the MBLSFractalEditViewController.
+ */
+@interface MBFractalLibraryViewController : UICollectionViewController
 
-/* if set, make the initial selection in the collection.
- There must always be a fractal or there is no managedObjectContext. */
-@property (strong, nonatomic) LSFractal                     *fractal;
-@property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;
-@property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
+/*!
+ The collection of MDBFractalDocumentInfo objects from the local filesystem or cloud.
+ */
+@property (nonatomic, strong) MDBDocumentController         *documentController;
 
-/* internally set to the current selection */
-@property (strong, nonatomic) LSFractal                     *selectedFractal;
 
-@property(nonatomic,assign) CGSize            portraitSize;
-@property(nonatomic,assign) CGSize            landscapeSize;
+#pragma mark - Segue Actions
+- (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue;
+- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue;
+- (IBAction)pickDocument:(UIBarButtonItem *)sender;
 
 @end

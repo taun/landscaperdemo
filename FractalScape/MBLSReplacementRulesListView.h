@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
-#import "LSReplacementRule+addons.h"
-#import "LSDrawingRule+addons.h"
+@import Foundation;
+@import UIKit;
+
+#import "LSReplacementRule.h"
+#import "LSDrawingRule.h"
 
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MDBLSObjectTileListAddDeleteView.h"
@@ -23,8 +24,7 @@ IB_DESIGNABLE
  */
 @interface MBLSReplacementRulesListView : UIView <MBLSRuleDragAndDropProtocol>
 
-@property (nonatomic,strong) NSMutableOrderedSet      *replacementRules;
-@property (nonatomic,weak) NSManagedObjectContext       *context;
+@property (nonatomic,strong) NSMutableArray             *replacementRules;
 
 @property (nonatomic,assign) IBInspectable CGFloat      rowSpacing;
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
@@ -32,7 +32,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
-@property (readonly) MDBLSAddDeleteState        addDeleteState;
+@property (readonly) MDBLSAddDeleteState                addDeleteState;
 
 - (IBAction)addSwipeRecognized:(id)sender;
 - (IBAction)deleteSwipeRecognized:(id)sender;

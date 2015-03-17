@@ -27,8 +27,8 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey: kPrefShowHelpTips];
 }
--(void) setFractal:(LSFractal *)fractal {
-    _fractal = fractal;
+-(void) setFractalDocument:(MDBFractalDocument *)fractalDocument {
+    _fractalDocument = fractalDocument;
     [self updateFractalDependents];
 }
 
@@ -48,20 +48,22 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if (self.fractal) {
+    if (self.fractalDocument.fractal) {
         [self updateFractalDependents];
     }
     [self configureParallax];
 }
 
 -(void) viewWillLayoutSubviews {
-    
+    id strongSourceListView = self.sourceListView;
+    id strongDestinationView = self.destinationView;
 //    [self.sourceListView setNeedsUpdateConstraints];
-    [self.sourceListView setNeedsLayout];
+    [strongSourceListView setNeedsLayout];
 //    [self.destinationView setNeedsUpdateConstraints];
-    [self.destinationView setNeedsLayout];
+    [strongDestinationView setNeedsLayout];
 
     // Hack to get the label to adjust size after the transition.
+    
     if (self.showHelpView) {
         NSString* info = self.ruleHelpLabel.text;
         self.ruleHelpLabel.text = info;
@@ -75,7 +77,7 @@
 -(void) configureParallax
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL showParalax = ![defaults boolForKey: kPrefParalaxOff];
+    BOOL showParalax = [defaults boolForKey: kPrefParalax];
 
     if (showParalax) {
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
@@ -95,8 +97,11 @@
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    [self.sourceListView setNeedsUpdateConstraints];
-    [self.destinationView setNeedsUpdateConstraints];
+    id strongSourceListView = self.sourceListView;
+    id strongDestinationView = self.destinationView;
+
+    [strongSourceListView setNeedsUpdateConstraints];
+    [strongDestinationView setNeedsUpdateConstraints];
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
@@ -198,7 +203,6 @@
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateEnded) {
         [self cleanupAfterDrag];
-        [self saveContext];
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled) {
         [self cleanupAfterDrag];
         
@@ -206,9 +210,9 @@
         [self cleanupAfterDrag];
     }
     
-    if ([self.fractal hasChanges]) {
-        [self saveContext];
-    }
+//    if ([self.fractalDocument.fractal hasChanges]) {
+//        [self saveContext];
+//    }
 }
 -(void)cleanupAfterDrag
 {
@@ -265,24 +269,6 @@
     } completion:^(BOOL finished) {
         //
     }];
-}
-
-- (void)saveContext {
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.fractal.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } else {
-            //            self.fractalDataChanged = YES;
-        }
-    }
 }
 
 -(void) deleteObjectIfUnreferenced: (id) object {

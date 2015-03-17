@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
 
-#import "LSFractal+addons.h"
+
+@class MDBFractalDocument;
 
 IB_DESIGNABLE
 
@@ -21,7 +23,7 @@ IB_DESIGNABLE
                                                     UITextFieldDelegate,
                                                     UITextViewDelegate>
 
-@property (nonatomic,strong) LSFractal                  *fractal;
+@property (nonatomic,strong) MDBFractalDocument         *fractalDocument;
 @property (nonatomic,weak) IBOutlet UITextField         *name;
 @property (nonatomic,weak) IBOutlet UITextView          *descriptor;
 @property (nonatomic,weak) IBOutlet UIPickerView        *category;

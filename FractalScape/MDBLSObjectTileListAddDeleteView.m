@@ -81,16 +81,17 @@
 }
 
 -(void) setContent:(UIView *)content {
-    if (_content) {
-        [_content removeFromSuperview];
+    UIView* strongContent = _content;
+    if (strongContent) {
+        [strongContent removeFromSuperview];
     }
     _content = content;
-    [self addSubview: _content];
+    [self addSubview: content];
     self.cellAnimator = [[UIDynamicAnimator alloc]initWithReferenceView: self];
 
-    NSDictionary* viewsDict = @{@"content": _content};
+    NSDictionary* viewsDict = @{@"content": content};
     
-    NSLayoutConstraint* leftConstraint = [NSLayoutConstraint constraintWithItem: _content
+    NSLayoutConstraint* leftConstraint = [NSLayoutConstraint constraintWithItem: content
                                                                       attribute: NSLayoutAttributeLeading
                                                                       relatedBy: NSLayoutRelationEqual
                                                                          toItem: self
@@ -99,7 +100,7 @@
     _leftConstraint = leftConstraint;
     [self addConstraint: leftConstraint];
     
-    NSLayoutConstraint* rightConstraint = [NSLayoutConstraint constraintWithItem: _content
+    NSLayoutConstraint* rightConstraint = [NSLayoutConstraint constraintWithItem: content
                                                                        attribute: NSLayoutAttributeTrailing
                                                                        relatedBy: NSLayoutRelationEqual
                                                                           toItem: self
@@ -184,14 +185,9 @@
 }
 -(IBAction) deleteButtonEnabled:(BOOL)enabled
 {
-    if (enabled)
-    {
-        self.deleteButton.enabled = YES;
-    }
-    else
-    {
-        self.deleteButton.enabled = NO;
-    }
+    UIButton* strongButton = self.deleteButton;
+    
+    strongButton.enabled = enabled;
 }
 -(void) animateClosed: (BOOL)animate {
     [self animate: (BOOL) animate toState: MDBLSNeutral];
@@ -208,25 +204,28 @@
     
     CGFloat position = 0;
     
+    UIButton* strongAdd = self.addButton;
+    UIButton* strongDelete = self.deleteButton;
+    
     switch (_state) {
         case MDBLSNeutral:
             [self setContentViewEnabled:YES];
-            self.addButton.alpha = 0.0;
-            self.deleteButton.alpha = 0.0;
+            strongAdd.alpha = 0.0;
+            strongDelete.alpha = 0.0;
             [self resignFirstResponder];
             break;
             
         case MDBLSAdding:
-            position = self.addButton.bounds.size.width + 8;
+            position = strongAdd.bounds.size.width + 8;
             [self setContentViewEnabled:NO];
-            self.addButton.alpha = 1.0;
+            strongAdd.alpha = 1.0;
             [self becomeFirstResponder]; // to dismiss any text editing
             break;
             
         case MDBLSDeleting:
-            position = -(self.deleteButton.bounds.size.width + 8);
+            position = -(strongDelete.bounds.size.width + 8);
             [self setContentViewEnabled:NO];
-            self.deleteButton.alpha = 1.0;
+            strongDelete.alpha = 1.0;
             [self becomeFirstResponder];
             break;
         default:

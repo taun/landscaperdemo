@@ -9,6 +9,8 @@
 #import "MBLSFractalSummaryEditView.h"
 #import "MDKLayerViewDesignable.h"
 #import "FractalScapeIconSet.h"
+#import "MDBFractalDocument.h"
+#import "LSFractal.h"
 
 @interface MBLSFractalSummaryEditViewer ()
 @property (nonatomic,weak) UIView   *contentView;
@@ -41,22 +43,25 @@
 }
 
 -(void) setupSubviews {
-    _contentView = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
-    [self addSubview: _contentView];
-    _contentView.frame = self.bounds;
+    UIView* strongContentView;
+    strongContentView = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
+    [self addSubview: strongContentView];
+    strongContentView.frame = self.bounds;
+    _contentView = strongContentView;
     
 #if TARGET_INTERFACE_BUILDER
     _name.text = @"Just testing";
 #endif
+    UIPickerView* strongCategory = _category;
+    [strongCategory selectRow: 2 inComponent: 0 animated: NO];
     
-    [_category selectRow: 2 inComponent: 0 animated: NO];
-    
-    MDKLayerViewDesignable* layerView = (MDKLayerViewDesignable*)_descriptor.superview;
+    UITextView* strongDescriptor = _descriptor;
+    MDKLayerViewDesignable* layerView = (MDKLayerViewDesignable*)strongDescriptor.superview;
     layerView.borderColor = [FractalScapeIconSet groupBorderColor];
     
     
 #if TARGET_INTERFACE_BUILDER
-    _descriptor.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+    strongDescriptor.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 #endif
     
     [self setupConstraints];
@@ -64,12 +69,16 @@
 }
 
 -(void) setupConstraints {
-    self.translatesAutoresizingMaskIntoConstraints = NO;
-    _name.translatesAutoresizingMaskIntoConstraints = NO;
-    _descriptor.translatesAutoresizingMaskIntoConstraints = NO;
-    _category.translatesAutoresizingMaskIntoConstraints = NO;
+    UIPickerView* strongCategory = _category;
+    UITextView* strongDescriptor = _descriptor;
+    UITextField* strongName = _name;
     
-    UIView* descriptorBox = _descriptor.superview;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    strongName.translatesAutoresizingMaskIntoConstraints = NO;
+    strongDescriptor.translatesAutoresizingMaskIntoConstraints = NO;
+    strongCategory.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UIView* descriptorBox = strongDescriptor.superview;
     descriptorBox.translatesAutoresizingMaskIntoConstraints = NO;
     //    descriptorBox.con
     
@@ -90,44 +99,53 @@
 -(void) layoutSubviews {
     [super layoutSubviews];
     
-    MDKLayerViewDesignable* layerView = (MDKLayerViewDesignable*)_descriptor.superview;
+    UITextView* strongDescriptor = _descriptor;
+    MDKLayerViewDesignable* layerView = (MDKLayerViewDesignable*)strongDescriptor.superview;
     layerView.borderColor = [FractalScapeIconSet groupBorderColor];
     
     //    [self ];
 }
 
--(void) setFractal:(LSFractal *)fractal {
-    _fractal = fractal;
-    _name.text = _fractal.name;
-    _descriptor.text = fractal.descriptor;
-    NSInteger categoryIndex = [[self.fractal allCategories] indexOfObject: self.fractal.category];
-    [_category reloadAllComponents];
-    [_category selectRow: categoryIndex inComponent: 0 animated: YES];
+-(void) setFractalDocument:(MDBFractalDocument *)fractalDocument {
+    UITextView* strongDescriptor = _descriptor;
+    UITextField* strongName = _name;
+
+    _fractalDocument = fractalDocument;
+    strongName.text = _fractalDocument.fractal.name;
+    strongDescriptor.text = fractalDocument.fractal.descriptor;
+//    NSInteger categoryIndex = [[self.fractalDocument allCategories] indexOfObject: self.fractalDocument.fractal.category];
+//    [_category reloadAllComponents];
+//    [_category selectRow: categoryIndex inComponent: 0 animated: YES];
 }
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
     {
-        self.category.hidden = YES;
-        self.oldCategoryWidth = self.pickerViewWidthConstraint.constant;
-        self.pickerViewWidthConstraint.constant = 0.0;
+        UIPickerView* strongCategory = self.category;
+        NSLayoutConstraint* strongWidth = self.pickerViewWidthConstraint;
         
-        [self.name setNeedsLayout];
+        strongCategory.hidden = YES;
+        self.oldCategoryWidth = strongWidth.constant;
+        strongWidth.constant = 0.0;
+        
+        UITextField* strongName = self.name;
+        [strongName setNeedsLayout];
     }
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    [self.descriptor becomeFirstResponder];
+    UITextView* strongDescriptor = self.descriptor;
+    [strongDescriptor becomeFirstResponder];
     return NO;
 }
 
 -(void) textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == _name) {
-        self.fractal.name = textField.text;
+        self.fractalDocument.fractal.name = textField.text;
     }
 }
 #pragma mark - UITextViewDelegate
@@ -137,12 +155,15 @@
         
         [textView resignFirstResponder];
         
+        UIPickerView* strongCategory = self.category;
+        NSLayoutConstraint* strongWidth = self.pickerViewWidthConstraint;
+
         if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
         {
-            self.category.hidden = NO;
-            self.pickerViewWidthConstraint.constant = self.oldCategoryWidth;
+            strongCategory.hidden = NO;
+            strongWidth.constant = self.oldCategoryWidth;
         }
-        [self.category becomeFirstResponder];
+        [strongCategory becomeFirstResponder];
         // Return FALSE so that the final '\n' character doesn't get added
         return NO;
     }
@@ -153,7 +174,7 @@
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
     if (textView == _descriptor) {
-        self.fractal.descriptor = textView.text;
+        self.fractalDocument.fractal.descriptor = textView.text;
     }
 }
 
@@ -167,7 +188,8 @@
 #if TARGET_INTERFACE_BUILDER
     return 4;
 #else
-    return [[self.fractal allCategories] count];
+    MDBFractalDocument* strongDocument = self.fractalDocument;
+    return strongDocument.categories.count;
 #endif
 }
 
@@ -178,7 +200,8 @@
 }
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
-    CGFloat width = _category.bounds.size.width;
+    UIPickerView* strongCategory = self.category;
+    CGFloat width = strongCategory.bounds.size.width;
     return width*(120.0/130.0);
 }
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -188,9 +211,9 @@
 #if TARGET_INTERFACE_BUILDER
     categories = @[@"one",@"two",@"three",@"four"];
 #else
-    categories = [self.fractal allCategories];
+    categories = self.fractalDocument.categories;
 #endif
-    return categories[row];
+    return [categories[row] name];
 }
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
@@ -203,40 +226,14 @@
         tView.numberOfLines=1;
     }
     // Fill the label text here
-    tView.text = [self.fractal allCategories][row];
+    MDBFractalDocument* strongDocument = self.fractalDocument;
+    tView.text = [strongDocument.categories[row] name];
     return tView;
 }
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSString* category = [self.fractal allCategories][row];
-    self.fractal.category = category;
+    MDBFractalCategory* category = self.fractalDocument.categories[row];
+    self.fractalDocument.fractal.category = category;
     [self becomeFirstResponder];
-    [self saveContext];
-}
-// TODO: change to sendActionsFor...
-//- (void)textViewDidEndEditing:(UITextView *)textView {
-//    //    if (textView == self.fractalDescriptor) {
-//    //        self.fractal.descriptor = textView.text;
-//    //    }
-//    self.fractal.descriptor = textView.text;
-//    [self saveContext];
-//}
-
-- (void)saveContext {
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.fractal.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } else {
-            //            self.fractalDataChanged = YES;
-        }
-    }
 }
 
 @end

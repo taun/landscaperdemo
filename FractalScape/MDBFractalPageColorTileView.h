@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
-#import "LSFractal+addons.h"
-#import "MBColor+addons.h"
+@import Foundation;
+@import UIKit;
+
+#import "MDBFractalDocument.h"
+#import "MBColor.h"
 
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MDBTileObjectProtocol.h"
@@ -23,7 +24,7 @@ IB_DESIGNABLE
 
 @interface MDBFractalPageColorTileView : UIView <MBLSRuleDragAndDropProtocol>
 
-@property (nonatomic,strong) LSFractal              *fractal;
+@property (nonatomic,strong) MDBFractalDocument              *fractalDocument;
 
 @property (nonatomic,assign) IBInspectable CGFloat      tileCornerRadius;
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;

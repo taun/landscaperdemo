@@ -200,7 +200,7 @@ static UIImage* _imageOfIPad2x = nil;
     [bezierPath addLineToPoint: CGPointMake(19.5, 0.5)];
     [bezierPath addLineToPoint: CGPointMake(19.5, 0.5)];
     [bezierPath closePath];
-    [UIColor.whiteColor setStroke];
+    [UIColor.blueColor setStroke];
     bezierPath.lineWidth = 1;
     [bezierPath stroke];
 

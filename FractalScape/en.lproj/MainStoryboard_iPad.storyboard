@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="u0F-Fq-0AU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="u0F-Fq-0AU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -10,7 +10,7 @@
         <!--FractalName-->
         <scene sceneID="Vzi-SL-M21">
             <objects>
-                <viewController title="FractalName" extendedLayoutIncludesOpaqueBars="YES" definesPresentationContext="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FractalEditView" title="FractalName" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sft-HR-kri"/>
                         <viewControllerLayoutGuide type="bottom" id="Awh-gB-3mV"/>
@@ -425,7 +425,7 @@
                                                                 </variation>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="180.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8O-zg-dbz" userLabel="turnAngle">
-                                                                <rect key="frame" x="240" y="128.5" width="50" height="19.5"/>
+                                                                <rect key="frame" x="240" y="128" width="50" height="19.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="50" id="JMC-cy-AXu"/>
                                                                 </constraints>
@@ -680,8 +680,8 @@
                                                     <action selector="playSliderChangedValue:" destination="4nM-Pc-iAd" eventType="valueChanged" id="TfB-9n-wgV"/>
                                                 </connections>
                                             </slider>
-                                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4tK-dc-Bzb">
-                                                <rect key="frame" x="281" y="281" width="37" height="37"/>
+                                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4tK-dc-Bzb">
+                                                <rect key="frame" x="281" y="331.5" width="37" height="37"/>
                                                 <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </activityIndicatorView>
                                         </subviews>
@@ -767,11 +767,6 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="FractalScape" id="5yD-Jb-xIT">
-                        <barButtonItem key="leftBarButtonItem" title="Library" id="X7f-AM-yeZ">
-                            <connections>
-                                <segue destination="tpb-gq-tvK" kind="presentation" identifier="LibrarySegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="flipHorizontal" id="06u-pY-Hz4"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI">
                             <connections>
                                 <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="chz-4Y-vsU"/>
@@ -854,7 +849,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4513.28125" y="135.9375"/>
+            <point key="canvasLocation" x="5325" y="135"/>
         </scene>
         <!--Filters-->
         <scene sceneID="GlJ-fF-gPe">
@@ -980,7 +975,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="484"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="1328"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
@@ -1022,7 +1017,7 @@
                                                             <rect key="frame" x="10" y="0.0" width="780" height="116"/>
                                                         </variation>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
                                                         <rect key="frame" x="12" y="144" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1328,8 +1323,8 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCL-AF-c5r" userLabel="ScrollContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                 <subviews>
-                                    <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QD-IE-s5T">
-                                        <rect key="frame" x="0.0" y="0.0" width="400" height="407"/>
+                                    <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QD-IE-s5T">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                         <subviews>
                                             <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrT-kZ-Fno">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
@@ -1449,10 +1444,10 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
-                                            <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
+                                            <rect key="frame" x="2" y="2" width="396" height="96"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="96"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="p60-hJ-K77"/>
@@ -1483,7 +1478,7 @@
                                                     </connections>
                                                 </view>
                                                 <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
-                                                    <rect key="frame" x="48" y="0.0" width="352" height="100"/>
+                                                    <rect key="frame" x="48" y="0.0" width="352" height="96"/>
                                                     <subviews>
                                                         <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
                                                             <rect key="frame" x="4" y="11" width="28" height="28"/>
@@ -1786,16 +1781,74 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCg-OZ-rZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5296.5" y="364"/>
+            <point key="canvasLocation" x="6108" y="364"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pvY-vp-HrL">
+            <objects>
+                <navigationController id="bzS-Zh-YG5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="arx-UN-yWC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9pe-kV-foC" kind="relationship" relationship="rootViewController" id="vce-Af-mZ9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XA9-IT-SSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3832" y="-660"/>
+        </scene>
+        <!--Edit-->
+        <scene sceneID="zSv-JI-BWw">
+            <objects>
+                <collectionViewController storyboardIdentifier="FractalEditLibrary" title="Edit" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7x8-no-bZT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cyh-CT-dHJ">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ssG-u3-WyA">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="9pe-kV-foC" id="UEE-EL-8Ye"/>
+                            <outlet property="delegate" destination="9pe-kV-foC" id="hC7-3p-HnX"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="Y0u-pB-asM">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Azc-wu-UAC">
+                            <connections>
+                                <action selector="editDone:" destination="9pe-kV-foC" id="fSR-rv-atc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oDK-oe-bAj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4513" y="-660"/>
         </scene>
         <!--Library-->
         <scene sceneID="iKT-0y-poi">
             <objects>
-                <collectionViewController storyboardIdentifier="LibraryPopover" title="Library" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="FractalLibrary" title="Library" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
-                        <rect key="frame" x="0.0" y="44" width="510" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="tuN-UJ-qld">
                             <size key="itemSize" width="146" height="254"/>
                             <size key="headerReferenceSize" width="50" height="44"/>
@@ -1877,14 +1930,15 @@
                                     <outlet property="imageFrame" destination="z47-1a-Cob" id="xkP-Xw-MvZ"/>
                                     <outlet property="imageView" destination="AYV-rN-sBG" id="lg7-Jp-1im"/>
                                     <outlet property="textLabel" destination="PV1-X5-WaQ" id="rtZ-MR-lcd"/>
+                                    <segue destination="zSz-Y2-TqJ" kind="presentation" identifier="showFractalDocument" modalTransitionStyle="flipHorizontal" id="x7D-oA-zT1"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="R8j-MN-2F0" customClass="MBCollectionFractalSupplementaryLabel">
-                            <rect key="frame" x="0.0" y="0.0" width="510" height="44"/>
+                            <rect key="frame" x="0.0" y="44" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
                                     <rect key="frame" x="177" y="11" width="156" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="cWI-Hz-w47"/>
@@ -1917,23 +1971,26 @@
                         <barButtonItem enabled="NO" systemItem="search" id="d4O-oq-l77"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Library" id="uJn-Hw-dsJ">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="done" id="Pfw-Wr-cl9">
+                        <barButtonItem key="backBarButtonItem" title="Library" id="rgH-UD-fGC"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="dzy-2f-cmr">
                             <connections>
-                                <segue destination="Aum-QI-fMm" kind="unwind" unwindAction="unwindToEditorFromLibrary:" id="6Ad-Cc-DQw"/>
+                                <segue destination="bzS-Zh-YG5" kind="presentation" modalTransitionStyle="crossDissolve" id="8pZ-o0-rVK"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="IzD-z0-oN0">
+                            <connections>
+                                <action selector="pickDocument:" destination="o9m-5w-n8i" id="22U-xX-Lo5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <value key="contentSizeForViewInPopover" type="size" width="510" height="600"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="510" height="600"/>
+                    <connections>
+                        <segue destination="zSz-Y2-TqJ" kind="showDetail" identifier="showFractalDocumentFromUserActivity" id="7Eg-98-oTe"/>
+                        <segue destination="zSz-Y2-TqJ" kind="showDetail" identifier="newFractalDocument" id="Ztc-U9-6aN"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Aum-QI-fMm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6265" y="-248"/>
+            <point key="canvasLocation" x="3832" y="135"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ECf-kR-spw">
@@ -1950,36 +2007,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="4nM-Pc-iAd" kind="relationship" relationship="rootViewController" id="KOU-qq-5Sj"/>
+                        <segue destination="o9m-5w-n8i" kind="relationship" relationship="rootViewController" id="aaS-8e-UEW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dce-s8-c1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3747.65625" y="135.9375"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="jth-yK-sR7">
-            <objects>
-                <navigationController storyboardIdentifier="LibraryNavCon" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" toolbarHidden="NO" id="tpb-gq-tvK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <value key="contentSizeForViewInPopover" type="size" width="510" height="600"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="510" height="600"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2P8-6A-uDF">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="BwG-zn-Ql6">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="o9m-5w-n8i" kind="relationship" relationship="rootViewController" id="U0i-iK-GeP"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WVN-87-6U8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5379" y="-248"/>
+            <point key="canvasLocation" x="3107" y="135"/>
         </scene>
         <!--Rules-->
         <scene sceneID="M0i-xl-FcE">
@@ -2019,6 +2052,24 @@
             </objects>
             <point key="canvasLocation" x="5665.5" y="996"/>
         </scene>
+        <!--EditNavigator-->
+        <scene sceneID="DnG-fq-bTe">
+            <objects>
+                <navigationController title="EditNavigator" automaticallyAdjustsScrollViewInsets="NO" id="zSz-Y2-TqJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aSQ-IH-Hwb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4nM-Pc-iAd" kind="relationship" relationship="rootViewController" id="Nly-Mb-VGP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rcc-v6-YF9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4513" y="135"/>
+        </scene>
     </scenes>
     <resources>
         <image name="kBIconBaseAngleSmall" width="30" height="30"/>
@@ -2040,4 +2091,7 @@
         <image name="toolBarPlay" width="28" height="28"/>
         <image name="zensand" width="72" height="71"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="x7D-oA-zT1"/>
+    </inferredMetricsTieBreakers>
 </document>

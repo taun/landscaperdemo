@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+
+@import Foundation;
 
 #import "MBFractalSegment.h"
 
-@class LSFractal;
+@class MDBFractalDocument;
 
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
@@ -200,8 +200,8 @@ X ;   close path
  */
 @interface LSFractalRenderer : NSObject
 
-+(instancetype) newRendererForFractal: (LSFractal*)aFractal;
--(instancetype) initWithFractal: (LSFractal*) aFractal;
++(instancetype) newRendererForFractal: (MDBFractalDocument*)aFractalDocument;
+-(instancetype) initWithFractal: (MDBFractalDocument*) aFractalDocument;
 /*!
  For convenience during debugging multiple threads/operations.
  */
@@ -215,8 +215,8 @@ X ;   close path
  */
 @property (nonatomic,assign) BOOL                   flipY;
 @property (nonatomic,assign) CGFloat                pixelScale;
-@property (nonatomic,strong) UIColor*               defaultLineColor;
-@property (nonatomic,strong) UIColor*               defaultFillColor;
+@property (nonatomic,copy) UIColor*               defaultLineColor;
+@property (nonatomic,copy) UIColor*               defaultFillColor;
 @property (nonatomic,copy) UIColor                  *backgroundColor;
 @property (atomic,weak) UIImageView                 *imageView;
 @property (nonatomic,assign,readonly) CGRect        rawFractalPathBounds;
@@ -242,7 +242,7 @@ X ;   close path
  */
 @property (NS_NONATOMIC_IOSONLY, readonly) CGSize unitBox;
 
--(void) setValuesForFractal:(LSFractal *)aFractal;
+-(void) setValuesForFractal:(MDBFractalDocument *)aFractal;
 
 -(void) generateImage;
 -(void) generateImagePercent: (CGFloat)percent;

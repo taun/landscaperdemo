@@ -6,24 +6,31 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <XCTest/XCTest.h>
 
-#import <CoreData/CoreData.h>
+@import XCTest;
+@import Foundation;
+@import UIKit;
 
-#import "NSManagedObject+Shortcuts.h"
-#import "LSFractal+addons.h"
-#import "LSDrawingRule+addons.h"
-#import "LSReplacementRule+addons.h"
+#import "LSFractal.h"
+#import "LSDrawingRule.h"
+#import "LSReplacementRule.h"
+#import "MDBFractalDocument.h"
 
+@interface MDBExplodingObject : NSObject
+
+@end
+
+
+#define kUnitTestFileName   @"FractalTest.fractal"
 
 @interface FractalScapeFractalModelTests : XCTestCase
 
+@property(nonatomic,strong) NSFileManager   *fileManager;
+@property(nonatomic,strong) NSString        *unitTestFilePath;
+@property(nonatomic,strong) NSURL           *unitTestFileUrl;
+
 @property (nonatomic,strong) NSDictionary                  *commandKeyDictionary;
 @property (nonatomic,strong) NSDictionary                  *stringCommandDictionary;
-@property (nonatomic,strong) NSManagedObjectContext        *managedObjectContext;
-@property (nonatomic,strong) NSManagedObjectModel          *managedObjectModel;
-@property (nonatomic,strong) NSPersistentStoreCoordinator  *persistentStoreCoordinator;
 
 @end
 
@@ -48,9 +55,20 @@
     }
     
     _stringCommandDictionary = [tempCommandDictionary copy];
+
+    NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirs objectAtIndex:0];
+    
+    self.unitTestFilePath = [docsDir stringByAppendingPathComponent:kUnitTestFileName];
+    self.unitTestFileUrl = [NSURL fileURLWithPath: self.unitTestFilePath];
+    
+    self.fileManager = [NSFileManager defaultManager];
+    [self.fileManager removeItemAtURL: self.unitTestFileUrl error:NULL];
+    
 }
 
-- (void)tearDown {
+- (void)tearDown
+{
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
@@ -76,7 +94,7 @@
     fractal.name = name;
     fractal.descriptor = @"more tests";
     
-    LSFractal *fractalCopy = [fractal mutableCopy];
+    LSFractal *fractalCopy = [fractal copy];
     
     BOOL result = [fractalCopy.name isEqualToString:copiedName];
     result = result && [fractalCopy.descriptor isEqualToString: fractal.descriptor];
@@ -86,7 +104,7 @@
 
 -(void) testMutableCopyDrawingRule {
     LSDrawingRule* drawingRule = [self createDrawingRuleWithProduction: @"F" command: @"commandDrawLine"];
-    LSDrawingRule* drawingRuleCopy = [drawingRule mutableCopy];
+    LSDrawingRule* drawingRuleCopy = [drawingRule copy];
     XCTAssert([drawingRuleCopy isSimilar: drawingRule], @"Drawing rule copy not equal");
 }
 -(void) testLevel1RulesCreation {
@@ -97,7 +115,7 @@
 }
 -(void) testLevel5RulesCreation {
     LSFractal *fractal = [self createDefaultFractal];
-    fractal.level = @5;
+    fractal.level = 5;
     NSString* levelNRules = [[NSString alloc] initWithData: fractal.levelNRules encoding: NSUTF8StringEncoding];
     
     XCTAssert(levelNRules.length == 487, @"Wrong number of leaf rules");
@@ -123,7 +141,7 @@
 }
 -(void) testBushLevel2NRulesCreation {
     LSFractal *fractal = [self createBushFractal];
-    fractal.level = @2;
+    fractal.level = 2;
     
     NSString* resultString = [[NSString alloc] initWithData: fractal.levelNRules encoding: NSUTF8StringEncoding];
     NSString* answer = @"FF+[+F-F-F]-[-F+F+F]FF+[+F-F-F]-[-F+F+F]+[+FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]-FF+[+F-F-F]-[-F+F+F]]-[-FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]+FF+[+F-F-F]-[-F+F+F]]";
@@ -144,7 +162,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createDefaultFractal];
-        fractal.level = @5;
+        fractal.level = 5;
         
         fractal.levelNRules;
     }];
@@ -155,7 +173,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @5;
+        fractal.level = 5;
         
         fractal.levelNRules;
     }];
@@ -166,7 +184,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @6;
+        fractal.level = 6;
         
         fractal.levelNRules;
     }];
@@ -177,7 +195,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @7;
+        fractal.level = 7;
         
         fractal.levelNRules;
     }];
@@ -188,7 +206,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @8;
+        fractal.level = 8;
         
         fractal.levelNRules;
     }];
@@ -199,7 +217,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createSierpinskiGasketFractal];
-        fractal.level = @9;
+        fractal.level = 9;
         
         fractal.levelNRules;
     }];
@@ -210,7 +228,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createBushFractal];
-        fractal.level = @5;
+        fractal.level = 5;
         
         fractal.levelNRules;
     }];
@@ -221,19 +239,244 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createBushFractal];
-        fractal.level = @6;
+        fractal.level = 6;
         
         fractal.levelNRules;
     }];
 }
 
+- (void)testSavingCreatesFile
+{
+    // given that we have an instance of our document
+    MDBFractalDocument * objUnderTest = [[MDBFractalDocument alloc] initWithFileURL: self.unitTestFileUrl];
+    
+    // when we call saveToURL:forSaveOperation:completionHandler:
+    XCTestExpectation *documentSaveExpectation = [self expectationWithDescription:@"document saved"];
+    
+    [objUnderTest saveToURL: self.unitTestFileUrl forSaveOperation:UIDocumentSaveForCreating completionHandler: ^(BOOL success)
+     {
+         XCTAssert(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         XCTAssertTrue([_fileManager fileExistsAtPath:_unitTestFilePath], @"");
+         [documentSaveExpectation fulfill];
+         
+     }];
+    // then the completion block should be called, but with a failure indication
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+
+    }];
+}
+
+- (void) testLoadingRetrievesData
+{
+    // given that we have saved the data from an instance of our class
+    LSFractal* savedFractal = [self createDefaultFractal];
+    
+    MDBFractalDocument * document = [[MDBFractalDocument alloc] initWithFileURL: self.unitTestFileUrl];
+    document.fractal = savedFractal;
+    
+    XCTestExpectation *documentSaveExpectation = [self expectationWithDescription:@"document saved"];
+    
+    [document saveToURL: self.unitTestFileUrl forSaveOperation:UIDocumentSaveForCreating completionHandler: ^(BOOL success)
+     {
+         XCTAssert(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         [documentSaveExpectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error)
+     {
+     }];
+    
+    XCTestExpectation *documentCloseExpectation = [self expectationWithDescription:@"document close"];
+    
+    [document closeWithCompletionHandler: ^(BOOL success)
+     {
+         XCTAssert(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         [documentCloseExpectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error)
+     {
+     }];
+    
+    // when we load a new document from that file
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"document open"];
+    
+    MDBFractalDocument * objUnderTest = [[MDBFractalDocument alloc] initWithFileURL: self.unitTestFileUrl];
+    [objUnderTest openWithCompletionHandler: ^(BOOL success)
+     {
+         XCTAssert(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         LSFractal * loadedFractal = objUnderTest.fractal;
+         
+         BOOL result = [savedFractal.name isEqualToString: loadedFractal.name];
+         result = result && [savedFractal.descriptor isEqualToString: loadedFractal.descriptor];
+         
+         XCTAssert(result, @"Fractal copy not equal");
+         
+         [documentOpenExpectation fulfill];
+         
+     }];
+    // then the completion block should be called, but with a failure indication
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+        [objUnderTest closeWithCompletionHandler:nil];
+    }];
+}
+
+- (void) testLoadingWhenThereIsNoFile
+{
+    // given that the file does not exist
+    
+    // when we load a new document from that file
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"document open"];
+    
+    MDBFractalDocument * objUnderTest = [[MDBFractalDocument alloc] initWithFileURL: self.unitTestFileUrl];
+    [objUnderTest openWithCompletionHandler: ^(BOOL success)
+     {
+         XCTAssertFalse(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         [documentOpenExpectation fulfill];
+         
+     }];
+    // then the completion block should be called, but with a failure indication
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+        [objUnderTest closeWithCompletionHandler:nil];
+    }];
+}
+- (void) testLoadingEmptyFileShouldFailGracefully
+{
+    // given that the file is present but empty
+    NSMutableData *data = [NSMutableData dataWithLength:0];
+    [data writeToFile: self.unitTestFilePath atomically:YES];
+    
+    // when we load a new document from that file
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"document open"];
+    
+    MDBFractalDocument * objUnderTest = [[MDBFractalDocument alloc] initWithFileURL: self.unitTestFileUrl];
+    [objUnderTest openWithCompletionHandler: ^(BOOL success)
+     {
+         XCTAssertFalse(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         [documentOpenExpectation fulfill];
+         
+     }];
+    // then the completion block should be called, but with a failure indication
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+        [objUnderTest closeWithCompletionHandler:nil];
+    }];
+}
+
+- (void) testLoadingSingleByteFileShouldFailGracefully
+{
+    // given that the file is present and contains a single byte
+    NSMutableData *data = [NSMutableData dataWithLength:1];
+    [data appendBytes:" " length:1];
+    [data writeToFile: self.unitTestFilePath atomically:YES];
+    
+    // when we load a new document from that file
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"document open"];
+    
+    MDBFractalDocument * objUnderTest = [[MDBFractalDocument alloc] initWithFileURL: self.unitTestFileUrl];
+    [objUnderTest openWithCompletionHandler: ^(BOOL success)
+     {
+         XCTAssertFalse(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         [documentOpenExpectation fulfill];
+         
+     }];
+    // then the completion block should be called, but with a failure indication
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+        [objUnderTest closeWithCompletionHandler:nil];
+    }];
+}
+
+- (void) testUnexpectedVersionShouldFailGracefully
+{
+    // given that the file contains an unexpected version number
+    
+    NSArray *array = [NSArray array];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeInt:-999 forKey:@"version"];
+    [archiver encodeObject:array forKey:@"array"];
+    [archiver finishEncoding];
+    [data writeToFile: self.unitTestFilePath atomically:YES];
+    
+    // when we load a new document from that file
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"document open"];
+    
+    MDBFractalDocument * objUnderTest = [[MDBFractalDocument alloc] initWithFileURL: self.unitTestFileUrl];
+    [objUnderTest openWithCompletionHandler: ^(BOOL success)
+     {
+         XCTAssertFalse(success);
+         // Possibly assert other things here about the document after it has opened...
+         
+         [documentOpenExpectation fulfill];
+         
+     }];
+    // then the completion block should be called, but with a failure indication
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+        [objUnderTest closeWithCompletionHandler:nil];
+    }];
+}
+
+- (void) testExceptionDuringUnarchiveShouldFailGracefully
+{
+    // given that the file contains an object that will throw when unarchived
+    
+    MDBExplodingObject *exploding = [[MDBExplodingObject alloc] init];
+    NSArray *array = [NSArray arrayWithObjects:exploding, nil];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeInteger: 1 forKey: @"version"];
+    [archiver encodeObject:array forKey:@"array"];
+    [archiver finishEncoding];
+    [data writeToFile:_unitTestFilePath atomically:YES];
+    
+    // when we load a new document from that file
+    
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"document open"];
+
+    MDBFractalDocument * objUnderTest = [[MDBFractalDocument alloc] initWithFileURL:_unitTestFileUrl];
+    [objUnderTest openWithCompletionHandler:^(BOOL success)
+    {
+        XCTAssert(success);
+        // Possibly assert other things here about the document after it has opened...
+
+        [documentOpenExpectation fulfill];
+    
+    }];
+    // then the completion block should be called, but with a failure indication
+    
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+        [objUnderTest closeWithCompletionHandler:nil];
+    }];
+}
+
+#pragma mark - Utility Methods
+
 -(LSDrawingRule*) createDrawingRuleWithProduction: (NSString*) prodString command: (NSString*)commandString {
-    LSDrawingRule* drawingRule = (LSDrawingRule*)[LSDrawingRule insertNewObjectIntoContext: self.managedObjectContext];
+    LSDrawingRule* drawingRule = [LSDrawingRule new];
     drawingRule.productionString = prodString;
     drawingRule.drawingMethodString = commandString;
     return drawingRule;
 }
--(void) addRulesFromString: (NSString*) rulesAsString toSet: (NSMutableOrderedSet*) rulesSet {
+-(void) addRulesFromString: (NSString*) rulesAsString toCollection: (id) rulesCollection {
 
     NSRange ruleRange;
     ruleRange.length = 1;
@@ -242,7 +485,7 @@
         ruleRange.location = i;
         NSString* ruleKey = [rulesAsString substringWithRange: ruleRange];
         NSString* command = self.stringCommandDictionary[ruleKey];
-        [rulesSet addObject: [self createDrawingRuleWithProduction: ruleKey command: command]];
+        [rulesCollection addObject: [self createDrawingRuleWithProduction: ruleKey command: command]];
     }
 }
 -(NSString*) stringFromRuleSet: (NSPointerArray*) ruleArray {
@@ -259,28 +502,31 @@
     return [ruleString copy];
 }
 -(LSFractal*) createDefaultFractal {
-    LSFractal *fractalCopy = (LSFractal*)[LSFractal insertNewObjectIntoContext: self.managedObjectContext];
+    LSFractal *fractalCopy = [LSFractal new];
+    fractalCopy.name = @"DefaultFractal";
+    fractalCopy.descriptor = @"A sample test fractal.";
     
-    NSMutableOrderedSet* rulesSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal startingRulesKey]];
-    [self addRulesFromString: @"F-+" toSet: rulesSet];
-    [fractalCopy.managedObjectContext processPendingChanges];
+    NSMutableArray* rules = [NSMutableArray new];
+    [self addRulesFromString: @"F-+" toCollection: rules];
+    fractalCopy.startingRules = rules;
     
     NSUInteger rulesCount =  fractalCopy.startingRules.count;
     
     XCTAssert(rulesCount == 3, @"Fractal rules not successfully created");
     
-    LSReplacementRule* replacementRule = (LSReplacementRule*)[LSReplacementRule insertNewObjectIntoContext: self.managedObjectContext];
+    LSReplacementRule* replacementRule = [LSReplacementRule new];
     replacementRule.contextRule = [self createDrawingRuleWithProduction: @"F" command: @"commandDrawLine"];
     
-    NSMutableOrderedSet* replacementRulesSet = [replacementRule mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
-    [self addRulesFromString: @"F+F-F" toSet: replacementRulesSet];
+    NSMutableArray* replacementRules = [NSMutableArray new];
+    [self addRulesFromString: @"F+F-F" toCollection: replacementRules];
+    replacementRule.rules = replacementRules;
     
     NSUInteger replacementRulesCount = replacementRule.rules.count;
     XCTAssert(replacementRulesCount == 5, @"Fractal rules not successfully created");
     
-    NSMutableOrderedSet* fractalReplacementRulesSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
+    NSMutableArray* fractalReplacementRulesSet = [NSMutableArray new];
     [fractalReplacementRulesSet addObject: replacementRule];
-
+    fractalCopy.replacementRules = fractalReplacementRulesSet;
     return fractalCopy;
 }
 
@@ -296,36 +542,41 @@
  @return sierpinski fractal
  */
 -(LSFractal*) createSierpinskiGasketFractal {
-    LSFractal *fractalCopy = (LSFractal*)[LSFractal insertNewObjectIntoContext: self.managedObjectContext];
+    LSFractal *fractalCopy = [LSFractal new];
+    fractalCopy.name = @"Sierpinski Gasket";
+    fractalCopy.descriptor = @"A geometric fractal which looks like a circular?";
     
-    NSMutableOrderedSet* rulesSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal startingRulesKey]];
+    NSMutableArray* rulesSet = [NSMutableArray new];
     
-    [self addRulesFromString: @"FAF--FF--FF" toSet: rulesSet];
-    [fractalCopy.managedObjectContext processPendingChanges];
+    [self addRulesFromString: @"FAF--FF--FF" toCollection: rulesSet];
+    
+    fractalCopy.startingRules = rulesSet;
     
     NSUInteger rulesCount =  fractalCopy.startingRules.count;
     
     XCTAssert(rulesCount == 11, @"Fractal rules not successfully created");
     
-    LSReplacementRule* replacementRuleF = (LSReplacementRule*)[LSReplacementRule insertNewObjectIntoContext: self.managedObjectContext];
+    LSReplacementRule* replacementRuleF = [LSReplacementRule new];
     replacementRuleF.contextRule = [self createDrawingRuleWithProduction: @"F" command: @"commandDrawLine"];
     
-    NSMutableOrderedSet* replacementRulesSet = [replacementRuleF mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
-    [self addRulesFromString: @"FF" toSet: replacementRulesSet];
-
+    NSMutableArray* replacementRulesSet = [NSMutableArray new];
+    [self addRulesFromString: @"FF" toCollection: replacementRulesSet];
+    replacementRuleF.rules = replacementRulesSet;
     
-    LSReplacementRule* replacementRuleA = (LSReplacementRule*)[LSReplacementRule insertNewObjectIntoContext: self.managedObjectContext];
+    LSReplacementRule* replacementRuleA = [LSReplacementRule new];
     replacementRuleA.contextRule = [self createDrawingRuleWithProduction: @"A" command: @"commandDoNothing"];
     
-    NSMutableOrderedSet* replacementRulesSetA = [replacementRuleA mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
-    [self addRulesFromString: @"--FAF++FAF++FAF--" toSet: replacementRulesSetA];
+    NSMutableArray* replacementRulesSetA = [NSMutableArray new];
+    [self addRulesFromString: @"--FAF++FAF++FAF--" toCollection: replacementRulesSetA];
+    replacementRuleA.rules = replacementRulesSetA;
     
     NSUInteger replacementRulesCount = replacementRuleF.rules.count;
     XCTAssert(replacementRulesCount == 2, @"Fractal rules not successfully created");
     
-    NSMutableOrderedSet* fractalReplacementRulesSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
+    NSMutableArray* fractalReplacementRulesSet = [NSMutableArray new];
     [fractalReplacementRulesSet addObject: replacementRuleA];
     [fractalReplacementRulesSet addObject: replacementRuleF];
+    fractalCopy.replacementRules = fractalReplacementRulesSet;
     
     return fractalCopy;
 }
@@ -337,110 +588,57 @@
  @return fractal
  */
 -(LSFractal*) createBushFractal {
-    LSFractal *fractalCopy = (LSFractal*)[LSFractal insertNewObjectIntoContext: self.managedObjectContext];
+    LSFractal *fractalCopy = [LSFractal new];
+    fractalCopy.name = @"Bush";
+    fractalCopy.descriptor = @"A plant fractal which looks like a simple bush.";
     
-    NSMutableOrderedSet* rulesSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal startingRulesKey]];
+    NSMutableArray* rules = [NSMutableArray new];
     
-    [self addRulesFromString: @"F" toSet: rulesSet];
-    [fractalCopy.managedObjectContext processPendingChanges];
+    [self addRulesFromString: @"F" toCollection: rules];
+    fractalCopy.startingRules = rules;
     
     NSUInteger rulesCount =  fractalCopy.startingRules.count;
     
     XCTAssert(rulesCount == 1, @"Fractal rules not successfully created");
     
-    LSReplacementRule* replacementRuleF = (LSReplacementRule*)[LSReplacementRule insertNewObjectIntoContext: self.managedObjectContext];
+    LSReplacementRule* replacementRuleF = [LSReplacementRule new];
     replacementRuleF.contextRule = [self createDrawingRuleWithProduction: @"F" command: @"commandDrawLine"];
     
-    NSMutableOrderedSet* replacementRulesSet = [replacementRuleF mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
-    [self addRulesFromString: @"FF+[+F-F-F]-[-F+F+F]" toSet: replacementRulesSet];
+    NSMutableArray* replacementRulesSet = [NSMutableArray new];
+    [self addRulesFromString: @"FF+[+F-F-F]-[-F+F+F]" toCollection: replacementRulesSet];
+    replacementRuleF.rules = replacementRulesSet;
     
-    
-    NSMutableOrderedSet* fractalReplacementRulesSet = [fractalCopy mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
+    NSMutableArray* fractalReplacementRulesSet = [NSMutableArray new];
     [fractalReplacementRulesSet addObject: replacementRuleF];
+    fractalCopy.replacementRules = fractalReplacementRulesSet;
     
     return fractalCopy;
 }
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext != nil)
-    {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil)
-    {
-        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
-}
 
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil)
-    {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
-        {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-}
-
-/**
- Returns the managed object model for the application.
- If the model doesn't already exist, it is created from the application's model.
- */
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (_managedObjectModel != nil)
-    {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"FSLibrary" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-/**
- Returns the persistent store coordinator for the application.
- If the coordinator doesn't already exist, it is created and the application's store added to it.
- */
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator != nil)
-    {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"FSTestLibrary.sqlite"];
-    
-    // for development, always delete the store first
-    // will force load of defaults
-    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
-    
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType: NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
-    {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _persistentStoreCoordinator;
-}
 
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+@end
+
+@implementation MDBExplodingObject
+
+- (id) initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    if (self)
+    {
+        [NSException raise:@"MDBExplodingObjectException" format:@"goes bang when unarchived"];
+    }
+    
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeInteger: 1 forKey: @"exploder"];
+}
 @end

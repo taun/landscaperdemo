@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+
+@import Foundation;
+@import UIKit;
 
 @interface NSLayoutConstraint (MDBAddons)
 

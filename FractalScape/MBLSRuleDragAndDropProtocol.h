@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#include <CoreGraphics/CoreGraphics.h>
+
+@import Foundation;
+@import UIKit;
+@import CoreGraphics;
+
 #import "MBDraggingItem.h"
 
 /*!

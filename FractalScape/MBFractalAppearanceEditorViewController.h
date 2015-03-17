@@ -6,9 +6,12 @@
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
+
+
 #import "FractalControllerProtocol.h"
-#import "LSFractal+addons.h"
+#import "MDBFractalDocument.h"
 
 /*!
  A TabBarController used to contain all of the fractal edit controls/pages. The custom class
@@ -18,7 +21,7 @@
  */
 @interface MBFractalAppearanceEditorViewController : UITabBarController <FractalControllerProtocol,UITabBarControllerDelegate>
 
-@property (nonatomic,strong) LSFractal                                  *fractal;
+@property (nonatomic,strong) MDBFractalDocument                         *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                                *fractalUndoManager;
 @property (nonatomic,weak) id<FractalControllerDelegate>                 fractalControllerDelegate;
 

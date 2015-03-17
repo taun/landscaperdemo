@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-@interface MDBSliderControle : UIControl
+@interface MDBSliderControl : UIControl
 
 @end

@@ -6,16 +6,17 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
+
 
 IB_DESIGNABLE
 
-enum MDBLSAddDeleteState {
+typedef NS_ENUM(NSUInteger, MDBLSAddDeleteState) {
     MDBLSNeutral = 0,
     MDBLSAdding,
     MDBLSDeleting
 };
-typedef enum MDBLSAddDeleteState MDBLSAddDeleteState;
 
 @interface MDBLSObjectTileListAddDeleteView : UIView <UIGestureRecognizerDelegate>
 

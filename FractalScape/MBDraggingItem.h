@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "LSDrawingRule+addons.h"
+@import Foundation;
+@import UIKit;
+
+#import "LSDrawingRule.h"
 
 /*!
  Class for easily handling dragging a rule around on the tableView.

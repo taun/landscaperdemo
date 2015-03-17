@@ -7,9 +7,9 @@
 //
 
 #import "MBFractalRulesEditorViewController.h"
-#import "LSFractal+addons.h"
-#import "MBColor+addons.h"
-#import "LSDrawingRuleType+addons.h"
+#import "LSFractal.h"
+#import "MBColor.h"
+#import "LSDrawingRuleType.h"
 
 #import "MBLSRuleDragAndDropProtocol.h"
 
@@ -21,15 +21,14 @@
 @implementation MBFractalRulesEditorViewController
 
 -(void) updateFractalDependents {
-    self.summaryEditView.fractal = self.fractal;
+    self.summaryEditView.fractalDocument = self.fractalDocument;
     
-    [self.destinationView setDefaultObjectClass: [LSDrawingRule class] inContext: self.fractal.managedObjectContext];
-    self.destinationView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal startingRulesKey]];
+    [self.destinationView setDefaultObjectClass: [LSDrawingRule class]];
+    self.destinationView.objectList = self.fractalDocument.fractal.startingRules;
     
-    self.replacementRules.replacementRules = [self.fractal mutableOrderedSetValueForKey: [LSFractal replacementRulesKey]];
-    self.replacementRules.context = self.fractal.managedObjectContext;
+    self.replacementRules.replacementRules = self.fractalDocument.fractal.replacementRules;
     
-    [self.sourceListView setValue: self.fractal.drawingRulesType forKey: @"type"];
+    [self.sourceListView setValue: self.fractalDocument.sourceDrawingRules forKey: @"type"];
     
     // a convenient place to override autoScroll. Should be in viewDidLoad but this is fine.
     self.autoScroll = YES;
@@ -45,9 +44,10 @@
     [self.scrollView flashScrollIndicators];
 }
 -(void) viewDidDisappear:(BOOL)animated {
-    if ([self.fractal hasChanges]) {
-        [self saveContext];
-    }
+#pragma message "TODO: uidocument fix"
+//    if ([self.fractalDocument hasChanges]) {
+//        [self saveContext];
+//    }
     [super viewDidDisappear:animated];
 }
 
@@ -64,9 +64,10 @@
     [super sourceDragLongGesture: sender];
 }
 -(void) deleteObjectIfUnreferenced: (LSDrawingRule*) rule {
-    if (rule != nil && !rule.isReferenced) {
-        [rule.managedObjectContext deleteObject: rule];
-    }
+#pragma message "TODO: uidocument fix"
+//    if (rule != nil && !rule.isReferenced) {
+//        [rule.managedObjectContext deleteObject: rule];
+//    }
 }
 - (IBAction)replacementRuleLongPressGesture:(id)sender {
     [self cleanUpUIState];
@@ -101,8 +102,10 @@
  */
 -(void) cleanUpUIState
 {
-    if (self.replacementRules.addDeleteState != MDBLSNeutral) {
-        [self.replacementRules tapGestureRecognized: nil];
+    MBLSReplacementRulesListView* strongReplacementRulesView = self.replacementRules;
+    
+    if (strongReplacementRulesView.addDeleteState != MDBLSNeutral) {
+        [strongReplacementRulesView tapGestureRecognized: nil];
     }
     
     [self.sourceListView becomeFirstResponder];

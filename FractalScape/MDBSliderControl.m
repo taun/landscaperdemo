@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import "MDBSliderControle.h"
+#import "MDBSliderControl.h"
 
-@implementation MDBSliderControle
+@implementation MDBSliderControl
 
 /*
 // Only override drawRect: if you perform custom drawing.

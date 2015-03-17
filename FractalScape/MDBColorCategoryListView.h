@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
-#import "MBColorCategory+addons.h"
+@import Foundation;
+@import UIKit;
+
+#import "MBColorCategory.h"
 #import "MBLSObjectListTileViewer.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
@@ -18,7 +19,6 @@
 @interface MDBColorCategoryListView : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) MBColorCategory            *colorCategory;
-@property (nonatomic,weak) NSManagedObjectContext       *context;
 @property (nonatomic,strong) UILabel                    *categoryLabel;
 
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;

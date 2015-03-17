@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "LSFractal+addons.h"
+@import Foundation;
+@import UIKit;
+
+#import "LSFractal.h"
 
 @interface MBCollectionFractalCell : UICollectionViewCell
 

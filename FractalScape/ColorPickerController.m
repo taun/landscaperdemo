@@ -23,8 +23,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 //  SOFTWARE.
 
+@import Foundation;
+@import UIKit;
+@import QuartzCore;
+
 #import "ColorPickerController.h"
-#import <QuartzCore/QuartzCore.h>
 
 #pragma mark Constants
 

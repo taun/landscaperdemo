@@ -6,26 +6,36 @@
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
-#import <CoreMotion/CoreMotion.h>
+
+@import Foundation;
+@import UIKit;
+@import CoreMotion;
 
 @class LSDrawingRuleType;
 @class LSFractal;
 
+
+/*!
+ * The segue identifier for the transition between the \c ListDocumentsViewController and the
+ * \c NewListDocumentController.
+ */
+extern NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier;
+
+/*!
+ * The segue identifier for the transition between the \c ListDocumentsViewController and the
+ * \c ListViewController.
+ */
+extern NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier;
+
+/*!
+ * The segue identifier for the transition between the \c ListDocumentsViewController and the
+ * \c ListViewController initiated due to the resumption of a user activity.
+ */
+extern NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier;
+
+
 @interface MBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-
-- (void)saveContext;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *applicationDocumentsDirectory;
-
-//-(BOOL)coreDataDefaultsExist;
-//-(void)addDefaultCoreDataData; //obsolete
 
 @end

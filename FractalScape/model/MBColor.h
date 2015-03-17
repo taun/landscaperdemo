@@ -6,25 +6,41 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+@import Foundation;
+
+#import "MDBTileObjectProtocol.h"
 
 @class LSFractal, MBColorCategory, MBScapeBackground;
 
-@interface MBColor : NSManagedObject
+@interface MBColor : NSObject <MDBTileObjectProtocol, NSCopying, NSCoding>
 
-@property (nonatomic, retain) NSNumber * alpha;
-@property (nonatomic, retain) NSNumber * blue;
-@property (nonatomic, retain) NSNumber * green;
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSString * imagePath;
-@property (nonatomic, retain) NSNumber * index;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * red;
-@property (nonatomic, retain) MBScapeBackground *background;
-@property (nonatomic, retain) MBColorCategory *category;
-@property (nonatomic, retain) LSFractal *fractalColor;
-@property (nonatomic, retain) LSFractal *fractalFill;
-@property (nonatomic, retain) LSFractal *fractalLine;
+@property (nonatomic, copy) NSString        *identifier;
+@property (nonatomic, copy) NSString        *name;
+@property (nonatomic, assign) NSInteger     index;
+@property (nonatomic, assign) CGFloat       alpha;
+@property (nonatomic, assign) CGFloat       red;
+@property (nonatomic, assign) CGFloat       green;
+@property (nonatomic, assign) CGFloat       blue;
+@property (nonatomic, copy) NSString        *imagePath;
+
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *asUIColor;
+@property (nonatomic,readonly) NSDictionary           *asPListDictionary;
+
++(instancetype) newMBColorFromPListDictionary: (NSDictionary*) colorDict;
+
++(instancetype) newMBColorWithUIColor: (UIColor*) color;
+
++(UIColor*) newDefaultUIColor;
+/*!
+ This string is assigned by default in the CoreData model definition for the MBColor property identifier.
+ 
+ 
+ @return The class default identifier string used to identify placeholder object.
+ */
++(NSString*) defaultIdentifierString;
+
++(NSSortDescriptor*) sortDescriptor;
+
+-(UIImage*) thumbnailImageSize: (CGSize) size;
 
 @end

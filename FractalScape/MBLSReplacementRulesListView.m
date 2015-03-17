@@ -7,8 +7,8 @@
 //
 
 #import "MBLSReplacementRulesListView.h"
-#import "LSDrawingRule+addons.h"
-#import "LSReplacementRule+addons.h"
+#import "LSDrawingRule.h"
+#import "LSReplacementRule.h"
 #import "MBLSReplacementRuleTileView.h"
 
 #import "MDBLSObjectTileListAddDeleteView.h"
@@ -116,9 +116,10 @@
     if (self.subviews.count > 0) {
         [self removeConstraints: self.constraints];
         
-        if (self.currentAddDeleteView) {
+        MDBLSObjectTileListAddDeleteView* strongAddDeleteView = self.currentAddDeleteView;
+        if (strongAddDeleteView) {
             // Close AND get rid of all behaviors.
-            [self.currentAddDeleteView animateClosed: NO];
+            [strongAddDeleteView animateClosed: NO];
         }
         
         NSInteger lineNumber;
@@ -142,7 +143,7 @@
 
 
 #pragma mark - Setters & Getters
--(void) setReplacementRules:(NSMutableOrderedSet *)replacementRules {
+-(void) setReplacementRules:(NSMutableArray *)replacementRules {
     _replacementRules = replacementRules;
     
     [self setupSubviews];
@@ -231,8 +232,9 @@
 #pragma mark - Add & Delete
 -(MDBLSAddDeleteState) addDeleteState
 {
-    if (self.currentAddDeleteView) {
-        return self.currentAddDeleteView.state;
+    MDBLSObjectTileListAddDeleteView* strongAddDeleteView = self.currentAddDeleteView;
+    if (strongAddDeleteView) {
+        return strongAddDeleteView.state;
     } else {
         return MDBLSNeutral;
     }
@@ -240,7 +242,7 @@
 -(void) setCurrentAddDeleteView:(MDBLSObjectTileListAddDeleteView *)currentAddDeleteView
 {
     _currentAddDeleteView = currentAddDeleteView;
-    if (_currentAddDeleteView) {
+    if (currentAddDeleteView) {
         self.tapGesture.enabled = YES;
         self.pressGesture.enabled = YES;
     }
@@ -256,9 +258,11 @@
     MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)sender;
     MDBLSAddDeleteState state = addDeleteView.state;
     
-    if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
+    MDBLSObjectTileListAddDeleteView* strongAddDeleteView = self.currentAddDeleteView;
+
+    if (strongAddDeleteView && strongAddDeleteView != addDeleteView) {
         // already have one open so close it first
-        [self.currentAddDeleteView animateClosed: YES];
+        [strongAddDeleteView animateClosed: YES];
         self.currentAddDeleteView = addDeleteView;
     }
     
@@ -279,9 +283,11 @@
     MDBLSObjectTileListAddDeleteView* addDeleteView = (MDBLSObjectTileListAddDeleteView*)sender;
     MDBLSAddDeleteState state = addDeleteView.state;
     
-    if (self.currentAddDeleteView && self.currentAddDeleteView != addDeleteView) {
+    MDBLSObjectTileListAddDeleteView* strongAddDeleteView = self.currentAddDeleteView;
+
+    if (strongAddDeleteView && strongAddDeleteView != addDeleteView) {
         // already have one open so close it first
-        [self.currentAddDeleteView animateClosed: YES];
+        [strongAddDeleteView animateClosed: YES];
         self.currentAddDeleteView = addDeleteView;
     }
     
@@ -306,8 +312,9 @@
 
 - (IBAction)tapGestureRecognized:(id)sender
 {
-    if (self.currentAddDeleteView) {
-        [self.currentAddDeleteView animateClosed: YES];
+    MDBLSObjectTileListAddDeleteView* addDeleteView = self.currentAddDeleteView;
+    if (addDeleteView) {
+        [addDeleteView animateClosed: YES];
         self.currentAddDeleteView = nil;
     }
 }
@@ -322,9 +329,8 @@
         // Make all constraint changes here
         [self.replacementRules removeObject: callerRRule];
         
-        [self.context deleteObject: callerRRule];
-                
-        [self saveContext];
+//        [self.context deleteObject: callerRRule];
+        
          [self setupSubviews];
     }];
 }
@@ -338,38 +344,20 @@
     
     NSInteger ruleIndex = [self.replacementRules indexOfObject: callerRRule];
     
-    LSReplacementRule* newReplacementRule = [LSReplacementRule insertNewObjectIntoContext: self.context];
-    LSDrawingRule* newContextRule = [LSDrawingRule insertNewObjectIntoContext: self.context];
-    LSDrawingRule* newReplacementHolder = [LSDrawingRule insertNewObjectIntoContext: self.context];
+    LSReplacementRule* newReplacementRule = [LSReplacementRule new];
+    LSDrawingRule* newContextRule = [LSDrawingRule new];
+    LSDrawingRule* newReplacementHolder = [LSDrawingRule new];
     
     newReplacementRule.contextRule = newContextRule;
-    NSMutableOrderedSet* rules = [newReplacementRule mutableOrderedSetValueForKey: @"rules"];
+    NSMutableArray* rules = newReplacementRule.rules;
     [rules addObject: newReplacementHolder];
     
     [self layoutIfNeeded];
     [UIView animateWithDuration: 0.25 animations:^{
         // Make all constraint changes here
         [self.replacementRules insertObject: newReplacementRule atIndex: ruleIndex+1];
-        [self saveContext];
         [self setupSubviews];
     }];
-}
-
-- (void)saveContext {
-    NSError *error = nil;
-    if (_context != nil) {
-        if ([_context hasChanges] && ![_context save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } else {
-            //            self.fractalDataChanged = YES;
-        }
-    }
 }
 
 @end

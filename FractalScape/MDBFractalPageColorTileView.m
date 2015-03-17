@@ -12,7 +12,7 @@
 @interface MDBFractalPageColorTileView ()
 
 @property (nonatomic,strong) MDBLSObjectTileView             *backgroundColorView;
-@property (nonatomic,strong) UIImageView                        *pageTemplateView;
+@property (nonatomic,strong) UIImageView                     *pageTemplateView;
 
 @property (nonatomic,assign) CGRect                         lastBounds;
 
@@ -86,7 +86,7 @@
     _backgroundColorView.readOnly = YES;
     
 #if !TARGET_INTERFACE_BUILDER
-    _backgroundColorView.representedObject = self.fractal.backgroundColor;
+    _backgroundColorView.representedObject = self.fractalDocument.fractal.backgroundColor;
 #endif
     
     
@@ -102,6 +102,13 @@
                                                          toItem: self
                                                       attribute: NSLayoutAttributeTop
                                                      multiplier: 1.0 constant: 14]];
+    
+    [self addConstraint: [NSLayoutConstraint constraintWithItem: _backgroundColorView
+                                                      attribute: NSLayoutAttributeTop
+                                                      relatedBy: NSLayoutRelationGreaterThanOrEqual
+                                                         toItem: _pageTemplateView
+                                                      attribute: NSLayoutAttributeBottom
+                                                     multiplier: 1.0 constant: 6]];
     
     [self addConstraint: [NSLayoutConstraint constraintWithItem: _backgroundColorView
                                                       attribute: NSLayoutAttributeBottom
@@ -135,16 +142,16 @@
     }
     
 }
--(void) setFractal:(LSFractal *)fractal {
-    if (_fractal != fractal) {
-        _fractal = fractal;
-        self.backgroundColorView.representedObject = self.fractal.backgroundColor;
+-(void) setFractalDocument:(MDBFractalDocument *)fractalDocument {
+    if (_fractalDocument != fractalDocument) {
+        _fractalDocument = fractalDocument;
+        self.backgroundColorView.representedObject = self.fractalDocument.fractal.backgroundColor;
     }
 }
 
 -(void) updateColor:(id<MDBTileObjectProtocol>)color {
     if ([color isKindOfClass: [MBColor class]]) {
-        self.fractal.backgroundColor = color;
+        self.fractalDocument.fractal.backgroundColor = color;
     }
     self.backgroundColorView.representedObject = color;
 }
@@ -215,14 +222,14 @@
 }
 -(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
-    
+#pragma message "TODO: fix for uidocument"
     id<MDBTileObjectProtocol> color = draggingItem.oldReplacedDragItem;
-    if (color && !color.isReferenced) {
-        draggingItem.oldReplacedDragItem = nil;
-        if ([color isKindOfClass: [NSManagedObject class]]) {
-            [((NSManagedObject*)color).managedObjectContext deleteObject: color];
-        }
-    }
+//    if (color && !color.isReferenced) {
+//        draggingItem.oldReplacedDragItem = nil;
+//        if ([color isKindOfClass: [NSManagedObject class]]) {
+//            [((NSManagedObject*)color).managedObjectContext deleteObject: color];
+//        }
+//    }
     
     return needsLayout;
 }

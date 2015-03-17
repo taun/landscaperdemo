@@ -6,11 +6,16 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+
+
 #import "MBLSFractalViewController.h"
 #import "FractalControllerProtocol.h"
 #import "MBFractalPrefConstants.h"
 
+@class MDBFractalDocument;
+@class MDBFractalInfo;
+@class MDBDocumentController;
 @class MBFractalLibraryViewController;
 @class MBFractalRulesEditorViewController;
 @class MBFractalAxiomEditViewController;
@@ -24,15 +29,13 @@
 // Application preference keys
 
 
-@interface MBLSFractalEditViewController : UIViewController <UIGestureRecognizerDelegate,
-                                                                UIActionSheetDelegate,
-                                                                UIPopoverPresentationControllerDelegate,
-                                                                UIScrollViewDelegate,
-                                                                UIDocumentInteractionControllerDelegate,
-                                                                FractalControllerDelegate>
+@interface MBLSFractalEditViewController : UIViewController
 
 #pragma mark Model
-@property (nonatomic, strong) LSFractal            *fractal;
+@property (nonatomic, copy) NSString                        *currentIdentifier;
+@property (nonatomic, strong) MDBFractalDocument            *fractalDocument;
+@property (nonatomic, strong) MDBFractalInfo                *fractalInfo;
+@property (nonatomic, weak) MDBDocumentController           *documentController;
 /*!
  Change some performance parameters based the device. Default is high performance.
  */
@@ -161,6 +164,8 @@
 - (IBAction)autoScale:(id)sender;
 
 #pragma mark - Segue Actions
+- (void)configureWithNewBlankDocument;
+- (void)configureWithFractalInfo:(MDBFractalInfo *)fractalInfo;
 - (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue;
 - (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
 

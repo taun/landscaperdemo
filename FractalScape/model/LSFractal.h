@@ -6,91 +6,181 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-@class LSDrawingRule, LSDrawingRuleType, LSReplacementRule, MBColor, MBPlacedEntity;
+@import Foundation;
+@import QuartzCore;
 
-@interface LSFractal : NSManagedObject
+#import "MDBFractalCategory.h"
+#import "MDBFractalObjectList.h"
 
-@property (nonatomic, retain) NSNumber * baseAngle;
-@property (nonatomic, retain) NSString * category;
-@property (nonatomic, retain) NSString * descriptor;
-@property (nonatomic, retain) NSNumber * eoFill;
-@property (nonatomic, retain) NSNumber * isImmutable;
-@property (nonatomic, retain) NSNumber * isReadOnly;
-@property (nonatomic, retain) NSNumber * level;
-@property (nonatomic, retain) NSNumber * lineChangeFactor;
-@property (nonatomic, retain) NSNumber * lineLength;
-@property (nonatomic, retain) NSNumber * lineLengthScaleFactor;
-@property (nonatomic, retain) NSNumber * lineWidth;
-@property (nonatomic, retain) NSNumber * lineWidthIncrement;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * randomness;
-@property (nonatomic, retain) NSNumber * turningAngle;
-@property (nonatomic, retain) NSNumber * turningAngleIncrement;
-@property (nonatomic, retain) NSNumber * autoExpand;
-@property (nonatomic, retain) NSData * level0RulesCache;
-@property (nonatomic, retain) NSData * level1RulesCache;
-@property (nonatomic, retain) NSData * level2RulesCache;
-@property (nonatomic, retain) NSData * levelNRulesCache;
-@property (nonatomic, retain) NSNumber * levelGrowthRate;
-@property (nonatomic, retain) NSNumber * rulesUnchanged;
-@property (nonatomic, retain) NSNumber * levelUnchanged;
-@property (nonatomic, retain) MBColor *backgroundColor;
-@property (nonatomic, retain) LSDrawingRuleType *drawingRulesType;
-@property (nonatomic, retain) NSOrderedSet *fillColors;
-@property (nonatomic, retain) NSOrderedSet *lineColors;
-@property (nonatomic, retain) NSSet *placements;
-@property (nonatomic, retain) NSOrderedSet *replacementRules;
-@property (nonatomic, retain) NSOrderedSet *startingRules;
-@end
+@class LSDrawingRuleType;
 
-@interface LSFractal (CoreDataGeneratedAccessors)
+#define kLSMaxRules 256
+/*!
+ Convenience functions which should be in a math library.
+ 
+ @param degrees angle in degrees
+ 
+ @return angle in radians
+ */
+static inline double radians (double degrees) {return degrees * M_PI/180.0;}
+static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
-- (void)insertObject:(MBColor *)value inFillColorsAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromFillColorsAtIndex:(NSUInteger)idx;
-- (void)insertFillColors:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeFillColorsAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInFillColorsAtIndex:(NSUInteger)idx withObject:(MBColor *)value;
-- (void)replaceFillColorsAtIndexes:(NSIndexSet *)indexes withFillColors:(NSArray *)values;
-- (void)addFillColorsObject:(MBColor *)value;
-- (void)removeFillColorsObject:(MBColor *)value;
-- (void)addFillColors:(NSOrderedSet *)values;
-- (void)removeFillColors:(NSOrderedSet *)values;
-- (void)insertObject:(MBColor *)value inLineColorsAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromLineColorsAtIndex:(NSUInteger)idx;
-- (void)insertLineColors:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeLineColorsAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInLineColorsAtIndex:(NSUInteger)idx withObject:(MBColor *)value;
-- (void)replaceLineColorsAtIndexes:(NSIndexSet *)indexes withLineColors:(NSArray *)values;
-- (void)addLineColorsObject:(MBColor *)value;
-- (void)removeLineColorsObject:(MBColor *)value;
-- (void)addLineColors:(NSOrderedSet *)values;
-- (void)removeLineColors:(NSOrderedSet *)values;
-- (void)addPlacementsObject:(MBPlacedEntity *)value;
-- (void)removePlacementsObject:(MBPlacedEntity *)value;
-- (void)addPlacements:(NSSet *)values;
-- (void)removePlacements:(NSSet *)values;
 
-- (void)insertObject:(LSReplacementRule *)value inReplacementRulesAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromReplacementRulesAtIndex:(NSUInteger)idx;
-- (void)insertReplacementRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeReplacementRulesAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInReplacementRulesAtIndex:(NSUInteger)idx withObject:(LSReplacementRule *)value;
-- (void)replaceReplacementRulesAtIndexes:(NSIndexSet *)indexes withReplacementRules:(NSArray *)values;
-- (void)addReplacementRulesObject:(LSReplacementRule *)value;
-- (void)removeReplacementRulesObject:(LSReplacementRule *)value;
-- (void)addReplacementRules:(NSOrderedSet *)values;
-- (void)removeReplacementRules:(NSOrderedSet *)values;
-- (void)insertObject:(LSDrawingRule *)value inStartingRulesAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromStartingRulesAtIndex:(NSUInteger)idx;
-- (void)insertStartingRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeStartingRulesAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInStartingRulesAtIndex:(NSUInteger)idx withObject:(LSDrawingRule *)value;
-- (void)replaceStartingRulesAtIndexes:(NSIndexSet *)indexes withStartingRules:(NSArray *)values;
-- (void)addStartingRulesObject:(LSDrawingRule *)value;
-- (void)removeStartingRulesObject:(LSDrawingRule *)value;
-- (void)addStartingRules:(NSOrderedSet *)values;
-- (void)removeStartingRules:(NSOrderedSet *)values;
+@class LSDrawingRule, LSDrawingRuleType, LSReplacementRule, MBColor, MBColorCategory;
+
+/*!
+ An Lindenmaier System Fractal. Using a CoreData persistence layer. Probably should have just used PList archiving for persistence.
+ */
+@interface LSFractal : NSObject <NSCopying, NSCoding>
+
++(NSInteger)    version;
+
+@property(nonatomic,strong) LSDrawingRuleType               *sourceDrawingRules;
+@property(nonatomic,strong) NSArray                         *sourceColorCategories;
+@property(nonatomic,strong) NSArray                         *categories;
+
+/*!
+ Class version number.
+ */
+@property (nonatomic, readonly) NSInteger               version;
+/*!
+ Category of the fractal.
+ */
+@property (nonatomic, strong) MDBFractalCategory        *category;
+/*!
+ UUID string
+ */
+@property (nonatomic, copy) NSString                    *identifier;
+/*!
+ Fractal name.
+ */
+@property (nonatomic, retain) NSString                  *name;
+/*!
+ Description
+ */
+@property (nonatomic, retain) NSString                  *descriptor;
+/*!
+ Array if starting LSDrawingRule rules
+ */
+@property (nonatomic, strong) MDBFractalObjectList      *startingRules;
+/*!
+ Array of LSReplacementRule
+ */
+@property (nonatomic, strong) NSMutableArray            *replacementRules;
+/*!
+ The angle in radians about which to rotate the whole fractal.
+ */
+@property (nonatomic, assign) CGFloat       baseAngle;
+/*!
+ Even odd fill boolean.
+ */
+@property (nonatomic, assign) BOOL          eoFill;
+/*!
+ An immutable sample fractal. Obsolete?
+ */
+@property (nonatomic, assign) BOOL          isImmutable;
+@property (nonatomic, assign) BOOL          isReadOnly;
+/*!
+ Property to indicate whether there are enough rules defined to generate a fractal.
+ */
+@property (nonatomic,assign,readonly) BOOL  isRenderable;
+/*!
+ Number of generations to generate.
+ */
+@property (nonatomic, assign) NSInteger     level;
+@property (nonatomic, assign) CGFloat       lineChangeFactor;
+@property (nonatomic, assign) CGFloat       lineLength;
+@property (nonatomic, assign) CGFloat       lineLengthScaleFactor;
+@property (nonatomic, assign) CGFloat       lineWidth;
+@property (nonatomic, assign) CGFloat       lineWidthIncrement;
+@property (nonatomic, assign) CGFloat       randomness;
+@property (nonatomic, assign) CGFloat       turningAngle;
+@property (nonatomic, assign) CGFloat       turningAngleIncrement;
+@property (nonatomic, assign) BOOL          autoExpand;
+@property (nonatomic, strong) NSData        *level0RulesCache;
+@property (nonatomic, strong) NSData        *level1RulesCache;
+@property (nonatomic, strong) NSData        *level2RulesCache;
+@property (nonatomic, strong) NSData        *levelNRulesCache;
+@property (nonatomic, assign) CGFloat       levelGrowthRate;
+@property (nonatomic, assign) BOOL          rulesUnchanged;
+@property (nonatomic, assign) BOOL          levelUnchanged;
+@property (nonatomic, strong) MBColor       *backgroundColor;
+@property (nonatomic, strong) MDBFractalObjectList       *fillColors;
+@property (nonatomic, strong) MDBFractalObjectList       *lineColors;
+
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString               *startingRulesAsString;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSDictionary                 *replacementRulesDictionary;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *level0Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *level1Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *level2Rules;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *levelNRules;
+
+@property (nonatomic,readonly) NSDictionary                             *asPListDictionary;
+@property (nonatomic,readonly) NSArray                                  *startingRulesAsPListArray;
+@property (nonatomic,readonly) NSArray                                  *replacementRulesAsPListArray;
+@property (nonatomic,readonly) NSArray                                  *lineColorAsPListArray;
+@property (nonatomic,readonly) NSArray                                  *fillColorAsPListArray;
+
++(instancetype) newLSFractalFromPListDictionary: (NSDictionary*)plistDict;
++(NSMutableArray*) newCollectionOfLSReplacementRulesFromPListArray: (NSArray*) plistArray;
++(MDBFractalObjectList*) newCollectionOfLSDrawingRulesFromPListArray: (NSArray*) plistArray;
++(MDBFractalObjectList*) newCollectionOfMBColorsFromPListArray: (NSArray*) plistArray;
+
+/*!
+ A set of fractal property paths which effect the label views of the fractal. To be observed by presenters of the labels
+ 
+ @return a set of strings corresponding to fractal property key paths effecting the labels.
+ */
++(NSSet*) labelProperties;
+/*!
+ A set of fractal property paths which effect the production of the final fractal generation. Such as rules, replacementRules, ...
+ 
+ @return a set of strings corresponding to fractal production generation key paths effecting the graphic views.
+ */
++(NSSet*) productionRuleProperties;
+/*!
+ A set of fractal property paths which effect the appearance of the final fractal generation. Such as color, stroke, ...
+ 
+ @return a set of strings corresponding to fractal drawing key paths effecting the graphic views.
+ */
++(NSSet*) appearanceProperties;
+/*!
+ A set of fractal property paths which only effect drawing of the line segments. Meaning neither the production nor the segment deneration are effect.
+ 
+ @return a set of property path strings.
+ */
++(NSSet*) redrawProperties;
+/*!
+ NSString for startingRules property to be used for KVO
+ 
+ @return NSString representing the startingRules property
+ */
++(NSString*) startingRulesKey;
+/*!
+ NSString for replacementRules property to be used for KVO
+ 
+ @return NSString representing the replacementRules property
+ */
++(NSString*) replacementRulesKey;
+/*!
+ NSString for lineColors property to be used for KVO
+ 
+ @return NSString representing the lineColors property
+ */
++(NSString*) lineColorsKey;
+/*!
+ NSString for fillColors property to be used for KVO
+ 
+ @return NSString representing the fillColors property
+ */
++(NSString*) fillColorsKey;
+
+-(CGFloat)minValueForProperty: (NSString*)propertyKey;
+-(CGFloat)maxValueForProperty: (NSString*)propertyKey;
+
+-(void) generateLevelData;
+
+
+
 @end

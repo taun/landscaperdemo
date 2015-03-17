@@ -57,8 +57,10 @@
  Unfortunately, could not figure out how to set the observer on load.
  */
 - (IBAction)stepperValueChanged:(UIStepper *)aStepper {
-    self.propertyValue.text = [self.formatter stringFromNumber: @(aStepper.value)];
-    [self.propertyValue setNeedsDisplay];
+    
+    UITextField* strongPropertyValue = self.propertyValue;
+    strongPropertyValue.text = [self.formatter stringFromNumber: @(aStepper.value)];
+    [strongPropertyValue setNeedsDisplay];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

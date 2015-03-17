@@ -6,29 +6,39 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+@import Foundation;
 
-@class LSDrawingRuleType, LSFractal, LSReplacementRule;
+#import "MDBTileObjectProtocol.h"
 
-@interface LSDrawingRule : NSManagedObject
+#define kLSMaxCommandLength 64
 
-@property (nonatomic, retain) NSString * descriptor;
-@property (nonatomic, retain) NSNumber * displayIndex;
-@property (nonatomic, retain) NSString * drawingMethodString;
-@property (nonatomic, retain) NSString * iconIdentifierString;
-@property (nonatomic, retain) NSString * productionString;
-@property (nonatomic, retain) NSSet *contexts;
-@property (nonatomic, retain) LSFractal *fractalStart;
-@property (nonatomic, retain) LSReplacementRule *replacementRule;
-@property (nonatomic, retain) LSDrawingRuleType *type;
-@end
+@class LSDrawingRuleType;
 
-@interface LSDrawingRule (CoreDataGeneratedAccessors)
+@interface LSDrawingRule : NSObject <MDBTileObjectProtocol, NSCopying, NSCoding>
 
-- (void)addContextsObject:(LSReplacementRule *)value;
-- (void)removeContextsObject:(LSReplacementRule *)value;
-- (void)addContexts:(NSSet *)values;
-- (void)removeContexts:(NSSet *)values;
+@property (nonatomic, copy) NSString        *descriptor;
+@property (nonatomic, assign) NSInteger     displayIndex;
+@property (nonatomic, copy) NSString        *drawingMethodString;
+@property (nonatomic, copy) NSString        *iconIdentifierString;
+@property (nonatomic, copy) NSString        *productionString;
+@property (nonatomic, copy) NSString        *typeIdentifier;
+
+@property (nonatomic,readonly) NSDictionary *asPListDictionary;
+
++(NSString*) defaultIdentifierString;
+
++(NSSortDescriptor*) sortDescriptor;
+
++(instancetype)newLSDrawingRuleFromPListDictionary: (NSDictionary*) ruleDict;
+
+/*!
+ Do two rules have the same property values?
+ Does not include/check relationships.
+ 
+ @param object the other rule
+ 
+ @return YES if the properties are the same.
+ */
+-(BOOL) isSimilar:(id)object;
 
 @end

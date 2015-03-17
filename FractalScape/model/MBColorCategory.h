@@ -6,29 +6,32 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+@import Foundation;
+
 
 @class MBColor;
 
-@interface MBColorCategory : NSManagedObject
+@interface MBColorCategory : NSObject <NSCoding>
 
-@property (nonatomic, retain) NSString * descriptor;
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSOrderedSet *colors;
-@end
+@property (nonatomic, copy) NSString        *descriptor;
+@property (nonatomic, copy) NSString        *identifier;
+@property (nonatomic, copy) NSString        *name;
+@property (nonatomic, strong) NSArray       *colors;
 
-@interface MBColorCategory (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(MBColor *)value inColorsAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromColorsAtIndex:(NSUInteger)idx;
-- (void)insertColors:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeColorsAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInColorsAtIndex:(NSUInteger)idx withObject:(MBColor *)value;
-- (void)replaceColorsAtIndexes:(NSIndexSet *)indexes withColors:(NSArray *)values;
-- (void)addColorsObject:(MBColor *)value;
-- (void)removeColorsObject:(MBColor *)value;
-- (void)addColors:(NSOrderedSet *)values;
-- (void)removeColors:(NSOrderedSet *)values;
++(NSString*) colorsKey;
++(NSArray*)loadAllDefaultCategories;
++(instancetype)newCategoryFromPListDict: (NSDictionary*) colorCategoryDict;
+/*!
+ The order of the colors definition in the array is the order in which they are added to the NSOrderedSet
+ of the [MBColorCategory colors] property.
+ 
+ @warning If a color with the same identifier property already exists, the new one is not added.
+ 
+ @param colorsArray the PList array of color definitions.
+ 
+ @return an NSInteger representing the count of added colors. If this is different from the array count, then something was not added.
+ */
+-(NSInteger)loadColorsFromPListColorsArray: (NSArray*) colorsArray;
+
 @end

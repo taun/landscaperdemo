@@ -6,35 +6,41 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+@import Foundation;
 
-@class LSDrawingRule, LSFractal;
 
-@interface LSDrawingRuleType : NSManagedObject
+@interface LSDrawingRuleType : NSObject <NSCoding>
 
-@property (nonatomic, retain) NSString * descriptor;
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *fractals;
-@property (nonatomic, retain) NSOrderedSet *rules;
-@end
+/*!
+ Class version number.
+ */
+@property (nonatomic, readonly) NSInteger       version;
+/*!
+ unique key identifier
+ */
+@property (nonatomic, copy) NSString            *identifier;
+/*!
+ Name for the user
+ */
+@property (nonatomic, copy) NSString            *name;
+/*!
+ User description
+ */
+@property (nonatomic, copy) NSString            *descriptor;
+/*!
+ Available rules
+ */
+@property (nonatomic, strong) NSDictionary      *rules;
+/*!
+ Available rules sorted by index?
+ */
+@property (nonatomic, readonly) NSArray         *rulesAsSortedArray;
 
-@interface LSDrawingRuleType (CoreDataGeneratedAccessors)
++(instancetype)newLSDrawingRuleTypeFromDefaultPListDictionary;
++(instancetype)newLSDrawingRuleTypeFromPListDictionary: (NSDictionary*)plistDict;
 
-- (void)addFractalsObject:(LSFractal *)value;
-- (void)removeFractalsObject:(LSFractal *)value;
-- (void)addFractals:(NSSet *)values;
-- (void)removeFractals:(NSSet *)values;
+-(NSArray*)rulesArrayFromRuleString: (NSString*) ruleString;
 
-- (void)insertObject:(LSDrawingRule *)value inRulesAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromRulesAtIndex:(NSUInteger)idx;
-- (void)insertRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeRulesAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInRulesAtIndex:(NSUInteger)idx withObject:(LSDrawingRule *)value;
-- (void)replaceRulesAtIndexes:(NSIndexSet *)indexes withRules:(NSArray *)values;
-- (void)addRulesObject:(LSDrawingRule *)value;
-- (void)removeRulesObject:(LSDrawingRule *)value;
-- (void)addRules:(NSOrderedSet *)values;
-- (void)removeRules:(NSOrderedSet *)values;
+-(NSInteger)loadRulesFromPListRulesArray: (NSArray*) rulesArray;
+
 @end

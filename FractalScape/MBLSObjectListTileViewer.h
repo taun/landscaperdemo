@@ -6,17 +6,15 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
+@import Foundation;
+@import UIKit;
+@import CoreGraphics;
 
 #import "MDBTileObjectProtocol.h"
 #import "MDBLSObjectTileView.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 
-#import "NSManagedObject+Shortcuts.h"
-#import "LSDrawingRule+addons.h"
-
-#import "FractalScapeIconSet.h"
+@class MDBFractalObjectList;
 
 IB_DESIGNABLE
 
@@ -32,7 +30,7 @@ IB_DESIGNABLE
 /*!
  An ordered set of the items to be displayed.
  */
-@property (nonatomic,strong) NSMutableOrderedSet        *objectList;
+@property (nonatomic,strong) MDBFractalObjectList       *objectList;
 /*!
  If there are no objects in the objectList yet we want to show a placeholder, set the defaultObjectClass
  and an instance of the defaultObjectClass will be instantiated as a placeholder. When a drag lands
@@ -43,7 +41,6 @@ IB_DESIGNABLE
  Save the context in case the items go to zero and we want to add a functional placeholder.
  Needs to be eliminated at some time and replaced with a more functional MDBTileItemProxy.
  */
-@property (nonatomic,weak) NSManagedObjectContext       *context;
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
 @property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
 @property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
@@ -69,7 +66,7 @@ IB_DESIGNABLE
  @param defaultObjectClass See the defaultObjectClass property
  @param context            See the context property.
  */
--(void) setDefaultObjectClass:(Class)defaultObjectClass inContext: (NSManagedObjectContext*) context;
+-(void) setDefaultObjectClass:(Class)defaultObjectClass;
 /*!
  The item represented bythe tile at the indicate local context point.
  

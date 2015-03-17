@@ -6,15 +6,18 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
+@import UIKit;
+@import QuartzCore;
+@import CoreGraphics;
+
 #import "LSFractalRenderer.h"
-
-#import "LSFractal+addons.h"
-#import "MBColor+addons.h"
-#import "LSReplacementRule+addons.h"
-#import "LSDrawingRuleType+addons.h"
-#import "LSDrawingRule+addons.h"
-
-#import <QuartzCore/QuartzCore.h>
+#import "MDBFractalDocument.h"
+#import "LSFractal.h"
+#import "MBColor.h"
+#import "LSReplacementRule.h"
+#import "LSDrawingRuleType.h"
+#import "LSDrawingRule.h"
+#import "MDBFractalObjectList.h"
 
 //#define LSDEBUGPERFORMANCE
 //#define LSDEBUGPOSITION
@@ -53,12 +56,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 @synthesize pixelScale = _pixelScale;
 
-+(instancetype) newRendererForFractal:(LSFractal *)aFractal {
-    LSFractalRenderer* newGenerator = [[LSFractalRenderer alloc] initWithFractal: aFractal];
++(instancetype) newRendererForFractal:(MDBFractalDocument *)aFractalDocument {
+    LSFractalRenderer* newGenerator = [[LSFractalRenderer alloc] initWithFractal: aFractalDocument];
     return newGenerator;
 }
 
--(instancetype) initWithFractal: (LSFractal*) aFractal {
+-(instancetype) initWithFractal: (MDBFractalDocument*) aFractalDocument {
     self = [super init];
     if (self) {
         _scale = 1.0;
@@ -75,7 +78,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _backgroundColor = [UIColor clearColor];
         
         [self nullOutBaseSegment];
-        [self setValuesForFractal: aFractal];
+        [self setValuesForFractal: aFractalDocument];
     }
     return self;
 }
@@ -101,15 +104,15 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     return _pixelScale;
 }
 /* If fractal is not save, below will return nil for privateFractal. What to do? */
--(void) setValuesForFractal:(LSFractal *)aFractal
+-(void) setValuesForFractal:(MDBFractalDocument *)aFractalDocument
 {
-    [self cacheDrawingRules: aFractal];
-    [self setBaseSegmentForFractal: aFractal];
+    [self cacheDrawingRules: aFractalDocument];
+    [self setBaseSegmentForFractal: aFractalDocument.fractal];
 }
 
--(void) cacheDrawingRules: (LSFractal*)aFractal
+-(void) cacheDrawingRules: (MDBFractalDocument*)aFractalDocument
 {
-    NSOrderedSet* rules = aFractal.drawingRulesType.rules;
+    NSArray* rules = aFractalDocument.sourceDrawingRules.rulesAsSortedArray;
     
     // setup internal noop rule placeholder "Z"
     unsigned char zIndex = [@"Z" UTF8String][0];
@@ -173,24 +176,24 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     [self releaseSegmentCGReferences];
     
-    _baseSegment.lineLength = [aFractal.lineLength floatValue];
-    _baseSegment.lineLengthScaleFactor = [aFractal.lineLengthScaleFactor floatValue];
+    _baseSegment.lineLength = aFractal.lineLength;
+    _baseSegment.lineLengthScaleFactor = aFractal.lineLengthScaleFactor;
     
-    _baseSegment.lineWidth = [aFractal.lineWidth floatValue];
-    _baseSegment.lineWidthIncrement = [aFractal.lineWidthIncrement floatValue];
+    _baseSegment.lineWidth = aFractal.lineWidth;
+    _baseSegment.lineWidthIncrement = aFractal.lineWidthIncrement;
     
-    _baseSegment.turningAngle = [aFractal turningAngleAsDouble];
-    _baseSegment.turningAngleIncrement = [aFractal.turningAngleIncrement floatValue];
+    _baseSegment.turningAngle = aFractal.turningAngle;
+    _baseSegment.turningAngleIncrement = aFractal.turningAngleIncrement;
     
-    _baseSegment.randomness = [aFractal.randomness floatValue];
-    _baseSegment.lineChangeFactor = [aFractal.lineChangeFactor floatValue];
+    _baseSegment.randomness = aFractal.randomness;
+    _baseSegment.lineChangeFactor = aFractal.lineChangeFactor;
     
     _baseSegment.lineCap = kCGLineCapRound;
     _baseSegment.lineJoin = kCGLineJoinRound;
     
     _baseSegment.stroke = YES;
     _baseSegment.fill = NO;
-    _baseSegment.EOFill = aFractal.eoFill ? [aFractal.eoFill boolValue] : NO;
+    _baseSegment.EOFill = aFractal.eoFill ? aFractal.eoFill : NO;
     
     _baseSegment.drawingModeUnchanged = NO;
     
@@ -200,7 +203,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _baseSegment.points[0] = CGPointMake(0.0, 0.0);
     _baseSegment.pointIndex = -1;
     
-    _baseSegment.baseAngle = [aFractal.baseAngle floatValue];
+    _baseSegment.baseAngle = aFractal.baseAngle;
     
     _baseSegment.defaultLineColor = [self.defaultLineColor CGColor];
     _baseSegment.defaultFillColor = [self.defaultFillColor CGColor];
@@ -278,12 +281,15 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 -(void) generateImagePercent:(CGFloat)percent
 {
-    if (!self.imageView || (self.operation && self.operation.isCancelled) || percent <= 0.0)
+    UIImageView* strongImageView = self.imageView;
+    NSBlockOperation* strongOperation = self.operation;
+    
+    if (!strongImageView || (strongOperation && strongOperation.isCancelled) || percent <= 0.0)
     {
         return;
     }
     
-    CGSize size = self.imageView.bounds.size;
+    CGSize size = strongImageView.bounds.size;
     
     UIGraphicsBeginImageContextWithOptions(size, NO, self.pixelScale);
     {

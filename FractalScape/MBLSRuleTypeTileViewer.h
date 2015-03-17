@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
-#import "LSDrawingRuleType+addons.h"
-#import "LSDrawingRule+addons.h"
+@import Foundation;
+@import UIKit;
+
+#import "LSDrawingRuleType.h"
+#import "LSDrawingRule.h"
 
 #import "MBLSObjectListTileViewer.h"
 #import "MBLSRuleDragAndDropProtocol.h"

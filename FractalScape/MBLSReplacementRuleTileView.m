@@ -90,8 +90,8 @@
     _replacementsView.readOnly = NO;
     
 #if !TARGET_INTERFACE_BUILDER
-    _replacementsView.objectList = [self.replacementRule mutableOrderedSetValueForKey: [LSReplacementRule rulesKey]];
-    [_replacementsView setDefaultObjectClass: [LSDrawingRule class] inContext: self.replacementRule.managedObjectContext];
+    _replacementsView.objectList = self.replacementRule.rules;
+    [_replacementsView setDefaultObjectClass: [LSDrawingRule class]];
 #endif
     
     [self addSubview: _replacementsView];
@@ -245,13 +245,14 @@
     BOOL needsLayout = NO;
     
     //
+#pragma message "TODO: fix for uidocument"
     id<MDBTileObjectProtocol> oldRule = draggingRule.oldReplacedDragItem;
-    if (oldRule != nil && !oldRule.isReferenced) {
-        draggingRule.oldReplacedDragItem = nil;
-        if ([oldRule isKindOfClass: [NSManagedObject class]]) {
-            [((NSManagedObject*)oldRule).managedObjectContext deleteObject: oldRule];
-        }
-    }
+//    if (oldRule != nil && !oldRule.isReferenced) {
+//        draggingRule.oldReplacedDragItem = nil;
+//        if ([oldRule isKindOfClass: [NSManagedObject class]]) {
+//            [((NSManagedObject*)oldRule).managedObjectContext deleteObject: oldRule];
+//        }
+//    }
 
     return needsLayout;
 }

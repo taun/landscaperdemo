@@ -7,6 +7,10 @@
 //
 
 #import "MBLSObjectListTileViewer.h"
+#import "MDBFractalObjectList.h"
+#import "LSDrawingRule.h"
+
+#import "FractalScapeIconSet.h"
 
 
 
@@ -51,7 +55,7 @@
 //-(void) drawRect:(CGRect)rect {
 //    [super drawRect:rect];
 //}
--(void) setObjectList:(NSMutableOrderedSet *)objects {
+-(void) setObjectList:(MDBFractalObjectList *)objects {
     _objectList = objects;
     [self setupSubviews];
 }
@@ -113,10 +117,10 @@
         [self setupSubviews];
     }
 }
--(void) setDefaultObjectClass:(Class)defaultObjectClass inContext: (NSManagedObjectContext*) context {
-    _context = context;
-    self.defaultObjectClass = defaultObjectClass;
-}
+//-(void) setDefaultObjectClass:(Class)defaultObjectClass {
+//    _context = context;
+//    self.defaultObjectClass = defaultObjectClass;
+//}
 
 #pragma mark - View Layout Details
 -(void) setupSubviews {
@@ -135,8 +139,8 @@
     [self populateRulesWithProxy];
 #endif
     
-    if (_objectList.count == 0 && _defaultObjectClass && self.context) {
-        [_objectList addObject: [_defaultObjectClass insertNewObjectIntoContext: self.context]];
+    if (_objectList.count == 0 && _defaultObjectClass) {
+        [_objectList addObject: [_defaultObjectClass new]];
     }
     
     NSInteger index = 0;
@@ -313,7 +317,7 @@
         }
         
         // add the new
-        NSMutableSet* representationsToAdd = [self.objectList.set mutableCopy];
+        NSMutableSet* representationsToAdd = [NSMutableSet setWithArray: self.objectList.allObjects];
         [representationsToAdd minusSet: representedObjectsSet];
         
         for (id object in representationsToAdd) {
@@ -358,7 +362,7 @@
 }
 
 -(void) populateRulesWithProxy {
-    _objectList = [[NSMutableOrderedSet alloc]initWithCapacity: 10];
+    _objectList = [[NSMutableArray alloc]initWithCapacity: 10];
     for (int i=0; i<10; i++) {
         [_objectList addObject: [MDBTileObjectProxy new]];
     }
@@ -436,11 +440,12 @@
     if (firstObject.isDefaultObject)
     {
         [self.objectList replaceObjectAtIndex: 0 withObject: newRule];
+#pragma message "TODO: uidocument fix"
         
-        if ([firstObject isKindOfClass: [NSManagedObject class]] && self.context)
-        {
-            [self.context deleteObject: firstObject];
-        }
+//        if ([firstObject isKindOfClass: [NSManagedObject class]] && self.context)
+//        {
+//            [self.context deleteObject: firstObject];
+//        }
     }
     else
     {
@@ -460,7 +465,7 @@
         }
         
         
-        id<MDBTileObjectProtocol> object = [self.objectList objectAtIndex: fromIndex];
+        id<MDBTileObjectProtocol> object = self.objectList[fromIndex];
         [self.objectList removeObject: object];
         [self.objectList insertObject: object atIndex: adjustedToIndex];
         
@@ -473,7 +478,7 @@
     if (objectIndex != NSNotFound) {
         [self.objectList removeObject: object];
         
-        if (self.objectList.count == 0 && self.defaultObjectClass && self.context) {
+        if (self.objectList.count == 0 && self.defaultObjectClass) {
             [self insertNewDefaultObjectOfClass: self.defaultObjectClass atIndex: 0];
         }
         [self animateConstraintChanges];
@@ -482,7 +487,7 @@
 
 -(void) insertNewDefaultObjectOfClass: (Class) aClass atIndex: (NSUInteger)index {
     
-    [_objectList addObject: [aClass insertNewObjectIntoContext: self.context]];
+    [_objectList addObject: [aClass new]];
     [self addViewForRepresentedObject: _objectList[index] atIndex: index];
 }
 

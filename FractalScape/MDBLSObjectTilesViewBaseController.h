@@ -6,7 +6,9 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
+
 #import "FractalControllerProtocol.h"
 
 #import "MBLSRuleDragAndDropProtocol.h"
@@ -18,13 +20,13 @@
 
 @interface MDBLSObjectTilesViewBaseController : UIViewController <FractalControllerProtocol>
 
-@property (nonatomic,strong) LSFractal                      *fractal;
+@property (nonatomic,strong) MDBFractalDocument             *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
 @property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;
 @property(nonatomic,assign) CGSize                          portraitSize;
 @property(nonatomic,assign) CGSize                          landscapeSize;
 
-@property (nonatomic,strong) MBDraggingItem     *draggingItem;
+@property (nonatomic,strong) MBDraggingItem                 *draggingItem;
 /*!
  When dragging an item in the scroll content, autoScroll yes will scroll the content as the 
  dragged item gets to the top or bottom. Good if the drag destination is somewhere in the 
@@ -32,7 +34,7 @@
  
  Default is no.
  */
-@property (nonatomic,assign) BOOL               autoScroll;
+@property (nonatomic,assign) BOOL                           autoScroll;
 /*!
  To be instantiated with a view class representing the source of the tiles.
  */
@@ -83,10 +85,6 @@
  @param object the instance to be reference checked.
  */
 -(void) deleteObjectIfUnreferenced: (id) object;
-/*!
- Standard CoreData managedObjectContext save.
- */
-- (void)saveContext;
 
 -(void) showInfoForView: (UIView*) aView;
 -(void) infoAnimateView: (UIView*) aView;

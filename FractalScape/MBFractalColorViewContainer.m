@@ -7,7 +7,7 @@
 //
 
 #import "MBFractalColorViewContainer.h"
-#import "MBColor+addons.h"
+#import "MBColor.h"
 
 #import "QuartzHelpers.h"
 
@@ -20,18 +20,18 @@
 
 -(void) updateFractalDependents
 {
-    self.categories = [MBColorCategory allCatetegoriesInContext: self.fractal.managedObjectContext];
+    self.categories = self.fractalDocument.sourceColorCategories;
     
     MDBColorCategoriesListView* categoriesView = (MDBColorCategoriesListView*) self.sourceListView;
     categoriesView.colorCategories = self.categories;
     
-    [self.destinationView setDefaultObjectClass: [MBColor class] inContext: self.fractal.managedObjectContext];
-    self.destinationView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal lineColorsKey]];
+    [self.destinationView setDefaultObjectClass: [MBColor class]];
+    self.destinationView.objectList = self.fractalDocument.fractal.lineColors;
 
-    [self.fillColorsListView setDefaultObjectClass: [MBColor class] inContext: self.fractal.managedObjectContext];
-    self.fillColorsListView.objectList = [self.fractal mutableOrderedSetValueForKey: [LSFractal fillColorsKey]];
+    [self.fillColorsListView setDefaultObjectClass: [MBColor class]];
+    self.fillColorsListView.objectList = self.fractalDocument.fractal.fillColors;
     
-    self.pageColorDestinationTileView.fractal = self.fractal;
+    self.pageColorDestinationTileView.fractalDocument = self.fractalDocument;
     
     self.colorsChanged = YES;
 
@@ -122,15 +122,5 @@
     [self infoAnimateView: self.fillColorsListView];
 }
 
--(void) deleteObjectIfUnreferenced: (MBColor*) color
-{
-    if (color != nil && !color.isReferenced)
-    {
-        if ([color isKindOfClass: [NSManagedObject class]])
-        {
-            [((NSManagedObject*)color).managedObjectContext deleteObject: color];
-        }
-    }
-}
 
 @end

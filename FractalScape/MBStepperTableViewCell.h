@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
+
 
 @interface MBStepperTableViewCell : UITableViewCell
 

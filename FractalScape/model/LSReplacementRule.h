@@ -6,33 +6,38 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+@import Foundation;
+
+@class MDBFractalObjectList;
+
+// max based on CoreData model
+#define kLSMaxReplacementRules 101
 
 @class LSDrawingRule, LSFractal;
 
-@interface LSReplacementRule : NSManagedObject
+@interface LSReplacementRule : NSObject <NSCopying, NSCoding>
 
-@property (nonatomic, retain) LSDrawingRule *contextRule;
-@property (nonatomic, retain) NSSet *lsFractal;
-@property (nonatomic, retain) NSOrderedSet *rules;
-@end
+/*!
+ The rule to be replaced.
+ */
+@property (nonatomic, retain) LSDrawingRule                 *contextRule;
+/*!
+ An array of LSDrawingRule to replace the contextRule
+ */
+@property (nonatomic, retain) MDBFractalObjectList          *rules;
 
-@interface LSReplacementRule (CoreDataGeneratedAccessors)
+/*!
+ The string representation of the series of replacements rules.
+ */
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString   *rulesString;
 
-- (void)addLsFractalObject:(LSFractal *)value;
-- (void)removeLsFractalObject:(LSFractal *)value;
-- (void)addLsFractal:(NSSet *)values;
-- (void)removeLsFractal:(NSSet *)values;
+@property (nonatomic,readonly) NSDictionary                 *asPListDictionary;
 
-- (void)insertObject:(LSDrawingRule *)value inRulesAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromRulesAtIndex:(NSUInteger)idx;
-- (void)insertRules:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeRulesAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInRulesAtIndex:(NSUInteger)idx withObject:(LSDrawingRule *)value;
-- (void)replaceRulesAtIndexes:(NSIndexSet *)indexes withRules:(NSArray *)values;
-- (void)addRulesObject:(LSDrawingRule *)value;
-- (void)removeRulesObject:(LSDrawingRule *)value;
-- (void)addRules:(NSOrderedSet *)values;
-- (void)removeRules:(NSOrderedSet *)values;
++(instancetype) newLSReplacementRuleFromPListDictionary: (NSDictionary*) rRuleDict;
+
+
++(NSString*) rulesKey;
++(NSString*) contextRuleKey;
+
+
 @end

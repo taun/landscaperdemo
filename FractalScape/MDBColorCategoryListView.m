@@ -76,7 +76,7 @@
     _colorListView.readOnly = _readOnly;
     
 #if !TARGET_INTERFACE_BUILDER
-    _colorListView.objectList = [self.colorCategory mutableOrderedSetValueForKey: [MBColorCategory colorsKey]];
+    _colorListView.objectList = [self.colorCategory.colors mutableCopy];
 #endif
     
     [self addSubview: _colorListView];
@@ -185,15 +185,15 @@
 }
 -(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
-    
+#pragma message "TODO: fix for uidocument"
     //
     id<MDBTileObjectProtocol> color = draggingItem.oldReplacedDragItem;
-    if (color && !color.isReferenced) {
-        draggingItem.oldReplacedDragItem = nil;
-        if ([color isKindOfClass: [NSManagedObject class]]) {
-            [((NSManagedObject*)color).managedObjectContext deleteObject: color];
-        }
-    }
+//    if (color && !color.isReferenced) {
+//        draggingItem.oldReplacedDragItem = nil;
+//        if ([color isKindOfClass: [NSManagedObject class]]) {
+//            [((NSManagedObject*)color).managedObjectContext deleteObject: color];
+//        }
+//    }
     
     return needsLayout;
 }

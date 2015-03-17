@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
+@import Foundation;
+@import UIKit;
 
-#import "LSReplacementRule+addons.h"
-#import "LSDrawingRule+addons.h"
+#import "LSReplacementRule.h"
+#import "LSDrawingRule.h"
 
 #import "MBLSObjectListTileViewer.h"
 #import "MBLSRuleDragAndDropProtocol.h"
@@ -24,7 +24,6 @@ IB_DESIGNABLE
 @interface MBLSReplacementRuleTileView : UIView <MBLSRuleDragAndDropProtocol>
 
 @property (nonatomic,strong) LSReplacementRule          *replacementRule;
-@property (nonatomic,weak) NSManagedObjectContext       *context;
 //@property (nonatomic,strong) UII
 
 @property (nonatomic,assign) IBInspectable CGFloat      tileWidth;

@@ -14,7 +14,7 @@
 -(void) setType:(LSDrawingRuleType *)type {
     _type = type;
     
-    self.objectList = [_type mutableOrderedSetValueForKey: [LSDrawingRuleType rulesKey]];
+    self.objectList = [_type.rulesAsSortedArray mutableCopy];
     self.readOnly = YES;
 }
 

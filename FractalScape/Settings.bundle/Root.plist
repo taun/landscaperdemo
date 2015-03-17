@@ -10,7 +10,7 @@
 			<key>Title</key>
 			<string>Show Help Tips</string>
 			<key>Key</key>
-			<string>showEditHelp</string>
+			<string>com.moedae.FractalScapes.showEditHelp</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -20,9 +20,9 @@
 			<key>Title</key>
 			<string>Paralax Effect Off</string>
 			<key>Key</key>
-			<string>paralaxOff</string>
+			<string>com.moedae.FractalScapes.paralax</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -30,7 +30,7 @@
 			<key>Title</key>
 			<string>Hide HUDs</string>
 			<key>Key</key>
-			<string>fullScreenState</string>
+			<string>com.moedae.FractalScapes.fullScreenState</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -46,25 +46,39 @@
 			<key>Title</key>
 			<string>Show Performance Data</string>
 			<key>Key</key>
-			<string>showPerformanceData</string>
+			<string>com.moedae.FractalScapes.showPerformanceData</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<real>0.5</real>
-			<key>Key</key>
-			<string>slider_preference</string>
-			<key>MaximumValue</key>
-			<integer>1</integer>
-			<key>MaximumValueImage</key>
-			<string></string>
-			<key>MinimumValue</key>
-			<integer>0</integer>
-			<key>MinimumValueImage</key>
-			<string></string>
 			<key>Type</key>
-			<string>PSSliderSpecifier</string>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>iCloud</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use iCloud</string>
+			<key>Key</key>
+			<string>com.moedae.FractalScapes.useICloudStorage</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>About</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Version(build)</string>
+			<key>Key</key>
+			<string>com.moedae.FractalScapes.AppVersion</string>
+			<key>DefaultValue</key>
+			<string></string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

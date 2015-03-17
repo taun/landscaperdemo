@@ -6,13 +6,16 @@
 //  Copyright (c) 2012 MOEDAE LLC. All rights reserved.
 //
 
+@import UIKit;
+
 #ifndef FractalScape_QuartzHelpers_h
 #define FractalScape_QuartzHelpers_h
 
-#import <UIKit/UIKit.h>
 
-#import <QuartzCore/QuartzCore.h>
-#import <CoreGraphics/CoreGraphics.h>
+
+@import QuartzCore;
+@import CoreGraphics;
+
 
 CGPoint CGPointConfineToRect(CGPoint, CGRect);
 // Functions used to draw all content

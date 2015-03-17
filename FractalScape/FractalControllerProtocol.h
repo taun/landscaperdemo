@@ -6,17 +6,18 @@
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "LSFractal+addons.h"
+
+#import "LSFractal.h"
+#import "MDBFractalDocument.h"
 
 @protocol FractalControllerDelegate <NSObject>
--(void) setFractal: (LSFractal*) fractal;
+-(void) setFractalDocument: (MDBFractalDocument*) fractalDocument;
 -(void) libraryControllerWasDismissed; // temporary hack
 @end
 
 @protocol FractalControllerProtocol <NSObject>
 
-@property (nonatomic,strong) LSFractal                                  *fractal;
+@property (nonatomic,strong) MDBFractalDocument                         *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                                *fractalUndoManager;
 @property (nonatomic,weak) id<FractalControllerDelegate>                 fractalControllerDelegate;
 @property(nonatomic,assign) CGSize                                      portraitSize;

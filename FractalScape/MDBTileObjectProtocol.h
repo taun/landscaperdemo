@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
+
+
+@import Foundation;
+@import UIKit;
 
 
 /*!
@@ -24,16 +26,7 @@
  If YES, replace this instance with the new dropped instance. If NO, insert the new object.
  */
 @property (nonatomic,readonly) BOOL     isDefaultObject;
-@property (nonatomic,readonly) BOOL     isReferenced;
 
-/*!
- Allow the proxy object and coredata objects to both be instantiated by same method signature.
- 
- @param managedObjectContext nil if not a coredata object.
- 
- @return the <MDBTileObjectProtocol> compliant instance.
- */
-+(instancetype) insertNewObjectIntoContext: (id) managedObjectContext;
 -(UIImage*) asImage;
 -(instancetype) mutableCopy;
 

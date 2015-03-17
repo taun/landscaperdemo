@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
+
+@import Foundation;
+@import UIKit;
 
 #import "FractalControllerProtocol.h"
-#import "LSFractal+addons.h"
-#import "MBColor+addons.h"
-#import "MBColorCategory+addons.h"
+#import "LSFractal.h"
+#import "MBColor.h"
+#import "MBColorCategory.h"
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "MDBColorCategoriesListView.h"
 #import "MDBColorCategoryListView.h"
