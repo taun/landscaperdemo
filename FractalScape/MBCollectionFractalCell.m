@@ -9,6 +9,16 @@
 #import "MBCollectionFractalCell.h"
 #import <QuartzCore/QuartzCore.h>
 
+#import "MDBFractalInfo.h"
+
+@interface MBCollectionFractalCell ()
+
+@property (weak, nonatomic) IBOutlet UIView         *imageFrame;
+@property (weak, nonatomic) IBOutlet UIImageView    *imageView;
+@property (weak, nonatomic) IBOutlet UILabel        *textLabel;
+@property (weak, nonatomic) IBOutlet UILabel        *detailTextLabel;
+
+@end
 
 @implementation MBCollectionFractalCell
 
@@ -30,19 +40,24 @@
     }
     return self;
 }
--(void) configureDefaults {
+-(void) configureDefaults
+{
     
 //    [self fixConstraints];
 
     _radius = 5.0;
     
-    UIImage* placeholder = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+    _textLabel.text = @"Loading..";
+    _detailTextLabel.text = @"";
+    
+    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
     UIImageView* strongImageView = self.imageView;
     strongImageView.image = placeholder;
     
     self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
 }
--(UIView*) configureSelectedBackgroundViewFrame: (CGRect) frame {
+-(UIView*) configureSelectedBackgroundViewFrame: (CGRect) frame
+{
     UIView *selectBackgroundView = [[UIView alloc] initWithFrame: frame];
     selectBackgroundView.layer.cornerRadius = self.radius;
     selectBackgroundView.layer.masksToBounds = NO;
@@ -62,7 +77,22 @@
     selectBackgroundView.layer.backgroundColor = [[UIColor darkGrayColor] CGColor];
     return selectBackgroundView;
 }
-
+-(void)setFractalInfo:(MDBFractalInfo *)fractalInfo
+{
+    if (fractalInfo != _fractalInfo)
+    {
+        [self configureDefaults];
+        
+        _fractalInfo = fractalInfo;
+        
+        if (_fractalInfo)
+        {
+            if (_fractalInfo.name) self.textLabel.text = _fractalInfo.name;
+            if (_fractalInfo.descriptor) self.detailTextLabel.text = _fractalInfo.descriptor;
+            if (fractalInfo.thumbnail) self.imageView.image = fractalInfo.thumbnail;
+        }
+    }
+}
 -(void) setImageFrame:(UIView *)imageFrame {
     if (_imageFrame != imageFrame) {
         if ((YES)) {

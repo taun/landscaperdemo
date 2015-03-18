@@ -29,8 +29,10 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 
 @interface LSFractal ()
 
-@property(nonatomic,strong) NSDictionary*       propertyRangesDictionary;
+@property(nonatomic,strong,readonly) NSDictionary*       propertyRangesDictionary;
 @property(nonatomic,assign,readwrite) BOOL      isRenderable;
+
++(NSDictionary*)propertyRangesDictionary;
 
 @end
 
@@ -42,25 +44,32 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     return 1;
 }
 
-+(NSString*) startingRulesKey {
++(NSString*) startingRulesKey
+{
     static NSString*  startingRulesKeyString = @"startingRules";
     return startingRulesKeyString;
 }
-+(NSString*) replacementRulesKey {
++(NSString*) replacementRulesKey
+{
     static NSString*  replacementRulesKeyString = @"replacementRules";
     return replacementRulesKeyString;
 }
-+(NSString*) lineColorsKey {
++(NSString*) lineColorsKey
+{
     static NSString*  fractalLineColorsString = @"lineColors";
     return fractalLineColorsString;
 }
-+(NSString*) fillColorsKey {
++(NSString*) fillColorsKey
+{
     static NSString*  fractalFillColorsString = @"fillColors";
     return fractalFillColorsString;
 }
-+ (NSSet *)keysToBeCopied {
++ (NSSet *)keysToBeCopied
+{
     static NSSet *keysToBeCopied = nil;
-    if (keysToBeCopied == nil) {
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         keysToBeCopied = [[NSSet alloc] initWithObjects:
                           @"category",
                           @"descriptor",
@@ -81,36 +90,45 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                           @"backgroundColor",
                           @"autoExpand",
                           nil];
-    }
+    });
     return keysToBeCopied;
 }
 
-+(NSSet*) labelProperties {
++(NSSet*) labelProperties
+{
     static NSSet* labelProperties = nil;
-    if (labelProperties == nil) {
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         labelProperties = [[NSSet alloc] initWithObjects:
                            @"name",
                            @"descriptor",
                            nil];
-    }
+    });
     return labelProperties;
 }
 
-+(NSSet*) productionRuleProperties {
++(NSSet*) productionRuleProperties
+{
     static NSSet* productionRuleProperties = nil;
-    if (productionRuleProperties == nil) {
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         productionRuleProperties = [[NSSet alloc] initWithObjects:
                                     [LSFractal startingRulesKey],
                                     [LSFractal replacementRulesKey],
                                     @"level",
                                     nil];
-    }
+    });
     return productionRuleProperties;
 }
 
-+(NSSet*) appearanceProperties {
++(NSSet*) appearanceProperties
+{
     static NSSet* appearanceProperties = nil;
-    if (appearanceProperties == nil) {
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         appearanceProperties = [[NSSet alloc] initWithObjects:
                                 @"lineLength",
                                 @"lineLengthScale",
@@ -122,13 +140,16 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                                 @"baseAngle",
                                 @"randomness",
                                 nil];
-    }
+    });
     return appearanceProperties;
 }
 
-+(NSSet*) redrawProperties {
++(NSSet*) redrawProperties
+{
     static NSSet* redrawProperties = nil;
-    if (redrawProperties == nil) {
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         redrawProperties = [[NSSet alloc] initWithObjects:
                             @"eoFill",
                             @"lineColors",
@@ -136,10 +157,27 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                             @"backgroundColor",
                             @"autoExpand",
                             nil];
-    }
+    });
     return redrawProperties;
 }
 
++(NSDictionary*) propertyRangesDictionary
+{
+    static NSDictionary* propertyRangesDictionary = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+    propertyRangesDictionary = @{@"randomness": @{@"min":@0.0, @"max":@1.0},
+                                 @"baseAngle": @{@"min":@(-180.0), @"max":@(180.0)},
+                                 @"turningAngle": @{@"min":@(0.0), @"max":@(180.0)},
+                                 @"turningAngleIncrement": @{@"min":@0.0, @"max":@1.0},
+                                 @"lineWidth": @{@"min":@0.5, @"max":@60.0},
+                                 @"lineChangeFactor": @{@"min":@0.0, @"max":@1.0}
+                                 };
+    });
+    
+    return propertyRangesDictionary;
+}
 
 +(instancetype)newLSFractalFromPListDictionary:(NSDictionary *)fractalDictionary
 {
@@ -237,7 +275,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 {
     CGFloat value = 0.0;
     
-    NSDictionary* propertyRange = self.propertyRangesDictionary[propertyKey];
+    NSDictionary* propertyRange = [[self class] propertyRangesDictionary][propertyKey];
     if (propertyRange) {
         value = [propertyRange[@"min"] floatValue];
     }
@@ -247,32 +285,29 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 {
     CGFloat value = MAXFLOAT;
     
-    NSDictionary* propertyRange = self.propertyRangesDictionary[propertyKey];
+    NSDictionary* propertyRange = [[self class] propertyRangesDictionary][propertyKey];
     if (propertyRange) {
         value = [propertyRange[@"max"] floatValue];
     }
     return value;
 }
 
+#pragma mark - Initialization
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _propertyRangesDictionary = @{@"randomness": @{@"min":@0.0, @"max":@1.0},
-                                      @"baseAngle": @{@"min":@(radians(-180.0)), @"max":@(radians(180.0))},
-                                      @"turningAngle": @{@"min":@(radians(0.0)), @"max":@(radians(180.0))},
-                                      @"turningAngleIncrement": @{@"min":@0.0, @"max":@1.0},
-                                      @"lineWidth": @{@"min":@0.5, @"max":@60.0},
-                                      @"lineChangeFactor": @{@"min":@0.0, @"max":@1.0}
-                                      };
-        
         _name = @"Unnamed Fractal";
         _descriptor = @"A new default fractal. Replace with a real description.";
         _level = 2;
-        _startingRules = [MDBFractalObjectList new];
-        [_startingRules addObject: [LSDrawingRule new]];
-        _replacementRules = [NSMutableArray new];
-        [_replacementRules addObject: [LSReplacementRule new]];
+        _baseAngle = 0.0;
+        _lineLength = 10.0;
+        _lineWidth = 2.0;
+        _lineChangeFactor = 0.0;
+        _turningAngle = 0.0;
+        _turningAngleIncrement = 0.0;
+        _randomness = 0.0;
     }
     return self;
 }
@@ -320,6 +355,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     _replacementRules = [aDecoder decodeObjectForKey: @"replacementRules"];
     _lineColors = [aDecoder decodeObjectForKey: @"lineColors"];
     _fillColors = [aDecoder decodeObjectForKey: @"fillColors"];
+    _thumbnail1024 = [aDecoder decodeObjectForKey: @"thumbnail1024"];
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder
@@ -335,6 +371,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     [aCoder encodeObject: self.replacementRules forKey: @"replacementRules"];
     [aCoder encodeObject: self.lineColors forKey: @"lineColors"];
     [aCoder encodeObject: self.fillColors forKey: @"fillColors"];
+    [aCoder encodeObject: self.thumbnail1024 forKey: @"thumbnail1024"];
 }
 
 /*!
@@ -356,29 +393,18 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
             }
         }
         
-        NSMutableArray* startingRules = [NSMutableArray arrayWithCapacity: self.startingRules.count];
-        for (LSDrawingRule* rule in self.startingRules) {
-            [startingRules addObject: [rule copy]];
-        }
-        fractalCopy.startingRules = startingRules;
+        fractalCopy.startingRules = [_startingRules copy];
         
+        // deep copy, just copying the array creates references to the same rule object. We want unique rule objects?
         NSMutableArray* replacementRules = [NSMutableArray arrayWithCapacity: self.replacementRules.count];
         for (LSReplacementRule* rule in self.replacementRules) {
             [replacementRules addObject: [rule copy]];
         }
         fractalCopy.replacementRules = replacementRules;
         
-        NSMutableArray* lineColorsMutableSet = [NSMutableArray arrayWithCapacity: self.lineColors.count];
-        for (MBColor* object in self.lineColors) {
-            [lineColorsMutableSet addObject: [object copy]];
-        }
-        fractalCopy.lineColors = lineColorsMutableSet;
+        fractalCopy.lineColors = [_lineColors copy];
         
-        NSMutableArray* fillColorsMutableSet = [NSMutableArray arrayWithCapacity: self.fillColors.count];
-        for (MBColor* object in self.fillColors) {
-            [fillColorsMutableSet addObject: [object copy]];
-        }
-        fractalCopy.fillColors = fillColorsMutableSet;
+        fractalCopy.fillColors = [_fillColors copy];
         
         NSString* oldName = self.name;
         NSString* newName = [NSString mdbStringByAppendingOrIncrementingCount: oldName];
@@ -394,13 +420,51 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     BOOL renderable = YES;
     
     if (!_startingRules) return NO;
-
+    
     if (_startingRules.count == 0) return NO;
-
+    
     if ([(LSDrawingRule*)[_startingRules firstObject] isDefaultObject]) return NO;
     
     
     return renderable;
+}
+
+#pragma mark - Lazy Getter/Setters
+
+-(MDBFractalObjectList*)startingRules
+{
+    if (!_startingRules) {
+        _startingRules = [MDBFractalObjectList new];
+        [_startingRules addObject: [LSDrawingRule new]];
+    }
+    return _startingRules;
+}
+
+-(NSMutableArray*)replacementRules
+{
+    if (!_replacementRules) {
+        _replacementRules = [NSMutableArray new];
+        [_replacementRules addObject: [LSReplacementRule new]];
+    }
+    return _replacementRules;
+}
+
+-(MDBFractalObjectList*)lineColors
+{
+    if (!_lineColors) {
+        _lineColors = [MDBFractalObjectList new];
+        [_lineColors addObject: [MBColor new]];
+    }
+    return _lineColors;
+}
+
+-(MDBFractalObjectList*)fillColors
+{
+    if (!_fillColors) {
+        _fillColors = [MDBFractalObjectList new];
+        [_fillColors addObject: [MBColor new]];
+    }
+    return _fillColors;
 }
 
 - (void)setLevel:(NSInteger)newLevel {
@@ -410,6 +474,8 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     self.levelUnchanged = NO;
     [self didChangeValueForKey:@"level"];
 }
+
+#pragma mark - Property Transforms
 
 -(NSString*) startingRulesAsString {
     NSMutableString* rulesString = [[NSMutableString alloc]initWithCapacity: self.startingRules.count];

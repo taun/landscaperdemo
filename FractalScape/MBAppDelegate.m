@@ -22,6 +22,7 @@
 #import "UIDevice_Hardware.h"
 
 // View controller segue identifiers.
+NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier = @"editFractalDocumentsList";
 NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier = @"newFractalDocument";
 NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier = @"showFractalDocument";
 NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier = @"showFractalDocumentFromUserActivity";

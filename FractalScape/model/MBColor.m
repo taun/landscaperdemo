@@ -55,7 +55,9 @@
 
 + (NSSet *)keysToBeCopied {
     static NSSet *keysToBeCopied = nil;
-    if (keysToBeCopied == nil) {
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         keysToBeCopied = [[NSSet alloc] initWithObjects:
                           @"alpha",
                           @"red",
@@ -66,7 +68,7 @@
                           @"name",
                           @"index",
                           nil];
-    }
+    });
     return keysToBeCopied;
 }
 

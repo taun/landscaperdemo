@@ -31,7 +31,7 @@
     self = [super initWithFileURL:url];
     if (self)
     {
-        _fractal = [LSFractal new];
+        _fractal = nil;
         _categories = @[[MDBFractalCategory newCategoryIdentifier: @"idGeo" name: @"Geometric"],[MDBFractalCategory newCategoryIdentifier: @"idPlant" name: @"Plant"]];
     }
     return self;
@@ -67,7 +67,7 @@
         NSInteger version = [unarchiver decodeIntegerForKey: @"version"];
         switch (version) {
             case kMDBDocumentCurrentVersion:
-                _fractal = [unarchiver decodeObjectForKey: @"fractal"];
+                self.fractal = [unarchiver decodeObjectForKey: @"fractal"];
                 break;
                 
             default:
@@ -120,7 +120,7 @@
 - (void)accommodatePresentedItemDeletionWithCompletionHandler:(void (^)(NSError *errorOrNil))completionHandler {
     [super accommodatePresentedItemDeletionWithCompletionHandler:completionHandler];
     
-    [self.delegate fractalDocumentWasDeleted:self];
+    [self.delegate fractalDocumentWasDeleted: self];
 }
 
 #pragma mark - Handoff

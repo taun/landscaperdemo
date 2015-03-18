@@ -70,8 +70,8 @@ static const CGFloat kLevelNMargin = 40.0;
 @property (nonatomic,assign) CGSize                 popoverLandscapeSize;
 @property (nonatomic,assign) BOOL                   previousNavBarState;
 
-@property (nonatomic,strong) LSFractal                     *privateQueueFractal;
-@property (nonatomic,strong) NSArray                       *levelDataArray;
+@property (nonatomic, strong) dispatch_queue_t      levelDataGenerationQueue;
+@property (nonatomic,strong) NSArray                *levelDataArray;
 /*!
  Fractal background image generation queue.
  */
@@ -154,6 +154,8 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 -(IBAction) backToLibrary:(id)sender
 {
+    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+    
     [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
         //
     }];
@@ -208,7 +210,7 @@ static const CGFloat kLevelNMargin = 40.0;
     [slider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
     slider.minimumValue = [self.fractalDocument.fractal minValueForProperty: propertyKey];
     slider.maximumValue = [self.fractalDocument.fractal maxValueForProperty: propertyKey];
-    slider.value = [[self.fractalDocument.fractal valueForKey: propertyKey] floatValue];
+    slider.value = degrees([[self.fractalDocument.fractal valueForKey: propertyKey] floatValue]);
 
 }
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
@@ -241,15 +243,6 @@ static const CGFloat kLevelNMargin = 40.0;
 
     _popoverPortraitSize = CGSizeMake(748.0,350.0);
     _popoverLandscapeSize = CGSizeMake(400.0,650.0);
-    
-    [self setupHUDSlider: _randomnessVerticalSlider forProperty: @"randomness" rotatedDegrees: -90.0];
-    [self setupHUDSlider: _baseAngleSlider forProperty: @"baseAngle" rotatedDegrees: 0.0];
-    [self setupHUDSlider: _lineWidthVerticalSlider forProperty: @"lineWidth" rotatedDegrees: 90.0];
-    [self setupHUDSlider: _turnAngleSlider forProperty: @"turningAngle" rotatedDegrees: 0.0];
-    [self setupHUDSlider: _lengthIncrementVerticalSlider forProperty: @"lineChangeFactor" rotatedDegrees: -90.0];
-    [self setupHUDSlider: _turningAngleIncrementSlider forProperty: @"turningAngleIncrement" rotatedDegrees: 0.0];
-
-    _lastImageUpdateTime = [NSDate date];
     
     // Setup the scrollView to allow the fractal image to float.
     // This is to allow the user to move the fractal out from under the HUD display.
@@ -287,9 +280,28 @@ static const CGFloat kLevelNMargin = 40.0;
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear: animated];
+
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
-    [super viewWillAppear:animated];
+    
+    UIDocumentState docState = self.fractalDocument.documentState;
+    
+    if (docState == UIDocumentStateClosed) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [self.fractalDocument openWithCompletionHandler:^(BOOL success) {
+            if (!success) {
+                // In your app you should handle this gracefully.
+                NSLog(@"Couldn't open document: %@.", self.fractalDocument.fileURL.absoluteString);
+                abort();
+            }
+            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }];
+    }
+    
+    self.navigationItem.title = self.fractalDocument.fractal.name;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDocumentStateChangedNotification:) name:UIDocumentStateChangedNotification object:self.fractalDocument];
 }
 
@@ -329,9 +341,14 @@ static const CGFloat kLevelNMargin = 40.0;
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [_privateImageGenerationQueue cancelAllOperations];
-    
     [super viewWillDisappear:animated];
+
+    UIImage* fractalImage = [self snapshot: self.fractalView];
+    
+    self.fractalDocument.fractal.thumbnail1024 = fractalImage;
+    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+    
+    [_privateImageGenerationQueue cancelAllOperations];
     
     self.fractalDocument.delegate = nil;
     [self.fractalDocument closeWithCompletionHandler:nil];
@@ -342,6 +359,8 @@ static const CGFloat kLevelNMargin = 40.0;
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [self.fractalInfo populateFromDocument: self.fractalDocument];
+    [self.documentController setFractalInfoHasNewContents: self.fractalInfo];
 }
 
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -368,17 +387,31 @@ static const CGFloat kLevelNMargin = 40.0;
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     
-    NSInteger changeCount = 0;
+//    NSInteger changeCount = 0;
 #pragma message "TODO: fix for uidocument"
 //    if ([object isKindOfClass:[NSManagedObject class]])
 //    {
 //        NSDictionary* changes = [object changedValuesForCurrentEvent];
 //        changeCount = changes.count;
 //    }
-    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+//    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
 
-
-    if ([[LSFractal redrawProperties] containsObject: keyPath])
+//    NSLog(@"Observed Change Type: %@", change[NSKeyValueChangeKindKey]);
+    BOOL changeCount = [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting;
+    
+    if ([keyPath isEqualToString: @"fractal"])
+    {
+        // the document fractal changed
+        id oldFractalObject = change[NSKeyValueChangeOldKey];
+        if (oldFractalObject != [NSNull null])
+        {
+            [self removeObserversForFractal: oldFractalObject];
+        }
+        [self addObserversForFractal: self.fractalDocument.fractal];
+        [self regenerateLevels];
+        [self updateInterface];
+    }
+    else if ([[LSFractal redrawProperties] containsObject: keyPath])
     {
         if (changeCount)
         {
@@ -486,6 +519,13 @@ static const CGFloat kLevelNMargin = 40.0;
 //    return _appearanceViewController;
 //}
 
+-(dispatch_queue_t) levelDataGenerationQueue{
+    if (!_levelDataGenerationQueue) {
+        _levelDataGenerationQueue = dispatch_queue_create("com.moedae.app.levelDataQueue", DISPATCH_QUEUE_SERIAL);
+    }
+    return _levelDataGenerationQueue;
+}
+
 -(NSOperationQueue*) privateImageGenerationQueue
 {
     if (!_privateImageGenerationQueue)
@@ -526,7 +566,7 @@ static const CGFloat kLevelNMargin = 40.0;
         
         [self.privateImageGenerationQueue cancelAllOperations];
         
-        [self removeObserversForFractal: _fractalDocument.fractal];
+        [self removeObserversForDocument: _fractalDocument];
         
         self.autoscaleN = YES;
         self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
@@ -537,11 +577,12 @@ static const CGFloat kLevelNMargin = 40.0;
 //            self->_privateQueueFractal = (LSFractal*)[self->_privateFractalContext objectWithID: self->_fractalID];
 //        }];
         
-        [self addObserversForFractal: _fractalDocument.fractal];
+        [self addObserverForFractalChangeInDocument: _fractalDocument];
         
         
-        if (_fractalDocument != nil)
+        if (_fractalDocument != nil && _fractalDocument.fractal)
         {
+
             [self regenerateLevels];
             [self saveToUserPreferencesAsLastEditedFractal: fractalDocument];
         }
@@ -621,10 +662,37 @@ static const CGFloat kLevelNMargin = 40.0;
     }
     return _fractalRendererLN;
 }
+-(void) addObserverForFractalChangeInDocument: (MDBFractalDocument*)document
+{
+    if (document) {
+        [document addObserver: self forKeyPath: @"fractal" options: NSKeyValueObservingOptionOld context: NULL];
+        if (document.fractal) {
+            [self addObserversForFractal: document.fractal];
+        }
+    }
+}
+-(void) removeObserversForDocument: (MDBFractalDocument*)document
+{
+    if (document) {
+        [document removeObserver: self forKeyPath: @"fractal"];
+        if (document.fractal) {
+            [self removeObserversForFractal: document.fractal];
+        }
+    }
+}
 -(void) addObserversForFractal:(LSFractal *)fractal
 {
     if (fractal)
     {
+        [self setupHUDSlider: _randomnessVerticalSlider forProperty: @"randomness" rotatedDegrees: -90.0];
+        [self setupHUDSlider: _baseAngleSlider forProperty: @"baseAngle" rotatedDegrees: 0.0];
+        [self setupHUDSlider: _lineWidthVerticalSlider forProperty: @"lineWidth" rotatedDegrees: 90.0];
+        [self setupHUDSlider: _turnAngleSlider forProperty: @"turningAngle" rotatedDegrees: 0.0];
+        [self setupHUDSlider: _lengthIncrementVerticalSlider forProperty: @"lineChangeFactor" rotatedDegrees: -90.0];
+        [self setupHUDSlider: _turningAngleIncrementSlider forProperty: @"turningAngleIncrement" rotatedDegrees: 0.0];
+        
+        _lastImageUpdateTime = [NSDate date];
+
         NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
         [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
@@ -678,15 +746,24 @@ static const CGFloat kLevelNMargin = 40.0;
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
         [propertiesToObserve unionSet: [LSFractal labelProperties]];
         
-        for (NSString* keyPath in propertiesToObserve)
-        {
-            [fractal removeObserver: self forKeyPath: keyPath];
+        @try {
+            // Some properties may not being observed due to being nil initially?
+            for (NSString* keyPath in propertiesToObserve)
+            {
+                [fractal removeObserver: self forKeyPath: keyPath];
+            }
+            for (LSReplacementRule* rule in fractal.replacementRules)
+            {
+                [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
+                [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
+                [self.observedReplacementRules removeObject: rule];
+            }
         }
-        for (LSReplacementRule* rule in fractal.replacementRules)
-        {
-            [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
-            [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
-            [self.observedReplacementRules removeObject: rule];
+        @catch (NSException *exception) {
+            //
+        }
+        @finally {
+            //
         }
     }
 }
@@ -793,6 +870,19 @@ static const CGFloat kLevelNMargin = 40.0;
 -(void) regenerateLevels
 {
 #pragma message "TODO: fix for uidocument create a separate operation queue for this stuff"
+    LSFractal* strongFractal = self.fractalDocument.fractal;
+    
+    dispatch_async(self.levelDataGenerationQueue, ^{
+        //
+        [strongFractal generateLevelData];
+        NSArray* levelDataArray = @[strongFractal.level0RulesCache, strongFractal.level1RulesCache, strongFractal.level2RulesCache, strongFractal.levelNRulesCache, @(strongFractal.levelGrowthRate)];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateRendererLevels: levelDataArray];
+        });
+    });
+    
+    
 //    NSManagedObjectID* fid;// = self.fractalID;
 //    
 //    [pc performBlock:^{
@@ -1151,8 +1241,6 @@ static const CGFloat kLevelNMargin = 40.0;
     self.documentController.delegate = self;
     
     LSFractal* newFractal = [LSFractal new];
-    newFractal.name = @"Unnamed fractal";
-    newFractal.descriptor = @"Add a description...";
     NSString* newIdentifier;
     
     do
@@ -1175,8 +1263,6 @@ static const CGFloat kLevelNMargin = 40.0;
     
     self.fractalDocument = [[MDBFractalDocument alloc] initWithFileURL: fractalInfo.URL];
     self.fractalDocument.delegate = self;
-    
-    self.navigationItem.title = self.fractalDocument.fractal.name;
 }
 
 /* close any existing popover before opening a new one.
@@ -2054,7 +2140,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
     renderer.levelData = self.levelDataArray[3];
-    renderer.name = @"PDF renderer";
+    renderer.name = @"Image renderer";
     renderer.margin = 72.0;
     renderer.autoscale = YES;
     renderer.flipY = YES;
@@ -2336,6 +2422,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(void) dealloc
 {
     self.fractalDocument = nil; // removes observers via custom setter call
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 @end

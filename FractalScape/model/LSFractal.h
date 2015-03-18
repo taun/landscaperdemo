@@ -9,6 +9,7 @@
 
 @import Foundation;
 @import QuartzCore;
+@import UIKit;
 
 #import "MDBFractalCategory.h"
 #import "MDBFractalObjectList.h"
@@ -55,11 +56,15 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 /*!
  Fractal name.
  */
-@property (nonatomic, retain) NSString                  *name;
+@property (nonatomic, copy) NSString                  *name;
 /*!
  Description
  */
-@property (nonatomic, retain) NSString                  *descriptor;
+@property (nonatomic, copy) NSString                  *descriptor;
+/*!
+ Meta Image thumbnail
+ */
+@property (nonatomic, strong) UIImage                 *thumbnail1024;
 /*!
  Array if starting LSDrawingRule rules
  */

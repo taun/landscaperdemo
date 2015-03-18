@@ -70,7 +70,10 @@
 - (id)copyWithZone:(NSZone *)zone
 {
     MDBFractalObjectList* listCopy = [[[self class] alloc] init];
-    listCopy.objects = [self.objects mutableCopy];
+    // perform a deep copy so we only have one reference to the contained objects
+    for (id object in self.objects) {
+        [listCopy addObject: [object copy]];
+    }
     return listCopy;
 }
 

@@ -53,7 +53,7 @@
             [newDrawingRuleType setValue: plistRuleType[propertyKey] forKey: propertyKey];
         }
         
-        NSArray* plistRulesArray = plistRuleType[@"rulesArray"];
+        NSArray* plistRulesArray = plistDict[@"rulesArray"];
         
         NSInteger addRulesCount = [newDrawingRuleType loadRulesFromPListRulesArray: plistRulesArray];
         

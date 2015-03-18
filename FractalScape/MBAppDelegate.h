@@ -14,7 +14,10 @@
 @class LSDrawingRuleType;
 @class LSFractal;
 
-
+/*!
+ Segue identifier for transitioning to the document list editor.
+ */
+NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier;
 /*!
  * The segue identifier for the transition between the \c ListDocumentsViewController and the
  * \c NewListDocumentController.

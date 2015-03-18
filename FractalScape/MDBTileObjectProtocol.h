@@ -28,6 +28,6 @@
 @property (nonatomic,readonly) BOOL     isDefaultObject;
 
 -(UIImage*) asImage;
--(instancetype) mutableCopy;
+-(instancetype) copy;
 
 @end

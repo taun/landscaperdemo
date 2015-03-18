@@ -203,6 +203,7 @@
         
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateEnded) {
         [self cleanupAfterDrag];
+        [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
     } else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled) {
         [self cleanupAfterDrag];
         

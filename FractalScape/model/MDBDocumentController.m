@@ -145,7 +145,45 @@
     [self.delegate documentController:self didFailRemovingFractalInfo: fractalInfo withError:error];
 }
 
+#pragma message "HACK "
 #pragma mark - Change Processing
+/*!
+ Hack to get fractalInfo data synchronously. Need name from document for sorting.
+ Requires loading everything!
+ 
+ @param infosArray array of fractalInfos to load
+ */
+-(void)synchronousReadOfFractalInfos: (NSArray*)infosArray
+{
+    NSArray* URLs = [infosArray valueForKey: @"URL"];
+    
+    NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
+    NSError* fileError;
+    [fileCoordinator prepareForReadingItemsAtURLs: URLs
+                                          options: 0
+                               writingItemsAtURLs: nil
+                                          options: 0
+                                            error: &fileError
+                                       byAccessor: ^(void (^completionHandler)(void)){
+                                           
+                                           NSError* infoError;
+                                           for (MDBFractalInfo *info in infosArray) {
+                                               [fileCoordinator coordinateReadingItemAtURL: info.URL
+                                                                                   options: NSFileCoordinatorReadingWithoutChanges
+                                                                                     error: &infoError byAccessor:^(NSURL *newURL) {
+                                                                                         NSError* readError;
+                                                                                         MDBFractalDocument *deserializedDocument = [[MDBFractalDocument alloc] initWithFileURL: newURL];
+                                                                                         [deserializedDocument readFromURL: deserializedDocument.fileURL error: &readError];
+                                                                                         if (!readError) {
+                                                                                             [info populateFromDocument: deserializedDocument];
+                                                                                         }
+                                                                                     }];
+                                           }
+                                           
+                                           if (completionHandler)
+                                               completionHandler();
+                                       }];
+}
 
 /*!
  * Processes inteneded changes to the \c MDBFractalDocumentController object's \c MDBFractalDocumentInfo collection. This
@@ -200,6 +238,8 @@
         
         // Add the new documents.
         [self.fractalInfos addObjectsFromArray:untrackedInsertedFractalInfos];
+        
+        [self synchronousReadOfFractalInfos: untrackedInsertedFractalInfos];
         
         // Nor sort the document after all the inserts.
         if (self.sortComparator) {

@@ -104,7 +104,7 @@
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     
     if (self.readOnly) {
-        id<MDBTileObjectProtocol> newObject = [self.representedObject mutableCopy];
+        id<MDBTileObjectProtocol> newObject = [self.representedObject copy];
         draggingItem.dragItem = newObject;
     } else {
         draggingItem.dragItem = self.representedObject;

@@ -21,6 +21,7 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryViewController.h"
+#import "MBFractalLibraryEditViewController.h"
 #import "MBLSFractalEditViewController.h"
 
 #import "MBCollectionFractalCell.h"
@@ -159,6 +160,12 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
             [editViewController configureWithFractalInfo: userActivityDocumentInfo];
         }
     }
+    else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier])
+    {
+        UINavigationController* navCon = (UINavigationController *)segue.destinationViewController;
+        MBFractalLibraryEditViewController *newDocumentController = (MBFractalLibraryEditViewController *)navCon.topViewController;
+        newDocumentController.documentController = self.documentController;
+    }
 }
 /*!
  Save thumbnail, close document and clean up.
@@ -244,26 +251,15 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         
-        MBCollectionFractalCell* fractalDocumentCell = (MBCollectionFractalCell*)[self.collectionView cellForItemAtIndexPath: indexPath];
+        MBCollectionFractalCell* documentInfoCell = (MBCollectionFractalCell*)[self.collectionView cellForItemAtIndexPath: indexPath];
 
-        fractalDocumentCell.fractal = nil;
-        fractalDocumentCell.textLabel.text = fractalInfo.name;
-        fractalDocumentCell.detailTextLabel.text = fractalInfo.descriptor;
+        documentInfoCell.fractalInfo = fractalInfo;
         
         [fractalInfo fetchInfoWithCompletionHandler:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 // Make sure that the list info is still visible once the color has been fetched.
                 if ([self.collectionView.indexPathsForVisibleItems containsObject: indexPath]) {
-                    fractalDocumentCell.textLabel.text = fractalInfo.name;
-                    fractalDocumentCell.detailTextLabel.text = fractalInfo.descriptor;
-                    if (fractalInfo.thumbnail)
-                    {
-                        fractalDocumentCell.imageView.image = fractalInfo.thumbnail;
-                    }
-                    else
-                    {
-                        fractalDocumentCell.imageView.image = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
-                    }
+                    documentInfoCell.fractalInfo = fractalInfo;
                 }
             });
         }];
@@ -432,34 +428,18 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     MDBFractalInfo* fractalInfo = self.documentController[indexPath.row];
     
     // Configure the cell with data from the managed object.
-    documentInfoCell.textLabel.text = fractalInfo.name;
-    documentInfoCell.detailTextLabel.text = fractalInfo.descriptor;
-    if (fractalInfo.thumbnail)
-    {
-        documentInfoCell.imageView.image = fractalInfo.thumbnail;
-    }
-    else
-    {
-        documentInfoCell.imageView.image = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
-    }
+    documentInfoCell.fractalInfo = fractalInfo;
 
-    [fractalInfo fetchInfoWithCompletionHandler:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Make sure that the list info is still visible once the color has been fetched.
-            if ([self.collectionView.indexPathsForVisibleItems containsObject: indexPath]) {
-                documentInfoCell.textLabel.text = fractalInfo.name;
-                documentInfoCell.detailTextLabel.text = fractalInfo.descriptor;
-                if (fractalInfo.thumbnail)
-                {
-                    documentInfoCell.imageView.image = fractalInfo.thumbnail;
+    if (!fractalInfo.name) {
+        [fractalInfo fetchInfoWithCompletionHandler:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Make sure that the list info is still visible once the color has been fetched.
+                if ([self.collectionView.indexPathsForVisibleItems containsObject: indexPath]) {
+                    documentInfoCell.fractalInfo = fractalInfo;
                 }
-                else
-                {
-                    documentInfoCell.imageView.image = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
-                }
-            }
-        });
-    }];
+            });
+        }];
+    }
 
 //    LSFractalRenderer* generator;// = (self.fractalToThumbnailGenerators)[objectID];
 //    

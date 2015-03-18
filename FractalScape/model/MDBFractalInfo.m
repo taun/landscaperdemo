@@ -14,7 +14,7 @@
 @property(nonatomic,copy,readwrite) NSString                *name;
 @property(nonatomic,copy,readwrite) NSString                *descriptor;
 @property(nonatomic,strong,readwrite) MDBFractalCategory    *category;
-@property(nonatomic,strong,readwrite) UIImage            *thumbnail;
+@property(nonatomic,strong,readwrite) UIImage               *thumbnail;
 @property (nonatomic, strong) dispatch_queue_t              fetchQueue;
 
 @end
@@ -41,6 +41,38 @@
     return identifier.stringByDeletingPathExtension;
 }
 
+-(void) populateFromDocument:(MDBFractalDocument *)document
+{
+    NSError* thumbnailError;
+    
+    self.name = document.fractal.name;
+    self.descriptor = document.fractal.descriptor;
+    self.category = document.fractal.category;
+    UIImage* thumbnail;
+    BOOL haveThumbnail = [self.URL getPromisedItemResourceValue: &thumbnail forKey: NSThumbnail1024x1024SizeKey error: &thumbnailError];
+    if (haveThumbnail && thumbnail)
+    {
+        self.thumbnail = [thumbnail copy];
+    } else if (document.fractal.thumbnail1024) {
+        self.thumbnail = document.fractal.thumbnail1024;
+    }
+}
+- (void)fetchInfoSynchronous
+{
+    if (!self.name) {
+        [MDBDocumentUtilities readDocumentAtURL: self.URL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
+            dispatch_sync(self.fetchQueue, ^{
+                if (document) {
+                    [self populateFromDocument: document];
+                }
+                else {
+                    // what to do here? if no document why would there be info?
+                }
+                
+            });
+        }];
+    }
+}
 - (void)fetchInfoWithCompletionHandler:(void (^)(void))completionHandler {
     dispatch_async(self.fetchQueue, ^{
         // If the descriptor has been set, the info has been fetched.
@@ -53,17 +85,7 @@
         [MDBDocumentUtilities readDocumentAtURL: self.URL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
             dispatch_async(self.fetchQueue, ^{
                 if (document) {
-                    NSError* thumbnailError;
-                    
-                    self.name = document.fractal.name;
-                    self.descriptor = document.fractal.descriptor;
-                    self.category = document.fractal.category;
-                    UIImage* thumbnail;
-                    BOOL haveThumbnail = [self.URL getPromisedItemResourceValue: &thumbnail forKey: NSThumbnail1024x1024SizeKey error: &thumbnailError];
-                    if (haveThumbnail && thumbnail)
-                    {
-                        self.thumbnail = [thumbnail copy];
-                    }
+                    [self populateFromDocument: document];
                 }
                 else {
                     // what to do here? if no document why would there be info?

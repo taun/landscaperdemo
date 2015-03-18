@@ -22,5 +22,6 @@
 
 - (instancetype)initWithURL:(NSURL *)URL;
 - (void)fetchInfoWithCompletionHandler:(void (^)(void))completionHandler;
-
+- (void)fetchInfoSynchronous;
+- (void)populateFromDocument: (MDBFractalDocument*)document;
 @end

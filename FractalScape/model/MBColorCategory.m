@@ -69,7 +69,9 @@
     
     if (colorsArray) {
         
-        NSMutableArray* currentColors = [self.colors mutableCopy];
+        NSMutableArray* currentColors = [NSMutableArray new];
+        
+        [currentColors addObjectsFromArray: self.colors];
         
         NSMutableSet* colorIdentifiers = [NSMutableSet setWithCapacity: currentColors.count];
         for (MBColor* color in currentColors) {

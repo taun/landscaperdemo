@@ -9,15 +9,11 @@
 @import Foundation;
 @import UIKit;
 
-#import "LSFractal.h"
+@class MDBFractalInfo;
 
 @interface MBCollectionFractalCell : UICollectionViewCell
 
 @property (assign,nonatomic) CGFloat   radius;
-@property (weak, nonatomic) LSFractal               *fractal;
-@property (weak, nonatomic) IBOutlet UIView         *imageFrame;
-@property (weak, nonatomic) IBOutlet UIImageView    *imageView;
-@property (weak, nonatomic) IBOutlet UILabel        *textLabel;
-@property (weak, nonatomic) IBOutlet UILabel        *detailTextLabel;
+@property (weak, nonatomic) MDBFractalInfo          *fractalInfo;
 
 @end
