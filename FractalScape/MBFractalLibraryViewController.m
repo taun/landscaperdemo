@@ -128,8 +128,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier])
     {
-        UINavigationController* navCon = (UINavigationController *)segue.destinationViewController;
-        MBLSFractalEditViewController *newDocumentController = (MBLSFractalEditViewController *)navCon.topViewController;
+        MBLSFractalEditViewController *newDocumentController = (MBLSFractalEditViewController *)segue.destinationViewController;
         newDocumentController.documentController = self.documentController;
         
         [newDocumentController configureWithNewBlankDocument];
@@ -137,8 +136,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier] ||
              [segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
     {
-        UINavigationController* navCon = (UINavigationController *)segue.destinationViewController;
-        MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)navCon.topViewController;
+        MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
         editViewController.documentController = self.documentController;
         
         //editViewController.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
@@ -162,8 +160,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     }
     else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier])
     {
-        UINavigationController* navCon = (UINavigationController *)segue.destinationViewController;
-        MBFractalLibraryEditViewController *newDocumentController = (MBFractalLibraryEditViewController *)navCon.topViewController;
+        MBFractalLibraryEditViewController *newDocumentController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
         newDocumentController.documentController = self.documentController;
     }
 }

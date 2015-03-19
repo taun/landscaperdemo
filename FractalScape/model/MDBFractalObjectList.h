@@ -29,13 +29,16 @@ typedef struct MDBListOperationInfo {
 - (instancetype)initWithEncodingKey: (NSString*)key;
 - (instancetype)init;
 
+- (void)getObjects: (__unsafe_unretained id *)aBuffer range:(NSRange)aRange;
 - (id) objectAtIndexedSubscript:(NSUInteger)index;
+- (id) objectAtIndex:(NSUInteger)index;
 - (NSArray *) objectForKeyedSubscript:(NSIndexSet *)indexes;
 - (NSInteger) indexOfObject:(id)object;
 - (void) addObject: (id)additionalObject;
 - (void) insertObject:(id)object atIndex:(NSInteger)index;
 //- (BOOL) canMoveObject:(id)object toIndex:(NSInteger)index inclusive:(BOOL)inclusive;
 - (MDBListOperationInfo) moveObject:(id)object toIndex:(NSInteger)toIndex;
+- (void) removeObjectAtIndex: (NSUInteger)index;
 - (void) removeObjects:(NSArray *)objectsToRemove;
 - (void) removeObject: (id)objectToRemove;
 - (BOOL) isEqualToList:(MDBFractalObjectList *)list;

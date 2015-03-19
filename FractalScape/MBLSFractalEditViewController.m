@@ -49,7 +49,7 @@ static const CGFloat kLevelNMargin = 40.0;
                                                     MDBFractalDocumentDelegate,
                                                     MDBFractalDocumentControllerDelegate>
 
-@property (nonatomic,strong) NSMutableOrderedSet    *observedReplacementRules;
+@property (nonatomic,strong) NSMutableSet           *observedReplacementRules;
 @property (nonatomic, assign) BOOL                  startedInLandscape;
 
 //@property (nonatomic, strong) NSSet*                editControls;
@@ -167,10 +167,10 @@ static const CGFloat kLevelNMargin = 40.0;
                                                                    target: self
                                                                    action: @selector(stopButtonPressed:)];
     
-    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithTitle: @"Library"
-                                                                  style: UIBarButtonItemStylePlain
-                                                                 target: self
-                                                                 action: @selector(backToLibrary:)];
+//    UIBarButtonItem* backButton = [[UIBarButtonItem alloc]initWithTitle: @"Library"
+//                                                                  style: UIBarButtonItemStylePlain
+//                                                                 target: self
+//                                                                 action: @selector(backToLibrary:)];
 
     UIBarButtonItem* copyButton = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"toolBarCopyIcon"]
                                                                   style: UIBarButtonItemStylePlain
@@ -185,13 +185,13 @@ static const CGFloat kLevelNMargin = 40.0;
     
     [self.navigationItem setHidesBackButton: NO animated: NO];
     self.navigationItem.leftItemsSupplementBackButton = YES;
-    self.navigationItem.backBarButtonItem = backButton;
+//    self.navigationItem.backBarButtonItem = backButton;
     
     NSMutableArray* items = [self.navigationItem.leftBarButtonItems mutableCopy];
     if (!items) {
         items = [NSMutableArray new];
     }
-    [items addObject: backButton];
+//    [items addObject: backButton];
     [items addObject: copyButton];
     [items addObject: shareButton];
     [self.navigationItem setLeftBarButtonItems: items];
@@ -216,7 +216,7 @@ static const CGFloat kLevelNMargin = 40.0;
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
-    _observedReplacementRules = [NSMutableArray new];
+    _observedReplacementRules = [NSMutableSet new];
     
     [self configureNavBarButtons];
 
@@ -397,7 +397,10 @@ static const CGFloat kLevelNMargin = 40.0;
 //    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
 
 //    NSLog(@"Observed Change Type: %@", change[NSKeyValueChangeKindKey]);
-    BOOL changeCount = [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting;
+    BOOL changeCount = ([change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting
+                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeInsertion
+                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeRemoval
+                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeReplacement);
     
     if ([keyPath isEqualToString: @"fractal"])
     {
@@ -428,13 +431,14 @@ static const CGFloat kLevelNMargin = 40.0;
         }
     }
     else if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
-             [keyPath isEqualToString: [LSReplacementRule rulesKey]] ||
+             [keyPath isEqualToString: @"startingRules.allObjects"] ||
+             [keyPath isEqualToString: @"rules.allObjects"] ||
              [keyPath isEqualToString: [LSReplacementRule contextRuleKey]])
     {
         if (changeCount)
         {
 #pragma message "TODO: fix for uidocument"
-//            [self.fractalDocument.fractal setPrimitiveValue: @NO forKey: @"rulesUnchanged"];
+            self.fractalDocument.fractal.rulesUnchanged = NO;
             
             if ([keyPath isEqualToString:[LSFractal replacementRulesKey]])
             {
@@ -697,6 +701,7 @@ static const CGFloat kLevelNMargin = 40.0;
         [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
         [propertiesToObserve unionSet: [LSFractal labelProperties]];
+        [propertiesToObserve addObject: @"startingRules.allObjects"];
         
         for (NSString* keyPath in propertiesToObserve)
         {
@@ -705,7 +710,7 @@ static const CGFloat kLevelNMargin = 40.0;
         for (LSReplacementRule* rRule in fractal.replacementRules)
         {
             [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
-            [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
+            [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
             [self.observedReplacementRules addObject: rRule];
         }
     }
@@ -713,27 +718,27 @@ static const CGFloat kLevelNMargin = 40.0;
 -(void) updateObserversForReplacementRules: (NSMutableArray*) newReplacementRules {
     // need to find rules missing from registered observers.
     
-    NSMutableOrderedSet* copyOfCurrent = [NSMutableOrderedSet orderedSetWithArray: newReplacementRules];
-    NSMutableOrderedSet* copyOfPrevious = [self.observedReplacementRules mutableCopy];
+    NSMutableSet* copyOfCurrent = [NSMutableSet setWithArray: newReplacementRules];
+    NSMutableSet* copyOfPrevious = [self.observedReplacementRules mutableCopy];
     
-    NSMutableOrderedSet* repRulesToUnobserve = [copyOfPrevious mutableCopy];
-    [repRulesToUnobserve minusOrderedSet: copyOfCurrent];
+    NSMutableSet* repRulesToUnobserve = [copyOfPrevious mutableCopy];
+    [repRulesToUnobserve minusSet: copyOfCurrent];
     
     
     for (LSReplacementRule* rule in repRulesToUnobserve)
     {
         [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
-        [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
+        [rule removeObserver: self forKeyPath: @"rules.allObjects"];
         [self.observedReplacementRules removeObject: rule];
     }
     
-    NSMutableOrderedSet* repRulesToAddObserver = [copyOfCurrent mutableCopy];
-    [repRulesToAddObserver minusOrderedSet: self.observedReplacementRules];
+    NSMutableSet* repRulesToAddObserver = [copyOfCurrent mutableCopy];
+    [repRulesToAddObserver minusSet: self.observedReplacementRules];
     
     for (LSReplacementRule* rRule in repRulesToAddObserver)
     {
         [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
-        [rRule addObserver: self forKeyPath: [LSReplacementRule rulesKey] options: 0 context: NULL];
+        [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
         [self.observedReplacementRules addObject: rRule];
     }
 }
@@ -745,6 +750,7 @@ static const CGFloat kLevelNMargin = 40.0;
         [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
         [propertiesToObserve unionSet: [LSFractal labelProperties]];
+        [propertiesToObserve addObject: @"startingRules.allObjects"];
         
         @try {
             // Some properties may not being observed due to being nil initially?
@@ -755,12 +761,13 @@ static const CGFloat kLevelNMargin = 40.0;
             for (LSReplacementRule* rule in fractal.replacementRules)
             {
                 [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
-                [rule removeObserver: self forKeyPath: [LSReplacementRule rulesKey]];
+                [rule removeObserver: self forKeyPath: @"rules.allObjects"];
                 [self.observedReplacementRules removeObject: rule];
             }
         }
         @catch (NSException *exception) {
             //
+            NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
         }
         @finally {
             //

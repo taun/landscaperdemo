@@ -26,7 +26,7 @@
     [self.destinationView setDefaultObjectClass: [LSDrawingRule class]];
     self.destinationView.objectList = self.fractalDocument.fractal.startingRules;
     
-    self.replacementRules.replacementRules = self.fractalDocument.fractal.replacementRules;
+    self.replacementRules.replacementRules = [self.fractalDocument.fractal mutableArrayValueForKey: @"replacementRules"];
     
     [self.sourceListView setValue: self.fractalDocument.sourceDrawingRules forKey: @"type"];
     

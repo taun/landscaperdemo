@@ -37,9 +37,9 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 +(NSInteger)    version;
 
-@property(nonatomic,strong) LSDrawingRuleType               *sourceDrawingRules;
-@property(nonatomic,strong) NSArray                         *sourceColorCategories;
-@property(nonatomic,strong) NSArray                         *categories;
+//@property(nonatomic,strong) LSDrawingRuleType               *sourceDrawingRules;
+//@property(nonatomic,strong) NSArray                         *sourceColorCategories;
+//@property(nonatomic,strong) NSArray                         *categories;
 
 /*!
  Class version number.
@@ -127,6 +127,8 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic,readonly) NSArray                                  *lineColorAsPListArray;
 @property (nonatomic,readonly) NSArray                                  *fillColorAsPListArray;
 
++(BOOL)automaticallyNotifiesObserversOfrulesUnchanged;
++(BOOL)automaticallyNotifiesObserversOflevelUnchanged;
 +(instancetype) newLSFractalFromPListDictionary: (NSDictionary*)plistDict;
 +(NSMutableArray*) newCollectionOfLSReplacementRulesFromPListArray: (NSArray*) plistArray;
 +(MDBFractalObjectList*) newCollectionOfLSDrawingRulesFromPListArray: (NSArray*) plistArray;

@@ -466,6 +466,7 @@
         
         
         id<MDBTileObjectProtocol> object = self.objectList[fromIndex];
+        
         [self.objectList removeObject: object];
         [self.objectList insertObject: object atIndex: adjustedToIndex];
         

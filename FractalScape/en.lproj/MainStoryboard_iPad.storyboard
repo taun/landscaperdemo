@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="u0F-Fq-0AU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -10,7 +10,7 @@
         <!--FractalName-->
         <scene sceneID="Vzi-SL-M21">
             <objects>
-                <viewController storyboardIdentifier="FractalEditView" title="FractalName" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FractalEditView" title="FractalName" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sft-HR-kri"/>
                         <viewControllerLayoutGuide type="bottom" id="Awh-gB-3mV"/>
@@ -849,7 +849,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5325" y="135"/>
+            <point key="canvasLocation" x="5143" y="135"/>
         </scene>
         <!--Filters-->
         <scene sceneID="GlJ-fF-gPe">
@@ -867,7 +867,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52B-LO-Zy5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5506" y="928"/>
+            <point key="canvasLocation" x="6212" y="-490"/>
         </scene>
         <!--Fractal FIlters Controller-->
         <scene sceneID="U9M-3b-HZb">
@@ -955,7 +955,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z1E-Yr-P2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5310" y="1617"/>
+            <point key="canvasLocation" x="5740" y="197"/>
         </scene>
         <!--Fractal Rules Editor View Controller-->
         <scene sceneID="AoQ-mK-Ne2">
@@ -1306,7 +1306,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5954" y="1649.5"/>
+            <point key="canvasLocation" x="6384" y="229.5"/>
         </scene>
         <!--Fractal Color View Container-->
         <scene sceneID="ahc-Pz-mGd">
@@ -1670,7 +1670,7 @@
                                         <constraint firstItem="9ba-HM-kSK" firstAttribute="top" secondItem="TLs-EA-bzv" secondAttribute="top" constant="2" id="rfv-Gu-Q0N"/>
                                     </constraints>
                                 </view>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="100" id="MBs-MG-wJS"/>
                                 </constraints>
@@ -1757,7 +1757,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6587" y="1611"/>
+            <point key="canvasLocation" x="7017" y="191"/>
         </scene>
         <!--Fractal Appearance Editor View Controller-->
         <scene sceneID="vbC-pS-Rbr">
@@ -1781,28 +1781,12 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCg-OZ-rZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5954" y="135"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="pvY-vp-HrL">
-            <objects>
-                <navigationController id="bzS-Zh-YG5" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="arx-UN-yWC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="9pe-kV-foC" kind="relationship" relationship="rootViewController" id="vce-Af-mZ9"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XA9-IT-SSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2984" y="-580"/>
+            <point key="canvasLocation" x="5758" y="-490"/>
         </scene>
         <!--Edit-->
         <scene sceneID="zSv-JI-BWw">
             <objects>
-                <collectionViewController storyboardIdentifier="FractalEditLibrary" title="Edit" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="FractalEditLibrary" title="Edit" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7x8-no-bZT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1924,11 +1908,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Y0u-pB-asM">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Azc-wu-UAC">
-                            <connections>
-                                <action selector="editDone:" destination="9pe-kV-foC" id="fSR-rv-atc"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title="Done" id="sLY-8P-DBd"/>
                         <barButtonItem key="rightBarButtonItem" title="Delete" id="FTe-KF-P8m">
                             <connections>
                                 <action selector="deleteCurrentSelections:" destination="9pe-kV-foC" id="tHx-6F-JeM"/>
@@ -1938,7 +1918,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDK-oe-bAj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3708" y="-574"/>
+            <point key="canvasLocation" x="5143" y="-624"/>
         </scene>
         <!--Library-->
         <scene sceneID="iKT-0y-poi">
@@ -2029,7 +2009,7 @@
                                     <outlet property="imageFrame" destination="z47-1a-Cob" id="xkP-Xw-MvZ"/>
                                     <outlet property="imageView" destination="AYV-rN-sBG" id="lg7-Jp-1im"/>
                                     <outlet property="textLabel" destination="PV1-X5-WaQ" id="rtZ-MR-lcd"/>
-                                    <segue destination="zSz-Y2-TqJ" kind="presentation" identifier="showFractalDocument" modalTransitionStyle="flipHorizontal" id="x7D-oA-zT1"/>
+                                    <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocument" id="BNA-0R-B33"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -2062,37 +2042,28 @@
                             <outlet property="delegate" destination="o9m-5w-n8i" id="x3Y-Qc-Wmr"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="My Fractals" image="tabBarMyFractals" id="Nu0-zI-z5H"/>
-                    <toolbarItems>
-                        <barButtonItem enabled="NO" title="My Fractals" id="TCd-3L-Rnk"/>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="HGq-Kb-RoW"/>
-                        <barButtonItem enabled="NO" title="Top Rated" id="RjF-u4-225"/>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ItZ-Wy-D8k"/>
-                        <barButtonItem title="Browse Cloud" id="pgM-Xp-HBi"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="sJd-aq-2Gt"/>
-                        <barButtonItem enabled="NO" systemItem="search" id="d4O-oq-l77"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Library" id="uJn-Hw-dsJ">
                         <barButtonItem key="backBarButtonItem" title="Library" id="rgH-UD-fGC"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="dzy-2f-cmr">
-                            <connections>
-                                <segue destination="bzS-Zh-YG5" kind="presentation" identifier="editFractalDocumentsList" modalTransitionStyle="crossDissolve" id="8pZ-o0-rVK"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="IzD-z0-oN0">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="IzD-z0-oN0">
                             <connections>
                                 <action selector="pickDocument:" destination="o9m-5w-n8i" id="22U-xX-Lo5"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="g3K-TG-rl5">
+                            <connections>
+                                <segue destination="9pe-kV-foC" kind="show" identifier="showEditFractalDocumentsList" id="YVA-fP-SxN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="zSz-Y2-TqJ" kind="showDetail" identifier="showFractalDocumentFromUserActivity" id="7Eg-98-oTe"/>
-                        <segue destination="zSz-Y2-TqJ" kind="showDetail" identifier="newFractalDocument" id="Ztc-U9-6aN"/>
+                        <segue destination="4nM-Pc-iAd" kind="show" identifier="showNewFractalDocument" id="CAI-sc-RDe"/>
+                        <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocumentFromUserActivity" id="XIW-aO-ufy"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3708" y="127"/>
+            <point key="canvasLocation" x="4389" y="141"/>
         </scene>
         <!--Browse Cloud-->
         <scene sceneID="c0t-nZ-y9X">
@@ -2111,7 +2082,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVv-ab-K41" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3708" y="1572"/>
+            <point key="canvasLocation" x="4389" y="1546"/>
         </scene>
         <!--Top Rated-->
         <scene sceneID="xGe-BI-6pP">
@@ -2130,7 +2101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5d6-Dh-Dly" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3708" y="872"/>
+            <point key="canvasLocation" x="4389" y="862"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="95T-CA-6ut">
@@ -2144,19 +2115,20 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="o9m-5w-n8i" kind="relationship" relationship="viewControllers" id="j1Q-ga-dCs"/>
+                        <segue destination="u0F-Fq-0AU" kind="relationship" relationship="viewControllers" id="9hb-j5-uif"/>
                         <segue destination="kv4-Cc-rgq" kind="relationship" relationship="viewControllers" id="nVa-Ko-rr3"/>
                         <segue destination="oyg-S9-TD8" kind="relationship" relationship="viewControllers" id="qkY-BQ-SX7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ3-UZ-hST" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3005" y="127"/>
+            <point key="canvasLocation" x="2993" y="141"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--My Fractals-->
         <scene sceneID="ECf-kR-spw">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u0F-Fq-0AU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My Fractals" image="tabBarMyFractals" id="w1h-AT-xFO"/>
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lwl-kr-jhM">
@@ -2168,12 +2140,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="0xE-iA-jSj" kind="relationship" relationship="rootViewController" id="j6M-1j-XDJ"/>
+                        <segue destination="o9m-5w-n8i" kind="relationship" relationship="rootViewController" id="CfX-pS-GiJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dce-s8-c1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2227" y="127"/>
+            <point key="canvasLocation" x="3691" y="141"/>
         </scene>
         <!--Rules-->
         <scene sceneID="M0i-xl-FcE">
@@ -2192,7 +2164,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqe-FJ-cA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5954" y="928"/>
+            <point key="canvasLocation" x="6660" y="-490"/>
         </scene>
         <!--Colors-->
         <scene sceneID="w3F-vD-9bK">
@@ -2211,25 +2183,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBY-hp-n0F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6449" y="964"/>
-        </scene>
-        <!--EditNavigator-->
-        <scene sceneID="DnG-fq-bTe">
-            <objects>
-                <navigationController title="EditNavigator" automaticallyAdjustsScrollViewInsets="NO" id="zSz-Y2-TqJ" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aSQ-IH-Hwb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="4nM-Pc-iAd" kind="relationship" relationship="rootViewController" id="Nly-Mb-VGP"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rcc-v6-YF9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4513" y="135"/>
+            <point key="canvasLocation" x="7125" y="-490"/>
         </scene>
     </scenes>
     <resources>
@@ -2255,6 +2209,6 @@
         <image name="zensand" width="72" height="71"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="x7D-oA-zT1"/>
+        <segue reference="BNA-0R-B33"/>
     </inferredMetricsTieBreakers>
 </document>

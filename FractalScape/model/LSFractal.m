@@ -44,6 +44,15 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     return 1;
 }
 
++(BOOL)automaticallyNotifiesObserversOfrulesUnchanged
+{
+    return NO;
+}
++(BOOL)automaticallyNotifiesObserversOflevelUnchanged
+{
+    return NO;
+}
+
 +(NSString*) startingRulesKey
 {
     static NSString*  startingRulesKeyString = @"startingRules";

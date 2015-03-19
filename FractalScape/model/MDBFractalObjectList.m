@@ -77,7 +77,21 @@
     return listCopy;
 }
 
+- (id)mutableCopyWithZone:(NSZone *)zone
+{
+    MDBFractalObjectList* listCopy = [[[self class] alloc] init];
+    // perform a deep copy so we only have one reference to the contained objects
+    for (id object in self.objects) {
+        [listCopy addObject: [object copy]];
+    }
+    return listCopy;
+}
+
 #pragma mark - Subscripts
+- (void)getObjects:(__unsafe_unretained id *)aBuffer range:(NSRange)aRange
+{
+    [self.objects getObjects:(__unsafe_unretained id *)aBuffer range: aRange];
+}
 - (NSArray *)objectForKeyedSubscript:(NSIndexSet *)indexes
 {
     return [self.objects objectsAtIndexes:indexes];
@@ -86,6 +100,11 @@
 - (id)objectAtIndexedSubscript:(NSUInteger)index
 {
     return self.objects[index];
+}
+
+- (id)objectAtIndex:(NSUInteger)index
+{
+    return [self objectAtIndexedSubscript: index];
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])stackbuf count:(NSUInteger)len
@@ -132,17 +151,29 @@
 
 - (void) insertObject:(id)object atIndex:(NSInteger)index
 {
+    [self willChangeValueForKey: @"allObjects"];
     [self.objects insertObject: object atIndex: index];
+    [self didChangeValueForKey: @"allObjects"];
 }
 
+- (void) removeObjectAtIndex:(NSUInteger)index
+{
+    [self willChangeValueForKey: @"allObjects"];
+    [self.objects removeObjectAtIndex: index];
+    [self didChangeValueForKey: @"allObjects"];
+}
 - (void) removeObjects:(NSArray *)objectsToRemove
 {
+    [self willChangeValueForKey: @"allObjects"];
     [self.objects removeObjectsInArray: objectsToRemove];
+    [self didChangeValueForKey: @"allObjects"];
 }
 
 -(void) removeObject:(id)objectToRemove
 {
+    [self willChangeValueForKey: @"allObjects"];
     [self.objects removeObject: objectToRemove];
+    [self didChangeValueForKey: @"allObjects"];
 }
 
 - (MDBListOperationInfo)moveObject:(id)object toIndex:(NSInteger)toIndex

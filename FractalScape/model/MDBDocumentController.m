@@ -22,7 +22,8 @@
  * @return A private, local queue to the \c MDBFractalDocumentController that is used to perform updates on
  *         \c documentInfos.
  */
-@property (nonatomic, strong) dispatch_queue_t fractalInfoQueue;
+@property (nonatomic, strong) dispatch_queue_t fractalReadQueue;
+@property (nonatomic, strong) dispatch_queue_t fractalUpdateQueue;
 
 /*!
  * The sort comparator that's set in initialization. The sort predicate ensures a strict sort ordering
@@ -45,7 +46,8 @@
         _documentCoordinator = documentCoordinator;
         _sortComparator = sortComparator;
         
-        _fractalInfoQueue = dispatch_queue_create("com.moedae.FractalScapes.documentcontroller", DISPATCH_QUEUE_SERIAL);
+        _fractalReadQueue = dispatch_queue_create("com.moedae.FractalScapes.documentcontroller.read", DISPATCH_QUEUE_SERIAL);
+        _fractalUpdateQueue = dispatch_queue_create("com.moedae.FractalScapes.documentcontroller.update", DISPATCH_QUEUE_CONCURRENT);
         _fractalInfos = [NSMutableArray array];
         
         _documentCoordinator.delegate = self;
@@ -71,7 +73,7 @@
         
         // Map the fractalInfo objects protected by documentInfoQueue.
         __block NSArray *allURLs;
-        dispatch_sync(self.fractalInfoQueue, ^{
+        dispatch_sync(self.fractalUpdateQueue, ^{
             allURLs = [self.fractalInfos valueForKey:@"URL"];
         });
         [self processContentChangesWithInsertedURLs:@[] removedURLs:allURLs updatedURLs:@[]];
@@ -89,7 +91,7 @@
     // Fetch the appropriate document info protected by documentInfoQueue.
     __block MDBFractalInfo *fractalInfo = nil;
     
-    dispatch_sync(self.fractalInfoQueue, ^{
+    dispatch_sync(self.fractalUpdateQueue, ^{
         fractalInfo = self.fractalInfos[index];
     });
     
@@ -115,14 +117,19 @@
 
 - (void)setFractalInfoHasNewContents:(MDBFractalInfo *)fractalInfo
 {
-    dispatch_async(self.fractalInfoQueue, ^{
+    dispatch_async(self.fractalUpdateQueue, ^{
         // Remove the old document info and replace it with the new one.
         NSInteger indexOfFractalInfo = [self.fractalInfos indexOfObject: fractalInfo];
-        self.fractalInfos[indexOfFractalInfo] = fractalInfo;
-        
-        [self.delegate documentControllerWillChangeContent:self];
-        [self.delegate documentController:self didUpdateFractalInfo: fractalInfo atIndex:indexOfFractalInfo];
-        [self.delegate documentControllerDidChangeContent:self];
+        if (indexOfFractalInfo != NSNotFound) {
+            self.fractalInfos[indexOfFractalInfo] = fractalInfo;
+            
+            [self.delegate documentControllerWillChangeContent:self];
+            [self.delegate documentController:self didUpdateFractalInfo: fractalInfo atIndex:indexOfFractalInfo];
+            [self.delegate documentControllerDidChangeContent:self];
+        } else
+        {
+            NSLog(@"%@, FractalInfo not found: %@",NSStringFromSelector(_cmd), fractalInfo);
+        }
     });
 }
 
@@ -199,7 +206,7 @@
     NSArray *removedFractalInfos = [self fractalInfosByMappingURLs:removedURLs];
     NSArray *updatedFractalInfos = [self fractalInfosByMappingURLs:updatedURLs];
     
-    dispatch_async(self.fractalInfoQueue, ^{
+    dispatch_async(self.fractalReadQueue, ^{
         // Filter out all documents that are already included in the tracked documents.
         NSIndexSet *indexesOfTrackedremovedFractalInfos = [removedFractalInfos indexesOfObjectsPassingTest:^BOOL(MDBFractalInfo *fractalInfo, NSUInteger idx, BOOL *stop) {
             return [self.fractalInfos containsObject:fractalInfo];
