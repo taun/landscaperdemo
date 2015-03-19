@@ -233,8 +233,8 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 - (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        
         [self.collectionView reloadData];
+        // doesn't work due to items being added to controller faster than this is called.
 //        [self.collectionView insertItemsAtIndexPaths: @[indexPath]];
     });
 }

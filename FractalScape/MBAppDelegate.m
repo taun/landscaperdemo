@@ -188,7 +188,9 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
 }
 
 - (MBFractalLibraryViewController *)documentsViewController {
-    return (MBFractalLibraryViewController *)[[self.window.rootViewController childViewControllers] firstObject];
+    UITabBarController* tabBar = [[self.window.rootViewController childViewControllers]firstObject];
+    MBFractalLibraryViewController *documentsViewController = [tabBar.viewControllers firstObject];
+    return documentsViewController;
 }
 
 

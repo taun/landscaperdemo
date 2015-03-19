@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "MDBFractalInfo.h"
+#import "MBColorCellBackgroundView.h"
 
 @interface MBCollectionFractalCell ()
 
@@ -53,6 +54,11 @@
     UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
     UIImageView* strongImageView = self.imageView;
     strongImageView.image = placeholder;
+    
+    if (!self.backgroundView) {
+        MBColorCellBackgroundView* backgroundView = [MBColorCellBackgroundView new];
+        self.backgroundView = backgroundView;
+    }
     
     self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
 }

@@ -25,8 +25,8 @@
         self.layer.borderWidth = 1.0;
         
         if ((YES)) {
-            self.layer.shadowOpacity = 0.75;
-            self.layer.shadowRadius = 1;
+            self.layer.shadowOpacity = 0.5;
+            self.layer.shadowRadius = 2.0;
             self.layer.shadowOffset = CGSizeMake(0,2);
         }
         
