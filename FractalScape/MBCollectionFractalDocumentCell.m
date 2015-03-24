@@ -1,18 +1,19 @@
 //
-//  MBCollectionFractalCell.m
 //  FractalScape
 //
 //  Created by Taun Chapman on 02/26/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBCollectionFractalCell.h"
+#import "MBCollectionFractalDocumentCell.h"
 #import <QuartzCore/QuartzCore.h>
 
+#import "LSFractal.h"
 #import "MDBFractalInfo.h"
+#import "MDBFractalDocument.h"
 #import "MBColorCellBackgroundView.h"
 
-@interface MBCollectionFractalCell ()
+@interface MBCollectionFractalDocumentCell ()
 
 @property (weak, nonatomic) IBOutlet UIView         *imageFrame;
 @property (weak, nonatomic) IBOutlet UIImageView    *imageView;
@@ -21,7 +22,7 @@
 
 @end
 
-@implementation MBCollectionFractalCell
+@implementation MBCollectionFractalDocumentCell
 
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -83,19 +84,19 @@
     selectBackgroundView.layer.backgroundColor = [[UIColor darkGrayColor] CGColor];
     return selectBackgroundView;
 }
--(void)setFractalInfo:(MDBFractalInfo *)fractalInfo
+-(void)setDocument:(MDBFractalDocument *)document
 {
-    if (fractalInfo != _fractalInfo)
+    if (_document != document)
     {
         [self configureDefaults];
         
-        _fractalInfo = fractalInfo;
+        _document = document;
         
-        if (_fractalInfo)
+        if (_document)
         {
-            if (_fractalInfo.name) self.textLabel.text = _fractalInfo.name;
-            if (_fractalInfo.descriptor) self.detailTextLabel.text = _fractalInfo.descriptor;
-            if (fractalInfo.thumbnail) self.imageView.image = fractalInfo.thumbnail;
+            if (_document.fractal.name) self.textLabel.text = _document.fractal.name;
+            if (_document.fractal.descriptor) self.detailTextLabel.text = _document.fractal.descriptor;
+            if (_document.thumbnail) self.imageView.image = _document.thumbnail;
         }
     }
 }

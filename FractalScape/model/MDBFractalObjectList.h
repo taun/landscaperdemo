@@ -17,6 +17,8 @@ typedef struct MDBListOperationInfo {
 /*!
  Acts as a mutable ordered collection. Class for dealing with the collection aspect of the rules and colors. Hides the implementation details so
  the viewer classes don't need to know whether the implementation is an array, ordered set, ...
+ 
+ KVO: Observer key "allObjects" to be notified of changes to the collection.
  */
 @interface MDBFractalObjectList : NSObject <NSCoding, NSCopying, NSFastEnumeration>
 

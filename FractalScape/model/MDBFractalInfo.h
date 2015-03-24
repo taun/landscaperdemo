@@ -7,21 +7,19 @@
 //
 
 @import Foundation;
-#import "MDBFractalDocument.h"
-#import "LSFractal.h"
-#import "MDBFractalCategory.h"
+
+@class MDBFractalDocument;
+@class LSFractal;
 
 @interface MDBFractalInfo : NSObject
 
 @property(nonatomic,copy,readonly) NSString             *identifier;
-@property(nonatomic,copy,readonly) NSString             *name;
-@property(nonatomic,copy,readonly) NSString             *descriptor;
-@property(nonatomic,strong,readonly) MDBFractalCategory  *category;
-@property(nonatomic,strong,readonly) UIImage            *thumbnail;
-@property (nonatomic,strong,readonly) NSURL             *URL;
+@property(nonatomic,strong,readonly) NSURL              *URL;
+@property(nonatomic,strong) NSDate                      *changeDate;
+@property(nonatomic,strong,readonly) MDBFractalDocument *document;
 
++ (instancetype)newFractalInfoWithURL: (NSURL*)url forFractal: (LSFractal*)fractal documentDelegate: (id)delegate;
 - (instancetype)initWithURL:(NSURL *)URL;
-- (void)fetchInfoWithCompletionHandler:(void (^)(void))completionHandler;
-- (void)fetchInfoSynchronous;
-- (void)populateFromDocument: (MDBFractalDocument*)document;
+- (void)fetchDocumentWithCompletionHandler:(void (^)(void))completionHandler;
+- (void)unCacheDocument;
 @end

@@ -1,5 +1,4 @@
 //
-//  MBCollectionFractalCell.h
 //  FractalScape
 //
 //  Created by Taun Chapman on 02/26/13.
@@ -9,11 +8,11 @@
 @import Foundation;
 @import UIKit;
 
-@class MDBFractalInfo;
+@class MDBFractalDocument;
 
-@interface MBCollectionFractalCell : UICollectionViewCell
+@interface MBCollectionFractalDocumentCell : UICollectionViewCell
 
 @property (assign,nonatomic) CGFloat   radius;
-@property (weak, nonatomic) MDBFractalInfo          *fractalInfo;
+@property (weak, nonatomic) MDBFractalDocument          *document;
 
 @end

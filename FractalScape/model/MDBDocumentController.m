@@ -6,9 +6,14 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
+@import UIKit;
+
 #import "MDBDocumentController.h"
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalInfo.h"
+#import "MDBFractalDocument.h"
+
+//#define MDB_QUEUE_LOG
 
 @interface MDBDocumentController () <MDBFractalDocumentCoordinatorDelegate>
 
@@ -25,13 +30,6 @@
 @property (nonatomic, strong) dispatch_queue_t fractalReadQueue;
 @property (nonatomic, strong) dispatch_queue_t fractalUpdateQueue;
 
-/*!
- * The sort comparator that's set in initialization. The sort predicate ensures a strict sort ordering
- * of the \c documentInfos array. If \c sortComparator is nil, the sort order is ignored.
- */
-@property (nonatomic, copy) NSComparisonResult (^sortComparator)(MDBFractalInfo *lhs, MDBFractalInfo *rhs);
-
-
 @end
 
 @implementation MDBDocumentController
@@ -46,8 +44,9 @@
         _documentCoordinator = documentCoordinator;
         _sortComparator = sortComparator;
         
-        _fractalReadQueue = dispatch_queue_create("com.moedae.FractalScapes.documentcontroller.read", DISPATCH_QUEUE_SERIAL);
-        _fractalUpdateQueue = dispatch_queue_create("com.moedae.FractalScapes.documentcontroller.update", DISPATCH_QUEUE_CONCURRENT);
+        _fractalUpdateQueue = dispatch_queue_create("com.moedae.FractalScapes.documentcontroller.update", DISPATCH_QUEUE_SERIAL);
+        _fractalReadQueue = _fractalUpdateQueue;
+        //        _fractalReadQueue = dispatch_queue_create("com.moedae.FractalScapes.documentcontroller.read", DISPATCH_QUEUE_SERIAL);
         _fractalInfos = [NSMutableArray array];
         
         _documentCoordinator.delegate = self;
@@ -57,6 +56,19 @@
     
     return self;
 }
+
+- (id) debugQuickLookObject
+{
+    return [self debugDescription];
+}
+
+-(NSString*)debugDescription
+{
+    //    NSString* ddesc = [NSString stringWithFormat: @"Name: %@\nDescription: %@\nLevels: %lu\nStarting Rules: %@\nReplacement Rules: %@",_name,_descriptor,_level,[self startingRulesAsString],[self replacementRulesAsPListArray]];
+    NSString* ddesc = [NSString stringWithFormat: @"FractalInfos: %@",_fractalInfos];
+    return ddesc;
+}
+
 
 #pragma mark - Property Overrides
 
@@ -74,6 +86,9 @@
         // Map the fractalInfo objects protected by documentInfoQueue.
         __block NSArray *allURLs;
         dispatch_sync(self.fractalUpdateQueue, ^{
+#ifdef MDB_QUEUE_LOG
+            NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
+#endif
             allURLs = [self.fractalInfos valueForKey:@"URL"];
         });
         [self processContentChangesWithInsertedURLs:@[] removedURLs:allURLs updatedURLs:@[]];
@@ -86,12 +101,27 @@
 }
 
 #pragma mark - Subscripting
-
+/*!
+ File handling notes:
+ 
+ FractalInfo is really redudndant. Can't get any info without loading the full document and the document is very lightweight (<1k + thumbnail) so just load it?
+ 
+ Problem is we don't want cloud thumbnails in memory until the collectionCell needs it.
+ 
+ Can't load thumbnail separately without using a fileWrapper style document. Also works better for cloud storage?
+ 
+ FractalInfo = fractal text part of fileWrapper contents.
+ Thumbnail = separate file.
+ 
+ */
 - (MDBFractalInfo *)objectAtIndexedSubscript:(NSInteger)index {
     // Fetch the appropriate document info protected by documentInfoQueue.
     __block MDBFractalInfo *fractalInfo = nil;
     
     dispatch_sync(self.fractalUpdateQueue, ^{
+#ifdef MDB_QUEUE_LOG
+        NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
+#endif
         fractalInfo = self.fractalInfos[index];
     });
     
@@ -102,12 +132,48 @@
 
 - (void)removeFractalInfo:(MDBFractalInfo *)fractalInfo
 {
-    [self.documentCoordinator removeFractalAtURL:fractalInfo.URL];
+    [self.documentCoordinator removeFractalAtURL: fractalInfo.URL];
 }
 
-- (void)createFractalInfoForFractal:(LSFractal *)fractal withIdentifier: (NSString *)name
+- (MDBFractalInfo*)createFractalInfoForFractal:(LSFractal *)fractal withDocumentDelegate: (id)delegate
 {
-    [self.documentCoordinator createURLForFractal: fractal withIdentifier: name];
+    NSString* newIdentifier;
+    NSInteger numTries = 10;
+    do
+    {
+        newIdentifier = [[NSUUID UUID] UUIDString];
+        numTries--;
+    } while (![self canCreateFractalInfoWithIdentifier: newIdentifier] && numTries > 0);
+    
+    if (numTries == 0) {
+        NSLog(@"%@, %@ Error, too may tries to get a unique identifier.",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
+    }
+    
+    NSURL* documentURL = [self.documentCoordinator documentURLForName: newIdentifier];
+
+    MDBFractalInfo* newFractalInfo = [MDBFractalInfo newFractalInfoWithURL: documentURL forFractal: fractal documentDelegate: delegate];
+    
+    [newFractalInfo.document saveToURL: newFractalInfo.document.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+        //
+        dispatch_async(self.fractalUpdateQueue, ^{
+#ifdef MDB_QUEUE_LOG
+            NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
+#endif
+            id<MDBFractalDocumentControllerDelegate> strongDelegate = self.delegate;
+            if (![self.fractalInfos containsObject: newFractalInfo]) {
+                [strongDelegate documentControllerWillChangeContent:self];
+                
+                [self.fractalInfos addObject: newFractalInfo];
+                NSInteger indexOfFractalInfo = [self.fractalInfos indexOfObject: newFractalInfo];
+                NSIndexPath* indexPath = [NSIndexPath indexPathForRow: indexOfFractalInfo inSection: 0];
+                [strongDelegate documentController:self didInsertFractalInfosAtIndexPaths: @[indexPath] totalRows: self.count];
+                
+                [strongDelegate documentControllerDidChangeContent:self];
+            };
+        });
+    }];
+    
+    return newFractalInfo;
 }
 
 - (BOOL)canCreateFractalInfoWithIdentifier:(NSString *)name
@@ -119,13 +185,20 @@
 {
     dispatch_async(self.fractalUpdateQueue, ^{
         // Remove the old document info and replace it with the new one.
+#ifdef MDB_QUEUE_LOG
+        NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
+#endif
+        id<MDBFractalDocumentControllerDelegate> strongDelegate = self.delegate;
         NSInteger indexOfFractalInfo = [self.fractalInfos indexOfObject: fractalInfo];
-        if (indexOfFractalInfo != NSNotFound) {
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow: indexOfFractalInfo inSection: 0];
+        
+        if (indexOfFractalInfo != NSNotFound)
+        {
             self.fractalInfos[indexOfFractalInfo] = fractalInfo;
             
-            [self.delegate documentControllerWillChangeContent:self];
-            [self.delegate documentController:self didUpdateFractalInfo: fractalInfo atIndex:indexOfFractalInfo];
-            [self.delegate documentControllerDidChangeContent:self];
+            [strongDelegate documentControllerWillChangeContent:self];
+            [strongDelegate documentController:self didUpdateFractalInfosAtIndexPaths: @[indexPath] totalRows: self.count];
+            [strongDelegate documentControllerDidChangeContent:self];
         } else
         {
             NSLog(@"%@, FractalInfo not found: %@",NSStringFromSelector(_cmd), fractalInfo);
@@ -152,45 +225,7 @@
     [self.delegate documentController:self didFailRemovingFractalInfo: fractalInfo withError:error];
 }
 
-#pragma message "HACK "
 #pragma mark - Change Processing
-/*!
- Hack to get fractalInfo data synchronously. Need name from document for sorting.
- Requires loading everything!
- 
- @param infosArray array of fractalInfos to load
- */
--(void)synchronousReadOfFractalInfos: (NSArray*)infosArray
-{
-    NSArray* URLs = [infosArray valueForKey: @"URL"];
-    
-    NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
-    NSError* fileError;
-    [fileCoordinator prepareForReadingItemsAtURLs: URLs
-                                          options: 0
-                               writingItemsAtURLs: nil
-                                          options: 0
-                                            error: &fileError
-                                       byAccessor: ^(void (^completionHandler)(void)){
-                                           
-                                           NSError* infoError;
-                                           for (MDBFractalInfo *info in infosArray) {
-                                               [fileCoordinator coordinateReadingItemAtURL: info.URL
-                                                                                   options: NSFileCoordinatorReadingWithoutChanges
-                                                                                     error: &infoError byAccessor:^(NSURL *newURL) {
-                                                                                         NSError* readError;
-                                                                                         MDBFractalDocument *deserializedDocument = [[MDBFractalDocument alloc] initWithFileURL: newURL];
-                                                                                         [deserializedDocument readFromURL: deserializedDocument.fileURL error: &readError];
-                                                                                         if (!readError) {
-                                                                                             [info populateFromDocument: deserializedDocument];
-                                                                                         }
-                                                                                     }];
-                                           }
-                                           
-                                           if (completionHandler)
-                                               completionHandler();
-                                       }];
-}
 
 /*!
  * Processes inteneded changes to the \c MDBFractalDocumentController object's \c MDBFractalDocumentInfo collection. This
@@ -206,8 +241,15 @@
     NSArray *removedFractalInfos = [self fractalInfosByMappingURLs:removedURLs];
     NSArray *updatedFractalInfos = [self fractalInfosByMappingURLs:updatedURLs];
     
+    if (!insertedURLs && !removedURLs && !updatedURLs) {
+        return;
+    }
+    
     dispatch_async(self.fractalReadQueue, ^{
         // Filter out all documents that are already included in the tracked documents.
+#ifdef MDB_QUEUE_LOG
+        NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalReadQueue);
+#endif
         NSIndexSet *indexesOfTrackedremovedFractalInfos = [removedFractalInfos indexesOfObjectsPassingTest:^BOOL(MDBFractalInfo *fractalInfo, NSUInteger idx, BOOL *stop) {
             return [self.fractalInfos containsObject:fractalInfo];
         }];
@@ -228,51 +270,67 @@
         // Remove all of the removed documents. We need to send the delegate the removed indexes before
         // the documentInfos array is mutated to reflect the new changes. To do that, we'll build up the
         // array of removed indexes *before* we mutate it.
-        NSMutableArray *indexesOfTrackedremovedFractalInfosInFractalInfos = [NSMutableArray arrayWithCapacity:trackedRemovedFractalInfos.count];
-        for (MDBFractalInfo *trackedremovedFractalInfo in trackedRemovedFractalInfos) {
-            NSInteger indexOfTrackedremovedFractalInfoInFractalInfos = [self.fractalInfos indexOfObject:trackedremovedFractalInfo];
+        if (trackedRemovedFractalInfos && trackedRemovedFractalInfos.count > 0) {
+            NSMutableArray *indexesOfTrackedremovedFractalInfosInFractalInfos = [NSMutableArray arrayWithCapacity:trackedRemovedFractalInfos.count];
+            for (MDBFractalInfo *trackedremovedFractalInfo in trackedRemovedFractalInfos)
+            {
+                NSInteger indexOfTrackedremovedFractalInfoInFractalInfos = [self.fractalInfos indexOfObject: trackedremovedFractalInfo];
+                
+                [indexesOfTrackedremovedFractalInfosInFractalInfos addObject: [NSIndexPath indexPathForRow: indexOfTrackedremovedFractalInfoInFractalInfos inSection: 0]];
+            }
             
-            [indexesOfTrackedremovedFractalInfosInFractalInfos addObject:@(indexOfTrackedremovedFractalInfoInFractalInfos)];
+            [trackedRemovedFractalInfos enumerateObjectsUsingBlock:^(MDBFractalInfo *removedFractalInfo, NSUInteger idx, BOOL *stop) {
+                [self.fractalInfos removeObject: removedFractalInfo];
+            }];
+            [self.delegate documentController: self didRemoveFractalInfosAtIndexPaths: indexesOfTrackedremovedFractalInfosInFractalInfos totalRows: self.count];
         }
-        
-        [trackedRemovedFractalInfos enumerateObjectsUsingBlock:^(MDBFractalInfo *removedFractalInfo, NSUInteger idx, BOOL *stop) {
-            [self.fractalInfos removeObject:removedFractalInfo];
-            
-            NSNumber *indexOfTrackedremovedFractalInfoInFractalInfos = indexesOfTrackedremovedFractalInfosInFractalInfos[idx];
-            
-            [self.delegate documentController:self didremoveFractalInfo: removedFractalInfo atIndex: indexOfTrackedremovedFractalInfoInFractalInfos.integerValue];
-        }];
         
         // Add the new documents.
-        [self.fractalInfos addObjectsFromArray:untrackedInsertedFractalInfos];
-        
-        [self synchronousReadOfFractalInfos: untrackedInsertedFractalInfos];
-        
-        // Nor sort the document after all the inserts.
-        if (self.sortComparator) {
-            [self.fractalInfos sortUsingComparator:self.sortComparator];
-        }
-        
-        for (MDBFractalInfo *untrackedInsertedFractalInfo in untrackedInsertedFractalInfos) {
-            NSInteger insertedIndex = [self.fractalInfos indexOfObject:untrackedInsertedFractalInfo];
+        if (untrackedInsertedFractalInfos && untrackedInsertedFractalInfos.count > 0) {
+            NSInteger preInsertCount = self.fractalInfos.count;
+            [self.fractalInfos addObjectsFromArray: untrackedInsertedFractalInfos];
             
-            [self.delegate documentController:self didInsertFractalInfo: untrackedInsertedFractalInfo atIndex:insertedIndex];
+            // Now sort the document after all the inserts.
+            if (self.sortComparator)
+            {
+                [self.fractalInfos sortUsingComparator: self.sortComparator];
+            }
+            
+            NSMutableArray* insertedIndexPaths = [NSMutableArray arrayWithCapacity: untrackedInsertedFractalInfos.count];
+            for (MDBFractalInfo *untrackedInsertedFractalInfo in untrackedInsertedFractalInfos)
+            {
+                [insertedIndexPaths addObject: [NSIndexPath indexPathForRow: [self.fractalInfos indexOfObject: untrackedInsertedFractalInfo] inSection: 0]];
+            }
+            [self.delegate documentController: self didInsertFractalInfosAtIndexPaths: insertedIndexPaths totalRows: self.count];
         }
         
         // Update the old documents.
-        for (MDBFractalInfo *updatedFractalInfo in updatedFractalInfos) {
-            NSInteger updatedIndex = [self.fractalInfos indexOfObject: updatedFractalInfo];
-            
-            NSAssert(updatedIndex != NSNotFound, @"An updated fractal info should always already be tracked in the fractal infos.");
-            
-            self.fractalInfos[updatedIndex] = updatedFractalInfo;
-            [self.delegate documentController: self didUpdateFractalInfo: updatedFractalInfo atIndex: updatedIndex];
+        if (updatedFractalInfos && updatedFractalInfos.count > 0) {
+            NSMutableArray* updatedIndexPaths = [NSMutableArray arrayWithCapacity: updatedFractalInfos.count];
+            for (MDBFractalInfo *updatedFractalInfo in updatedFractalInfos) {
+                NSInteger updatedIndex = [self.fractalInfos indexOfObject: updatedFractalInfo];
+                [updatedIndexPaths addObject: [NSIndexPath indexPathForRow: updatedIndex inSection: 0]];
+                
+                NSAssert(updatedIndex != NSNotFound, @"An updated fractal info should always already be tracked in the fractal infos.");
+                
+                self.fractalInfos[updatedIndex] = updatedFractalInfo;
+            }
+            [self.delegate documentController: self didUpdateFractalInfosAtIndexPaths: updatedIndexPaths totalRows: self.count];
         }
         
         [self.delegate documentControllerDidChangeContent:self];
     });
 }
 
+-(void)resortFractalInfos
+{
+    if (self.sortComparator)
+    {
+        dispatch_sync(self.fractalReadQueue, ^{
+            [self.fractalInfos sortUsingComparator: self.sortComparator];
+        });
+    }
+}
 #pragma mark - Convenience
 
 - (NSArray *)fractalInfosByMappingURLs:(NSArray *)URLs {

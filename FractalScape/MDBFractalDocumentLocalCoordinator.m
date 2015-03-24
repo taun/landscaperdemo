@@ -11,7 +11,7 @@
 #import "MDBDocumentUtilities.h"
 
 @interface MDBFractalDocumentLocalCoordinator ()
-@property (nonatomic, strong) NSPredicate *predicate;
+@property (nonatomic, strong) NSPredicate       *predicate;
 @end
 
 
@@ -20,6 +20,12 @@
 @synthesize delegate = _delegate;
 
 #pragma mark - Initializers
+
+-(instancetype)copyWithZone:(NSZone *)zone
+{
+    MDBFractalDocumentLocalCoordinator* newCoord = [[[self class]alloc]initWithPredicate: self.predicate];
+    return newCoord;
+}
 
 - (instancetype)initWithPredicate:(NSPredicate *)predicate {
     self = [super init];
@@ -58,17 +64,17 @@
 #pragma mark - MDBFractalDocumentCoordinator
 
 - (void)startQuery {
-    dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_queue_t defaultQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0ul);
     
     dispatch_async(defaultQueue, ^{
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
         // Fetch the list documents from container documents directory.
-        NSArray *localDocumentURLs = [fileManager contentsOfDirectoryAtURL:[MDBDocumentUtilities localDocumentsDirectory] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsPackageDescendants error:nil];
+        NSArray *localDocumentURLs = [fileManager contentsOfDirectoryAtURL:[MDBDocumentUtilities localDocumentsDirectory] includingPropertiesForKeys: @[NSURLContentModificationDateKey] options:NSDirectoryEnumerationSkipsPackageDescendants error:nil];
         
-        NSArray *localFractalDocumentURLs = [localDocumentURLs filteredArrayUsingPredicate:self.predicate];
+        NSArray *localFractalDocumentURLs = [localDocumentURLs filteredArrayUsingPredicate: self.predicate];
         
-        if (localFractalDocumentURLs.count > 0) {
+        if (localFractalDocumentURLs && localFractalDocumentURLs.count > 0) {
             [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs: localFractalDocumentURLs removedURLs:@[] updatedURLs:@[]];
         }
     });
@@ -80,27 +86,12 @@
 }
 
 - (void)removeFractalAtURL:(NSURL *)URL {
-    [MDBDocumentUtilities removeFractalAtURL:URL withCompletionHandler:^(NSError *error) {
+    [MDBDocumentUtilities removeDocumentAtURL:URL withCompletionHandler:^(NSError *error) {
         if (error) {
             [self.delegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
         }
         else {
             [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[URL] updatedURLs:@[]];
-        }
-    }];
-}
-
-- (void)createURLForFractal:(LSFractal *)fractal withIdentifier:(NSString *)name
-{
-    NSURL *documentURL = [self documentURLForName: name];
-    
-    [MDBDocumentUtilities createDocumentWithFractal: fractal atURL: documentURL withCompletionHandler:^(NSError *error) {
-        if (error)
-        {
-            [self.delegate documentCoordinatorDidFailCreatingDocumentAtURL: documentURL withError:error];
-        }
-        else {
-            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[documentURL] removedURLs:@[] updatedURLs:@[]];
         }
     }];
 }

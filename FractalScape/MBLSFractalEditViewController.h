@@ -33,7 +33,7 @@
 
 #pragma mark Model
 @property (nonatomic, copy) NSString                        *currentIdentifier;
-@property (nonatomic, strong) MDBFractalDocument            *fractalDocument;
+@property (nonatomic,readonly) MDBFractalDocument           *fractalDocument;
 @property (nonatomic, strong) MDBFractalInfo                *fractalInfo;
 @property (nonatomic, weak) MDBDocumentController           *documentController;
 /*!
@@ -165,7 +165,6 @@
 
 #pragma mark - Segue Actions
 - (void)configureWithNewBlankDocument;
-- (void)configureWithFractalInfo:(MDBFractalInfo *)fractalInfo;
 - (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue;
 - (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
 

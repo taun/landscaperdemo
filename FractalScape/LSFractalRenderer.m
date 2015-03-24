@@ -56,12 +56,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 @synthesize pixelScale = _pixelScale;
 
-+(instancetype) newRendererForFractal:(MDBFractalDocument *)aFractalDocument {
-    LSFractalRenderer* newGenerator = [[LSFractalRenderer alloc] initWithFractal: aFractalDocument];
++(instancetype) newRendererForFractal:(LSFractal *)aFractal withSourceRules: (LSDrawingRuleType*)sourceRules
+{
+    LSFractalRenderer* newGenerator = [[LSFractalRenderer alloc] initWithFractal: aFractal withSourceRules: sourceRules];
     return newGenerator;
 }
 
--(instancetype) initWithFractal: (MDBFractalDocument*) aFractalDocument {
+-(instancetype) initWithFractal: (LSFractal*) aFractal withSourceRules: (LSDrawingRuleType*)sourceRules
+{
     self = [super init];
     if (self) {
         _scale = 1.0;
@@ -78,13 +80,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _backgroundColor = [UIColor clearColor];
         
         [self nullOutBaseSegment];
-        [self setValuesForFractal: aFractalDocument];
+        [self setValuesForFractal: aFractal];
+        [self cacheDrawingRules: sourceRules];
     }
     return self;
 }
 
 - (instancetype)init {
-    self = [self initWithFractal: nil];
+    self = [self initWithFractal: nil withSourceRules: nil];
     return self;
 }
 -(void) dealloc
@@ -104,15 +107,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     return _pixelScale;
 }
 /* If fractal is not save, below will return nil for privateFractal. What to do? */
--(void) setValuesForFractal:(MDBFractalDocument *)aFractalDocument
+-(void) setValuesForFractal:(LSFractal *)aFractal
 {
-    [self cacheDrawingRules: aFractalDocument];
-    [self setBaseSegmentForFractal: aFractalDocument.fractal];
+    [self setBaseSegmentForFractal: aFractal];
 }
 
--(void) cacheDrawingRules: (MDBFractalDocument*)aFractalDocument
+-(void) cacheDrawingRules: (LSDrawingRuleType*)sourceDrawingRules
 {
-    NSArray* rules = aFractalDocument.sourceDrawingRules.rulesAsSortedArray;
+    NSArray* rules = sourceDrawingRules.rulesAsSortedArray;
     
     // setup internal noop rule placeholder "Z"
     unsigned char zIndex = [@"Z" UTF8String][0];

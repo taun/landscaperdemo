@@ -20,6 +20,11 @@
     return [[[self class] alloc]initWithEncodingKey: key];
 }
 
+-(NSString*)debugDescription
+{
+    return [_objects debugDescription];
+}
+
 #pragma mark - Initializers
 - (instancetype)initWithEncodingKey:(NSString *)key
 {
@@ -146,7 +151,9 @@
 
 - (void) addObject:(id)additionalObject
 {
+    [self willChangeValueForKey: @"allObjects"];
     [self.objects addObject: additionalObject];
+    [self didChangeValueForKey: @"allObjects"];
 }
 
 - (void) insertObject:(id)object atIndex:(NSInteger)index
@@ -178,6 +185,8 @@
 
 - (MDBListOperationInfo)moveObject:(id)object toIndex:(NSInteger)toIndex
 {
+    [self willChangeValueForKey: @"allObjects"];
+    
     NSInteger fromIndex = [self.objects indexOfObject: object];
     
     NSAssert(fromIndex != NSNotFound, @"Moving an item that isn't in this list is undefined.");
@@ -197,12 +206,16 @@
         .toIndex = normalizedToIndex
     };
     
+    [self didChangeValueForKey: @"allObjects"];
+    
     return moveInfo;
 }
 
 - (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject
 {
+    [self willChangeValueForKey: @"allObjects"];
     [self.objects replaceObjectAtIndex: index withObject: anObject];
+    [self didChangeValueForKey: @"allObjects"];
 }
 
 - (NSArray *)allObjects

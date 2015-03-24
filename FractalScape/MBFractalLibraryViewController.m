@@ -11,6 +11,7 @@
 #include <math.h>
 
 #import "MDBFractalInfo.h"
+#import "MDBFractalDocument.h"
 #import "MDBDocumentController.h"
 #import "MDBCloudManager.h"
 
@@ -23,27 +24,22 @@
 #import "MBFractalLibraryViewController.h"
 #import "MBFractalLibraryEditViewController.h"
 #import "MBLSFractalEditViewController.h"
+#import "MDBFractalLibraryCollectionSource.h"
 
-#import "MBCollectionFractalCell.h"
+#import "MBCollectionFractalDocumentCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
 #import "MBImmutableCellBackgroundView.h"
 #import "NSString+MDBConvenience.h"
 
 
-static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
+NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
 
-@interface MBFractalLibraryViewController () <FractalControllerProtocol, FractalControllerDelegate, MDBFractalDocumentControllerDelegate, UIDocumentMenuDelegate, UIDocumentPickerDelegate>
-{
-    CGSize _cachedThumbnailSize;
-}
+@interface MBFractalLibraryViewController () <MDBFractalDocumentControllerDelegate, UIDocumentMenuDelegate, UIDocumentPickerDelegate>
 
 @property (nonatomic,strong) NSUserActivity                 *pendingUserActivity;
-
-@property (nonatomic,strong) UIImage                        *cachedPlaceholderImage;
+@property (nonatomic,readonly) NSURL                        *lastEditedURL;
 
 -(void) initControls;
--(CGSize) cachedThumbnailSizeForCell: (MBCollectionFractalCell*) cell;
--(UIImage*) placeHolderImageSized: (CGSize)size background: (UIColor*) color;
 
 @end
 
@@ -58,7 +54,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 //    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight]];
 //    self.collectionView.backgroundView = blurEffectView;
     
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
     
@@ -74,25 +70,25 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     [super viewDidAppear:animated];
 
     if (self.pendingUserActivity) {
-        [self restoreUserActivityState:self.pendingUserActivity];
+        [self restoreUserActivityState: self.pendingUserActivity];
     }
+    
+//    if (self.lastEditedURL) {
+//        [self restoreLastEditingSession];
+//    }
     
     self.pendingUserActivity = nil;
 
+//    [self.documentController resortFractalInfos];
     [self.collectionView reloadData];
-    /*!
-     With the cell images being set in the background, the selectItemIndexPath:... may be called too soon.
-     We call it again in cell background operation of cellForItemAtIndexPath:.
-     */
-#pragma message "TODO uidocument fix"
-//    NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.selectedFractal];
-//    [self.collectionView selectItemAtIndexPath: selectIndex animated: animated scrollPosition: UICollectionViewScrollPositionCenteredVertically];
 }
+
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear: animated];
 //    [_privateQueue cancelAllOperations];
 }
+
 - (void)viewDidUnload
 {
     //    [self setMainFractalView:nil];
@@ -128,17 +124,16 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier])
     {
-        MBLSFractalEditViewController *newDocumentController = (MBLSFractalEditViewController *)segue.destinationViewController;
-        newDocumentController.documentController = self.documentController;
-        
-        [newDocumentController configureWithNewBlankDocument];
+        MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
+        editViewController.documentController = self.documentController;
+        [editViewController configureWithNewBlankDocument];
     }
     else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier] ||
              [segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
     {
         MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
         editViewController.documentController = self.documentController;
-        
+
         //editViewController.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
         //editViewController.navigationItem.leftItemsSupplementBackButton = YES;
         
@@ -147,21 +142,27 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
             NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
             NSIndexPath* infoIndex = [indexPaths firstObject];
             MDBFractalInfo* fractalInfo = self.documentController[infoIndex.row];
-            if (fractalInfo)
+            if (fractalInfo.document)
             {
-                [editViewController configureWithFractalInfo: fractalInfo];
+                editViewController.fractalInfo = fractalInfo;
             }
         }
         else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
         {
             MDBFractalInfo *userActivityDocumentInfo = sender;
-            [editViewController configureWithFractalInfo: userActivityDocumentInfo];
+            editViewController.fractalInfo = userActivityDocumentInfo;
         }
     }
     else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier])
     {
-        MBFractalLibraryEditViewController *newDocumentController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
-        newDocumentController.documentController = self.documentController;
+        
+        id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
+        id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
+        
+        MBFractalLibraryEditViewController *libraryEditController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
+//        libraryEditController.collectionSource.rowCount = self.collectionSource.rowCount;
+        libraryEditController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
+//        libraryEditController.documentController = newDocumentController;
     }
 }
 /*!
@@ -177,7 +178,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     }];
 }
 
-- (IBAction)unwindToLibraryFromEdit:(UIStoryboardSegue *)segue
+- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue
 {
     [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
         //
@@ -199,7 +200,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     NSString *newDocumentTitle = NSLocalizedString(@"New Fractal", nil);
     [documentMenu addOptionWithTitle: newDocumentTitle image:nil order: UIDocumentMenuOrderFirst handler:^{
-        // Show the AAPLNewListDocumentController.
+        // Show the MBLSFractalEditViewController.
         [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
     }];
     
@@ -208,7 +209,7 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     [self presentViewController:documentMenu animated:YES completion:nil];
 }
-#pragma mark - UIPickerViewDelegate
+#pragma mark - UIDocumentPickerViewDelegate
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
     // The user selected the document and it should be picked up by the \c MDBDocumentController.
@@ -227,40 +228,34 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
 //    });
 }
 
-- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self.collectionView reloadData];
-        // doesn't work due to items being added to controller faster than this is called.
-//        [self.collectionView insertItemsAtIndexPaths: @[indexPath]];
-    });
+- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows {
+    if (indexPaths && indexPaths.count > 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+            self.collectionSource.rowCount = rows;
+            [self.collectionView insertItemsAtIndexPaths: indexPaths];
+        });
+    }
 }
 
-- (void)documentController:(MDBDocumentController *)documentController didremoveFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        
-        [self.collectionView deleteItemsAtIndexPaths: @[indexPath]];
-    });
+- (void)documentController:(MDBDocumentController *)documentController didRemoveFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows {
+    if (indexPaths && indexPaths.count > 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+            self.collectionSource.rowCount = rows;
+            [self.collectionView deleteItemsAtIndexPaths: indexPaths];
+        });
+    }
 }
 
-- (void)documentController:(MDBDocumentController *)documentController didUpdateFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        
-        MBCollectionFractalCell* documentInfoCell = (MBCollectionFractalCell*)[self.collectionView cellForItemAtIndexPath: indexPath];
-
-        documentInfoCell.fractalInfo = fractalInfo;
-        
-        [fractalInfo fetchInfoWithCompletionHandler:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Make sure that the list info is still visible once the color has been fetched.
-                if ([self.collectionView.indexPathsForVisibleItems containsObject: indexPath]) {
-                    documentInfoCell.fractalInfo = fractalInfo;
-                }
-            });
-        }];
-    });
+- (void)documentController:(MDBDocumentController *)documentController didUpdateFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows {
+    if (indexPaths && indexPaths.count > 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+            self.collectionSource.rowCount = rows;
+            [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+        });
+    }
 }
 
 - (void)documentControllerDidChangeContent:(MDBDocumentController *)documentController {
@@ -310,45 +305,37 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     if (documentController != _documentController) {
         _documentController = documentController;
         _documentController.delegate = self;
+        
+        self.collectionSource.documentController = _documentController;
+//        [self.collectionView reloadData];
     }
 }
 
-#pragma message "TODO: uidocument fix needed"
-//-(NSFetchedResultsController*) fetchedResultsController {
-//    if (self.fractal != nil && _fetchedResultsController == nil) {
-//        // instantiate
-//        _selectedFractal = self.fractal;
-//        
-//        
-//        NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-//        NSEntityDescription* entity = [LSFractal entityDescriptionForContext: fractalContext];
-//        [fetchRequest setEntity: entity];
-//        [fetchRequest setFetchBatchSize: 20];
-//        NSSortDescriptor* nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"name" ascending: YES];
-//        NSSortDescriptor* catSortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"category" ascending: YES];
-//        NSArray* sortDescriptors = @[catSortDescriptor, nameSortDescriptor];
-//        [fetchRequest setSortDescriptors: sortDescriptors];
-//        
-//        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: fractalContext sectionNameKeyPath: @"category" cacheName: nil];
-//
-//        _fetchedResultsController.delegate = self;
-//        
-//        NSError* error = nil;
-//        
-//        if (![_fetchedResultsController performFetch: &error]) {
-//            NSLog(@"Fetched Results Error %@, %@", error, [error userInfo]);
-//            abort();
-//        }
-//    }
-//    
-//    return _fetchedResultsController;
-//}
+-(NSURL*)lastEditedURL
+{
+    NSURL* selectedFractalURL;
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    selectedFractalURL = [defaults URLForKey: kPrefLastEditedFractalURI];
+    return selectedFractalURL;
+}
 
 #pragma mark - UIResponder
 
+-(void)restoreLastEditingSession
+{
+    NSURL* lastEditedURL = self.lastEditedURL;
+    if (lastEditedURL) {
+        MDBFractalInfo *lastEditedDocumentInfo = [[MDBFractalInfo alloc] initWithURL: lastEditedURL];
+        [lastEditedDocumentInfo fetchDocumentWithCompletionHandler:^{
+            //
+            [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier sender: lastEditedDocumentInfo];
+        }];
+    }
+}
+
 - (void)restoreUserActivityState:(NSUserActivity *)activity {
     /**
-     If there is a list currently displayed; pop to the root view controller (this controller) and
+     If there is a Fractal currently displayed; pop to the root view controller (this controller) and
      continue the activity from there. Otherwise, continue the activity directly.
      */
     if ([self.navigationController.topViewController isKindOfClass:[UINavigationController class]]) {
@@ -361,201 +348,11 @@ static NSString *kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollection
     
     if (activityURL != nil) {
         MDBFractalInfo *activityDocumentInfo = [[MDBFractalInfo alloc] initWithURL: activityURL];
-        
-        NSString *fractalInfoIdentifier = activity.userInfo[kMDBCloudManagerUserActivityFractalIdentifierUserInfoKey];
-        //        activityDocumentInfo.name = fractalInfoName;
-        
-        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier sender:activityDocumentInfo];
-    }
-}
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#pragma message "TODO: uidocument fix needed"
-//    return [[self.fetchedResultsController sections] count];
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section {
-#pragma message "TODO: uidocument fix needed"
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-//    return [sectionInfo numberOfObjects];
-    return self.documentController ? self.documentController.count : 0;
-}
-
--(UIImage*) placeHolderImageSized: (CGSize)size background: (UIColor*) uiColor {
-    if (self.cachedPlaceholderImage && CGSizeEqualToSize(self.cachedPlaceholderImage.size, size)) {
-        return self.cachedPlaceholderImage;
-    } else {
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-        
-        CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        CGContextSaveGState(context);
-        [uiColor setFill];
-        CGContextFillRect(context, viewRect);
-        CGContextRestoreGState(context);
-        
-        UIImage* thumbnail = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        self.cachedPlaceholderImage = thumbnail;
-        return thumbnail;
-    }
-}
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"FractalLibraryListCell";
-    return [collectionView dequeueReusableCellWithReuseIdentifier: CellIdentifier forIndexPath: indexPath];
-}
-
--(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSParameterAssert([cell isKindOfClass:[MBCollectionFractalCell class]]);
-    MBCollectionFractalCell *documentInfoCell = (MBCollectionFractalCell *)cell;
-
-#pragma message "TODO: uidocument fix needed"
-    
-//    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    NSManagedObjectID* objectID = managedObject.objectID;
-//    NSAssert(objectID, @"Fractal objectID should not be nil. Maybe it wasn't saved?");
-    
-    MDBFractalInfo* fractalInfo = self.documentController[indexPath.row];
-    
-    // Configure the cell with data from the managed object.
-    documentInfoCell.fractalInfo = fractalInfo;
-
-    if (!fractalInfo.name) {
-        [fractalInfo fetchInfoWithCompletionHandler:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Make sure that the list info is still visible once the color has been fetched.
-                if ([self.collectionView.indexPathsForVisibleItems containsObject: indexPath]) {
-                    documentInfoCell.fractalInfo = fractalInfo;
-                }
-            });
+        [activityDocumentInfo fetchDocumentWithCompletionHandler:^{
+            //
+            [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier sender: activityDocumentInfo];
         }];
     }
-
-//    LSFractalRenderer* generator;// = (self.fractalToThumbnailGenerators)[objectID];
-//    
-//    CGSize thumbnailSize = [self cachedThumbnailSizeForCell: cell];
-//    
-//    UIColor* thumbNailBackground = [UIColor colorWithWhite: 1.0 alpha: 0.8];
-//    
-//    if (generator.image && cellFractal.fractal.levelUnchanged && cellFractal.fractal.rulesUnchanged) {
-//        cell.imageView.image = generator.image;
-//    } else {
-//        if (!generator) {
-//            // No generator yet
-//            generator = [LSFractalRenderer newRendererForFractal: cellFractal];
-//            generator.name = cellFractal.fractal.name;
-//            generator.imageView = cell.imageView;
-//            generator.flipY = YES;
-//            generator.margin = 10.0;
-//            generator.showOrigin = NO;
-//            generator.autoscale = YES;
-//            UIColor* backgroundColor = [cellFractal.fractal.backgroundColor asUIColor];
-//            if (!backgroundColor) backgroundColor = [UIColor clearColor];
-//            generator.backgroundColor = backgroundColor;
-//#pragma message "TODO move generateLevelData to a privateQueue in case of large levels or just limit level?"
-//            
-////            (self.fractalToThumbnailGenerators)[objectID] = generator;
-//        }
-//        [cellFractal.fractal generateLevelData];
-//        generator.levelData = cellFractal.fractal.levelNRulesCache;
-//        
-//        NSBlockOperation* operation = generator.operation;
-//        
-//        // if the operation exists and is finished
-//        //      remove and queue a new operation
-//        // if the operation exists and is not finished
-//        //      let finish
-//        // if no operation exists
-//        //      queue new operation
-//        
-//        if (operation && operation.isFinished) {
-//            generator.operation = nil;
-//            operation = nil;
-//        }
-//        
-//        if (!operation) {
-//            operation = [NSBlockOperation new];
-//            generator.operation = operation;
-//            
-//            [operation addExecutionBlock: ^{
-//                //code
-//                if (!generator.operation.isCancelled) {
-//                    [generator generateImage];
-//                    
-//                    if (generator.imageView && generator.image) {
-//                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//                            MBCollectionFractalCell* fractalCell = (MBCollectionFractalCell*)[collectionView cellForItemAtIndexPath: indexPath];
-//                            [fractalCell.imageView setImage: generator.image];
-//#pragma message "TODO: uidocument fix needed"
-////                            if (fractalCell.fractal == self.selectedFractal) {
-////                                NSIndexPath* selectIndex = [self.fetchedResultsController indexPathForObject: self.selectedFractal];
-////                                [self.collectionView selectItemAtIndexPath: selectIndex animated: NO scrollPosition: UICollectionViewScrollPositionNone];
-////                            }
-//                        }];
-//                    }
-//                }
-//            }];
-//            [self.privateQueue addOperation: operation];
-//        }
-//    
-//        cell.imageView.image = [self placeHolderImageSized: thumbnailSize background: thumbNailBackground];
-//    }
-//    
-//    MBImmutableCellBackgroundView* newBackground =  [MBImmutableCellBackgroundView new];
-//    newBackground.readOnlyView = cellFractal.fractal.isImmutable;
-//    cell.backgroundView = newBackground;
-    
-//    if (cellFractal == self.selectedFractal) {
-//        cell.selected = YES;
-//    } else {
-//        cell.selected = NO;
-//    }
-    
-    //    return cell;
-}
-
-- (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
-    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
-                                                                                      withReuseIdentifier: kSupplementaryHeaderCellIdentifier
-                                                                                             forIndexPath: indexPath];
-    
-#pragma message "TODO: uidocument fix needed"
-//    rView.textLabel.text = [[self.fetchedResultsController sections][indexPath.section] name];
-
-    return rView;
-}
-
-#pragma mark - UICollectionViewDelegate
-//-(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-#pragma message "TODO: uidocument fix needed"
-//    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    self.selectedFractal = (LSFractal*)managedObject;
-//    LSFractal* selectedFractal = (LSFractal*)managedObject;
-//    [self.fractalControllerDelegate setFractal: selectedFractal];
-
-//    [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
-        //
-        //        [self.fractalControllerDelegate libraryControllerWasDismissed];
-        //    }];
-        //}
--(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-#pragma message "TODO: uidocument fix needed"
-//    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    NSManagedObjectID* objectID = managedObject.objectID;
-//    
-//    NSOperation* operation = (self.fractalToGeneratorOperations)[objectID];
-//    if (operation) {
-//        [operation cancel];
-//        [self.fractalToGeneratorOperations removeObjectForKey: objectID];
-//    }
 }
 
 @end

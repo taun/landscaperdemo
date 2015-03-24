@@ -46,8 +46,7 @@ static const CGFloat kLevelNMargin = 40.0;
                                                     UIScrollViewDelegate,
                                                     UIDocumentInteractionControllerDelegate,
                                                     FractalControllerDelegate,
-                                                    MDBFractalDocumentDelegate,
-                                                    MDBFractalDocumentControllerDelegate>
+                                                    MDBFractalDocumentDelegate>
 
 @property (nonatomic,strong) NSMutableSet           *observedReplacementRules;
 @property (nonatomic, assign) BOOL                  startedInLandscape;
@@ -91,9 +90,7 @@ static const CGFloat kLevelNMargin = 40.0;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 
--(void) saveToUserPreferencesAsLastEditedFractal: (MDBFractalDocument*) fractal;
--(void) addObserversForFractal: (LSFractal*) fractal;
--(void) removeObserversForFractal: (LSFractal*) fractal;
+-(void) saveToUserPreferencesAsLastEditedFractal: (MDBFractalInfo*) fractalInfo;
 
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
@@ -145,6 +142,15 @@ static const CGFloat kLevelNMargin = 40.0;
     self.lowPerformanceDevice = ![CMMotionActivityManager isActivityAvailable];
 }
 
+- (void)configureWithNewBlankDocument
+{   
+    LSFractal* newFractal = [LSFractal new];
+    
+    MDBFractalInfo* fractalInfo = [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
+    
+    self.fractalInfo = fractalInfo;
+}
+
 #pragma mark - UIViewController Methods
 - (void)didReceiveMemoryWarning
 {
@@ -155,7 +161,6 @@ static const CGFloat kLevelNMargin = 40.0;
 -(IBAction) backToLibrary:(id)sender
 {
     [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
-    
     [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
         //
     }];
@@ -213,6 +218,17 @@ static const CGFloat kLevelNMargin = 40.0;
     slider.value = degrees([[self.fractalDocument.fractal valueForKey: propertyKey] floatValue]);
 
 }
+
+-(void)setupSlidersForCurrentFractal
+{
+    [self setupHUDSlider: _randomnessVerticalSlider forProperty: @"randomness" rotatedDegrees: -90.0];
+    [self setupHUDSlider: _baseAngleSlider forProperty: @"baseAngle" rotatedDegrees: 0.0];
+    [self setupHUDSlider: _lineWidthVerticalSlider forProperty: @"lineWidth" rotatedDegrees: 90.0];
+    [self setupHUDSlider: _turnAngleSlider forProperty: @"turningAngle" rotatedDegrees: 0.0];
+    [self setupHUDSlider: _lengthIncrementVerticalSlider forProperty: @"lineChangeFactor" rotatedDegrees: -90.0];
+    [self setupHUDSlider: _turningAngleIncrementSlider forProperty: @"turningAngleIncrement" rotatedDegrees: 0.0];
+}
+
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
@@ -285,24 +301,10 @@ static const CGFloat kLevelNMargin = 40.0;
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
     
-    UIDocumentState docState = self.fractalDocument.documentState;
-    
-    if (docState == UIDocumentStateClosed) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [self.fractalDocument openWithCompletionHandler:^(BOOL success) {
-            if (!success) {
-                // In your app you should handle this gracefully.
-                NSLog(@"Couldn't open document: %@.", self.fractalDocument.fileURL.absoluteString);
-                abort();
-            }
-            
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        }];
-    }
     
     self.navigationItem.title = self.fractalDocument.fractal.name;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDocumentStateChangedNotification:) name:UIDocumentStateChangedNotification object:self.fractalDocument];
+    [self setupSlidersForCurrentFractal];
+    [self saveToUserPreferencesAsLastEditedFractal: self.fractalInfo];
 }
 
 - (void)handleDocumentStateChangedNotification:(NSNotification *)notification
@@ -335,32 +337,24 @@ static const CGFloat kLevelNMargin = 40.0;
 /* on staartup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated
 {
-    [self autoScale: nil];
     [super viewDidAppear:animated];
+    [self regenerateLevels];
+    [self saveToUserPreferencesAsLastEditedFractal: _fractalInfo];
+    [self updateInterface];
+    [self autoScale: nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
-    UIImage* fractalImage = [self snapshot: self.fractalView];
     
-    self.fractalDocument.fractal.thumbnail1024 = fractalImage;
-    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
-    
-    [_privateImageGenerationQueue cancelAllOperations];
-    
-    self.fractalDocument.delegate = nil;
-    [self.fractalDocument closeWithCompletionHandler:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDocumentStateChangedNotification object:self.fractalDocument];
+    [self removeObserversForCurrentDocument];
+    [self saveToUserPreferencesAsLastEditedFractal: nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.fractalInfo populateFromDocument: self.fractalDocument];
-    [self.documentController setFractalInfoHasNewContents: self.fractalInfo];
 }
 
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -402,19 +396,20 @@ static const CGFloat kLevelNMargin = 40.0;
                         || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeRemoval
                         || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeReplacement);
     
-    if ([keyPath isEqualToString: @"fractal"])
-    {
-        // the document fractal changed
-        id oldFractalObject = change[NSKeyValueChangeOldKey];
-        if (oldFractalObject != [NSNull null])
-        {
-            [self removeObserversForFractal: oldFractalObject];
-        }
-        [self addObserversForFractal: self.fractalDocument.fractal];
-        [self regenerateLevels];
-        [self updateInterface];
-    }
-    else if ([[LSFractal redrawProperties] containsObject: keyPath])
+//    if ([keyPath isEqualToString: @"fractal"])
+//    {
+//        // the document fractal changed
+//        id oldFractalObject = change[NSKeyValueChangeOldKey];
+//        if (oldFractalObject != [NSNull null])
+//        {
+//            [self removeObserversForFractal: oldFractalObject];
+//        }
+//        [self addObserversForFractal: self.fractalDocument.fractal];
+//        [self regenerateLevels];
+//        [self updateInterface];
+//    }
+//    else
+    if ([[LSFractal redrawProperties] containsObject: keyPath])
     {
         if (changeCount)
         {
@@ -422,7 +417,9 @@ static const CGFloat kLevelNMargin = 40.0;
             [self updateInterface];
         }
     }
-    else if ([[LSFractal appearanceProperties] containsObject: keyPath])
+    else if ([[LSFractal appearanceProperties] containsObject: keyPath] ||
+             [keyPath isEqualToString: @"lineColors.allObjects"] ||
+             [keyPath isEqualToString: @"fillColors.allObjects"])
     {
         if (changeCount)
         {
@@ -471,58 +468,6 @@ static const CGFloat kLevelNMargin = 40.0;
 
 #pragma mark - Getters & Setters
 
-//-(void) setLibraryViewController:(MBFractalLibraryViewController *)libraryViewController
-//{
-//    if (_libraryViewController!=libraryViewController)
-//    {
-//        if (_libraryViewController!=nil)
-//        {
-//            [_libraryViewController removeObserver: self forKeyPath: kLibrarySelectionKeypath];
-//        }
-//        _libraryViewController = libraryViewController;
-//        if (_libraryViewController != nil)
-//        {
-//            [_libraryViewController addObserver: self forKeyPath: kLibrarySelectionKeypath options: 0 context: NULL];
-//        }
-//    }
-//}
-//-(UIViewController*) libraryViewController
-//{
-//    if (_libraryViewController==nil)
-//    {
-//        [self setLibraryViewController: [self.storyboard instantiateViewControllerWithIdentifier:@"LibraryPopover"]];
-//        [_libraryViewController setPreferredContentSize: CGSizeMake(510, 600)];
-//        _libraryViewController.modalPresentationStyle = UIModalPresentationPopover;
-//        _libraryViewController.popoverPresentationController.delegate = self;
-//    }
-//    return _libraryViewController;
-//}
-//-(UIViewController*) appearanceViewController
-//{
-//    if (_appearanceViewController==nil)
-//    {
-//        MBFractalAppearanceEditorViewController* viewController = (MBFractalAppearanceEditorViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"AppearancePopover"];
-//        viewController.portraitSize = self.popoverPortraitSize;
-//        viewController.landscapeSize = self.popoverLandscapeSize;
-//        
-//        viewController.modalPresentationStyle = UIModalPresentationPopover;
-//        _appearanceViewController = viewController;
-//    }
-//    
-//    CGSize viewSize = self.view.bounds.size;
-//    if (viewSize.height > viewSize.width)
-//    {
-//        // portrait
-//        _appearanceViewController.preferredContentSize = _appearanceViewController.portraitSize;
-//    } else
-//    {
-//        // landscape
-//        _appearanceViewController.preferredContentSize = _appearanceViewController.landscapeSize;
-//    }
-//    
-//    return _appearanceViewController;
-//}
-
 -(dispatch_queue_t) levelDataGenerationQueue{
     if (!_levelDataGenerationQueue) {
         _levelDataGenerationQueue = dispatch_queue_create("com.moedae.app.levelDataQueue", DISPATCH_QUEUE_SERIAL);
@@ -540,67 +485,44 @@ static const CGFloat kLevelNMargin = 40.0;
     return _privateImageGenerationQueue;
 }
 
-
 #pragma mark Fractal Property KVO
-//TODO: change so replacementRulesArray is cached and updated when rules are updated.
-/*
- If the passed fractal a read-only instance,
- create a read-write copy of the passed fractal.
- 
- Id there  method for copying a fractal? Should be just [fractal mutableCopy]
- */
--(void) setFractalDocument:(MDBFractalDocument *)fractalDocument
-{
-    if (_fractalDocument != fractalDocument)
-    {
-        //        if ([fractal.isImmutable boolValue]){
-        //            fractal = [fractal mutableCopy];
-        //        }
+-(void)setFractalInfo:(MDBFractalInfo *)fractalInfo {
+    if (_fractalInfo != fractalInfo) {
         
-//        [LSFractal entityDescriptionForContext: fractal.managedObjectContext];
-//        NSDictionary* fractalProperties = fractal.entity.propertiesByName;
-//        NSAttributeDescription* levelProp = fractalProperties[@"level"];
-//        NSArray* validations = levelProp.validationPredicates;
-//        NSDictionary* userInfo = levelProp.userInfo;
-//        NSString* maxString = userInfo[@"maxValue"];
-//        double maxLevel = 0;
-//        if (maxString) {
-//            maxLevel = [maxString doubleValue];
-//        }
+        if (fractalInfo) {
+            [self removeObserversForCurrentDocument];
+        }
         
-        [self.privateImageGenerationQueue cancelAllOperations];
-        
-        [self removeObserversForDocument: _fractalDocument];
+        _fractalInfo = fractalInfo;
         
         self.autoscaleN = YES;
         self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
         
-        _fractalDocument = fractalDocument;
-        
-//        [_privateFractalContext performBlockAndWait:^{
-//            self->_privateQueueFractal = (LSFractal*)[self->_privateFractalContext objectWithID: self->_fractalID];
-//        }];
-        
-        [self addObserverForFractalChangeInDocument: _fractalDocument];
+        [self addObserverForFractalChangeInCurrentDocument];
         
         
-        if (_fractalDocument != nil && _fractalDocument.fractal)
+        if (_fractalInfo.document != nil && _fractalInfo.document.fractal && self.fractalView)
         {
-
             [self regenerateLevels];
-            [self saveToUserPreferencesAsLastEditedFractal: fractalDocument];
+            [self saveToUserPreferencesAsLastEditedFractal: _fractalInfo];
+            [self updateInterface];
+            [self autoScale: nil];
         }
-        [self updateInterface];
-        [self autoScale: nil];
     }
 }
+
+-(MDBFractalDocument*)fractalDocument
+{
+    return _fractalInfo.document;
+}
+
 -(LSFractalRenderer*) fractalRendererL0
 {
     if (!_fractalRendererL0)
     {
         if (self.fractalDocument.fractal)
         {
-            _fractalRendererL0 = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
+            _fractalRendererL0 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
             _fractalRendererL0.name = @"_fractalRendererL0";
             _fractalRendererL0.imageView = self.fractalViewLevel0;
             _fractalRendererL0.pixelScale = self.fractalViewLevel0.contentScaleFactor;
@@ -618,7 +540,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         if (self.fractalDocument.fractal)
         {
-            _fractalRendererL1 = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
+            _fractalRendererL1 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
             _fractalRendererL1.name = @"_fractalRendererL1";
             _fractalRendererL1.imageView = self.fractalViewLevel1;
             _fractalRendererL1.pixelScale = self.fractalViewLevel1.contentScaleFactor;
@@ -636,7 +558,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         if (self.fractalDocument.fractal)
         {
-            _fractalRendererL2 = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
+            _fractalRendererL2 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
             _fractalRendererL2.name = @"_fractalRendererL2";
             _fractalRendererL2.imageView = self.fractalViewLevel2;
             _fractalRendererL2.pixelScale = self.fractalViewLevel2.contentScaleFactor;
@@ -654,10 +576,11 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         if (self.fractalDocument.fractal)
         {
-            _fractalRendererLN = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
+            UIImageView* strongView = self.fractalView;
+            _fractalRendererLN = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
             _fractalRendererLN.name = @"_fractalRendererLNS1";
-            _fractalRendererLN.imageView = self.fractalView;
-            _fractalRendererLN.pixelScale = self.fractalView.contentScaleFactor;
+            _fractalRendererLN.imageView = strongView;
+            _fractalRendererLN.pixelScale = strongView.contentScaleFactor;
             _fractalRendererLN.flipY = YES;
             _fractalRendererLN.margin = kLevelNMargin;
             _fractalRendererLN.showOrigin = YES;
@@ -666,34 +589,48 @@ static const CGFloat kLevelNMargin = 40.0;
     }
     return _fractalRendererLN;
 }
--(void) addObserverForFractalChangeInDocument: (MDBFractalDocument*)document
+
+-(void) addObserverForFractalChangeInCurrentDocument
 {
-    if (document) {
-        [document addObserver: self forKeyPath: @"fractal" options: NSKeyValueObservingOptionOld context: NULL];
-        if (document.fractal) {
-            [self addObserversForFractal: document.fractal];
+    if (_fractalInfo.document) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDocumentStateChangedNotification:) name:UIDocumentStateChangedNotification object: _fractalInfo.document];
+//        [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: NSKeyValueObservingOptionOld context: NULL];
+        _fractalInfo.document.delegate = self;
+        if (_fractalInfo.document.fractal) {
+            [self addObserversForCurrentFractal];
         }
     }
 }
--(void) removeObserversForDocument: (MDBFractalDocument*)document
+
+-(void) removeObserversForCurrentDocument
 {
-    if (document) {
-        [document removeObserver: self forKeyPath: @"fractal"];
-        if (document.fractal) {
-            [self removeObserversForFractal: document.fractal];
+    if (_fractalInfo.document) {
+        
+        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(390.0, 390.0)];
+        _fractalInfo.document.thumbnail = fractalImage;
+        [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+        _fractalInfo.changeDate = [NSDate date];
+        [self.documentController setFractalInfoHasNewContents: _fractalInfo];
+        
+        [_privateImageGenerationQueue cancelAllOperations];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver: self name: UIDocumentStateChangedNotification object: _fractalInfo.document];
+        _fractalInfo.document.delegate = nil;
+        
+        if (_fractalInfo.document && _fractalInfo.document.fractal) {
+            [self removeObserversForCurrentFractal];
         }
+        
+        [_fractalInfo.document closeWithCompletionHandler:nil];
     }
 }
--(void) addObserversForFractal:(LSFractal *)fractal
+
+-(void) addObserversForCurrentFractal
 {
+    LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
     {
-        [self setupHUDSlider: _randomnessVerticalSlider forProperty: @"randomness" rotatedDegrees: -90.0];
-        [self setupHUDSlider: _baseAngleSlider forProperty: @"baseAngle" rotatedDegrees: 0.0];
-        [self setupHUDSlider: _lineWidthVerticalSlider forProperty: @"lineWidth" rotatedDegrees: 90.0];
-        [self setupHUDSlider: _turnAngleSlider forProperty: @"turningAngle" rotatedDegrees: 0.0];
-        [self setupHUDSlider: _lengthIncrementVerticalSlider forProperty: @"lineChangeFactor" rotatedDegrees: -90.0];
-        [self setupHUDSlider: _turningAngleIncrementSlider forProperty: @"turningAngleIncrement" rotatedDegrees: 0.0];
+        [self setupSlidersForCurrentFractal];
         
         _lastImageUpdateTime = [NSDate date];
 
@@ -702,6 +639,8 @@ static const CGFloat kLevelNMargin = 40.0;
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
         [propertiesToObserve unionSet: [LSFractal labelProperties]];
         [propertiesToObserve addObject: @"startingRules.allObjects"];
+        [propertiesToObserve addObject: @"lineColors.allObjects"];
+        [propertiesToObserve addObject: @"fillColors.allObjects"];
         
         for (NSString* keyPath in propertiesToObserve)
         {
@@ -715,6 +654,7 @@ static const CGFloat kLevelNMargin = 40.0;
         }
     }
 }
+
 -(void) updateObserversForReplacementRules: (NSMutableArray*) newReplacementRules {
     // need to find rules missing from registered observers.
     
@@ -742,8 +682,10 @@ static const CGFloat kLevelNMargin = 40.0;
         [self.observedReplacementRules addObject: rRule];
     }
 }
--(void) removeObserversForFractal:(LSFractal *)fractal
+
+-(void) removeObserversForCurrentFractal
 {
+    LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
     {
         NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
@@ -751,6 +693,8 @@ static const CGFloat kLevelNMargin = 40.0;
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
         [propertiesToObserve unionSet: [LSFractal labelProperties]];
         [propertiesToObserve addObject: @"startingRules.allObjects"];
+        [propertiesToObserve addObject: @"lineColors.allObjects"];
+        [propertiesToObserve addObject: @"fillColors.allObjects"];
         
         @try {
             // Some properties may not being observed due to being nil initially?
@@ -774,18 +718,14 @@ static const CGFloat kLevelNMargin = 40.0;
         }
     }
 }
--(void) saveToUserPreferencesAsLastEditedFractal: (MDBFractalDocument*) aFractal
+
+-(void) saveToUserPreferencesAsLastEditedFractal: (MDBFractalInfo*) aFractalInfo
 {
-    // If the new fractal was just copied, then it has a temporary objectID and needs to be save first
-//    NSManagedObjectID* fractalID = aFractal.objectID;
-//    if (fractalID.isTemporaryID)
-//    {
-//        [aFractal.managedObjectContext save: nil];
-//    }
-//    NSURL* selectedFractalURL = [aFractal.objectID URIRepresentation];
-//    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-//    [defaults setURL: selectedFractalURL forKey: kPrefLastEditedFractalURI];
+    NSURL* selectedFractalURL = aFractalInfo.URL;
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setURL: selectedFractalURL forKey: kPrefLastEditedFractalURI];
 }
+
 -(void) setLowPerformanceDevice:(BOOL)lowPerformanceDevice {
     _lowPerformanceDevice = lowPerformanceDevice;
     
@@ -798,18 +738,22 @@ static const CGFloat kLevelNMargin = 40.0;
         self.minImagePersistence = 1.0 / kHighPerformanceFrameRate;
     }
 }
+
 -(void) setShowPerformanceData:(BOOL)showPerformanceData
 {
     _showPerformanceData = showPerformanceData;
     
+    UILabel* strongLabel = _renderTimeLabel;
+    
     if (_showPerformanceData)
     {
-        _renderTimeLabel.hidden = NO;
+        strongLabel.hidden = NO;
     } else
     {
-        _renderTimeLabel.hidden = YES;
+        strongLabel.hidden = YES;
     }
 }
+
 -(CIContext*) filterContext {
     if (!_filterContext) {
         _filterContext = [CIContext contextWithOptions: nil];
@@ -1005,7 +949,7 @@ static const CGFloat kLevelNMargin = 40.0;
 -(NSBlockOperation*) operationForRenderer: (LSFractalRenderer*)renderer
 {
     
-    [renderer setValuesForFractal: self.fractalDocument];
+    [renderer setValuesForFractal: self.fractalDocument.fractal];
     
     NSBlockOperation* operation = [NSBlockOperation new];
     renderer.operation = operation;
@@ -1204,73 +1148,7 @@ static const CGFloat kLevelNMargin = 40.0;
                                                           constant: -80.0]];
 }
 
-#pragma mark - DocumentControllerDelegate
--(void) documentControllerWillChangeContent:(MDBDocumentController *)documentController
-{
-    NSLog(@"Fractal document will change: %@",documentController);
-}
--(void)documentControllerDidChangeContent:(MDBDocumentController *)documentController
-{
-    NSLog(@"Fractal document has been changed: %@",documentController);
-}
-- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index
-{
-    NSString* newIdentifier = fractalInfo.identifier;
-    NSURL* fractalInfoURL = fractalInfo.URL;
-    NSURL* fractalURLWithoutExt = [fractalInfoURL URLByDeletingPathExtension];
-    NSString* identifier = fractalURLWithoutExt.lastPathComponent;
-    
-    if ([identifier isEqualToString: self.currentIdentifier]) {
-        // we have a save info and can proceed.
-        NSLog(@"New fractal has been inserted: %@",newIdentifier);
-        [self configureWithFractalInfo: fractalInfo];
-    }
-}
--(void)documentController:(MDBDocumentController *)documentController didremoveFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index
-{
-    NSLog(@"Fractal document has been removed: %@",fractalInfo);
-}
--(void)documentController:(MDBDocumentController *)documentController didUpdateFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index
-{
-    NSLog(@"Fractal document has been updated: %@",fractalInfo);
-}
--(void)documentController:(MDBDocumentController *)documentController didFailCreatingFractalInfo:(MDBFractalInfo *)fractalInfo withError:(NSError *)error
-{
-    NSLog(@"Fractal document creation failed: %@",fractalInfo);
-}
-
 #pragma mark - Segues
-- (void)configureWithNewBlankDocument
-{
-    id<MDBFractalDocumentCoordinator> coordintator = self.documentController.documentCoordinator;
-    MDBDocumentController* newController = [[MDBDocumentController alloc] initWithDocumentCoordinator: coordintator sortComparator: nil];
-    self.documentController = newController;
-    self.documentController.delegate = self;
-    
-    LSFractal* newFractal = [LSFractal new];
-    NSString* newIdentifier;
-    
-    do
-    {
-        newIdentifier = [[NSUUID UUID] UUIDString];
-    } while (![self.documentController canCreateFractalInfoWithIdentifier: newIdentifier]);
-    
-#pragma message "TODO: limit do while and handle errors"
-    
-    self.currentIdentifier = newIdentifier;
-    
-    [self.documentController createFractalInfoForFractal: newFractal withIdentifier: self.currentIdentifier];
-    // we will get a delegate repsonse when the fractalInfo is created and saved.
-    //- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfo:(MDBFractalInfo *)fractalInfo atIndex:(NSInteger)index;
-}
-
-- (void)configureWithFractalInfo:(MDBFractalInfo *)fractalInfo
-{
-    self.fractalInfo = fractalInfo;
-    
-    self.fractalDocument = [[MDBFractalDocument alloc] initWithFileURL: fractalInfo.URL];
-    self.fractalDocument.delegate = self;
-}
 
 /* close any existing popover before opening a new one.
  do not open a new one if the new popover is the same as the current */
@@ -1539,7 +1417,7 @@ static const CGFloat kLevelNMargin = 40.0;
 - (IBAction)shareWithActivityControler:(id)sender
 {
     
-    UIImage* fractalImage = [self snapshot: self.fractalView];
+    UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0)];
     NSData* pngImage = UIImagePNGRepresentation(fractalImage);
     
     NSData* pdfData = [self createPDF];
@@ -1606,7 +1484,7 @@ static const CGFloat kLevelNMargin = 40.0;
     if (self.fractalDocument.fractal)
     {
         NSInteger levelIndex = MIN(3, self.fractalDocument.fractal.level);
-        newRenderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
+        newRenderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
         newRenderer.name = name;
         newRenderer.imageView = self.fractalView;
         newRenderer.pixelScale = self.fractalView.contentScaleFactor;
@@ -1793,14 +1671,15 @@ static const CGFloat kLevelNMargin = 40.0;
 
 - (IBAction)copyFractal:(id)sender
 {
-    if ([self wasLibraryPopoverPresentedAndNowDismissed]) {
-        return;
-    }
-    // copy
-    self.fractalDocument.fractal = [self.fractalDocument.fractal mutableCopy];
+    LSFractal* newFractal = [self.fractalDocument.fractal copy];
+    
+    MDBFractalInfo* fractalInfo = [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
+    
+    self.fractalInfo = fractalInfo;
     
     [self performSegueWithIdentifier: @"EditSegue" sender: self];
 }
+
 - (IBAction)levelInputChanged:(UIStepper*)sender
 {
     double rawValue = sender.value;
@@ -2140,12 +2019,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                          self.fractalViewLevel2.superview.alpha = 0.75;
                      }];
 }
-- (UIImage *)snapshot:(UIView *)view
+- (UIImage *)snapshot:(UIView *)view size: (CGSize)imageSize
 {
     UIImage* imageExport;
-    CGSize imageSize = CGSizeMake(1024.0, 1024.0);
     
-    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
+    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
     renderer.levelData = self.levelDataArray[3];
     renderer.name = @"Image renderer";
     renderer.margin = 72.0;
@@ -2167,7 +2045,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     CGRect imageBounds = CGRectMake(0, 0, 1024, 1024);
     
-    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument];
+    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
     renderer.levelData = self.levelDataArray[3];
     renderer.name = @"PDF renderer";
     renderer.margin = 72.0;
@@ -2200,7 +2078,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     {
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
         
-        UIImage* fractalImage = [self snapshot: self.fractalView];
+        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0)];
         NSData* pngImage = UIImagePNGRepresentation(fractalImage);
         
         // Format the current date and time
@@ -2424,12 +2302,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         _percentFormatter.numberStyle = NSNumberFormatterPercentStyle;
     }
     return _percentFormatter;
-}
-
--(void) dealloc
-{
-    self.fractalDocument = nil; // removes observers via custom setter call
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 @end

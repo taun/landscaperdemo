@@ -9,7 +9,7 @@
 @import Foundation;
 #import "MDBFractalDocumentCoordinator.h"
 
-@interface MDBFractalDocumentCloudCoordinator : NSObject <MDBFractalDocumentCoordinator>
+@interface MDBFractalDocumentCloudCoordinator : NSObject <MDBFractalDocumentCoordinator,NSCopying>
 
 - (instancetype)initWithPathExtension:(NSString *)pathExtension;
 

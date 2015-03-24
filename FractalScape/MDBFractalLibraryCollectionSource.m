@@ -1,0 +1,76 @@
+//
+//  MDBFractalLibraryCollectionSource.m
+//  FractalScapes
+//
+//  Created by Taun Chapman on 03/23/15.
+//  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
+//
+
+#import "MDBFractalLibraryCollectionSource.h"
+
+#import "MBCollectionFractalDocumentCell.h"
+#import "MBCollectionFractalSupplementaryLabel.h"
+#import "MDBFractalInfo.h"
+#import "MBFractalLibraryViewController.h"
+#import "MDBDocumentController.h"
+
+@implementation MDBFractalLibraryCollectionSource
+
+#pragma mark - UICollectionViewDataSource
+- (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+                                                                                      withReuseIdentifier: kSupplementaryHeaderCellIdentifier
+                                                                                             forIndexPath: indexPath];
+    
+    return rView;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section
+{
+    return self.rowCount;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"FractalLibraryListCell";
+    id reuseCell = [collectionView dequeueReusableCellWithReuseIdentifier: CellIdentifier forIndexPath: indexPath];
+    return reuseCell;
+}
+
+#pragma mark - UICollectionViewDelegate
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
+    MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
+    
+    MDBFractalInfo* fractalInfo = self.documentController[indexPath.row];
+    
+    // Configure the cell with data from the managed object.
+    
+    documentInfoCell.document = fractalInfo.document;
+    
+    if (!fractalInfo.document) {
+        [fractalInfo fetchDocumentWithCompletionHandler:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Make sure that the list info is still visible once the color has been fetched.
+                if ([collectionView.indexPathsForVisibleItems containsObject: indexPath]) {
+                    documentInfoCell.document = fractalInfo.document;
+                }
+            });
+        }];
+    }
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+//    MDBFractalInfo* fractalInfo = self.documentController[indexPath.row];
+//    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
+}
+
+@end

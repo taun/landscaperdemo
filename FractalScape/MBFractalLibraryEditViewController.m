@@ -23,6 +23,7 @@
 
 - (IBAction)editDone:(UIBarButtonItem *)sender
 {
+    self.documentController.delegate = self.presentingViewController;
     [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
         //
     }];

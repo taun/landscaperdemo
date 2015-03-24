@@ -13,6 +13,9 @@
 
 @class MDBFractalDocument;
 @class MDBDocumentController;
+@class MDBFractalLibraryCollectionSource;
+
+extern NSString *const kSupplementaryHeaderCellIdentifier;
 
 /*!
  Facilitates the selection of a MDBFractalDocumentInfo and passes it to the MBLSFractalEditViewController.
@@ -22,8 +25,8 @@
 /*!
  The collection of MDBFractalDocumentInfo objects from the local filesystem or cloud.
  */
-@property (nonatomic, strong) MDBDocumentController         *documentController;
-
+@property (nonatomic,strong) MDBDocumentController                  *documentController;
+@property (nonatomic,strong) IBOutlet MDBFractalLibraryCollectionSource      *collectionSource;
 
 #pragma mark - Segue Actions
 - (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue;

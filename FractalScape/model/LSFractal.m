@@ -364,7 +364,6 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     _replacementRules = [aDecoder decodeObjectForKey: @"replacementRules"];
     _lineColors = [aDecoder decodeObjectForKey: @"lineColors"];
     _fillColors = [aDecoder decodeObjectForKey: @"fillColors"];
-    _thumbnail1024 = [aDecoder decodeObjectForKey: @"thumbnail1024"];
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder
@@ -380,7 +379,6 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     [aCoder encodeObject: self.replacementRules forKey: @"replacementRules"];
     [aCoder encodeObject: self.lineColors forKey: @"lineColors"];
     [aCoder encodeObject: self.fillColors forKey: @"fillColors"];
-    [aCoder encodeObject: self.thumbnail1024 forKey: @"thumbnail1024"];
 }
 
 /*!

@@ -132,7 +132,7 @@
     }];
 }
 
-+ (void)removeFractalAtURL:(NSURL *)url withCompletionHandler:(void (^)(NSError *error))completionHandler {
++ (void)removeDocumentAtURL:(NSURL *)url withCompletionHandler:(void (^)(NSError *error))completionHandler {
     NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
     
     // `url` may be a security scoped resource.

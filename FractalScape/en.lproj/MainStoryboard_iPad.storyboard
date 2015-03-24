@@ -1798,7 +1798,7 @@
                             <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="KM6-CQ-kfr" customClass="MBCollectionFractalCell">
+                            <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="KM6-CQ-kfr" customClass="MBCollectionFractalDocumentCell">
                                 <rect key="frame" x="8" y="52" width="154" height="262"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1808,7 +1808,7 @@
                                         <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="OaO-OT-rve" userLabel="ImageFrame">
                                             <rect key="frame" x="4" y="4" width="138" height="138"/>
                                             <subviews>
-                                                <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="zensand" translatesAutoresizingMaskIntoConstraints="NO" id="TKa-kg-xwG">
+                                                <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="documentThumbnailPlaceholder130" translatesAutoresizingMaskIntoConstraints="NO" id="TKa-kg-xwG">
                                                     <rect key="frame" x="4" y="4" width="130" height="130"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1876,7 +1876,7 @@
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="mfX-Jd-0ku" customClass="MBCollectionFractalSupplementaryLabel">
-                            <rect key="frame" x="0.0" y="44" width="600" height="50"/>
+                            <rect key="frame" x="0.0" y="44" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lH-HW-227">
@@ -1903,8 +1903,8 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
-                            <outlet property="dataSource" destination="9pe-kV-foC" id="UEE-EL-8Ye"/>
-                            <outlet property="delegate" destination="9pe-kV-foC" id="hC7-3p-HnX"/>
+                            <outlet property="dataSource" destination="LbT-BM-2ct" id="aq9-Bg-0DC"/>
+                            <outlet property="delegate" destination="LbT-BM-2ct" id="Yfj-Mu-9WM"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Y0u-pB-asM">
@@ -1915,8 +1915,12 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionSource" destination="LbT-BM-2ct" id="xZM-mY-DKz"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDK-oe-bAj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="LbT-BM-2ct" customClass="MDBFractalLibraryCollectionSource"/>
             </objects>
             <point key="canvasLocation" x="5143" y="-624"/>
         </scene>
@@ -1935,7 +1939,7 @@
                             <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="OPm-W7-tPA" customClass="MBCollectionFractalCell">
+                            <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="OPm-W7-tPA" customClass="MBCollectionFractalDocumentCell">
                                 <rect key="frame" x="8" y="52" width="154" height="262"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1945,7 +1949,7 @@
                                         <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
                                             <rect key="frame" x="4" y="4" width="138" height="138"/>
                                             <subviews>
-                                                <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="zensand" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
+                                                <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="documentThumbnailPlaceholder130" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
                                                     <rect key="frame" x="4" y="4" width="130" height="130"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -2038,8 +2042,8 @@
                             </connections>
                         </collectionReusableView>
                         <connections>
-                            <outlet property="dataSource" destination="o9m-5w-n8i" id="SiI-Gm-DSk"/>
-                            <outlet property="delegate" destination="o9m-5w-n8i" id="x3Y-Qc-Wmr"/>
+                            <outlet property="dataSource" destination="AHG-9R-hs1" id="37w-TV-B69"/>
+                            <outlet property="delegate" destination="AHG-9R-hs1" id="bDu-03-ya4"/>
                         </connections>
                     </collectionView>
                     <toolbarItems/>
@@ -2057,11 +2061,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionSource" destination="AHG-9R-hs1" id="o2T-Br-E7e"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showNewFractalDocument" id="CAI-sc-RDe"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocumentFromUserActivity" id="XIW-aO-ufy"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="AHG-9R-hs1" customClass="MDBFractalLibraryCollectionSource"/>
             </objects>
             <point key="canvasLocation" x="4389" y="141"/>
         </scene>
@@ -2187,6 +2193,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="documentThumbnailPlaceholder130" width="130" height="130"/>
         <image name="kBIconBaseAngleSmall" width="30" height="30"/>
         <image name="kBIconRuleDecrementAngleSmall" width="30" height="30"/>
         <image name="kBIconRuleDecrementLineWidth90" width="40" height="40"/>
@@ -2206,7 +2213,6 @@
         <image name="toolBarFullScreenIconOff" width="28" height="28"/>
         <image name="toolBarHUDScreenIcon" width="28" height="28"/>
         <image name="toolBarPlay" width="28" height="28"/>
-        <image name="zensand" width="72" height="71"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="BNA-0R-B33"/>

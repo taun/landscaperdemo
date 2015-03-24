@@ -21,6 +21,12 @@
 @synthesize delegate = _delegate;
 @synthesize documentsDirectory = _documentsDirectory;
 
+-(instancetype)copyWithZone:(NSZone *)zone
+{
+    MDBFractalDocumentCloudCoordinator* newCoord = [[[self class]alloc]initWithPredicate: self.metadataQuery.predicate];
+    return newCoord;
+}
+
 - (instancetype)initWithPredicate:(NSPredicate *)predicate {
     self = [super init];
     
@@ -104,19 +110,6 @@
     [self.metadataQuery stopQuery];
 }
 
-- (void)createURLForFractal:(LSFractal *)fractal withIdentifier:(NSString *)name {
-    NSURL *documentURL = [self documentURLForName: name];
-    
-    [MDBDocumentUtilities createDocumentWithFractal: fractal atURL: documentURL withCompletionHandler:^(NSError *error) {
-        if (error) {
-            [self.delegate documentCoordinatorDidFailCreatingDocumentAtURL: documentURL withError:error];
-        }
-        else {
-            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[documentURL] removedURLs:@[] updatedURLs:@[]];
-        }
-    }];
-}
-
 - (BOOL)canCreateFractalWithIdentifier:(NSString *)name {
     if (name.length <= 0) {
         return NO;
@@ -128,7 +121,7 @@
 }
 
 - (void)removeFractalAtURL:(NSURL *)URL {
-    [MDBDocumentUtilities removeFractalAtURL:URL withCompletionHandler:^(NSError *error) {
+    [MDBDocumentUtilities removeDocumentAtURL:URL withCompletionHandler:^(NSError *error) {
         if (error) {
             [self.delegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
         }

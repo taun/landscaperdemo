@@ -61,10 +61,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  Description
  */
 @property (nonatomic, copy) NSString                  *descriptor;
-/*!
- Meta Image thumbnail
- */
-@property (nonatomic, strong) UIImage                 *thumbnail1024;
+
 /*!
  Array if starting LSDrawingRule rules
  */

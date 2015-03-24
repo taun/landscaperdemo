@@ -23,6 +23,6 @@
 
 + (void)createDocumentWithFractal:(LSFractal *)fractal atURL:(NSURL *)url withCompletionHandler:(void (^)(NSError *error))completionHandler;
 
-+ (void)removeFractalAtURL:(NSURL *)url withCompletionHandler:(void (^)(NSError *error))completionHandler;
++ (void)removeDocumentAtURL:(NSURL *)url withCompletionHandler:(void (^)(NSError *error))completionHandler;
 
 @end

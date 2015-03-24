@@ -8,29 +8,56 @@
 
 #import "MDBFractalInfo.h"
 #import "MDBDocumentUtilities.h"
+#import "MDBFractalDocument.h"
 
 @interface MDBFractalInfo ()
-
-@property(nonatomic,copy,readwrite) NSString                *name;
-@property(nonatomic,copy,readwrite) NSString                *descriptor;
-@property(nonatomic,strong,readwrite) MDBFractalCategory    *category;
-@property(nonatomic,strong,readwrite) UIImage               *thumbnail;
-@property (nonatomic, strong) dispatch_queue_t              fetchQueue;
-
+@property(nonatomic,strong,readwrite) MDBFractalDocument    *document;
+@property (nonatomic,strong) dispatch_queue_t              fetchQueue;
 @end
 
 @implementation MDBFractalInfo
 
++ (instancetype)newFractalInfoWithURL: (NSURL*)url forFractal:(LSFractal *)fractal documentDelegate: (id)delegate
+{
+    MDBFractalInfo* newInfo = [[[self class]alloc] initWithURL: url];
+    MDBFractalDocument* newDocument = [[MDBFractalDocument alloc] initWithFileURL: newInfo.URL];
+    newDocument.fractal = fractal;
+    newDocument.delegate = delegate;
+    newInfo.document = newDocument;
+    
+    [newInfo.document saveToURL: newDocument.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+        //
+    }];
+    
+    return newInfo;
+}
+
 - (instancetype)initWithURL:(NSURL *)URL {
     self = [super init];
     
-    if (self) {
-        
+    if (self)
+    {
         _fetchQueue = dispatch_queue_create("com.moedae.FractalScapes.info", DISPATCH_QUEUE_SERIAL);
         _URL = URL;
+        [self updateChangeDate];
     }
     
     return self;
+}
+
+-(void)updateChangeDate
+{
+    NSError* error;
+    NSDate* modDate;
+    [_URL getResourceValue: &modDate forKey: NSURLContentModificationDateKey error: &error];
+    if (modDate && !error)
+    {
+        _changeDate = modDate;
+    } else if (error)
+    {
+        _changeDate = [NSDate date];
+        //            NSLog(@"%@, %@ Warning: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),error);
+    }
 }
 
 #pragma mark - Property Overrides
@@ -41,42 +68,15 @@
     return identifier.stringByDeletingPathExtension;
 }
 
--(void) populateFromDocument:(MDBFractalDocument *)document
+-(void) unCacheDocument
 {
-    NSError* thumbnailError;
-    
-    self.name = document.fractal.name;
-    self.descriptor = document.fractal.descriptor;
-    self.category = document.fractal.category;
-    UIImage* thumbnail;
-    BOOL haveThumbnail = [self.URL getPromisedItemResourceValue: &thumbnail forKey: NSThumbnail1024x1024SizeKey error: &thumbnailError];
-    if (haveThumbnail && thumbnail)
-    {
-        self.thumbnail = [thumbnail copy];
-    } else if (document.fractal.thumbnail1024) {
-        self.thumbnail = document.fractal.thumbnail1024;
-    }
+    _document = nil;
 }
-- (void)fetchInfoSynchronous
-{
-    if (!self.name) {
-        [MDBDocumentUtilities readDocumentAtURL: self.URL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
-            dispatch_sync(self.fetchQueue, ^{
-                if (document) {
-                    [self populateFromDocument: document];
-                }
-                else {
-                    // what to do here? if no document why would there be info?
-                }
-                
-            });
-        }];
-    }
-}
-- (void)fetchInfoWithCompletionHandler:(void (^)(void))completionHandler {
+
+- (void)fetchDocumentWithCompletionHandler:(void (^)(void))completionHandler {
     dispatch_async(self.fetchQueue, ^{
         // If the descriptor has been set, the info has been fetched.
-        if (self.name) {
+        if (self.document) {
             completionHandler();
             
             return;
@@ -85,10 +85,11 @@
         [MDBDocumentUtilities readDocumentAtURL: self.URL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
             dispatch_async(self.fetchQueue, ^{
                 if (document) {
-                    [self populateFromDocument: document];
+                    self->_document = document;
                 }
                 else {
                     // what to do here? if no document why would there be info?
+                    self->_document = nil;
                 }
                 
                 completionHandler();
@@ -104,7 +105,7 @@
         return NO;
     }
     
-    return [self.URL isEqual:[object URL]];
+    return [self.URL isEqual: [object URL]];
 }
 
 

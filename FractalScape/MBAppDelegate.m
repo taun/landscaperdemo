@@ -295,7 +295,7 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
     
     if (!self.documentController) {
         self.documentController = [[MDBDocumentController alloc] initWithDocumentCoordinator: documentCoordinator sortComparator:^NSComparisonResult(MDBFractalInfo *lhs, MDBFractalInfo *rhs) {
-            return [lhs.name compare:rhs.name];
+            return [rhs.changeDate compare: lhs.changeDate];
         }];
         
         self.documentsViewController.documentController = self.documentController;

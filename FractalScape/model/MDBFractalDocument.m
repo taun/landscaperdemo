@@ -13,6 +13,15 @@
 #import "MDBCloudManager.h"
 
 #define kMDBDocumentCurrentVersion 1
+#define kMDBJGPQuality 0.8
+
+static NSString* kMDBVersionFileName = @"version.txt";
+static NSString* kMDBThumbnailFileName = @"thumbnail.jpg";
+static NSString* kMDBFractalFileName = @"fractal.xml";
+
+@interface MDBFractalDocument ()
+@property(nonatomic,strong) NSFileWrapper   *documentFileWrapper;
+@end
 
 /*!
  Implementation help from https://github.com/SilverBayTech/Defensive-UIDocument
@@ -31,29 +40,130 @@
     self = [super initWithFileURL:url];
     if (self)
     {
-        _fractal = nil;
         _categories = @[[MDBFractalCategory newCategoryIdentifier: @"idGeo" name: @"Geometric"],[MDBFractalCategory newCategoryIdentifier: @"idPlant" name: @"Plant"]];
     }
     return self;
 }
 
-- (id)contentsForType:(NSString *)typeName error:(NSError **)outError
+#pragma mark - Getting/Setting Wrappers
+
+
+#pragma mark fractalWrappers
+
+- (NSFileWrapper*)fractalFileWrapper
 {
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    archiver.outputFormat = NSPropertyListXMLFormat_v1_0;
-    
-    [archiver encodeInteger: [[self class]version] forKey: @"version"];
-    [archiver encodeObject: _fractal forKey: @"fractal"];
-    
-    [archiver finishEncoding];
-    return data;
+    return _documentFileWrapper.fileWrappers[kMDBFractalFileName];
 }
 
-- (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError **)outError {
-    NSData *data = (NSData *)contents;
+- (void)updateDocumentWrapperForFractal
+{
+    NSFileWrapper* existingWrapper = [self fractalFileWrapper];
+    if (existingWrapper)
+    {
+        [self.documentFileWrapper removeFileWrapper: existingWrapper];
+    }
+
+    if (_fractal)
+    {
+        [self.documentFileWrapper addRegularFileWithContents: [NSKeyedArchiver archivedDataWithRootObject: _fractal] preferredFilename: kMDBFractalFileName];
+    }
+}
+
+- (void)updateFractalFromDocumentWrapper
+{
+    LSFractal* returnFractal;
     
-    if ([data length] == 0)
+    NSData* fileData = [[self fractalFileWrapper] regularFileContents];
+    
+    if (fileData)
+    {
+        _fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fileData];
+    }
+    else
+    {
+        _fractal = nil;
+    }
+}
+
+#pragma mark ThumbnailWrappers
+
+- (NSFileWrapper*)thumbnailFileWrapper
+{
+    return [self.documentFileWrapper.fileWrappers valueForKey: kMDBThumbnailFileName];
+}
+
+- (void)updateDocumentWrapperForThumbnail
+{
+    NSFileWrapper* existingWrapper = [self thumbnailFileWrapper];
+    if (existingWrapper)
+    {
+        [self.documentFileWrapper removeFileWrapper: existingWrapper];
+    }
+    
+    if (_thumbnail)
+    {
+        [self.documentFileWrapper addRegularFileWithContents: UIImageJPEGRepresentation(_thumbnail, kMDBJGPQuality) preferredFilename: kMDBThumbnailFileName];
+    }
+}
+
+- (void)updateThumbnailFromDocumentWrapper
+{
+    UIImage* returnImage;
+    
+    NSData* fileData = [[self thumbnailFileWrapper] regularFileContents];
+    
+    if (fileData)
+    {
+        _thumbnail = [UIImage imageWithData: fileData];
+    }
+    else
+    {
+        _thumbnail = nil;
+    }
+}
+
+//-(UIImage*)thumbnail
+//{
+//    if (!_thumbnail && !_documentFileWrapper)
+//    {
+//        [self updateThumbnailFromDocumentWrapper];
+//    }
+//    return _thumbnail;
+//}
+
+#pragma mark - Save/Load
+
+- (id)contentsForType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
+{
+    if (self.documentFileWrapper == nil)
+    {
+        self.documentFileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
+    }
+
+    NSFileWrapper* existingVersion = self.documentFileWrapper.fileWrappers[kMDBVersionFileName];
+    if (existingVersion) {
+        [self.documentFileWrapper removeFileWrapper: existingVersion];
+    }
+    
+    [self.documentFileWrapper addRegularFileWithContents: [NSKeyedArchiver archivedDataWithRootObject: @(kMDBDocumentCurrentVersion)] preferredFilename: kMDBVersionFileName];
+    
+    if (_fractal)
+    {
+        [self updateDocumentWrapperForFractal];
+    }
+    
+    if (_thumbnail) {
+        [self updateDocumentWrapperForThumbnail];
+    }
+    
+    return self.documentFileWrapper;
+}
+
+- (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
+{
+    _documentFileWrapper = (NSFileWrapper *)contents;
+    
+    if (!_documentFileWrapper || _documentFileWrapper.fileWrappers.count == 0)
     {
         _loadResult = MDBFractalDocumentLoad_ZERO_LENGTH_FILE;
         return NO;
@@ -62,12 +172,14 @@
     
     @try
     {
-        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        NSData* versionData = [_documentFileWrapper.fileWrappers[kMDBVersionFileName] regularFileContents];
+        NSInteger version = [[NSKeyedUnarchiver unarchiveObjectWithData: versionData] integerValue];
         
-        NSInteger version = [unarchiver decodeIntegerForKey: @"version"];
-        switch (version) {
+        switch (version)
+        {
             case kMDBDocumentCurrentVersion:
-                self.fractal = [unarchiver decodeObjectForKey: @"fractal"];
+                [self updateFractalFromDocumentWrapper];
+                [self updateThumbnailFromDocumentWrapper];
                 break;
                 
             default:
@@ -93,27 +205,28 @@
     [super openWithCompletionHandler:completionHandler];
 }
 
-- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)url
-                            forSaveOperation:(UIDocumentSaveOperation)saveOperation
-                                       error:(NSError **)outError
-{
-    NSDictionary* fileAttributes;
-    
-#pragma message "TODO: how to get the thumbnail from the renderer in the editor? Give fractal a thumbnail property?"
-#pragma message "TODO: Editor should be document controller?"
-    
-    UIImage* thumbnail = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
-    
-    if (thumbnail)
-    {
-        fileAttributes = @{NSThumbnail1024x1024SizeKey:thumbnail};
-    } else
-    {
-        fileAttributes = [NSDictionary new];
-    }
-    
-    return fileAttributes;
-}
+//- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)url
+//                            forSaveOperation:(UIDocumentSaveOperation)saveOperation
+//                                       error:(NSError * __autoreleasing *)outError
+//{
+//    NSDictionary* fileAttributes;
+//    
+//#pragma message "TODO: how to get the thumbnail from the renderer in the editor? Give fractal a thumbnail property?"
+//#pragma message "TODO: Editor should be document controller?"
+//    
+//    UIImage* thumbnail = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
+//    
+//    if (thumbnail)
+//    {
+//        fileAttributes = @{NSThumbnail1024x1024SizeKey:thumbnail};
+//    }
+//    else
+//    {
+//        fileAttributes = [NSDictionary new];
+//    }
+//    
+//    return fileAttributes;
+//}
 
 #pragma mark - Deletion
 
@@ -125,7 +238,8 @@
 
 #pragma mark - Handoff
 
-- (void)updateUserActivityState:(NSUserActivity *)userActivity {
+- (void)updateUserActivityState:(NSUserActivity *)userActivity
+{
     [super updateUserActivityState:userActivity];
     [userActivity addUserInfoEntriesFromDictionary: @{ kMDBCloudManagerUserActivityFractalIdentifierUserInfoKey : self.fractal.identifier }];
 }

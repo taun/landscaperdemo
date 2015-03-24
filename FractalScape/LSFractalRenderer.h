@@ -11,7 +11,8 @@
 
 #import "MBFractalSegment.h"
 
-@class MDBFractalDocument;
+@class LSFractal;
+@class LSDrawingRuleType;
 
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
@@ -200,8 +201,8 @@ X ;   close path
  */
 @interface LSFractalRenderer : NSObject
 
-+(instancetype) newRendererForFractal: (MDBFractalDocument*)aFractalDocument;
--(instancetype) initWithFractal: (MDBFractalDocument*) aFractalDocument;
++(instancetype) newRendererForFractal: (LSFractal*)aFractal withSourceRules: (LSDrawingRuleType*)sourceRules;
+-(instancetype) initWithFractal: (LSFractal*) aFractal withSourceRules: (LSDrawingRuleType*)sourceRules;
 /*!
  For convenience during debugging multiple threads/operations.
  */
@@ -242,7 +243,7 @@ X ;   close path
  */
 @property (NS_NONATOMIC_IOSONLY, readonly) CGSize unitBox;
 
--(void) setValuesForFractal:(MDBFractalDocument *)aFractal;
+-(void) setValuesForFractal:(LSFractal *)aFractal;
 
 -(void) generateImage;
 -(void) generateImagePercent: (CGFloat)percent;
