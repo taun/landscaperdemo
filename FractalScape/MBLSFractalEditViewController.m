@@ -2026,10 +2026,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
     renderer.levelData = self.levelDataArray[3];
     renderer.name = @"Image renderer";
-    renderer.margin = 72.0;
-    renderer.autoscale = YES;
+    renderer.margin = 36.0;
+    renderer.autoscale = YES; // leave yes to fill thumbnail
     renderer.flipY = YES;
     renderer.showOrigin = NO;
+    renderer.pixelScale = self.fractalView.contentScaleFactor;
+    
+    UIColor* backgroundColor = [self.fractalDocument.fractal.backgroundColor asUIColor];
+    if (!backgroundColor) backgroundColor = [UIColor clearColor];
+    renderer.backgroundColor = backgroundColor;
+    renderer.autoExpand = YES;
     
     UIGraphicsBeginImageContextWithOptions(imageSize, NO, 2.0);
     {

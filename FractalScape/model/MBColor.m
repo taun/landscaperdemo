@@ -72,6 +72,17 @@
     return keysToBeCopied;
 }
 
+- (id) debugQuickLookObject
+{
+    return [self debugDescription];
+}
+
+-(NSString*)debugDescription
+{
+    NSString* ddesc = [NSString stringWithFormat: @"Color %@ RGB: %0.1f:%0.1f:%0.1f",_identifier,_red,_green,_blue];
+    return ddesc;
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -190,7 +201,8 @@
 }
 
 -(BOOL) isDefaultObject {
-    return [[MBColor defaultIdentifierString] isEqualToString: self.identifier];
+    BOOL isDefault = [[MBColor defaultIdentifierString] isEqualToString: self.identifier];
+    return isDefault;
 }
 
 -(UIImage*) asImage {

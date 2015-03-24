@@ -47,7 +47,7 @@
     self = [super init];
     if (self) {
         _descriptor = @"Default do nothing rule to be replaced by dragging a new rule.";
-        _iconIdentifierString = [LSDrawingRule defaultIdentifierString];
+        _iconIdentifierString = [[self class] defaultIdentifierString];
         _drawingMethodString = @"commandDoNothing";
         _productionString = @"Z";
     }
@@ -116,7 +116,8 @@
 }
 
 -(BOOL) isDefaultObject {
-    return ([self.iconIdentifierString compare: [LSDrawingRule defaultIdentifierString]] == NSOrderedSame);
+    BOOL isDefault = ([self.iconIdentifierString compare: [LSDrawingRule defaultIdentifierString]] == NSOrderedSame);
+    return isDefault;
 }
 
 -(id) copyWithZone:(NSZone *)zone {

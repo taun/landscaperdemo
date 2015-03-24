@@ -458,17 +458,11 @@
 
     BOOL alreadyThere = fromIndex == (toIndex -1) || fromIndex == toIndex;
     // only move if the indexes are different
-    if (!alreadyThere) {
-        NSUInteger adjustedToIndex = toIndex;
-        if (toIndex > fromIndex) {
-            adjustedToIndex -= 1; // allow for the removal of the from item
-        }
-        
-        
+    if (!alreadyThere)
+    {
         id<MDBTileObjectProtocol> object = self.objectList[fromIndex];
         
-        [self.objectList removeObject: object];
-        [self.objectList insertObject: object atIndex: adjustedToIndex];
+        [self.objectList moveObject: object toIndex: toIndex];
         
         [self animateConstraintChanges];
     }
