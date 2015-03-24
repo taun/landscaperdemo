@@ -109,10 +109,13 @@
 -(void) setFractalDocument:(MDBFractalDocument *)fractalDocument {
     UITextView* strongDescriptor = _descriptor;
     UITextField* strongName = _name;
+    UIPickerView* strongPicker = _category;
 
     _fractalDocument = fractalDocument;
     strongName.text = _fractalDocument.fractal.name;
     strongDescriptor.text = fractalDocument.fractal.descriptor;
+    
+    [strongPicker reloadAllComponents];
 //    NSInteger categoryIndex = [[self.fractalDocument allCategories] indexOfObject: self.fractalDocument.fractal.category];
 //    [_category reloadAllComponents];
 //    [_category selectRow: categoryIndex inComponent: 0 animated: YES];
@@ -120,18 +123,18 @@
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-    {
-        UIPickerView* strongCategory = self.category;
-        NSLayoutConstraint* strongWidth = self.pickerViewWidthConstraint;
-        
-        strongCategory.hidden = YES;
-        self.oldCategoryWidth = strongWidth.constant;
-        strongWidth.constant = 0.0;
-        
-        UITextField* strongName = self.name;
-        [strongName setNeedsLayout];
-    }
+//    if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//    {
+//        UIPickerView* strongCategory = self.category;
+//        NSLayoutConstraint* strongWidth = self.pickerViewWidthConstraint;
+//        
+//        strongCategory.hidden = YES;
+//        self.oldCategoryWidth = strongWidth.constant;
+//        strongWidth.constant = 0.0;
+//        
+//        UITextField* strongName = self.name;
+//        [strongName setNeedsLayout];
+//    }
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField
@@ -156,13 +159,13 @@
         [textView resignFirstResponder];
         
         UIPickerView* strongCategory = self.category;
-        NSLayoutConstraint* strongWidth = self.pickerViewWidthConstraint;
-
-        if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-        {
-            strongCategory.hidden = NO;
-            strongWidth.constant = self.oldCategoryWidth;
-        }
+//        NSLayoutConstraint* strongWidth = self.pickerViewWidthConstraint;
+//
+//        if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+//        {
+//            strongCategory.hidden = NO;
+//            strongWidth.constant = self.oldCategoryWidth;
+//        }
         [strongCategory becomeFirstResponder];
         // Return FALSE so that the final '\n' character doesn't get added
         return NO;

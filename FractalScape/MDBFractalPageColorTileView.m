@@ -45,7 +45,7 @@
     self.translatesAutoresizingMaskIntoConstraints = NO;
     //    self.contentMode = UIViewContentModeRedraw;
     
-    _tileWidth = 26.0;
+    _tileWidth = 24.0;
 }
 -(void) setupSubviews {
     for (UIView* view in [self subviews]) {
@@ -67,6 +67,7 @@
                                                                       toItem: nil
                                                                    attribute: NSLayoutAttributeNotAnAttribute
                                                                   multiplier: 1.0 constant: 25.0]];
+    
     [_pageTemplateView addConstraint: [NSLayoutConstraint constraintWithItem: _pageTemplateView
                                                                    attribute: NSLayoutAttributeWidth
                                                                    relatedBy: NSLayoutRelationEqual
@@ -108,7 +109,7 @@
                                                       relatedBy: NSLayoutRelationGreaterThanOrEqual
                                                          toItem: _pageTemplateView
                                                       attribute: NSLayoutAttributeBottom
-                                                     multiplier: 1.0 constant: 6]];
+                                                     multiplier: 1.0 constant: 2]];
     
     [self addConstraint: [NSLayoutConstraint constraintWithItem: _backgroundColorView
                                                       attribute: NSLayoutAttributeBottom

@@ -37,6 +37,7 @@ typedef struct MDBListOperationInfo {
 - (NSArray *) objectForKeyedSubscript:(NSIndexSet *)indexes;
 - (NSInteger) indexOfObject:(id)object;
 - (void) addObject: (id)additionalObject;
+- (void) addObjectsFromArray: (NSArray*)sourceArray;
 - (void) insertObject:(id)object atIndex:(NSInteger)index;
 //- (BOOL) canMoveObject:(id)object toIndex:(NSInteger)index inclusive:(BOOL)inclusive;
 - (MDBListOperationInfo) moveObject:(id)object toIndex:(NSInteger)toIndex;

@@ -53,15 +53,20 @@
     
     // Configure the cell with data from the managed object.
     
-    documentInfoCell.document = fractalInfo.document;
+    documentInfoCell.document = nil;//fractalInfo.document;
     
-    if (!fractalInfo.document) {
+    if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
+    {
         [fractalInfo fetchDocumentWithCompletionHandler:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 // Make sure that the list info is still visible once the color has been fetched.
-                if ([collectionView.indexPathsForVisibleItems containsObject: indexPath]) {
+                if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
+                {
                     documentInfoCell.document = fractalInfo.document;
-                }
+                } 
+                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
+                    //
+                }];;
             });
         }];
     }
@@ -69,8 +74,17 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    MDBFractalInfo* fractalInfo = self.documentController[indexPath.row];
-//    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
+    MBCollectionFractalDocumentCell* fractalDocCell = (MBCollectionFractalDocumentCell*)cell;
+    MDBFractalDocument* document = fractalDocCell.document;
+    UIDocumentState docState = document.documentState;
+    
+    if (docState != UIDocumentStateClosed)
+    {
+        [document closeWithCompletionHandler:^(BOOL success) {
+            //
+        }];;
+    }
+    //    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
 }
 
 @end

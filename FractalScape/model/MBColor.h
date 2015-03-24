@@ -28,8 +28,21 @@
 
 +(instancetype) newMBColorFromPListDictionary: (NSDictionary*) colorDict;
 
+/*!
+ Convenience instantiator. Note, identifier will be defaultIdentifier. Should replce the 
+ identifier if you want the color to stay in the list during drag and drop.
+ 
+ @param color a UIColor source color
+ 
+ @return a new MBColor
+ */
 +(instancetype) newMBColorWithUIColor: (UIColor*) color;
 
+/*!
+ A class method for a system wide default UIColor.
+ 
+ @return a UIColor
+ */
 +(UIColor*) newDefaultUIColor;
 /*!
  This string is assigned by default in the CoreData model definition for the MBColor property identifier.

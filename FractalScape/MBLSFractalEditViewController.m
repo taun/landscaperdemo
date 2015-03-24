@@ -26,6 +26,7 @@
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
 #import "LSFractalRenderer.h"
+#import "MDBTileObjectProtocol.h"
 
 //
 //static inline double radians (double degrees){return degrees * M_PI/180.0;}
@@ -337,11 +338,12 @@ static const CGFloat kLevelNMargin = 40.0;
 /* on staartup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    [self regenerateLevels];
-    [self saveToUserPreferencesAsLastEditedFractal: _fractalInfo];
-    [self updateInterface];
-    [self autoScale: nil];
+    if (_fractalInfo.document.fractal) {
+        [super viewDidAppear:animated];
+        [self regenerateLevels];
+        [self updateInterface];
+        [self autoScale: nil];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -487,6 +489,44 @@ static const CGFloat kLevelNMargin = 40.0;
 
 #pragma mark Fractal Property KVO
 -(void)setFractalInfo:(MDBFractalInfo *)fractalInfo {
+    UIDocumentState docState = fractalInfo.document.documentState;
+    
+    if (docState != UIDocumentStateNormal)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //
+            [fractalInfo.document openWithCompletionHandler:^(BOOL success) {
+                //detect if we have a new default fractal
+                id<MDBTileObjectProtocol> tileObject = [fractalInfo.document.fractal.startingRules firstObject];
+                
+                if (fractalInfo.document.fractal && tileObject.isDefaultObject)
+                {
+                    //default rules and settings
+                    LSFractal* newFractal = fractalInfo.document.fractal;
+                    
+                    LSDrawingRuleType* rules = fractalInfo.document.sourceDrawingRules;
+                    
+                    [newFractal.startingRules addObjectsFromArray: [rules rulesArrayFromRuleString: @"F!"]];
+                    
+                    MBColor* defaultLine = [MBColor newMBColorWithUIColor: [UIColor blueColor]];
+                    defaultLine.identifier = @"blue";
+                    defaultLine.name = @"Blue";
+                    [newFractal.lineColors addObject: defaultLine];
+                    
+                    MBColor* defaultFill = [MBColor newMBColorWithUIColor: [UIColor greenColor]];
+                    defaultFill.identifier = @"green";
+                    defaultFill.name = @"Green";
+                    [newFractal.fillColors addObject: defaultFill];
+                    
+                    [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+                }
+                
+                self.fractalInfo = fractalInfo;
+            }];
+        });
+        return;
+    }
+    
     if (_fractalInfo != fractalInfo) {
         
         if (fractalInfo) {
@@ -504,7 +544,6 @@ static const CGFloat kLevelNMargin = 40.0;
         if (_fractalInfo.document != nil && _fractalInfo.document.fractal && self.fractalView)
         {
             [self regenerateLevels];
-            [self saveToUserPreferencesAsLastEditedFractal: _fractalInfo];
             [self updateInterface];
             [self autoScale: nil];
         }
@@ -609,7 +648,9 @@ static const CGFloat kLevelNMargin = 40.0;
         UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(390.0, 390.0)];
         _fractalInfo.document.thumbnail = fractalImage;
         [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+        
         _fractalInfo.changeDate = [NSDate date];
+        
         [self.documentController setFractalInfoHasNewContents: _fractalInfo];
         
         [_privateImageGenerationQueue cancelAllOperations];
@@ -630,6 +671,8 @@ static const CGFloat kLevelNMargin = 40.0;
     LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
     {
+        [self saveToUserPreferencesAsLastEditedFractal: _fractalInfo];
+        
         [self setupSlidersForCurrentFractal];
         
         _lastImageUpdateTime = [NSDate date];

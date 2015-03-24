@@ -52,7 +52,7 @@
     _textLabel.text = @"Loading..";
     _detailTextLabel.text = @"";
     
-    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
+    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
     UIImageView* strongImageView = self.imageView;
     strongImageView.image = placeholder;
     
@@ -97,6 +97,10 @@
             if (_document.fractal.name) self.textLabel.text = _document.fractal.name;
             if (_document.fractal.descriptor) self.detailTextLabel.text = _document.fractal.descriptor;
             if (_document.thumbnail) self.imageView.image = _document.thumbnail;
+        }
+        else
+        {
+            [self configureDefaults];
         }
     }
 }

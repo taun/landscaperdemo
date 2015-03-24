@@ -150,7 +150,13 @@
         
     }
 
-    _heightConstraint = [NSLayoutConstraint constraintWithItem: self attribute: NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: 26.0];
+    _heightConstraint = [NSLayoutConstraint constraintWithItem: self
+                                                     attribute: NSLayoutAttributeHeight
+                                                     relatedBy: NSLayoutRelationEqual
+                                                        toItem: nil
+                                                     attribute: NSLayoutAttributeNotAnAttribute
+                                                    multiplier: 1.0 constant: 26.0];
+    _heightConstraint.priority = 750.0;
     [self addConstraint: _heightConstraint];
 
     self.didSetupSubviews = YES;

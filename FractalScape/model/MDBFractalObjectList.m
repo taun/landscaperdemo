@@ -7,6 +7,7 @@
 //
 
 #import "MDBFractalObjectList.h"
+#import "MDBTileObjectProtocol.h"
 
 @interface MDBFractalObjectList ()
 @property (readwrite, copy) NSMutableArray *objects;
@@ -152,10 +153,28 @@
 - (void) addObject:(id)additionalObject
 {
     [self willChangeValueForKey: @"allObjects"];
+    
+    id<MDBTileObjectProtocol> tileObject = [self.objects firstObject];
+    if (tileObject && tileObject.isDefaultObject) {
+        [self.objects removeObjectAtIndex: 0];
+    }
     [self.objects addObject: additionalObject];
+    
     [self didChangeValueForKey: @"allObjects"];
 }
 
+- (void) addObjectsFromArray:(NSArray *)sourceArray
+{
+    [self willChangeValueForKey: @"allObjects"];
+    
+    id<MDBTileObjectProtocol> tileObject = [self.objects firstObject];
+    if (tileObject && tileObject.isDefaultObject) {
+        [self.objects removeObjectAtIndex: 0];
+    }
+    [self.objects addObjectsFromArray: sourceArray];
+    
+    [self didChangeValueForKey: @"allObjects"];
+}
 - (void) insertObject:(id)object atIndex:(NSInteger)index
 {
     [self willChangeValueForKey: @"allObjects"];

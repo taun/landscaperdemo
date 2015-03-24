@@ -367,14 +367,41 @@
 				C52D75D41A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m */,
 			);
 			name = Filters;
+			path = ..;
 			sourceTree = "<group>";
 		};
-		C5450ED014BBB7DB00CD2E09 /* Views */ = {
+		C5450ED014BBB7DB00CD2E09 /* OldViews */ = {
 			isa = PBXGroup;
 			children = (
 				C57F32B8170209610072FE75 /* TableCells */,
 			);
-			name = Views;
+			name = OldViews;
+			sourceTree = "<group>";
+		};
+		C5475DA01AC1AF0E002B112B /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */,
+				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
+				C5FFAB0E1A14F89F00662211 /* Popovers */,
+				C52D75D21A93A32800BDA6B3 /* Filters */,
+			);
+			name = Editor;
+			sourceTree = "<group>";
+		};
+		C5475DA11AC1AFAA002B112B /* CollectionViews */ = {
+			isa = PBXGroup;
+			children = (
+				C57EDE4E170FC29900967F79 /* MBImmutableCellBackgroundView.h */,
+				C57EDE4F170FC29900967F79 /* MBImmutableCellBackgroundView.m */,
+				C525B9FA16F8A6C500CE2200 /* MBColorCellBackgroundView.h */,
+				C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */,
+				C579625F16DD480500A8BCDC /* MBCollectionFractalDocumentCell.h */,
+				C579626016DD480500A8BCDC /* MBCollectionFractalDocumentCell.m */,
+				C579626216DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.h */,
+				C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */,
+			);
+			name = CollectionViews;
 			sourceTree = "<group>";
 		};
 		C5567AFB1A79F2AA00882474 /* Categories */ = {
@@ -414,6 +441,9 @@
 				C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */,
 				C5F1847E1AA7A2A000233E49 /* MDBFractalInfo.h */,
 				C5F1847F1AA7A2A000233E49 /* MDBFractalInfo.m */,
+				C5F184761AA6663800233E49 /* MDBDocumentUtilities.h */,
+				C5F184771AA6663800233E49 /* MDBDocumentUtilities.m */,
+				C5F184751AA665CC00233E49 /* CloudAndFileManagement */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -498,9 +528,7 @@
 				C5CD99D619BA21F40037E976 /* FractalScape.entitlements */,
 				C5E6B7C414A5359A00DA48BD /* Model */,
 				C5E6B78714A5346300DA48BD /* FractalScape Main */,
-				C5450ED014BBB7DB00CD2E09 /* Views */,
-				C5FFAB0E1A14F89F00662211 /* Popovers */,
-				C52D75D21A93A32800BDA6B3 /* Filters */,
+				C5450ED014BBB7DB00CD2E09 /* OldViews */,
 				C5E6B78814A5346300DA48BD /* Supporting Files */,
 				C59954011A6465270093CF50 /* FractalScapeFractalModelTests */,
 				C5E6B78014A5346300DA48BD /* Frameworks */,
@@ -541,8 +569,7 @@
 				C5E6B79014A5346300DA48BD /* MBAppDelegate.h */,
 				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
 				C5FFAB121A14F90B00662211 /* Library */,
-				C5D9C2BE14D32BB500AC9B47 /* MBLSFractalEditViewController.h */,
-				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
+				C5475DA01AC1AF0E002B112B /* Editor */,
 			);
 			name = "FractalScape Main";
 			path = FractalScape;
@@ -577,11 +604,8 @@
 			isa = PBXGroup;
 			children = (
 				C5CD57D31A9BC39300C70218 /* FractalResources */,
-				C5914AAC14C9ED2C00856F57 /* Document */,
-				C5F184751AA665CC00233E49 /* CloudAndFileManagement */,
-				C5F184761AA6663800233E49 /* MDBDocumentUtilities.h */,
-				C5F184771AA6663800233E49 /* MDBDocumentUtilities.m */,
 				C5CD57D21A9BC35A00C70218 /* Rendering */,
+				C5914AAC14C9ED2C00856F57 /* Document */,
 			);
 			name = Model;
 			sourceTree = SOURCE_ROOT;
@@ -620,6 +644,7 @@
 				C527D5ED1A7FE9C600CF9B30 /* DragAndDropTiles */,
 			);
 			name = Popovers;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		C5FFAB0F1A14F8B300662211 /* ColorsEdit */ = {
@@ -669,14 +694,7 @@
 				C5DE128E1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.m */,
 				C52C60A01AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h */,
 				C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */,
-				C57EDE4E170FC29900967F79 /* MBImmutableCellBackgroundView.h */,
-				C57EDE4F170FC29900967F79 /* MBImmutableCellBackgroundView.m */,
-				C525B9FA16F8A6C500CE2200 /* MBColorCellBackgroundView.h */,
-				C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */,
-				C579625F16DD480500A8BCDC /* MBCollectionFractalDocumentCell.h */,
-				C579626016DD480500A8BCDC /* MBCollectionFractalDocumentCell.m */,
-				C579626216DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.h */,
-				C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */,
+				C5475DA11AC1AFAA002B112B /* CollectionViews */,
 			);
 			name = Library;
 			path = ..;
