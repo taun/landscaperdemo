@@ -16,7 +16,7 @@ NSString *const kMDBFractalDocumentFileExtension = @"fractal";
 
 NSString *const kMDBICloudManagerFirstLaunchUserDefaultsKey = @"kMDBICloudManagerFirstLaunchUserDefaultsKey";
 NSString *const kMDBICloudManagerStorageOptionUserDefaultsKey = @"kMDBICloudManagerStorageOptionUserDefaultsKey";
-NSString *const kMDBICloudManagerStoredUbiquityIdentityTokenKey = @"com.example.FractalScapes.UbiquityIdentityToken";
+NSString *const kMDBICloudManagerStoredUbiquityIdentityTokenKey = @"com.moedae.FractalScapes.UbiquityIdentityToken";
 
 NSString* const kMDBICloudStateUpdateNotification = @"kMDBICloudStateUpdateNotification";
 NSString* const kMDBUbiquitousContainerFetchingWillBeginNotification = @"kMDBUbiquitousContainerFetchingWillBeginNotification";

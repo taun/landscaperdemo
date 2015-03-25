@@ -39,7 +39,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"FractalLibraryListCell";
-    id reuseCell = [collectionView dequeueReusableCellWithReuseIdentifier: CellIdentifier forIndexPath: indexPath];
+    MBCollectionFractalDocumentCell* reuseCell = [collectionView dequeueReusableCellWithReuseIdentifier: CellIdentifier forIndexPath: indexPath];
+    reuseCell.document = nil;
     return reuseCell;
 }
 
@@ -53,7 +54,7 @@
     
     // Configure the cell with data from the managed object.
     
-    documentInfoCell.document = nil;//fractalInfo.document;
+//    documentInfoCell.document = nil;//fractalInfo.document;
     
     if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
     {

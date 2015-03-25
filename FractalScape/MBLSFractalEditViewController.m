@@ -645,23 +645,23 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     if (_fractalInfo.document) {
         
+        [[NSNotificationCenter defaultCenter] removeObserver: self name: UIDocumentStateChangedNotification object: _fractalInfo.document];
+
+        if (_fractalInfo.document && _fractalInfo.document.fractal) {
+            [self removeObserversForCurrentFractal];
+        }
+
         UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(390.0, 390.0)];
         _fractalInfo.document.thumbnail = fractalImage;
-        [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-        
         _fractalInfo.changeDate = [NSDate date];
+        [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
         
         [self.documentController setFractalInfoHasNewContents: _fractalInfo];
         
         [_privateImageGenerationQueue cancelAllOperations];
         
-        [[NSNotificationCenter defaultCenter] removeObserver: self name: UIDocumentStateChangedNotification object: _fractalInfo.document];
         _fractalInfo.document.delegate = nil;
-        
-        if (_fractalInfo.document && _fractalInfo.document.fractal) {
-            [self removeObserversForCurrentFractal];
-        }
-        
+
         [_fractalInfo.document closeWithCompletionHandler:nil];
     }
 }

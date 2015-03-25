@@ -52,9 +52,11 @@
     _textLabel.text = @"Loading..";
     _detailTextLabel.text = @"";
     
-    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
-    UIImageView* strongImageView = self.imageView;
-    strongImageView.image = placeholder;
+    _imageView.image = nil;
+    
+//    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
+//    UIImageView* strongImageView = self.imageView;
+//    strongImageView.image = placeholder;
     
     if (!self.backgroundView) {
         MBColorCellBackgroundView* backgroundView = [MBColorCellBackgroundView new];

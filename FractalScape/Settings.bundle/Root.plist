@@ -35,6 +35,44 @@
 			<false/>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>iCloud</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Titles</key>
+			<array>
+				<string>Not Set</string>
+				<string>Cloud</string>
+				<string>Local</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<real>0</real>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Use iCloud</string>
+			<key>Key</key>
+			<string>kMDBICloudManagerStorageOptionUserDefaultsKey</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>First Launch</string>
+			<key>Key</key>
+			<string>kMDBICloudManagerFirstLaunchUserDefaultsKey</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Troubleshooting</string>
 			<key>Type</key>
@@ -49,20 +87,6 @@
 			<string>com.moedae.FractalScapes.showPerformanceData</string>
 			<key>DefaultValue</key>
 			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>iCloud</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Use iCloud</string>
-			<key>Key</key>
-			<string>com.moedae.FractalScapes.useICloudStorage</string>
 		</dict>
 		<dict>
 			<key>Type</key>

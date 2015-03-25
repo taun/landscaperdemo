@@ -15,7 +15,7 @@
 
 @interface MDBFractalFiltersControllerViewController : UIViewController <FractalControllerProtocol, UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic,strong) MDBFractalDocument                      *fractalDocument;
+@property (nonatomic,strong) MDBFractalDocument             *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
 @property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;
 @property(nonatomic,assign) CGSize                          portraitSize;

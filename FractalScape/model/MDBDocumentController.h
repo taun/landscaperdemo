@@ -8,6 +8,8 @@
 
 @import Foundation;
 
+#import "MDBFractalDocumentCoordinator.h"
+
 @class MDBDocumentController, MDBFractalInfo, MDBFractalDocument, LSFractal;
 
 @protocol MDBFractalDocumentCoordinator;
@@ -27,7 +29,6 @@
  * @param documentController The \c MDBDocumentController instance that will change its content.
  */
 - (void)documentControllerWillChangeContent:(MDBDocumentController *)documentController;
-#pragma message "TODO: Since we are going to collection not table, these methods can use performBatchUpdates: and pass array of indexPaths"
 /*!
  * Notifies the receiver of this method that the document controller is tracking a new \c MDBFractalInfo
  * object. Receivers of this method should update their UI accordingly.
@@ -98,7 +99,7 @@
  
  :returns: 
  */
-@interface MDBDocumentController : NSObject 
+@interface MDBDocumentController : NSObject <MDBFractalDocumentCoordinatorDelegate>
 
 /*!
  * Initializes an \c MDBFractalDocumentController instance with an initial \c MDBFractalDocumentCoordinator object and a

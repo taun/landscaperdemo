@@ -80,12 +80,19 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     self.pendingUserActivity = nil;
 
 //    [self.documentController resortFractalInfos];
+//    [self.documentController.documentCoordinator startQuery];
     [self.collectionView reloadData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear: animated];
+//    [self.documentController.documentCoordinator stopQuery];
 //    [_privateQueue cancelAllOperations];
 }
 
@@ -165,26 +172,26 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 //        libraryEditController.documentController = newDocumentController;
     }
 }
-/*!
- Save thumbnail, close document and clean up.
- 
- @param segue
- */
-- (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue
-{
-    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
+///*!
+// Save thumbnail, close document and clean up.
+// 
+// @param segue
+// */
+//- (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue
+//{
+//    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
+////        //
+////        [self appearanceControllerWasDismissed];
+//    }];
+//}
+//
+//- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue
+//{
+//    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
 //        //
-//        [self appearanceControllerWasDismissed];
-    }];
-}
-
-- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue
-{
-    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
-        //
-//        [self appearanceControllerWasDismissed];
-    }];
-}
+////        [self appearanceControllerWasDismissed];
+//    }];
+//}
 
 #pragma mark - IBActions
 
@@ -209,6 +216,20 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     [self presentViewController:documentMenu animated:YES completion:nil];
 }
+
+#pragma mark - UIDocumentMenuDelegate
+
+- (void)documentMenu:(UIDocumentMenuViewController *)documentMenu didPickDocumentPicker:(UIDocumentPickerViewController *)documentPicker {
+    documentPicker.delegate = self;
+    
+    [self presentViewController:documentPicker animated:YES completion:nil];
+}
+
+- (void)documentMenuWasCancelled:(UIDocumentMenuViewController *)documentMenu {
+    // The user cancelled interacting with the document menu. In your own app, you may want to
+    // handle this with other logic.
+}
+
 #pragma mark - UIDocumentPickerViewDelegate
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
@@ -297,6 +318,16 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     // use selectItemAtIndexPath:animated:scrollPosition:
     // need to determine index of selectedFractal
     // perhaps make part of selectedFractal setter?
+    MDBAPPStorageState storageState = [MDBCloudManager sharedManager].storageState;
+    if (storageState.storageOption == MDBAPPStorageLocal)
+    {
+        self.navigationItem.title = @"Local Library";
+    }
+    else if (storageState.storageOption == MDBAPPStorageCloud)
+    {
+        self.navigationItem.title = @"Cloud Library";
+    }
+
 }
 
 #pragma mark - custom getters -

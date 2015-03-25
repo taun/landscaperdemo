@@ -10,7 +10,7 @@
 
 #import "MDBFractalInfo.h"
 #import "MDBDocumentController.h"
-
+#import "MDBFractalDocumentCoordinator.h"
 
 @interface MBFractalLibraryEditViewController ()
 
@@ -21,39 +21,27 @@
 
 @implementation MBFractalLibraryEditViewController
 
-- (IBAction)editDone:(UIBarButtonItem *)sender
-{
-    self.documentController.delegate = self.presentingViewController;
-    [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
-        //
-    }];
-}
-
--(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-#pragma message "TODO: uidocument fix needed"
-//    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    self.selectedFractal = (LSFractal*)managedObject;
-//    LSFractal* selectedFractal = (LSFractal*)managedObject;
-//    [self.fractalControllerDelegate setFractal: selectedFractal];
-
-//    [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
-//
-//        [self.fractalControllerDelegate libraryControllerWasDismissed];
-//    }];
-}
 
 - (IBAction)deleteCurrentSelections:(id)sender
 {
     NSArray* selectedIndexPaths = [self.collectionView indexPathsForSelectedItems];
     if (selectedIndexPaths.count > 0) {
         
+        NSMutableArray* urls = [NSMutableArray arrayWithCapacity: selectedIndexPaths.count];
+        
         for (NSIndexPath* path in selectedIndexPaths) {
             MDBFractalInfo* fractalInfo = self.documentController[path.row];
             if (fractalInfo) {
+                [urls addObject: fractalInfo.URL];
                 [self.documentController removeFractalInfo: fractalInfo];
             }
         }
-        
+        // removal notifications go to the current controller, needs to pass the changes back to the presentingView documentController
+        NSArray* controllers = [self.navigationController viewControllers];
+        MBFractalLibraryViewController* callingController = (MBFractalLibraryViewController*)[controllers objectAtIndex: controllers.count-2];
+        if (callingController && [callingController isKindOfClass: [MBFractalLibraryViewController class]]) {
+            [callingController.documentController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
+        }
     }
 }
 @end

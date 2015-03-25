@@ -156,7 +156,7 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
     NSArray* controllers = navCon.viewControllers;
     
     MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)controllers[0];
-
+    
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
 #pragma message "TODO uidocument fix"

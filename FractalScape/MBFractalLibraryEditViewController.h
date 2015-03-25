@@ -10,6 +10,5 @@
 
 @interface MBFractalLibraryEditViewController : MBFractalLibraryViewController
 
-- (IBAction)editDone:(UIBarButtonItem *)sender;
 
 @end
