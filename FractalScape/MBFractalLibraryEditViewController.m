@@ -37,10 +37,8 @@
             }
         }
         // removal notifications go to the current controller, needs to pass the changes back to the presentingView documentController
-        NSArray* controllers = [self.navigationController viewControllers];
-        MBFractalLibraryViewController* callingController = (MBFractalLibraryViewController*)[controllers objectAtIndex: controllers.count-2];
-        if (callingController && [callingController isKindOfClass: [MBFractalLibraryViewController class]]) {
-            [callingController.documentController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
+        if (self.presentingDocumentController) {
+            [self.presentingDocumentController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
         }
     }
 }

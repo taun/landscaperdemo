@@ -167,6 +167,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
         
         MBFractalLibraryEditViewController *libraryEditController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
+        libraryEditController.presentingDocumentController = self.documentController;
 //        libraryEditController.collectionSource.rowCount = self.collectionSource.rowCount;
         libraryEditController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
 //        libraryEditController.documentController = newDocumentController;

@@ -25,7 +25,8 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 /*!
  The collection of MDBFractalDocumentInfo objects from the local filesystem or cloud.
  */
-@property (nonatomic,strong) MDBDocumentController                  *documentController;
+@property (nonatomic,strong) MDBDocumentController                          *documentController;
+@property (nonatomic,weak) MDBDocumentController                            *presentingDocumentController;
 @property (nonatomic,strong) IBOutlet MDBFractalLibraryCollectionSource      *collectionSource;
 
 #pragma mark - Segue Actions

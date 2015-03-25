@@ -116,10 +116,13 @@
     strongDescriptor.text = fractalDocument.fractal.descriptor;
     
     [strongPicker reloadAllComponents];
-//    NSInteger categoryIndex = [[self.fractalDocument allCategories] indexOfObject: self.fractalDocument.fractal.category];
-//    [_category reloadAllComponents];
-//    [_category selectRow: categoryIndex inComponent: 0 animated: YES];
+    
+    NSInteger categoryIndex = [fractalDocument.categories indexOfObject: fractalDocument.fractal.category];
+    if (categoryIndex != NSNotFound) {
+        [strongPicker selectRow: categoryIndex inComponent: 0 animated: NO];
+    }
 }
+
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {

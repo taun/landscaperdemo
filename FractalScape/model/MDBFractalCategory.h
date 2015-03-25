@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@interface MDBFractalCategory : NSObject
+@interface MDBFractalCategory : NSObject <NSCoding>
 
 @property(nonatomic,copy) NSString*     identifier;
 @property(nonatomic,copy) NSString*     name;
