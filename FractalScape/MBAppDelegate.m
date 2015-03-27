@@ -32,10 +32,10 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 + (void)registerDefaults;
 
-@property (nonatomic, strong) MDBDocumentController     *documentController;
-@property (nonatomic, readonly) UINavigationController  *primaryViewController;
-@property (nonatomic, readonly) MBFractalLibraryViewController *documentsViewController;
-
+@property (nonatomic, strong) MDBDocumentController             *documentController;
+@property (nonatomic, readonly) UINavigationController          *primaryViewController;
+@property (nonatomic, readonly) MBFractalLibraryViewController  *documentsViewController;
+@property (nonatomic, strong) UIImage                           *backgroundImage;
 @end
 
 @implementation MBAppDelegate
@@ -133,7 +133,9 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
         [MDBDocumentUtilities copyInitialDocuments];
     }];
     
-    self.window.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    self.backgroundImage = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
+    self.window.layer.backgroundColor = [UIColor blueColor].CGColor;
+    self.window.layer.contents = (__bridge id)(self.backgroundImage.CGImage);
     // Set ourselves as the split view controller's delegate.
     return YES;
 }
@@ -152,15 +154,9 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
-    UINavigationController* navCon = (UINavigationController*)self.window.rootViewController;
-    NSArray* controllers = navCon.viewControllers;
-    
-    MBLSFractalEditViewController* editController = (MBLSFractalEditViewController*)controllers[0];
-    
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
 #pragma message "TODO uidocument fix"
 //    editController.showPerformanceData = showPerformanceDataSetting;
+    NSLog(@"");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -288,9 +284,11 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
     if ([MDBCloudManager sharedManager].storageOption != MDBAPPStorageCloud) {
         // This will be called if the storage option is either MDBAPPStorageLocal or MDBAPPStorageNotSet.
         documentCoordinator = [[MDBFractalDocumentLocalCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
+        self.documentsViewController.navigationItem.title = @"Local Library";
     }
     else {
         documentCoordinator = [[MDBFractalDocumentCloudCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
+        self.documentsViewController.navigationItem.title = @"Cloud Library";
     }
     
     if (!self.documentController) {

@@ -326,7 +326,7 @@
 {
     if (self.sortComparator)
     {
-        dispatch_sync(self.fractalReadQueue, ^{
+        dispatch_async(self.fractalReadQueue, ^{
             [self.fractalInfos sortUsingComparator: self.sortComparator];
         });
     }

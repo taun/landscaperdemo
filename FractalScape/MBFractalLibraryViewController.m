@@ -51,8 +51,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     [super viewDidLoad];
     
-//    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight]];
-//    self.collectionView.backgroundView = blurEffectView;
+    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
+    self.collectionView.backgroundView = blurEffectView;
     
 //    [self.collectionView reloadData];
     
@@ -126,6 +126,66 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
 }
 
+#pragma mark - custom getters -
+- (void)setDocumentController:(MDBDocumentController *)documentController
+{
+    if (documentController != _documentController) {
+        _documentController = documentController;
+        _documentController.delegate = self;
+        
+        self.collectionSource.documentController = _documentController;
+        //        [self.collectionView reloadData];
+    }
+}
+
+-(NSURL*)lastEditedURL
+{
+    NSURL* selectedFractalURL;
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    selectedFractalURL = [defaults URLForKey: kPrefLastEditedFractalURI];
+    return selectedFractalURL;
+}
+
+#pragma mark - IBActions
+
+/*!
+ * Note that the document picker requires that code signing, entitlements, and provisioning for
+ * the project have been configured before you run Lister. If you run the app without configuring
+ * entitlements correctly, an exception when this method is invoked (i.e. when the "+" button is
+ * clicked).
+ */
+- (IBAction)pickDocument:(UIBarButtonItem *)barButtonItem {
+    UIDocumentMenuViewController *documentMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[kMDBFractalDocumentFileUTI] inMode: UIDocumentPickerModeImport];
+    documentMenu.delegate = self;
+    
+    NSString *newDocumentTitle = NSLocalizedString(@"New Fractal", nil);
+    [documentMenu addOptionWithTitle: newDocumentTitle image: nil order: UIDocumentMenuOrderFirst handler:^{
+        // Show the MBLSFractalEditViewController.
+        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
+    }];
+    
+//    documentMenu.modalInPopover = UIModalPresentationPopover;
+    documentMenu.modalPresentationStyle = UIModalPresentationPopover;
+    documentMenu.popoverPresentationController.barButtonItem = barButtonItem;
+    
+    [self presentViewController:documentMenu animated:YES completion:nil];
+}
+
+- (IBAction)pushToLibraryEditViewController:(id)sender
+{
+    UIStoryboard* storyBoard = self.storyboard;
+    MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"FractalEditLibrary"];
+    id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
+    id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
+    
+//    MBFractalLibraryEditViewController *libraryEditViewController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
+    libraryEditViewController.presentingDocumentController = self.documentController;
+    //        libraryEditController.collectionSource.rowCount = self.collectionSource.rowCount;
+    libraryEditViewController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
+
+    [self.navigationController pushViewController: libraryEditViewController animated: NO];
+}
+
 #pragma mark - UIStoryboardSegue Handling
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -160,18 +220,18 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             editViewController.fractalInfo = userActivityDocumentInfo;
         }
     }
-    else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier])
-    {
-        
-        id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
-        id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
-        
-        MBFractalLibraryEditViewController *libraryEditController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
-        libraryEditController.presentingDocumentController = self.documentController;
+//    else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier])
+//    {
+//        
+//        id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
+//        id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
+//        
+//        MBFractalLibraryEditViewController *libraryEditController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
+//        libraryEditController.presentingDocumentController = self.documentController;
 //        libraryEditController.collectionSource.rowCount = self.collectionSource.rowCount;
-        libraryEditController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
+//        libraryEditController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
 //        libraryEditController.documentController = newDocumentController;
-    }
+//    }
 }
 ///*!
 // Save thumbnail, close document and clean up.
@@ -193,30 +253,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 ////        [self appearanceControllerWasDismissed];
 //    }];
 //}
-
-#pragma mark - IBActions
-
-/*!
- * Note that the document picker requires that code signing, entitlements, and provisioning for
- * the project have been configured before you run Lister. If you run the app without configuring
- * entitlements correctly, an exception when this method is invoked (i.e. when the "+" button is
- * clicked).
- */
-- (IBAction)pickDocument:(UIBarButtonItem *)barButtonItem {
-    UIDocumentMenuViewController *documentMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[kMDBFractalDocumentFileUTI] inMode: UIDocumentPickerModeImport];
-    documentMenu.delegate = self;
-    
-    NSString *newDocumentTitle = NSLocalizedString(@"New Fractal", nil);
-    [documentMenu addOptionWithTitle: newDocumentTitle image:nil order: UIDocumentMenuOrderFirst handler:^{
-        // Show the MBLSFractalEditViewController.
-        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
-    }];
-    
-    documentMenu.modalInPopover = UIModalPresentationPopover;
-    documentMenu.popoverPresentationController.barButtonItem = barButtonItem;
-    
-    [self presentViewController:documentMenu animated:YES completion:nil];
-}
 
 #pragma mark - UIDocumentMenuDelegate
 
@@ -319,37 +355,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     // use selectItemAtIndexPath:animated:scrollPosition:
     // need to determine index of selectedFractal
     // perhaps make part of selectedFractal setter?
-    MDBAPPStorageState storageState = [MDBCloudManager sharedManager].storageState;
-    if (storageState.storageOption == MDBAPPStorageLocal)
-    {
-        self.navigationItem.title = @"Local Library";
-    }
-    else if (storageState.storageOption == MDBAPPStorageCloud)
-    {
-        self.navigationItem.title = @"Cloud Library";
-    }
-
+    
+    [self.documentController resortFractalInfos];
 }
 
-#pragma mark - custom getters -
-- (void)setDocumentController:(MDBDocumentController *)documentController
-{
-    if (documentController != _documentController) {
-        _documentController = documentController;
-        _documentController.delegate = self;
-        
-        self.collectionSource.documentController = _documentController;
-//        [self.collectionView reloadData];
-    }
-}
-
--(NSURL*)lastEditedURL
-{
-    NSURL* selectedFractalURL;
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    selectedFractalURL = [defaults URLForKey: kPrefLastEditedFractalURI];
-    return selectedFractalURL;
-}
 
 #pragma mark - UIResponder
 

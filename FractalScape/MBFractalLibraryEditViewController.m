@@ -42,4 +42,8 @@
         }
     }
 }
+- (IBAction)editingIsDoneButton:(id)sender
+{
+    [self.navigationController popViewControllerAnimated: NO];
+}
 @end

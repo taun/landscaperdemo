@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -622,6 +622,11 @@
                                                             <constraint firstItem="p0o-A9-ELt" firstAttribute="centerY" secondItem="a6O-Vz-bO2" secondAttribute="centerY" constant="10" id="mhs-wN-Gyh"/>
                                                             <constraint firstAttribute="trailing" secondItem="guc-ko-0z2" secondAttribute="trailing" constant="10" id="wrr-ee-jHH"/>
                                                         </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="Ep0-d9-nxn"/>
+                                                            </mask>
+                                                        </variation>
                                                         <variation key="heightClass=compact-widthClass=compact" ambiguous="YES">
                                                             <rect key="frame" x="0.0" y="0.0" width="240" height="126.5"/>
                                                         </variation>
@@ -1790,10 +1795,10 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7x8-no-bZT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="Cyh-CT-dHJ">
                             <size key="itemSize" width="146" height="254"/>
-                            <size key="headerReferenceSize" width="50" height="44"/>
+                            <size key="headerReferenceSize" width="50" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                         </collectionViewFlowLayout>
@@ -1908,7 +1913,11 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Y0u-pB-asM">
-                        <barButtonItem key="backBarButtonItem" title="Done" id="sLY-8P-DBd"/>
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="j2G-fW-bTQ">
+                            <connections>
+                                <action selector="editingIsDoneButton:" destination="9pe-kV-foC" id="2Qh-EF-bzJ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Delete" id="FTe-KF-P8m">
                             <connections>
                                 <action selector="deleteCurrentSelections:" destination="9pe-kV-foC" id="tHx-6F-JeM"/>
@@ -1931,10 +1940,10 @@
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.81422699296341117" green="0.98354850442832198" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="tuN-UJ-qld">
                             <size key="itemSize" width="146" height="254"/>
-                            <size key="headerReferenceSize" width="50" height="44"/>
+                            <size key="headerReferenceSize" width="50" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                         </collectionViewFlowLayout>
@@ -1974,30 +1983,22 @@
                                             <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="Subtitle and lots more text, ipsem and more. And more and more and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
-                                            <rect key="frame" x="6" y="165" width="134" height="65"/>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
+                                            <rect key="frame" x="6" y="165" width="134" height="83"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ratingBarImage" translatesAutoresizingMaskIntoConstraints="NO" id="2Fm-ZR-Mrh">
-                                            <rect key="frame" x="4" y="227" width="100" height="24"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="bkA-0k-t7x"/>
-                                                <constraint firstAttribute="height" constant="24" id="pmb-d4-F0D"/>
-                                            </constraints>
-                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="2Fm-ZR-Mrh" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="4" id="5Up-Qo-KjE"/>
                                     <constraint firstItem="6en-9e-q6w" firstAttribute="top" secondItem="PV1-X5-WaQ" secondAttribute="bottom" id="BFo-bf-0xi"/>
                                     <constraint firstItem="6en-9e-q6w" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="6" id="EH2-do-xPp"/>
-                                    <constraint firstAttribute="bottom" secondItem="6en-9e-q6w" secondAttribute="bottom" constant="24" id="HEx-pi-enY"/>
+                                    <constraint firstAttribute="bottom" secondItem="6en-9e-q6w" secondAttribute="bottom" constant="6" id="HEx-pi-enY"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="top" secondItem="OPm-W7-tPA" secondAttribute="top" constant="4" id="WAu-ao-5TD"/>
                                     <constraint firstAttribute="centerX" secondItem="PV1-X5-WaQ" secondAttribute="centerX" id="cWj-M2-1xW"/>
                                     <constraint firstItem="PV1-X5-WaQ" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="bottom" constant="6" id="don-Qz-0qU"/>
@@ -2006,7 +2007,6 @@
                                     <constraint firstAttribute="trailing" secondItem="6en-9e-q6w" secondAttribute="trailing" constant="6" id="kWp-hJ-UIz"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="4" id="kl7-au-tsS"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PV1-X5-WaQ" secondAttribute="trailing" constant="6" id="nhX-MF-snD"/>
-                                    <constraint firstAttribute="bottom" secondItem="2Fm-ZR-Mrh" secondAttribute="bottom" constant="3" id="qdz-53-MkA"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="detailTextLabel" destination="6en-9e-q6w" id="GMq-49-tGr"/>
@@ -2056,7 +2056,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="g3K-TG-rl5">
                             <connections>
-                                <segue destination="9pe-kV-foC" kind="show" identifier="showEditFractalDocumentsList" id="YVA-fP-SxN"/>
+                                <action selector="pushToLibraryEditViewController:" destination="o9m-5w-n8i" id="hg8-j4-Om6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2064,6 +2064,7 @@
                         <outlet property="collectionSource" destination="AHG-9R-hs1" id="o2T-Br-E7e"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showNewFractalDocument" id="CAI-sc-RDe"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocumentFromUserActivity" id="XIW-aO-ufy"/>
+                        <segue destination="9pe-kV-foC" kind="show" identifier="showEditFractalDocumentsList" id="iGE-nb-MUF"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2082,7 +2083,7 @@
                     <view key="view" contentMode="scaleToFill" id="bHe-rh-dkr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="0iM-Lh-5KD"/>
                 </viewController>
@@ -2101,7 +2102,7 @@
                     <view key="view" contentMode="scaleToFill" id="Fzm-TC-HiF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="topRated" id="Ltp-rn-kYa"/>
                 </viewController>

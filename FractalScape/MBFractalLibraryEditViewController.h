@@ -10,5 +10,6 @@
 
 @interface MBFractalLibraryEditViewController : MBFractalLibraryViewController
 
+- (IBAction)editingIsDoneButton:(id)sender;
 
 @end

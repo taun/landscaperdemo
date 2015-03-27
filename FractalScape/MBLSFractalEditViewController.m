@@ -299,6 +299,9 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     [super viewWillAppear: animated];
 
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    self.showPerformanceData = [defaults boolForKey: kPrefShowPerformanceData];
+    
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
     
@@ -1733,41 +1736,49 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 
 #pragma mark - HUD Slider Actions
-- (IBAction)baseAngleSliderChanged:(UISlider*)sender
-{
-    CGFloat newAngleDegrees = sender.value;
-    self.fractalDocument.fractal.baseAngle = radians(newAngleDegrees);
-}
-
-- (IBAction)turnAngleSliderChanged:(UISlider*)sender
-{
-    CGFloat newAngleDegrees = sender.value;
-    self.fractalDocument.fractal.turningAngle = radians(newAngleDegrees);
-}
-
-- (IBAction)turningAngleIncrementSliderChanged:(UISlider*)sender
-{
-    CGFloat percent = sender.value;
-    self.fractalDocument.fractal.turningAngleIncrement = percent;
-}
-
 - (IBAction)randomnessSliderChanged:(UISlider*)sender
 {
     CGFloat percent = sender.value;
-    self.fractalDocument.fractal.randomness = percent;
+    CGFloat steppedPercent = percent - fmodf(percent, 0.05);
+    self.fractalDocument.fractal.randomness = steppedPercent;
+}
+
+- (IBAction)baseAngleSliderChanged:(UISlider*)sender
+{
+    CGFloat newAngleDegrees = sender.value;
+    CGFloat steppedNewAngleDegrees = newAngleDegrees - fmodf(newAngleDegrees, 5.0);
+    self.fractalDocument.fractal.baseAngle = radians(steppedNewAngleDegrees);
 }
 
 - (IBAction)lineWidthSliderChanged:(UISlider*)sender
 {
     CGFloat percent = sender.value;
-    self.fractalDocument.fractal.lineWidth = percent;
+    CGFloat steppedPercent = percent - fmodf(percent, 0.05);
+    self.fractalDocument.fractal.lineWidth = steppedPercent;
+}
+
+- (IBAction)turnAngleSliderChanged:(UISlider*)sender
+{
+    CGFloat newAngleDegrees = sender.value;
+    CGFloat steppedNewAngleDegrees = newAngleDegrees - fmodf(newAngleDegrees, 1.0);
+    self.fractalDocument.fractal.turningAngle = radians(steppedNewAngleDegrees);
 }
 
 - (IBAction)lineLengthIncrementSliderChanged:(UISlider*)sender
 {
     CGFloat percent = sender.value;
-    self.fractalDocument.fractal.lineChangeFactor = percent;
+    CGFloat steppedPercent = percent - fmodf(percent, 0.05);
+    self.fractalDocument.fractal.lineChangeFactor = steppedPercent;
 }
+
+- (IBAction)turningAngleIncrementSliderChanged:(UISlider*)sender
+{
+    CGFloat percent = sender.value;
+    CGFloat steppedPercent = percent - fmodf(percent, 0.05);
+    self.fractalDocument.fractal.turningAngleIncrement = steppedPercent;
+}
+
+
 
 #pragma mark - Filter Actions
 - (IBAction)applyFilter:(CIFilter*)filter
@@ -1836,7 +1847,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                              angleScale: 5.0/1.0
                                minAngle: [self.fractalDocument.fractal minValueForProperty: @"turningAngle"]
                                maxAngle: [self.fractalDocument.fractal maxValueForProperty: @"turningAngle"]
-                              angleStep:    3.0
+                              angleStep:    1.0
                              aspectPath: @"lineWidth"
                             aspectScale: 1.0/100.0
                               minAspect: [self.fractalDocument.fractal minValueForProperty: @"lineWidth"]
@@ -1850,7 +1861,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                              angleScale: 5.0/1.0
                                minAngle: [self.fractalDocument.fractal minValueForProperty: @"baseAngle"]
                                maxAngle: [self.fractalDocument.fractal maxValueForProperty: @"baseAngle"]
-                              angleStep:    5.0
+                              angleStep:    1.0
                              aspectPath: @"randomness"
                             aspectScale: -1.0/1000.0
                               minAspect: [self.fractalDocument.fractal minValueForProperty: @"randomness"]
@@ -1861,7 +1872,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self convertPanToAngleAspectChange: sender
                               imageView: self.fractalViewLevel1
                               anglePath: @"turningAngle"
-                             angleScale: 1.0/10.0
+                             angleScale: 1.0/2.0
                                minAngle: [self.fractalDocument.fractal minValueForProperty: @"turningAngle"]
                                maxAngle: [self.fractalDocument.fractal maxValueForProperty: @"turningAngle"]
                               angleStep:    0.25
@@ -1870,7 +1881,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                               minAspect: [self.fractalDocument.fractal minValueForProperty: @"lineWidth"]
                               maxAspect: [self.fractalDocument.fractal maxValueForProperty: @"lineWidth"]];
 }
-#pragma message "TODO: need to add a step size and change turningAngleIncrement from degrees to percent"
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender
 {
     [self convertPanToAngleAspectChange: sender
@@ -1879,11 +1889,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                              angleScale: 1.0/1.0
                                minAngle: 0.0
                                maxAngle: 57.295779513
-                              angleStep: 0.0
+                              angleStep: 0.1
                              aspectPath: @"lineChangeFactor"
                             aspectScale: -1.0/1000.0
-                              minAspect: 0.0
-                              maxAspect: 1.0];
+                              minAspect: [self.fractalDocument.fractal minValueForProperty: @"lineChangeFactor"]
+                              maxAspect: [self.fractalDocument.fractal maxValueForProperty: @"lineChangeFactor"]];
 }
 
 -(void) convertPanToAngleAspectChange: (UIPanGestureRecognizer*) gestureRecognizer
@@ -1934,7 +1944,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     {
         
         CGPoint translation = [gestureRecognizer translationInView: fractalView];
-        CGPoint velocity = [gestureRecognizer velocityInView: fractalView];
+//        CGPoint velocity = [gestureRecognizer velocityInView: fractalView];
         
         if (determinedState==0)
         {
@@ -1959,22 +1969,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             } else if (!axisState && anglePath)
             {
                 // hosrizontal
-                CGFloat closeEnough = stepAngle/5.0;
-                
                 CGFloat scaledStepAngle = floorf(translation.x * angleScale)/100;
                 CGFloat newAngleDegrees = fminf(fmaxf(initialAngleDegrees + scaledStepAngle, minAngle), maxAngle);
-                if (stepAngle > 0)
-                {
-                    CGFloat proximity = fmodf(newAngleDegrees, stepAngle);
-                    if (fabsf(proximity) < closeEnough)
-                    {
-                        newAngleDegrees = floorf(newAngleDegrees/stepAngle)*stepAngle;
-                    } else if (velocity.x > 0.0)
-                    {
-                        newAngleDegrees -= closeEnough;
-                    }
-                }
-                [self.fractalDocument.fractal setValue: @(radians(newAngleDegrees)) forKey: anglePath];
+                CGFloat steppedNewDegrees = newAngleDegrees - fmodf(newAngleDegrees, stepAngle);
+                [self.fractalDocument.fractal setValue: @(radians(steppedNewDegrees)) forKey: anglePath];
                 
             }
         }
@@ -2025,7 +2023,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool: fullScreenState forKey: kPrefFullScreenState];
-    [defaults synchronize];
 }
 
 -(void) fullScreenOnDuration: (NSTimeInterval)duration

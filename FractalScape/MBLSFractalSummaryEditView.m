@@ -152,6 +152,7 @@
 {
     if (textField == _name) {
         self.fractalDocument.fractal.name = textField.text;
+        [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
     }
 }
 #pragma mark - UITextViewDelegate
@@ -181,6 +182,7 @@
 {
     if (textView == _descriptor) {
         self.fractalDocument.fractal.descriptor = textView.text;
+        [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
     }
 }
 
@@ -239,6 +241,7 @@
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     MDBFractalCategory* category = self.fractalDocument.categories[row];
     self.fractalDocument.fractal.category = category;
+    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
     [self becomeFirstResponder];
 }
 

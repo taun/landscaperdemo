@@ -307,8 +307,8 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 {
     self = [super init];
     if (self) {
-        _name = @"Unnamed Fractal";
-        _descriptor = @"A new default fractal. Replace with a real description.";
+        _name = @"Unnamed";
+        _descriptor = @"...";
         _level = 2;
         _baseAngle = 0.0;
         _lineLength = 10.0;

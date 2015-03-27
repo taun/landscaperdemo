@@ -489,6 +489,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     dataLength = dataLength > self.levelData.length ? self.levelData.length : dataLength;
     
+    if (percent < 100.0) {
+        _baseSegment.randomize = NO;
+        _baseSegment.randomness = 0.0;
+    }
+
     for (long i=0; i < dataLength; i++)
     {
         [self evaluateRule: bytes[i]];
