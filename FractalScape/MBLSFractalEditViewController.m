@@ -1730,7 +1730,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     self.fractalInfo = fractalInfo;
     
-    [self performSegueWithIdentifier: @"EditSegue" sender: self];
+//    [self performSegueWithIdentifier: @"EditSegue" sender: self];
 }
 
 - (IBAction)levelInputChanged:(UIStepper*)sender

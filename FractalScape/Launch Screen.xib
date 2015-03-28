@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,10 +10,13 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="wnp-4d-nnm">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 MOEDAE LLC. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="20" y="439" width="441" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <variation key="widthClass=compact">
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -28,19 +31,44 @@
                         <navigationItem title="FractalScapes" id="Qyh-Yh-6tc"/>
                     </items>
                 </navigationBar>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ET4-Wc-OaY">
+                    <rect key="frame" x="0.0" y="44" width="480" height="387"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KJb-kC-E7Q">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="387"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="extraLight"/>
+                </visualEffectView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="dyn-i6-3yF" secondAttribute="trailing" id="8Sj-uv-xUh"/>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
+                <constraint firstAttribute="bottom" secondItem="wnp-4d-nnm" secondAttribute="bottom" id="LaK-ur-wze"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
+                <constraint firstItem="wnp-4d-nnm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nge-mA-wz6"/>
+                <constraint firstAttribute="bottom" secondItem="ET4-Wc-OaY" secondAttribute="bottom" id="Vhb-5J-j3b"/>
                 <constraint firstItem="dyn-i6-3yF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="W1z-bN-YAu"/>
+                <constraint firstItem="ET4-Wc-OaY" firstAttribute="top" secondItem="dyn-i6-3yF" secondAttribute="bottom" id="YJe-Rj-SgE"/>
+                <constraint firstItem="wnp-4d-nnm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Yi2-eZ-cKP"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
+                <constraint firstItem="ET4-Wc-OaY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gFi-rh-oWM"/>
                 <constraint firstItem="dyn-i6-3yF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="i20-wm-JuK"/>
+                <constraint firstAttribute="trailing" secondItem="ET4-Wc-OaY" secondAttribute="trailing" id="j6O-eD-Irq"/>
+                <constraint firstItem="8ie-xW-0ye" firstAttribute="top" secondItem="ET4-Wc-OaY" secondAttribute="bottom" constant="8" id="wab-2J-jkX"/>
+                <constraint firstAttribute="trailing" secondItem="wnp-4d-nnm" secondAttribute="trailing" id="zYH-vE-3KB"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Vhb-5J-j3b"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="-307" y="442"/>
         </view>
     </objects>
+    <resources>
+        <image name="documentThumbnailPlaceholder1024" width="1024" height="1024"/>
+    </resources>
 </document>

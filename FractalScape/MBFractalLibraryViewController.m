@@ -25,7 +25,7 @@
 #import "MBFractalLibraryEditViewController.h"
 #import "MBLSFractalEditViewController.h"
 #import "MDBFractalLibraryCollectionSource.h"
-#import "MDBZoomTransition.h"
+#import "MDBNavConTransitionCoordinator.h"
 
 #import "MBCollectionFractalDocumentCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
@@ -39,7 +39,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 @property (nonatomic,strong) NSUserActivity                 *pendingUserActivity;
 @property (nonatomic,readonly) NSURL                        *lastEditedURL;
-@property (nonatomic,strong) MDBZoomTransition              *navConTransitionDelegate;
+@property (nonatomic,strong) MDBNavConTransitionCoordinator              *navConTransitionDelegate;
 
 -(void) initControls;
 
@@ -57,7 +57,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     self.collectionView.backgroundView = blurEffectView;
 
     
-    self.navConTransitionDelegate = [MDBZoomTransition new];
+    self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
 #pragma message "TODO fix transitions"
     self.navigationController.delegate = self.navConTransitionDelegate;
     
