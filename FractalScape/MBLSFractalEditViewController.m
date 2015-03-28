@@ -189,7 +189,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     _disabledDuringPlaybackButtons = @[self.autoExpandOff, copyButton, shareButton];
     
-    [self.navigationItem setHidesBackButton: NO animated: NO];
+    [self.navigationItem setHidesBackButton: YES animated: NO];
     self.navigationItem.leftItemsSupplementBackButton = YES;
 //    self.navigationItem.backBarButtonItem = backButton;
     
@@ -1253,6 +1253,12 @@ static const CGFloat kLevelNMargin = 40.0;
         [self libraryControllerWasDismissed];
     }];
 }
+
+- (IBAction)popBackToLibrary:(id)sender
+{
+    [self.navigationController popViewControllerAnimated: YES];
+}
+
 #pragma mark - UIPopoverPresentationControllerDelegate
 - (void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
 {

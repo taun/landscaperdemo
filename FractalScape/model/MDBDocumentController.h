@@ -60,6 +60,11 @@
  */
 - (void)documentController:(MDBDocumentController *)documentController didUpdateFractalInfosAtIndexPaths:(NSArray*)index totalRows: (NSInteger)rows;
 
+#pragma message "TODO: add method didMoveFractalInfosAtIndexPaths:toIndexPaths:totalRows;"
+/*
+ It would be called when setFractalInfoHasNewContents: is called to move the updated fractal to the front in sort by change date."
+*/
+
 /*!
  * Notifies the receiver of this method that the document controller did change it's contents in some form.
  * This method is *always* called after any insert, remove, or update is received. In this method, you

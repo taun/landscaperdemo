@@ -25,6 +25,7 @@
 #import "MBFractalLibraryEditViewController.h"
 #import "MBLSFractalEditViewController.h"
 #import "MDBFractalLibraryCollectionSource.h"
+#import "MDBZoomTransition.h"
 
 #import "MBCollectionFractalDocumentCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
@@ -38,6 +39,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 @property (nonatomic,strong) NSUserActivity                 *pendingUserActivity;
 @property (nonatomic,readonly) NSURL                        *lastEditedURL;
+@property (nonatomic,strong) MDBZoomTransition              *navConTransitionDelegate;
 
 -(void) initControls;
 
@@ -53,6 +55,11 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
     self.collectionView.backgroundView = blurEffectView;
+
+    
+    self.navConTransitionDelegate = [MDBZoomTransition new];
+#pragma message "TODO fix transitions"
+    self.navigationController.delegate = self.navConTransitionDelegate;
     
 //    [self.collectionView reloadData];
     
@@ -81,7 +88,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 //    [self.documentController resortFractalInfos];
 //    [self.documentController.documentCoordinator startQuery];
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -175,6 +182,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     UIStoryboard* storyBoard = self.storyboard;
     MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"FractalEditLibrary"];
+    libraryEditViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
+
     id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
     id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
     
@@ -356,7 +365,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     // need to determine index of selectedFractal
     // perhaps make part of selectedFractal setter?
     
-    [self.documentController resortFractalInfos];
+//    [self.documentController resortFractalInfos];
 }
 
 

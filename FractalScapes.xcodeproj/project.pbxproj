@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C500160F1AC6103F00101340 /* MDBZoomTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C500160D1AC6103F00101340 /* MDBZoomTransition.h */; };
+		C50016101AC6103F00101340 /* MDBZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C500160E1AC6103F00101340 /* MDBZoomTransition.m */; };
 		C50764691A33A537009DDF83 /* LSDrawingRuleType.h in Headers */ = {isa = PBXBuildFile; fileRef = C50764671A33A537009DDF83 /* LSDrawingRuleType.h */; };
 		C507646A1A33A537009DDF83 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764681A33A537009DDF83 /* LSDrawingRuleType.m */; };
 		C50764751A33A537009DDF83 /* LSReplacementRule.h in Headers */ = {isa = PBXBuildFile; fileRef = C50764731A33A537009DDF83 /* LSReplacementRule.h */; };
@@ -158,6 +160,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C500160D1AC6103F00101340 /* MDBZoomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBZoomTransition.h; path = FractalScape/MDBZoomTransition.h; sourceTree = "<group>"; };
+		C500160E1AC6103F00101340 /* MDBZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBZoomTransition.m; path = FractalScape/MDBZoomTransition.m; sourceTree = "<group>"; };
 		C50764671A33A537009DDF83 /* LSDrawingRuleType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRuleType.h; path = FractalScape/model/LSDrawingRuleType.h; sourceTree = "<group>"; };
 		C50764681A33A537009DDF83 /* LSDrawingRuleType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRuleType.m; path = FractalScape/model/LSDrawingRuleType.m; sourceTree = "<group>"; };
 		C50764731A33A537009DDF83 /* LSReplacementRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSReplacementRule.h; path = FractalScape/model/LSReplacementRule.h; sourceTree = "<group>"; };
@@ -694,6 +698,8 @@
 				C5DE128E1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.m */,
 				C52C60A01AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h */,
 				C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */,
+				C500160D1AC6103F00101340 /* MDBZoomTransition.h */,
+				C500160E1AC6103F00101340 /* MDBZoomTransition.m */,
 				C5475DA11AC1AFAA002B112B /* CollectionViews */,
 			);
 			name = Library;
@@ -711,6 +717,7 @@
 				C5C37C5E1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h in Headers */,
 				C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */,
 				C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */,
+				C500160F1AC6103F00101340 /* MDBZoomTransition.h in Headers */,
 				C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */,
 				C51130791A38C93F0083B178 /* MDBFractalPageColorTileView.h in Headers */,
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
@@ -941,6 +948,7 @@
 				C507646A1A33A537009DDF83 /* LSDrawingRuleType.m in Sources */,
 				C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */,
 				C511307A1A38C93F0083B178 /* MDBFractalPageColorTileView.m in Sources */,
+				C50016101AC6103F00101340 /* MDBZoomTransition.m in Sources */,
 				C5F1846F1AA4C67A00233E49 /* MDBFractalCategory.m in Sources */,
 				C52EA9AE1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m in Sources */,
 				C579626116DD480500A8BCDC /* MBCollectionFractalDocumentCell.m in Sources */,

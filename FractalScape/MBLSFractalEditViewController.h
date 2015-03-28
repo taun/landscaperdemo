@@ -167,6 +167,7 @@
 - (void)configureWithNewBlankDocument;
 - (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue;
 - (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
+- (IBAction)popBackToLibrary:(id)sender;
 
 -(void) libraryControllerWasDismissed;
 

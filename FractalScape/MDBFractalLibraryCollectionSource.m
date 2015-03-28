@@ -53,10 +53,11 @@
     MDBFractalInfo* fractalInfo = self.documentController[indexPath.row];
     
     // Configure the cell with data from the managed object.
-    
-//    documentInfoCell.document = nil;//fractalInfo.document;
-    
-    if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
+    if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
+    {
+        documentInfoCell.document = fractalInfo.document;
+    }
+    else if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
     {
         [fractalInfo fetchDocumentWithCompletionHandler:^{
             dispatch_async(dispatch_get_main_queue(), ^{

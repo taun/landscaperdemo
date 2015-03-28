@@ -772,7 +772,12 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="FractalScape" id="5yD-Jb-xIT">
-                        <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI">
+                        <barButtonItem key="leftBarButtonItem" title="Library" id="s76-oj-pj9">
+                            <connections>
+                                <action selector="popBackToLibrary:" destination="4nM-Pc-iAd" id="jVg-Pz-c6F"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI" userLabel="PlayBack">
                             <connections>
                                 <action selector="playButtonPressed:" destination="4nM-Pc-iAd" id="chz-4Y-vsU"/>
                             </connections>
