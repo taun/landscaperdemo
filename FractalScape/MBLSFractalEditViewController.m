@@ -549,6 +549,7 @@ static const CGFloat kLevelNMargin = 40.0;
             [self regenerateLevels];
             [self updateInterface];
             [self autoScale: nil];
+            [self performSegueWithIdentifier: @"EditSegue" sender: self];
         }
     }
 }
