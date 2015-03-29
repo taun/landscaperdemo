@@ -28,9 +28,12 @@
 {
     MDBCustomTransition* transition;
     
-    if (operation == UINavigationControllerOperationPush) {
+    if (operation == UINavigationControllerOperationPush)
+    {
         transition = [MDBZoomPushBounceTransition new];
-    } else if (operation == UINavigationControllerOperationPop){
+    }
+    else if (operation == UINavigationControllerOperationPop)
+    {
         transition = [MDBZoomPopBounceTransition new];
     }
     return transition;

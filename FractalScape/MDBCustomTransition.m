@@ -72,41 +72,72 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     //Add 'to' view to the hierarchy with 0.0 scale
-    toViewController.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
-    [containerView insertSubview:toViewController.view aboveSubview:fromViewController.view];
+    UIView* toView = toViewController.view;
+    
+    toView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    [containerView insertSubview: toView aboveSubview: fromViewController.view];
     
     //Scale the 'to' view to to its final position
-    toViewController.view.alpha = 0.0;
+    toView.alpha = 0.8;
     
+    CGSize containerSize = containerView.bounds.size;
+    // hardcoding collectionCell bounds for now.
+    CGFloat cellCenterX = 8.0+(146.0/2.0);
+    CGFloat cellCenterY = 40.0 + 8.0 + 6.0 + (138.0/2.0);
+    
+    CGFloat viewCenterX = containerSize.width/2.0;
+    CGFloat viewCenterY = containerSize.height/2.0;
+    
+#pragma message "replace with viewController final rect scale"
+    CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);
+    CGAffineTransform translate = CGAffineTransformMakeTranslation(cellCenterX-viewCenterX, cellCenterY-viewCenterY);
+    toView.transform = CGAffineTransformConcat(scale, translate);
+
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     
-    [UIView animateWithDuration:duration / 2.0 animations:^{
-        toViewController.view.alpha = 1.0;
-    }];
+//    [UIView animateWithDuration: duration
+//                     animations: ^{
+//        toViewController.view.alpha = 1.0;
+//    }];
     
     CGFloat damping = 0.55;
     
-    [UIView animateWithDuration: duration delay:0.0
-         usingSpringWithDamping: damping initialSpringVelocity:1.0 / damping
-                        options:0 animations:^{
-        toViewController.view.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        [transitionContext completeTransition:YES];
-    }];}
+    [UIView animateWithDuration: duration
+                          delay: 0.0
+         usingSpringWithDamping: damping
+          initialSpringVelocity: 0.0
+                        options: UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         toView.alpha = 1.0;
+                         toView.transform = CGAffineTransformIdentity;
+                     } completion:^(BOOL finished) {
+                         [transitionContext completeTransition:YES];
+                     }];}
 
 @end
 
 @implementation MDBZoomPopBounceTransition
 
 #pragma message "TODO: pass the target bounds"
-
+/*
+ Define protocol for viewController with custom transitions
+ Set properties on the viewControllers for 
+    which transition to use
+    target rect if defined
+    snapshot view to use if defined
+ */
 -(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     //Get references to the view hierarchy
     UIView *containerView = [transitionContext containerView];
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    [containerView insertSubview:toViewController.view belowSubview:fromViewController.view];
+    UIView* fromSnapshot = [fromViewController.view snapshotViewAfterScreenUpdates: NO];
+    
+    [fromViewController.view removeFromSuperview];
+    [containerView addSubview: fromSnapshot];
+    
+    [containerView insertSubview: toViewController.view belowSubview: fromSnapshot];
 
     CGSize containerSize = containerView.bounds.size;
     // hardcoding collectionCell bounds for now.
@@ -116,32 +147,36 @@
     CGFloat viewCenterX = containerSize.width/2.0;
     CGFloat viewCenterY = containerSize.height/2.0;
     
-    CGAffineTransform scale = CGAffineTransformMakeScale(0.2, 0.2);
+#pragma message "replace with viewController final rect scale"
+    CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);
     CGAffineTransform translate = CGAffineTransformMakeTranslation(cellCenterX-viewCenterX, cellCenterY-viewCenterY);
 
     NSTimeInterval duration = [self transitionDuration:transitionContext];
 
-    [UIView animateWithDuration:3.0 * duration / 2.0
-                          delay:duration / 4.0
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         fromViewController.view.alpha = 0.0;
+//    [UIView animateWithDuration: duration
+//                          delay: duration
+//                        options: UIViewAnimationOptionCurveEaseIn
+//                     animations: ^{
+//                         fromSnapshot.alpha = 1.0;
+//                     }
+//                     completion:^(BOOL finished) {
+//                         [fromSnapshot removeFromSuperview];
+//                         [transitionContext completeTransition:YES];
+//                     }];
+    
+    [UIView animateWithDuration: duration * 2.0
+                          delay: 0.0
+         usingSpringWithDamping: 1.0
+          initialSpringVelocity: -1.0
+                        options: UIViewAnimationOptionCurveEaseInOut
+                     animations: ^{
+                         fromSnapshot.alpha = 0.5;
+                         fromSnapshot.transform = CGAffineTransformConcat(scale, translate);
                      }
                      completion:^(BOOL finished) {
-//                         [fromViewController.view removeFromSuperview];
+                         [fromSnapshot removeFromSuperview];
                          [transitionContext completeTransition:YES];
                      }];
-    
-    [UIView animateWithDuration:2.0 * duration
-                          delay:0.0
-         usingSpringWithDamping:1.0
-          initialSpringVelocity:-15.0
-                        options:0
-                     animations:^{
-                         
-                         fromViewController.view.transform = CGAffineTransformConcat(scale, translate);
-                     }
-                     completion:nil];
 
 }
 
