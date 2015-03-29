@@ -295,7 +295,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 //    });
 }
 
-- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows {
+- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows
+{
     if (indexPaths && indexPaths.count > 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
@@ -305,7 +306,16 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     }
 }
 
-- (void)documentController:(MDBDocumentController *)documentController didRemoveFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows {
+- (void)documentController:(MDBDocumentController *)documentController didMoveFractalInfoAtIndexPath:(NSIndexPath*)fromIndex toIndexPath: (NSIndexPath*)toIndex
+{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+            [self.collectionView moveItemAtIndexPath: fromIndex toIndexPath: toIndex];
+        });
+}
+
+- (void)documentController:(MDBDocumentController *)documentController didRemoveFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows
+{
     if (indexPaths && indexPaths.count > 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView numberOfItemsInSection: 0]; //force call to numItems

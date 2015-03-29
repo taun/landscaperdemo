@@ -106,7 +106,7 @@
                           delay: 0.0
          usingSpringWithDamping: damping
           initialSpringVelocity: 0.0
-                        options: UIViewAnimationOptionCurveEaseInOut
+                        options: 0
                      animations:^{
                          toView.alpha = 1.0;
                          toView.transform = CGAffineTransformIdentity;
@@ -164,11 +164,11 @@
 //                         [transitionContext completeTransition:YES];
 //                     }];
     
-    [UIView animateWithDuration: duration * 2.0
+    [UIView animateWithDuration: duration * 1.5
                           delay: 0.0
          usingSpringWithDamping: 1.0
           initialSpringVelocity: -1.0
-                        options: UIViewAnimationOptionCurveEaseInOut
+                        options: 0
                      animations: ^{
                          fromSnapshot.alpha = 0.5;
                          fromSnapshot.transform = CGAffineTransformConcat(scale, translate);

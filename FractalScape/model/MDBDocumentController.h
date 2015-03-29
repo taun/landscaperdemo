@@ -39,6 +39,8 @@
  */
 - (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfosAtIndexPaths:(NSArray*)index totalRows: (NSInteger)rows;
 
+- (void)documentController:(MDBDocumentController *)documentController didMoveFractalInfoAtIndexPath:(NSIndexPath*)fromIndex toIndexPath: (NSIndexPath*)toIndex;
+
 /*!
  * Notifies the receiver of this method that the document controller received a message that \c fractalInfo
  * has updated its content. Receivers of this method should update their UI accordingly.
