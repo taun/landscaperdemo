@@ -163,8 +163,8 @@
 //                         [fromSnapshot removeFromSuperview];
 //                         [transitionContext completeTransition:YES];
 //                     }];
-    
-    [UIView animateWithDuration: duration * 1.5
+#pragma message "TODO make duration a function of the animation distance"
+    [UIView animateWithDuration: duration * 1.0
                           delay: 0.0
          usingSpringWithDamping: 1.0
           initialSpringVelocity: -1.0

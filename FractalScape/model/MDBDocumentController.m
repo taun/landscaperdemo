@@ -190,12 +190,15 @@
 #endif
         id<MDBFractalDocumentControllerDelegate> strongDelegate = self.delegate;
         NSInteger indexOfFractalInfo = [self.fractalInfos indexOfObject: fractalInfo];
+        
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow: indexOfFractalInfo inSection: 0];
         NSIndexPath* destination = [NSIndexPath indexPathForRow: 0 inSection: 0];
         
         if (indexOfFractalInfo != NSNotFound && indexOfFractalInfo != 0)
         {
-            self.fractalInfos[indexOfFractalInfo] = fractalInfo;
+//            self.fractalInfos[indexOfFractalInfo] = fractalInfo;
+            [self.fractalInfos removeObject: fractalInfo];
+            [self.fractalInfos insertObject: fractalInfo atIndex: 0];
             
             [strongDelegate documentControllerWillChangeContent:self];
             [strongDelegate documentController:self didMoveFractalInfoAtIndexPath: indexPath toIndexPath: destination];
