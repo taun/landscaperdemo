@@ -69,6 +69,10 @@
     return ddesc;
 }
 
+-(void)dealloc
+{
+    _documentCoordinator.delegate = nil;
+}
 
 #pragma mark - Property Overrides
 

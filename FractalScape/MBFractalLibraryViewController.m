@@ -51,7 +51,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 #pragma mark - State handling
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+//    [super viewDidLoad];
     
     UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
     self.collectionView.backgroundView = blurEffectView;
@@ -67,6 +67,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     //self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -99,17 +100,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear: animated];
+    
+    
 //    [self.documentController.documentCoordinator stopQuery];
 //    [_privateQueue cancelAllOperations];
-}
-
-- (void)viewDidUnload
-{
-    //    [self setMainFractalView:nil];
-    //    [self setFractalCollectionView:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -131,6 +125,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
+    _documentController.delegate = nil;
 }
 
 #pragma mark - custom getters -

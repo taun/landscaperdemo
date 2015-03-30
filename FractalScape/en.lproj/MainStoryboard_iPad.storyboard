@@ -1797,7 +1797,7 @@
         <scene sceneID="zSv-JI-BWw">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalEditLibrary" title="Edit Library" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7x8-no-bZT">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="7x8-no-bZT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1917,7 +1917,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Y0u-pB-asM">
-                        <barButtonItem key="leftBarButtonItem" title="Done" id="j2G-fW-bTQ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="j2G-fW-bTQ">
                             <connections>
                                 <action selector="editingIsDoneButton:" destination="9pe-kV-foC" id="2Qh-EF-bzJ"/>
                             </connections>
@@ -1941,7 +1941,7 @@
         <scene sceneID="iKT-0y-poi">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalLibrary" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2057,7 +2057,7 @@
                                 <action selector="pickDocument:" destination="o9m-5w-n8i" id="22U-xX-Lo5"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="g3K-TG-rl5">
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="g3K-TG-rl5">
                             <connections>
                                 <action selector="pushToLibraryEditViewController:" destination="o9m-5w-n8i" id="hg8-j4-Om6"/>
                             </connections>

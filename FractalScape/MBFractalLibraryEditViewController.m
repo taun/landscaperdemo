@@ -21,6 +21,14 @@
 
 @implementation MBFractalLibraryEditViewController
 
+- (void)viewDidLoad
+{
+    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
+    self.collectionView.backgroundView = blurEffectView;
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+}
+
 
 - (IBAction)deleteCurrentSelections:(id)sender
 {
