@@ -98,6 +98,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                           @"randomness",
                           @"backgroundColor",
                           @"autoExpand",
+                          @"advancedMode",
                           nil];
     });
     return keysToBeCopied;
@@ -148,6 +149,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                                 @"turningAngleIncrement",
                                 @"baseAngle",
                                 @"randomness",
+                                @"advancedMode",
                                 nil];
     });
     return appearanceProperties;

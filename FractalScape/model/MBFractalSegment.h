@@ -20,6 +20,7 @@ struct MBSegmentStruct {
     CGPoint             points[kLSMaxSegmentPointsSize]; // connected path points
     NSInteger           pointIndex; // index points to current valid point. init to -1
     CGPathDrawingMode   mode;
+    BOOL                advancedMode;
     CGAffineTransform   transform; // Local transform so points can be used. Transform point before adding to points.
     CGFloat             scale;
     BOOL                noDrawPath;

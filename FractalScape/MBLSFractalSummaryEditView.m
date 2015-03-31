@@ -16,6 +16,7 @@
 @property (nonatomic,weak) UIView   *contentView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerViewWidthConstraint;
 @property (nonatomic,assign) CGFloat                    oldCategoryWidth;
+@property (nonatomic,strong) NSArray                    *pickerLabels;
 @end
 
 @implementation MBLSFractalSummaryEditViewer
@@ -48,12 +49,15 @@
     [self addSubview: strongContentView];
     strongContentView.frame = self.bounds;
     _contentView = strongContentView;
-    
+  
+    _pickerLabels = @[@"Easy Rules", @"Advanced"];
+    UIPickerView* strongCategory = _category;
+    [strongCategory selectRow: 0 inComponent: 0 animated: NO];
+
 #if TARGET_INTERFACE_BUILDER
     _name.text = @"Just testing";
 #endif
-    UIPickerView* strongCategory = _category;
-    [strongCategory selectRow: 2 inComponent: 0 animated: NO];
+    
     
     UITextView* strongDescriptor = _descriptor;
     MDKLayerViewDesignable* layerView = (MDKLayerViewDesignable*)strongDescriptor.superview;
@@ -117,10 +121,7 @@
     
     [strongPicker reloadAllComponents];
     
-    NSInteger categoryIndex = [fractalDocument.categories indexOfObject: fractalDocument.fractal.category];
-    if (categoryIndex != NSNotFound) {
-        [strongPicker selectRow: categoryIndex inComponent: 0 animated: NO];
-    }
+    [strongPicker selectRow: fractalDocument.fractal.advancedMode inComponent: 0 animated: NO];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -193,12 +194,7 @@
 }
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-#if TARGET_INTERFACE_BUILDER
-    return 4;
-#else
-    MDBFractalDocument* strongDocument = self.fractalDocument;
-    return strongDocument.categories.count;
-#endif
+    return _pickerLabels.count;
 }
 
 #pragma mark - UIPickerDelegate
@@ -214,14 +210,7 @@
 }
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    NSArray* categories;
-    
-#if TARGET_INTERFACE_BUILDER
-    categories = @[@"one",@"two",@"three",@"four"];
-#else
-    categories = self.fractalDocument.categories;
-#endif
-    return [categories[row] name];
+    return _pickerLabels[row];
 }
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
@@ -234,13 +223,11 @@
         tView.numberOfLines=1;
     }
     // Fill the label text here
-    MDBFractalDocument* strongDocument = self.fractalDocument;
-    tView.text = [strongDocument.categories[row] name];
+    tView.text = _pickerLabels[row];
     return tView;
 }
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    MDBFractalCategory* category = self.fractalDocument.categories[row];
-    self.fractalDocument.fractal.category = category;
+    self.fractalDocument.fractal.advancedMode = row;
     [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
     [self becomeFirstResponder];
 }

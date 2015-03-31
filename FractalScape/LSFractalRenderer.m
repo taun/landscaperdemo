@@ -178,6 +178,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     [self releaseSegmentCGReferences];
     
+    _baseSegment.advancedMode = aFractal.advancedMode;
+    
     _baseSegment.lineLength = aFractal.lineLength;
     _baseSegment.lineLengthScaleFactor = aFractal.lineLengthScaleFactor;
     
@@ -923,6 +925,9 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     _segmentStack[_segmentIndex].inCurve = NO; // reset to no curve. can always re-add curve rule but can't remove curve rule.
 }
 -(void) popCurrentPath {
+    if (!_segmentStack[_segmentIndex].advancedMode) {
+        [self drawPath];
+    }
     if (_segmentStack[_segmentIndex].path != NULL) {
         CGPathRelease(_segmentStack[_segmentIndex].path);
         _segmentStack[_segmentIndex].path = NULL;
