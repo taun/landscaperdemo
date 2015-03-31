@@ -60,7 +60,6 @@
     }];
 }
 
-
 @end
 
 @implementation MDBZoomPushBounceTransition
@@ -78,7 +77,7 @@
     [containerView insertSubview: toView aboveSubview: fromViewController.view];
     
     //Scale the 'to' view to to its final position
-    toView.alpha = 0.8;
+    toView.alpha = 0.5;
     
     CGSize containerSize = containerView.bounds.size;
     // hardcoding collectionCell bounds for now.
@@ -100,13 +99,13 @@
 //        toViewController.view.alpha = 1.0;
 //    }];
     
-    CGFloat damping = 0.55;
+    CGFloat damping = 0.75;
     
-    [UIView animateWithDuration: duration
-                          delay: 0.0
+    [UIView animateWithDuration: duration * 2.0
+                          delay: 0.2
          usingSpringWithDamping: damping
           initialSpringVelocity: 0.0
-                        options: 0
+                        options: UIViewAnimationOptionLayoutSubviews
                      animations:^{
                          toView.alpha = 1.0;
                          toView.transform = CGAffineTransformIdentity;

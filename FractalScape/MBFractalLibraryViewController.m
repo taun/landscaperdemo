@@ -175,6 +175,11 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 - (IBAction)pushToLibraryEditViewController:(id)sender
 {
+    if (self.presentedViewController)
+    {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    }
+    
     UIStoryboard* storyBoard = self.storyboard;
     MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"FractalEditLibrary"];
     libraryEditViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!

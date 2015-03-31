@@ -92,8 +92,6 @@
 //    
 //    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_category(100)]-8-|" options:0 metrics: 0 views:viewsDictionary]];
 //    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_name]-[descriptorBox]-8-|" options:0 metrics: 0 views:viewsDictionary]];
-    self.pickerViewWidthConstraint.constant = 0;
-    strongCategory.hidden = YES;
     
     [self setNeedsLayout];
 }
@@ -117,7 +115,6 @@
     strongName.text = _fractalDocument.fractal.name;
     strongDescriptor.text = fractalDocument.fractal.descriptor;
     
-    self.pickerViewWidthConstraint.constant = 0;
     [strongPicker reloadAllComponents];
     
     NSInteger categoryIndex = [fractalDocument.categories indexOfObject: fractalDocument.fractal.category];

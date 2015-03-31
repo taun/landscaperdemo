@@ -198,15 +198,18 @@ static const CGFloat kLevelNMargin = 40.0;
         items = [NSMutableArray new];
     }
 //    [items addObject: backButton];
+    UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace target:nil action:NULL];
+    space.width = 44;
+    [items addObject: space];
     [items addObject: copyButton];
-    [items addObject: shareButton];
     [self.navigationItem setLeftBarButtonItems: items];
     
     
-//    items = [self.navigationItem.rightBarButtonItems mutableCopy];
-//    [items addObject: self.autoExpandOn];
-//    [items addObject: self.playButton];
-//    [self.navigationItem setRightBarButtonItems: items];
+    
+    items = [self.navigationItem.rightBarButtonItems mutableCopy];
+    [items addObject: space];
+    [items addObject: shareButton];
+    [self.navigationItem setRightBarButtonItems: items];
 }
 
 -(void)setupHUDSlider: (UISlider*)slider forProperty:(NSString*)propertyKey rotatedDegrees:(CGFloat)rotation
@@ -237,6 +240,11 @@ static const CGFloat kLevelNMargin = 40.0;
     
     [self configureNavBarButtons];
 
+    // hide navBar on load because the Appearance Popover is auto popped on load
+    // and if this is done during the appearance code, the view moves up as the navBar is hidden
+    self.previousNavBarState = NO;
+    self.navigationController.navigationBar.hidden = YES;
+
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
     self.showPerformanceData = showPerformanceDataSetting;
@@ -263,8 +271,6 @@ static const CGFloat kLevelNMargin = 40.0;
     
     // Setup the scrollView to allow the fractal image to float.
     // This is to allow the user to move the fractal out from under the HUD display.
-    UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
-    self.fractalScrollView.contentInset = scrollInsets;
     UIView* fractalCanvas = self.fractalView.superview;
     fractalCanvas.layer.shadowColor = [[UIColor blackColor] CGColor];
     fractalCanvas.layer.shadowOffset = CGSizeMake(5.0, 5.0);
@@ -341,11 +347,21 @@ static const CGFloat kLevelNMargin = 40.0;
 /* on staartup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated
 {
-    if (_fractalInfo.document.fractal) {
+    if (_fractalInfo.document.fractal)
+    {
         [super viewDidAppear:animated];
         [self regenerateLevels];
         [self updateInterface];
         [self autoScale: nil];
+    }
+    
+    UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
+
+    if (!UIEdgeInsetsEqualToEdgeInsets(self.fractalScrollView.contentInset , scrollInsets))
+    {
+//        self.fractalScrollView.bounds = CGRectInset(self.fractalScrollView.bounds, -300.0, -300.0);
+        self.fractalScrollView.contentInset = scrollInsets;
+        self.fractalScrollView.contentOffset = CGPointZero;
     }
 }
 
@@ -1228,12 +1244,6 @@ static const CGFloat kLevelNMargin = 40.0;
         newController = (UIViewController<FractalControllerProtocol>*)segue.destinationViewController;
         [self appearanceControllerIsPresenting: newController];
     }
-    else if ([segue.identifier isEqualToString: @"LibrarySegue"])
-    {
-        UINavigationController* navCon = segue.destinationViewController;
-        newController = (UIViewController<FractalControllerProtocol>*)navCon.topViewController;
-        [self libraryControllerIsPresenting: newController];
-    }
 }
 - (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue
 {
@@ -1288,45 +1298,6 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         [self appearanceControllerWasDismissed];
     }
-    else if ([popoverPresentationController.presentedViewController isKindOfClass: [MBFractalLibraryViewController class]])
-    {
-        [self libraryControllerWasDismissed];
-    }
-}
--(void) libraryControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
-{
-    controller.fractalControllerDelegate = self;
-    controller.fractalDocument = self.fractalDocument;
-    controller.fractalUndoManager = self.undoManager;
-    controller.landscapeSize = self.popoverLandscapeSize;
-    controller.portraitSize = self.popoverPortraitSize;
-    CGSize viewSize = self.view.bounds.size;
-    controller.preferredContentSize = viewSize.height > viewSize.width ? self.popoverPortraitSize : self.popoverLandscapeSize;
-    controller.popoverPresentationController.delegate = self;
-    
-    self.currentPresentedController = controller;
-    self.previousNavBarState = self.navigationController.navigationBar.hidden;
-    self.navigationController.navigationBar.hidden = YES;
-}
--(BOOL) wasLibraryPopoverPresentedAndNowDismissed
-{
-    BOOL wasPresented = NO;
-    
-    if ([self.currentPresentedController isKindOfClass: [MBFractalLibraryViewController class]]) {
-        wasPresented = YES;
-        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
-            //
-            [self libraryControllerWasDismissed];
-        }];
-    }
-    
-    return wasPresented;
-}
--(void) libraryControllerWasDismissed
-{
-    self.navigationController.navigationBar.hidden = self.previousNavBarState;
-    [self.view setNeedsLayout];
-    self.currentPresentedController = nil;
 }
 -(void) appearanceControllerIsPresenting: (UIViewController<FractalControllerProtocol>*) controller
 {
@@ -1343,8 +1314,13 @@ static const CGFloat kLevelNMargin = 40.0;
     controller.popoverPresentationController.passthroughViews = @[self.fractalViewRoot];
     
     self.currentPresentedController = controller;
-    self.previousNavBarState = self.navigationController.navigationBar.hidden;
-    self.navigationController.navigationBar.hidden = YES;
+    
+    if (!self.navigationController.navigationBar.hidden) {
+        self.previousNavBarState = self.navigationController.navigationBar.hidden;
+        self.navigationController.navigationBar.hidden = YES;
+    }
+    
+    //    self.fractalScrollView.contentOffset = CGPointZero;
     self.fractalViewRootSingleTapRecognizer.enabled = NO;
     [self.view setNeedsLayout];
 }
@@ -1364,9 +1340,10 @@ static const CGFloat kLevelNMargin = 40.0;
  */
 - (IBAction)shareButtonPressed:(id)sender
 {
-    if ([self wasLibraryPopoverPresentedAndNowDismissed]) {
-        return;
+    if (self.presentedViewController) {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
     }
+    
     //    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
                                                                    message: @"How would you like to share the image?"
@@ -1574,8 +1551,8 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 - (IBAction)playButtonPressed: (id)sender
 {
-    if ([self wasLibraryPopoverPresentedAndNowDismissed]) {
-        return;
+    if (self.presentedViewController) {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
     }
     
     if (!self.fractalDocument.fractal) {
@@ -1705,21 +1682,16 @@ static const CGFloat kLevelNMargin = 40.0;
 
 - (IBAction)toggleNavBar:(id)sender
 {
+    BOOL hidden = !self.navigationController.navigationBar.isHidden;
+    [self setNavBarHidden: hidden];
+}
 
-    [UIView animateWithDuration: 0.25
-                          delay: 0.0
-                        options: UIViewAnimationOptionLayoutSubviews
-                     animations:^{
-                         //
-                         [self.navigationController setNavigationBarHidden: !self.navigationController.navigationBar.isHidden animated: NO];
-//                         self.navigationController.navigationBar.hidden = !self.navigationController.navigationBar.isHidden;
-                         self.previousNavBarState = self.navigationController.navigationBar.hidden;
-                         self.fractalScrollView.contentOffset = CGPointZero;
-//                         [self.view setNeedsLayout];
-
-                     } completion:^(BOOL finished) {
-                         //
-                     }];
+-(void) setNavBarHidden: (BOOL)hidden
+{
+    self.navigationController.navigationBar.hidden = hidden;
+    self.previousNavBarState = self.navigationController.navigationBar.hidden;
+    
+    [self.view setNeedsLayout];
 }
 
 - (IBAction)copyFractal:(id)sender

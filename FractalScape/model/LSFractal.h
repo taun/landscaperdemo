@@ -56,12 +56,18 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 /*!
  Fractal name.
  */
-@property (nonatomic, copy) NSString                  *name;
+@property (nonatomic, copy) NSString                    *name;
 /*!
  Description
  */
-@property (nonatomic, copy) NSString                  *descriptor;
+@property (nonatomic, copy) NSString                    *descriptor;
 
+/*!
+ Basic mode adds the draw command automatically.
+ 
+ Advanced mode requires manual addition of the draw mode. Advanced mode gives more control.
+ */
+@property (nonatomic, assign) BOOL                      advancedMode;
 /*!
  Array if starting LSDrawingRule rules
  */

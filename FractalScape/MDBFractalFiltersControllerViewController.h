@@ -10,7 +10,7 @@
 @import UIKit;
 
 
-#import "FractalControllerProtocol.h"
+#import "MDBLSObjectTilesViewBaseController.h"
 
 #pragma message "TODO create an ObjectTile class for holding the filter information"
 /*!
@@ -26,14 +26,8 @@
     add ObjectList property to LSFractal for storing the filter
  */
 
-@interface MDBFractalFiltersControllerViewController : UIViewController <FractalControllerProtocol, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface MDBFractalFiltersControllerViewController : MDBLSObjectTilesViewBaseController
 
-@property (nonatomic,strong) MDBFractalDocument             *fractalDocument;
-@property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
-@property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;
-@property(nonatomic,assign) CGSize                          portraitSize;
-@property(nonatomic,assign) CGSize                          landscapeSize;
 
-@property (weak, nonatomic) IBOutlet UIPickerView *filterPicker;
 
 @end
