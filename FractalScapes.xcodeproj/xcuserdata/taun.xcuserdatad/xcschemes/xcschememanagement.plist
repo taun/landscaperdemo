@@ -30,6 +30,11 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>FractalScapes Debug Beta.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
 		<key>FractalScapes Store Beta.xcscheme</key>

@@ -505,7 +505,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         }
     }
     
-    if (percent < 100.0) {
+    if (percent < 100.0 || !_baseSegment.advancedMode) {
         [self drawPathClosed: NO];
     }
     
@@ -924,10 +924,8 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     _segmentStack[_segmentIndex].path = CGPathCreateMutable();
     _segmentStack[_segmentIndex].inCurve = NO; // reset to no curve. can always re-add curve rule but can't remove curve rule.
 }
--(void) popCurrentPath {
-    if (!_segmentStack[_segmentIndex].advancedMode) {
-        [self drawPath];
-    }
+-(void) popCurrentPath
+{
     if (_segmentStack[_segmentIndex].path != NULL) {
         CGPathRelease(_segmentStack[_segmentIndex].path);
         _segmentStack[_segmentIndex].path = NULL;
@@ -1041,6 +1039,8 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
  */
 -(void) commandIncrementLineWidth
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
         _segmentStack[_segmentIndex].lineWidth += _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }
@@ -1048,7 +1048,10 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 
 -(void) commandDecrementLineWidth
 {
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
+    if (_segmentStack[_segmentIndex].lineChangeFactor > 0)
+    {
         _segmentStack[_segmentIndex].lineWidth -= _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }
 }
@@ -1085,14 +1088,17 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 }
 -(void) commandRandomizeOff
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].randomize = NO;
 }
 -(void) commandRandomizeOn
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].randomize = YES;
 }
 -(void) commandStartCurve
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].inCurve = YES;
 }
 -(void) commandEndCurve
@@ -1124,40 +1130,49 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 
 -(void) commandPop
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     [self popCurrentPath];
 }
 
 -(void) commandStrokeOff
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].stroke = NO;
 }
 
 -(void) commandStrokeOn
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].stroke = YES;
 }
 -(void) commandFillOff
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].fill = NO;
 }
 -(void) commandFillOn
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].fill = YES;
 }
 -(void) commandNextColor
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].lineColorIndex = ++_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandPreviousColor
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].lineColorIndex = --_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandNextFillColor
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].fillColorIndex = ++_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandPreviousFillColor
 {
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandLineCapButt

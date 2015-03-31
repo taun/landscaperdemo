@@ -124,11 +124,11 @@
                                                             <action selector="toggleAutoExpandFractal:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="oeC-Oh-jeM"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ" userLabel="editRules">
-                                                        <rect key="frame" x="8" y="128" width="44" height="68"/>
+                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="right" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ" userLabel="editRules">
+                                                        <rect key="frame" x="-16" y="128" width="60" height="68"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="44" id="YFf-52-wrK"/>
+                                                            <constraint firstAttribute="width" constant="60" id="YFf-52-wrK"/>
                                                             <constraint firstAttribute="height" constant="68" id="s1d-sA-4aU"/>
                                                         </constraints>
                                                         <state key="normal" image="tabBarRulesIconLeft">
@@ -148,7 +148,7 @@
                                                     <constraint firstItem="YRx-ub-5v2" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" constant="8" id="KEz-7F-Ahj"/>
                                                     <constraint firstItem="gB3-UB-mha" firstAttribute="top" secondItem="YRx-ub-5v2" secondAttribute="bottom" id="RR6-3u-l0z"/>
                                                     <constraint firstAttribute="centerX" secondItem="gB3-UB-mha" secondAttribute="centerX" id="VUx-WO-Mh9"/>
-                                                    <constraint firstAttribute="centerX" secondItem="X2L-iC-acQ" secondAttribute="centerX" id="hVM-v1-JMv"/>
+                                                    <constraint firstItem="X2L-iC-acQ" firstAttribute="trailing" secondItem="gB3-UB-mha" secondAttribute="trailing" constant="-8" id="qjj-cH-YUt"/>
                                                     <constraint firstAttribute="width" constant="60" id="uZW-zz-flP"/>
                                                     <constraint firstAttribute="bottom" secondItem="X2L-iC-acQ" secondAttribute="bottom" id="vrg-T8-PSq"/>
                                                     <constraint firstAttribute="centerX" secondItem="YRx-ub-5v2" secondAttribute="centerX" id="ycu-T3-LOb"/>
@@ -425,7 +425,7 @@
                                                                 </variation>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="180.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8O-zg-dbz" userLabel="turnAngle">
-                                                                <rect key="frame" x="240" y="128" width="50" height="19.5"/>
+                                                                <rect key="frame" x="240" y="128.5" width="50" height="19.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="50" id="JMC-cy-AXu"/>
                                                                 </constraints>
@@ -575,7 +575,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sr-Jo-4CI">
-                                                                <rect key="frame" x="37" y="10" width="35" height="19.5"/>
+                                                                <rect key="frame" x="37" y="10" width="34.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.4784313738" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -686,7 +686,7 @@
                                                 </connections>
                                             </slider>
                                             <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4tK-dc-Bzb">
-                                                <rect key="frame" x="281" y="331.5" width="37" height="37"/>
+                                                <rect key="frame" x="281" y="331" width="37" height="37"/>
                                                 <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </activityIndicatorView>
                                         </subviews>
@@ -783,6 +783,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="700"/>
                     <connections>

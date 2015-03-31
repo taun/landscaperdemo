@@ -1698,6 +1698,8 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     LSFractal* newFractal = [self.fractalDocument.fractal copy];
     
+    self.fractalInfo = nil;
+    
     MDBFractalInfo* fractalInfo = [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
     
     self.fractalInfo = fractalInfo;
