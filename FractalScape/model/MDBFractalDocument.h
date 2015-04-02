@@ -8,10 +8,23 @@
 
 @import Foundation;
 @import UIKit;
+@import CloudKit;
 
 @class LSFractal;
 @class LSDrawingRuleType;
 @class MDBFractalDocument;
+
+extern NSString* const kMDBVersionFileName;
+extern NSString* const kMDBThumbnailFileName;
+extern NSString* const kMDBFractalFileName;
+
+extern NSString * const CKFractalRecordType;
+extern NSString * const CKFractalRecordNameField;
+extern NSString * const CKFractalRecordDescriptorField;
+extern NSString * const CKFractalRecordFractalDefinitionAssetField;
+extern NSString * const CKFractalRecordFractalThumbnailAssetField;
+
+extern NSString * const CKFractalRecordSubscriptionIDkey;
 
 typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 {
@@ -31,10 +44,17 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 
 @end
 
+@protocol MDBFractaDocumentProtocol <NSObject>
+
+@property(nonatomic,strong) LSFractal                       *fractal;
+@property(nonatomic,strong) UIImage                         *thumbnail;
+
+@end
+
 /*!
  A document for storing fractals.
  */
-@interface MDBFractalDocument : UIDocument
+@interface MDBFractalDocument : UIDocument <MDBFractaDocumentProtocol>
 
 +(NSInteger)    version;
 /*!
@@ -48,5 +68,7 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
 
 @property (weak) id<MDBFractalDocumentDelegate>             delegate;
+
+-(CKRecord*) asCloudKitRecord;
 
 @end

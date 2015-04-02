@@ -45,7 +45,7 @@
     [self.cloudManager requestDiscoverabilityPermission:^(BOOL discoverable) {
         
         if (discoverable) {
-            [self.cloudManager fetchPublicPlantRecordsWithCompletionHandler:^(NSArray *records) {
+            [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records) {
                 [self publicPlantsInfo: records];
             }];
         } else {

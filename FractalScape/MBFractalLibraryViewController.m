@@ -51,7 +51,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 #pragma mark - State handling
 - (void)viewDidLoad
 {
-//    [super viewDidLoad];
+    [super viewDidLoad];
     
     UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
     self.collectionView.backgroundView = blurEffectView;
@@ -89,7 +89,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 //    [self.documentController resortFractalInfos];
 //    [self.documentController.documentCoordinator startQuery];
-//    [self.collectionView reloadData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -311,6 +310,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
             [self.collectionView moveItemAtIndexPath: fromIndex toIndexPath: toIndex];
+            [self.collectionView scrollToItemAtIndexPath: toIndex atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
         });
 }
 

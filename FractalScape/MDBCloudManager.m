@@ -47,13 +47,12 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
     
     [defaults registerDefaults:@{
                                  kMDBICloudManagerFirstLaunchUserDefaultsKey: @YES,
-#if TARGET_PLATFORM_IPHONE
                                  kMDBICloudManagerStorageOptionUserDefaultsKey: @(MDBAPPStorageNotSet)
-#endif
                                  }];
     
-    if ([defaults boolForKey:kMDBICloudManagerFirstLaunchUserDefaultsKey]) {
-        [defaults setBool:NO forKey: kMDBICloudManagerFirstLaunchUserDefaultsKey];
+    if ([defaults boolForKey: kMDBICloudManagerFirstLaunchUserDefaultsKey])
+    {
+        [defaults setBool: NO forKey: kMDBICloudManagerFirstLaunchUserDefaultsKey];
         
         firstLaunchHandler();
     }

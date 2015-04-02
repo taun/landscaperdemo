@@ -17,6 +17,7 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalDocumentLocalCoordinator.h"
 #import "MDBFractalDocumentCloudCoordinator.h"
+#import "MDBFractalCloudBrowser.h"
 
 
 #import "UIDevice_Hardware.h"
@@ -35,6 +36,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 @property (nonatomic, strong) MDBDocumentController             *documentController;
 @property (nonatomic, readonly) UINavigationController          *primaryViewController;
 @property (nonatomic, readonly) MBFractalLibraryViewController  *documentsViewController;
+@property (nonatomic, readonly) MDBFractalCloudBrowser          *cloudBrowserViewController;
 @property (nonatomic, strong) UIImage                           *backgroundImage;
 @end
 
@@ -189,10 +191,17 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
     return documentsViewController;
 }
 
+- (MDBFractalCloudBrowser *)cloudBrowserViewController {
+    UITabBarController* tabBar = [[self.window.rootViewController childViewControllers]firstObject];
+    MDBFractalCloudBrowser *cloudBrowser = [tabBar.viewControllers lastObject];
+    return cloudBrowser;
+}
+
 
 #pragma mark - Notifications
 
-- (void)handleUbiquityIdentityDidChangeNotification:(NSNotification *)notification {
+- (void)handleUbiquityIdentityDidChangeNotification:(NSNotification *)notification
+{
     [self.primaryViewController popToRootViewControllerAnimated:YES];
     
     [self setupUserStoragePreferences];
@@ -245,7 +254,7 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
     
     [signedOutController addAction:[UIAlertAction actionWithTitle:okActionTitle style:UIAlertActionStyleCancel handler:nil]];
     
-    [self.documentsViewController presentViewController:signedOutController animated:YES completion:nil];
+    [self.documentsViewController presentViewController: signedOutController animated:YES completion:nil];
 }
 
 - (void)promptUserForStorageOption
@@ -262,6 +271,7 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
         
         [self configureDocumentController:YES];
     }];
+    
     [storageController addAction:localOption];
     
     UIAlertAction *cloudOption = [UIAlertAction actionWithTitle:cloudActionTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -271,6 +281,7 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
         
         [self configureDocumentController:YES];
     }];
+    
     [storageController addAction:cloudOption];
     
     [self.documentsViewController presentViewController:storageController animated:YES completion:nil];
@@ -281,25 +292,37 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
 - (void)configureDocumentController:(BOOL)accountChanged {
     id<MDBFractalDocumentCoordinator> documentCoordinator;
     
-    if ([MDBCloudManager sharedManager].storageOption != MDBAPPStorageCloud) {
+    if ([MDBCloudManager sharedManager].storageOption != MDBAPPStorageCloud)
+    {
         // This will be called if the storage option is either MDBAPPStorageLocal or MDBAPPStorageNotSet.
         documentCoordinator = [[MDBFractalDocumentLocalCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
-        self.documentsViewController.navigationItem.title = @"Local Library";
     }
-    else {
+    else
+    {
         documentCoordinator = [[MDBFractalDocumentCloudCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
-        self.documentsViewController.navigationItem.title = @"Cloud Library";
     }
     
-    if (!self.documentController) {
+    if (!self.documentController)
+    {
         self.documentController = [[MDBDocumentController alloc] initWithDocumentCoordinator: documentCoordinator sortComparator:^NSComparisonResult(MDBFractalInfo *lhs, MDBFractalInfo *rhs) {
             return [rhs.changeDate compare: lhs.changeDate];
         }];
         
         self.documentsViewController.documentController = self.documentController;
+        self.cloudBrowserViewController.documentController = self.documentController;
     }
-    else if (accountChanged) {
+    else if (accountChanged)
+    {
         self.documentController.documentCoordinator = documentCoordinator;
+    }
+    
+    if ([self.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]])
+    {
+        self.documentsViewController.navigationItem.title = @"Local Library";
+    }
+    else
+    {
+        self.documentsViewController.navigationItem.title = @"Cloud Library";
     }
 }
 

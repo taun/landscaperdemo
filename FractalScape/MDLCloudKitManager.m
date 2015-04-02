@@ -5,15 +5,7 @@
 @import CloudKit;
 
 #import "MDLCloudKitManager.h"
-
-NSString * const FractalNameField = @"FractalName";
-NSString * const FractalDescriptorField = @"FractalDescriptor";
-NSString * const FractalDocumentField = @"FractalDocument";
-NSString * const FractalThumbnailAssetField = @"FractalThumbnail";
-
-static NSString * const ItemRecordType = @"Fractal";
-static NSString * const ThumbnailAssetRecordType = @"Thumbnails";
-static NSString * const subscriptionIDkey = @"subscriptionID";
+#import "MDBFractalDocument.h"
 
 @interface MDLCloudKitManager ()
 
@@ -27,7 +19,7 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
 - (id)init {
     self = [super init];
     if (self) {
-        _container = [CKContainer defaultContainer];
+        _container = [CKContainer containerWithIdentifier: @"iCloud.com.moedae.FractalScapes"];
         _publicDatabase = [_container publicCloudDatabase];
     }
     
@@ -35,8 +27,8 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
 }
 
 #pragma mark - Daisy Cloud
--(void)fetchPublicPlantRecordsWithCompletionHandler:(void (^)(NSArray *))completionHandler {
-    [self fetchRecordsWithType: ItemRecordType completionHandler: completionHandler];
+-(void)fetchPublicFractalRecordsWithCompletionHandler:(void (^)(NSArray *))completionHandler {
+    [self fetchPublicRecordsWithType: CKFractalRecordType completionHandler: completionHandler];
 }
 
 #pragma mark - sample cloud
@@ -82,45 +74,6 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
     }];
 }
 
-- (void)uploadAssetWithURL:(NSURL *)assetURL completionHandler:(void (^)(CKRecord *record))completionHandler
-{
-    
-    CKRecord *assetRecord = [[CKRecord alloc] initWithRecordType: ThumbnailAssetRecordType];
-    CKAsset *photo = [[CKAsset alloc] initWithFileURL:assetURL];
-    assetRecord[FractalThumbnailAssetField] = photo;
-    
-    [self.publicDatabase saveRecord:assetRecord completionHandler:^(CKRecord *record, NSError *error) {
-        if (error) {
-            // In your app, masterfully handle this error.
-            NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-            abort();
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(record);
-            });
-        }
-    }];
-}
-
-- (void)addRecordWithName:(NSString *)name location:(CLLocation *)location completionHandler:(void (^)(CKRecord *record))completionHandler {
-    
-    CKRecord *record = [[CKRecord alloc] initWithRecordType:ItemRecordType];
-//    record[NameField] = name;
-//    record[LocationField] = location;
-//    
-//    [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
-//        if (error) {
-//            // In your app, handle this error like a pro.
-//            NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-//            abort();
-//        } else {
-//            dispatch_async(dispatch_get_main_queue(), ^(void){
-//                completionHandler(record);
-//            });
-//        }
-//    }];
-}
-
 - (void)fetchRecordWithID:(NSString *)recordID completionHandler:(void (^)(CKRecord *record))completionHandler {
     
     CKRecordID *current = [[CKRecordID alloc] initWithRecordName:recordID];
@@ -143,7 +96,7 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
     CGFloat radiusInKilometers = 5;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"distanceToLocation:fromLocation:(location, %@) < %f", location, radiusInKilometers];
     
-    CKQuery *query = [[CKQuery alloc] initWithRecordType:ItemRecordType predicate:predicate];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType: CKFractalRecordType predicate:predicate];
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc] initWithQuery:query];
     
@@ -168,19 +121,29 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
     [self.publicDatabase addOperation:queryOperation];
 }
 
-- (void)saveRecord:(CKRecord *)record {
+- (void)savePublicRecord:(CKRecord *)record withCompletionHandler:(void (^)(NSError* error))completionHandler
+{
     [self.publicDatabase saveRecord: record completionHandler:^(CKRecord *cRecord, NSError *error) {
-        if (error) {
+        if (error)
+        {
             // In your app, handle this error awesomely.
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-            abort();
-        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                completionHandler(error);
+            });
+        } else
+        {
             NSLog(@"Successfully saved record");
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                completionHandler(error);
+            });
         }
     }];
 }
 
-- (void)deleteRecord:(CKRecord *)record {
+- (void)deletePublicRecord:(CKRecord *)record {
     [self.publicDatabase deleteRecordWithID: record.recordID completionHandler:^(CKRecordID *recordID, NSError *error) {
         if (error) {
             // In your app, handle this error. Please.
@@ -192,14 +155,14 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
     }];
 }
 
-- (void)fetchRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler {
+- (void)fetchPublicRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler {
     
     NSPredicate *truePredicate = [NSPredicate predicateWithValue:YES];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:recordType predicate:truePredicate];
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc] initWithQuery:query];
     // Just request the name field for all records
-    queryOperation.desiredKeys = @[FractalNameField,FractalDescriptorField,FractalDocumentField,FractalThumbnailAssetField];
+    queryOperation.desiredKeys = @[CKFractalRecordNameField,CKFractalRecordDescriptorField,CKFractalRecordFractalDefinitionAssetField,CKFractalRecordFractalThumbnailAssetField];
     
     NSMutableArray *results = [[NSMutableArray alloc] init];
     
@@ -222,7 +185,7 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
     [self.publicDatabase addOperation:queryOperation];
 }
 
-- (void)queryForRecordsWithReferenceNamed:(NSString *)referenceRecordName completionHandler:(void (^)(NSArray *records))completionHandler {
+- (void)queryForPublicRecordsWithReferenceNamed:(NSString *)referenceRecordName completionHandler:(void (^)(NSArray *records))completionHandler {
     
 //    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:referenceRecordName];
 //    CKReference *parent = [[CKReference alloc] initWithRecordID:recordID action:CKReferenceActionNone];
@@ -260,9 +223,9 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
     if (self.subscribed == NO) {
         
         NSPredicate *truePredicate = [NSPredicate predicateWithValue:YES];
-        CKSubscription *itemSubscription = [[CKSubscription alloc] initWithRecordType:ItemRecordType
-                                                                            predicate:truePredicate
-                                                                              options:CKSubscriptionOptionsFiresOnRecordCreation];
+        CKSubscription *itemSubscription = [[CKSubscription alloc] initWithRecordType: CKFractalRecordType
+                                                                            predicate: truePredicate
+                                                                              options: CKSubscriptionOptionsFiresOnRecordCreation];
         
         
         CKNotificationInfo *notification = [[CKNotificationInfo alloc] init];
@@ -278,7 +241,7 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
                 NSLog(@"Subscribed to Item");
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 [defaults setBool:YES forKey:@"subscribed"];
-                [defaults setObject:subscription.subscriptionID forKey:subscriptionIDkey];
+                [defaults setObject:subscription.subscriptionID forKey: CKFractalRecordSubscriptionIDkey];
             }
         }];
     }
@@ -287,7 +250,7 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
 - (void)unsubscribe {
     if (self.subscribed == YES) {
         
-        NSString *subscriptionID = [[NSUserDefaults standardUserDefaults] objectForKey:subscriptionIDkey];
+        NSString *subscriptionID = [[NSUserDefaults standardUserDefaults] objectForKey: CKFractalRecordSubscriptionIDkey];
         
         CKModifySubscriptionsOperation *modifyOperation = [[CKModifySubscriptionsOperation alloc] init];
         modifyOperation.subscriptionIDsToDelete = @[subscriptionID];
@@ -299,7 +262,7 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
                 abort();
             } else {
                 NSLog(@"Unsubscribed to Item");
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:subscriptionIDkey];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey: CKFractalRecordSubscriptionIDkey];
             }
         };
         
@@ -308,7 +271,7 @@ static NSString * const subscriptionIDkey = @"subscriptionID";
 }
 
 - (BOOL)isSubscribed {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:subscriptionIDkey] != nil;
+    return [[NSUserDefaults standardUserDefaults] objectForKey: CKFractalRecordSubscriptionIDkey] != nil;
 }
 
 @end

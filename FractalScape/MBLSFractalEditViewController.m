@@ -25,6 +25,7 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
+#import "MDLCloudKitManager.h"
 #import "LSFractalRenderer.h"
 #import "MDBTileObjectProtocol.h"
 
@@ -199,7 +200,7 @@ static const CGFloat kLevelNMargin = 40.0;
     }
 //    [items addObject: backButton];
     UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace target:nil action:NULL];
-    space.width = 44;
+    space.width = 20.0;
     [items addObject: space];
     [items addObject: copyButton];
     [self.navigationItem setLeftBarButtonItems: items];
@@ -671,7 +672,7 @@ static const CGFloat kLevelNMargin = 40.0;
             [self removeObserversForCurrentFractal];
         }
 
-        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(390.0, 390.0)];
+        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0)];
         _fractalInfo.document.thumbnail = fractalImage;
         _fractalInfo.changeDate = [NSDate date];
         [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
@@ -2045,7 +2046,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     UIImage* imageExport;
     
     LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
-    renderer.levelData = self.levelDataArray[3];
+    NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
+    renderer.levelData = self.levelDataArray[level];
     renderer.name = @"Image renderer";
     renderer.margin = 36.0;
     renderer.autoscale = YES; // leave yes to fill thumbnail
@@ -2169,10 +2171,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
 //    NSLog(@"Sharing to camera called.");
 }
+
 -(void) shareFractalToPublicCloud
 {
     NSLog(@"Unimplemented sharing to public cloud.");
+
 }
+
 -(void) showSharedCompletionAlertWithText: (NSString*) alertText error: (NSError*) error
 {
     
@@ -2204,6 +2209,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self presentViewController:alert animated:YES completion:nil];
     
 }
+
 #pragma mark - UIScrollViewDelegate
 -(UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView
 {

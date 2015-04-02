@@ -1039,19 +1039,17 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
  */
 -(void) commandIncrementLineWidth
 {
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-    
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        _segmentStack[_segmentIndex].lineWidth += _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
+        if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+       _segmentStack[_segmentIndex].lineWidth += _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }
 }
 
 -(void) commandDecrementLineWidth
 {
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-    
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0)
     {
+        if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
         _segmentStack[_segmentIndex].lineWidth -= _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
     }
 }
@@ -1089,16 +1087,17 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandRandomizeOff
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     _segmentStack[_segmentIndex].randomize = NO;
 }
 -(void) commandRandomizeOn
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     _segmentStack[_segmentIndex].randomize = YES;
 }
 -(void) commandStartCurve
 {
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     _segmentStack[_segmentIndex].inCurve = YES;
 }
 -(void) commandEndCurve
@@ -1131,6 +1130,7 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandPop
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     [self popCurrentPath];
 }
 
@@ -1158,21 +1158,25 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandNextColor
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     _segmentStack[_segmentIndex].lineColorIndex = ++_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandPreviousColor
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     _segmentStack[_segmentIndex].lineColorIndex = --_segmentStack[_segmentIndex].lineColorIndex;
 }
 -(void) commandNextFillColor
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     _segmentStack[_segmentIndex].fillColorIndex = ++_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandPreviousFillColor
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    
     _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
 }
 -(void) commandLineCapButt

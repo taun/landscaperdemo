@@ -95,10 +95,10 @@
 #endif
             allURLs = [self.fractalInfos valueForKey:@"URL"];
         });
-        [self processContentChangesWithInsertedURLs:@[] removedURLs:allURLs updatedURLs:@[]];
+        [self processContentChangesWithInsertedURLs:@[] removedURLs: allURLs updatedURLs:@[]];
         
-        _documentCoordinator.delegate = self;
         oldDocumentCoordinator.delegate = nil;
+        _documentCoordinator.delegate = self;
         
         [_documentCoordinator startQuery];
     }
@@ -205,7 +205,7 @@
             [self.fractalInfos insertObject: fractalInfo atIndex: 0];
             
             [strongDelegate documentControllerWillChangeContent:self];
-            [strongDelegate documentController:self didMoveFractalInfoAtIndexPath: indexPath toIndexPath: destination];
+            [strongDelegate documentController: self didMoveFractalInfoAtIndexPath: indexPath toIndexPath: destination];
             [strongDelegate documentControllerDidChangeContent:self];
         } else
         {
@@ -287,15 +287,13 @@
                 [indexesOfTrackedremovedFractalInfosInFractalInfos addObject: [NSIndexPath indexPathForRow: indexOfTrackedremovedFractalInfoInFractalInfos inSection: 0]];
             }
             
-            [trackedRemovedFractalInfos enumerateObjectsUsingBlock:^(MDBFractalInfo *removedFractalInfo, NSUInteger idx, BOOL *stop) {
-                [self.fractalInfos removeObject: removedFractalInfo];
-            }];
+            [self.fractalInfos removeObjectsInArray: trackedRemovedFractalInfos];
+            
             [self.delegate documentController: self didRemoveFractalInfosAtIndexPaths: indexesOfTrackedremovedFractalInfosInFractalInfos totalRows: self.count];
         }
         
         // Add the new documents.
         if (untrackedInsertedFractalInfos && untrackedInsertedFractalInfos.count > 0) {
-            NSInteger preInsertCount = self.fractalInfos.count;
             [self.fractalInfos addObjectsFromArray: untrackedInsertedFractalInfos];
             
             // Now sort the document after all the inserts.

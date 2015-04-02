@@ -13,11 +13,19 @@
 #import "MDBCloudManager.h"
 
 #define kMDBDocumentCurrentVersion 1
-#define kMDBJGPQuality 0.8
+#define kMDBJGPQuality 1.0
 
-static NSString* kMDBVersionFileName = @"version.txt";
-static NSString* kMDBThumbnailFileName = @"thumbnail.jpg";
-static NSString* kMDBFractalFileName = @"fractal.xml";
+NSString* const kMDBVersionFileName = @"version.txt";
+NSString* const kMDBThumbnailFileName = @"thumbnail.jpg";
+NSString* const kMDBFractalFileName = @"fractal.xml";
+
+NSString * const CKFractalRecordType = @"Fractal";
+NSString * const CKFractalRecordNameField = @"FractalName";
+NSString * const CKFractalRecordDescriptorField = @"FractalDescriptor";
+NSString * const CKFractalRecordFractalDefinitionAssetField = @"FractalDefinition";
+NSString * const CKFractalRecordFractalThumbnailAssetField = @"FractalThumbnail";
+
+NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 
 @interface MDBFractalDocument ()
 @property(nonatomic,strong) NSFileWrapper   *documentFileWrapper;
@@ -102,7 +110,7 @@ static NSString* kMDBFractalFileName = @"fractal.xml";
     
     if (_thumbnail)
     {
-        [self.documentFileWrapper addRegularFileWithContents: UIImageJPEGRepresentation(_thumbnail, kMDBJGPQuality) preferredFilename: kMDBThumbnailFileName];
+        [self.documentFileWrapper addRegularFileWithContents: UIImagePNGRepresentation(_thumbnail) preferredFilename: kMDBThumbnailFileName]; // UIImageJPEGRepresentation(_thumbnail, kMDBJGPQuality)
     }
 }
 
@@ -260,6 +268,30 @@ static NSString* kMDBFractalFileName = @"fractal.xml";
         _sourceDrawingRules = [LSDrawingRuleType newLSDrawingRuleTypeFromDefaultPListDictionary];
     }
     return _sourceDrawingRules;
+}
+
+#pragma mark - CloudKit
+
+-(CKRecord*)asCloudKitRecord
+{
+    CKRecord* record;
+    if (_fractal)
+    {
+        record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
+        
+        LSFractal* fractal = self.fractal;
+        
+        record[CKFractalRecordNameField] = fractal.name;
+        record[CKFractalRecordDescriptorField] = fractal.descriptor;
+        
+        NSURL* fractalURL = [self.fileURL URLByAppendingPathComponent: kMDBFractalFileName];
+        record[CKFractalRecordFractalDefinitionAssetField] = [[CKAsset alloc] initWithFileURL: fractalURL];
+
+        NSURL* thumbnailURL = [self.fileURL URLByAppendingPathComponent: kMDBThumbnailFileName];
+        record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: thumbnailURL];
+   }
+    
+    return record;
 }
 
 @end

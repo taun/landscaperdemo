@@ -8,11 +8,11 @@
 @import Foundation;
 @import UIKit;
 
-@class MDBFractalDocument;
+#import "MDBFractalDocument.h"
 
 @interface MBCollectionFractalDocumentCell : UICollectionViewCell
 
 @property (assign,nonatomic) CGFloat   radius;
-@property (weak, nonatomic) MDBFractalDocument          *document;
+@property (weak, nonatomic) id<MDBFractaDocumentProtocol>          document;
 
 @end
