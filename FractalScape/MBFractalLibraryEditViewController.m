@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
+@import AssetsLibrary;
+
 #import "MBFractalLibraryEditViewController.h"
 
 #import "MDBFractalInfo.h"
@@ -30,7 +32,7 @@
     
     UIBarButtonItem* shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
                                                                                 target: self
-                                                                                action: @selector(shareCurrentSelections:)];
+                                                                                action: @selector(shareButtonPressed:)];
     
     
     NSMutableArray* items;
@@ -49,23 +51,98 @@
 #pragma message "TODO: implement Are You Sure? alert before deleting"
 - (IBAction)deleteCurrentSelections:(id)sender
 {
+    if (self.presentedViewController)
+    {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    }
+
     NSArray* selectedIndexPaths = [self.collectionView indexPathsForSelectedItems];
-    if (selectedIndexPaths.count > 0) {
+    if (selectedIndexPaths.count > 0)
+    {
+        NSMutableArray* fractalInfos = [NSMutableArray arrayWithCapacity: selectedIndexPaths.count];
         
-        NSMutableArray* urls = [NSMutableArray arrayWithCapacity: selectedIndexPaths.count];
-        
-        for (NSIndexPath* path in selectedIndexPaths) {
+        for (NSIndexPath* path in selectedIndexPaths)
+        {
             MDBFractalInfo* fractalInfo = self.documentController[path.row];
-            if (fractalInfo) {
-                [urls addObject: fractalInfo.URL];
-                [self.documentController removeFractalInfo: fractalInfo];
+            if (fractalInfo)
+            {
+                [fractalInfos addObject: fractalInfo];
             }
         }
-        // removal notifications go to the current controller, needs to pass the changes back to the presentingView documentController
-        if (self.presentingDocumentController) {
-            [self.presentingDocumentController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
+        
+        NSString* message = [NSString stringWithFormat: @"Are you sure you want to delete %lu fractal(s)?", (unsigned long)fractalInfos.count];
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Delete?"
+                                                                       message: message
+                                                                preferredStyle: UIAlertControllerStyleAlert];
+        
+        UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive
+                                                              handler:^(UIAlertAction * action)
+                                        {
+                                            [self performDeletionOfSelectedItems: fractalInfos];
+                                        }];
+        [alert addAction: deleteAction];
+
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action){ }];
+        [alert addAction: cancelAction];
+        
+        [self presentViewController: alert animated: YES completion: nil];
+    }
+}
+
+-(void) performDeletionOfSelectedItems: (NSArray*)items
+{
+    NSMutableArray* urls = [NSMutableArray arrayWithCapacity: items.count];
+    
+    for (MDBFractalInfo* fractalInfo in items) {
+        if ([fractalInfo isKindOfClass:[MDBFractalInfo class]]) {
+            [urls addObject: fractalInfo.URL];
+            [self.documentController removeFractalInfo: fractalInfo];
         }
     }
+    // removal notifications go to the current controller, needs to pass the changes back to the presentingView documentController
+    MDBDocumentController* strongRefController = self.presentingDocumentController;
+    if (strongRefController)
+    {
+        [strongRefController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
+    }
+}
+- (IBAction)shareButtonPressed:(id)sender
+{
+    if (self.presentedViewController)
+    {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    }
+    
+    //    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
+                                                                   message: @"How would you like to share the image?"
+                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+//    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action)
+                                   {
+                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                       [self shareCurrentSelections: sender];
+                                   }];
+    [alert addAction: fractalCloud];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    [alert addAction: defaultAction];
+    
+    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+    ppc.barButtonItem = sender;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction) shareCurrentSelections:(id)sender

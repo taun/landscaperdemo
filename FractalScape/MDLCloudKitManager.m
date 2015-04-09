@@ -27,7 +27,7 @@
 }
 
 #pragma mark - Daisy Cloud
--(void)fetchPublicFractalRecordsWithCompletionHandler:(void (^)(NSArray *))completionHandler {
+-(void)fetchPublicFractalRecordsWithCompletionHandler:(void (^)(NSArray *, NSError*))completionHandler {
     [self fetchPublicRecordsWithType: CKFractalRecordType completionHandler: completionHandler];
 }
 
@@ -155,7 +155,7 @@
     }];
 }
 
-- (void)fetchPublicRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler {
+- (void)fetchPublicRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records, NSError* error))completionHandler {
     
     NSPredicate *truePredicate = [NSPredicate predicateWithValue:YES];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:recordType predicate:truePredicate];
@@ -171,15 +171,9 @@
     };
     
     queryOperation.queryCompletionBlock = ^(CKQueryCursor *cursor, NSError *error) {
-        if (error) {
-            // In your app, this error needs love and care.
-            NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-            abort();
-        } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(results);
+                completionHandler(results, error);
             });
-        }
     };
     
     [self.publicDatabase addOperation:queryOperation];

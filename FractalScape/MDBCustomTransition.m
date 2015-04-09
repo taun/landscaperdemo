@@ -7,11 +7,23 @@
 //
 
 #import "MDBCustomTransition.h"
+#import "MDBNavConTransitionCoordinator.h"
 
 @implementation MDBCustomTransition
 
--(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 1.0;
+-(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
+{
+    return 0.5;
+}
+
+-(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
+{
+    
+}
+
+-(void)animationEnded:(BOOL)transitionCompleted
+{
+    
 }
 
 @end
@@ -67,8 +79,8 @@
 -(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     //Get references to the view hierarchy
     UIView *containerView = [transitionContext containerView];
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController<MDBNavConTransitionProtocol> *fromViewController = (UIViewController<MDBNavConTransitionProtocol> *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController<MDBNavConTransitionProtocol> *toViewController = (UIViewController<MDBNavConTransitionProtocol> *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     //Add 'to' view to the hierarchy with 0.0 scale
     UIView* toView = toViewController.view;
@@ -163,7 +175,7 @@
 //                         [transitionContext completeTransition:YES];
 //                     }];
 #pragma message "TODO make duration a function of the animation distance"
-    [UIView animateWithDuration: duration * 1.0
+    [UIView animateWithDuration: duration
                           delay: 0.0
          usingSpringWithDamping: 1.0
           initialSpringVelocity: -1.0

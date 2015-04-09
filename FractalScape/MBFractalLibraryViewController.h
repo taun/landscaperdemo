@@ -10,17 +10,18 @@
 @import UIKit;
 
 #import "FractalControllerProtocol.h"
+#import "MDBFractalLibraryCollectionSource.h"
+#import "MDBNavConTransitionCoordinator.h"
 
 @class MDBFractalDocument;
 @class MDBDocumentController;
-@class MDBFractalLibraryCollectionSource;
 
 extern NSString *const kSupplementaryHeaderCellIdentifier;
 
 /*!
  Facilitates the selection of a MDBFractalDocumentInfo and passes it to the MBLSFractalEditViewController.
  */
-@interface MBFractalLibraryViewController : UICollectionViewController
+@interface MBFractalLibraryViewController : UICollectionViewController <MDBNavConTransitionProtocol,MDBFractalLibraryCollectionDelegate>
 
 /*!
  The collection of MDBFractalDocumentInfo objects from the local filesystem or cloud.
@@ -34,5 +35,16 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 //- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue;
 - (IBAction)pickDocument:(UIBarButtonItem *)sender;
 - (IBAction)pushToLibraryEditViewController:(id)sender;
+
+#pragma mark - MDBFractalLibraryCollectionDelegate
+
+-(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+
+
+#pragma mark - NavConTransitionProtocol
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      pushTransition;
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      popTransition;
+@property (nonatomic,assign) CGRect                                         transitionDestinationRect;
+@property (nonatomic,assign) CGRect                                         transitionSourceRect;
 
 @end

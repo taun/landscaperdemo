@@ -458,6 +458,13 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     return _replacementRules;
 }
 
+-(MBColor*)backgroundColor
+{
+    if (!_backgroundColor) {
+        _backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
+    }
+    return _backgroundColor;
+}
 -(MDBFractalObjectList*)lineColors
 {
     if (!_lineColors) {

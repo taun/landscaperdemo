@@ -14,6 +14,7 @@
 #import "MBAppDelegate.h"
 #import "MBLSFractalEditViewController.h"
 #import "FractalControllerProtocol.h"
+#import "MDBCustomTransition.h"
 #import "MBFractalLibraryViewController.h"
 #import "MBFractalAppearanceEditorViewController.h"
 #import "MBFractalRulesEditorViewController.h"
@@ -51,7 +52,8 @@ static const CGFloat kLevelNMargin = 40.0;
                                                     MDBFractalDocumentDelegate>
 
 @property (nonatomic,strong) NSMutableSet           *observedReplacementRules;
-@property (nonatomic, assign) BOOL                  startedInLandscape;
+@property (nonatomic,assign) BOOL                   startedInLandscape;
+@property (nonatomic,assign) BOOL                   hasBeenEdited;
 
 //@property (nonatomic, strong) NSSet*                editControls;
 //@property (nonatomic, strong) NSMutableArray*       cachedEditViews;
@@ -142,15 +144,9 @@ static const CGFloat kLevelNMargin = 40.0;
      We use the isActivityAvailable call to set app performance parameters.
      */
     self.lowPerformanceDevice = ![CMMotionActivityManager isActivityAvailable];
-}
 
-- (void)configureWithNewBlankDocument
-{   
-    LSFractal* newFractal = [LSFractal new];
-    
-    MDBFractalInfo* fractalInfo = [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
-    
-    self.fractalInfo = fractalInfo;
+    self.popTransition = [MDBZoomPopBounceTransition new];
+    self.pushTransition = [MDBZoomPushBounceTransition new];
 }
 
 #pragma mark - UIViewController Methods
@@ -305,6 +301,8 @@ static const CGFloat kLevelNMargin = 40.0;
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    
+    self.hasBeenEdited = NO;
 
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     self.showPerformanceData = [defaults boolForKey: kPrefShowPerformanceData];
@@ -348,13 +346,9 @@ static const CGFloat kLevelNMargin = 40.0;
 /* on staartup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated
 {
-    if (_fractalInfo.document.fractal)
-    {
-        [super viewDidAppear:animated];
-        [self regenerateLevels];
-        [self updateInterface];
-        [self autoScale: nil];
-    }
+    [super viewDidAppear:animated];
+
+    [self updateAndShowEditor];
     
     UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
 
@@ -366,18 +360,32 @@ static const CGFloat kLevelNMargin = 40.0;
     }
 }
 
+-(void) updateAndShowEditor
+{
+    if (self.fractalInfo.document != nil && self.fractalInfo.document.fractal && self.isViewLoaded && self.view.superview)
+    {
+        [self regenerateLevels];
+        [self updateInterface];
+        [self autoScale: nil];
+        
+        [self performSegueWithIdentifier: @"EditSegue" sender: self];
+    }
+    
+}
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [self removeObserversForCurrentDocument];
-    [self saveToUserPreferencesAsLastEditedFractal: nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    if (_fractalInfo) {
+        [self setFractalInfo: nil];
+    }
 }
+
 
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
@@ -445,6 +453,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         if (changeCount)
         {
+            self.hasBeenEdited = YES;
             [self queueFractalImageUpdates];
             [self updateInterface];
         }
@@ -458,6 +467,7 @@ static const CGFloat kLevelNMargin = 40.0;
         {
 #pragma message "TODO: fix for uidocument"
             self.fractalDocument.fractal.rulesUnchanged = NO;
+            self.hasBeenEdited = YES;
             
             if ([keyPath isEqualToString:[LSFractal replacementRulesKey]])
             {
@@ -470,16 +480,16 @@ static const CGFloat kLevelNMargin = 40.0;
     }
     else if ([keyPath isEqualToString: @"name"])
     {
+        self.hasBeenEdited = YES;
         [self updateNavButtons];
-        
     }
     else if ([keyPath isEqualToString: @"category"])
     {
-        
+        self.hasBeenEdited = YES;
     }
     else if ([keyPath isEqualToString: @"descriptor"])
     {
-        
+        self.hasBeenEdited = YES;
     }
     else
     {
@@ -509,6 +519,48 @@ static const CGFloat kLevelNMargin = 40.0;
 
 #pragma mark Fractal Property KVO
 -(void)setFractalInfo:(MDBFractalInfo *)fractalInfo {
+    
+    if (_fractalInfo != fractalInfo) {
+        
+        if (_fractalInfo) {
+            [self removeObserversForCurrentDocument];
+        }
+        
+        _fractalInfo = fractalInfo;
+        
+        id<MDBTileObjectProtocol> tileObject = [_fractalInfo.document.fractal.startingRules firstObject];
+        
+        if (_fractalInfo.document.fractal && tileObject.isDefaultObject)
+        {
+            //default rules and settings
+            LSFractal* newFractal = _fractalInfo.document.fractal;
+            
+            LSDrawingRuleType* rules = _fractalInfo.document.sourceDrawingRules;
+            
+            [newFractal.startingRules addObjectsFromArray: [rules rulesArrayFromRuleString: @"F!"]];
+            
+            MBColor* defaultLine = [MBColor newMBColorWithUIColor: [UIColor blueColor]];
+            defaultLine.identifier = @"blue";
+            defaultLine.name = @"Blue";
+            [newFractal.lineColors addObject: defaultLine];
+            
+            MBColor* defaultFill = [MBColor newMBColorWithUIColor: [UIColor greenColor]];
+            defaultFill.identifier = @"green";
+            defaultFill.name = @"Green";
+            [newFractal.fillColors addObject: defaultFill];
+            
+            [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+        }
+        
+        self.autoscaleN = YES;
+        self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
+        
+        [self addObserverForFractalChangeInCurrentDocument];
+    }
+}
+
+-(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowEditor: (BOOL)update
+{
     UIDocumentState docState = fractalInfo.document.documentState;
     
     if (docState != UIDocumentStateNormal)
@@ -517,63 +569,29 @@ static const CGFloat kLevelNMargin = 40.0;
             //
             [fractalInfo.document openWithCompletionHandler:^(BOOL success) {
                 //detect if we have a new default fractal
-                id<MDBTileObjectProtocol> tileObject = [fractalInfo.document.fractal.startingRules firstObject];
-                
-                if (fractalInfo.document.fractal && tileObject.isDefaultObject)
-                {
-                    //default rules and settings
-                    LSFractal* newFractal = fractalInfo.document.fractal;
-                    
-                    LSDrawingRuleType* rules = fractalInfo.document.sourceDrawingRules;
-                    
-                    [newFractal.startingRules addObjectsFromArray: [rules rulesArrayFromRuleString: @"F!"]];
-                    
-                    MBColor* defaultLine = [MBColor newMBColorWithUIColor: [UIColor blueColor]];
-                    defaultLine.identifier = @"blue";
-                    defaultLine.name = @"Blue";
-                    [newFractal.lineColors addObject: defaultLine];
-                    
-                    MBColor* defaultFill = [MBColor newMBColorWithUIColor: [UIColor greenColor]];
-                    defaultFill.identifier = @"green";
-                    defaultFill.name = @"Green";
-                    [newFractal.fillColors addObject: defaultFill];
-                    
-                    [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-                }
-                
                 self.fractalInfo = fractalInfo;
+                if (update) [self updateAndShowEditor];
             }];
         });
-        return;
     }
-    
-    if (_fractalInfo != fractalInfo) {
-        
-        if (fractalInfo) {
-            [self removeObserversForCurrentDocument];
-        }
-        
-        _fractalInfo = fractalInfo;
-        
-        self.autoscaleN = YES;
-        self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
-        
-        [self addObserverForFractalChangeInCurrentDocument];
-        
-        
-        if (_fractalInfo.document != nil && _fractalInfo.document.fractal && self.fractalView)
-        {
-            [self regenerateLevels];
-            [self updateInterface];
-            [self autoScale: nil];
-            [self performSegueWithIdentifier: @"EditSegue" sender: self];
-        }
+    else
+    {
+        self.fractalInfo = fractalInfo;
+        if (update) [self updateAndShowEditor];
     }
 }
 
 -(MDBFractalDocument*)fractalDocument
 {
     return _fractalInfo.document;
+}
+
+-(void)fractalDocumentWasDeleted: (MDBFractalDocument*)deletedDocument
+{
+    if (self.fractalInfo.document == deletedDocument) {
+        self.fractalInfo = nil;
+        [self popBackToLibrary: nil];
+    }
 }
 
 -(LSFractalRenderer*) fractalRendererL0
@@ -672,18 +690,29 @@ static const CGFloat kLevelNMargin = 40.0;
             [self removeObserversForCurrentFractal];
         }
 
-        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0)];
-        _fractalInfo.document.thumbnail = fractalImage;
-        _fractalInfo.changeDate = [NSDate date];
-        [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-        
-        [self.documentController setFractalInfoHasNewContents: _fractalInfo];
+        [self updateLibraryRepresentationIfNeeded];
         
         [_privateImageGenerationQueue cancelAllOperations];
         
         _fractalInfo.document.delegate = nil;
 
         [_fractalInfo.document closeWithCompletionHandler:nil];
+    }
+}
+
+-(void) updateLibraryRepresentationIfNeeded
+{
+    if (self.hasBeenEdited)
+    {
+        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0)];
+        
+        _fractalInfo.document.thumbnail = fractalImage;
+        _fractalInfo.changeDate = [NSDate date];
+        
+        [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+        
+        [self.documentController setFractalInfoHasNewContents: _fractalInfo];
+        self.hasBeenEdited = NO;
     }
 }
 
@@ -1268,6 +1297,9 @@ static const CGFloat kLevelNMargin = 40.0;
 
 - (IBAction)popBackToLibrary:(id)sender
 {
+    if (self.presentedViewController) {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    }
     [self.navigationController popViewControllerAnimated: YES];
 }
 
@@ -1331,6 +1363,7 @@ static const CGFloat kLevelNMargin = 40.0;
     self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.currentPresentedController = nil;
     [self.view setNeedsLayout];
+    [self updateLibraryRepresentationIfNeeded];
 }
 
 #pragma mark - Control Actions
@@ -1703,7 +1736,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     MDBFractalInfo* fractalInfo = [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
     
-    self.fractalInfo = fractalInfo;
+    [self setFractalInfo: fractalInfo andShowEditor: YES];
     
 //    [self performSegueWithIdentifier: @"EditSegue" sender: self];
 }
@@ -2049,7 +2082,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
     renderer.levelData = self.levelDataArray[level];
     renderer.name = @"Image renderer";
-    renderer.margin = 36.0;
+    renderer.margin = 8.0;
     renderer.autoscale = YES; // leave yes to fill thumbnail
     renderer.flipY = YES;
     renderer.showOrigin = NO;

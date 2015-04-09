@@ -118,7 +118,8 @@
  Thumbnail = separate file.
  
  */
-- (MDBFractalInfo *)objectAtIndexedSubscript:(NSInteger)index {
+- (MDBFractalInfo *)objectAtIndexedSubscript:(NSInteger)index
+{
     // Fetch the appropriate document info protected by documentInfoQueue.
     __block MDBFractalInfo *fractalInfo = nil;
     
@@ -131,6 +132,23 @@
     
     return fractalInfo;
 }
+
+-(MDBFractalInfo*)controllerFractalInfoFor:(MDBFractalInfo *)fractalInfo
+{
+    __block MDBFractalInfo *controllerFractalInfo = nil;
+    dispatch_sync(self.fractalUpdateQueue, ^{
+#ifdef MDB_QUEUE_LOG
+        NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
+#endif
+        NSUInteger index = [self.fractalInfos indexOfObject: fractalInfo];
+        if (index != NSNotFound) {
+            controllerFractalInfo = self.fractalInfos[index];
+        }
+    });
+    
+    return controllerFractalInfo;
+}
+
 
 #pragma mark - Inserting / Removing / Managing / Updating MDBFractalDocumentInfo Objects
 
@@ -167,9 +185,8 @@
             if (![self.fractalInfos containsObject: newFractalInfo]) {
                 [strongDelegate documentControllerWillChangeContent:self];
                 
-                [self.fractalInfos addObject: newFractalInfo];
-                NSInteger indexOfFractalInfo = [self.fractalInfos indexOfObject: newFractalInfo];
-                NSIndexPath* indexPath = [NSIndexPath indexPathForRow: indexOfFractalInfo inSection: 0];
+                [self.fractalInfos insertObject: newFractalInfo atIndex: 0];
+                NSIndexPath* indexPath = [NSIndexPath indexPathForRow: 0 inSection: 0];
                 [strongDelegate documentController:self didInsertFractalInfosAtIndexPaths: @[indexPath] totalRows: self.count];
                 
                 [strongDelegate documentControllerDidChangeContent:self];
@@ -198,7 +215,17 @@
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow: indexOfFractalInfo inSection: 0];
         NSIndexPath* destination = [NSIndexPath indexPathForRow: 0 inSection: 0];
         
-        if (indexOfFractalInfo != NSNotFound && indexOfFractalInfo != 0)
+        if (indexOfFractalInfo == NSNotFound)
+        {
+            NSLog(@"%@, Error: FractalInfo not found: %@",NSStringFromSelector(_cmd), fractalInfo);
+        }
+        else if (indexOfFractalInfo == 0)
+        {
+            [strongDelegate documentControllerWillChangeContent:self];
+            [strongDelegate documentController: self didUpdateFractalInfosAtIndexPaths: @[indexPath] totalRows: self.fractalInfos.count];
+            [strongDelegate documentControllerDidChangeContent:self];
+        }
+        else
         {
 //            self.fractalInfos[indexOfFractalInfo] = fractalInfo;
             [self.fractalInfos removeObject: fractalInfo];
@@ -206,10 +233,8 @@
             
             [strongDelegate documentControllerWillChangeContent:self];
             [strongDelegate documentController: self didMoveFractalInfoAtIndexPath: indexPath toIndexPath: destination];
+            [strongDelegate documentController: self didUpdateFractalInfosAtIndexPaths: @[destination] totalRows: self.fractalInfos.count];
             [strongDelegate documentControllerDidChangeContent:self];
-        } else
-        {
-            NSLog(@"%@, FractalInfo not found: %@",NSStringFromSelector(_cmd), fractalInfo);
         }
     });
 }
@@ -287,9 +312,9 @@
                 [indexesOfTrackedremovedFractalInfosInFractalInfos addObject: [NSIndexPath indexPathForRow: indexOfTrackedremovedFractalInfoInFractalInfos inSection: 0]];
             }
             
-            [self.fractalInfos removeObjectsInArray: trackedRemovedFractalInfos];
+            [self.fractalInfos removeObjectsAtIndexes: indexesOfTrackedremovedFractalInfos];
             
-            [self.delegate documentController: self didRemoveFractalInfosAtIndexPaths: indexesOfTrackedremovedFractalInfosInFractalInfos totalRows: self.count];
+            [self.delegate documentController: self didRemoveFractalInfosAtIndexPaths: indexesOfTrackedremovedFractalInfosInFractalInfos totalRows: self.fractalInfos.count];
         }
         
         // Add the new documents.

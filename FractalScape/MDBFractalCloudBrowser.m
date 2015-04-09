@@ -38,26 +38,48 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.cloudManager requestDiscoverabilityPermission:^(BOOL discoverable) {
-        
-        if (discoverable) {
-            [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records) {
-                self.publicCloudRecords = records;
-                [self.collectionView reloadData];
-            }];
+    [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records, NSError* error) {
+        if (!error) {
+            self.publicCloudRecords = records;
+            [self.collectionView reloadData];
         } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CloudKitAtlas" message:@"Getting your name using Discoverability requires permission." preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                
+            NSString *title = NSLocalizedString(@"Sorry", nil);
+            NSString *message = NSLocalizedString(@"Was not able to connect to the Cloud Server.", nil);
+            NSString *okActionTitle = NSLocalizedString(@"OK", nil);
+
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                           message: message
+                                                                    preferredStyle: UIAlertControllerStyleAlert];
+            
+            [alert addAction:[UIAlertAction actionWithTitle: okActionTitle style: UIAlertActionStyleCancel handler:nil]];
+
+            [self presentViewController: alert animated: YES completion:^{
+                //
             }];
-            
-            [alert addAction:action];
-            
-            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
+
+//    [self.cloudManager requestDiscoverabilityPermission:^(BOOL discoverable) {
+//        
+//        if (discoverable) {
+//            [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records) {
+//                self.publicCloudRecords = records;
+//                [self.collectionView reloadData];
+//            }];
+//        } else {
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CloudKitAtlas" message:@"Getting your name using Discoverability requires permission." preferredStyle:UIAlertControllerStyleAlert];
+//            
+//            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
+//                [self dismissViewControllerAnimated:YES completion:nil];
+//                
+//            }];
+//            
+//            [alert addAction:action];
+//            
+//            [self presentViewController:alert animated:YES completion:nil];
+//        }
+//    }];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -132,6 +154,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MBCollectionFractalDocumentCell* fractalDocCell = (MBCollectionFractalDocumentCell*)cell;
+    fractalDocCell.document = nil;
 //    MDBFractalDocument* document = fractalDocCell.document;
 //    UIDocumentState docState = document.documentState;
 //    

@@ -11,6 +11,7 @@
 
 #import "MBLSFractalViewController.h"
 #import "FractalControllerProtocol.h"
+#import "MDBNavConTransitionCoordinator.h"
 #import "MBFractalPrefConstants.h"
 
 @class MDBFractalDocument;
@@ -29,7 +30,7 @@
 // Application preference keys
 
 
-@interface MBLSFractalEditViewController : UIViewController
+@interface MBLSFractalEditViewController : UIViewController <MDBNavConTransitionProtocol>
 
 #pragma mark Model
 @property (nonatomic, copy) NSString                        *currentIdentifier;
@@ -119,10 +120,9 @@
 
 
 #pragma mark - Generation and Display
+-(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowEditor: (BOOL)update;
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo;
-
 -(void) updateNavButtons;
-
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio;
 
 #pragma mark - Gesture Actions
@@ -164,7 +164,6 @@
 - (IBAction)autoScale:(id)sender;
 
 #pragma mark - Segue Actions
-- (void)configureWithNewBlankDocument;
 - (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue;
 - (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
 - (IBAction)popBackToLibrary:(id)sender;
@@ -173,4 +172,11 @@
 
 #pragma mark - Filter Actions
 - (IBAction)applyFilter:(CIFilter*)filter;
+
+#pragma mark - NavConTransitionProtocol
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      pushTransition;
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      popTransition;
+@property (nonatomic,assign) CGRect                                         transitionDestinationRect;
+@property (nonatomic,assign) CGRect                                         transitionSourceRect;
+
 @end

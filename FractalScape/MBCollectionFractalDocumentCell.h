@@ -13,6 +13,6 @@
 @interface MBCollectionFractalDocumentCell : UICollectionViewCell
 
 @property (assign,nonatomic) CGFloat   radius;
-@property (weak, nonatomic) id<MDBFractaDocumentProtocol>          document;
+@property (strong, nonatomic) id<MDBFractaDocumentProtocol>          document;
 
 @end

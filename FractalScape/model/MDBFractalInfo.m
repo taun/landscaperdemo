@@ -24,11 +24,7 @@
     newDocument.fractal = fractal;
     newDocument.delegate = delegate;
     newInfo.document = newDocument;
-    
-    [newInfo.document saveToURL: newDocument.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-        //
-    }];
-    
+        
     return newInfo;
 }
 

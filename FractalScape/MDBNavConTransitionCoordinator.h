@@ -18,6 +18,15 @@
  
  */
 
+@protocol MDBNavConTransitionProtocol
+
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      pushTransition;
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      popTransition;
+@property (nonatomic,assign) CGRect                                         transitionDestinationRect;
+@property (nonatomic,assign) CGRect                                         transitionSourceRect;
+
+@end
+
 
 @interface MDBNavConTransitionCoordinator : NSObject <UINavigationControllerDelegate>
 

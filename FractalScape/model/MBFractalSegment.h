@@ -12,7 +12,7 @@
 
 static const NSInteger kLSMaxSegmentPointsSize = 60;
 static const NSInteger kLSMaxSegmentStackSize = 30;
-static const NSInteger kLSMaxColors = 20;
+static const NSInteger kLSMaxColors = 30;
 
 struct MBSegmentStruct {
     CGContextRef        context;

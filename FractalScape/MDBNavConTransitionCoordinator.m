@@ -23,18 +23,18 @@
 
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                  animationControllerForOperation:(UINavigationControllerOperation)operation
-                                              fromViewController:(UIViewController *)fromVC
-                                                toViewController:(UIViewController *)toVC
+                                              fromViewController:(UIViewController<MDBNavConTransitionProtocol> *)fromVC
+                                                toViewController:(UIViewController<MDBNavConTransitionProtocol> *)toVC
 {
     MDBCustomTransition* transition;
     
     if (operation == UINavigationControllerOperationPush)
     {
-        transition = [MDBZoomPushBounceTransition new];
+        transition = toVC.pushTransition;
     }
     else if (operation == UINavigationControllerOperationPop)
     {
-        transition = [MDBZoomPopBounceTransition new];
+        transition = fromVC.popTransition;
     }
     return transition;
 }

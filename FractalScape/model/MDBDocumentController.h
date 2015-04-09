@@ -146,6 +146,7 @@
  */
 - (MDBFractalInfo *)objectAtIndexedSubscript:(NSInteger)index;
 
+- (MDBFractalInfo *)controllerFractalInfoFor: (MDBFractalInfo*)fractalInfo;
 /*!
  * Removes \c fractalInfo from the tracked \c DocumentInfo instances. This method forwards the remove operation
  * directly to the document coordinator. The operation can be performed asynchronously so long as the

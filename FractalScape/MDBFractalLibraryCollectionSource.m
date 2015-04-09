@@ -65,10 +65,12 @@
                 if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
                 {
                     documentInfoCell.document = fractalInfo.document;
+                    MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.document;
+                    [document closeWithCompletionHandler:^(BOOL success) {}];
                 } 
-                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
+//                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
                     //
-                }];;
+//                }];;
             });
         }];
     }
@@ -76,17 +78,22 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MBCollectionFractalDocumentCell* fractalDocCell = (MBCollectionFractalDocumentCell*)cell;
-    MDBFractalDocument* document = fractalDocCell.document;
-    UIDocumentState docState = document.documentState;
+//    MBCollectionFractalDocumentCell* fractalDocCell = (MBCollectionFractalDocumentCell*)cell;
+//    MDBFractalDocument* document = (MDBFractalDocument*)fractalDocCell.document;
+//    UIDocumentState docState = document.documentState;
     
-    if (docState != UIDocumentStateClosed)
-    {
-        [document closeWithCompletionHandler:^(BOOL success) {
-            //
-        }];;
-    }
+//    if (docState != UIDocumentStateClosed)
+//    {
+//        [document closeWithCompletionHandler:^(BOOL success) {
+//            //
+//        }];;
+//    }
     //    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.viewController libraryCollectionView: collectionView didDeselectItemAtIndexPath: indexPath];
 }
 
 @end

@@ -71,9 +71,9 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
         [self.documentFileWrapper removeFileWrapper: existingWrapper];
     }
 
-    if (_fractal)
+    if (self.fractal)
     {
-        [self.documentFileWrapper addRegularFileWithContents: [NSKeyedArchiver archivedDataWithRootObject: _fractal] preferredFilename: kMDBFractalFileName];
+        [self.documentFileWrapper addRegularFileWithContents: [NSKeyedArchiver archivedDataWithRootObject: self.fractal] preferredFilename: kMDBFractalFileName];
     }
 }
 
@@ -85,11 +85,11 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     
     if (fileData)
     {
-        _fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fileData];
+        self.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fileData];
     }
     else
     {
-        _fractal = nil;
+        self.fractal = nil;
     }
 }
 
@@ -108,9 +108,9 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
         [self.documentFileWrapper removeFileWrapper: existingWrapper];
     }
     
-    if (_thumbnail)
+    if (self.thumbnail)
     {
-        [self.documentFileWrapper addRegularFileWithContents: UIImagePNGRepresentation(_thumbnail) preferredFilename: kMDBThumbnailFileName]; // UIImageJPEGRepresentation(_thumbnail, kMDBJGPQuality)
+        [self.documentFileWrapper addRegularFileWithContents: UIImagePNGRepresentation(self.thumbnail) preferredFilename: kMDBThumbnailFileName]; // UIImageJPEGRepresentation(self.thumbnail, kMDBJGPQuality)
     }
 }
 
@@ -122,21 +122,21 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     
     if (fileData)
     {
-        _thumbnail = [UIImage imageWithData: fileData];
+        self.thumbnail = [UIImage imageWithData: fileData];
     }
     else
     {
-        _thumbnail = nil;
+        self.thumbnail = nil;
     }
 }
 
 //-(UIImage*)thumbnail
 //{
-//    if (!_thumbnail && !_documentFileWrapper)
+//    if (!self.thumbnail && !_documentFileWrapper)
 //    {
 //        [self updateThumbnailFromDocumentWrapper];
 //    }
-//    return _thumbnail;
+//    return self.thumbnail;
 //}
 
 #pragma mark - Save/Load
@@ -155,12 +155,12 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     
     [self.documentFileWrapper addRegularFileWithContents: [NSKeyedArchiver archivedDataWithRootObject: @(kMDBDocumentCurrentVersion)] preferredFilename: kMDBVersionFileName];
     
-    if (_fractal)
+    if (self.fractal)
     {
         [self updateDocumentWrapperForFractal];
     }
     
-    if (_thumbnail) {
+    if (self.thumbnail) {
         [self updateDocumentWrapperForThumbnail];
     }
     
@@ -275,7 +275,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 -(CKRecord*)asCloudKitRecord
 {
     CKRecord* record;
-    if (_fractal)
+    if (self.fractal)
     {
         record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
         

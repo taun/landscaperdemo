@@ -26,6 +26,7 @@
 #import "MBLSFractalEditViewController.h"
 #import "MDBFractalLibraryCollectionSource.h"
 #import "MDBNavConTransitionCoordinator.h"
+#import "MDBCustomTransition.h"
 
 #import "MBCollectionFractalDocumentCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
@@ -60,6 +61,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
 #pragma message "TODO fix transitions"
     self.navigationController.delegate = self.navConTransitionDelegate;
+    self.popTransition = [MDBZoomPopBounceTransition new];
+    self.pushTransition = [MDBZoomPushBounceTransition new];
     
 //    [self.collectionView reloadData];
     
@@ -73,6 +76,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [super viewWillAppear:animated];
     [self initControls];
 }
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -162,8 +166,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     NSString *newDocumentTitle = NSLocalizedString(@"New Fractal", nil);
     [documentMenu addOptionWithTitle: newDocumentTitle image: nil order: UIDocumentMenuOrderFirst handler:^{
         // Show the MBLSFractalEditViewController.
-        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
-    }];
+//        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
+        LSFractal* newFractal = [LSFractal new];
+        [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
+  }];
     
 //    documentMenu.modalInPopover = UIModalPresentationPopover;
     documentMenu.modalPresentationStyle = UIModalPresentationPopover;
@@ -194,17 +200,28 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self.navigationController pushViewController: libraryEditViewController animated: NO];
 }
 
+#pragma mark - MDBFractalLibraryCollectionDelegate
+-(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath: indexPath];
+    CGRect cellFrame = cell.frame;
+    self.transitionSourceRect = cellFrame;
+    [self performSegueWithIdentifier: @"showFractalDocument" sender: self];
+}
+
+
 #pragma mark - UIStoryboardSegue Handling
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier])
-    {
-        MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
-        editViewController.documentController = self.documentController;
-        [editViewController configureWithNewBlankDocument];
-    }
-    else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier] ||
-             [segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
+//    if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier])
+//    {
+//        MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
+//        editViewController.documentController = self.documentController;
+//        [editViewController configureWithNewBlankDocument];
+//    }
+//    else
+    if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier] ||
+        [segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
     {
         MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
         editViewController.documentController = self.documentController;
@@ -219,7 +236,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             MDBFractalInfo* fractalInfo = self.documentController[infoIndex.row];
             if (fractalInfo.document)
             {
-                editViewController.fractalInfo = fractalInfo;
+                [editViewController setFractalInfo: fractalInfo andShowEditor: NO];
             }
         }
         else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
@@ -368,6 +385,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [self presentViewController:errorOutController animated:YES completion:nil];
     });
 }
+
+
 
 -(void) initControls {
     // need to set current selection
