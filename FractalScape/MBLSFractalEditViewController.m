@@ -156,13 +156,7 @@ static const CGFloat kLevelNMargin = 40.0;
     [super didReceiveMemoryWarning];
     
 }
--(IBAction) backToLibrary:(id)sender
-{
-    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
-    [self.presentingViewController dismissViewControllerAnimated: YES completion:^{
-        //
-    }];
-}
+
 -(void) configureNavBarButtons
 {
     

@@ -152,8 +152,10 @@
 -(void) textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == _name) {
-        self.fractalDocument.fractal.name = textField.text;
-        [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+        if (![textField.text isEqualToString: self.fractalDocument.fractal.name]) {
+            self.fractalDocument.fractal.name = textField.text;
+            [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+        }
     }
 }
 #pragma mark - UITextViewDelegate
@@ -182,8 +184,10 @@
 -(void) textViewDidEndEditing:(UITextView *)textView
 {
     if (textView == _descriptor) {
-        self.fractalDocument.fractal.descriptor = textView.text;
-        [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+        if (![textView.text isEqualToString: self.fractalDocument.fractal.descriptor]) {
+            self.fractalDocument.fractal.descriptor = textView.text;
+            [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+        }
     }
 }
 

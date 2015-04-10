@@ -49,7 +49,6 @@
 //        [self saveContext];
 //    }
     [super viewDidDisappear:animated];
-    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
 }
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator

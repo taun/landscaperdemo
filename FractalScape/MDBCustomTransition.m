@@ -105,9 +105,11 @@
     CGFloat viewCenterY = CGRectGetMidY(containerView.bounds);
     
 #pragma message "replace with viewController final rect scale"
-    CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);
+    CGFloat scaleX = sourceRect.size.width/containerView.bounds.size.width;
+    CGFloat scaleY = sourceRect.size.height/containerView.bounds.size.height;
+    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scaleX,scaleY);
     CGAffineTransform translate = CGAffineTransformMakeTranslation(cellCenterX-viewCenterX, cellCenterY-viewCenterY);
-    toView.transform = CGAffineTransformConcat(scale, translate);
+    toView.transform = CGAffineTransformConcat(scaleTransform, translate);
 
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     
@@ -145,8 +147,8 @@
 -(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     //Get references to the view hierarchy
     UIView *containerView = [transitionContext containerView];
-    UIViewController<MDBNavConTransitionProtocol> *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController<MDBNavConTransitionProtocol> *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController<MDBNavConTransitionProtocol> *fromViewController = (UIViewController<MDBNavConTransitionProtocol> *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController<MDBNavConTransitionProtocol> *toViewController = (UIViewController<MDBNavConTransitionProtocol> *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     UIView* fromSnapshot = [fromViewController.view snapshotViewAfterScreenUpdates: NO];
     
@@ -169,7 +171,9 @@
     CGFloat viewCenterY = CGRectGetMidY(containerView.bounds);
     
 #pragma message "replace with viewController final rect scale"
-    CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);
+    CGFloat scaleX = destinationRect.size.width/containerView.bounds.size.width;
+    CGFloat scaleY = destinationRect.size.height/containerView.bounds.size.height;
+    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scaleX,scaleY);
     CGAffineTransform translate = CGAffineTransformMakeTranslation(cellCenterX-viewCenterX, cellCenterY-viewCenterY);
 
     NSTimeInterval duration = [self transitionDuration:transitionContext];
@@ -192,7 +196,7 @@
                         options: 0
                      animations: ^{
                          fromSnapshot.alpha = 0.5;
-                         fromSnapshot.transform = CGAffineTransformConcat(scale, translate);
+                         fromSnapshot.transform = CGAffineTransformConcat(scaleTransform, translate);
                      }
                      completion:^(BOOL finished) {
                          [fromSnapshot removeFromSuperview];
