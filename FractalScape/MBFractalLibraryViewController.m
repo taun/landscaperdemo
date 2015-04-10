@@ -57,7 +57,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
     self.collectionView.backgroundView = blurEffectView;
-
     
     self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
 #pragma message "TODO fix transitions"
@@ -118,6 +117,19 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     } else {
         return YES;
     }
+}
+
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
+        //
+        
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
+        //
+        [self.collectionViewLayout invalidateLayout];
+    }];
 }
 
 #pragma mark - Notifications

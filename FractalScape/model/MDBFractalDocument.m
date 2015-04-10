@@ -29,6 +29,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 
 @interface MDBFractalDocument ()
 @property(nonatomic,strong) NSFileWrapper   *documentFileWrapper;
+@property(nonatomic,strong) NSData          *thumbnailData;
 @end
 
 /*!
@@ -116,14 +117,13 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 
 - (void)updateThumbnailFromDocumentWrapper
 {
-    UIImage* returnImage;
-    
     NSData* fileData = [[self thumbnailFileWrapper] regularFileContents];
     
     if (fileData)
     {
-        self.thumbnail = [[UIImage alloc] initWithData: fileData];
-    }
+        // see -(void)thumbnail lazy getter for explanation why we only save the thumbnail data here.
+        self.thumbnailData = [fileData copy];
+     }
     else
     {
         self.thumbnail = nil;
@@ -170,6 +170,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 - (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
 {
     _documentFileWrapper = (NSFileWrapper *)contents;
+    BOOL isBadFile = [_documentFileWrapper.filename isEqualToString: @"B7BFC7D3-CEA3-439F-A699-C70B812D67CD.fractal"];
     
     if (!_documentFileWrapper || _documentFileWrapper.fileWrappers.count == 0)
     {
@@ -253,6 +254,22 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 }
 
 #pragma mark - Lazy Properties
+
+/*!
+ Lazily convert the NSData to a UIImage. Since the thumbnail property always gets called by the collectionViewCell on the main thread,
+ this is a way around the lack of background thread support of UIImage creation. Creating the UIImage as part of the loadFromContents:
+ method performed on a serial operation queue was causing malloc errors when creating the image UITraitCollection.
+ 
+ @return a fractal thumbnail
+ */
+-(UIImage*)thumbnail
+{
+    if (_thumbnailData) {
+        _thumbnail = [UIImage imageWithData: _thumbnailData];
+        _thumbnailData = nil;
+    }
+    return _thumbnail;
+}
 
 -(NSArray*)sourceColorCategories
 {

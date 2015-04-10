@@ -19,7 +19,7 @@
 
 @end
 
-@interface MDBFractalLibraryCollectionSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MDBFractalLibraryCollectionSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property(nonatomic,weak) IBOutlet UIViewController<MDBFractalLibraryCollectionDelegate>     *viewController;
 @property(nonatomic,weak) MDBDocumentController                                             *documentController;

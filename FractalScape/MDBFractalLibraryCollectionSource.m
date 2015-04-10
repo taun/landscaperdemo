@@ -16,6 +16,24 @@
 
 @implementation MDBFractalLibraryCollectionSource
 
+#pragma mark - FlowLayoutDelegate
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    CGFloat minInset = 2.0;
+    
+    UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)collectionViewLayout;
+    CGFloat itemWidth = layout.itemSize.width;
+    CGFloat rowWidth = collectionView.bounds.size.width - (2*minInset);
+    NSInteger numItems = floorf(rowWidth/itemWidth);
+    CGFloat margins = floorf((rowWidth - (numItems * itemWidth))/(numItems+1.0));
+//    margins = MAX(margins, 4.0);
+    UIEdgeInsets oldInsets = layout.sectionInset;
+    UIEdgeInsets insets = UIEdgeInsetsMake(oldInsets.top, margins, oldInsets.bottom, margins);
+    return insets;
+//    return 20.0;
+}
+
+
 #pragma mark - UICollectionViewDataSource
 - (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -64,6 +82,7 @@
                 // Make sure that the list info is still visible once the color has been fetched.
                 if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
                 {
+                    NSInteger index = indexPath.row;
                     documentInfoCell.document = fractalInfo.document;
                     MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.document;
                     [document closeWithCompletionHandler:^(BOOL success) {}];
