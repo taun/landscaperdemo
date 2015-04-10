@@ -38,7 +38,7 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
 
--(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+-(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 
 #pragma mark - NavConTransitionProtocol

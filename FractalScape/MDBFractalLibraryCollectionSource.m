@@ -91,9 +91,9 @@
     //    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
 }
 
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.viewController libraryCollectionView: collectionView didDeselectItemAtIndexPath: indexPath];
+    [self.viewController libraryCollectionView: collectionView didSelectItemAtIndexPath: indexPath];
 }
 
 @end

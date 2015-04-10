@@ -164,8 +164,6 @@
 - (IBAction)autoScale:(id)sender;
 
 #pragma mark - Segue Actions
-- (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue;
-- (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue;
 - (IBAction)popBackToLibrary:(id)sender;
 
 -(void) libraryControllerWasDismissed;

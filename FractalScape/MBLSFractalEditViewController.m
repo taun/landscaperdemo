@@ -1275,31 +1275,14 @@ static const CGFloat kLevelNMargin = 40.0;
         [self appearanceControllerIsPresenting: newController];
     }
 }
-- (IBAction)unwindToEditorFromAppearanceEditor:(UIStoryboardSegue *)segue
-{
-    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
-        //
-        [self appearanceControllerWasDismissed];
-    }];
-}
-/*!
- This gets called when cancelled.
- 
- @param segue 
- */
-- (IBAction)unwindToEditorFromLibrary:(UIStoryboardSegue *)segue
-{
-    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
-        //
-        [self libraryControllerWasDismissed];
-    }];
-}
 
 - (IBAction)popBackToLibrary:(id)sender
 {
     if (self.presentedViewController) {
+        // dismiss any current popped or modal views
         [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
     }
+    
     [self.navigationController popViewControllerAnimated: YES];
 }
 

@@ -133,6 +133,16 @@
     return fractalInfo;
 }
 
+-(NSUInteger) indexOfObject: (id) object
+{
+    __block NSUInteger index;
+    
+    dispatch_sync(self.fractalUpdateQueue, ^{
+        index = [self.fractalInfos indexOfObject: object];
+    });
+    
+    return index;
+}
 -(MDBFractalInfo*)controllerFractalInfoFor:(MDBFractalInfo *)fractalInfo
 {
     __block MDBFractalInfo *controllerFractalInfo = nil;

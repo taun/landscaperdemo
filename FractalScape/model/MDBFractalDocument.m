@@ -122,7 +122,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     
     if (fileData)
     {
-        self.thumbnail = [UIImage imageWithData: fileData];
+        self.thumbnail = [[UIImage alloc] initWithData: fileData];
     }
     else
     {

@@ -91,13 +91,18 @@
     //Scale the 'to' view to to its final position
     toView.alpha = 0.5;
     
-    CGSize containerSize = containerView.bounds.size;
-    // hardcoding collectionCell bounds for now.
-    CGFloat cellCenterX = 8.0+(146.0/2.0);
-    CGFloat cellCenterY = 40.0 + 8.0 + 6.0 + (138.0/2.0);
+    CGRect sourceRect = fromViewController.transitionSourceRect;
+    if (CGRectEqualToRect(sourceRect, CGRectZero))
+    {
+        sourceRect = CGRectMake(8.0, 54.0, 146.0, 138.0);
+    }
     
-    CGFloat viewCenterX = containerSize.width/2.0;
-    CGFloat viewCenterY = containerSize.height/2.0;
+    // hardcoding collectionCell bounds for now.
+    CGFloat cellCenterX = CGRectGetMidX(sourceRect);
+    CGFloat cellCenterY = CGRectGetMidY(sourceRect);
+    
+    CGFloat viewCenterX = CGRectGetMidX(containerView.bounds);
+    CGFloat viewCenterY = CGRectGetMidY(containerView.bounds);
     
 #pragma message "replace with viewController final rect scale"
     CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);
@@ -140,8 +145,8 @@
 -(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     //Get references to the view hierarchy
     UIView *containerView = [transitionContext containerView];
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController<MDBNavConTransitionProtocol> *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController<MDBNavConTransitionProtocol> *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     UIView* fromSnapshot = [fromViewController.view snapshotViewAfterScreenUpdates: NO];
     
@@ -150,13 +155,18 @@
     
     [containerView insertSubview: toViewController.view belowSubview: fromSnapshot];
 
-    CGSize containerSize = containerView.bounds.size;
-    // hardcoding collectionCell bounds for now.
-    CGFloat cellCenterX = 8.0+(146.0/2.0);
-    CGFloat cellCenterY = 40.0 + 8.0 + 6.0 + (138.0/2.0);
+    CGRect destinationRect = toViewController.transitionDestinationRect;
+    if (CGRectEqualToRect(destinationRect, CGRectZero))
+    {
+        destinationRect = CGRectMake(8.0, 54.0, 146.0, 138.0);
+    }
     
-    CGFloat viewCenterX = containerSize.width/2.0;
-    CGFloat viewCenterY = containerSize.height/2.0;
+    // hardcoding collectionCell bounds for now.
+    CGFloat cellCenterX = CGRectGetMidX(destinationRect);
+    CGFloat cellCenterY = CGRectGetMidY(destinationRect);
+    
+    CGFloat viewCenterX = CGRectGetMidX(containerView.bounds);
+    CGFloat viewCenterY = CGRectGetMidY(containerView.bounds);
     
 #pragma message "replace with viewController final rect scale"
     CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);

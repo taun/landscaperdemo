@@ -38,9 +38,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 @interface MBFractalLibraryViewController () <MDBFractalDocumentControllerDelegate, UIDocumentMenuDelegate, UIDocumentPickerDelegate>
 
-@property (nonatomic,strong) NSUserActivity                 *pendingUserActivity;
-@property (nonatomic,readonly) NSURL                        *lastEditedURL;
-@property (nonatomic,strong) MDBNavConTransitionCoordinator              *navConTransitionDelegate;
+@property (nonatomic,strong) NSUserActivity                         *pendingUserActivity;
+@property (nonatomic,readonly) NSURL                                *lastEditedURL;
+@property (nonatomic,strong) MDBNavConTransitionCoordinator         *navConTransitionDelegate;
+@property (nonatomic,weak) MDBFractalInfo                           *fractalInfoBeingEdited;
 
 -(void) initControls;
 
@@ -201,9 +202,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
--(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+-(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath: indexPath];
+    MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[collectionView cellForItemAtIndexPath: indexPath];
+    self.fractalInfoBeingEdited = self.documentController[indexPath.row];
     CGRect cellFrame = cell.frame;
     self.transitionSourceRect = cellFrame;
     [self performSegueWithIdentifier: @"showFractalDocument" sender: self];
@@ -211,6 +213,13 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 
 #pragma mark - UIStoryboardSegue Handling
+
+-(CGRect)transitionDestinationRect
+{
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow: [self.documentController indexOfObject: self.fractalInfoBeingEdited] inSection: 0];
+    MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[self.collectionView cellForItemAtIndexPath: indexPath];
+    return cell.frame;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 //    if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier])

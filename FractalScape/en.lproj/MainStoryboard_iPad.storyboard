@@ -2041,7 +2041,6 @@
                                     <outlet property="imageFrame" destination="z47-1a-Cob" id="xkP-Xw-MvZ"/>
                                     <outlet property="imageView" destination="AYV-rN-sBG" id="lg7-Jp-1im"/>
                                     <outlet property="textLabel" destination="PV1-X5-WaQ" id="rtZ-MR-lcd"/>
-                                    <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocument" id="BNA-0R-B33"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -2092,10 +2091,15 @@
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showNewFractalDocument" id="CAI-sc-RDe"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocumentFromUserActivity" id="XIW-aO-ufy"/>
                         <segue destination="9pe-kV-foC" kind="show" identifier="showEditFractalDocumentsList" id="iGE-nb-MUF"/>
+                        <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocument" id="O2z-rK-pDb"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="AHG-9R-hs1" customClass="MDBFractalLibraryCollectionSource"/>
+                <customObject id="AHG-9R-hs1" customClass="MDBFractalLibraryCollectionSource">
+                    <connections>
+                        <outlet property="viewController" destination="o9m-5w-n8i" id="9rQ-wN-rUE"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="4389" y="141"/>
         </scene>
@@ -2352,6 +2356,6 @@
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BNA-0R-B33"/>
+        <segue reference="O2z-rK-pDb"/>
     </inferredMetricsTieBreakers>
 </document>

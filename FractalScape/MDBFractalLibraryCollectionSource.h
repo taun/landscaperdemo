@@ -15,14 +15,15 @@
 
 @protocol MDBFractalLibraryCollectionDelegate <NSObject>
 
--(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+-(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 @interface MDBFractalLibraryCollectionSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property(nonatomic,weak) UIViewController<MDBFractalLibraryCollectionDelegate>     *viewController;
-@property(nonatomic,weak) MDBDocumentController                             *documentController;
-@property(nonatomic,assign) NSInteger                                       rowCount;
+@property(nonatomic,weak) IBOutlet UIViewController<MDBFractalLibraryCollectionDelegate>     *viewController;
+@property(nonatomic,weak) MDBDocumentController                                             *documentController;
+@property(nonatomic,assign) NSInteger                                                       rowCount;
+
 
 @end
