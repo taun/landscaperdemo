@@ -104,7 +104,6 @@
     CGFloat viewCenterX = CGRectGetMidX(containerView.bounds);
     CGFloat viewCenterY = CGRectGetMidY(containerView.bounds);
     
-#pragma message "replace with viewController final rect scale"
     CGFloat scaleX = sourceRect.size.width/containerView.bounds.size.width;
     CGFloat scaleY = sourceRect.size.height/containerView.bounds.size.height;
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scaleX,scaleY);
@@ -170,7 +169,6 @@
     CGFloat viewCenterX = CGRectGetMidX(containerView.bounds);
     CGFloat viewCenterY = CGRectGetMidY(containerView.bounds);
     
-#pragma message "replace with viewController final rect scale"
     CGFloat scaleX = destinationRect.size.width/containerView.bounds.size.width;
     CGFloat scaleY = destinationRect.size.height/containerView.bounds.size.height;
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scaleX,scaleY);
