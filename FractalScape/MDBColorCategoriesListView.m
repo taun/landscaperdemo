@@ -1,7 +1,3 @@
-//
-//  MDBColorCategoriesListView.m
-//  FractalScape
-//
 //  Created by Taun Chapman on 12/03/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //

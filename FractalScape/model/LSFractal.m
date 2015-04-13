@@ -11,6 +11,7 @@
 #import "LSDrawingRuleType.h"
 #import "LSReplacementRule.h"
 #import "MBColor.h"
+#import "MBImageFilter.h"
 
 #import "NSString+MDBConvenience.h"
 
@@ -336,10 +337,12 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                 break;
                 
             default:
+                NSLog(@"Error: Wrong version. is: %i; should be: 1", version);
                 break;
         }
         
     }
+//    NSLog(@"Loaded Fractal: %@",self.name);
     return self;
 }
 
@@ -366,6 +369,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     _replacementRules = [aDecoder decodeObjectForKey: @"replacementRules"];
     _lineColors = [aDecoder decodeObjectForKey: @"lineColors"];
     _fillColors = [aDecoder decodeObjectForKey: @"fillColors"];
+    _imageFilters = [aDecoder decodeObjectForKey: @"imageFilters"];
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder
@@ -381,6 +385,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     [aCoder encodeObject: self.replacementRules forKey: @"replacementRules"];
     [aCoder encodeObject: self.lineColors forKey: @"lineColors"];
     [aCoder encodeObject: self.fillColors forKey: @"fillColors"];
+    [aCoder encodeObject: self.imageFilters forKey: @"imageFilters"];
 }
 
 /*!
@@ -414,7 +419,9 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         fractalCopy.lineColors = [_lineColors copy];
         
         fractalCopy.fillColors = [_fillColors copy];
-        
+
+        fractalCopy.imageFilters = [_imageFilters copy];
+
         NSString* oldName = self.name;
         NSString* newName = [NSString mdbStringByAppendingOrIncrementingCount: oldName];
         fractalCopy.name = newName;
@@ -481,6 +488,15 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         [_fillColors addObject: [MBColor new]];
     }
     return _fillColors;
+}
+
+-(MDBFractalObjectList*)imageFilters
+{
+    if (!_imageFilters) {
+        _imageFilters = [MDBFractalObjectList new];
+        [_imageFilters addObject: [MBImageFilter new]];
+    }
+    return _imageFilters;
 }
 
 - (void)setLevel:(NSInteger)newLevel {

@@ -80,12 +80,12 @@
         
         [MDBDocumentUtilities readDocumentAtURL: self.URL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
             dispatch_async(self.fetchQueue, ^{
-                if (document) {
+                if (document && !error) {
                     self->_document = document;
                 }
                 else {
                     // what to do here? if no document why would there be info?
-                    self->_document = nil;
+                    self->_document = document;
                 }
                 
                 completionHandler();

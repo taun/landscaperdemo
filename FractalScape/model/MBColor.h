@@ -1,7 +1,3 @@
-//
-//  MBColor.h
-//  FractalScape
-//
 //  Created by Taun Chapman on 12/06/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
@@ -45,8 +41,7 @@
  */
 +(UIColor*) newDefaultUIColor;
 /*!
- This string is assigned by default in the CoreData model definition for the MBColor property identifier.
- 
+ This string is assigned by default in the model definition for the MBColor property identifier.
  
  @return The class default identifier string used to identify placeholder object.
  */

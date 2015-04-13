@@ -38,10 +38,42 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 @implementation MDBFractalDocument
 
 @synthesize loadResult = _loadResult;
+@synthesize thumbnail = _thumbnail;
 
 +(NSInteger)version
 {
     return kMDBDocumentCurrentVersion;
+}
+
+-(NSString*)loadResultString
+{
+    NSString* resultString;
+    
+    switch (_loadResult) {
+        case MDBFractalDocumentLoad_SUCCESS:
+            resultString = @"Success";
+            break;
+            
+        case MDBFractalDocumentLoad_ZERO_LENGTH_FILE:
+            resultString = @"Zero Length";
+            break;
+            
+        case MDBFractalDocumentLoad_CORRUPT_FILE:
+            resultString = @"Corrupt";
+            break;
+            
+        case MDBFractalDocumentLoad_UNEXPECTED_VERSION:
+            resultString = @"Wrong Version";
+            break;
+            
+        case MDBFractalDocumentLoad_NO_SUCH_FILE:
+            resultString = @"No File Found";
+            break;
+            
+        default:
+            break;
+    }
+    return resultString;
 }
 
 - (id) initWithFileURL:(NSURL *)url
@@ -167,14 +199,15 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     return self.documentFileWrapper;
 }
 
-- (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
+- (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError **)outError
 {
     _documentFileWrapper = (NSFileWrapper *)contents;
-    BOOL isBadFile = [_documentFileWrapper.filename isEqualToString: @"B7BFC7D3-CEA3-439F-A699-C70B812D67CD.fractal"];
     
     if (!_documentFileWrapper || _documentFileWrapper.fileWrappers.count == 0)
     {
         _loadResult = MDBFractalDocumentLoad_ZERO_LENGTH_FILE;
+        NSError*__autoreleasing error = [NSError errorWithDomain: @"FractalScape" code: _loadResult userInfo: nil];
+        outError = (NSError*__autoreleasing*)&error;
         return NO;
     }
     
@@ -193,14 +226,25 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
                 
             default:
                 _loadResult = MDBFractalDocumentLoad_UNEXPECTED_VERSION;
+                NSError*__autoreleasing error = [NSError errorWithDomain: @"FractalScape" code: _loadResult userInfo: nil];
+                outError = (NSError*__autoreleasing*)&error;
                 return NO;
         }
-        
+        if (!self.fractal)
+        {
+            _loadResult = MDBFractalDocumentLoad_CORRUPT_FILE;
+//            NSLog(@"Problem loading file %@",_documentFileWrapper.filename);
+            NSError*__autoreleasing error = [NSError errorWithDomain: @"FractalScape" code: _loadResult userInfo: nil];
+            outError = (NSError*__autoreleasing*)&error;
+            return NO;
+        }
     }
     @catch (NSException *exception)
     {
         NSLog(@"%@ exception: %@", NSStringFromSelector(_cmd), exception);
         _loadResult = MDBFractalDocumentLoad_CORRUPT_FILE;
+        NSError*__autoreleasing error = [NSError errorWithDomain: @"FractalScape" code: _loadResult userInfo: nil];
+        outError = (NSError*__autoreleasing*)&error;
         return NO;
     }
     
@@ -269,6 +313,14 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
         _thumbnailData = nil;
     }
     return _thumbnail;
+}
+
+-(void)setThumbnail:(UIImage *)thumbnail
+{
+    if (_thumbnail != thumbnail) {
+        _thumbnail = thumbnail;
+        _thumbnailData = nil;
+    }
 }
 
 -(NSArray*)sourceColorCategories

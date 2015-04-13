@@ -96,13 +96,18 @@
         
         if (_document)
         {
-            if (_document.fractal.name) self.textLabel.text = _document.fractal.name;
-            if (_document.fractal.descriptor) self.detailTextLabel.text = _document.fractal.descriptor;
-            if (_document.thumbnail)
+            if (_document.loadResult == MDBFractalDocumentLoad_SUCCESS)
             {
-                self.imageView.image = _document.thumbnail;
+                if (_document.fractal.name) self.textLabel.text = _document.fractal.name;
+                if (_document.fractal.descriptor) self.detailTextLabel.text = _document.fractal.descriptor;
+                if (_document.thumbnail)
+                {
+                    self.imageView.image = _document.thumbnail;
+                }
+            } else {
+                self.textLabel.text = _document.loadResultString;
             }
-//            else
+ //            else
 //            {
 //                UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
 //                UIImageView* strongImageView = self.imageView;

@@ -9,6 +9,8 @@
 #import "MDBFractalFiltersControllerViewController.h"
 #import "MBLSFractalEditViewController.h"
 
+#import "MBImageFilter.h"
+
 
 @interface MDBFractalFiltersControllerViewController ()
 

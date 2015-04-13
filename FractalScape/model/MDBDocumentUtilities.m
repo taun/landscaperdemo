@@ -96,7 +96,13 @@
                 }
                 if (completionHandler)
                 {
-                    completionHandler(deserializedDocument, nil);
+                    NSError* docError;
+                    
+                    if (!success)
+                    {
+                        docError = [NSError errorWithDomain: @"FractalScape" code: deserializedDocument.loadResult userInfo: nil];
+                    }
+                    completionHandler(deserializedDocument, docError);
                 }
             }];
         }

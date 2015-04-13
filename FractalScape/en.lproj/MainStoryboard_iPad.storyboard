@@ -899,10 +899,20 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-N1-HPR" userLabel="ScrollContents">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" customClass="MDBImageFiltersCategoriesListView">
+                                                        <rect key="frame" x="16" y="16" width="368" height="468"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="ehG-I0-xK1" firstAttribute="top" secondItem="Qlc-N1-HPR" secondAttribute="topMargin" constant="8" id="4oD-gT-Bj2"/>
+                                                    <constraint firstAttribute="bottomMargin" secondItem="ehG-I0-xK1" secondAttribute="bottom" constant="8" id="71r-au-OnA"/>
                                                     <constraint firstAttribute="height" constant="500" id="HMf-HR-g8s"/>
                                                     <constraint firstAttribute="width" constant="400" placeholder="YES" id="QEC-2R-0hL"/>
+                                                    <constraint firstItem="ehG-I0-xK1" firstAttribute="leading" secondItem="Qlc-N1-HPR" secondAttribute="leadingMargin" constant="8" id="cOE-4W-nAw"/>
+                                                    <constraint firstAttribute="trailingMargin" secondItem="ehG-I0-xK1" secondAttribute="trailing" constant="8" id="gFh-ys-GHY"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -930,9 +940,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls" customClass="MDBFilterControlView">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="140"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="140" id="Cwa-TT-hqN"/>
                                             </constraints>

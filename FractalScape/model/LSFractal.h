@@ -116,6 +116,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic, strong) MBColor       *backgroundColor;
 @property (nonatomic, strong) MDBFractalObjectList       *fillColors;
 @property (nonatomic, strong) MDBFractalObjectList       *lineColors;
+@property (nonatomic, strong) MDBFractalObjectList       *imageFilters;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString               *startingRulesAsString;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSDictionary                 *replacementRulesDictionary;

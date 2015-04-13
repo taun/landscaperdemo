@@ -310,33 +310,6 @@ static const CGFloat kLevelNMargin = 40.0;
     [self saveToUserPreferencesAsLastEditedFractal: self.fractalInfo];
 }
 
-- (void)handleDocumentStateChangedNotification:(NSNotification *)notification
-{
-    UIDocumentState state = self.fractalDocument.documentState;
-    
-    if (state & UIDocumentStateInConflict) {
-        [self resolveConflicts];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.tableView reloadData];
-        [self queueFractalImageUpdates];
-        [self updateInterface];
-    });
-}
-
-- (void)resolveConflicts
-{
-    // Any automatic merging logic or presentation of conflict resolution UI should go here.
-    // For this sample, just pick the current version and mark the conflict versions as resolved.
-    [NSFileVersion removeOtherVersionsOfItemAtURL: self.fractalDocument.fileURL error:nil];
-    
-    NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: self.fractalDocument.fileURL];
-    for (NSFileVersion *fileVersion in conflictVersions) {
-        fileVersion.resolved = YES;
-    }
-}
-
 /* on staartup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated
 {
@@ -437,6 +410,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         if (changeCount)
         {
+            self.hasBeenEdited = YES;
             [self queueFractalImageUpdates];
             [self updateInterface];
         }
@@ -490,6 +464,61 @@ static const CGFloat kLevelNMargin = 40.0;
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
     [self updateUndoRedoBarButtonState];
+}
+
+#pragma message "TODO: handle UIDocumentStateInConflict option to rename or overwrite"
+/*!
+ Device A and device B have a fractal open for editing.
+ When B has no edits, and A is changed,
+ B gets two stateChanged notifications,
+ 1. State changes to UIDocumentStateEditingDisabled just before reading in the new fractal.
+ 2. State changes to UIDocumentStateNormal when the new fractal has been read and replaced the fractal of the document.
+ 
+    When state changes to UIDocumentStateEditingDisabled remove fractal observers.
+    When state changes to normal, re-add the fractal observers.
+ 
+ When B has edits and A has edits,
+ B gets two stateChanged notifications
+ 1. States EditingDisabled AND InConflict bx01010
+    Need to ask user which version they want to keep or if they want to create a new version.
+ 
+ Do we need to keep track of previous state?
+ 
+ @param notification
+ */
+- (void)handleDocumentStateChangedNotification:(NSNotification *)notification
+{
+    UIDocumentState state = self.fractalDocument.documentState;
+    
+    if (state == UIDocumentStateNormal)
+    {
+        [self addObserversForCurrentFractal];
+    }
+    else if (state & UIDocumentStateInConflict) {
+        [self resolveConflicts];
+    }
+    else if (state & UIDocumentStateEditingDisabled)
+    {
+        [self removeObserversForCurrentFractal];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //        [self.tableView reloadData];
+        [self queueFractalImageUpdates];
+        [self updateInterface];
+    });
+}
+
+- (void)resolveConflicts
+{
+    // Any automatic merging logic or presentation of conflict resolution UI should go here.
+    // For this sample, just pick the current version and mark the conflict versions as resolved.
+    [NSFileVersion removeOtherVersionsOfItemAtURL: self.fractalDocument.fileURL error:nil];
+    
+    NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: self.fractalDocument.fileURL];
+    for (NSFileVersion *fileVersion in conflictVersions) {
+        fileVersion.resolved = YES;
+    }
 }
 
 #pragma mark - Getters & Setters
@@ -700,7 +729,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0)];
         
-        _fractalInfo.document.thumbnail = fractalImage;
+        [_fractalInfo.document setThumbnail: fractalImage];
         _fractalInfo.changeDate = [NSDate date];
         
         [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
@@ -1733,6 +1762,7 @@ static const CGFloat kLevelNMargin = 40.0;
     CGFloat percent = sender.value;
     CGFloat steppedPercent = percent - fmodf(percent, 0.05);
     self.fractalDocument.fractal.randomness = steppedPercent;
+//    [self updateLibraryRepresentationIfNeeded];
 }
 
 - (IBAction)baseAngleSliderChanged:(UISlider*)sender
@@ -1740,6 +1770,7 @@ static const CGFloat kLevelNMargin = 40.0;
     CGFloat newAngleDegrees = sender.value;
     CGFloat steppedNewAngleDegrees = newAngleDegrees - fmodf(newAngleDegrees, 5.0);
     self.fractalDocument.fractal.baseAngle = radians(steppedNewAngleDegrees);
+//    [self updateLibraryRepresentationIfNeeded];
 }
 
 - (IBAction)lineWidthSliderChanged:(UISlider*)sender
@@ -1747,6 +1778,7 @@ static const CGFloat kLevelNMargin = 40.0;
     CGFloat percent = sender.value;
     CGFloat steppedPercent = percent - fmodf(percent, 0.05);
     self.fractalDocument.fractal.lineWidth = steppedPercent;
+//    [self updateLibraryRepresentationIfNeeded];
 }
 
 - (IBAction)turnAngleSliderChanged:(UISlider*)sender
@@ -1754,6 +1786,7 @@ static const CGFloat kLevelNMargin = 40.0;
     CGFloat newAngleDegrees = sender.value;
     CGFloat steppedNewAngleDegrees = newAngleDegrees - fmodf(newAngleDegrees, 1.0);
     self.fractalDocument.fractal.turningAngle = radians(steppedNewAngleDegrees);
+//    [self updateLibraryRepresentationIfNeeded];
 }
 
 - (IBAction)lineLengthIncrementSliderChanged:(UISlider*)sender
@@ -1761,6 +1794,7 @@ static const CGFloat kLevelNMargin = 40.0;
     CGFloat percent = sender.value;
     CGFloat steppedPercent = percent - fmodf(percent, 0.05);
     self.fractalDocument.fractal.lineChangeFactor = steppedPercent;
+//    [self updateLibraryRepresentationIfNeeded];
 }
 
 - (IBAction)turningAngleIncrementSliderChanged:(UISlider*)sender
@@ -1768,6 +1802,7 @@ static const CGFloat kLevelNMargin = 40.0;
     CGFloat percent = sender.value;
     CGFloat steppedPercent = percent - fmodf(percent, 0.05);
     self.fractalDocument.fractal.turningAngleIncrement = steppedPercent;
+//    [self updateLibraryRepresentationIfNeeded];
 }
 
 
@@ -1988,6 +2023,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
         determinedState = 0;
         self.autoscaleN = YES;
+        [self updateLibraryRepresentationIfNeeded];
     }
 }
 

@@ -219,7 +219,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[collectionView cellForItemAtIndexPath: indexPath];
     self.fractalInfoBeingEdited = self.documentController[indexPath.row];
     CGRect cellFrame = cell.frame;
-    self.transitionSourceRect = cellFrame;
+    self.transitionSourceRect = [self.collectionView.window convertRect: cellFrame fromView: self.collectionView];
     [self performSegueWithIdentifier: @"showFractalDocument" sender: self];
 }
 
@@ -230,7 +230,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow: [self.documentController indexOfObject: self.fractalInfoBeingEdited] inSection: 0];
     MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[self.collectionView cellForItemAtIndexPath: indexPath];
-    return cell.frame;
+    CGRect cellRect = [self.collectionView.window convertRect: cell.frame fromView: self.collectionView];
+    return cellRect;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
