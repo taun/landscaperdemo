@@ -53,6 +53,7 @@
     [self.fillColorsListView setNeedsLayout];
     [self.view setNeedsLayout];
     [self.visualEffectView setNeedsLayout];
+    [self updateViewConstraints];
     
     [super viewWillLayoutSubviews];
 }

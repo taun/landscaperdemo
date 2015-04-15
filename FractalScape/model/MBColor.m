@@ -96,7 +96,7 @@
     MBColor *copy = [[[self class]allocWithZone: zone] init];
     
     if (copy) {
-        for ( NSString* aKey in [MBColor keysToBeCopied]) {
+        for ( NSString* aKey in [[self class] keysToBeCopied]) {
             id object = [self valueForKey: aKey];
             if (object) {
                 [copy setValue: object forKey: aKey];

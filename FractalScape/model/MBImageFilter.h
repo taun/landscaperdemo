@@ -33,14 +33,16 @@
 @property (nonatomic,readonly) CIFilter             *ciFilter;
 
 
-+(instancetype) newFilterWithName: (NSString*)ciFilterName;
-
-+(UIColor*) newDefaultFilter;
++(instancetype) newFilterWithIdentifier: (NSString*)ciFilterName;
 
 +(NSString*) defaultIdentifierString;
 
 +(NSSortDescriptor*) sortDescriptor;
 
 -(UIImage*) thumbnailImageSize: (CGSize) size;
+
+-(void)setGoodDefaultsOnCIFilter: (CIFilter*)ciFilter forImage: (CIImage*)image bounds: (CGRect)bounds;
+
+-(UIImage*)filterImage: (UIImage*)inputImage withContext: (CIContext*)context;
 
 @end

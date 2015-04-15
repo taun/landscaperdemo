@@ -8,17 +8,23 @@
 
 #import "MDBFractalFiltersControllerViewController.h"
 #import "MBLSFractalEditViewController.h"
-
+#import "MDBImageFiltersCategoriesListView.h"
 #import "MBImageFilter.h"
 
 
 @interface MDBFractalFiltersControllerViewController ()
 
-@property (nonatomic,strong) NSArray        *filters;
-
 @end
 
 @implementation MDBFractalFiltersControllerViewController
+
+-(void) updateFractalDependents
+{
+    [self.destinationView setDefaultObjectClass: [MBImageFilter class]];
+    self.destinationView.objectList = self.fractalDocument.fractal.imageFilters;
+    
+    [self.view setNeedsUpdateConstraints];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,17 +32,67 @@
 //    self.view.translatesAutoresizingMaskIntoConstraints = NO;
 //    _filterPicker.translatesAutoresizingMaskIntoConstraints = NO;
 //    _filters = [CIFilter filterNamesInCategory: kCICategoryTileEffect];
-    NSMutableArray* tempArray = [NSMutableArray new];
-    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryTileEffect]];
-    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryColorEffect]];
-    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryDistortionEffect]];
-    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryBlur]];
-    _filters = [tempArray copy];
+//    NSMutableArray* tempArray = [NSMutableArray new];
+//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryTileEffect]];
+//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryColorEffect]];
+//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryDistortionEffect]];
+//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryBlur]];
+//    _filters = [tempArray copy];
+
+    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
+    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
+
+    NSArray* filterCategories = @[kCICategoryTileEffect,kCICategoryDistortionEffect,kCICategoryBlur,kCICategoryColorEffect];
+    MDBImageFiltersCategoriesListView* categoriesView = (MDBImageFiltersCategoriesListView*) self.sourceListView;
+    categoriesView.filterCategories = filterCategories;
+}
+
+-(void) viewWillLayoutSubviews
+{
+    [self.view setNeedsLayout];
+    [self.visualEffectView setNeedsLayout];
+    [self updateViewConstraints];
+    
+    [super viewWillLayoutSubviews];
+}
+
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [self.view setNeedsLayout];
+    [self.visualEffectView setNeedsLayout];
+    [self updateViewConstraints];
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+}
+
+-(void) updateViewConstraints
+{
+    [super updateViewConstraints];
+    
+    [self.visualEffectView layoutIfNeeded];
+    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
+    
+    [self.sourceListView setNeedsLayout];
+    [self.sourceListView layoutIfNeeded];
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)filterSourceTapGesture:(UITapGestureRecognizer *)sender {
+    CGPoint touchPoint = [sender locationInView: self.view];
+    UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
+    [self showInfoForView: viewUnderTouch];
+}
+
+- (IBAction)filtersLongPress:(UILongPressGestureRecognizer *)sender
+{
+    [self sourceDragLongGesture: sender];
 }
 
 /*

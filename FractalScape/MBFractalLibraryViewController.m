@@ -219,7 +219,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[collectionView cellForItemAtIndexPath: indexPath];
     self.fractalInfoBeingEdited = self.documentController[indexPath.row];
     CGRect cellFrame = cell.frame;
-    self.transitionSourceRect = [self.collectionView.window convertRect: cellFrame fromView: self.collectionView];
+    CGRect cellSquareFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.width);
+    self.transitionSourceRect = [self.collectionView.window convertRect: cellSquareFrame fromView: self.collectionView];
     [self performSegueWithIdentifier: @"showFractalDocument" sender: self];
 }
 
@@ -230,7 +231,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow: [self.documentController indexOfObject: self.fractalInfoBeingEdited] inSection: 0];
     MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[self.collectionView cellForItemAtIndexPath: indexPath];
-    CGRect cellRect = [self.collectionView.window convertRect: cell.frame fromView: self.collectionView];
+    CGRect cellSquareFrame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.width);
+    CGRect cellRect = [self.collectionView.window convertRect: cellSquareFrame fromView: self.collectionView];
     return cellRect;
 }
 

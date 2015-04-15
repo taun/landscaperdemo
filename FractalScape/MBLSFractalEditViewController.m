@@ -22,6 +22,7 @@
 #import "LSReplacementRule.h"
 #import "LSFractal.h"
 #import "MBColor.h"
+#import "MBImageFilter.h"
 #import "MDBDocumentController.h"
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalInfo.h"
@@ -459,6 +460,11 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         self.hasBeenEdited = YES;
     }
+    else if ([keyPath isEqualToString: @"imageFilters.allObjects"])
+    {
+        self.hasBeenEdited = YES;
+        [self changeAndApplyFilters];
+    }
     else
     {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -494,7 +500,17 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         [self addObserversForCurrentFractal];
     }
-    else if (state & UIDocumentStateInConflict) {
+    else if (state & UIDocumentStateInConflict)
+    {
+        if (self.presentedViewController && [self.presentedViewController isKindOfClass: [UIAlertController class]])
+        {
+            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+        }
+        else if (self.presentedViewController)
+        {
+            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+        }
+        
         [self resolveConflicts];
     }
     else if (state & UIDocumentStateEditingDisabled)
@@ -504,21 +520,45 @@ static const CGFloat kLevelNMargin = 40.0;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //        [self.tableView reloadData];
-        [self queueFractalImageUpdates];
         [self updateInterface];
+        [self queueFractalImageUpdates];
     });
 }
 
 - (void)resolveConflicts
 {
-    // Any automatic merging logic or presentation of conflict resolution UI should go here.
-    // For this sample, just pick the current version and mark the conflict versions as resolved.
-    [NSFileVersion removeOtherVersionsOfItemAtURL: self.fractalDocument.fileURL error:nil];
+    NSString* versionConflictMessage = [NSString stringWithFormat: @"Another one of your devices is trying to save a newly edited version over the version you are editing on this device. What do you want to do?"];
     
-    NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: self.fractalDocument.fileURL];
-    for (NSFileVersion *fileVersion in conflictVersions) {
-        fileVersion.resolved = YES;
-    }
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Editing Conflict!"
+                                                                   message: versionConflictMessage
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    UIAlertAction* pushOverwriteAction = [UIAlertAction actionWithTitle:@"Keep this device edits" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action)
+                                           {
+                                               [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                               // Any automatic merging logic or presentation of conflict resolution UI should go here.
+                                               // For this sample, just pick the current version and mark the conflict versions as resolved.
+                                               [NSFileVersion removeOtherVersionsOfItemAtURL: self.fractalDocument.fileURL error:nil];
+                                               
+                                               NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: self.fractalDocument.fileURL];
+                                               for (NSFileVersion *fileVersion in conflictVersions) {
+                                                   fileVersion.resolved = YES;
+                                               }
+                                           }];
+    [alert addAction: pushOverwriteAction];
+
+    UIAlertAction* makeCopyAction = [UIAlertAction actionWithTitle:@"Make a new copy of this fractal" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                        [self copyFractal: nil];
+                                    }];
+    [alert addAction: makeCopyAction];
+
+    [self presentViewController: alert animated: YES completion: nil];
 }
 
 #pragma mark - Getters & Setters
@@ -757,6 +797,7 @@ static const CGFloat kLevelNMargin = 40.0;
         [propertiesToObserve addObject: @"startingRules.allObjects"];
         [propertiesToObserve addObject: @"lineColors.allObjects"];
         [propertiesToObserve addObject: @"fillColors.allObjects"];
+        [propertiesToObserve addObject: @"imageFilters.allObjects"];
         
         for (NSString* keyPath in propertiesToObserve)
         {
@@ -811,6 +852,7 @@ static const CGFloat kLevelNMargin = 40.0;
         [propertiesToObserve addObject: @"startingRules.allObjects"];
         [propertiesToObserve addObject: @"lineColors.allObjects"];
         [propertiesToObserve addObject: @"fillColors.allObjects"];
+        [propertiesToObserve addObject: @"imageFilters.allObjects"];
         
         @try {
             // Some properties may not being observed due to being nil initially?
@@ -870,12 +912,14 @@ static const CGFloat kLevelNMargin = 40.0;
     }
 }
 
--(CIContext*) filterContext {
+-(CIContext*) filterContext
+{
     if (!_filterContext) {
         _filterContext = [CIContext contextWithOptions: nil];
     }
     return _filterContext;
 }
+
 #pragma mark - view utility methods
 
 -(void) updateInterface
@@ -1743,6 +1787,7 @@ static const CGFloat kLevelNMargin = 40.0;
     MDBFractalInfo* fractalInfo = [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
     
     [self setFractalInfo: fractalInfo andShowEditor: YES];
+    self.hasBeenEdited = YES;
     
 //    [self performSegueWithIdentifier: @"EditSegue" sender: self];
 }
@@ -1808,39 +1853,37 @@ static const CGFloat kLevelNMargin = 40.0;
 
 
 #pragma mark - Filter Actions
-- (IBAction)applyFilter:(CIFilter*)filter
+-(void)changeAndApplyFilters
 {
     CGFloat scale = self.fractalRendererLN.image.scale;
-    CGSize imageSize = self.fractalRendererLN.image.size;
-    CGRect imageBounds = CGRectMake(0.0, 0.0, imageSize.width*scale, imageSize.height*scale);
-    CGFloat midX = scale*imageSize.width/2.0;
-    CGFloat midY = scale*imageSize.height/2.0;
-    CIVector* filterCenter = [CIVector vectorWithX: midX Y: midY];
-    CIImage *image = [CIImage imageWithCGImage: self.fractalRendererLN.image.CGImage];
+    CGFloat imageWidth = scale*self.fractalRendererLN.image.size.width;
+    CGFloat imageHeight = scale*self.fractalRendererLN.image.size.height;
+    CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
+//    CGFloat midX = imageWidth/2.0;
+//    CGFloat midY = imageHeight/2.0;
+ 
+    CIImage *inputImage = [CIImage imageWithCGImage: self.fractalRendererLN.image.CGImage];
 
-    [filter setDefaults];
-    NSDictionary* filterAttributes = [filter attributes];
-    if (filterAttributes[kCIInputCenterKey]) {
-        [filter setValue: filterCenter forKey: kCIInputCenterKey];
-    }
-    if (filterAttributes[@"inputPoint"]) {
-        [filter setValue: filterCenter forKey: @"inputPoint"];
-    }
+    CIImage* filteredImage = inputImage;
     
-    if (filterAttributes[kCIInputWidthKey]) {
-        CGFloat width = self.fractalRendererLN.rawFractalPathBounds.size.width/2.0;
-        [filter setValue: @(width) forKey: kCIInputWidthKey];
+    for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
+        [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
+        filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
     }
-    [filter setValue:image forKey:kCIInputImageKey];
-
-    CIImage *filteredImage = [filter valueForKey:kCIOutputImageKey];
     
     CGImageRef cgImage = [self.filterContext createCGImage: filteredImage fromRect: imageBounds];
     
     UIImage* filteredUIImage = [UIImage imageWithCGImage: cgImage scale: scale orientation: UIImageOrientationUp];
     
-    self.fractalView.image = filteredUIImage;
+    if (filteredUIImage) {
+        self.fractalView.image = filteredUIImage;
+    }
     CGImageRelease(cgImage);
+}
+
+- (IBAction)applyFilter:(CIFilter*)filter
+{
+    [self changeAndApplyFilters];
 }
 
 

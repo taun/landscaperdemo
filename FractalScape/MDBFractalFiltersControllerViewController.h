@@ -28,6 +28,9 @@
 
 @interface MDBFractalFiltersControllerViewController : MDBLSObjectTilesViewBaseController
 
+@property (weak, nonatomic) IBOutlet UIVisualEffectView             *visualEffectView;
 
+- (IBAction)filterSourceTapGesture:(UITapGestureRecognizer *)sender;
+- (IBAction)filtersLongPress:(UILongPressGestureRecognizer *)sender;
 
 @end

@@ -82,6 +82,23 @@
 //    }];
 }
 
+#pragma mark - FlowLayoutDelegate
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    CGFloat minInset = 2.0;
+    
+    UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)collectionViewLayout;
+    CGFloat itemWidth = layout.itemSize.width;
+    CGFloat rowWidth = collectionView.bounds.size.width - (2*minInset);
+    NSInteger numItems = floorf(rowWidth/itemWidth);
+    CGFloat margins = floorf((rowWidth - (numItems * itemWidth))/(numItems+1.0));
+    //    margins = MAX(margins, 4.0);
+    UIEdgeInsets oldInsets = layout.sectionInset;
+    UIEdgeInsets insets = UIEdgeInsetsMake(oldInsets.top, margins, oldInsets.bottom, margins);
+    return insets;
+    //    return 20.0;
+}
+
 #pragma mark - UICollectionViewDataSource
 - (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -127,6 +144,7 @@
     
     proxy.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fractalData];
     proxy.thumbnail = [UIImage imageWithData: thumbnailData];
+    proxy.loadResult = MDBFractalDocumentLoad_SUCCESS;
     
     documentInfoCell.document = proxy;
     // Configure the cell with data from the managed object.
