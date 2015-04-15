@@ -65,6 +65,7 @@
 @property (weak, nonatomic) IBOutlet UISlider       *playbackSlider;
 @property (weak, nonatomic) IBOutlet UIButton*      toggleFullScreenButton;
 @property (weak, nonatomic) IBOutlet UIButton*      autoExpandOff;
+@property (weak, nonatomic) IBOutlet UIButton*      applyFiltersButton;
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootSingleTapRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootDoubleTapRecognizer;
@@ -169,7 +170,7 @@
 -(void) libraryControllerWasDismissed;
 
 #pragma mark - Filter Actions
-- (IBAction)applyFilter:(CIFilter*)filter;
+- (IBAction)toggleApplyFilter:(id)sender;
 
 #pragma mark - NavConTransitionProtocol
 @property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      pushTransition;

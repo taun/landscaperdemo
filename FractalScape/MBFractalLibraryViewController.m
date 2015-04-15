@@ -55,8 +55,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     [super viewDidLoad];
     
-    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
-    self.collectionView.backgroundView = blurEffectView;
+//    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
+//    self.collectionView.backgroundView = blurEffectView;
     
     self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
 #pragma message "TODO fix transitions"

@@ -59,8 +59,9 @@
 //    strongImageView.image = placeholder;
     
     if (!self.backgroundView) {
-        MBColorCellBackgroundView* backgroundView = [MBColorCellBackgroundView new];
-        self.backgroundView = backgroundView;
+//        MBColorCellBackgroundView* backgroundView = [MBColorCellBackgroundView new];
+        UIView* background = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"kLibraryCellBackgroundImage"]];
+        self.backgroundView = background;
     }
     
     self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
@@ -122,7 +123,7 @@
 }
 -(void) setImageFrame:(UIView *)imageFrame {
     if (_imageFrame != imageFrame) {
-        if ((YES)) {
+        if ((NO)) {
             imageFrame.layer.shadowOpacity = 0.5;
             imageFrame.layer.shadowOffset = CGSizeMake(0, 3.0);
         }

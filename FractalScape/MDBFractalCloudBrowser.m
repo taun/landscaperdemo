@@ -23,8 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
-    self.collectionView.backgroundView = blurEffectView;
+//    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
+//    self.collectionView.backgroundView = blurEffectView;
 
     self.cloudManager = [[MDLCloudKitManager alloc] init];
     // Do any additional setup after loading the view, typically from a nib.
@@ -32,15 +32,17 @@
     
     //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     //    self.navigationItem.rightBarButtonItem = addButton;
-    
+    [self.activityIndicator startAnimating];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    
     [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records, NSError* error) {
         if (!error) {
             self.publicCloudRecords = records;
+            [self.activityIndicator stopAnimating];
             [self.collectionView reloadData];
         } else {
             

@@ -122,7 +122,12 @@
 
 - (BOOL)isEmpty
 {
-    return self.objects.count <= 0;
+    BOOL empty = YES;
+    
+    if (_objects && _objects.count > 0 && ![[_objects firstObject] isDefaultObject]) {
+        empty = NO;
+    }
+    return empty;
 }
 
 -(BOOL) containsObject:(id)object

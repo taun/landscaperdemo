@@ -100,6 +100,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                           @"backgroundColor",
                           @"autoExpand",
                           @"advancedMode",
+                          @"applyFilters",
                           nil];
     });
     return keysToBeCopied;
@@ -168,6 +169,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                             @"fillColors",
                             @"backgroundColor",
                             @"autoExpand",
+                            @"applyFilters",
                             nil];
     });
     return redrawProperties;
@@ -320,6 +322,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         _turningAngle = 0.0;
         _turningAngleIncrement = 0.0;
         _randomness = 0.0;
+        _applyFilters = YES;
     }
     return self;
 }

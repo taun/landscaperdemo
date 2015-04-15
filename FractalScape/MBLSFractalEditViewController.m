@@ -977,6 +977,8 @@ static const CGFloat kLevelNMargin = 40.0;
     self.lengthIncrementVerticalSlider.value = self.fractalDocument.fractal.lineChangeFactor;
     
     self.autoExpandOff.selected = self.fractalDocument.fractal.autoExpand;
+    
+    self.applyFiltersButton.selected = self.fractalDocument.fractal.applyFilters;
 }
 -(void) regenerateLevels
 {
@@ -1064,6 +1066,8 @@ static const CGFloat kLevelNMargin = 40.0;
     
     self.fractalRendererLN.autoscale = self.autoscaleN;
     self.fractalRendererLN.autoExpand = self.fractalDocument.fractal.autoExpand;
+    self.fractalRendererLN.applyFilters = self.fractalDocument.fractal.applyFilters;
+    
 #pragma message "TODO define a property for the default fractal background color. Currently manually spread throughout code."
     UIColor* backgroundColor = [self.fractalDocument.fractal.backgroundColor asUIColor];
     if (!backgroundColor) backgroundColor = [UIColor clearColor];
@@ -1089,6 +1093,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         NSBlockOperation* operation0 = [self operationForRenderer: self.fractalRendererL0];
         self.fractalRendererL0.backgroundColor = [UIColor clearColor];
+        self.fractalRendererL0.applyFilters = NO;
         [self.privateImageGenerationQueue addOperation: operation0];
     }
     
@@ -1096,6 +1101,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         NSBlockOperation* operation1 = [self operationForRenderer: self.fractalRendererL1];
         self.fractalRendererL1.backgroundColor = [UIColor clearColor];
+        self.fractalRendererL1.applyFilters = NO;
         [self.privateImageGenerationQueue addOperation: operation1];
     }
     
@@ -1103,6 +1109,7 @@ static const CGFloat kLevelNMargin = 40.0;
     {
         NSBlockOperation* operation2 = [self operationForRenderer: self.fractalRendererL2];
         self.fractalRendererL2.backgroundColor = [UIColor clearColor];
+        self.fractalRendererL2.applyFilters = NO;
         [self.privateImageGenerationQueue addOperation: operation2];
     }
 }
@@ -1122,7 +1129,17 @@ static const CGFloat kLevelNMargin = 40.0;
             if (renderer.imageView && renderer.image)
             {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    renderer.imageView.image = renderer.image;
+                    BOOL applyFilters = YES;
+                    
+                    if (renderer.applyFilters)
+                    {
+                        renderer.imageView.image = [self applyFiltersToImage: renderer.image];
+                    }
+                    else
+                    {
+                        renderer.imageView.image = renderer.image;
+                    }
+                    
                     if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
                     {
                         [self.activityIndicator stopAnimating];
@@ -1855,35 +1872,63 @@ static const CGFloat kLevelNMargin = 40.0;
 #pragma mark - Filter Actions
 -(void)changeAndApplyFilters
 {
-    CGFloat scale = self.fractalRendererLN.image.scale;
-    CGFloat imageWidth = scale*self.fractalRendererLN.image.size.width;
-    CGFloat imageHeight = scale*self.fractalRendererLN.image.size.height;
-    CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
-//    CGFloat midX = imageWidth/2.0;
-//    CGFloat midY = imageHeight/2.0;
- 
-    CIImage *inputImage = [CIImage imageWithCGImage: self.fractalRendererLN.image.CGImage];
+    MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
 
-    CIImage* filteredImage = inputImage;
-    
-    for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
-        [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
-        filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
+    if (!filters.isEmpty && !self.fractalDocument.fractal.applyFilters)
+    {
+        // if there are filters and the applyFilters was off, turn it on.
+        [self toggleApplyFilter: nil];
+    }
+    else if (filters.isEmpty && self.fractalDocument.fractal.applyFilters)
+    {
+        // filters are now empty and apply filters was on, turn it off
+        [self toggleApplyFilter: nil];
     }
     
-    CGImageRef cgImage = [self.filterContext createCGImage: filteredImage fromRect: imageBounds];
+    UIImage* filteredUIImage = [self applyFiltersToImage: self.fractalRendererLN.image];
     
-    UIImage* filteredUIImage = [UIImage imageWithCGImage: cgImage scale: scale orientation: UIImageOrientationUp];
-    
-    if (filteredUIImage) {
+    if (filteredUIImage)
+    {
         self.fractalView.image = filteredUIImage;
     }
-    CGImageRelease(cgImage);
 }
 
-- (IBAction)applyFilter:(CIFilter*)filter
+-(UIImage*)applyFiltersToImage: (UIImage*)inputImage
 {
-    [self changeAndApplyFilters];
+    UIImage* filteredUIImage = inputImage;
+    
+    MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
+    
+    if (filters && !filters.isEmpty) {
+        CGFloat scale = inputImage.scale;
+        CGFloat imageWidth = scale*inputImage.size.width;
+        CGFloat imageHeight = scale*inputImage.size.height;
+        CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
+        //    CGFloat midX = imageWidth/2.0;
+        //    CGFloat midY = imageHeight/2.0;
+        
+        CIImage *ciiInputImage = [CIImage imageWithCGImage: inputImage.CGImage];
+        
+        CIImage* filteredImage = ciiInputImage;
+        
+        for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
+            [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
+            filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
+        }
+        
+        CGImageRef cgImage = [self.filterContext createCGImage: filteredImage fromRect: imageBounds];
+        
+        filteredUIImage = [UIImage imageWithCGImage: cgImage scale: scale orientation: UIImageOrientationUp];
+        
+        CGImageRelease(cgImage);
+    }
+    
+    return filteredUIImage;
+}
+
+- (IBAction)toggleApplyFilter:(id)sender
+{
+    self.fractalDocument.fractal.applyFilters = !self.fractalDocument.fractal.applyFilters;
 }
 
 
@@ -2143,6 +2188,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     renderer.flipY = YES;
     renderer.showOrigin = NO;
     renderer.pixelScale = self.fractalView.contentScaleFactor;
+    renderer.applyFilters = self.fractalDocument.fractal.applyFilters;
     
     UIColor* backgroundColor = [self.fractalDocument.fractal.backgroundColor asUIColor];
     if (!backgroundColor) backgroundColor = [UIColor clearColor];
@@ -2154,6 +2200,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         CGContextRef aCGontext = UIGraphicsGetCurrentContext();
         [renderer drawInContext: aCGontext size: imageSize];
         imageExport = UIGraphicsGetImageFromCurrentImageContext();
+        if (renderer.applyFilters) {
+            imageExport = [self applyFiltersToImage: imageExport];
+        }
     }
     UIGraphicsEndImageContext();
     
