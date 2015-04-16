@@ -25,9 +25,18 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
 
 @interface MDBCloudManager ()
 
+/*!
+ hasUbiquityChanged is called after runHandlerOnFirstLaunch 
+ 
+ runHandlerOnFirstLaunch sets the kMDBICloudManagerFirstLaunchUserDefaultsKey to NO on first launch but the hasUbiquityChanged needs to know if it is firstLaunch.
+ We use the firstLaunch property to capture the firstLaunch state for processes running after runHandlerOnFirstLaunch.
+ */
+@property (atomic,assign, getter=isFirstLaunch) BOOL firstLaunch;
+
 @end
 
 @implementation MDBCloudManager
+
 
 +(MDBCloudManager*)sharedManager
 {
@@ -52,6 +61,7 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
     
     if ([defaults boolForKey: kMDBICloudManagerFirstLaunchUserDefaultsKey])
     {
+        self.firstLaunch = YES;
         [defaults setBool: NO forKey: kMDBICloudManagerFirstLaunchUserDefaultsKey];
         
         firstLaunchHandler();
@@ -81,7 +91,19 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
 }
 
 #pragma mark - Ubiquity Identity Token Handling (Account Change Info)
-
+/*!
+ Has the Cloud information changed?
+ 
+ currentToken = nil // if no iCloud available on the device (logged out).
+ currentToken = unique // if a user is logged-into iCloud on the device.
+ 
+ storedToken = nil // if last launch, the user was not logged into iCloud on device or is first run.
+ storedToken = unique // if user was logged into iCloud last launch.
+ 
+ 
+ 
+ @return Whether the user has changed their cloud account
+ */
 - (BOOL)hasUbiquityIdentityChanged {
     BOOL hasChanged = NO;
     
@@ -92,10 +114,11 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
     BOOL storedTokenNilCurrentNonNil = !storedToken && currentToken;
     BOOL currentNotEqualStored = currentToken && storedToken && ![currentToken isEqual:storedToken];
     
-    if (currentTokenNilStoredNonNil || storedTokenNilCurrentNonNil || currentNotEqualStored) {
+    if (currentTokenNilStoredNonNil || storedTokenNilCurrentNonNil || currentNotEqualStored)
+    {
         [self persistAccount];
         
-        hasChanged = YES;
+        if (!self.isFirstLaunch) hasChanged = YES;
     }
     
     return hasChanged;

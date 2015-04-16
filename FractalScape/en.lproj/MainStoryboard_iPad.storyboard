@@ -1952,22 +1952,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="4" id="Cyh-CT-dHJ">
-                            <size key="itemSize" width="146" height="254"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="Cyh-CT-dHJ">
+                            <size key="itemSize" width="150" height="258"/>
                             <size key="headerReferenceSize" width="50" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
+                            <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="6"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="KM6-CQ-kfr" customClass="MBCollectionFractalDocumentCell">
                                 <rect key="frame" x="8" y="52" width="154" height="262"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="146" height="254"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="258"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="OaO-OT-rve" userLabel="ImageFrame">
-                                            <rect key="frame" x="4" y="4" width="138" height="138"/>
+                                            <rect key="frame" x="6" y="6" width="138" height="138"/>
                                             <subviews>
                                                 <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="documentThumbnailPlaceholder130" translatesAutoresizingMaskIntoConstraints="NO" id="TKa-kg-xwG">
                                                     <rect key="frame" x="4" y="4" width="130" height="130"/>
@@ -1977,58 +1977,55 @@
                                                         <constraint firstAttribute="width" secondItem="TKa-kg-xwG" secondAttribute="height" multiplier="1:1" priority="999" id="Qbj-gW-f3d"/>
                                                     </constraints>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fN8-HW-Rnl">
+                                                    <rect key="frame" x="59" y="59" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="fN8-HW-Rnl" secondAttribute="centerX" id="Cmy-mu-b8U"/>
                                                 <constraint firstItem="TKa-kg-xwG" firstAttribute="leading" secondItem="OaO-OT-rve" secondAttribute="leading" constant="4" id="OSR-4S-ldr"/>
                                                 <constraint firstAttribute="trailing" secondItem="TKa-kg-xwG" secondAttribute="trailing" constant="4" id="Rjg-DF-0Ob"/>
                                                 <constraint firstItem="TKa-kg-xwG" firstAttribute="top" secondItem="OaO-OT-rve" secondAttribute="top" constant="4" id="eX1-FQ-RX4"/>
                                                 <constraint firstAttribute="width" secondItem="OaO-OT-rve" secondAttribute="height" multiplier="1:1" id="gpY-Od-qCU"/>
+                                                <constraint firstAttribute="centerY" secondItem="fN8-HW-Rnl" secondAttribute="centerY" id="u2h-tD-3bl"/>
                                                 <constraint firstAttribute="bottom" secondItem="TKa-kg-xwG" secondAttribute="bottom" constant="4" id="zcM-ug-uEg"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Title" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
-                                            <rect key="frame" x="59" y="148" width="28.5" height="17"/>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
+                                            <rect key="frame" x="40" y="152" width="70" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="Subtitle and lots more text, ipsem and more. And more and more and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="jXv-lU-dOK">
-                                            <rect key="frame" x="6" y="165" width="134" height="65"/>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="jXv-lU-dOK">
+                                            <rect key="frame" x="6" y="169" width="138" height="83"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ratingBarImage" translatesAutoresizingMaskIntoConstraints="NO" id="nWW-cE-59t">
-                                            <rect key="frame" x="4" y="227" width="100" height="24"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="m14-bX-LC6"/>
-                                                <constraint firstAttribute="width" constant="100" id="wJs-MD-eun"/>
-                                            </constraints>
-                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="nWW-cE-59t" firstAttribute="leading" secondItem="KM6-CQ-kfr" secondAttribute="leading" constant="4" id="A2e-bR-vv4"/>
-                                    <constraint firstItem="GQ1-uN-6BG" firstAttribute="top" secondItem="OaO-OT-rve" secondAttribute="bottom" constant="6" id="Aa8-Fb-oZz"/>
-                                    <constraint firstItem="OaO-OT-rve" firstAttribute="leading" secondItem="KM6-CQ-kfr" secondAttribute="leading" constant="4" id="Df6-zJ-hCb"/>
-                                    <constraint firstAttribute="bottom" secondItem="jXv-lU-dOK" secondAttribute="bottom" constant="24" id="H6u-3H-lKm"/>
+                                    <constraint firstItem="GQ1-uN-6BG" firstAttribute="top" secondItem="OaO-OT-rve" secondAttribute="bottom" constant="8" id="Aa8-Fb-oZz"/>
+                                    <constraint firstItem="OaO-OT-rve" firstAttribute="leading" secondItem="KM6-CQ-kfr" secondAttribute="leading" constant="6" id="Df6-zJ-hCb"/>
+                                    <constraint firstAttribute="bottom" secondItem="jXv-lU-dOK" secondAttribute="bottom" constant="6" id="H6u-3H-lKm"/>
                                     <constraint firstItem="jXv-lU-dOK" firstAttribute="leading" secondItem="KM6-CQ-kfr" secondAttribute="leading" constant="6" id="IE9-jA-gyD"/>
                                     <constraint firstItem="jXv-lU-dOK" firstAttribute="top" secondItem="GQ1-uN-6BG" secondAttribute="bottom" id="Jga-R9-QyC"/>
                                     <constraint firstAttribute="centerX" secondItem="GQ1-uN-6BG" secondAttribute="centerX" id="aDv-nE-dki"/>
-                                    <constraint firstItem="OaO-OT-rve" firstAttribute="top" secondItem="KM6-CQ-kfr" secondAttribute="top" constant="4" id="fM3-pQ-Inh"/>
+                                    <constraint firstItem="OaO-OT-rve" firstAttribute="top" secondItem="KM6-CQ-kfr" secondAttribute="top" constant="6" id="fM3-pQ-Inh"/>
                                     <constraint firstItem="GQ1-uN-6BG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KM6-CQ-kfr" secondAttribute="leadingMargin" constant="6" id="m2m-WF-JTh"/>
-                                    <constraint firstItem="OaO-OT-rve" firstAttribute="trailing" secondItem="KM6-CQ-kfr" secondAttribute="trailing" constant="-4" id="mgR-cj-lvA"/>
-                                    <constraint firstAttribute="bottom" secondItem="nWW-cE-59t" secondAttribute="bottom" constant="3" id="pgd-VD-RIe"/>
+                                    <constraint firstItem="OaO-OT-rve" firstAttribute="trailing" secondItem="KM6-CQ-kfr" secondAttribute="trailing" constant="-6" id="mgR-cj-lvA"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="GQ1-uN-6BG" secondAttribute="trailing" constant="6" id="vhQ-WB-Pz7"/>
                                     <constraint firstAttribute="trailing" secondItem="jXv-lU-dOK" secondAttribute="trailing" constant="6" id="xpX-hk-nqB"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="fN8-HW-Rnl" id="RRm-z7-PZO"/>
                                     <outlet property="detailTextLabel" destination="jXv-lU-dOK" id="VR2-yQ-dSr"/>
                                     <outlet property="imageFrame" destination="OaO-OT-rve" id="w2F-RQ-Wob"/>
                                     <outlet property="imageView" destination="TKa-kg-xwG" id="bTu-j1-QPA"/>
@@ -2346,7 +2343,7 @@
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="dsi-g2-dEi" customClass="MBCollectionFractalSupplementaryLabel">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PP-Ml-fUe">
@@ -2501,7 +2498,6 @@
         <image name="kBIconRuleRandomizeOn" width="40" height="40"/>
         <image name="kBIconRuleRotateCCSmall" width="30" height="30"/>
         <image name="kBIconRuleUpscaleLineLength" width="40" height="40"/>
-        <image name="ratingBarImage" width="138" height="24"/>
         <image name="tabBarBrowseCloud" width="25" height="25"/>
         <image name="tabBarFillColorIcon" width="25" height="25"/>
         <image name="tabBarFillColorIconOff" width="25" height="25"/>

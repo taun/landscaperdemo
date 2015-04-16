@@ -47,7 +47,7 @@
         } else {
             
             NSString *title = NSLocalizedString(@"Sorry", nil);
-            NSString *message = NSLocalizedString(@"Was not able to connect to the Cloud Server.", nil);
+            NSString *message =  [NSString stringWithFormat: @"Was not able to connect to the Cloud Server. Error: %@", error];
             NSString *okActionTitle = NSLocalizedString(@"OK", nil);
 
             UIAlertController* alert = [UIAlertController alertControllerWithTitle: title

@@ -183,6 +183,7 @@
     removedURLs = removedURLs ?: @[];
     updatedURLs = updatedURLs ?: @[];
     
+    NSLog(@"insertedURLs: %@; removedURLS: %@; updatedURLS: %@", insertedURLs, removedURLs, updatedURLs);
     [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:insertedURLs removedURLs:removedURLs updatedURLs:updatedURLs];
     
     [self.metadataQuery enableUpdates];

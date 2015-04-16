@@ -314,15 +314,7 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
     else if (accountChanged)
     {
         self.documentController.documentCoordinator = documentCoordinator;
-    }
-    
-    if ([self.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]])
-    {
-        self.documentsViewController.navigationItem.title = @"Local Library";
-    }
-    else
-    {
-        self.documentsViewController.navigationItem.title = @"Cloud Library";
+        self.documentsViewController.navigationItem.title = [self.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
     }
 }
 

@@ -1929,7 +1929,17 @@ static const CGFloat kLevelNMargin = 40.0;
 
 - (IBAction)toggleApplyFilter:(id)sender
 {
-    self.fractalDocument.fractal.applyFilters = !self.fractalDocument.fractal.applyFilters;
+    MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
+    BOOL filtersOn = self.fractalDocument.fractal.applyFilters;
+    
+    if (filters.isEmpty && filtersOn)
+    {
+        self.fractalDocument.fractal.applyFilters = NO;
+    }
+    else if (!filters.isEmpty)
+    {
+        self.fractalDocument.fractal.applyFilters = !filtersOn;
+    }
 }
 
 

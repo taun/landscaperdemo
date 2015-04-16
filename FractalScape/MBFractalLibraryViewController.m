@@ -27,6 +27,7 @@
 #import "MDBFractalLibraryCollectionSource.h"
 #import "MDBNavConTransitionCoordinator.h"
 #import "MDBCustomTransition.h"
+#import "MDBFractalDocumentLocalCoordinator.h"
 
 #import "MBCollectionFractalDocumentCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
@@ -153,7 +154,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         _documentController.delegate = self;
         
         self.collectionSource.documentController = _documentController;
-        //        [self.collectionView reloadData];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.title = [self.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
+            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+            [self.collectionView reloadData];
+        });
     }
 }
 
