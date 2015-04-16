@@ -11,6 +11,5 @@
 @interface MDBFractalCloudBrowser : UICollectionViewController
 
 @property (nonatomic,strong) MDBDocumentController                          *documentController;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

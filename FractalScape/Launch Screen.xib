@@ -23,18 +23,18 @@
                     </variation>
                 </label>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyn-i6-3yF">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="64"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="b78-Ee-1fL"/>
+                        <constraint firstAttribute="height" constant="64" id="b78-Ee-1fL"/>
                     </constraints>
                     <items>
                         <navigationItem title="FractalScapes" id="Qyh-Yh-6tc"/>
                     </items>
                 </navigationBar>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ET4-Wc-OaY">
-                    <rect key="frame" x="0.0" y="44" width="480" height="386"/>
+                    <rect key="frame" x="0.0" y="64" width="480" height="366"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KJb-kC-E7Q">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="386"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <blurEffect style="extraLight"/>
@@ -57,7 +57,7 @@
                 <constraint firstAttribute="trailing" secondItem="ET4-Wc-OaY" secondAttribute="trailing" id="j6O-eD-Irq"/>
                 <constraint firstAttribute="trailing" secondItem="wnp-4d-nnm" secondAttribute="trailing" id="zYH-vE-3KB"/>
             </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-307" y="442"/>
         </view>

@@ -26,13 +26,13 @@
 //    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
 //    self.collectionView.backgroundView = blurEffectView;
 
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];
     self.cloudManager = [[MDLCloudKitManager alloc] init];
     // Do any additional setup after loading the view, typically from a nib.
     //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     //    self.navigationItem.rightBarButtonItem = addButton;
-    [self.activityIndicator startAnimating];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -41,8 +41,8 @@
     
     [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records, NSError* error) {
         if (!error) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
             self.publicCloudRecords = records;
-            [self.activityIndicator stopAnimating];
             [self.collectionView reloadData];
         } else {
             
@@ -118,7 +118,14 @@
 
 - (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section
 {
-    return self.publicCloudRecords.count;
+    if (self.publicCloudRecords)
+    {
+        return self.publicCloudRecords.count;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -132,23 +139,25 @@
 #pragma mark - UICollectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
-    MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
-    
-    CKRecord* fractalRecord = self.publicCloudRecords[indexPath.row];
-    
-    MDBFractalDocumentProxy* proxy = [MDBFractalDocumentProxy new];
-    CKAsset* fractalFile = fractalRecord[CKFractalRecordFractalDefinitionAssetField];
-    CKAsset* thumbnailFile = fractalRecord[CKFractalRecordFractalThumbnailAssetField];
-    
-    NSData* fractalData = [NSData dataWithContentsOfURL: fractalFile.fileURL];
-    NSData* thumbnailData = [NSData dataWithContentsOfURL: thumbnailFile.fileURL];
-    
-    proxy.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fractalData];
-    proxy.thumbnail = [UIImage imageWithData: thumbnailData];
-    proxy.loadResult = MDBFractalDocumentLoad_SUCCESS;
-    
-    documentInfoCell.document = proxy;
+    if (self.publicCloudRecords) {
+        NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
+        MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
+        
+        CKRecord* fractalRecord = self.publicCloudRecords[indexPath.row];
+        
+        MDBFractalDocumentProxy* proxy = [MDBFractalDocumentProxy new];
+        CKAsset* fractalFile = fractalRecord[CKFractalRecordFractalDefinitionAssetField];
+        CKAsset* thumbnailFile = fractalRecord[CKFractalRecordFractalThumbnailAssetField];
+        
+        NSData* fractalData = [NSData dataWithContentsOfURL: fractalFile.fileURL];
+        NSData* thumbnailData = [NSData dataWithContentsOfURL: thumbnailFile.fileURL];
+        
+        proxy.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fractalData];
+        proxy.thumbnail = [UIImage imageWithData: thumbnailData];
+        proxy.loadResult = MDBFractalDocumentLoad_SUCCESS;
+        
+        documentInfoCell.document = proxy;
+    }
     // Configure the cell with data from the managed object.
 //    if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
 //    {
@@ -189,38 +198,40 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[collectionView cellForItemAtIndexPath: indexPath];
-    MDBFractalDocumentProxy* proxy = documentInfoCell.document;
-    MBFractalLibraryViewController* library = [[[[[self tabBarController]viewControllers] objectAtIndex: 0]viewControllers]objectAtIndex: 0];
-    
-    MDBFractalInfo* fractalInfo = [library.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
-    
-    fractalInfo.document.thumbnail = proxy.thumbnail;
-    fractalInfo.changeDate = [NSDate date];
-    [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-    
-    [library.documentController setFractalInfoHasNewContents: fractalInfo];
-    
-    [fractalInfo.document closeWithCompletionHandler:nil];
-    
-    [self.collectionView deselectItemAtIndexPath: indexPath animated: YES];
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Downloaded"
-                                                                   message: @"Go to your fractals"
-                                                            preferredStyle: UIAlertControllerStyleAlert];
-    
-    UIAlertController* __weak weakAlert = alert;
-    
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action)
-                                    {
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                    }];
-    
-    [alert addAction: defaultAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
+    if (self.publicCloudRecords) {
+        MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[collectionView cellForItemAtIndexPath: indexPath];
+        MDBFractalDocumentProxy* proxy = documentInfoCell.document;
+        MBFractalLibraryViewController* library = [[[[[self tabBarController]viewControllers] objectAtIndex: 0]viewControllers]objectAtIndex: 0];
+        
+        MDBFractalInfo* fractalInfo = [library.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
+        
+        fractalInfo.document.thumbnail = proxy.thumbnail;
+        fractalInfo.changeDate = [NSDate date];
+        [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+        
+        [library.documentController setFractalInfoHasNewContents: fractalInfo];
+        
+        [fractalInfo.document closeWithCompletionHandler:nil];
+        
+        [self.collectionView deselectItemAtIndexPath: indexPath animated: YES];
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Downloaded"
+                                                                       message: @"Go to 'My Fractals' tab"
+                                                                preferredStyle: UIAlertControllerStyleAlert];
+        
+        UIAlertController* __weak weakAlert = alert;
+        
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action)
+                                        {
+                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                        }];
+        
+        [alert addAction: defaultAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 @end

@@ -14,5 +14,6 @@
 
 @property (assign,nonatomic) CGFloat   radius;
 @property (strong, nonatomic) id<MDBFractaDocumentProtocol>          document;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView        *activityIndicator;
 
 @end

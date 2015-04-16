@@ -2130,10 +2130,15 @@
                                                         <constraint firstAttribute="width" secondItem="AYV-rN-sBG" secondAttribute="height" multiplier="1:1" priority="999" id="U1v-cs-IAs"/>
                                                     </constraints>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ocs-qG-gJa">
+                                                    <rect key="frame" x="59" y="59" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="ocs-qG-gJa" secondAttribute="centerY" id="8hc-sC-2y6"/>
                                                 <constraint firstItem="AYV-rN-sBG" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="top" constant="4" id="G6y-YK-QcH"/>
+                                                <constraint firstAttribute="centerX" secondItem="ocs-qG-gJa" secondAttribute="centerX" id="GZf-Mc-mKk"/>
                                                 <constraint firstAttribute="width" secondItem="z47-1a-Cob" secondAttribute="height" multiplier="1:1" id="cDf-VM-Sj1"/>
                                                 <constraint firstItem="AYV-rN-sBG" firstAttribute="leading" secondItem="z47-1a-Cob" secondAttribute="leading" constant="4" id="lQb-9Y-CZq"/>
                                                 <constraint firstAttribute="trailing" secondItem="AYV-rN-sBG" secondAttribute="trailing" constant="4" id="mpl-II-0ep"/>
@@ -2173,6 +2178,7 @@
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PV1-X5-WaQ" secondAttribute="trailing" constant="6" id="nhX-MF-snD"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="ocs-qG-gJa" id="BKc-gx-Th0"/>
                                     <outlet property="detailTextLabel" destination="6en-9e-q6w" id="GMq-49-tGr"/>
                                     <outlet property="imageFrame" destination="z47-1a-Cob" id="xkP-Xw-MvZ"/>
                                     <outlet property="imageView" destination="AYV-rN-sBG" id="lg7-Jp-1im"/>
@@ -2222,6 +2228,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="collectionSource" destination="AHG-9R-hs1" id="o2T-Br-E7e"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showNewFractalDocument" id="CAI-sc-RDe"/>
@@ -2250,7 +2257,7 @@
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="50"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="lMg-5V-nif">
                             <size key="itemSize" width="150" height="258"/>
-                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="50" height="60"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="50"/>
                         </collectionViewFlowLayout>
@@ -2282,24 +2289,29 @@
                                                         <constraint firstAttribute="width" secondItem="suQ-bp-Jqv" secondAttribute="height" multiplier="1:1" priority="999" id="zcL-LP-RoM"/>
                                                     </constraints>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5KF-XG-hjz">
+                                                    <rect key="frame" x="59" y="59" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="5KF-XG-hjz" secondAttribute="centerX" id="2S6-YA-xSr"/>
                                                 <constraint firstAttribute="width" secondItem="zhe-UH-FnE" secondAttribute="height" multiplier="1:1" id="7hr-Sa-Vb9"/>
                                                 <constraint firstItem="suQ-bp-Jqv" firstAttribute="leading" secondItem="zhe-UH-FnE" secondAttribute="leading" constant="4" id="Ekn-26-qgH"/>
                                                 <constraint firstAttribute="bottom" secondItem="suQ-bp-Jqv" secondAttribute="bottom" constant="4" id="FsJ-Se-B4m"/>
                                                 <constraint firstItem="suQ-bp-Jqv" firstAttribute="top" secondItem="zhe-UH-FnE" secondAttribute="top" constant="4" id="f5b-wm-RKL"/>
                                                 <constraint firstAttribute="trailing" secondItem="suQ-bp-Jqv" secondAttribute="trailing" constant="4" id="fax-Ke-fWb"/>
+                                                <constraint firstAttribute="centerY" secondItem="5KF-XG-hjz" secondAttribute="centerY" id="uYr-jS-sEZ"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Title" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqp-Hp-Yxj">
-                                            <rect key="frame" x="61" y="152" width="29" height="17"/>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqp-Hp-Yxj">
+                                            <rect key="frame" x="40" y="152" width="70" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="Subtitle and lots more text, ipsem and more. And more and more and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="o3C-jZ-ivc">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="o3C-jZ-ivc">
                                             <rect key="frame" x="6" y="169" width="138" height="83"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2325,6 +2337,7 @@
                                     <constraint firstItem="o3C-jZ-ivc" firstAttribute="leading" secondItem="zto-iA-foV" secondAttribute="leading" constant="6" id="toi-k6-OQ6"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="5KF-XG-hjz" id="SyL-8M-43q"/>
                                     <outlet property="detailTextLabel" destination="o3C-jZ-ivc" id="FR1-Yh-VTk"/>
                                     <outlet property="imageFrame" destination="zhe-UH-FnE" id="rlB-Kr-ijs"/>
                                     <outlet property="imageView" destination="suQ-bp-Jqv" id="S3S-nO-DCD"/>
@@ -2337,15 +2350,15 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PP-Ml-fUe">
-                                    <rect key="frame" x="8" y="8" width="584" height="34"/>
+                                    <rect key="frame" x="8" y="24" width="584" height="36"/>
                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="aqb-lv-FGK">
-                                        <rect key="frame" x="0.0" y="0.0" width="584" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="584" height="36"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select Fractal To Download" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBe-XZ-s8R">
-                                                <rect key="frame" x="184" y="7" width="216" height="21"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select Fractals To Download" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBe-XZ-s8R">
+                                                <rect key="frame" x="180" y="8" width="225" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.14117647707462311" green="0.64705884456634521" blue="0.7882353663444519" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                                             </label>
@@ -2361,8 +2374,8 @@
                             <constraints>
                                 <constraint firstItem="7PP-Ml-fUe" firstAttribute="leading" secondItem="dsi-g2-dEi" secondAttribute="leadingMargin" id="7KN-XO-Vrm"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="7PP-Ml-fUe" secondAttribute="trailing" id="B8D-8d-vBb"/>
-                                <constraint firstItem="7PP-Ml-fUe" firstAttribute="top" secondItem="dsi-g2-dEi" secondAttribute="topMargin" id="UZg-lk-AUz"/>
-                                <constraint firstAttribute="bottomMargin" secondItem="7PP-Ml-fUe" secondAttribute="bottom" id="cxb-ro-j0K"/>
+                                <constraint firstItem="7PP-Ml-fUe" firstAttribute="top" secondItem="dsi-g2-dEi" secondAttribute="top" constant="24" id="UZg-lk-AUz"/>
+                                <constraint firstAttribute="bottom" secondItem="7PP-Ml-fUe" secondAttribute="bottom" id="cxb-ro-j0K"/>
                             </constraints>
                         </collectionReusableView>
                         <connections>
@@ -2370,12 +2383,14 @@
                             <outlet property="delegate" destination="Sge-77-1OH" id="xg9-NY-n2U"/>
                         </connections>
                     </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="9e1-or-Poa"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A82-Zd-ppe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4389" y="1607"/>
+            <point key="canvasLocation" x="4389" y="850"/>
         </scene>
         <!--Top Rated-->
         <scene sceneID="xGe-BI-6pP">
@@ -2394,7 +2409,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5d6-Dh-Dly" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4389" y="862"/>
+            <point key="canvasLocation" x="4389" y="1572"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="95T-CA-6ut">
@@ -2409,7 +2424,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="u0F-Fq-0AU" kind="relationship" relationship="viewControllers" id="9hb-j5-uif"/>
-                        <segue destination="kv4-Cc-rgq" kind="relationship" relationship="viewControllers" id="nVa-Ko-rr3"/>
                         <segue destination="Sge-77-1OH" kind="relationship" relationship="viewControllers" id="rgu-Yh-GMc"/>
                     </connections>
                 </tabBarController>
@@ -2423,7 +2437,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u0F-Fq-0AU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="My Fractals" image="tabBarMyFractals" id="w1h-AT-xFO"/>
                     <toolbarItems/>
-                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lwl-kr-jhM">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

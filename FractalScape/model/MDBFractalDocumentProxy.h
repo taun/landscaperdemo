@@ -14,5 +14,6 @@
 @property(nonatomic,strong) LSFractal                       *fractal;
 @property(nonatomic,strong) UIImage                         *thumbnail;
 @property(nonatomic,readwrite) MDBFractalDocumentLoadResult  loadResult;
+@property(nonatomic,readonly) NSString                      *loadResultString;
 
 @end

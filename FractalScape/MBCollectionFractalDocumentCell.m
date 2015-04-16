@@ -34,7 +34,9 @@
     }
     return self;
 }
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder: aDecoder];
     if (self) {
         //
@@ -42,6 +44,12 @@
     }
     return self;
 }
+
+-(void)prepareForReuse
+{
+    [self.activityIndicator startAnimating];
+}
+
 -(void) configureDefaults
 {
     
@@ -66,6 +74,7 @@
     
     self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
 }
+
 -(UIView*) configureSelectedBackgroundViewFrame: (CGRect) frame
 {
     UIView *selectBackgroundView = [[UIView alloc] initWithFrame: frame];
@@ -92,6 +101,8 @@
     if (_document != document)
     {
         [self configureDefaults];
+        
+        [self.activityIndicator stopAnimating];
         
         _document = document;
         

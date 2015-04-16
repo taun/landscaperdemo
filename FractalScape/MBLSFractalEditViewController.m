@@ -296,6 +296,7 @@ static const CGFloat kLevelNMargin = 40.0;
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    [[UIApplication sharedApplication] setStatusBarHidden: YES];
     
     self.hasBeenEdited = NO;
 
