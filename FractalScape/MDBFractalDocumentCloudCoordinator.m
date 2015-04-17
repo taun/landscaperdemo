@@ -156,17 +156,27 @@
     NSArray *updatedURLs;
     
     NSArray *insertedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateAddedItemsKey];
-    if (insertedMetadataItemsOrNil) {
+    if (insertedMetadataItemsOrNil.count > 0) {
+        NSMetadataItem* firstItem = (NSMetadataItem*)insertedMetadataItemsOrNil[0];
+        NSArray* attributes = firstItem.attributes;
+        NSDictionary* values = [firstItem valuesForAttributes: attributes];
+        NSLog(@"InsertedMetadataItems: %@", values);
+
         insertedURLs = [self URLsByMappingMetadataItems:insertedMetadataItemsOrNil];
     }
     
     NSArray *removedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateRemovedItemsKey];
-    if (removedMetadataItemsOrNil) {
+    if (removedMetadataItemsOrNil.count > 0) {
         removedURLs = [self URLsByMappingMetadataItems:removedMetadataItemsOrNil];
     }
     
     NSArray *updatedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateChangedItemsKey];
-    if (updatedMetadataItemsOrNil) {
+    if (updatedMetadataItemsOrNil.count > 0) {
+        NSMetadataItem* firstItem = (NSMetadataItem*)updatedMetadataItemsOrNil[0];
+        NSArray* attributes = firstItem.attributes;
+        NSDictionary* values = [firstItem valuesForAttributes: attributes];
+        NSLog(@"UpdatedMetadataItems: %@", values);
+        
         NSIndexSet *indexesOfCompletelyDownloadedUpdatedMetadataItems = [updatedMetadataItemsOrNil indexesOfObjectsPassingTest:^BOOL(NSMetadataItem *updatedMetadataItem, NSUInteger idx, BOOL *stop) {
             NSString *downloadStatus = [updatedMetadataItem valueForAttribute:NSMetadataUbiquitousItemDownloadingStatusKey];
             
