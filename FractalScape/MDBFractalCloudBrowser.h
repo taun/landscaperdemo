@@ -12,4 +12,6 @@
 
 @property (nonatomic,strong) MDBDocumentController                          *documentController;
 
+- (IBAction)downloadSelected:(id)sender;
+
 @end

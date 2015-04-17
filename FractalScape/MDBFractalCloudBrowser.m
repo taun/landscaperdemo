@@ -196,41 +196,54 @@
     //    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (IBAction)downloadSelected:(id)sender
 {
-    if (self.publicCloudRecords) {
-        MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[collectionView cellForItemAtIndexPath: indexPath];
-        MDBFractalDocumentProxy* proxy = documentInfoCell.document;
-        MBFractalLibraryViewController* library = [[[[[self tabBarController]viewControllers] objectAtIndex: 0]viewControllers]objectAtIndex: 0];
-        
-        MDBFractalInfo* fractalInfo = [library.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
-        
-        fractalInfo.document.thumbnail = proxy.thumbnail;
-        fractalInfo.changeDate = [NSDate date];
-        [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-        
-        [library.documentController setFractalInfoHasNewContents: fractalInfo];
-        
-        [fractalInfo.document closeWithCompletionHandler:nil];
-        
-        [self.collectionView deselectItemAtIndexPath: indexPath animated: YES];
-        
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Downloaded"
-                                                                       message: @"Go to 'My Fractals' tab"
-                                                                preferredStyle: UIAlertControllerStyleAlert];
-        
-        UIAlertController* __weak weakAlert = alert;
-        
-        
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action)
-                                        {
-                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                        }];
-        
-        [alert addAction: defaultAction];
-        
-        [self presentViewController:alert animated:YES completion:nil];
+    if (self.presentedViewController)
+    {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    }
+    
+    NSArray* selectedIndexPaths = [self.collectionView indexPathsForSelectedItems];
+    if (selectedIndexPaths.count > 0)
+    {
+        if (self.publicCloudRecords)
+        {
+            for (NSIndexPath* path in selectedIndexPaths)
+            {
+                MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[self.collectionView cellForItemAtIndexPath: path];
+                MDBFractalDocumentProxy* proxy = documentInfoCell.document;
+                MBFractalLibraryViewController* library = [[[[[self tabBarController]viewControllers] objectAtIndex: 0]viewControllers]objectAtIndex: 0];
+                
+                MDBFractalInfo* fractalInfo = [library.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
+                
+                fractalInfo.document.thumbnail = proxy.thumbnail;
+                fractalInfo.changeDate = [NSDate date];
+                [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+                
+                [library.documentController setFractalInfoHasNewContents: fractalInfo];
+                
+                [fractalInfo.document closeWithCompletionHandler:nil];
+                
+                [self.collectionView deselectItemAtIndexPath: path animated: YES];
+            }
+            
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Downloaded"
+                                                                           message: @"Go to 'My Fractals' tab"
+                                                                    preferredStyle: UIAlertControllerStyleAlert];
+            
+            UIAlertController* __weak weakAlert = alert;
+            
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action)
+                                            {
+                                                [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                            }];
+            
+            [alert addAction: defaultAction];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     }
 }
 

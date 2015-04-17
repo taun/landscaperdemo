@@ -1467,7 +1467,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6384" y="229.5"/>
+            <point key="canvasLocation" x="7196" y="229.5"/>
         </scene>
         <!--Fractal Color View Container-->
         <scene sceneID="ahc-Pz-mGd">
@@ -1952,12 +1952,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="Cyh-CT-dHJ">
                             <size key="itemSize" width="150" height="258"/>
                             <size key="headerReferenceSize" width="50" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="6"/>
                         </collectionViewFlowLayout>
+                        <view key="backgroundView" contentMode="scaleToFill" id="cIl-0p-lYp">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="l14-v3-Ph0">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                </imageView>
+                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fUi-0M-I60">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="606"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="7SS-53-wQp">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="606"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <blurEffect style="extraLight"/>
+                                </visualEffectView>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="fUi-0M-I60" firstAttribute="top" secondItem="cIl-0p-lYp" secondAttribute="top" id="1Qg-Wg-9Cy"/>
+                                <constraint firstItem="fUi-0M-I60" firstAttribute="leading" secondItem="cIl-0p-lYp" secondAttribute="leading" id="Ji2-kk-ZaI"/>
+                                <constraint firstAttribute="trailing" secondItem="fUi-0M-I60" secondAttribute="trailing" id="Mh6-yk-oxn"/>
+                                <constraint firstItem="l14-v3-Ph0" firstAttribute="top" secondItem="cIl-0p-lYp" secondAttribute="top" id="Pn9-JZ-qBE"/>
+                                <constraint firstAttribute="bottom" secondItem="fUi-0M-I60" secondAttribute="bottom" constant="-6" id="Rj5-PA-v3j"/>
+                                <constraint firstItem="l14-v3-Ph0" firstAttribute="leading" secondItem="cIl-0p-lYp" secondAttribute="leading" id="Rlh-XV-EoV"/>
+                                <constraint firstAttribute="trailing" secondItem="l14-v3-Ph0" secondAttribute="trailing" id="cvl-Nu-OaY"/>
+                                <constraint firstAttribute="bottom" secondItem="l14-v3-Ph0" secondAttribute="bottom" id="lUI-Vb-Hjy"/>
+                            </constraints>
+                        </view>
                         <cells>
                             <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="KM6-CQ-kfr" customClass="MBCollectionFractalDocumentCell">
                                 <rect key="frame" x="8" y="52" width="154" height="262"/>
@@ -2099,15 +2128,34 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="6"/>
                         </collectionViewFlowLayout>
-                        <visualEffectView key="backgroundView" opaque="NO" contentMode="scaleToFill" id="g9j-M1-cNt">
+                        <view key="backgroundView" contentMode="scaleToFill" id="Mjp-7F-fEf">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Vf4-sZ-Zh3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </view>
-                            <blurEffect style="extraLight"/>
-                        </visualEffectView>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="98Q-Zh-JRM">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                </imageView>
+                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jac-CG-EeR">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ShI-nH-hbk">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <blurEffect style="extraLight"/>
+                                </visualEffectView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="Jac-CG-EeR" firstAttribute="top" secondItem="Mjp-7F-fEf" secondAttribute="top" id="OBh-zf-Mxu"/>
+                                <constraint firstAttribute="trailing" secondItem="Jac-CG-EeR" secondAttribute="trailing" id="QYv-XI-h2g"/>
+                                <constraint firstItem="98Q-Zh-JRM" firstAttribute="leading" secondItem="Mjp-7F-fEf" secondAttribute="leading" id="SNN-e3-X1g"/>
+                                <constraint firstItem="Jac-CG-EeR" firstAttribute="leading" secondItem="Mjp-7F-fEf" secondAttribute="leading" id="SfM-Pa-wKk"/>
+                                <constraint firstAttribute="bottom" secondItem="98Q-Zh-JRM" secondAttribute="bottom" id="YyH-rT-CxR"/>
+                                <constraint firstAttribute="bottom" secondItem="Jac-CG-EeR" secondAttribute="bottom" id="Z4Z-Oi-iH7"/>
+                                <constraint firstItem="98Q-Zh-JRM" firstAttribute="top" secondItem="Mjp-7F-fEf" secondAttribute="top" id="icf-hI-WCz"/>
+                                <constraint firstAttribute="trailing" secondItem="98Q-Zh-JRM" secondAttribute="trailing" id="xzt-Cs-65V"/>
+                            </constraints>
+                        </view>
                         <cells>
                             <collectionViewCell opaque="NO" contentMode="center" reuseIdentifier="FractalLibraryListCell" id="OPm-W7-tPA" customClass="MBCollectionFractalDocumentCell">
                                 <rect key="frame" x="8" y="52" width="154" height="262"/>
@@ -2243,7 +2291,7 @@
             </objects>
             <point key="canvasLocation" x="4389" y="141"/>
         </scene>
-        <!--Browse Cloud-->
+        <!--Select To Download-->
         <scene sceneID="Gs9-kI-vI6">
             <objects>
                 <collectionViewController storyboardIdentifier="PublicCloudBrowser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sge-77-1OH" customClass="MDBFractalCloudBrowser" sceneMemberID="viewController">
@@ -2251,22 +2299,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="50"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="44" maxX="0.0" maxY="50"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="lMg-5V-nif">
                             <size key="itemSize" width="150" height="258"/>
-                            <size key="headerReferenceSize" width="50" height="60"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="50"/>
                         </collectionViewFlowLayout>
-                        <visualEffectView key="backgroundView" opaque="NO" contentMode="scaleToFill" id="VuU-mk-jPb">
+                        <view key="backgroundView" contentMode="scaleToFill" id="rYS-ia-4EZ">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tt5-R8-BSg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </view>
-                            <blurEffect style="extraLight"/>
-                        </visualEffectView>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloud" translatesAutoresizingMaskIntoConstraints="NO" id="HlW-bX-5LH">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                </imageView>
+                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgr-gZ-WVh">
+                                    <rect key="frame" x="0.0" y="0.0" width="607" height="600"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fza-IP-vOV">
+                                        <rect key="frame" x="0.0" y="0.0" width="607" height="600"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <blurEffect style="extraLight"/>
+                                </visualEffectView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.12938383221626282" green="1" blue="0.98856359720230103" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="HlW-bX-5LH" firstAttribute="top" secondItem="rYS-ia-4EZ" secondAttribute="top" id="1JE-Nt-6HV"/>
+                                <constraint firstAttribute="bottom" secondItem="HlW-bX-5LH" secondAttribute="bottom" id="6pB-BH-iY2"/>
+                                <constraint firstItem="vgr-gZ-WVh" firstAttribute="leading" secondItem="rYS-ia-4EZ" secondAttribute="leading" id="7mF-Jj-BlO"/>
+                                <constraint firstItem="HlW-bX-5LH" firstAttribute="leading" secondItem="rYS-ia-4EZ" secondAttribute="leading" id="8cY-gI-BJE"/>
+                                <constraint firstItem="vgr-gZ-WVh" firstAttribute="top" secondItem="rYS-ia-4EZ" secondAttribute="top" id="GL1-ZY-jmR"/>
+                                <constraint firstAttribute="trailing" secondItem="vgr-gZ-WVh" secondAttribute="trailing" constant="-7" id="Rfi-TL-Bpk"/>
+                                <constraint firstAttribute="trailing" secondItem="HlW-bX-5LH" secondAttribute="trailing" id="VSL-YN-Gud"/>
+                                <constraint firstAttribute="bottom" secondItem="vgr-gZ-WVh" secondAttribute="bottom" id="x6X-Gn-SaK"/>
+                            </constraints>
+                        </view>
                         <cells>
                             <collectionViewCell contentMode="center" reuseIdentifier="FractalLibraryListCell" id="zto-iA-foV" customClass="MBCollectionFractalDocumentCell">
                                 <rect key="frame" x="8" y="52" width="154" height="262"/>
@@ -2343,19 +2410,19 @@
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="dsi-g2-dEi" customClass="MBCollectionFractalSupplementaryLabel">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PP-Ml-fUe">
-                                    <rect key="frame" x="8" y="24" width="584" height="36"/>
+                                    <rect key="frame" x="6" y="6" width="588" height="38"/>
                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="aqb-lv-FGK">
-                                        <rect key="frame" x="0.0" y="0.0" width="584" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="588" height="38"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select Fractals To Download" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBe-XZ-s8R">
-                                                <rect key="frame" x="180" y="8" width="225" height="21"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" red="0.14117647707462311" green="0.64705884456634521" blue="0.7882353663444519" alpha="1" colorSpace="deviceRGB"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBe-XZ-s8R">
+                                                <rect key="frame" x="259" y="9" width="71" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                                             </label>
@@ -2369,25 +2436,33 @@
                                 </visualEffectView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="7PP-Ml-fUe" firstAttribute="leading" secondItem="dsi-g2-dEi" secondAttribute="leadingMargin" id="7KN-XO-Vrm"/>
-                                <constraint firstAttribute="trailingMargin" secondItem="7PP-Ml-fUe" secondAttribute="trailing" id="B8D-8d-vBb"/>
-                                <constraint firstItem="7PP-Ml-fUe" firstAttribute="top" secondItem="dsi-g2-dEi" secondAttribute="top" constant="24" id="UZg-lk-AUz"/>
-                                <constraint firstAttribute="bottom" secondItem="7PP-Ml-fUe" secondAttribute="bottom" id="cxb-ro-j0K"/>
+                                <constraint firstItem="7PP-Ml-fUe" firstAttribute="left" secondItem="dsi-g2-dEi" secondAttribute="left" constant="6" id="7KN-XO-Vrm"/>
+                                <constraint firstAttribute="right" secondItem="7PP-Ml-fUe" secondAttribute="right" constant="6" id="B8D-8d-vBb"/>
+                                <constraint firstItem="7PP-Ml-fUe" firstAttribute="top" secondItem="dsi-g2-dEi" secondAttribute="top" constant="6" id="UZg-lk-AUz"/>
+                                <constraint firstAttribute="bottom" secondItem="7PP-Ml-fUe" secondAttribute="bottom" constant="6" id="cxb-ro-j0K"/>
                             </constraints>
                         </collectionReusableView>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="Sge-77-1OH" id="9fb-jm-Pci"/>
                             <outlet property="delegate" destination="Sge-77-1OH" id="xg9-NY-n2U"/>
                         </connections>
                     </collectionView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="9e1-or-Poa"/>
+                    <navigationItem key="navigationItem" title="Select To Download" id="cDQ-6q-qtN">
+                        <barButtonItem key="rightBarButtonItem" title="Download" id="Phc-DH-dVw">
+                            <connections>
+                                <action selector="downloadSelected:" destination="Sge-77-1OH" id="R35-Lc-io1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A82-Zd-ppe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4389" y="850"/>
+            <point key="canvasLocation" x="4389" y="825"/>
         </scene>
         <!--Top Rated-->
         <scene sceneID="xGe-BI-6pP">
@@ -2421,7 +2496,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="u0F-Fq-0AU" kind="relationship" relationship="viewControllers" id="9hb-j5-uif"/>
-                        <segue destination="Sge-77-1OH" kind="relationship" relationship="viewControllers" id="rgu-Yh-GMc"/>
+                        <segue destination="j6S-Q5-Emg" kind="relationship" relationship="viewControllers" id="rgu-Yh-GMc"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ3-UZ-hST" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2489,8 +2564,29 @@
             </objects>
             <point key="canvasLocation" x="7125" y="-490"/>
         </scene>
+        <!--Browse Cloud-->
+        <scene sceneID="ehG-xQ-2ub">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="j6S-Q5-Emg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="9e1-or-Poa"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gUo-JS-e17">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.64532160760000001" green="0.65669584270000003" blue="0.02352727018" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Sge-77-1OH" kind="relationship" relationship="rootViewController" id="OL8-Mk-4nB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="brm-ue-2zq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3691" y="825"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="documentThumbnailPlaceholder1024" width="1024" height="1024"/>
         <image name="documentThumbnailPlaceholder130" width="130" height="130"/>
         <image name="kBIconBaseAngleSmall" width="30" height="30"/>
         <image name="kBIconRuleDecrementAngleSmall" width="30" height="30"/>

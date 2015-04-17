@@ -135,9 +135,9 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
         [MDBDocumentUtilities copyInitialDocuments];
     }];
     
-    self.backgroundImage = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
-    self.window.layer.backgroundColor = [UIColor blueColor].CGColor;
-    self.window.layer.contents = (__bridge id)(self.backgroundImage.CGImage);
+//    self.backgroundImage = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
+//    self.window.layer.backgroundColor = [UIColor blueColor].CGColor;
+//    self.window.layer.contents = (__bridge id)(self.backgroundImage.CGImage);
     // Set ourselves as the split view controller's delegate.
     return YES;
 }
