@@ -1472,13 +1472,13 @@ static const CGFloat kLevelNMargin = 40.0;
                                        [self shareWithDocumentInteractionController: sender];
                                    }];
     [alert addAction: vectorPDF];
-    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action)
-                                   {
-                                       [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                       [self shareFractalToPublicCloud];
-                                   }];
-    [alert addAction: fractalCloud];
+//    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
+//                                                         handler:^(UIAlertAction * action)
+//                                   {
+//                                       [weakAlert dismissViewControllerAnimated:YES completion:nil];
+//                                       [self shareFractalToPublicCloud];
+//                                   }];
+//    [alert addAction: fractalCloud];
     
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
@@ -2232,7 +2232,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     renderer.showOrigin = NO;
     
     NSMutableData* pdfData = [NSMutableData data];
-    NSDictionary* pdfMetaData = @{(NSString*)kCGPDFContextCreator:@"FractalScape", (NSString*)kCGPDFContextTitle:self.fractalDocument.fractal.name, (NSString*)kCGPDFContextKeywords:self.fractalDocument.fractal.category};
+    NSDictionary* pdfMetaData = @{(NSString*)kCGPDFContextCreator:@"FractalScape", (NSString*)kCGPDFContextTitle:self.fractalDocument.fractal.name};
     
     UIGraphicsBeginPDFContextToData(pdfData, imageBounds, pdfMetaData);
     
