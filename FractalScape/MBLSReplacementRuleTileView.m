@@ -158,6 +158,7 @@
     _replacementRule = replacementRule;
     
     [self setupSubviews];
+//    [self setNeedsLayout];
 }
 -(void) updateRuleViewRule:(id<MDBTileObjectProtocol>)rule {
     self.replacementRule.contextRule = rule;
@@ -246,7 +247,7 @@
     
     //
 #pragma message "TODO: fix for uidocument"
-    id<MDBTileObjectProtocol> oldRule = draggingRule.oldReplacedDragItem;
+//    id<MDBTileObjectProtocol> oldRule = draggingRule.oldReplacedDragItem;
 //    if (oldRule != nil && !oldRule.isReferenced) {
 //        draggingRule.oldReplacedDragItem = nil;
 //        if ([oldRule isKindOfClass: [NSManagedObject class]]) {

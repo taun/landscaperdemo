@@ -167,8 +167,6 @@
 #pragma mark - Segue Actions
 - (IBAction)popBackToLibrary:(id)sender;
 
--(void) libraryControllerWasDismissed;
-
 #pragma mark - Filter Actions
 - (IBAction)toggleApplyFilter:(id)sender;
 

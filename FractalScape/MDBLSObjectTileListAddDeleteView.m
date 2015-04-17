@@ -50,21 +50,29 @@
 
 -(void) setupSubviews {
     self.clipsToBounds = NO;
+        
+    if (!_addSwipeGesture) {
+        _addSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget: self action: @selector(addSwipeRecognized:)];
+        _addSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+        [self addGestureRecognizer: _addSwipeGesture];
+    }
     
-    _addSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget: self action: @selector(addSwipeRecognized:)];
-    _addSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
-    [self addGestureRecognizer: _addSwipeGesture];
+    if (!_deleteSwipeGesture) {
+        _deleteSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget: self action: @selector(deleteSwipeRecognized:)];
+        _deleteSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self addGestureRecognizer: _deleteSwipeGesture];
+    }
     
-    _deleteSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget: self action: @selector(deleteSwipeRecognized:)];
-    _deleteSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self addGestureRecognizer: _deleteSwipeGesture];
-    
-    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
-    [self addGestureRecognizer: _tapGesture];
+    if (!_tapGesture) {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
+        [self addGestureRecognizer: _tapGesture];
+    }
     _tapGesture.enabled = NO;
     
-    _pressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
-    [self addGestureRecognizer: _pressGesture];
+    if (!_pressGesture) {
+        _pressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
+        [self addGestureRecognizer: _pressGesture];
+    }
     _pressGesture.enabled = NO;
 
     UIView* view = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
@@ -118,6 +126,7 @@
                                                                                 options: 0
                                                                                 metrics: nil
                                                                                   views: viewsDict]];
+//    self.state = MDBLSNeutral;
 }
 
 -(void) setupConstraints

@@ -7,6 +7,7 @@
 //
 
 #import "MBLSReplacementRulesListView.h"
+#import "MDBFractalObjectList.h"
 #import "LSDrawingRule.h"
 #import "LSReplacementRule.h"
 #import "MBLSReplacementRuleTileView.h"
@@ -58,12 +59,18 @@
 }
 -(void) setupSubviews
 {
-    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
-    [self addGestureRecognizer: _tapGesture];
+    if (!_tapGesture)
+    {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
+        [self addGestureRecognizer: _tapGesture];
+    }
     _tapGesture.enabled = NO;
     
-    _pressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
-    [self addGestureRecognizer: _pressGesture];
+    if (!_pressGesture)
+    {
+        _pressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(tapGestureRecognized:)];
+        [self addGestureRecognizer: _pressGesture];
+    }
     _pressGesture.enabled = NO;
 
     for (UIView* view in [self subviews])
@@ -349,7 +356,7 @@
     LSDrawingRule* newReplacementHolder = [LSDrawingRule new];
     
     newReplacementRule.contextRule = newContextRule;
-    NSMutableArray* rules = newReplacementRule.rules;
+    MDBFractalObjectList* rules = newReplacementRule.rules;
     [rules addObject: newReplacementHolder];
     
     [self layoutIfNeeded];

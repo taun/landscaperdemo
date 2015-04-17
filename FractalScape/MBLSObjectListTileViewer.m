@@ -368,7 +368,7 @@
 }
 
 -(void) populateRulesWithProxy {
-    _objectList = [[NSMutableArray alloc]initWithCapacity: 10];
+    _objectList = [MDBFractalObjectList new];
     for (int i=0; i<10; i++) {
         [_objectList addObject: [MDBTileObjectProxy new]];
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -1037,7 +1037,7 @@
                                                 <constraint firstAttribute="height" constant="50" id="Cwa-TT-hqN"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
                                             <rect key="frame" x="8" y="52" width="384" height="38"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
@@ -1190,7 +1190,7 @@
                                                             <rect key="frame" x="20" y="0.0" width="42" height="20.5"/>
                                                         </variation>
                                                     </label>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
                                                         <rect key="frame" x="66" y="132" width="722" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1598,16 +1598,16 @@
                                     <constraint firstItem="4QD-IE-s5T" firstAttribute="leading" secondItem="HCL-AF-c5r" secondAttribute="leading" id="yqg-Lg-rbv"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="160"/>
-                                <view key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="250" id="TLs-EA-bzv">
+                                <view key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="250" ambiguous="YES" id="TLs-EA-bzv">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="160"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
+                                        <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="2" y="2" width="396" height="154"/>
                                             <subviews>
-                                                <view opaque="NO" contentMode="scaleAspectFill" verticalHuggingPriority="249" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
+                                                <view opaque="NO" contentMode="scaleAspectFill" verticalHuggingPriority="249" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="96"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
@@ -1638,10 +1638,10 @@
                                                         <outletCollection property="gestureRecognizers" destination="tHc-f0-gZq" appends="YES" id="rMH-uI-lpb"/>
                                                     </connections>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
+                                                <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
                                                     <rect key="frame" x="48" y="0.0" width="352" height="156"/>
                                                     <subviews>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
                                                             <rect key="frame" x="4" y="11" width="28" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="y20-fS-x0U" secondAttribute="height" id="Xig-yr-55y"/>
@@ -1654,7 +1654,7 @@
                                                                 <rect key="frame" x="4" y="0.0" width="28" height="28"/>
                                                             </variation>
                                                         </imageView>
-                                                        <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MBLSObjectListTileViewer">
+                                                        <view opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuG-Zf-Vvp" customClass="MBLSObjectListTileViewer">
                                                             <rect key="frame" x="40" y="4" width="308" height="62"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <gestureRecognizers/>
@@ -1690,7 +1690,7 @@
                                                                 <outletCollection property="gestureRecognizers" destination="LiJ-uw-Hif" appends="YES" id="6zS-6n-xbb"/>
                                                             </connections>
                                                         </view>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
                                                             <rect key="frame" x="4" y="80" width="28" height="28"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -1704,7 +1704,7 @@
                                                                 <rect key="frame" x="4" y="50" width="28" height="28"/>
                                                             </variation>
                                                         </imageView>
-                                                        <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MBLSObjectListTileViewer">
+                                                        <view opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-MH-WtZ" customClass="MBLSObjectListTileViewer">
                                                             <rect key="frame" x="40" y="71" width="308" height="65"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <gestureRecognizers/>

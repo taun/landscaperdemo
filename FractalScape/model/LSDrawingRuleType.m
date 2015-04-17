@@ -128,6 +128,16 @@
     [aCoder encodeObject: self.rules forKey: @"rules"];
 }
 
+-(LSDrawingRule*)ruleForIdentifierString: (NSString*)ruleIdentifierString
+{
+    LSDrawingRule* rule;
+    
+    NSString* key = [ruleIdentifierString substringWithRange: NSMakeRange(0, 1)];
+    
+    rule = [self.rules[key] copy];
+    
+    return rule;
+}
 
 -(NSArray*) rulesArrayFromRuleString: (NSString*) ruleString {
     NSInteger sourceLength = ruleString.length;
@@ -143,7 +153,7 @@
         LSDrawingRule* rule = rulesDict[key];
         
         if (rule) {
-            [rulesArray addObject: rule];
+            [rulesArray addObject: [rule copy]];
         }
         
     }

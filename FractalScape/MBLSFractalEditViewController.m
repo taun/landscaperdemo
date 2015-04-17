@@ -601,7 +601,12 @@ static const CGFloat kLevelNMargin = 40.0;
             
             LSDrawingRuleType* rules = _fractalInfo.document.sourceDrawingRules;
             
-            [newFractal.startingRules addObjectsFromArray: [rules rulesArrayFromRuleString: @"F!"]];
+            [newFractal.startingRules addObjectsFromArray: [rules rulesArrayFromRuleString: @"F+F--F+F"]];
+            newFractal.turningAngle = radians(45.0);
+            
+            LSReplacementRule* newReplacementRule = newFractal.replacementRules[0];
+            newReplacementRule.contextRule = [rules ruleForIdentifierString: @"F"];
+            [newReplacementRule.rules addObjectsFromArray: [rules rulesArrayFromRuleString: @"F+F--F+F"]];
             
             MBColor* defaultLine = [MBColor newMBColorWithUIColor: [UIColor blueColor]];
             defaultLine.identifier = @"blue";
@@ -955,7 +960,7 @@ static const CGFloat kLevelNMargin = 40.0;
  */
 -(void) updateLabelsAndControls
 {
-    self.hudText1.text = [NSString stringWithFormat: @"%li", self.fractalDocument.fractal.level];
+    self.hudText1.text = [NSString stringWithFormat: @"%li", (long)self.fractalDocument.fractal.level];
     self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: @(degrees(self.fractalDocument.fractal.turningAngle))];
     
     self.baseAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees(self.fractalDocument.fractal.baseAngle)]];
@@ -1068,6 +1073,7 @@ static const CGFloat kLevelNMargin = 40.0;
     self.fractalRendererLN.autoscale = self.autoscaleN;
     self.fractalRendererLN.autoExpand = self.fractalDocument.fractal.autoExpand;
     self.fractalRendererLN.applyFilters = self.fractalDocument.fractal.applyFilters;
+    self.fractalRendererLN.showOrigin = !self.fractalDocument.fractal.applyFilters;
     
 #pragma message "TODO define a property for the default fractal background color. Currently manually spread throughout code."
     UIColor* backgroundColor = [self.fractalDocument.fractal.backgroundColor asUIColor];
@@ -2074,7 +2080,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         
         if (determinedState==0)
         {
-            if (fabsf(translation.x) >= fabsf(translation.y))
+            if (fabs(translation.x) >= fabs(translation.y))
             {
                 axisState = 0;
             } else

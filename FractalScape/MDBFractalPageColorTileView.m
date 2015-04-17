@@ -224,7 +224,7 @@
 -(BOOL) dragDidEndDraggingItem: (MBDraggingItem*) draggingItem {
     BOOL needsLayout = NO;
 #pragma message "TODO: fix for uidocument"
-    id<MDBTileObjectProtocol> color = draggingItem.oldReplacedDragItem;
+//    id<MDBTileObjectProtocol> color = draggingItem.oldReplacedDragItem;
 //    if (color && !color.isReferenced) {
 //        draggingItem.oldReplacedDragItem = nil;
 //        if ([color isKindOfClass: [NSManagedObject class]]) {

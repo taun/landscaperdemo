@@ -307,12 +307,12 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
 }
 
 #pragma mark - Initialization
-
+#pragma message "TODO have applyFilters depend on whether the imageFilters.isEmpty removing logic from the editor"
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _name = @"Unnamed";
+        _name = @"New Fractal";
         _descriptor = @"...";
         _level = 2;
         _baseAngle = 0.0;
@@ -322,7 +322,7 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         _turningAngle = 0.0;
         _turningAngleIncrement = 0.0;
         _randomness = 0.0;
-        _applyFilters = YES;
+        _applyFilters = NO;
     }
     return self;
 }

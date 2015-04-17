@@ -8,6 +8,8 @@
 
 @import Foundation;
 
+@class LSDrawingRule;
+
 
 @interface LSDrawingRuleType : NSObject <NSCoding>
 
@@ -38,6 +40,15 @@
 
 +(instancetype)newLSDrawingRuleTypeFromDefaultPListDictionary;
 +(instancetype)newLSDrawingRuleTypeFromPListDictionary: (NSDictionary*)plistDict;
+
+/*!
+ Convert the first character of a string into the corresponding rule based on the rules identifier.
+ 
+ @param ruleIdentifierString a string at least one character long. Only uses the first character.
+ 
+ @return the corresponding LSDrawingRule
+ */
+-(LSDrawingRule*)ruleForIdentifierString: (NSString*)ruleIdentifierString;
 
 -(NSArray*)rulesArrayFromRuleString: (NSString*) ruleString;
 

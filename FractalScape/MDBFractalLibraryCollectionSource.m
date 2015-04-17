@@ -82,7 +82,7 @@
                 // Make sure that the list info is still visible once the color has been fetched.
                 if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
                 {
-                    NSInteger index = indexPath.row;
+//                    NSInteger index = indexPath.row;
                     documentInfoCell.document = fractalInfo.document;
                     MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.document;
                     [document closeWithCompletionHandler:^(BOOL success) {}];

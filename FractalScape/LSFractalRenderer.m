@@ -420,6 +420,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         {
 //            UIColor* shadowColor = [UIColor colorWithWhite: 1.0 alpha: 0.85];
 //            CGContextSetShadowWithColor(aCGContext, CGSizeMake(1.0, 1.0), 0.0, [shadowColor CGColor]);
+            CGContextSetAlpha(aCGContext, 0.6);
             CGContextConcatCTM(aCGContext, fractalOriginTransform);
             UIImage* originDirectionImage = [UIImage imageNamed: @"kBIconRuleDrawLine"]; // kBIconRuleDrawLine  kNorthArrow
             CGRect originDirectionRect = CGRectMake(0.0, -(originDirectionImage.size.height/2.0)/_scale, originDirectionImage.size.width/_scale, originDirectionImage.size.height/_scale);

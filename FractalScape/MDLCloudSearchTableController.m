@@ -98,7 +98,7 @@
 
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    CKRecord *object = [self.publicCloudRecords objectAtIndex: [indexPath indexAtPosition: 1]];
+//    CKRecord *object = [self.publicCloudRecords objectAtIndex: [indexPath indexAtPosition: 1]];
     
 //    MDLDaisyPlantMasterTableCell* plantCell = (MDLDaisyPlantMasterTableCell*)cell;
 //    plantCell.commonNameLabel.text = object[CommonNameField];
