@@ -2310,7 +2310,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloud" translatesAutoresizingMaskIntoConstraints="NO" id="HlW-bX-5LH">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="HlW-bX-5LH">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 </imageView>
                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgr-gZ-WVh">
@@ -2322,7 +2322,7 @@
                                     <blurEffect style="extraLight"/>
                                 </visualEffectView>
                             </subviews>
-                            <color key="backgroundColor" red="0.12938383221626282" green="1" blue="0.98856359720230103" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="HlW-bX-5LH" firstAttribute="top" secondItem="rYS-ia-4EZ" secondAttribute="top" id="1JE-Nt-6HV"/>
                                 <constraint firstAttribute="bottom" secondItem="HlW-bX-5LH" secondAttribute="bottom" id="6pB-BH-iY2"/>
@@ -2595,6 +2595,7 @@
         <image name="kBIconRuleRotateCCSmall" width="30" height="30"/>
         <image name="kBIconRuleUpscaleLineLength" width="40" height="40"/>
         <image name="tabBarBrowseCloud" width="25" height="25"/>
+        <image name="tabBarBrowseCloudFilled" width="25" height="25"/>
         <image name="tabBarFillColorIcon" width="25" height="25"/>
         <image name="tabBarFillColorIconOff" width="25" height="25"/>
         <image name="tabBarFillColorIconTemplate" width="25" height="25"/>

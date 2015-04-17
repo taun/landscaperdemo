@@ -13,15 +13,14 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="wnp-4d-nnm">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 MOEDAE LLC. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                    <rect key="frame" x="20" y="447" width="441" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                    <variation key="widthClass=compact">
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    </variation>
-                </label>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ET4-Wc-OaY">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KJb-kC-E7Q">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="extraLight"/>
+                </visualEffectView>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyn-i6-3yF">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="64"/>
                     <constraints>
@@ -31,30 +30,31 @@
                         <navigationItem title="FractalScapes" id="Qyh-Yh-6tc"/>
                     </items>
                 </navigationBar>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ET4-Wc-OaY">
-                    <rect key="frame" x="0.0" y="64" width="480" height="366"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KJb-kC-E7Q">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="366"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <blurEffect style="extraLight"/>
-                </visualEffectView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2mj-lf-fYv">
+                    <rect key="frame" x="0.0" y="436" width="480" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="u6y-1f-eBU"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem title="  Copyright (c) 2015 MOEDAE LLC. All rights reserved." id="Ict-e3-mqn"/>
+                    </items>
+                </toolbar>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="ET4-Wc-OaY" secondAttribute="bottom" constant="50" id="35l-mE-tMj"/>
+                <constraint firstAttribute="bottom" secondItem="ET4-Wc-OaY" secondAttribute="bottom" id="35l-mE-tMj"/>
                 <constraint firstAttribute="trailing" secondItem="dyn-i6-3yF" secondAttribute="trailing" id="8Sj-uv-xUh"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="12" id="Kzo-t9-V3l"/>
                 <constraint firstAttribute="bottom" secondItem="wnp-4d-nnm" secondAttribute="bottom" id="LaK-ur-wze"/>
-                <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
                 <constraint firstItem="wnp-4d-nnm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nge-mA-wz6"/>
                 <constraint firstItem="dyn-i6-3yF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="W1z-bN-YAu"/>
-                <constraint firstItem="ET4-Wc-OaY" firstAttribute="top" secondItem="dyn-i6-3yF" secondAttribute="bottom" id="YJe-Rj-SgE"/>
                 <constraint firstItem="wnp-4d-nnm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Yi2-eZ-cKP"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
                 <constraint firstItem="ET4-Wc-OaY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gFi-rh-oWM"/>
+                <constraint firstItem="ET4-Wc-OaY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="guZ-e2-zAX"/>
                 <constraint firstItem="dyn-i6-3yF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="i20-wm-JuK"/>
                 <constraint firstAttribute="trailing" secondItem="ET4-Wc-OaY" secondAttribute="trailing" id="j6O-eD-Irq"/>
+                <constraint firstItem="2mj-lf-fYv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="r1N-lS-gtk"/>
+                <constraint firstAttribute="trailing" secondItem="2mj-lf-fYv" secondAttribute="trailing" id="upF-ZD-6uO"/>
+                <constraint firstAttribute="bottom" secondItem="2mj-lf-fYv" secondAttribute="bottom" id="w0r-GP-21a"/>
                 <constraint firstAttribute="trailing" secondItem="wnp-4d-nnm" secondAttribute="trailing" id="zYH-vE-3KB"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
