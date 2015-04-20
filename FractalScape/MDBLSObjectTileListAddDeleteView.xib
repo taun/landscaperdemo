@@ -43,7 +43,7 @@
                         <action selector="deletePressed:" destination="-1" eventType="touchUpInside" id="pMN-oE-b0M"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kRowDeleteSwipeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="QK0-WW-eda">
+                <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="kRowDeleteSwipeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="QK0-WW-eda">
                     <rect key="frame" x="594" y="0.0" width="24" height="12"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kRowAddSwipeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="t1F-FZ-dId">

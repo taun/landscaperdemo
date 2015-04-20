@@ -17,7 +17,7 @@
 /*!
  Segue identifier for transitioning to the document list editor.
  */
-NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier;
+extern NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier;
 /*!
  * The segue identifier for the transition between the \c ListDocumentsViewController and the
  * \c NewListDocumentController.

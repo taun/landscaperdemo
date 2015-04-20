@@ -356,8 +356,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         [self findFractalUntransformedBoundsForContext: aCGContext];
         
          // Scaling
-        CGFloat scaleWidth = (size.width-2.0*self.margin)/self.rawFractalPathBounds.size.width;
-        CGFloat scaleHeight = (size.height-2.0*self.margin)/self.rawFractalPathBounds.size.height;
+        CGFloat scaleWidth = 1.0;
+        CGFloat scaleHeight = 1.0;
+        
+        if (self.rawFractalPathBounds.size.width > 0.0 && self.rawFractalPathBounds.size.height > 0.0)
+        {
+            scaleWidth = (size.width-2.0*self.margin)/self.rawFractalPathBounds.size.width;
+            scaleHeight = (size.height-2.0*self.margin)/self.rawFractalPathBounds.size.height;
+        }
         
         // scale > 1 means grow, < 1 means shrink,
         // only scale if we need to shrink to fit
@@ -892,8 +898,12 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
     if (!emptyPath) CGPathCloseSubpath(_segmentStack[_segmentIndex].path);
 }
--(void) drawCircleRadius: (CGFloat) radius {
-    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
+-(void) drawCircleRadius: (CGFloat) radius
+{
+//    CGPoint lowerCorner = CGPointApplyAffineTransform(CGPointMake(-radius, -radius), _segmentStack[_segmentIndex].transform);
+//    CGPoint upperCorner = CGPointApplyAffineTransform(CGPointMake(2.0*radius, 2.0*radius), _segmentStack[_segmentIndex].transform);
+//    
+//    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(-radius, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
 
     BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
     
@@ -903,8 +913,9 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
         CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
     }
 
-    CGPathAddEllipseInRect(_segmentStack[_segmentIndex].path, NULL, transformedRect);
-    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, radius*2, 0.0);
+    CGRect circleRect = CGRectMake(-radius, -radius, radius*2.0, radius*2.0);
+    CGPathAddEllipseInRect(_segmentStack[_segmentIndex].path, &_segmentStack[_segmentIndex].transform, circleRect);
+    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, 0.0, 0.0); // not used for circle
     _segmentStack[_segmentIndex].transform = newTransform;
 }
 // unused
@@ -996,19 +1007,21 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 
 -(void) commandDrawDot
 {
-    [self pushCurrentPath];
+    if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
     [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth, _segmentStack[_segmentIndex].randomness)];
-    [self drawPath];
-    [self popCurrentPath];
+    _segmentStack[_segmentIndex].stroke = YES; // ignore advancedMode
+    _segmentStack[_segmentIndex].fill = NO; // ignore advancedMode
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    if (!_segmentStack[_segmentIndex].advancedMode) [self popCurrentPath];
 }
 -(void) commandDrawDotFilledNoStroke
 {
-    [self pushCurrentPath];
+    if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
     [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth, _segmentStack[_segmentIndex].randomness)];
-    [self commandStrokeOff];
-    [self commandFillOn];
-    [self drawPath];
-    [self popCurrentPath];
+    _segmentStack[_segmentIndex].stroke = NO; // ignore advancedMode
+    _segmentStack[_segmentIndex].fill = YES; // ignore advancedMode
+    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    if (!_segmentStack[_segmentIndex].advancedMode) [self popCurrentPath];
 }
 
 -(void) commandOpenPolygon
@@ -1036,22 +1049,44 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     }
 }
 /*!
+ We want commandLineWidthIncrement and commandLineWidthDecrement to be symmetric.
+ Meaning we want an decrement to cancel in increment leaving the lineWidth as it was. 
+ This allows an increment before a rule to be followed by a decrement after a rule leaving the lineWidth untouched.
+ 
  Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
+ lw = lw + lw * i% = lw * (1 * i%)
+ 
+ lw = 10
+ i% = 0.5
+ 
+ lw+ = 10.0 * 1.5 = 15.0
+ 
+ lw1 = (lw0 * (1 + %))
+ lw0 = (lw1 * x) = (lw0 * (1 + %)) * x
+ 
+ x = 1/(1 + %)
+ 
+ lw- = lw/(1 + %)
+ 
  */
 -(void) commandIncrementLineWidth
 {
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
         if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-       _segmentStack[_segmentIndex].lineWidth += _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
+       _segmentStack[_segmentIndex].lineWidth = _segmentStack[_segmentIndex].lineWidth * (1.0 + _segmentStack[_segmentIndex].lineChangeFactor);
     }
 }
 
+/*!
+ Assume lineWidthIncrement is a percentage like 10% means add 10% or subtract 10%
+ lw- = lw - lw * i% = lw * (1 - i%)
+ */
 -(void) commandDecrementLineWidth
 {
     if (_segmentStack[_segmentIndex].lineChangeFactor > 0)
     {
-        if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-        _segmentStack[_segmentIndex].lineWidth -= _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].lineChangeFactor;
+        if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath]; // line widths only take effect when drawing the path.
+        _segmentStack[_segmentIndex].lineWidth = _segmentStack[_segmentIndex].lineWidth / (1.0 + _segmentStack[_segmentIndex].lineChangeFactor);
     }
 }
 
@@ -1071,20 +1106,23 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     _selectorsStruct.selector[turnLeft] = currentRightSelector;
     _selectorsStruct.selector[turnRight] = currentLeftSelector;
 }
+/*!
+ Use same reversible logic as commandLineWidthIncrement
+ */
+-(void) commandIncrementAngle
+{
+    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
+        _segmentStack[_segmentIndex].turningAngle = _segmentStack[_segmentIndex].turningAngle * (1.0 + _segmentStack[_segmentIndex].turningAngleIncrement);
+    }
+}
 
 -(void) commandDecrementAngle
 {
     if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
-        _segmentStack[_segmentIndex].turningAngle -= _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
+        _segmentStack[_segmentIndex].turningAngle = _segmentStack[_segmentIndex].turningAngle / (1.0 + _segmentStack[_segmentIndex].turningAngleIncrement);
     }
 }
 
--(void) commandIncrementAngle
-{
-    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
-        _segmentStack[_segmentIndex].turningAngle += _segmentStack[_segmentIndex].turningAngle * _segmentStack[_segmentIndex].turningAngleIncrement;
-    }
-}
 -(void) commandRandomizeOff
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];

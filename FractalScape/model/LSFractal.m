@@ -181,12 +181,12 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-    propertyRangesDictionary = @{@"randomness": @{@"min":@0.0, @"max":@1.0},
-                                 @"baseAngle": @{@"min":@(-180.0), @"max":@(180.0)},
-                                 @"turningAngle": @{@"min":@(0.0), @"max":@(180.0)},
-                                 @"turningAngleIncrement": @{@"min":@0.0, @"max":@1.0},
-                                 @"lineWidth": @{@"min":@0.5, @"max":@60.0},
-                                 @"lineChangeFactor": @{@"min":@0.0, @"max":@1.0}
+    propertyRangesDictionary = @{@"randomness": @{@"min":@0.0, @"max":@1.0, @"unit":@"linear"},
+                                 @"baseAngle": @{@"min":@(-180.0), @"max":@(180.0), @"unit":@"angular"},
+                                 @"turningAngle": @{@"min":@(0.0), @"max":@(180.0), @"unit":@"angular"},
+                                 @"turningAngleIncrement": @{@"min":@0.0, @"max":@1.0, @"unit":@"linear"},
+                                 @"lineWidth": @{@"min":@0.5, @"max":@60.0, @"unit":@"linear"},
+                                 @"lineChangeFactor": @{@"min":@0.0, @"max":@2.0, @"unit":@"linear"}
                                  };
     });
     
@@ -304,6 +304,19 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         value = [propertyRange[@"max"] floatValue];
     }
     return value;
+}
+
+-(BOOL)isAngularProperty:(NSString *)propertyKey
+{
+    BOOL isAngular = NO;
+    
+    NSDictionary* propertyRange = [[self class] propertyRangesDictionary][propertyKey];
+    if (propertyRange)
+    {
+        isAngular = [propertyRange[@"unit"] isEqualToString: @"angular"];
+    }
+    
+    return isAngular;
 }
 
 #pragma mark - Initialization

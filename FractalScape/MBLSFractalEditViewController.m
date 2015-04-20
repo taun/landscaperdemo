@@ -1973,84 +1973,72 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
  need to lock in either horizontal or vertical panning view a state and state change */
 -(IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer
 {
-    [self convertPanToAngleAspectChange: gestureRecognizer
-                              imageView: self.fractalView
-                              anglePath: @"turningAngle"
-                             angleScale: 5.0/1.0
-                               minAngle: [self.fractalDocument.fractal minValueForProperty: @"turningAngle"]
-                               maxAngle: [self.fractalDocument.fractal maxValueForProperty: @"turningAngle"]
-                              angleStep:    1.0
-                             aspectPath: @"lineWidth"
-                            aspectScale: 1.0/100.0
-                              minAspect: [self.fractalDocument.fractal minValueForProperty: @"lineWidth"]
-                              maxAspect: [self.fractalDocument.fractal maxValueForProperty: @"lineWidth"]];
+    [self convertPan: gestureRecognizer
+         onImageView: self.fractalView
+horizontalPropertyPath: @"turningAngle"
+              hScale: 5.0/1.0
+               hStep:    1.0
+verticalPropertyPath: @"lineWidth"
+              vScale: 1.0/100.0];
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender
 {
-    [self convertPanToAngleAspectChange: sender
-                              imageView: self.fractalViewLevel0
-                              anglePath: @"baseAngle"
-                             angleScale: 5.0/1.0
-                               minAngle: [self.fractalDocument.fractal minValueForProperty: @"baseAngle"]
-                               maxAngle: [self.fractalDocument.fractal maxValueForProperty: @"baseAngle"]
-                              angleStep:    1.0
-                             aspectPath: @"randomness"
-                            aspectScale: -1.0/1000.0
-                              minAspect: [self.fractalDocument.fractal minValueForProperty: @"randomness"]
-                              maxAspect: [self.fractalDocument.fractal maxValueForProperty: @"randomness"]];
+    [self convertPan: sender
+         onImageView: self.fractalViewLevel0
+horizontalPropertyPath: @"baseAngle"
+              hScale: 5.0/1.0
+               hStep:    1.0
+verticalPropertyPath: @"randomness"
+              vScale: -1.0/1000.0];
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender
 {
-    [self convertPanToAngleAspectChange: sender
-                              imageView: self.fractalViewLevel1
-                              anglePath: @"turningAngle"
-                             angleScale: 1.0/2.0
-                               minAngle: [self.fractalDocument.fractal minValueForProperty: @"turningAngle"]
-                               maxAngle: [self.fractalDocument.fractal maxValueForProperty: @"turningAngle"]
-                              angleStep:    0.25
-                             aspectPath:@"lineWidth"
-                            aspectScale: 5.0/50.0
-                              minAspect: [self.fractalDocument.fractal minValueForProperty: @"lineWidth"]
-                              maxAspect: [self.fractalDocument.fractal maxValueForProperty: @"lineWidth"]];
+    [self convertPan: sender
+         onImageView: self.fractalViewLevel1
+horizontalPropertyPath: @"turningAngle"
+              hScale: 1.0/2.0
+               hStep:    0.25
+verticalPropertyPath:@"lineWidth"
+              vScale: 5.0/50.0];
 }
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender
 {
-    [self convertPanToAngleAspectChange: sender
-                              imageView: self.fractalViewLevel2
-                              anglePath: @"turningAngleIncrement"
-                             angleScale: 1.0/1.0
-                               minAngle: 0.0
-                               maxAngle: 57.295779513
-                              angleStep: 0.1
-                             aspectPath: @"lineChangeFactor"
-                            aspectScale: -1.0/1000.0
-                              minAspect: [self.fractalDocument.fractal minValueForProperty: @"lineChangeFactor"]
-                              maxAspect: [self.fractalDocument.fractal maxValueForProperty: @"lineChangeFactor"]];
+    [self convertPan: sender
+         onImageView: self.fractalViewLevel2
+horizontalPropertyPath: @"turningAngleIncrement"
+              hScale: 1.0/1000.0
+               hStep: 0.01
+verticalPropertyPath: @"lineChangeFactor"
+              vScale: -1.0/1000.0];
 }
 
--(void) convertPanToAngleAspectChange: (UIPanGestureRecognizer*) gestureRecognizer
-                            imageView: (UIImageView*) subLayer
-                            anglePath: (NSString*) anglePath
-                           angleScale: (CGFloat) angleScale
-                             minAngle: (CGFloat) minAngle
-                             maxAngle: (CGFloat) maxAngle
-                            angleStep: (CGFloat) stepAngle
-                           aspectPath: (NSString*) aspectPath
-                          aspectScale: (CGFloat) aspectScale
-                            minAspect: (CGFloat) minAspect
-                            maxAspect: (CGFloat) maxAspect
+-(void) convertPan: (UIPanGestureRecognizer*) gestureRecognizer
+       onImageView: (UIImageView*) subLayer
+                            horizontalPropertyPath: (NSString*) horizontalPath
+                           hScale: (CGFloat) hScale
+                            hStep: (CGFloat) hStepSize
+                           verticalPropertyPath: (NSString*) verticalPath
+                          vScale: (CGFloat) vScale
 {
     
     static CGPoint initialPosition;
-    static CGFloat  initialAngleDegrees;
-    static CGFloat  initialWidth;
+    static CGFloat  initialHValue;
+    static CGFloat  initialVValue;
     static NSInteger determinedState;
     static BOOL     isIncreasing;
     static NSInteger axisState;
     
+    LSFractal* fractal = self.fractalDocument.fractal;
+    
     UIView *fractalView = [gestureRecognizer view];
     UIGestureRecognizerState state = gestureRecognizer.state;
     
+    CGFloat hMin = [fractal minValueForProperty: horizontalPath];
+    CGFloat hMax = [fractal maxValueForProperty: horizontalPath];
+
+    CGFloat vMin = [fractal minValueForProperty: verticalPath];
+    CGFloat vMax = [fractal maxValueForProperty: verticalPath];
+
     if (state == UIGestureRecognizerStateBegan)
     {
         self.autoscaleN = NO;
@@ -2060,13 +2048,20 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         
         initialPosition = CGPointZero;//subLayer.position;
         
-        if (anglePath)
+        if (horizontalPath)
         {
-            initialAngleDegrees =  floorf(100.0 * degrees([[self.fractalDocument.fractal valueForKey: anglePath] doubleValue])) / 100.0;
+            if ([fractal isAngularProperty: horizontalPath])
+            {
+                initialHValue =  floorf(100.0 * degrees([[fractal valueForKey: horizontalPath] doubleValue])) / 100.0;
+            }
+            else
+            {
+                initialHValue = floorf(100.0 * [[fractal valueForKey: horizontalPath] doubleValue]) / 100.0;
+            }
         }
-        if (aspectPath)
+        if (verticalPath)
         {
-            initialWidth = floorf(100.0 * [[self.fractalDocument.fractal valueForKey: aspectPath] doubleValue]) / 100.0;
+            initialVValue = floorf(100.0 * [[fractal valueForKey: verticalPath] doubleValue]) / 100.0;
         }
         
         determinedState = 0;
@@ -2090,21 +2085,31 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             determinedState = 1;
         } else
         {
-            if (axisState && aspectPath)
+            if (axisState && verticalPath)
             {
                 // vertical, change aspect
-                CGFloat scaledWidth = floorf(translation.y * aspectScale * 1000.0)/1000.0;
-                CGFloat newWidth = fminf(fmaxf(initialWidth + scaledWidth, minAspect), maxAspect);
-                [self.fractalDocument.fractal setValue: @(newWidth) forKey: aspectPath];
+                CGFloat scaledWidth = floorf(translation.y * vScale * 1000.0)/1000.0;
+                CGFloat newWidth = fminf(fmaxf(initialVValue + scaledWidth, vMin), vMax);
+                [fractal setValue: @(newWidth) forKey: verticalPath];
                 //self.fractalDocument.fractal.lineWidth = @(newidth);
                 
-            } else if (!axisState && anglePath)
+            }
+            else if (!axisState && horizontalPath)
             {
                 // hosrizontal
-                CGFloat scaledStepAngle = floorf(translation.x * angleScale)/100;
-                CGFloat newAngleDegrees = fminf(fmaxf(initialAngleDegrees + scaledStepAngle, minAngle), maxAngle);
-                CGFloat steppedNewDegrees = newAngleDegrees - fmodf(newAngleDegrees, stepAngle);
-                [self.fractalDocument.fractal setValue: @(radians(steppedNewDegrees)) forKey: anglePath];
+                if ([fractal isAngularProperty: horizontalPath])
+                {
+                    CGFloat scaledStepAngle = floorf(translation.x * hScale)/100;
+                    CGFloat newAngleDegrees = fminf(fmaxf(initialHValue + scaledStepAngle, hMin), hMax);
+                    CGFloat steppedNewDegrees = newAngleDegrees - fmodf(newAngleDegrees, hStepSize);
+                    [fractal setValue: @(radians(steppedNewDegrees)) forKey: horizontalPath];
+                }
+                else
+                {
+                    CGFloat scaled = floorf(translation.x * hScale * 1000.0)/1000.0;
+                    CGFloat newValue = fminf(fmaxf(initialHValue + scaled, hMin), hMax);
+                    [fractal setValue: @(newValue) forKey: horizontalPath];
+                }
                 
             }
         }
@@ -2113,8 +2118,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     {
         
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
-        
-        [self.fractalDocument.fractal setValue:  @(radians(initialAngleDegrees)) forKey: anglePath];
+        if ([fractal isAngularProperty: horizontalPath])
+        {
+            [fractal setValue:  @(radians(initialHValue)) forKey: horizontalPath];
+        }else
+        {
+            [fractal setValue:  @(initialHValue) forKey: horizontalPath];
+        }
         //[self.fractalDocument.fractal setTurningAngleAsDegrees:  @(initialAngleDegrees)];
         determinedState = 0;
 //        if ([self.undoManager groupingLevel] > 0)

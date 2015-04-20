@@ -101,9 +101,15 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic, assign) CGFloat       lineLength;
 @property (nonatomic, assign) CGFloat       lineLengthScaleFactor;
 @property (nonatomic, assign) CGFloat       lineWidth;
+/*!
+ percent change in width for each incidence of the lineWidthIncrement rule.
+ */
 @property (nonatomic, assign) CGFloat       lineWidthIncrement;
 @property (nonatomic, assign) CGFloat       randomness;
 @property (nonatomic, assign) CGFloat       turningAngle;
+/*!
+ percent change in angle for each incidence of the turningAngleIncrement rule.
+ */
 @property (nonatomic, assign) CGFloat       turningAngleIncrement;
 @property (nonatomic, assign) BOOL          autoExpand;
 @property (nonatomic, strong) NSData        *level0RulesCache;
@@ -190,6 +196,7 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 
 -(CGFloat)minValueForProperty: (NSString*)propertyKey;
 -(CGFloat)maxValueForProperty: (NSString*)propertyKey;
+-(BOOL)isAngularProperty: (NSString*)propertyKey;
 
 -(void) generateLevelData;
 
