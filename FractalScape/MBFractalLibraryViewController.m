@@ -189,7 +189,9 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 //        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
         LSFractal* newFractal = [LSFractal new];
         [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
-        [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
+        if (self.collectionView.indexPathsForVisibleItems.count > 0) {
+            [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
+        }
   }];
     
 //    documentMenu.modalInPopover = UIModalPresentationPopover;

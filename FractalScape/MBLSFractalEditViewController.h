@@ -71,6 +71,7 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootDoubleTapRecognizer;
 
 #pragma mark FractalLevel Nib outlets
+@property (weak, nonatomic) IBOutlet UIView        *interfaceGuideView;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewHolder;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewRoot;
 @property (weak, nonatomic) IBOutlet UIView        *fractalViewParent;
