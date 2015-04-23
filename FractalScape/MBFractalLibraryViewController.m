@@ -169,22 +169,14 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [_appModel removeObserver: self forKeyPath: @"documentController"];
     }
 }
-- (void)setDocumentController:(MDBDocumentController *)documentController
+-(void)addDocumentControllerObservers
 {
-    if (documentController != _documentController) {
-        _documentController = documentController;
-        _documentController.delegate = self;
-        
-        self.collectionSource.documentController = _documentController;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.navigationItem.title = [self.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
-            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-            [self.collectionView reloadData];
-        });
-    }
+    
 }
-
+-(void)removeDocumentControllerObservers
+{
+    
+}
 -(NSURL*)lastEditedURL
 {
     NSURL* selectedFractalURL;
@@ -207,6 +199,9 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(void)documentControllerChanged
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.collectionSource.documentController = self->_appModel.documentController;
+        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+        [self.collectionView reloadData];
         self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
     });
 }
