@@ -8,6 +8,7 @@
 
 @import Foundation;
 
+@class MDBAppModel;
 
 typedef NS_ENUM(NSInteger, MDBAPPStorage) {
     MDBAPPStorageNotSet = 0,
@@ -34,9 +35,10 @@ extern NSString* const kMDBUbiquitousContainerFetchingDidEndNotification;
 
 @interface MDBCloudManager : NSObject
 
-@property (nonatomic, readonly, getter=isCloudAvailable) BOOL cloudAvailable;
-@property (nonatomic, readonly) MDBAPPStorageState storageState;
-@property (nonatomic) MDBAPPStorage storageOption;
+@property (nonatomic, weak) MDBAppModel                         *appModel;
+@property (nonatomic, readonly, getter=isCloudAvailable) BOOL   cloudAvailable;
+@property (nonatomic, readonly) MDBAPPStorageState              storageState;
+@property (nonatomic) MDBAPPStorage                             storageOption;
 
 +(MDBCloudManager*)sharedManager;
 - (void)runHandlerOnFirstLaunch:(void (^)(void))firstLaunchHandler;

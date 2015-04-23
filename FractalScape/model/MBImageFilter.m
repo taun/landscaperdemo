@@ -235,7 +235,7 @@
 
 -(UIImage*) asImage
 {
-    UIImage* defaultImage = [UIImage imageNamed: @"kMBFilterBackground"];
+    UIImage* defaultImage = [UIImage imageNamed: @"kMBFilterBackground2"];
     
     return [self filterImage: defaultImage withContext: self.filterContext];
 }

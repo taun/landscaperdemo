@@ -68,7 +68,7 @@
 			<key>Title</key>
 			<string>First Launch</string>
 			<key>Key</key>
-			<string>kMDBICloudManagerFirstLaunchUserDefaultsKey</string>
+			<string>kMDBFractalScapesFirstLaunchUserDefaultsKey</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

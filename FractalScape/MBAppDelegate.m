@@ -8,6 +8,7 @@
 
 #import "MBAppDelegate.h"
 
+#import "MDBAppModel.h"
 #import "MBLSFractalEditViewController.h"
 #import "MBFractalLibraryViewController.h"
 #import "MDBCloudManager.h"
@@ -31,9 +32,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 @interface MBAppDelegate ()
 
-+ (void)registerDefaults;
-
-@property (nonatomic, strong) MDBDocumentController             *documentController;
+@property (nonatomic, strong) MDBAppModel                       *appModel;
 @property (nonatomic, readonly) UINavigationController          *primaryViewController;
 @property (nonatomic, readonly) MBFractalLibraryViewController  *documentsViewController;
 @property (nonatomic, readonly) MDBFractalCloudBrowser          *cloudBrowserViewController;
@@ -44,101 +43,21 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 @synthesize window = _window;
 
-+ (void)registerDefaults
-{
-    /*  */
-    
-//    NSString *pathStr = [[NSBundle mainBundle] bundlePath];
-//    NSString *settingsBundlePath = [pathStr stringByAppendingPathComponent:@"Settings.bundle"];
-//    NSString *finalPath = [pathStr stringByAppendingPathComponent:@"Root.plist"];
-    
-//    NSDictionary *settingsDict = [NSDictionary dictionaryWithContentsOfFile:finalPath];
-//    NSArray *prefSpecifierArray = [settingsDict objectForKey:@"PreferenceSpecifiers"];
-    
-//    NSNumber* showHelp = @NO;
-//    NSNumber* showFullScreen = @YES;
-//    NSNumber* parallaxOff = @NO;
-//
-//    NSNumber *difficultyLevel = @0;
-//    NSNumber *volume = @1.0;
-//    NSNumber *theme = @0;
-//    NSNumber *showIntro = @YES;
-//    NSNumber *resetHighScores = @NO;
-//    
-//    NSMutableArray* highScores = [NSMutableArray array];
-    
-//    NSDictionary *prefItem;
-//    for (prefItem in prefSpecifierArray)
-//    {
-//        NSString *keyValueStr = [prefItem objectForKey:@"Key"];
-//        id defaultValue = [prefItem objectForKey:@"DefaultValue"];
-//
-//        if ([keyValueStr isEqualToString: kPrefShowHelpTips])
-//        {
-//            showHelp = defaultValue;
-//        }
-//        else if ([keyValueStr isEqualToString: kPrefFullScreenState])
-//        {
-//            showFullScreen = defaultValue;
-//        }
-//        else if ([keyValueStr isEqualToString: kPrefParalaxOff])
-//        {
-//            parallaxOff = defaultValue;
-//        }
-//        else if ([keyValueStr isEqualToString:kShowIntroKey])
-//        {
-//            showIntro = defaultValue;
-//        }
-//        else if ([keyValueStr isEqualToString:kResetScoresKey])
-//        {
-//            resetHighScores = defaultValue;
-//        }
-//        else if ([keyValueStr isEqualToString:kHighScoresKey])
-//        {
-//            NSUInteger count = [[prefItem objectForKey:@"Values"] unsignedIntegerValue];
-//            for (int i = 0; i < count; i++) {
-//                [highScores addObject: @0];
-//            }
-//        }
-//    }
-//
-//    // since no default values have been set, create them here
-NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, kPrefParalax, @NO, kPrefFullScreenState, @YES, kPrefShowHelpTips, nil];
-//
-    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults registerDefaults: appDefaults];
-    
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
-    NSString* fullVersion = [NSString stringWithFormat: @"%@(%@)", version, build];
-    [userDefaults setValue: version forKey: fullVersion];
-    
-    [userDefaults synchronize];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-//    if (![self coreDataDefaultsExist]) {
-//        [self addDefaultCoreDataData];
-//    }
-// order of loading is important
-// colors are needed by fractals so need to be loaded before fractals
 
-    srand48(time(0));
+    srand48(time(0)); // for use of randomize function in other parts of app
     
-    [MBAppDelegate registerDefaults];
-    // fractals should always be loaded last
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(handleUbiquityIdentityDidChangeNotification:) name:NSUbiquityIdentityDidChangeNotification object: nil];
-    
+
+    _appModel = [MDBAppModel new];
+    [[MDBCloudManager sharedManager] setAppModel: _appModel];
     [[MDBCloudManager sharedManager] runHandlerOnFirstLaunch:^{
         [MDBDocumentUtilities copyInitialDocuments];
     }];
     
-//    self.backgroundImage = [UIImage imageNamed: @"documentThumbnailPlaceholder1024"];
-//    self.window.layer.backgroundColor = [UIColor blueColor].CGColor;
-//    self.window.layer.contents = (__bridge id)(self.backgroundImage.CGImage);
-    // Set ourselves as the split view controller's delegate.
     return YES;
 }
 
@@ -158,7 +77,7 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
      */
 #pragma message "TODO uidocument fix"
 //    editController.showPerformanceData = showPerformanceDataSetting;
-    NSLog(@"");
+//    NSLog(@"");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -302,19 +221,19 @@ NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, 
         documentCoordinator = [[MDBFractalDocumentCloudCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
     }
     
-    if (!self.documentController)
+    if (!self.appModel.documentController)
     {
-        self.documentController = [[MDBDocumentController alloc] initWithDocumentCoordinator: documentCoordinator sortComparator:^NSComparisonResult(MDBFractalInfo *lhs, MDBFractalInfo *rhs) {
+        self.appModel.documentController = [[MDBDocumentController alloc] initWithDocumentCoordinator: documentCoordinator sortComparator:^NSComparisonResult(MDBFractalInfo *lhs, MDBFractalInfo *rhs) {
             return [rhs.changeDate compare: lhs.changeDate];
         }];
         
-        self.documentsViewController.documentController = self.documentController;
-        self.cloudBrowserViewController.documentController = self.documentController;
+        self.documentsViewController.documentController = self.appModel.documentController;
+        self.cloudBrowserViewController.documentController = self.appModel.documentController;
     }
     else if (accountChanged)
     {
-        self.documentController.documentCoordinator = documentCoordinator;
-        self.documentsViewController.navigationItem.title = [self.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
+        self.appModel.documentController.documentCoordinator = documentCoordinator;
+        self.documentsViewController.navigationItem.title = [self.appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
     }
 }
 

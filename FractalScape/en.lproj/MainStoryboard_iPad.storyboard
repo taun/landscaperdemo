@@ -1110,7 +1110,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" customClass="MDBImageFiltersCategoriesListView">
-                                                        <rect key="frame" x="16" y="16" width="368" height="468"/>
+                                                        <rect key="frame" x="18" y="0.0" width="364" height="500"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1123,6 +1123,7 @@
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="justify" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="foF-dM-5lu" appends="YES" id="AUW-fP-LTF"/>
@@ -1132,12 +1133,12 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="ehG-I0-xK1" firstAttribute="top" secondItem="Qlc-N1-HPR" secondAttribute="topMargin" constant="8" id="4oD-gT-Bj2"/>
-                                                    <constraint firstAttribute="bottomMargin" secondItem="ehG-I0-xK1" secondAttribute="bottom" constant="8" id="71r-au-OnA"/>
+                                                    <constraint firstItem="ehG-I0-xK1" firstAttribute="top" secondItem="Qlc-N1-HPR" secondAttribute="top" id="4oD-gT-Bj2"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ehG-I0-xK1" secondAttribute="bottom" id="71r-au-OnA"/>
                                                     <constraint firstAttribute="height" constant="500" placeholder="YES" id="HMf-HR-g8s"/>
                                                     <constraint firstAttribute="width" constant="400" placeholder="YES" id="QEC-2R-0hL"/>
-                                                    <constraint firstItem="ehG-I0-xK1" firstAttribute="leading" secondItem="Qlc-N1-HPR" secondAttribute="leadingMargin" constant="8" id="cOE-4W-nAw"/>
-                                                    <constraint firstAttribute="trailingMargin" secondItem="ehG-I0-xK1" secondAttribute="trailing" constant="8" id="gFh-ys-GHY"/>
+                                                    <constraint firstItem="ehG-I0-xK1" firstAttribute="left" secondItem="Qlc-N1-HPR" secondAttribute="left" constant="18" id="cOE-4W-nAw"/>
+                                                    <constraint firstAttribute="right" secondItem="ehG-I0-xK1" secondAttribute="right" constant="18" id="gFh-ys-GHY"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -1690,7 +1691,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" customClass="MDBColorCategoriesListView">
-                                                        <rect key="frame" x="20" y="0.0" width="360" height="431"/>
+                                                        <rect key="frame" x="18" y="0.0" width="364" height="451"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1703,6 +1704,7 @@
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="showTileBorder" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="justify" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showOutline" value="NO"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="ZLj-J4-nOO" appends="YES" id="xMn-VL-8kt"/>
@@ -1713,10 +1715,10 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="uMw-Vl-Ltb" firstAttribute="top" secondItem="SrT-kZ-Fno" secondAttribute="top" id="7cO-em-wTD"/>
-                                                    <constraint firstAttribute="bottom" secondItem="uMw-Vl-Ltb" secondAttribute="bottom" constant="20" symbolic="YES" id="Sks-jf-sWb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uMw-Vl-Ltb" secondAttribute="bottom" id="Sks-jf-sWb"/>
                                                     <constraint firstAttribute="height" constant="451" placeholder="YES" id="UBc-Lj-NFn"/>
-                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="leading" secondItem="SrT-kZ-Fno" secondAttribute="leading" constant="20" symbolic="YES" id="eD0-ip-KoO"/>
-                                                    <constraint firstAttribute="trailing" secondItem="uMw-Vl-Ltb" secondAttribute="trailing" constant="20" symbolic="YES" id="iwd-4y-zU8"/>
+                                                    <constraint firstItem="uMw-Vl-Ltb" firstAttribute="left" secondItem="SrT-kZ-Fno" secondAttribute="left" constant="18" id="eD0-ip-KoO"/>
+                                                    <constraint firstAttribute="right" secondItem="uMw-Vl-Ltb" secondAttribute="right" constant="18" id="iwd-4y-zU8"/>
                                                 </constraints>
                                             </view>
                                             <visualEffectView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4BU-94-61F">

@@ -40,6 +40,8 @@
 		C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */; };
 		C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E891A24566B00056FB4 /* MBLSFractalSummaryEditView.h */; };
 		C5329E8C1A24566B00056FB4 /* MBLSFractalSummaryEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E8A1A24566B00056FB4 /* MBLSFractalSummaryEditView.m */; };
+		C533DFD11AE953B6009E9D95 /* MDBAppModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C533DFCF1AE953B6009E9D95 /* MDBAppModel.h */; };
+		C533DFD21AE953B6009E9D95 /* MDBAppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C533DFD01AE953B6009E9D95 /* MDBAppModel.m */; };
 		C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */; };
 		C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */; };
 		C546D71F1A83D5C3002E869A /* LSFractal.h in Headers */ = {isa = PBXBuildFile; fileRef = C546D71D1A83D5C3002E869A /* LSFractal.h */; };
@@ -217,6 +219,8 @@
 		C5329E891A24566B00056FB4 /* MBLSFractalSummaryEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSFractalSummaryEditView.h; path = FractalScape/MBLSFractalSummaryEditView.h; sourceTree = "<group>"; };
 		C5329E8A1A24566B00056FB4 /* MBLSFractalSummaryEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSFractalSummaryEditView.m; path = FractalScape/MBLSFractalSummaryEditView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C53305C517985877005D2A18 /* History.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = History.rtf; path = resources/History.rtf; sourceTree = "<group>"; };
+		C533DFCF1AE953B6009E9D95 /* MDBAppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBAppModel.h; sourceTree = "<group>"; };
+		C533DFD01AE953B6009E9D95 /* MDBAppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBAppModel.m; sourceTree = "<group>"; };
 		C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpers.m; path = FractalScape/model/QuartzHelpers.m; sourceTree = "<group>"; };
 		C53956FD14BF5B0000D7301B /* QuartzHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzHelpers.h; path = FractalScape/model/QuartzHelpers.h; sourceTree = "<group>"; };
 		C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleDragAndDropProtocol.h; path = FractalScape/MBLSRuleDragAndDropProtocol.h; sourceTree = "<group>"; };
@@ -629,6 +633,8 @@
 				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
 				C5E6B79014A5346300DA48BD /* MBAppDelegate.h */,
 				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
+				C533DFCF1AE953B6009E9D95 /* MDBAppModel.h */,
+				C533DFD01AE953B6009E9D95 /* MDBAppModel.m */,
 				C5FFAB121A14F90B00662211 /* Library */,
 				C5475DA01AC1AF0E002B112B /* Editor */,
 			);
@@ -821,6 +827,7 @@
 				C5F1847C1AA6751200233E49 /* MDBDocumentController.h in Headers */,
 				C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */,
 				C50764751A33A537009DDF83 /* LSReplacementRule.h in Headers */,
+				C533DFD11AE953B6009E9D95 /* MDBAppModel.h in Headers */,
 				C5C37C6C1A24EF9F008C5409 /* MDBLSObjectTileView.h in Headers */,
 				C5F1846E1AA4C67A00233E49 /* MDBFractalCategory.h in Headers */,
 				C5C37C601A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h in Headers */,
@@ -1041,6 +1048,7 @@
 				C522DABE1A2CA8ED00419781 /* LSDrawingRule.m in Sources */,
 				C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */,
 				C50764761A33A537009DDF83 /* LSReplacementRule.m in Sources */,
+				C533DFD21AE953B6009E9D95 /* MDBAppModel.m in Sources */,
 				C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */,
 				C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */,
 				C5D542401A30EDE4006CD47A /* MBColor.m in Sources */,

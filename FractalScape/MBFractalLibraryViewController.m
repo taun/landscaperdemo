@@ -10,6 +10,7 @@
 @import QuartzCore;
 #include <math.h>
 
+#import "MDBAppModel.h"
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
 #import "MDBDocumentController.h"
@@ -147,6 +148,27 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 
 #pragma mark - custom getters -
+-(void)setAppModel:(MDBAppModel *)appModel
+{
+    if (_appModel != appModel) {
+        
+        _appModel = appModel;
+    }
+}
+-(void)addAppModelObservers{
+    if (_appModel)
+    {
+        [_appModel addObserver: self forKeyPath: @"documentController" options: 0 context: NULL];
+    }
+
+}
+-(void)removeAppModelObservers
+{
+    if (_appModel)
+    {
+        [_appModel removeObserver: self forKeyPath: @"documentController"];
+    }
+}
 - (void)setDocumentController:(MDBDocumentController *)documentController
 {
     if (documentController != _documentController) {
@@ -169,6 +191,24 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     selectedFractalURL = [defaults URLForKey: kPrefLastEditedFractalURI];
     return selectedFractalURL;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString: @"documentController"]) {
+        [self documentControllerChanged];
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+-(void)documentControllerChanged
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
+    });
 }
 
 #pragma mark - IBActions

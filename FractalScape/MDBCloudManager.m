@@ -8,13 +8,13 @@
 
 #import "MDBCloudManager.h"
 
+#import "MDBAppModel.h"
 
 NSString *const kMDBCloudManagerUserActivityFractalIdentifierUserInfoKey = @"fractalIdentifier";
 
 NSString *const kMDBFractalDocumentFileUTI = @"com.moedae.fractal";
 NSString *const kMDBFractalDocumentFileExtension = @"fractal";
 
-NSString *const kMDBICloudManagerFirstLaunchUserDefaultsKey = @"kMDBICloudManagerFirstLaunchUserDefaultsKey";
 NSString *const kMDBICloudManagerStorageOptionUserDefaultsKey = @"kMDBICloudManagerStorageOptionUserDefaultsKey";
 NSString *const kMDBICloudManagerStoredUbiquityIdentityTokenKey = @"com.moedae.FractalScapes.UbiquityIdentityToken";
 
@@ -25,13 +25,6 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
 
 @interface MDBCloudManager ()
 
-/*!
- hasUbiquityChanged is called after runHandlerOnFirstLaunch 
- 
- runHandlerOnFirstLaunch sets the kMDBICloudManagerFirstLaunchUserDefaultsKey to NO on first launch but the hasUbiquityChanged needs to know if it is firstLaunch.
- We use the firstLaunch property to capture the firstLaunch state for processes running after runHandlerOnFirstLaunch.
- */
-@property (atomic,assign, getter=isFirstLaunch) BOOL firstLaunch;
 
 @end
 
@@ -54,16 +47,10 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
 - (void)runHandlerOnFirstLaunch:(void (^)(void))firstLaunchHandler {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults registerDefaults:@{
-                                 kMDBICloudManagerFirstLaunchUserDefaultsKey: @YES,
-                                 kMDBICloudManagerStorageOptionUserDefaultsKey: @(MDBAPPStorageNotSet)
-                                 }];
+    [defaults registerDefaults:@{kMDBICloudManagerStorageOptionUserDefaultsKey: @(MDBAPPStorageNotSet)}];
     
-    if ([defaults boolForKey: kMDBICloudManagerFirstLaunchUserDefaultsKey])
+    if (self.appModel.isFirstLaunch)
     {
-        self.firstLaunch = YES;
-        [defaults setBool: NO forKey: kMDBICloudManagerFirstLaunchUserDefaultsKey];
-        
         firstLaunchHandler();
     }
 }
@@ -118,7 +105,7 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
     {
         [self persistAccount];
         
-        if (!self.isFirstLaunch) hasChanged = YES;
+        if (!self.appModel.isFirstLaunch) hasChanged = YES;
     }
     
     return hasChanged;
