@@ -18,6 +18,10 @@
 @property(nonatomic,strong) UIDynamicAnimator            *cellAnimator;
 @property(nonatomic,strong) UISnapBehavior               *snapBehaviour;
 @property(readwrite,assign) MDBLSAddDeleteState           state;
+
+@property(nonatomic,assign) CGFloat                      deleteControlInitialConstant;
+@property(nonatomic,assign) CGFloat                      addControlInitialConstant;
+
 @end
 
 @implementation MDBLSObjectTileListAddDeleteView
@@ -38,19 +42,33 @@
     self = [super initWithCoder:coder];
     if (self)
     {
-        [self setupSubviews];
+//        [self setupSubviews];
     }
     return self;
 }
+
+//-(void)awakeFromNib
+//{
+//    [super awakeFromNib];
+//    [self setupSubviews];
+//}
+
+//-(void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    [self setupSubviews];
+//}
 
 -(BOOL) canBecomeFirstResponder
 {
     return YES;
 }
 
+
 -(void) setupSubviews {
     self.clipsToBounds = NO;
-        
+    
+    
     if (!_addSwipeGesture) {
         _addSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget: self action: @selector(addSwipeRecognized:)];
         _addSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
@@ -78,7 +96,10 @@
     UIView* view = [[[NSBundle bundleForClass: [self class]] loadNibNamed: NSStringFromClass([self class]) owner: self options: nil] firstObject];
     [self addSubview: view];
     view.frame = self.bounds;
-    
+ 
+    self.addControlInitialConstant = self.addControlConstraint.constant;
+    self.deleteControlInitialConstant = self.deleteControlConstraint.constant;
+
 #if TARGET_INTERFACE_BUILDER
 #endif
 
@@ -240,7 +261,8 @@
         default:
             break;
     }
-
+    self.addControlConstraint.constant = self.addControlInitialConstant + position;
+    self.deleteControlConstraint.constant = self.deleteControlInitialConstant - position;
     self.leftConstraint.constant = position;
     self.rightConstraint.constant = position;
 }

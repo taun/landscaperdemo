@@ -28,6 +28,8 @@ typedef NS_ENUM(NSUInteger, MDBLSAddDeleteState) {
 @property (strong, nonatomic) NSLayoutConstraint                *leftConstraint;
 @property (strong, nonatomic) NSLayoutConstraint                *rightConstraint;
 @property (readonly,nonatomic) MDBLSAddDeleteState               state;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deleteControlConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addControlConstraint;
 
 - (IBAction)deletePressed:(id)sender;
 - (IBAction)addPressed:(id)sender;
