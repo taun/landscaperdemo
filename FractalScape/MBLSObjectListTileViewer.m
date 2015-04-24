@@ -44,7 +44,7 @@
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.opaque = NO;
 //    self.contentMode = UIViewContentModeRedraw;
-    
+    self.layer.name = @"noneYet";
     _tileWidth = 26.0;
     _tileMargin = 2.0;
     _outlineMargin = 6.0;
@@ -156,7 +156,7 @@
                                                         toItem: nil
                                                      attribute: NSLayoutAttributeNotAnAttribute
                                                     multiplier: 1.0 constant: 26.0];
-    _heightConstraint.priority = 750.0;
+    _heightConstraint.priority = 1000.0;
     [self addConstraint: _heightConstraint];
 
     self.didSetupSubviews = YES;
@@ -340,7 +340,10 @@
             
             [self calcHConstraint: hConstraint vConstraint: vConstraint forIndex: i ];
         }
-        self.heightConstraint.constant = self.lines*self.lineHeight+2*self.outlineMargin;
+        NSString* layerName = self.layer.name;
+        CGFloat newHeight = self.lines*self.lineHeight+2*self.outlineMargin;
+        newHeight = MAX(newHeight, 26.0);
+        self.heightConstraint.constant = newHeight;
 
     }
     

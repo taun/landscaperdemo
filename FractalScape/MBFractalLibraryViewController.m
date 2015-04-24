@@ -94,6 +94,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     self.pendingUserActivity = nil;
 
+    [self.collectionView reloadData];
 //    [self.documentController resortFractalInfos];
 //    [self.documentController.documentCoordinator startQuery];
 }
@@ -150,15 +151,20 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 #pragma mark - custom getters -
 -(void)setAppModel:(MDBAppModel *)appModel
 {
-    if (_appModel != appModel) {
-        
+    if (_appModel != appModel)
+    {
+        [self removeAppModelObservers];
         _appModel = appModel;
+        [self addAppModelObservers];
     }
 }
 -(void)addAppModelObservers{
     if (_appModel)
     {
-        [_appModel addObserver: self forKeyPath: @"documentController" options: 0 context: NULL];
+        [_appModel addObserver: self forKeyPath: @"documentController" options: NSKeyValueObservingOptionOld context: NULL];
+        if (_appModel.documentController) {
+            [self documentControllerChanged];
+        }
     }
 
 }
@@ -167,15 +173,23 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     if (_appModel)
     {
         [_appModel removeObserver: self forKeyPath: @"documentController"];
+        if (_appModel.documentController)
+        {
+            [self removeDocumentControllerObserversFor: _appModel.documentController];
+        }
     }
 }
 -(void)addDocumentControllerObservers
 {
-    
+    if (_appModel.documentController) {
+        [_appModel.documentController addObserver: self forKeyPath: @"fractalInfos" options: 0 context: NULL];
+    }
 }
--(void)removeDocumentControllerObservers
+-(void)removeDocumentControllerObserversFor: (MDBDocumentController*)oldController
 {
-    
+    if (oldController) {
+        [oldController removeObserver: self forKeyPath: @"fractalInfos"];
+    }
 }
 -(NSURL*)lastEditedURL
 {
@@ -188,7 +202,38 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString: @"documentController"]) {
+        MDBDocumentController* oldController = change[NSKeyValueChangeOldKey];
+        if (oldController)
+        {
+            [self removeDocumentControllerObserversFor: oldController];
+        }
         [self documentControllerChanged];
+    }
+    else if ([keyPath isEqualToString: @"fractalInfos"])
+    {
+        NSUInteger changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+        NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];;
+        
+        __block NSMutableArray* indexPaths = [NSMutableArray array];
+        
+        [changes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            [indexPaths addObject: [NSIndexPath indexPathForRow: idx inSection: 0]];
+        }];
+        
+        if (changeKind == NSKeyValueChangeInsertion) {
+            //
+            [self.collectionView insertItemsAtIndexPaths: indexPaths];
+        }
+        else if (changeKind == NSKeyValueChangeRemoval)
+        {
+            [self.collectionView deleteItemsAtIndexPaths: indexPaths];
+        }
+        else if (changeKind == NSKeyValueChangeReplacement)
+        {
+            if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]]) {
+                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+            }
+        }
     }
     else
     {
@@ -199,6 +244,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(void)documentControllerChanged
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self addDocumentControllerObservers];
         self.collectionSource.documentController = self->_appModel.documentController;
         [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
         [self.collectionView reloadData];
@@ -223,7 +269,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         // Show the MBLSFractalEditViewController.
 //        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
         LSFractal* newFractal = [LSFractal new];
-        [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
+        [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
         if (self.collectionView.indexPathsForVisibleItems.count > 0) {
             [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
         }
@@ -246,14 +292,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     UIStoryboard* storyBoard = self.storyboard;
     MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"FractalEditLibrary"];
     libraryEditViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
-
-    id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
-    id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
+    libraryEditViewController.appModel = self.appModel;
+    
+//    id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
+//    id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
     
 //    MBFractalLibraryEditViewController *libraryEditViewController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
-    libraryEditViewController.presentingDocumentController = self.documentController;
+//    libraryEditViewController.presentingDocumentController = self.documentController;
     //        libraryEditController.collectionSource.rowCount = self.collectionSource.rowCount;
-    libraryEditViewController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
+//    libraryEditViewController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
 
     [self.navigationController pushViewController: libraryEditViewController animated: NO];
 }
@@ -262,7 +309,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[collectionView cellForItemAtIndexPath: indexPath];
-    self.fractalInfoBeingEdited = self.documentController[indexPath.row];
+    self.fractalInfoBeingEdited = self.appModel.documentController.fractalInfos[indexPath.row];
     CGRect cellFrame = cell.frame;
     CGRect cellSquareFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.width);
     self.transitionSourceRect = [self.collectionView.window convertRect: cellSquareFrame fromView: self.collectionView];
@@ -274,7 +321,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(CGRect)transitionDestinationRect
 {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow: [self.documentController indexOfObject: self.fractalInfoBeingEdited] inSection: 0];
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow: [self.appModel.documentController.fractalInfos indexOfObject: self.fractalInfoBeingEdited] inSection: 0];
     MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[self.collectionView cellForItemAtIndexPath: indexPath];
     CGRect cellSquareFrame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.width);
     CGRect cellRect = [self.collectionView.window convertRect: cellSquareFrame fromView: self.collectionView];
@@ -293,7 +340,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
     {
         MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
-        editViewController.documentController = self.documentController;
+        editViewController.appModel = self.appModel;
 
         //editViewController.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
         //editViewController.navigationItem.leftItemsSupplementBackButton = YES;
@@ -302,7 +349,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         {
             NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
             NSIndexPath* infoIndex = [indexPaths firstObject];
-            MDBFractalInfo* fractalInfo = self.documentController[infoIndex.row];
+            MDBFractalInfo* fractalInfo = self.appModel.documentController.fractalInfos[infoIndex.row];
             if (fractalInfo.document)
             {
                 [editViewController setFractalInfo: fractalInfo andShowEditor: NO];

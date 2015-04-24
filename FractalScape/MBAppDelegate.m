@@ -159,6 +159,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
         
         [self configureDocumentController:storageState.accountDidChange];
     }
+    self.documentsViewController.appModel = _appModel;
 }
 
 #pragma mark - Alerts
@@ -227,13 +228,13 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
             return [rhs.changeDate compare: lhs.changeDate];
         }];
         
-        self.documentsViewController.documentController = self.appModel.documentController;
-        self.cloudBrowserViewController.documentController = self.appModel.documentController;
+//        self.documentsViewController.documentController = self.appModel.documentController;
+//        self.cloudBrowserViewController.documentController = self.appModel.documentController;
     }
     else if (accountChanged)
     {
         self.appModel.documentController.documentCoordinator = documentCoordinator;
-        self.documentsViewController.navigationItem.title = [self.appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
+//        self.documentsViewController.navigationItem.title = [self.appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
     }
 }
 

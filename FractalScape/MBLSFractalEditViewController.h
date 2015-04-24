@@ -14,6 +14,7 @@
 #import "MDBNavConTransitionCoordinator.h"
 #import "MBFractalPrefConstants.h"
 
+@class MDBAppModel;
 @class MDBFractalDocument;
 @class MDBFractalInfo;
 @class MDBDocumentController;
@@ -36,7 +37,7 @@
 @property (nonatomic, copy) NSString                        *currentIdentifier;
 @property (nonatomic,readonly) MDBFractalDocument           *fractalDocument;
 @property (nonatomic, strong) MDBFractalInfo                *fractalInfo;
-@property (nonatomic, weak) MDBDocumentController           *documentController;
+@property (nonatomic, weak) MDBAppModel                     *appModel;
 /*!
  Change some performance parameters based the device. Default is high performance.
  */

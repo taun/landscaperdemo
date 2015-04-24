@@ -27,6 +27,7 @@
     
     [self.destinationView setDefaultObjectClass: [MBColor class]];
     self.destinationView.objectList = self.fractalDocument.fractal.lineColors;
+    self.destinationView.layer.name = @"lineColors";
 
     [self.fillColorsListView setDefaultObjectClass: [MBColor class]];
     self.fillColorsListView.objectList = self.fractalDocument.fractal.fillColors;
@@ -51,10 +52,7 @@
 -(void) viewWillLayoutSubviews
 {
     [self.fillColorsListView setNeedsLayout];
-    [self.view setNeedsLayout];
     [self.visualEffectView setNeedsLayout];
-    [self updateViewConstraints];
-    
     [super viewWillLayoutSubviews];
 }
 

@@ -12,6 +12,7 @@
 #include <math.h>
 
 #import "MBAppDelegate.h"
+#import "MDBAppModel.h"
 #import "MBLSFractalEditViewController.h"
 #import "FractalControllerProtocol.h"
 #import "MDBCustomTransition.h"
@@ -780,7 +781,7 @@ static const CGFloat kLevelNMargin = 40.0;
         
         [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
         
-        [self.documentController setFractalInfoHasNewContents: _fractalInfo];
+        [self.appModel.documentController setFractalInfoHasNewContents: _fractalInfo];
         self.hasBeenEdited = NO;
     }
 }
@@ -1808,7 +1809,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     self.fractalInfo = nil;
     
-    MDBFractalInfo* fractalInfo = [self.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
+    MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
     
     [self setFractalInfo: fractalInfo andShowEditor: YES];
     self.hasBeenEdited = YES;

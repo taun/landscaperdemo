@@ -10,6 +10,7 @@
 
 #import "MBFractalLibraryEditViewController.h"
 
+#import "MDBAppModel.h"
 #import "MDBFractalInfo.h"
 #import "MDBDocumentController.h"
 #import "MDBFractalDocumentCoordinator.h"
@@ -63,7 +64,7 @@
         
         for (NSIndexPath* path in selectedIndexPaths)
         {
-            MDBFractalInfo* fractalInfo = self.documentController[path.row];
+            MDBFractalInfo* fractalInfo = self.appModel.documentController.fractalInfos[path.row];
             if (fractalInfo)
             {
                 [fractalInfos addObject: fractalInfo];
@@ -97,15 +98,15 @@
     for (MDBFractalInfo* fractalInfo in items) {
         if ([fractalInfo isKindOfClass:[MDBFractalInfo class]]) {
             [urls addObject: fractalInfo.URL];
-            [self.documentController removeFractalInfo: fractalInfo];
+            [self.appModel.documentController removeFractalInfo: fractalInfo];
         }
     }
     // removal notifications go to the current controller, needs to pass the changes back to the presentingView documentController
-    MDBDocumentController* strongRefController = self.presentingDocumentController;
-    if (strongRefController)
-    {
-        [strongRefController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
-    }
+//    MDBDocumentController* strongRefController = self.presentingDocumentController;
+//    if (strongRefController)
+//    {
+//        [strongRefController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
+//    }
 }
 - (IBAction)shareButtonPressed:(id)sender
 {
@@ -152,7 +153,7 @@
     {
         for (NSIndexPath* path in selectedIndexPaths)
         {
-            MDBFractalInfo* fractalInfo = self.documentController[path.row];
+            MDBFractalInfo* fractalInfo = self.appModel.documentController.fractalInfos[path.row];
             if (fractalInfo)
             {
                 [self shareToPublicCloudDocument: fractalInfo.document];

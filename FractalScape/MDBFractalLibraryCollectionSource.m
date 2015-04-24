@@ -51,7 +51,8 @@
 
 - (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section
 {
-    return self.rowCount;
+    NSUInteger count = self.documentController.fractalInfos.count;
+    return count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -68,7 +69,7 @@
     NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
     MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
     
-    MDBFractalInfo* fractalInfo = self.documentController[indexPath.row];
+    MDBFractalInfo* fractalInfo = self.documentController.fractalInfos[indexPath.row];
     
     // Configure the cell with data from the managed object.
     if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)

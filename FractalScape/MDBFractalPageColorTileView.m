@@ -102,21 +102,21 @@
                                                       relatedBy: NSLayoutRelationEqual
                                                          toItem: self
                                                       attribute: NSLayoutAttributeTop
-                                                     multiplier: 1.0 constant: 14]];
+                                                     multiplier: 1.0 constant: 12]];
     
-    [self addConstraint: [NSLayoutConstraint constraintWithItem: _backgroundColorView
-                                                      attribute: NSLayoutAttributeTop
-                                                      relatedBy: NSLayoutRelationGreaterThanOrEqual
-                                                         toItem: _pageTemplateView
-                                                      attribute: NSLayoutAttributeBottom
-                                                     multiplier: 1.0 constant: 2]];
+//    [self addConstraint: [NSLayoutConstraint constraintWithItem: _backgroundColorView
+//                                                      attribute: NSLayoutAttributeTop
+//                                                      relatedBy: NSLayoutRelationGreaterThanOrEqual
+//                                                         toItem: _pageTemplateView
+//                                                      attribute: NSLayoutAttributeBottom
+//                                                     multiplier: 1.0 constant: 0]];
     
     [self addConstraint: [NSLayoutConstraint constraintWithItem: _backgroundColorView
                                                       attribute: NSLayoutAttributeBottom
                                                       relatedBy: NSLayoutRelationEqual
                                                          toItem: self
                                                       attribute: NSLayoutAttributeBottom
-                                                     multiplier: 1.0 constant: -14]];
+                                                     multiplier: 1.0 constant: -12]];
 
     [self addConstraint: [NSLayoutConstraint constraintWithItem: _pageTemplateView
                                                       attribute: NSLayoutAttributeCenterX
@@ -160,6 +160,14 @@
 -(void) setTileWidth:(CGFloat)tileWidth {
     _tileWidth = tileWidth;
     _backgroundColorView.width = _tileWidth;
+    
+    [self setNeedsUpdateConstraints];
+}
+
+-(void) setTileCornerRadius:(CGFloat)tileCornerRadius
+{
+    _tileCornerRadius = tileCornerRadius;
+    _backgroundColorView.tileCornerRadius = _tileCornerRadius;
     
     [self setNeedsUpdateConstraints];
 }

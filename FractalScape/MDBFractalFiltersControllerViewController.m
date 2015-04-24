@@ -22,6 +22,7 @@
 {
     [self.destinationView setDefaultObjectClass: [MBImageFilter class]];
     self.destinationView.objectList = self.fractalDocument.fractal.imageFilters;
+    self.destinationView.layer.name = @"imageFilters";
     
     [self.view setNeedsUpdateConstraints];
 }
@@ -50,9 +51,7 @@
 
 -(void) viewWillLayoutSubviews
 {
-    [self.view setNeedsLayout];
     [self.visualEffectView setNeedsLayout];
-    [self updateViewConstraints];
     
     [super viewWillLayoutSubviews];
 }
@@ -70,10 +69,11 @@
     [super updateViewConstraints];
     
     [self.visualEffectView layoutIfNeeded];
-    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
     
     [self.sourceListView setNeedsLayout];
     [self.sourceListView layoutIfNeeded];
+ 
+    CGFloat effectHeight = self.visualEffectView.bounds.size.height + 20.0;
     
     self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
     self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;

@@ -25,6 +25,8 @@
     
     [self.destinationView setDefaultObjectClass: [LSDrawingRule class]];
     self.destinationView.objectList = self.fractalDocument.fractal.startingRules;
+    self.destinationView.layer.name = @"startingRules";
+    [self.destinationView setNeedsUpdateConstraints];
     
     self.replacementRules.replacementRules = [self.fractalDocument.fractal mutableArrayValueForKey: @"replacementRules"];
     
@@ -34,6 +36,11 @@
     self.autoScroll = YES;
     
     [self.view setNeedsUpdateConstraints];
+}
+
+-(void) viewWillLayoutSubviews
+{    
+    [super viewWillLayoutSubviews];
 }
 
 

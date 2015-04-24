@@ -130,23 +130,25 @@
  */
 @property (nonatomic, weak) id<MDBFractalDocumentControllerDelegate> delegate;
 
-/*!
- * @return The number of tracked \c MDBFractalInfo objects.
- */
-@property (nonatomic, readonly) NSInteger count;
+///*!
+// * @return The number of tracked \c MDBFractalInfo objects.
+// */
+//@property (nonatomic, readonly) NSInteger count;
 
 /*!
  * The current \c MDBFractalDocumentCoordinator that the document controller manages.
  */
 @property (nonatomic, strong) id<MDBFractalDocumentCoordinator> documentCoordinator;
 
-/*!
- * @return The \c MDBFractalInfo instance at a specific index. This method traps if the index is out
- *         of bounds.
- */
-- (MDBFractalInfo *)objectAtIndexedSubscript:(NSInteger)index;
+@property (atomic, strong, readonly) NSMutableArray*                      fractalInfos;
 
-- (NSUInteger) indexOfObject: (id) object;
+///*!
+// * @return The \c MDBFractalInfo instance at a specific index. This method traps if the index is out
+// *         of bounds.
+// */
+//- (MDBFractalInfo *)objectAtIndexedSubscript:(NSInteger)index;
+//
+//- (NSUInteger) indexOfObject: (id) object;
 
 - (MDBFractalInfo *)controllerFractalInfoFor: (MDBFractalInfo*)fractalInfo;
 /*!

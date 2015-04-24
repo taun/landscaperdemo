@@ -29,7 +29,9 @@
 }
 -(void) setFractalDocument:(MDBFractalDocument *)fractalDocument {
     _fractalDocument = fractalDocument;
-    [self updateFractalDependents];
+    if (self.view) {
+        [self updateFractalDependents];
+    }
 }
 
 -(void) updateFractalDependents {
@@ -49,7 +51,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     if (self.fractalDocument.fractal) {
-        [self updateFractalDependents];
+//        [self updateFractalDependents];
     }
     [self configureParallax];
 }
@@ -71,6 +73,9 @@
         self.ruleHelpView.hidden = YES;
     }
     
+    [self updateViewConstraints];
+    [self.view setNeedsLayout];
+
     [super viewWillLayoutSubviews];
 }
 
