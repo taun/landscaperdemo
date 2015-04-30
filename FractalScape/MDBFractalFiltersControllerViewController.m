@@ -111,6 +111,13 @@
     [self sourceDragLongGesture: sender];
 }
 
+-(void)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender
+{
+    [self removedTappedFilterFromObjectList: self.removalTImer];
+    
+    [super sourceDragLongGesture: sender];
+}
+
 -(void)qeueTappedFilter: (MBImageFilter*)filter
 {
     [self removedTappedFilterFromObjectList: self.removalTImer];
