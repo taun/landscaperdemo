@@ -37,7 +37,7 @@
 #pragma mark - UICollectionViewDataSource
 - (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
-    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: kind
                                                                                       withReuseIdentifier: kSupplementaryHeaderCellIdentifier
                                                                                              forIndexPath: indexPath];
     

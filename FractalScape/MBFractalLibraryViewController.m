@@ -230,6 +230,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         }
         else if (changeKind == NSKeyValueChangeReplacement)
         {
+#pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
             if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]]) {
                 [self.collectionView reloadItemsAtIndexPaths: indexPaths];
             }

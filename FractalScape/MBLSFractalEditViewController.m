@@ -1514,7 +1514,7 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     
     NSData* pdfData = [self createPDF];
-    
+#pragma message "TODO: how to implement a temporary file http://nshipster.com/nstemporarydirectory/"
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     // The file extension is important so that some mime magic happens!
     NSString* fileName = [NSString stringWithFormat: @"%@.pdf",self.fractalDocument.fractal.name];
@@ -1908,6 +1908,7 @@ static const CGFloat kLevelNMargin = 40.0;
     MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
     
     if (filters && !filters.isEmpty) {
+        [self.activityIndicator startAnimating];
         CGFloat scale = inputImage.scale;
         CGFloat imageWidth = scale*inputImage.size.width;
         CGFloat imageHeight = scale*inputImage.size.height;
@@ -1929,6 +1930,7 @@ static const CGFloat kLevelNMargin = 40.0;
         filteredUIImage = [UIImage imageWithCGImage: cgImage scale: scale orientation: UIImageOrientationUp];
         
         CGImageRelease(cgImage);
+        [self.activityIndicator stopAnimating];
     }
     
     return filteredUIImage;

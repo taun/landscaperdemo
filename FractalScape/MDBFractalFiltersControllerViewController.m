@@ -14,6 +14,9 @@
 
 @interface MDBFractalFiltersControllerViewController ()
 
+@property (nonatomic,strong) MBImageFilter          *tappedFilter;
+@property (nonatomic,weak) NSTimer                  *removalTImer;
+
 @end
 
 @implementation MDBFractalFiltersControllerViewController
@@ -56,6 +59,12 @@
     [super viewWillLayoutSubviews];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [self removedTappedFilterFromObjectList: self.removalTImer];
+    [super viewDidDisappear:animated];
+}
+
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [self.view setNeedsLayout];
@@ -88,11 +97,43 @@
     CGPoint touchPoint = [sender locationInView: self.view];
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
     [self showInfoForView: viewUnderTouch];
+    MDBLSObjectTileView* tappedView = (MDBLSObjectTileView*)viewUnderTouch;
+    
+    if ([tappedView isKindOfClass: [MDBLSObjectTileView class]])
+    {
+        MBImageFilter* filter = (MBImageFilter*)tappedView.representedObject;
+        [self qeueTappedFilter: filter];
+     }
 }
 
 - (IBAction)filtersLongPress:(UILongPressGestureRecognizer *)sender
 {
     [self sourceDragLongGesture: sender];
+}
+
+-(void)qeueTappedFilter: (MBImageFilter*)filter
+{
+    [self removedTappedFilterFromObjectList: self.removalTImer];
+    
+    self.tappedFilter = filter;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.destinationView.objectList addObject: self.tappedFilter];
+        NSTimer* removalTimer = [NSTimer timerWithTimeInterval: 3.0 target: self selector: @selector(removedTappedFilterFromObjectList:) userInfo: nil repeats: NO];
+        [[NSRunLoop mainRunLoop]addTimer: removalTimer forMode: NSDefaultRunLoopMode];
+        self.removalTImer = removalTimer;
+    });
+}
+
+-(void)removedTappedFilterFromObjectList: (NSTimer*)timer
+{
+    if (timer && timer.valid) {
+        [timer invalidate];
+    }
+    if (self.tappedFilter) {
+        [self.destinationView.objectList removeObject: self.tappedFilter];
+        self.tappedFilter = nil;
+    }
 }
 
 /*

@@ -245,6 +245,7 @@
         else if (indexOfFractalInfo == 0)
         {
 //            [strongDelegate documentControllerWillChangeContent:self];
+#pragma message "TODO: These can probably be async"
             dispatch_sync(dispatch_get_main_queue(), ^{
                 NSMutableArray* mutableArray = [self mutableArrayValueForKey: @"fractalInfos"];
                 mutableArray[indexOfFractalInfo] = fractalInfo;
@@ -383,12 +384,13 @@
             NSMutableArray* updatedIndexPaths = [NSMutableArray arrayWithCapacity: updatedFractalInfos.count];
             for (MDBFractalInfo *updatedFractalInfo in updatedFractalInfos) {
                 NSInteger updatedIndex = [self.fractalInfos indexOfObject: updatedFractalInfo];
-                [updatedIndexPaths addObject: [NSIndexPath indexPathForRow: updatedIndex inSection: 0]];
+//                [updatedIndexPaths addObject: [NSIndexPath indexPathForRow: updatedIndex inSection: 0]];
                 
                 NSAssert(updatedIndex != NSNotFound, @"An updated fractal info should always already be tracked in the fractal infos.");
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    self.fractalInfos[updatedIndex] = updatedFractalInfo;
+                    NSMutableArray* mutableArray = [self mutableArrayValueForKey: @"fractalInfos"];
+                    mutableArray[updatedIndex] = updatedFractalInfo;
                 });
             }
 //            [self.delegate documentController: self didUpdateFractalInfosAtIndexPaths: updatedIndexPaths totalRows: self.fractalInfos.count];

@@ -45,10 +45,10 @@
                         <action selector="deletePressed:" destination="-1" eventType="touchUpInside" id="pMN-oE-b0M"/>
                     </connections>
                 </button>
-                <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kRowDeleteSwipeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="QK0-WW-eda">
-                    <rect key="frame" x="614" y="24" width="8" height="30"/>
+                <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kRowDeleteSwipeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="QK0-WW-eda">
+                    <rect key="frame" x="613" y="24" width="8" height="30"/>
                 </imageView>
-                <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kRowAddSwipeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="t1F-FZ-dId">
+                <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kRowAddSwipeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="t1F-FZ-dId">
                     <rect key="frame" x="-5" y="24" width="8" height="30"/>
                 </imageView>
             </subviews>
@@ -62,7 +62,7 @@
                 <constraint firstAttribute="centerY" secondItem="QK0-WW-eda" secondAttribute="centerY" id="QXW-Nt-QzE"/>
                 <constraint firstItem="4mM-Fd-gy9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="UaL-6s-OJj"/>
                 <constraint firstItem="HdA-ng-Por" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lIu-XE-CnG"/>
-                <constraint firstAttribute="trailing" secondItem="QK0-WW-eda" secondAttribute="trailing" constant="-4" id="nkM-XX-Xhu"/>
+                <constraint firstAttribute="trailing" secondItem="QK0-WW-eda" secondAttribute="trailing" constant="-3" id="nkM-XX-Xhu"/>
                 <constraint firstAttribute="bottom" secondItem="HdA-ng-Por" secondAttribute="bottom" id="sbh-4u-ihQ"/>
                 <constraint firstAttribute="bottom" secondItem="4mM-Fd-gy9" secondAttribute="bottom" id="vqq-ce-K0q"/>
                 <constraint firstItem="4mM-Fd-gy9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yhT-q2-jUd"/>
