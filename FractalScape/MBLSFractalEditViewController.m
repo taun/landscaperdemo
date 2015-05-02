@@ -523,7 +523,7 @@ static const CGFloat kLevelNMargin = 40.0;
     dispatch_async(dispatch_get_main_queue(), ^{
         //        [self.tableView reloadData];
         [self updateInterface];
-        [self queueFractalImageUpdates];
+        [self regenerateLevels];
     });
 }
 
@@ -781,7 +781,7 @@ static const CGFloat kLevelNMargin = 40.0;
         
         [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
         
-        [self.appModel.documentController setFractalInfoHasNewContents: _fractalInfo];
+//        [self.appModel.documentController setFractalInfoHasNewContents: _fractalInfo];
         self.hasBeenEdited = NO;
     }
 }
@@ -1199,7 +1199,13 @@ static const CGFloat kLevelNMargin = 40.0;
 - (void) updateNavButtons
 {
     self.title = self.fractalDocument.fractal.name;
-    self.navigationItem.title = self.fractalDocument.fractal.name;
+    UILabel* title = [[UILabel alloc]initWithFrame: CGRectZero];
+    title.lineBreakMode = NSLineBreakByTruncatingMiddle;
+    title.adjustsFontSizeToFitWidth = YES;
+    title.minimumScaleFactor = 0.6;
+    title.text = self.fractalDocument.fractal.name;
+    [title sizeToFit];
+    self.navigationItem.titleView = title;
 }
 
 

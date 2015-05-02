@@ -178,14 +178,25 @@
         NSLog(@"UpdatedMetadataItems: %@", values);
         
         NSIndexSet *indexesOfCompletelyDownloadedUpdatedMetadataItems = [updatedMetadataItemsOrNil indexesOfObjectsPassingTest:^BOOL(NSMetadataItem *updatedMetadataItem, NSUInteger idx, BOOL *stop) {
-            NSString *downloadStatus = [updatedMetadataItem valueForAttribute:NSMetadataUbiquitousItemDownloadingStatusKey];
+            NSString *downloadStatus = [updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemDownloadingStatusKey];
+            BOOL downloadedIsCurrent = [downloadStatus isEqualToString: NSMetadataUbiquitousItemDownloadingStatusCurrent];
             
-            return [downloadStatus isEqualToString:NSMetadataUbiquitousItemDownloadingStatusCurrent];
+            NSInteger isUploading = [[updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemIsUploadingKey] integerValue];
+            
+            BOOL keep = downloadedIsCurrent && !isUploading;
+//            NSString *downloadStatus = [updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemDownloadingStatusKey];
+//            BOOL justDownloadedNewOne = [downloadStatus isEqualToString: NSMetadataUbiquitousItemDownloadingStatusDownloaded];
+//            
+//            NSInteger isDownloaded = [[updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemIsDownloadedKey] integerValue];
+//            
+//            BOOL keep = justDownloadedNewOne && !isDownloaded;
+            
+            return keep;
         }];
         
         NSArray *completelyDownloadedUpdatedMetadataItems = [updatedMetadataItemsOrNil objectsAtIndexes:indexesOfCompletelyDownloadedUpdatedMetadataItems];
         
-        updatedURLs = [self URLsByMappingMetadataItems:completelyDownloadedUpdatedMetadataItems];
+        updatedURLs = [self URLsByMappingMetadataItems: completelyDownloadedUpdatedMetadataItems];
     }
     
     // Make sure that the arrays are all initialized before calling the didUpdateContents method.

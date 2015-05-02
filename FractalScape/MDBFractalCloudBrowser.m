@@ -16,6 +16,8 @@
 @property(nonatomic,strong)MDLCloudKitManager           *cloudManager;
 @property (nonatomic,strong) NSArray                    *publicCloudRecords;
 
+@property(nonatomic,assign,getter=isNetworkConnected) BOOL                        networkConnected;
+
 @end
 
 @implementation MDBFractalCloudBrowser
@@ -27,6 +29,9 @@
 //    self.collectionView.backgroundView = blurEffectView;
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    self.activityIndicator.color = [UIColor blueColor];
+    [self.activityIndicator startAnimating];
     self.cloudManager = [[MDLCloudKitManager alloc] init];
     // Do any additional setup after loading the view, typically from a nib.
     //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -38,16 +43,33 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    
-    [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records, NSError* error) {
-        if (!error) {
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+
+    [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records, NSError* error)
+    {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+        [self.activityIndicator stopAnimating];
+        
+        if (!error)
+        {
             self.publicCloudRecords = records;
+            self.networkConnected = YES;
             [self.collectionView reloadData];
-        } else {
+        } else
+        {
+            self.networkConnected = NO;
+            NSString *title;
+            NSString *message;
             
-            NSString *title = NSLocalizedString(@"Sorry", nil);
-            NSString *message =  [NSString stringWithFormat: @"Was not able to connect to the Cloud Server. Error: %@", error];
+            if (error.code == 4)
+            {
+                title = NSLocalizedString(@"Can't Browse", nil);
+                message = error.localizedDescription;
+            } else
+            {
+                title = NSLocalizedString(@"Can't Browse", nil);
+                message = error.localizedDescription;
+            }
+
             NSString *okActionTitle = NSLocalizedString(@"OK", nil);
 
             UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
@@ -113,7 +135,7 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return self.isNetworkConnected ? 1 : 0;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section

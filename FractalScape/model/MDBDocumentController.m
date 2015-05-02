@@ -381,7 +381,7 @@
         
         // Update the old documents.
         if (updatedFractalInfos && updatedFractalInfos.count > 0) {
-            NSMutableArray* updatedIndexPaths = [NSMutableArray arrayWithCapacity: updatedFractalInfos.count];
+//            NSMutableArray* updatedIndexPaths = [NSMutableArray arrayWithCapacity: updatedFractalInfos.count];
             for (MDBFractalInfo *updatedFractalInfo in updatedFractalInfos) {
                 NSInteger updatedIndex = [self.fractalInfos indexOfObject: updatedFractalInfo];
 //                [updatedIndexPaths addObject: [NSIndexPath indexPathForRow: updatedIndex inSection: 0]];
@@ -390,7 +390,9 @@
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     NSMutableArray* mutableArray = [self mutableArrayValueForKey: @"fractalInfos"];
-                    mutableArray[updatedIndex] = updatedFractalInfo;
+                    [mutableArray removeObjectAtIndex: updatedIndex];
+                    [mutableArray insertObject: updatedFractalInfo atIndex: 0];
+//                    mutableArray[updatedIndex] = updatedFractalInfo;
                 });
             }
 //            [self.delegate documentController: self didUpdateFractalInfosAtIndexPaths: updatedIndexPaths totalRows: self.fractalInfos.count];

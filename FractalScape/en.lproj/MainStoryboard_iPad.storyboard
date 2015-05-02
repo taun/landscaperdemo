@@ -2279,14 +2279,14 @@
                                                 <constraint firstAttribute="bottom" secondItem="TKa-kg-xwG" secondAttribute="bottom" constant="4" id="zcM-ug-uEg"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
                                             <rect key="frame" x="40" y="152" width="70" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="jXv-lU-dOK">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000036" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="jXv-lU-dOK">
                                             <rect key="frame" x="6" y="169" width="138" height="83"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2448,14 +2448,14 @@
                                                 <constraint firstAttribute="bottom" secondItem="AYV-rN-sBG" secondAttribute="bottom" constant="4" id="s04-t5-Qgh"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Loading ...." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
                                             <rect key="frame" x="38" y="152" width="74" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" verticalCompressionResistancePriority="500" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000013" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
                                             <rect key="frame" x="6" y="169" width="138" height="83"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2576,6 +2576,16 @@
                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fza-IP-vOV">
                                         <rect key="frame" x="0.0" y="0.0" width="607" height="600"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bhy-ig-p6m">
+                                                <rect key="frame" x="293" y="290" width="20" height="20"/>
+                                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="centerX" secondItem="bhy-ig-p6m" secondAttribute="centerX" constant="0.5" id="A0x-nn-5dV"/>
+                                            <constraint firstAttribute="centerY" secondItem="bhy-ig-p6m" secondAttribute="centerY" id="euc-ZI-88y"/>
+                                        </constraints>
                                     </view>
                                     <blurEffect style="extraLight"/>
                                 </visualEffectView>
@@ -2626,14 +2636,14 @@
                                                 <constraint firstAttribute="centerY" secondItem="5KF-XG-hjz" secondAttribute="centerY" id="uYr-jS-sEZ"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqp-Hp-Yxj">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000027" translatesAutoresizingMaskIntoConstraints="NO" id="fqp-Hp-Yxj">
                                             <rect key="frame" x="40" y="152" width="70" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="o3C-jZ-ivc">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" verticalCompressionResistancePriority="500" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="o3C-jZ-ivc">
                                             <rect key="frame" x="6" y="169" width="138" height="83"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2717,15 +2727,18 @@
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="bhy-ig-p6m" id="hxz-PL-WV6"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A82-Zd-ppe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4389" y="825"/>
+            <point key="canvasLocation" x="3685" y="1710"/>
         </scene>
-        <!--Top Rated-->
+        <!--Info-->
         <scene sceneID="xGe-BI-6pP">
             <objects>
-                <viewController title="Top Rated" id="kv4-Cc-rgq" sceneMemberID="viewController">
+                <viewController title="Info" id="kv4-Cc-rgq" customClass="ABXFAQsViewController" sceneMemberID="viewController">
                     <visualEffectView key="view" opaque="NO" contentMode="scaleToFill" id="9Fd-9d-is7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2735,16 +2748,16 @@
                         </view>
                         <blurEffect style="extraLight"/>
                     </visualEffectView>
-                    <tabBarItem key="tabBarItem" systemItem="topRated" id="Ltp-rn-kYa"/>
+                    <navigationItem key="navigationItem" id="1cr-sj-JjD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5d6-Dh-Dly" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4389" y="1572"/>
+            <point key="canvasLocation" x="2993" y="1710"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Library Tab Bar Controller-->
         <scene sceneID="95T-CA-6ut">
             <objects>
-                <tabBarController id="0xE-iA-jSj" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainLibraryTabs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0xE-iA-jSj" customClass="MDBMainLibraryTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="n9x-E0-NKi"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="RF8-mG-MeB">
@@ -2755,6 +2768,7 @@
                     <connections>
                         <segue destination="u0F-Fq-0AU" kind="relationship" relationship="viewControllers" id="9hb-j5-uif"/>
                         <segue destination="j6S-Q5-Emg" kind="relationship" relationship="viewControllers" id="rgu-Yh-GMc"/>
+                        <segue destination="zBK-kJ-FYv" kind="relationship" relationship="viewControllers" id="Zab-e5-8J2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ3-UZ-hST" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2840,7 +2854,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brm-ue-2zq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3691" y="825"/>
+            <point key="canvasLocation" x="3685" y="970"/>
+        </scene>
+        <!--Help-->
+        <scene sceneID="Rnh-QW-Aag">
+            <objects>
+                <navigationController storyboardIdentifier="AppBotInfoBoard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zBK-kJ-FYv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Help" image="tabBarInfo" id="Ltp-rn-kYa"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="l3T-tf-UCO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kv4-Cc-rgq" kind="relationship" relationship="rootViewController" id="JfJ-hh-OMv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cva-cP-RbA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2993" y="970"/>
         </scene>
     </scenes>
     <resources>
@@ -2857,6 +2890,7 @@
         <image name="tabBarFillColorIcon" width="25" height="25"/>
         <image name="tabBarFillColorIconOff" width="25" height="25"/>
         <image name="tabBarFillColorIconTemplate" width="25" height="25"/>
+        <image name="tabBarInfo" width="25" height="25"/>
         <image name="tabBarLineColorIcon" width="25" height="25"/>
         <image name="tabBarLineColorIconTemplate" width="25" height="25"/>
         <image name="tabBarMyFractals" width="25" height="25"/>

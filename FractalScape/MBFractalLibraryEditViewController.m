@@ -49,6 +49,15 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (!CGPointEqualToPoint(self.initialContentOffset, CGPointZero)) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.collectionView.contentOffset = self.initialContentOffset;
+        });
+    }
+}
 #pragma message "TODO: implement Are You Sure? alert before deleting"
 - (IBAction)deleteCurrentSelections:(id)sender
 {

@@ -13,5 +13,6 @@
 @property (nonatomic,strong) MDBDocumentController                          *documentController;
 
 - (IBAction)downloadSelected:(id)sender;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

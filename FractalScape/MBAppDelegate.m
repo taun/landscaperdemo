@@ -20,6 +20,7 @@
 #import "MDBFractalDocumentCloudCoordinator.h"
 #import "MDBFractalCloudBrowser.h"
 
+#import "ABX.h"
 
 #import "UIDevice_Hardware.h"
 
@@ -57,6 +58,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     [[MDBCloudManager sharedManager] runHandlerOnFirstLaunch:^{
         [MDBDocumentUtilities copyInitialDocuments];
     }];
+    
+    [[ABXApiClient instance] setApiKey:@"a02e2366313edf6d321e3eda0e3fcf613fd4ab72"];
     
     return YES;
 }

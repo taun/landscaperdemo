@@ -79,6 +79,68 @@
 		C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5419DC776000774441 /* RulesIcons.xcassets */; };
 		C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5619DC77CE00774441 /* UIMedia.xcassets */; };
 		C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */; };
+		C59EE1D71AF3CE7F00CFE254 /* ABX.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1971AF3CE7E00CFE254 /* ABX.h */; };
+		C59EE1D81AF3CE7F00CFE254 /* AppbotX.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59EE1981AF3CE7E00CFE254 /* AppbotX.bundle */; };
+		C59EE1D91AF3CE7F00CFE254 /* ABXApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE19A1AF3CE7E00CFE254 /* ABXApiClient.h */; };
+		C59EE1DA1AF3CE7F00CFE254 /* ABXApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE19B1AF3CE7E00CFE254 /* ABXApiClient.m */; };
+		C59EE1DB1AF3CE7F00CFE254 /* ABXAppStore.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE19C1AF3CE7E00CFE254 /* ABXAppStore.h */; };
+		C59EE1DC1AF3CE7F00CFE254 /* ABXAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE19D1AF3CE7E00CFE254 /* ABXAppStore.m */; };
+		C59EE1DD1AF3CE7F00CFE254 /* ABXKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE19E1AF3CE7E00CFE254 /* ABXKeychain.h */; };
+		C59EE1DE1AF3CE7F00CFE254 /* ABXKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE19F1AF3CE7E00CFE254 /* ABXKeychain.m */; };
+		C59EE1DF1AF3CE7F00CFE254 /* NSDictionary+ABXNSNullAsNull.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1A01AF3CE7E00CFE254 /* NSDictionary+ABXNSNullAsNull.h */; };
+		C59EE1E01AF3CE7F00CFE254 /* NSDictionary+ABXNSNullAsNull.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1A11AF3CE7E00CFE254 /* NSDictionary+ABXNSNullAsNull.m */; };
+		C59EE1E11AF3CE7F00CFE254 /* NSDictionary+ABXQueryString.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1A21AF3CE7E00CFE254 /* NSDictionary+ABXQueryString.h */; };
+		C59EE1E21AF3CE7F00CFE254 /* NSDictionary+ABXQueryString.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1A31AF3CE7E00CFE254 /* NSDictionary+ABXQueryString.m */; };
+		C59EE1E31AF3CE7F00CFE254 /* NSString+ABXLocalized.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1A41AF3CE7E00CFE254 /* NSString+ABXLocalized.h */; };
+		C59EE1E41AF3CE7F00CFE254 /* NSString+ABXLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1A51AF3CE7E00CFE254 /* NSString+ABXLocalized.m */; };
+		C59EE1E51AF3CE7F00CFE254 /* NSString+ABXSizing.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1A61AF3CE7E00CFE254 /* NSString+ABXSizing.h */; };
+		C59EE1E61AF3CE7F00CFE254 /* NSString+ABXSizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1A71AF3CE7E00CFE254 /* NSString+ABXSizing.m */; };
+		C59EE1E71AF3CE7F00CFE254 /* NSString+ABXURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1A81AF3CE7E00CFE254 /* NSString+ABXURLEncoding.h */; };
+		C59EE1E81AF3CE7F00CFE254 /* NSString+ABXURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1A91AF3CE7E00CFE254 /* NSString+ABXURLEncoding.m */; };
+		C59EE1E91AF3CE7F00CFE254 /* UIViewController+ABXScreenshot.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1AA1AF3CE7E00CFE254 /* UIViewController+ABXScreenshot.h */; };
+		C59EE1EA1AF3CE7F00CFE254 /* UIViewController+ABXScreenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1AB1AF3CE7E00CFE254 /* UIViewController+ABXScreenshot.m */; };
+		C59EE1EB1AF3CE7F00CFE254 /* ABXBaseListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1AD1AF3CE7E00CFE254 /* ABXBaseListViewController.h */; };
+		C59EE1EC1AF3CE7F00CFE254 /* ABXBaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1AE1AF3CE7E00CFE254 /* ABXBaseListViewController.m */; };
+		C59EE1ED1AF3CE7F00CFE254 /* ABXFAQsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1AF1AF3CE7E00CFE254 /* ABXFAQsViewController.h */; };
+		C59EE1EE1AF3CE7F00CFE254 /* ABXFAQsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1B01AF3CE7E00CFE254 /* ABXFAQsViewController.m */; };
+		C59EE1EF1AF3CE7F00CFE254 /* ABXFAQViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1B11AF3CE7E00CFE254 /* ABXFAQViewController.h */; };
+		C59EE1F01AF3CE7F00CFE254 /* ABXFAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1B21AF3CE7E00CFE254 /* ABXFAQViewController.m */; };
+		C59EE1F11AF3CE7F00CFE254 /* ABXFeedbackViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1B31AF3CE7E00CFE254 /* ABXFeedbackViewController.h */; };
+		C59EE1F21AF3CE7F00CFE254 /* ABXFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1B41AF3CE7E00CFE254 /* ABXFeedbackViewController.m */; };
+		C59EE1F31AF3CE7F00CFE254 /* ABXNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1B51AF3CE7E00CFE254 /* ABXNavigationController.h */; };
+		C59EE1F41AF3CE7F00CFE254 /* ABXNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1B61AF3CE7E00CFE254 /* ABXNavigationController.m */; };
+		C59EE1F51AF3CE7F00CFE254 /* ABXNotificationsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1B71AF3CE7E00CFE254 /* ABXNotificationsViewController.h */; };
+		C59EE1F61AF3CE7F00CFE254 /* ABXNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1B81AF3CE7E00CFE254 /* ABXNotificationsViewController.m */; };
+		C59EE1F71AF3CE7F00CFE254 /* ABXVersionsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1B91AF3CE7E00CFE254 /* ABXVersionsViewController.h */; };
+		C59EE1F81AF3CE7F00CFE254 /* ABXVersionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1BA1AF3CE7E00CFE254 /* ABXVersionsViewController.m */; };
+		C59EE1F91AF3CE7F00CFE254 /* ABXAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1BC1AF3CE7E00CFE254 /* ABXAttachment.h */; };
+		C59EE1FA1AF3CE7F00CFE254 /* ABXAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1BD1AF3CE7E00CFE254 /* ABXAttachment.m */; };
+		C59EE1FB1AF3CE7F00CFE254 /* ABXFaq.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1BE1AF3CE7E00CFE254 /* ABXFaq.h */; };
+		C59EE1FC1AF3CE7F00CFE254 /* ABXFaq.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1BF1AF3CE7E00CFE254 /* ABXFaq.m */; };
+		C59EE1FD1AF3CE7F00CFE254 /* ABXIssue.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1C01AF3CE7E00CFE254 /* ABXIssue.h */; };
+		C59EE1FE1AF3CE7F00CFE254 /* ABXIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1C11AF3CE7E00CFE254 /* ABXIssue.m */; };
+		C59EE1FF1AF3CE7F00CFE254 /* ABXModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1C21AF3CE7E00CFE254 /* ABXModel.h */; };
+		C59EE2001AF3CE7F00CFE254 /* ABXModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1C31AF3CE7E00CFE254 /* ABXModel.m */; };
+		C59EE2011AF3CE7F00CFE254 /* ABXNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1C41AF3CE7E00CFE254 /* ABXNotification.h */; };
+		C59EE2021AF3CE7F00CFE254 /* ABXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1C51AF3CE7E00CFE254 /* ABXNotification.m */; };
+		C59EE2031AF3CE7F00CFE254 /* ABXVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1C61AF3CE7E00CFE254 /* ABXVersion.h */; };
+		C59EE2041AF3CE7F00CFE254 /* ABXVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1C71AF3CE7E00CFE254 /* ABXVersion.m */; };
+		C59EE2051AF3CE7F00CFE254 /* ABXFAQTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1C91AF3CE7E00CFE254 /* ABXFAQTableViewCell.h */; };
+		C59EE2061AF3CE7F00CFE254 /* ABXFAQTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1CA1AF3CE7E00CFE254 /* ABXFAQTableViewCell.m */; };
+		C59EE2071AF3CE7F00CFE254 /* ABXNotificationTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1CB1AF3CE7E00CFE254 /* ABXNotificationTableViewCell.h */; };
+		C59EE2081AF3CE7F00CFE254 /* ABXNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1CC1AF3CE7E00CFE254 /* ABXNotificationTableViewCell.m */; };
+		C59EE2091AF3CE7F00CFE254 /* ABXNotificationView.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1CD1AF3CE7E00CFE254 /* ABXNotificationView.h */; };
+		C59EE20A1AF3CE7F00CFE254 /* ABXNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1CE1AF3CE7E00CFE254 /* ABXNotificationView.m */; };
+		C59EE20B1AF3CE7F00CFE254 /* ABXPromptView.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1CF1AF3CE7E00CFE254 /* ABXPromptView.h */; };
+		C59EE20C1AF3CE7F00CFE254 /* ABXPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1D01AF3CE7E00CFE254 /* ABXPromptView.m */; };
+		C59EE20D1AF3CE7F00CFE254 /* ABXTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1D11AF3CE7E00CFE254 /* ABXTextView.h */; };
+		C59EE20E1AF3CE7F00CFE254 /* ABXTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1D21AF3CE7E00CFE254 /* ABXTextView.m */; };
+		C59EE20F1AF3CE7F00CFE254 /* ABXVersionNotificationView.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1D31AF3CE7F00CFE254 /* ABXVersionNotificationView.h */; };
+		C59EE2101AF3CE7F00CFE254 /* ABXVersionNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1D41AF3CE7F00CFE254 /* ABXVersionNotificationView.m */; };
+		C59EE2111AF3CE7F00CFE254 /* ABXVersionTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE1D51AF3CE7F00CFE254 /* ABXVersionTableViewCell.h */; };
+		C59EE2121AF3CE7F00CFE254 /* ABXVersionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE1D61AF3CE7F00CFE254 /* ABXVersionTableViewCell.m */; };
+		C59EE2151AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */; };
+		C59EE2161AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */; };
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
 		C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */; };
 		C5A5C38D1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */; };
@@ -266,6 +328,68 @@
 		C59AAE5619DC77CE00774441 /* UIMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UIMedia.xcassets; sourceTree = "<group>"; };
 		C59E321E1A12AB950076B40B /* MBFractalColorViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalColorViewContainer.h; path = FractalScape/MBFractalColorViewContainer.h; sourceTree = "<group>"; };
 		C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalColorViewContainer.m; path = FractalScape/MBFractalColorViewContainer.m; sourceTree = "<group>"; };
+		C59EE1971AF3CE7E00CFE254 /* ABX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABX.h; sourceTree = "<group>"; };
+		C59EE1981AF3CE7E00CFE254 /* AppbotX.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AppbotX.bundle; sourceTree = "<group>"; };
+		C59EE19A1AF3CE7E00CFE254 /* ABXApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXApiClient.h; sourceTree = "<group>"; };
+		C59EE19B1AF3CE7E00CFE254 /* ABXApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXApiClient.m; sourceTree = "<group>"; };
+		C59EE19C1AF3CE7E00CFE254 /* ABXAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXAppStore.h; sourceTree = "<group>"; };
+		C59EE19D1AF3CE7E00CFE254 /* ABXAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXAppStore.m; sourceTree = "<group>"; };
+		C59EE19E1AF3CE7E00CFE254 /* ABXKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXKeychain.h; sourceTree = "<group>"; };
+		C59EE19F1AF3CE7E00CFE254 /* ABXKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXKeychain.m; sourceTree = "<group>"; };
+		C59EE1A01AF3CE7E00CFE254 /* NSDictionary+ABXNSNullAsNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ABXNSNullAsNull.h"; sourceTree = "<group>"; };
+		C59EE1A11AF3CE7E00CFE254 /* NSDictionary+ABXNSNullAsNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ABXNSNullAsNull.m"; sourceTree = "<group>"; };
+		C59EE1A21AF3CE7E00CFE254 /* NSDictionary+ABXQueryString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ABXQueryString.h"; sourceTree = "<group>"; };
+		C59EE1A31AF3CE7E00CFE254 /* NSDictionary+ABXQueryString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ABXQueryString.m"; sourceTree = "<group>"; };
+		C59EE1A41AF3CE7E00CFE254 /* NSString+ABXLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ABXLocalized.h"; sourceTree = "<group>"; };
+		C59EE1A51AF3CE7E00CFE254 /* NSString+ABXLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ABXLocalized.m"; sourceTree = "<group>"; };
+		C59EE1A61AF3CE7E00CFE254 /* NSString+ABXSizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ABXSizing.h"; sourceTree = "<group>"; };
+		C59EE1A71AF3CE7E00CFE254 /* NSString+ABXSizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ABXSizing.m"; sourceTree = "<group>"; };
+		C59EE1A81AF3CE7E00CFE254 /* NSString+ABXURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ABXURLEncoding.h"; sourceTree = "<group>"; };
+		C59EE1A91AF3CE7E00CFE254 /* NSString+ABXURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ABXURLEncoding.m"; sourceTree = "<group>"; };
+		C59EE1AA1AF3CE7E00CFE254 /* UIViewController+ABXScreenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ABXScreenshot.h"; sourceTree = "<group>"; };
+		C59EE1AB1AF3CE7E00CFE254 /* UIViewController+ABXScreenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ABXScreenshot.m"; sourceTree = "<group>"; };
+		C59EE1AD1AF3CE7E00CFE254 /* ABXBaseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXBaseListViewController.h; sourceTree = "<group>"; };
+		C59EE1AE1AF3CE7E00CFE254 /* ABXBaseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXBaseListViewController.m; sourceTree = "<group>"; };
+		C59EE1AF1AF3CE7E00CFE254 /* ABXFAQsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXFAQsViewController.h; sourceTree = "<group>"; };
+		C59EE1B01AF3CE7E00CFE254 /* ABXFAQsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXFAQsViewController.m; sourceTree = "<group>"; };
+		C59EE1B11AF3CE7E00CFE254 /* ABXFAQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXFAQViewController.h; sourceTree = "<group>"; };
+		C59EE1B21AF3CE7E00CFE254 /* ABXFAQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXFAQViewController.m; sourceTree = "<group>"; };
+		C59EE1B31AF3CE7E00CFE254 /* ABXFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXFeedbackViewController.h; sourceTree = "<group>"; };
+		C59EE1B41AF3CE7E00CFE254 /* ABXFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXFeedbackViewController.m; sourceTree = "<group>"; };
+		C59EE1B51AF3CE7E00CFE254 /* ABXNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXNavigationController.h; sourceTree = "<group>"; };
+		C59EE1B61AF3CE7E00CFE254 /* ABXNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXNavigationController.m; sourceTree = "<group>"; };
+		C59EE1B71AF3CE7E00CFE254 /* ABXNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXNotificationsViewController.h; sourceTree = "<group>"; };
+		C59EE1B81AF3CE7E00CFE254 /* ABXNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXNotificationsViewController.m; sourceTree = "<group>"; };
+		C59EE1B91AF3CE7E00CFE254 /* ABXVersionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXVersionsViewController.h; sourceTree = "<group>"; };
+		C59EE1BA1AF3CE7E00CFE254 /* ABXVersionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXVersionsViewController.m; sourceTree = "<group>"; };
+		C59EE1BC1AF3CE7E00CFE254 /* ABXAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXAttachment.h; sourceTree = "<group>"; };
+		C59EE1BD1AF3CE7E00CFE254 /* ABXAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXAttachment.m; sourceTree = "<group>"; };
+		C59EE1BE1AF3CE7E00CFE254 /* ABXFaq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXFaq.h; sourceTree = "<group>"; };
+		C59EE1BF1AF3CE7E00CFE254 /* ABXFaq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXFaq.m; sourceTree = "<group>"; };
+		C59EE1C01AF3CE7E00CFE254 /* ABXIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXIssue.h; sourceTree = "<group>"; };
+		C59EE1C11AF3CE7E00CFE254 /* ABXIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXIssue.m; sourceTree = "<group>"; };
+		C59EE1C21AF3CE7E00CFE254 /* ABXModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXModel.h; sourceTree = "<group>"; };
+		C59EE1C31AF3CE7E00CFE254 /* ABXModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXModel.m; sourceTree = "<group>"; };
+		C59EE1C41AF3CE7E00CFE254 /* ABXNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXNotification.h; sourceTree = "<group>"; };
+		C59EE1C51AF3CE7E00CFE254 /* ABXNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXNotification.m; sourceTree = "<group>"; };
+		C59EE1C61AF3CE7E00CFE254 /* ABXVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXVersion.h; sourceTree = "<group>"; };
+		C59EE1C71AF3CE7E00CFE254 /* ABXVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXVersion.m; sourceTree = "<group>"; };
+		C59EE1C91AF3CE7E00CFE254 /* ABXFAQTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXFAQTableViewCell.h; sourceTree = "<group>"; };
+		C59EE1CA1AF3CE7E00CFE254 /* ABXFAQTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXFAQTableViewCell.m; sourceTree = "<group>"; };
+		C59EE1CB1AF3CE7E00CFE254 /* ABXNotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXNotificationTableViewCell.h; sourceTree = "<group>"; };
+		C59EE1CC1AF3CE7E00CFE254 /* ABXNotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXNotificationTableViewCell.m; sourceTree = "<group>"; };
+		C59EE1CD1AF3CE7E00CFE254 /* ABXNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXNotificationView.h; sourceTree = "<group>"; };
+		C59EE1CE1AF3CE7E00CFE254 /* ABXNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXNotificationView.m; sourceTree = "<group>"; };
+		C59EE1CF1AF3CE7E00CFE254 /* ABXPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXPromptView.h; sourceTree = "<group>"; };
+		C59EE1D01AF3CE7E00CFE254 /* ABXPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXPromptView.m; sourceTree = "<group>"; };
+		C59EE1D11AF3CE7E00CFE254 /* ABXTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXTextView.h; sourceTree = "<group>"; };
+		C59EE1D21AF3CE7E00CFE254 /* ABXTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXTextView.m; sourceTree = "<group>"; };
+		C59EE1D31AF3CE7F00CFE254 /* ABXVersionNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXVersionNotificationView.h; sourceTree = "<group>"; };
+		C59EE1D41AF3CE7F00CFE254 /* ABXVersionNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXVersionNotificationView.m; sourceTree = "<group>"; };
+		C59EE1D51AF3CE7F00CFE254 /* ABXVersionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABXVersionTableViewCell.h; sourceTree = "<group>"; };
+		C59EE1D61AF3CE7F00CFE254 /* ABXVersionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABXVersionTableViewCell.m; sourceTree = "<group>"; };
+		C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBMainLibraryTabBarController.h; path = FractalScape/MDBMainLibraryTabBarController.h; sourceTree = "<group>"; };
+		C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBMainLibraryTabBarController.m; path = FractalScape/MDBMainLibraryTabBarController.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalCloudBrowser.h; path = FractalScape/MDBFractalCloudBrowser.h; sourceTree = "<group>"; };
@@ -517,6 +641,113 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C59EE1951AF3CDFF00CFE254 /* AppBotX */ = {
+			isa = PBXGroup;
+			children = (
+				C59EE1961AF3CE7E00CFE254 /* Classes */,
+			);
+			name = AppBotX;
+			sourceTree = "<group>";
+		};
+		C59EE1961AF3CE7E00CFE254 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C59EE1971AF3CE7E00CFE254 /* ABX.h */,
+				C59EE1981AF3CE7E00CFE254 /* AppbotX.bundle */,
+				C59EE1991AF3CE7E00CFE254 /* Classes */,
+				C59EE1AC1AF3CE7E00CFE254 /* Controllers */,
+				C59EE1BB1AF3CE7E00CFE254 /* Models */,
+				C59EE1C81AF3CE7E00CFE254 /* Views */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C59EE1991AF3CE7E00CFE254 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C59EE19A1AF3CE7E00CFE254 /* ABXApiClient.h */,
+				C59EE19B1AF3CE7E00CFE254 /* ABXApiClient.m */,
+				C59EE19C1AF3CE7E00CFE254 /* ABXAppStore.h */,
+				C59EE19D1AF3CE7E00CFE254 /* ABXAppStore.m */,
+				C59EE19E1AF3CE7E00CFE254 /* ABXKeychain.h */,
+				C59EE19F1AF3CE7E00CFE254 /* ABXKeychain.m */,
+				C59EE1A01AF3CE7E00CFE254 /* NSDictionary+ABXNSNullAsNull.h */,
+				C59EE1A11AF3CE7E00CFE254 /* NSDictionary+ABXNSNullAsNull.m */,
+				C59EE1A21AF3CE7E00CFE254 /* NSDictionary+ABXQueryString.h */,
+				C59EE1A31AF3CE7E00CFE254 /* NSDictionary+ABXQueryString.m */,
+				C59EE1A41AF3CE7E00CFE254 /* NSString+ABXLocalized.h */,
+				C59EE1A51AF3CE7E00CFE254 /* NSString+ABXLocalized.m */,
+				C59EE1A61AF3CE7E00CFE254 /* NSString+ABXSizing.h */,
+				C59EE1A71AF3CE7E00CFE254 /* NSString+ABXSizing.m */,
+				C59EE1A81AF3CE7E00CFE254 /* NSString+ABXURLEncoding.h */,
+				C59EE1A91AF3CE7E00CFE254 /* NSString+ABXURLEncoding.m */,
+				C59EE1AA1AF3CE7E00CFE254 /* UIViewController+ABXScreenshot.h */,
+				C59EE1AB1AF3CE7E00CFE254 /* UIViewController+ABXScreenshot.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C59EE1AC1AF3CE7E00CFE254 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C59EE1AD1AF3CE7E00CFE254 /* ABXBaseListViewController.h */,
+				C59EE1AE1AF3CE7E00CFE254 /* ABXBaseListViewController.m */,
+				C59EE1AF1AF3CE7E00CFE254 /* ABXFAQsViewController.h */,
+				C59EE1B01AF3CE7E00CFE254 /* ABXFAQsViewController.m */,
+				C59EE1B11AF3CE7E00CFE254 /* ABXFAQViewController.h */,
+				C59EE1B21AF3CE7E00CFE254 /* ABXFAQViewController.m */,
+				C59EE1B31AF3CE7E00CFE254 /* ABXFeedbackViewController.h */,
+				C59EE1B41AF3CE7E00CFE254 /* ABXFeedbackViewController.m */,
+				C59EE1B51AF3CE7E00CFE254 /* ABXNavigationController.h */,
+				C59EE1B61AF3CE7E00CFE254 /* ABXNavigationController.m */,
+				C59EE1B71AF3CE7E00CFE254 /* ABXNotificationsViewController.h */,
+				C59EE1B81AF3CE7E00CFE254 /* ABXNotificationsViewController.m */,
+				C59EE1B91AF3CE7E00CFE254 /* ABXVersionsViewController.h */,
+				C59EE1BA1AF3CE7E00CFE254 /* ABXVersionsViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C59EE1BB1AF3CE7E00CFE254 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C59EE1BC1AF3CE7E00CFE254 /* ABXAttachment.h */,
+				C59EE1BD1AF3CE7E00CFE254 /* ABXAttachment.m */,
+				C59EE1BE1AF3CE7E00CFE254 /* ABXFaq.h */,
+				C59EE1BF1AF3CE7E00CFE254 /* ABXFaq.m */,
+				C59EE1C01AF3CE7E00CFE254 /* ABXIssue.h */,
+				C59EE1C11AF3CE7E00CFE254 /* ABXIssue.m */,
+				C59EE1C21AF3CE7E00CFE254 /* ABXModel.h */,
+				C59EE1C31AF3CE7E00CFE254 /* ABXModel.m */,
+				C59EE1C41AF3CE7E00CFE254 /* ABXNotification.h */,
+				C59EE1C51AF3CE7E00CFE254 /* ABXNotification.m */,
+				C59EE1C61AF3CE7E00CFE254 /* ABXVersion.h */,
+				C59EE1C71AF3CE7E00CFE254 /* ABXVersion.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C59EE1C81AF3CE7E00CFE254 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C59EE1C91AF3CE7E00CFE254 /* ABXFAQTableViewCell.h */,
+				C59EE1CA1AF3CE7E00CFE254 /* ABXFAQTableViewCell.m */,
+				C59EE1CB1AF3CE7E00CFE254 /* ABXNotificationTableViewCell.h */,
+				C59EE1CC1AF3CE7E00CFE254 /* ABXNotificationTableViewCell.m */,
+				C59EE1CD1AF3CE7E00CFE254 /* ABXNotificationView.h */,
+				C59EE1CE1AF3CE7E00CFE254 /* ABXNotificationView.m */,
+				C59EE1CF1AF3CE7E00CFE254 /* ABXPromptView.h */,
+				C59EE1D01AF3CE7E00CFE254 /* ABXPromptView.m */,
+				C59EE1D11AF3CE7E00CFE254 /* ABXTextView.h */,
+				C59EE1D21AF3CE7E00CFE254 /* ABXTextView.m */,
+				C59EE1D31AF3CE7F00CFE254 /* ABXVersionNotificationView.h */,
+				C59EE1D41AF3CE7F00CFE254 /* ABXVersionNotificationView.m */,
+				C59EE1D51AF3CE7F00CFE254 /* ABXVersionTableViewCell.h */,
+				C59EE1D61AF3CE7F00CFE254 /* ABXVersionTableViewCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C5C37C551A24E6A1008C5409 /* MDUIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +817,7 @@
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
+				C59EE1951AF3CDFF00CFE254 /* AppBotX */,
 				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
 				C5567AFB1A79F2AA00882474 /* Categories */,
 				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,
@@ -756,6 +988,8 @@
 		C5FFAB121A14F90B00662211 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */,
+				C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */,
 				C5E6B79914A5346300DA48BD /* MBFractalLibraryViewController.h */,
 				C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */,
 				C5DE128D1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.h */,
@@ -785,6 +1019,7 @@
 				C5C37C5E1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h in Headers */,
 				C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */,
 				C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */,
+				C59EE1E31AF3CE7F00CFE254 /* NSString+ABXLocalized.h in Headers */,
 				C500160F1AC6103F00101340 /* MDBNavConTransitionCoordinator.h in Headers */,
 				C54FC6D21ADB60A600588E9F /* MDBImageFiltersListView.h in Headers */,
 				C5D4D54D1AC6E116002113DF /* MDLCloudKitManager.h in Headers */,
@@ -793,39 +1028,69 @@
 				C51130791A38C93F0083B178 /* MDBFractalPageColorTileView.h in Headers */,
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
 				C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */,
+				C59EE1D91AF3CE7F00CFE254 /* ABXApiClient.h in Headers */,
+				C59EE1D71AF3CE7F00CFE254 /* ABX.h in Headers */,
 				C5F184831AA8DA3400233E49 /* MDBFractalDocumentCoordinator.h in Headers */,
+				C59EE1F11AF3CE7F00CFE254 /* ABXFeedbackViewController.h in Headers */,
+				C59EE2011AF3CE7F00CFE254 /* ABXNotification.h in Headers */,
 				C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */,
 				C5B0A2B71ACA04B800C5903A /* MBImageFilter.h in Headers */,
+				C59EE2091AF3CE7F00CFE254 /* ABXNotificationView.h in Headers */,
+				C59EE1E91AF3CE7F00CFE254 /* UIViewController+ABXScreenshot.h in Headers */,
 				C52D75D51A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.h in Headers */,
+				C59EE1FB1AF3CE7F00CFE254 /* ABXFaq.h in Headers */,
 				C5D5423B1A30EDE3006CD47A /* MBColorCategory.h in Headers */,
 				C52C60A21AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h in Headers */,
+				C59EE20F1AF3CE7F00CFE254 /* ABXVersionNotificationView.h in Headers */,
+				C59EE1DD1AF3CE7F00CFE254 /* ABXKeychain.h in Headers */,
 				C5F184871AA8DA7D00233E49 /* MDBFractalDocumentCloudCoordinator.h in Headers */,
+				C59EE1FF1AF3CE7F00CFE254 /* ABXModel.h in Headers */,
+				C59EE20B1AF3CE7F00CFE254 /* ABXPromptView.h in Headers */,
+				C59EE2031AF3CE7F00CFE254 /* ABXVersion.h in Headers */,
+				C59EE1FD1AF3CE7F00CFE254 /* ABXIssue.h in Headers */,
+				C59EE1F31AF3CE7F00CFE254 /* ABXNavigationController.h in Headers */,
+				C59EE1ED1AF3CE7F00CFE254 /* ABXFAQsViewController.h in Headers */,
+				C59EE2151AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h in Headers */,
+				C59EE2111AF3CE7F00CFE254 /* ABXVersionTableViewCell.h in Headers */,
+				C59EE1E71AF3CE7F00CFE254 /* NSString+ABXURLEncoding.h in Headers */,
 				C5F184801AA7A2A000233E49 /* MDBFractalInfo.h in Headers */,
+				C59EE1F91AF3CE7F00CFE254 /* ABXAttachment.h in Headers */,
 				C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */,
+				C59EE20D1AF3CE7F00CFE254 /* ABXTextView.h in Headers */,
 				C5CD57CF1A98E42400C70218 /* MDBFractalDocument.h in Headers */,
 				C5DE128F1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.h in Headers */,
 				C5D542331A300FC6006CD47A /* MDBColorCategoryListView.h in Headers */,
 				C54FC6D61ADB60C900588E9F /* MDBImageFiltersCategoriesListView.h in Headers */,
+				C59EE1DF1AF3CE7F00CFE254 /* NSDictionary+ABXNSNullAsNull.h in Headers */,
 				C5F1848B1AA8DAA200233E49 /* MDBFractalDocumentLocalCoordinator.h in Headers */,
 				C5A5C38D1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h in Headers */,
+				C59EE2051AF3CE7F00CFE254 /* ABXFAQTableViewCell.h in Headers */,
 				C50764691A33A537009DDF83 /* LSDrawingRuleType.h in Headers */,
 				C5F184721AA62B4A00233E49 /* MDBFractalObjectList.h in Headers */,
 				C5F544821A5B56B3000EE8B9 /* LSFractalRenderer.h in Headers */,
+				C59EE1EF1AF3CE7F00CFE254 /* ABXFAQViewController.h in Headers */,
 				C52EA9AD1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h in Headers */,
 				C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */,
 				C5D5423F1A30EDE4006CD47A /* MBColor.h in Headers */,
+				C59EE1E11AF3CE7F00CFE254 /* NSDictionary+ABXQueryString.h in Headers */,
 				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
 				C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */,
 				C5D4D54F1AC6E116002113DF /* MDLCloudSearchTableController.h in Headers */,
+				C59EE2071AF3CE7F00CFE254 /* ABXNotificationTableViewCell.h in Headers */,
 				C58A75761A4A194100309BE0 /* MDBSliderControl.h in Headers */,
+				C59EE1F71AF3CE7F00CFE254 /* ABXVersionsViewController.h in Headers */,
 				C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */,
+				C59EE1E51AF3CE7F00CFE254 /* NSString+ABXSizing.h in Headers */,
 				C546D71F1A83D5C3002E869A /* LSFractal.h in Headers */,
 				C54FC6CE1ADB5E5B00588E9F /* MDBFilterControlView.h in Headers */,
 				C5CD57D61A9BCDDD00C70218 /* NSString+MDBConvenience.h in Headers */,
+				C59EE1F51AF3CE7F00CFE254 /* ABXNotificationsViewController.h in Headers */,
 				C5D542371A300FFA006CD47A /* MDBColorCategoriesListView.h in Headers */,
+				C59EE1EB1AF3CE7F00CFE254 /* ABXBaseListViewController.h in Headers */,
 				C5F184781AA6663800233E49 /* MDBDocumentUtilities.h in Headers */,
 				C5F1847C1AA6751200233E49 /* MDBDocumentController.h in Headers */,
 				C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */,
+				C59EE1DB1AF3CE7F00CFE254 /* ABXAppStore.h in Headers */,
 				C50764751A33A537009DDF83 /* LSReplacementRule.h in Headers */,
 				C533DFD11AE953B6009E9D95 /* MDBAppModel.h in Headers */,
 				C5C37C6C1A24EF9F008C5409 /* MDBLSObjectTileView.h in Headers */,
@@ -951,6 +1216,7 @@
 				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
+				C59EE1D81AF3CE7F00CFE254 /* AppbotX.bundle in Resources */,
 				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
 				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);
@@ -1000,32 +1266,52 @@
 				C56080871A9F77C000134B62 /* MDBCloudManager.m in Sources */,
 				C5329E8C1A24566B00056FB4 /* MBLSFractalSummaryEditView.m in Sources */,
 				C5D5423C1A30EDE3006CD47A /* MBColorCategory.m in Sources */,
+				C59EE1F61AF3CE7F00CFE254 /* ABXNotificationsViewController.m in Sources */,
+				C59EE2041AF3CE7F00CFE254 /* ABXVersion.m in Sources */,
+				C59EE1EE1AF3CE7F00CFE254 /* ABXFAQsViewController.m in Sources */,
+				C59EE1DA1AF3CE7F00CFE254 /* ABXApiClient.m in Sources */,
 				C5D542301A2FC68C006CD47A /* MDBLSObjectTilesViewBaseController.m in Sources */,
 				C5F184731AA62B4A00233E49 /* MDBFractalObjectList.m in Sources */,
 				C5D4D5541AC73B65002113DF /* MDBCustomTransition.m in Sources */,
 				C5E6B78E14A5346300DA48BD /* main.m in Sources */,
+				C59EE2021AF3CE7F00CFE254 /* ABXNotification.m in Sources */,
 				C5E6B79214A5346300DA48BD /* MBAppDelegate.m in Sources */,
 				C52C60A31AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m in Sources */,
 				C5D542341A300FC6006CD47A /* MDBColorCategoryListView.m in Sources */,
 				C5E6B79B14A5346300DA48BD /* MBFractalLibraryViewController.m in Sources */,
 				C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */,
+				C59EE1FE1AF3CE7F00CFE254 /* ABXIssue.m in Sources */,
 				C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */,
 				C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */,
 				C54FC6D31ADB60A600588E9F /* MDBImageFiltersListView.m in Sources */,
 				C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */,
 				C5F1847D1AA6751200233E49 /* MDBDocumentController.m in Sources */,
 				C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */,
+				C59EE2101AF3CE7F00CFE254 /* ABXVersionNotificationView.m in Sources */,
 				C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */,
+				C59EE1E61AF3CE7F00CFE254 /* NSString+ABXSizing.m in Sources */,
 				C5F184791AA6663800233E49 /* MDBDocumentUtilities.m in Sources */,
+				C59EE20A1AF3CE7F00CFE254 /* ABXNotificationView.m in Sources */,
 				C52D75D61A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m in Sources */,
 				C50B82951A02E06E00FBA03F /* MBFractalDescriptionTableCell.m in Sources */,
 				C5BA7FE71A1868C400AFCF70 /* FractalScapeIconSet.m in Sources */,
 				C546D7201A83D5C3002E869A /* LSFractal.m in Sources */,
+				C59EE1F41AF3CE7F00CFE254 /* ABXNavigationController.m in Sources */,
+				C59EE1F01AF3CE7F00CFE254 /* ABXFAQViewController.m in Sources */,
+				C59EE20C1AF3CE7F00CFE254 /* ABXPromptView.m in Sources */,
+				C59EE1FC1AF3CE7F00CFE254 /* ABXFaq.m in Sources */,
 				C58A75771A4A194100309BE0 /* MDBSliderControl.m in Sources */,
 				C5C37C611A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m in Sources */,
+				C59EE2081AF3CE7F00CFE254 /* ABXNotificationTableViewCell.m in Sources */,
 				C5F1848C1AA8DAA200233E49 /* MDBFractalDocumentLocalCoordinator.m in Sources */,
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,
+				C59EE1FA1AF3CE7F00CFE254 /* ABXAttachment.m in Sources */,
+				C59EE1E21AF3CE7F00CFE254 /* NSDictionary+ABXQueryString.m in Sources */,
+				C59EE2161AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m in Sources */,
 				C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */,
+				C59EE1EA1AF3CE7F00CFE254 /* UIViewController+ABXScreenshot.m in Sources */,
+				C59EE2061AF3CE7F00CFE254 /* ABXFAQTableViewCell.m in Sources */,
+				C59EE1E81AF3CE7F00CFE254 /* NSString+ABXURLEncoding.m in Sources */,
 				C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */,
 				C507646A1A33A537009DDF83 /* LSDrawingRuleType.m in Sources */,
 				C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */,
@@ -1037,6 +1323,7 @@
 				C579626416DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m in Sources */,
 				C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */,
 				C5D542381A300FFA006CD47A /* MDBColorCategoriesListView.m in Sources */,
+				C59EE1F81AF3CE7F00CFE254 /* ABXVersionsViewController.m in Sources */,
 				C5D4D54E1AC6E116002113DF /* MDLCloudKitManager.m in Sources */,
 				C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */,
 				C5F184811AA7A2A000233E49 /* MDBFractalInfo.m in Sources */,
@@ -1044,21 +1331,30 @@
 				C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */,
 				C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */,
 				C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */,
+				C59EE1DE1AF3CE7F00CFE254 /* ABXKeychain.m in Sources */,
+				C59EE2121AF3CE7F00CFE254 /* ABXVersionTableViewCell.m in Sources */,
 				C5D4D54C1AC6E116002113DF /* MDLCloudSearchTableController.m in Sources */,
+				C59EE20E1AF3CE7F00CFE254 /* ABXTextView.m in Sources */,
+				C59EE1DC1AF3CE7F00CFE254 /* ABXAppStore.m in Sources */,
 				C522DABE1A2CA8ED00419781 /* LSDrawingRule.m in Sources */,
 				C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */,
 				C50764761A33A537009DDF83 /* LSReplacementRule.m in Sources */,
+				C59EE1E41AF3CE7F00CFE254 /* NSString+ABXLocalized.m in Sources */,
 				C533DFD21AE953B6009E9D95 /* MDBAppModel.m in Sources */,
 				C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */,
 				C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */,
 				C5D542401A30EDE4006CD47A /* MBColor.m in Sources */,
+				C59EE2001AF3CE7F00CFE254 /* ABXModel.m in Sources */,
 				C564A32919E722FA00839D9E /* MBDraggingItem.m in Sources */,
 				C5C37C5F1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m in Sources */,
 				C5CD57D71A9BCDDD00C70218 /* NSString+MDBConvenience.m in Sources */,
+				C59EE1E01AF3CE7F00CFE254 /* NSDictionary+ABXNSNullAsNull.m in Sources */,
 				C5C37C6D1A24EF9F008C5409 /* MDBLSObjectTileView.m in Sources */,
 				C54FC6CF1ADB5E5B00588E9F /* MDBFilterControlView.m in Sources */,
 				C5CD57D01A98E42400C70218 /* MDBFractalDocument.m in Sources */,
 				C5F184881AA8DA7D00233E49 /* MDBFractalDocumentCloudCoordinator.m in Sources */,
+				C59EE1EC1AF3CE7F00CFE254 /* ABXBaseListViewController.m in Sources */,
+				C59EE1F21AF3CE7F00CFE254 /* ABXFeedbackViewController.m in Sources */,
 				C5DE12901AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.m in Sources */,
 				C5C37C651A24EC81008C5409 /* MBLSReplacementRulesListView.m in Sources */,
 				C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */,

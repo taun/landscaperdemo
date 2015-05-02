@@ -223,6 +223,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         if (changeKind == NSKeyValueChangeInsertion) {
             //
             [self.collectionView insertItemsAtIndexPaths: indexPaths];
+            [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
         }
         else if (changeKind == NSKeyValueChangeRemoval)
         {
@@ -294,7 +295,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"FractalEditLibrary"];
     libraryEditViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
     libraryEditViewController.appModel = self.appModel;
-    
+    CGPoint scrollOffset = self.collectionView.contentOffset;
+    libraryEditViewController.initialContentOffset = scrollOffset;
 //    id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
 //    id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
     
