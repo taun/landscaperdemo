@@ -64,6 +64,8 @@ static const CGFloat kLevelNMargin = 40.0;
 
 @property (nonatomic, assign) double                viewNRotationFromStart;
 
+@property (nonatomic,strong) UIMotionEffectGroup    *foregroundMotionEffect;
+@property (nonatomic,strong) UIMotionEffectGroup    *backgroundMotionEffect;
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
@@ -160,6 +162,27 @@ static const CGFloat kLevelNMargin = 40.0;
     
 }
 
+-(void) configureParallax
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL showParalax = [defaults boolForKey: kPrefParalax];
+    
+    if (showParalax) {
+        UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+        xAxis.minimumRelativeValue = @(25.0);
+        xAxis.maximumRelativeValue = @(-25.0);
+        
+        UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+        yAxis.minimumRelativeValue = @(32.0);
+        yAxis.maximumRelativeValue = @(-32.0);
+        
+        self.backgroundMotionEffect = [[UIMotionEffectGroup alloc] init];
+        self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
+        
+        [self.fractalView.superview addMotionEffect:self.backgroundMotionEffect];
+    }
+}
+
 -(void) configureNavBarButtons
 {
     
@@ -232,6 +255,7 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     _observedReplacementRules = [NSMutableSet new];
     
+    [self configureParallax];
     [self configureNavBarButtons];
 
     // hide navBar on load because the Appearance Popover is auto popped on load

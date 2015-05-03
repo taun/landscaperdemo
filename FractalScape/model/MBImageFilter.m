@@ -123,21 +123,34 @@
     return isDefault;
 }
 
+-(NSMutableDictionary*)inputValues
+{
+    if (!_inputValues) {
+        _inputValues = [NSMutableDictionary new];
+    }
+    return _inputValues;
+}
+
 -(CIFilter*)ciFilter
 {
-    if (!_ciFilter && self.identifier) {
+    if (!_ciFilter && self.identifier)
+    {
         _ciFilter = [CIFilter filterWithName: self.identifier];
-        [self setCiFilter: _ciFilter values: self.inputValues];
+//        [self setCiFilter: _ciFilter values: self.inputValues];
     }
     return _ciFilter;
 }
 
--(void)setCiFilter:(CIFilter *)ciFilter values: (NSDictionary*)keyValues
-{
-    for (NSString* key in keyValues) {
-        [ciFilter setValue: keyValues[key] forKey: key];
-    }
-}
+//-(void)setCiFilter:(CIFilter *)ciFilter values: (NSDictionary*)keyValues
+//{
+//    if (keyValues.count > 0)
+//    {
+//        for (NSString* key in keyValues)
+//        {
+//            if (key && keyValues[key]) [ciFilter setValue: keyValues[key] forKey: key];
+//        }
+//    }
+//}
 
 -(CIContext*) filterContext {
     if (!_filterContext) {
@@ -163,20 +176,24 @@
     CIVector* filterCenter = [CIVector vectorWithX: midX Y: midY];
     
     NSDictionary* filterAttributes = [self.ciFilter attributes];
-    if (filterAttributes[kCIInputCenterKey]) {
+    if (filterAttributes[kCIInputCenterKey])
+    {
         [self.ciFilter setValue: filterCenter forKey: kCIInputCenterKey];
     }
     
-    if (filterAttributes[@"inputPoint"]) {
+    if (filterAttributes[@"inputPoint"])
+    {
         [self.ciFilter setValue: filterCenter forKey: @"inputPoint"];
     }
     
-    if (filterAttributes[kCIInputWidthKey]) {
+    if (filterAttributes[kCIInputWidthKey])
+    {
         CGFloat width = imageWidth/3.0;
         [self.ciFilter setValue: @(width) forKey: kCIInputWidthKey];
     }
     
-    if (filterAttributes[kCIInputRadiusKey]) {
+    if (filterAttributes[kCIInputRadiusKey])
+    {
         CGFloat radius = 10.0;
 
         if ([[self.identifier lowercaseString] containsString: @"blur"])
@@ -191,13 +208,32 @@
         [self.ciFilter setValue: @(radius) forKey: kCIInputRadiusKey];
     }
     
+    if (filterAttributes[kCIInputTransformKey])
+    {
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        CGAffineTransform translate = CGAffineTransformTranslate(transform, filterCenter.X, filterCenter.Y);
+        CGAffineTransform scale = CGAffineTransformScale(translate, 0.25, 0.25);
+        CGAffineTransform rtranslate = CGAffineTransformTranslate(scale, -filterCenter.X, -filterCenter.Y);
+
+        [self.ciFilter setValue:[NSValue valueWithBytes: &rtranslate objCType: @encode(CGAffineTransform)] forKey:@"inputTransform"];
+    }
+    
     [self.ciFilter setValue: inputImage forKey:kCIInputImageKey];
 
 }
 
 -(void)setInputValuesOnFilter: (CIFilter*)ciFilter
 {
-    
+    NSDictionary* filterAttributes = [self.ciFilter attributes];
+
+    for (id key in self.inputValues) {
+        //
+        if (filterAttributes[key])
+        {
+            NSNumber* value = self.inputValues[key];
+            [self.ciFilter setValue: value forKey: key];
+        }
+    }
 }
 
 -(UIImage*) filterImage:(UIImage *)inputImage withContext:(CIContext *)context
@@ -212,13 +248,11 @@
 
     CIImage *image = [CIImage imageWithCGImage: inputImage.CGImage];
 
+    [self setGoodDefaultsOnCIFilter: self.ciFilter forImage: image bounds: imageBounds];
+
     if (self.inputValues && self.inputValues.count > 0)
     {
         [self setInputValuesOnFilter: self.ciFilter];
-    }
-    else
-    {
-        [self setGoodDefaultsOnCIFilter: self.ciFilter forImage: image bounds: imageBounds];
     }
     
     CIImage *filteredImage = [self.ciFilter valueForKey:kCIOutputImageKey];

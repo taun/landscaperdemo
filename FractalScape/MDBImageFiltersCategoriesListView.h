@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 
 #import "MBLSRuleDragAndDropProtocol.h"
+#import "LSFractal.h"
 
 #pragma message "TODO Create a common subclass for this and MBColorCategoriesListView"
 
 @interface MDBImageFiltersCategoriesListView : UIView <MBLSRuleDragAndDropProtocol>
 
+@property (nonatomic,weak) LSFractal                    *fractal;
 @property (nonatomic,strong) NSArray                    *filterCategories;
 
 @property (nonatomic,assign) IBInspectable CGFloat      rowSpacing;

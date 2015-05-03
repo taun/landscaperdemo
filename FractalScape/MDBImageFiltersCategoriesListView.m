@@ -57,6 +57,7 @@
             CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
             MDBImageFiltersListView* newRR = [[MDBImageFiltersListView alloc] initWithFrame: rrFrame];
 #if !TARGET_INTERFACE_BUILDER
+            newRR.fractal = self.fractal;
             newRR.filterCategory = filterCategory;
 #endif
             newRR.justify = _justify;

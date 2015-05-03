@@ -18,7 +18,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Paralax Effect Off</string>
+			<string>Paralax Effect</string>
 			<key>Key</key>
 			<string>com.moedae.FractalScapes.paralax</string>
 			<key>DefaultValue</key>

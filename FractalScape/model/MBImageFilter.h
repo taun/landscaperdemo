@@ -20,7 +20,7 @@
  */
 @property (nonatomic,copy) NSString                 *name;
 
-/*
+/*!
  Most values will be NSNumber, CIVector values are stored as NSString.
  Use vectorWithString: & stringRepresentation
  */

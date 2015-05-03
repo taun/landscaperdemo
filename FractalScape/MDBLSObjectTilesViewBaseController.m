@@ -81,10 +81,10 @@
 
 -(void) configureParallax
 {
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL showParalax = [defaults boolForKey: kPrefParalax];
+//    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+//    BOOL showParalax = [defaults boolForKey: kPrefParalax];
 
-    if (showParalax) {
+    if ((NO)) {
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
         xAxis.minimumRelativeValue = @(25.0);
         xAxis.maximumRelativeValue = @(-25.0);

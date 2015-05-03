@@ -47,11 +47,17 @@
     self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
     self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
 
-    NSArray* filterCategories = @[kCICategoryTileEffect,kCICategoryDistortionEffect,kCICategoryBlur,kCICategoryColorEffect];
-    MDBImageFiltersCategoriesListView* categoriesView = (MDBImageFiltersCategoriesListView*) self.sourceListView;
-    categoriesView.filterCategories = filterCategories;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSArray* filterCategories = @[kCICategoryTileEffect,kCICategoryDistortionEffect,kCICategoryBlur,kCICategoryColorEffect];
+    MDBImageFiltersCategoriesListView* categoriesView = (MDBImageFiltersCategoriesListView*) self.sourceListView;
+    categoriesView.fractal = self.fractalDocument.fractal;
+    categoriesView.filterCategories = filterCategories;
+    
+}
 -(void) viewWillLayoutSubviews
 {
     [self.visualEffectView setNeedsLayout];
