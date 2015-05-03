@@ -16,6 +16,11 @@ NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScape
 
 @implementation MDBAppModel
 
+-(BOOL)allowPremium
+{
+    return NO;
+}
+
 - (void)registerDefaults
 {
     //    // since no default values have been set, create them here

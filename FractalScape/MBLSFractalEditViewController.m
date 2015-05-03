@@ -11,6 +11,7 @@
 @import AssetsLibrary;
 #include <math.h>
 
+#import "FractalScapeIconSet.h"
 #import "MBAppDelegate.h"
 #import "MDBAppModel.h"
 #import "MBLSFractalEditViewController.h"
@@ -774,7 +775,7 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     if (self.hasBeenEdited)
     {
-        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0)];
+        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
         
         [_fractalInfo.document setThumbnail: fractalImage];
         _fractalInfo.changeDate = [NSDate date];
@@ -1474,17 +1475,20 @@ static const CGFloat kLevelNMargin = 40.0;
                                                              handler:^(UIAlertAction * action)
                                        {
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                           [self shareWithActivityControler: sender];
+                                           [self shareWithActivityController: sender];
                                        }];
         [alert addAction: cameraAction];
     }
-    UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Export as Vector PDF" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action)
-                                   {
-                                       [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                       [self shareWithDocumentInteractionController: sender];
-                                   }];
-    [alert addAction: vectorPDF];
+    
+    if (self.appModel.allowPremium) {
+        UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Export as Vector PDF" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                        [self shareWithDocumentInteractionController: sender];
+                                    }];
+        [alert addAction: vectorPDF];
+    }
 //    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
 //                                                         handler:^(UIAlertAction * action)
 //                                   {
@@ -1518,17 +1522,7 @@ static const CGFloat kLevelNMargin = 40.0;
 
 - (IBAction)shareWithDocumentInteractionController:(id)sender
 {
-    
-    NSData* pdfData = [self createPDF];
-#pragma message "TODO: how to implement a temporary file http://nshipster.com/nstemporarydirectory/"
-    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    // The file extension is important so that some mime magic happens!
-    NSString* fileName = [NSString stringWithFormat: @"%@.pdf",self.fractalDocument.fractal.name];
-    NSString *filePath = [docsPath stringByAppendingPathComponent: fileName];
-    NSURL *fileUrl     = [NSURL fileURLWithPath:filePath];
-    
-    [pdfData writeToURL:fileUrl atomically:YES]; // save the file
-    
+    NSURL* fileUrl = [self savePDFData: [self createPDF]];
     
     _documentShareController = [UIDocumentInteractionController interactionControllerWithURL: fileUrl];
     //    documentSharer.UTI = @"com.adobe.pdf";
@@ -1559,25 +1553,27 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     _documentShareController = nil;
 }
-- (IBAction)shareWithActivityControler:(id)sender
+- (IBAction)shareWithActivityController:(id)sender
 {
+    NSMutableArray* exportItems = [NSMutableArray new];
+
+    UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0) withWatermark: !self.appModel.allowPremium];
     
-    UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0)];
     NSData* pngImage = UIImagePNGRepresentation(fractalImage);
     
-    NSData* pdfData = [self createPDF];
+    [exportItems addObject: pngImage];
     
-    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    // The file extension is important so that some mime magic happens!
-    NSString* fileName = [NSString stringWithFormat: @"%@.pdf",self.fractalDocument.fractal.name];
-    NSString *filePath = [docsPath stringByAppendingPathComponent: fileName];
-    NSURL *fileUrl     = [NSURL fileURLWithPath:filePath];
+    UIActivityViewController *activityViewController;
     
-    [pdfData writeToURL:fileUrl atomically:YES]; // save the file
+    if (self.appModel.allowPremium) {
+        NSData* pdfData = [self createPDF];
+        NSURL* fileUrl = [self savePDFData: pdfData];
+        
+        [exportItems addObject: pdfData];
+    }
     
-    
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pngImage, pdfData] applicationActivities:nil];
-    
+    activityViewController = [[UIActivityViewController alloc] initWithActivityItems: exportItems applicationActivities:nil];
+
     
     UIPopoverPresentationController* ppc = activityViewController.popoverPresentationController;
     
@@ -2211,7 +2207,7 @@ verticalPropertyPath: @"lineChangeFactor"
                          self.fractalViewLevel2.superview.alpha = 0.75;
                      }];
 }
-- (UIImage *)snapshot:(UIView *)view size: (CGSize)imageSize
+- (UIImage *)snapshot:(UIView *)view size: (CGSize)imageSize withWatermark: (BOOL)useWatermark
 {
     UIImage* imageExport;
     
@@ -2219,7 +2215,7 @@ verticalPropertyPath: @"lineChangeFactor"
     NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
     renderer.levelData = self.levelDataArray[level];
     renderer.name = @"Image renderer";
-    renderer.margin = 8.0;
+    renderer.margin = imageSize.width > 500.0 ? 24.0 : 8.0;
     renderer.autoscale = YES; // leave yes to fill thumbnail
     renderer.flipY = YES;
     renderer.showOrigin = NO;
@@ -2235,6 +2231,7 @@ verticalPropertyPath: @"lineChangeFactor"
     {
         CGContextRef aCGontext = UIGraphicsGetCurrentContext();
         [renderer drawInContext: aCGontext size: imageSize];
+        if (useWatermark && !renderer.applyFilters) [self drawWatermarkInContext: aCGontext size: imageSize];
         imageExport = UIGraphicsGetImageFromCurrentImageContext();
         if (renderer.applyFilters) {
             imageExport = [self applyFiltersToImage: imageExport];
@@ -2242,7 +2239,64 @@ verticalPropertyPath: @"lineChangeFactor"
     }
     UIGraphicsEndImageContext();
     
+    if (useWatermark && renderer.applyFilters) {
+        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 2.0);
+        {
+            CGContextRef aCGContext = UIGraphicsGetCurrentContext();
+            CGContextDrawImage(aCGContext, CGRectMake(0, 0, imageSize.width, imageSize.height), imageExport.CGImage);
+            [self drawWatermarkInContext: aCGContext size: imageSize];
+            imageExport = UIGraphicsGetImageFromCurrentImageContext();
+        }
+        UIGraphicsEndImageContext();
+    }
     return imageExport;
+}
+-(void)drawWatermarkInContext: (CGContextRef)aCGContext size: (CGSize)imageSize
+{
+//    NSString* watermark = @"FractalScapes";
+//    UIFont* font = [UIFont fontWithName: @"Papyrus" size: 96];
+//    CGSize wSize = [watermark sizeWithAttributes: @{NSFontAttributeName : font}];
+//    CGRect wRect = CGRectOffset(CGRectMake(-wSize.width/2.0, -wSize.height/2.0, wSize.width, wSize.height), imageSize.width/2.0, imageSize.height/8.0);
+//    CGContextSetBlendMode(aCGContext, kCGBlendModeDifference);
+//    [watermark drawInRect: wRect withAttributes: @{NSFontAttributeName:font,NSForegroundColorAttributeName:[FractalScapeIconSet selectionBackgrundColor]}];
+
+    CGRect textRect = CGRectMake(0, 0, 682, 167);
+    NSString* watermark = @"FractalScapes";
+    CGContextSaveGState(aCGContext);
+    CGContextSetShadowWithColor(aCGContext, FractalScapeIconSet.topShadow.shadowOffset, FractalScapeIconSet.topShadow.shadowBlurRadius, [FractalScapeIconSet.topShadow.shadowColor CGColor]);
+    NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
+    textStyle.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: FractalScapeIconSet.selectionBackgroundColor, NSParagraphStyleAttributeName: textStyle};
+    
+    CGFloat textTextHeight = [watermark boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
+    CGRect textTextRect = CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight);
+    CGContextSaveGState(aCGContext);
+    CGContextClipToRect(aCGContext, textRect);
+    [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
+    CGContextRestoreGState(aCGContext);
+    
+    ////// Text Text Inner Shadow
+    CGContextSaveGState(aCGContext);
+    UIRectClip(textRect);
+    CGContextSetShadowWithColor(aCGContext, CGSizeZero, 0, NULL);
+    
+    CGContextSetAlpha(aCGContext, CGColorGetAlpha([FractalScapeIconSet.dropShadowInner.shadowColor CGColor]));
+    CGContextBeginTransparencyLayer(aCGContext, NULL);
+    {
+        UIColor* opaqueShadow = [FractalScapeIconSet.dropShadowInner.shadowColor colorWithAlphaComponent: 1];
+        CGContextSetShadowWithColor(aCGContext, FractalScapeIconSet.dropShadowInner.shadowOffset, FractalScapeIconSet.dropShadowInner.shadowBlurRadius, [opaqueShadow CGColor]);
+        
+        CGContextSetBlendMode(aCGContext, kCGBlendModeSourceOut);
+        CGContextBeginTransparencyLayer(aCGContext, NULL);
+        
+        NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
+        [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
+        
+        CGContextEndTransparencyLayer(aCGContext);
+    }
+    CGContextEndTransparencyLayer(aCGContext);
+    CGContextRestoreGState(aCGContext);
 }
 -(NSData*) createPDF
 {
@@ -2273,6 +2327,19 @@ verticalPropertyPath: @"lineChangeFactor"
     //    CGPDFDocumentRef pdf       = CGPDFDocumentCreateWithProvider(provider);
     return pdfData;
 }
+-(NSURL*)savePDFData: (NSData*)pdfData
+{
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    // The file extension is important so that some mime magic happens!
+    NSString* fileName = [NSString stringWithFormat: @"%@.pdf",self.fractalDocument.fractal.name];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: fileName];
+    NSURL *fileUrl     = [NSURL fileURLWithPath:filePath];
+    
+    [pdfData writeToURL:fileUrl atomically:YES]; // save the file
+    
+    return fileUrl;
+}
+
 -(void) shareFractalToCameraRoll
 {
     ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
@@ -2281,7 +2348,7 @@ verticalPropertyPath: @"lineChangeFactor"
     {
         ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
         
-        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0)];
+        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0) withWatermark: !self.appModel.allowPremium];
         NSData* pngImage = UIImagePNGRepresentation(fractalImage);
         
         // Format the current date and time

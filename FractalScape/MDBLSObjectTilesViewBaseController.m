@@ -262,10 +262,10 @@
 }
 -(void) infoAnimateView: (UIView*) aView {
     UIColor* oldColor = aView.backgroundColor;
-    aView.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
+    aView.backgroundColor = [FractalScapeIconSet selectionBackgroundColor];
     
     UIColor* oldHelpColor = self.ruleHelpLabel.superview.backgroundColor;
-    self.ruleHelpLabel.superview.backgroundColor = [FractalScapeIconSet selectionBackgrundColor];
+    self.ruleHelpLabel.superview.backgroundColor = [FractalScapeIconSet selectionBackgroundColor];
     
     [UIView animateWithDuration: 0.5 animations:^{
         //

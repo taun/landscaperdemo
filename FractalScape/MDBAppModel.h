@@ -17,6 +17,7 @@ extern NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey;
 @interface MDBAppModel : NSObject
 
 @property(nonatomic,assign,getter=isFirstLaunch) BOOL           firstLaunch;
-@property (nonatomic, strong) MDBDocumentController             *documentController;
+@property(nonatomic, strong) MDBDocumentController             *documentController;
+@property(nonatomic,readonly) BOOL                              allowPremium;
 
 @end
