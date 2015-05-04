@@ -340,7 +340,7 @@
             
             [self calcHConstraint: hConstraint vConstraint: vConstraint forIndex: i ];
         }
-        NSString* layerName = self.layer.name;
+//        NSString* layerName = self.layer.name;
         CGFloat newHeight = self.lines*self.lineHeight+2*self.outlineMargin;
         newHeight = MAX(newHeight, 26.0);
         self.heightConstraint.constant = newHeight;

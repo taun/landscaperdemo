@@ -112,7 +112,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 
 - (void)updateFractalFromDocumentWrapper
 {
-    LSFractal* returnFractal;
+//    LSFractal* returnFractal;
     
     NSData* fileData = [[self fractalFileWrapper] regularFileContents];
     

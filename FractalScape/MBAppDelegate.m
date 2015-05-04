@@ -10,7 +10,6 @@
 
 #import "MDBAppModel.h"
 #import "MBLSFractalEditViewController.h"
-#import "MBFractalLibraryViewController.h"
 #import "MDBCloudManager.h"
 #import "MDBDocumentController.h"
 #import "MDBDocumentUtilities.h"
@@ -18,7 +17,10 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalDocumentLocalCoordinator.h"
 #import "MDBFractalDocumentCloudCoordinator.h"
+
+#import "MDBMainLibraryTabBarController.h"
 #import "MDBFractalCloudBrowser.h"
+#import "MBFractalLibraryViewController.h"
 
 #import "ABX.h"
 
@@ -34,9 +36,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 @interface MBAppDelegate ()
 
 @property (nonatomic, strong) MDBAppModel                       *appModel;
-@property (nonatomic, readonly) UINavigationController          *primaryViewController;
-@property (nonatomic, readonly) MBFractalLibraryViewController  *documentsViewController;
-@property (nonatomic, readonly) MDBFractalCloudBrowser          *cloudBrowserViewController;
+@property (nonatomic, readonly) MDBMainLibraryTabBarController  *mainTabController;
 @property (nonatomic, strong) UIImage                           *backgroundImage;
 @end
 
@@ -58,6 +58,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     [[MDBCloudManager sharedManager] runHandlerOnFirstLaunch:^{
         [MDBDocumentUtilities copyInitialDocuments];
     }];
+    
+    self.mainTabController.appModel = _appModel;
     
     [[ABXApiClient instance] setApiKey:@"a02e2366313edf6d321e3eda0e3fcf613fd4ab72"];
     
@@ -103,19 +105,26 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 }
 
 #pragma mark - Getters & Setters
-- (UINavigationController *)primaryViewController {
+-(MDBMainLibraryTabBarController*)mainTabController
+{
+    MDBMainLibraryTabBarController* tabBar = (MDBMainLibraryTabBarController*)self.window.rootViewController;
+    return tabBar;
+}
+
+- (UINavigationController *)primaryViewController
+{
     return self.documentsViewController.navigationController;
 }
 
-- (MBFractalLibraryViewController *)documentsViewController {
-    UITabBarController* tabBar = [[self.window.rootViewController childViewControllers]firstObject];
-    MBFractalLibraryViewController *documentsViewController = [tabBar.viewControllers firstObject];
+- (MBFractalLibraryViewController *)documentsViewController
+{
+    MBFractalLibraryViewController *documentsViewController = [self.mainTabController.viewControllers firstObject];
     return documentsViewController;
 }
 
-- (MDBFractalCloudBrowser *)cloudBrowserViewController {
-    UITabBarController* tabBar = [[self.window.rootViewController childViewControllers]firstObject];
-    MDBFractalCloudBrowser *cloudBrowser = [tabBar.viewControllers lastObject];
+- (MDBFractalCloudBrowser *)cloudBrowserViewController
+{
+    MDBFractalCloudBrowser *cloudBrowser = [self.mainTabController.viewControllers lastObject];
     return cloudBrowser;
 }
 
@@ -162,7 +171,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
         
         [self configureDocumentController:storageState.accountDidChange];
     }
-    self.documentsViewController.appModel = _appModel;
+//    self.documentsViewController.appModel = _appModel;
+//    self.cloudBrowserViewController.appModel = _appModel;
 }
 
 #pragma mark - Alerts

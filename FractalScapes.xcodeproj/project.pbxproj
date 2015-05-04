@@ -208,6 +208,9 @@
 		C5E6B79214A5346300DA48BD /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79114A5346300DA48BD /* MBAppDelegate.m */; };
 		C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */; };
 		C5E6B79B14A5346300DA48BD /* MBFractalLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */; };
+		C5E782B21AF7FB9100CC44A3 /* MBImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */; };
+		C5E782B31AF7FB9F00CC44A3 /* MDBFractalCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F1846D1AA4C67A00233E49 /* MDBFractalCategory.m */; };
+		C5E782B41AF7FBFA00CC44A3 /* MDBCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C56080851A9F77C000134B62 /* MDBCloudManager.m */; };
 		C5F1846E1AA4C67A00233E49 /* MDBFractalCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F1846C1AA4C67A00233E49 /* MDBFractalCategory.h */; };
 		C5F1846F1AA4C67A00233E49 /* MDBFractalCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F1846D1AA4C67A00233E49 /* MDBFractalCategory.m */; };
 		C5F184721AA62B4A00233E49 /* MDBFractalObjectList.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F184701AA62B4A00233E49 /* MDBFractalObjectList.h */; };
@@ -1252,8 +1255,11 @@
 				C5CD57D81A9BCDDD00C70218 /* NSString+MDBConvenience.m in Sources */,
 				C599541A1A6465710093CF50 /* LSReplacementRule.m in Sources */,
 				C599541C1A6465710093CF50 /* MBColorCategory.m in Sources */,
+				C5E782B21AF7FB9100CC44A3 /* MBImageFilter.m in Sources */,
+				C5E782B31AF7FB9F00CC44A3 /* MDBFractalCategory.m in Sources */,
 				C599541D1A6465710093CF50 /* MBColor.m in Sources */,
 				C599541E1A6465710093CF50 /* LSDrawingRule.m in Sources */,
+				C5E782B41AF7FBFA00CC44A3 /* MDBCloudManager.m in Sources */,
 				C59954051A6465270093CF50 /* FractalScapeFractalModelTests.m in Sources */,
 				C546D7211A83D5C3002E869A /* LSFractal.m in Sources */,
 			);

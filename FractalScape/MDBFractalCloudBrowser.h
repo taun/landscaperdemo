@@ -7,10 +7,12 @@
 
 #import "MDBDocumentController.h"
 
+@class MDBAppModel;
+
 
 @interface MDBFractalCloudBrowser : UICollectionViewController
 
-@property (nonatomic,strong) MDBDocumentController                          *documentController;
+@property (nonatomic,strong) MDBAppModel                                    *appModel;
 
 - (IBAction)downloadSelected:(id)sender;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;

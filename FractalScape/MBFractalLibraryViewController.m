@@ -10,6 +10,8 @@
 @import QuartzCore;
 #include <math.h>
 
+#import "MBFractalLibraryViewController.h"
+
 #import "MDBAppModel.h"
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
@@ -22,7 +24,6 @@
 #include "QuartzHelpers.h"
 
 #import "MBAppDelegate.h"
-#import "MBFractalLibraryViewController.h"
 #import "MBFractalLibraryEditViewController.h"
 #import "MBLSFractalEditViewController.h"
 #import "MDBFractalLibraryCollectionSource.h"
@@ -145,7 +146,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
-    _documentController.delegate = nil;
 }
 
 #pragma mark - custom getters -
@@ -187,7 +187,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 -(void)removeDocumentControllerObserversFor: (MDBDocumentController*)oldController
 {
-    if (oldController) {
+    if (oldController && oldController != [NSNull null]) {
         [oldController removeObserver: self forKeyPath: @"fractalInfos"];
     }
 }
@@ -203,7 +203,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     if ([keyPath isEqualToString: @"documentController"]) {
         MDBDocumentController* oldController = change[NSKeyValueChangeOldKey];
-        if (oldController)
+        if (oldController && oldController != [NSNull null])
         {
             [self removeDocumentControllerObserversFor: oldController];
         }
@@ -428,47 +428,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //        [self.collectionView beginUpdates];
 //    });
-}
-
-- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows
-{
-    if (indexPaths && indexPaths.count > 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-            self.collectionSource.rowCount = rows;
-            [self.collectionView insertItemsAtIndexPaths: indexPaths];
-        });
-    }
-}
-
-- (void)documentController:(MDBDocumentController *)documentController didMoveFractalInfoAtIndexPath:(NSIndexPath*)fromIndex toIndexPath: (NSIndexPath*)toIndex
-{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-            [self.collectionView moveItemAtIndexPath: fromIndex toIndexPath: toIndex];
-            [self.collectionView scrollToItemAtIndexPath: toIndex atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
-        });
-}
-
-- (void)documentController:(MDBDocumentController *)documentController didRemoveFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows
-{
-    if (indexPaths && indexPaths.count > 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-            self.collectionSource.rowCount = rows;
-            [self.collectionView deleteItemsAtIndexPaths: indexPaths];
-        });
-    }
-}
-
-- (void)documentController:(MDBDocumentController *)documentController didUpdateFractalInfosAtIndexPaths:(NSArray*)indexPaths totalRows: (NSInteger)rows {
-    if (indexPaths && indexPaths.count > 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-            self.collectionSource.rowCount = rows;
-            [self.collectionView reloadItemsAtIndexPaths: indexPaths];
-        });
-    }
 }
 
 - (void)documentControllerDidChangeContent:(MDBDocumentController *)documentController {

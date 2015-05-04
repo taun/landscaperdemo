@@ -1590,10 +1590,10 @@ static const CGFloat kLevelNMargin = 40.0;
     UIActivityViewController *activityViewController;
     
     if (self.appModel.allowPremium) {
-        NSData* pdfData = [self createPDF];
-        NSURL* fileUrl = [self savePDFData: pdfData];
+        //        NSData* pdfData = [self createPDF];
+        //        NSURL* fileUrl = [self savePDFData: pdfData];
         
-        [exportItems addObject: pdfData];
+        //        [exportItems addObject: pdfData];
     }
     
     activityViewController = [[UIActivityViewController alloc] initWithActivityItems: exportItems applicationActivities:nil];

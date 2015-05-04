@@ -3,6 +3,7 @@
 //
 
 #import "MDBFractalCloudBrowser.h"
+#import "MDBAppModel.h"
 #import "MDLCloudKitManager.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
 #import "MBCollectionFractalDocumentCell.h"
@@ -234,15 +235,14 @@
             {
                 MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[self.collectionView cellForItemAtIndexPath: path];
                 MDBFractalDocumentProxy* proxy = documentInfoCell.document;
-                MBFractalLibraryViewController* library = [[[[[self tabBarController]viewControllers] objectAtIndex: 0]viewControllers]objectAtIndex: 0];
                 
-                MDBFractalInfo* fractalInfo = [library.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
+                MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
                 
                 fractalInfo.document.thumbnail = proxy.thumbnail;
                 fractalInfo.changeDate = [NSDate date];
                 [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
                 
-                [library.documentController setFractalInfoHasNewContents: fractalInfo];
+                [self.appModel.documentController setFractalInfoHasNewContents: fractalInfo];
                 
                 [fractalInfo.document closeWithCompletionHandler:nil];
                 

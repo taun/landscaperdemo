@@ -7,14 +7,21 @@
 //
 
 #import "MDBMainLibraryTabBarController.h"
+#import "MBFractalLibraryViewController.h"
+#import "MDBFractalCloudBrowser.h"
 
 #import "ABX.h"
+#import "MDBAppModel.h"
 
 @interface MDBMainLibraryTabBarController ()
 
 @end
 
 @implementation MDBMainLibraryTabBarController
+
+@synthesize cloudController = _cloudController;
+@synthesize libraryController = _libraryController;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,6 +42,7 @@
 
 -(void) viewDidAppear:(BOOL)animated {
     
+    [self sendAppModelToTabSubControllers];
     // must be after child setup
     [super viewDidAppear:animated];
 }
@@ -44,11 +52,41 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+//-(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+//{
+//    UIViewController* subNavViewController = self.selectedViewController.childViewControllers[0];
+//    if ([subNavViewController isKindOfClass: [ABXBaseListViewController class]]) {
+//        [self setupFAQViewController:(ABXFAQsViewController*)subNavViewController];
+//    } else if ([subNavViewController isKindOfClass: [MBFractalLibraryViewController class]]){
+//        MBFractalLibraryViewController* libraryController = (MBFractalLibraryViewController*)subNavViewController;
+//        libraryController.appModel = self.appModel;
+//    }else if ([subNavViewController isKindOfClass: [MDBFractalCloudBrowser class]]){
+//        MDBFractalCloudBrowser* cloudController = (MDBFractalCloudBrowser*)subNavViewController;
+//        cloudController.appModel = self.appModel;
+//    }
+//
+//}
+
+-(void)sendAppModelToTabSubControllers
 {
-    UIViewController* subNavViewController = self.selectedViewController.childViewControllers[0];
-    if ([subNavViewController isKindOfClass: [ABXBaseListViewController class]]) {
-        [self setupFAQViewController:(ABXFAQsViewController*)subNavViewController];
+    for (id subController in self.childViewControllers) {
+        UINavigationController* baseNavCon = (UINavigationController*)subController;
+        
+        UIViewController* realController = baseNavCon.childViewControllers[0];
+        
+        if ([realController isKindOfClass: [MBFractalLibraryViewController class]])
+        {
+            _libraryController = (MBFractalLibraryViewController*)realController;
+            _libraryController.appModel = self.appModel;
+        }
+        else if ([realController isKindOfClass: [MDBFractalCloudBrowser class]])
+        {
+            _cloudController = (MDBFractalCloudBrowser*)realController;
+            _cloudController.appModel = self.appModel;
+        }
+        else if ([realController respondsToSelector: NSSelectorFromString(@"setAppModel")]) {
+            [realController performSelector: NSSelectorFromString(@"setAppModel") withObject: self.appModel];
+        }
     }
 }
 
