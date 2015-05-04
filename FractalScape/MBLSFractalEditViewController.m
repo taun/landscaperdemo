@@ -169,17 +169,30 @@ static const CGFloat kLevelNMargin = 40.0;
     
     if (showParalax) {
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        xAxis.minimumRelativeValue = @(25.0);
-        xAxis.maximumRelativeValue = @(-25.0);
+        xAxis.minimumRelativeValue = @(9.0);
+        xAxis.maximumRelativeValue = @(-9.0);
         
         UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-        yAxis.minimumRelativeValue = @(32.0);
-        yAxis.maximumRelativeValue = @(-32.0);
+        yAxis.minimumRelativeValue = @(12.0);
+        yAxis.maximumRelativeValue = @(-12.0);
         
         self.backgroundMotionEffect = [[UIMotionEffectGroup alloc] init];
         self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
         
-        [self.fractalView.superview addMotionEffect:self.backgroundMotionEffect];
+
+        UIInterpolatingMotionEffect *xFAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+        xFAxis.minimumRelativeValue = @(6.0);
+        xFAxis.maximumRelativeValue = @(-6.0);
+        
+        UIInterpolatingMotionEffect *yFAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+        yFAxis.minimumRelativeValue = @(8.0);
+        yFAxis.maximumRelativeValue = @(-8.0);
+        
+        self.foregroundMotionEffect = [[UIMotionEffectGroup alloc] init];
+        self.foregroundMotionEffect.motionEffects = @[xFAxis, yFAxis];
+        
+        [self.fractalView addMotionEffect: self.backgroundMotionEffect];
+        [self.fractalViewRoot addMotionEffect: self.foregroundMotionEffect];
     }
 }
 

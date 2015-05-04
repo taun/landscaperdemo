@@ -23,19 +23,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
+                                        <rect key="frame" x="-3" y="-3" width="606" height="706"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="606" height="706"/>
                                                 <subviews>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="K7q-IS-pfO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="606" height="706"/>
                                                         <subviews>
                                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-5R-WKj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="606" height="706"/>
                                                                 <subviews>
                                                                     <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="UIImageView">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="606" height="706"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <gestureRecognizers/>
                                                                         <connections>
@@ -67,7 +67,7 @@
                                                         </connections>
                                                     </scrollView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
-                                                        <rect key="frame" x="20" y="659" width="89" height="21"/>
+                                                        <rect key="frame" x="20" y="665" width="89" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -93,7 +93,7 @@
                                                 </variation>
                                             </view>
                                             <view opaque="NO" alpha="0.80000000000000004" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" userLabel="Toolbar" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="552" y="442" width="60" height="256"/>
+                                                <rect key="frame" x="554" y="442" width="60" height="256"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRx-ub-5v2" userLabel="fullScreen">
                                                         <rect key="frame" x="8" y="8" width="44" height="60"/>
@@ -290,7 +290,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="470" width="296" height="154"/>
+                                                <rect key="frame" x="12" y="473" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
@@ -429,7 +429,7 @@
                                                 </variation>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="302" width="296" height="154"/>
+                                                <rect key="frame" x="12" y="305" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
@@ -557,7 +557,7 @@
                                                 </variation>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="134" width="296" height="154"/>
+                                                <rect key="frame" x="12" y="137" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
@@ -695,7 +695,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="fN9-Mq-Ukg" userLabel="playbackSlider">
-                                                <rect key="frame" x="280" y="330" width="504" height="31"/>
+                                                <rect key="frame" x="286" y="330" width="504" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="500" placeholder="YES" id="djp-OB-WlZ"/>
                                                 </constraints>
@@ -705,7 +705,7 @@
                                                 </connections>
                                             </slider>
                                             <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4tK-dc-Bzb">
-                                                <rect key="frame" x="281" y="331" width="37" height="37"/>
+                                                <rect key="frame" x="285" y="335" width="37" height="37"/>
                                                 <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </activityIndicatorView>
                                         </subviews>
@@ -716,14 +716,14 @@
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
-                                            <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="2" id="H3F-eo-44g"/>
+                                            <constraint firstAttribute="bottom" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="8" id="H3F-eo-44g"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="wmh-En-OwM" secondAttribute="width" id="Tgk-ig-GfA"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="dJU-MH-ihA" secondAttribute="width" id="WFl-b4-lj2"/>
                                             <constraint firstItem="fN9-Mq-Ukg" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="330" placeholder="YES" id="Xsd-ch-fTN"/>
-                                            <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="-12" id="dWF-E9-FbC"/>
+                                            <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="-8" id="dWF-E9-FbC"/>
                                             <constraint firstItem="SdO-1x-rjL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lOu-PR-QW2" secondAttribute="trailing" constant="8" id="dqt-rN-Xw7"/>
                                             <constraint firstAttribute="centerY" secondItem="4tK-dc-Bzb" secondAttribute="centerY" id="ejH-jn-cwF"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="bottom" constant="13" id="er1-62-2EY"/>
@@ -760,17 +760,17 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" id="QJk-1c-69Z"/>
-                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="trailing" secondItem="TbU-WI-8ja" secondAttribute="trailing" id="WaH-KR-Z6n"/>
-                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="top" secondItem="TbU-WI-8ja" secondAttribute="top" id="a4H-bI-LzG"/>
-                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="leading" secondItem="TbU-WI-8ja" secondAttribute="leading" id="bJ6-fM-n25"/>
+                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" constant="3" id="QJk-1c-69Z"/>
+                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="trailing" secondItem="TbU-WI-8ja" secondAttribute="trailing" constant="3" id="WaH-KR-Z6n"/>
+                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="top" secondItem="TbU-WI-8ja" secondAttribute="top" constant="-3" id="a4H-bI-LzG"/>
+                                    <constraint firstItem="ekL-TA-FTU" firstAttribute="leading" secondItem="TbU-WI-8ja" secondAttribute="leading" constant="-3" id="bJ6-fM-n25"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eut-cs-QZ3" userLabel="Guide">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsy-44-wsw" customClass="MDKLayerViewDesignable">
-                                        <rect key="frame" x="13" y="133" width="300" height="158"/>
+                                        <rect key="frame" x="10" y="133" width="300" height="158"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CsH-ge-AcS">
                                                 <rect key="frame" x="29" y="11" width="242" height="137"/>
@@ -823,7 +823,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OvL-xn-uyt" customClass="MDKLayerViewDesignable">
-                                        <rect key="frame" x="12" y="304" width="300" height="158"/>
+                                        <rect key="frame" x="9" y="304" width="300" height="158"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dad-DO-osF">
                                                 <rect key="frame" x="28" y="11" width="242" height="137"/>
@@ -884,7 +884,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7eQ-Fh-3fk" customClass="MDKLayerViewDesignable">
-                                        <rect key="frame" x="12" y="473" width="300" height="158"/>
+                                        <rect key="frame" x="9" y="473" width="300" height="158"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8v-kB-7SA">
                                                 <rect key="frame" x="29" y="33" width="242" height="92"/>
@@ -1346,12 +1346,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z1E-Yr-P2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="foF-dM-5lu" userLabel="Source Filters Long Press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="foF-dM-5lu" userLabel="Source Filters Long Press">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="mtR-yj-lqv" id="qxx-zz-XY0"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="cUj-ka-IXM" userLabel="Filter Long Press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="cUj-ka-IXM" userLabel="Filter Long Press">
                     <connections>
                         <action selector="filtersLongPress:" destination="mtR-yj-lqv" id="lve-JL-20o"/>
                     </connections>
@@ -1682,17 +1682,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SUr-BP-LKd" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="GOJ-hO-oEe" userLabel="Rule Type Long Gesture">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="GOJ-hO-oEe" userLabel="Rule Type Long Gesture">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="bDY-89-tKS" id="psL-4m-kmh"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Boe-Sd-3Hq" userLabel="Replacement Rule Long Gesture">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="Boe-Sd-3Hq" userLabel="Replacement Rule Long Gesture">
                     <connections>
                         <action selector="replacementRuleLongPressGesture:" destination="bDY-89-tKS" id="rFk-qZ-3nm"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="f5R-qi-g83" userLabel="Start Rules Long Gesture">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="f5R-qi-g83" userLabel="Start Rules Long Gesture">
                     <connections>
                         <action selector="startRulesLongPressGesture:" destination="bDY-89-tKS" id="84o-Jw-fxL"/>
                     </connections>
@@ -2140,17 +2140,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="JUF-Xs-Iff" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="avI-YA-c6g" userLabel="fillColor long press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="avI-YA-c6g" userLabel="fillColor long press">
                     <connections>
                         <action selector="fillColorLongPress:" destination="bRM-XI-8Xh" id="qkQ-st-hyD"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Un1-kk-Y9t" userLabel="lineColor long press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="Un1-kk-Y9t" userLabel="lineColor long press">
                     <connections>
                         <action selector="lineColorLongPress:" destination="bRM-XI-8Xh" id="ggi-IC-7TB"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ZLj-J4-nOO" userLabel="SourceColorsLongPress">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="ZLj-J4-nOO" userLabel="SourceColorsLongPress">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="bRM-XI-8Xh" id="R2s-Gr-Ca5"/>
                     </connections>
