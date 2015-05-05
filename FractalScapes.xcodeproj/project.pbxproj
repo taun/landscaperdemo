@@ -35,6 +35,8 @@
 		C52EA9AE1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */; };
 		C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */ = {isa = PBXBuildFile; fileRef = C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */; };
 		C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */; };
+		C52ECB8C1AF967B800465876 /* UIDevice_Hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = C52ECB8A1AF967B800465876 /* UIDevice_Hardware.h */; };
+		C52ECB8D1AF967B800465876 /* UIDevice_Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = C52ECB8B1AF967B800465876 /* UIDevice_Hardware.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */; };
 		C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */; };
 		C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */; };
@@ -277,6 +279,8 @@
 		C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUITableViewDynamicRowHeights.m; path = FractalScape/MDUiKitFramework/MDUiKit/MDKUITableViewDynamicRowHeights.m; sourceTree = "<group>"; };
 		C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MDBAddons.h"; path = "FractalScape/NSLayoutConstraint+MDBAddons.h"; sourceTree = "<group>"; };
 		C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MDBAddons.m"; path = "FractalScape/NSLayoutConstraint+MDBAddons.m"; sourceTree = "<group>"; };
+		C52ECB8A1AF967B800465876 /* UIDevice_Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDevice_Hardware.h; sourceTree = "<group>"; };
+		C52ECB8B1AF967B800465876 /* UIDevice_Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDevice_Hardware.m; sourceTree = "<group>"; };
 		C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalRulesEditorViewController.h; path = FractalScape/MBFractalRulesEditorViewController.h; sourceTree = "<group>"; };
 		C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalRulesEditorViewController.m; path = FractalScape/MBFractalRulesEditorViewController.m; sourceTree = "<group>"; };
 		C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSObjectListTileViewer.h; path = FractalScape/MBLSObjectListTileViewer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -880,6 +884,8 @@
 		C5E6B78814A5346300DA48BD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C52ECB8A1AF967B800465876 /* UIDevice_Hardware.h */,
+				C52ECB8B1AF967B800465876 /* UIDevice_Hardware.m */,
 				C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */,
 				C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */,
 				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
@@ -1076,6 +1082,7 @@
 				C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */,
 				C5D5423F1A30EDE4006CD47A /* MBColor.h in Headers */,
 				C59EE1E11AF3CE7F00CFE254 /* NSDictionary+ABXQueryString.h in Headers */,
+				C52ECB8C1AF967B800465876 /* UIDevice_Hardware.h in Headers */,
 				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
 				C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */,
 				C5D4D54F1AC6E116002113DF /* MDLCloudSearchTableController.h in Headers */,
@@ -1313,6 +1320,7 @@
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,
 				C59EE1FA1AF3CE7F00CFE254 /* ABXAttachment.m in Sources */,
 				C59EE1E21AF3CE7F00CFE254 /* NSDictionary+ABXQueryString.m in Sources */,
+				C52ECB8D1AF967B800465876 /* UIDevice_Hardware.m in Sources */,
 				C59EE2161AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m in Sources */,
 				C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */,
 				C59EE1EA1AF3CE7F00CFE254 /* UIViewController+ABXScreenshot.m in Sources */,

@@ -7,6 +7,8 @@
 //
 
 #import "MBFractalAppearanceEditorViewController.h"
+#import "UIDevice_Hardware.h"
+#import "MDBFractalFiltersControllerViewController.h"
 
 @interface MBFractalAppearanceEditorViewController ()
 
@@ -20,6 +22,29 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    UIDevice* device = [UIDevice currentDevice];
+    if (![device hasRetinaDisplay])
+    {
+        NSMutableArray* childControllers = [self.childViewControllers mutableCopy];
+        UIViewController* filterController;
+        
+        for (UIViewController* controller in childControllers)
+        {
+            UINavigationController* navCon = (UINavigationController*)controller;
+            UIViewController* viewController = [navCon.childViewControllers firstObject];
+            if ([viewController isKindOfClass: [MDBFractalFiltersControllerViewController class]])
+            {
+                filterController = navCon;
+                break;
+            }
+        }
+        if (filterController)
+        {
+            [childControllers removeObject: filterController];
+            [self setViewControllers: childControllers];
+        }
+    }
+    
     self.delegate = self;
 }
 -(void) viewWillAppear:(BOOL)animated {

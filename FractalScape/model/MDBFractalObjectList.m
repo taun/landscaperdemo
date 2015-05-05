@@ -157,15 +157,18 @@
 
 - (void) addObject:(id)additionalObject
 {
-    [self willChangeValueForKey: @"allObjects"];
-    
-    id<MDBTileObjectProtocol> tileObject = [self.objects firstObject];
-    if (tileObject && tileObject.isDefaultObject) {
-        [self.objects removeObjectAtIndex: 0];
+    if (additionalObject)
+    {
+        [self willChangeValueForKey: @"allObjects"];
+        
+        id<MDBTileObjectProtocol> tileObject = [self.objects firstObject];
+        if (tileObject && tileObject.isDefaultObject) {
+            [self.objects removeObjectAtIndex: 0];
+        }
+        [self.objects addObject: additionalObject];
+        
+        [self didChangeValueForKey: @"allObjects"];
     }
-    [self.objects addObject: additionalObject];
-    
-    [self didChangeValueForKey: @"allObjects"];
 }
 
 - (void) addObjectsFromArray:(NSArray *)sourceArray
@@ -180,6 +183,7 @@
     
     [self didChangeValueForKey: @"allObjects"];
 }
+
 - (void) insertObject:(id)object atIndex:(NSInteger)index
 {
     [self willChangeValueForKey: @"allObjects"];

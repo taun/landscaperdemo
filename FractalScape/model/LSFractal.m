@@ -515,12 +515,25 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     return _imageFilters;
 }
 
-- (void)setLevel:(NSInteger)newLevel {
+- (void)setLevel:(NSInteger)newLevel
+{
     
     [self willChangeValueForKey:@"level"];
     _level = newLevel;
     self.levelUnchanged = NO;
     [self didChangeValueForKey:@"level"];
+}
+
+-(void)updateApplyFiltersWithoutNotification
+{
+    if (_imageFilters.isEmpty && _applyFilters)
+    {
+        _applyFilters = NO;
+    }
+    else if (!_imageFilters.isEmpty)
+    {
+        _applyFilters = !_applyFilters;
+    }
 }
 
 #pragma mark - Property Transforms

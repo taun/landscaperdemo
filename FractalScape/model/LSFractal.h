@@ -199,7 +199,11 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 -(BOOL)isAngularProperty: (NSString*)propertyKey;
 
 -(void) generateLevelData;
-
-
+/*!
+ When adding the first item to the filters list, would like to be able turn on apply filters without triggering notifications
+ for both the change to the filters list AND the change in applyFilters. This method is used to turn applyFilters back on 
+ whenever an item is added or removed from the filters list when applyFilters had been off.
+ */
+-(void)updateApplyFiltersWithoutNotification;
 
 @end

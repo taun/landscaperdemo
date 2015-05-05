@@ -503,7 +503,9 @@ static const CGFloat kLevelNMargin = 40.0;
     else if ([keyPath isEqualToString: @"imageFilters.allObjects"])
     {
         self.hasBeenEdited = YES;
-        [self changeAndApplyFilters];
+        [self.fractalDocument.fractal updateApplyFiltersWithoutNotification];
+        [self queueFractalImageUpdates];
+        [self updateInterface];
     }
     else
     {
@@ -1917,29 +1919,29 @@ static const CGFloat kLevelNMargin = 40.0;
 
 
 #pragma mark - Filter Actions
--(void)changeAndApplyFilters
-{
-    MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
-
-    if (!filters.isEmpty && !self.fractalDocument.fractal.applyFilters)
-    {
-        // if there are filters and the applyFilters was off, turn it on.
-        [self toggleApplyFilter: nil];
-    }
-    else if (filters.isEmpty && self.fractalDocument.fractal.applyFilters)
-    {
-        // filters are now empty and apply filters was on, turn it off
-        [self toggleApplyFilter: nil];
-    }
-    
-    UIImage* filteredUIImage = [self applyFiltersToImage: self.fractalRendererLN.image];
-    
-    if (filteredUIImage)
-    {
-        self.fractalView.image = filteredUIImage;
-    }
-}
-
+//-(void)changeAndApplyFilters
+//{
+//    MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
+//
+//    if (!filters.isEmpty && !self.fractalDocument.fractal.applyFilters)
+//    {
+//        // if there are filters and the applyFilters was off, turn it on.
+//        [self toggleApplyFilter: nil];
+//    }
+//    else if (filters.isEmpty && self.fractalDocument.fractal.applyFilters)
+//    {
+//        // filters are now empty and apply filters was on, turn it off
+//        [self toggleApplyFilter: nil];
+//    }
+//    
+//    UIImage* filteredUIImage = [self applyFiltersToImage: self.fractalRendererLN.image];
+//    
+//    if (filteredUIImage)
+//    {
+//        self.fractalView.image = filteredUIImage;
+//    }
+//}
+//
 -(UIImage*)applyFiltersToImage: (UIImage*)inputImage
 {
     UIImage* filteredUIImage = inputImage;
@@ -1974,7 +1976,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     return filteredUIImage;
 }
-
+//
 - (IBAction)toggleApplyFilter:(id)sender
 {
     MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;

@@ -263,6 +263,7 @@
     
     CGImageRelease(cgImage);
     
+    _ciFilter = nil;
     
     return filteredUIImage;
 }
@@ -270,8 +271,8 @@
 -(UIImage*) asImage
 {
     UIImage* defaultImage = [UIImage imageNamed: @"kMBFilterBackground2"];
-    
-    return [self filterImage: defaultImage withContext: self.filterContext];
+    UIImage* filteredImage = [self filterImage: defaultImage withContext: self.filterContext];
+    return filteredImage;
 }
 
 - (id) debugQuickLookObject
