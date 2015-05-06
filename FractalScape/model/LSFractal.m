@@ -524,15 +524,15 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
     [self didChangeValueForKey:@"level"];
 }
 
--(void)updateApplyFiltersWithoutNotification
+-(void)updateApplyFiltersWithoutNotificationForFiltersListChange
 {
-    if (_imageFilters.isEmpty && _applyFilters)
+    if (_imageFilters.isEmpty)
     {
         _applyFilters = NO;
     }
-    else if (!_imageFilters.isEmpty)
+    else
     {
-        _applyFilters = !_applyFilters;
+        _applyFilters = YES;
     }
 }
 

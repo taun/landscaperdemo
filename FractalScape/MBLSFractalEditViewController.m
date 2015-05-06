@@ -503,7 +503,7 @@ static const CGFloat kLevelNMargin = 40.0;
     else if ([keyPath isEqualToString: @"imageFilters.allObjects"])
     {
         self.hasBeenEdited = YES;
-        [self.fractalDocument.fractal updateApplyFiltersWithoutNotification];
+        [self.fractalDocument.fractal updateApplyFiltersWithoutNotificationForFiltersListChange];
         [self queueFractalImageUpdates];
         [self updateInterface];
     }
