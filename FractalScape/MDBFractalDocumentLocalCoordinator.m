@@ -67,6 +67,8 @@
     dispatch_queue_t defaultQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0ul);
     
     dispatch_async(defaultQueue, ^{
+        [MDBDocumentUtilities waitUntilDoneCopying];
+        
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
         // Fetch the list documents from container documents directory.

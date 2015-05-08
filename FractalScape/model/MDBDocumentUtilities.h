@@ -25,4 +25,6 @@
 
 + (void)removeDocumentAtURL:(NSURL *)url withCompletionHandler:(void (^)(NSError *error))completionHandler;
 
++ (void)waitUntilDoneCopying;
+
 @end

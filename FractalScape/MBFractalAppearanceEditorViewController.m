@@ -22,9 +22,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    UIDevice* device = [UIDevice currentDevice];
-    if (![device hasRetinaDisplay])
-    {
+    if ([UIScreen mainScreen].scale == 1.0)
+    { // not retina device
         NSMutableArray* childControllers = [self.childViewControllers mutableCopy];
         UIViewController* filterController;
         

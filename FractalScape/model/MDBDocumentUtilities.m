@@ -13,19 +13,23 @@
 
 @implementation MDBDocumentUtilities
 
+
 + (NSURL *)localDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
 }
 
-+ (void)copyInitialDocuments {
++ (void)copyInitialDocuments
+{
     NSArray *defaultListURLs = [[NSBundle mainBundle] URLsForResourcesWithExtension: kMDBFractalDocumentFileExtension subdirectory:@""];
     
-    for (NSURL *url in defaultListURLs) {
-        [self copyURLToDocumentsDirectory:url];
-    }
+    [self copyURLToDocumentsDirectory: defaultListURLs];
 }
 
++(void)waitUntilDoneCopying
+{
+    [[self queue] waitUntilAllOperationsAreFinished];
+}
 
 + (void)migrateLocalDocumentsToCloud {
     dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
@@ -172,25 +176,40 @@
 
 #pragma mark - Convenience
 
-+ (void)copyURLToDocumentsDirectory:(NSURL *)url {
-    NSURL *toURL = [[MDBDocumentUtilities localDocumentsDirectory] URLByAppendingPathComponent:url.lastPathComponent];
++ (void)copyURLToDocumentsDirectory:(NSArray *)urls {
     
-    // If the file already exists, don't attempt to copy the version from the bundle.
-    if ([[NSFileManager defaultManager] fileExistsAtPath:toURL.path]) {
-        return;
+    NSMutableArray* toURLS = [NSMutableArray arrayWithCapacity: urls.count];
+    
+    for (NSURL* url in urls)
+    {
+        NSURL *toURL = [[MDBDocumentUtilities localDocumentsDirectory] URLByAppendingPathComponent: url.lastPathComponent];
+        
+        // If the file already exists, don't attempt to copy the version from the bundle.
+        if (![[NSFileManager defaultManager] fileExistsAtPath: toURL.path])
+        {
+            [toURLS addObject: @[url ,toURL]];;
+        }
     }
     
     NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
     __block NSError *error;
     
-    BOOL successfulSecurityScopedResourceAccess = [url startAccessingSecurityScopedResource];
+    BOOL successfulSecurityScopedResourceAccess = [[MDBDocumentUtilities localDocumentsDirectory] startAccessingSecurityScopedResource];
     
-    NSFileAccessIntent *movingIntent = [NSFileAccessIntent writingIntentWithURL:url options:NSFileCoordinatorWritingForMoving];
-    NSFileAccessIntent *replacingIntent = [NSFileAccessIntent writingIntentWithURL:toURL options:NSFileCoordinatorWritingForReplacing];
-    [fileCoordinator coordinateAccessWithIntents:@[movingIntent, replacingIntent] queue:[self queue] byAccessor:^(NSError *accessError) {
+    NSMutableArray* intents = [NSMutableArray arrayWithCapacity: toURLS.count*2];
+    
+    for (NSArray* urlToURL in toURLS)
+    {
+        NSFileAccessIntent *movingIntent = [NSFileAccessIntent writingIntentWithURL: urlToURL[0] options:NSFileCoordinatorWritingForMoving];
+        NSFileAccessIntent *replacingIntent = [NSFileAccessIntent writingIntentWithURL: urlToURL[1] options:NSFileCoordinatorWritingForReplacing];
+        [intents addObject: movingIntent];
+        [intents addObject: replacingIntent];
+    }
+
+    [fileCoordinator coordinateAccessWithIntents: intents queue:[self queue] byAccessor:^(NSError *accessError) {
         if (accessError) {
             // An error occured when trying to coordinate moving URL to toURL. In your app, handle this gracefully.
-            NSLog(@"Couldn't move file: %@ to: %@ error: %@.", url.absoluteString, toURL.absoluteString, accessError.localizedDescription);
+            NSLog(@"Couldn't move files: %@ error: %@.", toURLS, accessError.localizedDescription);
             
             return;
         }
@@ -199,21 +218,29 @@
         
         NSFileManager *fileManager = [[NSFileManager alloc] init];
         
-        success = [fileManager copyItemAtURL:movingIntent.URL toURL:replacingIntent.URL error:&error];
-        
-        if (success) {
-            NSDictionary *fileAttributes = @{ NSFileExtensionHidden: @YES };
+        for (int i = 0; i < intents.count; i+=2) {
+            NSFileAccessIntent* moveIntent = (NSFileAccessIntent*)intents[i];
+            NSFileAccessIntent* replaceIntent = (NSFileAccessIntent*)intents[i+1];
             
-            [fileManager setAttributes:fileAttributes ofItemAtPath:replacingIntent.URL.path error:nil];
+            success = [fileManager copyItemAtURL: moveIntent.URL toURL: replaceIntent.URL error: &error];
+            
+            if (success)
+            {
+                NSDictionary *fileAttributes = @{ NSFileExtensionHidden: @YES };
+                
+                [fileManager setAttributes:fileAttributes ofItemAtPath: replaceIntent.URL.path error:nil];
+            }
         }
         
-        if (successfulSecurityScopedResourceAccess) {
-            [url stopAccessingSecurityScopedResource];
+        
+        if (successfulSecurityScopedResourceAccess)
+        {
+            [[MDBDocumentUtilities localDocumentsDirectory] stopAccessingSecurityScopedResource];
         }
         
         if (!success) {
             // An error occured when moving URL to toURL. In your app, handle this gracefully.
-            NSLog(@"Couldn't move file: %@ to: %@.", url.absoluteString, toURL.absoluteString);
+            NSLog(@"Couldn't move files: %@.", intents);
         }
     }];
 }

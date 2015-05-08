@@ -98,6 +98,7 @@
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRx-ub-5v2" userLabel="fullScreen">
                                                         <rect key="frame" x="8" y="8" width="44" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <accessibility key="accessibilityConfiguration" hint="Toggles the visibility of the preview screens." label="ToggleHUDViews"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="5Uy-2C-CkX"/>
                                                             <constraint firstAttribute="height" constant="60" id="f1z-Bq-xiJ"/>
@@ -112,6 +113,7 @@
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gB3-UB-mha" userLabel="autoexpandOff">
                                                         <rect key="frame" x="8" y="68" width="44" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <accessibility key="accessibilityConfiguration" hint="Autoexpand when on scales the fractal to fill the screen" label="ToggleAutoExpand"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="5DW-hd-enF"/>
                                                             <constraint firstAttribute="width" constant="44" id="dVp-UF-uEj"/>
@@ -127,6 +129,7 @@
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahp-IY-CUN" userLabel="applyFilter">
                                                         <rect key="frame" x="8" y="128" width="44" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <accessibility key="accessibilityConfiguration" hint="Toggles the fractal filters on and off" label="ToggleFilterApplication"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="3rA-uX-eyP"/>
                                                             <constraint firstAttribute="width" constant="44" id="wC1-Ks-Ov1"/>
@@ -144,6 +147,7 @@
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="right" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2L-iC-acQ" userLabel="editRules">
                                                         <rect key="frame" x="-16" y="188" width="60" height="68"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <accessibility key="accessibilityConfiguration" hint="Toggles the fractal editor popover" label="OpenCloseEditor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="YFf-52-wrK"/>
                                                             <constraint firstAttribute="height" constant="68" id="s1d-sA-4aU"/>
@@ -696,6 +700,7 @@
                                             </view>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="fN9-Mq-Ukg" userLabel="playbackSlider">
                                                 <rect key="frame" x="286" y="330" width="504" height="31"/>
+                                                <accessibility key="accessibilityConfiguration" hint="Show playback prrogress and allows manual override of the playback position." label="PlayBackSlider"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="500" placeholder="YES" id="djp-OB-WlZ"/>
                                                 </constraints>
@@ -1236,9 +1241,11 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstItem="jhA-5f-k1Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DPs-RN-Xhr" secondAttribute="leading" constant="4" id="BGu-a5-a4M"/>
                                                         <constraint firstAttribute="height" constant="50" id="Cwa-TT-hqN"/>
                                                         <constraint firstItem="jhA-5f-k1Y" firstAttribute="top" secondItem="DPs-RN-Xhr" secondAttribute="top" constant="14" id="GiJ-oj-BR2"/>
                                                         <constraint firstAttribute="centerX" secondItem="jhA-5f-k1Y" secondAttribute="centerX" id="fDj-52-mLA"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jhA-5f-k1Y" secondAttribute="trailing" constant="4" id="tbK-5x-Nn4"/>
                                                     </constraints>
                                                 </view>
                                                 <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
@@ -2376,7 +2383,7 @@
         <scene sceneID="iKT-0y-poi">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalLibrary" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt" userLabel="LibraryCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2553,7 +2560,7 @@
         <scene sceneID="Gs9-kI-vI6">
             <objects>
                 <collectionViewController storyboardIdentifier="PublicCloudBrowser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sge-77-1OH" customClass="MDBFractalCloudBrowser" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="OXJ-Yb-wV2">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="OXJ-Yb-wV2" userLabel="CloudBrowserCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

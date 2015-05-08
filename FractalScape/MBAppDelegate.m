@@ -90,6 +90,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+//    [MDBDocumentUtilities waitUntilDoneCopying];
+    
     [self setupUserStoragePreferences];
 }
 
@@ -237,8 +239,20 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     
     if (!self.appModel.documentController)
     {
-        self.appModel.documentController = [[MDBDocumentController alloc] initWithDocumentCoordinator: documentCoordinator sortComparator:^NSComparisonResult(MDBFractalInfo *lhs, MDBFractalInfo *rhs) {
-            return [rhs.changeDate compare: lhs.changeDate];
+        self.appModel.documentController = [[MDBDocumentController alloc] initWithDocumentCoordinator: documentCoordinator sortComparator: ^NSComparisonResult(MDBFractalInfo *lhs, MDBFractalInfo *rhs) {
+            NSComparisonResult initialResult = [rhs.changeDate compare: lhs.changeDate];
+            NSComparisonResult finalResult;
+            
+            if (initialResult == NSOrderedSame)
+            {
+                finalResult = -1 * [rhs.identifier compare: lhs.identifier];
+            }
+            else
+            {
+                finalResult = initialResult;
+            }
+            
+            return finalResult;
         }];
         
 //        self.documentsViewController.documentController = self.appModel.documentController;

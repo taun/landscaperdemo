@@ -49,6 +49,11 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -56,8 +61,8 @@
     MDBImageFiltersCategoriesListView* categoriesView = (MDBImageFiltersCategoriesListView*) self.sourceListView;
     categoriesView.fractal = self.fractalDocument.fractal;
     categoriesView.filterCategories = filterCategories;
-    
 }
+
 -(void) viewWillLayoutSubviews
 {
     [self.visualEffectView setNeedsLayout];

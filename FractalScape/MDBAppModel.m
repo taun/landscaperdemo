@@ -18,7 +18,12 @@ NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScape
 
 -(BOOL)allowPremium
 {
-    return NO;
+    return YES;
+}
+
+-(BOOL)useWatermark
+{
+    return YES;
 }
 
 - (void)registerDefaults

@@ -1524,9 +1524,18 @@ static const CGFloat kLevelNMargin = 40.0;
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                        [self shareWithDocumentInteractionController: sender];
+                                        [self sharePDFWithDocumentInteractionController: sender];
                                     }];
         [alert addAction: vectorPDF];
+    }
+    if (self.appModel.allowPremium) {
+        UIAlertAction* documentShare = [UIAlertAction actionWithTitle:@"Export as Document" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                        [self shareWithDocumentInteractionController: sender];
+                                    }];
+        [alert addAction: documentShare];
     }
 //    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
 //                                                         handler:^(UIAlertAction * action)
@@ -1556,10 +1565,40 @@ static const CGFloat kLevelNMargin = 40.0;
  */
 - (IBAction)shareButtonPressedObs:(id)sender
 {
-    [self shareWithDocumentInteractionController: sender];
+    [self sharePDFWithDocumentInteractionController: sender];
 }
 
 - (IBAction)shareWithDocumentInteractionController:(id)sender
+{
+    NSURL* fileUrl = self.fractalDocument.fileURL;
+    
+    _documentShareController = [UIDocumentInteractionController interactionControllerWithURL: fileUrl];
+    //    documentSharer.UTI = @"com.adobe.pdf";
+    _documentShareController.delegate = self;
+    
+    NSArray* iconList = _documentShareController.icons;
+    if (iconList.count > 0)
+    {
+        if ([sender isKindOfClass: [UIBarButtonItem class]])
+        {
+            BOOL success = [_documentShareController presentOptionsMenuFromBarButtonItem: sender animated: YES];
+            if (success)
+            {
+                //
+            }
+            else
+            {
+                
+            }
+            //        BOOL result = [documentSharer presentOpenInMenuFromBarButtonItem: sender animated: YES];
+        } else
+        {
+            [_documentShareController presentOpenInMenuFromRect: [sender bounds] inView: self.fractalViewRoot animated: YES];
+        }
+    }
+}
+
+- (IBAction)sharePDFWithDocumentInteractionController:(id)sender
 {
     NSURL* fileUrl = [self savePDFData: [self createPDF]];
     
@@ -1596,7 +1635,7 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     NSMutableArray* exportItems = [NSMutableArray new];
 
-    UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0) withWatermark: !self.appModel.allowPremium];
+    UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0) withWatermark: self.appModel.useWatermark];
     
     NSData* pngImage = UIImagePNGRepresentation(fractalImage);
     
