@@ -191,6 +191,4 @@
  */
 - (void)setFractalInfoHasNewContents:(MDBFractalInfo *)fractalInfo;
 
--(void) resortFractalInfos;
-
 @end

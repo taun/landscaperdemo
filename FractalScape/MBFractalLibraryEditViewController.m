@@ -242,6 +242,7 @@
 
 - (IBAction)editingIsDoneButton:(id)sender
 {
+    self.appModel = nil;
     [self.navigationController popViewControllerAnimated: NO];
 }
 @end

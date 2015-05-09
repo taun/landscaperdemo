@@ -142,7 +142,10 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 #pragma mark - User Storage Preferences
 
-- (void)setupUserStoragePreferences {
+- (void)setupUserStoragePreferences
+{
+    [MDBDocumentUtilities waitUntilDoneCopying];
+    
     MDBAPPStorageState storageState = [MDBCloudManager sharedManager].storageState;
     
     // Check to see if the account has changed since the last time the method was called. If it has,

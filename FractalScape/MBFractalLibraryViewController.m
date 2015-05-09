@@ -97,7 +97,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
     [self.collectionView reloadData];
 //    [self.documentController resortFractalInfos];
-//    [self.documentController.documentCoordinator startQuery];
+    [self.appModel.documentController.documentCoordinator startQuery];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -214,7 +214,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         NSUInteger changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
         NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];;
         
-        __block NSMutableArray* indexPaths = [NSMutableArray array];
+        NSMutableArray* indexPaths = [NSMutableArray array];
         
         [changes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
             [indexPaths addObject: [NSIndexPath indexPathForRow: idx inSection: 0]];
@@ -245,13 +245,14 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(void)documentControllerChanged
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         [self addDocumentControllerObservers];
         self.collectionSource.documentController = self->_appModel.documentController;
-        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-        [self.collectionView reloadData];
+//        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+//        [self.collectionView reloadData];
         self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
-    });
+        [self->_appModel.documentController.documentCoordinator startQuery];
+//    });
 }
 
 #pragma mark - IBActions
@@ -271,7 +272,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         // Show the MBLSFractalEditViewController.
 //        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
         LSFractal* newFractal = [LSFractal new];
-        [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
+        MDBFractalInfo* newInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: nil];
         if (self.collectionView.indexPathsForVisibleItems.count > 0) {
             [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
         }

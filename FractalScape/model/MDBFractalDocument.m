@@ -286,7 +286,10 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 - (void)accommodatePresentedItemDeletionWithCompletionHandler:(void (^)(NSError *errorOrNil))completionHandler {
     [super accommodatePresentedItemDeletionWithCompletionHandler:completionHandler];
     
-    [self.delegate fractalDocumentWasDeleted: self];
+    if ([self.delegate respondsToSelector: @selector(fractalDocumentWasDeleted:)])
+    {
+        [self.delegate fractalDocumentWasDeleted: self];
+    }
 }
 
 #pragma mark - Handoff

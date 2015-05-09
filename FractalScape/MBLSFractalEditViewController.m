@@ -696,6 +696,7 @@ static const CGFloat kLevelNMargin = 40.0;
     return _fractalInfo.document;
 }
 
+#pragma message "TODO Use an alert here rather than just deleting. Should only happen if deleted on another device."
 -(void)fractalDocumentWasDeleted: (MDBFractalDocument*)deletedDocument
 {
     if (self.fractalInfo.document == deletedDocument) {

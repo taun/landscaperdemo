@@ -22,25 +22,6 @@
 		C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */ = {isa = PBXBuildFile; fileRef = C511BA161A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h */; };
 		C511BA191A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = C511BA171A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m */; };
 		C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C511BA1A1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib */; };
-		C51930EB1AFBC4FE0081E152 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930D71AFBC4FE0081E152 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */; };
-		C51930EC1AFBC4FE0081E152 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930D81AFBC4FE0081E152 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */; };
-		C51930ED1AFBC4FE0081E152 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930D91AFBC4FE0081E152 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */; };
-		C51930EE1AFBC4FE0081E152 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930DA1AFBC4FE0081E152 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */; };
-		C51930EF1AFBC4FE0081E152 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930DB1AFBC4FE0081E152 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */; };
-		C51930F01AFBC4FE0081E152 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930DC1AFBC4FE0081E152 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */; };
-		C51930F11AFBC4FE0081E152 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930DD1AFBC4FE0081E152 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */; };
-		C51930F21AFBC4FE0081E152 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930DE1AFBC4FE0081E152 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */; };
-		C51930F41AFBC4FE0081E152 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E01AFBC4FE0081E152 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */; };
-		C51930F51AFBC4FE0081E152 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E11AFBC4FE0081E152 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */; };
-		C51930F61AFBC4FE0081E152 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E21AFBC4FE0081E152 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */; };
-		C51930F71AFBC4FE0081E152 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E31AFBC4FE0081E152 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */; };
-		C51930F81AFBC4FE0081E152 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E41AFBC4FE0081E152 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */; };
-		C51930F91AFBC4FE0081E152 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E51AFBC4FE0081E152 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */; };
-		C51930FA1AFBC4FE0081E152 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E61AFBC4FE0081E152 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */; };
-		C51930FB1AFBC4FE0081E152 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E71AFBC4FE0081E152 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */; };
-		C51930FC1AFBC4FE0081E152 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E81AFBC4FE0081E152 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */; };
-		C51930FD1AFBC4FE0081E152 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930E91AFBC4FE0081E152 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */; };
-		C51930FE1AFBC4FE0081E152 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C51930EA1AFBC4FE0081E152 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */; };
 		C51B58401A90707F0036C47D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51B583F1A90707F0036C47D /* CloudKit.framework */; };
 		C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */; };
 		C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */ = {isa = PBXBuildFile; fileRef = C522DABB1A2CA8ED00419781 /* LSDrawingRule.h */; };
@@ -172,6 +153,25 @@
 		C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */; };
 		C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */; };
 		C5B3F18619DC804100BDFAF5 /* FractalMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18519DC804100BDFAF5 /* FractalMedia.xcassets */; };
+		C5B58C571AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C441AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */; };
+		C5B58C581AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C451AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */; };
+		C5B58C591AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C461AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */; };
+		C5B58C5A1AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C471AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */; };
+		C5B58C5B1AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C481AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */; };
+		C5B58C5C1AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C491AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */; };
+		C5B58C5D1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4A1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */; };
+		C5B58C5E1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4B1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */; };
+		C5B58C5F1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4C1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */; };
+		C5B58C601AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4D1AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */; };
+		C5B58C611AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4E1AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */; };
+		C5B58C621AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4F1AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */; };
+		C5B58C631AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C501AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */; };
+		C5B58C641AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C511AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */; };
+		C5B58C651AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C521AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */; };
+		C5B58C661AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C531AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */; };
+		C5B58C671AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C541AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */; };
+		C5B58C681AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C551AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */; };
+		C5B58C691AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C561AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
 		C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */; };
@@ -282,25 +282,6 @@
 		C511BA161A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBLSObjectTileListAddDeleteView.h; path = FractalScape/MDBLSObjectTileListAddDeleteView.h; sourceTree = "<group>"; };
 		C511BA171A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBLSObjectTileListAddDeleteView.m; path = FractalScape/MDBLSObjectTileListAddDeleteView.m; sourceTree = "<group>"; };
 		C511BA1A1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MDBLSObjectTileListAddDeleteView.xib; path = FractalScape/MDBLSObjectTileListAddDeleteView.xib; sourceTree = "<group>"; };
-		C51930D71AFBC4FE0081E152 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal"; sourceTree = "<group>"; };
-		C51930D81AFBC4FE0081E152 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal"; sourceTree = "<group>"; };
-		C51930D91AFBC4FE0081E152 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal"; sourceTree = "<group>"; };
-		C51930DA1AFBC4FE0081E152 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal"; sourceTree = "<group>"; };
-		C51930DB1AFBC4FE0081E152 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal"; sourceTree = "<group>"; };
-		C51930DC1AFBC4FE0081E152 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal"; sourceTree = "<group>"; };
-		C51930DD1AFBC4FE0081E152 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal"; sourceTree = "<group>"; };
-		C51930DE1AFBC4FE0081E152 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal"; sourceTree = "<group>"; };
-		C51930E01AFBC4FE0081E152 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal"; sourceTree = "<group>"; };
-		C51930E11AFBC4FE0081E152 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal"; sourceTree = "<group>"; };
-		C51930E21AFBC4FE0081E152 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal"; sourceTree = "<group>"; };
-		C51930E31AFBC4FE0081E152 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal"; sourceTree = "<group>"; };
-		C51930E41AFBC4FE0081E152 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal"; sourceTree = "<group>"; };
-		C51930E51AFBC4FE0081E152 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal"; sourceTree = "<group>"; };
-		C51930E61AFBC4FE0081E152 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal"; sourceTree = "<group>"; };
-		C51930E71AFBC4FE0081E152 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal"; sourceTree = "<group>"; };
-		C51930E81AFBC4FE0081E152 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal"; sourceTree = "<group>"; };
-		C51930E91AFBC4FE0081E152 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal"; sourceTree = "<group>"; };
-		C51930EA1AFBC4FE0081E152 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal"; sourceTree = "<group>"; };
 		C51B583E1A9070770036C47D /* FractalScapes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FractalScapes.entitlements; sourceTree = "<group>"; };
 		C51B583F1A90707F0036C47D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C51DF52216E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalAppearanceEditorViewController.h; path = FractalScape/MBFractalAppearanceEditorViewController.h; sourceTree = "<group>"; };
@@ -445,6 +426,25 @@
 		C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBImageFilter.m; path = FractalScape/model/MBImageFilter.m; sourceTree = "<group>"; };
 		C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		C5B3F18519DC804100BDFAF5 /* FractalMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FractalMedia.xcassets; sourceTree = "<group>"; };
+		C5B58C441AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal"; path = "resources/A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal"; sourceTree = "<group>"; };
+		C5B58C451AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal"; path = "resources/DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal"; sourceTree = "<group>"; };
+		C5B58C461AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal"; path = "resources/F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal"; sourceTree = "<group>"; };
+		C5B58C471AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal"; path = "resources/Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal"; sourceTree = "<group>"; };
+		C5B58C481AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal"; path = "resources/Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal"; sourceTree = "<group>"; };
+		C5B58C491AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal"; path = "resources/A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal"; sourceTree = "<group>"; };
+		C5B58C4A1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal"; path = "resources/A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal"; sourceTree = "<group>"; };
+		C5B58C4B1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal"; path = "resources/A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal"; sourceTree = "<group>"; };
+		C5B58C4C1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal"; path = "resources/A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal"; sourceTree = "<group>"; };
+		C5B58C4D1AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal"; path = "resources/A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal"; sourceTree = "<group>"; };
+		C5B58C4E1AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal"; path = "resources/A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal"; sourceTree = "<group>"; };
+		C5B58C4F1AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal"; path = "resources/D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal"; sourceTree = "<group>"; };
+		C5B58C501AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal"; path = "resources/D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal"; sourceTree = "<group>"; };
+		C5B58C511AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal"; path = "resources/DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal"; sourceTree = "<group>"; };
+		C5B58C521AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal"; path = "resources/DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal"; sourceTree = "<group>"; };
+		C5B58C531AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal"; path = "resources/E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal"; sourceTree = "<group>"; };
+		C5B58C541AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal"; path = "resources/E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal"; sourceTree = "<group>"; };
+		C5B58C551AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal"; path = "resources/F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal"; sourceTree = "<group>"; };
+		C5B58C561AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal"; path = "resources/ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal"; sourceTree = "<group>"; };
 		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractalScapeIconSet.h; sourceTree = "<group>"; };
@@ -626,25 +626,25 @@
 		C55273F81AFA9C3A00099C64 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C51930D71AFBC4FE0081E152 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */,
-				C51930D81AFBC4FE0081E152 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */,
-				C51930D91AFBC4FE0081E152 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */,
-				C51930DA1AFBC4FE0081E152 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */,
-				C51930DB1AFBC4FE0081E152 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */,
-				C51930DC1AFBC4FE0081E152 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */,
-				C51930DD1AFBC4FE0081E152 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */,
-				C51930DE1AFBC4FE0081E152 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */,
-				C51930E01AFBC4FE0081E152 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */,
-				C51930E11AFBC4FE0081E152 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */,
-				C51930E21AFBC4FE0081E152 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */,
-				C51930E31AFBC4FE0081E152 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */,
-				C51930E41AFBC4FE0081E152 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */,
-				C51930E51AFBC4FE0081E152 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */,
-				C51930E61AFBC4FE0081E152 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */,
-				C51930E71AFBC4FE0081E152 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */,
-				C51930E81AFBC4FE0081E152 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */,
-				C51930E91AFBC4FE0081E152 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */,
-				C51930EA1AFBC4FE0081E152 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */,
+				C5B58C441AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */,
+				C5B58C451AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */,
+				C5B58C461AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */,
+				C5B58C471AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */,
+				C5B58C481AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */,
+				C5B58C491AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */,
+				C5B58C4A1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */,
+				C5B58C4B1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */,
+				C5B58C4C1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */,
+				C5B58C4D1AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */,
+				C5B58C4E1AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */,
+				C5B58C4F1AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */,
+				C5B58C501AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */,
+				C5B58C511AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */,
+				C5B58C521AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */,
+				C5B58C531AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */,
+				C5B58C541AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */,
+				C5B58C551AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */,
+				C5B58C561AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1277,40 +1277,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5B58C5A1AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */,
 				C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */,
-				C51930F41AFBC4FE0081E152 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */,
+				C5B58C641AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */,
 				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
-				C51930EB1AFBC4FE0081E152 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */,
-				C51930F61AFBC4FE0081E152 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */,
-				C51930ED1AFBC4FE0081E152 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */,
+				C5B58C581AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */,
+				C5B58C571AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */,
+				C5B58C671AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */,
+				C5B58C5F1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */,
+				C5B58C651AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */,
+				C5B58C5E1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */,
+				C5B58C591AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */,
 				C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
-				C51930F21AFBC4FE0081E152 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */,
+				C5B58C5D1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal in Resources */,
+				C5B58C621AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */,
 				C5B3F18619DC804100BDFAF5 /* FractalMedia.xcassets in Resources */,
+				C5B58C691AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */,
 				C511BA131A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib in Resources */,
-				C51930F71AFBC4FE0081E152 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */,
-				C51930FB1AFBC4FE0081E152 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */,
-				C51930F11AFBC4FE0081E152 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal in Resources */,
+				C5B58C5C1AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */,
+				C5B58C661AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */,
 				C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */,
+				C5B58C681AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */,
 				C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */,
-				C51930F01AFBC4FE0081E152 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */,
 				C5E556D914E2E6B300CAAB33 /* Localizable.strings in Resources */,
-				C51930EC1AFBC4FE0081E152 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */,
-				C51930F81AFBC4FE0081E152 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */,
+				C5B58C631AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */,
 				C50C47BA1A97C2E500CF5121 /* Launch Screen.xib in Resources */,
 				C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */,
+				C5B58C601AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */,
 				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
-				C51930F91AFBC4FE0081E152 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */,
-				C51930FE1AFBC4FE0081E152 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */,
-				C51930EE1AFBC4FE0081E152 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */,
 				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
-				C51930FD1AFBC4FE0081E152 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
-				C51930F51AFBC4FE0081E152 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */,
+				C5B58C611AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */,
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
-				C51930FA1AFBC4FE0081E152 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */,
-				C51930EF1AFBC4FE0081E152 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */,
-				C51930FC1AFBC4FE0081E152 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */,
 				C59EE1D81AF3CE7F00CFE254 /* AppbotX.bundle in Resources */,
+				C5B58C5B1AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */,
 				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
 				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);

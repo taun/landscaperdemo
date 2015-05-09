@@ -51,6 +51,17 @@
 
 - (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section
 {
+    NSArray* callStack = [NSThread callStackSymbols];
+    NSMutableArray* filteredStack = [NSMutableArray new];
+    for (NSString* stackEntry in callStack)
+    {
+        if ([stackEntry containsString: @"FractalScapes"])
+        {
+            [filteredStack addObject: stackEntry];
+        }
+    }
+    NSString* stackString = [callStack debugDescription];
+    
     NSUInteger count = self.documentController.fractalInfos.count;
     return count;
 }

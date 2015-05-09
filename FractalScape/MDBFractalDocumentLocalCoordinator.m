@@ -12,6 +12,8 @@
 
 @interface MDBFractalDocumentLocalCoordinator ()
 @property (nonatomic, strong) NSPredicate       *predicate;
+@property (nonatomic, strong) NSSet             *insertedFiles;
+@property (nonatomic, strong) NSSortDescriptor  *urlArraySortDescriptor;
 @end
 
 
@@ -61,13 +63,29 @@
     return self;
 }
 
+//-(NSMutableSet*)insertedFiles
+//{
+//    if (!_insertedFiles) {
+//        _insertedFiles = [NSMutableSet new];
+//    }
+//    return _insertedFiles;
+//}
+
+-(NSSortDescriptor*)urlArraySortDescriptor
+{
+    if (!_urlArraySortDescriptor) {
+        _urlArraySortDescriptor = [NSSortDescriptor sortDescriptorWithKey: @"lastPathComponent" ascending: YES];
+    }
+    return _urlArraySortDescriptor;
+}
+
+
 #pragma mark - MDBFractalDocumentCoordinator
 
 - (void)startQuery {
     dispatch_queue_t defaultQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0ul);
     
     dispatch_async(defaultQueue, ^{
-        [MDBDocumentUtilities waitUntilDoneCopying];
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
@@ -76,8 +94,29 @@
         
         NSArray *localFractalDocumentURLs = [localDocumentURLs filteredArrayUsingPredicate: self.predicate];
         
-        if (localFractalDocumentURLs && localFractalDocumentURLs.count > 0) {
-            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs: localFractalDocumentURLs removedURLs:@[] updatedURLs:@[]];
+        NSSet* currentFractalDocumentsSet = [NSSet setWithArray: localFractalDocumentURLs];
+        
+        // if missing from inserted, needs to be inserted
+        // inserts are currentList minus already inserted
+        NSMutableSet* newInserts = [currentFractalDocumentsSet mutableCopy];
+        [newInserts  minusSet: self.insertedFiles];
+        
+        // if in inserted, needs to be updated
+        // updates are intersection of currentList and already inserted
+        NSMutableSet* updates = [currentFractalDocumentsSet mutableCopy];
+        [updates intersectSet: self.insertedFiles];
+        
+        // removed is already inserted minus current
+        NSMutableSet* removed = [self.insertedFiles mutableCopy];
+        [removed minusSet: currentFractalDocumentsSet];
+        
+        self.insertedFiles = currentFractalDocumentsSet;
+        
+        if (newInserts.count > 0 || updates.count > 0 || removed.count > 0) {
+            NSArray* insertedURLsArray = [newInserts sortedArrayUsingDescriptors: @[self.urlArraySortDescriptor]];
+            NSArray* updatedURLsArray = [updates sortedArrayUsingDescriptors: @[self.urlArraySortDescriptor]];
+            NSArray* removedURLsArray = [removed sortedArrayUsingDescriptors: @[self.urlArraySortDescriptor]];
+            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs: insertedURLsArray removedURLs: removedURLsArray updatedURLs: updatedURLsArray];
         }
     });
 }
@@ -112,8 +151,8 @@
 
 - (NSURL *)documentURLForName:(NSString *)name {
     NSURL *documentURLWithoutExtension = [[MDBDocumentUtilities localDocumentsDirectory] URLByAppendingPathComponent:name];
-    
-    return [documentURLWithoutExtension URLByAppendingPathExtension: kMDBFractalDocumentFileExtension];
+    NSURL *documentWithExtension = [documentURLWithoutExtension URLByAppendingPathExtension: kMDBFractalDocumentFileExtension];
+    return documentWithExtension;
 }
 
 @end

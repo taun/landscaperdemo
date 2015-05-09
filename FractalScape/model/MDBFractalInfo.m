@@ -41,6 +41,12 @@
     return self;
 }
 
+-(NSString *)debugDescription
+{
+    NSString* desc = [NSString stringWithFormat: @"%@ ChangeDate:%@ Identifier:%@",self.description, _changeDate, self.identifier];
+    return desc;
+}
+
 -(void)updateChangeDate
 {
     NSError* error;
@@ -64,8 +70,11 @@
     return identifier.stringByDeletingPathExtension;
 }
 
--(void) unCacheDocument
+-(void) dealloc
 {
+    if (_document.documentState != UIDocumentStateClosed) {
+        [_document closeWithCompletionHandler: nil];
+    }
     _document = nil;
 }
 
@@ -100,8 +109,10 @@
     if (![object isKindOfClass:[MDBFractalInfo class]]) {
         return NO;
     }
-    
-    return [self.URL isEqual: [object URL]];
+    NSURL* myURL = [[self.URL absoluteString]hasSuffix: @"/"] ? self.URL : [self.URL URLByAppendingPathComponent: @"/"];
+    NSURL* otherURL = [[[object URL] absoluteString]hasSuffix: @"/"] ? [object URL] : [[object URL] URLByAppendingPathComponent: @"/"];
+
+    return [myURL isEqual: otherURL];
 }
 
 

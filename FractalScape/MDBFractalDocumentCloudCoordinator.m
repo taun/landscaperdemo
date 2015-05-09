@@ -214,9 +214,9 @@
 
 - (NSURL *)documentURLForName:(NSString *)name
 {
-    NSURL *documentURLWithoutExtension = [self.documentsDirectory URLByAppendingPathComponent: name];
-    
-    return [documentURLWithoutExtension URLByAppendingPathExtension: kMDBFractalDocumentFileExtension];
+    NSURL *documentURLWithoutExtension = [self.documentsDirectory URLByAppendingPathComponent:name];
+    NSURL *documentWithExtension = [documentURLWithoutExtension URLByAppendingPathExtension: kMDBFractalDocumentFileExtension];
+    return documentWithExtension;
 }
 
 - (NSArray *)URLsByMappingMetadataItems:(NSArray *)metadataItems {

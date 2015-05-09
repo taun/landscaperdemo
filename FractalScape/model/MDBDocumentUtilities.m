@@ -146,11 +146,14 @@
     NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
     
     // `url` may be a security scoped resource.
+    url = [[url absoluteString]hasSuffix: @"/"] ? url : [url URLByAppendingPathComponent: @"/"];
+    
     BOOL successfulSecurityScopedResourceAccess = [url startAccessingSecurityScopedResource];
     
     NSFileAccessIntent *writingIntent = [NSFileAccessIntent writingIntentWithURL:url options:NSFileCoordinatorWritingForDeleting];
     [fileCoordinator coordinateAccessWithIntents:@[writingIntent] queue:[self queue] byAccessor:^(NSError *accessError) {
         if (accessError) {
+            NSLog(@"FractalScapes Access Error: %@, %@", NSStringFromSelector(_cmd), accessError.localizedDescription);
             if (completionHandler) {
                 completionHandler(accessError);
             }
@@ -162,7 +165,11 @@
         
         NSError *error;
         
-        [fileManager removeItemAtURL:writingIntent.URL error:&error];
+        [fileManager removeItemAtURL:writingIntent.URL error: &error];
+        if (error)
+        {
+            NSLog(@"FractalScapes File Remove Error: %@, %@", NSStringFromSelector(_cmd),error.localizedDescription);
+        }
         
         if (successfulSecurityScopedResourceAccess) {
             [url stopAccessingSecurityScopedResource];
