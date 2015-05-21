@@ -2,3 +2,6 @@
 	path = FractalScape/MDUiKitFramework
 	url = ssh://taun@srv.moedae.net:2609/srv/gitroot/moedae/apple/MDUiKit.git
 	branch = working
+[submodule "FractalScape/MDCloudKitFramework/MDCloudKit"]
+	path = FractalScape/MDCloudKitFramework/MDCloudKit
+	url = ssh://taun@srv.moedae.net:2609/srv/gitroot/moedae/apple/MDCloudKit.git
