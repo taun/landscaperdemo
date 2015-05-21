@@ -31,8 +31,6 @@
 		C52C60A31AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */; };
 		C52D75D51A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C52D75D31A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.h */; };
 		C52D75D61A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D75D41A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m */; };
-		C52EA9AD1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h in Headers */ = {isa = PBXBuildFile; fileRef = C52EA9AB1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h */; };
-		C52EA9AE1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */; };
 		C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */ = {isa = PBXBuildFile; fileRef = C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */; };
 		C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */; };
 		C52ECB8C1AF967B800465876 /* UIDevice_Hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = C52ECB8A1AF967B800465876 /* UIDevice_Hardware.h */; };
@@ -55,6 +53,8 @@
 		C54FC6D31ADB60A600588E9F /* MDBImageFiltersListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC6D11ADB60A600588E9F /* MDBImageFiltersListView.m */; };
 		C54FC6D61ADB60C900588E9F /* MDBImageFiltersCategoriesListView.h in Headers */ = {isa = PBXBuildFile; fileRef = C54FC6D41ADB60C900588E9F /* MDBImageFiltersCategoriesListView.h */; };
 		C54FC6D71ADB60C900588E9F /* MDBImageFiltersCategoriesListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC6D51ADB60C900588E9F /* MDBImageFiltersCategoriesListView.m */; };
+		C550FC4B1B0E4DE000ECF2FC /* MDUiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C550FC471B0E4C4600ECF2FC /* MDUiKit.framework */; };
+		C550FC4C1B0E4DE000ECF2FC /* MDUiKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C550FC471B0E4C4600ECF2FC /* MDUiKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C55131F214F5F6E80074137C /* MBFractalPropertyTableHeaderView.m */; };
 		C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C55131F914F6A15E0074137C /* MBLSRuleTableViewCell.m */; };
 		C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C551320014F731C70074137C /* MBStepperTableViewCell.m */; };
@@ -69,8 +69,6 @@
 		C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */; };
 		C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */; };
 		C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */; };
-		C58A75761A4A194100309BE0 /* MDBSliderControl.h in Headers */ = {isa = PBXBuildFile; fileRef = C58A75741A4A194100309BE0 /* MDBSliderControl.h */; };
-		C58A75771A4A194100309BE0 /* MDBSliderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A75751A4A194100309BE0 /* MDBSliderControl.m */; };
 		C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
 		C59954051A6465270093CF50 /* FractalScapeFractalModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */; };
 		C59954181A6465710093CF50 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764681A33A537009DDF83 /* LSDrawingRuleType.m */; };
@@ -178,12 +176,6 @@
 		C5BA7FE71A1868C400AFCF70 /* FractalScapeIconSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */; };
 		C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C19D6C1A241297000A1214 /* MBLSRuleTypeTileViewer.h */; };
 		C5C19D6F1A241297000A1214 /* MBLSRuleTypeTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C19D6D1A241297000A1214 /* MBLSRuleTypeTileViewer.m */; };
-		C5C37C581A24E6F1008C5409 /* MDKLayerViewDesignable.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C561A24E6F1008C5409 /* MDKLayerViewDesignable.h */; };
-		C5C37C591A24E6F1008C5409 /* MDKLayerViewDesignable.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C571A24E6F1008C5409 /* MDKLayerViewDesignable.m */; };
-		C5C37C5E1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C5A1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h */; };
-		C5C37C5F1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C5B1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m */; };
-		C5C37C601A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C5C1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h */; };
-		C5C37C611A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C5D1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m */; };
 		C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C621A24EC81008C5409 /* MBLSReplacementRulesListView.h */; };
 		C5C37C651A24EC81008C5409 /* MBLSReplacementRulesListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C631A24EC81008C5409 /* MBLSReplacementRulesListView.m */; };
 		C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C661A24ED70008C5409 /* MBLSReplacementRuleTileView.h */; };
@@ -193,9 +185,6 @@
 		C5CD57CF1A98E42400C70218 /* MDBFractalDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD57CD1A98E42400C70218 /* MDBFractalDocument.h */; };
 		C5CD57D01A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
 		C5CD57D11A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
-		C5CD57D61A9BCDDD00C70218 /* NSString+MDBConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD57D41A9BCDDD00C70218 /* NSString+MDBConvenience.h */; };
-		C5CD57D71A9BCDDD00C70218 /* NSString+MDBConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57D51A9BCDDD00C70218 /* NSString+MDBConvenience.m */; };
-		C5CD57D81A9BCDDD00C70218 /* NSString+MDBConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57D51A9BCDDD00C70218 /* NSString+MDBConvenience.m */; };
 		C5CD57E11A9CE4AC00C70218 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
 		C5CD57E21A9CE4AC00C70218 /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
@@ -252,6 +241,30 @@
 		C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F544811A5B56B3000EE8B9 /* LSFractalRenderer.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C550FC461B0E4C4600ECF2FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C5BC6AA419D318E800BC1D1B;
+			remoteInfo = MDUiKit;
+		};
+		C550FC481B0E4C4600ECF2FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C5BC6AAF19D318E800BC1D1B;
+			remoteInfo = MDUiKitTests;
+		};
+		C550FC4D1B0E4DE000ECF2FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C5BC6AA319D318E800BC1D1B;
+			remoteInfo = MDUiKit;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		C5152F731A2449A300A50D5F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -259,6 +272,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C550FC4C1B0E4DE000ECF2FC /* MDUiKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,8 +308,6 @@
 		C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalLibraryEditViewController.m; path = FractalScape/MBFractalLibraryEditViewController.m; sourceTree = "<group>"; };
 		C52D75D31A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalFiltersControllerViewController.h; path = FractalScape/MDBFractalFiltersControllerViewController.h; sourceTree = "<group>"; };
 		C52D75D41A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalFiltersControllerViewController.m; path = FractalScape/MDBFractalFiltersControllerViewController.m; sourceTree = "<group>"; };
-		C52EA9AB1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKUITableViewDynamicRowHeights.h; path = FractalScape/MDUiKitFramework/MDUiKit/MDKUITableViewDynamicRowHeights.h; sourceTree = "<group>"; };
-		C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUITableViewDynamicRowHeights.m; path = FractalScape/MDUiKitFramework/MDUiKit/MDKUITableViewDynamicRowHeights.m; sourceTree = "<group>"; };
 		C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MDBAddons.h"; path = "FractalScape/NSLayoutConstraint+MDBAddons.h"; sourceTree = "<group>"; };
 		C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MDBAddons.m"; path = "FractalScape/NSLayoutConstraint+MDBAddons.m"; sourceTree = "<group>"; };
 		C52ECB8A1AF967B800465876 /* UIDevice_Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDevice_Hardware.h; sourceTree = "<group>"; };
@@ -322,6 +334,7 @@
 		C54FC6D11ADB60A600588E9F /* MDBImageFiltersListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBImageFiltersListView.m; path = FractalScape/MDBImageFiltersListView.m; sourceTree = "<group>"; };
 		C54FC6D41ADB60C900588E9F /* MDBImageFiltersCategoriesListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBImageFiltersCategoriesListView.h; path = FractalScape/MDBImageFiltersCategoriesListView.h; sourceTree = "<group>"; };
 		C54FC6D51ADB60C900588E9F /* MDBImageFiltersCategoriesListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBImageFiltersCategoriesListView.m; path = FractalScape/MDBImageFiltersCategoriesListView.m; sourceTree = "<group>"; };
+		C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MDUiKit.xcodeproj; path = FractalScape/MDUiKitFramework/MDUiKit.xcodeproj; sourceTree = "<group>"; };
 		C55131F114F5F6E80074137C /* MBFractalPropertyTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalPropertyTableHeaderView.h; path = FractalScape/MBFractalPropertyTableHeaderView.h; sourceTree = "<group>"; };
 		C55131F214F5F6E80074137C /* MBFractalPropertyTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalPropertyTableHeaderView.m; path = FractalScape/MBFractalPropertyTableHeaderView.m; sourceTree = "<group>"; };
 		C55131F814F6A15E0074137C /* MBLSRuleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleTableViewCell.h; path = FractalScape/MBLSRuleTableViewCell.h; sourceTree = "<group>"; };
@@ -344,8 +357,6 @@
 		C57F32BA170209EE0072FE75 /* MBXibAutolayoutTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBXibAutolayoutTableCell.h; path = FractalScape/MBXibAutolayoutTableCell.h; sourceTree = "<group>"; };
 		C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBXibAutolayoutTableCell.m; path = FractalScape/MBXibAutolayoutTableCell.m; sourceTree = "<group>"; };
 		C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SliderControlMedia.xcassets; sourceTree = "<group>"; };
-		C58A75741A4A194100309BE0 /* MDBSliderControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBSliderControl.h; path = FractalScape/MDBSliderControl.h; sourceTree = "<group>"; };
-		C58A75751A4A194100309BE0 /* MDBSliderControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBSliderControl.m; path = FractalScape/MDBSliderControl.m; sourceTree = "<group>"; };
 		C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSDrawingRulesDefaultTypeList.plist; path = resources/LSDrawingRulesDefaultTypeList.plist; sourceTree = "<group>"; };
 		C59954001A6465270093CF50 /* FractalScapesFractalModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FractalScapesFractalModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C59954031A6465270093CF50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -451,12 +462,6 @@
 		C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FractalScapeIconSet.m; sourceTree = "<group>"; };
 		C5C19D6C1A241297000A1214 /* MBLSRuleTypeTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleTypeTileViewer.h; path = FractalScape/MBLSRuleTypeTileViewer.h; sourceTree = "<group>"; };
 		C5C19D6D1A241297000A1214 /* MBLSRuleTypeTileViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBLSRuleTypeTileViewer.m; path = FractalScape/MBLSRuleTypeTileViewer.m; sourceTree = "<group>"; };
-		C5C37C561A24E6F1008C5409 /* MDKLayerViewDesignable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKLayerViewDesignable.h; path = FractalScape/MDUiKitFramework/MDUiKit/MDKLayerViewDesignable.h; sourceTree = "<group>"; };
-		C5C37C571A24E6F1008C5409 /* MDKLayerViewDesignable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKLayerViewDesignable.m; path = FractalScape/MDUiKitFramework/MDUiKit/MDKLayerViewDesignable.m; sourceTree = "<group>"; };
-		C5C37C5A1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKUICollectionViewScrollContentSized.h; path = FractalScape/MDUiKitFramework/MDUiKit/MDKUICollectionViewScrollContentSized.h; sourceTree = "<group>"; };
-		C5C37C5B1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUICollectionViewScrollContentSized.m; path = FractalScape/MDUiKitFramework/MDUiKit/MDKUICollectionViewScrollContentSized.m; sourceTree = "<group>"; };
-		C5C37C5C1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UICollectionView+MDKDragAndDrop.h"; path = "FractalScape/MDUiKitFramework/MDUiKit/UICollectionView+MDKDragAndDrop.h"; sourceTree = "<group>"; };
-		C5C37C5D1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UICollectionView+MDKDragAndDrop.m"; path = "FractalScape/MDUiKitFramework/MDUiKit/UICollectionView+MDKDragAndDrop.m"; sourceTree = "<group>"; };
 		C5C37C621A24EC81008C5409 /* MBLSReplacementRulesListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSReplacementRulesListView.h; path = FractalScape/MBLSReplacementRulesListView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C5C37C631A24EC81008C5409 /* MBLSReplacementRulesListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSReplacementRulesListView.m; path = FractalScape/MBLSReplacementRulesListView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5C37C661A24ED70008C5409 /* MBLSReplacementRuleTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSReplacementRuleTileView.h; path = FractalScape/MBLSReplacementRuleTileView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -465,8 +470,6 @@
 		C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MDBLSObjectTileView.m; path = FractalScape/MDBLSObjectTileView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5CD57CD1A98E42400C70218 /* MDBFractalDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalDocument.h; path = FractalScape/model/MDBFractalDocument.h; sourceTree = "<group>"; };
 		C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalDocument.m; path = FractalScape/model/MDBFractalDocument.m; sourceTree = "<group>"; };
-		C5CD57D41A9BCDDD00C70218 /* NSString+MDBConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MDBConvenience.h"; path = "FractalScape/NSString+MDBConvenience.h"; sourceTree = "<group>"; };
-		C5CD57D51A9BCDDD00C70218 /* NSString+MDBConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MDBConvenience.m"; path = "FractalScape/NSString+MDBConvenience.m"; sourceTree = "<group>"; };
 		C5CD99D619BA21F40037E976 /* FractalScape.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = FractalScape.entitlements; path = FractalScape/FractalScape.entitlements; sourceTree = "<group>"; };
 		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
@@ -543,6 +546,7 @@
 				C5567B011A79F88400882474 /* CoreMotion.framework in Frameworks */,
 				C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */,
 				C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */,
+				C550FC4B1B0E4DE000ECF2FC /* MDUiKit.framework in Frameworks */,
 				C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */,
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
 				C51B58401A90707F0036C47D /* CloudKit.framework in Frameworks */,
@@ -623,6 +627,15 @@
 			name = CollectionViews;
 			sourceTree = "<group>";
 		};
+		C550FC421B0E4C4500ECF2FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C550FC471B0E4C4600ECF2FC /* MDUiKit.framework */,
+				C550FC491B0E4C4600ECF2FC /* MDUiKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C55273F81AFA9C3A00099C64 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,8 +665,6 @@
 		C5567AFB1A79F2AA00882474 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				C5CD57D41A9BCDDD00C70218 /* NSString+MDBConvenience.h */,
-				C5CD57D51A9BCDDD00C70218 /* NSString+MDBConvenience.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -819,23 +830,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		C5C37C551A24E6A1008C5409 /* MDUIKit */ = {
-			isa = PBXGroup;
-			children = (
-				C52EA9AB1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h */,
-				C52EA9AC1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m */,
-				C5C37C5A1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h */,
-				C5C37C5B1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m */,
-				C5C37C5C1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h */,
-				C5C37C5D1A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m */,
-				C5C37C561A24E6F1008C5409 /* MDKLayerViewDesignable.h */,
-				C5C37C571A24E6F1008C5409 /* MDKLayerViewDesignable.m */,
-				C58A75741A4A194100309BE0 /* MDBSliderControl.h */,
-				C58A75751A4A194100309BE0 /* MDBSliderControl.m */,
-			);
-			name = MDUIKit;
-			sourceTree = "<group>";
-		};
 		C5CD57D21A9BC35A00C70218 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
@@ -888,11 +882,11 @@
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
+				C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */,
 				C59EE1951AF3CDFF00CFE254 /* AppBotX */,
 				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
 				C5567AFB1A79F2AA00882474 /* Categories */,
 				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,
-				C5C37C551A24E6A1008C5409 /* MDUIKit */,
 				C5CD99D619BA21F40037E976 /* FractalScape.entitlements */,
 				C5E6B7C414A5359A00DA48BD /* Model */,
 				C5E6B78714A5346300DA48BD /* FractalScape Main */,
@@ -1089,8 +1083,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5C37C581A24E6F1008C5409 /* MDKLayerViewDesignable.h in Headers */,
-				C5C37C5E1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.h in Headers */,
 				C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */,
 				C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */,
 				C59EE1E31AF3CE7F00CFE254 /* NSString+ABXLocalized.h in Headers */,
@@ -1143,7 +1135,6 @@
 				C5F184721AA62B4A00233E49 /* MDBFractalObjectList.h in Headers */,
 				C5F544821A5B56B3000EE8B9 /* LSFractalRenderer.h in Headers */,
 				C59EE1EF1AF3CE7F00CFE254 /* ABXFAQViewController.h in Headers */,
-				C52EA9AD1A259674009C8398 /* MDKUITableViewDynamicRowHeights.h in Headers */,
 				C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */,
 				C5D5423F1A30EDE4006CD47A /* MBColor.h in Headers */,
 				C59EE1E11AF3CE7F00CFE254 /* NSDictionary+ABXQueryString.h in Headers */,
@@ -1152,13 +1143,11 @@
 				C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */,
 				C5D4D54F1AC6E116002113DF /* MDLCloudSearchTableController.h in Headers */,
 				C59EE2071AF3CE7F00CFE254 /* ABXNotificationTableViewCell.h in Headers */,
-				C58A75761A4A194100309BE0 /* MDBSliderControl.h in Headers */,
 				C59EE1F71AF3CE7F00CFE254 /* ABXVersionsViewController.h in Headers */,
 				C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */,
 				C59EE1E51AF3CE7F00CFE254 /* NSString+ABXSizing.h in Headers */,
 				C546D71F1A83D5C3002E869A /* LSFractal.h in Headers */,
 				C54FC6CE1ADB5E5B00588E9F /* MDBFilterControlView.h in Headers */,
-				C5CD57D61A9BCDDD00C70218 /* NSString+MDBConvenience.h in Headers */,
 				C59EE1F51AF3CE7F00CFE254 /* ABXNotificationsViewController.h in Headers */,
 				C5D542371A300FFA006CD47A /* MDBColorCategoriesListView.h in Headers */,
 				C59EE1EB1AF3CE7F00CFE254 /* ABXBaseListViewController.h in Headers */,
@@ -1170,7 +1159,6 @@
 				C533DFD11AE953B6009E9D95 /* MDBAppModel.h in Headers */,
 				C5C37C6C1A24EF9F008C5409 /* MDBLSObjectTileView.h in Headers */,
 				C5F1846E1AA4C67A00233E49 /* MDBFractalCategory.h in Headers */,
-				C5C37C601A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,6 +1196,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C550FC4E1B0E4DE000ECF2FC /* PBXTargetDependency */,
 			);
 			name = FractalScapes;
 			productName = FractalScape;
@@ -1254,6 +1243,12 @@
 			mainGroup = C5E6B77214A5346200DA48BD;
 			productRefGroup = C5E6B77E14A5346300DA48BD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C550FC421B0E4C4500ECF2FC /* Products */;
+					ProjectRef = C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C5E6B77C14A5346200DA48BD /* FractalScapes */,
@@ -1261,6 +1256,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C550FC471B0E4C4600ECF2FC /* MDUiKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MDUiKit.framework;
+			remoteRef = C550FC461B0E4C4600ECF2FC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C550FC491B0E4C4600ECF2FC /* MDUiKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MDUiKitTests.xctest;
+			remoteRef = C550FC481B0E4C4600ECF2FC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C59953FE1A6465270093CF50 /* Resources */ = {
@@ -1343,7 +1355,6 @@
 				C5F184741AA62CA700233E49 /* MDBFractalObjectList.m in Sources */,
 				C5CD57D11A98E42400C70218 /* MDBFractalDocument.m in Sources */,
 				C59954181A6465710093CF50 /* LSDrawingRuleType.m in Sources */,
-				C5CD57D81A9BCDDD00C70218 /* NSString+MDBConvenience.m in Sources */,
 				C599541A1A6465710093CF50 /* LSReplacementRule.m in Sources */,
 				C599541C1A6465710093CF50 /* MBColorCategory.m in Sources */,
 				C5E782B21AF7FB9100CC44A3 /* MBImageFilter.m in Sources */,
@@ -1397,8 +1408,6 @@
 				C59EE1F01AF3CE7F00CFE254 /* ABXFAQViewController.m in Sources */,
 				C59EE20C1AF3CE7F00CFE254 /* ABXPromptView.m in Sources */,
 				C59EE1FC1AF3CE7F00CFE254 /* ABXFaq.m in Sources */,
-				C58A75771A4A194100309BE0 /* MDBSliderControl.m in Sources */,
-				C5C37C611A24E7B4008C5409 /* UICollectionView+MDKDragAndDrop.m in Sources */,
 				C59EE2081AF3CE7F00CFE254 /* ABXNotificationTableViewCell.m in Sources */,
 				C5F1848C1AA8DAA200233E49 /* MDBFractalDocumentLocalCoordinator.m in Sources */,
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,
@@ -1416,7 +1425,6 @@
 				C511307A1A38C93F0083B178 /* MDBFractalPageColorTileView.m in Sources */,
 				C50016101AC6103F00101340 /* MDBNavConTransitionCoordinator.m in Sources */,
 				C5F1846F1AA4C67A00233E49 /* MDBFractalCategory.m in Sources */,
-				C52EA9AE1A259674009C8398 /* MDKUITableViewDynamicRowHeights.m in Sources */,
 				C579626116DD480500A8BCDC /* MBCollectionFractalDocumentCell.m in Sources */,
 				C579626416DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m in Sources */,
 				C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */,
@@ -1425,7 +1433,6 @@
 				C5D4D54E1AC6E116002113DF /* MDLCloudKitManager.m in Sources */,
 				C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */,
 				C5F184811AA7A2A000233E49 /* MDBFractalInfo.m in Sources */,
-				C5C37C591A24E6F1008C5409 /* MDKLayerViewDesignable.m in Sources */,
 				C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */,
 				C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */,
 				C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */,
@@ -1444,8 +1451,6 @@
 				C5D542401A30EDE4006CD47A /* MBColor.m in Sources */,
 				C59EE2001AF3CE7F00CFE254 /* ABXModel.m in Sources */,
 				C564A32919E722FA00839D9E /* MBDraggingItem.m in Sources */,
-				C5C37C5F1A24E7B4008C5409 /* MDKUICollectionViewScrollContentSized.m in Sources */,
-				C5CD57D71A9BCDDD00C70218 /* NSString+MDBConvenience.m in Sources */,
 				C59EE1E01AF3CE7F00CFE254 /* NSDictionary+ABXNSNullAsNull.m in Sources */,
 				C5C37C6D1A24EF9F008C5409 /* MDBLSObjectTileView.m in Sources */,
 				C54FC6CF1ADB5E5B00588E9F /* MDBFilterControlView.m in Sources */,
@@ -1465,6 +1470,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C550FC4E1B0E4DE000ECF2FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MDUiKit;
+			targetProxy = C550FC4D1B0E4DE000ECF2FC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C5E556D714E2E6B300CAAB33 /* Localizable.strings */ = {
@@ -1585,18 +1598,20 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path @executable_path/Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -1720,18 +1735,20 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path @executable_path/Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -1753,18 +1770,20 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path @executable_path/Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";

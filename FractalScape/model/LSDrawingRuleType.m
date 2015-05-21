@@ -10,7 +10,7 @@
 #import "LSDrawingRule.h"
 #import "LSFractal.h"
 
-#import "NSString+MDBConvenience.h"
+#import <MDUiKit/NSString+MDKConvenience.h>
 
 @interface LSDrawingRuleType ()
 @property (nonatomic,readwrite,strong) NSArray*     rulesAsSortedArray;
