@@ -176,8 +176,6 @@
 {
     NSLog(@"Unimplemented sharing to public cloud.");
     
-    MDLCloudKitManager* ckManager = [MDLCloudKitManager new];
-    
     //    [ckManager requestDiscoverabilityPermission:^(BOOL discoverable) {
     //
     //        if (discoverable)
@@ -213,7 +211,7 @@
                                                record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: newURL];
                                            }];
                                            
-                                           [ckManager savePublicRecord: record withCompletionHandler:^(NSError *ckError) {
+                                           [self.appModel.cloudManager savePublicRecord: record withCompletionHandler:^(NSError *ckError) {
                                                //
                                                
                                            }];

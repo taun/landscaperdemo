@@ -10,11 +10,16 @@
 @class MDBAppModel;
 
 
-@interface MDBFractalCloudBrowser : UICollectionViewController
+@interface MDBFractalCloudBrowser : UIViewController <UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate>
 
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
 
+@property (weak, nonatomic) IBOutlet UICollectionView                       *collectionView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView                *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIView                                 *searchBarContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint                     *searchBarContainerHeightConstraint;
+
 - (IBAction)downloadSelected:(id)sender;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+- (IBAction)activateSearch:(id)sender;
 
 @end

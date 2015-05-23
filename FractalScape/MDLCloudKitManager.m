@@ -16,19 +16,22 @@
 
 @implementation MDLCloudKitManager
 
-- (id)init {
+-(instancetype)initWithIdentifier:(NSString *)containerIdentifier
+{
     self = [super init];
     if (self) {
-        _container = [CKContainer containerWithIdentifier: @"iCloud.com.moedae.FractalScapes"];
+        if (containerIdentifier && containerIdentifier.length > 0)
+        {
+            _container = [CKContainer containerWithIdentifier: containerIdentifier];
+        }
+        else
+        {
+            _container = [CKContainer defaultContainer];
+        }
         _publicDatabase = [_container publicCloudDatabase];
     }
     
     return self;
-}
-
-#pragma mark - Daisy Cloud
--(void)fetchPublicFractalRecordsWithCompletionHandler:(void (^)(NSArray *, NSError*))completionHandler {
-    [self fetchPublicRecordsWithType: CKFractalRecordType completionHandler: completionHandler];
 }
 
 #pragma mark - sample cloud
@@ -155,10 +158,25 @@
     }];
 }
 
-- (void)fetchPublicRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records, NSError* error))completionHandler {
+- (void)fetchPublicRecordsWithType:(NSString *)recordType predicate: (NSPredicate*)predicate sortDescriptor: (NSArray*) descriptors completionHandler:(void (^)(NSArray *records, NSError* error))completionHandler
+{
+    if (!predicate) {
+        predicate = [NSPredicate predicateWithValue: YES];
+    }
     
-    NSPredicate *truePredicate = [NSPredicate predicateWithValue:YES];
-    CKQuery *query = [[CKQuery alloc] initWithRecordType:recordType predicate:truePredicate];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType: recordType predicate: predicate];
+    if (descriptors && descriptors.count > 0)
+    {
+        query.sortDescriptors = descriptors;
+    }
+    else if (self.defaultSortDescriptors && self.defaultSortDescriptors.count >0)
+    {
+        query.sortDescriptors = self.defaultSortDescriptors;
+    }
+    else
+    {
+        query.sortDescriptors = nil;
+    }
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc] initWithQuery:query];
     // Just request the name field for all records

@@ -21,6 +21,7 @@ NSString* const kMDBFractalFileName = @"fractal.xml";
 
 NSString * const CKFractalRecordType = @"Fractal";
 NSString * const CKFractalRecordNameField = @"FractalName";
+NSString * const CKFractalRecordNameInsensitiveField = @"FractalNameLowercase";
 NSString * const CKFractalRecordDescriptorField = @"FractalDescriptor";
 NSString * const CKFractalRecordFractalDefinitionAssetField = @"FractalDefinition";
 NSString * const CKFractalRecordFractalThumbnailAssetField = @"FractalThumbnail";
@@ -354,6 +355,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
         LSFractal* fractal = self.fractal;
         
         record[CKFractalRecordNameField] = fractal.name;
+        record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
         record[CKFractalRecordDescriptorField] = fractal.descriptor;
         
         NSURL* fractalURL = [self.fileURL URLByAppendingPathComponent: kMDBFractalFileName];

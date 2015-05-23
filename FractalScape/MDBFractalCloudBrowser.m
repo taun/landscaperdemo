@@ -12,99 +12,216 @@
 #import "MBFractalLibraryViewController.h"
 #import "MDBFractalInfo.h"
 
+#import <MDUiKit/NSString+MDKConvenience.h>
+
 @interface MDBFractalCloudBrowser ()
 
-@property(nonatomic,strong)MDLCloudKitManager           *cloudManager;
-@property (nonatomic,strong) NSArray                    *publicCloudRecords;
-
-@property(nonatomic,assign,getter=isNetworkConnected) BOOL                        networkConnected;
+@property (nonatomic,strong) NSArray                        *publicCloudRecords;
+@property (nonatomic,strong) UISearchController             *searchController;
+@property(nonatomic,assign,getter=isNetworkConnected) BOOL  networkConnected;
 
 @end
 
 @implementation MDBFractalCloudBrowser
 
+-(void) fetchCloudRecordsWithPredicate: (NSPredicate*)predicate andSortDescriptors: (NSArray*)descriptors
+{
+    [self.appModel.cloudManager fetchPublicRecordsWithType: CKFractalRecordType predicate: predicate sortDescriptor: descriptors completionHandler:^(NSArray *records, NSError* error)
+     {
+         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+         [self.activityIndicator stopAnimating];
+         
+         if (!error)
+         {
+             self.publicCloudRecords = records;
+             self.networkConnected = YES;
+             if (self.collectionView.numberOfSections >= 1)
+             {
+                 [self.collectionView reloadSections: [NSIndexSet indexSetWithIndex: 0]];
+             } else
+             {
+                 [self.collectionView reloadData];
+             }
+         } else
+         {
+             self.networkConnected = NO;
+             NSString *title;
+             NSString *message;
+             
+             if (error.code == 4)
+             {
+                 title = NSLocalizedString(@"Can't Browse", nil);
+                 message = error.localizedDescription;
+             } else
+             {
+                 title = NSLocalizedString(@"Can't Browse", nil);
+                 message = error.localizedDescription;
+             }
+             
+             NSString *okActionTitle = NSLocalizedString(@"OK", nil);
+             
+             UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                            message: message
+                                                                     preferredStyle: UIAlertControllerStyleAlert];
+             
+             [alert addAction:[UIAlertAction actionWithTitle: okActionTitle style: UIAlertActionStyleCancel handler:nil]];
+             
+             [self presentViewController: alert animated: YES completion:^{
+                 //
+             }];
+         }
+     }];
+}
+
+-(void)setupSearchController
+{
+    _searchController = [[UISearchController alloc] initWithSearchResultsController: nil];
+    _searchController.searchResultsUpdater = self;
+    _searchController.dimsBackgroundDuringPresentation = NO;
+    _searchController.hidesNavigationBarDuringPresentation = NO;
+    //    _searchController.searchBar.prompt = @"Search by name";
+    UISearchBar* searchBar = _searchController.searchBar;
+    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    searchBar.scopeButtonTitles = @[@"Name",@"Whole Words"];
+    searchBar.showsScopeBar = NO;
+    searchBar.showsCancelButton = NO;
+    searchBar.tintColor = self.view.tintColor;
+    searchBar.scopeBarBackgroundImage = [UIImage imageNamed: @"sky"];
+    [searchBar sizeToFit];
+    [self.searchBarContainer addSubview: searchBar];
+    self.searchBarContainerHeightConstraint.constant = 0;
+    searchBar.delegate = self;
+    _searchController.delegate = self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
-//    self.collectionView.backgroundView = blurEffectView;
-
+    [self setupSearchController];
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.color = [UIColor blueColor];
     [self.activityIndicator startAnimating];
-    self.cloudManager = [[MDLCloudKitManager alloc] init];
-    // Do any additional setup after loading the view, typically from a nib.
-    //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    
-    //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    //    self.navigationItem.rightBarButtonItem = addButton;
 }
 
--(void) viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self updateCollectionViewOffsetForNavAndSearch];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     
+    [self updateSearchResultsForSearchController: self.searchController];
+}
 
-    [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records, NSError* error)
-    {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-        [self.activityIndicator stopAnimating];
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
+        //
         
-        if (!error)
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
+        //
+        [self.collectionView.collectionViewLayout invalidateLayout];
+        if (self.searchController.active)
         {
-            self.publicCloudRecords = records;
-            self.networkConnected = YES;
-            [self.collectionView reloadData];
-        } else
-        {
-            self.networkConnected = NO;
-            NSString *title;
-            NSString *message;
-            
-            if (error.code == 4)
-            {
-                title = NSLocalizedString(@"Can't Browse", nil);
-                message = error.localizedDescription;
-            } else
-            {
-                title = NSLocalizedString(@"Can't Browse", nil);
-                message = error.localizedDescription;
-            }
-
-            NSString *okActionTitle = NSLocalizedString(@"OK", nil);
-
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
-                                                                           message: message
-                                                                    preferredStyle: UIAlertControllerStyleAlert];
-            
-            [alert addAction:[UIAlertAction actionWithTitle: okActionTitle style: UIAlertActionStyleCancel handler:nil]];
-
-            [self presentViewController: alert animated: YES completion:^{
-                //
-            }];
+            [self.searchController.searchBar setNeedsLayout];
+            [self.searchController.searchBar layoutIfNeeded];
         }
-    }];
+        [self updateCollectionViewOffsetForNavAndSearch];
+        
+     }];
+}
 
-//    [self.cloudManager requestDiscoverabilityPermission:^(BOOL discoverable) {
-//        
-//        if (discoverable) {
-//            [self.cloudManager fetchPublicFractalRecordsWithCompletionHandler:^(NSArray *records) {
-//                self.publicCloudRecords = records;
-//                [self.collectionView reloadData];
-//            }];
-//        } else {
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CloudKitAtlas" message:@"Getting your name using Discoverability requires permission." preferredStyle:UIAlertControllerStyleAlert];
-//            
-//            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
-//                [self dismissViewControllerAnimated:YES completion:nil];
-//                
-//            }];
-//            
-//            [alert addAction:action];
-//            
-//            [self presentViewController:alert animated:YES completion:nil];
-//        }
-//    }];
+-(void)updateCollectionViewOffsetForNavAndSearch
+{
+    CGFloat padding = 0;
+    if (self.searchController.active)
+    {
+        padding = self.searchController.searchBar.bounds.size.height;
+    }
+    self.searchBarContainerHeightConstraint.constant = padding;
+
+    CGRect navFrame = self.navigationController.navigationBar.frame;
+    CGFloat navHeight = CGRectGetMaxY(navFrame) + padding;
+    self.collectionView.contentInset = UIEdgeInsetsMake(navHeight, 0, 0, 0);
+    [self.collectionView setContentOffset: CGPointMake(0, -navHeight) animated: YES] ;
+}
+
+#pragma mark - UISearchControllerDelegate
+
+-(void)willPresentSearchController:(UISearchController *)searchController
+{
+}
+
+-(void)presentSearchController:(UISearchController *)searchController
+{
+}
+-(void)didPresentSearchController:(UISearchController *)searchController
+{
+//    searchController.searchBar.showsCancelButton = NO;
+    [self updateCollectionViewOffsetForNavAndSearch];
+    
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+-(void)didDismissSearchController:(UISearchController *)searchController
+{
+    [self updateCollectionViewOffsetForNavAndSearch];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    self.searchController.active = NO;
+}
+
+- (IBAction)activateSearch:(id)sender
+{
+    self.searchController.active = !self.searchController.active;
+}
+
+#pragma mark - UISearchResultsUpdating
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSString* nameMatchString;
+    
+    if (searchController.active)
+    {
+        NSString* searchText =  [searchController.searchBar.text lowercaseString];
+        nameMatchString = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    
+    NSPredicate* predicate;
+    
+    if ([nameMatchString isNonEmptyString])
+    {
+        if (searchController.searchBar.selectedScopeButtonIndex == 0)
+        {
+            predicate = [NSPredicate predicateWithFormat:@"%K BEGINSWITH %@", CKFractalRecordNameInsensitiveField, nameMatchString];
+        }
+        else
+        {
+            predicate = [NSPredicate predicateWithFormat:@"allTokens TOKENMATCHES[cdl] %@", nameMatchString]; // works for full works=tokens
+        }
+        
+    }
+    else
+    {
+        predicate = [NSPredicate predicateWithValue: YES];
+    }
+
+    NSSortDescriptor* byModDate = [NSSortDescriptor sortDescriptorWithKey: @"modificationDate" ascending: NO];
+    NSSortDescriptor* byName = [NSSortDescriptor sortDescriptorWithKey: CKFractalRecordNameField ascending: YES];
+    NSArray* descriptors = @[byModDate, byName];
+
+    [self fetchCloudRecordsWithPredicate: predicate andSortDescriptors: descriptors];
 }
 
 #pragma mark - FlowLayoutDelegate
@@ -125,14 +242,19 @@
 }
 
 #pragma mark - UICollectionViewDataSource
-- (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
-    MBCollectionFractalSupplementaryLabel* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
-                                                                                      withReuseIdentifier: @"FractalLibraryCollectionHeader"
-                                                                                             forIndexPath: indexPath];
-    
-    return rView;
-}
+//- (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+//    
+//    UICollectionReusableView* rView = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+//                                                                                      withReuseIdentifier: @"FractalLibrarySearchHeader"
+//                                                                                             forIndexPath: indexPath];
+//    //rView.backgroundColor = [UIColor clearColor];
+//    if ([[rView subviews] count] == 0)
+//    {
+//        [self.searchController.searchBar sizeToFit];
+//        [rView addSubview: self.searchController.searchBar];
+//    }
+//    return rView;
+//}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {

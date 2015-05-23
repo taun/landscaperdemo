@@ -8,9 +8,9 @@
 
 @interface MDLCloudKitManager : NSObject
 
-#pragma mark - Fractal Cloud
-- (void)fetchPublicFractalRecordsWithCompletionHandler:(void (^)(NSArray *records, NSError* error))completionHandler;
+@property(nonatomic,strong)NSArray*     defaultSortDescriptors;
 
+-(instancetype)initWithIdentifier: (NSString*)containerIdentifier;
 
 #pragma mark - CloudKit
 - (void)requestDiscoverabilityPermission:(void (^)(BOOL discoverable))completionHandler;
@@ -21,7 +21,7 @@
 
 - (void)savePublicRecord:(CKRecord *)record withCompletionHandler:(void (^)(NSError* error))completionHandler;
 - (void)deletePublicRecord:(CKRecord *)record;
-- (void)fetchPublicRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records, NSError* error))completionHandler;
+- (void)fetchPublicRecordsWithType:(NSString *)recordType predicate: (NSPredicate*)predicate sortDescriptor: (NSArray*) descriptors completionHandler:(void (^)(NSArray *records, NSError* error))completionHandler;
 - (void)queryForPublicRecordsWithReferenceNamed:(NSString *)referenceRecordName completionHandler:(void (^)(NSArray *records))completionHandler;
 
 @property (nonatomic, readonly, getter=isSubscribed) BOOL subscribed;

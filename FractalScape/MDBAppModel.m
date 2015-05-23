@@ -9,12 +9,15 @@
 #import "MDBAppModel.h"
 #import "MBFractalPrefConstants.h"
 #import "MDBDocumentController.h"
-
+#import "MDLCloudKitManager.h"
+#import "MDBFractalDocument.h"
 
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";
-
+NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
 
 @implementation MDBAppModel
+
+@synthesize cloudManager = _cloudManager;
 
 -(BOOL)allowPremium
 {
@@ -58,6 +61,19 @@ NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScape
         [self registerDefaults];
     }
     return self;
+}
+
+-(MDLCloudKitManager*)cloudManager
+{
+    if (!_cloudManager) {
+        _cloudManager = [[MDLCloudKitManager alloc] initWithIdentifier: kMDBFractalCloudContainer];
+        
+        NSSortDescriptor* byModDate = [NSSortDescriptor sortDescriptorWithKey: @"modificationDate" ascending: NO];
+        NSSortDescriptor* byName = [NSSortDescriptor sortDescriptorWithKey: CKFractalRecordNameField ascending: YES];
+        
+        _cloudManager.defaultSortDescriptors = @[byModDate, byName];
+    }
+    return _cloudManager;
 }
 
 @end

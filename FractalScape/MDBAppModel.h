@@ -9,15 +9,16 @@
 @import Foundation;
 
 @class MDBDocumentController;
-
+@class MDLCloudKitManager;
 
 extern NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey;
-
+extern NSString *const kMDBFractalCloudContainer;
 
 @interface MDBAppModel : NSObject
 
 @property(nonatomic,assign,getter=isFirstLaunch) BOOL           firstLaunch;
-@property(nonatomic, strong) MDBDocumentController             *documentController;
+@property(nonatomic,strong) MDBDocumentController              *documentController;
+@property(nonatomic,readonly) MDLCloudKitManager                 *cloudManager;
 @property(nonatomic,readonly) BOOL                              allowPremium;
 @property(nonatomic,readonly) BOOL                              useWatermark;
 @end

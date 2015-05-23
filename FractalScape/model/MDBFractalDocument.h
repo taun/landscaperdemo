@@ -20,6 +20,7 @@ extern NSString* const kMDBFractalFileName;
 
 extern NSString * const CKFractalRecordType;
 extern NSString * const CKFractalRecordNameField;
+extern NSString * const CKFractalRecordNameInsensitiveField;
 extern NSString * const CKFractalRecordDescriptorField;
 extern NSString * const CKFractalRecordFractalDefinitionAssetField;
 extern NSString * const CKFractalRecordFractalThumbnailAssetField;

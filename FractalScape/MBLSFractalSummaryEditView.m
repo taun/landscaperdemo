@@ -7,10 +7,11 @@
 //
 
 #import "MBLSFractalSummaryEditView.h"
-#import "MDKLayerViewDesignable.h"
 #import "FractalScapeIconSet.h"
 #import "MDBFractalDocument.h"
 #import "LSFractal.h"
+
+#import <MDUiKit/MDKLayerViewDesignable.h>
 
 @interface MBLSFractalSummaryEditViewer ()
 @property (nonatomic,weak) UIView   *contentView;

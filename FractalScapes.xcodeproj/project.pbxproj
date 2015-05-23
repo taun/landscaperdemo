@@ -59,6 +59,8 @@
 		C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C55131F914F6A15E0074137C /* MBLSRuleTableViewCell.m */; };
 		C551320114F731C70074137C /* MBStepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C551320014F731C70074137C /* MBStepperTableViewCell.m */; };
 		C5567B011A79F88400882474 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5567B001A79F88400882474 /* CoreMotion.framework */; };
+		C5606BEE1B0E5ECB004D9A42 /* MDCloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5606BE01B0E5E5B004D9A42 /* MDCloudKit.framework */; };
+		C5606BEF1B0E5ECB004D9A42 /* MDCloudKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5606BE01B0E5E5B004D9A42 /* MDCloudKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C56080831A9E71ED00134B62 /* UIMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5619DC77CE00774441 /* UIMedia.xcassets */; };
 		C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C56080841A9F77C000134B62 /* MDBCloudManager.h */; };
 		C56080871A9F77C000134B62 /* MDBCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C56080851A9F77C000134B62 /* MDBCloudManager.m */; };
@@ -189,10 +191,8 @@
 		C5CD57E21A9CE4AC00C70218 /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
-		C5D4D54C1AC6E116002113DF /* MDLCloudSearchTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4D5481AC6E116002113DF /* MDLCloudSearchTableController.m */; };
 		C5D4D54D1AC6E116002113DF /* MDLCloudKitManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D5491AC6E116002113DF /* MDLCloudKitManager.h */; };
 		C5D4D54E1AC6E116002113DF /* MDLCloudKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4D54A1AC6E116002113DF /* MDLCloudKitManager.m */; };
-		C5D4D54F1AC6E116002113DF /* MDLCloudSearchTableController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D54B1AC6E116002113DF /* MDLCloudSearchTableController.h */; };
 		C5D4D5531AC73B65002113DF /* MDBCustomTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */; };
 		C5D4D5541AC73B65002113DF /* MDBCustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */; };
 		C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */; };
@@ -263,6 +263,27 @@
 			remoteGlobalIDString = C5BC6AA319D318E800BC1D1B;
 			remoteInfo = MDUiKit;
 		};
+		C5606BDF1B0E5E5B004D9A42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5606BDA1B0E5E5B004D9A42 /* MDCloudKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C550FC801B0E59FE00ECF2FC;
+			remoteInfo = MDCloudKit;
+		};
+		C5606BE11B0E5E5B004D9A42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5606BDA1B0E5E5B004D9A42 /* MDCloudKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C550FC8B1B0E59FE00ECF2FC;
+			remoteInfo = MDCloudKitTests;
+		};
+		C5606BF01B0E5ECB004D9A42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5606BDA1B0E5E5B004D9A42 /* MDCloudKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C550FC7F1B0E59FE00ECF2FC;
+			remoteInfo = MDCloudKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -272,6 +293,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C5606BEF1B0E5ECB004D9A42 /* MDCloudKit.framework in Embed Frameworks */,
 				C550FC4C1B0E4DE000ECF2FC /* MDUiKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -342,6 +364,7 @@
 		C55131FF14F731C70074137C /* MBStepperTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBStepperTableViewCell.h; path = FractalScape/MBStepperTableViewCell.h; sourceTree = "<group>"; };
 		C551320014F731C70074137C /* MBStepperTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBStepperTableViewCell.m; path = FractalScape/MBStepperTableViewCell.m; sourceTree = "<group>"; };
 		C5567B001A79F88400882474 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		C5606BDA1B0E5E5B004D9A42 /* MDCloudKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MDCloudKit.xcodeproj; path = FractalScape/MDCloudKitFramework/MDCloudKit/MDCloudKit.xcodeproj; sourceTree = "<group>"; };
 		C56080841A9F77C000134B62 /* MDBCloudManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBCloudManager.h; sourceTree = "<group>"; };
 		C56080851A9F77C000134B62 /* MDBCloudManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBCloudManager.m; sourceTree = "<group>"; };
 		C564A32719E722FA00839D9E /* MBDraggingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBDraggingItem.h; path = FractalScape/MBDraggingItem.h; sourceTree = "<group>"; };
@@ -474,10 +497,8 @@
 		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalControllerProtocol.h; path = FractalScape/FractalControllerProtocol.h; sourceTree = "<group>"; };
-		C5D4D5481AC6E116002113DF /* MDLCloudSearchTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDLCloudSearchTableController.m; sourceTree = "<group>"; };
 		C5D4D5491AC6E116002113DF /* MDLCloudKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDLCloudKitManager.h; sourceTree = "<group>"; };
 		C5D4D54A1AC6E116002113DF /* MDLCloudKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDLCloudKitManager.m; sourceTree = "<group>"; };
-		C5D4D54B1AC6E116002113DF /* MDLCloudSearchTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDLCloudSearchTableController.h; sourceTree = "<group>"; };
 		C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBCustomTransition.h; path = FractalScape/MDBCustomTransition.h; sourceTree = "<group>"; };
 		C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBCustomTransition.m; path = FractalScape/MDBCustomTransition.m; sourceTree = "<group>"; };
 		C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBTileObjectProtocol.h; path = FractalScape/MDBTileObjectProtocol.h; sourceTree = "<group>"; };
@@ -551,6 +572,7 @@
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
 				C51B58401A90707F0036C47D /* CloudKit.framework in Frameworks */,
 				C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */,
+				C5606BEE1B0E5ECB004D9A42 /* MDCloudKit.framework in Frameworks */,
 				C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -667,6 +689,15 @@
 			children = (
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		C5606BDB1B0E5E5B004D9A42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C5606BE01B0E5E5B004D9A42 /* MDCloudKit.framework */,
+				C5606BE21B0E5E5B004D9A42 /* MDCloudKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C57F32B8170209610072FE75 /* TableCells */ = {
@@ -873,8 +904,6 @@
 			children = (
 				C5D4D5491AC6E116002113DF /* MDLCloudKitManager.h */,
 				C5D4D54A1AC6E116002113DF /* MDLCloudKitManager.m */,
-				C5D4D54B1AC6E116002113DF /* MDLCloudSearchTableController.h */,
-				C5D4D5481AC6E116002113DF /* MDLCloudSearchTableController.m */,
 			);
 			name = CloudKitSharing;
 			sourceTree = "<group>";
@@ -882,6 +911,7 @@
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
+				C5606BDA1B0E5E5B004D9A42 /* MDCloudKit.xcodeproj */,
 				C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */,
 				C59EE1951AF3CDFF00CFE254 /* AppBotX */,
 				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
@@ -1141,7 +1171,6 @@
 				C52ECB8C1AF967B800465876 /* UIDevice_Hardware.h in Headers */,
 				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
 				C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */,
-				C5D4D54F1AC6E116002113DF /* MDLCloudSearchTableController.h in Headers */,
 				C59EE2071AF3CE7F00CFE254 /* ABXNotificationTableViewCell.h in Headers */,
 				C59EE1F71AF3CE7F00CFE254 /* ABXVersionsViewController.h in Headers */,
 				C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */,
@@ -1197,6 +1226,7 @@
 			);
 			dependencies = (
 				C550FC4E1B0E4DE000ECF2FC /* PBXTargetDependency */,
+				C5606BF11B0E5ECB004D9A42 /* PBXTargetDependency */,
 			);
 			name = FractalScapes;
 			productName = FractalScape;
@@ -1245,6 +1275,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = C5606BDB1B0E5E5B004D9A42 /* Products */;
+					ProjectRef = C5606BDA1B0E5E5B004D9A42 /* MDCloudKit.xcodeproj */;
+				},
+				{
 					ProductGroup = C550FC421B0E4C4500ECF2FC /* Products */;
 					ProjectRef = C550FC411B0E4C4500ECF2FC /* MDUiKit.xcodeproj */;
 				},
@@ -1270,6 +1304,20 @@
 			fileType = wrapper.cfbundle;
 			path = MDUiKitTests.xctest;
 			remoteRef = C550FC481B0E4C4600ECF2FC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C5606BE01B0E5E5B004D9A42 /* MDCloudKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MDCloudKit.framework;
+			remoteRef = C5606BDF1B0E5E5B004D9A42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C5606BE21B0E5E5B004D9A42 /* MDCloudKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MDCloudKitTests.xctest;
+			remoteRef = C5606BE11B0E5E5B004D9A42 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1438,7 +1486,6 @@
 				C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */,
 				C59EE1DE1AF3CE7F00CFE254 /* ABXKeychain.m in Sources */,
 				C59EE2121AF3CE7F00CFE254 /* ABXVersionTableViewCell.m in Sources */,
-				C5D4D54C1AC6E116002113DF /* MDLCloudSearchTableController.m in Sources */,
 				C59EE20E1AF3CE7F00CFE254 /* ABXTextView.m in Sources */,
 				C59EE1DC1AF3CE7F00CFE254 /* ABXAppStore.m in Sources */,
 				C522DABE1A2CA8ED00419781 /* LSDrawingRule.m in Sources */,
@@ -1476,6 +1523,11 @@
 			isa = PBXTargetDependency;
 			name = MDUiKit;
 			targetProxy = C550FC4D1B0E4DE000ECF2FC /* PBXContainerItemProxy */;
+		};
+		C5606BF11B0E5ECB004D9A42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MDCloudKit;
+			targetProxy = C5606BF01B0E5ECB004D9A42 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
