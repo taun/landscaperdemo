@@ -17,7 +17,7 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalDocumentLocalCoordinator.h"
 #import "MDBFractalDocumentCloudCoordinator.h"
-
+#import "FractalScapeIconSet.h"
 #import "MDBMainLibraryTabBarController.h"
 #import "MDBFractalCloudBrowser.h"
 #import "MBFractalLibraryViewController.h"
@@ -48,6 +48,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+//    [[UITabBar appearance] setTintColor:[FractalScapeIconSet betaColor]];
 
     srand48(time(0)); // for use of randomize function in other parts of app
     

@@ -26,6 +26,8 @@
 
 -(void) fetchCloudRecordsWithPredicate: (NSPredicate*)predicate andSortDescriptors: (NSArray*)descriptors
 {
+    self.getSelectedButton.enabled = NO;
+    
     [self.appModel.cloudManager fetchPublicRecordsWithType: CKFractalRecordType predicate: predicate sortDescriptor: descriptors completionHandler:^(NSArray *records, NSError* error)
      {
          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
@@ -35,6 +37,7 @@
          {
              self.publicCloudRecords = records;
              self.networkConnected = YES;
+             
              if (self.collectionView.numberOfSections >= 1)
              {
                  [self.collectionView reloadSections: [NSIndexSet indexSetWithIndex: 0]];
@@ -42,6 +45,12 @@
              {
                  [self.collectionView reloadData];
              }
+             
+             if (self.publicCloudRecords.count > 0)
+             {
+                 self.searchButton.enabled = YES;
+             }
+             
          } else
          {
              self.networkConnected = NO;
@@ -329,16 +338,18 @@
 {
     MBCollectionFractalDocumentCell* fractalDocCell = (MBCollectionFractalDocumentCell*)cell;
     fractalDocCell.document = nil;
-//    MDBFractalDocument* document = fractalDocCell.document;
-//    UIDocumentState docState = document.documentState;
-//    
-//    if (docState != UIDocumentStateClosed)
-//    {
-//        [document closeWithCompletionHandler:^(BOOL success) {
-//            //
-//        }];;
-//    }
-    //    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.getSelectedButton.enabled = YES;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[self.collectionView indexPathsForSelectedItems] count] == 0) {
+        self.getSelectedButton.enabled = NO;
+    }
 }
 
 - (IBAction)downloadSelected:(id)sender
