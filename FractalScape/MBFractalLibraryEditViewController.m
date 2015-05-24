@@ -14,7 +14,8 @@
 #import "MDBFractalInfo.h"
 #import "MDBDocumentController.h"
 #import "MDBFractalDocumentCoordinator.h"
-#import "MDLCloudKitManager.h"
+
+#import <MDCloudKit/MDLCloudKitManager.h>
 
 @interface MBFractalLibraryEditViewController ()
 

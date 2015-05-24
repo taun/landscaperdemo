@@ -17,8 +17,8 @@ extern NSString *const kMDBFractalCloudContainer;
 @interface MDBAppModel : NSObject
 
 @property(nonatomic,assign,getter=isFirstLaunch) BOOL           firstLaunch;
-@property(nonatomic,strong) MDBDocumentController              *documentController;
-@property(nonatomic,readonly) MDLCloudKitManager                 *cloudManager;
+@property(nonatomic,strong) MDBDocumentController               *documentController;
+@property(nonatomic,readonly) MDLCloudKitManager                *cloudManager;
 @property(nonatomic,readonly) BOOL                              allowPremium;
 @property(nonatomic,readonly) BOOL                              useWatermark;
 @end

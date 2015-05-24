@@ -2572,7 +2572,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="uiW-6f-xyP" id="k7B-KU-s9f"/>
-                        <outlet property="collectionView" destination="ODs-9j-jAA" id="z3S-59-A4g"/>
+                        <outlet property="collectionView" destination="ODs-9j-jAA" id="A5M-le-5eV"/>
                         <outlet property="getSelectedButton" destination="83T-gT-GKr" id="SFR-9v-zjk"/>
                         <outlet property="searchBarContainer" destination="1UX-71-Kq3" id="dge-SO-FfJ"/>
                         <outlet property="searchBarContainerHeightConstraint" destination="DIa-9j-Wls" id="DWl-AV-ryT"/>

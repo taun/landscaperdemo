@@ -191,8 +191,6 @@
 		C5CD57E21A9CE4AC00C70218 /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
-		C5D4D54D1AC6E116002113DF /* MDLCloudKitManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D5491AC6E116002113DF /* MDLCloudKitManager.h */; };
-		C5D4D54E1AC6E116002113DF /* MDLCloudKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4D54A1AC6E116002113DF /* MDLCloudKitManager.m */; };
 		C5D4D5531AC73B65002113DF /* MDBCustomTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */; };
 		C5D4D5541AC73B65002113DF /* MDBCustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */; };
 		C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */; };
@@ -497,8 +495,6 @@
 		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalControllerProtocol.h; path = FractalScape/FractalControllerProtocol.h; sourceTree = "<group>"; };
-		C5D4D5491AC6E116002113DF /* MDLCloudKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDLCloudKitManager.h; sourceTree = "<group>"; };
-		C5D4D54A1AC6E116002113DF /* MDLCloudKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDLCloudKitManager.m; sourceTree = "<group>"; };
 		C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBCustomTransition.h; path = FractalScape/MDBCustomTransition.h; sourceTree = "<group>"; };
 		C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBCustomTransition.m; path = FractalScape/MDBCustomTransition.m; sourceTree = "<group>"; };
 		C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBTileObjectProtocol.h; path = FractalScape/MDBTileObjectProtocol.h; sourceTree = "<group>"; };
@@ -899,15 +895,6 @@
 			name = FractalResources;
 			sourceTree = "<group>";
 		};
-		C5D4D5501AC6E11B002113DF /* CloudKitSharing */ = {
-			isa = PBXGroup;
-			children = (
-				C5D4D5491AC6E116002113DF /* MDLCloudKitManager.h */,
-				C5D4D54A1AC6E116002113DF /* MDLCloudKitManager.m */,
-			);
-			name = CloudKitSharing;
-			sourceTree = "<group>";
-		};
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
@@ -1010,7 +997,6 @@
 		C5F184751AA665CC00233E49 /* CloudAndFileManagement */ = {
 			isa = PBXGroup;
 			children = (
-				C5D4D5501AC6E11B002113DF /* CloudKitSharing */,
 				C56080841A9F77C000134B62 /* MDBCloudManager.h */,
 				C56080851A9F77C000134B62 /* MDBCloudManager.m */,
 				C5F1847A1AA6751200233E49 /* MDBDocumentController.h */,
@@ -1118,7 +1104,6 @@
 				C59EE1E31AF3CE7F00CFE254 /* NSString+ABXLocalized.h in Headers */,
 				C500160F1AC6103F00101340 /* MDBNavConTransitionCoordinator.h in Headers */,
 				C54FC6D21ADB60A600588E9F /* MDBImageFiltersListView.h in Headers */,
-				C5D4D54D1AC6E116002113DF /* MDLCloudKitManager.h in Headers */,
 				C5D4D5531AC73B65002113DF /* MDBCustomTransition.h in Headers */,
 				C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */,
 				C51130791A38C93F0083B178 /* MDBFractalPageColorTileView.h in Headers */,
@@ -1478,7 +1463,6 @@
 				C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */,
 				C5D542381A300FFA006CD47A /* MDBColorCategoriesListView.m in Sources */,
 				C59EE1F81AF3CE7F00CFE254 /* ABXVersionsViewController.m in Sources */,
-				C5D4D54E1AC6E116002113DF /* MDLCloudKitManager.m in Sources */,
 				C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */,
 				C5F184811AA7A2A000233E49 /* MDBFractalInfo.m in Sources */,
 				C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */,

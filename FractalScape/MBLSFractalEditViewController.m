@@ -29,7 +29,6 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
-#import "MDLCloudKitManager.h"
 #import "LSFractalRenderer.h"
 #import "MDBTileObjectProtocol.h"
 

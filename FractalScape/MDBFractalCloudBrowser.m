@@ -4,7 +4,6 @@
 
 #import "MDBFractalCloudBrowser.h"
 #import "MDBAppModel.h"
-#import "MDLCloudKitManager.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
 #import "MBCollectionFractalDocumentCell.h"
 #import "MDBDocumentController.h"
@@ -13,187 +12,31 @@
 #import "MDBFractalInfo.h"
 
 #import <MDUiKit/NSString+MDKConvenience.h>
+#import <MDCloudKit/MDLCloudKitManager.h>
 
 @interface MDBFractalCloudBrowser ()
 
-@property (nonatomic,strong) NSArray                        *publicCloudRecords;
-@property (nonatomic,strong) UISearchController             *searchController;
-@property(nonatomic,assign,getter=isNetworkConnected) BOOL  networkConnected;
 
 @end
 
 @implementation MDBFractalCloudBrowser
 
--(void) fetchCloudRecordsWithPredicate: (NSPredicate*)predicate andSortDescriptors: (NSArray*)descriptors
+-(void)viewDidLoad
 {
-    self.getSelectedButton.enabled = NO;
+    self.cloudDownloadKeys = @[CKFractalRecordNameField,CKFractalRecordDescriptorField,CKFractalRecordFractalDefinitionAssetField,CKFractalRecordFractalThumbnailAssetField];
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    self.activityIndicator.color = [UIColor blueColor];
     
-    [self.appModel.cloudManager fetchPublicRecordsWithType: CKFractalRecordType predicate: predicate sortDescriptor: descriptors completionHandler:^(NSArray *records, NSError* error)
-     {
-         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-         [self.activityIndicator stopAnimating];
-         
-         if (!error)
-         {
-             self.publicCloudRecords = records;
-             self.networkConnected = YES;
-             
-             if (self.collectionView.numberOfSections >= 1)
-             {
-                 [self.collectionView reloadSections: [NSIndexSet indexSetWithIndex: 0]];
-             } else
-             {
-                 [self.collectionView reloadData];
-             }
-             
-             if (self.publicCloudRecords.count > 0)
-             {
-                 self.searchButton.enabled = YES;
-             }
-             
-         } else
-         {
-             self.networkConnected = NO;
-             NSString *title;
-             NSString *message;
-             
-             if (error.code == 4)
-             {
-                 title = NSLocalizedString(@"Can't Browse", nil);
-                 message = error.localizedDescription;
-             } else
-             {
-                 title = NSLocalizedString(@"Can't Browse", nil);
-                 message = error.localizedDescription;
-             }
-             
-             NSString *okActionTitle = NSLocalizedString(@"OK", nil);
-             
-             UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
-                                                                            message: message
-                                                                     preferredStyle: UIAlertControllerStyleAlert];
-             
-             [alert addAction:[UIAlertAction actionWithTitle: okActionTitle style: UIAlertActionStyleCancel handler:nil]];
-             
-             [self presentViewController: alert animated: YES completion:^{
-                 //
-             }];
-         }
-     }];
+    [super viewDidLoad];
 }
 
 -(void)setupSearchController
 {
-    _searchController = [[UISearchController alloc] initWithSearchResultsController: nil];
-    _searchController.searchResultsUpdater = self;
-    _searchController.dimsBackgroundDuringPresentation = NO;
-    _searchController.hidesNavigationBarDuringPresentation = NO;
-    //    _searchController.searchBar.prompt = @"Search by name";
-    UISearchBar* searchBar = _searchController.searchBar;
-    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    [super setupSearchController];
+    UISearchBar* searchBar = self.searchController.searchBar;
     searchBar.scopeButtonTitles = @[@"Name",@"Whole Words"];
-    searchBar.showsScopeBar = NO;
-    searchBar.showsCancelButton = NO;
-    searchBar.tintColor = self.view.tintColor;
     searchBar.scopeBarBackgroundImage = [UIImage imageNamed: @"sky"];
     [searchBar sizeToFit];
-    [self.searchBarContainer addSubview: searchBar];
-    self.searchBarContainerHeightConstraint.constant = 0;
-    searchBar.delegate = self;
-    _searchController.delegate = self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self setupSearchController];
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];
-    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    self.activityIndicator.color = [UIColor blueColor];
-    [self.activityIndicator startAnimating];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self updateCollectionViewOffsetForNavAndSearch];
-}
-
--(void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [self updateSearchResultsForSearchController: self.searchController];
-}
-
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-    
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-        
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-        [self.collectionView.collectionViewLayout invalidateLayout];
-        if (self.searchController.active)
-        {
-            [self.searchController.searchBar setNeedsLayout];
-            [self.searchController.searchBar layoutIfNeeded];
-        }
-        [self updateCollectionViewOffsetForNavAndSearch];
-        
-     }];
-}
-
--(void)updateCollectionViewOffsetForNavAndSearch
-{
-    CGFloat padding = 0;
-    if (self.searchController.active)
-    {
-        padding = self.searchController.searchBar.bounds.size.height;
-    }
-    self.searchBarContainerHeightConstraint.constant = padding;
-
-    CGRect navFrame = self.navigationController.navigationBar.frame;
-    CGFloat navHeight = CGRectGetMaxY(navFrame) + padding;
-    self.collectionView.contentInset = UIEdgeInsetsMake(navHeight, 0, 0, 0);
-    [self.collectionView setContentOffset: CGPointMake(0, -navHeight) animated: YES] ;
-}
-
-#pragma mark - UISearchControllerDelegate
-
--(void)willPresentSearchController:(UISearchController *)searchController
-{
-}
-
--(void)presentSearchController:(UISearchController *)searchController
-{
-}
--(void)didPresentSearchController:(UISearchController *)searchController
-{
-//    searchController.searchBar.showsCancelButton = NO;
-    [self updateCollectionViewOffsetForNavAndSearch];
-    
-    self.tabBarController.tabBar.hidden = YES;
-}
-
--(void)didDismissSearchController:(UISearchController *)searchController
-{
-    [self updateCollectionViewOffsetForNavAndSearch];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    self.searchController.active = NO;
-}
-
-- (IBAction)activateSearch:(id)sender
-{
-    self.searchController.active = !self.searchController.active;
 }
 
 #pragma mark - UISearchResultsUpdating
@@ -233,22 +76,6 @@
     [self fetchCloudRecordsWithPredicate: predicate andSortDescriptors: descriptors];
 }
 
-#pragma mark - FlowLayoutDelegate
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    CGFloat minInset = 2.0;
-    
-    UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)collectionViewLayout;
-    CGFloat itemWidth = layout.itemSize.width;
-    CGFloat rowWidth = collectionView.bounds.size.width - (2*minInset);
-    NSInteger numItems = floorf(rowWidth/itemWidth);
-    CGFloat margins = floorf((rowWidth - (numItems * itemWidth))/(numItems+1.0));
-    //    margins = MAX(margins, 4.0);
-    UIEdgeInsets oldInsets = layout.sectionInset;
-    UIEdgeInsets insets = UIEdgeInsetsMake(oldInsets.top, margins, oldInsets.bottom, margins);
-    return insets;
-    //    return 20.0;
-}
 
 #pragma mark - UICollectionViewDataSource
 //- (UICollectionReusableView*) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -265,22 +92,7 @@
 //    return rView;
 //}
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return self.isNetworkConnected ? 1 : 0;
-}
 
-- (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section
-{
-    if (self.publicCloudRecords)
-    {
-        return self.publicCloudRecords.count;
-    }
-    else
-    {
-        return 1;
-    }
-}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -340,17 +152,6 @@
     fractalDocCell.document = nil;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    self.getSelectedButton.enabled = YES;
-}
-
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([[self.collectionView indexPathsForSelectedItems] count] == 0) {
-        self.getSelectedButton.enabled = NO;
-    }
-}
 
 - (IBAction)downloadSelected:(id)sender
 {
@@ -369,13 +170,15 @@
                 MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[self.collectionView cellForItemAtIndexPath: path];
                 MDBFractalDocumentProxy* proxy = documentInfoCell.document;
                 
-                MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
+                MDBAppModel* appModel = (MDBAppModel*)self.appModel;
+                
+                MDBFractalInfo* fractalInfo = [appModel.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
                 
                 fractalInfo.document.thumbnail = proxy.thumbnail;
                 fractalInfo.changeDate = [NSDate date];
                 [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
                 
-                [self.appModel.documentController setFractalInfoHasNewContents: fractalInfo];
+                [appModel.documentController setFractalInfoHasNewContents: fractalInfo];
                 
                 [fractalInfo.document closeWithCompletionHandler:nil];
                 
