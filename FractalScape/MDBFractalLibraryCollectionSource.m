@@ -124,7 +124,13 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Depends on viewController being nil for the LibraryEdit instance of the dataSource. Meaning the following does nothing in that case.
     [self.viewController libraryCollectionView: collectionView didSelectItemAtIndexPath: indexPath];
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.viewController libraryCollectionView: collectionView didDeselectItemAtIndexPath: indexPath];
 }
 
 @end

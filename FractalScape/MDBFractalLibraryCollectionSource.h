@@ -16,6 +16,7 @@
 @protocol MDBFractalLibraryCollectionDelegate <NSObject>
 
 -(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+-(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

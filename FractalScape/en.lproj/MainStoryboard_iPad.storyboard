@@ -2181,7 +2181,7 @@
                                 <action selector="editingIsDoneButton:" destination="9pe-kV-foC" id="2Qh-EF-bzJ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Delete" id="FTe-KF-P8m">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Delete" id="FTe-KF-P8m">
                             <connections>
                                 <action selector="deleteCurrentSelections:" destination="9pe-kV-foC" id="tHx-6F-JeM"/>
                             </connections>
@@ -2192,7 +2192,11 @@
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDK-oe-bAj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="LbT-BM-2ct" customClass="MDBFractalLibraryCollectionSource"/>
+                <customObject id="LbT-BM-2ct" customClass="MDBFractalLibraryCollectionSource">
+                    <connections>
+                        <outlet property="viewController" destination="9pe-kV-foC" id="K5I-tA-i5T"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="5143" y="-624"/>
         </scene>

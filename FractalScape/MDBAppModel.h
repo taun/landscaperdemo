@@ -7,6 +7,7 @@
 //
 
 @import Foundation;
+#import <MDCloudKit/MDCKCloudManagerAppModelProtocol.h>
 
 @class MDBDocumentController;
 @class MDLCloudKitManager;
@@ -14,7 +15,7 @@
 extern NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey;
 extern NSString *const kMDBFractalCloudContainer;
 
-@interface MDBAppModel : NSObject
+@interface MDBAppModel : NSObject <MDCKCloudManagerAppModelProtocol>
 
 @property(nonatomic,assign,getter=isFirstLaunch) BOOL           firstLaunch;
 @property(nonatomic,strong) MDBDocumentController               *documentController;

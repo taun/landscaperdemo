@@ -36,6 +36,7 @@
                                                                                 target: self
                                                                                 action: @selector(shareButtonPressed:)];
     
+    shareButton.enabled = NO;
     
     NSMutableArray* items;
     //    [items addObject: backButton];
@@ -59,6 +60,32 @@
         });
     }
 }
+
+-(void) rightButtonsEnabledState: (BOOL)state
+{
+    for (UIBarButtonItem* button in self.navigationItem.rightBarButtonItems)
+    {
+        button.enabled = state;
+    }
+}
+
+#pragma mark - MDBFractalLibraryCollectionDelegate
+-(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (collectionView.indexPathsForSelectedItems.count > 0)
+    {
+        [self rightButtonsEnabledState: YES];
+    }
+}
+
+-(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (collectionView.indexPathsForSelectedItems.count == 0)
+    {
+        [self rightButtonsEnabledState: NO];
+    }
+}
+
 #pragma message "TODO: implement Are You Sure? alert before deleting"
 - (IBAction)deleteCurrentSelections:(id)sender
 {
@@ -170,18 +197,47 @@
                 [self.collectionView deselectItemAtIndexPath: path animated: YES];
             }
         }
+        
+        [self rightButtonsEnabledState: NO];
     }
+}
+
+-(void) sharingStatusAlert: (NSError*)error
+{
+    NSString* title;
+    NSString* message;
+    
+    if (!error)
+    {
+        title = @"Thanks for sharing!";
+    }
+    else
+    {
+        title = error.localizedDescription;
+        message = error.localizedRecoverySuggestion;
+    }
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    
+    [alert addAction: defaultAction];
+    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+//    ppc.barButtonItem = sender;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void) shareToPublicCloudDocument: (MDBFractalDocument*)fractalDocument
 {
-    NSLog(@"Unimplemented sharing to public cloud.");
-    
-    //    [ckManager requestDiscoverabilityPermission:^(BOOL discoverable) {
-    //
-    //        if (discoverable)
-    //        {
-    
     NSError* readError;
     NSFileCoordinator* fileCoordinator = [[NSFileCoordinator alloc]initWithFilePresenter: fractalDocument];
     
@@ -197,6 +253,7 @@
                                            CKRecord* record;
                                            record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
                                            record[CKFractalRecordNameField] = fractal.name;
+                                           record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
                                            record[CKFractalRecordDescriptorField] = fractal.descriptor;
                                            
                                            
@@ -214,7 +271,7 @@
                                            
                                            [self.appModel.cloudManager savePublicRecord: record withCompletionHandler:^(NSError *ckError) {
                                                //
-                                               
+                                               [self sharingStatusAlert: ckError];
                                            }];
                                            
                                            completionHandler();
@@ -244,4 +301,6 @@
     self.appModel = nil;
     [self.navigationController popViewControllerAnimated: NO];
 }
+
+
 @end

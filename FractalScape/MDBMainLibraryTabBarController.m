@@ -84,8 +84,8 @@
             _cloudController = (MDBFractalCloudBrowser*)realController;
             _cloudController.appModel = self.appModel;
         }
-        else if ([realController respondsToSelector: NSSelectorFromString(@"setAppModel")]) {
-            [realController performSelector: NSSelectorFromString(@"setAppModel") withObject: self.appModel];
+        else if ([realController respondsToSelector: NSSelectorFromString(@"setAppModel:")]) {
+            [realController performSelector: NSSelectorFromString(@"setAppModel:") withObject: self.appModel];
         }
     }
 }
