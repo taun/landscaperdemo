@@ -11,8 +11,6 @@
 #import "MBFractalLibraryViewController.h"
 #import "MDBFractalInfo.h"
 
-#import <MDUiKit/NSString+MDKConvenience.h>
-#import <MDCloudKit/MDLCloudKitManager.h>
 
 @interface MDBFractalCloudBrowser ()
 

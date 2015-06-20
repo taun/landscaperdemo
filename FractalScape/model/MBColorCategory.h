@@ -7,6 +7,7 @@
 //
 
 @import Foundation;
+#import <MDUiKit/NSString+MDKConvenience.h>
 
 
 @class MBColor;

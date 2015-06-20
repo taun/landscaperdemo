@@ -9,7 +9,6 @@
 #import "MBColorCategory.h"
 #import "MBColor.h"
 
-#import <MDUiKit/NSString+MDKConvenience.h>
 
 @implementation MBColorCategory
 

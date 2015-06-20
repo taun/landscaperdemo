@@ -13,7 +13,6 @@
 #import "MBColor.h"
 #import "MBImageFilter.h"
 
-#import <MDUiKit/NSString+MDKConvenience.h>
 
 #include <math.h>
 

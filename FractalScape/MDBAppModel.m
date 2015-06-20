@@ -11,7 +11,6 @@
 #import "MDBDocumentController.h"
 #import "MDBFractalDocument.h"
 
-#import <MDCloudKit/MDLCloudKitManager.h>
 
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";
 NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
@@ -22,7 +21,7 @@ NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
 
 -(BOOL)allowPremium
 {
-    return YES;
+    return NO;
 }
 
 -(BOOL)useWatermark
