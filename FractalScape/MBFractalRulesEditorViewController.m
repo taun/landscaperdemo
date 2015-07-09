@@ -85,12 +85,13 @@
     [self sourceDragLongGesture: sender];
 }
 
-- (IBAction)ruleTypeTapGesture:(UITapGestureRecognizer *)sender {
+- (IBAction)sourceTapGesture:(UIGestureRecognizer *)sender {
     [self cleanUpUIState];
     CGPoint touchPoint = [sender locationInView: self.view];
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
     [self showInfoForView: viewUnderTouch];
 }
+
 - (IBAction)rulesStartTapGesture:(UITapGestureRecognizer *)sender {
     [self cleanUpUIState];
     NSString* infoString = @"Holder for the starting set of rules to draw.";

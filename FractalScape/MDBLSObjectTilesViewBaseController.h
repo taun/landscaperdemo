@@ -65,7 +65,8 @@
  
  @param sender the gesture recognaizer.
  */
-- (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender;
+- (IBAction)sourceDragLongGesture:(UIGestureRecognizer *)sender;
+- (IBAction)sourceTapGesture:(UIGestureRecognizer *)sender;
 /*!
  A convenience method to verify a destination classes drag and drop protocol compliance.
  

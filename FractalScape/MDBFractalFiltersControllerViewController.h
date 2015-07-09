@@ -30,7 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIVisualEffectView             *visualEffectView;
 
-- (IBAction)filterSourceTapGesture:(UITapGestureRecognizer *)sender;
-- (IBAction)filtersLongPress:(UILongPressGestureRecognizer *)sender;
+- (IBAction)sourceTapGesture:(UIGestureRecognizer *)sender;
+- (IBAction)filtersLongPress:(UIGestureRecognizer *)sender;
 
 @end

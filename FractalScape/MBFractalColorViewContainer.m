@@ -97,7 +97,7 @@
     [self sourceDragLongGesture: sender];
 }
 
-- (IBAction)colorSourceTapGesture:(UITapGestureRecognizer *)sender {
+- (IBAction)sourceTapGesture:(UITapGestureRecognizer *)sender {
     CGPoint touchPoint = [sender locationInView: self.view];
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
     [self showInfoForView: viewUnderTouch];

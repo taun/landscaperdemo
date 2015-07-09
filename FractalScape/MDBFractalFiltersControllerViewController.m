@@ -15,7 +15,7 @@
 @interface MDBFractalFiltersControllerViewController ()
 
 @property (nonatomic,strong) MBImageFilter          *tappedFilter;
-@property (nonatomic,weak) NSTimer                  *removalTImer;
+@property (nonatomic,weak) NSTimer                  *removalTimer;
 
 @end
 
@@ -72,7 +72,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [self removedTappedFilterFromObjectList: self.removalTImer];
+    [self removedTappedFilterFromObjectList: self.removalTimer];
     [super viewDidDisappear:animated];
 }
 
@@ -99,18 +99,20 @@
     self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)filterSourceTapGesture:(UITapGestureRecognizer *)sender {
+- (IBAction)sourceTapGesture:(UIGestureRecognizer *)sender
+{
     CGPoint touchPoint = [sender locationInView: self.view];
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderTouch = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: touchPoint withEvent: nil];
     [self showInfoForView: viewUnderTouch];
     MDBLSObjectTileView* tappedView = (MDBLSObjectTileView*)viewUnderTouch;
     
-    if ([tappedView isKindOfClass: [MDBLSObjectTileView class]])
+    if ([tappedView isKindOfClass: [MDBLSObjectTileView class]] && (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateBegan))
     {
         MBImageFilter* filter = (MBImageFilter*)tappedView.representedObject;
         [self qeueTappedFilter: filter];
@@ -122,24 +124,27 @@
     [self sourceDragLongGesture: sender];
 }
 
--(void)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender
+-(void)sourceDragLongGesture:(UIGestureRecognizer *)sender
 {
-    [self removedTappedFilterFromObjectList: self.removalTImer];
-    
+//    [self removedTappedFilterFromObjectList: self.removalTimer];
+    if (sender.state == UIGestureRecognizerStateChanged)
+    {
+        [self removedTappedFilterFromObjectList: self.removalTimer];
+    }
     [super sourceDragLongGesture: sender];
 }
 
 -(void)qeueTappedFilter: (MBImageFilter*)filter
 {
-    [self removedTappedFilterFromObjectList: self.removalTImer];
+    [self removedTappedFilterFromObjectList: self.removalTimer];
     
     self.tappedFilter = filter;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.destinationView.objectList addObject: self.tappedFilter];
-        NSTimer* removalTimer = [NSTimer timerWithTimeInterval: 3.0 target: self selector: @selector(removedTappedFilterFromObjectList:) userInfo: nil repeats: NO];
+        NSTimer* removalTimer = [NSTimer timerWithTimeInterval: 2.0 target: self selector: @selector(removedTappedFilterFromObjectList:) userInfo: nil repeats: NO];
         [[NSRunLoop mainRunLoop]addTimer: removalTimer forMode: NSDefaultRunLoopMode];
-        self.removalTImer = removalTimer;
+        self.removalTimer = removalTimer;
     });
 }
 

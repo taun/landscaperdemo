@@ -110,8 +110,20 @@
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
-- (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender {
+- (void)sourceTapGesture:(UIGestureRecognizer *)sender
+{
+    
+}
+
+- (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender
+{
     UIGestureRecognizerState gestureState = sender.state;
+
+    if (gestureState == UIGestureRecognizerStateBegan)
+    {
+        [self sourceTapGesture: sender];
+    }
+
     BOOL reloadCell = NO;
     
     if (!self.draggingItem) {
@@ -131,7 +143,7 @@
     // Scroll to keep dragging in view
     if (self.autoScroll)
     {
-        CGFloat scrollTouchInsets = -5.0;
+        CGFloat scrollTouchInsets = -10.0; // start scrolling when this close to the edge
         CGRect dropImageRect = CGRectInset(self.draggingItem.view.frame, scrollTouchInsets, scrollTouchInsets);
         CGRect touchRect = CGRectInset(CGRectMake(touchPoint.x, touchPoint.y, 1, 1), scrollTouchInsets*2, scrollTouchInsets*2);
         CGRect visibleRect = CGRectUnion(dropImageRect, touchRect);
@@ -139,26 +151,47 @@
         CGFloat maxX = CGRectGetMaxX(visibleRect);
         CGFloat minY = CGRectGetMinY(visibleRect);
         CGFloat maxY = CGRectGetMaxY(visibleRect);
-        CGPoint scrollTopLeft = [self.view convertPoint: CGPointMake(minX, minY) toView: self.scrollView];
-        // does not account for scroll zooming.
-        CGFloat width = maxX - minX;
-        CGFloat height = maxY - minY;
         
-        if (scrollTopLeft.y > 0.0) {
-            CGRect scrollVisibleRect = CGRectMake(scrollTopLeft.x, scrollTopLeft.y, width, height);
-//            NSString* scrollDescription = NSStringFromCGRect(scrollVisibleRect);
+        CGFloat scrollStepSize = 4.0;
+        
+        CGFloat scrollTouchTop = [self.view convertPoint: CGPointMake(minX, minY) toView: self.scrollView].y;
+        CGFloat scrollTouchBottom = [self.view convertPoint: CGPointMake(maxX, maxY) toView: self.scrollView].y;
+
+        CGFloat currentScrollViewOffsetY = self.scrollView.contentOffset.y;
+        CGFloat maxScrollViewContentOffsetY = self.scrollView.contentSize.height - self.scrollView.bounds.size.height - scrollStepSize;
+        // does not account for scroll zooming.
+//        CGFloat width = maxX - minX;
+//        CGFloat height = maxY - minY;
+        CGFloat newOffsetStep = 0;
+        
+        if (scrollTouchTop < currentScrollViewOffsetY && currentScrollViewOffsetY > scrollStepSize)
+        {
+            newOffsetStep = -scrollStepSize;
+        }
+        else if (scrollTouchBottom > (currentScrollViewOffsetY + self.scrollView.bounds.size.height) && currentScrollViewOffsetY < maxScrollViewContentOffsetY)
+        {
+            newOffsetStep = scrollStepSize;
+        }
+        
+        if (newOffsetStep) // don't scroll if already at top or bottom of view
+        {
             // animation block because no animation scrolls too quickly on iPhone
             if ((YES))
             {
-                [UIView animateKeyframesWithDuration: 1.0
-                                               delay: 0.0
-                                             options: UIViewAnimationOptionAllowAnimatedContent | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
-                                          animations:^{
-                                              //
-                                              [self.scrollView scrollRectToVisible: scrollVisibleRect animated: NO];
-                                          } completion:^(BOOL finished) {
-                                              //
-                                          }];
+                
+                [UIView animateWithDuration: 1.0
+                                      delay: 0.0
+                     usingSpringWithDamping: 1.0
+                      initialSpringVelocity: 0.0
+                                    options: UIViewAnimationOptionAllowAnimatedContent | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
+                                 animations: ^{
+                                     //
+                                     self.scrollView.contentOffset = CGPointMake(0, currentScrollViewOffsetY+newOffsetStep);
+                                 }
+                                 completion:^(BOOL finished) {
+                                     //
+                                 }];
+                
             }
         }
     }

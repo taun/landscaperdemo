@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -983,13 +983,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Help:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Rj-PN-E3N">
-                                                            <rect key="frame" x="12" y="11" width="41" height="21"/>
+                                                            <rect key="frame" x="12" y="11" width="40.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwY-8R-21a">
-                                                            <rect key="frame" x="61" y="12" width="316" height="21"/>
+                                                            <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.4784313738" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1048,8 +1048,10 @@
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls" customClass="MDBFilterControlView">
                                                     <rect key="frame" x="4" y="4" width="388" height="50"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press &amp; Hold Filter, Drag to holder below" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhA-5f-k1Y">
-                                                            <rect key="frame" x="47" y="14" width="295" height="20"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhA-5f-k1Y">
+                                                            <rect key="frame" x="51" y="6" width="287" height="38.5"/>
+                                                            <string key="text">Tap an icon to preview filter
+Drag icon to holder below to apply filter</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1060,9 +1062,10 @@
                                                     <constraints>
                                                         <constraint firstItem="jhA-5f-k1Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DPs-RN-Xhr" secondAttribute="leading" constant="4" id="BGu-a5-a4M"/>
                                                         <constraint firstAttribute="height" constant="50" id="Cwa-TT-hqN"/>
-                                                        <constraint firstItem="jhA-5f-k1Y" firstAttribute="top" secondItem="DPs-RN-Xhr" secondAttribute="top" constant="14" id="GiJ-oj-BR2"/>
+                                                        <constraint firstItem="jhA-5f-k1Y" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DPs-RN-Xhr" secondAttribute="top" constant="2" id="GiJ-oj-BR2"/>
                                                         <constraint firstAttribute="centerX" secondItem="jhA-5f-k1Y" secondAttribute="centerX" id="fDj-52-mLA"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jhA-5f-k1Y" secondAttribute="trailing" constant="4" id="tbK-5x-Nn4"/>
+                                                        <constraint firstAttribute="centerY" secondItem="jhA-5f-k1Y" secondAttribute="centerY" id="w9Z-wT-cV6"/>
                                                     </constraints>
                                                 </view>
                                                 <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
@@ -1170,19 +1173,19 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z1E-Yr-P2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="foF-dM-5lu" userLabel="Source Filters Long Press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000003" id="foF-dM-5lu" userLabel="Source Filters Long Press">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="mtR-yj-lqv" id="qxx-zz-XY0"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="cUj-ka-IXM" userLabel="Filter Long Press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000004" id="cUj-ka-IXM" userLabel="Filter Long Press">
                     <connections>
                         <action selector="filtersLongPress:" destination="mtR-yj-lqv" id="lve-JL-20o"/>
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer id="k5x-9I-KqZ" userLabel="Filter Tap">
                     <connections>
-                        <action selector="filterSourceTapGesture:" destination="mtR-yj-lqv" id="5Jl-tT-xLN"/>
+                        <action selector="sourceTapGesture:" destination="mtR-yj-lqv" id="QLt-I5-t9k"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1506,24 +1509,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SUr-BP-LKd" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="GOJ-hO-oEe" userLabel="Rule Type Long Gesture">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000003" id="GOJ-hO-oEe" userLabel="Rule Type Long Gesture">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="bDY-89-tKS" id="psL-4m-kmh"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="Boe-Sd-3Hq" userLabel="Replacement Rule Long Gesture">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000004" id="Boe-Sd-3Hq" userLabel="Replacement Rule Long Gesture">
                     <connections>
                         <action selector="replacementRuleLongPressGesture:" destination="bDY-89-tKS" id="rFk-qZ-3nm"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="f5R-qi-g83" userLabel="Start Rules Long Gesture">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000004" id="f5R-qi-g83" userLabel="Start Rules Long Gesture">
                     <connections>
                         <action selector="startRulesLongPressGesture:" destination="bDY-89-tKS" id="84o-Jw-fxL"/>
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer id="UIa-bT-3sC" userLabel="RuleTypeTapGestures">
                     <connections>
-                        <action selector="ruleTypeTapGesture:" destination="bDY-89-tKS" id="fOD-Cq-O4E"/>
+                        <action selector="sourceTapGesture:" destination="bDY-89-tKS" id="ind-Lm-xNe"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="PYh-xI-OZ8" userLabel="RulesStartTapGesture">
@@ -1964,24 +1967,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ac-jf-Z6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="JUF-Xs-Iff" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="avI-YA-c6g" userLabel="fillColor long press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000004" id="avI-YA-c6g" userLabel="fillColor long press">
                     <connections>
                         <action selector="fillColorLongPress:" destination="bRM-XI-8Xh" id="qkQ-st-hyD"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="Un1-kk-Y9t" userLabel="lineColor long press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000004" id="Un1-kk-Y9t" userLabel="lineColor long press">
                     <connections>
                         <action selector="lineColorLongPress:" destination="bRM-XI-8Xh" id="ggi-IC-7TB"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="ZLj-J4-nOO" userLabel="SourceColorsLongPress">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000003" id="ZLj-J4-nOO" userLabel="SourceColorsLongPress">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="bRM-XI-8Xh" id="R2s-Gr-Ca5"/>
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer id="XSe-gY-gzx" userLabel="ColorSourceTap">
                     <connections>
-                        <action selector="colorSourceTapGesture:" destination="bRM-XI-8Xh" id="1fi-II-07v"/>
+                        <action selector="sourceTapGesture:" destination="bRM-XI-8Xh" id="R5M-at-aiu"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="tHc-f0-gZq" userLabel="PageTap">
