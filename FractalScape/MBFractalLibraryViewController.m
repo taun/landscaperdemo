@@ -95,9 +95,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     self.pendingUserActivity = nil;
 
-    [self.collectionView reloadData];
 //    [self.documentController resortFractalInfos];
     [self.appModel.documentController.documentCoordinator startQuery];
+    
+    [self.collectionView reloadData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

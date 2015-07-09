@@ -52,7 +52,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
     srand48(time(0)); // for use of randomize function in other parts of app
     
-    [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(handleUbiquityIdentityDidChangeNotification:) name:NSUbiquityIdentityDidChangeNotification object: nil];
+    // No longer necessary, app is now killed if iCloud status changes
+    [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(handleUbiquityIdentityDidChangeNotification:) name: NSUbiquityIdentityDidChangeNotification object: nil];
 
     _appModel = [MDBAppModel new];
     [[MDBCloudManager sharedManager] setAppModel: _appModel];
@@ -159,7 +160,14 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     if (storageState.cloudAvailable) {
         if (storageState.storageOption == MDBAPPStorageNotSet) {
             // iCloud is available, but we need to ask the user what they prefer.
-            [self promptUserForStorageOption];
+//            [self promptUserForStorageOption];
+
+            // Default to cloud storage if available rather than asking.
+            [MDBDocumentUtilities migrateLocalDocumentsToCloud];
+            
+            [MDBCloudManager sharedManager].storageOption = MDBAPPStorageCloud;
+            
+            [self configureDocumentController:YES];
         }
         else {
             // The user has already selected a specific storage option. Set up the list controller to

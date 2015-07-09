@@ -41,4 +41,6 @@ extern NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerConti
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (void)handleUbiquityIdentityDidChangeNotification:(NSNotification *)notification;
+
 @end

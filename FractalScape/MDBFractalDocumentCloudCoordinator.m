@@ -166,7 +166,8 @@
     }
     
     NSArray *removedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateRemovedItemsKey];
-    if (removedMetadataItemsOrNil.count > 0) {
+    if (removedMetadataItemsOrNil.count > 0)
+    {
         removedURLs = [self URLsByMappingMetadataItems:removedMetadataItemsOrNil];
     }
     
@@ -199,12 +200,31 @@
         updatedURLs = [self URLsByMappingMetadataItems: completelyDownloadedUpdatedMetadataItems];
     }
     
+    NSIndexSet* indexesOfRemovedItemsToKeep = [removedURLs indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        BOOL keep = NO;
+        NSURL* removedUrl = (NSURL*)obj;
+        for (NSURL* url in updatedURLs)
+        {
+            if ([removedUrl isEqual: url])
+            {
+                keep = YES;
+                break;
+            }
+        }
+        return keep;
+    }];
+    
+    NSMutableArray* mutableRemovedURLs = [removedURLs mutableCopy];
+    [mutableRemovedURLs removeObjectsAtIndexes: indexesOfRemovedItemsToKeep];
+    
+    removedURLs = [mutableRemovedURLs copy];
+    
     // Make sure that the arrays are all initialized before calling the didUpdateContents method.
     insertedURLs = insertedURLs ?: @[];
     removedURLs = removedURLs ?: @[];
     updatedURLs = updatedURLs ?: @[];
     
-    NSLog(@"insertedURLs: %@; removedURLS: %@; updatedURLS: %@", insertedURLs, removedURLs, updatedURLs);
+//    NSLog(@"insertedURLs: %@; removedURLS: %@; updatedURLS: %@", insertedURLs, removedURLs, updatedURLs);
     [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:insertedURLs removedURLs:removedURLs updatedURLs:updatedURLs];
     
     [self.metadataQuery enableUpdates];
@@ -222,7 +242,8 @@
 - (NSArray *)URLsByMappingMetadataItems:(NSArray *)metadataItems {
     NSMutableArray *URLs = [NSMutableArray arrayWithCapacity:metadataItems.count];
     
-    for (NSMetadataItem *metadataItem in metadataItems) {
+    for (NSMetadataItem *metadataItem in metadataItems)
+    {
         NSURL *URL = [metadataItem valueForAttribute:NSMetadataItemURLKey];
         
         [URLs addObject:URL];

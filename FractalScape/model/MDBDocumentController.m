@@ -356,10 +356,13 @@
             for (MDBFractalInfo*updatedInfo in updatedFractalInfos)
             {
                 NSUInteger index = [self.fractalInfos indexOfObject: updatedInfo]; // searches based on URL match
-                MDBFractalInfo* oldInfo = self.fractalInfos[index];
-                if (updatedInfo.changeDate != oldInfo.changeDate)
+                if (index != NSNotFound)
                 {
-                    [reallyUpdatedInfos addObject: updatedInfo];
+                    MDBFractalInfo* oldInfo = self.fractalInfos[index];
+                    if (updatedInfo.changeDate != oldInfo.changeDate)
+                    {
+                        [reallyUpdatedInfos addObject: updatedInfo];
+                    }
                 }
             }
             
@@ -393,7 +396,10 @@
     for (MDBFractalInfo *updatedFractalInfo in updatedFractalInfos)
     {
         NSUInteger updateIndex = [self.fractalInfos indexOfObject: updatedFractalInfo];
-        [updatedIndexes addIndex: updateIndex];
+        if (updateIndex != NSNotFound)
+        {
+            [updatedIndexes addIndex: updateIndex];
+        }
         NSAssert(updateIndex != NSNotFound, @"An updated fractal info should always already be tracked in the fractal infos.");
     }
     
@@ -403,7 +409,10 @@
             for (MDBFractalInfo* info in updatedFractalInfos)
             {
                 NSUInteger updateIndex = [self.fractalInfos indexOfObject: info];
-                self.fractalInfos[updateIndex] = info;
+                if (updateIndex != NSNotFound)
+                {
+                    self.fractalInfos[updateIndex] = info;
+                }
             }
         }
         [self didChange: NSKeyValueChangeReplacement valuesAtIndexes: updatedIndexes forKey:@"fractalInfos"];
@@ -418,7 +427,10 @@
     for (MDBFractalInfo *removedFractalInfo in removedFractalInfos)
     {
         NSUInteger removedIndex = [self.fractalInfos indexOfObject: removedFractalInfo];
-        [removedIndexes addIndex: removedIndex];
+        if (removedIndex != NSNotFound)
+        {
+            [removedIndexes addIndex: removedIndex];
+        }
         NSAssert(removedIndex != NSNotFound, @"A removed fractal info should always already be tracked in the fractal infos.");
     }
     
@@ -450,7 +462,10 @@
     for (MDBFractalInfo* insertedInfo in sortedUntrackedInfos)
     {
         NSUInteger index = [integratedSortedFractalInfos indexOfObject: insertedInfo];
-        [sortedIndexes addIndex: index];
+        if (index != NSNotFound)
+        {
+            [sortedIndexes addIndex: index];
+        }
     }
     
     dispatch_sync(dispatch_get_main_queue(), ^{
