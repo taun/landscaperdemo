@@ -1,0 +1,198 @@
+
+/* Class = "UIViewController"; title = "FractalName"; ObjectID = "4nM-Pc-iAd"; */
+"4nM-Pc-iAd.title" = "FractalName";
+
+/* Class = "UISlider"; accessibilityLabel = "Randomness"; ObjectID = "5kb-du-Imb"; */
+"5kb-du-Imb.accessibilityLabel" = "Randomness";
+
+/* Class = "UILabel"; text = "Collection Category"; ObjectID = "5lH-HW-227"; */
+"5lH-HW-227.text" = "Collection Category";
+
+/* Class = "UILabel"; text = "100%"; ObjectID = "5sr-Jo-4CI"; */
+"5sr-Jo-4CI.text" = "100%";
+
+/* Class = "UINavigationItem"; title = "FractalScape"; ObjectID = "5yD-Jb-xIT"; */
+"5yD-Jb-xIT.title" = "FractalScape";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "6en-9e-q6w"; */
+"6en-9e-q6w.text" = "...";
+
+/* Class = "UILabel"; text = "Help:"; ObjectID = "7Rj-PN-E3N"; */
+"7Rj-PN-E3N.text" = "Help:";
+
+/* Class = "UIBarButtonItem"; title = "Get"; ObjectID = "83T-gT-GKr"; */
+"83T-gT-GKr.title" = "Get";
+
+/* Class = "UITabBarItem"; title = "Browse Cloud"; ObjectID = "9e1-or-Poa"; */
+"9e1-or-Poa.title" = "Browse Cloud";
+
+/* Class = "UICollectionViewController"; title = "Edit Library"; ObjectID = "9pe-kV-foC"; */
+"9pe-kV-foC.title" = "Edit Library";
+
+/* Class = "UILabel"; text = "100%"; ObjectID = "AUJ-mW-uO9"; */
+"AUJ-mW-uO9.text" = "100%";
+
+/* Class = "UISlider"; accessibilityLabel = "Turn Increment"; ObjectID = "An9-9l-3Tm"; */
+"An9-9l-3Tm.accessibilityLabel" = "Turn Increment";
+
+/* Class = "UILabel"; text = "Collection Category"; ObjectID = "CBu-fT-DpV"; */
+"CBu-fT-DpV.text" = "Collection Category";
+
+/* Class = "UIBarButtonItem"; title = "Delete"; ObjectID = "FTe-KF-P8m"; */
+"FTe-KF-P8m.title" = "Delete";
+
+/* Class = "UILabel"; text = "Loading ..."; ObjectID = "GQ1-uN-6BG"; */
+"GQ1-uN-6BG.text" = "Loading ...";
+
+/* Class = "UILabel"; text = "#"; ObjectID = "HbV-8d-39A"; */
+"HbV-8d-39A.text" = "#";
+
+/* Class = "UILabel"; text = "20px"; ObjectID = "J96-vX-PUT"; */
+"J96-vX-PUT.text" = "20px";
+
+/* Class = "UILabel"; text = "Loading ..."; ObjectID = "JAa-ap-4Xd"; */
+"JAa-ap-4Xd.text" = "Loading ...";
+
+/* Class = "UILabel"; text = "200%"; ObjectID = "JtT-Oa-3Y7"; */
+"JtT-Oa-3Y7.text" = "200%";
+
+/* Class = "UILabel"; text = "15"; ObjectID = "LpP-a6-a0V"; */
+"LpP-a6-a0V.text" = "15";
+
+/* Class = "UITabBarItem"; title = "Help"; ObjectID = "Ltp-rn-kYa"; */
+"Ltp-rn-kYa.title" = "Help";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "P1V-ck-Eaz"; */
+"P1V-ck-Eaz.text" = "...";
+
+/* Class = "UILabel"; text = "#2"; ObjectID = "PMx-2G-Q4a"; */
+"PMx-2G-Q4a.text" = "#2";
+
+/* Class = "UILabel"; text = "Loading ...."; ObjectID = "PV1-X5-WaQ"; */
+"PV1-X5-WaQ.text" = "Loading ....";
+
+/* Class = "UILabel"; text = "Tap areas above for help. Scroll for more."; ObjectID = "Q4b-HN-Ruh"; */
+"Q4b-HN-Ruh.text" = "Tap areas above for help. Scroll for more.";
+
+/* Class = "UILabel"; text = "#1"; ObjectID = "Uje-jg-N66"; */
+"Uje-jg-N66.text" = "#1";
+
+/* Class = "UIButton"; accessibilityHint = "Toggles the fractal editor popover"; ObjectID = "X2L-iC-acQ"; */
+"X2L-iC-acQ.accessibilityHint" = "Toggles the fractal editor popover";
+
+/* Class = "UIButton"; accessibilityLabel = "OpenCloseEditor"; ObjectID = "X2L-iC-acQ"; */
+"X2L-iC-acQ.accessibilityLabel" = "OpenCloseEditor";
+
+/* Class = "UILabel"; text = "Tap areas above for help. Scroll for more."; ObjectID = "XzL-6k-qcb"; */
+"XzL-6k-qcb.text" = "Tap areas above for help. Scroll for more.";
+
+/* Class = "UITabBarItem"; title = "Colors"; ObjectID = "XzP-vF-Qi5"; */
+"XzP-vF-Qi5.title" = "Colors";
+
+/* Class = "UILabel"; text = "180.00"; ObjectID = "Y8O-zg-dbz"; */
+"Y8O-zg-dbz.text" = "180.00";
+
+/* Class = "UIButton"; accessibilityHint = "Toggles the visibility of the preview screens."; ObjectID = "YRx-ub-5v2"; */
+"YRx-ub-5v2.accessibilityHint" = "Toggles the visibility of the preview screens.";
+
+/* Class = "UIButton"; accessibilityLabel = "ToggleHUDViews"; ObjectID = "YRx-ub-5v2"; */
+"YRx-ub-5v2.accessibilityLabel" = "ToggleHUDViews";
+
+/* Class = "UITabBarItem"; title = "Filters"; ObjectID = "aIQ-UF-ZEG"; */
+"aIQ-UF-ZEG.title" = "Effects";
+
+/* Class = "UIButton"; accessibilityHint = "Toggles the fractal filters on and off"; ObjectID = "ahp-IY-CUN"; */
+"ahp-IY-CUN.accessibilityHint" = "Toggles the fractal effects on and off";
+
+/* Class = "UIButton"; accessibilityLabel = "ToggleFilterApplication"; ObjectID = "ahp-IY-CUN"; */
+"ahp-IY-CUN.accessibilityLabel" = "ToggleFilterApplication";
+
+/* Class = "UILabel"; text = "Tap areas above for help. Scroll for more."; ObjectID = "cwY-8R-21a"; */
+"cwY-8R-21a.text" = "Tap areas above for help. Scroll for more.";
+
+/* Class = "UITabBarItem"; title = "Rules"; ObjectID = "dHW-xy-0Vv"; */
+"dHW-xy-0Vv.title" = "Rules";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "dSn-FI-zwe"; */
+"dSn-FI-zwe.title" = "Done";
+
+/* Class = "UISlider"; accessibilityLabel = "Randomness"; ObjectID = "eWI-3g-lQK"; */
+"eWI-3g-lQK.accessibilityLabel" = "Randomness";
+
+/* Class = "UILabel"; text = "Start:"; ObjectID = "eki-f5-HFG"; */
+"eki-f5-HFG.text" = "Start:";
+
+/* Class = "UISlider"; accessibilityHint = "Show playback prrogress and allows manual override of the playback position."; ObjectID = "fN9-Mq-Ukg"; */
+"fN9-Mq-Ukg.accessibilityHint" = "Show playback prrogress and allows manual override of the playback position.";
+
+/* Class = "UISlider"; accessibilityLabel = "PlayBackSlider"; ObjectID = "fN9-Mq-Ukg"; */
+"fN9-Mq-Ukg.accessibilityLabel" = "PlayBackSlider";
+
+/* Class = "UIBarButtonItem"; title = "Select"; ObjectID = "g3K-TG-rl5"; */
+"g3K-TG-rl5.title" = "Select";
+
+/* Class = "UIButton"; accessibilityHint = "Autoexpand when on scales the fractal to fill the screen"; ObjectID = "gB3-UB-mha"; */
+"gB3-UB-mha.accessibilityHint" = "Autoexpand when on scales the fractal to fill the screen";
+
+/* Class = "UIButton"; accessibilityLabel = "ToggleAutoExpand"; ObjectID = "gB3-UB-mha"; */
+"gB3-UB-mha.accessibilityLabel" = "ToggleAutoExpand";
+
+/* Class = "UILabel"; text = "Start"; ObjectID = "gVZ-Ol-vER"; */
+"gVZ-Ol-vER.text" = "Start";
+
+/* Class = "UILabel"; text = "-180.00"; ObjectID = "guc-ko-0z2"; */
+"guc-ko-0z2.text" = "-180.00";
+
+/* Class = "UISlider"; accessibilityLabel = "Base Angle"; ObjectID = "gy6-SY-i9T"; */
+"gy6-SY-i9T.accessibilityLabel" = "Base Angle";
+
+/* Class = "UILabel"; text = "Help:"; ObjectID = "iUS-oG-EcT"; */
+"iUS-oG-EcT.text" = "Help:";
+
+/* Class = "UINavigationItem"; title = "Select"; ObjectID = "ipX-Er-9Dc"; */
+"ipX-Er-9Dc.title" = "Select";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "jXv-lU-dOK"; */
+"jXv-lU-dOK.text" = "...";
+
+/* Class = "UILabel"; text = "Tap an icon to preview filter\nDrag icon to holder below to apply filter"; ObjectID = "jhA-5f-k1Y"; */
+"jhA-5f-k1Y.text" = "Tap an icon to preview filter\nDrag icon to holder below to apply filter";
+
+/* Class = "UIViewController"; title = "Info"; ObjectID = "kv4-Cc-rgq"; */
+"kv4-Cc-rgq.title" = "Info";
+
+/* Class = "UILabel"; text = "RenderTime"; ObjectID = "lOu-PR-QW2"; */
+"lOu-PR-QW2.text" = "RenderTime";
+
+/* Class = "UILabel"; text = "Help:"; ObjectID = "mrG-It-MQq"; */
+"mrG-It-MQq.text" = "Help:";
+
+/* Class = "UICollectionViewController"; title = "Library"; ObjectID = "o9m-5w-n8i"; */
+"o9m-5w-n8i.title" = "Library";
+
+/* Class = "UISlider"; accessibilityLabel = "Randomness"; ObjectID = "p0o-A9-ELt"; */
+"p0o-A9-ELt.accessibilityLabel" = "Randomness";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "pU8-XW-LYh"; */
+"pU8-XW-LYh.title" = "Done";
+
+/* Class = "UISlider"; accessibilityLabel = "Turn Angle"; ObjectID = "rPE-Sl-13x"; */
+"rPE-Sl-13x.accessibilityLabel" = "Turn Angle";
+
+/* Class = "UIBarButtonItem"; title = "Library"; ObjectID = "rgH-UD-fGC"; */
+"rgH-UD-fGC.title" = "Library";
+
+/* Class = "UILabel"; text = "360.00"; ObjectID = "s4f-oD-mXM"; */
+"s4f-oD-mXM.text" = "360.00";
+
+/* Class = "UIBarButtonItem"; title = "Library"; ObjectID = "s76-oj-pj9"; */
+"s76-oj-pj9.title" = "Library";
+
+/* Class = "UINavigationItem"; title = "Library"; ObjectID = "uJn-Hw-dsJ"; */
+"uJn-Hw-dsJ.title" = "Library";
+
+/* Class = "UILabel"; text = "∘∢"; ObjectID = "vZk-fO-9mg"; */
+"vZk-fO-9mg.text" = "∘∢";
+
+/* Class = "UITabBarItem"; title = "My Fractals"; ObjectID = "w1h-AT-xFO"; */
+"w1h-AT-xFO.title" = "My Fractals";

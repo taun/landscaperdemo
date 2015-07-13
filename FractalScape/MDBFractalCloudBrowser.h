@@ -6,9 +6,9 @@
 @import UIKit;
 
 #import "MDBDocumentController.h"
-#import <MDCloudKit/MDCKBaseCloudBrowserViewController.h>
-#import <MDUiKit/NSString+MDKConvenience.h>
-#import <MDCloudKit/MDLCloudKitManager.h>
+#import "MDCKBaseCloudBrowserViewController.h"
+#import "NSString+MDKConvenience.h"
+#import "MDLCloudKitManager.h"
 
 
 @interface MDBFractalCloudBrowser : MDCKBaseCloudBrowserViewController

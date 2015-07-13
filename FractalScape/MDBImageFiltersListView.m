@@ -62,10 +62,11 @@
     
     
     _categoryLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
-    NSString* category = _filterCategory;
-    if (category == nil || category.length == 0) {
-        category = @"Filter";
-    }
+    
+    NSString* category = [[NSBundle mainBundle] localizedStringForKey: _filterCategory value: _filterCategory table: nil];
+//    if (category == nil || category.length == 0) {
+//        category = @"Filter";
+//    }
     _categoryLabel.text = category;
     _categoryLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview: _categoryLabel];

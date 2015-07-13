@@ -58,6 +58,11 @@
 {
     [super viewDidAppear:animated];
     NSArray* filterCategories = @[kCICategoryTileEffect,kCICategoryDistortionEffect,kCICategoryBlur,kCICategoryColorEffect];
+    NSLocalizedString( @"CICategoryTileEffect", @"Core Image Filters");
+    NSLocalizedString( @"CICategoryDistortionEffect", @"Core Image Filters");
+    NSLocalizedString( @"CICategoryBlur", @"Core Image Filters");
+    NSLocalizedString( @"CICategoryColorEffect", @"Core Image Filters");
+    
     MDBImageFiltersCategoriesListView* categoriesView = (MDBImageFiltersCategoriesListView*) self.sourceListView;
     categoriesView.fractal = self.fractalDocument.fractal;
     categoriesView.filterCategories = filterCategories;

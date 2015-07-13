@@ -34,7 +34,7 @@
 #import "MBCollectionFractalDocumentCell.h"
 #import "MBCollectionFractalSupplementaryLabel.h"
 #import "MBImmutableCellBackgroundView.h"
-#import <MDUiKit/NSString+MDKConvenience.h>
+#import "NSString+MDKConvenience.h"
 
 
 NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";

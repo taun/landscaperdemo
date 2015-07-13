@@ -86,14 +86,22 @@
     fractalController.fractalDocument = self.fractalDocument;
     fractalController.fractalControllerDelegate = self.fractalControllerDelegate;
 }
--(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    if (size.width > size.height) {
-        self.preferredContentSize = _landscapeSize;
-    } else {
-        self.preferredContentSize = _portraitSize;
-    }
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-}
+//-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+//    if (size.width > size.height)
+//    {
+//        if (!CGSizeEqualToSize(self.preferredContentSize, _landscapeSize))
+//        {
+//            self.preferredContentSize = _landscapeSize;
+//        }
+//    } else
+//    {
+//        if (!CGSizeEqualToSize(self.preferredContentSize, _portraitSize))
+//        {
+//            self.preferredContentSize = _portraitSize;
+//        }
+//    }
+//    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+//}
 #pragma mark - TabBarDelegateProtocol
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     [self setupChildViewController: (UIViewController<FractalControllerProtocol>*)viewController];

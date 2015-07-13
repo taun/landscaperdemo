@@ -296,7 +296,7 @@ static const CGFloat kLevelNMargin = 40.0;
     strongPlayback.transform = CGAffineTransformMakeRotation(-M_PI_2);
     [strongPlayback setThumbImage: sliderCircleImage forState: UIControlStateNormal];
 
-    _popoverPortraitSize = CGSizeMake(748.0,350.0);
+    _popoverPortraitSize = CGSizeMake(728.0,350.0);
     _popoverLandscapeSize = CGSizeMake(400.0,650.0);
     
     // Setup the scrollView to allow the fractal image to float.
@@ -380,6 +380,14 @@ static const CGFloat kLevelNMargin = 40.0;
     
 }
 
+-(void) updateViewController: (UIViewController*)viewController popoverPreferredContentSizeForViewSize: (CGSize)size
+{
+    if (viewController)
+    {
+        viewController.preferredContentSize = size.height > size.width ? self.popoverPortraitSize : self.popoverLandscapeSize;
+    }
+}
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -401,6 +409,7 @@ static const CGFloat kLevelNMargin = 40.0;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
         [self queueFractalImageUpdates];
+        [self updateViewController: self.currentPresentedController popoverPreferredContentSizeForViewSize: size];
         //        self.fractalView.position = fractalNewPosition;
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
@@ -1460,10 +1469,8 @@ static const CGFloat kLevelNMargin = 40.0;
     controller.fractalControllerDelegate = self;
     controller.fractalDocument = self.fractalDocument;
     controller.fractalUndoManager = self.undoManager;
-    controller.landscapeSize = self.popoverLandscapeSize;
-    controller.portraitSize = self.popoverPortraitSize;
     CGSize viewSize = self.view.bounds.size;
-    controller.preferredContentSize = viewSize.height > viewSize.width ? self.popoverPortraitSize : self.popoverLandscapeSize;
+    [self updateViewController: controller popoverPreferredContentSizeForViewSize: viewSize];
     controller.popoverPresentationController.delegate = self;
     controller.popoverPresentationController.passthroughViews = @[self.fractalViewRoot];
     

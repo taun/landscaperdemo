@@ -10,6 +10,7 @@
 #import "MBFractalPrefConstants.h"
 #import "MDBDocumentController.h"
 #import "MDBFractalDocument.h"
+#import "MDLCloudKitManager.h"
 
 
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";

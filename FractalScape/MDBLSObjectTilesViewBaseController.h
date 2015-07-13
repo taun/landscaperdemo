@@ -23,8 +23,8 @@
 @property (nonatomic,strong) MDBFractalDocument             *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
 @property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;
-@property(nonatomic,assign) CGSize                          portraitSize;
-@property(nonatomic,assign) CGSize                          landscapeSize;
+//@property(nonatomic,assign) CGSize                          portraitSize;
+//@property(nonatomic,assign) CGSize                          landscapeSize;
 
 @property (nonatomic,strong) MBDraggingItem                 *draggingItem;
 /*!

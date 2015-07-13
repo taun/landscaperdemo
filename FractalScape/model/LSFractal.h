@@ -13,7 +13,7 @@
 
 #import "MDBFractalCategory.h"
 #import "MDBFractalObjectList.h"
-#import <MDUiKit/NSString+MDKConvenience.h>
+#import "NSString+MDKConvenience.h"
 
 @class LSDrawingRuleType;
 

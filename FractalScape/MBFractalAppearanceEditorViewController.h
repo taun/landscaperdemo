@@ -25,7 +25,7 @@
 @property (nonatomic,weak) NSUndoManager                                *fractalUndoManager;
 @property (nonatomic,weak) id<FractalControllerDelegate>                 fractalControllerDelegate;
 
-@property(nonatomic,assign) CGSize            portraitSize;
-@property(nonatomic,assign) CGSize            landscapeSize;
+//@property(nonatomic,assign) CGSize            portraitSize;
+//@property(nonatomic,assign) CGSize            landscapeSize;
 
 @end

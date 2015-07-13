@@ -7,8 +7,8 @@
 //
 
 @import Foundation;
-#import <MDCloudKit/MDLCloudKitManager.h>
-#import <MDCloudKit/MDCKCloudManagerAppModelProtocol.h>
+
+#import "MDCKCloudManagerAppModelProtocol.h"
 
 @class MDBDocumentController;
 @class MDLCloudKitManager;

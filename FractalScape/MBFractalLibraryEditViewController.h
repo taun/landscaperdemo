@@ -7,7 +7,6 @@
 //
 
 #import "MBFractalLibraryViewController.h"
-#import <MDCloudKit/MDLCloudKitManager.h>
 
 @interface MBFractalLibraryEditViewController : MBFractalLibraryViewController
 
