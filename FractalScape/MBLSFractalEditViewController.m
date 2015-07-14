@@ -2323,17 +2323,22 @@ verticalPropertyPath: @"lineChangeFactor"
         }
     }
     UIGraphicsEndImageContext();
-    
+
     if (useWatermark && renderer.applyFilters) {
         UIGraphicsBeginImageContextWithOptions(imageSize, NO, 2.0);
         {
             CGContextRef aCGContext = UIGraphicsGetCurrentContext();
+            CGContextSaveGState(aCGContext);
+            CGContextTranslateCTM(aCGContext, 0.0, imageSize.height);
+            CGContextScaleCTM(aCGContext, 1.0, -1.0);
             CGContextDrawImage(aCGContext, CGRectMake(0, 0, imageSize.width, imageSize.height), imageExport.CGImage);
+            CGContextRestoreGState(aCGContext);
             [self drawWatermarkInContext: aCGContext size: imageSize];
             imageExport = UIGraphicsGetImageFromCurrentImageContext();
         }
         UIGraphicsEndImageContext();
     }
+
     return imageExport;
 }
 -(void)drawWatermarkInContext: (CGContextRef)aCGContext size: (CGSize)imageSize
@@ -2348,39 +2353,46 @@ verticalPropertyPath: @"lineChangeFactor"
     CGRect textRect = CGRectMake(0, 0, 682, 167);
     NSString* watermark = @"FractalScapes";
     CGContextSaveGState(aCGContext);
-    CGContextSetShadowWithColor(aCGContext, FractalScapeIconSet.topShadow.shadowOffset, FractalScapeIconSet.topShadow.shadowBlurRadius, [FractalScapeIconSet.topShadow.shadowColor CGColor]);
-    NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
-    textStyle.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: FractalScapeIconSet.selectionBackgroundColor, NSParagraphStyleAttributeName: textStyle};
-    
-    CGFloat textTextHeight = [watermark boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
-    CGRect textTextRect = CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight);
-    CGContextSaveGState(aCGContext);
-    CGContextClipToRect(aCGContext, textRect);
-    [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
-    CGContextRestoreGState(aCGContext);
-    
-    ////// Text Text Inner Shadow
-    CGContextSaveGState(aCGContext);
-    UIRectClip(textRect);
-    CGContextSetShadowWithColor(aCGContext, CGSizeZero, 0, NULL);
-    
-    CGContextSetAlpha(aCGContext, CGColorGetAlpha([FractalScapeIconSet.dropShadowInner.shadowColor CGColor]));
-    CGContextBeginTransparencyLayer(aCGContext, NULL);
     {
-        UIColor* opaqueShadow = [FractalScapeIconSet.dropShadowInner.shadowColor colorWithAlphaComponent: 1];
-        CGContextSetShadowWithColor(aCGContext, FractalScapeIconSet.dropShadowInner.shadowOffset, FractalScapeIconSet.dropShadowInner.shadowBlurRadius, [opaqueShadow CGColor]);
+        CGContextSetShadowWithColor(aCGContext, FractalScapeIconSet.topShadow.shadowOffset, FractalScapeIconSet.topShadow.shadowBlurRadius, [FractalScapeIconSet.topShadow.shadowColor CGColor]);
+        NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
+        textStyle.alignment = NSTextAlignmentCenter;
         
-        CGContextSetBlendMode(aCGContext, kCGBlendModeSourceOut);
-        CGContextBeginTransparencyLayer(aCGContext, NULL);
+        NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: FractalScapeIconSet.selectionBackgroundColor, NSParagraphStyleAttributeName: textStyle};
         
-        NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
-        [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
+        CGFloat textTextHeight = [watermark boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
+        CGRect textTextRect = CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight);
+        CGContextSaveGState(aCGContext);
+        {
+            CGContextClipToRect(aCGContext, textRect);
+            [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
+        }
+        CGContextRestoreGState(aCGContext);
         
-        CGContextEndTransparencyLayer(aCGContext);
+        ////// Text Text Inner Shadow
+        CGContextSaveGState(aCGContext);
+        {
+            UIRectClip(textRect);
+            CGContextSetShadowWithColor(aCGContext, CGSizeZero, 0, NULL);
+            
+            CGContextSetAlpha(aCGContext, CGColorGetAlpha([FractalScapeIconSet.dropShadowInner.shadowColor CGColor]));
+            CGContextBeginTransparencyLayer(aCGContext, NULL);
+            {
+                UIColor* opaqueShadow = [FractalScapeIconSet.dropShadowInner.shadowColor colorWithAlphaComponent: 1];
+                CGContextSetShadowWithColor(aCGContext, FractalScapeIconSet.dropShadowInner.shadowOffset, FractalScapeIconSet.dropShadowInner.shadowBlurRadius, [opaqueShadow CGColor]);
+                
+                CGContextSetBlendMode(aCGContext, kCGBlendModeSourceOut);
+                CGContextBeginTransparencyLayer(aCGContext, NULL);
+                
+                NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
+                [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
+                
+                CGContextEndTransparencyLayer(aCGContext);
+            }
+            CGContextEndTransparencyLayer(aCGContext);
+        }
+        CGContextRestoreGState(aCGContext);
     }
-    CGContextEndTransparencyLayer(aCGContext);
     CGContextRestoreGState(aCGContext);
 }
 -(NSData*) createPDF
