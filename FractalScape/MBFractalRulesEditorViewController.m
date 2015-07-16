@@ -20,7 +20,9 @@
 
 @implementation MBFractalRulesEditorViewController
 
--(void) updateFractalDependents {
+-(void) updateFractalDependents
+{
+    [super updateFractalDependents];
     self.summaryEditView.fractalDocument = self.fractalDocument;
     
     [self.destinationView setDefaultObjectClass: [LSDrawingRule class]];

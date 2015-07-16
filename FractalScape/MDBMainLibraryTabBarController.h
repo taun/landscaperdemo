@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class MDBAppModel;
-@class MBFractalLibraryViewController, MDBFractalCloudBrowser;
+@class MBFractalLibraryViewController, MDBFractalCloudBrowser, MDBSettingsTableViewController;
 
 @interface MDBMainLibraryTabBarController : UITabBarController <UITabBarControllerDelegate>
 
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
 @property (nonatomic,readonly) MBFractalLibraryViewController               *libraryController;
 @property (nonatomic,readonly) MDBFractalCloudBrowser                       *cloudController;
+@property (nonatomic,readonly) MDBSettingsTableViewController               *settingsController;
 
 @end

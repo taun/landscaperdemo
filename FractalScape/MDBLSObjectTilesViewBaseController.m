@@ -7,9 +7,11 @@
 //
 
 #import "MDBLSObjectTilesViewBaseController.h"
+#import "MDBAppModel.h"
+
 
 @interface MDBLSObjectTilesViewBaseController ()
-@property (readonly) BOOL       showHelpView;
+
 @end
 
 @implementation MDBLSObjectTilesViewBaseController
@@ -22,11 +24,7 @@
     }
     return self;
 }
--(BOOL) showHelpView
-{
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey: kPrefShowHelpTips];
-}
+
 -(void) setFractalDocument:(MDBFractalDocument *)fractalDocument {
     _fractalDocument = fractalDocument;
     if (self.view) {
@@ -34,8 +32,8 @@
     }
 }
 
--(void) updateFractalDependents {
-    
+-(void) updateFractalDependents
+{
 }
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
@@ -65,13 +63,9 @@
     [strongDestinationView setNeedsLayout];
 
     // Hack to get the label to adjust size after the transition.
+    NSString* info = self.ruleHelpLabel.text;
+    self.ruleHelpLabel.text = info;
     
-    if (self.showHelpView) {
-        NSString* info = self.ruleHelpLabel.text;
-        self.ruleHelpLabel.text = info;
-    } else {
-        self.ruleHelpView.hidden = YES;
-    }
     
     [self updateViewConstraints];
     [self.view setNeedsLayout];
@@ -79,6 +73,25 @@
     [super viewWillLayoutSubviews];
 }
 
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    
+//}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (self.appModel.showHelpTips)
+    {
+        NSString* info = self.ruleHelpLabel.text;
+        self.ruleHelpLabel.text = info;
+    } else
+    {
+        self.ruleHelpView.hidden = YES;
+    }
+}
 -(void) configureParallax
 {
 //    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -260,7 +273,8 @@
     [self deleteObjectIfUnreferenced: draggedRule];
     self.draggingItem = nil;
     self.lastDragViewContainer = nil;
-    if (self.showHelpView) {
+    if (self.appModel.showHelpTips)
+    {
         self.ruleHelpView.hidden = NO;
     }
 }

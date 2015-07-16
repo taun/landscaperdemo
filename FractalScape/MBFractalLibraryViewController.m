@@ -42,7 +42,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 @interface MBFractalLibraryViewController () <MDBFractalDocumentControllerDelegate, UIDocumentMenuDelegate, UIDocumentPickerDelegate>
 
 @property (nonatomic,strong) NSUserActivity                         *pendingUserActivity;
-@property (nonatomic,readonly) NSURL                                *lastEditedURL;
 @property (nonatomic,strong) MDBNavConTransitionCoordinator         *navConTransitionDelegate;
 @property (nonatomic,weak) MDBFractalInfo                           *fractalInfoBeingEdited;
 
@@ -88,10 +87,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     if (self.pendingUserActivity) {
         [self restoreUserActivityState: self.pendingUserActivity];
     }
-    
-//    if (self.lastEditedURL) {
-//        [self restoreLastEditingSession];
-//    }
     
     self.pendingUserActivity = nil;
 
@@ -191,13 +186,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     if (oldController && oldController != [NSNull null]) {
         [oldController removeObserver: self forKeyPath: @"fractalInfos"];
     }
-}
--(NSURL*)lastEditedURL
-{
-    NSURL* selectedFractalURL;
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    selectedFractalURL = [defaults URLForKey: kPrefLastEditedFractalURI];
-    return selectedFractalURL;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -482,7 +470,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(void)restoreLastEditingSession
 {
-    NSURL* lastEditedURL = self.lastEditedURL;
+    NSURL* lastEditedURL = self.appModel.lastEditedURL;
     if (lastEditedURL) {
         MDBFractalInfo *lastEditedDocumentInfo = [[MDBFractalInfo alloc] initWithURL: lastEditedURL];
         [lastEditedDocumentInfo fetchDocumentWithCompletionHandler:^{

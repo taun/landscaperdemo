@@ -98,8 +98,6 @@ static const CGFloat kLevelNMargin = 40.0;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 
--(void) saveToUserPreferencesAsLastEditedFractal: (MDBFractalInfo*) fractalInfo;
-
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
 -(void) fullScreenOff;
@@ -163,8 +161,7 @@ static const CGFloat kLevelNMargin = 40.0;
 
 -(void) configureParallax
 {
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL showParalax = [defaults boolForKey: kPrefParalax];
+    BOOL showParalax = self.appModel.showParallax;
     
     if (showParalax) {
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
@@ -275,11 +272,9 @@ static const CGFloat kLevelNMargin = 40.0;
     self.previousNavBarState = NO;
     self.navigationController.navigationBar.hidden = YES;
 
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL showPerformanceDataSetting = [defaults boolForKey: kPrefShowPerformanceData];
-    self.showPerformanceData = showPerformanceDataSetting;
+    self.showPerformanceData = self.appModel.showPerformanceData;
 
-    BOOL fullScreenState = [defaults boolForKey: kPrefFullScreenState];
+    BOOL fullScreenState = self.appModel.fullScreenState;
     if (fullScreenState)
     {
         [self fullScreenOnDuration: 0.0];
@@ -338,8 +333,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     self.hasBeenEdited = NO;
 
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    self.showPerformanceData = [defaults boolForKey: kPrefShowPerformanceData];
+    self.showPerformanceData = self.appModel.showPerformanceData;
     
     CGRect viewBounds = self.view.bounds;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
@@ -347,7 +341,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     self.navigationItem.title = self.fractalDocument.fractal.name;
     [self setupSlidersForCurrentFractal];
-    [self saveToUserPreferencesAsLastEditedFractal: self.fractalInfo];
+    [self.appModel setLastEditedURL: self.fractalInfo.URL];
 }
 
 /* on staartup, fractal should not be set until just before view didAppear */
@@ -840,7 +834,7 @@ static const CGFloat kLevelNMargin = 40.0;
     LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
     {
-        [self saveToUserPreferencesAsLastEditedFractal: _fractalInfo];
+        [self.appModel setLastEditedURL: _fractalInfo.URL];
         
         [self setupSlidersForCurrentFractal];
         
@@ -933,12 +927,6 @@ static const CGFloat kLevelNMargin = 40.0;
     }
 }
 
--(void) saveToUserPreferencesAsLastEditedFractal: (MDBFractalInfo*) aFractalInfo
-{
-    NSURL* selectedFractalURL = aFractalInfo.URL;
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setURL: selectedFractalURL forKey: kPrefLastEditedFractalURI];
-}
 
 -(void) setLowPerformanceDevice:(BOOL)lowPerformanceDevice {
     _lowPerformanceDevice = lowPerformanceDevice;
@@ -1467,6 +1455,7 @@ static const CGFloat kLevelNMargin = 40.0;
     if (self.fractalDocument.fractal.isImmutable) self.fractalDocument.fractal = [self.fractalDocument.fractal mutableCopy];
     
     controller.fractalControllerDelegate = self;
+    controller.appModel = self.appModel;
     controller.fractalDocument = self.fractalDocument;
     controller.fractalUndoManager = self.undoManager;
     CGSize viewSize = self.view.bounds.size;
@@ -2254,8 +2243,7 @@ verticalPropertyPath: @"lineChangeFactor"
         [self fullScreenOn];
         fullScreenState = YES;
     }
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool: fullScreenState forKey: kPrefFullScreenState];
+    [self.appModel setFullScreenState: fullScreenState];
 }
 
 -(void) fullScreenOnDuration: (NSTimeInterval)duration

@@ -12,6 +12,7 @@
 
 #import "FractalControllerProtocol.h"
 #import "MDBFractalDocument.h"
+#import "MDBAppModel.h"
 
 /*!
  A TabBarController used to contain all of the fractal edit controls/pages. The custom class
@@ -21,6 +22,7 @@
  */
 @interface MBFractalAppearanceEditorViewController : UITabBarController <FractalControllerProtocol,UITabBarControllerDelegate>
 
+@property (nonatomic,weak) MDBAppModel                                  *appModel;
 @property (nonatomic,strong) MDBFractalDocument                         *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                                *fractalUndoManager;
 @property (nonatomic,weak) id<FractalControllerDelegate>                 fractalControllerDelegate;

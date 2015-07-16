@@ -172,6 +172,8 @@
 		C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */; };
 		C5BA7FE71A1868C400AFCF70 /* FractalScapeIconSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */; };
+		C5BDB8EE1B5719B9000C093A /* MDBSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BDB8EC1B5719B9000C093A /* MDBSettingsTableViewController.h */; };
+		C5BDB8EF1B5719B9000C093A /* MDBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BDB8ED1B5719B9000C093A /* MDBSettingsTableViewController.m */; };
 		C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C19D6C1A241297000A1214 /* MBLSRuleTypeTileViewer.h */; };
 		C5C19D6F1A241297000A1214 /* MBLSRuleTypeTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C19D6D1A241297000A1214 /* MBLSRuleTypeTileViewer.m */; };
 		C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C621A24EC81008C5409 /* MBLSReplacementRulesListView.h */; };
@@ -453,6 +455,8 @@
 		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractalScapeIconSet.h; sourceTree = "<group>"; };
 		C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FractalScapeIconSet.m; sourceTree = "<group>"; };
+		C5BDB8EC1B5719B9000C093A /* MDBSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBSettingsTableViewController.h; path = FractalScape/MDBSettingsTableViewController.h; sourceTree = "<group>"; };
+		C5BDB8ED1B5719B9000C093A /* MDBSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBSettingsTableViewController.m; path = FractalScape/MDBSettingsTableViewController.m; sourceTree = "<group>"; };
 		C5C19D6C1A241297000A1214 /* MBLSRuleTypeTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleTypeTileViewer.h; path = FractalScape/MBLSRuleTypeTileViewer.h; sourceTree = "<group>"; };
 		C5C19D6D1A241297000A1214 /* MBLSRuleTypeTileViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBLSRuleTypeTileViewer.m; path = FractalScape/MBLSRuleTypeTileViewer.m; sourceTree = "<group>"; };
 		C5C37C621A24EC81008C5409 /* MBLSReplacementRulesListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSReplacementRulesListView.h; path = FractalScape/MBLSReplacementRulesListView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1098,6 +1102,8 @@
 				C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */,
 				C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */,
 				C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */,
+				C5BDB8EC1B5719B9000C093A /* MDBSettingsTableViewController.h */,
+				C5BDB8ED1B5719B9000C093A /* MDBSettingsTableViewController.m */,
 				C500160D1AC6103F00101340 /* MDBNavConTransitionCoordinator.h */,
 				C500160E1AC6103F00101340 /* MDBNavConTransitionCoordinator.m */,
 				C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */,
@@ -1153,6 +1159,7 @@
 				C59EE1E71AF3CE7F00CFE254 /* NSString+ABXURLEncoding.h in Headers */,
 				C5F184801AA7A2A000233E49 /* MDBFractalInfo.h in Headers */,
 				C59EE1F91AF3CE7F00CFE254 /* ABXAttachment.h in Headers */,
+				C5BDB8EE1B5719B9000C093A /* MDBSettingsTableViewController.h in Headers */,
 				C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */,
 				C59EE20D1AF3CE7F00CFE254 /* ABXTextView.h in Headers */,
 				C5CE0E671B542C8B00EEC58C /* MDCKCloudManagerAppModelProtocol.h in Headers */,
@@ -1446,6 +1453,7 @@
 				C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */,
 				C59EE1EA1AF3CE7F00CFE254 /* UIViewController+ABXScreenshot.m in Sources */,
 				C59EE2061AF3CE7F00CFE254 /* ABXFAQTableViewCell.m in Sources */,
+				C5BDB8EF1B5719B9000C093A /* MDBSettingsTableViewController.m in Sources */,
 				C5CE0E6A1B542C8B00EEC58C /* MDLCloudKitManager.m in Sources */,
 				C59EE1E81AF3CE7F00CFE254 /* NSString+ABXURLEncoding.m in Sources */,
 				C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */,

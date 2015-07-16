@@ -18,8 +18,11 @@
 
 #import "MBFractalPrefConstants.h"
 
+@class MDBAppModel;
+
 @interface MDBLSObjectTilesViewBaseController : UIViewController <FractalControllerProtocol>
 
+@property (nonatomic,weak) MDBAppModel                      *appModel;
 @property (nonatomic,strong) MDBFractalDocument             *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                    *fractalUndoManager;
 @property (weak,nonatomic) id<FractalControllerDelegate>    fractalControllerDelegate;

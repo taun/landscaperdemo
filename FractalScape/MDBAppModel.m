@@ -16,6 +16,12 @@
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";
 NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
 
+NSString* const  kPrefLastEditedFractalURI = @"com.moedae.FractalScapes.lastEditedFractalURI";
+NSString* const  kPrefParalax = @"com.moedae.FractalScapes.paralax";
+NSString* const  kPrefShowPerformanceData = @"com.moedae.FractalScapes.showPerformanceData";
+NSString* const  kPrefFullScreenState = @"com.moedae.FractalScapes.fullScreenState";
+NSString* const  kPrefShowHelpTips = @"com.moedae.FractalScapes.showEditHelp";
+
 @implementation MDBAppModel
 
 @synthesize cloudManager = _cloudManager;
@@ -28,31 +34,6 @@ NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
 -(BOOL)useWatermark
 {
     return YES;
-}
-
-- (void)registerDefaults
-{
-    //    // since no default values have been set, create them here
-    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, kPrefParalax, @NO, kPrefFullScreenState, @YES, kPrefShowHelpTips, nil];
-    //
-    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults registerDefaults: appDefaults];
-    
-    [userDefaults registerDefaults:@{kMDBFractalScapesFirstLaunchUserDefaultsKey: @YES }];
-
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
-    NSString* fullVersion = [NSString stringWithFormat: @"%@(%@)", version, build];
-    [userDefaults setValue: version forKey: fullVersion];
-    
-    [userDefaults synchronize];
-    
-    _firstLaunch = [userDefaults boolForKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];
-
-    if (_firstLaunch)
-    {
-        [userDefaults setBool: NO forKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];
-    }
 }
 
 - (instancetype)init
@@ -77,5 +58,105 @@ NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
     return _cloudManager;
 }
 
+- (void)registerDefaults
+{
+    //    // since no default values have been set, create them here
+    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, kPrefParalax, @NO, kPrefFullScreenState, @YES, kPrefShowHelpTips, nil];
+    //
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults registerDefaults: appDefaults];
+    
+    [userDefaults registerDefaults:@{kMDBFractalScapesFirstLaunchUserDefaultsKey: @YES }];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
+    NSString* fullVersion = [NSString stringWithFormat: @"%@(%@)", version, build];
+    [userDefaults setValue: version forKey: fullVersion];
+    
+    [userDefaults synchronize];
+    
+    _firstLaunch = [userDefaults boolForKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];
+    
+    if (_firstLaunch)
+    {
+        [userDefaults setBool: NO forKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];
+    }
+}
+
+-(NSString *)versionBuildString
+{
+    NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    
+    return [NSString stringWithFormat:@"Version: %@ (%@)", appVersionString, appBuildString];
+}
+
+-(void)setLastEditedURL:(NSURL *)lastEdited
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setURL: lastEdited forKey: kPrefLastEditedFractalURI];
+    [defaults synchronize];
+}
+
+-(NSURL *)lastEditedURL
+{
+    NSURL* selectedFractalURL;
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    selectedFractalURL = [defaults URLForKey: kPrefLastEditedFractalURI];
+    return selectedFractalURL;
+}
+
+-(void)setShowParallax:(BOOL)show
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool: show forKey: kPrefParalax];
+    [defaults synchronize];
+}
+
+-(BOOL)showParallax
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey: kPrefParalax];
+}
+
+-(void)setShowPerformanceData:(BOOL)show
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool: show forKey: kPrefShowPerformanceData];
+    [defaults synchronize];
+}
+
+-(BOOL)showPerformanceData
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey: kPrefShowPerformanceData];
+}
+
+-(void)setFullScreenState:(BOOL)on
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool: on forKey: kPrefFullScreenState];
+    [defaults synchronize];
+}
+
+-(BOOL)fullScreenState
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey: kPrefFullScreenState];
+}
+
+-(void)setShowHelpTips:(BOOL)show
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool: show forKey: kPrefShowHelpTips];
+    [defaults synchronize];
+}
+
+-(BOOL)showHelpTips
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL show = [defaults boolForKey: kPrefShowHelpTips];
+    return show;
+}
 
 @end

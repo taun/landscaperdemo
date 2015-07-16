@@ -23,6 +23,8 @@
 
 -(void) updateFractalDependents
 {
+    [super updateFractalDependents];
+
     [self.destinationView setDefaultObjectClass: [MBImageFilter class]];
     self.destinationView.objectList = self.fractalDocument.fractal.imageFilters;
     self.destinationView.layer.name = @"imageFilters";

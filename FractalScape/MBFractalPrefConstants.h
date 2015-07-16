@@ -9,11 +9,6 @@
 #ifndef FractalScape_MBFractalPrefConstants_h
 #define FractalScape_MBFractalPrefConstants_h
 
-static NSString* const  kPrefLastEditedFractalURI = @"com.moedae.FractalScapes.lastEditedFractalURI";
-static NSString* const  kPrefFullScreenState = @"com.moedae.FractalScapes.fullScreenState";
-static NSString* const  kPrefShowPerformanceData = @"com.moedae.FractalScapes.showPerformanceData";
-static NSString* const  kPrefParalax = @"com.moedae.FractalScapes.paralax";
-static NSString* const  kPrefShowHelpTips = @"com.moedae.FractalScapes.showEditHelp";
 static NSString* const  kPrefUseICloudStorage = @"com.moedae.FractalScapes.useICloudStorage";
 static NSString* const  kPrefUbiquityIdentityToken = @"com.moedae.FractalScapes.ubiquityIdentityToken";
 

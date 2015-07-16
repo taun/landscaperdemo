@@ -9,6 +9,7 @@
 
 #import "LSFractal.h"
 #import "MDBFractalDocument.h"
+#import "MDBAppModel.h"
 
 @protocol FractalControllerDelegate <NSObject>
 -(void) setFractalDocument: (MDBFractalDocument*) fractalDocument;
@@ -17,6 +18,7 @@
 
 @protocol FractalControllerProtocol <NSObject>
 
+@property (nonatomic,weak) MDBAppModel                                  *appModel;
 @property (nonatomic,strong) MDBFractalDocument                         *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                                *fractalUndoManager;
 @property (nonatomic,weak) id<FractalControllerDelegate>                 fractalControllerDelegate;

@@ -9,8 +9,9 @@
 #import "MDBMainLibraryTabBarController.h"
 #import "MBFractalLibraryViewController.h"
 #import "MDBFractalCloudBrowser.h"
+#import "MDBSettingsTableViewController.h"
 
-#import "ABX.h"
+//#import "ABX.h"
 #import "MDBAppModel.h"
 
 @interface MDBMainLibraryTabBarController ()
@@ -21,7 +22,7 @@
 
 @synthesize cloudController = _cloudController;
 @synthesize libraryController = _libraryController;
-
+@synthesize settingsController = _settingsController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,15 +85,15 @@
             _cloudController = (MDBFractalCloudBrowser*)realController;
             _cloudController.appModel = self.appModel;
         }
+        else if ([realController isKindOfClass: [MDBSettingsTableViewController class]])
+        {
+            _settingsController = (MDBSettingsTableViewController*)realController;
+            _settingsController.appModel = self.appModel;
+        }
         else if ([realController respondsToSelector: NSSelectorFromString(@"setAppModel:")]) {
             [realController performSelector: NSSelectorFromString(@"setAppModel:") withObject: self.appModel];
         }
     }
 }
-
--(void) setupFAQViewController: (ABXFAQsViewController*)controller
-{
-}
-
 
 @end

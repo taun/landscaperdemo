@@ -83,6 +83,7 @@
     UINavigationController* navCon = (UINavigationController*)controller;
     UIViewController<FractalControllerProtocol>*fractalController = (UIViewController<FractalControllerProtocol>*)navCon.topViewController;
     fractalController.fractalUndoManager = self.fractalUndoManager;
+    fractalController.appModel = self.appModel;
     fractalController.fractalDocument = self.fractalDocument;
     fractalController.fractalControllerDelegate = self.fractalControllerDelegate;
 }
