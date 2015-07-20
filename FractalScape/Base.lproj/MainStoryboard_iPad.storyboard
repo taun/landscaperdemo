@@ -2465,6 +2465,25 @@ Drag icon to holder below to apply filter</string>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qTj-dd-S9N" id="crD-ri-32T">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B0-oh-vf2">
+                                                    <rect key="frame" x="8" y="11.5" width="293.5" height="20"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Website: http://www.fractalscapes.info">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5B0-oh-vf2" firstAttribute="leading" secondItem="crD-ri-32T" secondAttribute="leadingMargin" id="inp-da-bXc"/>
+                                                <constraint firstAttribute="centerY" secondItem="5B0-oh-vf2" secondAttribute="centerY" id="ktb-Dz-zHB"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GoN-5r-w4g">
@@ -2475,7 +2494,7 @@ Drag icon to holder below to apply filter</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tE-Wd-3qF">
                                                     <rect key="frame" x="8" y="11" width="56.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1.0 (344)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4H-PE-Sy8">
@@ -2511,7 +2530,7 @@ Drag icon to holder below to apply filter</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5T-qE-k9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3922" y="1710"/>
+            <point key="canvasLocation" x="5294" y="1752"/>
         </scene>
         <!--Settings-->
         <scene sceneID="fKo-5P-cMR">
@@ -2528,7 +2547,7 @@ Drag icon to holder below to apply filter</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4jW-06-Tuf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3922" y="976"/>
+            <point key="canvasLocation" x="5294" y="1018"/>
         </scene>
         <!--Select-->
         <scene sceneID="yjO-c8-y2l">
@@ -2740,24 +2759,104 @@ Drag icon to holder below to apply filter</string>
             </objects>
             <point key="canvasLocation" x="2317" y="1721"/>
         </scene>
-        <!--Help-->
-        <scene sceneID="xGe-BI-6pP">
+        <!--Contents-->
+        <scene sceneID="uhO-0n-cBU">
             <objects>
-                <viewController title="Help" id="kv4-Cc-rgq" sceneMemberID="viewController">
-                    <visualEffectView key="view" opaque="NO" contentMode="scaleToFill" id="9Fd-9d-is7">
+                <tableViewController storyboardIdentifier="TutorialMasterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="B8t-lF-JXC" customClass="MDBTutorialMasterTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HelpMasterTableView" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pu6-X5-wdT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="z75-uJ-hdX">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </view>
-                        <blurEffect style="extraLight"/>
-                    </visualEffectView>
-                    <navigationItem key="navigationItem" id="1cr-sj-JjD"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5d6-Dh-Dly" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="ELl-1W-gm5">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="HelpIntroductionController" id="s6A-u6-upv">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
+                                                    <rect key="frame" x="8" y="11" width="93" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Byx-Vd-B84" firstAttribute="leading" secondItem="gbg-Vd-BZn" secondAttribute="leadingMargin" id="Pug-iy-aWd"/>
+                                                <constraint firstAttribute="centerY" secondItem="Byx-Vd-B84" secondAttribute="centerY" id="hA6-7N-f0c"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="HelpDragAndDropController" id="3Uo-Nm-bE6">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Uo-Nm-bE6" id="2YH-0g-Z4z">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bt4-x1-Bfx">
+                                                    <rect key="frame" x="8" y="11" width="95" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="Bt4-x1-Bfx" secondAttribute="centerY" id="O3Y-Ig-VR0"/>
+                                                <constraint firstItem="Bt4-x1-Bfx" firstAttribute="leading" secondItem="2YH-0g-Z4z" secondAttribute="leadingMargin" id="TkK-XV-cUH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="trK-Ev-N13">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="trK-Ev-N13" id="iok-4l-wVh">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="B8t-lF-JXC" id="1k4-tX-jwh"/>
+                            <outlet property="delegate" destination="B8t-lF-JXC" id="rrN-rh-RJY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Contents" id="iWI-kG-JXU"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultController" value="HelpIntroductionController"/>
+                    </userDefinedRuntimeAttributes>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yID-CE-aV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3165" y="1710"/>
+            <point key="canvasLocation" x="4451" y="1018"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="92t-Wk-RAa">
+            <objects>
+                <navigationController id="2o6-6V-UAW" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="B8t-lF-JXC" kind="relationship" relationship="rootViewController" id="e4f-n4-AOF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fi4-Fc-RCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3717" y="1018"/>
+        </scene>
+        <!--Help-->
+        <scene sceneID="qeT-zj-FGl">
+            <objects>
+                <splitViewController id="LIr-RW-epR" customClass="MDBTutorialSplitViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Help" image="tabBarInfo" id="oUr-Dh-DUq"/>
+                    <connections>
+                        <segue destination="2o6-6V-UAW" kind="relationship" relationship="masterViewController" id="Lav-0r-7Ku"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HPj-sJ-5ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2969" y="1346"/>
         </scene>
         <!--Main Library Tab Bar Controller-->
         <scene sceneID="95T-CA-6ut">
@@ -2773,13 +2872,13 @@ Drag icon to holder below to apply filter</string>
                     <connections>
                         <segue destination="u0F-Fq-0AU" kind="relationship" relationship="viewControllers" id="9hb-j5-uif"/>
                         <segue destination="j6S-Q5-Emg" kind="relationship" relationship="viewControllers" id="rgu-Yh-GMc"/>
-                        <segue destination="zBK-kJ-FYv" kind="relationship" relationship="viewControllers" id="Zab-e5-8J2"/>
+                        <segue destination="LIr-RW-epR" kind="relationship" relationship="viewControllers" id="3NC-PJ-8EQ"/>
                         <segue destination="0Qx-6W-pJV" kind="relationship" relationship="viewControllers" id="zz1-eI-odS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ3-UZ-hST" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2993" y="141"/>
+            <point key="canvasLocation" x="2969" y="141"/>
         </scene>
         <!--My Fractals-->
         <scene sceneID="ECf-kR-spw">
@@ -2861,24 +2960,84 @@ Drag icon to holder below to apply filter</string>
             </objects>
             <point key="canvasLocation" x="2317" y="970"/>
         </scene>
-        <!--Help-->
-        <scene sceneID="Rnh-QW-Aag">
+        <!--Introduction-->
+        <scene sceneID="kye-jl-v1e">
             <objects>
-                <navigationController storyboardIdentifier="AppBotInfoBoard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zBK-kJ-FYv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Help" image="tabBarInfo" id="Ltp-rn-kYa"/>
+                <viewController storyboardIdentifier="HelpIntroductionController" title="Introduction" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hrm-HF-ksL" customClass="MDBTutorialDetailContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VTQ-kC-mzz"/>
+                        <viewControllerLayoutGuide type="bottom" id="heX-gV-EkR"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fqC-52-mJd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZu-uI-jUh">
+                                <rect key="frame" x="16" y="20" width="92.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koC-ht-fLt">
+                                <rect key="frame" x="552" y="550" width="32" height="30"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showNextPage:" destination="hrm-HF-ksL" eventType="touchUpInside" id="wVL-XV-cae"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.4039215686" green="0.59999999999999998" blue="0.2274509804" alpha="0.47000000000000003" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="heX-gV-EkR" firstAttribute="top" secondItem="koC-ht-fLt" secondAttribute="bottom" constant="20" id="4k3-SA-V1K"/>
+                            <constraint firstItem="gZu-uI-jUh" firstAttribute="top" secondItem="VTQ-kC-mzz" secondAttribute="bottom" id="9oK-wZ-8dM"/>
+                            <constraint firstItem="koC-ht-fLt" firstAttribute="trailing" secondItem="fqC-52-mJd" secondAttribute="trailingMargin" id="aAT-oH-LH2"/>
+                            <constraint firstItem="gZu-uI-jUh" firstAttribute="leading" secondItem="fqC-52-mJd" secondAttribute="leadingMargin" id="cTu-b5-4GT"/>
+                        </constraints>
+                    </view>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="l3T-tf-UCO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="kv4-Cc-rgq" kind="relationship" relationship="rootViewController" id="JfJ-hh-OMv"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cva-cP-RbA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <navigationItem key="navigationItem" title="Introduction" id="IhF-gA-I6U"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="nextControllerIdentifier" value="HelpDragAndDropController"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dho-gE-xzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3165" y="970"/>
+            <point key="canvasLocation" x="4451" y="1756"/>
+        </scene>
+        <!--Drag & Drop-->
+        <scene sceneID="Ki1-SP-L1w">
+            <objects>
+                <viewController storyboardIdentifier="HelpDragAndDropController" title="Drag &amp; Drop" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D15-dE-q6K" customClass="MDBTutorialDetailContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UH7-Kf-66W"/>
+                        <viewControllerLayoutGuide type="bottom" id="0f2-U1-rNX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iVL-U4-fPv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM5-fL-1ai">
+                                <rect key="frame" x="16" y="20" width="95" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="0.40000000596046448" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="jM5-fL-1ai" firstAttribute="leading" secondItem="iVL-U4-fPv" secondAttribute="leadingMargin" id="Cpp-Uv-wIi"/>
+                            <constraint firstItem="jM5-fL-1ai" firstAttribute="top" secondItem="UH7-Kf-66W" secondAttribute="bottom" id="JM4-U5-VDk"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Drag &amp; Drop" id="cp7-Rk-Ff9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="af2-Mh-LaW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4451" y="2423"/>
         </scene>
     </scenes>
     <resources>
