@@ -60,4 +60,29 @@
     [self.appModel setShowParallax: sender.on];
 }
 
+-(void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath: indexPath];
+    NSString* identifier = cell.reuseIdentifier;
+    if ([identifier isEqualToString: @"LaunchSettings"])
+    {
+        //
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+    else if ([identifier isEqualToString: @"LaunchTwitter"])
+    {
+        //
+        NSURL* twitterAccount = [NSURL URLWithString:@"twitter://user?screen_name=taunc"];
+        BOOL twitter = [[UIApplication sharedApplication] canOpenURL:twitterAccount];
+        if (!twitter)
+        {
+            [[UIApplication sharedApplication] openURL: twitterAccount];
+        }
+        else
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.twitter.com/taunc"]];
+        }
+    }
+}
+
 @end

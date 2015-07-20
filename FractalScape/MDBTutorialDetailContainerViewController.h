@@ -13,5 +13,4 @@
 @property (strong,nonatomic) NSString       *embeddedControllerIdentifier;
 @property (strong,nonatomic) NSString       *nextControllerIdentifier;
 
--(IBAction)showNextPage:(id)sender;
 @end

@@ -2389,21 +2389,23 @@ Drag icon to holder below to apply filter</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="User Experience" footerTitle="See device Settings for additional app settings." id="Qku-oU-V1L">
+                            <tableViewSection headerTitle="User Experience" footerTitle="" id="Qku-oU-V1L">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="NJS-hC-8Qq">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="NJS-hC-8Qq">
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NJS-hC-8Qq" id="Qjv-pf-EbT">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
-                                                    <rect key="frame" x="8" y="11" width="121" height="20.5"/>
+                                                    <rect key="frame" x="16" y="11" width="121" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92D-Xq-tzN">
-                                                    <rect key="frame" x="543" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="543" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="showHelpTipsChanged:" destination="hsw-Vg-xX2" eventType="valueChanged" id="sNe-hd-x19"/>
                                                     </connections>
@@ -2411,26 +2413,28 @@ Drag icon to holder below to apply filter</string>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="FxT-He-ldE" secondAttribute="centerY" id="6YS-yo-nJr"/>
-                                                <constraint firstItem="FxT-He-ldE" firstAttribute="leading" secondItem="Qjv-pf-EbT" secondAttribute="leadingMargin" id="YY1-qC-EgA"/>
+                                                <constraint firstItem="FxT-He-ldE" firstAttribute="leading" secondItem="Qjv-pf-EbT" secondAttribute="leadingMargin" constant="8" id="YY1-qC-EgA"/>
                                                 <constraint firstItem="92D-Xq-tzN" firstAttribute="trailing" secondItem="Qjv-pf-EbT" secondAttribute="trailingMargin" id="ZmH-KI-YRq"/>
                                                 <constraint firstItem="92D-Xq-tzN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FxT-He-ldE" secondAttribute="trailing" constant="8" id="fcf-46-T5n"/>
                                                 <constraint firstAttribute="centerY" secondItem="92D-Xq-tzN" secondAttribute="centerY" id="upx-TL-9lg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Kd4-dq-iCc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Kd4-dq-iCc">
+                                        <rect key="frame" x="0.0" y="157.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kd4-dq-iCc" id="bCO-Jx-c63">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
-                                                    <rect key="frame" x="8" y="11.5" width="172.5" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
+                                                    <rect key="frame" x="16" y="11" width="207" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zd4-KL-30N">
-                                                    <rect key="frame" x="543" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="543" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="showParallaxEffectChanged:" destination="hsw-Vg-xX2" eventType="valueChanged" id="70x-YF-HZZ"/>
                                                     </connections>
@@ -2439,65 +2443,134 @@ Drag icon to holder below to apply filter</string>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="GBH-Y7-3a0" secondAttribute="centerY" id="A8e-0D-Bgq"/>
                                                 <constraint firstItem="zd4-KL-30N" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GBH-Y7-3a0" secondAttribute="trailing" constant="8" id="Qwo-63-hDx"/>
-                                                <constraint firstItem="GBH-Y7-3a0" firstAttribute="leading" secondItem="bCO-Jx-c63" secondAttribute="leadingMargin" id="StD-Q2-VqP"/>
+                                                <constraint firstItem="GBH-Y7-3a0" firstAttribute="leading" secondItem="bCO-Jx-c63" secondAttribute="leadingMargin" constant="8" id="StD-Q2-VqP"/>
                                                 <constraint firstAttribute="centerY" secondItem="zd4-KL-30N" secondAttribute="centerY" id="aSu-iS-0Hl"/>
                                                 <constraint firstItem="zd4-KL-30N" firstAttribute="trailing" secondItem="bCO-Jx-c63" secondAttribute="trailingMargin" id="g80-Mv-Agp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="eUm-GQ-XwH">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eUm-GQ-XwH" id="MVb-0a-4kt">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="About" id="Pjt-rq-jh7">
+                            <tableViewSection headerTitle="Leave FractalScapes for" id="Pjt-rq-jh7">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="VzX-Al-hRK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchSettings" id="eUm-GQ-XwH">
+                                        <rect key="frame" x="0.0" y="243.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VzX-Al-hRK" id="GVq-cC-fVG">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qTj-dd-S9N">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qTj-dd-S9N" id="crD-ri-32T">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eUm-GQ-XwH" id="MVb-0a-4kt">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B0-oh-vf2">
-                                                    <rect key="frame" x="8" y="11.5" width="293.5" height="20"/>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Website: http://www.fractalscapes.info">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More Settings ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0e3-wJ-0Pa">
+                                                    <rect key="frame" x="16" y="11" width="126" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="5B0-oh-vf2" firstAttribute="leading" secondItem="crD-ri-32T" secondAttribute="leadingMargin" id="inp-da-bXc"/>
-                                                <constraint firstAttribute="centerY" secondItem="5B0-oh-vf2" secondAttribute="centerY" id="ktb-Dz-zHB"/>
+                                                <constraint firstItem="0e3-wJ-0Pa" firstAttribute="leading" secondItem="MVb-0a-4kt" secondAttribute="leadingMargin" constant="8" id="4gf-YT-9L7"/>
+                                                <constraint firstItem="0e3-wJ-0Pa" firstAttribute="centerY" secondItem="MVb-0a-4kt" secondAttribute="centerY" id="Mze-Wn-Y7u"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GoN-5r-w4g">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchTwitter" id="GoN-5r-w4g">
+                                        <rect key="frame" x="0.0" y="287.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GoN-5r-w4g" id="rvb-AU-T5Q">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tE-Wd-3qF">
-                                                    <rect key="frame" x="8" y="11" width="56.5" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter: @taunc ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4d-G1-8sv">
+                                                    <rect key="frame" x="16" y="11" width="136" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="a4d-G1-8sv" secondAttribute="centerY" id="0j4-C4-Lw3"/>
+                                                <constraint firstItem="a4d-G1-8sv" firstAttribute="leading" secondItem="rvb-AU-T5Q" secondAttribute="leadingMargin" constant="8" id="rjw-DE-rbU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="About" id="Le5-ZS-dP9">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="XgM-ki-XE2">
+                                        <rect key="frame" x="0.0" y="373.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XgM-ki-XE2" id="5EA-gv-7xh">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="90D-uT-4yu">
+                                                    <rect key="frame" x="8" y="8" width="584" height="27.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Website: http://www.fractalscapes.info">
+                                                            <attributes>
+                                                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingMiddle" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="90D-uT-4yu" firstAttribute="top" secondItem="5EA-gv-7xh" secondAttribute="topMargin" id="6PI-uU-jEN"/>
+                                                <constraint firstItem="90D-uT-4yu" firstAttribute="leading" secondItem="5EA-gv-7xh" secondAttribute="leadingMargin" id="6mr-eP-8E4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="90D-uT-4yu" secondAttribute="bottom" id="Bnb-An-Fhw"/>
+                                                <constraint firstItem="90D-uT-4yu" firstAttribute="trailing" secondItem="5EA-gv-7xh" secondAttribute="trailingMargin" id="s4h-0C-Odr"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="f7G-ai-Ofc">
+                                        <rect key="frame" x="0.0" y="417.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f7G-ai-Ofc" id="0Ur-cI-J4T">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZSR-cs-YI5">
+                                                    <rect key="frame" x="8" y="8" width="584" height="27.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="FaceBook: http://www.facebook.com/fractalscapes">
+                                                            <attributes>
+                                                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingMiddle" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZSR-cs-YI5" secondAttribute="bottom" id="80u-eO-JUg"/>
+                                                <constraint firstItem="ZSR-cs-YI5" firstAttribute="trailing" secondItem="0Ur-cI-J4T" secondAttribute="trailingMargin" id="DFh-Yc-506"/>
+                                                <constraint firstItem="ZSR-cs-YI5" firstAttribute="leading" secondItem="0Ur-cI-J4T" secondAttribute="leadingMargin" id="Yod-bE-3zn"/>
+                                                <constraint firstItem="ZSR-cs-YI5" firstAttribute="top" secondItem="0Ur-cI-J4T" secondAttribute="topMargin" id="Yxq-RB-CAD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="pno-yd-cLQ">
+                                        <rect key="frame" x="0.0" y="461.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pno-yd-cLQ" id="QYy-0L-YNf">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
+                                                    <rect key="frame" x="16" y="11" width="57.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1.0 (344)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4H-PE-Sy8">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1.0 (344)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQe-6t-eRd">
                                                     <rect key="frame" x="525" y="11" width="66.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2505,11 +2578,11 @@ Drag icon to holder below to apply filter</string>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="f4H-PE-Sy8" secondAttribute="centerY" id="Cy9-fb-ZWr"/>
-                                                <constraint firstAttribute="centerY" secondItem="4tE-Wd-3qF" secondAttribute="centerY" id="EPM-KP-TX6"/>
-                                                <constraint firstItem="4tE-Wd-3qF" firstAttribute="leading" secondItem="rvb-AU-T5Q" secondAttribute="leadingMargin" id="JDe-A1-axr"/>
-                                                <constraint firstItem="f4H-PE-Sy8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4tE-Wd-3qF" secondAttribute="trailing" constant="8" id="sFs-Wz-gaR"/>
-                                                <constraint firstItem="f4H-PE-Sy8" firstAttribute="trailing" secondItem="rvb-AU-T5Q" secondAttribute="trailingMargin" id="yCe-aa-Oof"/>
+                                                <constraint firstItem="FQe-6t-eRd" firstAttribute="trailing" secondItem="QYy-0L-YNf" secondAttribute="trailingMargin" id="0Wg-Ju-JUj"/>
+                                                <constraint firstAttribute="centerY" secondItem="4Yy-zd-Gqd" secondAttribute="centerY" id="8Zq-2q-ZVR"/>
+                                                <constraint firstItem="4Yy-zd-Gqd" firstAttribute="leading" secondItem="QYy-0L-YNf" secondAttribute="leadingMargin" constant="8" id="VuR-5s-njU"/>
+                                                <constraint firstItem="FQe-6t-eRd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4Yy-zd-Gqd" secondAttribute="trailing" constant="8" id="doH-JY-kKQ"/>
+                                                <constraint firstAttribute="centerY" secondItem="FQe-6t-eRd" secondAttribute="centerY" id="oOx-ir-ed8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2523,14 +2596,14 @@ Drag icon to holder below to apply filter</string>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="aBw-pb-V8u"/>
                     <connections>
-                        <outlet property="appVersion" destination="f4H-PE-Sy8" id="LhN-3B-K1V"/>
+                        <outlet property="appVersion" destination="FQe-6t-eRd" id="Vgi-IB-Fa8"/>
                         <outlet property="showHelpTipsSwitch" destination="92D-Xq-tzN" id="pN5-k9-4h0"/>
                         <outlet property="showParallaxEffect" destination="zd4-KL-30N" id="yCl-2v-G3K"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5T-qE-k9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5294" y="1752"/>
+            <point key="canvasLocation" x="6106" y="1752"/>
         </scene>
         <!--Settings-->
         <scene sceneID="fKo-5P-cMR">
@@ -2771,8 +2844,10 @@ Drag icon to holder below to apply filter</string>
                             <tableViewSection id="ELl-1W-gm5">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="HelpIntroductionController" id="s6A-u6-upv">
+                                        <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
+                                            <rect key="frame" x="0.0" y="0.0" width="533" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
@@ -2789,8 +2864,10 @@ Drag icon to holder below to apply filter</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="HelpDragAndDropController" id="3Uo-Nm-bE6">
+                                        <rect key="frame" x="0.0" y="108" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Uo-Nm-bE6" id="2YH-0g-Z4z">
+                                            <rect key="frame" x="0.0" y="0.0" width="533" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bt4-x1-Bfx">
@@ -2807,8 +2884,10 @@ Drag icon to holder below to apply filter</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="trK-Ev-N13">
+                                        <rect key="frame" x="0.0" y="152" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="trK-Ev-N13" id="iok-4l-wVh">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2852,6 +2931,7 @@ Drag icon to holder below to apply filter</string>
                     <tabBarItem key="tabBarItem" title="Help" image="tabBarInfo" id="oUr-Dh-DUq"/>
                     <connections>
                         <segue destination="2o6-6V-UAW" kind="relationship" relationship="masterViewController" id="Lav-0r-7Ku"/>
+                        <segue destination="qpc-13-ZVz" kind="relationship" relationship="detailViewController" id="KQh-a7-hha"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPj-sJ-5ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2984,7 +3064,7 @@ Drag icon to holder below to apply filter</string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showNextPage:" destination="hrm-HF-ksL" eventType="touchUpInside" id="wVL-XV-cae"/>
+                                    <segue destination="D15-dE-q6K" kind="show" id="rtF-5q-XOc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3006,7 +3086,7 @@ Drag icon to holder below to apply filter</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dho-gE-xzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4451" y="1756"/>
+            <point key="canvasLocation" x="4451" y="1767"/>
         </scene>
         <!--Drag & Drop-->
         <scene sceneID="Ki1-SP-L1w">
@@ -3020,7 +3100,7 @@ Drag icon to holder below to apply filter</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM5-fL-1ai">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM5-fL-1ai">
                                 <rect key="frame" x="16" y="20" width="95" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3037,7 +3117,26 @@ Drag icon to holder below to apply filter</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="af2-Mh-LaW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4451" y="2423"/>
+            <point key="canvasLocation" x="5203" y="1767"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Bt6-QJ-c2c">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qpc-13-ZVz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEs-5p-402">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hrm-HF-ksL" kind="relationship" relationship="rootViewController" id="FEg-yA-EYY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JKA-RW-I9I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3717" y="1767"/>
         </scene>
     </scenes>
     <resources>

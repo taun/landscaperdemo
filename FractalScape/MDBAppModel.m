@@ -88,7 +88,7 @@ NSString* const  kPrefShowHelpTips = @"com.moedae.FractalScapes.showEditHelp";
     NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     
-    return [NSString stringWithFormat:@"Version: %@ (%@)", appVersionString, appBuildString];
+    return [NSString stringWithFormat:@"%@ (%@)", appVersionString, appBuildString];
 }
 
 -(void)setLastEditedURL:(NSURL *)lastEdited

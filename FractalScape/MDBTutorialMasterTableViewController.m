@@ -25,10 +25,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    if (self.defaultController) {
-        UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: self.defaultController];
-        [self.splitViewController showDetailViewController: childController sender: self];
-    }
+//    if (self.defaultController) {
+//        UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: self.defaultController];
+//        [self.splitViewController showDetailViewController: childController sender: self];
+//    }
 }
 //HelpIntroductionControllerSegue
 
@@ -41,10 +41,28 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath: indexPath];
-    NSString* identifier = cell.reuseIdentifier;
-    UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: identifier];
-    [self showDetailViewController: childController sender: cell];
+    if (self.splitViewController.viewControllers.count > 1)
+    {
+        NSInteger endIndex = indexPath.row;
+        UINavigationController* detailNav = self.splitViewController.viewControllers[1];
+        NSMutableArray* tutorialControllers = [NSMutableArray arrayWithCapacity: endIndex + 1];
+        
+        for (NSInteger i=0; i <= endIndex; i++)
+        {
+            UITableViewCell* cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: i inSection: indexPath.section]];
+            NSString* identifier = cell.reuseIdentifier;
+            UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: identifier];
+            [tutorialControllers addObject: childController];
+        }
+        [detailNav setViewControllers: tutorialControllers animated: YES];
+    }
+    else
+    {
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath: indexPath];
+        NSString* identifier = cell.reuseIdentifier;
+        UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: identifier];
+        [self showDetailViewController: childController sender: cell];
+    }
 }
 
 #pragma mark - Table view data source

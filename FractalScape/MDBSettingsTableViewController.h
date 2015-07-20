@@ -21,4 +21,7 @@
 
 - (IBAction)showHelpTipsChanged:(UISwitch *)sender;
 - (IBAction)showParallaxEffectChanged:(UISwitch *)sender;
+
+
+
 @end
