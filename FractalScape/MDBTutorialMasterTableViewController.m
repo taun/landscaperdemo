@@ -29,6 +29,26 @@
 //        UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: self.defaultController];
 //        [self.splitViewController showDetailViewController: childController sender: self];
 //    }
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame: self.view.bounds];
+    backgroundView.backgroundColor = [UIColor yellowColor];
+    
+    UIImageView* imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"documentThumbnailPlaceholder1024"]];
+    [backgroundView addSubview: imageView];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UIVisualEffectView* visualEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
+    [backgroundView addSubview: visualEffectView];
+    visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(imageView, visualEffectView);
+    [backgroundView addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView]|" options:0 metrics:nil views:viewsDictionary]];
+    [backgroundView addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|" options:0 metrics:nil views:viewsDictionary]];
+    [backgroundView addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[visualEffectView]|" options:0 metrics:nil views:viewsDictionary]];
+    [backgroundView addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[visualEffectView]|" options:0 metrics:nil views:viewsDictionary]];
+    
+    self.tableView.backgroundView = backgroundView;
 }
 //HelpIntroductionControllerSegue
 
@@ -41,28 +61,34 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.splitViewController.viewControllers.count > 1)
-    {
-        NSInteger endIndex = indexPath.row;
-        UINavigationController* detailNav = self.splitViewController.viewControllers[1];
-        NSMutableArray* tutorialControllers = [NSMutableArray arrayWithCapacity: endIndex + 1];
-        
-        for (NSInteger i=0; i <= endIndex; i++)
-        {
-            UITableViewCell* cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: i inSection: indexPath.section]];
-            NSString* identifier = cell.reuseIdentifier;
-            UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: identifier];
-            [tutorialControllers addObject: childController];
-        }
-        [detailNav setViewControllers: tutorialControllers animated: YES];
-    }
-    else
-    {
+    
+    //TutorialDetailNavController
+    UINavigationController* detailNav = [self.storyboard instantiateViewControllerWithIdentifier: @"TutorialDetailNavController"];
+    
+//    if (self.splitViewController.viewControllers.count > 1 && self.splitViewController.isCollapsed)
+//    {
+//        NSInteger endIndex = indexPath.row;
+//
+//        NSMutableArray* tutorialControllers = [NSMutableArray arrayWithCapacity: endIndex + 1];
+//        
+//        for (NSInteger i=0; i <= endIndex; i++)
+//        {
+//            UITableViewCell* cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: i inSection: indexPath.section]];
+//            NSString* identifier = cell.reuseIdentifier;
+//            UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: identifier];
+//            [tutorialControllers addObject: childController];
+//        }
+//        [detailNav setViewControllers: tutorialControllers animated: YES];
+//        [self showDetailViewController: detailNav sender: nil];
+//    }
+//    else
+//    {
         UITableViewCell* cell = [tableView cellForRowAtIndexPath: indexPath];
         NSString* identifier = cell.reuseIdentifier;
         UIViewController* childController = [self.storyboard instantiateViewControllerWithIdentifier: identifier];
-        [self showDetailViewController: childController sender: cell];
-    }
+        [detailNav setViewControllers: @[childController]];
+        [self showDetailViewController: detailNav sender: cell];
+//    }
 }
 
 #pragma mark - Table view data source
