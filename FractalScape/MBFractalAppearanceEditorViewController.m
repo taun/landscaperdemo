@@ -9,6 +9,7 @@
 #import "MBFractalAppearanceEditorViewController.h"
 #import "UIDevice_Hardware.h"
 #import "MDBFractalFiltersControllerViewController.h"
+#import "MBFractalRulesEditorViewController.h"
 
 @interface MBFractalAppearanceEditorViewController ()
 
@@ -21,31 +22,47 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view.
+    if (!self.appModel.allowPremium)
+    {
+        [self removeEditorOfClass: [MBFractalRulesEditorViewController class]];
+    }
+    else
+    {
+        
+    }
+    
     if ([UIScreen mainScreen].scale == 1.0)
     { // not retina device
-        NSMutableArray* childControllers = [self.childViewControllers mutableCopy];
-        UIViewController* filterController;
-        
-        for (UIViewController* controller in childControllers)
-        {
-            UINavigationController* navCon = (UINavigationController*)controller;
-            UIViewController* viewController = [navCon.childViewControllers firstObject];
-            if ([viewController isKindOfClass: [MDBFractalFiltersControllerViewController class]])
-            {
-                filterController = navCon;
-                break;
-            }
-        }
-        if (filterController)
-        {
-            [childControllers removeObject: filterController];
-            [self setViewControllers: childControllers];
-        }
+        [self removeEditorOfClass: [MDBFractalFiltersControllerViewController class]];
     }
     
     self.delegate = self;
 }
+
+-(void)removeEditorOfClass: (Class)aClass
+{
+    NSMutableArray* childControllers = [self.childViewControllers mutableCopy];
+    UIViewController* controllerToRemove;
+    
+    for (UIViewController* controller in childControllers)
+    {
+        UINavigationController* navCon = (UINavigationController*)controller;
+        UIViewController* viewController = [navCon.childViewControllers firstObject];
+        if ([viewController isKindOfClass: aClass])
+        {
+            controllerToRemove = navCon;
+            break;
+        }
+    }
+    if (controllerToRemove)
+    {
+        [childControllers removeObject: controllerToRemove];
+        [self setViewControllers: childControllers];
+    }
+}
+
 -(void) viewWillAppear:(BOOL)animated {
 
 //    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];

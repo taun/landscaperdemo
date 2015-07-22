@@ -41,4 +41,7 @@ extern NSString *const kMDBFractalCloudContainer;
 -(void)setShowHelpTips: (BOOL)show;
 -(BOOL)showHelpTips;
 
+-(void)___setAllowPremium: (BOOL)on;
+-(void)___setUseWatermark: (BOOL)on;
+
 @end

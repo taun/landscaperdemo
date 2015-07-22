@@ -22,18 +22,26 @@ NSString* const  kPrefShowPerformanceData = @"com.moedae.FractalScapes.showPerfo
 NSString* const  kPrefFullScreenState = @"com.moedae.FractalScapes.fullScreenState";
 NSString* const  kPrefShowHelpTips = @"com.moedae.FractalScapes.showEditHelp";
 
+@interface MDBAppModel ()
+
+@property (nonatomic,assign,readwrite) BOOL        allowPremium;
+@property (nonatomic,assign,readwrite) BOOL        useWatermark;
+
+@end
+
+
 @implementation MDBAppModel
 
 @synthesize cloudManager = _cloudManager;
 
--(BOOL)allowPremium
+-(void)___setAllowPremium:(BOOL)on
 {
-    return NO;
+    self.allowPremium = on;
 }
 
--(BOOL)useWatermark
+-(void)___setUseWatermark:(BOOL)on
 {
-    return YES;
+    self.useWatermark = on;
 }
 
 - (instancetype)init
@@ -61,7 +69,10 @@ NSString* const  kPrefShowHelpTips = @"com.moedae.FractalScapes.showEditHelp";
 - (void)registerDefaults
 {
     //    // since no default values have been set, create them here
-    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, kPrefParalax, @NO, kPrefFullScreenState, @YES, kPrefShowHelpTips, nil];
+    _allowPremium = NO;
+    _useWatermark = YES;
+    
+    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, kPrefParalax, @YES, kPrefFullScreenState, @YES, kPrefShowHelpTips, nil];
     //
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults: appDefaults];

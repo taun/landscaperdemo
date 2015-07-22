@@ -73,8 +73,6 @@ static const CGFloat kLevelNMargin = 40.0;
 @property (nonatomic, strong) NSArray*              editPassThroughViews;
 
 @property (nonatomic,weak) UIViewController*        currentPresentedController;
-@property (nonatomic,assign) CGSize                 popoverPortraitSize;
-@property (nonatomic,assign) CGSize                 popoverLandscapeSize;
 @property (nonatomic,assign) BOOL                   previousNavBarState;
 
 @property (nonatomic, strong) dispatch_queue_t      levelDataGenerationQueue;
@@ -95,6 +93,7 @@ static const CGFloat kLevelNMargin = 40.0;
 @property (nonatomic,assign) CGFloat                       playIsPercentCompleted;
 @property (nonatomic,strong) NSArray                       *playbackRenderers;
 @property (readonly,strong) CIContext                      *filterContext;
+@property (nonatomic,strong) NSDictionary                  *twoFingerPanProperties;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 
@@ -262,16 +261,27 @@ static const CGFloat kLevelNMargin = 40.0;
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
+    if (!self.appModel.allowPremium)
+    {
+        [self.toggleFullScreenButton removeFromSuperview];
+    }
+    else
+    {
+        
+    }
+    
     _observedReplacementRules = [NSMutableSet new];
     
     [self configureParallax];
     [self configureNavBarButtons];
-
+    [self moveTwoFingerPanToJointAngle: nil]; //default
+    
     // hide navBar on load because the Appearance Popover is auto popped on load
     // and if this is done during the appearance code, the view moves up as the navBar is hidden
     self.previousNavBarState = NO;
-    self.navigationController.navigationBar.hidden = YES;
-
+//    self.navigationController.navigationBar.hidden = YES;
+    [self.navigationController setNavigationBarHidden: YES animated: YES];
+    
     self.showPerformanceData = self.appModel.showPerformanceData;
 
     BOOL fullScreenState = self.appModel.fullScreenState;
@@ -290,9 +300,6 @@ static const CGFloat kLevelNMargin = 40.0;
     strongPlayback.hidden = YES;
     strongPlayback.transform = CGAffineTransformMakeRotation(-M_PI_2);
     [strongPlayback setThumbImage: sliderCircleImage forState: UIControlStateNormal];
-
-    _popoverPortraitSize = CGSizeMake(728.0,350.0);
-    _popoverLandscapeSize = CGSizeMake(400.0,650.0);
     
     // Setup the scrollView to allow the fractal image to float.
     // This is to allow the user to move the fractal out from under the HUD display.
@@ -372,14 +379,6 @@ static const CGFloat kLevelNMargin = 40.0;
         [self performSegueWithIdentifier: @"EditSegue" sender: self];
     }
     
-}
-
--(void) updateViewController: (UIViewController*)viewController popoverPreferredContentSizeForViewSize: (CGSize)size
-{
-    if (viewController)
-    {
-        viewController.preferredContentSize = size.height > size.width ? self.popoverPortraitSize : self.popoverLandscapeSize;
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -1421,6 +1420,49 @@ static const CGFloat kLevelNMargin = 40.0;
     [self.navigationController popViewControllerAnimated: YES];
 }
 
+-(void) updateViewController: (UIViewController*)viewController popoverPreferredContentSizeForViewSize: (CGSize)size
+{
+    if (viewController)
+    {
+        /*<UITraitCollection: 0x7fc6d2842be0; _UITraitNameUserInterfaceIdiom = Phone,
+         _UITraitNameDisplayScale = 2.000000,
+         _UITraitNameHorizontalSizeClass = Compact,
+         _UITraitNameVerticalSizeClass = Compact, _UITraitNameTouchLevel = 0, */
+        CGSize popSize;
+        BOOL isPortrait = size.height > size.width ? YES : NO;
+        
+        UITraitCollection* traits = self.traitCollection;
+        
+        if (traits.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+        {
+            CGFloat height;
+            CGFloat width;
+            
+            if (isPortrait)
+            {
+                height = size.height / 2.0;
+                width = size.width - self.editButton.bounds.size.width;
+            }
+            else
+            {
+                height = size.height * 0.96;
+                width = size.width/2.0 - self.editButton.bounds.size.width;
+            }
+            popSize = CGSizeMake(width, height);
+        }
+        else if (traits.userInterfaceIdiom == UIUserInterfaceIdiomPad)
+        {
+            popSize = isPortrait ? CGSizeMake(728.0,350.0) : CGSizeMake(400.0,650.0);
+        }
+        else
+        {
+            popSize = isPortrait ? CGSizeMake(728.0,350.0) : CGSizeMake(400.0,650.0);
+        }
+        
+        viewController.preferredContentSize = popSize;
+    }
+}
+
 #pragma mark - UIPopoverPresentationControllerDelegate
 - (void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
 {
@@ -1431,6 +1473,12 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     return UIModalPresentationNone;
 }
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection
+{
+    return UIModalPresentationNone;
+}
+
 
 - (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
 {
@@ -1467,7 +1515,8 @@ static const CGFloat kLevelNMargin = 40.0;
     
     if (!self.navigationController.navigationBar.hidden) {
         self.previousNavBarState = self.navigationController.navigationBar.hidden;
-        self.navigationController.navigationBar.hidden = YES;
+//        self.navigationController.navigationBar.hidden = YES;
+        [self.navigationController setNavigationBarHidden: YES animated: YES];
     }
     
     //    self.fractalScrollView.contentOffset = CGPointZero;
@@ -1476,7 +1525,8 @@ static const CGFloat kLevelNMargin = 40.0;
 }
 -(void) appearanceControllerWasDismissed
 {
-    self.navigationController.navigationBar.hidden = self.previousNavBarState;
+//    self.navigationController.navigationBar.hidden = self.previousNavBarState;
+    [self.navigationController setNavigationBarHidden: self.previousNavBarState animated: YES];
     self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.currentPresentedController = nil;
     [self.view setNeedsLayout];
@@ -1873,8 +1923,10 @@ static const CGFloat kLevelNMargin = 40.0;
 
 -(void) setNavBarHidden: (BOOL)hidden
 {
-    self.navigationController.navigationBar.hidden = hidden;
-    self.previousNavBarState = self.navigationController.navigationBar.hidden;
+//    self.navigationController.navigationBar.hidden = hidden;
+//    self.previousNavBarState = self.navigationController.navigationBar.hidden;
+    self.previousNavBarState = hidden;
+    [self.navigationController setNavigationBarHidden: hidden animated: YES];
     
     [self.view setNeedsLayout];
 }
@@ -2048,17 +2100,62 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     //    return YES;
     return SIMULTOUCH;
 }
+
+- (IBAction)moveTwoFingerPanToBaseRotation:(UIButton *)sender
+{
+    self.twoFingerPanProperties = @{@"imageView":self.fractalView,
+                                    @"hPath":@"baseAngle",
+                                    @"hScale":@5,
+                                    @"hStep":@1,
+                                    @"vPath":@"randomness",
+                                    @"vScale":@-0.001};
+    
+    self.baseRotationButton.selected = YES;
+    self.jointAngleButton.selected = NO;
+    self.incrementsButton.selected = NO;
+}
+
+- (IBAction)moveTwoFingerPanToJointAngle:(UIButton *)sender
+{
+    self.twoFingerPanProperties = @{@"imageView":self.fractalView,
+                                    @"hPath":@"turningAngle",
+                                    @"hScale":@5,
+                                    @"hStep":@1,
+                                    @"vPath":@"lineWidth",
+                                    @"vScale":@0.01};
+    
+    self.baseRotationButton.selected = NO;
+    self.jointAngleButton.selected = YES;
+    self.incrementsButton.selected = NO;
+}
+
+- (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender
+{
+    self.twoFingerPanProperties = @{@"imageView":self.fractalView,
+                                    @"hPath":@"turningAngleIncrement",
+                                    @"hScale":@0.001,
+                                    @"hStep":@0.01,
+                                    @"vPath":@"lineChangeFactor",
+                                    @"vScale":@-0.001};
+    
+    self.baseRotationButton.selected = NO;
+    self.jointAngleButton.selected = NO;
+    self.incrementsButton.selected = YES;
+}
+
 /* want to use 2 finger pans for changing rotation and line thickness in place of swiping
  need to lock in either horizontal or vertical panning view a state and state change */
 -(IBAction)twoFingerPanFractal:(UIPanGestureRecognizer *)gestureRecognizer
 {
+    NSDictionary* panProps = [self.twoFingerPanProperties copy];
+    
     [self convertPan: gestureRecognizer
-         onImageView: self.fractalView
-horizontalPropertyPath: @"turningAngle"
-              hScale: 5.0/1.0
-               hStep:    1.0
-verticalPropertyPath: @"lineWidth"
-              vScale: 1.0/100.0];
+         onImageView: panProps[@"imageView"]
+horizontalPropertyPath: panProps[@"hPath"]
+              hScale: [(NSNumber*)panProps[@"hScale"] floatValue]
+               hStep: [(NSNumber*)panProps[@"hStep"] floatValue]
+verticalPropertyPath: panProps[@"vPath"]
+              vScale: [(NSNumber*)panProps[@"vScale"] floatValue]];
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender
 {

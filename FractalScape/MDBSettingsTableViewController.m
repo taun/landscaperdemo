@@ -13,12 +13,21 @@
 
 @interface MDBSettingsTableViewController ()
 
+@property (weak, nonatomic) IBOutlet UISwitch *allowPremiumSwitch;
+
+- (IBAction)allowPremiumButtonChanged:(UISwitch *)sender;
+
 @end
 
 @implementation MDBSettingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+#ifndef DEBUG
+    [self.tableView deleteSections: [NSIndexSet indexSetWithIndex: 3] withRowAnimation: UITableViewRowAnimationNone];
+#endif
+
     // Do any additional setup after loading the view.
     UIView *backgroundView = [[UIView alloc] initWithFrame: self.view.bounds];
     backgroundView.backgroundColor = [UIColor colorWithRed: 0.8 green: 0.8 blue: 0 alpha: 1.0];
@@ -58,6 +67,8 @@
     
     self.showHelpTipsSwitch.on = self.appModel.showHelpTips;
     self.showParallaxEffect.on = self.appModel.showParallax;
+    
+    self.allowPremiumSwitch.on = self.appModel.allowPremium;
 }
 /*
 #pragma mark - Navigation
@@ -104,4 +115,13 @@
     }
 }
 
+- (IBAction)allowPremiumButtonChanged:(UISwitch *)sender
+{
+    [self.appModel ___setAllowPremium: sender.on];
+}
+
+- (IBAction)useWatermarkButtonChanged:(UISwitch *)sender
+{
+    [self.appModel ___setUseWatermark: sender.on];
+}
 @end
