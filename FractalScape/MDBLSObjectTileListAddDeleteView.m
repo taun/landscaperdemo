@@ -108,6 +108,10 @@
     // state must come after constraints due to constraints dependency
     self.state = MDBLSNeutral;
 }
+-(void)updateConstraints
+{
+    [super updateConstraints];
+}
 
 -(void) setContent:(UIView *)content {
     UIView* strongContent = _content;

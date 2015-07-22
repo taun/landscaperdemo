@@ -11,6 +11,8 @@
 #import "MBLSRuleDragAndDropProtocol.h"
 #import "LSFractal.h"
 
+IB_DESIGNABLE
+
 #pragma message "TODO Create a common subclass for this and MBColorCategoriesListView"
 
 @interface MDBImageFiltersCategoriesListView : UIView <MBLSRuleDragAndDropProtocol>

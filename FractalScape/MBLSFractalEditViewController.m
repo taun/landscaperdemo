@@ -356,8 +356,6 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     [super viewDidAppear:animated];
 
-    [self updateAndShowEditor];
-    
     UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
 
     if (!UIEdgeInsetsEqualToEdgeInsets(self.fractalScrollView.contentInset , scrollInsets))
@@ -366,6 +364,8 @@ static const CGFloat kLevelNMargin = 40.0;
         self.fractalScrollView.contentInset = scrollInsets;
         self.fractalScrollView.contentOffset = CGPointZero;
     }
+
+    [self updateAndShowEditor];
 }
 
 -(void) updateAndShowEditor
@@ -1431,6 +1431,15 @@ static const CGFloat kLevelNMargin = 40.0;
         CGSize popSize;
         BOOL isPortrait = size.height > size.width ? YES : NO;
         
+        if (isPortrait)
+        {
+            [self moveCanvasForPortraitPopover];
+        }
+        else
+        {
+            [self moveCanvasForLandscapePopover];
+        }
+        
         UITraitCollection* traits = self.traitCollection;
         
         if (traits.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
@@ -1440,7 +1449,7 @@ static const CGFloat kLevelNMargin = 40.0;
             
             if (isPortrait)
             {
-                height = size.height / 2.0;
+                height = fmaxf(270.0, size.height / 2.0);
                 width = size.width - self.editButton.bounds.size.width;
             }
             else
@@ -1452,7 +1461,7 @@ static const CGFloat kLevelNMargin = 40.0;
         }
         else if (traits.userInterfaceIdiom == UIUserInterfaceIdiomPad)
         {
-            popSize = isPortrait ? CGSizeMake(728.0,350.0) : CGSizeMake(400.0,650.0);
+            popSize = isPortrait ? CGSizeMake(728.0,350.0) : CGSizeMake(360.0,650.0);
         }
         else
         {
@@ -1461,6 +1470,30 @@ static const CGFloat kLevelNMargin = 40.0;
         
         viewController.preferredContentSize = popSize;
     }
+}
+
+/*!
+ Move the center of the canvas to the top half
+ */
+-(void)moveCanvasForPortraitPopover
+{
+    CGSize size = self.fractalView.bounds.size;
+    
+    [self autoScale: nil];
+    [self.fractalScrollView setContentOffset: CGPointMake(size.width*0.0, size.height*0.2) animated: YES];
+    [self.fractalScrollView setZoomScale: 0.8 animated: YES];
+}
+
+/*!
+ Move the center of the canvas to the left half
+ */
+-(void)moveCanvasForLandscapePopover
+{
+    CGSize size = self.fractalView.bounds.size;
+    
+    [self autoScale: nil];
+    [self.fractalScrollView setContentOffset: CGPointMake(size.width*0.25, size.height*0.0) animated: YES];
+    [self.fractalScrollView setZoomScale: 0.8 animated: YES];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate
@@ -1521,7 +1554,8 @@ static const CGFloat kLevelNMargin = 40.0;
     
     //    self.fractalScrollView.contentOffset = CGPointZero;
     self.fractalViewRootSingleTapRecognizer.enabled = NO;
-    [self.view setNeedsLayout];
+//    [self.view setNeedsLayout];
+    
 }
 -(void) appearanceControllerWasDismissed
 {
@@ -1529,9 +1563,11 @@ static const CGFloat kLevelNMargin = 40.0;
     [self.navigationController setNavigationBarHidden: self.previousNavBarState animated: YES];
     self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.currentPresentedController = nil;
-    [self.view setNeedsLayout];
+//    [self.view setNeedsLayout];
     [self updateLibraryRepresentationIfNeeded];
+    [self autoScale: nil];
 }
+
 
 #pragma mark - Control Actions
 /*!
@@ -2325,7 +2361,7 @@ verticalPropertyPath: @"lineChangeFactor"
     //    subLayer.position = self.fractalView.center;
     // needsDisplayOnBoundsChange = YES, ensures layer will be redrawn.
     [self.fractalScrollView setZoomScale: 1.0 animated: YES];
-    self.fractalScrollView.contentOffset = CGPointZero;
+    [self.fractalScrollView setContentOffset: CGPointZero animated: YES];
 }
 
 - (IBAction)toggleFullScreen:(id)sender

@@ -62,8 +62,21 @@
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+//    [self updateViewConstraints];
+    [self.destinationOutlineView setNeedsUpdateConstraints];
+    [self.destinationOutlineView setNeedsLayout];
+    [self.destinationOutlineView layoutIfNeeded];
+    [self.contentView setNeedsUpdateConstraints];
+    [self.contentView setNeedsLayout];
+    [self.contentView layoutIfNeeded];
     [self.view setNeedsUpdateConstraints];
+    [self.view setNeedsLayout];
     [self.replacementRules setNeedsUpdateConstraints];
+    [self.replacementRules setNeedsLayout];
+    [self.replacementRules layoutIfNeeded];
+    [self.sourceListView setNeedsUpdateConstraints];
+    [self.sourceListView setNeedsLayout];
+    [self.sourceListView layoutIfNeeded];
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 

@@ -14,7 +14,7 @@
 #import "MBLSReplacementRulesListView.h"
 #import "MBLSReplacementRuleTileView.h"
 #import "MBLSRuleTypeTileViewer.h"
-
+#import "MDKLayerViewDesignable.h"
 #import "MBFractalPrefConstants.h"
 
 
@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView                         *contentView;
 @property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditViewer   *summaryEditView;
 @property (weak, nonatomic) IBOutlet MBLSReplacementRulesListView   *replacementRules;
+@property (weak, nonatomic) IBOutlet MDKLayerViewDesignable         *destinationOutlineView;
 
 - (IBAction)replacementRuleLongPressGesture: (UILongPressGestureRecognizer *)sender;
 - (IBAction)startRulesLongPressGesture: (UILongPressGestureRecognizer *)sender;

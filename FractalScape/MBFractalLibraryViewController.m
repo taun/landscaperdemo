@@ -154,9 +154,21 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [self addAppModelObservers];
     }
 }
+-(void)updatePremiumFeaturesState
+{
+    if (!_appModel.allowPremium)
+    {
+        self.navigationItem.leftBarButtonItem.enabled = NO; // remove ability to add new fractal
+    }
+    else
+    {
+        self.navigationItem.leftBarButtonItem.enabled = YES;
+    }
+}
 -(void)addAppModelObservers{
     if (_appModel)
     {
+        [_appModel addObserver: self forKeyPath: @"allowPremium" options: NSKeyValueObservingOptionOld context: NULL];
         [_appModel addObserver: self forKeyPath: @"documentController" options: NSKeyValueObservingOptionOld context: NULL];
         if (_appModel.documentController) {
             [self documentControllerChanged];
@@ -168,6 +180,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     if (_appModel)
     {
+        [_appModel removeObserver: self forKeyPath: @"allowPremium"];
         [_appModel removeObserver: self forKeyPath: @"documentController"];
         if (_appModel.documentController)
         {
@@ -197,6 +210,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             [self removeDocumentControllerObserversFor: oldController];
         }
         [self documentControllerChanged];
+    }
+    else if ([keyPath isEqualToString: @"allowPremium"])
+    {
+        [self updatePremiumFeaturesState];
     }
     else if ([keyPath isEqualToString: @"fractalInfos"])
     {

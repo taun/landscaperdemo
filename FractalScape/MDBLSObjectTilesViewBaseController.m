@@ -115,12 +115,12 @@
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
     id strongSourceListView = self.sourceListView;
     id strongDestinationView = self.destinationView;
 
     [strongSourceListView setNeedsUpdateConstraints];
     [strongDestinationView setNeedsUpdateConstraints];
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
 - (void)sourceTapGesture:(UIGestureRecognizer *)sender
