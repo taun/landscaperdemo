@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 LucidaGrande;\f2\fnil\fcharset0 Menlo-Bold;
 }
 {\colortbl;\red255\green255\blue255;\red247\green247\blue247;}
@@ -247,5 +247,24 @@ CloudKit Notes\
 2015-06-20\
 	Preparing for release - Remove in-App features. PDF Vector save, \
 \
+2015-07-22\
+	Rules layout is again broken on rotation.\
+	Re-added setting preferredSize on appearanceView in IB - no improvement.\
+	Printing updateConstraints to log for all view classes involved.\
+	goes to 101 on initial display \
+	Rotation is post 101\
+\
+	Try again portrait start, \
+	colors goes to 20\
+	rules goes to 35\
+\
+	rotate\
+	rules goes to 46 and is overlapping outline of rest of table. Rules source is too high, breaking constraint between outline bottom and rulesSource top.\
+	Bottom constraint on MDKDesignable is greyed out on designable but full black on rulesTypeView.\
+\
+	RulesSource Y position of wrong! Too high and too low.\
+	ScrollViewContent height is right. Just the rules are offset with wrong Y.\
+\
+	*** ScrollView ContentView is not getting a needed "setNeedsLayout"\
 \
 }

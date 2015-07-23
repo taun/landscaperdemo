@@ -375,7 +375,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="463" width="296" height="154.5"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
@@ -517,7 +517,7 @@
                                                     </mask>
                                                 </variation>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="295" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
@@ -645,7 +645,7 @@
                                                     <rect key="frame" x="12" y="250.5" width="236" height="122.5"/>
                                                 </variation>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="127" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
@@ -1020,7 +1020,7 @@
                                             <view contentMode="scaleToFill" restorationIdentifier="FiltersScrollContents" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-N1-HPR" userLabel="FiltersScrollContents">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" misplaced="YES" restorationIdentifier="FilterCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" userLabel="FilterCategoriesView" customClass="MDBImageFiltersCategoriesListView">
+                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" ambiguous="YES" restorationIdentifier="FilterCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" userLabel="FilterCategoriesView" customClass="MDBImageFiltersCategoriesListView">
                                                         <rect key="frame" x="18" y="0.0" width="364" height="500"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1135,13 +1135,13 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kbu-uc-QBR">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kbu-uc-QBR">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="108"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="E5G-Xc-F7c">
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="E5G-Xc-F7c">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="108"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ab9-Jg-fYJ" userLabel="FiltersGroup" customClass="MDKLayerViewDesignable">
+                                        <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ab9-Jg-fYJ" userLabel="FiltersGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="2" y="2" width="396" height="104"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls" customClass="MDBFilterControlView">
@@ -1167,7 +1167,7 @@ Drag icon to holder below to apply filter</string>
                                                         <constraint firstAttribute="centerY" secondItem="jhA-5f-k1Y" secondAttribute="centerY" id="w9Z-wT-cV6"/>
                                                     </constraints>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
+                                                <view opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
                                                     <rect key="frame" x="6" y="56" width="384" height="42"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <gestureRecognizers/>
@@ -1310,10 +1310,10 @@ Drag icon to holder below to apply filter</string>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="528"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
+                                            <view contentMode="scaleToFill" misplaced="YES" restorationIdentifier="RulesScrollContentsView" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="RulesScrollContentsView">
+                                                <rect key="frame" x="0.0" y="0.0" width="800" height="342"/>
                                                 <subviews>
-                                                    <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
+                                                    <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="RulesOutlineDesignable" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
                                                         <rect key="frame" x="2" y="2" width="796" height="262"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1331,7 +1331,7 @@ Drag icon to holder below to apply filter</string>
                                                             <rect key="frame" x="10" y="8" width="780" height="200"/>
                                                         </variation>
                                                     </view>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="244" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-gp-nOl" customClass="MBLSFractalSummaryEditViewer">
                                                         <rect key="frame" x="2" y="2" width="796" height="116"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -1352,8 +1352,8 @@ Drag icon to holder below to apply filter</string>
                                                             <rect key="frame" x="10" y="0.0" width="780" height="116"/>
                                                         </variation>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
-                                                        <rect key="frame" x="12" y="134" width="42" height="21"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                        <rect key="frame" x="12" y="134" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1364,7 +1364,7 @@ Drag icon to holder below to apply filter</string>
                                                             <rect key="frame" x="20" y="0.0" width="42" height="20.5"/>
                                                         </variation>
                                                     </label>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" verticalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" verticalCompressionResistancePriority="1000" misplaced="YES" restorationIdentifier="StartRulesList" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-Ty-aAw" customClass="MBLSObjectListTileViewer">
                                                         <rect key="frame" x="66" y="122" width="722" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1397,13 +1397,13 @@ Drag icon to holder below to apply filter</string>
                                                             <outletCollection property="gestureRecognizers" destination="f5R-qi-g83" appends="YES" id="OXR-31-Krb"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
+                                                    <view opaque="NO" contentMode="scaleAspectFit" misplaced="YES" restorationIdentifier="ListOfReplacementRules" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
                                                         <rect key="frame" x="12" y="174" width="776" height="82"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" priority="750" constant="131" placeholder="YES" id="8MU-c4-54N"/>
-                                                            <constraint firstAttribute="width" priority="750" constant="760" id="D3A-bc-MRO"/>
+                                                            <constraint firstAttribute="width" priority="750" constant="760" placeholder="YES" id="D3A-bc-MRO"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
@@ -1436,7 +1436,7 @@ Drag icon to holder below to apply filter</string>
                                                             <outletCollection property="gestureRecognizers" destination="Boe-Sd-3Hq" appends="YES" id="NaA-zl-tSV"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="243" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" restorationIdentifier="ReplacementRulesSourceListView" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
                                                         <rect key="frame" x="12" y="276" width="776" height="48"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1472,14 +1472,13 @@ Drag icon to holder below to apply filter</string>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="JJQ-Ty-aAw" secondAttribute="trailing" constant="12" id="2Lu-Fu-aWO"/>
-                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" priority="750" constant="50" id="2hd-ZB-e8n">
-                                                        <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
-                                                    </constraint>
+                                                    <constraint firstAttribute="bottom" secondItem="zPi-Ea-Cqu" secondAttribute="bottom" constant="20" symbolic="YES" id="2hd-ZB-e8n"/>
                                                     <constraint firstItem="zPi-Ea-Cqu" firstAttribute="top" secondItem="1Sj-KC-aPt" secondAttribute="bottom" constant="12" id="6Uz-eQ-9sr"/>
                                                     <constraint firstItem="dnp-Hx-YZd" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="12" id="ErR-BG-rEP"/>
                                                     <constraint firstItem="JJQ-Ty-aAw" firstAttribute="leading" secondItem="eki-f5-HFG" secondAttribute="trailing" constant="12" id="GqB-An-nSa"/>
                                                     <constraint firstItem="1Sj-KC-aPt" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="2" id="ISR-g1-XiB"/>
                                                     <constraint firstAttribute="trailing" secondItem="zPi-Ea-Cqu" secondAttribute="trailing" constant="12" id="MJW-iV-SWY"/>
+                                                    <constraint firstItem="zPi-Ea-Cqu" firstAttribute="top" secondItem="dnp-Hx-YZd" secondAttribute="bottom" constant="20" id="NT4-r4-lZF"/>
                                                     <constraint firstItem="Zw0-gp-nOl" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="2" id="Y2v-vp-O9V"/>
                                                     <constraint firstAttribute="trailing" secondItem="dnp-Hx-YZd" secondAttribute="trailing" constant="12" id="bE3-sj-MCf"/>
                                                     <constraint firstAttribute="trailing" secondItem="Zw0-gp-nOl" secondAttribute="trailing" constant="2" id="dLW-Dd-GYy"/>
@@ -1487,10 +1486,11 @@ Drag icon to holder below to apply filter</string>
                                                     <constraint firstItem="eki-f5-HFG" firstAttribute="centerY" secondItem="JJQ-Ty-aAw" secondAttribute="centerY" id="fge-oS-DbI"/>
                                                     <constraint firstAttribute="trailing" secondItem="1Sj-KC-aPt" secondAttribute="trailing" constant="2" id="gA9-PI-QDq"/>
                                                     <constraint firstItem="dnp-Hx-YZd" firstAttribute="top" secondItem="JJQ-Ty-aAw" secondAttribute="bottom" constant="8" id="hko-di-jz9"/>
-                                                    <constraint firstAttribute="width" priority="750" constant="800" id="ms0-5J-Hgn"/>
+                                                    <constraint firstAttribute="width" priority="750" constant="800" placeholder="YES" id="ms0-5J-Hgn"/>
                                                     <constraint firstItem="Zw0-gp-nOl" firstAttribute="top" secondItem="4f0-9f-h9I" secondAttribute="top" constant="2" id="nDj-uQ-5qc"/>
                                                     <constraint firstItem="zPi-Ea-Cqu" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="12" id="oOw-qP-mac"/>
                                                     <constraint firstItem="1Sj-KC-aPt" firstAttribute="top" secondItem="4f0-9f-h9I" secondAttribute="top" constant="2" id="pol-5e-DtZ"/>
+                                                    <constraint firstItem="dnp-Hx-YZd" firstAttribute="bottom" secondItem="1Sj-KC-aPt" secondAttribute="bottom" constant="-8" id="qVp-if-bsB"/>
                                                     <constraint firstItem="JJQ-Ty-aAw" firstAttribute="top" secondItem="Zw0-gp-nOl" secondAttribute="bottom" constant="4" id="uVU-pa-QoR"/>
                                                     <constraint firstAttribute="height" priority="250" constant="500" placeholder="YES" id="v7K-av-6xt"/>
                                                     <constraint firstItem="eki-f5-HFG" firstAttribute="leading" secondItem="4f0-9f-h9I" secondAttribute="leading" constant="12" id="wrn-Zw-8a5"/>
@@ -1509,13 +1509,13 @@ Drag icon to holder below to apply filter</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="800" height="44"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Help:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUS-oG-EcT">
-                                                                    <rect key="frame" x="12" y="11" width="41" height="21"/>
+                                                                    <rect key="frame" x="12" y="11" width="40.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
-                                                                    <rect key="frame" x="61" y="12" width="316" height="21"/>
+                                                                    <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -1599,6 +1599,7 @@ Drag icon to holder below to apply filter</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <value key="contentSizeForViewInPopover" type="size" width="800" height="528"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="577"/>
@@ -1670,7 +1671,7 @@ Drag icon to holder below to apply filter</string>
                                             <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ScrollContentView" translatesAutoresizingMaskIntoConstraints="NO" id="SrT-kZ-Fno" userLabel="ScrollContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" misplaced="YES" restorationIdentifier="ColorCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" userLabel="ColorCategoriesView" customClass="MDBColorCategoriesListView">
+                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" ambiguous="YES" restorationIdentifier="ColorCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" userLabel="ColorCategoriesView" customClass="MDBColorCategoriesListView">
                                                         <rect key="frame" x="18" y="0.0" width="364" height="451"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1784,13 +1785,13 @@ Drag icon to holder below to apply filter</string>
                                     <constraint firstItem="4QD-IE-s5T" firstAttribute="leading" secondItem="HCL-AF-c5r" secondAttribute="leading" id="yqg-Lg-rbv"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="106"/>
                                 <view key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="250" id="TLs-EA-bzv">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="106"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
+                                        <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="2" y="2" width="396" height="102"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="scaleAspectFill" verticalHuggingPriority="249" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
@@ -1824,10 +1825,10 @@ Drag icon to holder below to apply filter</string>
                                                         <outletCollection property="gestureRecognizers" destination="tHc-f0-gZq" appends="YES" id="rMH-uI-lpb"/>
                                                     </connections>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
+                                                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
                                                     <rect key="frame" x="48" y="2" width="346" height="100"/>
                                                     <subviews>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
                                                             <rect key="frame" x="4" y="11" width="28" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="y20-fS-x0U" secondAttribute="height" id="Xig-yr-55y"/>
@@ -1876,7 +1877,7 @@ Drag icon to holder below to apply filter</string>
                                                                 <outletCollection property="gestureRecognizers" destination="LiJ-uw-Hif" appends="YES" id="6zS-6n-xbb"/>
                                                             </connections>
                                                         </view>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
                                                             <rect key="frame" x="4" y="57" width="28" height="28"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>

@@ -60,25 +60,20 @@
     [super viewDidDisappear:animated];
 }
 
--(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-//    [self updateViewConstraints];
-    [self.destinationOutlineView setNeedsUpdateConstraints];
-    [self.destinationOutlineView setNeedsLayout];
-    [self.destinationOutlineView layoutIfNeeded];
-    [self.contentView setNeedsUpdateConstraints];
-    [self.contentView setNeedsLayout];
-    [self.contentView layoutIfNeeded];
-    [self.view setNeedsUpdateConstraints];
     [self.view setNeedsLayout];
-    [self.replacementRules setNeedsUpdateConstraints];
-    [self.replacementRules setNeedsLayout];
-    [self.replacementRules layoutIfNeeded];
-    [self.sourceListView setNeedsUpdateConstraints];
-    [self.sourceListView setNeedsLayout];
-    [self.sourceListView layoutIfNeeded];
+    [self updateViewConstraints];
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
+
+-(void) updateViewConstraints
+{
+    [super updateViewConstraints];
+    
+    [self.contentView layoutIfNeeded]; // For some reason, layout never happens on contentView without this call.
+}
+
 
 #pragma mark - Drag & Drop
 - (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender {

@@ -28,6 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.delegate = self;
+
+    // Appearance settings
+    [[UISwitch appearance] setOnTintColor: self.view.tintColor];
 }
 
 
