@@ -31,7 +31,8 @@
 //    }
     
     UIView *backgroundView = [[UIView alloc] initWithFrame: self.view.bounds];
-    backgroundView.backgroundColor = [UIColor yellowColor];
+//    backgroundView.backgroundColor = [UIColor yellowColor];
+    backgroundView.backgroundColor = self.view.tintColor;
     
     UIImageView* imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"documentThumbnailPlaceholder1024"]];
     [backgroundView addSubview: imageView];

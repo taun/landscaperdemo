@@ -30,7 +30,11 @@
     self.delegate = self;
 
     // Appearance settings
-    [[UISwitch appearance] setOnTintColor: self.view.tintColor];
+    UIColor* tintColor = self.view.tintColor;
+    CGFloat hue, saturation, brightness, alpha;
+    [tintColor getHue: &hue saturation: &saturation brightness: &brightness alpha: &alpha];
+    UIColor* deSaturated = [UIColor colorWithHue: hue saturation: saturation/2.0 brightness: brightness alpha: alpha];
+    [[UISwitch appearance] setOnTintColor: deSaturated];
 }
 
 

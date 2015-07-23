@@ -30,7 +30,8 @@
 
     // Do any additional setup after loading the view.
     UIView *backgroundView = [[UIView alloc] initWithFrame: self.view.bounds];
-    backgroundView.backgroundColor = [UIColor colorWithRed: 0.8 green: 0.8 blue: 0 alpha: 1.0];
+    UIColor* notePadYellow = [UIColor colorWithRed: 0.8 green: 0.8 blue: 0 alpha: 1.0];
+    backgroundView.backgroundColor = self.view.tintColor;
     
     UIImageView* imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"documentThumbnailPlaceholder1024"]];
     [backgroundView addSubview: imageView];
