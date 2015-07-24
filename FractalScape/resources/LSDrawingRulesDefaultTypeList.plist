@@ -37,16 +37,16 @@
 	</array>
 	<key>rulesArray</key>
 	<array>
-        <dict>
-            <key>descriptor</key>
-            <string>Have the turtle draw all the rules added since the last draw! Nothing will draw without this! Use to draw some rules then change color or line type.</string>
-            <key>productionString</key>
-            <string>!</string>
-            <key>drawingMethodString</key>
-            <string>commandDrawPath</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleDrawPath</string>
-        </dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Have the turtle draw all the rules added since the last draw! Nothing will draw without this! Use to draw some rules then change color or line type.</string>
+			<key>productionString</key>
+			<string>!</string>
+			<key>drawingMethodString</key>
+			<string>commandDrawPath</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDrawPath</string>
+		</dict>
 		<dict>
 			<key>descriptor</key>
 			<string>Draw a line by moving the turtle in a straight line for the standard distance. Takes effect immediately.</string>
@@ -77,56 +77,56 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleMoveByLine</string>
 		</dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Close the shape since the last drawPath or bracket rule. Takes effect immediately.</string>
-            <key>productionString</key>
-            <string>.</string>
-            <key>drawingMethodString</key>
-            <string>commandClosePath</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleClosePath</string>
-        </dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Increase the line width. Only the last width before the drawPath! is used.</string>
-            <key>productionString</key>
-            <string>^</string>
-            <key>drawingMethodString</key>
-            <string>commandIncrementLineWidth</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleIncrementLineWidth</string>
-        </dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Decrease the line width. Only the last width before the drawPath! is used.</string>
-            <key>productionString</key>
-            <string>`</string>
-            <key>drawingMethodString</key>
-            <string>commandDecrementLineWidth</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleDecrementLineWidth</string>
-        </dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Increase the line length. Takes effect immediately.</string>
-            <key>productionString</key>
-            <string>&lt;</string>
-            <key>drawingMethodString</key>
-            <string>commandUpscaleLineLength</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleUpscaleLineLength</string>
-        </dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Decrease the line length. Takes effect immediately.</string>
-            <key>productionString</key>
-            <string>&gt;</string>
-            <key>drawingMethodString</key>
-            <string>commandDownscaleLineLength</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleDownscaleLineLength</string>
-        </dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Close the shape since the last drawPath or bracket rule. Takes effect immediately.</string>
+			<key>productionString</key>
+			<string>.</string>
+			<key>drawingMethodString</key>
+			<string>commandClosePath</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleClosePath</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Increase the line width. Only the last width before the drawPath! is used.</string>
+			<key>productionString</key>
+			<string>^</string>
+			<key>drawingMethodString</key>
+			<string>commandIncrementLineWidth</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleIncrementLineWidth</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Decrease the line width. Only the last width before the drawPath! is used.</string>
+			<key>productionString</key>
+			<string>`</string>
+			<key>drawingMethodString</key>
+			<string>commandDecrementLineWidth</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDecrementLineWidth</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Increase the line length. Takes effect immediately.</string>
+			<key>productionString</key>
+			<string>&lt;</string>
+			<key>drawingMethodString</key>
+			<string>commandUpscaleLineLength</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleUpscaleLineLength</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Decrease the line length. Takes effect immediately.</string>
+			<key>productionString</key>
+			<string>&gt;</string>
+			<key>drawingMethodString</key>
+			<string>commandDownscaleLineLength</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDownscaleLineLength</string>
+		</dict>
 		<dict>
 			<key>descriptor</key>
 			<string>Rotate the turtle left. Takes effect immediately.</string>
@@ -147,46 +147,46 @@
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleRotateC</string>
 		</dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Reverse the turtle&apos;s direction.</string>
-            <key>productionString</key>
-            <string>|</string>
-            <key>drawingMethodString</key>
-            <string>commandReverseDirection</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleReverseDirection</string>
-        </dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Swap the meaning of left and right turns. Takes effect immediately.</string>
-            <key>productionString</key>
-            <string>&amp;</string>
-            <key>drawingMethodString</key>
-            <string>commandSwapRotation</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleSwapRotation</string>
-        </dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Increase the turn angle.  Takes effect immediately.</string>
-            <key>productionString</key>
-            <string>(</string>
-            <key>drawingMethodString</key>
-            <string>commandIncrementAngle</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleIncrementAngle</string>
-        </dict>
-        <dict>
-            <key>descriptor</key>
-            <string>Decrease the turn angle. Takes effect immediately.</string>
-            <key>productionString</key>
-            <string>)</string>
-            <key>drawingMethodString</key>
-            <string>commandDecrementAngle</string>
-            <key>iconIdentifierString</key>
-            <string>kBIconRuleDecrementAngle</string>
-        </dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Reverse the turtle&apos;s direction.</string>
+			<key>productionString</key>
+			<string>|</string>
+			<key>drawingMethodString</key>
+			<string>commandReverseDirection</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleReverseDirection</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Swap the meaning of left and right turns. Takes effect immediately.</string>
+			<key>productionString</key>
+			<string>&amp;</string>
+			<key>drawingMethodString</key>
+			<string>commandSwapRotation</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleSwapRotation</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Increase the turn angle.  Takes effect immediately.</string>
+			<key>productionString</key>
+			<string>(</string>
+			<key>drawingMethodString</key>
+			<string>commandIncrementAngle</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleIncrementAngle</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Decrease the turn angle. Takes effect immediately.</string>
+			<key>productionString</key>
+			<string>)</string>
+			<key>drawingMethodString</key>
+			<string>commandDecrementAngle</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleDecrementAngle</string>
+		</dict>
 		<dict>
 			<key>descriptor</key>
 			<string>Draw a circle. Takes effect immediately.</string>
@@ -279,6 +279,36 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
+			<string>Rotate the current color hue by increment %.</string>
+			<key>productionString</key>
+			<string>k</string>
+			<key>drawingMethodString</key>
+			<string>commandRotateLineHue</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleNextHue</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Rotate the current color saturation by increment %.</string>
+			<key>productionString</key>
+			<string>m</string>
+			<key>drawingMethodString</key>
+			<string>commandRotateLineSaturation</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleNextSaturation</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Rotate the current color brightness by increment %.</string>
+			<key>productionString</key>
+			<string>n</string>
+			<key>drawingMethodString</key>
+			<string>commandRotateLineBrightness</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleNextBrightness</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
 			<string>Turn the fill off. Only the last stroke, fill or color before the drawPath are used.</string>
 			<key>productionString</key>
 			<string>l</string>
@@ -306,6 +336,16 @@
 			<string>commandNextFillColor</string>
 			<key>iconIdentifierString</key>
 			<string>kBIconRuleNextFillColor</string>
+		</dict>
+		<dict>
+			<key>descriptor</key>
+			<string>Rotate the current fill hue by increment %.</string>
+			<key>productionString</key>
+			<string>o</string>
+			<key>drawingMethodString</key>
+			<string>commandRotateFillHue</string>
+			<key>iconIdentifierString</key>
+			<string>kBIconRuleNextHueFill</string>
 		</dict>
 		<dict>
 			<key>descriptor</key>

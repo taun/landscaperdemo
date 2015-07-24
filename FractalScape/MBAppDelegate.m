@@ -22,7 +22,7 @@
 #import "MDBFractalCloudBrowser.h"
 #import "MBFractalLibraryViewController.h"
 
-#import "ABX.h"
+//#import "ABX.h"
 
 #import "UIDevice_Hardware.h"
 
@@ -63,7 +63,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     
     self.mainTabController.appModel = _appModel;
     
-    [[ABXApiClient instance] setApiKey:@"a02e2366313edf6d321e3eda0e3fcf613fd4ab72"];
+//    [[ABXApiClient instance] setApiKey:@"a02e2366313edf6d321e3eda0e3fcf613fd4ab72"];
     
     return YES;
 }

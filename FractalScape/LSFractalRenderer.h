@@ -62,11 +62,17 @@ X ;   close path
  33   c :  next fill color
  34   d :  previous fill color
  34   e :  lineCapButt
- 34   f :  round
- 34   g :  square
- 34   h :  lineJoin
- 34   i :  lineJoin
- 34   j :  lineJoin
+ 34   f :  lineCapRound
+ 34   g :  lineCapSquare
+ 34   h :  lineJoinMitre
+ 34   i :  lineJoinRound
+ 34   j :  lineJoinBevel
+ 35   k :  RotateLineHue
+ 36   m :  RotateLineBrightness
+ 37   n :  RotateLineSaturation
+ 38   o :  RotateFillHue
+ 39   p :  RotateFillBrightness
+ 40   q :  RotateFillSaturation
  
  Added:
     : drawPath
@@ -309,6 +315,12 @@ X ;   close path
 -(void) commandPreviousColor;
 -(void) commandNextFillColor;
 -(void) commandPreviousFillColor;
+-(void) commandRotateLineHue;
+-(void) commandRotateLineBrightness;
+-(void) commandRotateLineSaturation;
+-(void) commandRotateFillHue;
+-(void) commandRotateFillBrightness;
+-(void) commandRotateFillSaturation;
 
 @end
 

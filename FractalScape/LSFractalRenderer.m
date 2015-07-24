@@ -22,6 +22,37 @@
 //#define LSDEBUGPERFORMANCE
 //#define LSDEBUGPOSITION
 
+
+/*
+ From Paul Bourke's library - http://paulbourke.net
+ Attribute in app credits.
+ 
+ */
+
+
+typedef struct {
+    CGFloat r,g,b;
+} COLOUR;
+
+typedef struct {
+    CGFloat h,s,l;
+} HSL;
+
+typedef struct {
+    CGFloat h,s,v;
+} HSV;
+
+typedef struct {
+    CGFloat r,g,b,a;
+} RGBA;
+
+HSL    RGB2HSL(COLOUR);
+COLOUR HSL2RGB(HSL);
+
+/*
+ End Paul Bourke code
+ */
+
 struct MBCommandsStruct {
     char        command[kLSMaxRules][kLSMaxCommandLength];
 };
@@ -278,6 +309,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     _segmentIndex = 0;
     _segmentStack[_segmentIndex] = newSegment;
+    for (NSInteger colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
+    {
+        _segmentStack[_segmentIndex].lineColors[colorIndex] = CGColorCreateCopy(_baseSegment.lineColors[colorIndex]);
+        _segmentStack[_segmentIndex].fillColors[colorIndex] = CGColorCreateCopy(_baseSegment.fillColors[colorIndex]);
+    }
 }
 -(void) generateImage
 {
@@ -935,12 +971,29 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
     _segmentStack[_segmentIndex].path = CGPathCreateMutable();
     _segmentStack[_segmentIndex].inCurve = NO; // reset to no curve. can always re-add curve rule but can't remove curve rule.
+    for (NSInteger colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
+    {
+        _segmentStack[_segmentIndex].lineColors[colorIndex] = CGColorCreateCopy(_segmentStack[_segmentIndex-1].lineColors[colorIndex]);
+        _segmentStack[_segmentIndex].fillColors[colorIndex] = CGColorCreateCopy(_segmentStack[_segmentIndex-1].fillColors[colorIndex]);
+    }
+
 }
 -(void) popCurrentPath
 {
     if (_segmentStack[_segmentIndex].path != NULL) {
         CGPathRelease(_segmentStack[_segmentIndex].path);
         _segmentStack[_segmentIndex].path = NULL;
+        for (NSInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
+        {
+            CGColorRef color = _segmentStack[_segmentIndex].lineColors[colorIndex];
+            if (color != NULL) CGColorRelease(color);
+            _segmentStack[_segmentIndex].lineColors[colorIndex] = NULL;
+            
+            color = _segmentStack[_segmentIndex].fillColors[colorIndex];
+            if (color != NULL) CGColorRelease(color);
+            _segmentStack[_segmentIndex].fillColors[colorIndex] = NULL;
+        }
+
     }
     _segmentIndex = _segmentIndex > 0 ? --_segmentIndex : _segmentIndex;
     NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
@@ -1218,6 +1271,117 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     
     _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
 }
+-(void)commandRotateLineHue
+{
+    if (_segmentStack[_segmentIndex].lineChangeFactor > 0)
+    {
+        CGColorRef currentColor = _segmentStack[_segmentIndex].lineColors[_segmentStack[_segmentIndex].lineColorIndex];
+        
+        if (CGColorGetNumberOfComponents(currentColor) == 4)
+        {
+            const CGFloat* components = CGColorGetComponents(currentColor);
+            if (components != NULL)
+            {
+                if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+                CGFloat alpha = components[3];
+                
+                COLOUR rgbInput = {.r=components[0], .g=components[1], .b=components[2]};
+                HSL hslConversion = RGB2HSL(rgbInput);
+                
+                CGFloat rotationDelta = 50 * _segmentStack[_segmentIndex].lineChangeFactor;
+                hslConversion.h = hslConversion.h + rotationDelta; // in degrees
+                
+                
+                COLOUR rgbOutput = HSL2RGB(hslConversion);
+                
+                CGFloat r,g,b;
+                r = rgbOutput.r;
+                g = rgbOutput.g;
+                b = rgbOutput.b;
+                
+                CGFloat newComponents[4];
+                newComponents[0] = r;
+                newComponents[1] = g;
+                newComponents[2] = b;
+                newComponents[3] = alpha;
+                
+                CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
+                
+                CGColorRef newColor = CGColorCreate(rgbSpace, newComponents);
+                CGColorSpaceRelease(rgbSpace);
+                
+                MBSegmentStruct segment = _segmentStack[_segmentIndex];
+                segment.lineColors[_segmentStack[_segmentIndex].lineColorIndex] = newColor;
+                _segmentStack[_segmentIndex] = segment;
+                CGColorRelease(currentColor);
+            }
+        }
+    }
+}
+-(void) commandRotateLineBrightness
+{
+    
+}
+-(void) commandRotateLineSaturation
+{
+    
+}
+-(void) commandRotateFillHue
+{
+    if (_segmentStack[_segmentIndex].lineChangeFactor > 0)
+    {
+        CGColorRef currentColor = _segmentStack[_segmentIndex].fillColors[_segmentStack[_segmentIndex].fillColorIndex];
+        
+        if (CGColorGetNumberOfComponents(currentColor) == 4)
+        {
+            const CGFloat* components = CGColorGetComponents(currentColor);
+            if (components != NULL)
+            {
+                if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+                CGFloat alpha = components[3];
+                
+                COLOUR rgbInput = {.r=components[0], .g=components[1], .b=components[2]};
+                HSL hslConversion = RGB2HSL(rgbInput);
+                
+                CGFloat rotationDelta = 300.0 * _segmentStack[_segmentIndex].lineChangeFactor;
+                hslConversion.h = hslConversion.h + rotationDelta; // in degrees
+                
+                
+                COLOUR rgbOutput = HSL2RGB(hslConversion);
+                
+                CGFloat r,g,b;
+                r = rgbOutput.r;
+                g = rgbOutput.g;
+                b = rgbOutput.b;
+                
+                CGFloat newComponents[4];
+                newComponents[0] = r;
+                newComponents[1] = g;
+                newComponents[2] = b;
+                newComponents[3] = alpha;
+                
+                CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
+                
+                CGColorRef newColor = CGColorCreate(rgbSpace, newComponents);
+                CGColorSpaceRelease(rgbSpace);
+                
+                MBSegmentStruct segment = _segmentStack[_segmentIndex];
+                segment.fillColors[_segmentStack[_segmentIndex].fillColorIndex] = newColor;
+                _segmentStack[_segmentIndex] = segment;
+                CGColorRelease(currentColor);
+            }
+        }
+    }
+}
+-(void) commandRotateFillBrightness
+{
+    
+}
+-(void) commandRotateFillSaturation
+{
+    
+}
+
 -(void) commandLineCapButt
 {
     _segmentStack[_segmentIndex].lineCap = kCGLineCapButt;
@@ -1243,5 +1407,95 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     _segmentStack[_segmentIndex].lineJoin = kCGLineJoinBevel;
 }
 @end
+
+
+/*
+ From Paul Bourke's library - http://paulbourke.net
+ Attribute in app credits.
+ 
+ */
+
+/*
+ Calculate HSL from RGB
+ Hue is in degrees
+ Lightness is betweeen 0 and 1
+ Saturation is between 0 and 1
+ */
+HSL RGB2HSL(COLOUR c1)
+{
+    double themin,themax,delta;
+    HSL c2;
+    
+    themin = MIN(c1.r,MIN(c1.g,c1.b));
+    themax = MAX(c1.r,MAX(c1.g,c1.b));
+    delta = themax - themin;
+    c2.l = (themin + themax) / 2;
+    c2.s = 0;
+    if (c2.l > 0 && c2.l < 1)
+        c2.s = delta / (c2.l < 0.5 ? (2*c2.l) : (2-2*c2.l));
+    c2.h = 0;
+    if (delta > 0) {
+        if (themax == c1.r && themax != c1.g)
+            c2.h += (c1.g - c1.b) / delta;
+        if (themax == c1.g && themax != c1.b)
+            c2.h += (2 + (c1.b - c1.r) / delta);
+        if (themax == c1.b && themax != c1.r)
+            c2.h += (4 + (c1.r - c1.g) / delta);
+        c2.h *= 60;
+        if (c2.h < 0)
+            c2.h += 360;
+    }
+    return(c2);
+}
+
+/*
+ Calculate RGB from HSL, reverse of RGB2HSL()
+ Hue is in degrees
+ Lightness is between 0 and 1
+ Saturation is between 0 and 1
+ */
+COLOUR HSL2RGB(HSL c1)
+{
+    COLOUR c2,sat,ctmp;
+    
+    while (c1.h < 0)
+        c1.h += 360;
+    while (c1.h > 360)
+        c1.h -= 360;
+    
+    if (c1.h < 120) {
+        sat.r = (120 - c1.h) / 60.0;
+        sat.g = c1.h / 60.0;
+        sat.b = 0;
+    } else if (c1.h < 240) {
+        sat.r = 0;
+        sat.g = (240 - c1.h) / 60.0;
+        sat.b = (c1.h - 120) / 60.0;
+    } else {
+        sat.r = (c1.h - 240) / 60.0;
+        sat.g = 0;
+        sat.b = (360 - c1.h) / 60.0;
+    }
+    sat.r = MIN(sat.r,1);
+    sat.g = MIN(sat.g,1);
+    sat.b = MIN(sat.b,1);
+    
+    ctmp.r = 2 * c1.s * sat.r + (1 - c1.s);
+    ctmp.g = 2 * c1.s * sat.g + (1 - c1.s);
+    ctmp.b = 2 * c1.s * sat.b + (1 - c1.s);
+    
+    if (c1.l < 0.5) {
+        c2.r = c1.l * ctmp.r;
+        c2.g = c1.l * ctmp.g;
+        c2.b = c1.l * ctmp.b;
+    } else {
+        c2.r = (1 - c1.l) * ctmp.r + 2 * c1.l - 1;
+        c2.g = (1 - c1.l) * ctmp.g + 2 * c1.l - 1;
+        c2.b = (1 - c1.l) * ctmp.b + 2 * c1.l - 1;
+    }
+    
+    return(c2);
+}
+
 
 

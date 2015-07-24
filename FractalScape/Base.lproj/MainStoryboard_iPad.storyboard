@@ -1310,7 +1310,7 @@ Drag icon to holder below to apply filter</string>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="528"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" restorationIdentifier="RulesScrollContentsView" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="RulesScrollContentsView">
+                                            <view contentMode="scaleToFill" misplaced="YES" restorationIdentifier="RulesScrollContentsView" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="RulesScrollContentsView">
                                                 <rect key="frame" x="0.0" y="0.0" width="800" height="342"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="RulesOutlineDesignable" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
@@ -1446,7 +1446,7 @@ Drag icon to holder below to apply filter</string>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="tileWidth">
-                                                                <real key="value" value="44"/>
+                                                                <real key="value" value="40"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="tileMargin">
                                                                 <real key="value" value="2"/>
