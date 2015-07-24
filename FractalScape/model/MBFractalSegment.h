@@ -40,6 +40,8 @@ struct MBSegmentStruct {
     CGFloat             lineWidthIncrement;
     CGFloat             lineLengthScaleFactor;
     CGFloat             lineChangeFactor;
+    CGFloat             lineHueRotationPercent;
+    CGFloat             fillHueRotationPercent;
     BOOL                fill;
     BOOL                EOFill;
     CGColorRef          defaultFillColor;
@@ -53,7 +55,7 @@ struct MBSegmentStruct {
 typedef struct MBSegmentStruct MBSegmentStruct;
 typedef MBSegmentStruct* MBSegmentRef;
 
-
+#pragma message "REMOVE: MBFractalSegment class obsolete"
 /*!
  A fractal path segment.
  */

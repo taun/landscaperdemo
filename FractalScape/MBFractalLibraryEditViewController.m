@@ -25,6 +25,10 @@
 
 @implementation MBFractalLibraryEditViewController
 
+/*!
+ Purposefully missing [super viewDidLoad] don't want the super class version called.
+ Needs refactoring to avoid this problem.
+ */
 - (void)viewDidLoad
 {
 //    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
@@ -48,6 +52,7 @@
     [self.navigationItem setRightBarButtonItems: items];
 
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+// Purposefully missing [super viewDidLoad] don't want the super class version called.
 }
 
 -(void)viewDidAppear:(BOOL)animated

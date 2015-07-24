@@ -64,12 +64,13 @@
  Playback slider constraints are configured in code. The storyboard constraints are all removed at build time.
  */
 @property (weak, nonatomic) IBOutlet UISlider       *playbackSlider;
-@property (strong,nonatomic) IBOutlet UIButton       *toggleFullScreenButton; // strong so it can be removed and re-added with in-app purchase of pro
+@property (strong,nonatomic) IBOutlet UIButton      *toggleFullScreenButton; // strong so it can be removed and re-added with in-app purchase of pro
 @property (weak, nonatomic) IBOutlet UIButton       *autoExpandOff;
 @property (weak, nonatomic) IBOutlet UIButton       *applyFiltersButton;
 @property (weak, nonatomic) IBOutlet UIButton       *baseRotationButton;
 @property (weak, nonatomic) IBOutlet UIButton       *jointAngleButton;
 @property (weak, nonatomic) IBOutlet UIButton       *incrementsButton;
+@property (weak, nonatomic) IBOutlet UIButton       *hueIncrementsButton;
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootSingleTapRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootDoubleTapRecognizer;
@@ -159,6 +160,7 @@
 - (IBAction)moveTwoFingerPanToBaseRotation:(UIButton *)sender;
 - (IBAction)moveTwoFingerPanToJointAngle:(UIButton *)sender;
 - (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender;
+- (IBAction)moveTwoFingerPanToHueIncrements:(UIButton *)sender;
 
 #pragma mark - HUD Sliders
 - (IBAction)baseAngleSliderChanged:(id)sender;

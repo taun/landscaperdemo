@@ -274,7 +274,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     [self configureParallax];
     [self configureNavBarButtons];
-    [self moveTwoFingerPanToJointAngle: nil]; //default
+    [self moveTwoFingerPanToHueIncrements: nil]; //default
     
     // hide navBar on load because the Appearance Popover is auto popped on load
     // and if this is done during the appearance code, the view moves up as the navBar is hidden
@@ -349,6 +349,7 @@ static const CGFloat kLevelNMargin = 40.0;
     self.navigationItem.title = self.fractalDocument.fractal.name;
     [self setupSlidersForCurrentFractal];
     [self.appModel setLastEditedURL: self.fractalInfo.URL];
+
 }
 
 /* on staartup, fractal should not be set until just before view didAppear */
@@ -356,6 +357,15 @@ static const CGFloat kLevelNMargin = 40.0;
 {
     [super viewDidAppear:animated];
 
+    if (!self.appModel.allowPremium)
+    {
+        [self.toggleFullScreenButton removeFromSuperview];
+    }
+    else
+    {
+        
+    }
+    
     UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
 
     if (!UIEdgeInsetsEqualToEdgeInsets(self.fractalScrollView.contentInset , scrollInsets))
@@ -2149,6 +2159,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     self.baseRotationButton.selected = YES;
     self.jointAngleButton.selected = NO;
     self.incrementsButton.selected = NO;
+    self.hueIncrementsButton.selected = NO;
 }
 
 - (IBAction)moveTwoFingerPanToJointAngle:(UIButton *)sender
@@ -2163,6 +2174,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     self.baseRotationButton.selected = NO;
     self.jointAngleButton.selected = YES;
     self.incrementsButton.selected = NO;
+    self.hueIncrementsButton.selected = NO;
 }
 
 - (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender
@@ -2177,6 +2189,22 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     self.baseRotationButton.selected = NO;
     self.jointAngleButton.selected = NO;
     self.incrementsButton.selected = YES;
+    self.hueIncrementsButton.selected = NO;
+}
+
+- (IBAction)moveTwoFingerPanToHueIncrements:(UIButton *)sender
+{
+    self.twoFingerPanProperties = @{@"imageView":self.fractalView,
+                                    @"hPath":@"fillHueRotationPercent",
+                                    @"hScale":@0.001,
+                                    @"hStep":@0.000001,
+                                    @"vPath":@"lineHueRotationPercent",
+                                    @"vScale":@-0.001};
+    
+    self.baseRotationButton.selected = NO;
+    self.jointAngleButton.selected = NO;
+    self.incrementsButton.selected = NO;
+    self.hueIncrementsButton.selected = YES;
 }
 
 /* want to use 2 finger pans for changing rotation and line thickness in place of swiping

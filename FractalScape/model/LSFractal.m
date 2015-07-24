@@ -100,6 +100,12 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                           @"autoExpand",
                           @"advancedMode",
                           @"applyFilters",
+                          @"lineHueRotationPercent",
+                          @"fillHueRotationPercent",
+                          @"lineSaturationRotationPercent",
+                          @"fillSaturationRotationPercent",
+                          @"lineBrightnessRotationPercent",
+                          @"fillBrightnessRotationPercent",
                           nil];
     });
     return keysToBeCopied;
@@ -169,6 +175,12 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                             @"backgroundColor",
                             @"autoExpand",
                             @"applyFilters",
+                            @"lineHueRotationPercent",
+                            @"fillHueRotationPercent",
+                            @"lineSaturationRotationPercent",
+                            @"fillSaturationRotationPercent",
+                            @"lineBrightnessRotationPercent",
+                            @"fillBrightnessRotationPercent",
                             nil];
     });
     return redrawProperties;
@@ -185,7 +197,13 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
                                  @"turningAngle": @{@"min":@(0.0), @"max":@(180.0), @"unit":@"angular"},
                                  @"turningAngleIncrement": @{@"min":@0.0, @"max":@1.0, @"unit":@"linear"},
                                  @"lineWidth": @{@"min":@0.5, @"max":@60.0, @"unit":@"linear"},
-                                 @"lineChangeFactor": @{@"min":@0.0, @"max":@2.0, @"unit":@"linear"}
+                                 @"lineChangeFactor": @{@"min":@0.0, @"max":@2.0, @"unit":@"linear"},
+                                 @"lineHueRotationPercent": @{@"min":@-10.0, @"max":@10.0, @"unit":@"linear"},
+                                 @"fillHueRotationPercent": @{@"min":@-10.0, @"max":@10.0, @"unit":@"linear"},
+                                 @"lineSaturationRotationPercent": @{@"min":@-1.0, @"max":@1.0, @"unit":@"linear"},
+                                 @"fillSaturationRotationPercent": @{@"min":@-1.0, @"max":@1.0, @"unit":@"linear"},
+                                 @"lineBrightnessRotationPercent": @{@"min":@-1.0, @"max":@1.0, @"unit":@"linear"},
+                                 @"fillBrightnessRotationPercent": @{@"min":@-1.0, @"max":@1.0, @"unit":@"linear"},
                                  };
     });
     
@@ -335,6 +353,12 @@ typedef struct MBReplacementRulesStruct MBReplacementRulesStruct;
         _turningAngleIncrement = 0.0;
         _randomness = 0.0;
         _applyFilters = NO;
+        _lineHueRotationPercent = 0.0;
+        _lineSaturationRotationPercent = 0.0;
+        _lineBrightnessRotationPercent = 0.0;
+        _fillHueRotationPercent = 0.0;
+        _fillSaturationRotationPercent = 0.0;
+        _fillBrightnessRotationPercent = 0.0;
     }
     return self;
 }

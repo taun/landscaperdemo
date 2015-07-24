@@ -93,7 +93,7 @@
                                                 </variation>
                                             </view>
                                             <view opaque="NO" alpha="0.80000000000000004" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SdO-1x-rjL" userLabel="Toolbar" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="554" y="376" width="60" height="276"/>
+                                                <rect key="frame" x="554" y="332" width="60" height="322"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUk-S4-sxu" userLabel="baseRotationButton">
                                                         <rect key="frame" x="4" y="0.0" width="44" height="46"/>
@@ -124,6 +124,7 @@
                                                         <rect key="frame" x="4" y="92" width="44" height="46"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="1XN-88-3sG"/>
+                                                            <constraint firstAttribute="height" constant="46" id="xWk-4j-Yb4"/>
                                                         </constraints>
                                                         <state key="normal" image="toolBarIncrementsButtonOff">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -133,8 +134,21 @@
                                                             <action selector="moveTwoFingerPanToIncrements:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="2pZ-HM-lIU"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLI-ll-3hM" userLabel="hueIncrementButton">
+                                                        <rect key="frame" x="4" y="138" width="44" height="46"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="44" id="D8m-XX-WTB"/>
+                                                        </constraints>
+                                                        <state key="normal" image="toolBarHueButtonOff">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="selected" image="toolBarHueButtonOn"/>
+                                                        <connections>
+                                                            <action selector="moveTwoFingerPanToHueIncrements:" destination="4nM-Pc-iAd" eventType="touchUpInside" id="qC0-aT-eEP"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRx-ub-5v2" userLabel="fullScreen">
-                                                        <rect key="frame" x="8" y="138" width="44" height="46"/>
+                                                        <rect key="frame" x="8" y="184" width="44" height="46"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <accessibility key="accessibilityConfiguration" hint="Toggles the visibility of the preview screens." label="ToggleHUDViews"/>
                                                         <constraints>
@@ -148,7 +162,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gB3-UB-mha" userLabel="autoexpandOff">
-                                                        <rect key="frame" x="8" y="184" width="44" height="46"/>
+                                                        <rect key="frame" x="8" y="230" width="44" height="46"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <accessibility key="accessibilityConfiguration" hint="Autoexpand when on scales the fractal to fill the screen" label="ToggleAutoExpand"/>
                                                         <constraints>
@@ -163,7 +177,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahp-IY-CUN" userLabel="applyFilter">
-                                                        <rect key="frame" x="8" y="230" width="44" height="46"/>
+                                                        <rect key="frame" x="8" y="276" width="44" height="46"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <accessibility key="accessibilityConfiguration" hint="Toggles the fractal filters on and off" label="ToggleFilterApplication"/>
                                                         <constraints>
@@ -182,25 +196,29 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
+                                                    <constraint firstItem="iJF-37-61R" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" priority="999" id="09p-6m-PmY"/>
+                                                    <constraint firstItem="gB3-UB-mha" firstAttribute="top" secondItem="CLI-ll-3hM" secondAttribute="bottom" priority="999" id="32g-Xv-0tP"/>
                                                     <constraint firstAttribute="centerX" secondItem="iJF-37-61R" secondAttribute="centerX" constant="4" id="35R-U9-UOB"/>
                                                     <constraint firstItem="HUk-S4-sxu" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="top" id="46O-Lt-zvw"/>
-                                                    <constraint firstItem="HUk-S4-sxu" firstAttribute="height" secondItem="ahp-IY-CUN" secondAttribute="height" id="6Sl-Qi-QGa"/>
-                                                    <constraint firstItem="HUk-S4-sxu" firstAttribute="height" secondItem="gB3-UB-mha" secondAttribute="height" id="I8m-yp-CZV"/>
+                                                    <constraint firstItem="YRx-ub-5v2" firstAttribute="height" secondItem="f1b-jG-nLe" secondAttribute="height" id="A1l-gX-JYi"/>
+                                                    <constraint firstItem="CLI-ll-3hM" firstAttribute="height" secondItem="f1b-jG-nLe" secondAttribute="height" id="Fdo-m8-fjc"/>
                                                     <constraint firstItem="iJF-37-61R" firstAttribute="top" secondItem="HUk-S4-sxu" secondAttribute="bottom" id="INl-Fy-XyN"/>
                                                     <constraint firstAttribute="centerX" secondItem="HUk-S4-sxu" secondAttribute="centerX" constant="4" id="Ol3-aD-g2l"/>
                                                     <constraint firstItem="gB3-UB-mha" firstAttribute="top" secondItem="YRx-ub-5v2" secondAttribute="bottom" id="RR6-3u-l0z"/>
+                                                    <constraint firstItem="ahp-IY-CUN" firstAttribute="height" secondItem="f1b-jG-nLe" secondAttribute="height" id="Svy-c6-qbh"/>
+                                                    <constraint firstItem="f1b-jG-nLe" firstAttribute="height" secondItem="iJF-37-61R" secondAttribute="height" id="TQi-xP-DcP"/>
                                                     <constraint firstItem="f1b-jG-nLe" firstAttribute="top" secondItem="iJF-37-61R" secondAttribute="bottom" id="TZa-mA-crp"/>
                                                     <constraint firstAttribute="centerX" secondItem="gB3-UB-mha" secondAttribute="centerX" id="VUx-WO-Mh9"/>
-                                                    <constraint firstItem="HUk-S4-sxu" firstAttribute="height" secondItem="YRx-ub-5v2" secondAttribute="height" id="VoK-gW-QOa"/>
-                                                    <constraint firstItem="YRx-ub-5v2" firstAttribute="top" secondItem="f1b-jG-nLe" secondAttribute="bottom" id="b9e-mL-31w"/>
                                                     <constraint firstItem="ahp-IY-CUN" firstAttribute="top" secondItem="gB3-UB-mha" secondAttribute="bottom" id="bof-I5-igb"/>
+                                                    <constraint firstItem="gB3-UB-mha" firstAttribute="height" secondItem="f1b-jG-nLe" secondAttribute="height" id="d89-Ek-61f"/>
                                                     <constraint firstAttribute="centerX" secondItem="ahp-IY-CUN" secondAttribute="centerX" id="eDq-VP-oai"/>
-                                                    <constraint firstItem="gB3-UB-mha" firstAttribute="top" secondItem="f1b-jG-nLe" secondAttribute="bottom" priority="750" id="gLb-tu-o6C"/>
+                                                    <constraint firstAttribute="centerX" secondItem="CLI-ll-3hM" secondAttribute="centerX" constant="4" id="gNM-Hv-XYi"/>
                                                     <constraint firstAttribute="centerX" secondItem="f1b-jG-nLe" secondAttribute="centerX" constant="4" id="m9p-rh-M6H"/>
-                                                    <constraint firstItem="HUk-S4-sxu" firstAttribute="height" secondItem="iJF-37-61R" secondAttribute="height" id="nsb-jQ-pxc"/>
+                                                    <constraint firstItem="HUk-S4-sxu" firstAttribute="height" secondItem="f1b-jG-nLe" secondAttribute="height" id="mkH-Tu-m2s"/>
+                                                    <constraint firstItem="YRx-ub-5v2" firstAttribute="top" secondItem="CLI-ll-3hM" secondAttribute="bottom" id="pps-ac-tpg"/>
+                                                    <constraint firstItem="CLI-ll-3hM" firstAttribute="top" secondItem="f1b-jG-nLe" secondAttribute="bottom" id="uNj-Hz-JyS"/>
                                                     <constraint firstAttribute="width" constant="60" id="uZW-zz-flP"/>
                                                     <constraint firstAttribute="bottom" secondItem="ahp-IY-CUN" secondAttribute="bottom" id="xad-LW-niD"/>
-                                                    <constraint firstItem="HUk-S4-sxu" firstAttribute="height" secondItem="f1b-jG-nLe" secondAttribute="height" id="y7K-tX-ads"/>
                                                     <constraint firstAttribute="centerX" secondItem="YRx-ub-5v2" secondAttribute="centerX" id="ycu-T3-LOb"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -294,8 +312,8 @@
                                                                 <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="15" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="18.5" translatesAutoresizingMaskIntoConstraints="NO" id="LpP-a6-a0V">
-                                                                <rect key="frame" x="19" y="3.5" width="18.5" height="20.5"/>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="15" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="18.5" translatesAutoresizingMaskIntoConstraints="NO" id="LpP-a6-a0V">
+                                                                <rect key="frame" x="19" y="3" width="18.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -805,7 +823,7 @@
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
-                                            <constraint firstItem="ZQ7-Jz-vVR" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="bottom" constant="2" id="Hlh-T5-VmA"/>
+                                            <constraint firstItem="ZQ7-Jz-vVR" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="bottom" id="Hlh-T5-VmA"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
@@ -927,6 +945,7 @@
                         <outlet property="hudText1" destination="LpP-a6-a0V" id="Dij-UX-9Rr"/>
                         <outlet property="hudText2" destination="s4f-oD-mXM" id="KLy-sp-9Ia"/>
                         <outlet property="hudViewBackground" destination="3Df-59-GZt" id="jQD-Z3-ikN"/>
+                        <outlet property="hueIncrementsButton" destination="CLI-ll-3hM" id="rjl-TP-FGn"/>
                         <outlet property="incrementsButton" destination="f1b-jG-nLe" id="J9l-pV-Hvd"/>
                         <outlet property="jointAngleButton" destination="iJF-37-61R" id="A1s-cl-1Up"/>
                         <outlet property="lengthIncrementVerticalSlider" destination="5kb-du-Imb" id="CXJ-Nt-CQG"/>
@@ -3389,6 +3408,8 @@ Drag icon to holder below to apply filter</string>
         <image name="toolBarFullScreenIcon" width="28" height="28"/>
         <image name="toolBarFullScreenIconOff" width="28" height="28"/>
         <image name="toolBarHUDScreenIcon" width="28" height="28"/>
+        <image name="toolBarHueButtonOff" width="38" height="28"/>
+        <image name="toolBarHueButtonOn" width="38" height="28"/>
         <image name="toolBarIncrementsButtonOff" width="38" height="28"/>
         <image name="toolBarIncrementsButtonOn" width="38" height="28"/>
         <image name="toolBarJointRotationButtonOff" width="38" height="28"/>

@@ -98,14 +98,15 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  Number of generations to generate.
  */
 @property (nonatomic, assign) NSInteger     level;
-@property (nonatomic, assign) CGFloat       lineChangeFactor;
+@property (nonatomic, assign) CGFloat       lineChangeFactor; // this is used
 @property (nonatomic, assign) CGFloat       lineLength;
 @property (nonatomic, assign) CGFloat       lineLengthScaleFactor;
 @property (nonatomic, assign) CGFloat       lineWidth;
+#pragma message "REMOVE: lineWidthIncrement"
 /*!
  percent change in width for each incidence of the lineWidthIncrement rule.
  */
-@property (nonatomic, assign) CGFloat       lineWidthIncrement;
+@property (nonatomic, assign) CGFloat       lineWidthIncrement; // no longer used
 @property (nonatomic, assign) CGFloat       randomness;
 @property (nonatomic, assign) CGFloat       turningAngle;
 /*!
@@ -125,6 +126,12 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic, strong) MDBFractalObjectList       *lineColors;
 @property (nonatomic, strong) MDBFractalObjectList       *imageFilters;
 @property (nonatomic, assign) BOOL                       applyFilters;
+@property (nonatomic, assign) CGFloat       lineHueRotationPercent;
+@property (nonatomic, assign) CGFloat       fillHueRotationPercent;
+@property (nonatomic, assign) CGFloat       lineSaturationRotationPercent;
+@property (nonatomic, assign) CGFloat       fillSaturationRotationPercent;
+@property (nonatomic, assign) CGFloat       lineBrightnessRotationPercent;
+@property (nonatomic, assign) CGFloat       fillBrightnessRotationPercent;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString               *startingRulesAsString;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSDictionary                 *replacementRulesDictionary;
