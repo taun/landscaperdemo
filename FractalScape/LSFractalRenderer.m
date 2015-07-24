@@ -725,6 +725,15 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
     
     return newColor;
 }
+#pragma message "TODO fill out below and use with hue rotation routines to change correct color.
+-(CGColorRef)replaceCurrentLineColorWith: (CGColorRef)newColor
+{
+    
+}
+-(CGColorRef)replaceCurrentFillColorWith: (CGColorRef)newColor
+{
+    
+}
 
 -(void) setCGGraphicsStateFromCurrentSegment {
     CGContextSetLineJoin(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineJoin);
