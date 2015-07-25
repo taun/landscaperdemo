@@ -267,4 +267,10 @@ CloudKit Notes\
 \
 	*** ScrollView ContentView is not getting a needed "setNeedsLayout"\
 \
+2015-07-25\
+	Get rid of potential CF retain release bugs and thrashing by\
+		 only release _baseSegment colors on dealloc\
+		create array for hue colors, lazy instantiate based on hueIncrement percent \
+\
+\
 }

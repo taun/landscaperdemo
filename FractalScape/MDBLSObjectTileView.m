@@ -100,6 +100,28 @@
     [super updateConstraints];
 }
 
+-(void)startBlinkOutline
+{
+    CGFloat hue, sat, bright, alpha;
+    [self.tintColor getHue: &hue saturation: &sat brightness: &bright alpha: &alpha];
+    UIColor* newBackground = [UIColor colorWithHue: hue saturation: sat brightness: bright alpha: alpha/5.0];
+    
+    [UIView animateWithDuration: 3.0 delay: 0.0
+         usingSpringWithDamping: 0.4
+          initialSpringVelocity: 0.0
+                        options: UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         //
+                         self.backgroundColor = newBackground;
+                     } completion:^(BOOL finished) {
+                         //
+                     }];
+}
+-(void)endBlinkOutline
+{
+    self.backgroundColor = [UIColor clearColor];
+}
+
 #pragma mark - Drag&Drop
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingItem {
     

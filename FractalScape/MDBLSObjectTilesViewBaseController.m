@@ -220,6 +220,7 @@
     }
     
     if (self.draggingItem && [self handlesDragAndDrop: viewUnderTouch] && gestureState == UIGestureRecognizerStateBegan) {
+        [self.destinationView startBlinkOutline];
         self.ruleHelpView.hidden = YES; // hide during dragging if not already hidden
         
         CGPoint localPoint = [self.view convertPoint: touchPoint toView: viewUnderTouch];
@@ -268,6 +269,7 @@
 }
 -(void)cleanupAfterDrag
 {
+    [self.destinationView endBlinkOutline];
     [self.draggingItem.view removeFromSuperview];
     LSDrawingRule* draggedRule = self.draggingItem.dragItem;
     [self deleteObjectIfUnreferenced: draggedRule];

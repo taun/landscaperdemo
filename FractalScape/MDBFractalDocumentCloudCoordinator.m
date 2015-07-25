@@ -176,7 +176,7 @@
         NSMetadataItem* firstItem = (NSMetadataItem*)updatedMetadataItemsOrNil[0];
         NSArray* attributes = firstItem.attributes;
         NSDictionary* values = [firstItem valuesForAttributes: attributes];
-        NSLog(@"UpdatedMetadataItems: %@", values);
+//        NSLog(@"UpdatedMetadataItems: %@", values);
         
         NSIndexSet *indexesOfCompletelyDownloadedUpdatedMetadataItems = [updatedMetadataItemsOrNil indexesOfObjectsPassingTest:^BOOL(NSMetadataItem *updatedMetadataItem, NSUInteger idx, BOOL *stop) {
             NSString *downloadStatus = [updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemDownloadingStatusKey];

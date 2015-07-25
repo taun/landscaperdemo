@@ -31,4 +31,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 
+-(void) startBlinkOutline;
+-(void) endBlinkOutline;
+
 @end

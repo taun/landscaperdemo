@@ -60,7 +60,7 @@
             [filteredStack addObject: stackEntry];
         }
     }
-    NSString* stackString = [callStack debugDescription];
+//    NSString* stackString = [callStack debugDescription];
     
     NSUInteger count = self.documentController.fractalInfos.count;
     return count;

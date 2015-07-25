@@ -98,6 +98,21 @@
 {
     [self sourceDragLongGesture: sender];
 }
+-(void)sourceDragLongGesture:(UIGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan)
+    {
+        [self.fillColorsListView startBlinkOutline];
+        [self.pageColorDestinationTileView startBlinkOutline];
+    }
+    else if (sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateFailed)
+    {
+        [self.fillColorsListView endBlinkOutline];
+        [self.pageColorDestinationTileView endBlinkOutline];
+    }
+    
+    [super sourceDragLongGesture: sender];
+}
 
 - (IBAction)sourceTapGesture:(UITapGestureRecognizer *)sender {
     CGPoint touchPoint = [sender locationInView: self.view];

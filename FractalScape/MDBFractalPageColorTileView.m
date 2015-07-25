@@ -190,6 +190,16 @@
     }
 }
 
+-(void)startBlinkOutline
+{
+    [self.backgroundColorView startBlinkOutline];
+}
+-(void)endBlinkOutline
+{
+    [self.backgroundColorView endBlinkOutline];
+}
+
+
 #pragma mark - Drag&Drop Implementation Details
 -(BOOL) pointIsInContext: (CGPoint) aPoint {
     CGPoint localPoint = [self convertPoint: aPoint toView: self.backgroundColorView];

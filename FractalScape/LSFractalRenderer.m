@@ -751,10 +751,8 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
  
  @param newColor newColor is retained when stored in segment or released if not used.
  */
--(void)replaceCurrentLineColorWith: (CGColorRef)newColor
+-(void)replaceCurrentLineColorWithComponents: (CGFloat*)components
 {
-    BOOL newColorRetained = NO;
-    
     NSInteger count = _segmentStack[_segmentIndex].lineColorsCount;
     if (count > 0)
     {
@@ -764,20 +762,17 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
         
         if (oldColor != NULL)
         {
-            _segmentStack[_segmentIndex].lineColors[moddedIndex] = newColor;
-            newColorRetained = YES;
+            CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
+
+            _segmentStack[_segmentIndex].lineColors[moddedIndex] = CGColorCreate(rgbSpace, components);
+            
+            CGColorSpaceRelease(rgbSpace);
             CGColorRelease(oldColor);
         }
     }
-    if (!newColorRetained)
-    {
-        CGColorRelease(newColor);
-    }
 }
--(void)replaceCurrentFillColorWith: (CGColorRef)newColor
+-(void)replaceCurrentFillColorWithComponents: (CGFloat*)components
 {
-    BOOL newColorRetained = NO;
-
     NSInteger count = _segmentStack[_segmentIndex].fillColorsCount;
     if (count > 0)
     {
@@ -787,14 +782,13 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
         
         if (oldColor != NULL)
         {
-            _segmentStack[_segmentIndex].fillColors[moddedIndex] = newColor;
-            newColorRetained = YES;
+            CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
+            
+            _segmentStack[_segmentIndex].fillColors[moddedIndex] = CGColorCreate(rgbSpace, components);
+            
+            CGColorSpaceRelease(rgbSpace);
             CGColorRelease(oldColor);
         }
-    }
-    if (!newColorRetained)
-    {
-        CGColorRelease(newColor);
     }
 }
 
@@ -1397,9 +1391,7 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
                 newComponents[2] = b;
                 newComponents[3] = alpha;
                 
-                CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
-                [self replaceCurrentLineColorWith: CGColorCreate(rgbSpace, newComponents)];
-                CGColorSpaceRelease(rgbSpace);
+                [self replaceCurrentLineColorWithComponents: newComponents];
             }
         }
     }
@@ -1446,9 +1438,7 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
                 newComponents[2] = b;
                 newComponents[3] = alpha;
                 
-                CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
-                [self replaceCurrentFillColorWith: CGColorCreate(rgbSpace, newComponents)];
-                CGColorSpaceRelease(rgbSpace);
+                [self replaceCurrentFillColorWithComponents: newComponents];
             }
         }
     }

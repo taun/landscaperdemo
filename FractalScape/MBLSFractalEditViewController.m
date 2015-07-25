@@ -164,12 +164,12 @@ static const CGFloat kLevelNMargin = 40.0;
     
     if (showParalax) {
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        xAxis.minimumRelativeValue = @(9.0);
-        xAxis.maximumRelativeValue = @(-9.0);
+        xAxis.minimumRelativeValue = @(18.0);
+        xAxis.maximumRelativeValue = @(-18.0);
         
         UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-        yAxis.minimumRelativeValue = @(12.0);
-        yAxis.maximumRelativeValue = @(-12.0);
+        yAxis.minimumRelativeValue = @(24.0);
+        yAxis.maximumRelativeValue = @(-24.0);
         
         self.backgroundMotionEffect = [[UIMotionEffectGroup alloc] init];
         self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
@@ -271,6 +271,10 @@ static const CGFloat kLevelNMargin = 40.0;
     }
     
     _observedReplacementRules = [NSMutableSet new];
+    
+    UIPanGestureRecognizer* scrollPanGesture = self.fractalScrollView.panGestureRecognizer;
+    [scrollPanGesture setMaximumNumberOfTouches: 2];
+    [scrollPanGesture setMinimumNumberOfTouches: 2];
     
     [self configureParallax];
     [self configureNavBarButtons];
@@ -2154,7 +2158,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                     @"hScale":@5,
                                     @"hStep":@1,
                                     @"vPath":@"randomness",
-                                    @"vScale":@-0.001};
+                                    @"vScale":@-0.0001};
     
     self.baseRotationButton.selected = YES;
     self.jointAngleButton.selected = NO;
@@ -2181,10 +2185,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"turningAngleIncrement",
-                                    @"hScale":@0.001,
-                                    @"hStep":@0.01,
+                                    @"hScale":@0.0001,
+                                    @"hStep":@0.00001,
                                     @"vPath":@"lineChangeFactor",
-                                    @"vScale":@-0.001};
+                                    @"vScale":@-0.0001};
     
     self.baseRotationButton.selected = NO;
     self.jointAngleButton.selected = NO;
@@ -2328,7 +2332,7 @@ verticalPropertyPath: @"lineChangeFactor"
             if (axisState && verticalPath)
             {
                 // vertical, change aspect
-                CGFloat scaledWidth = floorf(translation.y * vScale * 1000.0)/1000.0;
+                CGFloat scaledWidth = floorf(translation.y * vScale * 10000.0)/10000.0;
                 CGFloat newWidth = fminf(fmaxf(initialVValue + scaledWidth, vMin), vMax);
                 [fractal setValue: @(newWidth) forKey: verticalPath];
                 //self.fractalDocument.fractal.lineWidth = @(newidth);
@@ -2346,7 +2350,7 @@ verticalPropertyPath: @"lineChangeFactor"
                 }
                 else
                 {
-                    CGFloat scaled = floorf(translation.x * hScale * 1000.0)/1000.0;
+                    CGFloat scaled = floorf(translation.x * hScale * 10000.0)/10000.0;
                     CGFloat newValue = fminf(fmaxf(initialHValue + scaled, hMin), hMax);
                     [fractal setValue: @(newValue) forKey: horizontalPath];
                 }
@@ -2533,7 +2537,7 @@ verticalPropertyPath: @"lineChangeFactor"
                 CGContextSetBlendMode(aCGContext, kCGBlendModeSourceOut);
                 CGContextBeginTransparencyLayer(aCGContext, NULL);
                 
-                NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
+                textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
                 [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
                 
                 CGContextEndTransparencyLayer(aCGContext);

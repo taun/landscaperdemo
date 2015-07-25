@@ -32,4 +32,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
 @property (nonatomic,assign) IBInspectable BOOL         replaceable;
 
+-(void) startBlinkOutline;
+-(void) endBlinkOutline;
+
 @end

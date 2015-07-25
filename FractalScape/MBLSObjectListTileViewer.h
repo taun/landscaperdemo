@@ -87,6 +87,9 @@ IB_DESIGNABLE
 -(NSUInteger) insertionIndexForPoint: (CGPoint) insertionPoint;
 -(void) insertRepresentedObject: (id<MDBTileObjectProtocol>)aRule atPoint: (CGPoint)insertPoint;
 
+-(void) startBlinkOutline;
+-(void) endBlinkOutline;
+
 @end
 
 @class MDBLSObjectTileView;
