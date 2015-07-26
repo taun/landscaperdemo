@@ -1127,8 +1127,8 @@ static const CGFloat kLevelNMargin = 40.0;
     self.fractalRendererLN.showOrigin = !self.fractalDocument.fractal.applyFilters;
     
 #pragma message "TODO define a property for the default fractal background color. Currently manually spread throughout code."
-    UIColor* backgroundColor = [self.fractalDocument.fractal.backgroundColor asUIColor];
-    if (!backgroundColor) backgroundColor = [UIColor clearColor];
+    MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
+    if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
     self.fractalRendererLN.backgroundColor = backgroundColor;
     
     if (!self.lowPerformanceDevice || self.fractalRendererLN.levelData.length < 150000)
@@ -1150,7 +1150,7 @@ static const CGFloat kLevelNMargin = 40.0;
     if (!self.fractalViewLevel0.superview.hidden)
     {
         NSBlockOperation* operation0 = [self operationForRenderer: self.fractalRendererL0];
-        self.fractalRendererL0.backgroundColor = [UIColor clearColor];
+        self.fractalRendererL0.backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
         self.fractalRendererL0.applyFilters = NO;
         [self.privateImageGenerationQueue addOperation: operation0];
     }
@@ -1158,7 +1158,7 @@ static const CGFloat kLevelNMargin = 40.0;
     if (!self.fractalViewLevel1.superview.hidden)
     {
         NSBlockOperation* operation1 = [self operationForRenderer: self.fractalRendererL1];
-        self.fractalRendererL1.backgroundColor = [UIColor clearColor];
+        self.fractalRendererL1.backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
         self.fractalRendererL1.applyFilters = NO;
         [self.privateImageGenerationQueue addOperation: operation1];
     }
@@ -1166,7 +1166,7 @@ static const CGFloat kLevelNMargin = 40.0;
     if (!self.fractalViewLevel2.superview.hidden)
     {
         NSBlockOperation* operation2 = [self operationForRenderer: self.fractalRendererL2];
-        self.fractalRendererL2.backgroundColor = [UIColor clearColor];
+        self.fractalRendererL2.backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
         self.fractalRendererL2.applyFilters = NO;
         [self.privateImageGenerationQueue addOperation: operation2];
     }
@@ -1809,8 +1809,8 @@ static const CGFloat kLevelNMargin = 40.0;
         newRenderer.autoscale = YES;
         newRenderer.autoExpand = self.fractalDocument.fractal.autoExpand;
         newRenderer.levelData = self.levelDataArray[levelIndex];
-        UIColor* backgroundColor = [self.fractalDocument.fractal.backgroundColor asUIColor];
-        if (!backgroundColor) backgroundColor = [UIColor clearColor];
+        MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
+        if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
         newRenderer.backgroundColor = backgroundColor;
     }
     return newRenderer;
@@ -2171,7 +2171,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"turningAngle",
                                     @"hScale":@5,
-                                    @"hStep":@1,
+                                    @"hStep":@0.1,
                                     @"vPath":@"lineWidth",
                                     @"vScale":@0.01};
     
@@ -2460,8 +2460,8 @@ verticalPropertyPath: @"lineChangeFactor"
     renderer.pixelScale = self.fractalView.contentScaleFactor;
     renderer.applyFilters = self.fractalDocument.fractal.applyFilters;
     
-    UIColor* backgroundColor = [self.fractalDocument.fractal.backgroundColor asUIColor];
-    if (!backgroundColor) backgroundColor = [UIColor clearColor];
+    MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
+    if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
     renderer.backgroundColor = backgroundColor;
     renderer.autoExpand = YES;
     

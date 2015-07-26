@@ -22,36 +22,9 @@
 //#define LSDEBUGPERFORMANCE
 //#define LSDEBUGPOSITION
 
+ColorHSLA   ColorConvertRGBAToHSLA(ColorRGBA);
+ColorRGBA   ColorConvertHSLAToRGBA(ColorHSLA);
 
-/*
- From Paul Bourke's library - http://paulbourke.net
- Attribute in app credits.
- 
- */
-
-
-typedef struct {
-    CGFloat r,g,b;
-} COLOUR;
-
-typedef struct {
-    CGFloat h,s,l;
-} HSL;
-
-typedef struct {
-    CGFloat h,s,v;
-} HSV;
-
-typedef struct {
-    CGFloat r,g,b,a;
-} RGBA;
-
-HSL    RGB2HSL(COLOUR);
-COLOUR HSL2RGB(HSL);
-
-/*
- End Paul Bourke code
- */
 
 struct MBCommandsStruct {
     char        command[kLSMaxRules][kLSMaxCommandLength];
@@ -65,14 +38,16 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 
 @interface LSFractalRenderer () {
-    CGFloat             _maxLineWidth;
-    MBSegmentStruct     _segmentStack[kLSMaxSegmentStackSize];
-    NSInteger           _segmentIndex;
-    MBSegmentRef        _currentSegment;
-    MBCommandsStruct    _commandsStruct;
+    CGFloat                 _maxLineWidth;
+    MBSegmentStruct         _segmentStack[kLSMaxSegmentStackSize];
+    NSInteger               _segmentIndex;
+    MBSegmentRef            _currentSegment;
+    MBCommandsStruct        _commandsStruct;
     MBCommandSelectorsStruct _selectorsStruct;
 }
 
+@property (nonatomic,strong) NSArray                *lineColors;
+@property (nonatomic,strong) NSArray                *fillColors;
 @property (nonatomic,assign) MBSegmentStruct        baseSegment;
 @property (nonatomic,assign,readwrite) CGRect       rawFractalPathBounds;
 @property (nonatomic,assign) BOOL                   controlPointOn;
@@ -103,8 +78,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _translateX = 0.0;
         _translateY = 0.0;
         _rawFractalPathBounds =  CGRectZero;
-        _defaultLineColor = [UIColor blueColor];
-        _defaultFillColor = [UIColor whiteColor];
+        _defaultLineColor = [MBColor newMBColorWithUIColor: [UIColor blueColor]];
+        _defaultFillColor = [MBColor newMBColorWithUIColor: [UIColor whiteColor]];
         _controlPointOn = NO;
         _segmentIndex = 0;
         _margin = 0;
@@ -194,21 +169,35 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     _baseSegment.path = NULL;
     _baseSegment.context = NULL;
-    
-    _baseSegment.defaultLineColor = NULL;
-    _baseSegment.defaultFillColor = NULL;
-    
-    for (NSInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
-    {
-        _baseSegment.lineColors[colorIndex] = NULL;
-        _baseSegment.fillColors[colorIndex] = NULL;
-    }
-
 }
 -(void) setBaseSegmentForFractal: (LSFractal*)aFractal
 {
     [self releaseSegmentCGReferences];
     
+    self.lineColors = [aFractal.lineColors allObjectsDeepCopy];
+    self.fillColors = [aFractal.fillColors allObjectsDeepCopy];
+    
+    if (self.lineColors.count == 0)
+    {
+        _baseSegment.currentLineColor = [self.defaultLineColor asColorRgbaOrColorRefStruct];
+    }
+    else
+    {
+        _baseSegment.currentLineColor = [self.lineColors[0] asColorRgbaOrColorRefStruct];
+    }
+    if (self.fillColors.count == 0)
+    {
+        _baseSegment.currentFillColor = [self.defaultFillColor asColorRgbaOrColorRefStruct];
+    }
+    else
+    {
+        _baseSegment.currentFillColor = [self.fillColors[0] asColorRgbaOrColorRefStruct];
+    }
+        
+
+    _baseSegment.lineColorIndex = 0;
+    _baseSegment.fillColorIndex = 0;
+
     _baseSegment.advancedMode = aFractal.advancedMode;
     
     _baseSegment.lineLength = aFractal.lineLength;
@@ -241,68 +230,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     _baseSegment.pointIndex = -1;
     
     _baseSegment.baseAngle = aFractal.baseAngle;
-    
-    _baseSegment.defaultLineColor = [self.defaultLineColor CGColor];
-    _baseSegment.defaultFillColor = [self.defaultFillColor CGColor];
-    
-    NSInteger colorIndex;
-    
-    for (colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
-    {
-        _baseSegment.lineColors[colorIndex] = NULL;
-        _baseSegment.fillColors[colorIndex] = NULL;
-    }
-    
-    colorIndex = 0;
-    for (MBColor* mbColor in aFractal.lineColors)
-    {
-        _baseSegment.lineColors[colorIndex] = CGColorCreateCopy([[mbColor asUIColor] CGColor]);
-        colorIndex++;
-        if(colorIndex >= kLSMaxColors)
-        {
-            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",(long)kLSMaxColors);
-            break;
-        }
-    }
-    _baseSegment.lineColorsCount = MIN(aFractal.lineColors.count,kLSMaxColors);
-    _baseSegment.lineColorIndex = 0;
-    
-    
-    colorIndex = 0;
-    for (MBColor* mbColor in aFractal.fillColors)
-    {
-        _baseSegment.fillColors[colorIndex] = CGColorCreateCopy([[mbColor asUIColor] CGColor]);
-        colorIndex++;
-        if(colorIndex >= kLSMaxColors)
-        {
-            NSLog(@"FractalScape:Warning fillColors exceeded max render array size of %ld",(long)kLSMaxColors);
-            break;
-        }
-    }
-    _baseSegment.fillColorsCount = MIN(aFractal.fillColors.count, kLSMaxColors);
-    _baseSegment.fillColorIndex = 0;
-    
 }
 -(void) releaseSegmentCGReferences {
     // all other segments are just copied references with no retains.
     CGPathRef pathRef = _baseSegment.path;
     if (pathRef != NULL) CGPathRelease(pathRef);
     _baseSegment.path = NULL;
-    
-    CGColorRef color;
-    // default line and fill color are local properties and released using ARC.
-    
-    for (NSInteger colorIndex = 0; colorIndex < kLSMaxColors; colorIndex++)
-    {
-        color = _baseSegment.lineColors[colorIndex];
-        if (color != NULL) CGColorRelease(color);
-        _baseSegment.lineColors[colorIndex] = NULL;
-        
-        color = _baseSegment.fillColors[colorIndex];
-        if (color != NULL) CGColorRelease(color);
-        _baseSegment.fillColors[colorIndex] = NULL;
-    }
 }
+
 -(void) initialiseSegmentWithContext: (CGContextRef)aCGContext
 {
     
@@ -311,29 +246,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     _segmentIndex = 0;
     _segmentStack[_segmentIndex] = newSegment;
-    
-    for (NSInteger colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
-    {
-        if (colorIndex >= _baseSegment.lineColorsCount)
-        {
-            _segmentStack[_segmentIndex].lineColors[colorIndex] = NULL;
-        }
-        else
-        {
-            _segmentStack[_segmentIndex].lineColors[colorIndex] = CGColorCreateCopy(_baseSegment.lineColors[colorIndex]);
-        }
-    }
-    for (NSInteger colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
-    {
-        if (colorIndex >= _baseSegment.lineColorsCount)
-        {
-            _segmentStack[_segmentIndex].fillColors[colorIndex] = NULL;
-        }
-        else
-        {
-            _segmentStack[_segmentIndex].fillColors[colorIndex] = CGColorCreateCopy(_baseSegment.fillColors[colorIndex]);
-        }
-    }
 }
 -(void) generateImage
 {
@@ -364,7 +276,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     CGContextSaveGState(aCGContext);
     {
-        UIColor* thumbNailBackground = self.backgroundColor;
+        UIColor* thumbNailBackground = self.backgroundColor.UIColor;
         [thumbNailBackground setFill];
         CGContextFillRect(aCGContext, CGRectMake(0.0, 0.0, size.width, size.height));
     }
@@ -711,93 +623,33 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
     return _segmentStack[_segmentIndex].mode;
 }
 
--(CGColorRef) currentLineColor
-{
-    NSInteger count = _segmentStack[_segmentIndex].lineColorsCount;
-    if (count == 0) {
-        return _segmentStack[_segmentIndex].defaultLineColor;
-    }
-    
-    NSInteger moddedIndex =  _segmentStack[_segmentIndex].lineColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
-    
-    CGColorRef newColor = _segmentStack[_segmentIndex].lineColors[moddedIndex];
-    
-    if (newColor == NULL) {
-        newColor = _segmentStack[_segmentIndex].defaultLineColor;
-    }
-    
-    return newColor;
-}
--(CGColorRef) currentFillColor
-{
-    NSInteger count = _segmentStack[_segmentIndex].fillColorsCount;
-    if (count == 0) {
-        return _segmentStack[_segmentIndex].defaultFillColor;
-    }
-    
-    NSInteger moddedIndex =  _segmentStack[_segmentIndex].fillColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
-    
-    CGColorRef newColor = _segmentStack[_segmentIndex].fillColors[moddedIndex];
-    
-    if (newColor == NULL) {
-        newColor = _segmentStack[_segmentIndex].defaultFillColor;
-    }
-    
-    return newColor;
-}
 #pragma message "TODO fill out below and use with hue rotation routines to change correct color."
-/*!
- Replaces the current color referenced by the current index with a new color. Releases the old color if replaced.
- 
- @param newColor newColor is retained when stored in segment or released if not used.
- */
--(void)replaceCurrentLineColorWithComponents: (CGFloat*)components
-{
-    NSInteger count = _segmentStack[_segmentIndex].lineColorsCount;
-    if (count > 0)
-    {
-        NSInteger moddedIndex =  _segmentStack[_segmentIndex].lineColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
-        
-        CGColorRef oldColor = _segmentStack[_segmentIndex].lineColors[moddedIndex];
-        
-        if (oldColor != NULL)
-        {
-            CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
-
-            _segmentStack[_segmentIndex].lineColors[moddedIndex] = CGColorCreate(rgbSpace, components);
-            
-            CGColorSpaceRelease(rgbSpace);
-            CGColorRelease(oldColor);
-        }
-    }
-}
--(void)replaceCurrentFillColorWithComponents: (CGFloat*)components
-{
-    NSInteger count = _segmentStack[_segmentIndex].fillColorsCount;
-    if (count > 0)
-    {
-        NSInteger moddedIndex =  _segmentStack[_segmentIndex].fillColorIndex % count; //(NSUInteger)fabs(fmod((CGFloat)index, count));
-        
-        CGColorRef oldColor = _segmentStack[_segmentIndex].fillColors[moddedIndex];
-        
-        if (oldColor != NULL)
-        {
-            CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
-            
-            _segmentStack[_segmentIndex].fillColors[moddedIndex] = CGColorCreate(rgbSpace, components);
-            
-            CGColorSpaceRelease(rgbSpace);
-            CGColorRelease(oldColor);
-        }
-    }
-}
 
 -(void) setCGGraphicsStateFromCurrentSegment {
     CGContextSetLineJoin(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineJoin);
     CGContextSetLineCap(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineCap);
     CGContextSetLineWidth(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].scale);
-    CGContextSetFillColorWithColor(_segmentStack[_segmentIndex].context, [self currentFillColor]);
-    CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, [self currentLineColor]);
+
+    ColorRgbaOrColorRef colorRGBorRef = _segmentStack[_segmentIndex].currentFillColor;
+    if (colorRGBorRef.isColorRef)
+    {
+        CGContextSetFillColorWithColor(_segmentStack[_segmentIndex].context, colorRGBorRef.colorRef);
+    }
+    else
+    {
+        ColorRGBA rgba = colorRGBorRef.rgba;
+        CGContextSetRGBFillColor(_segmentStack[_segmentIndex].context, rgba.r, rgba.g, rgba.b, rgba.a);
+    }
+    
+    colorRGBorRef = _segmentStack[_segmentIndex].currentLineColor;
+    if (colorRGBorRef.isColorRef) {
+        CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, colorRGBorRef.colorRef);
+    }
+    else
+    {
+        ColorRGBA rgba = colorRGBorRef.rgba;
+        CGContextSetRGBStrokeColor(_segmentStack[_segmentIndex].context, rgba.r, rgba.g, rgba.b, rgba.a);
+    }
 }
 
 -(NSInteger) segmentPointCount
@@ -1037,49 +889,12 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     _segmentStack[_segmentIndex] = _segmentStack[_segmentIndex-1];
     _segmentStack[_segmentIndex].path = CGPathCreateMutable();
     _segmentStack[_segmentIndex].inCurve = NO; // reset to no curve. can always re-add curve rule but can't remove curve rule.
-
-    for (NSInteger colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
-    {
-        if (colorIndex >= _segmentStack[_segmentIndex].lineColorsCount)
-        {
-            _segmentStack[_segmentIndex].lineColors[colorIndex] = NULL;
-        }
-        else
-        {
-            _segmentStack[_segmentIndex].lineColors[colorIndex] = CGColorCreateCopy(_segmentStack[_segmentIndex-1].lineColors[colorIndex]);
-        }
-    }
-    for (NSInteger colorIndex = 0; colorIndex+1 < kLSMaxColors; colorIndex++)
-    {
-        if (colorIndex >= _segmentStack[_segmentIndex].lineColorsCount)
-        {
-            _segmentStack[_segmentIndex].fillColors[colorIndex] = NULL;
-        }
-        else
-        {
-            _segmentStack[_segmentIndex].fillColors[colorIndex] = CGColorCreateCopy(_segmentStack[_segmentIndex-1].fillColors[colorIndex]);
-        }
-    }
-
 }
 -(void) popCurrentPath
 {
     if (_segmentStack[_segmentIndex].path != NULL) {
         CGPathRelease(_segmentStack[_segmentIndex].path);
         _segmentStack[_segmentIndex].path = NULL;
-        for (NSInteger colorIndex = 0; colorIndex < _segmentStack[_segmentIndex].lineColorsCount; colorIndex++)
-        {
-            CGColorRef color = _segmentStack[_segmentIndex].lineColors[colorIndex];
-            if (color != NULL) CGColorRelease(color);
-            _segmentStack[_segmentIndex].lineColors[colorIndex] = NULL;
-        }
-        for (NSInteger colorIndex = 0; colorIndex < _segmentStack[_segmentIndex].fillColorsCount; colorIndex++)
-        {
-            CGColorRef color = _segmentStack[_segmentIndex].fillColors[colorIndex];
-            if (color != NULL) CGColorRelease(color);
-            _segmentStack[_segmentIndex].fillColors[colorIndex] = NULL;
-        }
-
     }
     _segmentIndex = _segmentIndex > 0 ? --_segmentIndex : _segmentIndex;
     NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
@@ -1337,62 +1152,81 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     
-    _segmentStack[_segmentIndex].lineColorIndex = ++_segmentStack[_segmentIndex].lineColorIndex;
+    NSInteger count = self.lineColors.count;
+    
+    if (count > 1)
+    {
+        NSInteger currentIndex = _segmentStack[_segmentIndex].lineColorIndex + 1;
+        
+        _segmentStack[_segmentIndex].lineColorIndex = currentIndex >= count ? 0 : currentIndex;
+        
+        _segmentStack[_segmentIndex].currentLineColor = [self.lineColors[_segmentStack[_segmentIndex].lineColorIndex] asColorRgbaOrColorRefStruct];
+    }
 }
 -(void) commandPreviousColor
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     
-    _segmentStack[_segmentIndex].lineColorIndex = --_segmentStack[_segmentIndex].lineColorIndex;
+    NSInteger count = self.lineColors.count;
+    
+    if (count > 1)
+    {
+        NSInteger currentIndex = _segmentStack[_segmentIndex].lineColorIndex - 1;
+        
+        _segmentStack[_segmentIndex].lineColorIndex = currentIndex < 0 ? count : currentIndex;
+        
+        _segmentStack[_segmentIndex].currentLineColor = [self.lineColors[_segmentStack[_segmentIndex].lineColorIndex] asColorRgbaOrColorRefStruct];
+    }
 }
 -(void) commandNextFillColor
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     
-    _segmentStack[_segmentIndex].fillColorIndex = ++_segmentStack[_segmentIndex].fillColorIndex;
+    NSInteger count = self.fillColors.count;
+    
+    if (count > 1)
+    {
+        NSInteger currentIndex = _segmentStack[_segmentIndex].fillColorIndex + 1;
+        
+        _segmentStack[_segmentIndex].fillColorIndex = currentIndex >= count ? 0 : currentIndex;
+        
+        _segmentStack[_segmentIndex].currentFillColor = [self.fillColors[_segmentStack[_segmentIndex].fillColorIndex] asColorRgbaOrColorRefStruct];
+    }
 }
 -(void) commandPreviousFillColor
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     
-    _segmentStack[_segmentIndex].fillColorIndex = --_segmentStack[_segmentIndex].fillColorIndex;
+    NSInteger count = self.fillColors.count;
+    
+    if (count > 1)
+    {
+        NSInteger currentIndex = _segmentStack[_segmentIndex].fillColorIndex - 1;
+        
+        _segmentStack[_segmentIndex].fillColorIndex = currentIndex < 0 ? count : currentIndex;
+        
+        _segmentStack[_segmentIndex].currentFillColor = [self.fillColors[_segmentStack[_segmentIndex].fillColorIndex] asColorRgbaOrColorRefStruct];
+    }
 }
 -(void)commandRotateLineHue
 {
     if (_segmentStack[_segmentIndex].lineHueRotationPercent != 0)
     {
-        CGColorRef currentColor = _segmentStack[_segmentIndex].lineColors[_segmentStack[_segmentIndex].lineColorIndex];
+        ColorRgbaOrColorRef currentColor = _segmentStack[_segmentIndex].currentLineColor;
         
-        if (CGColorGetNumberOfComponents(currentColor) == 4)
+        if (!currentColor.isColorRef)
         {
-            const CGFloat* components = CGColorGetComponents(currentColor);
-            if (components != NULL)
-            {
-                if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-                CGFloat alpha = components[3];
-                
-                COLOUR rgbInput = {.r=components[0], .g=components[1], .b=components[2]};
-                HSL hslConversion = RGB2HSL(rgbInput);
-                
-                CGFloat rotationDelta = 0.36 * _segmentStack[_segmentIndex].lineHueRotationPercent;
-                hslConversion.h = hslConversion.h + rotationDelta; // in degrees
-                
-                
-                COLOUR rgbOutput = HSL2RGB(hslConversion);
-                
-                CGFloat r,g,b;
-                r = rgbOutput.r;
-                g = rgbOutput.g;
-                b = rgbOutput.b;
-                
-                CGFloat newComponents[4];
-                newComponents[0] = r;
-                newComponents[1] = g;
-                newComponents[2] = b;
-                newComponents[3] = alpha;
-                
-                [self replaceCurrentLineColorWithComponents: newComponents];
-            }
+            if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+
+            ColorRGBA rgba = currentColor.rgba;
+            
+            ColorHSLA hlsa = ColorConvertRGBAToHSLA(rgba);
+            CGFloat rotationDelta = 0.36 * _segmentStack[_segmentIndex].lineHueRotationPercent;
+            hlsa.h = hlsa.h + rotationDelta; // in degrees
+            
+            ColorRGBA newRgba = ColorConvertHSLAToRGBA(hlsa);
+            currentColor.rgba = newRgba;
+            _segmentStack[_segmentIndex].currentLineColor = currentColor;
         }
     }
 }
@@ -1408,38 +1242,21 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 {
     if (_segmentStack[_segmentIndex].fillHueRotationPercent != 0)
     {
-        CGColorRef currentColor = _segmentStack[_segmentIndex].fillColors[_segmentStack[_segmentIndex].fillColorIndex];
+        ColorRgbaOrColorRef currentColor = _segmentStack[_segmentIndex].currentFillColor;
         
-        if (CGColorGetNumberOfComponents(currentColor) == 4)
+        if (!currentColor.isColorRef)
         {
-            const CGFloat* components = CGColorGetComponents(currentColor);
-            if (components != NULL)
-            {
-                if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-                CGFloat alpha = components[3];
-                
-                COLOUR rgbInput = {.r=components[0], .g=components[1], .b=components[2]};
-                HSL hslConversion = RGB2HSL(rgbInput);
-                
-                CGFloat rotationDelta = 3.6 * _segmentStack[_segmentIndex].fillHueRotationPercent;
-                hslConversion.h = hslConversion.h + rotationDelta; // in degrees
-                
-                
-                COLOUR rgbOutput = HSL2RGB(hslConversion);
-                
-                CGFloat r,g,b;
-                r = rgbOutput.r;
-                g = rgbOutput.g;
-                b = rgbOutput.b;
-                
-                CGFloat newComponents[4];
-                newComponents[0] = r;
-                newComponents[1] = g;
-                newComponents[2] = b;
-                newComponents[3] = alpha;
-                
-                [self replaceCurrentFillColorWithComponents: newComponents];
-            }
+            if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+
+            ColorRGBA rgba = currentColor.rgba;
+            
+            ColorHSLA hlsa = ColorConvertRGBAToHSLA(rgba);
+            CGFloat rotationDelta = 3.6 * _segmentStack[_segmentIndex].fillHueRotationPercent;
+            hlsa.h = hlsa.h + rotationDelta; // in degrees
+            
+            ColorRGBA newRgba = ColorConvertHSLAToRGBA(hlsa);
+            currentColor.rgba = newRgba;
+            _segmentStack[_segmentIndex].currentFillColor = currentColor;
         }
     }
 }
@@ -1477,95 +1294,5 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
     _segmentStack[_segmentIndex].lineJoin = kCGLineJoinBevel;
 }
 @end
-
-
-/*
- From Paul Bourke's library - http://paulbourke.net
- Attribute in app credits.
- 
- */
-
-/*
- Calculate HSL from RGB
- Hue is in degrees
- Lightness is betweeen 0 and 1
- Saturation is between 0 and 1
- */
-HSL RGB2HSL(COLOUR c1)
-{
-    double themin,themax,delta;
-    HSL c2;
-    
-    themin = MIN(c1.r,MIN(c1.g,c1.b));
-    themax = MAX(c1.r,MAX(c1.g,c1.b));
-    delta = themax - themin;
-    c2.l = (themin + themax) / 2;
-    c2.s = 0;
-    if (c2.l > 0 && c2.l < 1)
-        c2.s = delta / (c2.l < 0.5 ? (2*c2.l) : (2-2*c2.l));
-    c2.h = 0;
-    if (delta > 0) {
-        if (themax == c1.r && themax != c1.g)
-            c2.h += (c1.g - c1.b) / delta;
-        if (themax == c1.g && themax != c1.b)
-            c2.h += (2 + (c1.b - c1.r) / delta);
-        if (themax == c1.b && themax != c1.r)
-            c2.h += (4 + (c1.r - c1.g) / delta);
-        c2.h *= 60;
-        if (c2.h < 0)
-            c2.h += 360;
-    }
-    return(c2);
-}
-
-/*
- Calculate RGB from HSL, reverse of RGB2HSL()
- Hue is in degrees
- Lightness is between 0 and 1
- Saturation is between 0 and 1
- */
-COLOUR HSL2RGB(HSL c1)
-{
-    COLOUR c2,sat,ctmp;
-    
-    while (c1.h < 0)
-        c1.h += 360;
-    while (c1.h > 360)
-        c1.h -= 360;
-    
-    if (c1.h < 120) {
-        sat.r = (120 - c1.h) / 60.0;
-        sat.g = c1.h / 60.0;
-        sat.b = 0;
-    } else if (c1.h < 240) {
-        sat.r = 0;
-        sat.g = (240 - c1.h) / 60.0;
-        sat.b = (c1.h - 120) / 60.0;
-    } else {
-        sat.r = (c1.h - 240) / 60.0;
-        sat.g = 0;
-        sat.b = (360 - c1.h) / 60.0;
-    }
-    sat.r = MIN(sat.r,1);
-    sat.g = MIN(sat.g,1);
-    sat.b = MIN(sat.b,1);
-    
-    ctmp.r = 2 * c1.s * sat.r + (1 - c1.s);
-    ctmp.g = 2 * c1.s * sat.g + (1 - c1.s);
-    ctmp.b = 2 * c1.s * sat.b + (1 - c1.s);
-    
-    if (c1.l < 0.5) {
-        c2.r = c1.l * ctmp.r;
-        c2.g = c1.l * ctmp.g;
-        c2.b = c1.l * ctmp.b;
-    } else {
-        c2.r = (1 - c1.l) * ctmp.r + 2 * c1.l - 1;
-        c2.g = (1 - c1.l) * ctmp.g + 2 * c1.l - 1;
-        c2.b = (1 - c1.l) * ctmp.b + 2 * c1.l - 1;
-    }
-    
-    return(c2);
-}
-
 
 

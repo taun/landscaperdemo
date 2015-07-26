@@ -112,6 +112,7 @@
                         options: UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          //
+                         self.image = nil;
                          self.backgroundColor = newBackground;
                      } completion:^(BOOL finished) {
                          //
@@ -120,6 +121,7 @@
 -(void)endBlinkOutline
 {
     self.backgroundColor = [UIColor clearColor];
+    self.image = [_representedObject asImage];
 }
 
 #pragma mark - Drag&Drop

@@ -251,6 +251,17 @@
     return [self.objects copy];
 }
 
+-(NSArray *)allObjectsDeepCopy
+{
+    NSArray *originalObjects = self.allObjects;
+    NSMutableArray* newArray = [NSMutableArray arrayWithCapacity: originalObjects.count];
+    for (id object in originalObjects)
+    {
+        [newArray addObject: [object copy]];
+    }
+    return [newArray copy];
+}
+
 #pragma mark - NSObject
 - (BOOL)isEqual:(id)object
 {

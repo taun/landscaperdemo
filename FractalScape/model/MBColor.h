@@ -6,8 +6,30 @@
 
 #import "MDBTileObjectProtocol.h"
 
+typedef struct {
+    CGFloat h,s,l,a;
+} ColorHSLA;
+
+typedef struct {
+    CGFloat h,s,v;
+} HSV;
+
+typedef struct {
+    CGFloat r,g,b,a;
+} ColorRGBA;
+
+typedef struct {
+    BOOL isColorRef;
+    ColorRGBA rgba;
+    CGColorRef colorRef;
+} ColorRgbaOrColorRef;
+
 @class LSFractal, MBColorCategory, MBScapeBackground;
 
+/*!
+ AN MBColor can be either pure RGBA or an image used as a pattern. If it is a pure RGBA, 
+ the RGBA values may be manipulated.
+ */
 @interface MBColor : NSObject <MDBTileObjectProtocol, NSCopying, NSCoding>
 
 @property (nonatomic, copy) NSString        *identifier;
@@ -19,8 +41,9 @@
 @property (nonatomic, assign) CGFloat       blue;
 @property (nonatomic, copy) NSString        *imagePath;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *asUIColor;
-@property (nonatomic,readonly) NSDictionary           *asPListDictionary;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) UIColor    *UIColor;
+@property (NS_NONATOMIC_IOSONLY, readonly, assign) BOOL     isPattern;
+@property (nonatomic,readonly) NSDictionary             *asPListDictionary;
 
 +(instancetype) newMBColorFromPListDictionary: (NSDictionary*) colorDict;
 
@@ -50,5 +73,15 @@
 +(NSSortDescriptor*) sortDescriptor;
 
 -(UIImage*) thumbnailImageSize: (CGSize) size;
+/*!
+ Returns the CGColor version of the UIColor property.
+ 
+ @return CGColorRef is retained and released by this objects UIColor property..
+ */
+-(CGColorRef)CGColor;
+
+-(void)rotateHueByDegrees: (CGFloat)degreeRotation;
+
+-(ColorRgbaOrColorRef)asColorRgbaOrColorRefStruct;
 
 @end

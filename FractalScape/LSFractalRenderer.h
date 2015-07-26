@@ -13,6 +13,7 @@
 
 @class LSFractal;
 @class LSDrawingRuleType;
+@class MBColor;
 
 /*!
  1   L-System fractal drawing rules from http://paulbourke.net/fractals/fracintro/
@@ -222,9 +223,9 @@ X ;   close path
  */
 @property (nonatomic,assign) BOOL                   flipY;
 @property (nonatomic,assign) CGFloat                pixelScale;
-@property (nonatomic,copy) UIColor*                 defaultLineColor;
-@property (nonatomic,copy) UIColor*                 defaultFillColor;
-@property (nonatomic,copy) UIColor                  *backgroundColor;
+@property (nonatomic,copy) MBColor*                 defaultLineColor;
+@property (nonatomic,copy) MBColor*                 defaultFillColor;
+@property (nonatomic,copy) MBColor                  *backgroundColor;
 @property (atomic,weak) UIImageView                 *imageView;
 @property (nonatomic,assign,readonly) CGRect        rawFractalPathBounds;
 @property (nonatomic,copy) NSData                   *levelData;

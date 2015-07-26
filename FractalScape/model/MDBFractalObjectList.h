@@ -22,7 +22,14 @@ typedef struct MDBListOperationInfo {
  */
 @interface MDBFractalObjectList : NSObject <NSCoding, NSCopying, NSFastEnumeration>
 
+/*!
+ An immutable copy of the internal mutable array. If planning on changing the objects, a deep copy should be made.
+ */
 @property (nonatomic, readonly) NSArray*    allObjects;
+/*!
+ An immutable deep copy of the internal mutable array.
+ */
+@property (nonatomic, readonly) NSArray*    allObjectsDeepCopy;
 @property (readonly) NSInteger              count;
 @property (readonly, getter=isEmpty) BOOL   empty;
 @property () NSString*                      encodingKey;

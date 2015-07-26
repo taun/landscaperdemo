@@ -272,7 +272,7 @@
     [self.destinationView endBlinkOutline];
     [self.draggingItem.view removeFromSuperview];
     LSDrawingRule* draggedRule = self.draggingItem.dragItem;
-    [self deleteObjectIfUnreferenced: draggedRule];
+    [self deleteObjectIfUnreferenced: draggedRule]; // check if unreferenced and add POOF effect
     self.draggingItem = nil;
     self.lastDragViewContainer = nil;
     if (self.appModel.showHelpTips)

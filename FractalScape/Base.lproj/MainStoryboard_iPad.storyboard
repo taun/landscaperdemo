@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -67,7 +66,7 @@
                                                             <outlet property="delegate" destination="4nM-Pc-iAd" id="Lqm-gO-T05"/>
                                                         </connections>
                                                     </scrollView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
                                                         <rect key="frame" x="20" y="677" width="89" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -301,10 +300,10 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="203" y="73" width="257" height="39"/>
                                                 <subviews>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
                                                         <rect key="frame" x="5" y="5" width="247" height="29"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="#" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbV-8d-39A">
@@ -335,7 +334,7 @@
                                                                 <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="451" verticalHuggingPriority="457" horizontalCompressionResistancePriority="360" verticalCompressionResistancePriority="360" misplaced="YES" text="360.00" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="52.5" translatesAutoresizingMaskIntoConstraints="NO" id="s4f-oD-mXM" userLabel="baseAngle">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="451" verticalHuggingPriority="457" horizontalCompressionResistancePriority="360" verticalCompressionResistancePriority="360" text="360.00" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="52.5" translatesAutoresizingMaskIntoConstraints="NO" id="s4f-oD-mXM" userLabel="baseAngle">
                                                                 <rect key="frame" x="190" y="4" width="52.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -400,7 +399,7 @@
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="#2" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMx-2G-Q4a">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="#2" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMx-2G-Q4a">
                                                                 <rect key="frame" x="271" y="10" width="18.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -542,7 +541,7 @@
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="#1" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uje-jg-N66">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="#1" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uje-jg-N66">
                                                                 <rect key="frame" x="271" y="10" width="18.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -670,7 +669,7 @@
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Start" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVZ-Ol-vER">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVZ-Ol-vER">
                                                                 <rect key="frame" x="255" y="10" width="35" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -701,7 +700,7 @@
                                                                     <constraint firstAttribute="width" constant="26" id="gkN-px-STQ"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sr-Jo-4CI">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sr-Jo-4CI">
                                                                 <rect key="frame" x="37" y="10" width="43.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" red="0.0" green="0.4784313738" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1097,7 +1096,7 @@
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" misplaced="YES" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwY-8R-21a">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwY-8R-21a">
                                                             <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.4784313738" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1167,7 +1166,7 @@
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls" customClass="MDBFilterControlView">
                                                     <rect key="frame" x="4" y="4" width="388" height="50"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhA-5f-k1Y">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhA-5f-k1Y">
                                                             <rect key="frame" x="51" y="6" width="287" height="38.5"/>
                                                             <string key="text">Tap an icon to preview filter
 Drag icon to holder below to apply filter</string>
@@ -1534,7 +1533,7 @@ Drag icon to holder below to apply filter</string>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" misplaced="YES" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
                                                                     <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1737,7 +1736,7 @@ Drag icon to holder below to apply filter</string>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" misplaced="YES" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4b-HN-Ruh">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4b-HN-Ruh">
                                                                     <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.0" green="0.4784313738" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2153,7 +2152,7 @@ Drag icon to holder below to apply filter</string>
             </objects>
             <point key="canvasLocation" x="5792" y="-1028"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit Library-->
         <scene sceneID="zSv-JI-BWw">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalEditLibrary" title="Edit Library" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
@@ -2230,7 +2229,7 @@ Drag icon to holder below to apply filter</string>
                                                 <constraint firstAttribute="bottom" secondItem="TKa-kg-xwG" secondAttribute="bottom" constant="4" id="zcM-ug-uEg"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" misplaced="YES" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
                                             <rect key="frame" x="40" y="152" width="70" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2327,7 +2326,7 @@ Drag icon to holder below to apply filter</string>
             </objects>
             <point key="canvasLocation" x="5143" y="-624"/>
         </scene>
-        <!--View Controller-->
+        <!--Library-->
         <scene sceneID="iKT-0y-poi">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalLibrary" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
@@ -2403,7 +2402,7 @@ Drag icon to holder below to apply filter</string>
                                                 <constraint firstAttribute="bottom" secondItem="AYV-rN-sBG" secondAttribute="bottom" constant="4" id="s04-t5-Qgh"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" misplaced="YES" text="Loading ...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
                                             <rect key="frame" x="38" y="152" width="74" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2447,7 +2446,7 @@ Drag icon to holder below to apply filter</string>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="R8j-MN-2F0" customClass="MBCollectionFractalSupplementaryLabel">
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
                                     <rect key="frame" x="-78" y="11" width="156" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="cWI-Hz-w47"/>
@@ -2512,6 +2511,25 @@ Drag icon to holder below to apply filter</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="5ja-JH-4WM">
+                            <rect key="frame" x="0.0" y="731.5" width="600" height="134"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MOEDAELogo96" translatesAutoresizingMaskIntoConstraints="NO" id="s7V-yY-mJU">
+                                    <rect key="frame" x="252" y="8" width="96" height="96"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="96" id="ILS-dN-i9T"/>
+                                        <constraint firstAttribute="height" constant="96" id="Yra-0j-L4E"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="s7V-yY-mJU" secondAttribute="bottom" constant="30" id="8hb-xP-yHn"/>
+                                <constraint firstItem="s7V-yY-mJU" firstAttribute="top" secondItem="5ja-JH-4WM" secondAttribute="top" constant="8" id="IK2-UM-xvV"/>
+                                <constraint firstAttribute="centerX" secondItem="s7V-yY-mJU" secondAttribute="centerX" id="fR6-tc-1fZ"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="Feedback" id="ZvI-FF-lVE">
                                 <cells>
@@ -2542,7 +2560,7 @@ Drag icon to holder below to apply filter</string>
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rate FractalScapes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPq-ge-CN2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate FractalScapes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPq-ge-CN2">
                                                     <rect key="frame" x="18" y="11" width="151" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2566,7 +2584,7 @@ Drag icon to holder below to apply filter</string>
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
                                                     <rect key="frame" x="16" y="11" width="207" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2595,7 +2613,7 @@ Drag icon to holder below to apply filter</string>
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
                                                     <rect key="frame" x="16" y="11" width="121" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2658,7 +2676,7 @@ Drag icon to holder below to apply filter</string>
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Twitter: @taunc ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4d-G1-8sv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter: @taunc ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4d-G1-8sv">
                                                     <rect key="frame" x="16" y="11" width="136" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2742,13 +2760,13 @@ Drag icon to holder below to apply filter</string>
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
                                                     <rect key="frame" x="16" y="11" width="57.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" misplaced="YES" text="1.0 (344)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQe-6t-eRd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1.0 (344)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQe-6t-eRd">
                                                     <rect key="frame" x="525" y="11" width="66.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2775,7 +2793,7 @@ Drag icon to holder below to apply filter</string>
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Allow Premium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iK-WY-J4h">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Premium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iK-WY-J4h">
                                                     <rect key="frame" x="18" y="11.5" width="115" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2930,7 +2948,7 @@ Drag icon to holder below to apply filter</string>
                                                         <constraint firstAttribute="centerY" secondItem="gSO-3C-9pr" secondAttribute="centerY" id="sP3-sV-a8x"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" misplaced="YES" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="JAa-ap-4Xd">
+                                                <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="JAa-ap-4Xd">
                                                     <rect key="frame" x="40" y="152" width="70" height="17"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3344,7 +3362,7 @@ Drag icon to holder below to apply filter</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM5-fL-1ai">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM5-fL-1ai">
                                 <rect key="frame" x="16" y="74" width="95" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3384,6 +3402,7 @@ Drag icon to holder below to apply filter</string>
         </scene>
     </scenes>
     <resources>
+        <image name="MOEDAELogo96" width="96" height="96"/>
         <image name="documentThumbnailPlaceholder1024" width="1024" height="1024"/>
         <image name="documentThumbnailPlaceholder130" width="130" height="130"/>
         <image name="kBIconBaseAngleSmall" width="30" height="30"/>
