@@ -53,42 +53,9 @@
 
 -(void) viewWillLayoutSubviews
 {
-    [self.fillColorsListView setNeedsLayout];
-    [self.visualEffectView setNeedsLayout];
+    self.allowedDestinationViews = [@[self.fillColorsListView,self.pageColorDestinationTileView] arrayByAddingObjectsFromArray: self.allowedDestinationViews];
     [super viewWillLayoutSubviews];
 }
-
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [self.view setNeedsLayout];
-    [self.visualEffectView setNeedsLayout];
-    [self updateViewConstraints];
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-}
-
--(void) updateViewConstraints
-{
-    [super updateViewConstraints];
-    
-    [self.visualEffectView layoutIfNeeded];
-    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
-    
-    [self.sourceListView setNeedsLayout];
-    [self.sourceListView layoutIfNeeded];
-    
-    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
-    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
-}
-
-//-(void) addNewColorForRow: (NSUInteger) row {
-//    NSInteger newIndex = [self.cachedFractalColors[row] count];
-//    MBColor* newColor = (MBColor*)self.draggingItem.dragItem;
-//    newColor.index = @(newIndex);
-//    
-//    [self.mutableColorSets[row] addObject: newColor];
-//
-//    self.colorsChanged = YES;
-//}
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender
 {
@@ -97,21 +64,6 @@
 - (IBAction)fillColorLongPress:(UILongPressGestureRecognizer *)sender
 {
     [self sourceDragLongGesture: sender];
-}
--(void)sourceDragLongGesture:(UIGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateBegan)
-    {
-        [self.fillColorsListView startBlinkOutline];
-        [self.pageColorDestinationTileView startBlinkOutline];
-    }
-    else if (sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateFailed)
-    {
-        [self.fillColorsListView endBlinkOutline];
-        [self.pageColorDestinationTileView endBlinkOutline];
-    }
-    
-    [super sourceDragLongGesture: sender];
 }
 
 - (IBAction)sourceTapGesture:(UITapGestureRecognizer *)sender {

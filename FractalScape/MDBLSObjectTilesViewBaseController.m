@@ -57,10 +57,16 @@
 -(void) viewWillLayoutSubviews {
     id strongSourceListView = self.sourceListView;
     id strongDestinationView = self.destinationView;
+    self.allowedDestinationViews = [@[strongDestinationView] arrayByAddingObjectsFromArray: self.allowedDestinationViews];
+    
+    for (UIView*destination in self.allowedDestinationViews)
+    {
+        [destination setNeedsLayout];
+    }
 //    [self.sourceListView setNeedsUpdateConstraints];
     [strongSourceListView setNeedsLayout];
 //    [self.destinationView setNeedsUpdateConstraints];
-    [strongDestinationView setNeedsLayout];
+//    [strongDestinationView setNeedsLayout];
 
     // Hack to get the label to adjust size after the transition.
     NSString* info = self.ruleHelpLabel.text;
@@ -113,14 +119,40 @@
     }
 }
 
+-(void) updateViewConstraints
+{
+    [super updateViewConstraints];
+    
+    [self.sourceListView setNeedsLayout];
+    [self.sourceListView layoutIfNeeded];
+    
+    if (self.visualEffectView) [self adjustScrollviewInsetForDestinationViewOverlay];
+}
+
+-(void)adjustScrollviewInsetForDestinationViewOverlay
+{
+    [self.visualEffectView layoutIfNeeded];
+    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 0, 0);
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 0, 0);
+}
+
+
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
     id strongSourceListView = self.sourceListView;
-    id strongDestinationView = self.destinationView;
+    
+    for (UIView* destination in self.allowedDestinationViews)
+    {
+        [destination setNeedsUpdateConstraints];
+        [destination setNeedsUpdateConstraints];
+    }
 
-    [strongSourceListView setNeedsUpdateConstraints];
-    [strongDestinationView setNeedsUpdateConstraints];
+    [self.view setNeedsLayout];
+    [self.visualEffectView setNeedsLayout];
+    [self updateViewConstraints];
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
 - (void)sourceTapGesture:(UIGestureRecognizer *)sender
@@ -213,14 +245,22 @@
     UIView<MBLSRuleDragAndDropProtocol>* viewUnderDragImage = (UIView<MBLSRuleDragAndDropProtocol>*)[self.view hitTest: self.draggingItem.viewCenter withEvent: nil];
     
     UIView<MBLSRuleDragAndDropProtocol>* ddViewContainer;
-    if ([viewUnderDragImage isKindOfClass: [MDBLSObjectTileView class]]) {
+    if ([viewUnderDragImage isKindOfClass: [MDBLSObjectTileView class]])
+    {
         ddViewContainer = (UIView<MBLSRuleDragAndDropProtocol>*)viewUnderDragImage.superview;
-    } else if ([[viewUnderDragImage subviews].firstObject isKindOfClass: [MDBLSObjectTileView class]]) {
+    }
+    else if ([[viewUnderDragImage subviews].firstObject isKindOfClass: [MDBLSObjectTileView class]])
+    {
         ddViewContainer = viewUnderDragImage;
     }
     
-    if (self.draggingItem && [self handlesDragAndDrop: viewUnderTouch] && gestureState == UIGestureRecognizerStateBegan) {
-        [self.destinationView startBlinkOutline];
+    if (self.draggingItem && [self handlesDragAndDrop: viewUnderTouch] && gestureState == UIGestureRecognizerStateBegan)
+    {
+        for (MBLSObjectListTileViewer*destination in self.allowedDestinationViews)
+        {
+            [destination startBlinkOutline]; // needs to be a protocol
+        }
+
         self.ruleHelpView.hidden = YES; // hide during dragging if not already hidden
         
         CGPoint localPoint = [self.view convertPoint: touchPoint toView: viewUnderTouch];
@@ -233,33 +273,46 @@
             self.lastDragViewContainer = (UIView<MBLSRuleDragAndDropProtocol>*)viewUnderTouch.superview;
         }
         
-    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateChanged) {
+    }
+    else if (self.draggingItem && gestureState == UIGestureRecognizerStateChanged)
+    {
         
         CGPoint localPoint = [self.view convertPoint: self.draggingItem.viewCenter toView: ddViewContainer];
         
-        if (self.lastDragViewContainer == nil && ddViewContainer != nil && [self handlesDragAndDrop: ddViewContainer]) {
+        if (self.lastDragViewContainer == nil && ddViewContainer != nil && [self handlesDragAndDrop: ddViewContainer])
+        {
             // entering
             [ddViewContainer dragDidEnterAtLocalPoint: localPoint draggingItem: self.draggingItem];
             self.lastDragViewContainer = ddViewContainer;
             
-        } else if (self.lastDragViewContainer != nil && ddViewContainer != nil && self.lastDragViewContainer == ddViewContainer) {
+        }
+        else if (self.lastDragViewContainer != nil && ddViewContainer != nil && self.lastDragViewContainer == ddViewContainer)
+        {
             // changing
             [ddViewContainer dragDidChangeToLocalPoint: localPoint draggingItem: self.draggingItem];
             
-        } else if (self.lastDragViewContainer != nil && (ddViewContainer == nil || self.lastDragViewContainer != ddViewContainer)) {
+        }
+        else if (self.lastDragViewContainer != nil && (ddViewContainer == nil || self.lastDragViewContainer != ddViewContainer))
+        {
             // leaving
             [self.lastDragViewContainer dragDidExitDraggingItem: self.draggingItem];
             
             self.lastDragViewContainer = nil;
         }
         
-    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateEnded) {
+    }
+    else if (self.draggingItem && gestureState == UIGestureRecognizerStateEnded)
+    {
         [self cleanupAfterDrag];
         [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
-    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled) {
+    }
+    else if (self.draggingItem && gestureState == UIGestureRecognizerStateCancelled)
+    {
         [self cleanupAfterDrag];
         
-    } else if (self.draggingItem && gestureState == UIGestureRecognizerStateFailed) {
+    }
+    else if (self.draggingItem && gestureState == UIGestureRecognizerStateFailed)
+    {
         [self cleanupAfterDrag];
     }
     
@@ -269,7 +322,11 @@
 }
 -(void)cleanupAfterDrag
 {
-    [self.destinationView endBlinkOutline];
+    for (MBLSObjectListTileViewer*destination in self.allowedDestinationViews)
+    {
+        [destination endBlinkOutline]; // needs to be a protocol
+    }
+
     [self.draggingItem.view removeFromSuperview];
     LSDrawingRule* draggedRule = self.draggingItem.dragItem;
     [self deleteObjectIfUnreferenced: draggedRule]; // check if unreferenced and add POOF effect

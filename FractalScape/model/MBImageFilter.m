@@ -270,9 +270,19 @@
 
 -(UIImage*) asImage
 {
-    UIImage* defaultImage = [UIImage imageNamed: @"kMBFilterBackground2"];
-    UIImage* filteredImage = [self filterImage: defaultImage withContext: self.filterContext];
-    return filteredImage;
+    UIImage*returnImage;
+    
+    if (self.isDefaultObject)
+    {
+        returnImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+    }
+    else
+    {
+        UIImage* preFilterImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+        returnImage = [self filterImage: preFilterImage withContext: self.filterContext];
+    }
+    
+    return returnImage;
 }
 
 - (id) debugQuickLookObject

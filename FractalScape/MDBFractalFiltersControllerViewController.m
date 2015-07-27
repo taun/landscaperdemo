@@ -32,30 +32,6 @@
     [self.view setNeedsUpdateConstraints];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//    self.view.translatesAutoresizingMaskIntoConstraints = NO;
-//    _filterPicker.translatesAutoresizingMaskIntoConstraints = NO;
-//    _filters = [CIFilter filterNamesInCategory: kCICategoryTileEffect];
-//    NSMutableArray* tempArray = [NSMutableArray new];
-//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryTileEffect]];
-//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryColorEffect]];
-//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryDistortionEffect]];
-//    [tempArray addObjectsFromArray: [CIFilter filterNamesInCategory: kCICategoryBlur]];
-//    _filters = [tempArray copy];
-
-    CGFloat effectHeight = self.visualEffectView.bounds.size.height;
-    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
-    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
-
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -70,40 +46,11 @@
     categoriesView.filterCategories = filterCategories;
 }
 
--(void) viewWillLayoutSubviews
-{
-    [self.visualEffectView setNeedsLayout];
-    
-    [super viewWillLayoutSubviews];
-}
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [self removedTappedFilterFromObjectList: self.removalTimer];
     [super viewDidDisappear:animated];
-}
-
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [self.view setNeedsLayout];
-    [self.visualEffectView setNeedsLayout];
-    [self updateViewConstraints];
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-}
-
--(void) updateViewConstraints
-{
-    [super updateViewConstraints];
-    
-    [self.visualEffectView layoutIfNeeded];
-    
-    [self.sourceListView setNeedsLayout];
-    [self.sourceListView layoutIfNeeded];
- 
-    CGFloat effectHeight = self.visualEffectView.bounds.size.height + 20.0;
-    
-    self.scrollView.contentInset = UIEdgeInsetsMake(effectHeight, 0, 44, 0);
-    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(effectHeight, 0, 44, 0);;
 }
 
 - (void)didReceiveMemoryWarning
@@ -165,66 +112,5 @@
         self.tappedFilter = nil;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-//#pragma mark - UIPickerSource
-//-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-//{
-//    return 1;
-//}
-//-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-//{
-//#if TARGET_INTERFACE_BUILDER
-//    return 2;
-//#else
-//    return self.filters.count;
-//#endif
-//}
-//
-//#pragma mark - UIPickerDelegate
-//-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-//{
-//    return 24.0;
-//}
-//-(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-//{
-//    CGFloat width = self.filterPicker.bounds.size.width;
-//    return width*(120.0/130.0);
-//}
-//-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    return self.filters[row];
-//}
-//- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-//{
-//    UILabel* tView = (UILabel*)view;
-//    if (!tView)
-//    {
-//        tView = [[UILabel alloc] init];
-//        [tView setFont:[UIFont systemFontOfSize: 18]];
-//        //[tView setTextAlignment:UITextAlignmentLeft];
-//        tView.numberOfLines=1;
-//    }
-//    // Fill the label text here
-//    tView.text = self.filters[row];
-//    return tView;
-//}
-//-(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-//    [self.view becomeFirstResponder];
-//    MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)self.fractalControllerDelegate;
-//    
-//    CIFilter *filter = [CIFilter filterWithName: self.filters[row]];
-//
-//    [editor applyFilter: filter];
-//}
 
 @end

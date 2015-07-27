@@ -54,11 +54,11 @@
 @property (weak, nonatomic) IBOutlet UIScrollView                   *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel                        *ruleHelpLabel;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView             *ruleHelpView;
-
+@property (weak, nonatomic) IBOutlet UIVisualEffectView             *visualEffectView;
 @property (nonatomic,strong) UIMotionEffectGroup                    *foregroundMotionEffect;
 @property (nonatomic,strong) UIMotionEffectGroup                    *backgroundMotionEffect;
 @property (nonatomic,strong) UIView<MBLSRuleDragAndDropProtocol>    *lastDragViewContainer;
-
+@property (nonatomic,strong) NSArray                                *allowedDestinationViews;
 /*!
  Called during assignment of a new LSFractal instance.
  */

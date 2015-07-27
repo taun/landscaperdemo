@@ -40,11 +40,6 @@
     [self.view setNeedsUpdateConstraints];
 }
 
--(void) viewWillLayoutSubviews
-{    
-    [super viewWillLayoutSubviews];
-}
-
 
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -58,13 +53,6 @@
 //        [self saveContext];
 //    }
     [super viewDidDisappear:animated];
-}
-
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [self.view setNeedsLayout];
-    [self updateViewConstraints];
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
 -(void) updateViewConstraints

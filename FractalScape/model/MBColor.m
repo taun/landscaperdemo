@@ -282,7 +282,18 @@ ColorRGBA   ColorConvertHSLAToRGBA(ColorHSLA);
 }
 
 -(UIImage*) asImage {
-    return [self thumbnailImageSize: CGSizeMake(40.0, 40.0)];
+    UIImage* returnImage;
+    
+    if (self.isDefaultObject)
+    {
+        returnImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+    }
+    else
+    {
+        returnImage = [self thumbnailImageSize: CGSizeMake(40.0, 40.0)];
+    }
+    
+    return returnImage;
 }
 
 
