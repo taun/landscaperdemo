@@ -7,6 +7,8 @@
 //
 
 #import "MDBLSObjectTileListAddDeleteView.h"
+#import "MBLSReplacementRuleTileView.h"
+
 
 @interface MDBLSObjectTileListAddDeleteView ()
 
@@ -108,6 +110,28 @@
     // state must come after constraints due to constraints dependency
     self.state = MDBLSNeutral;
 }
+
+-(void)startBlinkOutline
+{
+    for (MBLSReplacementRuleTileView* subview in self.subviews)
+    {
+        if ([subview isKindOfClass: [MBLSReplacementRuleTileView class]])
+        {
+            [subview startBlinkOutline];
+        }
+    }
+}
+-(void)endBlinkOutline
+{
+    for (MBLSReplacementRuleTileView* subview in self.subviews)
+    {
+        if ([subview isKindOfClass: [MBLSReplacementRuleTileView class]])
+        {
+            [subview endBlinkOutline];
+        }
+    }
+}
+
 -(void)updateConstraints
 {
     [super updateConstraints];

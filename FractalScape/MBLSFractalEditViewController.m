@@ -43,7 +43,7 @@ static const BOOL SIMULTOUCH = NO;
 static const CGFloat kHighPerformanceFrameRate = 20.0;
 static const CGFloat kLowPerformanceFrameRate = 8.0;
 static const CGFloat kHudLevelStepperDefaultMax = 16.0;
-static const CGFloat kLevelNMargin = 60.0;
+static const CGFloat kLevelNMargin = 48.0;
 
 @interface MBLSFractalEditViewController ()  <UIGestureRecognizerDelegate,
                                                     UIActionSheetDelegate,
@@ -284,8 +284,6 @@ static const CGFloat kLevelNMargin = 60.0;
     // hide navBar on load because the Appearance Popover is auto popped on load
     // and if this is done during the appearance code, the view moves up as the navBar is hidden
     self.previousNavBarState = NO;
-//    self.navigationController.navigationBar.hidden = YES;
-    [self.navigationController setNavigationBarHidden: YES animated: YES];
     
     self.showPerformanceData = self.appModel.showPerformanceData;
 
@@ -381,8 +379,13 @@ static const CGFloat kLevelNMargin = 60.0;
     }
 
     [self updateAndShowEditor];
+    
+    //    self.navigationController.navigationBar.hidden = YES;
+//    [self.navigationController setNavigationBarHidden: YES animated: YES];
 }
-
+/*!
+ Change this to use the current appModel state for determining whether to show tutorial steps or just screen.
+ */
 -(void) updateAndShowEditor
 {
     if (self.fractalInfo.document != nil && self.fractalInfo.document.fractal && self.isViewLoaded && self.view.superview)
@@ -391,7 +394,7 @@ static const CGFloat kLevelNMargin = 60.0;
         [self updateInterface];
         [self autoScale: nil];
         
-        [self performSegueWithIdentifier: @"EditSegue" sender: self];
+//        [self performSegueWithIdentifier: @"EditSegue" sender: self];
     }
     
 }

@@ -40,4 +40,8 @@ IB_DESIGNABLE
 
 - (IBAction)addPressed:(id)sender;
 - (IBAction)deletePressed:(id)sender;
+
+-(void) startBlinkOutline;
+-(void) endBlinkOutline;
+
 @end

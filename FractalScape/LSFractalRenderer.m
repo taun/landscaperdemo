@@ -53,6 +53,16 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 @property (nonatomic,assign) BOOL                   controlPointOn;
 @property (nonatomic,assign) CGPoint                controlPointNode;
 @property (nonatomic,assign) CGPoint                previousNode;
+/*!
+ Use to know how many level have been plumbed.
+ */
+@property (nonatomic,assign) NSInteger              peakRecursion;
+/*!
+ Use to normalize hue rotation setting to hue rotation on the screen. Allows the user to say 
+ "regardless of rules and iterations, they want one full hue rotation. Otherwise the hue shift changes
+ for every level and rule change and has massive hue rotation at high levels but no rotation at low levels.
+ */
+@property (nonatomic,assign) NSInteger              peakHueRotations;
 
 @end
 
@@ -300,6 +310,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     methodStart = [NSDate date];
 
     CGContextSaveGState(aCGContext);
+    
+    self.peakHueRotations = 0;
+    self.peakRecursion = 0;
     
     CGFloat yOrientation = self.flipY ? -1.0 : 1.0;
     
@@ -858,21 +871,30 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 //    CGPoint upperCorner = CGPointApplyAffineTransform(CGPointMake(2.0*radius, 2.0*radius), _segmentStack[_segmentIndex].transform);
 //    
 //    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(-radius, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
-
-    BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
     
-    if (emptyPath)
+    if (!_segmentStack[_segmentIndex].noDrawPath)
     {
-        CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
-        CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
+        
+        BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+        
+        if (emptyPath)
+        {
+            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
+            CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
+        }
+        
+        CGRect circleRect = CGRectMake(-radius, -radius, radius*2.0, radius*2.0);
+        CGPathAddEllipseInRect(_segmentStack[_segmentIndex].path, &_segmentStack[_segmentIndex].transform, circleRect);
+        CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, 0.0, 0.0); // not used for circle
+        _segmentStack[_segmentIndex].transform = newTransform;
     }
-
-    CGRect circleRect = CGRectMake(-radius, -radius, radius*2.0, radius*2.0);
-    CGPathAddEllipseInRect(_segmentStack[_segmentIndex].path, &_segmentStack[_segmentIndex].transform, circleRect);
-    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, 0.0, 0.0); // not used for circle
-    _segmentStack[_segmentIndex].transform = newTransform;
+    CGPoint transformedPoint0 = CGPointApplyAffineTransform(CGPointMake(-radius, -radius), _segmentStack[_segmentIndex].transform);
+    CGPoint transformedPoint1 = CGPointApplyAffineTransform(CGPointMake(radius, radius), _segmentStack[_segmentIndex].transform);
+    
+    _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint0);
+    _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint1);
 }
-// unused
+// unused - if used, needs noDrawPath code
 -(void) drawSquareWidth: (CGFloat) width {
     CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -width/2.0, width, width), _segmentStack[_segmentIndex].transform);
     CGPathAddRect(_segmentStack[_segmentIndex].path, NULL, transformedRect);

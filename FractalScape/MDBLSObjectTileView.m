@@ -60,9 +60,12 @@
         _representedObject = object;
     }
     
-    self.image = [_representedObject asImage];
-    [self sizeToFit];
-    [self setNeedsUpdateConstraints];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //
+        self.image = [object asImage];
+        [self sizeToFit];
+        [self setNeedsUpdateConstraints];
+    });
 }
 -(void) setWidth:(CGFloat)width {
     if (width == 0) {
@@ -112,7 +115,7 @@
                         options: UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          //
-                         self.image = nil;
+                         self.alpha = 0.6;
                          self.backgroundColor = newBackground;
                      } completion:^(BOOL finished) {
                          //
@@ -121,7 +124,8 @@
 -(void)endBlinkOutline
 {
     self.backgroundColor = [UIColor clearColor];
-    self.image = [_representedObject asImage];
+    self.alpha = 1.0;
+//    self.image = [_representedObject asImage];
 }
 
 #pragma mark - Drag&Drop

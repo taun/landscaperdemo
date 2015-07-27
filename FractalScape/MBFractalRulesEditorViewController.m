@@ -55,6 +55,12 @@
     [super viewDidDisappear:animated];
 }
 
+-(void) viewWillLayoutSubviews
+{
+    self.allowedDestinationViews = [@[self.replacementRules] arrayByAddingObjectsFromArray: self.allowedDestinationViews];
+    [super viewWillLayoutSubviews];
+}
+
 -(void) updateViewConstraints
 {
     [super updateViewConstraints];

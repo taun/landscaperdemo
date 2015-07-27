@@ -44,4 +44,7 @@ typedef NS_ENUM(NSUInteger, MDBLSAddDeleteState) {
 -(void) animateSlideForAdd;
 -(void) animateSlideForDelete;
 
+-(void) startBlinkOutline;
+-(void) endBlinkOutline;
+
 @end

@@ -148,6 +148,21 @@
     [super updateConstraints];
 }
 
+-(void)startBlinkOutline
+{
+    for (MBLSReplacementRuleTileView* rrView in self.subviews)
+    {
+        [rrView startBlinkOutline];
+    }
+}
+
+-(void)endBlinkOutline
+{
+    for (MBLSReplacementRuleTileView* rrView in self.subviews)
+    {
+        [rrView endBlinkOutline];
+    }
+}
 
 #pragma mark - Setters & Getters
 -(void) setReplacementRules:(NSMutableArray *)replacementRules {

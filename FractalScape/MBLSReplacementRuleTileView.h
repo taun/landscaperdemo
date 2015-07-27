@@ -32,4 +32,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) IBInspectable BOOL         showOutline;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 
+-(void) startBlinkOutline;
+-(void) endBlinkOutline;
+
 @end

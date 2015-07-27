@@ -96,6 +96,18 @@
     
     [self addSubview: _replacementsView];
 }
+
+-(void)startBlinkOutline
+{
+    [self.ruleView startBlinkOutline];
+    [self.replacementsView startBlinkOutline];
+}
+-(void)endBlinkOutline
+{
+    [self.ruleView endBlinkOutline];
+    [self.replacementsView endBlinkOutline];
+}
+
 //-(void) layoutSubviews {
 //    [self setupSubviews];
 //}

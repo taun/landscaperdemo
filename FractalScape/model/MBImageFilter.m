@@ -12,6 +12,7 @@
 
 @property (nonatomic,readwrite) CIFilter             *ciFilter;
 @property (nonatomic,readwrite) CIContext            *filterContext;
+@property (nonatomic,readwrite) UIImage              *cachedAsImage;
 
 @end
 
@@ -270,19 +271,20 @@
 
 -(UIImage*) asImage
 {
-    UIImage*returnImage;
-    
-    if (self.isDefaultObject)
+    if (!_cachedAsImage)
     {
-        returnImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
-    }
-    else
-    {
-        UIImage* preFilterImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
-        returnImage = [self filterImage: preFilterImage withContext: self.filterContext];
+        if (self.isDefaultObject)
+        {
+            _cachedAsImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+        }
+        else
+        {
+            UIImage* preFilterImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+            _cachedAsImage = [self filterImage: preFilterImage withContext: self.filterContext];
+        }
     }
     
-    return returnImage;
+    return _cachedAsImage;
 }
 
 - (id) debugQuickLookObject
