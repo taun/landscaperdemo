@@ -43,7 +43,7 @@ static const BOOL SIMULTOUCH = NO;
 static const CGFloat kHighPerformanceFrameRate = 20.0;
 static const CGFloat kLowPerformanceFrameRate = 8.0;
 static const CGFloat kHudLevelStepperDefaultMax = 16.0;
-static const CGFloat kLevelNMargin = 40.0;
+static const CGFloat kLevelNMargin = 60.0;
 
 @interface MBLSFractalEditViewController ()  <UIGestureRecognizerDelegate,
                                                     UIActionSheetDelegate,
@@ -186,7 +186,8 @@ static const CGFloat kLevelNMargin = 40.0;
         self.foregroundMotionEffect = [[UIMotionEffectGroup alloc] init];
         self.foregroundMotionEffect.motionEffects = @[xFAxis, yFAxis];
         
-        [self.fractalView addMotionEffect: self.backgroundMotionEffect];
+        UIView* fractalCanvas = [self.fractalView superview];
+        [fractalCanvas addMotionEffect: self.backgroundMotionEffect];
         [self.fractalViewRoot addMotionEffect: self.foregroundMotionEffect];
     }
 }
@@ -821,7 +822,7 @@ static const CGFloat kLevelNMargin = 40.0;
         [_privateImageGenerationQueue cancelAllOperations];
         
         _fractalInfo.document.delegate = nil;
-
+#pragma message "***TODO Check for observers here before closing document: Key path: imageFilters.allObjects, Key path: allObjects, imageFilters on fractal"
         [_fractalInfo.document closeWithCompletionHandler:nil];
     }
 }
@@ -1495,7 +1496,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     [self autoScale: nil];
     [self.fractalScrollView setContentOffset: CGPointMake(size.width*0.0, size.height*0.2) animated: YES];
-    [self.fractalScrollView setZoomScale: 0.8 animated: YES];
+    [self.fractalScrollView setZoomScale: 1.0 animated: YES];
 }
 
 /*!
@@ -1507,7 +1508,7 @@ static const CGFloat kLevelNMargin = 40.0;
     
     [self autoScale: nil];
     [self.fractalScrollView setContentOffset: CGPointMake(size.width*0.25, size.height*0.0) animated: YES];
-    [self.fractalScrollView setZoomScale: 0.8 animated: YES];
+    [self.fractalScrollView setZoomScale: 1.0 animated: YES];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate

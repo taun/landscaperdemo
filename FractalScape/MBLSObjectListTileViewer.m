@@ -101,6 +101,14 @@
     [self.tintColor getHue: &hue saturation: &sat brightness: &bright alpha: &alpha];
     UIColor* newBackground = [UIColor colorWithHue: hue saturation: sat brightness: bright alpha: alpha/5.0];
 
+    CABasicAnimation *color = [CABasicAnimation animationWithKeyPath:@"borderColor"];
+    color.fromValue = (__bridge id)self.tintColor.CGColor;
+    color.toValue   = (__bridge id)[FractalScapeIconSet groupBorderColor].CGColor;
+//    self.layer.borderColor = [FractalScapeIconSet groupBorderColor].CGColor;
+    
+    color.duration = 3.0;
+    [self.layer addAnimation:color forKey:nil];
+    
     [UIView animateWithDuration: 3.0 delay: 0.0
          usingSpringWithDamping: 0.4
           initialSpringVelocity: 0.0

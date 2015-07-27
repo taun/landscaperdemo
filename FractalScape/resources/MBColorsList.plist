@@ -125,6 +125,22 @@
 			</dict>
 			<dict>
 				<key>name</key>
+				<string>Brown 4 50% Transparent</string>
+				<key>identifier</key>
+				<string>brown45</string>
+				<key>red</key>
+				<real>0.54509803921569</real>
+				<key>green</key>
+				<real>0.40392156862745</real>
+				<key>blue</key>
+				<real>0.24705882352941</real>
+				<key>alpha</key>
+				<real>0.5</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
 				<string>Brown 3</string>
 				<key>identifier</key>
 				<string>brown3</string>
@@ -157,17 +173,17 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>Brown 0</string>
+				<string>Brown 1 50% Transparent</string>
 				<key>identifier</key>
-				<string>brown0</string>
+				<string>brown15</string>
 				<key>red</key>
-				<real>0.31</real>
+				<real>0.34901960784314</real>
 				<key>green</key>
-				<real>0.118</real>
+				<real>0.13333333333333</real>
 				<key>blue</key>
-				<real>0.078</real>
+				<real>0.08627450980392</real>
 				<key>alpha</key>
-				<real>1</real>
+				<real>0.5</real>
 				<key>imagePath</key>
 				<string></string>
 			</dict>
@@ -182,6 +198,22 @@
 				<real>0.13333333333333</real>
 				<key>blue</key>
 				<real>0.08627450980392</real>
+				<key>alpha</key>
+				<real>1</real>
+				<key>imagePath</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Brown 0</string>
+				<key>identifier</key>
+				<string>brown0</string>
+				<key>red</key>
+				<real>0.31</real>
+				<key>green</key>
+				<real>0.118</real>
+				<key>blue</key>
+				<real>0.078</real>
 				<key>alpha</key>
 				<real>1</real>
 				<key>imagePath</key>

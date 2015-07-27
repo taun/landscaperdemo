@@ -277,7 +277,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     CGContextSaveGState(aCGContext);
     {
         UIColor* thumbNailBackground = self.backgroundColor.UIColor;
-        [thumbNailBackground setFill];
+        [thumbNailBackground setFill]; // needed rather than an if then for CGColor vs CGPattern
         CGContextFillRect(aCGContext, CGRectMake(0.0, 0.0, size.width, size.height));
     }
     CGContextRestoreGState(aCGContext);
@@ -962,7 +962,7 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandDrawDot
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
-    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth, _segmentStack[_segmentIndex].randomness)];
+    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth*2, _segmentStack[_segmentIndex].randomness)];
     _segmentStack[_segmentIndex].stroke = YES; // ignore advancedMode
     _segmentStack[_segmentIndex].fill = NO; // ignore advancedMode
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
@@ -971,7 +971,7 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandDrawDotFilledNoStroke
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
-    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth, _segmentStack[_segmentIndex].randomness)];
+    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth*2, _segmentStack[_segmentIndex].randomness)];
     _segmentStack[_segmentIndex].stroke = NO; // ignore advancedMode
     _segmentStack[_segmentIndex].fill = YES; // ignore advancedMode
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
@@ -1221,7 +1221,8 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
             ColorRGBA rgba = currentColor.rgba;
             
             ColorHSLA hlsa = ColorConvertRGBAToHSLA(rgba);
-            CGFloat rotationDelta = 0.36 * _segmentStack[_segmentIndex].lineHueRotationPercent;
+            CGFloat randomizedDelta = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineHueRotationPercent, _segmentStack[_segmentIndex].randomness);
+            CGFloat rotationDelta = 0.36 * randomizedDelta;
             hlsa.h = hlsa.h + rotationDelta; // in degrees
             
             ColorRGBA newRgba = ColorConvertHSLAToRGBA(hlsa);
