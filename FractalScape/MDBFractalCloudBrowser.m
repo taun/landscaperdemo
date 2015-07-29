@@ -53,7 +53,7 @@
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
                                                                    message: message
-                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+                                                            preferredStyle: UIAlertControllerStyleAlert];
     
     UIAlertController* __weak weakAlert = alert;
     
