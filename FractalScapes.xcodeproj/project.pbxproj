@@ -35,6 +35,8 @@
 		C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */; };
 		C52ECB8C1AF967B800465876 /* UIDevice_Hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = C52ECB8A1AF967B800465876 /* UIDevice_Hardware.h */; };
 		C52ECB8D1AF967B800465876 /* UIDevice_Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = C52ECB8B1AF967B800465876 /* UIDevice_Hardware.m */; };
+		C5302CA71B68362100130D9A /* MDBWelcomeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5302CA51B68362100130D9A /* MDBWelcomeViewController.h */; };
+		C5302CA81B68362100130D9A /* MDBWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CA61B68362100130D9A /* MDBWelcomeViewController.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */; };
 		C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */; };
 		C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */; };
@@ -254,6 +256,8 @@
 		C52EA9B01A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MDBAddons.m"; path = "FractalScape/NSLayoutConstraint+MDBAddons.m"; sourceTree = "<group>"; };
 		C52ECB8A1AF967B800465876 /* UIDevice_Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDevice_Hardware.h; sourceTree = "<group>"; };
 		C52ECB8B1AF967B800465876 /* UIDevice_Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDevice_Hardware.m; sourceTree = "<group>"; };
+		C5302CA51B68362100130D9A /* MDBWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBWelcomeViewController.h; path = FractalScape/MDBWelcomeViewController.h; sourceTree = "<group>"; };
+		C5302CA61B68362100130D9A /* MDBWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBWelcomeViewController.m; path = FractalScape/MDBWelcomeViewController.m; sourceTree = "<group>"; };
 		C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalRulesEditorViewController.h; path = FractalScape/MBFractalRulesEditorViewController.h; sourceTree = "<group>"; };
 		C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalRulesEditorViewController.m; path = FractalScape/MBFractalRulesEditorViewController.m; sourceTree = "<group>"; };
 		C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSObjectListTileViewer.h; path = FractalScape/MBLSObjectListTileViewer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -766,15 +770,15 @@
 		C5E6B78714A5346300DA48BD /* FractalScape Main */ = {
 			isa = PBXGroup;
 			children = (
-				C5A1486C1B5D751100665349 /* SettingsTab */,
-				C53F8DEE1B5C84550050F607 /* TutorialTab */,
+				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
 				C5FDC1E21A8BF83D004BE617 /* MBFractalPrefConstants.h */,
 				C50C47B91A97C2E500CF5121 /* Launch Screen.xib */,
-				C5E6B79614A5346300DA48BD /* MainStoryboard_iPad.storyboard */,
 				C5E6B79014A5346300DA48BD /* MBAppDelegate.h */,
 				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
 				C533DFCF1AE953B6009E9D95 /* MDBAppModel.h */,
 				C533DFD01AE953B6009E9D95 /* MDBAppModel.m */,
+				C5A1486C1B5D751100665349 /* SettingsTab */,
+				C53F8DEE1B5C84550050F607 /* TutorialTab */,
 				C5FFAB121A14F90B00662211 /* LibraryTab */,
 				C5475DA01AC1AF0E002B112B /* Editor */,
 			);
@@ -902,6 +906,8 @@
 			children = (
 				C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */,
 				C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */,
+				C5302CA51B68362100130D9A /* MDBWelcomeViewController.h */,
+				C5302CA61B68362100130D9A /* MDBWelcomeViewController.m */,
 				C5E6B79914A5346300DA48BD /* MBFractalLibraryViewController.h */,
 				C5E6B79A14A5346300DA48BD /* MBFractalLibraryViewController.m */,
 				C5DE128D1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.h */,
@@ -967,6 +973,7 @@
 				C5CE0E531B542C6100EEC58C /* MDKUICollectionViewScrollContentSized.h in Headers */,
 				C5D5423F1A30EDE4006CD47A /* MBColor.h in Headers */,
 				C52ECB8C1AF967B800465876 /* UIDevice_Hardware.h in Headers */,
+				C5302CA71B68362100130D9A /* MDBWelcomeViewController.h in Headers */,
 				C5CE0E4D1B542C6100EEC58C /* NSString+MDKConvenience.h in Headers */,
 				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
 				C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */,
@@ -1196,6 +1203,7 @@
 				C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */,
 				C54FC6D31ADB60A600588E9F /* MDBImageFiltersListView.m in Sources */,
 				C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */,
+				C5302CA81B68362100130D9A /* MDBWelcomeViewController.m in Sources */,
 				C5F1847D1AA6751200233E49 /* MDBDocumentController.m in Sources */,
 				C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */,
 				C5CE0E571B542C6100EEC58C /* MDKLayerViewDesignable.m in Sources */,

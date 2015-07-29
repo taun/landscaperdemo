@@ -277,7 +277,6 @@ static const CGFloat kLevelNMargin = 48.0;
     [scrollPanGesture setMaximumNumberOfTouches: 2];
     [scrollPanGesture setMinimumNumberOfTouches: 2];
     
-    [self configureParallax];
     [self configureNavBarButtons];
     [self moveTwoFingerPanToHueIncrements: nil]; //default
     
@@ -360,7 +359,7 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     [super viewDidAppear:animated];
 
-    if (!self.appModel.allowPremium)
+    if (!self.appModel.allowPremium) // in-app purchase can only be done from settings so this should never change while the view is on screen.
     {
         [self.toggleFullScreenButton removeFromSuperview];
     }
@@ -379,15 +378,27 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 
     [self updateAndShowEditor];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(updateUIDueToUserSettingsChange) name: NSUserDefaultsDidChangeNotification object: nil];
     
     //    self.navigationController.navigationBar.hidden = YES;
 //    [self.navigationController setNavigationBarHidden: YES animated: YES];
+}
+-(void)updateUIDueToUserSettingsChange
+{
+    [self updateAndShowEditor];
 }
 /*!
  Change this to use the current appModel state for determining whether to show tutorial steps or just screen.
  */
 -(void) updateAndShowEditor
 {
+    if (self.presentedViewController) // dismiss any popovers, what about modal tutorial?
+    {
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    }
+    
+    [self configureParallax]; // here so changing the setting in user settings can take effect
+
     if (self.fractalInfo.document != nil && self.fractalInfo.document.fractal && self.isViewLoaded && self.view.superview)
     {
         [self regenerateLevels];
@@ -402,6 +413,7 @@ static const CGFloat kLevelNMargin = 48.0;
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUserDefaultsDidChangeNotification object: nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

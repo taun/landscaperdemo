@@ -51,17 +51,26 @@
     self.tableView.backgroundView = backgroundView;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self updateControls];
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(updateUIDueToSettingsChange) name: NSUserDefaultsDidChangeNotification object: nil];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUserDefaultsDidChangeNotification object: nil];
+}
+-(void)updateUIDueToSettingsChange
+{
+    [self updateControls];
+}
 -(void) updateControls
 {
     self.appVersion.text = self.appModel.versionBuildString;
@@ -98,7 +107,7 @@
     if ([identifier isEqualToString: @"LaunchSettings"])
     {
         //
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: UIApplicationOpenSettingsURLString]];
     }
     else if ([identifier isEqualToString: @"LaunchTwitter"])
     {

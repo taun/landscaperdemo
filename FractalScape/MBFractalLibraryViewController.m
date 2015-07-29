@@ -26,6 +26,7 @@
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryEditViewController.h"
 #import "MBLSFractalEditViewController.h"
+#import "MDBWelcomeViewController.h"
 #import "MDBFractalLibraryCollectionSource.h"
 #import "MDBNavConTransitionCoordinator.h"
 #import "MDBCustomTransition.h"
@@ -38,6 +39,7 @@
 
 
 NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
+
 
 @interface MBFractalLibraryViewController () <MDBFractalDocumentControllerDelegate, UIDocumentMenuDelegate, UIDocumentPickerDelegate>
 
@@ -57,20 +59,11 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     [super viewDidLoad];
     
-//    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
-//    self.collectionView.backgroundView = blurEffectView;
-    
     self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
-#pragma message "TODO fix transitions"
+
     self.navigationController.delegate = self.navConTransitionDelegate;
     self.popTransition = [MDBZoomPopBounceTransition new];
     self.pushTransition = [MDBZoomPushBounceTransition new];
-    
-//    [self.collectionView reloadData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
-    
-    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -78,6 +71,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden: NO];
     [self initControls];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -91,14 +85,55 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     self.pendingUserActivity = nil;
 
 //    [self.documentController resortFractalInfos];
-    [self.appModel.documentController.documentCoordinator startQuery];
     
+    if (!self.appModel.firstLaunchState || self.appModel.welcomeDone)
+    {
+        /*
+         need to handle getting here by change in cloud identity
+         */
+        [self regularStartupSequence];
+    }
+    else
+    {
+        [self.appModel loadInitialDocuments];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self firstStartupSequence];
+        });
+    }
+}
+
+/*
+ firstLaunch, we want to
+ load initialDocuments
+ raise an intro modal
+ set cloud state.
+ */
+-(void)firstStartupSequence
+{
+    UIStoryboard* storyBoard = self.storyboard;
+    MDBWelcomeViewController* welcomeController = (MDBWelcomeViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"WelcomeViewController"];
+    welcomeController.appModel = self.appModel;
+    welcomeController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    welcomeController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [self presentViewController: welcomeController animated: YES completion: nil];
+    
+    [self regularStartupSequence];
+}
+
+-(void)regularStartupSequence
+{
+    [self.appModel setupUserStoragePreferences];
+    [self.appModel.documentController.documentCoordinator startQuery];
     [self.collectionView reloadData];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -137,11 +172,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 - (void)handleContentSizeCategoryDidChangeNotification:(NSNotification *)notification {
     [self.view setNeedsLayout];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
 }
 
 #pragma mark - custom getters -

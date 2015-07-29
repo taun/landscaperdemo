@@ -10,6 +10,7 @@
 #import "MDBFractalDocumentProxy.h"
 #import "MBFractalLibraryViewController.h"
 #import "MDBFractalInfo.h"
+#import "MDBCloudManager.h"
 
 
 @interface MDBFractalCloudBrowser ()
@@ -26,6 +27,63 @@
     self.activityIndicator.color = [UIColor blueColor];
     
     [super viewDidLoad];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    MDBAppModel* model = (MDBAppModel*)self.appModel;
+    if (model.cloudDocumentManager.isCloudAvailable)
+    {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];
+        [self.activityIndicator startAnimating];
+        [self updateSearchResultsForSearchController: self.searchController];
+    }
+    else
+    {
+        [self showAlertActionsToAddiCloud: nil];
+    }
+}
+
+-(void)showAlertActionsToAddiCloud: (id)sender
+{
+    NSString* title = NSLocalizedString(@"FractalCloud Not Available", nil);
+    NSString* message = NSLocalizedString(@"You must have your device logged into iCloud to use FractalCloud. The button below will take you to FractalScapes settings. Once there you will need to Click 'Settings' go to 'iCloud' and login with your AppleId", nil);
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Go to iCloud Settings" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action)
+                                   {
+                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                       [self sendUserToSystemiCloudSettings: sender];
+                                   }];
+    [alert addAction: fractalCloud];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Later Maybe" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    [alert addAction: defaultAction];
+    
+//    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+//    ppc.barButtonItem = sender;
+//    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController: alert animated:YES completion:nil];
+}
+
+-(void)sendUserToSystemiCloudSettings: (id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: UIApplicationOpenSettingsURLString]];
 }
 
 -(void)setupSearchController

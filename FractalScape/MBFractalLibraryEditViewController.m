@@ -15,9 +15,12 @@
 #import "MDBDocumentController.h"
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDLCloudKitManager.h"
+#import "MDBCloudManager.h"
 
 @interface MBFractalLibraryEditViewController ()
 
+@property (nonatomic,strong) UIBarButtonItem            *shareButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem    *deleteButton;
 
 - (IBAction)deleteCurrentSelections:(id)sender;
 
@@ -35,11 +38,11 @@
 //    self.collectionView.backgroundView = blurEffectView;
     
     
-    UIBarButtonItem* shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
+    _shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
                                                                                 target: self
                                                                                 action: @selector(shareButtonPressed:)];
     
-    shareButton.enabled = NO;
+    _shareButton.enabled = NO;
     
     NSMutableArray* items;
     //    [items addObject: backButton];
@@ -48,7 +51,7 @@
     
     items = [self.navigationItem.rightBarButtonItems mutableCopy];
     [items addObject: space];
-    [items addObject: shareButton];
+    [items addObject: _shareButton];
     [self.navigationItem setRightBarButtonItems: items];
 
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
@@ -67,9 +70,10 @@
 
 -(void) rightButtonsEnabledState: (BOOL)state
 {
-    for (UIBarButtonItem* button in self.navigationItem.rightBarButtonItems)
+    self.deleteButton.enabled = state;
+    if (self.appModel.allowPremium)
     {
-        button.enabled = state;
+        self.shareButton.enabled = state;
     }
 }
 
@@ -151,21 +155,78 @@
 }
 - (IBAction)shareButtonPressed:(id)sender
 {
-    if (self.presentedViewController)
+    if (self.appModel.allowPremium)
     {
-        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+        if (self.presentedViewController)
+        {
+            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+        }
+        
+        if (self.appModel.cloudDocumentManager.isCloudAvailable)
+        {
+            [self showAlertActionsToShare: sender];
+        }
+        else
+        {
+            [self showAlertActionsToAddiCloud: sender];
+        }
     }
+}
+
+-(void)showAlertActionsToAddiCloud: (id)sender
+{
+    NSString* title = NSLocalizedString(@"iCloud Share", nil);
+    NSString* message = NSLocalizedString(@"You must have your device logged into iCloud", nil);
     
-    //    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
-                                                                   message: @"How would you like to share the image?"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
                                                             preferredStyle: UIAlertControllerStyleActionSheet];
     
     UIAlertController* __weak weakAlert = alert;
     
-//    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
     
-    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Public Cloud" style:UIAlertActionStyleDefault
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Go to iCloud Settings" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action)
+                                   {
+                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                       [self sendUserToSystemiCloudSettings: sender];
+                                   }];
+    [alert addAction: fractalCloud];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Later Maybe" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    [alert addAction: defaultAction];
+    
+    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+    ppc.barButtonItem = sender;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)sendUserToSystemiCloudSettings: (id)sender
+{
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"prefs:root=iCloud"]];
+}
+
+-(void)showAlertActionsToShare: (id)sender
+{
+    NSString* title = NSLocalizedString(@"iCloud Share", nil);
+    NSString* message = NSLocalizedString(@"How would you like to share the fractal?", nil);
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"FractalCloud" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -189,22 +250,115 @@
 
 - (IBAction) shareCurrentSelections:(id)sender
 {
+    // check for iCloud account
+    // check for discovery
+    [self.appModel.cloudKitManager requestDiscoverabilityPermission:^(BOOL discoverable) {
+        [self sendSelectedRecordsToTheCloud];
+    }];
+}
+
+-(void)sendSelectedRecordsToTheCloud
+{
     NSArray* selectedIndexPaths = [self.collectionView indexPathsForSelectedItems];
     if (selectedIndexPaths.count > 0)
     {
+        
+        NSMutableArray* records = [NSMutableArray arrayWithCapacity: selectedIndexPaths.count];
+        
         for (NSIndexPath* path in selectedIndexPaths)
         {
+            
             MDBFractalInfo* fractalInfo = self.appModel.documentController.fractalInfos[path.row];
             if (fractalInfo)
             {
-                [self shareToPublicCloudDocument: fractalInfo.document];
+                MDBFractalDocument* fractalDocument = fractalInfo.document;
+                LSFractal* fractal = fractalDocument.fractal;
+                
+                CKRecord* record;
+                record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
+                record[CKFractalRecordNameField] = fractal.name;
+                record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
+                record[CKFractalRecordDescriptorField] = fractal.descriptor;
+                
+                
+                NSURL* fractalURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBFractalFileName];
+                record[CKFractalRecordFractalDefinitionAssetField] = [[CKAsset alloc] initWithFileURL: fractalURL];
+                
+                NSURL* thumbnailURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBThumbnailFileName];
+                record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: thumbnailURL];
+                
+                [records addObject: record];
                 [self.collectionView deselectItemAtIndexPath: path animated: YES];
             }
         }
         
+        [self.appModel.cloudKitManager savePublicRecords: records withCompletionHandler:^{
+            [self sharingStatusAlert: nil];
+        }];
+        
         [self rightButtonsEnabledState: NO];
     }
 }
+
+-(void) shareToPublicCloudDocument: (MDBFractalDocument*)fractalDocument
+{
+    NSError* readError;
+    NSFileCoordinator* fileCoordinator = [[NSFileCoordinator alloc]initWithFilePresenter: fractalDocument];
+    
+    [fileCoordinator prepareForReadingItemsAtURLs: @[fractalDocument.fileURL]
+                                          options: 0
+                               writingItemsAtURLs: nil
+                                          options: 0
+                                            error: &readError
+                                       byAccessor:^(void (^completionHandler)(void)) {
+                                           //
+                                           LSFractal* fractal = fractalDocument.fractal;
+                                           CKRecord* record;
+                                           record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
+                                           record[CKFractalRecordNameField] = fractal.name;
+                                           record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
+                                           record[CKFractalRecordDescriptorField] = fractal.descriptor;
+                                           
+                                           
+                                           NSURL* fractalURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBFractalFileName];
+                                           
+                                           [fileCoordinator coordinateReadingItemAtURL: fractalURL options: NSFileCoordinatorReadingForUploading error: nil byAccessor:^(NSURL *newURL) {
+                                               record[CKFractalRecordFractalDefinitionAssetField] = [[CKAsset alloc] initWithFileURL: newURL];
+                                           }];
+                                           
+                                           NSURL* thumbnailURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBThumbnailFileName];
+                                           
+                                           [fileCoordinator coordinateReadingItemAtURL: thumbnailURL options: NSFileCoordinatorReadingForUploading error: nil byAccessor:^(NSURL *newURL) {
+                                               record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: newURL];
+                                           }];
+                                           
+                                           [self.appModel.cloudKitManager savePublicRecord: record withCompletionHandler:^(NSError *ckError) {
+                                               //
+                                               [self sharingStatusAlert: ckError];
+                                           }];
+                                           
+                                           completionHandler();
+                                       }];
+    //
+    
+    //        }
+    //        else
+    //        {
+    //            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CloudKitAtlas" message:@"Getting your name using Discoverability requires permission." preferredStyle:UIAlertControllerStyleAlert];
+    //
+    //            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
+    //                [self dismissViewControllerAnimated:YES completion:nil];
+    //
+    //            }];
+    //
+    //            [alert addAction:action];
+    //
+    //            [self presentViewController:alert animated:YES completion:nil];
+    //        }
+    //    }];
+    
+}
+
 
 -(void) sharingStatusAlert: (NSError*)error
 {
@@ -240,65 +394,6 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
--(void) shareToPublicCloudDocument: (MDBFractalDocument*)fractalDocument
-{
-    NSError* readError;
-    NSFileCoordinator* fileCoordinator = [[NSFileCoordinator alloc]initWithFilePresenter: fractalDocument];
-    
-    [fileCoordinator prepareForReadingItemsAtURLs: @[fractalDocument.fileURL]
-                                          options: 0
-                               writingItemsAtURLs: nil
-                                          options: 0
-                                            error: &readError
-                                       byAccessor:^(void (^completionHandler)(void)) {
-                                           //
-                                           LSFractal* fractal = fractalDocument.fractal;
-                                           
-                                           CKRecord* record;
-                                           record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
-                                           record[CKFractalRecordNameField] = fractal.name;
-                                           record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
-                                           record[CKFractalRecordDescriptorField] = fractal.descriptor;
-                                           
-                                           
-                                           NSURL* fractalURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBFractalFileName];
-                                           
-                                           [fileCoordinator coordinateReadingItemAtURL: fractalURL options: NSFileCoordinatorReadingForUploading error: nil byAccessor:^(NSURL *newURL) {
-                                               record[CKFractalRecordFractalDefinitionAssetField] = [[CKAsset alloc] initWithFileURL: newURL];
-                                           }];
-                                           
-                                           NSURL* thumbnailURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBThumbnailFileName];
-                                           
-                                           [fileCoordinator coordinateReadingItemAtURL: thumbnailURL options: NSFileCoordinatorReadingForUploading error: nil byAccessor:^(NSURL *newURL) {
-                                               record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: newURL];
-                                           }];
-                                           
-                                           [self.appModel.cloudManager savePublicRecord: record withCompletionHandler:^(NSError *ckError) {
-                                               //
-                                               [self sharingStatusAlert: ckError];
-                                           }];
-                                           
-                                           completionHandler();
-                                       }];
-        //
-    
-    //        }
-    //        else
-    //        {
-    //            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CloudKitAtlas" message:@"Getting your name using Discoverability requires permission." preferredStyle:UIAlertControllerStyleAlert];
-    //
-    //            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
-    //                [self dismissViewControllerAnimated:YES completion:nil];
-    //
-    //            }];
-    //
-    //            [alert addAction:action];
-    //
-    //            [self presentViewController:alert animated:YES completion:nil];
-    //        }
-    //    }];
-    
-}
 
 - (IBAction)editingIsDoneButton:(id)sender
 {

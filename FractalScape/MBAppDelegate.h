@@ -11,8 +11,6 @@
 @import UIKit;
 @import CoreMotion;
 
-@class LSDrawingRuleType;
-@class LSFractal;
 
 /*!
  Segue identifier for transitioning to the document list editor.
@@ -40,6 +38,8 @@ extern NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerConti
 @interface MBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (weak,nonatomic) id           documentsViewController;
+@property (weak,nonatomic) id           primaryViewController;
 
 - (void)handleUbiquityIdentityDidChangeNotification:(NSNotification *)notification;
 

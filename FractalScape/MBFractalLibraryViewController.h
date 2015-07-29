@@ -30,11 +30,14 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
 @property (nonatomic,strong) IBOutlet MDBFractalLibraryCollectionSource      *collectionSource;
 
+-(void)regularStartupSequence;
+
 #pragma mark - Segue Actions
 //- (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue;
 //- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue;
 - (IBAction)pickDocument:(UIBarButtonItem *)sender;
 - (IBAction)pushToLibraryEditViewController:(id)sender;
+- (IBAction)unwindToLibraryFromIntro:(UIStoryboardSegue *)segue;
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
 

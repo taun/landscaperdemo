@@ -10,21 +10,53 @@
 
 #import "MDCKCloudManagerAppModelProtocol.h"
 
+@class MBAppDelegate;
 @class MDBDocumentController;
 @class MDLCloudKitManager;
+@class MDBCloudManager;
 
 extern NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey;
 extern NSString *const kMDBFractalCloudContainer;
 
+/*!
+ 2020 hindsight, should have just left all this in the AppDelegate and inplace of passing around an appModel, 
+ accessed the AppDelegate. Everything has moved here making this the same as the AppDelegate without any reduction 
+ in complexity.
+ */
 @interface MDBAppModel : NSObject <MDCKCloudManagerAppModelProtocol>
 
+@property(nonatomic,weak) MBAppDelegate                         *delegate;
 @property(nonatomic,readonly) NSString                          *versionBuildString;
-@property(nonatomic,assign,getter=isFirstLaunch) BOOL           firstLaunch;
+@property(nonatomic,readonly) BOOL                              firstLaunchState;
+@property(nonatomic,readonly) BOOL                              cloudIdentityChangedState;
 @property(nonatomic,strong) MDBDocumentController               *documentController;
-@property(nonatomic,readonly) MDLCloudKitManager                *cloudManager;
+@property(nonatomic,readonly) MDBCloudManager                   *cloudDocumentManager;
+@property(nonatomic,readonly) MDLCloudKitManager                *cloudKitManager;
 @property(nonatomic,readonly) BOOL                              allowPremium;
 @property(nonatomic,readonly) BOOL                              useWatermark;
+@property(nonatomic,readonly) BOOL                              promptedForDiscovery;
+@property(nonatomic,readonly) BOOL                              welcomeDone;
+@property(nonatomic,readonly) BOOL                              editorIntroDone;
 
+-(void)loadInitialDocuments;
+/*!
+ Needs to check storage state and revert to root controller if changed.
+ Needs to update all of the settings in userDefaults for controller KVO.
+    Don't reload settings if cloud identity changed?
+ */
+-(void)handleDidBecomeActive;
+-(void)handleMoveToBackground;
+/*!
+ Checks if the cloud identity changed
+ */
+-(void)setupUserStoragePreferences;
+-(void)exitFirstLaunchState;
+
+-(void)exitWelcomeState;
+-(void)exitEditorIntroState;
+
+-(void)enterCloudIdentityChangedState;
+-(void)exitCloudIdentityChangedState;
 
 -(void)setLastEditedURL: (NSURL*)lastEdited;
 -(NSURL*)lastEditedURL;

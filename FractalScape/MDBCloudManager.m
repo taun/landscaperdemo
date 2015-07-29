@@ -25,34 +25,27 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
 
 @interface MDBCloudManager ()
 
-
 @end
+
+
+
 
 @implementation MDBCloudManager
 
 
-+(MDBCloudManager*)sharedManager
+- (instancetype)init
 {
-    static MDBCloudManager* sharedManager;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        //
-        sharedManager = [MDBCloudManager new];
-    });
-    
-    return sharedManager;
+    self = [super init];
+    if (self) {
+        [self registerDefaults];
+    }
+    return self;
 }
 
-- (void)runHandlerOnFirstLaunch:(void (^)(void))firstLaunchHandler {
+- (void)registerDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults registerDefaults:@{kMDBICloudManagerStorageOptionUserDefaultsKey: @(MDBAPPStorageNotSet)}];
-    
-    if (self.appModel.isFirstLaunch)
-    {
-        firstLaunchHandler();
-    }
 }
 
 - (MDBAPPStorage)storageOption {
@@ -105,7 +98,7 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
     {
         [self persistAccount];
         
-        if (!self.appModel.isFirstLaunch) hasChanged = YES;
+        if (!self.appModel.firstLaunchState) hasChanged = YES;
     }
     
     return hasChanged;

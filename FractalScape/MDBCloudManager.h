@@ -40,8 +40,5 @@ extern NSString* const kMDBUbiquitousContainerFetchingDidEndNotification;
 @property (nonatomic, readonly) MDBAPPStorageState              storageState;
 @property (nonatomic) MDBAPPStorage                             storageOption;
 
-+(MDBCloudManager*)sharedManager;
-- (void)runHandlerOnFirstLaunch:(void (^)(void))firstLaunchHandler;
-
 
 @end
