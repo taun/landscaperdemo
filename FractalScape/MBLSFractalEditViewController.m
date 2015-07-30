@@ -31,6 +31,7 @@
 #import "MDBFractalDocument.h"
 #import "LSFractalRenderer.h"
 #import "MDBTileObjectProtocol.h"
+#import "MDBEditorIntroPageControllerDataSource.h"
 
 //
 //static inline double radians (double degrees){return degrees * M_PI/180.0;}
@@ -65,6 +66,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
 @property (nonatomic,strong) UIMotionEffectGroup    *foregroundMotionEffect;
 @property (nonatomic,strong) UIMotionEffectGroup    *backgroundMotionEffect;
+@property (nonatomic,strong) UIBarButtonItem        *shareButton;
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
@@ -96,6 +98,8 @@ static const CGFloat kLevelNMargin = 48.0;
 @property (nonatomic,strong) NSDictionary                  *twoFingerPanProperties;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
+
+@property (nonatomic,strong) MDBEditorIntroPageControllerDataSource *introPageSource;
 
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
@@ -209,11 +213,11 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                  target: self
                                                                  action: @selector(copyFractal:)];
     
-    UIBarButtonItem* shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
+    _shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
                                                                  target: self
                                                                  action: @selector(shareButtonPressed:)];
     
-    _disabledDuringPlaybackButtons = @[self.autoExpandOff, copyButton, shareButton];
+    _disabledDuringPlaybackButtons = @[self.autoExpandOff, copyButton, _shareButton];
     
     [self.navigationItem setHidesBackButton: YES animated: NO];
     self.navigationItem.leftItemsSupplementBackButton = YES;
@@ -234,8 +238,25 @@ static const CGFloat kLevelNMargin = 48.0;
     
     items = [self.navigationItem.rightBarButtonItems mutableCopy];
     [items addObject: space];
-    [items addObject: shareButton];
+    [items addObject: _shareButton];
     [self.navigationItem setRightBarButtonItems: items];
+
+    self.previousNavBarState = NO;
+    
+    self.showPerformanceData = self.appModel.showPerformanceData;
+    
+    if (!self.appModel.allowPremium)
+    {
+        [self fullScreenOnDuration: 0.0];
+        [self.toggleFullScreenButton removeFromSuperview];
+    }
+    else
+    {
+        if (self.appModel.fullScreenState)
+        {
+            [self fullScreenOnDuration: 0.0];
+        }
+    }
 }
 
 -(void)setupHUDSlider: (UISlider*)slider forProperty:(NSString*)propertyKey rotatedDegrees:(CGFloat)rotation
@@ -262,36 +283,16 @@ static const CGFloat kLevelNMargin = 48.0;
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
-    if (!self.appModel.allowPremium)
-    {
-        [self.toggleFullScreenButton removeFromSuperview];
-    }
-    else
-    {
-        
-    }
-    
+    [self configureNavBarButtons];
+
     _observedReplacementRules = [NSMutableSet new];
     
     UIPanGestureRecognizer* scrollPanGesture = self.fractalScrollView.panGestureRecognizer;
     [scrollPanGesture setMaximumNumberOfTouches: 2];
     [scrollPanGesture setMinimumNumberOfTouches: 2];
     
-    [self configureNavBarButtons];
     [self moveTwoFingerPanToHueIncrements: nil]; //default
     
-    // hide navBar on load because the Appearance Popover is auto popped on load
-    // and if this is done during the appearance code, the view moves up as the navBar is hidden
-    self.previousNavBarState = NO;
-    
-    self.showPerformanceData = self.appModel.showPerformanceData;
-
-    BOOL fullScreenState = self.appModel.fullScreenState;
-    if (fullScreenState)
-    {
-        [self fullScreenOnDuration: 0.0];
-    }
-
     [self.fractalViewRootSingleTapRecognizer requireGestureRecognizerToFail: self.fractalViewRootDoubleTapRecognizer];
     
 //    self.fractalDocument.fractal = [self getUsersLastFractal];
@@ -313,6 +314,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     [super viewDidLoad];
 }
+
 -(void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -377,20 +379,64 @@ static const CGFloat kLevelNMargin = 48.0;
         self.fractalScrollView.contentOffset = CGPointZero;
     }
 
-    [self updateAndShowEditor];
+    [self updateEditorContent];
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(updateUIDueToUserSettingsChange) name: NSUserDefaultsDidChangeNotification object: nil];
     
     //    self.navigationController.navigationBar.hidden = YES;
 //    [self.navigationController setNavigationBarHidden: YES animated: YES];
+    if (self.appModel.firstLaunchState || !self.appModel.editorIntroDone)
+    {
+        [self firstStartupSequence];
+    }
+}
+
+-(void)firstStartupSequence
+{
+    UIStoryboard* storyBoard = self.storyboard;
+
+    NSMutableArray* pages = [NSMutableArray new];
+    UIViewController* page0 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage0"];
+    page0.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    page0.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [pages addObject: page0];
+
+    UIViewController* page1 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage1"];
+    page1.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    page1.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [pages addObject: page1];
+
+    self.introPageSource = [MDBEditorIntroPageControllerDataSource new];
+    self.introPageSource.pageControllerPages = [pages copy];
+    
+    UIPageViewController* introController = (UIPageViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroPageController"];
+    introController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    introController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self setupPageControlAppearance];
+    
+    introController.dataSource = self.introPageSource;
+    
+    NSArray *startingViewControllers = @[pages[0]];
+    [introController setViewControllers: startingViewControllers
+                             direction: UIPageViewControllerNavigationDirectionForward
+                              animated:YES
+                            completion: nil];
+    
+    [self presentViewController: introController animated: YES completion: nil];
+}
+- (void) setupPageControlAppearance
+{
+    [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
+    [[UIPageControl appearance] setCurrentPageIndicatorTintColor: self.view.tintColor];
+//    [[UIPageControl appearance] setBackgroundColor: [UIColor darkGrayColor]];
 }
 -(void)updateUIDueToUserSettingsChange
 {
-    [self updateAndShowEditor];
+    [self updateEditorContent];
 }
 /*!
  Change this to use the current appModel state for determining whether to show tutorial steps or just screen.
  */
--(void) updateAndShowEditor
+-(void) updateEditorContent
 {
     if (self.presentedViewController) // dismiss any popovers, what about modal tutorial?
     {
@@ -711,14 +757,14 @@ static const CGFloat kLevelNMargin = 48.0;
             [fractalInfo.document openWithCompletionHandler:^(BOOL success) {
                 //detect if we have a new default fractal
                 self.fractalInfo = fractalInfo;
-                if (update) [self updateAndShowEditor];
+                if (update) [self updateEditorContent];
             }];
         });
     }
     else
     {
         self.fractalInfo = fractalInfo;
-        if (update) [self updateAndShowEditor];
+        if (update) [self updateEditorContent];
     }
 }
 
