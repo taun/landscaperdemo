@@ -86,7 +86,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 //    [self.documentController resortFractalInfos];
     
-    if (!self.appModel.firstLaunchState || self.appModel.welcomeDone)
+    if (self.appModel.welcomeDone)
     {
         /*
          need to handle getting here by change in cloud identity
@@ -98,6 +98,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         if (self.appModel.firstLaunchState) // way to let the intro be played again without reloading the demo fractals
         {
             [self.appModel loadInitialDocuments];
+            [self.appModel exitFirstLaunchState];
         }
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -123,6 +124,14 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self presentViewController: welcomeController animated: YES completion: nil];
     
     [self regularStartupSequence];
+}
+- (IBAction)unwindToLibraryFromWelcome:(UIStoryboardSegue *)segue
+{
+    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
+    
+    [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
+        [self.appModel exitWelcomeState];
+    }];
 }
 
 -(void)regularStartupSequence

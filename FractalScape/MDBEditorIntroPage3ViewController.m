@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIImage* animation = [UIImage animatedImageNamed: @"DragAndDrop" duration: 16.0];
+    UIImage* animation = [UIImage animatedImageNamed: @"DragAndDrop" duration: 12.0];
     
     self.dragAndDropAnimationImageView.image = animation;
     

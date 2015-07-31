@@ -384,7 +384,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     //    self.navigationController.navigationBar.hidden = YES;
 //    [self.navigationController setNavigationBarHidden: YES animated: YES];
-    if (self.appModel.firstLaunchState || !self.appModel.editorIntroDone)
+    if (!self.appModel.editorIntroDone)
     {
         [self firstStartupSequence];
     }
@@ -438,6 +438,14 @@ static const CGFloat kLevelNMargin = 48.0;
     
     [self presentViewController: introController animated: YES completion: nil];
 }
+- (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue
+{
+    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
+    [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
+        [self.appModel exitEditorIntroState];
+    }];
+}
+
 - (void) setupPageControlAppearance
 {
     [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];

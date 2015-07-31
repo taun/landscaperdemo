@@ -66,11 +66,31 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>First Launch</string>
+			<string>Load Demo Fractals</string>
 			<key>Key</key>
 			<string>kMDBFractalScapesFirstLaunchUserDefaultsKey</string>
 			<key>DefaultValue</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Welcome Done</string>
+			<key>Key</key>
+			<string>com.moedae.FractalScapes.WelcomeDone</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Editor Intro Done</string>
+			<key>Key</key>
+			<string>com.moedae.FractalScapes.EditorIntroDone</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Title</key>
