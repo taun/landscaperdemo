@@ -405,6 +405,21 @@ static const CGFloat kLevelNMargin = 48.0;
     page1.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [pages addObject: page1];
 
+    UIViewController* page2 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage2"];
+    page2.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    page2.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [pages addObject: page2];
+    
+    UIViewController* page3 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage3"];
+    page3.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    page3.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [pages addObject: page3];
+    
+    UIViewController* page4 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage4"];
+    page4.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    page4.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [pages addObject: page4];
+
     self.introPageSource = [MDBEditorIntroPageControllerDataSource new];
     self.introPageSource.pageControllerPages = [pages copy];
     

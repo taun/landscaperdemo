@@ -39,6 +39,9 @@
 		C5302CA81B68362100130D9A /* MDBWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CA61B68362100130D9A /* MDBWelcomeViewController.m */; };
 		C5302CB11B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5302CAF1B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.h */; };
 		C5302CB21B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */; };
+		C5302CB41B6AB39F00130D9A /* Tutorial.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5302CB31B6AB39F00130D9A /* Tutorial.xcassets */; };
+		C5302CB91B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */; };
+		C5302CBA1B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */; };
 		C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */; };
 		C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */; };
@@ -262,6 +265,9 @@
 		C5302CA61B68362100130D9A /* MDBWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBWelcomeViewController.m; path = FractalScape/MDBWelcomeViewController.m; sourceTree = "<group>"; };
 		C5302CAF1B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEditorIntroPageControllerDataSource.h; sourceTree = "<group>"; };
 		C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorIntroPageControllerDataSource.m; sourceTree = "<group>"; };
+		C5302CB31B6AB39F00130D9A /* Tutorial.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Tutorial.xcassets; sourceTree = "<group>"; };
+		C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEditorIntroPage3ViewController.h; sourceTree = "<group>"; };
+		C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorIntroPage3ViewController.m; sourceTree = "<group>"; };
 		C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalRulesEditorViewController.h; path = FractalScape/MBFractalRulesEditorViewController.h; sourceTree = "<group>"; };
 		C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalRulesEditorViewController.m; path = FractalScape/MBFractalRulesEditorViewController.m; sourceTree = "<group>"; };
 		C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSObjectListTileViewer.h; path = FractalScape/MBLSObjectListTileViewer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -539,6 +545,8 @@
 				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
 				C5302CAF1B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.h */,
 				C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */,
+				C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */,
+				C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */,
 				C5FFAB0E1A14F89F00662211 /* Popovers */,
 			);
 			name = Editor;
@@ -814,6 +822,7 @@
 				C53305C517985877005D2A18 /* History.rtf */,
 				C59AAE5419DC776000774441 /* RulesIcons.xcassets */,
 				C59AAE5619DC77CE00774441 /* UIMedia.xcassets */,
+				C5302CB31B6AB39F00130D9A /* Tutorial.xcassets */,
 				C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */,
 				C5B3F18519DC804100BDFAF5 /* FractalMedia.xcassets */,
 				C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */,
@@ -974,6 +983,7 @@
 				C5A5C38D1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h in Headers */,
 				C50764691A33A537009DDF83 /* LSDrawingRuleType.h in Headers */,
 				C5F184721AA62B4A00233E49 /* MDBFractalObjectList.h in Headers */,
+				C5302CB91B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h in Headers */,
 				C5F544821A5B56B3000EE8B9 /* LSFractalRenderer.h in Headers */,
 				C5C37C641A24EC81008C5409 /* MBLSReplacementRulesListView.h in Headers */,
 				C5CE0E4F1B542C6100EEC58C /* UIFont+MDKProportional.h in Headers */,
@@ -1135,6 +1145,7 @@
 				C5B58C631AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */,
 				C50C47BA1A97C2E500CF5121 /* Launch Screen.xib in Resources */,
 				C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */,
+				C5302CB41B6AB39F00130D9A /* Tutorial.xcassets in Resources */,
 				C5B58C601AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */,
 				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
 				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
@@ -1257,6 +1268,7 @@
 				C5D542401A30EDE4006CD47A /* MBColor.m in Sources */,
 				C564A32919E722FA00839D9E /* MBDraggingItem.m in Sources */,
 				C5C37C6D1A24EF9F008C5409 /* MDBLSObjectTileView.m in Sources */,
+				C5302CBA1B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m in Sources */,
 				C54FC6CF1ADB5E5B00588E9F /* MDBFilterControlView.m in Sources */,
 				C5CD57D01A98E42400C70218 /* MDBFractalDocument.m in Sources */,
 				C5F184881AA8DA7D00233E49 /* MDBFractalDocumentCloudCoordinator.m in Sources */,
