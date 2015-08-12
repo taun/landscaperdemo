@@ -95,10 +95,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     }
     else
     {
-        if (self.appModel.firstLaunchState) // way to let the intro be played again without reloading the demo fractals
+        if (self.appModel.loadDemoFiles) // way to let the intro be played again without reloading the demo fractals
         {
             [self.appModel loadInitialDocuments];
-            [self.appModel exitFirstLaunchState];
+            [self.appModel demoFilesLoaded];
         }
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

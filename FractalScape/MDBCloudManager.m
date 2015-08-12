@@ -98,7 +98,7 @@ NSString* const kMDBUbiquitousContainerFetchingDidEndNotification = @"kMDBUbiqui
     {
         [self persistAccount];
         
-        if (!self.appModel.firstLaunchState) hasChanged = YES;
+        if (!self.appModel.loadDemoFiles) hasChanged = YES;
     }
     
     return hasChanged;

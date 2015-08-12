@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MDBTutorialSplitViewController : UISplitViewController
+@class MDBAppModel;
 
--(IBAction)showIntroduction:(id)sender;
--(IBAction)showDragAndDrop:(id)sender;
+@interface MDBTutorialSplitViewController : UISplitViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDataSource>
+
+@property (nonatomic,strong) MDBAppModel                                    *appModel;
+
 
 @end

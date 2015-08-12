@@ -74,6 +74,8 @@
 //    }
 //
 //}
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 -(void)sendAppModelToTabSubControllers
 {
@@ -102,5 +104,7 @@
         }
     }
 }
+
+#pragma clang diagnostic pop
 
 @end

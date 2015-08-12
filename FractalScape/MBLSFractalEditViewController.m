@@ -57,6 +57,7 @@ static const CGFloat kLevelNMargin = 48.0;
 @property (nonatomic,strong) NSMutableSet           *observedReplacementRules;
 @property (nonatomic,assign) BOOL                   startedInLandscape;
 @property (nonatomic,assign) BOOL                   hasBeenEdited;
+@property (nonatomic,assign) CGFloat                pan10xValue;
 
 //@property (nonatomic, strong) NSSet*                editControls;
 //@property (nonatomic, strong) NSMutableArray*       cachedEditViews;
@@ -96,6 +97,8 @@ static const CGFloat kLevelNMargin = 48.0;
 @property (nonatomic,strong) NSArray                       *playbackRenderers;
 @property (readonly,strong) CIContext                      *filterContext;
 @property (nonatomic,strong) NSDictionary                  *twoFingerPanProperties;
+@property (nonatomic,strong) NSArray                       *panIndicators;
+@property (nonatomic,strong) NSArray                       *panToolbarButtons;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 
@@ -142,6 +145,8 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     [super awakeFromNib];
     _minImagePersistence = 1.0/kHighPerformanceFrameRate;
+    _pan10xValue = 1.0;
+    _pan10xMultiplier = 10.0;
     
     /*
      FractalScape rendering is much faster on the 64bit devices.
@@ -247,14 +252,18 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (!self.appModel.allowPremium)
     {
-        [self fullScreenOnDuration: 0.0];
+        [self fullScreenOnDuration: 0];
         [self.toggleFullScreenButton removeFromSuperview];
     }
     else
     {
         if (self.appModel.fullScreenState)
         {
-            [self fullScreenOnDuration: 0.0];
+            [self fullScreenOn];
+        }
+        else
+        {
+            [self fullScreenOff];
         }
     }
 }
@@ -287,14 +296,23 @@ static const CGFloat kLevelNMargin = 48.0;
 
     _observedReplacementRules = [NSMutableSet new];
     
-    UIPanGestureRecognizer* scrollPanGesture = self.fractalScrollView.panGestureRecognizer;
-    [scrollPanGesture setMaximumNumberOfTouches: 2];
-    [scrollPanGesture setMinimumNumberOfTouches: 2];
-    
-    [self moveTwoFingerPanToHueIncrements: nil]; //default
-    
-    [self.fractalViewRootSingleTapRecognizer requireGestureRecognizerToFail: self.fractalViewRootDoubleTapRecognizer];
-    
+    {
+        _panIndicators = @[_panIndicatorBaseAngle, _panIndicatorRandomization,
+                           _panIndicatorTurnAngle, _panIndicatorLineWidth,
+                           _panIndicatorDecrementsAngle, _panIndicatorDecrementsLine,
+                           _panIndicatorHueFill, _panIndicatorHueLine];
+        
+        _panToolbarButtons = @[ _baseRotationButton,
+                                _jointAngleButton,
+                                _incrementsButton,
+                                _hueIncrementsButton];
+        
+        UIPanGestureRecognizer* scrollPanGesture = self.fractalScrollView.panGestureRecognizer;
+        [scrollPanGesture setMaximumNumberOfTouches: 2];
+        [scrollPanGesture setMinimumNumberOfTouches: 2];
+        
+        [self.fractalViewRootSingleTapRecognizer requireGestureRecognizerToFail: self.fractalViewRootDoubleTapRecognizer];
+    }
 //    self.fractalDocument.fractal = [self getUsersLastFractal];
     
     UIImage* sliderCircleImage = [UIImage imageNamed: @"controlDragCircle"];
@@ -394,31 +412,17 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     UIStoryboard* storyBoard = self.storyboard;
 
+    NSUInteger pageCount = 5;
     NSMutableArray* pages = [NSMutableArray new];
-    UIViewController* page0 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage0"];
-    page0.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    page0.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [pages addObject: page0];
-
-    UIViewController* page1 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage1"];
-    page1.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    page1.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [pages addObject: page1];
-
-    UIViewController* page2 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage2"];
-    page2.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    page2.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [pages addObject: page2];
     
-    UIViewController* page3 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage3"];
-    page3.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    page3.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [pages addObject: page3];
-    
-    UIViewController* page4 = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroControllerPage4"];
-    page4.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    page4.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [pages addObject: page4];
+    for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
+    {
+        NSString* pageIdentifier = [NSString stringWithFormat: @"EditorIntroControllerPage%u",pageIndex];
+        UIViewController* page = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
+        page.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        page.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [pages addObject: page];
+    }
 
     self.introPageSource = [MDBEditorIntroPageControllerDataSource new];
     self.introPageSource.pageControllerPages = [pages copy];
@@ -470,6 +474,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
     if (self.fractalInfo.document != nil && self.fractalInfo.document.fractal && self.isViewLoaded && self.view.superview)
     {
+        [self moveTwoFingerPanToJointAngle: nil]; //default
         [self regenerateLevels];
         [self updateInterface];
         [self autoScale: nil];
@@ -2236,19 +2241,59 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     return SIMULTOUCH;
 }
 
+-(void)changePanIndicatorsTo: (NSArray*)indicatorsToShow animate: (BOOL)animate
+{
+    NSMutableArray* indicatorsToHide = [self.panIndicators mutableCopy];
+    [indicatorsToHide removeObjectsInArray: indicatorsToShow];
+
+    for (UIView* showView in indicatorsToShow)
+    {
+        showView.hidden = NO;
+    }
+
+    [UIView animateWithDuration: 1.0 animations:^{
+        //
+        for (UIView* hideView in indicatorsToHide)
+        {
+            hideView.alpha = 0.0;
+        }
+        
+        for (UIView* showView in indicatorsToShow)
+        {
+            showView.alpha = 1.0;
+        }
+    }];
+}
+
+-(void)activateToolbarPanButton: (UIButton*)buttonToActivate
+{
+    NSMutableArray* buttonsToHide = [self.panToolbarButtons mutableCopy];
+    [buttonsToHide removeObject: buttonToActivate];
+    
+    for (UIButton* button in buttonsToHide)
+    {
+        button.selected = NO;
+    }
+    
+    buttonToActivate.selected = YES;
+}
+
 - (IBAction)moveTwoFingerPanToBaseRotation:(UIButton *)sender
 {
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"baseAngle",
                                     @"hScale":@5,
                                     @"hStep":@1,
+                                    @"hFormatter":self.angleFormatter,
                                     @"vPath":@"randomness",
-                                    @"vScale":@-0.0001};
+                                    @"vScale":@-0.0001,
+                                    @"vFormatter":self.percentFormatter};
+
+    [self activateToolbarPanButton: self.baseRotationButton];
+    [self changePanIndicatorsTo: @[self.panIndicatorBaseAngle, self.panIndicatorRandomization] animate: YES];
     
-    self.baseRotationButton.selected = YES;
-    self.jointAngleButton.selected = NO;
-    self.incrementsButton.selected = NO;
-    self.hueIncrementsButton.selected = NO;
+    self.panValueLabelHorizontal.text = [self.angleFormatter stringFromNumber: [NSNumber numberWithFloat: degrees(self.fractalDocument.fractal.baseAngle)]];
+    self.panValueLabelVertical.text = [self.percentFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.randomness]];
 }
 
 - (IBAction)moveTwoFingerPanToJointAngle:(UIButton *)sender
@@ -2257,13 +2302,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                     @"hPath":@"turningAngle",
                                     @"hScale":@5,
                                     @"hStep":@0.1,
+                                    @"hFormatter":self.angleFormatter,
                                     @"vPath":@"lineWidth",
-                                    @"vScale":@0.01};
-    
-    self.baseRotationButton.selected = NO;
-    self.jointAngleButton.selected = YES;
-    self.incrementsButton.selected = NO;
-    self.hueIncrementsButton.selected = NO;
+                                    @"vScale":@0.01,
+                                    @"vFormatter":self.twoPlaceFormatter};
+
+    [self activateToolbarPanButton: self.jointAngleButton];
+    [self changePanIndicatorsTo: @[self.panIndicatorTurnAngle, self.panIndicatorLineWidth] animate: YES];
+
+    self.panValueLabelHorizontal.text = [self.angleFormatter stringFromNumber: [NSNumber numberWithFloat: degrees(self.fractalDocument.fractal.turningAngle)]];
+    self.panValueLabelVertical.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.lineWidth]];
 }
 
 - (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender
@@ -2272,13 +2320,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                     @"hPath":@"turningAngleIncrement",
                                     @"hScale":@0.0001,
                                     @"hStep":@0.00001,
+                                    @"hFormatter":self.percentFormatter,
                                     @"vPath":@"lineChangeFactor",
-                                    @"vScale":@-0.0001};
+                                    @"vScale":@-0.0001,
+                                    @"vFormatter":self.percentFormatter};
+
+    [self activateToolbarPanButton: self.incrementsButton];
+    [self changePanIndicatorsTo: @[self.panIndicatorDecrementsAngle, self.panIndicatorDecrementsLine] animate: YES];
     
-    self.baseRotationButton.selected = NO;
-    self.jointAngleButton.selected = NO;
-    self.incrementsButton.selected = YES;
-    self.hueIncrementsButton.selected = NO;
+    self.panValueLabelHorizontal.text = [self.percentFormatter stringFromNumber: [NSNumber numberWithFloat: degrees(self.fractalDocument.fractal.turningAngleIncrement)]];
+    self.panValueLabelVertical.text = [self.percentFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.lineChangeFactor]];
 }
 
 - (IBAction)moveTwoFingerPanToHueIncrements:(UIButton *)sender
@@ -2287,13 +2338,30 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                     @"hPath":@"fillHueRotationPercent",
                                     @"hScale":@0.001,
                                     @"hStep":@0.000001,
+                                    @"hFormatter":self.percentFormatter,
                                     @"vPath":@"lineHueRotationPercent",
-                                    @"vScale":@-0.001};
+                                    @"vScale":@-0.001,
+                                    @"vFormatter":self.percentFormatter};
     
-    self.baseRotationButton.selected = NO;
-    self.jointAngleButton.selected = NO;
-    self.incrementsButton.selected = NO;
-    self.hueIncrementsButton.selected = YES;
+    [self activateToolbarPanButton: self.hueIncrementsButton];
+    [self changePanIndicatorsTo: @[self.panIndicatorHueFill, self.panIndicatorHueLine] animate: YES];
+    
+    self.panValueLabelHorizontal.text = [self.angleFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.fillHueRotationPercent]];
+    self.panValueLabelVertical.text = [self.percentFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.lineHueRotationPercent]];
+}
+
+- (IBAction)togglePan10x:(UIButton *)sender
+{
+    self.pan10xOn = !self.pan10xOn;
+    self.pan10xToggleButton.selected = self.pan10xOn;
+    if (self.pan10xOn)
+    {
+        self.pan10xValue = self.pan10xMultiplier;
+    }
+    else
+    {
+        self.pan10xValue = 1.0;
+    }
 }
 
 /* want to use 2 finger pans for changing rotation and line thickness in place of swiping
@@ -2307,8 +2375,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 horizontalPropertyPath: panProps[@"hPath"]
               hScale: [(NSNumber*)panProps[@"hScale"] floatValue]
                hStep: [(NSNumber*)panProps[@"hStep"] floatValue]
+          hFormatter: panProps[@"hFormatter"]
 verticalPropertyPath: panProps[@"vPath"]
-              vScale: [(NSNumber*)panProps[@"vScale"] floatValue]];
+              vScale: [(NSNumber*)panProps[@"vScale"] floatValue]
+          vFormatter: panProps[@"vFormatter"]];
 }
 - (IBAction)panLevel0:(UIPanGestureRecognizer *)sender
 {
@@ -2317,8 +2387,10 @@ verticalPropertyPath: panProps[@"vPath"]
 horizontalPropertyPath: @"baseAngle"
               hScale: 5.0/1.0
                hStep:    1.0
+          hFormatter: self.angleFormatter
 verticalPropertyPath: @"randomness"
-              vScale: -1.0/1000.0];
+              vScale: -1.0/1000.0
+          vFormatter: self.percentFormatter];
 }
 - (IBAction)panLevel1:(UIPanGestureRecognizer *)sender
 {
@@ -2327,8 +2399,10 @@ verticalPropertyPath: @"randomness"
 horizontalPropertyPath: @"turningAngle"
               hScale: 1.0/2.0
                hStep:    0.25
+          hFormatter: self.angleFormatter
 verticalPropertyPath:@"lineWidth"
-              vScale: 5.0/50.0];
+              vScale: 5.0/50.0
+          vFormatter: self.twoPlaceFormatter];
 }
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender
 {
@@ -2337,8 +2411,10 @@ verticalPropertyPath:@"lineWidth"
 horizontalPropertyPath: @"turningAngleIncrement"
               hScale: 1.0/1000.0
                hStep: 0.01
+          hFormatter: self.angleFormatter
 verticalPropertyPath: @"lineChangeFactor"
-              vScale: -1.0/1000.0];
+              vScale: -1.0/1000.0
+          vFormatter: self.percentFormatter];
 }
 
 -(void) convertPan: (UIPanGestureRecognizer*) gestureRecognizer
@@ -2346,8 +2422,10 @@ verticalPropertyPath: @"lineChangeFactor"
                             horizontalPropertyPath: (NSString*) horizontalPath
                            hScale: (CGFloat) hScale
                             hStep: (CGFloat) hStepSize
+        hFormatter: (NSNumberFormatter*)hFormatter
                            verticalPropertyPath: (NSString*) verticalPath
                           vScale: (CGFloat) vScale
+        vFormatter:(NSNumberFormatter*)vFormatter
 {
     
     static CGPoint initialPosition;
@@ -2356,6 +2434,9 @@ verticalPropertyPath: @"lineChangeFactor"
     static NSInteger determinedState;
     static BOOL     isIncreasing;
     static NSInteger axisState;
+    
+    hScale *= self.pan10xValue;
+    vScale *= self.pan10xValue;
     
     LSFractal* fractal = self.fractalDocument.fractal;
     
@@ -2420,6 +2501,7 @@ verticalPropertyPath: @"lineChangeFactor"
                 CGFloat scaledWidth = floorf(translation.y * vScale * 10000.0)/10000.0;
                 CGFloat newWidth = fminf(fmaxf(initialVValue + scaledWidth, vMin), vMax);
                 [fractal setValue: @(newWidth) forKey: verticalPath];
+                self.panValueLabelVertical.text = [vFormatter stringFromNumber: @(newWidth)];
                 //self.fractalDocument.fractal.lineWidth = @(newidth);
                 
             }
@@ -2432,12 +2514,14 @@ verticalPropertyPath: @"lineChangeFactor"
                     CGFloat newAngleDegrees = fminf(fmaxf(initialHValue + scaledStepAngle, hMin), hMax);
                     CGFloat steppedNewDegrees = newAngleDegrees - fmodf(newAngleDegrees, hStepSize);
                     [fractal setValue: @(radians(steppedNewDegrees)) forKey: horizontalPath];
+                    self.panValueLabelHorizontal.text = [hFormatter stringFromNumber: @(steppedNewDegrees)];
                 }
                 else
                 {
                     CGFloat scaled = floorf(translation.x * hScale * 10000.0)/10000.0;
                     CGFloat newValue = fminf(fmaxf(initialHValue + scaled, hMin), hMax);
                     [fractal setValue: @(newValue) forKey: horizontalPath];
+                    self.panValueLabelHorizontal.text = [hFormatter stringFromNumber: @(newValue)];
                 }
                 
             }
@@ -2498,8 +2582,11 @@ verticalPropertyPath: @"lineChangeFactor"
 
 -(void) fullScreenOnDuration: (NSTimeInterval)duration
 {
+    self.panIndicatorsContainerView.hidden = NO;
+    
     [UIView animateWithDuration: duration
                      animations:^{
+                         self.panIndicatorsContainerView.alpha = 1.0;
                          self.fractalViewLevel0.superview.alpha = 0;
                          self.fractalViewLevel1.superview.alpha = 0;
                          self.fractalViewLevel2.superview.alpha = 0;
@@ -2525,9 +2612,12 @@ verticalPropertyPath: @"lineChangeFactor"
     [self queueHudImageUpdates];
     [UIView animateWithDuration:0.5
                      animations:^{
+                         self.panIndicatorsContainerView.alpha = 0;
                          self.fractalViewLevel0.superview.alpha = 0.75;
                          self.fractalViewLevel1.superview.alpha = 0.75;
                          self.fractalViewLevel2.superview.alpha = 0.75;
+                     } completion:^(BOOL finished) {
+                         self.panIndicatorsContainerView.hidden = YES;
                      }];
 }
 - (UIImage *)snapshot:(UIView *)view size: (CGSize)imageSize withWatermark: (BOOL)useWatermark
@@ -2915,5 +3005,14 @@ verticalPropertyPath: @"lineChangeFactor"
     }
     return _percentFormatter;
 }
-
+-(NSNumberFormatter*) angleFormatter
+{
+    if (_angleFormatter == nil)
+    {
+        _angleFormatter = [[NSNumberFormatter alloc] init];
+        [_angleFormatter setPositiveFormat: @"##0.00°"];
+        [_angleFormatter setNegativeFormat: @"-##0.00°"];
+    }
+    return _angleFormatter;
+}
 @end

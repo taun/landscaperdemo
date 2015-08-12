@@ -98,6 +98,12 @@
 		C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */; };
 		C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38F1ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h */; };
 		C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C3901ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m */; };
+		C5ABDFFA1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5ABDFF81B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h */; };
+		C5ABDFFB1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABDFF91B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m */; };
+		C5ABDFFE1B74A287003EB04E /* MDBRuleCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C5ABDFFC1B74A287003EB04E /* MDBRuleCollectionViewCell.h */; };
+		C5ABDFFF1B74A287003EB04E /* MDBRuleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABDFFD1B74A287003EB04E /* MDBRuleCollectionViewCell.m */; };
+		C5ABE0021B79F29C003EB04E /* MDBHelpContentsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C5ABE0001B79F29C003EB04E /* MDBHelpContentsTableViewCell.h */; };
+		C5ABE0031B79F29C003EB04E /* MDBHelpContentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */; };
 		C5B0A2B71ACA04B800C5903A /* MBImageFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */; };
 		C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */; };
 		C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */; };
@@ -326,14 +332,20 @@
 		C59AAE5619DC77CE00774441 /* UIMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UIMedia.xcassets; sourceTree = "<group>"; };
 		C59E321E1A12AB950076B40B /* MBFractalColorViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalColorViewContainer.h; path = FractalScape/MBFractalColorViewContainer.h; sourceTree = "<group>"; };
 		C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalColorViewContainer.m; path = FractalScape/MBFractalColorViewContainer.m; sourceTree = "<group>"; };
-		C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBMainLibraryTabBarController.h; path = FractalScape/MDBMainLibraryTabBarController.h; sourceTree = "<group>"; };
-		C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBMainLibraryTabBarController.m; path = FractalScape/MDBMainLibraryTabBarController.m; sourceTree = "<group>"; };
+		C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBMainLibraryTabBarController.h; sourceTree = "<group>"; };
+		C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBMainLibraryTabBarController.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalCloudBrowser.h; path = FractalScape/MDBFractalCloudBrowser.h; sourceTree = "<group>"; };
 		C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalCloudBrowser.m; path = FractalScape/MDBFractalCloudBrowser.m; sourceTree = "<group>"; };
 		C5A5C38F1ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalDocumentProxy.h; path = FractalScape/model/MDBFractalDocumentProxy.h; sourceTree = "<group>"; };
 		C5A5C3901ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalDocumentProxy.m; path = FractalScape/model/MDBFractalDocumentProxy.m; sourceTree = "<group>"; };
+		C5ABDFF81B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBHelpRulesCollectionViewController.h; sourceTree = "<group>"; };
+		C5ABDFF91B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBHelpRulesCollectionViewController.m; sourceTree = "<group>"; };
+		C5ABDFFC1B74A287003EB04E /* MDBRuleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBRuleCollectionViewCell.h; sourceTree = "<group>"; };
+		C5ABDFFD1B74A287003EB04E /* MDBRuleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBRuleCollectionViewCell.m; sourceTree = "<group>"; };
+		C5ABE0001B79F29C003EB04E /* MDBHelpContentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBHelpContentsTableViewCell.h; sourceTree = "<group>"; };
+		C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBHelpContentsTableViewCell.m; sourceTree = "<group>"; };
 		C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBImageFilter.h; path = FractalScape/model/MBImageFilter.h; sourceTree = "<group>"; };
 		C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBImageFilter.m; path = FractalScape/model/MBImageFilter.m; sourceTree = "<group>"; };
 		C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
@@ -520,12 +532,18 @@
 		C53F8DEE1B5C84550050F607 /* TutorialTab */ = {
 			isa = PBXGroup;
 			children = (
+				C53F8DF71B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h */,
+				C53F8DF81B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m */,
 				C53F8DEF1B5C84890050F607 /* MDBTutorialDetailContainerViewController.h */,
 				C53F8DF01B5C84890050F607 /* MDBTutorialDetailContainerViewController.m */,
 				C53F8DF31B5C87820050F607 /* MDBTutorialSplitViewController.h */,
 				C53F8DF41B5C87820050F607 /* MDBTutorialSplitViewController.m */,
-				C53F8DF71B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h */,
-				C53F8DF81B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m */,
+				C5ABDFF81B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h */,
+				C5ABDFF91B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m */,
+				C5ABDFFC1B74A287003EB04E /* MDBRuleCollectionViewCell.h */,
+				C5ABDFFD1B74A287003EB04E /* MDBRuleCollectionViewCell.m */,
+				C5ABE0001B79F29C003EB04E /* MDBHelpContentsTableViewCell.h */,
+				C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */,
 			);
 			name = TutorialTab;
 			sourceTree = "<group>";
@@ -791,6 +809,8 @@
 				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
 				C533DFCF1AE953B6009E9D95 /* MDBAppModel.h */,
 				C533DFD01AE953B6009E9D95 /* MDBAppModel.m */,
+				C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */,
+				C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */,
 				C5A1486C1B5D751100665349 /* SettingsTab */,
 				C53F8DEE1B5C84550050F607 /* TutorialTab */,
 				C5FFAB121A14F90B00662211 /* LibraryTab */,
@@ -919,8 +939,6 @@
 		C5FFAB121A14F90B00662211 /* LibraryTab */ = {
 			isa = PBXGroup;
 			children = (
-				C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */,
-				C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */,
 				C5302CA51B68362100130D9A /* MDBWelcomeViewController.h */,
 				C5302CA61B68362100130D9A /* MDBWelcomeViewController.m */,
 				C5E6B79914A5346300DA48BD /* MBFractalLibraryViewController.h */,
@@ -959,6 +977,7 @@
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
 				C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */,
 				C5F184831AA8DA3400233E49 /* MDBFractalDocumentCoordinator.h in Headers */,
+				C5ABDFFE1B74A287003EB04E /* MDBRuleCollectionViewCell.h in Headers */,
 				C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */,
 				C5302CB11B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.h in Headers */,
 				C5B0A2B71ACA04B800C5903A /* MBImageFilter.h in Headers */,
@@ -994,6 +1013,7 @@
 				C5CE0E4D1B542C6100EEC58C /* NSString+MDKConvenience.h in Headers */,
 				C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */,
 				C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */,
+				C5ABDFFA1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h in Headers */,
 				C5CE0E581B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h in Headers */,
 				C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */,
 				C546D71F1A83D5C3002E869A /* LSFractal.h in Headers */,
@@ -1009,6 +1029,7 @@
 				C50764751A33A537009DDF83 /* LSReplacementRule.h in Headers */,
 				C533DFD11AE953B6009E9D95 /* MDBAppModel.h in Headers */,
 				C5C37C6C1A24EF9F008C5409 /* MDBLSObjectTileView.h in Headers */,
+				C5ABE0021B79F29C003EB04E /* MDBHelpContentsTableViewCell.h in Headers */,
 				C5F1846E1AA4C67A00233E49 /* MDBFractalCategory.h in Headers */,
 				C5CE0E4B1B542C6100EEC58C /* MDKLinePropertyControl.h in Headers */,
 			);
@@ -1207,6 +1228,7 @@
 				C5D5423C1A30EDE3006CD47A /* MBColorCategory.m in Sources */,
 				C5CE0E5A1B542C6100EEC58C /* MDKUICollectionViewScrollContentSized.m in Sources */,
 				C5D542301A2FC68C006CD47A /* MDBLSObjectTilesViewBaseController.m in Sources */,
+				C5ABDFFB1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m in Sources */,
 				C5F184731AA62B4A00233E49 /* MDBFractalObjectList.m in Sources */,
 				C5D4D5541AC73B65002113DF /* MDBCustomTransition.m in Sources */,
 				C5E6B78E14A5346300DA48BD /* main.m in Sources */,
@@ -1263,12 +1285,14 @@
 				C50764761A33A537009DDF83 /* LSReplacementRule.m in Sources */,
 				C533DFD21AE953B6009E9D95 /* MDBAppModel.m in Sources */,
 				C53F8DF21B5C84890050F607 /* MDBTutorialDetailContainerViewController.m in Sources */,
+				C5ABE0031B79F29C003EB04E /* MDBHelpContentsTableViewCell.m in Sources */,
 				C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */,
 				C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */,
 				C5D542401A30EDE4006CD47A /* MBColor.m in Sources */,
 				C564A32919E722FA00839D9E /* MBDraggingItem.m in Sources */,
 				C5C37C6D1A24EF9F008C5409 /* MDBLSObjectTileView.m in Sources */,
 				C5302CBA1B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m in Sources */,
+				C5ABDFFF1B74A287003EB04E /* MDBRuleCollectionViewCell.m in Sources */,
 				C54FC6CF1ADB5E5B00588E9F /* MDBFilterControlView.m in Sources */,
 				C5CD57D01A98E42400C70218 /* MDBFractalDocument.m in Sources */,
 				C5F184881AA8DA7D00233E49 /* MDBFractalDocumentCloudCoordinator.m in Sources */,

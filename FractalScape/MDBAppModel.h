@@ -27,7 +27,7 @@ extern NSString *const kMDBFractalCloudContainer;
 
 @property(nonatomic,weak) MBAppDelegate                         *delegate;
 @property(nonatomic,readonly) NSString                          *versionBuildString;
-@property(nonatomic,readonly) BOOL                              firstLaunchState;
+@property(nonatomic,readonly) BOOL                              loadDemoFiles;
 @property(nonatomic,readonly) BOOL                              cloudIdentityChangedState;
 @property(nonatomic,strong) MDBDocumentController               *documentController;
 @property(nonatomic,readonly) MDBCloudManager                   *cloudDocumentManager;
@@ -50,7 +50,7 @@ extern NSString *const kMDBFractalCloudContainer;
  Checks if the cloud identity changed
  */
 -(void)setupUserStoragePreferences;
--(void)exitFirstLaunchState;
+-(void)demoFilesLoaded;
 
 -(void)exitWelcomeState;
 -(void)exitEditorIntroState;

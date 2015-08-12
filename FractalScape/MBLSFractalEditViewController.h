@@ -38,6 +38,8 @@
 @property (nonatomic,readonly) MDBFractalDocument           *fractalDocument;
 @property (nonatomic, strong) MDBFractalInfo                *fractalInfo;
 @property (nonatomic, weak) MDBAppModel                     *appModel;
+@property (nonatomic, assign) BOOL                          pan10xOn;
+@property (nonatomic, assign) CGFloat                       pan10xMultiplier;
 /*!
  Change some performance parameters based the device. Default is high performance.
  */
@@ -51,6 +53,7 @@
 
 @property (nonatomic, strong) NSNumberFormatter*    twoPlaceFormatter;
 @property (nonatomic, strong) NSNumberFormatter*    percentFormatter;
+@property (nonatomic, strong) NSNumberFormatter*    angleFormatter;
 /*!
  Strong retain so the button can be removed from the navigationBar without being released.
  */
@@ -74,6 +77,23 @@
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootSingleTapRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootDoubleTapRecognizer;
+
+#pragma mark PanStatusIndicator Outlets
+@property (weak, nonatomic) IBOutlet UIView         *panIndicatorsContainerView;
+@property (weak, nonatomic) IBOutlet UIImageView    *panIndicatorCornerView;
+@property (weak, nonatomic) IBOutlet UIButton       *pan10xToggleButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *panValueLabelHorizontal;
+@property (weak, nonatomic) IBOutlet UILabel *panValueLabelVertical;
+
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorBaseAngle;
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorRandomization;
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorTurnAngle;
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorLineWidth;
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorDecrementsAngle;
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorDecrementsLine;
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorHueFill;
+@property (weak, nonatomic) IBOutlet UIImageView *panIndicatorHueLine;
 
 #pragma mark FractalLevel Nib outlets
 @property (weak, nonatomic) IBOutlet UIView        *interfaceGuideView;
@@ -161,6 +181,7 @@
 - (IBAction)moveTwoFingerPanToJointAngle:(UIButton *)sender;
 - (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender;
 - (IBAction)moveTwoFingerPanToHueIncrements:(UIButton *)sender;
+- (IBAction)togglePan10x:(UIButton *)sender;
 
 #pragma mark - HUD Sliders
 - (IBAction)baseAngleSliderChanged:(id)sender;

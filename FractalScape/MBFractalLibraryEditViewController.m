@@ -292,7 +292,10 @@
             }
         }
         
-        [self.appModel.cloudKitManager savePublicRecords: records withCompletionHandler:^{
+        [self.appModel.cloudKitManager savePublicRecords: records withCompletionHandler:^(NSError *error) {
+            if (error) {
+                NSLog(@"Saved Records: %@; Error:%@", records, error);
+            }
             [self sharingStatusAlert: nil];
         }];
         

@@ -105,13 +105,13 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     return [NSString stringWithFormat:@"%@ (%@)", appVersionString, appBuildString];
 }
 
--(void)exitFirstLaunchState
+-(void)demoFilesLoaded
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool: NO forKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];
     [defaults synchronize];
 }
--(BOOL)firstLaunchState
+-(BOOL)loadDemoFiles
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];

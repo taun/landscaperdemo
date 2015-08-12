@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 
 @interface MDBTutorialMasterTableViewController : UITableViewController
 
