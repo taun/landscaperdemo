@@ -149,19 +149,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self.appModel setupUserStoragePreferences];
     [self.appModel.documentController.documentCoordinator startQuery];
     [self.collectionView reloadData];
-    
-    _isAppeared = YES;
-    
-    [self addAppModelObservers];
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    _isAppeared = NO;
-    [self removeAppModelObservers];
     [[NSNotificationCenter defaultCenter] removeObserver: self name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
 
@@ -225,7 +218,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     }
 }
 -(void)addAppModelObservers{
-    if (_appModel && _isAppeared)
+    if (_appModel)
     {
         [_appModel addObserver: self forKeyPath: @"allowPremium" options: NSKeyValueObservingOptionOld context: NULL];
         [_appModel addObserver: self forKeyPath: @"documentController" options: NSKeyValueObservingOptionOld context: NULL];

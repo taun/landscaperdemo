@@ -85,8 +85,9 @@
 #pragma mark - MDBFractalDocumentCoordinator
 
 - (void)startQuery {
+    dispatch_queue_t defaultQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0ul);
     
-    dispatch_async(self.queryQueue, ^{
+    dispatch_async(defaultQueue, ^{
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
