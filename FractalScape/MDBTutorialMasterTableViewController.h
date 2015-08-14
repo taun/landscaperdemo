@@ -8,9 +8,12 @@
 
 @import UIKit;
 
+@class MDBTutorialSource;
 
 @interface MDBTutorialMasterTableViewController : UITableViewController
 
-@property(strong,nonatomic)NSString         *defaultController;
+@property(strong,nonatomic)IBOutlet MDBTutorialSource        *tutorialSource;
+
+@property(strong,nonatomic)NSString                             *defaultController;
 
 @end

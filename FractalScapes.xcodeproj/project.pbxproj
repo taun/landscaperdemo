@@ -174,6 +174,8 @@
 		C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E721B544EAD00EEC58C /* Localizable.strings */; };
 		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
+		C5D400191B7D118700ABF7F6 /* MDBTutorialSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D400171B7D118700ABF7F6 /* MDBTutorialSource.h */; };
+		C5D4001A1B7D118700ABF7F6 /* MDBTutorialSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D400181B7D118700ABF7F6 /* MDBTutorialSource.m */; };
 		C5D4D5531AC73B65002113DF /* MDBCustomTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */; };
 		C5D4D5541AC73B65002113DF /* MDBCustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */; };
 		C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */; };
@@ -417,6 +419,8 @@
 		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalControllerProtocol.h; path = FractalScape/FractalControllerProtocol.h; sourceTree = "<group>"; };
+		C5D400171B7D118700ABF7F6 /* MDBTutorialSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialSource.h; sourceTree = "<group>"; };
+		C5D400181B7D118700ABF7F6 /* MDBTutorialSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialSource.m; sourceTree = "<group>"; };
 		C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBCustomTransition.h; path = FractalScape/MDBCustomTransition.h; sourceTree = "<group>"; };
 		C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBCustomTransition.m; path = FractalScape/MDBCustomTransition.m; sourceTree = "<group>"; };
 		C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBTileObjectProtocol.h; path = FractalScape/MDBTileObjectProtocol.h; sourceTree = "<group>"; };
@@ -544,6 +548,8 @@
 				C5ABDFFD1B74A287003EB04E /* MDBRuleCollectionViewCell.m */,
 				C5ABE0001B79F29C003EB04E /* MDBHelpContentsTableViewCell.h */,
 				C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */,
+				C5D400171B7D118700ABF7F6 /* MDBTutorialSource.h */,
+				C5D400181B7D118700ABF7F6 /* MDBTutorialSource.m */,
 			);
 			name = TutorialTab;
 			sourceTree = "<group>";
@@ -990,6 +996,7 @@
 				C53F8DF11B5C84890050F607 /* MDBTutorialDetailContainerViewController.h in Headers */,
 				C5F184801AA7A2A000233E49 /* MDBFractalInfo.h in Headers */,
 				C5BDB8EE1B5719B9000C093A /* MDBSettingsTableViewController.h in Headers */,
+				C5D400191B7D118700ABF7F6 /* MDBTutorialSource.h in Headers */,
 				C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */,
 				C5CE0E671B542C8B00EEC58C /* MDCKCloudManagerAppModelProtocol.h in Headers */,
 				C5CE0E511B542C6100EEC58C /* MDKLayerViewDesignable.h in Headers */,
@@ -1307,6 +1314,7 @@
 				C5CE0E521B542C6100EEC58C /* MDKLinePropertyControl.m in Sources */,
 				C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */,
 				C5CE0E5B1B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.m in Sources */,
+				C5D4001A1B7D118700ABF7F6 /* MDBTutorialSource.m in Sources */,
 				C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

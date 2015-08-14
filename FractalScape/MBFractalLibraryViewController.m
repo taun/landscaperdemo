@@ -46,6 +46,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 @property (nonatomic,strong) NSUserActivity                         *pendingUserActivity;
 @property (nonatomic,strong) MDBNavConTransitionCoordinator         *navConTransitionDelegate;
 @property (nonatomic,weak) MDBFractalInfo                           *fractalInfoBeingEdited;
+/*!
+ Used to make sure queries and loads aren't done twice. Once when properties change and once when the view appears.
+ */
+@property (nonatomic,assign) BOOL                                   isAppeared;
 
 -(void) initControls;
 
@@ -57,6 +61,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 #pragma mark - State handling
 - (void)viewDidLoad
 {
+    _isAppeared = NO;
+    
     [super viewDidLoad];
     
     self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
@@ -68,6 +74,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    _isAppeared = NO;
+    
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden: NO];
     [self initControls];
@@ -76,6 +84,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    _isAppeared = NO;
+    
     [super viewDidAppear:animated];
 
     if (self.pendingUserActivity) {
@@ -101,7 +111,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             [self.appModel demoFilesLoaded];
         }
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self firstStartupSequence];
         });
     }
@@ -139,19 +149,26 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self.appModel setupUserStoragePreferences];
     [self.appModel.documentController.documentCoordinator startQuery];
     [self.collectionView reloadData];
+    
+    _isAppeared = YES;
+    
+    [self addAppModelObservers];
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    _isAppeared = NO;
+    [self removeAppModelObservers];
     [[NSNotificationCenter defaultCenter] removeObserver: self name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
+
     [super viewDidDisappear: animated];
-    
     
 //    [self.documentController.documentCoordinator stopQuery];
 //    [_privateQueue cancelAllOperations];
@@ -208,7 +225,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     }
 }
 -(void)addAppModelObservers{
-    if (_appModel)
+    if (_appModel && _isAppeared)
     {
         [_appModel addObserver: self forKeyPath: @"allowPremium" options: NSKeyValueObservingOptionOld context: NULL];
         [_appModel addObserver: self forKeyPath: @"documentController" options: NSKeyValueObservingOptionOld context: NULL];
@@ -232,13 +249,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 -(void)addDocumentControllerObservers
 {
-    if (_appModel.documentController) {
+    if (_appModel.documentController)
+    {
         [_appModel.documentController addObserver: self forKeyPath: @"fractalInfos" options: 0 context: NULL];
     }
 }
 -(void)removeDocumentControllerObserversFor: (MDBDocumentController*)oldController
 {
-    if (oldController && oldController != [NSNull null]) {
+    if (oldController && oldController != [NSNull null])
+    {
         [oldController removeObserver: self forKeyPath: @"fractalInfos"];
     }
 }

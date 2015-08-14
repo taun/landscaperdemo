@@ -308,7 +308,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="221" y="73" width="164" height="39"/>
+                                                <rect key="frame" x="221" y="75" width="164" height="39"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
                                                         <rect key="frame" x="5" y="5" width="154" height="29"/>
@@ -377,7 +377,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9U-ZO-4Bb" userLabel="PanIndicatorsContainer" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="10" y="73" width="144" height="105.5"/>
+                                                <rect key="frame" x="12" y="75" width="144" height="105.5"/>
                                                 <subviews>
                                                     <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="40" placeholderIntrinsicHeight="40" image="panDirectionsIndicatorImage" translatesAutoresizingMaskIntoConstraints="NO" id="xkn-AG-FUJ">
                                                         <rect key="frame" x="10" y="10" width="40" height="40"/>
@@ -477,6 +477,7 @@
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="yA9-FU-HBy" secondAttribute="centerY" constant="-4" id="HkA-Ta-3Ao"/>
                                                     <constraint firstItem="l8i-O7-tM9" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="leading" constant="-6" id="KeA-Aa-5FC"/>
                                                     <constraint firstItem="Mac-ze-iSV" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="2" id="Ltg-DL-02L"/>
+                                                    <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="Bzn-ex-cN5" secondAttribute="leading" constant="-10" id="MdP-Kd-8Kl"/>
                                                     <constraint firstItem="HlV-o5-ifB" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="2" id="MtZ-3N-Zuh"/>
                                                     <constraint firstItem="74v-T6-WSs" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="P2W-Hh-r5n"/>
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="9Yt-fi-tpd" secondAttribute="width" id="RVj-d0-vqW"/>
@@ -488,11 +489,10 @@
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="v9U-ZO-4Bb" secondAttribute="top" constant="10" id="Yol-6W-T3W"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="v9U-ZO-4Bb" secondAttribute="leading" constant="10" id="bQz-q5-JQ5"/>
                                                     <constraint firstItem="KEl-AK-nz0" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="baF-dd-sTK"/>
-                                                    <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="Bzn-ex-cN5" secondAttribute="leading" constant="-10" id="etl-Jq-83m"/>
                                                     <constraint firstItem="Mac-ze-iSV" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="hDo-YP-Rwa"/>
                                                     <constraint firstItem="lE7-JV-urG" firstAttribute="trailing" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="88" id="hbP-hA-ZF2"/>
                                                     <constraint firstItem="qwL-V4-gOj" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="mZm-E7-EeN"/>
-                                                    <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="Bzn-ex-cN5" secondAttribute="top" constant="-4" id="mqm-eF-M8x"/>
+                                                    <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="Bzn-ex-cN5" secondAttribute="top" constant="-4" id="mxy-Tm-MNA"/>
                                                     <constraint firstItem="HlV-o5-ifB" firstAttribute="centerY" secondItem="xkn-AG-FUJ" secondAttribute="centerY" constant="-16" id="nUp-ik-b7k"/>
                                                     <constraint firstItem="9Yt-fi-tpd" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="2" id="r4I-QJ-FF9"/>
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="2" id="t5j-y1-dm8"/>
@@ -506,7 +506,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="462" width="296" height="154.5"/>
+                                                <rect key="frame" x="12" y="464" width="296" height="154.5"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158.5"/>
@@ -652,7 +652,7 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="294" width="296" height="154"/>
+                                                <rect key="frame" x="12" y="296" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
@@ -784,7 +784,7 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
-                                                <rect key="frame" x="12" y="126" width="296" height="154"/>
+                                                <rect key="frame" x="12" y="128" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
@@ -947,7 +947,7 @@
                                             <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
                                             <constraint firstItem="ZQ7-Jz-vVR" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="bottom" id="Hlh-T5-VmA"/>
-                                            <constraint firstItem="v9U-ZO-4Bb" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="IfB-ZL-Bli"/>
+                                            <constraint firstItem="v9U-ZO-4Bb" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="12" id="IfB-ZL-Bli"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
@@ -1007,8 +1007,8 @@
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="top" secondItem="pSX-p9-jkP" secondAttribute="top" id="0cN-oL-7yD"/>
                             <constraint firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" id="IdL-jb-QvC"/>
                             <constraint firstItem="dJU-MH-ihA" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" constant="12" id="VxQ-Iv-Sg3"/>
-                            <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" constant="6" id="cx7-5U-h4x"/>
-                            <constraint firstItem="v9U-ZO-4Bb" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" constant="6" id="eDe-eT-fAX"/>
+                            <constraint firstItem="3Df-59-GZt" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" constant="8" id="cx7-5U-h4x"/>
+                            <constraint firstItem="v9U-ZO-4Bb" firstAttribute="top" secondItem="sft-HR-kri" secondAttribute="bottom" constant="8" id="eDe-eT-fAX"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="leading" secondItem="pSX-p9-jkP" secondAttribute="leading" id="ea9-du-8sk"/>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="trailing" secondItem="pSX-p9-jkP" secondAttribute="trailing" id="zI8-i5-HMe"/>
                         </constraints>
@@ -3553,13 +3553,25 @@ The main screen with all your fractals is called your "Library". See below for a
                             </tableViewCell>
                         </prototypes>
                         <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Ly9-7g-wCN" id="ohz-JM-g4n"/>
+                            <outlet property="delegate" destination="Ly9-7g-wCN" id="AC0-XI-L0C"/>
+                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Help" id="iWI-kG-JXU"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="defaultController" value="HelpIntroductionController"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="tutorialSource" destination="Ly9-7g-wCN" id="5ra-NB-TJ3"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yID-CE-aV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="Ly9-7g-wCN" customClass="MDBTutorialSource">
+                    <connections>
+                        <outlet property="viewController" destination="B8t-lF-JXC" id="UPN-24-Wd4"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="4451" y="1644"/>
         </scene>
@@ -3704,8 +3716,17 @@ The main screen with all your fractals is called your "Library". See below for a
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="s5B-sF-zqe" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="8Tg-HT-FUP"/>
+                    <connections>
+                        <outlet property="dataSource" destination="uXZ-Uv-Yv9" id="KXY-sL-NNS"/>
+                        <outlet property="delegate" destination="uXZ-Uv-Yv9" id="NGb-Nb-W6w"/>
+                    </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DpM-KH-eZw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="uXZ-Uv-Yv9" customClass="MDBTutorialSource">
+                    <connections>
+                        <outlet property="viewController" destination="s5B-sF-zqe" id="tll-ES-oOl"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="4451" y="2393"/>
         </scene>

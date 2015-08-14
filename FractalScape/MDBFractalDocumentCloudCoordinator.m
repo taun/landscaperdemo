@@ -31,7 +31,7 @@
     self = [super init];
     
     if (self) {
-        _documentsDirectoryQueue = dispatch_queue_create("com.moedae.FractalScapes.cloudDocumentCoordinator", 0ul);
+        _documentsDirectoryQueue = dispatch_queue_create("com.moedae.FractalScapes.cloudDocumentCoordinator", DISPATCH_QUEUE_SERIAL);
         
         _metadataQuery = [[NSMetadataQuery alloc] init];
         _metadataQuery.searchScopes = @[NSMetadataQueryUbiquitousDocumentsScope, NSMetadataQueryAccessibleUbiquitousExternalDocumentsScope];

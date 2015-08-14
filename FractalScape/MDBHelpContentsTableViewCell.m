@@ -20,7 +20,7 @@
 
 -(void)setTitle:(NSString *)title
 {
-    if ([_title isEqualToString: title])
+    if (![_title isEqualToString: title])
     {
         _title = title;
         self.pageTitle.text = _title;

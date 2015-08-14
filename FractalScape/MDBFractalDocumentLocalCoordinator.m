@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSPredicate       *predicate;
 @property (nonatomic, strong) NSSet             *insertedFiles;
 @property (nonatomic, strong) NSSortDescriptor  *urlArraySortDescriptor;
+@property (nonatomic, strong) dispatch_queue_t  queryQueue;
 @end
 
 
@@ -34,6 +35,7 @@
     
     if (self) {
         _predicate = predicate;
+        _queryQueue = dispatch_queue_create("com.moedae.FractalScapes.localDocumentCoordinator", DISPATCH_QUEUE_SERIAL);
     }
     
     return self;
@@ -83,9 +85,8 @@
 #pragma mark - MDBFractalDocumentCoordinator
 
 - (void)startQuery {
-    dispatch_queue_t defaultQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0ul);
     
-    dispatch_async(defaultQueue, ^{
+    dispatch_async(self.queryQueue, ^{
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
