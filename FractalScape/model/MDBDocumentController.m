@@ -358,8 +358,13 @@
                 NSUInteger index = [self.fractalInfos indexOfObject: updatedInfo]; // searches based on URL match
                 if (index != NSNotFound)
                 {
-                    MDBFractalInfo* oldInfo = self.fractalInfos[index];
-                    if (updatedInfo.changeDate != oldInfo.changeDate)
+                    MDBFractalInfo* fileSystemInfo = self.fractalInfos[index];
+                    NSComparisonResult dateComparison = [updatedInfo.changeDate compare: fileSystemInfo.changeDate];
+                    if (dateComparison == NSOrderedAscending)
+                    {
+                        [reallyUpdatedInfos addObject: fileSystemInfo];
+                    }
+                    else if (dateComparison == NSOrderedDescending)
                     {
                         [reallyUpdatedInfos addObject: updatedInfo];
                     }

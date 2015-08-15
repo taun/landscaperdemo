@@ -149,6 +149,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self.appModel setupUserStoragePreferences];
     [self.appModel.documentController.documentCoordinator startQuery];
     [self.collectionView reloadData];
+    _isAppeared = YES;
 }
 
 
@@ -272,13 +273,16 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     else if ([keyPath isEqualToString: @"fractalInfos"])
     {
         NSUInteger changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
-        NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];;
+        NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];
         
         NSMutableArray* indexPaths = [NSMutableArray array];
         
         [changes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
             [indexPaths addObject: [NSIndexPath indexPathForRow: idx inSection: 0]];
         }];
+        
+        NSInteger currentItems = [self.collectionView numberOfItemsInSection: 0];
+        NSUInteger changeCount = indexPaths.count;
         
         if (changeKind == NSKeyValueChangeInsertion) {
             //
@@ -311,7 +315,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 //        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
 //        [self.collectionView reloadData];
         self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
-        [self->_appModel.documentController.documentCoordinator startQuery];
+        if (_isAppeared) [self->_appModel.documentController.documentCoordinator startQuery];
 //    });
 }
 
