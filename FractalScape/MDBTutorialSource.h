@@ -4,8 +4,11 @@
 
 @import UIKit;
 
-@interface MDBTutorialSource : NSObject <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface MDBTutorialSource : NSObject <UITableViewDataSource, UIPageViewControllerDataSource>
 
 @property(nonatomic,weak)IBOutlet UIViewController       *viewController;
+@property (nonatomic,strong) NSArray                        *helpPages;
+
+-(void)setInitialPageFor: (UIPageViewController*)pageController andTableView: (UITableView*)tableView;
 
 @end

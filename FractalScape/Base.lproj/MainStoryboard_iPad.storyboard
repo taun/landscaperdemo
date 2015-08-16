@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -3543,8 +3543,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Byx-Vd-B84" secondAttribute="bottom" constant="4" id="8B0-si-45o"/>
+                                        <constraint firstItem="Byx-Vd-B84" firstAttribute="top" secondItem="gbg-Vd-BZn" secondAttribute="topMargin" constant="4" id="A7L-1U-rvF"/>
                                         <constraint firstItem="Byx-Vd-B84" firstAttribute="leading" secondItem="gbg-Vd-BZn" secondAttribute="leadingMargin" constant="8" id="Pug-iy-aWd"/>
-                                        <constraint firstAttribute="centerY" secondItem="Byx-Vd-B84" secondAttribute="centerY" id="hA6-7N-f0c"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Byx-Vd-B84" secondAttribute="trailing" constant="8" id="fy2-TB-i6z"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -3553,32 +3555,20 @@ The main screen with all your fractals is called your "Library". See below for a
                             </tableViewCell>
                         </prototypes>
                         <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="Ly9-7g-wCN" id="ohz-JM-g4n"/>
-                            <outlet property="delegate" destination="Ly9-7g-wCN" id="AC0-XI-L0C"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Help" id="iWI-kG-JXU"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="defaultController" value="HelpIntroductionController"/>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="tutorialSource" destination="Ly9-7g-wCN" id="5ra-NB-TJ3"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yID-CE-aV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="Ly9-7g-wCN" customClass="MDBTutorialSource">
-                    <connections>
-                        <outlet property="viewController" destination="B8t-lF-JXC" id="UPN-24-Wd4"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="4451" y="1644"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="92t-Wk-RAa">
             <objects>
-                <navigationController id="2o6-6V-UAW" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3597,11 +3587,17 @@ The main screen with all your fractals is called your "Library". See below for a
                 <splitViewController id="LIr-RW-epR" customClass="MDBTutorialSplitViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Help" image="tabBarInfo" id="oUr-Dh-DUq"/>
                     <connections>
+                        <outlet property="tutorialSource" destination="RVy-eQ-MMN" id="wEp-64-Rxm"/>
                         <segue destination="2o6-6V-UAW" kind="relationship" relationship="masterViewController" id="Lav-0r-7Ku"/>
                         <segue destination="qpc-13-ZVz" kind="relationship" relationship="detailViewController" id="KQh-a7-hha"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPj-sJ-5ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="RVy-eQ-MMN" customClass="MDBTutorialSource">
+                    <connections>
+                        <outlet property="viewController" destination="LIr-RW-epR" id="z71-L6-wSL"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="2969" y="1972"/>
         </scene>
@@ -3712,21 +3708,12 @@ The main screen with all your fractals is called your "Library". See below for a
             <point key="canvasLocation" x="3691" y="-568"/>
         </scene>
         <!--Page View Controller-->
-        <scene sceneID="hBT-Xt-UyS">
+        <scene sceneID="5Au-fm-e3U">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="s5B-sF-zqe" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="8Tg-HT-FUP"/>
-                    <connections>
-                        <outlet property="dataSource" destination="uXZ-Uv-Yv9" id="KXY-sL-NNS"/>
-                        <outlet property="delegate" destination="uXZ-Uv-Yv9" id="NGb-Nb-W6w"/>
-                    </connections>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="0wS-Xb-NSj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="E4i-Ng-yy3"/>
                 </pageViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DpM-KH-eZw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="uXZ-Uv-Yv9" customClass="MDBTutorialSource">
-                    <connections>
-                        <outlet property="viewController" destination="s5B-sF-zqe" id="tll-ES-oOl"/>
-                    </connections>
-                </customObject>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B0n-AT-w3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4451" y="2393"/>
         </scene>
@@ -3790,7 +3777,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dho-gE-xzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5143" y="2393"/>
+            <point key="canvasLocation" x="5133" y="2393"/>
         </scene>
         <!--Drag & Drop-->
         <scene sceneID="Ki1-SP-L1w">
@@ -3821,7 +3808,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="af2-Mh-LaW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5895" y="2393"/>
+            <point key="canvasLocation" x="5885" y="2393"/>
         </scene>
         <!--Rule Descriptions-->
         <scene sceneID="S1R-Ac-hJX">
@@ -3884,7 +3871,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HNV-wk-duV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6590" y="2393"/>
+            <point key="canvasLocation" x="6580" y="2393"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bt6-QJ-c2c">
@@ -3898,7 +3885,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="s5B-sF-zqe" kind="relationship" relationship="rootViewController" id="AUX-Tf-r1v"/>
+                        <segue destination="0wS-Xb-NSj" kind="relationship" relationship="rootViewController" id="Az9-uA-PBm"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKA-RW-I9I" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -18,19 +18,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //    UINavigationController* detailNav = self.viewControllers[1];
-        self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-        self.navigationItem.leftItemsSupplementBackButton = YES;
+//        self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+//        self.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+//    self.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden: NO];
+//    [self.navigationController setNavigationBarHidden: NO];
 }
 
 - (void)didReceiveMemoryWarning {
