@@ -9,16 +9,17 @@
 #import "MDBRuleCollectionViewCell.h"
 
 #import "LSDrawingRule.h"
-
+#import "MDKLayerViewDesignable.h"
 
 @interface MDBRuleCollectionViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView    *ruleIconImage;
-@property (weak, nonatomic) IBOutlet UILabel        *ruleDescriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView    *ruleIconImage;
+@property (strong, nonatomic) IBOutlet UILabel        *ruleDescriptionLabel;
 
 @end
 
 @implementation MDBRuleCollectionViewCell
+
 
 -(void)setRule:(LSDrawingRule *)rule
 {

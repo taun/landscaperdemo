@@ -4,7 +4,7 @@
 
 @import UIKit;
 
-@interface MDBTutorialSource : NSObject <UITableViewDataSource, UIPageViewControllerDataSource>
+@interface MDBTutorialPageSource : NSObject <UITableViewDataSource, UIPageViewControllerDataSource>
 
 @property(nonatomic,weak)IBOutlet UIViewController       *viewController;
 @property (nonatomic,strong) NSArray                        *helpPages;

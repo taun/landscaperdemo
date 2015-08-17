@@ -73,6 +73,8 @@
 		C56080831A9E71ED00134B62 /* UIMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5619DC77CE00774441 /* UIMedia.xcassets */; };
 		C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C56080841A9F77C000134B62 /* MDBCloudManager.h */; };
 		C56080871A9F77C000134B62 /* MDBCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C56080851A9F77C000134B62 /* MDBCloudManager.m */; };
+		C561578A1B80CA6100527BFA /* MDBDescriptionEditorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C56157881B80CA6100527BFA /* MDBDescriptionEditorViewController.h */; };
+		C561578B1B80CA6100527BFA /* MDBDescriptionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C56157891B80CA6100527BFA /* MDBDescriptionEditorViewController.m */; };
 		C564A32919E722FA00839D9E /* MBDraggingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C564A32819E722FA00839D9E /* MBDraggingItem.m */; };
 		C579626116DD480500A8BCDC /* MBCollectionFractalDocumentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C579626016DD480500A8BCDC /* MBCollectionFractalDocumentCell.m */; };
 		C579626416DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */; };
@@ -174,8 +176,8 @@
 		C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E721B544EAD00EEC58C /* Localizable.strings */; };
 		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
-		C5D400191B7D118700ABF7F6 /* MDBTutorialSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D400171B7D118700ABF7F6 /* MDBTutorialSource.h */; };
-		C5D4001A1B7D118700ABF7F6 /* MDBTutorialSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D400181B7D118700ABF7F6 /* MDBTutorialSource.m */; };
+		C5D400191B7D118700ABF7F6 /* MDBTutorialPageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */; };
+		C5D4001A1B7D118700ABF7F6 /* MDBTutorialPageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D400181B7D118700ABF7F6 /* MDBTutorialPageSource.m */; };
 		C5D4D5531AC73B65002113DF /* MDBCustomTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */; };
 		C5D4D5541AC73B65002113DF /* MDBCustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */; };
 		C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */; };
@@ -313,6 +315,8 @@
 		C5567B001A79F88400882474 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C56080841A9F77C000134B62 /* MDBCloudManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBCloudManager.h; sourceTree = "<group>"; };
 		C56080851A9F77C000134B62 /* MDBCloudManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBCloudManager.m; sourceTree = "<group>"; };
+		C56157881B80CA6100527BFA /* MDBDescriptionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBDescriptionEditorViewController.h; path = FractalScape/MDBDescriptionEditorViewController.h; sourceTree = "<group>"; };
+		C56157891B80CA6100527BFA /* MDBDescriptionEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBDescriptionEditorViewController.m; path = FractalScape/MDBDescriptionEditorViewController.m; sourceTree = "<group>"; };
 		C564A32719E722FA00839D9E /* MBDraggingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBDraggingItem.h; path = FractalScape/MBDraggingItem.h; sourceTree = "<group>"; };
 		C564A32819E722FA00839D9E /* MBDraggingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBDraggingItem.m; path = FractalScape/MBDraggingItem.m; sourceTree = "<group>"; };
 		C579625F16DD480500A8BCDC /* MBCollectionFractalDocumentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBCollectionFractalDocumentCell.h; path = FractalScape/MBCollectionFractalDocumentCell.h; sourceTree = "<group>"; };
@@ -419,8 +423,8 @@
 		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalControllerProtocol.h; path = FractalScape/FractalControllerProtocol.h; sourceTree = "<group>"; };
-		C5D400171B7D118700ABF7F6 /* MDBTutorialSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialSource.h; sourceTree = "<group>"; };
-		C5D400181B7D118700ABF7F6 /* MDBTutorialSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialSource.m; sourceTree = "<group>"; };
+		C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialPageSource.h; sourceTree = "<group>"; };
+		C5D400181B7D118700ABF7F6 /* MDBTutorialPageSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialPageSource.m; sourceTree = "<group>"; };
 		C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBCustomTransition.h; path = FractalScape/MDBCustomTransition.h; sourceTree = "<group>"; };
 		C5D4D5521AC73B65002113DF /* MDBCustomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBCustomTransition.m; path = FractalScape/MDBCustomTransition.m; sourceTree = "<group>"; };
 		C5D5422C1A2FA94B006CD47A /* MDBTileObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBTileObjectProtocol.h; path = FractalScape/MDBTileObjectProtocol.h; sourceTree = "<group>"; };
@@ -548,8 +552,8 @@
 				C5ABDFFD1B74A287003EB04E /* MDBRuleCollectionViewCell.m */,
 				C5ABE0001B79F29C003EB04E /* MDBHelpContentsTableViewCell.h */,
 				C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */,
-				C5D400171B7D118700ABF7F6 /* MDBTutorialSource.h */,
-				C5D400181B7D118700ABF7F6 /* MDBTutorialSource.m */,
+				C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */,
+				C5D400181B7D118700ABF7F6 /* MDBTutorialPageSource.m */,
 			);
 			name = TutorialTab;
 			sourceTree = "<group>";
@@ -622,6 +626,15 @@
 			children = (
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		C56157871B80CA1E00527BFA /* DescriptionEditor */ = {
+			isa = PBXGroup;
+			children = (
+				C56157881B80CA6100527BFA /* MDBDescriptionEditorViewController.h */,
+				C56157891B80CA6100527BFA /* MDBDescriptionEditorViewController.m */,
+			);
+			name = DescriptionEditor;
 			sourceTree = "<group>";
 		};
 		C57F32B8170209610072FE75 /* TableCells */ = {
@@ -898,6 +911,7 @@
 				C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */,
 				C51DF52216E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.h */,
 				C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */,
+				C56157871B80CA1E00527BFA /* DescriptionEditor */,
 				C527D5ED1A7FE9C600CF9B30 /* DragAndDropTiles */,
 			);
 			name = Popovers;
@@ -996,7 +1010,7 @@
 				C53F8DF11B5C84890050F607 /* MDBTutorialDetailContainerViewController.h in Headers */,
 				C5F184801AA7A2A000233E49 /* MDBFractalInfo.h in Headers */,
 				C5BDB8EE1B5719B9000C093A /* MDBSettingsTableViewController.h in Headers */,
-				C5D400191B7D118700ABF7F6 /* MDBTutorialSource.h in Headers */,
+				C5D400191B7D118700ABF7F6 /* MDBTutorialPageSource.h in Headers */,
 				C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */,
 				C5CE0E671B542C8B00EEC58C /* MDCKCloudManagerAppModelProtocol.h in Headers */,
 				C5CE0E511B542C6100EEC58C /* MDKLayerViewDesignable.h in Headers */,
@@ -1027,6 +1041,7 @@
 				C54FC6CE1ADB5E5B00588E9F /* MDBFilterControlView.h in Headers */,
 				C5CE0E691B542C8B00EEC58C /* MDLCloudKitManager.h in Headers */,
 				C5D542371A300FFA006CD47A /* MDBColorCategoriesListView.h in Headers */,
+				C561578A1B80CA6100527BFA /* MDBDescriptionEditorViewController.h in Headers */,
 				C5CE0E551B542C6100EEC58C /* UICollectionView+MDKDragAndDrop.h in Headers */,
 				C5CE0E661B542C8B00EEC58C /* MDCKBaseCloudBrowserViewController.h in Headers */,
 				C5F184781AA6663800233E49 /* MDBDocumentUtilities.h in Headers */,
@@ -1269,6 +1284,7 @@
 				C59EE2161AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m in Sources */,
 				C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */,
 				C5BDB8EF1B5719B9000C093A /* MDBSettingsTableViewController.m in Sources */,
+				C561578B1B80CA6100527BFA /* MDBDescriptionEditorViewController.m in Sources */,
 				C5CE0E6A1B542C8B00EEC58C /* MDLCloudKitManager.m in Sources */,
 				C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */,
 				C507646A1A33A537009DDF83 /* LSDrawingRuleType.m in Sources */,
@@ -1314,7 +1330,7 @@
 				C5CE0E521B542C6100EEC58C /* MDKLinePropertyControl.m in Sources */,
 				C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */,
 				C5CE0E5B1B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.m in Sources */,
-				C5D4001A1B7D118700ABF7F6 /* MDBTutorialSource.m in Sources */,
+				C5D4001A1B7D118700ABF7F6 /* MDBTutorialPageSource.m in Sources */,
 				C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

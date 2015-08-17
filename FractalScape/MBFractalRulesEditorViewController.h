@@ -25,10 +25,11 @@
 @interface MBFractalRulesEditorViewController : MDBLSObjectTilesViewBaseController 
 
 @property (weak, nonatomic) IBOutlet UIView                         *contentView;
-@property (weak, nonatomic) IBOutlet MBLSFractalSummaryEditViewer   *summaryEditView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl             *rulesModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet MBLSReplacementRulesListView   *replacementRules;
 @property (weak, nonatomic) IBOutlet MDKLayerViewDesignable         *destinationOutlineView;
 
+- (IBAction)ruleModeChange:(UISegmentedControl *)sender;
 - (IBAction)replacementRuleLongPressGesture: (UILongPressGestureRecognizer *)sender;
 - (IBAction)startRulesLongPressGesture: (UILongPressGestureRecognizer *)sender;
 - (IBAction)sourceTapGesture: (UITapGestureRecognizer *)sender;

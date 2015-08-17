@@ -18,14 +18,11 @@ IB_DESIGNABLE
 /*!
  View to show the fractal name, descriptor and category. Allows editing of the fields.
  */
-@interface MBLSFractalSummaryEditViewer : UIView <UIPickerViewDataSource,
-                                                    UIPickerViewDelegate,
-                                                    UITextFieldDelegate,
+@interface MBLSFractalSummaryEditViewer : UIView <  UITextFieldDelegate,
                                                     UITextViewDelegate>
 
 @property (nonatomic,strong) MDBFractalDocument         *fractalDocument;
 @property (nonatomic,weak) IBOutlet UITextField         *name;
 @property (nonatomic,weak) IBOutlet UITextView          *descriptor;
-@property (nonatomic,weak) IBOutlet UIPickerView        *category;
 @property (nonatomic,strong) IBInspectable UIColor      *borderColor;
 @end

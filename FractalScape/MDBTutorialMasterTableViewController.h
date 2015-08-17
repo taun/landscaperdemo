@@ -8,12 +8,12 @@
 
 @import UIKit;
 
-@class MDBTutorialSource;
+@class MDBTutorialPageSource;
 
 @interface MDBTutorialMasterTableViewController : UITableViewController
 
-@property(strong,nonatomic)IBOutlet MDBTutorialSource        *tutorialSource;
+@property(strong,nonatomic)IBOutlet MDBTutorialPageSource           *tutorialSource;
 
-@property(strong,nonatomic)NSString                             *defaultController;
+@property(strong,nonatomic)NSString                                 *defaultController;
 
 @end

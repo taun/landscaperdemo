@@ -8,7 +8,7 @@
 
 #import "MDBTutorialSplitViewController.h"
 #import "MDBTutorialDetailContainerViewController.h"
-#import "MDBTutorialSource.h"
+#import "MDBTutorialPageSource.h"
 
 @interface MDBTutorialSplitViewController ()
 

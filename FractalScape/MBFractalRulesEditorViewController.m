@@ -23,7 +23,7 @@
 -(void) updateFractalDependents
 {
     [super updateFractalDependents];
-    self.summaryEditView.fractalDocument = self.fractalDocument;
+    self.rulesModeSegmentedControl.selectedSegmentIndex = self.fractalDocument.fractal.advancedMode;
     
     [self.destinationView setDefaultObjectClass: [LSDrawingRule class]];
     self.destinationView.objectList = self.fractalDocument.fractal.startingRules;
@@ -80,6 +80,11 @@
 //        [rule.managedObjectContext deleteObject: rule];
 //    }
 }
+- (IBAction)ruleModeChange:(UISegmentedControl *)sender
+{
+    self.fractalDocument.fractal.advancedMode = sender.selectedSegmentIndex;
+}
+
 - (IBAction)replacementRuleLongPressGesture:(id)sender {
     [self cleanUpUIState];
     [self sourceDragLongGesture: sender];

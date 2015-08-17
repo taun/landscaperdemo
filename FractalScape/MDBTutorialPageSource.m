@@ -6,15 +6,14 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import "MDBTutorialSource.h"
+#import "MDBTutorialPageSource.h"
 #import "MDBHelpContentsTableViewCell.h"
 
-
-@interface MDBTutorialSource ()
+@interface MDBTutorialPageSource ()
 
 @end
 
-@implementation MDBTutorialSource
+@implementation MDBTutorialPageSource
 
 //-(void)awakeFromNib
 //{

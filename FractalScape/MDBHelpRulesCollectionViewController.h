@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MDBHelpRulesCollectionViewController : UICollectionViewController
+@interface MDBHelpRulesCollectionViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic,strong) IBOutlet UICollectionView      *collectionView;
 
 @end

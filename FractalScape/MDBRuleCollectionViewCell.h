@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class LSDrawingRule;
+@class MDKLayerViewDesignable;
 
 @interface MDBRuleCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic,weak) LSDrawingRule        *rule;
+@property (nonatomic,weak) LSDrawingRule                    *rule;
+@property (weak, nonatomic) IBOutlet MDKLayerViewDesignable *designableContainerView;
+
 
 @end

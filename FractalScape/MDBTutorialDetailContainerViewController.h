@@ -10,8 +10,6 @@
 
 @interface MDBTutorialDetailContainerViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIView *detailViewContainer;
-@property (strong,nonatomic) NSString       *embeddedControllerIdentifier;
-@property (strong,nonatomic) NSString       *nextControllerIdentifier;
+@property (strong,nonatomic) IBOutlet UIScrollView  *scrollView;
 
 @end

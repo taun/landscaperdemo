@@ -35,7 +35,6 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 @interface MBAppDelegate ()
 
-@property (nonatomic, strong) MDBAppModel                       *appModel;
 @property (nonatomic, readonly) MDBMainLibraryTabBarController  *mainTabController;
 @property (nonatomic, strong) UIImage                           *backgroundImage;
 @end

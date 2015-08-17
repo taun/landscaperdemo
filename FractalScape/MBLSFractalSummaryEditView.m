@@ -14,10 +14,8 @@
 #import "MDKLayerViewDesignable.h"
 
 @interface MBLSFractalSummaryEditViewer ()
-@property (nonatomic,weak) UIView   *contentView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerViewWidthConstraint;
-@property (nonatomic,assign) CGFloat                    oldCategoryWidth;
-@property (nonatomic,strong) NSArray                    *pickerLabels;
+@property (nonatomic,weak) UIView           *contentView;
+@property (nonatomic,assign) CGFloat        oldCategoryWidth;
 @end
 
 @implementation MBLSFractalSummaryEditViewer
@@ -51,10 +49,6 @@
     strongContentView.frame = self.bounds;
     _contentView = strongContentView;
   
-    _pickerLabels = @[@"Easy Rules", @"Advanced"];
-    UIPickerView* strongCategory = _category;
-    [strongCategory selectRow: 0 inComponent: 0 animated: NO];
-
 #if TARGET_INTERFACE_BUILDER
     _name.text = @"Just testing";
 #endif
@@ -74,14 +68,12 @@
 }
 
 -(void) setupConstraints {
-    UIPickerView* strongCategory = _category;
     UITextView* strongDescriptor = _descriptor;
     UITextField* strongName = _name;
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
     strongName.translatesAutoresizingMaskIntoConstraints = NO;
     strongDescriptor.translatesAutoresizingMaskIntoConstraints = NO;
-    strongCategory.translatesAutoresizingMaskIntoConstraints = NO;
     
     UIView* descriptorBox = strongDescriptor.superview;
     descriptorBox.translatesAutoresizingMaskIntoConstraints = NO;
@@ -114,15 +106,10 @@
 -(void) setFractalDocument:(MDBFractalDocument *)fractalDocument {
     UITextView* strongDescriptor = _descriptor;
     UITextField* strongName = _name;
-    UIPickerView* strongPicker = _category;
 
     _fractalDocument = fractalDocument;
     strongName.text = _fractalDocument.fractal.name;
     strongDescriptor.text = fractalDocument.fractal.descriptor;
-    
-    [strongPicker reloadAllComponents];
-    
-    [strongPicker selectRow: fractalDocument.fractal.advancedMode inComponent: 0 animated: NO];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -166,15 +153,6 @@
         
         [textView resignFirstResponder];
         
-        UIPickerView* strongCategory = self.category;
-//        NSLayoutConstraint* strongWidth = self.pickerViewWidthConstraint;
-//
-//        if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
-//        {
-//            strongCategory.hidden = NO;
-//            strongWidth.constant = self.oldCategoryWidth;
-//        }
-        [strongCategory becomeFirstResponder];
         // Return FALSE so that the final '\n' character doesn't get added
         return NO;
     }
@@ -190,51 +168,6 @@
             [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
         }
     }
-}
-
-#pragma mark - UIPickerSource
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return _pickerLabels.count;
-}
-
-#pragma mark - UIPickerDelegate
--(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-    return 24.0;
-}
--(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-    UIPickerView* strongCategory = self.category;
-    CGFloat width = strongCategory.bounds.size.width;
-    return width*(120.0/130.0);
-}
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return _pickerLabels[row];
-}
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-    UILabel* tView = (UILabel*)view;
-    if (!tView)
-    {
-        tView = [[UILabel alloc] init];
-        [tView setFont:[UIFont systemFontOfSize: 18]];
-        //[tView setTextAlignment:UITextAlignmentLeft];
-        tView.numberOfLines=1;
-    }
-    // Fill the label text here
-    tView.text = _pickerLabels[row];
-    return tView;
-}
--(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.fractalDocument.fractal.advancedMode = row;
-    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
-    [self becomeFirstResponder];
 }
 
 @end
