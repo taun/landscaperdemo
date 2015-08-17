@@ -4047,11 +4047,11 @@ The main screen with all your fractals is called your "Library". See below for a
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lzc-zF-GfN" firstAttribute="top" secondItem="Ayq-vk-5p2" secondAttribute="top" id="3ig-RT-wmL"/>
-                            <constraint firstItem="TSO-WC-vbf" firstAttribute="top" secondItem="lzc-zF-GfN" secondAttribute="bottom" id="73s-hC-JIz"/>
                             <constraint firstItem="Oej-az-wVa" firstAttribute="left" secondItem="Ayq-vk-5p2" secondAttribute="left" id="EVa-Sq-wcK"/>
                             <constraint firstItem="lzc-zF-GfN" firstAttribute="leading" secondItem="Ayq-vk-5p2" secondAttribute="leading" id="OkS-wa-QkV"/>
+                            <constraint firstAttribute="bottom" secondItem="lzc-zF-GfN" secondAttribute="bottom" id="RF7-oE-7Os"/>
                             <constraint firstItem="Oej-az-wVa" firstAttribute="top" secondItem="Ayq-vk-5p2" secondAttribute="top" id="T72-Og-w8b"/>
-                            <constraint firstItem="TSO-WC-vbf" firstAttribute="top" secondItem="Oej-az-wVa" secondAttribute="bottom" id="Xu8-hT-iQh"/>
+                            <constraint firstItem="Oej-az-wVa" firstAttribute="bottom" secondItem="Ayq-vk-5p2" secondAttribute="bottomMargin" id="UNe-cs-BcP"/>
                             <constraint firstAttribute="trailing" secondItem="lzc-zF-GfN" secondAttribute="trailing" id="c1g-Sk-QvJ"/>
                             <constraint firstAttribute="right" secondItem="Oej-az-wVa" secondAttribute="right" id="w5b-Og-zs9"/>
                         </constraints>
