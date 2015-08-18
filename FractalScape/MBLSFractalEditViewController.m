@@ -368,7 +368,7 @@ static const CGFloat kLevelNMargin = 48.0;
     [self logBounds: viewBounds info: NSStringFromSelector(_cmd)];
     
     
-    self.navigationItem.title = self.fractalDocument.fractal.name;
+//    self.navigationItem.title = self.fractalDocument.fractal.name;
     [self setupSlidersForCurrentFractal];
     [self.appModel setLastEditedURL: self.fractalInfo.URL];
 
@@ -415,21 +415,40 @@ static const CGFloat kLevelNMargin = 48.0;
     NSUInteger pageCount = 5;
     NSMutableArray* pages = [NSMutableArray new];
     
-    for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
-    {
-        NSString* pageIdentifier = [NSString stringWithFormat: @"EditorIntroControllerPage%u",pageIndex];
-        UIViewController* page = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
-        page.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        page.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [pages addObject: page];
+    int pageIndex = 0;
+    UIViewController* page;
+
+    @try {
+        do {
+            NSString* pageIdentifier = [NSString stringWithFormat: @"EditorIntroControllerPage%u",pageIndex];
+            page = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
+            page.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            page.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [pages addObject: page];
+            ++pageIndex;
+        } while (page);
     }
+    @catch (NSException *exception) {
+        //
+    }
+    @finally {
+        //
+    }
+//    for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
+//    {
+//        NSString* pageIdentifier = [NSString stringWithFormat: @"EditorIntroControllerPage%u",pageIndex];
+//        UIViewController* page = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
+//        page.modalPresentationStyle = UIModalPresentationOverFullScreen;
+//        page.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//        [pages addObject: page];
+//    }
 
     self.introPageSource = [MDBEditorIntroPageControllerDataSource new];
     self.introPageSource.pageControllerPages = [pages copy];
     
     UIPageViewController* introController = (UIPageViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroPageController"];
     introController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    introController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    introController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self setupPageControlAppearance];
     
     introController.dataSource = self.introPageSource;
@@ -1338,14 +1357,14 @@ static const CGFloat kLevelNMargin = 48.0;
 //TODO: add Undo and Redo buttons for editing
 - (void) updateNavButtons
 {
-    self.title = self.fractalDocument.fractal.name;
-    UILabel* title = [[UILabel alloc]initWithFrame: CGRectZero];
-    title.lineBreakMode = NSLineBreakByTruncatingMiddle;
-    title.adjustsFontSizeToFitWidth = YES;
-    title.minimumScaleFactor = 0.6;
-    title.text = self.fractalDocument.fractal.name;
-    [title sizeToFit];
-    self.navigationItem.titleView = title;
+//    self.title = self.fractalDocument.fractal.name;
+//    UILabel* title = [[UILabel alloc]initWithFrame: CGRectZero];
+//    title.lineBreakMode = NSLineBreakByTruncatingMiddle;
+//    title.adjustsFontSizeToFitWidth = YES;
+//    title.minimumScaleFactor = 0.6;
+//    title.text = self.fractalDocument.fractal.name;
+//    [title sizeToFit];
+//    self.navigationItem.titleView = title;
 }
 
 

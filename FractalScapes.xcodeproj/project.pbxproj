@@ -26,6 +26,8 @@
 		C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */; };
 		C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */ = {isa = PBXBuildFile; fileRef = C522DABB1A2CA8ED00419781 /* LSDrawingRule.h */; };
 		C522DABE1A2CA8ED00419781 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */; };
+		C523009B1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C52300991B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h */; };
+		C523009C1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C523009A1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.m */; };
 		C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */; };
 		C52C60A21AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C52C60A01AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h */; };
 		C52C60A31AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */; };
@@ -89,6 +91,7 @@
 		C599541C1A6465710093CF50 /* MBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5423A1A30EDE3006CD47A /* MBColorCategory.m */; };
 		C599541D1A6465710093CF50 /* MBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5423E1A30EDE4006CD47A /* MBColor.m */; };
 		C599541E1A6465710093CF50 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */; };
+		C5999E7B1B8293EA00A9D848 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5999E7A1B8293EA00A9D848 /* WebKit.framework */; };
 		C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5419DC776000774441 /* RulesIcons.xcassets */; };
 		C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5619DC77CE00774441 /* UIMedia.xcassets */; };
 		C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */; };
@@ -261,6 +264,8 @@
 		C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalAppearanceEditorViewController.m; path = FractalScape/MBFractalAppearanceEditorViewController.m; sourceTree = "<group>"; };
 		C522DABB1A2CA8ED00419781 /* LSDrawingRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRule.h; path = FractalScape/model/LSDrawingRule.h; sourceTree = "<group>"; };
 		C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRule.m; path = FractalScape/model/LSDrawingRule.m; sourceTree = "<group>"; };
+		C52300991B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEditorIntroWhatIsFractalViewController.h; sourceTree = "<group>"; };
+		C523009A1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorIntroWhatIsFractalViewController.m; sourceTree = "<group>"; };
 		C525B9FA16F8A6C500CE2200 /* MBColorCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBColorCellBackgroundView.h; path = FractalScape/MBColorCellBackgroundView.h; sourceTree = "<group>"; };
 		C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColorCellBackgroundView.m; path = FractalScape/MBColorCellBackgroundView.m; sourceTree = "<group>"; };
 		C52C60A01AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalLibraryEditViewController.h; path = FractalScape/MBFractalLibraryEditViewController.h; sourceTree = "<group>"; };
@@ -334,6 +339,7 @@
 		C59954001A6465270093CF50 /* FractalScapesFractalModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FractalScapesFractalModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C59954031A6465270093CF50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FractalScapeFractalModelTests.m; sourceTree = "<group>"; };
+		C5999E7A1B8293EA00A9D848 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C59AAE5419DC776000774441 /* RulesIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RulesIcons.xcassets; sourceTree = "<group>"; };
 		C59AAE5619DC77CE00774441 /* UIMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UIMedia.xcassets; sourceTree = "<group>"; };
 		C59E321E1A12AB950076B40B /* MBFractalColorViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalColorViewContainer.h; path = FractalScape/MBFractalColorViewContainer.h; sourceTree = "<group>"; };
@@ -488,6 +494,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5999E7B1B8293EA00A9D848 /* WebKit.framework in Frameworks */,
 				C5567B011A79F88400882474 /* CoreMotion.framework in Frameworks */,
 				C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */,
 				C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */,
@@ -573,6 +580,8 @@
 				C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */,
 				C5302CAF1B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.h */,
 				C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */,
+				C52300991B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h */,
+				C523009A1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.m */,
 				C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */,
 				C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */,
 				C5FFAB0E1A14F89F00662211 /* Popovers */,
@@ -806,6 +815,7 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5999E7A1B8293EA00A9D848 /* WebKit.framework */,
 				C51B583F1A90707F0036C47D /* CloudKit.framework */,
 				C5567B001A79F88400882474 /* CoreMotion.framework */,
 				C50C825F19BF916300AD6A0F /* AssetsLibrary.framework */,
@@ -995,6 +1005,7 @@
 				C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */,
 				C51130791A38C93F0083B178 /* MDBFractalPageColorTileView.h in Headers */,
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
+				C523009B1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h in Headers */,
 				C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */,
 				C5F184831AA8DA3400233E49 /* MDBFractalDocumentCoordinator.h in Headers */,
 				C5ABDFFE1B74A287003EB04E /* MDBRuleCollectionViewCell.h in Headers */,
@@ -1285,6 +1296,7 @@
 				C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */,
 				C5BDB8EF1B5719B9000C093A /* MDBSettingsTableViewController.m in Sources */,
 				C561578B1B80CA6100527BFA /* MDBDescriptionEditorViewController.m in Sources */,
+				C523009C1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.m in Sources */,
 				C5CE0E6A1B542C8B00EEC58C /* MDLCloudKitManager.m in Sources */,
 				C55131FA14F6A15E0074137C /* MBLSRuleTableViewCell.m in Sources */,
 				C507646A1A33A537009DDF83 /* LSDrawingRuleType.m in Sources */,

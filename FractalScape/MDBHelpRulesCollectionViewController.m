@@ -20,6 +20,8 @@
 @implementation MDBHelpRulesCollectionViewController
 
 static NSString * const reuseIdentifier = @"RuleCollectionViewCell";
+static NSString * const reuseIdentifierHeader = @"RulesHeaderCell";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -134,6 +136,13 @@ static NSString * const reuseIdentifier = @"RuleCollectionViewCell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.drawingRules.count;
+}
+
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UIView* headerView = [collectionView dequeueReusableSupplementaryViewOfKind: kind withReuseIdentifier: reuseIdentifierHeader forIndexPath: indexPath];
+    
+    return headerView;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
