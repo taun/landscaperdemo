@@ -40,6 +40,21 @@
     [self.view setNeedsUpdateConstraints];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    BOOL allowPremium = self.appModel.allowPremium;
+    
+    self.rulesModeSegmentedControl.enabled = allowPremium;
+    self.destinationView.userInteractionEnabled = allowPremium;
+    self.replacementRules.userInteractionEnabled = allowPremium;
+    [(UIView*)(self.sourceListView) setUserInteractionEnabled: allowPremium];
+    if (!allowPremium)
+    {
+        self.ruleHelpLabel.text = @"Rule Editing is only available with in-app purchase";
+    }
+}
 
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

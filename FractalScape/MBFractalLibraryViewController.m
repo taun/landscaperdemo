@@ -272,7 +272,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     }
     else if ([keyPath isEqualToString: @"fractalInfos"])
     {
-        NSUInteger changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+        NSNumber *changeKind = change[NSKeyValueChangeKindKey];
         NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];
         
         NSMutableArray* indexPaths = [NSMutableArray array];
@@ -281,24 +281,36 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             [indexPaths addObject: [NSIndexPath indexPathForRow: idx inSection: 0]];
         }];
         
-        NSInteger currentItems = [self.collectionView numberOfItemsInSection: 0];
+        NSInteger currentItems;// = [self.collectionView numberOfItemsInSection: 0];
         NSUInteger changeCount = indexPaths.count;
         
-        if (changeKind == NSKeyValueChangeInsertion) {
-            //
-            [self.collectionView insertItemsAtIndexPaths: indexPaths];
-            [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
-        }
-        else if (changeKind == NSKeyValueChangeRemoval)
-        {
-            [self.collectionView deleteItemsAtIndexPaths: indexPaths];
-        }
-        else if (changeKind == NSKeyValueChangeReplacement)
-        {
-#pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
-            if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]]) {
-                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+        @try {
+            if ([changeKind longValue] == NSKeyValueChangeInsertion) {
+                //
+//                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+                [self.collectionView insertItemsAtIndexPaths: indexPaths];
+                [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
             }
+            else if ([changeKind longValue] == NSKeyValueChangeRemoval)
+            {
+                [self.collectionView deleteItemsAtIndexPaths: indexPaths];
+            }
+            else if ([changeKind longValue] == NSKeyValueChangeReplacement)
+            {
+#pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
+                if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]]) {
+                    [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+                }
+            }
+        }
+        @catch (NSException *exception) {
+            //
+            NSLog(@"[%@ %@], %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), exception);
+            NSLog(@"[%@ %@], changeKind: %@, %ld, %lu",NSStringFromClass([self class]),NSStringFromSelector(_cmd), changeKind, (long)currentItems, (unsigned long)changeCount);
+            [self.collectionView reloadData];
+        }
+        @finally {
+            //
         }
     }
     else

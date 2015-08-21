@@ -31,16 +31,26 @@
     {
         UIStoryboard* storyboard = self.viewController.storyboard;
         
-        NSUInteger pageCount = 3;
+        NSUInteger pageCount = 4;
         NSMutableArray* pages = [NSMutableArray new];
+        UIViewController* page;
+        int pageIndex = 0;
         
-        for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
-        {
-            NSString* pageIdentifier = [NSString stringWithFormat: @"HelpControllerPage%u",pageIndex];
-            UIViewController* page = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier: pageIdentifier];
-            [pages addObject: page];
+        @try {
+            do {
+                NSString* pageIdentifier = [NSString stringWithFormat: @"HelpControllerPage%u",pageIndex];
+                page = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier: pageIdentifier];
+                [pages addObject: page];
+                ++pageIndex;
+            } while (page);
         }
-        
+        @catch (NSException *exception) {
+            //
+        }
+        @finally {
+            //
+        }
+
         _helpPages = [pages copy];
 
     }

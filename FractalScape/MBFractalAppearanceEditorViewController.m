@@ -24,14 +24,6 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view.
-    if (!self.appModel.allowPremium)
-    {
-        [self removeEditorOfClass: [MBFractalRulesEditorViewController class]];
-    }
-    else
-    {
-        
-    }
     
     if ([UIScreen mainScreen].scale == 1.0)
     { // not retina device
