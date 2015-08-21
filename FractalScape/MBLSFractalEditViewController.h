@@ -197,6 +197,7 @@
 
 #pragma mark - Segue Actions
 - (IBAction)popBackToLibrary:(id)sender;
+- (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue;
 
 #pragma mark - Filter Actions
 - (IBAction)toggleApplyFilter:(id)sender;

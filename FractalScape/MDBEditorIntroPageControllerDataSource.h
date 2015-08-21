@@ -4,7 +4,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MDBEditorIntroPageControllerDataSource : NSObject <UIPageViewControllerDataSource>
+@interface MDBEditorIntroPageControllerDataSource : NSObject <UIPageViewControllerDataSource,UIPageViewControllerDelegate>
 
 @property (nonatomic,strong) NSArray        *pageControllerPages;
 

@@ -3,6 +3,7 @@
 //
 
 #import "MDBEditorIntroPageControllerDataSource.h"
+#import "MDBEditorIntroWhatIsFractalViewController.h"
 
 @interface MDBEditorIntroPageControllerDataSource ()
 
@@ -30,6 +31,7 @@
     if (currentIndex < self.pageControllerPages.count - 1)
     {
         next = self.pageControllerPages[currentIndex+1];
+        UIView* view = next.view;
     }
     return next;
 }
@@ -45,5 +47,15 @@
         prev = self.pageControllerPages[currentIndex-1];
     }
     return prev;
+}
+
+#pragma mark - UIPageViewControllerDelegate
+-(void)pageViewController:(nonnull UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray*)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    
+}
+-(void)pageViewController:(nonnull UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray*)pendingViewControllers
+{
+    
 }
 @end

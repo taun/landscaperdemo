@@ -32,6 +32,8 @@
 #import "LSFractalRenderer.h"
 #import "MDBTileObjectProtocol.h"
 #import "MDBEditorIntroPageControllerDataSource.h"
+#import "MDBEditorHelpTransitioningDelegate.h"
+#import "MDBEditorIntroWhatIsFractalViewController.h"
 
 //
 //static inline double radians (double degrees){return degrees * M_PI/180.0;}
@@ -374,7 +376,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
 }
 
-/* on staartup, fractal should not be set until just before view didAppear */
+/* on startup, fractal should not be set until just before view didAppear */
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -404,7 +406,9 @@ static const CGFloat kLevelNMargin = 48.0;
 //    [self.navigationController setNavigationBarHidden: YES animated: YES];
     if (!self.appModel.editorIntroDone)
     {
-        [self firstStartupSequence];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self firstStartupSequence];
+//        });
     }
 }
 
@@ -412,60 +416,33 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     UIStoryboard* storyBoard = self.storyboard;
 
-    NSUInteger pageCount = 5;
-    NSMutableArray* pages = [NSMutableArray new];
+    NSString* pageIdentifier = @"HelpControllerNav";
+    UIViewController* page = [storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
     
-    int pageIndex = 0;
-    UIViewController* page;
-
-    @try {
-        do {
-            NSString* pageIdentifier = [NSString stringWithFormat: @"EditorIntroControllerPage%u",pageIndex];
-            page = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
-            page.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            page.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            [pages addObject: page];
-            ++pageIndex;
-        } while (page);
-    }
-    @catch (NSException *exception) {
+//    webIntro.transitioningDelegate = transDel;
+//    webIntro.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    webIntro.modalPresentationStyle = UIModalPresentationCurrentContext;
+//    webIntro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    
+    [self presentViewController: page animated: YES completion:^{
         //
-    }
-    @finally {
-        //
-    }
-//    for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
-//    {
-//        NSString* pageIdentifier = [NSString stringWithFormat: @"EditorIntroControllerPage%u",pageIndex];
-//        UIViewController* page = (UIViewController *)[storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
-//        page.modalPresentationStyle = UIModalPresentationOverFullScreen;
-//        page.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//        [pages addObject: page];
-//    }
-
-    self.introPageSource = [MDBEditorIntroPageControllerDataSource new];
-    self.introPageSource.pageControllerPages = [pages copy];
-    
-    UIPageViewController* introController = (UIPageViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"EditorIntroPageController"];
-    introController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-//    introController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self setupPageControlAppearance];
-    
-    introController.dataSource = self.introPageSource;
-    
-    NSArray *startingViewControllers = @[pages[0]];
-    [introController setViewControllers: startingViewControllers
-                             direction: UIPageViewControllerNavigationDirectionForward
-                              animated:YES
-                            completion: nil];
-    
-    [self presentViewController: introController animated: YES completion: nil];
+//        [self.navigationController setNavigationBarHidden: YES animated: YES];
+        NSLog(@"");
+    }];
 }
 - (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue
 {
-    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
-    [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
+//    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
+    [self dismissViewControllerAnimated: YES completion:^{
         [self.appModel exitEditorIntroState];
+//        for (UIBarButtonItem* button in self.navigationItem.rightBarButtonItems)
+//        {
+//            button.enabled = YES;
+//        }
+//        for (UIBarButtonItem* button in self.navigationItem.leftBarButtonItems)
+//        {
+//            button.enabled = YES;
+//        }
     }];
 }
 
