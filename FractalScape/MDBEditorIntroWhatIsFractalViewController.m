@@ -14,6 +14,7 @@
 
 @property(nonatomic,strong) NSArray        *documentPaths;
 @property(nonatomic,assign) NSUInteger     currentPage;
+@property(nonatomic,strong) WKNavigation   *currentNavigation;
 
 @end
 
@@ -23,20 +24,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.currentPage = 0;
+    [self layoutWebView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 //    [self.webContainer setNeedsLayout];
+    [self loadDocument: self.currentPage];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ((YES))
+    if ((NO))
     {
-        [self layoutWebView];
         [self loadDocument: self.currentPage];
     }
 }
@@ -53,26 +55,47 @@
 
 -(void)layoutWebView
 {
-    WKPreferences* prefs = [WKPreferences new];
-    prefs.javaScriptEnabled = NO;
+    UIView* webView;
     
-    WKWebViewConfiguration* config = [WKWebViewConfiguration new];
-    config.preferences = prefs;
-//    config.allowsAirPlayForMediaPlayback = NO;
-    config.suppressesIncrementalRendering = YES;
+    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     
-    WKWebView* webView = [[WKWebView alloc] initWithFrame: self.webContainer.bounds configuration: config];
-    webView.userInteractionEnabled = YES;
-    webView.UIDelegate = self;
-    webView.navigationDelegate = self;
-    webView.translatesAutoresizingMaskIntoConstraints = NO;
-    webView.scrollView.backgroundColor = [UIColor clearColor];
-    webView.backgroundColor = [UIColor clearColor];
-    webView.allowsBackForwardNavigationGestures = NO;
+    if ([osVersion hasPrefix: @"8"])
+    {
+        /*
+         iOS 8 WKWebView seems to have a problem with CSS and the documentation files
+         so we use UIWebView only for iOS8.
+         */
+        UIWebView* uiWebView = [[UIWebView alloc] initWithFrame: CGRectZero];
+        uiWebView.userInteractionEnabled = YES;
+        uiWebView.delegate = self;
+        uiWebView.translatesAutoresizingMaskIntoConstraints = NO;
+        uiWebView.scrollView.backgroundColor = [UIColor clearColor];
+        uiWebView.backgroundColor = [UIColor clearColor];
+        
+        webView = uiWebView;
+    }
+    else
+    {
+        WKPreferences* prefs = [WKPreferences new];
+        prefs.javaScriptEnabled = YES;
+        
+        WKWebViewConfiguration* config = [WKWebViewConfiguration new];
+        config.preferences = prefs;
+        //    config.allowsAirPlayForMediaPlayback = NO;
+        config.suppressesIncrementalRendering = NO;
+        
+        WKWebView* wkWebView = [[WKWebView alloc] initWithFrame: self.webContainer.bounds configuration: config];
+        wkWebView.userInteractionEnabled = YES;
+        wkWebView.UIDelegate = self;
+        wkWebView.navigationDelegate = self;
+        wkWebView.translatesAutoresizingMaskIntoConstraints = NO;
+        wkWebView.scrollView.backgroundColor = [UIColor clearColor];
+        wkWebView.backgroundColor = [UIColor clearColor];
+        wkWebView.allowsBackForwardNavigationGestures = NO;
+        webView = wkWebView;
+    }
     
     self.webView = webView;
-    UIScrollView* scrollView = self.webView.scrollView;
-    
     [self.webContainer addSubview: self.webView];
     self.webView.frame = self.webContainer.bounds;
     
@@ -107,7 +130,7 @@
             @try {
                 do {
                     NSString* numberedDocumentName = [NSString stringWithFormat: @"%@%u",_documentName,documentIndex];
-                    path = [[NSBundle mainBundle] pathForResource: numberedDocumentName ofType: @"html"];
+                    path = [[NSBundle mainBundle] pathForResource: numberedDocumentName ofType: @"html" inDirectory: @"documentation"];
                     if (path)
                     {
                         [tempDocuments addObject: path];
@@ -122,11 +145,11 @@
             @finally {
                 //
             }
-            self.documentPaths = [tempDocuments copy];
         }
         else if (_documentName)
         {
-            path = [[NSBundle mainBundle] pathForResource: documentName ofType: @"html"];
+            NSString* documentNameWithExtension = [NSString stringWithFormat: @"%@.html",_documentName];
+            path = [[NSBundle mainBundle] pathForResource: documentName ofType: @"html" inDirectory: @"documentation"];
             if (path)
             {
                 [tempDocuments addObject: path];
@@ -134,6 +157,8 @@
             
         }
         
+        self.documentPaths = [tempDocuments copy];
+
         if (self.documentPaths.count > 0)
         {
             [self loadDocument: self.currentPage];
@@ -148,8 +173,13 @@
         NSString *path = self.documentPaths[documentNumber];
         NSURL *fullUrl = [NSURL fileURLWithPath: path];
         NSURL *folderUrl = fullUrl.URLByDeletingLastPathComponent;
-        NSString* html = [NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: nil];
-        WKNavigation* navigation = [self.webView loadHTMLString: html baseURL: folderUrl];
+        NSError* error;
+        NSString* html = [NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: &error];
+        if (error)
+        {
+            NSLog(@"[%@ %@] %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), error);
+        }
+        [self.webView loadHTMLString: html baseURL: folderUrl];
     }
 }
 
@@ -166,7 +196,7 @@
 
 - (IBAction)nextPage:(UIBarButtonItem *)sender
 {
-    if (self.currentPage < self.documentPaths.count)
+    if (self.currentPage < self.documentPaths.count - 1)
     {
         self.currentPage += 1;
         [self loadDocument: self.currentPage];
@@ -226,11 +256,17 @@
 }
 -(void)webView:(nonnull WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(nonnull NSError *)error
 {
-    
+    if (error)
+    {
+        NSLog(@"[%@ %@] %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), error);
+    }
 }
 -(void)webView:(nonnull WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(nonnull NSError *)error
 {
-    
+    if (error)
+    {
+        NSLog(@"[%@ %@] %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), error);
+    }
 }
 -(void)webView:(nonnull WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation
 {
@@ -248,6 +284,24 @@
 {
     
 }
+-(void)webViewDidClose:(nonnull WKWebView *)webView
+{
+    
+}
+-(void)webViewWebContentProcessDidTerminate:(nonnull WKWebView *)webView
+{
+    
+}
+
+#pragma mark - WKUIDelegate
+-(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+{
+    if (!navigationAction.targetFrame.isMainFrame)
+    {
+        [[UIApplication sharedApplication]openURL: navigationAction.request.URL];
+    }
+    return nil;
+}
 -(void)webView:(nonnull WKWebView *)webView runJavaScriptAlertPanelWithMessage:(nonnull NSString *)message initiatedByFrame:(nonnull WKFrameInfo *)frame completionHandler:(nonnull void (^)(void))completionHandler
 {
     
@@ -260,12 +314,5 @@
 {
     
 }
--(void)webViewDidClose:(nonnull WKWebView *)webView
-{
-    
-}
--(void)webViewWebContentProcessDidTerminate:(nonnull WKWebView *)webView
-{
-    
-}
+
 @end

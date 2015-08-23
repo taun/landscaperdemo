@@ -220,6 +220,11 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                  target: self
                                                                  action: @selector(copyFractal:)];
     
+    UIBarButtonItem* helpButton = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"tabBarInfo"]
+                                                                  style: UIBarButtonItemStylePlain
+                                                                 target: self
+                                                                 action: @selector(showHelpScreen:)];
+
     _shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
                                                                  target: self
                                                                  action: @selector(shareButtonPressed:)];
@@ -235,10 +240,15 @@ static const CGFloat kLevelNMargin = 48.0;
         items = [NSMutableArray new];
     }
 //    [items addObject: backButton];
+    UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
+
     UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace target:nil action:NULL];
     space.width = 20.0;
     [items addObject: space];
     [items addObject: copyButton];
+    [items addObject: flexibleSpace];
+    [items addObject: helpButton];
+    [items addObject: flexibleSpace];
     [self.navigationItem setLeftBarButtonItems: items];
     
     
@@ -406,30 +416,43 @@ static const CGFloat kLevelNMargin = 48.0;
 //    [self.navigationController setNavigationBarHidden: YES animated: YES];
     if (!self.appModel.editorIntroDone)
     {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self firstStartupSequence];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self firstStartupSequence];
 //        });
+        [self showHelpScreen: nil];
+        [self.appModel exitEditorIntroState];
     }
 }
 
--(void)firstStartupSequence
-{
-    UIStoryboard* storyBoard = self.storyboard;
+//-(void)firstStartupSequence
+//{
+//    UIStoryboard* storyBoard = self.storyboard;
+//
+////    NSString* pageNavIdentifier = @"HelpControllerNav";
+////    UIViewController* pageNav = [storyBoard instantiateViewControllerWithIdentifier: pageNavIdentifier];
+//    
+//    NSString* pageIdentifier0 = @"HelpControllerPage0";
+//    UIViewController* page0 = [storyBoard instantiateViewControllerWithIdentifier: pageIdentifier0];
+//    //HelpControllerPage0
+//    
+////    webIntro.transitioningDelegate = transDel;
+////    webIntro.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+////    webIntro.modalPresentationStyle = UIModalPresentationCurrentContext;
+////    webIntro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//    [self.navigationController pushViewController: page0 animated: YES];
+//    [self.appModel exitEditorIntroState];
+////    [self presentViewController: page animated: YES completion:^{
+//        //
+////        [self.navigationController setNavigationBarHidden: YES animated: YES];
+////        NSLog(@"");
+////    }];
+//}
 
-    NSString* pageIdentifier = @"HelpControllerNav";
-    UIViewController* page = [storyBoard instantiateViewControllerWithIdentifier: pageIdentifier];
-    
-//    webIntro.transitioningDelegate = transDel;
-//    webIntro.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    webIntro.modalPresentationStyle = UIModalPresentationCurrentContext;
-//    webIntro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    
-    [self presentViewController: page animated: YES completion:^{
-        //
-//        [self.navigationController setNavigationBarHidden: YES animated: YES];
-        NSLog(@"");
-    }];
+-(IBAction)showHelpScreen:(id)sender
+{
+    [self performSegueWithIdentifier: @"QuickIntroSegue" sender: sender];
 }
+
 - (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue
 {
 //    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
@@ -1507,6 +1530,10 @@ static const CGFloat kLevelNMargin = 48.0;
     {
         newController = (UIViewController<FractalControllerProtocol>*)segue.destinationViewController;
         [self appearanceControllerIsPresenting: newController];
+    }
+    else if ([segue.identifier isEqualToString: @"QuickIntroSegue"])
+    {
+        
     }
 }
 

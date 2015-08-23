@@ -92,6 +92,8 @@
 		C599541D1A6465710093CF50 /* MBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5423E1A30EDE4006CD47A /* MBColor.m */; };
 		C599541E1A6465710093CF50 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */; };
 		C5999E7B1B8293EA00A9D848 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5999E7A1B8293EA00A9D848 /* WebKit.framework */; };
+		C5999E7E1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C5999E7C1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.h */; };
+		C5999E7F1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5999E7D1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.m */; };
 		C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5419DC776000774441 /* RulesIcons.xcassets */; };
 		C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C59AAE5619DC77CE00774441 /* UIMedia.xcassets */; };
 		C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C59E321F1A12AB950076B40B /* MBFractalColorViewContainer.m */; };
@@ -340,6 +342,8 @@
 		C59954031A6465270093CF50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FractalScapeFractalModelTests.m; sourceTree = "<group>"; };
 		C5999E7A1B8293EA00A9D848 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C5999E7C1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEditorHelpTransitioningDelegate.h; sourceTree = "<group>"; };
+		C5999E7D1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorHelpTransitioningDelegate.m; sourceTree = "<group>"; };
 		C59AAE5419DC776000774441 /* RulesIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RulesIcons.xcassets; sourceTree = "<group>"; };
 		C59AAE5619DC77CE00774441 /* UIMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UIMedia.xcassets; sourceTree = "<group>"; };
 		C59E321E1A12AB950076B40B /* MBFractalColorViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalColorViewContainer.h; path = FractalScape/MBFractalColorViewContainer.h; sourceTree = "<group>"; };
@@ -584,6 +588,8 @@
 				C523009A1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.m */,
 				C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */,
 				C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */,
+				C5999E7C1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.h */,
+				C5999E7D1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.m */,
 				C5FFAB0E1A14F89F00662211 /* Popovers */,
 			);
 			name = Editor;
@@ -1007,6 +1013,7 @@
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
 				C523009B1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h in Headers */,
 				C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */,
+				C5999E7E1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.h in Headers */,
 				C5F184831AA8DA3400233E49 /* MDBFractalDocumentCoordinator.h in Headers */,
 				C5ABDFFE1B74A287003EB04E /* MDBRuleCollectionViewCell.h in Headers */,
 				C5D5422D1A2FA94B006CD47A /* MDBTileObjectProtocol.h in Headers */,
@@ -1286,6 +1293,7 @@
 				C50B82951A02E06E00FBA03F /* MBFractalDescriptionTableCell.m in Sources */,
 				C5BA7FE71A1868C400AFCF70 /* FractalScapeIconSet.m in Sources */,
 				C5CE0E4E1B542C6100EEC58C /* NSString+MDKConvenience.m in Sources */,
+				C5999E7F1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.m in Sources */,
 				C546D7201A83D5C3002E869A /* LSFractal.m in Sources */,
 				C5F1848C1AA8DAA200233E49 /* MDBFractalDocumentLocalCoordinator.m in Sources */,
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,

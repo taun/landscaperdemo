@@ -1,0 +1,356 @@
+/* Text Elements */
+
+h1.heading-1 {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  float: left;
+  margin: 18px 10% 0 auto;
+  width: auto;
+  color: #0582ff;
+  vertical-align: baseline;
+  font-size: 17px;
+  opacity: .49;
+}
+
+h1.fheading1 {
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 18px;
+}
+
+h1.hero-header.hero-header-1 {
+  float: none;
+  width: auto;
+  box-shadow: none;
+  color: #fff;
+  text-shadow: #545454 1px 1px 1px;
+  white-space: nowrap;
+  font-size: 38px;
+}
+
+h6.heading-3 {
+  margin-top: 15px;
+}
+
+h6.ruleDescription {
+  position: relative;
+  top: 6px;
+  display: inline;
+  float: none;
+  margin: 13px auto 7px;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+  width: auto;
+  vertical-align: middle;
+  white-space: normal;
+  font-size: 17px;
+}
+
+p.paragraph span.paragraph-text-2 {
+  font-weight: 700;
+}
+
+p.paragraph.paragraph-1 {
+  text-align: left;
+}
+
+p.paragraph span.bold {
+  font-weight: 700;
+}
+
+p.paragraph.paragraph-2 {
+  text-align: center;
+}
+
+a.link-text.text-link-1 {
+  text-align: right;
+}
+
+a.link-text.resourceTextLink {
+  position: relative;
+  bottom: -9px;
+  display: inline;
+  clear: none;
+  margin-right: 0;
+  padding-right: 0;
+  padding-left: 15px;
+}
+
+/* Common Elements */
+
+.placeholder-hero.hero-unit-1 {
+  position: relative;
+  display: block;
+  padding-left: 53px;
+  background-color: transparent;
+  background-image: none;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+/* Layout Elements */
+
+body > .row.row-1 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  min-height: 56px;
+  max-height: 56px;
+  border: 1px solid #d6d6d6;
+  border-top-left-radius: 0 0;
+  border-top-right-radius: 0 0;
+  border-bottom-right-radius: 0 0;
+  border-bottom-left-radius: 0 0;
+  background-color: #fff;
+}
+
+body > .row > [class*='coffee-span-'].column-4 {
+  float: left;
+  padding: 1px 8px;
+  min-height: 56px;
+}
+
+body > .row.content {
+  padding-top: 0;
+  padding-bottom: 44px;
+  min-height: 0;
+  background-color: transparent;
+  background-image: none;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+body > .row#navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, .95);
+}
+
+body > .row > [class*='coffee-span-'].column-1 {
+  display: block;
+}
+
+body > .row#toprow {
+  padding-top: 68px;
+}
+
+body.blurEffect {
+  background-image: url(../BlurEffectBackground.png);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+body > .row > [class*='coffee-span-'].column-3 {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.subgrid > .row > [class*='coffee-span-'].subgrid-column-1 {
+  display: block;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+  padding-top: 0;
+  vertical-align: middle;
+}
+
+div.responsive-picture.picture-1 {
+  float: right;
+  margin-top: 13px;
+  max-width: 28px;
+  opacity: .5;
+}
+
+div.responsive-picture.picture-2 {
+  float: left;
+  margin-top: 13px;
+  margin-bottom: 0;
+  max-width: 28px;
+  opacity: .5;
+}
+
+div.responsive-picture.ruleIconImage {
+  float: left;
+  min-width: 40px;
+  max-width: 40px;
+  max-height: 40px;
+}
+
+div.responsive-picture.picture-3 {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 320px;
+  max-width: 320px;
+  max-height: 320px;
+}
+
+div.responsive-picture.picture-4 {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 300px;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+div.responsive-picture.picture-3 > picture {
+  margin: 0;
+}
+
+div.responsive-picture.picture-5 {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 300px;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+div.responsive-picture.picture-6 {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 300px;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+div.responsive-picture.picture-7 {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 300px;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+div.responsive-picture.picture-8 {
+  margin: 7px auto;
+  min-width: 320px;
+  max-width: 320px;
+}
+
+div.responsive-picture.picture-9 {
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 320px;
+  max-width: 360px;
+  width: 100%;
+}
+
+p.hero-tagline.hero-tagline-1 {
+  color: #fff;
+  text-shadow: #545454 1px 1px 1px;
+  white-space: nowrap;
+}
+
+div.responsive-picture.picture-10 {
+  position: absolute;
+  z-index: 0;
+  float: left;
+  min-width: 80px;
+  max-width: 80px;
+}
+
+li span.bold {
+  font-weight: 700;
+}
+
+a.responsive-picture.resourceImageLink {
+  display: block;
+  float: left;
+  clear: none;
+  min-width: 30px;
+  max-width: 30px;
+}
+
+@media screen and (min-width: 700px) {
+  /* Text Elements */
+
+  p.paragraph span.paragraph-text-1 {
+    font-weight: 700;
+  }
+
+  p.paragraph span.paragraph-text-3 {
+    font-weight: 700;
+  }
+
+  p.paragraph span.paragraph-text-4 {
+    font-weight: 700;
+  }
+
+  p.paragraph span.paragraph-text-5 {
+    font-weight: 700;
+  }
+
+  p.paragraph span.paragraph-text-6 {
+    font-weight: 700;
+  }
+
+  p.paragraph span.paragraph-text-7 {
+    font-weight: 700;
+  }
+
+  p.paragraph span.paragraph-text-8 {
+    font-weight: 700;
+  }
+
+  p.paragraph span.paragraph-text-9 {
+    font-weight: 700;
+  }
+
+  a.link-text.resourceTextLink {
+    position: relative;
+    bottom: -9px;
+    margin-bottom: 7px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* Layout Elements */
+
+  body > .row > [class*='coffee-span-'].column-2 {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 54px;
+    left: auto;
+    margin-right: 0;
+    margin-left: 0;
+    padding-top: 0;
+  }
+
+  body > .row.content {
+    background-color: transparent;
+    background-image: none;
+  }
+
+  body.blurEffect {
+    background-color: transparent;
+    background-image: url(../BlurEffectBackground.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  div.responsive-picture.picture-8 {
+    min-width: 375px;
+    max-width: 375px;
+  }
+
+  div.responsive-picture.picture-9 {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  li span.bold {
+    font-weight: 700;
+  }
+}

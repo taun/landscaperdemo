@@ -9,14 +9,23 @@
 @import UIKit;
 @import WebKit;
 
-@interface MDBEditorIntroWhatIsFractalViewController : UIViewController <WKUIDelegate, WKNavigationDelegate>
+@protocol WebViewProtocol <NSObject>
 
-@property (nonatomic,strong) IBOutlet WKWebView      *webView;
-@property (strong, nonatomic) IBOutlet UIView        *webContainer;
-@property (strong, nonatomic) IBInspectable NSString *documentName;
+- (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL;
+
+@end
+
+@interface MDBEditorIntroWhatIsFractalViewController : UIViewController <UIWebViewDelegate,WKUIDelegate, WKNavigationDelegate>
+
+@property (nonatomic,strong)  UIView<WebViewProtocol>   *webView;
+@property (strong, nonatomic) IBOutlet UIView           *webContainer;
+@property (strong, nonatomic) IBInspectable NSString    *documentName;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *nextPageButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *prevPageButton;
+
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      pushTransition;
+@property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      popTransition;
 
 - (IBAction)nextPage:(UIBarButtonItem *)sender;
 - (IBAction)prevPage:(UIBarButtonItem *)sender;

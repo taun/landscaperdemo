@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0xE-iA-jSj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,7 +18,7 @@
         <!--FractalName-->
         <scene sceneID="Vzi-SL-M21">
             <objects>
-                <viewController storyboardIdentifier="FractalEditView" title="FractalName" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FractalEditView" title="FractalName" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4nM-Pc-iAd" customClass="MBLSFractalEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sft-HR-kri"/>
                         <viewControllerLayoutGuide type="bottom" id="Awh-gB-3mV"/>
@@ -73,7 +74,7 @@
                                                             <outlet property="delegate" destination="4nM-Pc-iAd" id="Lqm-gO-T05"/>
                                                         </connections>
                                                     </scrollView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="RenderTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-PR-QW2">
                                                         <rect key="frame" x="48" y="677" width="89" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -450,13 +451,13 @@
                                                             <constraint firstAttribute="width" secondItem="qwL-V4-gOj" secondAttribute="height" multiplier="1:1" id="pY4-QR-Hib"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-180.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-JV-urG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-180.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-JV-urG">
                                                         <rect key="frame" x="82" y="4" width="56" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="280%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1o7-dW-jgD">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="280%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1o7-dW-jgD">
                                                         <rect key="frame" x="6" y="80" width="43.5" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -511,7 +512,7 @@
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="#2" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMx-2G-Q4a">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="#2" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMx-2G-Q4a">
                                                                 <rect key="frame" x="271" y="10" width="18.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -657,7 +658,7 @@
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="#1" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uje-jg-N66">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="#1" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uje-jg-N66">
                                                                 <rect key="frame" x="271" y="10" width="18.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -789,7 +790,7 @@
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="158"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVZ-Ol-vER">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Start" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVZ-Ol-vER">
                                                                 <rect key="frame" x="255" y="10" width="35" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -820,7 +821,7 @@
                                                                     <constraint firstAttribute="width" constant="26" id="gkN-px-STQ"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sr-Jo-4CI">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sr-Jo-4CI">
                                                                 <rect key="frame" x="37" y="10" width="43.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1091,6 +1092,7 @@
                         <outlet property="turnAngleSlider" destination="rPE-Sl-13x" id="Y5C-GZ-nNZ"/>
                         <outlet property="turningAngleIncrementSlider" destination="An9-9l-3Tm" id="GSF-fQ-K9R"/>
                         <outlet property="turningAngleLabel" destination="Y8O-zg-dbz" id="aF3-Bi-WE0"/>
+                        <segue destination="eHs-ET-MBW" kind="show" identifier="QuickIntroSegue" id="GI8-HZ-SMh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1132,7 +1134,7 @@
                 <tapGestureRecognizer id="nwB-ZA-oCT"/>
                 <tapGestureRecognizer id="52k-sy-KJz"/>
             </objects>
-            <point key="canvasLocation" x="5143" y="135"/>
+            <point key="canvasLocation" x="5208" y="141"/>
         </scene>
         <!--Name-->
         <scene sceneID="nU4-lI-gI7">
@@ -1222,45 +1224,29 @@
             </objects>
             <point key="canvasLocation" x="6906" y="-360"/>
         </scene>
-        <!--Library-->
-        <scene sceneID="vGM-Vr-kNr">
-            <objects>
-                <navigationController storyboardIdentifier="HelpControllerNav" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SIA-rm-Ivq" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Pl-1T-K7P">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="eHs-ET-MBW" kind="relationship" relationship="rootViewController" id="iry-JL-nt5"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S5C-GN-vPZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5143" y="874"/>
-        </scene>
         <!--QuickIntroController-->
         <scene sceneID="7mb-ZU-f8L">
             <objects>
-                <viewController storyboardIdentifier="HelpControllerPage0" title="Quick Intro" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eHs-ET-MBW" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuickIntroPages" title="Quick Intro" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eHs-ET-MBW" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g7p-L4-Q52"/>
                         <viewControllerLayoutGuide type="bottom" id="HMZ-ar-Ha2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xSR-cg-P26">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="biX-yw-0Yu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMa-kC-ZWA">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="wtg-Hk-E0O">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nr0-Oz-Tm5">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
                                             <connections>
@@ -1269,21 +1255,15 @@
                                             </connections>
                                         </view>
                                         <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s9-xp-5P2">
-                                            <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="656" width="600" height="44"/>
                                             <items>
-                                                <barButtonItem systemItem="rewind" id="cIJ-jJ-3mO">
+                                                <barButtonItem image="kBIconRuleDrawLineLeft" id="cIJ-jJ-3mO">
                                                     <connections>
                                                         <action selector="prevPage:" destination="eHs-ET-MBW" id="Ii9-ke-vfL"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="wUM-og-fGJ"/>
-                                                <barButtonItem systemItem="done" id="tIo-Ob-M7W">
-                                                    <connections>
-                                                        <action selector="doneIntro:" destination="eHs-ET-MBW" id="smg-pB-8Gv"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem style="plain" systemItem="flexibleSpace" id="PGG-X5-I4o"/>
-                                                <barButtonItem systemItem="fastForward" id="QQh-qx-WNO">
+                                                <barButtonItem image="kBIconRuleDrawLine" id="QQh-qx-WNO">
                                                     <connections>
                                                         <action selector="nextPage:" destination="eHs-ET-MBW" id="Nxz-mj-uF4"/>
                                                     </connections>
@@ -1323,8 +1303,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="G0k-Pf-WAp">
-                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Library" id="oPr-Fv-eU4"/>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="toolBarPlay" id="RM7-qO-qMu"/>
+                        <barButtonItem key="backBarButtonItem" title="Done" id="d9Z-k6-ZyL"/>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <userDefinedRuntimeAttributes>
@@ -1348,7 +1327,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5810" y="874"/>
+            <point key="canvasLocation" x="5208" y="938"/>
         </scene>
         <!--Fractal FIlters Controller-->
         <scene sceneID="U9M-3b-HZb">
@@ -1429,7 +1408,7 @@
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwY-8R-21a">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" misplaced="YES" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwY-8R-21a">
                                                             <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1663,7 +1642,7 @@ Drag icon to holder below to apply effect</string>
                                                     <view opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="RulesOutlineDesignable" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
                                                         <rect key="frame" x="2" y="2" width="396" height="186"/>
                                                         <subviews>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-Oo-Wav">
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8dJ-Oo-Wav">
                                                                 <rect key="frame" x="117" y="8" width="163" height="29"/>
                                                                 <segments>
                                                                     <segment title="Easy Rules"/>
@@ -1853,7 +1832,7 @@ Drag icon to holder below to apply effect</string>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" misplaced="YES" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
                                                                     <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2053,7 +2032,7 @@ Drag icon to holder below to apply effect</string>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4b-HN-Ruh">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" misplaced="YES" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4b-HN-Ruh">
                                                                     <rect key="frame" x="60" y="12" width="315.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2464,7 +2443,7 @@ Drag icon to holder below to apply effect</string>
             </objects>
             <point key="canvasLocation" x="5824" y="-360"/>
         </scene>
-        <!--Edit Library-->
+        <!--View Controller-->
         <scene sceneID="zSv-JI-BWw">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalEditLibrary" title="Edit Library" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
@@ -2541,7 +2520,7 @@ Drag icon to holder below to apply effect</string>
                                                 <constraint firstAttribute="bottom" secondItem="TKa-kg-xwG" secondAttribute="bottom" constant="4" id="zcM-ug-uEg"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" misplaced="YES" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="GQ1-uN-6BG">
                                             <rect key="frame" x="40" y="152" width="70" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2639,7 +2618,7 @@ Drag icon to holder below to apply effect</string>
             </objects>
             <point key="canvasLocation" x="5143" y="-624"/>
         </scene>
-        <!--Library-->
+        <!--View Controller-->
         <scene sceneID="iKT-0y-poi">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalLibrary" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
@@ -2715,7 +2694,7 @@ Drag icon to holder below to apply effect</string>
                                                 <constraint firstAttribute="bottom" secondItem="AYV-rN-sBG" secondAttribute="bottom" constant="4" id="s04-t5-Qgh"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" misplaced="YES" text="Loading ...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
                                             <rect key="frame" x="38" y="152" width="74" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2759,7 +2738,7 @@ Drag icon to holder below to apply effect</string>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="R8j-MN-2F0" customClass="MBCollectionFractalSupplementaryLabel">
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
                                     <rect key="frame" x="-78" y="11" width="156" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="cWI-Hz-w47"/>
@@ -2907,13 +2886,13 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fractals shared to everyone. Check often for new creations" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xu7-08-9SH">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Fractals shared to everyone. Check often for new creations" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xu7-08-9SH">
                                                                             <rect key="frame" x="56" y="310" width="428.5" height="40"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find out more about fractals and FractalScape" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Su-7M-aS4">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Find out more about fractals and FractalScape" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Su-7M-aS4">
                                                                             <rect key="frame" x="56" y="366" width="338" height="19.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3110,7 +3089,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate FractalScapes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPq-ge-CN2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rate FractalScapes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPq-ge-CN2">
                                                     <rect key="frame" x="18" y="11" width="151" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3134,7 +3113,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
                                                     <rect key="frame" x="16" y="11" width="207" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3163,7 +3142,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
                                                     <rect key="frame" x="16" y="11" width="121" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3226,7 +3205,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter: @taunc ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4d-G1-8sv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Twitter: @taunc ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4d-G1-8sv">
                                                     <rect key="frame" x="16" y="11" width="136" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3310,13 +3289,13 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
                                                     <rect key="frame" x="16" y="11" width="57.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1.0 (344)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQe-6t-eRd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" misplaced="YES" text="1.0 (344)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQe-6t-eRd">
                                                     <rect key="frame" x="525" y="11" width="66.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3343,7 +3322,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Premium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iK-WY-J4h">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Allow Premium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iK-WY-J4h">
                                                     <rect key="frame" x="18" y="11.5" width="115" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3498,7 +3477,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                         <constraint firstAttribute="centerY" secondItem="gSO-3C-9pr" secondAttribute="centerY" id="sP3-sV-a8x"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="JAa-ap-4Xd">
+                                                <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" misplaced="YES" text="Loading ..." textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="JAa-ap-4Xd">
                                                     <rect key="frame" x="40" y="152" width="70" height="17"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3677,7 +3656,7 @@ The main screen with all your fractals is called your "Library". See below for a
             </objects>
             <point key="canvasLocation" x="3717" y="1644"/>
         </scene>
-        <!--Help-->
+        <!--View Controller-->
         <scene sceneID="qeT-zj-FGl">
             <objects>
                 <splitViewController id="LIr-RW-epR" customClass="MDBTutorialSplitViewController" sceneMemberID="viewController">
@@ -3814,133 +3793,10 @@ The main screen with all your fractals is called your "Library". See below for a
             </objects>
             <point key="canvasLocation" x="4451" y="2393"/>
         </scene>
-        <!--Introduction-->
-        <scene sceneID="kye-jl-v1e">
-            <objects>
-                <viewController storyboardIdentifier="HelpControllerPage1" title="Introduction" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hrm-HF-ksL" customClass="MDBTutorialDetailContainerViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VTQ-kC-mzz"/>
-                        <viewControllerLayoutGuide type="bottom" id="heX-gV-EkR"/>
-                    </layoutGuides>
-                    <view key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fqC-52-mJd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YEE-7y-gvI">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIo-Wh-Dum">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZu-uI-jUh">
-                                                <rect key="frame" x="20" y="8" width="92.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="gZu-uI-jUh" firstAttribute="leading" secondItem="AIo-Wh-Dum" secondAttribute="leading" constant="20" symbolic="YES" id="B6D-nC-awP"/>
-                                            <constraint firstItem="gZu-uI-jUh" firstAttribute="top" secondItem="AIo-Wh-Dum" secondAttribute="top" constant="8" id="Fg2-rK-w1t"/>
-                                            <constraint firstAttribute="height" constant="600" id="SpC-9l-8CR"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="AIo-Wh-Dum" firstAttribute="leading" secondItem="YEE-7y-gvI" secondAttribute="leading" id="6rL-4F-nvZ"/>
-                                    <constraint firstItem="AIo-Wh-Dum" firstAttribute="top" secondItem="YEE-7y-gvI" secondAttribute="top" id="ILZ-0C-dSu"/>
-                                    <constraint firstAttribute="bottom" secondItem="AIo-Wh-Dum" secondAttribute="bottom" id="mgC-eO-mS0"/>
-                                    <constraint firstAttribute="trailing" secondItem="AIo-Wh-Dum" secondAttribute="trailing" id="xoB-tJ-qU1"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="YEE-7y-gvI" firstAttribute="top" secondItem="fqC-52-mJd" secondAttribute="top" id="1vk-0r-lya"/>
-                            <constraint firstItem="heX-gV-EkR" firstAttribute="top" secondItem="YEE-7y-gvI" secondAttribute="bottom" id="ONy-wE-FCj"/>
-                            <constraint firstAttribute="width" secondItem="AIo-Wh-Dum" secondAttribute="width" id="iub-yO-98e"/>
-                            <constraint firstAttribute="trailing" secondItem="YEE-7y-gvI" secondAttribute="trailing" id="tBj-x7-YwJ"/>
-                            <constraint firstItem="YEE-7y-gvI" firstAttribute="leading" secondItem="fqC-52-mJd" secondAttribute="leading" id="zSo-I4-dg1"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Introduction" id="IhF-gA-I6U"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <connections>
-                        <outlet property="scrollView" destination="YEE-7y-gvI" id="2T8-Vb-lM9"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dho-gE-xzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5133" y="2393"/>
-        </scene>
-        <!--Drag & Drop-->
-        <scene sceneID="Ki1-SP-L1w">
-            <objects>
-                <viewController storyboardIdentifier="HelpControllerPage2" title="Drag &amp; Drop" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D15-dE-q6K" customClass="MDBTutorialDetailContainerViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UH7-Kf-66W"/>
-                        <viewControllerLayoutGuide type="bottom" id="0f2-U1-rNX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iVL-U4-fPv">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UjY-c8-um5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZTD-JS-BSW">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="540"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag &amp; Drop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM5-fL-1ai">
-                                                <rect key="frame" x="20" y="8" width="95" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="540" id="4Ur-Ba-2om"/>
-                                            <constraint firstItem="jM5-fL-1ai" firstAttribute="leading" secondItem="ZTD-JS-BSW" secondAttribute="leading" constant="20" symbolic="YES" id="9Pw-6X-jVV"/>
-                                            <constraint firstItem="jM5-fL-1ai" firstAttribute="top" secondItem="ZTD-JS-BSW" secondAttribute="top" constant="8" id="d8P-qP-cI4"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="ZTD-JS-BSW" firstAttribute="top" secondItem="UjY-c8-um5" secondAttribute="top" id="58X-lH-XfV"/>
-                                    <constraint firstItem="ZTD-JS-BSW" firstAttribute="leading" secondItem="UjY-c8-um5" secondAttribute="leading" id="I3J-Cd-gd2"/>
-                                    <constraint firstAttribute="bottom" secondItem="ZTD-JS-BSW" secondAttribute="bottom" id="i9s-6F-XMv"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZTD-JS-BSW" secondAttribute="trailing" id="jLB-ry-P02"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="UjY-c8-um5" firstAttribute="top" secondItem="iVL-U4-fPv" secondAttribute="top" id="72e-Gs-YiC"/>
-                            <constraint firstItem="ZTD-JS-BSW" firstAttribute="width" secondItem="iVL-U4-fPv" secondAttribute="width" id="JoH-fW-yRZ"/>
-                            <constraint firstAttribute="trailing" secondItem="UjY-c8-um5" secondAttribute="trailing" id="SBM-AM-uuP"/>
-                            <constraint firstItem="0f2-U1-rNX" firstAttribute="top" secondItem="UjY-c8-um5" secondAttribute="bottom" id="VGZ-so-aBP"/>
-                            <constraint firstItem="UjY-c8-um5" firstAttribute="leading" secondItem="iVL-U4-fPv" secondAttribute="leading" id="hDC-gc-1Ui"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Drag &amp; Drop" id="cp7-Rk-Ff9"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <connections>
-                        <outlet property="scrollView" destination="UjY-c8-um5" id="yAJ-Jc-2oF"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="af2-Mh-LaW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5885" y="2393"/>
-        </scene>
-        <!--Rule Descriptions-->
+        <!--Rules Glossary-->
         <scene sceneID="lN5-Zy-q45">
             <objects>
-                <viewController storyboardIdentifier="HelpControllerPage3" title="Rule Descriptions" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HxR-dD-Xhn" customClass="MDBHelpRulesCollectionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpControllerPage6" title="Rules Glossary" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HxR-dD-Xhn" customClass="MDBHelpRulesCollectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a3t-xW-XH7"/>
                         <viewControllerLayoutGuide type="bottom" id="TSO-WC-vbf"/>
@@ -4067,8 +3923,8 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Below is a description of all the drawing rules available to create a fractal." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-DY-fXL">
-                                                    <rect key="frame" x="18" y="14" width="563" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Below is a description of all the drawing rules available to create a fractal." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-DY-fXL">
+                                                    <rect key="frame" x="20.5" y="40" width="558" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4116,7 +3972,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BpR-Br-fH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6583" y="2393"/>
+            <point key="canvasLocation" x="9164" y="2385"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bt6-QJ-c2c">
@@ -4137,6 +3993,474 @@ The main screen with all your fractals is called your "Library". See below for a
             </objects>
             <point key="canvasLocation" x="3717" y="2393"/>
         </scene>
+        <!--QuickIntroController-->
+        <scene sceneID="yUH-v2-PcJ">
+            <objects>
+                <viewController storyboardIdentifier="HelpControllerPage0" title="Intro" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o2z-Iv-Q7J" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="US2-LN-yWb"/>
+                        <viewControllerLayoutGuide type="bottom" id="wh8-L0-UIS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vxt-X5-Zki">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="CpS-30-NQ7">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPw-LM-PTA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3Fp-4U-PHS">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tA-ys-GSb">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="8CE-sq-gWm" appends="YES" id="MJh-LW-pjU"/>
+                                                <outletCollection property="gestureRecognizers" destination="MGK-8x-PB0" appends="YES" id="MWu-gP-UPc"/>
+                                            </connections>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3tA-ys-GSb" firstAttribute="top" secondItem="3Fp-4U-PHS" secondAttribute="top" id="OTY-mm-mnH"/>
+                                        <constraint firstItem="3tA-ys-GSb" firstAttribute="leading" secondItem="3Fp-4U-PHS" secondAttribute="leading" id="RDQ-Rl-sC1"/>
+                                        <constraint firstAttribute="bottom" secondItem="3tA-ys-GSb" secondAttribute="bottom" id="ZxI-r0-Z5A"/>
+                                        <constraint firstAttribute="trailing" secondItem="3tA-ys-GSb" secondAttribute="trailing" id="iyN-Rm-SRs"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="CpS-30-NQ7" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leading" id="5xg-PZ-58d"/>
+                            <constraint firstItem="CpS-30-NQ7" firstAttribute="top" secondItem="vxt-X5-Zki" secondAttribute="top" id="IWW-Hy-05J"/>
+                            <constraint firstItem="CpS-30-NQ7" firstAttribute="bottom" secondItem="vxt-X5-Zki" secondAttribute="bottomMargin" id="Ret-Bz-VMC"/>
+                            <constraint firstAttribute="trailing" secondItem="cPw-LM-PTA" secondAttribute="trailing" id="WKV-9w-BKo"/>
+                            <constraint firstItem="cPw-LM-PTA" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leading" id="azG-HD-EhY"/>
+                            <constraint firstItem="cPw-LM-PTA" firstAttribute="top" secondItem="vxt-X5-Zki" secondAttribute="top" id="fjf-hV-iyn"/>
+                            <constraint firstItem="cPw-LM-PTA" firstAttribute="bottom" secondItem="vxt-X5-Zki" secondAttribute="bottomMargin" id="pCS-R6-QRH"/>
+                            <constraint firstAttribute="trailing" secondItem="CpS-30-NQ7" secondAttribute="trailing" id="qu0-EI-C5y"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="AdJ-XB-whE">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="K8g-Ce-xm4"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="documentName" value="editorintro_0"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="webContainer" destination="3tA-ys-GSb" id="axo-95-gqU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Sj-md-mrs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="8CE-sq-gWm">
+                    <connections>
+                        <action selector="swipeLeft:" destination="o2z-Iv-Q7J" id="J1Y-fk-ce6"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="MGK-8x-PB0">
+                    <connections>
+                        <action selector="swipeRight:" destination="o2z-Iv-Q7J" id="mWZ-GW-3fh"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="5143" y="2393"/>
+        </scene>
+        <!--QuickIntroController-->
+        <scene sceneID="iPl-tY-QdS">
+            <objects>
+                <viewController storyboardIdentifier="HelpControllerPage1" title="Drawing Rules Intro" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pc6-bS-ySa" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bcL-NG-gbK"/>
+                        <viewControllerLayoutGuide type="bottom" id="9Wt-87-xWk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JuK-xT-Jpx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="a3m-8z-Q82">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EBW-j8-y79">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oJJ-J5-mWN">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4C9-18-EDd">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="zrG-s1-aLh" appends="YES" id="1v7-x7-8PY"/>
+                                                <outletCollection property="gestureRecognizers" destination="Xkf-ie-diA" appends="YES" id="XnJ-KL-Kuc"/>
+                                            </connections>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="4C9-18-EDd" firstAttribute="top" secondItem="oJJ-J5-mWN" secondAttribute="top" id="HXh-kD-Vu1"/>
+                                        <constraint firstAttribute="trailing" secondItem="4C9-18-EDd" secondAttribute="trailing" id="HaZ-89-6LS"/>
+                                        <constraint firstItem="4C9-18-EDd" firstAttribute="leading" secondItem="oJJ-J5-mWN" secondAttribute="leading" id="b2m-CC-sAh"/>
+                                        <constraint firstAttribute="bottom" secondItem="4C9-18-EDd" secondAttribute="bottom" id="e0Q-uy-oEK"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="a3m-8z-Q82" firstAttribute="top" secondItem="JuK-xT-Jpx" secondAttribute="top" id="2gr-WN-rVj"/>
+                            <constraint firstItem="a3m-8z-Q82" firstAttribute="leading" secondItem="JuK-xT-Jpx" secondAttribute="leading" id="5AY-Aa-QXr"/>
+                            <constraint firstItem="a3m-8z-Q82" firstAttribute="bottom" secondItem="JuK-xT-Jpx" secondAttribute="bottomMargin" id="5Tv-dU-ahX"/>
+                            <constraint firstItem="EBW-j8-y79" firstAttribute="top" secondItem="JuK-xT-Jpx" secondAttribute="top" id="6bb-h5-dHd"/>
+                            <constraint firstItem="EBW-j8-y79" firstAttribute="leading" secondItem="JuK-xT-Jpx" secondAttribute="leading" id="Hw1-Ph-UnL"/>
+                            <constraint firstItem="EBW-j8-y79" firstAttribute="bottom" secondItem="JuK-xT-Jpx" secondAttribute="bottomMargin" id="UnK-Vp-tBI"/>
+                            <constraint firstAttribute="trailing" secondItem="EBW-j8-y79" secondAttribute="trailing" id="YwU-HV-lKN"/>
+                            <constraint firstAttribute="trailing" secondItem="a3m-8z-Q82" secondAttribute="trailing" id="hbL-A4-aLY"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="qa4-hS-RtF">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="6GK-Ih-sdI"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="documentName" value="editorintro_1"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="webContainer" destination="4C9-18-EDd" id="NXV-qf-Y9e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8XY-l2-c2i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="zrG-s1-aLh">
+                    <connections>
+                        <action selector="swipeLeft:" destination="Pc6-bS-ySa" id="vE4-JA-0M2"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="Xkf-ie-diA">
+                    <connections>
+                        <action selector="swipeRight:" destination="Pc6-bS-ySa" id="RbZ-pu-WD9"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="5797" y="2393"/>
+        </scene>
+        <!--QuickIntroController-->
+        <scene sceneID="we8-at-8Xg">
+            <objects>
+                <viewController storyboardIdentifier="HelpControllerPage2" title="Quick Play" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dGB-cm-GXO" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cLg-Ak-ShZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="C8w-zY-Zhb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZRK-BM-4Jb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="cy7-YZ-lTh">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ba-il-IoS">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FMf-ku-YHa">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rc0-qZ-T5S">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="KV2-5x-OP6" appends="YES" id="U35-gM-K3E"/>
+                                                <outletCollection property="gestureRecognizers" destination="eMD-eZ-BMQ" appends="YES" id="AYY-Wv-5iu"/>
+                                            </connections>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="rc0-qZ-T5S" secondAttribute="trailing" id="55L-W1-cEq"/>
+                                        <constraint firstItem="rc0-qZ-T5S" firstAttribute="top" secondItem="FMf-ku-YHa" secondAttribute="top" id="8dt-GK-75f"/>
+                                        <constraint firstItem="rc0-qZ-T5S" firstAttribute="leading" secondItem="FMf-ku-YHa" secondAttribute="leading" id="hKR-99-GPY"/>
+                                        <constraint firstAttribute="bottom" secondItem="rc0-qZ-T5S" secondAttribute="bottom" id="pGS-wq-r6p"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="cy7-YZ-lTh" firstAttribute="bottom" secondItem="ZRK-BM-4Jb" secondAttribute="bottomMargin" id="01Y-Ll-4s5"/>
+                            <constraint firstItem="4Ba-il-IoS" firstAttribute="bottom" secondItem="ZRK-BM-4Jb" secondAttribute="bottomMargin" id="83w-aj-Pj4"/>
+                            <constraint firstItem="cy7-YZ-lTh" firstAttribute="leading" secondItem="ZRK-BM-4Jb" secondAttribute="leading" id="D0Q-Ea-WqU"/>
+                            <constraint firstAttribute="trailing" secondItem="4Ba-il-IoS" secondAttribute="trailing" id="MMP-ic-g9q"/>
+                            <constraint firstItem="4Ba-il-IoS" firstAttribute="leading" secondItem="ZRK-BM-4Jb" secondAttribute="leading" id="QMX-cJ-Qez"/>
+                            <constraint firstItem="4Ba-il-IoS" firstAttribute="top" secondItem="ZRK-BM-4Jb" secondAttribute="top" id="VMl-J9-Y8U"/>
+                            <constraint firstItem="cy7-YZ-lTh" firstAttribute="top" secondItem="ZRK-BM-4Jb" secondAttribute="top" id="YHB-YA-QRO"/>
+                            <constraint firstAttribute="trailing" secondItem="cy7-YZ-lTh" secondAttribute="trailing" id="YUs-tX-gTJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SfR-u0-Gos">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="V4j-sR-5Pw"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="documentName" value="editorintro_2"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="webContainer" destination="rc0-qZ-T5S" id="Qmv-8c-Rdn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9hc-4n-S74" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="KV2-5x-OP6">
+                    <connections>
+                        <action selector="swipeLeft:" destination="dGB-cm-GXO" id="0Ng-QP-3PI"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="eMD-eZ-BMQ">
+                    <connections>
+                        <action selector="swipeRight:" destination="dGB-cm-GXO" id="G8V-IA-Orb"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="6481" y="2393"/>
+        </scene>
+        <!--QuickIntroController-->
+        <scene sceneID="Ecr-9y-q5N">
+            <objects>
+                <viewController storyboardIdentifier="HelpControllerPage3" title="Editing a fractal" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6AB-gp-5KF" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kQ5-ZY-k3E"/>
+                        <viewControllerLayoutGuide type="bottom" id="rBQ-xC-7We"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HEK-PU-bN9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="Nr7-zO-GST">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uHJ-MT-QlK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Igu-jn-Lo1">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXG-fl-NJC">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="PD9-tt-2Wf" appends="YES" id="B58-po-pVD"/>
+                                                <outletCollection property="gestureRecognizers" destination="ZOr-o1-MUV" appends="YES" id="B0R-sr-pga"/>
+                                            </connections>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="WXG-fl-NJC" secondAttribute="bottom" id="9NE-Hg-myn"/>
+                                        <constraint firstAttribute="trailing" secondItem="WXG-fl-NJC" secondAttribute="trailing" id="Qw9-5i-IBO"/>
+                                        <constraint firstItem="WXG-fl-NJC" firstAttribute="leading" secondItem="Igu-jn-Lo1" secondAttribute="leading" id="qIG-AQ-UyO"/>
+                                        <constraint firstItem="WXG-fl-NJC" firstAttribute="top" secondItem="Igu-jn-Lo1" secondAttribute="top" id="xBS-dZ-nKz"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="uHJ-MT-QlK" firstAttribute="top" secondItem="HEK-PU-bN9" secondAttribute="top" id="3mX-QV-onx"/>
+                            <constraint firstItem="Nr7-zO-GST" firstAttribute="top" secondItem="HEK-PU-bN9" secondAttribute="top" id="5JT-1s-NAa"/>
+                            <constraint firstItem="Nr7-zO-GST" firstAttribute="bottom" secondItem="HEK-PU-bN9" secondAttribute="bottomMargin" id="Cbl-in-Stf"/>
+                            <constraint firstAttribute="trailing" secondItem="Nr7-zO-GST" secondAttribute="trailing" id="ceL-Qk-VId"/>
+                            <constraint firstItem="uHJ-MT-QlK" firstAttribute="bottom" secondItem="HEK-PU-bN9" secondAttribute="bottomMargin" id="eZ7-v8-LHS"/>
+                            <constraint firstAttribute="trailing" secondItem="uHJ-MT-QlK" secondAttribute="trailing" id="m2J-qa-GHj"/>
+                            <constraint firstItem="Nr7-zO-GST" firstAttribute="leading" secondItem="HEK-PU-bN9" secondAttribute="leading" id="qgF-WN-bu0"/>
+                            <constraint firstItem="uHJ-MT-QlK" firstAttribute="leading" secondItem="HEK-PU-bN9" secondAttribute="leading" id="zqV-hr-p8d"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="rH6-n5-4E7">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="bBM-0K-tNY"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="documentName" value="editorintro_3"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="webContainer" destination="WXG-fl-NJC" id="UuN-5t-Rak"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z15-dW-Pvh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="PD9-tt-2Wf">
+                    <connections>
+                        <action selector="swipeLeft:" destination="6AB-gp-5KF" id="3tA-qs-kka"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="ZOr-o1-MUV">
+                    <connections>
+                        <action selector="swipeRight:" destination="6AB-gp-5KF" id="CLp-7D-Awb"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="7131" y="2393"/>
+        </scene>
+        <!--QuickIntroController-->
+        <scene sceneID="hCM-GW-Dog">
+            <objects>
+                <viewController storyboardIdentifier="HelpControllerPage4" title="Summary" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4mp-Cb-oEu" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="edq-I9-g1L"/>
+                        <viewControllerLayoutGuide type="bottom" id="gcy-wY-RzO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O8V-lC-U9a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="qvZ-XY-bJg">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fV6-m2-W7S">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="7no-u7-zF1">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hdc-2Q-nVE">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="mNq-o6-QPp" appends="YES" id="QXA-Vz-KTd"/>
+                                                <outletCollection property="gestureRecognizers" destination="IJB-c7-TuG" appends="YES" id="LnQ-Ml-6Ih"/>
+                                            </connections>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Hdc-2Q-nVE" secondAttribute="bottom" id="SP1-P8-QCx"/>
+                                        <constraint firstItem="Hdc-2Q-nVE" firstAttribute="leading" secondItem="7no-u7-zF1" secondAttribute="leading" id="fWw-ji-nLO"/>
+                                        <constraint firstAttribute="trailing" secondItem="Hdc-2Q-nVE" secondAttribute="trailing" id="qKA-Kk-uUh"/>
+                                        <constraint firstItem="Hdc-2Q-nVE" firstAttribute="top" secondItem="7no-u7-zF1" secondAttribute="top" id="ybN-y8-jb1"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="fV6-m2-W7S" firstAttribute="leading" secondItem="O8V-lC-U9a" secondAttribute="leading" id="CY0-e6-yT8"/>
+                            <constraint firstItem="fV6-m2-W7S" firstAttribute="top" secondItem="O8V-lC-U9a" secondAttribute="top" id="DHo-g5-Xu0"/>
+                            <constraint firstItem="qvZ-XY-bJg" firstAttribute="leading" secondItem="O8V-lC-U9a" secondAttribute="leading" id="Lgz-Xr-UuG"/>
+                            <constraint firstItem="qvZ-XY-bJg" firstAttribute="bottom" secondItem="O8V-lC-U9a" secondAttribute="bottomMargin" id="M57-tV-Ap6"/>
+                            <constraint firstAttribute="trailing" secondItem="qvZ-XY-bJg" secondAttribute="trailing" id="PpM-y0-slD"/>
+                            <constraint firstItem="qvZ-XY-bJg" firstAttribute="top" secondItem="O8V-lC-U9a" secondAttribute="top" id="WPn-6m-e9y"/>
+                            <constraint firstItem="fV6-m2-W7S" firstAttribute="bottom" secondItem="O8V-lC-U9a" secondAttribute="bottomMargin" id="iOD-ea-0vE"/>
+                            <constraint firstAttribute="trailing" secondItem="fV6-m2-W7S" secondAttribute="trailing" id="lsj-lW-aoj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uss-0h-gVI">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="ifb-P5-Xiu"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="documentName" value="editorintro_4"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="webContainer" destination="Hdc-2Q-nVE" id="3l8-c1-I59"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4wb-Vd-Jg2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="mNq-o6-QPp">
+                    <connections>
+                        <action selector="swipeLeft:" destination="4mp-Cb-oEu" id="SPt-RO-JQv"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="IJB-c7-TuG">
+                    <connections>
+                        <action selector="swipeRight:" destination="4mp-Cb-oEu" id="Ld8-VI-VcZ"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="7807" y="2385"/>
+        </scene>
+        <!--QuickIntroController-->
+        <scene sceneID="n3f-yT-moA">
+            <objects>
+                <viewController storyboardIdentifier="HelpControllerPage5" title="Resources &amp; Feedback" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XQ5-6d-HFR" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nCZ-0T-UK9"/>
+                        <viewControllerLayoutGuide type="bottom" id="f7k-YF-3it"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nl3-PT-XRN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="47F-ES-u7c">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7G-G0-V85">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TgK-Jf-zZd">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Nf-WWf">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="8EH-fz-AIS" appends="YES" id="Pxr-Jf-7aS"/>
+                                                <outletCollection property="gestureRecognizers" destination="P3h-cj-Yeo" appends="YES" id="g1f-pt-NKr"/>
+                                            </connections>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nLe-Nf-WWf" firstAttribute="top" secondItem="TgK-Jf-zZd" secondAttribute="top" id="17I-YP-KcA"/>
+                                        <constraint firstItem="nLe-Nf-WWf" firstAttribute="leading" secondItem="TgK-Jf-zZd" secondAttribute="leading" id="STd-Wo-Mvs"/>
+                                        <constraint firstAttribute="trailing" secondItem="nLe-Nf-WWf" secondAttribute="trailing" id="WeJ-NT-GPZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="nLe-Nf-WWf" secondAttribute="bottom" id="v09-v4-wzu"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="h7G-G0-V85" secondAttribute="trailing" id="273-zm-uym"/>
+                            <constraint firstItem="47F-ES-u7c" firstAttribute="leading" secondItem="nl3-PT-XRN" secondAttribute="leading" id="60y-Pn-YRJ"/>
+                            <constraint firstItem="h7G-G0-V85" firstAttribute="bottom" secondItem="nl3-PT-XRN" secondAttribute="bottomMargin" id="6M6-5K-PFx"/>
+                            <constraint firstAttribute="trailing" secondItem="47F-ES-u7c" secondAttribute="trailing" id="BfI-Yb-nFk"/>
+                            <constraint firstItem="h7G-G0-V85" firstAttribute="top" secondItem="nl3-PT-XRN" secondAttribute="top" id="Nzt-q1-nMl"/>
+                            <constraint firstItem="h7G-G0-V85" firstAttribute="leading" secondItem="nl3-PT-XRN" secondAttribute="leading" id="RMP-wm-bEg"/>
+                            <constraint firstItem="47F-ES-u7c" firstAttribute="bottom" secondItem="nl3-PT-XRN" secondAttribute="bottomMargin" id="auw-WW-dLY"/>
+                            <constraint firstItem="47F-ES-u7c" firstAttribute="top" secondItem="nl3-PT-XRN" secondAttribute="top" id="rCf-rg-E4J"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="gSZ-q3-oBK">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="ctM-cP-AUl"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="documentName" value="editorintro_resources"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="webContainer" destination="nLe-Nf-WWf" id="xpM-jW-p12"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7IU-PT-ssR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="8EH-fz-AIS">
+                    <connections>
+                        <action selector="swipeLeft:" destination="XQ5-6d-HFR" id="dxn-0b-3s2"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="P3h-cj-Yeo">
+                    <connections>
+                        <action selector="swipeRight:" destination="XQ5-6d-HFR" id="ZpB-Qy-rfs"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="8483" y="2385"/>
+        </scene>
     </scenes>
     <resources>
         <image name="MOEDAELogo96" width="96" height="96"/>
@@ -4146,6 +4470,8 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="kBIconBaseAngleSmall" width="30" height="30"/>
         <image name="kBIconRuleDecrementAngleSmall" width="30" height="30"/>
         <image name="kBIconRuleDecrementLineWidth90" width="40" height="40"/>
+        <image name="kBIconRuleDrawLine" width="40" height="40"/>
+        <image name="kBIconRuleDrawLineLeft" width="40" height="40"/>
         <image name="kBIconRuleNextHue" width="40" height="40"/>
         <image name="kBIconRuleNextHueFill" width="40" height="40"/>
         <image name="kBIconRuleRandomizeOn" width="40" height="40"/>

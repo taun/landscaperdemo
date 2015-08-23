@@ -28,11 +28,11 @@
 {
     MDBCustomTransition* transition;
     
-    if (operation == UINavigationControllerOperationPush)
+    if (operation == UINavigationControllerOperationPush && [toVC respondsToSelector: @selector(pushTransition)])
     {
         transition = toVC.pushTransition;
     }
-    else if (operation == UINavigationControllerOperationPop)
+    else if (operation == UINavigationControllerOperationPop && [toVC respondsToSelector: @selector(popTransition)])
     {
         transition = fromVC.popTransition;
     }

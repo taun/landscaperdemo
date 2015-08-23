@@ -199,6 +199,8 @@
 - (IBAction)popBackToLibrary:(id)sender;
 - (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue;
 
+-(IBAction)showHelpScreen:(id)sender;
+
 #pragma mark - Filter Actions
 - (IBAction)toggleApplyFilter:(id)sender;
 
