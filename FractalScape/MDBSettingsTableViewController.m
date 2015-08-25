@@ -73,7 +73,8 @@
 }
 -(void) updateControls
 {
-    self.appVersion.text = self.appModel.versionBuildString;
+    self.appVersion.text = self.appModel.versionString;
+    self.appBuild.text = self.appModel.buildString;
     
     self.showHelpTipsSwitch.on = self.appModel.showHelpTips;
     self.showParallaxEffect.on = self.appModel.showParallax;
@@ -98,6 +99,12 @@
 - (IBAction)showParallaxEffectChanged:(UISwitch *)sender
 {
     [self.appModel setShowParallax: sender.on];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView* headerView = (UITableViewHeaderFooterView*)view;
+    headerView.textLabel.textColor = [UIColor whiteColor];
 }
 
 -(void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath

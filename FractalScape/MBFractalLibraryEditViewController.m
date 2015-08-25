@@ -71,10 +71,7 @@
 -(void) rightButtonsEnabledState: (BOOL)state
 {
     self.deleteButton.enabled = state;
-    if (self.appModel.allowPremium)
-    {
-        self.shareButton.enabled = state;
-    }
+    self.shareButton.enabled = state;
 }
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
@@ -155,28 +152,33 @@
 }
 - (IBAction)shareButtonPressed:(id)sender
 {
-    if (self.appModel.allowPremium)
+    if (self.presentedViewController)
     {
-        if (self.presentedViewController)
-        {
-            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
-        }
-        
-        if (self.appModel.cloudDocumentManager.isCloudAvailable)
-        {
-            [self showAlertActionsToShare: sender];
-        }
-        else
-        {
-            [self showAlertActionsToAddiCloud: sender];
-        }
+        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    }
+    
+    if (self.appModel.cloudDocumentManager.isCloudAvailable)
+    {
+        [self showAlertActionsToShare: sender];
+    }
+    else
+    {
+        [self showAlertActionsToAddiCloud: sender];
     }
 }
 
 -(void)showAlertActionsToAddiCloud: (id)sender
 {
-    NSString* title = NSLocalizedString(@"iCloud Share", nil);
-    NSString* message = NSLocalizedString(@"You must have your device logged into iCloud", nil);
+    NSString* title = NSLocalizedString(@"For iCloud Share", nil);
+    NSString* message;
+    if (self.appModel.allowPremium)
+    {
+        message = NSLocalizedString(@"You must have your device logged into iCloud", nil);
+    }
+    else
+    {
+        message = NSLocalizedString(@"You must have your device logged into iCloud AND Upgrade to Pro", nil);
+    }
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
                                                                    message: message
@@ -194,7 +196,7 @@
                                    }];
     [alert addAction: fractalCloud];
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Later Maybe" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -225,16 +227,28 @@
     UIAlertController* __weak weakAlert = alert;
     
     //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    if (self.appModel.allowPremium)
+    {
+        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"FractalCloud" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action)
+                                       {
+                                           [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                           [self shareCurrentSelections: sender];
+                                       }];
+        [alert addAction: fractalCloud];
+    }
+    else
+    {
+        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Upgrade to Share" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action)
+                                       {
+                                           [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                           [self upgradeToProSelected: sender];
+                                       }];
+        [alert addAction: fractalCloud];
+    }
     
-    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"FractalCloud" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action)
-                                   {
-                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                       [self shareCurrentSelections: sender];
-                                   }];
-    [alert addAction: fractalCloud];
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -246,6 +260,11 @@
     ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(IBAction) upgradeToProSelected:(id)sender
+{
+    
 }
 
 - (IBAction) shareCurrentSelections:(id)sender

@@ -14,6 +14,7 @@
 @class MDBDocumentController;
 @class MDLCloudKitManager;
 @class MDBCloudManager;
+@class MDBPurchaseManager;
 
 extern NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey;
 extern NSString *const kMDBFractalCloudContainer;
@@ -27,11 +28,14 @@ extern NSString *const kMDBFractalCloudContainer;
 
 @property(nonatomic,weak) MBAppDelegate                         *delegate;
 @property(nonatomic,readonly) NSString                          *versionBuildString;
+@property(nonatomic,readonly) NSString                          *versionString;
+@property(nonatomic,readonly) NSString                          *buildString;
 @property(nonatomic,readonly) BOOL                              loadDemoFiles;
 @property(nonatomic,readonly) BOOL                              cloudIdentityChangedState;
 @property(nonatomic,strong) MDBDocumentController               *documentController;
 @property(nonatomic,readonly) MDBCloudManager                   *cloudDocumentManager;
 @property(nonatomic,readonly) MDLCloudKitManager                *cloudKitManager;
+@property(nonatomic,readonly) MDBPurchaseManager                *purchaseManager;
 @property(nonatomic,readonly) BOOL                              allowPremium;
 @property(nonatomic,readonly) BOOL                              useWatermark;
 @property(nonatomic,readonly) BOOL                              promptedForDiscovery;

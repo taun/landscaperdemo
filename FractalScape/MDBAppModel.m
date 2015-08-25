@@ -17,6 +17,8 @@
 #import "MDBFractalDocumentLocalCoordinator.h"
 #import "MDBFractalDocumentCloudCoordinator.h"
 #import "MBAppDelegate.h"
+#import "MDBPurchaseManager.h"
+
 
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";
 NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
@@ -44,6 +46,7 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 
 @synthesize cloudKitManager = _cloudKitManager;
 @synthesize cloudDocumentManager = _cloudDocumentManager;
+@synthesize purchaseManager = _purchaseManager;
 
 -(void)___setAllowPremium:(BOOL)on
 {
@@ -79,6 +82,17 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     return _cloudKitManager;
 }
 
+-(MDBPurchaseManager *)purchaseManager
+{
+    if (!_purchaseManager)
+    {
+        _purchaseManager = [MDBPurchaseManager new];
+        _purchaseManager.appModel = self;
+    }
+    
+    return _purchaseManager;
+}
+
 - (void)registerDefaults
 {
     //    // since no default values have been set, create them here
@@ -97,12 +111,23 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     [userDefaults synchronize];
 }
 
--(NSString *)versionBuildString
+-(NSString *)versionString
 {
-    NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     
-    return [NSString stringWithFormat:@"%@ (%@)", appVersionString, appBuildString];
+    return appVersionString;
+}
+
+-(NSString *)buildString
+{
+    NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
+    return appBuildString;
+}
+
+-(NSString *)versionBuildString
+{
+    return [NSString stringWithFormat:@"%@ (%@)", self.versionString, self.buildString];
 }
 
 -(void)demoFilesLoaded
@@ -111,6 +136,7 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     [defaults setBool: NO forKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];
     [defaults synchronize];
 }
+
 -(BOOL)loadDemoFiles
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];

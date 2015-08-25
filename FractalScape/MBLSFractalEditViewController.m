@@ -220,7 +220,7 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                  target: self
                                                                  action: @selector(copyFractal:)];
     
-    UIBarButtonItem* helpButton = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"tabBarInfo"]
+    UIBarButtonItem* helpButton = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"tabBarInfoThin"]
                                                                   style: UIBarButtonItemStylePlain
                                                                  target: self
                                                                  action: @selector(showHelpScreen:)];
@@ -1737,6 +1737,17 @@ static const CGFloat kLevelNMargin = 48.0;
                                     }];
         [alert addAction: vectorPDF];
     }
+    else
+    {
+        UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Upgrade to Export as Vector PDF" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                        [self upgradeToProSelected: sender];
+                                    }];
+        [alert addAction: vectorPDF];
+    }
+    
     if (self.appModel.allowPremium) {
         UIAlertAction* documentShare = [UIAlertAction actionWithTitle:@"Export as Document" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
@@ -1767,6 +1778,12 @@ static const CGFloat kLevelNMargin = 48.0;
     
     [self presentViewController:alert animated:YES completion:nil];
 }
+
+-(IBAction) upgradeToProSelected:(id)sender
+{
+    
+}
+
 /*!
  See AirDropSample code for more UIActivityViewController  details.
  

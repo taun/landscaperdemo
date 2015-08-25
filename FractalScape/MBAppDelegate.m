@@ -49,6 +49,9 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     // Override point for customization after application launch.
 //    [[UITabBar appearance] setTintColor:[FractalScapeIconSet betaColor]];
 
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor grayColor]}];
+//    [[UITableViewHeaderFooterView appearance] textLabel].textColor = [UIColor whiteColor];
+    
     srand48(time(0)); // for use of randomize function in other parts of app
     
     // No longer necessary, app is now killed if iCloud status changes

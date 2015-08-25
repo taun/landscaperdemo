@@ -52,6 +52,10 @@
     [(UIView*)(self.sourceListView) setUserInteractionEnabled: allowPremium];
     if (!allowPremium)
     {
+        CGFloat disabledAlpha = 0.6;
+        self.destinationView.alpha = disabledAlpha;
+        self.replacementRules.alpha = disabledAlpha;
+        [(UIView*)self.sourceListView setAlpha: disabledAlpha];
         self.ruleHelpLabel.text = @"Rule Editing is only available with in-app purchase";
     }
 }
@@ -128,6 +132,9 @@
     NSString* infoString = @"Occurences of rule to left of '=>' replaced by rules to the right.";
     self.ruleHelpLabel.text = infoString;
     [self infoAnimateView: self.replacementRules];
+}
+
+- (IBAction)upgradeToProClicked:(UIButton *)sender {
 }
 /*!
  Close any open Add or Delete views and get rid of text editing.

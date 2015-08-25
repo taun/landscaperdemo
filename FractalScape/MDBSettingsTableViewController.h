@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *showParallaxEffect;
 
 @property (weak, nonatomic) IBOutlet UILabel *appVersion;
+@property (weak, nonatomic) IBOutlet UILabel *appBuild;
 
 - (IBAction)showHelpTipsChanged:(UISwitch *)sender;
 - (IBAction)showParallaxEffectChanged:(UISwitch *)sender;

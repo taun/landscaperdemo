@@ -31,6 +31,8 @@
 		C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */; };
 		C52C60A21AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C52C60A01AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h */; };
 		C52C60A31AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */; };
+		C52D71E61B8CA20D0003FBF4 /* MDBPurchaseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C52D71E41B8CA20D0003FBF4 /* MDBPurchaseManager.h */; };
+		C52D71E71B8CA20D0003FBF4 /* MDBPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D71E51B8CA20D0003FBF4 /* MDBPurchaseManager.m */; };
 		C52D75D51A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C52D75D31A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.h */; };
 		C52D75D61A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D75D41A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m */; };
 		C52EA9B11A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h in Headers */ = {isa = PBXBuildFile; fileRef = C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */; };
@@ -100,6 +102,7 @@
 		C59EE2151AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h in Headers */ = {isa = PBXBuildFile; fileRef = C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */; };
 		C59EE2161AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */; };
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
+		C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A040281B8A3F1E0052398A /* StoreKit.framework */; };
 		C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */; };
 		C5A5C38D1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */; };
 		C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */; };
@@ -272,6 +275,8 @@
 		C525B9FB16F8A6C500CE2200 /* MBColorCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBColorCellBackgroundView.m; path = FractalScape/MBColorCellBackgroundView.m; sourceTree = "<group>"; };
 		C52C60A01AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalLibraryEditViewController.h; path = FractalScape/MBFractalLibraryEditViewController.h; sourceTree = "<group>"; };
 		C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalLibraryEditViewController.m; path = FractalScape/MBFractalLibraryEditViewController.m; sourceTree = "<group>"; };
+		C52D71E41B8CA20D0003FBF4 /* MDBPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBPurchaseManager.h; sourceTree = "<group>"; };
+		C52D71E51B8CA20D0003FBF4 /* MDBPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBPurchaseManager.m; sourceTree = "<group>"; };
 		C52D75D31A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalFiltersControllerViewController.h; path = FractalScape/MDBFractalFiltersControllerViewController.h; sourceTree = "<group>"; };
 		C52D75D41A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalFiltersControllerViewController.m; path = FractalScape/MDBFractalFiltersControllerViewController.m; sourceTree = "<group>"; };
 		C52EA9AF1A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MDBAddons.h"; path = "FractalScape/NSLayoutConstraint+MDBAddons.h"; sourceTree = "<group>"; };
@@ -351,6 +356,7 @@
 		C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBMainLibraryTabBarController.h; sourceTree = "<group>"; };
 		C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBMainLibraryTabBarController.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C5A040281B8A3F1E0052398A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalCloudBrowser.h; path = FractalScape/MDBFractalCloudBrowser.h; sourceTree = "<group>"; };
 		C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalCloudBrowser.m; path = FractalScape/MDBFractalCloudBrowser.m; sourceTree = "<group>"; };
@@ -505,6 +511,7 @@
 				C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */,
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
 				C51B58401A90707F0036C47D /* CloudKit.framework in Frameworks */,
+				C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */,
 				C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */,
 				C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */,
 			);
@@ -821,6 +828,7 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5A040281B8A3F1E0052398A /* StoreKit.framework */,
 				C5999E7A1B8293EA00A9D848 /* WebKit.framework */,
 				C51B583F1A90707F0036C47D /* CloudKit.framework */,
 				C5567B001A79F88400882474 /* CoreMotion.framework */,
@@ -844,6 +852,8 @@
 				C5E6B79114A5346300DA48BD /* MBAppDelegate.m */,
 				C533DFCF1AE953B6009E9D95 /* MDBAppModel.h */,
 				C533DFD01AE953B6009E9D95 /* MDBAppModel.m */,
+				C52D71E41B8CA20D0003FBF4 /* MDBPurchaseManager.h */,
+				C52D71E51B8CA20D0003FBF4 /* MDBPurchaseManager.m */,
 				C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */,
 				C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */,
 				C5A1486C1B5D751100665349 /* SettingsTab */,
@@ -1011,6 +1021,7 @@
 				C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */,
 				C51130791A38C93F0083B178 /* MDBFractalPageColorTileView.h in Headers */,
 				C5C19D6E1A241297000A1214 /* MBLSRuleTypeTileViewer.h in Headers */,
+				C52D71E61B8CA20D0003FBF4 /* MDBPurchaseManager.h in Headers */,
 				C523009B1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h in Headers */,
 				C5329E8B1A24566B00056FB4 /* MBLSFractalSummaryEditView.h in Headers */,
 				C5999E7E1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.h in Headers */,
@@ -1136,7 +1147,7 @@
 								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.iCloud = {
 								enabled = 1;
@@ -1349,6 +1360,7 @@
 				C53F8DFA1B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m in Sources */,
 				C5CE0E521B542C6100EEC58C /* MDKLinePropertyControl.m in Sources */,
 				C59E32201A12AB950076B40B /* MBFractalColorViewContainer.m in Sources */,
+				C52D71E71B8CA20D0003FBF4 /* MDBPurchaseManager.m in Sources */,
 				C5CE0E5B1B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.m in Sources */,
 				C5D4001A1B7D118700ABF7F6 /* MDBTutorialPageSource.m in Sources */,
 				C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */,
