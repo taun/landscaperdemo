@@ -212,14 +212,6 @@
     }
 }
 
-- (IBAction)doneIntro:(UIBarButtonItem *)sender
-{
-    MDBMainLibraryTabBarController* pc = (MDBMainLibraryTabBarController*)self.presentingViewController;
-    
-    [[pc appModel] exitEditorIntroState];
-    [self.presentingViewController dismissViewControllerAnimated: YES completion: nil];
-}
-
 - (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateEnded)

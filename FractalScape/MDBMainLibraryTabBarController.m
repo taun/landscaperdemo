@@ -35,6 +35,14 @@
     [tintColor getHue: &hue saturation: &saturation brightness: &brightness alpha: &alpha];
     UIColor* deSaturated = [UIColor colorWithHue: hue saturation: saturation/2.0 brightness: brightness alpha: alpha];
     [[UISwitch appearance] setOnTintColor: deSaturated];
+    [[UISwitch appearance] setTintColor: [UIColor whiteColor]];
+
+    UIColor* tableBackground = [[UIColor whiteColor] colorWithAlphaComponent: 0.2];
+    [[UITableViewCell appearance] setBackgroundColor: tableBackground];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    
 }
 
 

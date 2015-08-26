@@ -512,11 +512,16 @@ static const CGFloat kLevelNMargin = 48.0;
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    if (_fractalInfo) {
+}
+
+-(void)dealloc
+{
+    if (_fractalInfo)
+    {
+        // cascades removal of observers
         [self setFractalInfo: nil];
     }
 }
-
 
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

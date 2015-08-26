@@ -29,7 +29,6 @@
 
 - (IBAction)nextPage:(UIBarButtonItem *)sender;
 - (IBAction)prevPage:(UIBarButtonItem *)sender;
-- (IBAction)doneIntro:(UIBarButtonItem *)sender;
 - (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender;
 - (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender;
 @end
