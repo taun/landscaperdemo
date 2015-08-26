@@ -262,11 +262,6 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
--(IBAction) upgradeToProSelected:(id)sender
-{
-    
-}
-
 - (IBAction) shareCurrentSelections:(id)sender
 {
     // check for iCloud account

@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl             *rulesModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet MBLSReplacementRulesListView   *replacementRules;
 @property (weak, nonatomic) IBOutlet MDKLayerViewDesignable         *destinationOutlineView;
-@property (weak, nonatomic) IBOutlet UIButton                       *upgradeToProButton;
+@property (weak, nonatomic) IBOutlet UIView                         *upgradeToProView;
 
 - (IBAction)ruleModeChange:(UISegmentedControl *)sender;
 - (IBAction)replacementRuleLongPressGesture: (UILongPressGestureRecognizer *)sender;
@@ -36,6 +36,6 @@
 - (IBAction)sourceTapGesture: (UITapGestureRecognizer *)sender;
 - (IBAction)rulesStartTapGesture: (UITapGestureRecognizer *)sender;
 - (IBAction)replacementTapGesture: (UITapGestureRecognizer *)sender;
-- (IBAction)upgradeToProClicked:(UIButton *)sender;
+- (IBAction)upgradeToProButtonTapped:(UIButton *)sender;
 
 @end

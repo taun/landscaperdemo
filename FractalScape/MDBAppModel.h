@@ -7,6 +7,8 @@
 //
 
 @import Foundation;
+@import UIKit;
+@import StoreKit;
 
 #import "MDCKCloudManagerAppModelProtocol.h"
 
@@ -79,5 +81,8 @@ extern NSString *const kMDBFractalCloudContainer;
 
 -(void)___setAllowPremium: (BOOL)on;
 -(void)___setUseWatermark: (BOOL)on;
+
+#pragma mark - In-App Purchasing
+-(void)presentProUpgradeOptionOnController:(UIViewController*)currentController;
 
 @end

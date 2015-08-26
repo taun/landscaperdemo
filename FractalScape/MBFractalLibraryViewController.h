@@ -35,9 +35,11 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 #pragma mark - Segue Actions
 //- (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue;
 //- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue;
-- (IBAction)pickDocument:(UIBarButtonItem *)sender;
+- (IBAction)newDocumentButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)pushToLibraryEditViewController:(id)sender;
 - (IBAction)unwindToLibraryFromWelcome:(UIStoryboardSegue *)segue;
+
+-(IBAction) upgradeToProSelected:(id)sender;
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
 

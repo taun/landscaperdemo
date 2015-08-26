@@ -14,6 +14,7 @@
 #import "MBLSRuleDragAndDropProtocol.h"
 
 #import "FractalScapeIconSet.h"
+#import "MBLSFractalEditViewController.h"
 
 @interface MBFractalRulesEditorViewController ()
 @end
@@ -57,6 +58,15 @@
         self.replacementRules.alpha = disabledAlpha;
         [(UIView*)self.sourceListView setAlpha: disabledAlpha];
         self.ruleHelpLabel.text = @"Rule Editing is only available with in-app purchase";
+    }
+    else
+    {
+        [self.upgradeToProView removeFromSuperview];
+        
+        // following is just in case
+        self.destinationView.alpha = 1.0;
+        self.replacementRules.alpha = 1.0;
+        [(UIView*)self.sourceListView setAlpha: 1.0];
     }
 }
 
@@ -134,7 +144,27 @@
     [self infoAnimateView: self.replacementRules];
 }
 
-- (IBAction)upgradeToProClicked:(UIButton *)sender {
+- (IBAction)upgradeToProButtonTapped:(UIButton *)sender
+{
+//    UINavigationController* navCon = (UINavigationController*)self.parentViewController;
+//    if ([navCon isKindOfClass: [UINavigationController class]] && navCon.viewControllers.count > 0)
+//    {
+//        MBLSFractalEditViewController* parentRuleEditor = [navCon.viewControllers firstObject];
+//        [parentRuleEditor dismissViewControllerAnimated: YES completion:^{
+//            //
+//            [parentRuleEditor upgradeToProSelected: nil];
+//        }];
+//    }
+    
+    [self.fractalControllerDelegate presentPurchaseOptions];
+    
+//    id pc = self.presentingViewController;
+//    [pc dismissViewControllerAnimated: YES completion:^{
+//        if ([pc respondsToSelector: NSSelectorFromString(@"upgradeToProSelected:")])
+//        {
+//            [pc performSelector: NSSelectorFromString(@"upgradeToProSelected:") withObject: nil];
+//        }
+//    }];
 }
 /*!
  Close any open Add or Delete views and get rid of text editing.

@@ -207,21 +207,9 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [self addAppModelObservers];
     }
 }
--(void)updatePremiumFeaturesState
-{
-    if (!_appModel.allowPremium)
-    {
-        self.navigationItem.leftBarButtonItem.enabled = NO; // remove ability to add new fractal
-    }
-    else
-    {
-        self.navigationItem.leftBarButtonItem.enabled = YES;
-    }
-}
 -(void)addAppModelObservers{
     if (_appModel)
     {
-        [_appModel addObserver: self forKeyPath: @"allowPremium" options: NSKeyValueObservingOptionOld context: NULL];
         [_appModel addObserver: self forKeyPath: @"documentController" options: NSKeyValueObservingOptionOld context: NULL];
         if (_appModel.documentController) {
             [self documentControllerChanged];
@@ -233,7 +221,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     if (_appModel)
     {
-        [_appModel removeObserver: self forKeyPath: @"allowPremium"];
         [_appModel removeObserver: self forKeyPath: @"documentController"];
         if (_appModel.documentController)
         {
@@ -265,10 +252,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             [self removeDocumentControllerObserversFor: oldController];
         }
         [self documentControllerChanged];
-    }
-    else if ([keyPath isEqualToString: @"allowPremium"])
-    {
-        [self updatePremiumFeaturesState];
     }
     else if ([keyPath isEqualToString: @"fractalInfos"])
     {
@@ -339,22 +322,71 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
  * entitlements correctly, an exception when this method is invoked (i.e. when the "+" button is
  * clicked).
  */
-- (IBAction)pickDocument:(UIBarButtonItem *)barButtonItem {
+- (IBAction)newDocumentButtonTapped:(UIBarButtonItem *)barButtonItem
+{
+    if (self.appModel.allowPremium)
+    {
+        [self showDocumentPickerWithNewFractalDocument: barButtonItem];
+    }
+    else
+    {
+        [self showUpgradeAlert: barButtonItem];
+    }
+}
+-(void)showUpgradeAlert:(UIBarButtonItem*)barButtonItem
+{
+    NSString* title = NSLocalizedString(@"New Fractal", nil);
+    NSString* message = NSLocalizedString(@"When editing, you can copy a sample fractal to make a new fractal. Upgrade required for new rules.", nil);
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Upgrade to create a new Fractal" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action)
+                                   {
+                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                       [self upgradeToProSelected: barButtonItem];
+                                   }];
+    [alert addAction: fractalCloud];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    [alert addAction: defaultAction];
+    
+    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+    ppc.barButtonItem = barButtonItem;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+-(IBAction) upgradeToProSelected:(id)sender
+{
+    [self.appModel presentProUpgradeOptionOnController: self];
+}
+-(void)showDocumentPickerWithNewFractalDocument:(UIBarButtonItem*)barButtonItem
+{
     UIDocumentMenuViewController *documentMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[kMDBFractalDocumentFileUTI] inMode: UIDocumentPickerModeImport];
     documentMenu.delegate = self;
     
     NSString *newDocumentTitle = NSLocalizedString(@"New Fractal", nil);
     [documentMenu addOptionWithTitle: newDocumentTitle image: nil order: UIDocumentMenuOrderFirst handler:^{
         // Show the MBLSFractalEditViewController.
-//        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
+        //        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
         LSFractal* newFractal = [LSFractal new];
         MDBFractalInfo* newInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: nil];
         if (self.collectionView.indexPathsForVisibleItems.count > 0) {
             [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
         }
-  }];
+    }];
     
-//    documentMenu.modalInPopover = UIModalPresentationPopover;
+    //    documentMenu.modalInPopover = UIModalPresentationPopover;
     documentMenu.modalPresentationStyle = UIModalPresentationPopover;
     documentMenu.popoverPresentationController.barButtonItem = barButtonItem;
     

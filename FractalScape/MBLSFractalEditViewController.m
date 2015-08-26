@@ -498,7 +498,6 @@ static const CGFloat kLevelNMargin = 48.0;
         [self updateInterface];
         [self autoScale: nil];
         
-//        [self performSegueWithIdentifier: @"EditSegue" sender: self];
     }
     
 }
@@ -951,7 +950,6 @@ static const CGFloat kLevelNMargin = 48.0;
         
         [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
         
-//        [self.appModel.documentController setFractalInfoHasNewContents: _fractalInfo];
         self.hasBeenEdited = NO;
     }
 }
@@ -1520,7 +1518,7 @@ static const CGFloat kLevelNMargin = 48.0;
         should = NO;
         [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
             //
-            [self libraryControllerWasDismissed];
+//            [self libraryControllerWasDismissed];
         }];
     }
     return should;
@@ -1680,22 +1678,16 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (!self.navigationController.navigationBar.hidden) {
         self.previousNavBarState = self.navigationController.navigationBar.hidden;
-//        self.navigationController.navigationBar.hidden = YES;
-        [self.navigationController setNavigationBarHidden: YES animated: YES];
+        [self.navigationController setNavigationBarHidden: YES animated: NO]; // needs to be non-animated or popover greys navBar buttons before it is hidden and then when it is restored, they are still grey.
     }
     
-    //    self.fractalScrollView.contentOffset = CGPointZero;
     self.fractalViewRootSingleTapRecognizer.enabled = NO;
-//    [self.view setNeedsLayout];
-    
 }
 -(void) appearanceControllerWasDismissed
 {
-//    self.navigationController.navigationBar.hidden = self.previousNavBarState;
     [self.navigationController setNavigationBarHidden: self.previousNavBarState animated: YES];
     self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.currentPresentedController = nil;
-//    [self.view setNeedsLayout];
     [self updateLibraryRepresentationIfNeeded];
     [self autoScale: nil];
 }
@@ -1786,9 +1778,25 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(IBAction) upgradeToProSelected:(id)sender
 {
-    
+    [self.appModel presentProUpgradeOptionOnController: self];
 }
 
+-(void)presentPurchaseOptions
+{
+    if (self.presentedViewController)
+    {
+        BOOL wasAppearance = [self.presentedViewController isKindOfClass: [MBFractalAppearanceEditorViewController class]];
+        
+        [self dismissViewControllerAnimated: YES completion:^{
+            if (wasAppearance) [self appearanceControllerWasDismissed];
+            [self upgradeToProSelected: nil];
+        }];
+    }
+    else
+    {
+        [self upgradeToProSelected: nil];
+    }
+}
 /*!
  See AirDropSample code for more UIActivityViewController  details.
  
@@ -2126,8 +2134,6 @@ static const CGFloat kLevelNMargin = 48.0;
     
     [self setFractalInfo: fractalInfo andShowEditor: YES];
     self.hasBeenEdited = YES;
-    
-//    [self performSegueWithIdentifier: @"EditSegue" sender: self];
 }
 
 - (IBAction)levelInputChanged:(UIStepper*)sender

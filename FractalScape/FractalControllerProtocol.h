@@ -13,7 +13,7 @@
 
 @protocol FractalControllerDelegate <NSObject>
 -(void) setFractalDocument: (MDBFractalDocument*) fractalDocument;
--(void) libraryControllerWasDismissed; // temporary hack
+-(void) presentPurchaseOptions;
 @end
 
 @protocol FractalControllerProtocol <NSObject>

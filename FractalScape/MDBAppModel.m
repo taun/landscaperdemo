@@ -65,6 +65,8 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     {
         [self registerDefaults];
         _cloudDocumentManager = [MDBCloudManager new];
+        _purchaseManager = [MDBPurchaseManager new];
+        _purchaseManager.appModel = self;
     }
     return self;
 }
@@ -393,6 +395,62 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
         self.documentController.documentCoordinator = documentCoordinator;
         //        self.documentsViewController.navigationItem.title = [self.appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
     }
+}
+
+#pragma mark - In-App Purchasing
+#pragma message "TODO move to PurchaseManager?"
+/*!
+ Use to present a common alert for showing the purchase details such as price, ...
+ And button to perform the purchase.
+ 
+ @param currentController
+ */
+-(void)presentProUpgradeOptionOnController:(UIViewController*)currentController
+{
+    NSString* title = NSLocalizedString(@"Upgrade Options Alert", nil);
+    NSString* message = NSLocalizedString(@"Sample Alert.", nil);
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    UIAlertAction* purchase = [UIAlertAction actionWithTitle:@"Upgrade to create a new Fractal" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action)
+                               {
+                                   [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                   [self confirmedDesireToPurchase];
+                               }];
+    [alert addAction: purchase];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    [alert addAction: defaultAction];
+    
+    [currentController presentViewController:alert animated:YES completion:nil];
+    
+    NSLog(@"Not yet implemented");
+}
+
+/*!
+ Need to observer appModel in other controllers for change in purchase state.
+ If the purchase state changes, call this method to present a common alert.
+ 
+ @param currentController
+ */
+-(void)presentSuccessfulPurchaseOnContoller: (UIViewController*)currentController
+{
+    NSLog(@"Not yet implemented");
+}
+
+-(void)confirmedDesireToPurchase
+{
+    NSLog(@"Purchase Not yet implemented");
 }
 
 #pragma mark - Notifications

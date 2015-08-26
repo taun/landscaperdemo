@@ -200,6 +200,7 @@
 - (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue;
 
 -(IBAction)showHelpScreen:(id)sender;
+-(IBAction) upgradeToProSelected:(id)sender;
 
 #pragma mark - Filter Actions
 - (IBAction)toggleApplyFilter:(id)sender;
@@ -209,5 +210,7 @@
 @property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      popTransition;
 @property (nonatomic,assign) CGRect                                         transitionDestinationRect;
 @property (nonatomic,assign) CGRect                                         transitionSourceRect;
+
+-(void) presentPurchaseOptions;
 
 @end

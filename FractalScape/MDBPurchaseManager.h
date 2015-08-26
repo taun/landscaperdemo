@@ -13,8 +13,15 @@
 /*!
  This class handles the Apple in-app purchase details for the AppModel.
  */
-@interface MDBPurchaseManager : NSObject
+@interface MDBPurchaseManager : NSObject <SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
-@property (nonatomic,weak) MDBAppModel          *appModel;
+@property (nonatomic,weak) MDBAppModel                      *appModel;
+@property (nonatomic,strong) NSArray                        *validProducts;
+
++(NSArray*)purchaseOptionIDs;
+
+-(NSString*)stringForProductPrice: (SKProduct*)product;
+
+-(void)processPaymentForProduct:(SKProduct*)product quantity: (NSUInteger)qty;
 
 @end
