@@ -80,10 +80,13 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden: NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name: UIContentSizeCategoryDidChangeNotification object: nil];
-
-    self.addDocumentButton.enabled = !self.appModel.allowPremium && !self.appModel.userCanMakePayments;
 }
 
+/*!
+ AppModel not set until viewDidAppear
+ 
+ @param animated 
+ */
 -(void)viewDidAppear:(BOOL)animated
 {
     _isAppeared = NO;
@@ -98,6 +101,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 //    [self.documentController resortFractalInfos];
     
+    self.addDocumentButton.enabled = self.appModel.allowPremium || self.appModel.userCanMakePayments;
+
     if (self.appModel.welcomeDone)
     {
         /*

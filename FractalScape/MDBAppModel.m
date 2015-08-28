@@ -240,7 +240,8 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 
 -(BOOL)userCanMakePayments
 {
-    return self.purchaseManager.userCanMakePayments;
+    BOOL can = self.purchaseManager.userCanMakePayments;
+    return can;
 }
 
 /*!

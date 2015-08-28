@@ -1649,7 +1649,7 @@ Drag icon to holder below to apply effect</string>
                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e16-TL-rbb">
                                                                         <rect key="frame" x="4" y="0.0" width="178" height="34"/>
                                                                         <state key="normal" title="Edit with Pro Upgrade">
-                                                                            <color key="titleColor" red="0.70588237047195435" green="0.0" blue="0.015686275437474251" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="titleColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
                                                                         <connections>
                                                                             <segue destination="SUr-BP-LKd" kind="unwind" unwindAction="unwindToPresentPurchaseController:" id="w5A-ic-bEW"/>
@@ -1668,7 +1668,7 @@ Drag icon to holder below to apply effect</string>
                                                                         <real key="value" value="4"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                        <color key="value" red="0.70588237047195435" green="0.0" blue="0.015686275437474251" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="value" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                         <real key="value" value="1"/>
@@ -3618,13 +3618,18 @@ The main screen with all your fractals is called your "Library". See below for a
             </objects>
             <point key="canvasLocation" x="2969" y="1972"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--FractalScapes Store-->
         <scene sceneID="llP-wv-S99">
             <objects>
-                <navigationController storyboardIdentifier="FractalScapesStoreFront" id="TTb-ph-Ba9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FractalScapesStoreFront" title="FractalScapes Store" id="TTb-ph-Ba9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WoR-a2-5VD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="textColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Cgp-Ai-dUI" kind="relationship" relationship="rootViewController" id="mnW-oP-IlD"/>
@@ -3646,9 +3651,20 @@ The main screen with all your fractals is called your "Library". See below for a
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fPo-f8-tg6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="Cql-Q1-Inu">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbX-je-wO3">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Ocr-0Q-yY1">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="180" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fPo-f8-tg6">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PurchaseCell" id="tCq-9a-a7L" customClass="MDBPurchaseTableViewCell">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -3656,31 +3672,31 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTX-Yf-NGD">
-                                                    <rect key="frame" x="8" y="12" width="120" height="120"/>
+                                                    <rect key="frame" x="18" y="12" width="120" height="120"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="iTX-Yf-NGD" secondAttribute="height" multiplier="1:1" id="dzv-Kr-MD1"/>
                                                         <constraint firstAttribute="width" constant="120" id="vaF-l8-aWp"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgs-rk-tqj">
-                                                    <rect key="frame" x="136" y="12.5" width="42" height="20.5"/>
+                                                    <rect key="frame" x="146" y="12" width="42" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5uZ-uJ-as5">
-                                                    <rect key="frame" x="136" y="41" width="456" height="90.5"/>
+                                                    <rect key="frame" x="146" y="41" width="446" height="90.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Um-Oi-aZe" customClass="MDKLayerViewDesignable">
-                                                    <rect key="frame" x="522" y="141" width="70" height="30"/>
+                                                    <rect key="frame" x="512" y="141" width="70" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4D-UV-Mle">
                                                             <rect key="frame" x="20" y="0.0" width="30" height="30"/>
-                                                            <color key="tintColor" red="0.77254909279999995" green="0.23529413339999999" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
+                                                            <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <state key="normal" title="Buy">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -3704,12 +3720,12 @@ The main screen with all your fractals is called your "Library". See below for a
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" red="0.77254909279999995" green="0.23529413339999999" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
+                                                            <color key="value" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cy0-Ow-gnU">
-                                                    <rect key="frame" x="48.5" y="145.5" width="39.5" height="20.5"/>
+                                                    <rect key="frame" x="58" y="145" width="39.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3719,18 +3735,23 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <constraint firstItem="iTX-Yf-NGD" firstAttribute="bottom" secondItem="5uZ-uJ-as5" secondAttribute="bottom" id="2H4-OQ-FCf"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="3Um-Oi-aZe" secondAttribute="bottom" id="3EE-65-G9V"/>
                                                 <constraint firstItem="iTX-Yf-NGD" firstAttribute="top" secondItem="dgs-rk-tqj" secondAttribute="top" id="BCF-NO-gol"/>
-                                                <constraint firstItem="3Um-Oi-aZe" firstAttribute="trailing" secondItem="mRQ-6D-CpM" secondAttribute="trailingMargin" id="GjN-p5-KIS"/>
+                                                <constraint firstItem="3Um-Oi-aZe" firstAttribute="trailing" secondItem="mRQ-6D-CpM" secondAttribute="trailingMargin" constant="-10" id="GjN-p5-KIS"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="dgs-rk-tqj" secondAttribute="trailing" id="Gq0-PJ-u2t"/>
                                                 <constraint firstItem="iTX-Yf-NGD" firstAttribute="top" secondItem="mRQ-6D-CpM" secondAttribute="topMargin" constant="4" id="I1h-b3-Zyk"/>
                                                 <constraint firstItem="5uZ-uJ-as5" firstAttribute="trailing" secondItem="mRQ-6D-CpM" secondAttribute="trailingMargin" id="Kl4-g7-1fG"/>
                                                 <constraint firstItem="5uZ-uJ-as5" firstAttribute="top" secondItem="dgs-rk-tqj" secondAttribute="bottom" constant="8" id="f2p-O1-qfW"/>
                                                 <constraint firstItem="dgs-rk-tqj" firstAttribute="leading" secondItem="iTX-Yf-NGD" secondAttribute="trailing" constant="8" id="iHl-pi-lRS"/>
                                                 <constraint firstItem="3Um-Oi-aZe" firstAttribute="centerY" secondItem="Cy0-Ow-gnU" secondAttribute="centerY" constant="0.5" id="iWB-Id-Z60"/>
-                                                <constraint firstItem="iTX-Yf-NGD" firstAttribute="leading" secondItem="mRQ-6D-CpM" secondAttribute="leadingMargin" id="pbj-lI-TyT"/>
+                                                <constraint firstItem="iTX-Yf-NGD" firstAttribute="leading" secondItem="mRQ-6D-CpM" secondAttribute="leadingMargin" constant="10" id="pbj-lI-TyT"/>
                                                 <constraint firstItem="5uZ-uJ-as5" firstAttribute="leading" secondItem="iTX-Yf-NGD" secondAttribute="trailing" constant="8" id="rQg-I3-7hO"/>
                                                 <constraint firstItem="Cy0-Ow-gnU" firstAttribute="centerX" secondItem="iTX-Yf-NGD" secondAttribute="centerX" id="vJQ-Gz-5Z1"/>
                                                 <constraint firstItem="iTX-Yf-NGD" firstAttribute="leading" secondItem="mRQ-6D-CpM" secondAttribute="leadingMargin" id="ynR-b4-Lvh"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="ynR-b4-Lvh"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="buyButton" destination="E4D-UV-Mle" id="5m5-vG-DU5"/>
@@ -3740,18 +3761,87 @@ The main screen with all your fractals is called your "Library". See below for a
                                             <outlet property="productLabel" destination="dgs-rk-tqj" id="6c1-Sh-c48"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EmptyStoreCell" id="fyl-UY-Fcf">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fyl-UY-Fcf" id="FFC-4i-gmy">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFl-4s-FvV" customClass="MDKLayerViewDesignable">
+                                                    <rect key="frame" x="18" y="30" width="120" height="120"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="GFl-4s-FvV" secondAttribute="height" multiplier="1:1" id="acL-MC-Zcg"/>
+                                                        <constraint firstAttribute="width" constant="120" id="nT5-jI-D2H"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="gradientStartColor">
+                                                            <color key="value" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="gradientStopColor">
+                                                            <color key="value" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="margin">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry the store shelves are currently empty" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwL-sb-fwb">
+                                                    <rect key="frame" x="146" y="79" width="328" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="GFl-4s-FvV" secondAttribute="centerY" id="2m7-ae-nE0"/>
+                                                <constraint firstItem="GFl-4s-FvV" firstAttribute="leading" secondItem="FFC-4i-gmy" secondAttribute="leadingMargin" constant="10" id="2vj-uc-lfS"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="xwL-sb-fwb" secondAttribute="trailing" id="3Jh-Fw-7gS"/>
+                                                <constraint firstItem="xwL-sb-fwb" firstAttribute="leading" secondItem="GFl-4s-FvV" secondAttribute="trailing" constant="8" id="4kv-Sx-2KV"/>
+                                                <constraint firstAttribute="centerY" secondItem="xwL-sb-fwb" secondAttribute="centerY" id="slg-BK-uhW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Cgp-Ai-dUI" id="co1-Mq-Thn"/>
+                                    <outlet property="delegate" destination="Cgp-Ai-dUI" id="sqv-Gj-9te"/>
+                                </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="dUu-qN-FS7" firstAttribute="top" secondItem="fPo-f8-tg6" secondAttribute="bottom" id="CfS-QM-IHt"/>
+                            <constraint firstAttribute="trailing" secondItem="Cql-Q1-Inu" secondAttribute="trailing" id="GXh-gi-ZIz"/>
+                            <constraint firstItem="FbX-je-wO3" firstAttribute="leading" secondItem="fZe-hY-Uce" secondAttribute="leading" id="Ivs-et-hXZ"/>
+                            <constraint firstItem="FbX-je-wO3" firstAttribute="top" secondItem="iHA-lp-jdy" secondAttribute="bottom" id="JTU-ry-rcR"/>
+                            <constraint firstItem="dUu-qN-FS7" firstAttribute="top" secondItem="FbX-je-wO3" secondAttribute="bottom" id="M0A-17-dBG"/>
                             <constraint firstItem="fPo-f8-tg6" firstAttribute="leading" secondItem="fZe-hY-Uce" secondAttribute="leading" id="Mwl-zQ-Cpz"/>
+                            <constraint firstItem="Cql-Q1-Inu" firstAttribute="leading" secondItem="fZe-hY-Uce" secondAttribute="leading" id="Syq-27-DTf"/>
                             <constraint firstAttribute="trailing" secondItem="fPo-f8-tg6" secondAttribute="trailing" id="bgJ-2n-fQn"/>
+                            <constraint firstItem="Cql-Q1-Inu" firstAttribute="top" secondItem="iHA-lp-jdy" secondAttribute="bottom" id="dRC-Qj-nhw"/>
+                            <constraint firstAttribute="trailing" secondItem="FbX-je-wO3" secondAttribute="trailing" id="fiY-PR-PoG"/>
                             <constraint firstItem="fPo-f8-tg6" firstAttribute="top" secondItem="fZe-hY-Uce" secondAttribute="top" id="rQQ-1v-HWR"/>
+                            <constraint firstItem="dUu-qN-FS7" firstAttribute="top" secondItem="Cql-Q1-Inu" secondAttribute="bottom" id="tpk-91-kdM"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Cql-Q1-Inu"/>
+                                <exclude reference="FbX-je-wO3"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="cAi-0Y-B6k">
+                    <navigationItem key="navigationItem" title="FractalScapes Store" id="cAi-0Y-B6k">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="c6x-uK-m4K">
                             <connections>
                                 <segue destination="MOF-rr-kf0" kind="unwind" unwindAction="unwindFromPurchaseController:" id="Fhq-8K-ncB"/>

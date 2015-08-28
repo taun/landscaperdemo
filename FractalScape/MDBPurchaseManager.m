@@ -65,7 +65,8 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 
 -(void)validateProductIdentifiers:(NSArray *)productIdentifiers
 {
-    SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: [NSSet setWithArray: [[self class] purchaseOptionIDs]]];
+    NSSet* identifiers = [NSSet setWithArray: [[self class] purchaseOptionIDs]];
+    SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: identifiers];
     productsRequest.delegate = self;
     [productsRequest start];
 }
