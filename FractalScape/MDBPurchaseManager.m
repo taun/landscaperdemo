@@ -10,11 +10,18 @@
 
 #import "MDBPurchaseManager.h"
 #import "MDBAppModel.h"
+#import "MDBProductWithImage.h"
+#import "FractalScapeIconSet.h"
+
+NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 
 
 @interface MDBPurchaseManager ()
 
-@property (nonatomic,strong,readonly) NSNumberFormatter     *priceFormatter;
+@property (nonatomic,readonly) id                           keyValueStorage;
+
+-(void)setReceipts: (NSArray*)receipts;
+-(NSArray*)receipts;
 
 -(void)validateProductIdentifiers:(NSArray*)productIdentifiers;
 
@@ -22,22 +29,39 @@
 
 @implementation MDBPurchaseManager
 
-@synthesize priceFormatter = _priceFormatter;
 
++(NSString*)premiumPurchaseID
+{
+    return @"com.moedae.FractalScapes.proupgrade";
+}
+
++(UIImage*)premiumImage
+{
+    return [UIImage imageNamed: @""];
+}
 
 +(NSArray *)purchaseOptionIDs
 {
-    return @[@"com.moedae.fractalscapes.proupgrade"];
+    return @[[MDBPurchaseManager premiumPurchaseID]];
 }
 
-- (instancetype)init
++(instancetype)newManagerWithModel:(MDBAppModel *)model
+{
+    return [[self alloc]initWithAppModel: model];
+}
+
+- (instancetype)initWithAppModel: (MDBAppModel*)model
 {
     self = [super init];
     if (self) {
+        _appModel = model;
         [[SKPaymentQueue defaultQueue]addTransactionObserver: self];
+        [self validateProductIdentifiers: [[self class]purchaseOptionIDs]];
     }
     return self;
 }
+
+#pragma mark - Payment Processing
 
 -(void)validateProductIdentifiers:(NSArray *)productIdentifiers
 {
@@ -58,11 +82,69 @@
     [[SKPaymentQueue defaultQueue] addPayment: payment];
 }
 
+
+-(void)addReceipt: (NSData*)newReceipt
+{
+    NSArray* savedReceipts = self.receipts;
+    if (!savedReceipts)
+    {
+        [self setReceipts: @[newReceipt]];
+    }
+    else
+    {
+        NSArray* updatedReceipts = [savedReceipts arrayByAddingObject: newReceipt];
+        [self setReceipts: updatedReceipts];
+    }
+
+}
+
+#pragma mark - Getters & Setters
+
+-(id)keyValueStorage
+{
+    id storage = [NSUbiquitousKeyValueStore defaultStore];
+    if (!storage)
+    {
+        storage = [NSUserDefaults standardUserDefaults];
+    }
+    return storage;
+}
+
+-(void)setReceipts: (NSArray*)receipts
+{
+    [self.keyValueStorage setObject: receipts forKey: kPrefReceipts];
+}
+
+-(NSArray *)receipts
+{
+    return [self.keyValueStorage arrayForKey: kPrefReceipts];
+}
+
+-(BOOL)isPremiumPaidFor
+{
+    return NO;
+}
+
+
 #pragma mark - SKProducsRequestDelegate
 -(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    self.validProducts = response.products;
-    // Show updated list of products
+    NSMutableArray* productsArray = [NSMutableArray arrayWithCapacity: response.products.count];
+    
+    for (SKProduct* product in response.products)
+    {
+        UIImage* image;
+        if ([product.productIdentifier isEqualToString: [[self class]premiumPurchaseID]])
+        {
+            image = [FractalScapeIconSet imageOfPremiumUpgradeImage];
+        }
+        MDBProductWithImage* pwm = [MDBProductWithImage newWithProduct: product image: image];
+        pwm.purchaseManager = self;
+        [productsArray addObject: pwm];
+    }
+    
+    self.validProductsWithImages = [productsArray copy];
+    // update view controller via observer
 }
 
 #pragma mark - PaymentTransactionsObserver
@@ -75,6 +157,7 @@
         if (state == SKPaymentTransactionStatePurchased)
         {
             // enable allowPremium
+
         }
         else if (state == SKPaymentTransactionStatePurchasing)
         {
@@ -89,6 +172,7 @@
             // restore allowPremium
         }
     }
+    // set state and update view controller through observers
 }
 
 -(void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions
@@ -96,23 +180,5 @@
     
 }
 
-#pragma mark - Utility
--(NSNumberFormatter *)priceFormatter
-{
-    if (_priceFormatter)
-    {
-        _priceFormatter = [NSNumberFormatter new];
-        [_priceFormatter setFormatterBehavior: NSNumberFormatterBehavior10_4];
-        [_priceFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];        
-    }
-    
-    return _priceFormatter;
-}
-
--(NSString *)stringForProductPrice:(SKProduct *)product
-{
-    self.priceFormatter.locale = product.priceLocale;
-    return [self.priceFormatter stringFromNumber: product.price];
-}
 
 @end

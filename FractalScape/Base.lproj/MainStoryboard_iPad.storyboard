@@ -1027,7 +1027,7 @@
                     <navigationItem key="navigationItem" id="5yD-Jb-xIT">
                         <barButtonItem key="leftBarButtonItem" title="Library" id="s76-oj-pj9">
                             <connections>
-                                <action selector="popBackToLibrary:" destination="4nM-Pc-iAd" id="jVg-Pz-c6F"/>
+                                <segue destination="1mr-7G-CSM" kind="unwind" unwindAction="unwindFromEditor:" id="KcY-AY-c8O"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI" userLabel="PlayBack">
@@ -1092,9 +1092,11 @@
                         <outlet property="turningAngleIncrementSlider" destination="An9-9l-3Tm" id="GSF-fQ-K9R"/>
                         <outlet property="turningAngleLabel" destination="Y8O-zg-dbz" id="aF3-Bi-WE0"/>
                         <segue destination="eHs-ET-MBW" kind="show" identifier="QuickIntroSegue" id="GI8-HZ-SMh"/>
+                        <segue destination="TTb-ph-Ba9" kind="presentation" identifier="ShowPurchaseControllerSegue" modalPresentationStyle="formSheet" modalTransitionStyle="crossDissolve" id="bSt-YQ-4Z0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="1mr-7G-CSM" userLabel="Exit" sceneMemberID="exit"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="wp3-t2-GY6" userLabel="Fractal 2Finger Pan Gesture Recognizer">
                     <connections>
                         <action selector="twoFingerPanFractal:" destination="4nM-Pc-iAd" id="tNE-9P-ick"/>
@@ -1133,7 +1135,7 @@
                 <tapGestureRecognizer id="nwB-ZA-oCT"/>
                 <tapGestureRecognizer id="52k-sy-KJz"/>
             </objects>
-            <point key="canvasLocation" x="5208" y="141"/>
+            <point key="canvasLocation" x="5150" y="121"/>
         </scene>
         <!--Name-->
         <scene sceneID="nU4-lI-gI7">
@@ -1326,7 +1328,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5208" y="938"/>
+            <point key="canvasLocation" x="5150" y="926"/>
         </scene>
         <!--Fractal FIlters Controller-->
         <scene sceneID="U9M-3b-HZb">
@@ -1650,7 +1652,7 @@ Drag icon to holder below to apply effect</string>
                                                                             <color key="titleColor" red="0.70588237047195435" green="0.0" blue="0.015686275437474251" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <action selector="upgradeToProButtonTapped:" destination="bDY-89-tKS" eventType="touchUpInside" id="ezF-Z9-vP5"/>
+                                                                            <segue destination="SUr-BP-LKd" kind="unwind" unwindAction="unwindToPresentPurchaseController:" id="w5A-ic-bEW"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1940,11 +1942,7 @@ Drag icon to holder below to apply effect</string>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="YgS-do-bQk">
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="dSn-FI-zwe">
-                            <connections>
-                                <segue destination="SUr-BP-LKd" kind="unwind" unwindAction="unwindToEditorFromAppearanceEditor:" id="xss-iM-ydt"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="dSn-FI-zwe"/>
                     </navigationItem>
                     <value key="contentSizeForViewInPopover" type="size" width="800" height="528"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -2630,7 +2628,7 @@ Drag icon to holder below to apply effect</string>
                     <navigationItem key="navigationItem" id="Y0u-pB-asM">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="j2G-fW-bTQ">
                             <connections>
-                                <action selector="editingIsDoneButton:" destination="9pe-kV-foC" id="2Qh-EF-bzJ"/>
+                                <segue destination="lqu-EW-s29" kind="unwind" unwindAction="unwindFromLibraryEditController:" id="Hnv-eE-k1x"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Delete" id="FTe-KF-P8m">
@@ -2645,6 +2643,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDK-oe-bAj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="lqu-EW-s29" userLabel="Exit" sceneMemberID="exit"/>
                 <customObject id="LbT-BM-2ct" customClass="MDBFractalLibraryCollectionSource">
                     <connections>
                         <outlet property="viewController" destination="9pe-kV-foC" id="K5I-tA-i5T"/>
@@ -2808,17 +2807,19 @@ Drag icon to holder below to apply effect</string>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Select" id="g3K-TG-rl5">
                             <connections>
-                                <action selector="pushToLibraryEditViewController:" destination="o9m-5w-n8i" id="hg8-j4-Om6"/>
+                                <segue destination="9pe-kV-foC" kind="show" identifier="showEditFractalDocumentsList" id="aXh-IO-Tr4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="addDocumentButton" destination="IzD-z0-oN0" id="jfs-Zq-gm6"/>
                         <outlet property="collectionSource" destination="AHG-9R-hs1" id="o2T-Br-E7e"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showNewFractalDocument" id="CAI-sc-RDe"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocumentFromUserActivity" id="XIW-aO-ufy"/>
-                        <segue destination="9pe-kV-foC" kind="show" identifier="showEditFractalDocumentsList" id="iGE-nb-MUF"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocument" id="O2z-rK-pDb"/>
+                        <segue destination="aUm-Ex-52D" kind="presentation" identifier="WelcomeSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="Q5v-4z-TQQ"/>
+                        <segue destination="TTb-ph-Ba9" kind="presentation" identifier="ShowPurchaseControllerSegue" modalPresentationStyle="formSheet" modalTransitionStyle="crossDissolve" id="0fO-dT-L5U"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2833,7 +2834,7 @@ Drag icon to holder below to apply effect</string>
         <!--WelcomeLibraryModal-->
         <scene sceneID="ww4-qS-eMi">
             <objects>
-                <viewController storyboardIdentifier="WelcomeViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aUm-Ex-52D" userLabel="WelcomeLibraryModal" customClass="MDBWelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aUm-Ex-52D" userLabel="WelcomeLibraryModal" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pVm-SJ-0Oj"/>
                         <viewControllerLayoutGuide type="bottom" id="1gZ-mC-xe4"/>
@@ -2860,14 +2861,14 @@ Drag icon to holder below to apply effect</string>
                                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJo-5w-3J5" userLabel="ScrollContent">
                                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="480"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="247" misplaced="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jm4-us-epF">
-                                                                            <rect key="frame" x="229" y="-77" width="109" height="36.5"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="247" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jm4-us-epF">
+                                                                            <rect key="frame" x="229" y="-76" width="109" height="36.5"/>
                                                                             <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="26"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="24" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MK-Ue-1Yh">
-                                                                            <rect key="frame" x="8" y="-41" width="552" height="202"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="24" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MK-Ue-1Yh">
+                                                                            <rect key="frame" x="8" y="-40" width="552" height="202"/>
                                                                             <string key="text">FractalScapes let's you create new colorful and amazing fractal plants and patterns. You don't need to be an artist to create cool looking designs.
 
 Just play around with the fractals and have fun. We have added sample fractals to play with. If you want more, you can browse our in-app public Cloud share. Or upgrade to the Pro version and make your own from scratch.
@@ -2945,7 +2946,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </state>
                                                                             <connections>
-                                                                                <segue destination="Z2d-iD-tDV" kind="unwind" unwindAction="unwindToLibraryFromWelcome:" id="Ach-jm-52h"/>
+                                                                                <segue destination="Z2d-iD-tDV" kind="unwind" unwindAction="unwindFromWelcome:" id="UW0-1J-0Xv"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -3065,7 +3066,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBA-Po-qV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Z2d-iD-tDV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4382" y="874"/>
+            <point key="canvasLocation" x="4382" y="926"/>
         </scene>
         <!--Settings-->
         <scene sceneID="y58-hl-MeF">
@@ -3616,6 +3617,156 @@ The main screen with all your fractals is called your "Library". See below for a
                 </customObject>
             </objects>
             <point key="canvasLocation" x="2969" y="1972"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="llP-wv-S99">
+            <objects>
+                <navigationController storyboardIdentifier="FractalScapesStoreFront" id="TTb-ph-Ba9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WoR-a2-5VD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Cgp-Ai-dUI" kind="relationship" relationship="rootViewController" id="mnW-oP-IlD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WZZ-kp-QlI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5850" y="-1406"/>
+        </scene>
+        <!--Upgrades-->
+        <scene sceneID="cmQ-VW-5A6">
+            <objects>
+                <viewController title="Upgrades" id="Cgp-Ai-dUI" customClass="MDBPurchaseViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iHA-lp-jdy"/>
+                        <viewControllerLayoutGuide type="bottom" id="dUu-qN-FS7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fZe-hY-Uce">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fPo-f8-tg6">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PurchaseCell" id="tCq-9a-a7L" customClass="MDBPurchaseTableViewCell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tCq-9a-a7L" id="mRQ-6D-CpM">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTX-Yf-NGD">
+                                                    <rect key="frame" x="8" y="12" width="120" height="120"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="iTX-Yf-NGD" secondAttribute="height" multiplier="1:1" id="dzv-Kr-MD1"/>
+                                                        <constraint firstAttribute="width" constant="120" id="vaF-l8-aWp"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgs-rk-tqj">
+                                                    <rect key="frame" x="136" y="12.5" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5uZ-uJ-as5">
+                                                    <rect key="frame" x="136" y="41" width="456" height="90.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Um-Oi-aZe" customClass="MDKLayerViewDesignable">
+                                                    <rect key="frame" x="522" y="141" width="70" height="30"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4D-UV-Mle">
+                                                            <rect key="frame" x="20" y="0.0" width="30" height="30"/>
+                                                            <color key="tintColor" red="0.77254909279999995" green="0.23529413339999999" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
+                                                            <state key="normal" title="Buy">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="buyButtonTapped:" destination="tCq-9a-a7L" eventType="touchUpInside" id="LiZ-EM-fwo"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="E4D-UV-Mle" secondAttribute="bottom" id="DMk-yR-i6w"/>
+                                                        <constraint firstItem="E4D-UV-Mle" firstAttribute="top" secondItem="3Um-Oi-aZe" secondAttribute="top" id="LP9-l6-l85"/>
+                                                        <constraint firstAttribute="trailing" secondItem="E4D-UV-Mle" secondAttribute="trailing" constant="20" symbolic="YES" id="MSv-h2-AdS"/>
+                                                        <constraint firstItem="E4D-UV-Mle" firstAttribute="leading" secondItem="3Um-Oi-aZe" secondAttribute="leading" constant="20" symbolic="YES" id="tgT-N3-xTJ"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.77254909279999995" green="0.23529413339999999" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cy0-Ow-gnU">
+                                                    <rect key="frame" x="48.5" y="145.5" width="39.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iTX-Yf-NGD" firstAttribute="bottom" secondItem="5uZ-uJ-as5" secondAttribute="bottom" id="2H4-OQ-FCf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3Um-Oi-aZe" secondAttribute="bottom" id="3EE-65-G9V"/>
+                                                <constraint firstItem="iTX-Yf-NGD" firstAttribute="top" secondItem="dgs-rk-tqj" secondAttribute="top" id="BCF-NO-gol"/>
+                                                <constraint firstItem="3Um-Oi-aZe" firstAttribute="trailing" secondItem="mRQ-6D-CpM" secondAttribute="trailingMargin" id="GjN-p5-KIS"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="dgs-rk-tqj" secondAttribute="trailing" id="Gq0-PJ-u2t"/>
+                                                <constraint firstItem="iTX-Yf-NGD" firstAttribute="top" secondItem="mRQ-6D-CpM" secondAttribute="topMargin" constant="4" id="I1h-b3-Zyk"/>
+                                                <constraint firstItem="5uZ-uJ-as5" firstAttribute="trailing" secondItem="mRQ-6D-CpM" secondAttribute="trailingMargin" id="Kl4-g7-1fG"/>
+                                                <constraint firstItem="5uZ-uJ-as5" firstAttribute="top" secondItem="dgs-rk-tqj" secondAttribute="bottom" constant="8" id="f2p-O1-qfW"/>
+                                                <constraint firstItem="dgs-rk-tqj" firstAttribute="leading" secondItem="iTX-Yf-NGD" secondAttribute="trailing" constant="8" id="iHl-pi-lRS"/>
+                                                <constraint firstItem="3Um-Oi-aZe" firstAttribute="centerY" secondItem="Cy0-Ow-gnU" secondAttribute="centerY" constant="0.5" id="iWB-Id-Z60"/>
+                                                <constraint firstItem="iTX-Yf-NGD" firstAttribute="leading" secondItem="mRQ-6D-CpM" secondAttribute="leadingMargin" id="pbj-lI-TyT"/>
+                                                <constraint firstItem="5uZ-uJ-as5" firstAttribute="leading" secondItem="iTX-Yf-NGD" secondAttribute="trailing" constant="8" id="rQg-I3-7hO"/>
+                                                <constraint firstItem="Cy0-Ow-gnU" firstAttribute="centerX" secondItem="iTX-Yf-NGD" secondAttribute="centerX" id="vJQ-Gz-5Z1"/>
+                                                <constraint firstItem="iTX-Yf-NGD" firstAttribute="leading" secondItem="mRQ-6D-CpM" secondAttribute="leadingMargin" id="ynR-b4-Lvh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="buyButton" destination="E4D-UV-Mle" id="5m5-vG-DU5"/>
+                                            <outlet property="priceLabel" destination="Cy0-Ow-gnU" id="T16-RC-LCg"/>
+                                            <outlet property="productDescription" destination="5uZ-uJ-as5" id="VIB-2C-Wwq"/>
+                                            <outlet property="productImageView" destination="iTX-Yf-NGD" id="5hL-n0-uWT"/>
+                                            <outlet property="productLabel" destination="dgs-rk-tqj" id="6c1-Sh-c48"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dUu-qN-FS7" firstAttribute="top" secondItem="fPo-f8-tg6" secondAttribute="bottom" id="CfS-QM-IHt"/>
+                            <constraint firstItem="fPo-f8-tg6" firstAttribute="leading" secondItem="fZe-hY-Uce" secondAttribute="leading" id="Mwl-zQ-Cpz"/>
+                            <constraint firstAttribute="trailing" secondItem="fPo-f8-tg6" secondAttribute="trailing" id="bgJ-2n-fQn"/>
+                            <constraint firstItem="fPo-f8-tg6" firstAttribute="top" secondItem="fZe-hY-Uce" secondAttribute="top" id="rQQ-1v-HWR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cAi-0Y-B6k">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="c6x-uK-m4K">
+                            <connections>
+                                <segue destination="MOF-rr-kf0" kind="unwind" unwindAction="unwindFromPurchaseController:" id="Fhq-8K-ncB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="fPo-f8-tg6" id="pXh-MW-3RN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tcu-4u-pXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="MOF-rr-kf0" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="6565" y="-1406"/>
         </scene>
         <!--Main Library Tab Bar Controller-->
         <scene sceneID="95T-CA-6ut">
@@ -4527,7 +4678,8 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CAI-sc-RDe"/>
+        <segue reference="XIW-aO-ufy"/>
+        <segue reference="0fO-dT-L5U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

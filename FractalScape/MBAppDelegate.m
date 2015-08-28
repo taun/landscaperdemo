@@ -22,9 +22,6 @@
 #import "MDBFractalCloudBrowser.h"
 #import "MBFractalLibraryViewController.h"
 
-//#import "ABX.h"
-
-#import "UIDevice_Hardware.h"
 
 // View controller segue identifiers.
 NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier = @"showEditFractalDocumentsList";

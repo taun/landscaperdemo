@@ -18,12 +18,12 @@
 #import "MDBFractalDocumentCloudCoordinator.h"
 #import "MBAppDelegate.h"
 #import "MDBPurchaseManager.h"
+#import "MDBPurchaseViewController.h"
 
 
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";
 NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
 
-NSString* const  kPrefLastEditedFractalURI = @"com.moedae.FractalScapes.lastEditedFractalURI";
 NSString* const  kPrefParalax = @"com.moedae.FractalScapes.paralax";
 NSString* const  kPrefShowPerformanceData = @"com.moedae.FractalScapes.showPerformanceData";
 NSString* const  kPrefFullScreenState = @"com.moedae.FractalScapes.fullScreenState";
@@ -36,8 +36,9 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 @interface MDBAppModel ()
 
 @property(nonatomic,readwrite,getter=isCloudIdentityChanged) BOOL       cloudIdentityChanged;
-@property (nonatomic,assign,readwrite) BOOL        allowPremium;
-@property (nonatomic,assign,readwrite) BOOL        useWatermark;
+
+@property (nonatomic,assign,readwrite) BOOL        allowPremiumOverride;
+@property (nonatomic,assign,readwrite) BOOL        useWatermarkOverride;
 
 @end
 
@@ -50,12 +51,12 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 
 -(void)___setAllowPremium:(BOOL)on
 {
-    self.allowPremium = on;
+    self.allowPremiumOverride = on;
 }
 
 -(void)___setUseWatermark:(BOOL)on
 {
-    self.useWatermark = on;
+    self.useWatermarkOverride = on;
 }
 
 - (instancetype)init
@@ -65,8 +66,7 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     {
         [self registerDefaults];
         _cloudDocumentManager = [MDBCloudManager new];
-        _purchaseManager = [MDBPurchaseManager new];
-        _purchaseManager.appModel = self;
+        _purchaseManager = [MDBPurchaseManager newManagerWithModel: self];
     }
     return self;
 }
@@ -98,8 +98,6 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 - (void)registerDefaults
 {
     //    // since no default values have been set, create them here
-    _allowPremium = NO;
-    _useWatermark = YES;
     
     NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, kPrefParalax, @YES, kPrefFullScreenState, @YES, kPrefShowHelpTips, nil];
     //
@@ -131,6 +129,17 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 {
     return [NSString stringWithFormat:@"%@ (%@)", self.versionString, self.buildString];
 }
+
+-(BOOL)allowPremium
+{
+    return (self.purchaseManager.isPremiumPaidFor || self.allowPremiumOverride);
+}
+
+-(BOOL)useWatermark
+{
+    return (self.purchaseManager.isPremiumPaidFor || self.useWatermarkOverride);
+}
+
 
 -(void)demoFilesLoaded
 {
@@ -174,19 +183,6 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey: kPrefEditorIntroDone];
-}
--(void)setLastEditedURL:(NSURL *)lastEdited
-{
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setURL: lastEdited forKey: kPrefLastEditedFractalURI];
-    [defaults synchronize];
-}
--(NSURL *)lastEditedURL
-{
-    NSURL* selectedFractalURL;
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    selectedFractalURL = [defaults URLForKey: kPrefLastEditedFractalURI];
-    return selectedFractalURL;
 }
 
 -(void)setShowParallax:(BOOL)show
@@ -242,6 +238,17 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     return show;
 }
 
+-(BOOL)userCanMakePayments
+{
+    return self.purchaseManager.userCanMakePayments;
+}
+
+/*!
+ Someday, prompt the user if they want to discover new fractals using cloud kit.
+ This will track whether the user has been prompted yet.
+ 
+ @return
+ */
 -(BOOL)promptedForDiscovery
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -398,44 +405,6 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 }
 
 #pragma mark - In-App Purchasing
-#pragma message "TODO move to PurchaseManager?"
-/*!
- Use to present a common alert for showing the purchase details such as price, ...
- And button to perform the purchase.
- 
- @param currentController
- */
--(void)presentProUpgradeOptionOnController:(UIViewController*)currentController
-{
-    NSString* title = NSLocalizedString(@"Upgrade Options Alert", nil);
-    NSString* message = NSLocalizedString(@"Sample Alert.", nil);
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
-                                                                   message: message
-                                                            preferredStyle: UIAlertControllerStyleAlert];
-    
-    UIAlertController* __weak weakAlert = alert;
-    
-    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
-    UIAlertAction* purchase = [UIAlertAction actionWithTitle:@"Upgrade to create a new Fractal" style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * action)
-                               {
-                                   [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                   [self confirmedDesireToPurchase];
-                               }];
-    [alert addAction: purchase];
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action)
-                                    {
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                    }];
-    [alert addAction: defaultAction];
-    
-    [currentController presentViewController:alert animated:YES completion:nil];
-    
-    NSLog(@"Not yet implemented");
-}
 
 /*!
  Need to observer appModel in other controllers for change in purchase state.
@@ -452,6 +421,7 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 {
     NSLog(@"Purchase Not yet implemented");
 }
+
 
 #pragma mark - Notifications
 

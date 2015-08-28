@@ -36,6 +36,5 @@
 - (IBAction)sourceTapGesture: (UITapGestureRecognizer *)sender;
 - (IBAction)rulesStartTapGesture: (UITapGestureRecognizer *)sender;
 - (IBAction)replacementTapGesture: (UITapGestureRecognizer *)sender;
-- (IBAction)upgradeToProButtonTapped:(UIButton *)sender;
 
 @end

@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import StoreKit;
+
 
 @class MDBAppModel;
 
@@ -16,11 +18,11 @@
 @interface MDBPurchaseManager : NSObject <SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
 @property (nonatomic,weak) MDBAppModel                      *appModel;
-@property (nonatomic,strong) NSArray                        *validProducts;
+@property (nonatomic,strong) NSArray                        *validProductsWithImages;
+@property (nonatomic,readonly) BOOL                         isPremiumPaidFor;
+@property (nonatomic,readonly) BOOL                         userCanMakePayments;
 
-+(NSArray*)purchaseOptionIDs;
-
--(NSString*)stringForProductPrice: (SKProduct*)product;
++(instancetype)newManagerWithModel:(MDBAppModel*)model;
 
 -(void)processPaymentForProduct:(SKProduct*)product quantity: (NSUInteger)qty;
 

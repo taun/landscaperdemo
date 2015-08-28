@@ -26,7 +26,6 @@
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryEditViewController.h"
 #import "MBLSFractalEditViewController.h"
-#import "MDBWelcomeViewController.h"
 #import "MDBFractalLibraryCollectionSource.h"
 #import "MDBNavConTransitionCoordinator.h"
 #import "MDBCustomTransition.h"
@@ -36,7 +35,7 @@
 #import "MBCollectionFractalSupplementaryLabel.h"
 #import "MBImmutableCellBackgroundView.h"
 #import "NSString+MDKConvenience.h"
-
+#import "MDBPurchaseViewController.h"
 
 NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
 
@@ -51,8 +50,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
  */
 @property (nonatomic,assign) BOOL                                   isAppeared;
 
--(void) initControls;
-
 @end
 
 @implementation MBFractalLibraryViewController
@@ -65,11 +62,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     [super viewDidLoad];
     
-    self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
-
-    self.navigationController.delegate = self.navConTransitionDelegate;
-    self.popTransition = [MDBZoomPopBounceTransition new];
-    self.pushTransition = [MDBZoomPushBounceTransition new];
+    if ([self isMemberOfClass: [MBFractalLibraryViewController class]])
+    {
+        // only use this transition for base class
+        self.navConTransitionDelegate = [MDBNavConTransitionCoordinator new];
+        
+        self.navigationController.delegate = self.navConTransitionDelegate;
+        self.popTransition = [MDBZoomPopBounceTransition new];
+        self.pushTransition = [MDBZoomPushBounceTransition new];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -78,8 +79,9 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden: NO];
-    [self initControls];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name: UIContentSizeCategoryDidChangeNotification object: nil];
+
+    self.addDocumentButton.enabled = !self.appModel.allowPremium && !self.appModel.userCanMakePayments;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -125,25 +127,36 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
  */
 -(void)firstStartupSequence
 {
-    UIStoryboard* storyBoard = self.storyboard;
-    MDBWelcomeViewController* welcomeController = (MDBWelcomeViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"WelcomeViewController"];
-    welcomeController.appModel = self.appModel;
-    welcomeController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    welcomeController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
-    [self presentViewController: welcomeController animated: YES completion: nil];
+    [self performSegueWithIdentifier: @"WelcomeSegue" sender: self];
     
     [self regularStartupSequence];
 }
-- (IBAction)unwindToLibraryFromWelcome:(UIStoryboardSegue *)segue
+- (IBAction)unwindFromWelcome:(UIStoryboardSegue *)segue
 {
     UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
     
+    // This is necessary due to presentation being over full context, popover style
     [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
         [self.appModel exitWelcomeState];
     }];
 }
+- (IBAction)unwindFromLibraryEditController:(UIStoryboardSegue*)segue
+{
+    
+}
+-(void)unwindFromPurchaseController:(UIStoryboardSegue *)segue
+{
+    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
+    
+    // This is necessary due to presentation being over full context, popover style
+    [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
 
+    }];
+}
+-(void)unwindFromEditor:(UIStoryboardSegue *)segue
+{
+//    UIViewController *sourceViewController = segue.sourceViewController;
+}
 -(void)regularStartupSequence
 {
     [self.appModel setupUserStoragePreferences];
@@ -159,14 +172,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [[NSNotificationCenter defaultCenter] removeObserver: self name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
 
--(void)viewDidDisappear:(BOOL)animated
-{
-
-    [super viewDidDisappear: animated];
-    
-//    [self.documentController.documentCoordinator stopQuery];
-//    [_privateQueue cancelAllOperations];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -240,6 +245,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     if (oldController && oldController != [NSNull null])
     {
         [oldController removeObserver: self forKeyPath: @"fractalInfos"];
+    }
+}
+
+-(void)dealloc
+{
+    if (_appModel)
+    {
+        // trigger observer removal
+        [self setAppModel: nil];
     }
 }
 
@@ -368,7 +382,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 -(IBAction) upgradeToProSelected:(id)sender
 {
-    [self.appModel presentProUpgradeOptionOnController: self];
+    [self performSegueWithIdentifier: @"ShowPurchaseControllerSegue" sender: nil];
 }
 -(void)showDocumentPickerWithNewFractalDocument:(UIBarButtonItem*)barButtonItem
 {
@@ -393,29 +407,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self presentViewController:documentMenu animated:YES completion:nil];
 }
 
-- (IBAction)pushToLibraryEditViewController:(id)sender
-{
-    if (self.presentedViewController)
-    {
-        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
-    }
-    
-    UIStoryboard* storyBoard = self.storyboard;
-    MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)[storyBoard instantiateViewControllerWithIdentifier: @"FractalEditLibrary"];
-    libraryEditViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
-    libraryEditViewController.appModel = self.appModel;
-    CGPoint scrollOffset = self.collectionView.contentOffset;
-    libraryEditViewController.initialContentOffset = scrollOffset;
-//    id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
-//    id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
-    
-//    MBFractalLibraryEditViewController *libraryEditViewController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
-//    libraryEditViewController.presentingDocumentController = self.documentController;
-    //        libraryEditController.collectionSource.rowCount = self.collectionSource.rowCount;
-//    libraryEditViewController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
-
-    [self.navigationController pushViewController: libraryEditViewController animated: NO];
-}
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
 -(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -473,39 +464,25 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             editViewController.fractalInfo = userActivityDocumentInfo;
         }
     }
-//    else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier])
-//    {
-//        
-//        id<MDBFractalDocumentCoordinator,NSCopying> oldDocumentCoordinator = self.documentController.documentCoordinator;
-//        id<MDBFractalDocumentCoordinator> newDocumentCoordinator = [oldDocumentCoordinator copyWithZone: nil];
-//        
-//        MBFractalLibraryEditViewController *libraryEditController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
-//        libraryEditController.presentingDocumentController = self.documentController;
-//        libraryEditController.collectionSource.rowCount = self.collectionSource.rowCount;
-//        libraryEditController.documentController = [[MDBDocumentController alloc]initWithDocumentCoordinator: newDocumentCoordinator sortComparator: self.documentController.sortComparator];
-//        libraryEditController.documentController = newDocumentController;
-//    }
+    else if ([segue.identifier isEqualToString: @"showEditFractalDocumentsList"])
+    {
+        MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
+        libraryEditViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
+        libraryEditViewController.appModel = self.appModel;
+        CGPoint scrollOffset = self.collectionView.contentOffset;
+        libraryEditViewController.initialContentOffset = scrollOffset;
+    }
+    else if ([segue.identifier isEqualToString: @"WelcomeSegue"])
+    {
+        
+    }
+    else if ([segue.identifier isEqualToString: @"ShowPurchaseControllerSegue"])
+    {
+        UINavigationController* navCon = (UINavigationController*)segue.destinationViewController;
+        MDBPurchaseViewController* pvc = [navCon.viewControllers firstObject];
+        pvc.purchaseManager = self.appModel.purchaseManager;
+    }
 }
-///*!
-// Save thumbnail, close document and clean up.
-// 
-// @param segue
-// */
-//- (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue
-//{
-//    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
-////        //
-////        [self appearanceControllerWasDismissed];
-//    }];
-//}
-//
-//- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue
-//{
-//    [segue.sourceViewController dismissViewControllerAnimated: YES completion:^{
-//        //
-////        [self appearanceControllerWasDismissed];
-//    }];
-//}
 
 #pragma mark - UIDocumentMenuDelegate
 
@@ -533,19 +510,18 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 #pragma mark - MDBDocumentControllerDelegate
 
-- (void)documentControllerWillChangeContent:(MDBDocumentController *)documentController {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.collectionView beginUpdates];
-//    });
+- (void)documentControllerWillChangeContent:(MDBDocumentController *)documentController
+{
+    // this protocol replaced by using observers
 }
 
-- (void)documentControllerDidChangeContent:(MDBDocumentController *)documentController {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.tableView endUpdates];
-//    });
+- (void)documentControllerDidChangeContent:(MDBDocumentController *)documentController
+{
+    // this protocol replaced by using observers
 }
 
-- (void)documentController:(MDBDocumentController *)documentController didFailCreatingFractalInfo:(MDBFractalInfo *)fractalInfo withError:(NSError *)error {
+- (void)documentController:(MDBDocumentController *)documentController didFailCreatingFractalInfo:(MDBFractalInfo *)fractalInfo withError:(NSError *)error
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *title = NSLocalizedString(@"Failed to Create Document", nil);
         NSString *message = error.localizedDescription;
@@ -559,7 +535,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     });
 }
 
-- (void)documentController:(MDBDocumentController *)documentController didFailRemovingFractalInfo:(MDBFractalInfo *)fractalInfo withError:(NSError *)error {
+- (void)documentController:(MDBDocumentController *)documentController didFailRemovingFractalInfo:(MDBFractalInfo *)fractalInfo withError:(NSError *)error
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *title = NSLocalizedString(@"Failed to Delete Document", nil);
         NSString *message = error.localizedDescription;
@@ -573,31 +550,13 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     });
 }
 
-
-
--(void) initControls {
-    // need to set current selection
-    // use selectItemAtIndexPath:animated:scrollPosition:
-    // need to determine index of selectedFractal
-    // perhaps make part of selectedFractal setter?
-    
-//    [self.documentController resortFractalInfos];
+-(void)documentController:(MDBDocumentController *)documentController didMoveFractalInfoAtIndexPath:(NSIndexPath *)fromIndex toIndexPath:(NSIndexPath *)toIndex
+{
+    // this protocol replaced by using observers
 }
-
 
 #pragma mark - UIResponder
 
--(void)restoreLastEditingSession
-{
-    NSURL* lastEditedURL = self.appModel.lastEditedURL;
-    if (lastEditedURL) {
-        MDBFractalInfo *lastEditedDocumentInfo = [[MDBFractalInfo alloc] initWithURL: lastEditedURL];
-        [lastEditedDocumentInfo fetchDocumentWithCompletionHandler:^{
-            //
-            [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier sender: lastEditedDocumentInfo];
-        }];
-    }
-}
 
 - (void)restoreUserActivityState:(NSUserActivity *)activity {
     /**

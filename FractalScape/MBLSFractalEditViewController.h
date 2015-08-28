@@ -197,7 +197,10 @@
 
 #pragma mark - Segue Actions
 - (IBAction)popBackToLibrary:(id)sender;
-- (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue;
+- (IBAction)unwindFromEditorIntro:(UIStoryboardSegue *)segue;
+- (IBAction)unwindFromPurchaseController:(UIStoryboardSegue *)segue;
+- (IBAction)unwindFromAppearanceController:(UIStoryboardSegue *)segue;
+- (IBAction)unwindToPresentPurchaseController:(UIStoryboardSegue *)segue;
 
 -(IBAction)showHelpScreen:(id)sender;
 -(IBAction) upgradeToProSelected:(id)sender;

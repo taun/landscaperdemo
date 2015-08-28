@@ -34,7 +34,7 @@
 #import "MDBEditorIntroPageControllerDataSource.h"
 #import "MDBEditorHelpTransitioningDelegate.h"
 #import "MDBEditorIntroWhatIsFractalViewController.h"
-
+#import "MDBPurchaseViewController.h"
 //
 //static inline double radians (double degrees){return degrees * M_PI/180.0;}
 //static inline double degrees (double radians){return radians * 180.0/M_PI;}
@@ -174,25 +174,27 @@ static const CGFloat kLevelNMargin = 48.0;
     BOOL showParalax = self.appModel.showParallax;
     
     if (showParalax) {
+        CGFloat scale = self.view.bounds.size.width /  415.0;
+        
         UIInterpolatingMotionEffect *xAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        xAxis.minimumRelativeValue = @(18.0);
-        xAxis.maximumRelativeValue = @(-18.0);
+        xAxis.minimumRelativeValue = @(18.0*scale);
+        xAxis.maximumRelativeValue = @(-18.0*scale);
         
         UIInterpolatingMotionEffect *yAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-        yAxis.minimumRelativeValue = @(24.0);
-        yAxis.maximumRelativeValue = @(-24.0);
+        yAxis.minimumRelativeValue = @(24.0*scale);
+        yAxis.maximumRelativeValue = @(-24.0*scale);
         
         self.backgroundMotionEffect = [[UIMotionEffectGroup alloc] init];
         self.backgroundMotionEffect.motionEffects = @[xAxis, yAxis];
         
 
         UIInterpolatingMotionEffect *xFAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        xFAxis.minimumRelativeValue = @(6.0);
-        xFAxis.maximumRelativeValue = @(-6.0);
+        xFAxis.minimumRelativeValue = @(6.0*scale);
+        xFAxis.maximumRelativeValue = @(-6.0*scale);
         
         UIInterpolatingMotionEffect *yFAxis = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-        yFAxis.minimumRelativeValue = @(8.0);
-        yFAxis.maximumRelativeValue = @(-8.0);
+        yFAxis.minimumRelativeValue = @(8.0*scale);
+        yFAxis.maximumRelativeValue = @(-8.0*scale);
         
         self.foregroundMotionEffect = [[UIMotionEffectGroup alloc] init];
         self.foregroundMotionEffect.motionEffects = @[xFAxis, yFAxis];
@@ -382,8 +384,6 @@ static const CGFloat kLevelNMargin = 48.0;
     
 //    self.navigationItem.title = self.fractalDocument.fractal.name;
     [self setupSlidersForCurrentFractal];
-    [self.appModel setLastEditedURL: self.fractalInfo.URL];
-
 }
 
 /* on startup, fractal should not be set until just before view didAppear */
@@ -453,7 +453,7 @@ static const CGFloat kLevelNMargin = 48.0;
     [self performSegueWithIdentifier: @"QuickIntroSegue" sender: sender];
 }
 
-- (IBAction)unwindToEditorFromEditorIntro:(UIStoryboardSegue *)segue
+- (IBAction)unwindFromEditorIntro:(UIStoryboardSegue *)segue
 {
 //    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
     [self dismissViewControllerAnimated: YES completion:^{
@@ -958,9 +958,7 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
-    {
-        [self.appModel setLastEditedURL: _fractalInfo.URL];
-        
+    {        
         [self setupSlidersForCurrentFractal];
         
         _lastImageUpdateTime = [NSDate date];
@@ -1538,16 +1536,12 @@ static const CGFloat kLevelNMargin = 48.0;
     {
         
     }
-}
-
-- (IBAction)popBackToLibrary:(id)sender
-{
-    if (self.presentedViewController) {
-        // dismiss any current popped or modal views
-        [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+    else if ([segue.identifier isEqualToString: @"ShowPurchaseControllerSegue"])
+    {
+        UINavigationController* navCon = (UINavigationController*)segue.destinationViewController;
+        MDBPurchaseViewController* pvc = [navCon.viewControllers firstObject];
+        pvc.purchaseManager = self.appModel.purchaseManager;
     }
-    
-    [self.navigationController popViewControllerAnimated: YES];
 }
 
 -(void) updateViewController: (UIViewController*)viewController popoverPreferredContentSizeForViewSize: (CGSize)size
@@ -1734,7 +1728,7 @@ static const CGFloat kLevelNMargin = 48.0;
                                     }];
         [alert addAction: vectorPDF];
     }
-    else
+    else if (self.appModel.userCanMakePayments)
     {
         UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Upgrade to Export as Vector PDF" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
@@ -1778,24 +1772,47 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(IBAction) upgradeToProSelected:(id)sender
 {
-    [self.appModel presentProUpgradeOptionOnController: self];
+    [self performSegueWithIdentifier: @"ShowPurchaseControllerSegue" sender: nil];
 }
 
--(void)presentPurchaseOptions
+//-(void)presentPurchaseOptions
+//{
+//    if (self.presentedViewController)
+//    {
+//        BOOL wasAppearance = [self.presentedViewController isKindOfClass: [MBFractalAppearanceEditorViewController class]];
+//        
+//        [self dismissViewControllerAnimated: YES completion:^{
+//            if (wasAppearance) [self appearanceControllerWasDismissed];
+//            [self upgradeToProSelected: nil];
+//        }];
+//    }
+//    else
+//    {
+//        [self upgradeToProSelected: nil];
+//    }
+//}
+-(void)unwindFromAppearanceController:(id)sender
 {
-    if (self.presentedViewController)
-    {
-        BOOL wasAppearance = [self.presentedViewController isKindOfClass: [MBFractalAppearanceEditorViewController class]];
-        
-        [self dismissViewControllerAnimated: YES completion:^{
-            if (wasAppearance) [self appearanceControllerWasDismissed];
-            [self upgradeToProSelected: nil];
-        }];
-    }
-    else
-    {
+    [self appearanceControllerWasDismissed];
+}
+-(void)unwindToPresentPurchaseController:(UIStoryboardSegue *)segue
+{
+    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
+    
+    // This is necessary due to presentation being over full context, popover style
+    [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
+        [self appearanceControllerWasDismissed];
         [self upgradeToProSelected: nil];
-    }
+    }];
+}
+-(void)unwindFromPurchaseController:(UIStoryboardSegue*)segue
+{
+    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
+    
+    // This is necessary due to presentation being over full context, popover style
+    [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
+        
+    }];
 }
 /*!
  See AirDropSample code for more UIActivityViewController  details.

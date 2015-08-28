@@ -29,14 +29,11 @@
 @implementation MBFractalLibraryEditViewController
 
 /*!
- Purposefully missing [super viewDidLoad] don't want the super class version called.
- Needs refactoring to avoid this problem.
+
  */
 - (void)viewDidLoad
 {
-//    UIVisualEffectView* blurEffectView = [[UIVisualEffectView alloc] initWithEffect: [UIBlurEffect effectWithStyle: UIBlurEffectStyleExtraLight]];
-//    self.collectionView.backgroundView = blurEffectView;
-    
+    [super viewDidLoad];
     
     _shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
                                                                                 target: self
@@ -53,9 +50,6 @@
     [items addObject: space];
     [items addObject: _shareButton];
     [self.navigationItem setRightBarButtonItems: items];
-
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
-// Purposefully missing [super viewDidLoad] don't want the super class version called.
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -143,12 +137,6 @@
             [self.appModel.documentController removeFractalInfo: fractalInfo];
         }
     }
-    // removal notifications go to the current controller, needs to pass the changes back to the presentingView documentController
-//    MDBDocumentController* strongRefController = self.presentingDocumentController;
-//    if (strongRefController)
-//    {
-//        [strongRefController documentCoordinatorDidUpdateContentsWithInsertedURLs: nil removedURLs: urls updatedURLs: nil];
-//    }
 }
 - (IBAction)shareButtonPressed:(id)sender
 {
@@ -185,8 +173,6 @@
                                                             preferredStyle: UIAlertControllerStyleActionSheet];
     
     UIAlertController* __weak weakAlert = alert;
-    
-    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
     
     UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Go to iCloud Settings" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
@@ -226,7 +212,6 @@
     
     UIAlertController* __weak weakAlert = alert;
     
-    //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
     if (self.appModel.allowPremium)
     {
         UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"FractalCloud" style:UIAlertActionStyleDefault
@@ -237,7 +222,7 @@
                                        }];
         [alert addAction: fractalCloud];
     }
-    else
+    else if (self.appModel.userCanMakePayments)
     {
         UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Upgrade to Share" style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
@@ -356,23 +341,6 @@
                                            
                                            completionHandler();
                                        }];
-    //
-    
-    //        }
-    //        else
-    //        {
-    //            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CloudKitAtlas" message:@"Getting your name using Discoverability requires permission." preferredStyle:UIAlertControllerStyleAlert];
-    //
-    //            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
-    //                [self dismissViewControllerAnimated:YES completion:nil];
-    //
-    //            }];
-    //
-    //            [alert addAction:action];
-    //
-    //            [self presentViewController:alert animated:YES completion:nil];
-    //        }
-    //    }];
     
 }
 
@@ -405,17 +373,10 @@
     
     [alert addAction: defaultAction];
     UIPopoverPresentationController* ppc = alert.popoverPresentationController;
-//    ppc.barButtonItem = sender;
+
     ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
     
     [self presentViewController:alert animated:YES completion:nil];
-}
-
-
-- (IBAction)editingIsDoneButton:(id)sender
-{
-    self.appModel = nil;
-    [self.navigationController popViewControllerAnimated: NO];
 }
 
 

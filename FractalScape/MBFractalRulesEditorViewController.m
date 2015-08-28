@@ -46,6 +46,7 @@
     [super viewWillAppear:animated];
     
     BOOL allowPremium = self.appModel.allowPremium;
+    BOOL canPurchase = self.appModel.userCanMakePayments;
     
     self.rulesModeSegmentedControl.enabled = allowPremium;
     self.destinationView.userInteractionEnabled = allowPremium;
@@ -58,6 +59,7 @@
         self.replacementRules.alpha = disabledAlpha;
         [(UIView*)self.sourceListView setAlpha: disabledAlpha];
         self.ruleHelpLabel.text = @"Rule Editing is only available with in-app purchase";
+        if (!canPurchase) [self.upgradeToProView removeFromSuperview];
     }
     else
     {
@@ -144,28 +146,6 @@
     [self infoAnimateView: self.replacementRules];
 }
 
-- (IBAction)upgradeToProButtonTapped:(UIButton *)sender
-{
-//    UINavigationController* navCon = (UINavigationController*)self.parentViewController;
-//    if ([navCon isKindOfClass: [UINavigationController class]] && navCon.viewControllers.count > 0)
-//    {
-//        MBLSFractalEditViewController* parentRuleEditor = [navCon.viewControllers firstObject];
-//        [parentRuleEditor dismissViewControllerAnimated: YES completion:^{
-//            //
-//            [parentRuleEditor upgradeToProSelected: nil];
-//        }];
-//    }
-    
-    [self.fractalControllerDelegate presentPurchaseOptions];
-    
-//    id pc = self.presentingViewController;
-//    [pc dismissViewControllerAnimated: YES completion:^{
-//        if ([pc respondsToSelector: NSSelectorFromString(@"upgradeToProSelected:")])
-//        {
-//            [pc performSelector: NSSelectorFromString(@"upgradeToProSelected:") withObject: nil];
-//        }
-//    }];
-}
 /*!
  Close any open Add or Delete views and get rid of text editing.
  */

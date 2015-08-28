@@ -43,6 +43,7 @@ extern NSString *const kMDBFractalCloudContainer;
 @property(nonatomic,readonly) BOOL                              promptedForDiscovery;
 @property(nonatomic,readonly) BOOL                              welcomeDone;
 @property(nonatomic,readonly) BOOL                              editorIntroDone;
+@property(nonatomic,readonly) BOOL                              userCanMakePayments;
 
 -(void)loadInitialDocuments;
 /*!
@@ -63,9 +64,6 @@ extern NSString *const kMDBFractalCloudContainer;
 
 -(void)enterCloudIdentityChangedState;
 -(void)exitCloudIdentityChangedState;
-
--(void)setLastEditedURL: (NSURL*)lastEdited;
--(NSURL*)lastEditedURL;
 
 -(void)setShowParallax: (BOOL)show;
 -(BOOL)showParallax;

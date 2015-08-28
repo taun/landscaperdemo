@@ -29,6 +29,7 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
  */
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
 @property (nonatomic,strong) IBOutlet MDBFractalLibraryCollectionSource      *collectionSource;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem                        *addDocumentButton;
 
 -(void)regularStartupSequence;
 
@@ -37,7 +38,10 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 //- (IBAction)unwindToLibraryFromEditMode:(UIStoryboardSegue *)segue;
 - (IBAction)newDocumentButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)pushToLibraryEditViewController:(id)sender;
-- (IBAction)unwindToLibraryFromWelcome:(UIStoryboardSegue *)segue;
+- (IBAction)unwindFromWelcome:(UIStoryboardSegue *)segue;
+- (IBAction)unwindFromLibraryEditController:(UIStoryboardSegue*)segue;
+- (IBAction)unwindFromPurchaseController:(UIStoryboardSegue *)segue;
+- (IBAction)unwindFromEditor:(UIStoryboardSegue *)segue;
 
 -(IBAction) upgradeToProSelected:(id)sender;
 
