@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDBPurchaseManager.h"
 
-@class MDBPurchaseManager;
 
-@interface MDBPurchaseViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface MDBPurchaseViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,PurchaseManagerDelegate>
 
 @property(nonatomic,weak)MDBPurchaseManager         *purchaseManager;
+
+-(void)productsChanged;
 
 @end

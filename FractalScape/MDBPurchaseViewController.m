@@ -19,7 +19,20 @@
 
 @implementation MDBPurchaseViewController
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.purchaseManager.delegate = self;
+    [self.purchaseManager validateProductIdentifiers: [NSSet setWithObjects: @"ColorPakMetal1", nil]];
+}
 
+-(void)dealloc
+{
+    if (_purchaseManager)
+    {
+        [_purchaseManager setDelegate: nil];
+    }
+}
 #pragma mark - UITableDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -57,6 +70,12 @@
         MDBPurchaseTableViewCell* purchaseCell = (MDBPurchaseTableViewCell*)cell;
         purchaseCell.productWithImage = self.purchaseManager.validProductsWithImages[indexPath.row];
     }
+}
+
+#pragma mark - PurchaseManagerDelegate
+-(void)productsChanged
+{
+    [self.tableView reloadData];
 }
 
 @end

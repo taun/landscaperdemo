@@ -165,6 +165,9 @@
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
 		C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A040281B8A3F1E0052398A /* StoreKit.framework */; };
 		C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */; };
+		C5A4888D1B91171C0031585B /* iCon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A4888C1B91171C0031585B /* iCon60@2x.png */; };
+		C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A4888E1B9117300031585B /* iCon60@2x.png */; };
+		C5A488911B9117DC0031585B /* appStore1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A488901B9117DC0031585B /* appStore1024.png */; };
 		C5A5C38D1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */; };
 		C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */; };
 		C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38F1ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h */; };
@@ -480,6 +483,9 @@
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A040281B8A3F1E0052398A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C5A4888C1B91171C0031585B /* iCon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCon60@2x.png"; path = "Icons.xcassets/AppIcon.appiconset/iCon60@2x.png"; sourceTree = "<group>"; };
+		C5A4888E1B9117300031585B /* iCon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCon60@2x.png"; path = "Icons.xcassets/AppIcon.appiconset/iCon60@2x.png"; sourceTree = "<group>"; };
+		C5A488901B9117DC0031585B /* appStore1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appStore1024.png; path = ../appStore1024.png; sourceTree = "<group>"; };
 		C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalCloudBrowser.h; path = FractalScape/MDBFractalCloudBrowser.h; sourceTree = "<group>"; };
 		C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalCloudBrowser.m; path = FractalScape/MDBFractalCloudBrowser.m; sourceTree = "<group>"; };
 		C5A5C38F1ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalDocumentProxy.h; path = FractalScape/model/MDBFractalDocumentProxy.h; sourceTree = "<group>"; };
@@ -1084,6 +1090,9 @@
 				C5E6B78D14A5346300DA48BD /* main.m */,
 				C59FF02016441631006E2B27 /* Settings.bundle */,
 				C53305C517985877005D2A18 /* History.rtf */,
+				C5A4888E1B9117300031585B /* iCon60@2x.png */,
+				C5A4888C1B91171C0031585B /* iCon60@2x.png */,
+				C5A488901B9117DC0031585B /* appStore1024.png */,
 				C59AAE5419DC776000774441 /* RulesIcons.xcassets */,
 				C59AAE5619DC77CE00774441 /* UIMedia.xcassets */,
 				C5302CB31B6AB39F00130D9A /* Tutorial.xcassets */,
@@ -1434,6 +1443,7 @@
 				C5B58C5D1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal in Resources */,
 				C5CE0E711B54488B00EEC58C /* Base.lproj in Resources */,
 				C5B58C621AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */,
+				C5A488911B9117DC0031585B /* appStore1024.png in Resources */,
 				C5B3F18619DC804100BDFAF5 /* FractalMedia.xcassets in Resources */,
 				C5B58C691AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */,
 				C511BA131A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib in Resources */,
@@ -1442,6 +1452,7 @@
 				C529F8D21B8FD6D4005D8982 /* receiptDefinition.asn in Resources */,
 				C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */,
 				C5B58C681AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */,
+				C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */,
 				C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */,
 				C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */,
 				C5B58C631AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */,
@@ -1452,6 +1463,7 @@
 				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
 				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
 				C529F85E1B8F6825005D8982 /* PurchaseImages.xcassets in Resources */,
+				C5A4888D1B91171C0031585B /* iCon60@2x.png in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C5B58C611AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */,
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,

@@ -23,7 +23,6 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 -(void)setReceipts: (NSArray*)receipts;
 -(NSArray*)receipts;
 
--(void)validateProductIdentifiers:(NSArray*)productIdentifiers;
 
 @end
 
@@ -34,15 +33,20 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 {
     return @"com.moedae.FractalScapes.proupgrade";
 }
++(NSString*)colorpakmetal1PurchaseID
+{
+    return @"com.moedae.FractalScapes.colorpakmetal1";
+}
 
+//
 +(UIImage*)premiumImage
 {
     return [UIImage imageNamed: @""];
 }
 
-+(NSArray *)purchaseOptionIDs
++(NSSet *)purchaseOptionIDs
 {
-    return @[[MDBPurchaseManager premiumPurchaseID]];
+    return [NSSet setWithObjects:[MDBPurchaseManager premiumPurchaseID],[MDBPurchaseManager colorpakmetal1PurchaseID], nil];
 }
 
 +(instancetype)newManagerWithModel:(MDBAppModel *)model
@@ -63,9 +67,9 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 
 #pragma mark - Payment Processing
 
--(void)validateProductIdentifiers:(NSArray *)productIdentifiers
+-(void)validateProductIdentifiers:(NSSet *)productIdentifiers
 {
-    NSSet* identifiers = [NSSet setWithArray: [[self class] purchaseOptionIDs]];
+    NSSet* identifiers = [[self class] purchaseOptionIDs];
     SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: identifiers];
     productsRequest.delegate = self;
     [productsRequest start];
@@ -139,12 +143,17 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
         {
             image = [FractalScapeIconSet imageOfPremiumUpgradeImage];
         }
+        else if ([product.productIdentifier isEqualToString: [[self class]colorpakmetal1PurchaseID]])
+        {
+            image = [FractalScapeIconSet imageOfPremiumUpgradeImage];
+        }
         MDBProductWithImage* pwm = [MDBProductWithImage newWithProduct: product image: image];
         pwm.purchaseManager = self;
         [productsArray addObject: pwm];
     }
     
     self.validProductsWithImages = [productsArray copy];
+    [self.delegate productsChanged];
     // update view controller via observer
 }
 

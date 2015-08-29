@@ -10,7 +10,10 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
-			<array/>
+			<array>
+				<string>FractalScape/Icons.xcassets/AppIcon.appiconset/iCon60@2x.png</string>
+				<string>appStore1024.png</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Fractal</string>
 			<key>LSItemContentTypes</key>
@@ -34,7 +37,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9</string>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>

@@ -12,6 +12,12 @@
 
 @class MDBAppModel;
 
+@protocol PurchaseManagerDelegate <NSObject>
+
+-(void) productsChanged;
+
+@end
+
 /*!
  This class handles the Apple in-app purchase details for the AppModel.
  */
@@ -21,8 +27,10 @@
 @property (nonatomic,strong) NSArray                        *validProductsWithImages;
 @property (nonatomic,readonly) BOOL                         isPremiumPaidFor;
 @property (nonatomic,readonly) BOOL                         userCanMakePayments;
+@property (nonatomic,weak) id<PurchaseManagerDelegate>      delegate;
 
 +(instancetype)newManagerWithModel:(MDBAppModel*)model;
+-(void)validateProductIdentifiers:(NSSet*)productIdentifiers;
 
 -(void)processPaymentForProduct:(SKProduct*)product quantity: (NSUInteger)qty;
 
