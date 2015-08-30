@@ -34,7 +34,16 @@
     self.productImageView.image = self.productWithImage.image;
     self.productLabel.text = self.productWithImage.product.localizedTitle;
     self.productDescription.text = self.productWithImage.product.localizedDescription;
-    self.priceLabel.text = self.productWithImage.localizedPriceString;
+    if ([self.productWithImage.product.price isEqualToNumber: [NSDecimalNumber numberWithDouble: 0.0]])
+    {
+        self.priceLabel.text = NSLocalizedString(@"Free", @"App Price is free");
+        [self.buyButton setTitle: NSLocalizedString(@"Get", @"App store Get") forState: UIControlStateNormal];
+    }
+    else
+    {
+        self.priceLabel.text = self.productWithImage.localizedPriceString;
+        [self.buyButton setTitle: NSLocalizedString(@"Buy", @"App store Buy") forState: UIControlStateNormal];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

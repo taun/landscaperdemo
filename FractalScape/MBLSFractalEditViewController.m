@@ -384,6 +384,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
 //    self.navigationItem.title = self.fractalDocument.fractal.name;
     [self setupSlidersForCurrentFractal];
+    self.toolbarTrailingConstraint.constant = -70.0;
 }
 
 /* on startup, fractal should not be set until just before view didAppear */
@@ -422,6 +423,18 @@ static const CGFloat kLevelNMargin = 48.0;
         [self showHelpScreen: nil];
         [self.appModel exitEditorIntroState];
     }
+    self.toolbarTrailingConstraint.constant = -8.0;
+    [self.fractalViewRoot setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration: 2.0 delay: 0.1
+         usingSpringWithDamping: 0.5
+          initialSpringVelocity: 0.0
+                        options: UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         [self.fractalViewRoot layoutIfNeeded];
+                     } completion:^(BOOL finished) {
+                         //
+                     }];
 }
 
 //-(void)firstStartupSequence
@@ -1541,6 +1554,10 @@ static const CGFloat kLevelNMargin = 48.0;
         UINavigationController* navCon = (UINavigationController*)segue.destinationViewController;
         MDBPurchaseViewController* pvc = [navCon.viewControllers firstObject];
         pvc.purchaseManager = self.appModel.purchaseManager;
+    }
+    else if ([segue.identifier isEqualToString: @"UnwindSegueToLibrary"])
+    {
+        
     }
 }
 

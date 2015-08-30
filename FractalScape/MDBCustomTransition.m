@@ -8,6 +8,8 @@
 
 #import "MDBCustomTransition.h"
 #import "MDBNavConTransitionCoordinator.h"
+#import "MBLSFractalEditViewController.h"
+
 
 @implementation MDBCustomTransition
 
@@ -143,19 +145,33 @@
     target rect if defined
     snapshot view to use if defined
  */
--(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+-(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
+{
+    NSTimeInterval duration = [self transitionDuration:transitionContext];
+
     //Get references to the view hierarchy
     UIView *containerView = [transitionContext containerView];
     UIViewController<MDBNavConTransitionProtocol> *fromViewController = (UIViewController<MDBNavConTransitionProtocol> *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController<MDBNavConTransitionProtocol> *toViewController = (UIViewController<MDBNavConTransitionProtocol> *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    UIView* fromSnapshot = [fromViewController.view snapshotViewAfterScreenUpdates: NO];
+    MBLSFractalEditViewController* fractalEditor;
+    UIView* fromSnapshot;
+    
+    if ([fromViewController isKindOfClass: [MBLSFractalEditViewController class]])
+    {
+        fractalEditor = (MBLSFractalEditViewController*)fromViewController;
+        fromSnapshot = [fractalEditor.fractalViewParent snapshotViewAfterScreenUpdates: NO];
+    }
+    else
+    {
+        fromSnapshot = [fromViewController.view snapshotViewAfterScreenUpdates: NO];
+    }
     
     [fromViewController.view removeFromSuperview];
     [containerView addSubview: fromSnapshot];
     
     [containerView insertSubview: toViewController.view belowSubview: fromSnapshot];
-
+    
     CGRect destinationRect = toViewController.transitionDestinationRect;
     if (CGRectEqualToRect(destinationRect, CGRectZero))
     {
@@ -173,34 +189,21 @@
     CGFloat scaleY = destinationRect.size.height/containerView.bounds.size.height;
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scaleX,scaleY);
     CGAffineTransform translate = CGAffineTransformMakeTranslation(cellCenterX-viewCenterX, cellCenterY-viewCenterY);
+    CGAffineTransform fullTransform = CGAffineTransformConcat(scaleTransform, translate);
 
-    NSTimeInterval duration = [self transitionDuration:transitionContext];
-
-//    [UIView animateWithDuration: duration
-//                          delay: duration
-//                        options: UIViewAnimationOptionCurveEaseIn
-//                     animations: ^{
-//                         fromSnapshot.alpha = 1.0;
-//                     }
-//                     completion:^(BOOL finished) {
-//                         [fromSnapshot removeFromSuperview];
-//                         [transitionContext completeTransition:YES];
-//                     }];
-#pragma message "TODO make duration a function of the animation distance"
     [UIView animateWithDuration: duration
                           delay: 0.0
-         usingSpringWithDamping: 1.0
-          initialSpringVelocity: -1.0
-                        options: 0
-                     animations: ^{
+                        options: UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         //
                          fromSnapshot.alpha = 0.5;
-                         fromSnapshot.transform = CGAffineTransformConcat(scaleTransform, translate);
-                     }
-                     completion:^(BOOL finished) {
+                         fromSnapshot.transform = fullTransform;
+                     } completion:^(BOOL finished) {
+                         //
                          [fromSnapshot removeFromSuperview];
                          [transitionContext completeTransition:YES];
                      }];
-
+    
 }
 
 @end

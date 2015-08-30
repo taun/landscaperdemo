@@ -480,10 +480,10 @@
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="Bzn-ex-cN5" secondAttribute="leading" constant="-10" id="MdP-Kd-8Kl"/>
                                                     <constraint firstItem="HlV-o5-ifB" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="2" id="MtZ-3N-Zuh"/>
                                                     <constraint firstItem="74v-T6-WSs" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="P2W-Hh-r5n"/>
+                                                    <constraint firstItem="1o7-dW-jgD" firstAttribute="leading" secondItem="v9U-ZO-4Bb" secondAttribute="leading" constant="4.5" id="QAa-ug-Kw5"/>
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="9Yt-fi-tpd" secondAttribute="width" id="RVj-d0-vqW"/>
                                                     <constraint firstAttribute="bottom" secondItem="1o7-dW-jgD" secondAttribute="bottom" constant="6" id="Rb8-ZP-jsw"/>
                                                     <constraint firstAttribute="trailing" secondItem="lE7-JV-urG" secondAttribute="trailing" constant="6" id="Tot-e6-hPX"/>
-                                                    <constraint firstItem="1o7-dW-jgD" firstAttribute="trailing" secondItem="xkn-AG-FUJ" secondAttribute="leading" constant="38" id="VNt-9j-LGT"/>
                                                     <constraint firstItem="qwL-V4-gOj" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="VuA-Xa-TcZ"/>
                                                     <constraint firstItem="KEl-AK-nz0" firstAttribute="width" secondItem="l8i-O7-tM9" secondAttribute="width" id="W6g-qJ-EOk"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="v9U-ZO-4Bb" secondAttribute="top" constant="10" id="Yol-6W-T3W"/>
@@ -946,6 +946,7 @@
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
+                                            <constraint firstItem="SdO-1x-rjL" firstAttribute="trailing" secondItem="ZQ7-Jz-vVR" secondAttribute="trailing" id="9cr-PB-C02"/>
                                             <constraint firstItem="ZQ7-Jz-vVR" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="bottom" id="Hlh-T5-VmA"/>
                                             <constraint firstItem="v9U-ZO-4Bb" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="12" id="IfB-ZL-Bli"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
@@ -957,7 +958,6 @@
                                             <constraint firstAttribute="bottom" secondItem="ZQ7-Jz-vVR" secondAttribute="bottom" constant="2" id="W2i-Hb-S2V"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="dJU-MH-ihA" secondAttribute="width" id="WFl-b4-lj2"/>
                                             <constraint firstItem="fN9-Mq-Ukg" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="330" placeholder="YES" id="Xsd-ch-fTN"/>
-                                            <constraint firstAttribute="trailing" secondItem="SdO-1x-rjL" secondAttribute="trailing" constant="-8" id="dWF-E9-FbC"/>
                                             <constraint firstItem="SdO-1x-rjL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lOu-PR-QW2" secondAttribute="trailing" constant="8" id="dqt-rN-Xw7"/>
                                             <constraint firstAttribute="centerY" secondItem="4tK-dc-Bzb" secondAttribute="centerY" id="ejH-jn-cwF"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="bottom" constant="12" id="er1-62-2EY"/>
@@ -1027,7 +1027,7 @@
                     <navigationItem key="navigationItem" id="5yD-Jb-xIT">
                         <barButtonItem key="leftBarButtonItem" title="Library" id="s76-oj-pj9">
                             <connections>
-                                <segue destination="1mr-7G-CSM" kind="unwind" unwindAction="unwindFromEditor:" id="KcY-AY-c8O"/>
+                                <segue destination="1mr-7G-CSM" kind="unwind" identifier="UnwindSegueToLibrary" unwindAction="unwindFromEditor:" id="KcY-AY-c8O"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI" userLabel="PlayBack">
@@ -1087,6 +1087,7 @@
                         <outlet property="randomnessVerticalSlider" destination="p0o-A9-ELt" id="l2K-Ys-EvS"/>
                         <outlet property="renderTimeLabel" destination="lOu-PR-QW2" id="RTa-Ld-ZOt"/>
                         <outlet property="toggleFullScreenButton" destination="YRx-ub-5v2" id="9Bg-e4-3hf"/>
+                        <outlet property="toolbarTrailingConstraint" destination="UGs-Mg-3Sl" id="bLY-lt-HGc"/>
                         <outlet property="turnAngleIncrementLabel" destination="AUJ-mW-uO9" id="goq-SY-Wqc"/>
                         <outlet property="turnAngleSlider" destination="rPE-Sl-13x" id="Y5C-GZ-nNZ"/>
                         <outlet property="turningAngleIncrementSlider" destination="An9-9l-3Tm" id="GSF-fQ-K9R"/>
@@ -3818,7 +3819,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="dUu-qN-FS7" firstAttribute="top" secondItem="fPo-f8-tg6" secondAttribute="bottom" id="CfS-QM-IHt"/>
@@ -4768,8 +4769,8 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XIW-aO-ufy"/>
         <segue reference="0fO-dT-L5U"/>
+        <segue reference="XIW-aO-ufy"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

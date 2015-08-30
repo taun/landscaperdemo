@@ -43,7 +43,7 @@
 #pragma mark - Utility
 -(NSNumberFormatter *)priceFormatter
 {
-    if (_priceFormatter)
+    if (!_priceFormatter)
     {
         _priceFormatter = [NSNumberFormatter new];
         [_priceFormatter setFormatterBehavior: NSNumberFormatterBehavior10_4];

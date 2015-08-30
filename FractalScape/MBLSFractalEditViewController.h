@@ -74,6 +74,7 @@
 @property (weak, nonatomic) IBOutlet UIButton       *jointAngleButton;
 @property (weak, nonatomic) IBOutlet UIButton       *incrementsButton;
 @property (weak, nonatomic) IBOutlet UIButton       *hueIncrementsButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarTrailingConstraint;
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootSingleTapRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootDoubleTapRecognizer;

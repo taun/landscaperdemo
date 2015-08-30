@@ -28,14 +28,20 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 
 @implementation MDBPurchaseManager
 
++(NSString*)prefixedProductID: (NSString*)suffix
+{
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString* productID = [NSString stringWithFormat: @"%@.%@",bundleIdentifier,suffix];
+    return productID;
+}
 
 +(NSString*)premiumPurchaseID
 {
-    return @"com.moedae.FractalScapes.proupgrade";
+    return [[self class] prefixedProductID: @"proupgrade"];
 }
 +(NSString*)colorpakmetal1PurchaseID
 {
-    return @"com.moedae.FractalScapes.colorpakmetal1";
+    return [[self class] prefixedProductID: @"colorpakmetal1"];
 }
 
 //
@@ -145,7 +151,7 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
         }
         else if ([product.productIdentifier isEqualToString: [[self class]colorpakmetal1PurchaseID]])
         {
-            image = [FractalScapeIconSet imageOfPremiumUpgradeImage];
+            image = [FractalScapeIconSet imageOfMetalPak1UpgradeImage];
         }
         MDBProductWithImage* pwm = [MDBProductWithImage newWithProduct: product image: image];
         pwm.purchaseManager = self;
