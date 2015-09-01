@@ -8,7 +8,7 @@
 		<key>descriptor</key>
 		<string>Base Colors</string>
 		<key>name</key>
-		<string>Solid Colors</string>
+		<string>Basic Solid Colors</string>
 		<key>colors</key>
 		<array>
 			<dict>
@@ -770,102 +770,6 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>Aluminum</string>
-				<key>identifier</key>
-				<string>aluminum1</string>
-				<key>red</key>
-				<real>1</real>
-				<key>green</key>
-				<real>1</real>
-				<key>blue</key>
-				<real>1</real>
-				<key>alpha</key>
-				<real>1</real>
-				<key>imagePath</key>
-				<string>Aluminum</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Aluminum Small</string>
-				<key>identifier</key>
-				<string>aluminum2</string>
-				<key>red</key>
-				<real>1</real>
-				<key>green</key>
-				<real>1</real>
-				<key>blue</key>
-				<real>1</real>
-				<key>alpha</key>
-				<real>1</real>
-				<key>imagePath</key>
-				<string>AluminumInvSmall</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Aluminum Small Gold</string>
-				<key>identifier</key>
-				<string>aluminum3</string>
-				<key>red</key>
-				<real>1</real>
-				<key>green</key>
-				<real>1</real>
-				<key>blue</key>
-				<real>1</real>
-				<key>alpha</key>
-				<real>1</real>
-				<key>imagePath</key>
-				<string>AluminumVSmallGold</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Aluminum Gold</string>
-				<key>identifier</key>
-				<string>aluminum2</string>
-				<key>red</key>
-				<real>1</real>
-				<key>green</key>
-				<real>1</real>
-				<key>blue</key>
-				<real>1</real>
-				<key>alpha</key>
-				<real>1</real>
-				<key>imagePath</key>
-				<string>AluminumGold</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Aluminum Small Red</string>
-				<key>identifier</key>
-				<string>aluminum4</string>
-				<key>red</key>
-				<real>1</real>
-				<key>green</key>
-				<real>1</real>
-				<key>blue</key>
-				<real>1</real>
-				<key>alpha</key>
-				<real>1</real>
-				<key>imagePath</key>
-				<string>AluminumVSmallRed</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Aluminum Red</string>
-				<key>identifier</key>
-				<string>aluminum5</string>
-				<key>red</key>
-				<real>1</real>
-				<key>green</key>
-				<real>1</real>
-				<key>blue</key>
-				<real>1</real>
-				<key>alpha</key>
-				<real>1</real>
-				<key>imagePath</key>
-				<string>AluminumRed</string>
-			</dict>
-			<dict>
-				<key>name</key>
 				<string>Bulging</string>
 				<key>identifier</key>
 				<string>bulging1</string>
@@ -1042,9 +946,9 @@
 			</dict>
 		</array>
 		<key>name</key>
-		<string>Textures</string>
+		<string>Intro Textures</string>
 		<key>descriptor</key>
-		<string>Textured colors and fills</string>
+		<string>Sample Textured colors and fills</string>
 		<key>identifier</key>
 		<string>1textures</string>
 	</dict>

@@ -31,6 +31,7 @@ IB_DESIGNABLE
  An ordered set of the items to be displayed.
  */
 @property (nonatomic,strong) MDBFractalObjectList       *objectList;
+@property (nonatomic,strong) MDBFractalObjectList       *selectedObjects;
 /*!
  If there are no objects in the objectList yet we want to show a placeholder, set the defaultObjectClass
  and an instance of the defaultObjectClass will be instantiated as a placeholder. When a drag lands
@@ -48,6 +49,7 @@ IB_DESIGNABLE
 @property (nonatomic,assign) CGFloat                    outlineMargin;
 @property (nonatomic,assign) IBInspectable BOOL         justify;
 @property (nonatomic,assign) IBInspectable BOOL         readOnly;
+@property (nonatomic,assign) IBInspectable BOOL         multiSelect;
 
 @property (nonatomic,assign) CGRect                     lastBounds;
 @property (nonatomic,strong) NSLayoutConstraint         *heightConstraint;

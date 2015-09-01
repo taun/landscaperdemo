@@ -19,7 +19,7 @@
 
 +(NSArray*)loadAllDefaultCategories
 {
-    NSString* plistFileName = @"MBColorsList";
+    NSString* plistFileName = @"MBColorsList_default";
     
     id plistObject = [plistFileName fromPListFileNameToObject];
     

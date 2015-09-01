@@ -23,6 +23,7 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 -(void)setReceipts: (NSArray*)receipts;
 -(NSArray*)receipts;
 
+-(void)validateProductIdentifiers:(NSSet*)productIdentifiers;
 
 @end
 
@@ -41,7 +42,7 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 }
 +(NSString*)colorpakmetal1PurchaseID
 {
-    return [[self class] prefixedProductID: @"colorpakmetal1"];
+    return  @"com.moedae.FractalScapes.ColorPakMetallic1";
 }
 
 //
@@ -66,12 +67,17 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
     if (self) {
         _appModel = model;
         [[SKPaymentQueue defaultQueue]addTransactionObserver: self];
-        [self validateProductIdentifiers: [[self class]purchaseOptionIDs]];
+        [self revalidateProducts];
     }
     return self;
 }
 
 #pragma mark - Payment Processing
+
+-(void)revalidateProducts
+{
+    [self validateProductIdentifiers: [[self class]purchaseOptionIDs]];
+}
 
 -(void)validateProductIdentifiers:(NSSet *)productIdentifiers
 {
@@ -147,11 +153,11 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
         UIImage* image;
         if ([product.productIdentifier isEqualToString: [[self class]premiumPurchaseID]])
         {
-            image = [FractalScapeIconSet imageOfPremiumUpgradeImage];
+            image = [FractalScapeIconSet imageOfPremiumUpgradeImagePortrait];
         }
         else if ([product.productIdentifier isEqualToString: [[self class]colorpakmetal1PurchaseID]])
         {
-            image = [FractalScapeIconSet imageOfMetalPak1UpgradeImage];
+            image = [FractalScapeIconSet imageOfMetalPak1UpgradeImagePortrait];
         }
         MDBProductWithImage* pwm = [MDBProductWithImage newWithProduct: product image: image];
         pwm.purchaseManager = self;

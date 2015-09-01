@@ -30,7 +30,8 @@
 @property (nonatomic,weak) id<PurchaseManagerDelegate>      delegate;
 
 +(instancetype)newManagerWithModel:(MDBAppModel*)model;
--(void)validateProductIdentifiers:(NSSet*)productIdentifiers;
+
+-(void)revalidateProducts;
 
 -(void)processPaymentForProduct:(SKProduct*)product quantity: (NSUInteger)qty;
 

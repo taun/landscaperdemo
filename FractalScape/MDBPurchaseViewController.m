@@ -23,7 +23,7 @@
 {
     [super viewDidAppear:animated];
     self.purchaseManager.delegate = self;
-    [self.purchaseManager validateProductIdentifiers: [NSSet setWithObjects: @"ColorPakMetal1", nil]];
+    [self.purchaseManager revalidateProducts];
 }
 
 -(void)dealloc
@@ -33,6 +33,7 @@
         [_purchaseManager setDelegate: nil];
     }
 }
+
 #pragma mark - UITableDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

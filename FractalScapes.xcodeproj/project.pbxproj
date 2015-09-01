@@ -219,7 +219,7 @@
 		C5CD57D01A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
 		C5CD57D11A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
 		C5CD57E11A9CE4AC00C70218 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
-		C5CD57E21A9CE4AC00C70218 /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
+		C5CD57E21A9CE4AC00C70218 /* MBColorsList_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */; };
 		C5CE0E4B1B542C6100EEC58C /* MDKLinePropertyControl.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E371B542C6100EEC58C /* MDKLinePropertyControl.h */; };
 		C5CE0E4D1B542C6100EEC58C /* NSString+MDKConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E391B542C6100EEC58C /* NSString+MDKConvenience.h */; };
 		C5CE0E4E1B542C6100EEC58C /* NSString+MDKConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE0E3A1B542C6100EEC58C /* NSString+MDKConvenience.m */; };
@@ -246,7 +246,7 @@
 		C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E6E1B54486E00EEC58C /* en.lproj */; };
 		C5CE0E711B54488B00EEC58C /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E701B54488B00EEC58C /* Base.lproj */; };
 		C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E721B544EAD00EEC58C /* Localizable.strings */; };
-		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
+		C5CE9459170C9389002EF5FD /* MBColorsList_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
 		C5D400191B7D118700ABF7F6 /* MDBTutorialPageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */; };
 		C5D4001A1B7D118700ABF7F6 /* MDBTutorialPageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D400181B7D118700ABF7F6 /* MDBTutorialPageSource.m */; };
@@ -563,7 +563,7 @@
 		C5CE0E6E1B54486E00EEC58C /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
 		C5CE0E701B54488B00EEC58C /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
 		C5CE0E721B544EAD00EEC58C /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
+		C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList_default.plist; path = resources/MBColorsList_default.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalControllerProtocol.h; path = FractalScape/FractalControllerProtocol.h; sourceTree = "<group>"; };
 		C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialPageSource.h; sourceTree = "<group>"; };
@@ -1082,7 +1082,7 @@
 				C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */,
 				C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */,
 				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
-				C5CE9458170C9389002EF5FD /* MBColorsList.plist */,
+				C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */,
 				C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */,
 				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
 				C5E6B78914A5346300DA48BD /* FractalScapes-Info.plist */,
@@ -1420,7 +1420,7 @@
 			files = (
 				C5CD57E11A9CE4AC00C70218 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
 				C56080831A9E71ED00134B62 /* UIMedia.xcassets in Resources */,
-				C5CD57E21A9CE4AC00C70218 /* MBColorsList.plist in Resources */,
+				C5CD57E21A9CE4AC00C70218 /* MBColorsList_default.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1469,7 +1469,7 @@
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
 				C5B58C5B1AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */,
 				C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */,
-				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
+				C5CE9459170C9389002EF5FD /* MBColorsList_default.plist in Resources */,
 				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

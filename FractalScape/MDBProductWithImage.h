@@ -17,6 +17,7 @@
 @property(nonatomic,strong)UIImage              *image;
 @property(nonatomic,weak) MDBPurchaseManager    *purchaseManager;
 @property(readonly)NSString                     *localizedPriceString;
+@property(readonly)BOOL                         hasReceipt;
 
 +(instancetype)newWithProduct: (SKProduct*)product image:(UIImage*)image;
 -(instancetype)initWithProduct: (SKProduct*)product image:(UIImage*)image;

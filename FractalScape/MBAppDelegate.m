@@ -17,10 +17,11 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalDocumentLocalCoordinator.h"
 #import "MDBFractalDocumentCloudCoordinator.h"
-#import "FractalScapeIconSet.h"
 #import "MDBMainLibraryTabBarController.h"
 #import "MDBFractalCloudBrowser.h"
 #import "MBFractalLibraryViewController.h"
+
+#import "FractalScapeIconSet.h"
 
 
 // View controller segue identifiers.
@@ -47,6 +48,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 //    [[UITabBar appearance] setTintColor:[FractalScapeIconSet betaColor]];
 
 //    [[UITableViewHeaderFooterView appearance] textLabel].textColor = [UIColor whiteColor];
+    self.window.backgroundColor = [FractalScapeIconSet selectionBackgroundColor];
     
     srand48(time(0)); // for use of randomize function in other parts of app
     
