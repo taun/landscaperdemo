@@ -41,13 +41,13 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = MAX(1, self.purchaseManager.validProductsWithImages.count);
+    NSInteger count = MAX(1, self.purchaseManager.validPurchaseableProducts.count);
     return count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell;
-    if (self.purchaseManager.validProductsWithImages.count)
+    if (self.purchaseManager.validPurchaseableProducts.count)
     {
         cell = [tableView dequeueReusableCellWithIdentifier: @"PurchaseCell" forIndexPath: indexPath];
     }
@@ -60,16 +60,16 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Available one time purchases";
+    return nil; //@"Available one time purchases";
 }
 
 #pragma mark - UITableDelegate
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{    
     if ([cell isKindOfClass:[MDBPurchaseTableViewCell class]])
     {
         MDBPurchaseTableViewCell* purchaseCell = (MDBPurchaseTableViewCell*)cell;
-        purchaseCell.productWithImage = self.purchaseManager.validProductsWithImages[indexPath.row];
+        purchaseCell.productWithImage = self.purchaseManager.sortedValidPurchaseableProducts[indexPath.row];
     }
 }
 

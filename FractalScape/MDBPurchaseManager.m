@@ -10,18 +10,18 @@
 
 #import "MDBPurchaseManager.h"
 #import "MDBAppModel.h"
-#import "MDBProductWithImage.h"
-#import "FractalScapeIconSet.h"
+#import "MDBBasePurchaseableProduct.h"
+#import "MDBColorPakPurchaseableProduct.h"
+#import "MDBProPurchaseableProduct.h"
 
-NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
+#import "FractalScapeIconSet.h"
 
 
 @interface MDBPurchaseManager ()
 
 @property (nonatomic,readonly) id                           keyValueStorage;
-
--(void)setReceipts: (NSArray*)receipts;
--(NSArray*)receipts;
+@property (nonatomic,assign,readwrite) BOOL                 isColorPakAvailable;
+@property (nonatomic,strong) MDBProPurchaseableProduct      *proPak;
 
 -(void)validateProductIdentifiers:(NSSet*)productIdentifiers;
 
@@ -29,32 +29,8 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 
 @implementation MDBPurchaseManager
 
-+(NSString*)prefixedProductID: (NSString*)suffix
-{
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    NSString* productID = [NSString stringWithFormat: @"%@.%@",bundleIdentifier,suffix];
-    return productID;
-}
+@synthesize possiblePurchaseableProducts = _possiblePurchaseableProducts;
 
-+(NSString*)premiumPurchaseID
-{
-    return [[self class] prefixedProductID: @"proupgrade"];
-}
-+(NSString*)colorpakmetal1PurchaseID
-{
-    return  @"com.moedae.FractalScapes.ColorPakMetallic1";
-}
-
-//
-+(UIImage*)premiumImage
-{
-    return [UIImage imageNamed: @""];
-}
-
-+(NSSet *)purchaseOptionIDs
-{
-    return [NSSet setWithObjects:[MDBPurchaseManager premiumPurchaseID],[MDBPurchaseManager colorpakmetal1PurchaseID], nil];
-}
 
 +(instancetype)newManagerWithModel:(MDBAppModel *)model
 {
@@ -66,25 +42,68 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
     self = [super init];
     if (self) {
         _appModel = model;
+        
+        _proPak = [MDBProPurchaseableProduct newWithProductIdentifier: @"com.moedae.FractalScapes.premiumpak" image: [UIImage imageNamed: @"purchasePremiumPakPortrait"]];
+        _proPak.purchaseManager = self;
+        
+        MDBColorPakPurchaseableProduct* colorProduct = [MDBColorPakPurchaseableProduct newWithProductIdentifier: @"com.moedae.FractalScapes.colors.aluminum1" image: [UIImage imageNamed: @"purchaseColorsAluminum1Portrait"]];
+        colorProduct.purchaseManager = self;
+        
+        _possiblePurchaseableProducts = [NSSet setWithObjects: _proPak,colorProduct, nil];
+        
         [[SKPaymentQueue defaultQueue]addTransactionObserver: self];
         [self revalidateProducts];
     }
     return self;
 }
 
+-(NSSet *)purchaseOptionIDs
+{
+    NSMutableSet* ids = [NSMutableSet setWithCapacity: self.possiblePurchaseableProducts.count];
+    for (MDBBasePurchaseableProduct* baseProduct in self.possiblePurchaseableProducts)
+    {
+        [ids addObject: baseProduct.productIdentifier];
+    }
+    return [ids copy];
+}
+
+-(MDBBasePurchaseableProduct *)baseProductForIdentifier:(NSString *)id
+{
+    MDBBasePurchaseableProduct* found;
+    
+    for (MDBBasePurchaseableProduct* baseProduct in self.possiblePurchaseableProducts)
+    {
+        if ([baseProduct.productIdentifier isEqualToString: id])
+        {
+            found = baseProduct;
+            break;
+        }
+    }
+    
+    return found;
+}
+
 #pragma mark - Payment Processing
 
 -(void)revalidateProducts
 {
-    [self validateProductIdentifiers: [[self class]purchaseOptionIDs]];
+    [self validateProductIdentifiers: self.purchaseOptionIDs];
 }
 
 -(void)validateProductIdentifiers:(NSSet *)productIdentifiers
 {
-    NSSet* identifiers = [[self class] purchaseOptionIDs];
-    SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: identifiers];
+    SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: productIdentifiers];
     productsRequest.delegate = self;
     [productsRequest start];
+}
+
+-(NSArray *)sortedValidPurchaseableProducts
+{
+    NSSortDescriptor* byType = [NSSortDescriptor sortDescriptorWithKey: @"storeClassIndex" ascending: YES];
+    NSSortDescriptor* byID = [NSSortDescriptor sortDescriptorWithKey: @"productIdentifier" ascending: YES];
+    
+    NSArray* sortedProducts = [self.validPurchaseableProducts sortedArrayUsingDescriptors: @[byType, byID]];
+    return sortedProducts;
 }
 
 -(BOOL)userCanMakePayments
@@ -94,77 +113,48 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 
 -(void)processPaymentForProduct:(SKProduct *)product quantity:(NSUInteger)qty
 {
+    NSLog(@"Process payment");
     SKMutablePayment* payment = [SKMutablePayment paymentWithProduct: product];
     payment.quantity = qty;
     [[SKPaymentQueue defaultQueue] addPayment: payment];
 }
 
 
--(void)addReceipt: (NSData*)newReceipt
-{
-    NSArray* savedReceipts = self.receipts;
-    if (!savedReceipts)
-    {
-        [self setReceipts: @[newReceipt]];
-    }
-    else
-    {
-        NSArray* updatedReceipts = [savedReceipts arrayByAddingObject: newReceipt];
-        [self setReceipts: updatedReceipts];
-    }
-
-}
-
 #pragma mark - Getters & Setters
-
--(id)keyValueStorage
-{
-    id storage = [NSUbiquitousKeyValueStore defaultStore];
-    if (!storage)
-    {
-        storage = [NSUserDefaults standardUserDefaults];
-    }
-    return storage;
-}
-
--(void)setReceipts: (NSArray*)receipts
-{
-    [self.keyValueStorage setObject: receipts forKey: kPrefReceipts];
-}
-
--(NSArray *)receipts
-{
-    return [self.keyValueStorage arrayForKey: kPrefReceipts];
-}
 
 -(BOOL)isPremiumPaidFor
 {
     return NO;
 }
 
+-(BOOL)isColorPakAvailable
+{
+    NSSet* colorPaks = [self.validPurchaseableProducts objectsPassingTest:^BOOL(MDBBasePurchaseableProduct *obj, BOOL *stop) {
+        BOOL pass = NO;
+        if ([obj isMemberOfClass: [MDBColorPakPurchaseableProduct class]] && !obj.hasReceipt) {
+            pass = YES;
+        }
+        return pass;
+    }];
+    return colorPaks.count > 0;
+}
 
 #pragma mark - SKProducsRequestDelegate
 -(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    NSMutableArray* productsArray = [NSMutableArray arrayWithCapacity: response.products.count];
+    NSMutableSet* products = [NSMutableSet setWithCapacity: response.products.count];
     
     for (SKProduct* product in response.products)
     {
-        UIImage* image;
-        if ([product.productIdentifier isEqualToString: [[self class]premiumPurchaseID]])
+        MDBBasePurchaseableProduct* baseProduct = [self baseProductForIdentifier: product.productIdentifier];
+        if (baseProduct)
         {
-            image = [FractalScapeIconSet imageOfPremiumUpgradeImagePortrait];
+            baseProduct.product = product;
+            [products addObject: baseProduct];
         }
-        else if ([product.productIdentifier isEqualToString: [[self class]colorpakmetal1PurchaseID]])
-        {
-            image = [FractalScapeIconSet imageOfMetalPak1UpgradeImagePortrait];
-        }
-        MDBProductWithImage* pwm = [MDBProductWithImage newWithProduct: product image: image];
-        pwm.purchaseManager = self;
-        [productsArray addObject: pwm];
     }
     
-    self.validProductsWithImages = [productsArray copy];
+    self.validPurchaseableProducts = [products copy];
     [self.delegate productsChanged];
     // update view controller via observer
 }
@@ -179,7 +169,11 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
         if (state == SKPaymentTransactionStatePurchased)
         {
             // enable allowPremium
-
+            MDBBasePurchaseableProduct* baseProduct = [self baseProductForIdentifier: transaction.payment.productIdentifier];
+            if (baseProduct && [baseProduct processPurchase])
+            {
+                [queue finishTransaction: transaction];
+            }
         }
         else if (state == SKPaymentTransactionStatePurchasing)
         {
@@ -199,7 +193,6 @@ NSString* const  kPrefReceipts = @"com.moedae.FractalScapes.receipts";
 
 -(void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions
 {
-    
 }
 
 

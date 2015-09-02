@@ -2421,6 +2421,7 @@ Drag icon to holder below to apply effect</string>
                         <outlet property="destinationView" destination="JuG-Zf-Vvp" id="eV1-cd-ImW"/>
                         <outlet property="fillColorsListView" destination="bZN-MH-WtZ" id="21B-kc-1Tu"/>
                         <outlet property="fillColorsTemplateImageView" destination="sUp-Wy-sYl" id="adf-dW-TpC"/>
+                        <outlet property="getExtraColorsView" destination="5TV-Lf-FTd" id="gVf-nZ-2SO"/>
                         <outlet property="lineColorsTemplateImageView" destination="y20-fS-x0U" id="xkn-bb-nj5"/>
                         <outlet property="pageColorDestinationTileView" destination="HMf-cF-wSc" id="aR6-AN-WjS"/>
                         <outlet property="ruleHelpLabel" destination="Q4b-HN-Ruh" id="36g-Kl-E5U"/>

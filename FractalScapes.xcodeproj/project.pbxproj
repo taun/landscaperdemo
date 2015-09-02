@@ -33,8 +33,8 @@
 		C529F8541B8F63A3005D8982 /* MDBPurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C529F8521B8F63A3005D8982 /* MDBPurchaseViewController.m */; };
 		C529F8571B8F63C1005D8982 /* MDBPurchaseTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C529F8551B8F63C1005D8982 /* MDBPurchaseTableViewCell.h */; };
 		C529F8581B8F63C1005D8982 /* MDBPurchaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C529F8561B8F63C1005D8982 /* MDBPurchaseTableViewCell.m */; };
-		C529F85B1B8F65D7005D8982 /* MDBProductWithImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C529F8591B8F65D7005D8982 /* MDBProductWithImage.h */; };
-		C529F85C1B8F65D7005D8982 /* MDBProductWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C529F85A1B8F65D7005D8982 /* MDBProductWithImage.m */; };
+		C529F85B1B8F65D7005D8982 /* MDBBasePurchaseableProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = C529F8591B8F65D7005D8982 /* MDBBasePurchaseableProduct.h */; };
+		C529F85C1B8F65D7005D8982 /* MDBBasePurchaseableProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C529F85A1B8F65D7005D8982 /* MDBBasePurchaseableProduct.m */; };
 		C529F85E1B8F6825005D8982 /* PurchaseImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C529F85D1B8F6825005D8982 /* PurchaseImages.xcassets */; };
 		C529F87F1B8FD58E005D8982 /* asn_application.h in Headers */ = {isa = PBXBuildFile; fileRef = C529F8611B8FD58E005D8982 /* asn_application.h */; };
 		C529F8801B8FD58E005D8982 /* asn_codecs_prim.c in Sources */ = {isa = PBXBuildFile; fileRef = C529F8621B8FD58E005D8982 /* asn_codecs_prim.c */; };
@@ -146,6 +146,12 @@
 		C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE4F170FC29900967F79 /* MBImmutableCellBackgroundView.m */; };
 		C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */; };
 		C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */; };
+		C583ED831B963CA200ED4BA6 /* MDBProPurchaseableProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */; };
+		C583ED841B963CA200ED4BA6 /* MDBProPurchaseableProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */; };
+		C583ED871B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = C583ED851B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h */; };
+		C583ED881B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C583ED861B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.m */; };
+		C583ED8E1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C583ED8D1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets */; };
+		C583ED901B96755400ED4BA6 /* MBColorsList_aluminum1.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583ED8F1B96755400ED4BA6 /* MBColorsList_aluminum1.plist */; };
 		C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */; };
 		C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
 		C59954051A6465270093CF50 /* FractalScapeFractalModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */; };
@@ -219,7 +225,7 @@
 		C5CD57D01A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
 		C5CD57D11A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
 		C5CD57E11A9CE4AC00C70218 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
-		C5CD57E21A9CE4AC00C70218 /* MBColorsList_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */; };
+		C5CD57E21A9CE4AC00C70218 /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE0E4B1B542C6100EEC58C /* MDKLinePropertyControl.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E371B542C6100EEC58C /* MDKLinePropertyControl.h */; };
 		C5CE0E4D1B542C6100EEC58C /* NSString+MDKConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E391B542C6100EEC58C /* NSString+MDKConvenience.h */; };
 		C5CE0E4E1B542C6100EEC58C /* NSString+MDKConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE0E3A1B542C6100EEC58C /* NSString+MDKConvenience.m */; };
@@ -246,7 +252,7 @@
 		C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E6E1B54486E00EEC58C /* en.lproj */; };
 		C5CE0E711B54488B00EEC58C /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E701B54488B00EEC58C /* Base.lproj */; };
 		C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E721B544EAD00EEC58C /* Localizable.strings */; };
-		C5CE9459170C9389002EF5FD /* MBColorsList_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */; };
+		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
 		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
 		C5D400191B7D118700ABF7F6 /* MDBTutorialPageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */; };
 		C5D4001A1B7D118700ABF7F6 /* MDBTutorialPageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D400181B7D118700ABF7F6 /* MDBTutorialPageSource.m */; };
@@ -341,8 +347,8 @@
 		C529F8521B8F63A3005D8982 /* MDBPurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBPurchaseViewController.m; sourceTree = "<group>"; };
 		C529F8551B8F63C1005D8982 /* MDBPurchaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBPurchaseTableViewCell.h; sourceTree = "<group>"; };
 		C529F8561B8F63C1005D8982 /* MDBPurchaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBPurchaseTableViewCell.m; sourceTree = "<group>"; };
-		C529F8591B8F65D7005D8982 /* MDBProductWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBProductWithImage.h; sourceTree = "<group>"; };
-		C529F85A1B8F65D7005D8982 /* MDBProductWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBProductWithImage.m; sourceTree = "<group>"; };
+		C529F8591B8F65D7005D8982 /* MDBBasePurchaseableProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBBasePurchaseableProduct.h; sourceTree = "<group>"; };
+		C529F85A1B8F65D7005D8982 /* MDBBasePurchaseableProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBBasePurchaseableProduct.m; sourceTree = "<group>"; };
 		C529F85D1B8F6825005D8982 /* PurchaseImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PurchaseImages.xcassets; sourceTree = "<group>"; };
 		C529F8611B8FD58E005D8982 /* asn_application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn_application.h; sourceTree = "<group>"; };
 		C529F8621B8FD58E005D8982 /* asn_codecs_prim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asn_codecs_prim.c; sourceTree = "<group>"; };
@@ -466,6 +472,12 @@
 		C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBTextViewTableCell.m; path = FractalScape/MBTextViewTableCell.m; sourceTree = "<group>"; };
 		C57F32BA170209EE0072FE75 /* MBXibAutolayoutTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBXibAutolayoutTableCell.h; path = FractalScape/MBXibAutolayoutTableCell.h; sourceTree = "<group>"; };
 		C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBXibAutolayoutTableCell.m; path = FractalScape/MBXibAutolayoutTableCell.m; sourceTree = "<group>"; };
+		C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBProPurchaseableProduct.h; sourceTree = "<group>"; };
+		C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBProPurchaseableProduct.m; sourceTree = "<group>"; };
+		C583ED851B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBColorPakPurchaseableProduct.h; sourceTree = "<group>"; };
+		C583ED861B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBColorPakPurchaseableProduct.m; sourceTree = "<group>"; };
+		C583ED8D1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PurchaseColorsAluminum1.xcassets; sourceTree = "<group>"; };
+		C583ED8F1B96755400ED4BA6 /* MBColorsList_aluminum1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MBColorsList_aluminum1.plist; sourceTree = "<group>"; };
 		C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SliderControlMedia.xcassets; sourceTree = "<group>"; };
 		C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSDrawingRulesDefaultTypeList.plist; path = resources/LSDrawingRulesDefaultTypeList.plist; sourceTree = "<group>"; };
 		C59954001A6465270093CF50 /* FractalScapesFractalModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FractalScapesFractalModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -563,7 +575,7 @@
 		C5CE0E6E1B54486E00EEC58C /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
 		C5CE0E701B54488B00EEC58C /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
 		C5CE0E721B544EAD00EEC58C /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList_default.plist; path = resources/MBColorsList_default.plist; sourceTree = "<group>"; };
+		C5CE9458170C9389002EF5FD /* MBColorsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MBColorsList.plist; path = resources/MBColorsList.plist; sourceTree = "<group>"; };
 		C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LSFractalsList.plist; path = resources/LSFractalsList.plist; sourceTree = "<group>"; };
 		C5CF44BE16E532F5009CB7CF /* FractalControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FractalControllerProtocol.h; path = FractalScape/FractalControllerProtocol.h; sourceTree = "<group>"; };
 		C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialPageSource.h; sourceTree = "<group>"; };
@@ -1057,8 +1069,12 @@
 				C533DFD01AE953B6009E9D95 /* MDBAppModel.m */,
 				C52D71E41B8CA20D0003FBF4 /* MDBPurchaseManager.h */,
 				C52D71E51B8CA20D0003FBF4 /* MDBPurchaseManager.m */,
-				C529F8591B8F65D7005D8982 /* MDBProductWithImage.h */,
-				C529F85A1B8F65D7005D8982 /* MDBProductWithImage.m */,
+				C529F8591B8F65D7005D8982 /* MDBBasePurchaseableProduct.h */,
+				C529F85A1B8F65D7005D8982 /* MDBBasePurchaseableProduct.m */,
+				C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */,
+				C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */,
+				C583ED851B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h */,
+				C583ED861B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.m */,
 				C59EE2131AF3EE6300CFE254 /* MDBMainLibraryTabBarController.h */,
 				C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */,
 				C529F8501B8F637F005D8982 /* Purchase */,
@@ -1082,7 +1098,8 @@
 				C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */,
 				C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */,
 				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
-				C5CE9458170C9389002EF5FD /* MBColorsList_default.plist */,
+				C5CE9458170C9389002EF5FD /* MBColorsList.plist */,
+				C583ED8F1B96755400ED4BA6 /* MBColorsList_aluminum1.plist */,
 				C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */,
 				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
 				C5E6B78914A5346300DA48BD /* FractalScapes-Info.plist */,
@@ -1098,8 +1115,9 @@
 				C5302CB31B6AB39F00130D9A /* Tutorial.xcassets */,
 				C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */,
 				C5B3F18519DC804100BDFAF5 /* FractalMedia.xcassets */,
-				C529F85D1B8F6825005D8982 /* PurchaseImages.xcassets */,
 				C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */,
+				C529F85D1B8F6825005D8982 /* PurchaseImages.xcassets */,
+				C583ED8D1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets */,
 			);
 			name = "Supporting Files";
 			path = FractalScape;
@@ -1290,7 +1308,7 @@
 				C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */,
 				C529F8BF1B8FD6D4005D8982 /* InAppReceipt.h in Headers */,
 				C5ABDFFA1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h in Headers */,
-				C529F85B1B8F65D7005D8982 /* MDBProductWithImage.h in Headers */,
+				C529F85B1B8F65D7005D8982 /* MDBBasePurchaseableProduct.h in Headers */,
 				C5CE0E581B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h in Headers */,
 				C529F8921B8FD58F005D8982 /* constr_SET_OF.h in Headers */,
 				C529F8881B8FD58E005D8982 /* ber_decoder.h in Headers */,
@@ -1299,6 +1317,7 @@
 				C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */,
 				C546D71F1A83D5C3002E869A /* LSFractal.h in Headers */,
 				C54FC6CE1ADB5E5B00588E9F /* MDBFilterControlView.h in Headers */,
+				C583ED871B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h in Headers */,
 				C529F8811B8FD58E005D8982 /* asn_codecs_prim.h in Headers */,
 				C5CE0E691B542C8B00EEC58C /* MDLCloudKitManager.h in Headers */,
 				C5D542371A300FFA006CD47A /* MDBColorCategoriesListView.h in Headers */,
@@ -1309,6 +1328,7 @@
 				C529F88A1B8FD58E005D8982 /* ber_tlv_length.h in Headers */,
 				C5F184781AA6663800233E49 /* MDBDocumentUtilities.h in Headers */,
 				C5F1847C1AA6751200233E49 /* MDBDocumentController.h in Headers */,
+				C583ED831B963CA200ED4BA6 /* MDBProPurchaseableProduct.h in Headers */,
 				C529F8D81B8FD6D4005D8982 /* xer_support.h in Headers */,
 				C529F88E1B8FD58F005D8982 /* BIT_STRING.h in Headers */,
 				C5C37C681A24ED70008C5409 /* MBLSReplacementRuleTileView.h in Headers */,
@@ -1420,7 +1440,7 @@
 			files = (
 				C5CD57E11A9CE4AC00C70218 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
 				C56080831A9E71ED00134B62 /* UIMedia.xcassets in Resources */,
-				C5CD57E21A9CE4AC00C70218 /* MBColorsList_default.plist in Resources */,
+				C5CD57E21A9CE4AC00C70218 /* MBColorsList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,7 +1473,9 @@
 				C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */,
 				C5B58C681AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */,
 				C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */,
+				C583ED8E1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets in Resources */,
 				C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */,
+				C583ED901B96755400ED4BA6 /* MBColorsList_aluminum1.plist in Resources */,
 				C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */,
 				C5B58C631AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */,
 				C50C47BA1A97C2E500CF5121 /* Launch Screen.xib in Resources */,
@@ -1469,7 +1491,7 @@
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
 				C5B58C5B1AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */,
 				C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */,
-				C5CE9459170C9389002EF5FD /* MBColorsList_default.plist in Resources */,
+				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
 				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1522,7 +1544,7 @@
 				C5D5423C1A30EDE3006CD47A /* MBColorCategory.m in Sources */,
 				C529F8D71B8FD6D4005D8982 /* xer_support.c in Sources */,
 				C529F8D01B8FD6D4005D8982 /* ReceiptAttribute.c in Sources */,
-				C529F85C1B8F65D7005D8982 /* MDBProductWithImage.m in Sources */,
+				C529F85C1B8F65D7005D8982 /* MDBBasePurchaseableProduct.m in Sources */,
 				C5CE0E5A1B542C6100EEC58C /* MDKUICollectionViewScrollContentSized.m in Sources */,
 				C5D542301A2FC68C006CD47A /* MDBLSObjectTilesViewBaseController.m in Sources */,
 				C5ABDFFB1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m in Sources */,
@@ -1542,6 +1564,7 @@
 				C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */,
 				C529F8841B8FD58E005D8982 /* asn_SET_OF.c in Sources */,
 				C5CE0E501B542C6100EEC58C /* UIFont+MDKProportional.m in Sources */,
+				C583ED881B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.m in Sources */,
 				C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */,
 				C529F8871B8FD58E005D8982 /* ber_decoder.c in Sources */,
 				C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */,
@@ -1625,6 +1648,7 @@
 				C5302CB21B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m in Sources */,
 				C5C19D6F1A241297000A1214 /* MBLSRuleTypeTileViewer.m in Sources */,
 				C529F8BC1B8FD6D4005D8982 /* InAppAttribute.c in Sources */,
+				C583ED841B963CA200ED4BA6 /* MDBProPurchaseableProduct.m in Sources */,
 				C54FC6D71ADB60C900588E9F /* MDBImageFiltersCategoriesListView.m in Sources */,
 				C53F8DFA1B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m in Sources */,
 				C5CE0E521B542C6100EEC58C /* MDKLinePropertyControl.m in Sources */,
@@ -1660,6 +1684,106 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C57875131B960DDA003B3378 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Beta Debug";
+		};
+		C57875141B960DDA003B3378 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ICON_SET_SUFFIX}";
+				BUNDLE_DISPLAY_NAME_SUFFIX = "";
+				BUNDLE_ICON_SET_SUFFIX = BetaDebug;
+				BUNDLE_ID_SUFFIX = "";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_RECEIVER_WEAK = NO;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
+				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FractalScape-dqtbyqfivsmbtqeqqbkpgurnioum/Build/Products/Debug-iphoneos/",
+				);
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_NAME = FractalScapes;
+				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Beta Debug";
+		};
+		C57875151B960DDA003B3378 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = FractalScapeFractalModelTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = FractalScapesFractalModelTests;
+			};
+			name = "Beta Debug";
+		};
 		C59954091A6465270093CF50 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1947,6 +2071,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C59954091A6465270093CF50 /* Debug */,
+				C57875151B960DDA003B3378 /* Beta Debug */,
 				C599540A1A6465270093CF50 /* Release */,
 				C5BB7D8A1A90552900575CFC /* Beta */,
 			);
@@ -1957,6 +2082,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5E6B7BC14A5346300DA48BD /* Debug */,
+				C57875131B960DDA003B3378 /* Beta Debug */,
 				C5E6B7BD14A5346300DA48BD /* Release */,
 				C5BB7D871A90552900575CFC /* Beta */,
 			);
@@ -1967,6 +2093,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5E6B7BF14A5346300DA48BD /* Debug */,
+				C57875141B960DDA003B3378 /* Beta Debug */,
 				C5E6B7C014A5346300DA48BD /* Release */,
 				C5BB7D881A90552900575CFC /* Beta */,
 			);

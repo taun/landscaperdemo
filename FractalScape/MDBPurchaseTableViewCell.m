@@ -7,7 +7,7 @@
 //
 
 #import "MDBPurchaseTableViewCell.h"
-#import "MDBProductWithImage.h"
+#import "MDBBasePurchaseableProduct.h"
 #import "MDBPurchaseManager.h"
 
 @interface MDBPurchaseTableViewCell ()
@@ -44,6 +44,11 @@
         self.priceLabel.text = self.productWithImage.localizedPriceString;
         [self.buyButton setTitle: NSLocalizedString(@"Buy", @"App store Buy") forState: UIControlStateNormal];
     }
+    
+    if (self.productWithImage.hasReceipt)
+    {
+        [self.buyButton setTitle: NSLocalizedString(@"Bought", @"App store already bought") forState: UIControlStateNormal];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -54,7 +59,7 @@
 
 #pragma mark - Getters & Setters
 
--(void)setProductWithImage:(MDBProductWithImage *)productWithImage
+-(void)setProductWithImage:(MDBBasePurchaseableProduct *)productWithImage
 {
     if (_productWithImage != productWithImage)
     {
@@ -67,7 +72,7 @@
 #pragma mark - Actions
 - (IBAction)buyButtonTapped:(UIButton *)sender
 {
-    NSLog(@"Buy button tapped");
+    [self.productWithImage.purchaseManager processPaymentForProduct: self.productWithImage.product quantity: 1];
 }
 
 @end

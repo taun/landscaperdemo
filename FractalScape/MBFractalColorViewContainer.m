@@ -8,6 +8,7 @@
 
 #import "MBFractalColorViewContainer.h"
 #import "MBColor.h"
+#import "MDBPurchaseManager.h"
 
 #import "QuartzHelpers.h"
 
@@ -55,6 +56,12 @@
 {
     self.allowedDestinationViews = [@[self.fillColorsListView,self.pageColorDestinationTileView] arrayByAddingObjectsFromArray: self.allowedDestinationViews];
     [super viewWillLayoutSubviews];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.getExtraColorsView.hidden = !self.appModel.purchaseManager.isColorPakAvailable;
 }
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender

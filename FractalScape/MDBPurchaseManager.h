@@ -11,6 +11,7 @@
 
 
 @class MDBAppModel;
+@class MDBBasePurchaseableProduct;
 
 @protocol PurchaseManagerDelegate <NSObject>
 
@@ -24,8 +25,10 @@
 @interface MDBPurchaseManager : NSObject <SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
 @property (nonatomic,weak) MDBAppModel                      *appModel;
-@property (nonatomic,strong) NSArray                        *validProductsWithImages;
+@property (nonatomic,readonly)NSSet                         *possiblePurchaseableProducts;
+@property (nonatomic,strong) NSSet                          *validPurchaseableProducts;
 @property (nonatomic,readonly) BOOL                         isPremiumPaidFor;
+@property (nonatomic,readonly) BOOL                         isColorPakAvailable;
 @property (nonatomic,readonly) BOOL                         userCanMakePayments;
 @property (nonatomic,weak) id<PurchaseManagerDelegate>      delegate;
 
@@ -34,5 +37,9 @@
 -(void)revalidateProducts;
 
 -(void)processPaymentForProduct:(SKProduct*)product quantity: (NSUInteger)qty;
+
+-(MDBBasePurchaseableProduct*)baseProductForIdentifier: (NSString*)id;
+
+-(NSArray*)sortedValidPurchaseableProducts;
 
 @end

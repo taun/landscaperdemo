@@ -17,9 +17,14 @@
     return categoryColorsKeyString;
 }
 
++(NSString*)plistPrefix
+{
+    return @"MBColorsList";
+}
+
 +(NSArray*)loadAllDefaultCategories
 {
-    NSString* plistFileName = @"MBColorsList_default";
+    NSString* plistFileName = [[self class]plistPrefix];
     
     id plistObject = [plistFileName fromPListFileNameToObject];
     

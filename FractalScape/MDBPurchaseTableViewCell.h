@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class  MDBProductWithImage;
+@class  MDBBasePurchaseableProduct;
 
 
 @interface MDBPurchaseTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) MDBProductWithImage         *productWithImage;
+@property(nonatomic,strong) MDBBasePurchaseableProduct         *productWithImage;
 
 @end
