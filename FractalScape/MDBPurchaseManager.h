@@ -25,6 +25,7 @@
 @interface MDBPurchaseManager : NSObject <SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
 @property (nonatomic,weak) MDBAppModel                      *appModel;
+@property (nonatomic,readonly) BOOL                         validAppReceiptFound;
 @property (nonatomic,readonly)NSSet                         *possiblePurchaseableProducts;
 @property (nonatomic,strong) NSSet                          *validPurchaseableProducts;
 @property (nonatomic,readonly) BOOL                         isPremiumPaidFor;

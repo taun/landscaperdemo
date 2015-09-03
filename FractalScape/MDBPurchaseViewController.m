@@ -69,7 +69,7 @@
     if ([cell isKindOfClass:[MDBPurchaseTableViewCell class]])
     {
         MDBPurchaseTableViewCell* purchaseCell = (MDBPurchaseTableViewCell*)cell;
-        purchaseCell.productWithImage = self.purchaseManager.sortedValidPurchaseableProducts[indexPath.row];
+        purchaseCell.purchaseableProduct = self.purchaseManager.sortedValidPurchaseableProducts[indexPath.row];
     }
 }
 

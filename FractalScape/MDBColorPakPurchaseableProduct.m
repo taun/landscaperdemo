@@ -15,4 +15,16 @@
     return 20;
 }
 
+
+-(BOOL)processPurchase: (NSDate*)date
+{
+    [super processPurchase: date];
+    // over ride return since there is nothing to install
+    // need to install color pak
+    
+    self.resourcePListName;
+    
+    return YES;
+}
+
 @end

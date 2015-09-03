@@ -29,50 +29,140 @@
     // Initialization code
 }
 
--(void)updateValueDisplays
-{
-    self.productImageView.image = self.productWithImage.image;
-    self.productLabel.text = self.productWithImage.product.localizedTitle;
-    self.productDescription.text = self.productWithImage.product.localizedDescription;
-    if ([self.productWithImage.product.price isEqualToNumber: [NSDecimalNumber numberWithDouble: 0.0]])
-    {
-        self.priceLabel.text = NSLocalizedString(@"Free", @"App Price is free");
-        [self.buyButton setTitle: NSLocalizedString(@"Get", @"App store Get") forState: UIControlStateNormal];
-    }
-    else
-    {
-        self.priceLabel.text = self.productWithImage.localizedPriceString;
-        [self.buyButton setTitle: NSLocalizedString(@"Buy", @"App store Buy") forState: UIControlStateNormal];
-    }
-    
-    if (self.productWithImage.hasReceipt)
-    {
-        [self.buyButton setTitle: NSLocalizedString(@"Bought", @"App store already bought") forState: UIControlStateNormal];
-    }
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 #pragma mark - Getters & Setters
 
--(void)setProductWithImage:(MDBBasePurchaseableProduct *)productWithImage
+-(void)setPurchaseableProduct:(MDBBasePurchaseableProduct *)productWithImage
 {
-    if (_productWithImage != productWithImage)
+    if (_purchaseableProduct != productWithImage)
     {
-        _productWithImage = productWithImage;
+        [self removeProductObservers];
+        _purchaseableProduct = productWithImage;
+        [self addProductObservers];
     }
     
     [self updateValueDisplays];
 }
 
+-(void)addProductObservers
+{
+    if (_purchaseableProduct)
+    {
+        [_purchaseableProduct addObserver: self forKeyPath: @"transactionState" options: 0 context: NULL];
+    }
+}
+
+-(void)removeProductObservers
+{
+    if (_purchaseableProduct)
+    {
+        [_purchaseableProduct removeObserver: self forKeyPath: @"transactionState"];
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString: @"transactionState"])
+    {
+        [self updateBuyButtonStatus];
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+-(void)updateValueDisplays
+{
+    self.productImageView.image = self.purchaseableProduct.image;
+    self.productLabel.text = self.purchaseableProduct.product.localizedTitle;
+    self.productDescription.text = self.purchaseableProduct.product.localizedDescription;
+    [self updateBuyButtonStatus];
+}
+
+-(void)updateBuyButtonStatus
+{
+    self.buyButton.enabled = NO;
+    
+    if (_purchaseableProduct)
+    {
+        NSString* buttonTitle;
+        
+        if (self.purchaseableProduct.hasReceipt)
+        {
+            buttonTitle = NSLocalizedString(@"Purchased", @"App store already purchased");
+        }
+        else if (_purchaseableProduct.transactionState != -1)
+        {
+            SKPaymentTransactionState state = _purchaseableProduct.transactionState;
+
+            switch (state) {
+                case SKPaymentTransactionStatePurchasing:
+                    // no purchase
+                    buttonTitle = NSLocalizedString(@"Purchasing", @"App store purchasing");
+                    break;
+                    
+                case SKPaymentTransactionStateDeferred:
+                    // no purchase
+                    buttonTitle = NSLocalizedString(@"Bought", @"App store deferred");
+                    break;
+                    
+                case SKPaymentTransactionStatePurchased:
+                    // no purchase
+                    buttonTitle = NSLocalizedString(@"Purchased", @"App store just purchased");
+                    break;
+                    
+                case SKPaymentTransactionStateRestored:
+                    // no purchase
+                    buttonTitle = NSLocalizedString(@"Restored", @"App store just restored");
+                    break;
+                    
+                case SKPaymentTransactionStateFailed:
+                    // no purchase
+                    buttonTitle = NSLocalizedString(@"Failed", @"App store just failed");
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        else
+        {   // not bought or being bought
+            self.buyButton.enabled = YES;
+            if ([self.purchaseableProduct.product.price isEqualToNumber: [NSDecimalNumber numberWithDouble: 0.0]])
+            {
+                buttonTitle = NSLocalizedString(@"Get", @"App store Get");
+            }
+            else
+            {
+                buttonTitle = NSLocalizedString(@"Buy", @"App store Buy");
+            }
+        }
+        [self.buyButton setTitle: buttonTitle forState: UIControlStateNormal];
+
+        if ([self.purchaseableProduct.product.price isEqualToNumber: [NSDecimalNumber numberWithDouble: 0.0]])
+        {
+            self.priceLabel.text = NSLocalizedString(@"Free", @"App Price is free");
+        }
+        else
+        {
+            self.priceLabel.text = self.purchaseableProduct.localizedPriceString;
+        }
+    }
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+
 #pragma mark - Actions
 - (IBAction)buyButtonTapped:(UIButton *)sender
 {
-    [self.productWithImage.purchaseManager processPaymentForProduct: self.productWithImage.product quantity: 1];
+    self.buyButton.enabled = NO;
+    [self.purchaseableProduct.purchaseManager processPaymentForProduct: self.purchaseableProduct.product quantity: 1];
 }
 
 @end

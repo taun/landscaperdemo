@@ -13,6 +13,6 @@
 
 @interface MDBPurchaseTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) MDBBasePurchaseableProduct         *productWithImage;
+@property(nonatomic,strong) MDBBasePurchaseableProduct         *purchaseableProduct;
 
 @end

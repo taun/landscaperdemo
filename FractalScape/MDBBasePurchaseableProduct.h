@@ -20,6 +20,7 @@
 @property(readonly)NSString                     *localizedPriceString;
 @property(readonly)BOOL                         hasReceipt;
 @property(readonly)NSInteger                    storeClassIndex;
+@property(readonly)SKPaymentTransactionState    transactionState;
 
 +(instancetype)newWithProductIdentifier: (NSString*)productID image:(UIImage*)image;
 -(instancetype)initWithProductIdentifier: (NSString*)productID image:(UIImage*)image;
@@ -30,8 +31,10 @@
  
  @return if success for enabling or installing content
  */
--(BOOL)processPurchase;
+-(BOOL)processPurchase:(NSDate*)date;
 
 -(NSString*)receiptStorageKeyString;
+
+-(void)setCurrentTransaction:(SKPaymentTransaction*)transaction;
 
 @end

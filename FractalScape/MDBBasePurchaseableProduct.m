@@ -36,6 +36,7 @@
     if (self) {
         _productIdentifier = productID;
         _image = image;
+        _transactionState = -1; // default value to know if the state is set
     }
     return self;
 }
@@ -50,10 +51,24 @@
     return storage;
 }
 
--(BOOL)processPurchase
+-(void)setCurrentTransaction:(SKPaymentTransaction*)transaction
 {
+    SKPaymentTransactionState transactionState = transaction.transactionState;
     
-    [self.keyValueStorage setObject: nil forKey: self.receiptStorageKeyString];
+    if (_transactionState != transactionState)
+    {
+        _transactionState = transactionState;
+        
+        if (_transactionState == SKPaymentTransactionStatePurchased || _transactionState == SKPaymentTransactionStateRestored)
+        {
+            [self processPurchase: transaction.transactionDate];
+        }
+    }
+}
+
+-(BOOL)processPurchase: (NSDate*)date
+{
+    [self.keyValueStorage setObject: date forKey: self.receiptStorageKeyString];
     
     return NO;
 }
@@ -66,7 +81,7 @@
 
 -(BOOL)hasReceipt
 {
-    return [self.keyValueStorage arrayForKey: self.receiptStorageKeyString];
+    return [self.keyValueStorage objectForKey: self.receiptStorageKeyString];
 }
 
 

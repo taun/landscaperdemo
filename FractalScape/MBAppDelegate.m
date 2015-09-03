@@ -45,9 +45,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-//    [[UITabBar appearance] setTintColor:[FractalScapeIconSet betaColor]];
+    // OS X 10.7 and later / iOS 7 and later    
 
-//    [[UITableViewHeaderFooterView appearance] textLabel].textColor = [UIColor whiteColor];
     self.window.backgroundColor = [FractalScapeIconSet selectionBackgroundColor];
     
     srand48(time(0)); // for use of randomize function in other parts of app

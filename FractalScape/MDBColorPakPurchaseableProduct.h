@@ -10,4 +10,6 @@
 
 @interface MDBColorPakPurchaseableProduct : MDBBasePurchaseableProduct
 
+@property(nonatomic,strong)NSString*        resourcePListName;
+
 @end
