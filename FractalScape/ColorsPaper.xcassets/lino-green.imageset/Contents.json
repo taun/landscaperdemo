@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "lino-green.jpg"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "lino-green.jpg"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

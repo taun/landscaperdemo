@@ -10,6 +10,8 @@
 #import "MBFractalPrefConstants.h"
 #import "MDBDocumentController.h"
 #import "MDBFractalDocument.h"
+#import "MBColorCategory.h"
+#import "LSDrawingRuleType.h"
 #import "MDBFractalInfo.h"
 #import "MDLCloudKitManager.h"
 #import "MDBCloudManager.h"
@@ -39,6 +41,9 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 
 @property (nonatomic,assign,readwrite) BOOL        allowPremiumOverride;
 @property (nonatomic,assign,readwrite) BOOL        useWatermarkOverride;
+
+@property(nonatomic,readwrite,strong) LSDrawingRuleType               *sourceDrawingRules;
+@property(nonatomic,readwrite,strong) NSArray                         *sourceColorCategories;
 
 @end
 
@@ -137,7 +142,7 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 
 -(BOOL)useWatermark
 {
-    return (self.purchaseManager.isPremiumPaidFor || self.useWatermarkOverride);
+    return (!self.purchaseManager.isPremiumPaidFor || self.useWatermarkOverride);
 }
 
 
@@ -255,6 +260,36 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL value = [defaults boolForKey: kPrefPromptedDiscoveryUsed];
     return value;
+}
+
+-(LSDrawingRuleType*)sourceDrawingRules
+{
+    if (!_sourceDrawingRules) {
+        _sourceDrawingRules = [LSDrawingRuleType newLSDrawingRuleTypeFromDefaultPListDictionary];
+    }
+    return _sourceDrawingRules;
+}
+
+-(NSArray*)sourceColorCategories
+{
+    if (!_sourceColorCategories)
+    {
+        _sourceColorCategories = [MBColorCategory loadAllDefaultCategories];
+    }
+    return _sourceColorCategories;
+}
+
+-(BOOL)loadAdditionalColorsFromPlistFileNamed:(NSString *)fileName
+{
+    BOOL success = NO;
+    
+    NSArray* additionalColorsArray = [MBColorCategory loadAdditionalCategoriesFromPListFileNamed: fileName];
+    if (additionalColorsArray.count > 0)
+    {
+        self.sourceColorCategories = [self.sourceColorCategories arrayByAddingObjectsFromArray: additionalColorsArray];
+        success = YES;
+    }
+    return success;
 }
 
 #pragma mark - State Changes?

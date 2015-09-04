@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "imitation_leather.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "imitation_leather.png"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

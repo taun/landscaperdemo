@@ -33,7 +33,7 @@
     
     self.replacementRules.replacementRules = [self.fractalDocument.fractal mutableArrayValueForKey: @"replacementRules"];
     
-    [self.sourceListView setValue: self.fractalDocument.sourceDrawingRules forKey: @"type"];
+    [self.sourceListView setValue: self.appModel.sourceDrawingRules forKey: @"type"];
     
     // a convenient place to override autoScroll. Should be in viewDidLoad but this is fine.
     self.autoScroll = YES;

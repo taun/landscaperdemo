@@ -52,6 +52,7 @@
 @property (nonatomic, assign) CGFloat              minImagePersistence;
 
 @property (nonatomic, strong) NSNumberFormatter*    twoPlaceFormatter;
+@property (nonatomic, strong) NSNumberFormatter*    onePlaceFormatter;
 @property (nonatomic, strong) NSNumberFormatter*    percentFormatter;
 @property (nonatomic, strong) NSNumberFormatter*    angleFormatter;
 /*!

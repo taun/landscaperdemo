@@ -19,6 +19,8 @@
 @implementation MDBBasePurchaseableProduct
 
 @synthesize priceFormatter = _priceFormatter;
+@synthesize isContentLoaded = _isContentLoaded;
+
 
 +(instancetype)newWithProductIdentifier: (NSString*)productID image:(UIImage*)image
 {
@@ -70,7 +72,17 @@
 {
     [self.keyValueStorage setObject: date forKey: self.receiptStorageKeyString];
     
+    NSLog(@"FractalScapes processing additonal content %@, receipt date %@",self.productIdentifier, date);
+    [self loadContent];
+
     return NO;
+}
+
+-(BOOL)loadContent
+{
+    _isContentLoaded = YES;
+    
+    return _isContentLoaded;
 }
 
 -(NSString *)receiptStorageKeyString

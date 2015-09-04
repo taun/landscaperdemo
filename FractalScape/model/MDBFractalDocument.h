@@ -65,8 +65,6 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
  */
 @property(nonatomic,strong) LSFractal                       *fractal;
 @property(nonatomic,strong) UIImage                         *thumbnail;
-@property(nonatomic,strong) LSDrawingRuleType               *sourceDrawingRules;
-@property(nonatomic,strong) NSArray                         *sourceColorCategories;
 @property(nonatomic,strong) NSArray                         *categories;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
 @property(nonatomic,readonly) NSString                      *loadResultString;

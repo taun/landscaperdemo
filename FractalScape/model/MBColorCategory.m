@@ -22,11 +22,9 @@
     return @"MBColorsList";
 }
 
-+(NSArray*)loadAllDefaultCategories
++(NSArray *)loadAdditionalCategoriesFromPListFileNamed:(NSString *)fileName
 {
-    NSString* plistFileName = [[self class]plistPrefix];
-    
-    id plistObject = [plistFileName fromPListFileNameToObject];
+    id plistObject = [fileName fromPListFileNameToObject];
     
     if (![plistObject isKindOfClass: [NSArray class]] || ([plistObject count] == 0))
     {
@@ -50,6 +48,12 @@
         }
     }
     return colorCategoriesObjectsReturnArray;
+}
+
++(NSArray*)loadAllDefaultCategories
+{
+    NSString* plistFileName = [[self class] plistPrefix];
+    return [[self class] loadAdditionalCategoriesFromPListFileNamed: plistFileName];
 }
 
 +(instancetype)newCategoryFromPListDict:(NSDictionary *)colorCategoryDict

@@ -327,22 +327,6 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     }
 }
 
--(NSArray*)sourceColorCategories
-{
-    if (!_sourceColorCategories)
-    {
-        _sourceColorCategories = [MBColorCategory loadAllDefaultCategories];
-    }
-    return _sourceColorCategories;
-}
--(LSDrawingRuleType*)sourceDrawingRules
-{
-    if (!_sourceDrawingRules) {
-        _sourceDrawingRules = [LSDrawingRuleType newLSDrawingRuleTypeFromDefaultPListDictionary];
-    }
-    return _sourceDrawingRules;
-}
-
 #pragma mark - CloudKit
 
 -(CKRecord*)asCloudKitRecord

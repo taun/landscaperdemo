@@ -21,7 +21,11 @@
 
 
 +(NSString*) colorsKey;
+
++(NSArray*)loadAdditionalCategoriesFromPListFileNamed: (NSString*)fileName;
+
 +(NSArray*)loadAllDefaultCategories;
+
 +(instancetype)newCategoryFromPListDict: (NSDictionary*) colorCategoryDict;
 /*!
  The order of the colors definition in the array is the order in which they are added to the NSOrderedSet

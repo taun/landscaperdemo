@@ -23,7 +23,7 @@
 {
     [super updateFractalDependents];
 
-    self.categories = self.fractalDocument.sourceColorCategories;
+    self.categories = self.appModel.sourceColorCategories;
     
     MDBColorCategoriesListView* categoriesView = (MDBColorCategoriesListView*) self.sourceListView;
     categoriesView.colorCategories = self.categories;

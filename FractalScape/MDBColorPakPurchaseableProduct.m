@@ -7,6 +7,8 @@
 //
 
 #import "MDBColorPakPurchaseableProduct.h"
+#import "MDBAppModel.h"
+#import "MDBPurchaseManager.h"
 
 @implementation MDBColorPakPurchaseableProduct
 
@@ -22,9 +24,22 @@
     // over ride return since there is nothing to install
     // need to install color pak
     
-    self.resourcePListName;
-    
     return YES;
 }
 
+-(BOOL)loadContent
+{
+    if (!self.isContentLoaded)
+    {
+        BOOL success = [self.purchaseManager.appModel loadAdditionalColorsFromPlistFileNamed: self.resourcePListName];
+        NSLog(@"FractalScapes loading additonal content %@",self.productIdentifier);
+        
+        if (success)
+        {
+            [super loadContent];
+        }
+    }
+    
+    return self.isContentLoaded;
+}
 @end

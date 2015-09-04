@@ -35,6 +35,8 @@
 #import "MDBEditorHelpTransitioningDelegate.h"
 #import "MDBEditorIntroWhatIsFractalViewController.h"
 #import "MDBPurchaseViewController.h"
+
+#import "UIFont+MDKProportional.h"
 //
 //static inline double radians (double degrees){return degrees * M_PI/180.0;}
 //static inline double degrees (double radians){return radians * 180.0/M_PI;}
@@ -86,6 +88,7 @@ static const CGFloat kLevelNMargin = 48.0;
  Fractal background image generation queue.
  */
 @property (nonatomic,strong) NSOperationQueue              *privateImageGenerationQueue;
+@property (nonatomic, strong) NSTimer                      *privateImageGenerationQueueTimeoutTimer;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL0;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL1;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL2;
@@ -306,6 +309,11 @@ static const CGFloat kLevelNMargin = 48.0;
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
+    self.panValueLabelHorizontal.font = [UIFont proportionalForExistingFont: self.panValueLabelHorizontal.font];
+    self.panValueLabelVertical.font = [UIFont proportionalForExistingFont: self.panValueLabelVertical.font];
+    self.hudText1.font = [UIFont proportionalForExistingFont: self.hudText1.font];
+    self.turningAngleLabel.font = [UIFont proportionalForExistingFont: self.turningAngleLabel.font];
+    
     [self configureNavBarButtons];
 
     _observedReplacementRules = [NSMutableSet new];
@@ -343,7 +351,8 @@ static const CGFloat kLevelNMargin = 48.0;
     fractalCanvas.layer.shadowOffset = CGSizeMake(5.0, 5.0);
     fractalCanvas.layer.shadowOpacity = 0.3;
     fractalCanvas.layer.shadowRadius = 3.0;
-    
+    [self configureParallax]; // here so changing the setting in user settings can take effect
+   
     [super viewDidLoad];
 }
 
@@ -502,7 +511,6 @@ static const CGFloat kLevelNMargin = 48.0;
         [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
     }
     
-    [self configureParallax]; // here so changing the setting in user settings can take effect
 
     if (self.fractalInfo.document != nil && self.fractalInfo.document.fractal && self.isViewLoaded && self.view.superview)
     {
@@ -781,7 +789,7 @@ static const CGFloat kLevelNMargin = 48.0;
             //default rules and settings
             LSFractal* newFractal = _fractalInfo.document.fractal;
             
-            LSDrawingRuleType* rules = _fractalInfo.document.sourceDrawingRules;
+            LSDrawingRuleType* rules = self.appModel.sourceDrawingRules;
             
             [newFractal.startingRules addObjectsFromArray: [rules rulesArrayFromRuleString: @"F+F--F+F"]];
             newFractal.turningAngle = radians(45.0);
@@ -852,7 +860,7 @@ static const CGFloat kLevelNMargin = 48.0;
     {
         if (self.fractalDocument.fractal)
         {
-            _fractalRendererL0 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
+            _fractalRendererL0 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererL0.name = @"_fractalRendererL0";
             _fractalRendererL0.imageView = self.fractalViewLevel0;
             _fractalRendererL0.pixelScale = self.fractalViewLevel0.contentScaleFactor;
@@ -870,7 +878,7 @@ static const CGFloat kLevelNMargin = 48.0;
     {
         if (self.fractalDocument.fractal)
         {
-            _fractalRendererL1 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
+            _fractalRendererL1 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererL1.name = @"_fractalRendererL1";
             _fractalRendererL1.imageView = self.fractalViewLevel1;
             _fractalRendererL1.pixelScale = self.fractalViewLevel1.contentScaleFactor;
@@ -888,7 +896,7 @@ static const CGFloat kLevelNMargin = 48.0;
     {
         if (self.fractalDocument.fractal)
         {
-            _fractalRendererL2 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
+            _fractalRendererL2 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererL2.name = @"_fractalRendererL2";
             _fractalRendererL2.imageView = self.fractalViewLevel2;
             _fractalRendererL2.pixelScale = self.fractalViewLevel2.contentScaleFactor;
@@ -907,7 +915,7 @@ static const CGFloat kLevelNMargin = 48.0;
         if (self.fractalDocument.fractal)
         {
             UIImageView* strongView = self.fractalView;
-            _fractalRendererLN = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
+            _fractalRendererLN = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererLN.name = @"_fractalRendererLNS1";
             _fractalRendererLN.imageView = strongView;
             _fractalRendererLN.pixelScale = strongView.contentScaleFactor;
@@ -1137,16 +1145,16 @@ static const CGFloat kLevelNMargin = 48.0;
     self.hudText1.text = [NSString stringWithFormat: @"%li", (long)self.fractalDocument.fractal.level];
     self.hudText2.text = [self.twoPlaceFormatter stringFromNumber: @(degrees(self.fractalDocument.fractal.turningAngle))];
     
-    self.baseAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithDouble: degrees(self.fractalDocument.fractal.baseAngle)]];
+    self.baseAngleLabel.text = [self.angleFormatter stringFromNumber: [NSNumber numberWithDouble: degrees(self.fractalDocument.fractal.baseAngle)]];
     self.baseAngleSlider.value = degrees(self.fractalDocument.fractal.baseAngle);
     
     self.hudRandomnessLabel.text = [self.percentFormatter stringFromNumber: @(self.fractalDocument.fractal.randomness)];
     self.randomnessVerticalSlider.value = self.fractalDocument.fractal.randomness;
     
-    self.hudLineAspectLabel.text = [NSString stringWithFormat: @"%@px by 10px long",[self.twoPlaceFormatter stringFromNumber: @(self.fractalDocument.fractal.lineWidth)]];
+    self.hudLineAspectLabel.text = [NSString stringWithFormat: @"%@px by 10px long",[self.onePlaceFormatter stringFromNumber: @(self.fractalDocument.fractal.lineWidth)]];
     self.lineWidthVerticalSlider.value = self.fractalDocument.fractal.lineWidth;
     
-    self.turningAngleLabel.text = [self.twoPlaceFormatter stringFromNumber: @(degrees(self.fractalDocument.fractal.turningAngle))];
+    self.turningAngleLabel.text = [self.angleFormatter stringFromNumber: @(degrees(self.fractalDocument.fractal.turningAngle))];
     self.turnAngleSlider.value =  degrees(self.fractalDocument.fractal.turningAngle);
     
 //    double turnAngleChangeInDegrees = degrees([self.fractalDocument.fractal.turningAngleIncrement doubleValue] * [self.fractalDocument.fractal.turningAngle doubleValue]);
@@ -1223,6 +1231,7 @@ static const CGFloat kLevelNMargin = 48.0;
         }
     }
 }
+
 -(void) queueFractalImageUpdates
 {
     if (!self.fractalDocument.fractal.isRenderable) {
@@ -1240,7 +1249,13 @@ static const CGFloat kLevelNMargin = 48.0;
         [self.fractalRendererLN.operation cancel];
     }
     
+    self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 10.0
+                                                                                    target: self.privateImageGenerationQueue
+                                                                                  selector: @selector(cancelAllOperations)
+                                                                                  userInfo: nil
+                                                                                   repeats: NO];
     [self.privateImageGenerationQueue waitUntilAllOperationsAreFinished];
+    [self.privateImageGenerationQueueTimeoutTimer invalidate];
     
     [self queueHudImageUpdates];
     
@@ -1912,20 +1927,15 @@ static const CGFloat kLevelNMargin = 48.0;
     
     NSData* pngImage = UIImagePNGRepresentation(fractalImage);
     
-    [exportItems addObject: pngImage];
+    NSData* taggedPngImage = [self taggedImageDataWithImageData: pngImage properties: [self taggingDictionary]];
+    
+    [exportItems addObject: taggedPngImage];
     
     UIActivityViewController *activityViewController;
-    
-    if (self.appModel.allowPremium) {
-        //        NSData* pdfData = [self createPDF];
-        //        NSURL* fileUrl = [self savePDFData: pdfData];
-        
-        //        [exportItems addObject: pdfData];
-    }
-    
     activityViewController = [[UIActivityViewController alloc] initWithActivityItems: exportItems applicationActivities:nil];
 
-    
+#pragma message "Upgrade to use UIActivitySource subjectForActivityType: "
+
     UIPopoverPresentationController* ppc = activityViewController.popoverPresentationController;
     
     
@@ -1946,6 +1956,72 @@ static const CGFloat kLevelNMargin = 48.0;
         //        self.currentPresentedController = newController;
     }];
 }
+
+-(NSDictionary*)taggingDictionary
+{
+    // Format the current date and time
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setLocale: [NSLocale currentLocale]];
+//    [formatter setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
+    NSString *now = [formatter stringFromDate:[NSDate date]];
+    
+    NSString *version = self.appModel.buildString;
+    NSString *identifier = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    NSString *title = self.fractalDocument.fractal.name;
+    NSString *desc = self.fractalDocument.fractal.descriptor;
+
+    NSString* appName = [[identifier componentsSeparatedByString: @"."] lastObject];
+    
+    // Exif metadata dictionary
+    // Includes date and time as well as image dimensions
+    NSDictionary *exifDictionary = @{(NSString *)kCGImagePropertyExifDateTimeOriginal:now,
+                                     (NSString *)kCGImagePropertyExifDateTimeDigitized:now,
+                                     (NSString *)kCGImagePropertyExifUserComment: title,
+                                     (NSString *)kCGImagePropertyExifLensMake: appName,
+                                     (NSString *)kCGImagePropertyExifLensModel:version};
+    
+    // kCGImagePropertyIPTCCaptionAbstract
+    
+    // Tiff metadata dictionary
+    // Includes information about the application used to create the image
+    // "Make" is the name of the app, "Model" is the version of the app
+    NSDictionary *tiffDictionary = @{ (NSString *)kCGImagePropertyTIFFDateTime: now,
+                                      (NSString *)kCGImagePropertyTIFFMake: appName,
+                                      (NSString *)kCGImagePropertyTIFFDocumentName: title,
+                                      (NSString *)kCGImagePropertyTIFFImageDescription: desc,
+                                      (NSString *)kCGImagePropertyTIFFModel: version};
+    
+    NSDictionary* pngDictionary = @{(NSString *)kCGImagePropertyPNGDescription: desc,
+                                    (NSString *)kCGImagePropertyPNGTitle: title,
+                                    (NSString *)kCGImagePropertyPNGSoftware: appName,
+                                    (NSString *)kCGImagePropertyPNGAuthor: appName};
+    
+    // Image metadata dictionary
+    // Includes image dimensions, as well as the EXIF and TIFF metadata
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:exifDictionary forKey:(NSString *)kCGImagePropertyExifDictionary];
+    [dict setValue:tiffDictionary forKey:(NSString *)kCGImagePropertyTIFFDictionary];
+    [dict setValue:pngDictionary forKey:(NSString *)kCGImagePropertyPNGDictionary];
+    
+    return  dict;
+}
+
+-(NSData *)taggedImageDataWithImageData:(NSData *)imageData properties:(NSDictionary *)properties
+{
+    NSMutableData *mutableImageData = [[NSMutableData alloc] init];
+    
+    CGImageSourceRef imageSourceRef = CGImageSourceCreateWithData((CFDataRef)imageData, NULL);
+    
+    CGImageDestinationRef imageDestinationRef = CGImageDestinationCreateWithData((CFMutableDataRef)mutableImageData, CGImageSourceGetType(imageSourceRef), 1, NULL);
+    CGImageDestinationAddImageFromSource(imageDestinationRef, imageSourceRef, 0, (CFDictionaryRef)properties);
+    CGImageDestinationFinalize(imageDestinationRef);
+    CFRelease(imageDestinationRef);
+    
+    CFRelease(imageSourceRef);
+    
+    return [mutableImageData copy];
+}
+
 
 -(NSBlockOperation*) operationForRenderer: (LSFractalRenderer*)renderer percent: (CGFloat)percent
 {
@@ -1976,7 +2052,7 @@ static const CGFloat kLevelNMargin = 48.0;
     if (self.fractalDocument.fractal)
     {
         NSInteger levelIndex = MIN(3, self.fractalDocument.fractal.level);
-        newRenderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
+        newRenderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
         newRenderer.name = name;
         newRenderer.imageView = self.fractalView;
         newRenderer.pixelScale = self.fractalView.contentScaleFactor;
@@ -2390,13 +2466,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                     @"hFormatter":self.angleFormatter,
                                     @"vPath":@"lineWidth",
                                     @"vScale":@0.01,
-                                    @"vFormatter":self.twoPlaceFormatter};
+                                    @"vFormatter":self.onePlaceFormatter};
 
     [self activateToolbarPanButton: self.jointAngleButton];
     [self changePanIndicatorsTo: @[self.panIndicatorTurnAngle, self.panIndicatorLineWidth] animate: YES];
 
     self.panValueLabelHorizontal.text = [self.angleFormatter stringFromNumber: [NSNumber numberWithFloat: degrees(self.fractalDocument.fractal.turningAngle)]];
-    self.panValueLabelVertical.text = [self.twoPlaceFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.lineWidth]];
+    self.panValueLabelVertical.text = [self.onePlaceFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.lineWidth]];
 }
 
 - (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender
@@ -2413,7 +2489,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self activateToolbarPanButton: self.incrementsButton];
     [self changePanIndicatorsTo: @[self.panIndicatorDecrementsAngle, self.panIndicatorDecrementsLine] animate: YES];
     
-    self.panValueLabelHorizontal.text = [self.percentFormatter stringFromNumber: [NSNumber numberWithFloat: degrees(self.fractalDocument.fractal.turningAngleIncrement)]];
+    self.panValueLabelHorizontal.text = [self.percentFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.turningAngleIncrement]];
     self.panValueLabelVertical.text = [self.percentFormatter stringFromNumber: [NSNumber numberWithFloat: self.fractalDocument.fractal.lineChangeFactor]];
 }
 
@@ -2487,7 +2563,7 @@ horizontalPropertyPath: @"turningAngle"
           hFormatter: self.angleFormatter
 verticalPropertyPath:@"lineWidth"
               vScale: 5.0/50.0
-          vFormatter: self.twoPlaceFormatter];
+          vFormatter: self.onePlaceFormatter];
 }
 - (IBAction)panLevel2:(UIPanGestureRecognizer *)sender
 {
@@ -2496,7 +2572,7 @@ verticalPropertyPath:@"lineWidth"
 horizontalPropertyPath: @"turningAngleIncrement"
               hScale: 1.0/1000.0
                hStep: 0.01
-          hFormatter: self.angleFormatter
+          hFormatter: self.percentFormatter
 verticalPropertyPath: @"lineChangeFactor"
               vScale: -1.0/1000.0
           vFormatter: self.percentFormatter];
@@ -2709,7 +2785,7 @@ verticalPropertyPath: @"lineChangeFactor"
 {
     UIImage* imageExport;
     
-    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
+    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
     NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
     renderer.levelData = self.levelDataArray[level];
     renderer.name = @"Image renderer";
@@ -2812,14 +2888,18 @@ verticalPropertyPath: @"lineChangeFactor"
 {
     CGRect imageBounds = CGRectMake(0, 0, 1024, 1024);
     
-    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.fractalDocument.sourceDrawingRules];
+    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
     renderer.levelData = self.levelDataArray[3];
     renderer.name = @"PDF renderer";
     renderer.margin = 72.0;
     renderer.autoscale = YES;
+    renderer.autoExpand = self.fractalDocument.fractal.autoExpand;
     renderer.flipY = YES;
     renderer.showOrigin = NO;
-    
+    MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
+    if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
+    renderer.backgroundColor = backgroundColor;
+   
     NSMutableData* pdfData = [NSMutableData data];
     NSDictionary* pdfMetaData = @{(NSString*)kCGPDFContextCreator:@"FractalScape", (NSString*)kCGPDFContextTitle:self.fractalDocument.fractal.name};
     
@@ -3067,6 +3147,19 @@ verticalPropertyPath: @"lineChangeFactor"
     {
         NSLog(@"%@: Undo group levels = %ld", cmd, (long)[self.undoManager groupingLevel]);
     }
+}
+-(NSNumberFormatter*) onePlaceFormatter
+{
+    if (_onePlaceFormatter == nil)
+    {
+        _onePlaceFormatter = [[NSNumberFormatter alloc] init];
+        [_onePlaceFormatter setAllowsFloats: YES];
+        [_onePlaceFormatter setMaximumFractionDigits: 1];
+        [_onePlaceFormatter setMaximumIntegerDigits: 3];
+        [_onePlaceFormatter setPositiveFormat: @"##0.0"];
+        [_onePlaceFormatter setNegativeFormat: @"-##0.0"];
+    }
+    return _onePlaceFormatter;
 }
 -(NSNumberFormatter*) twoPlaceFormatter
 {

@@ -17,6 +17,7 @@
 @class MDLCloudKitManager;
 @class MDBCloudManager;
 @class MDBPurchaseManager;
+@class LSDrawingRuleType;
 
 extern NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey;
 extern NSString *const kMDBFractalCloudContainer;
@@ -44,6 +45,10 @@ extern NSString *const kMDBFractalCloudContainer;
 @property(nonatomic,readonly) BOOL                              welcomeDone;
 @property(nonatomic,readonly) BOOL                              editorIntroDone;
 @property(nonatomic,readonly) BOOL                              userCanMakePayments;
+
+@property(nonatomic,readonly) LSDrawingRuleType               *sourceDrawingRules;
+@property(nonatomic,readonly) NSArray                         *sourceColorCategories;
+
 
 -(void)loadInitialDocuments;
 /*!
@@ -82,5 +87,7 @@ extern NSString *const kMDBFractalCloudContainer;
 
 #pragma mark - In-App Purchasing
 -(void)presentProUpgradeOptionOnController:(UIViewController*)currentController;
+
+-(BOOL)loadAdditionalColorsFromPlistFileNamed: (NSString*)fileName;
 
 @end

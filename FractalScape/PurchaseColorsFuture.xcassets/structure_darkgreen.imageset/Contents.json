@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "structure_darkgreen.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "structure_darkgreen.png"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "lawn.jpg"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "lawn.jpg"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
