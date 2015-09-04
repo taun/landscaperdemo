@@ -24,9 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-#ifndef DEBUG
-    [self.tableView deleteSections: [NSIndexSet indexSetWithIndex: 3] withRowAnimation: UITableViewRowAnimationNone];
-#endif
+    //#ifndef DEBUG
+//    [self.tableView deleteSections: [NSIndexSet indexSetWithIndex: 3] withRowAnimation: UITableViewRowAnimationNone];
+    //#endif
 
     // Do any additional setup after loading the view.
     UIView *backgroundView = [[UIView alloc] initWithFrame: self.view.bounds];
@@ -129,6 +129,11 @@
         {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.twitter.com/taunc"]];
         }
+    }
+    else if ([identifier isEqualToString: @"LaunchFacebook"])
+    {
+        //
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.facebook.com/fractalscapes"]];
     }
 }
 

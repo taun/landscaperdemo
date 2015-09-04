@@ -3218,6 +3218,46 @@ The main screen with all your fractals is called your "Library". See below for a
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchTwitter" id="w2G-kB-ytX">
+                                        <rect key="frame" x="0.0" y="243.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w2G-kB-ytX" id="Usf-Pk-dQ4">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Twitter: @taunc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjT-C3-equ">
+                                                    <rect key="frame" x="16" y="11" width="126" height="20.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gjT-C3-equ" firstAttribute="centerY" secondItem="Usf-Pk-dQ4" secondAttribute="centerY" id="VLA-SO-3NV"/>
+                                                <constraint firstItem="gjT-C3-equ" firstAttribute="leading" secondItem="Usf-Pk-dQ4" secondAttribute="leadingMargin" constant="8" id="gbw-jm-0wg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchFacebook" id="qcz-5a-Cng">
+                                        <rect key="frame" x="0.0" y="243.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qcz-5a-Cng" id="wcM-kN-fzA">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook Page: FractalScapes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4g-pK-Pvu">
+                                                    <rect key="frame" x="16" y="11.5" width="232" height="19.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Z4g-pK-Pvu" firstAttribute="centerY" secondItem="wcM-kN-fzA" secondAttribute="centerY" id="6Ys-gT-fRD"/>
+                                                <constraint firstItem="Z4g-pK-Pvu" firstAttribute="leading" secondItem="wcM-kN-fzA" secondAttribute="leadingMargin" constant="8" id="QIb-PK-D6q"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="About" id="Le5-ZS-dP9">
@@ -3282,39 +3322,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Debug" id="CkX-L4-hq7">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="9uS-Of-4Cu">
-                                        <rect key="frame" x="0.0" y="459.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9uS-Of-4Cu" id="2SH-Ed-bMd">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Premium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iK-WY-J4h">
-                                                    <rect key="frame" x="18" y="11.5" width="115" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uka-8K-EKZ">
-                                                    <rect key="frame" x="543" y="6" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="allowPremiumButtonChanged:" destination="hsw-Vg-xX2" eventType="valueChanged" id="1hI-Al-REH"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="1iK-WY-J4h" firstAttribute="centerY" secondItem="2SH-Ed-bMd" secondAttribute="centerY" id="alX-rW-ZNE"/>
-                                                <constraint firstItem="uka-8K-EKZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1iK-WY-J4h" secondAttribute="trailing" constant="8" id="aun-gn-bBx"/>
-                                                <constraint firstItem="uka-8K-EKZ" firstAttribute="centerY" secondItem="2SH-Ed-bMd" secondAttribute="centerY" id="dVU-b4-rhh"/>
-                                                <constraint firstItem="1iK-WY-J4h" firstAttribute="leading" secondItem="2SH-Ed-bMd" secondAttribute="leadingMargin" constant="10" id="fCe-EK-fbp"/>
-                                                <constraint firstItem="uka-8K-EKZ" firstAttribute="trailing" secondItem="2SH-Ed-bMd" secondAttribute="trailingMargin" id="iy3-6q-Zjy"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="hsw-Vg-xX2" id="0kG-Lt-AxG"/>
@@ -3326,7 +3333,6 @@ The main screen with all your fractals is called your "Library". See below for a
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1000"/>
                     <connections>
-                        <outlet property="allowPremiumSwitch" destination="uka-8K-EKZ" id="0Oz-0X-rIY"/>
                         <outlet property="appBuild" destination="3hr-Nj-6b6" id="d0Q-Z5-T5E"/>
                         <outlet property="appVersion" destination="FQe-6t-eRd" id="Vgi-IB-Fa8"/>
                         <outlet property="showHelpTipsSwitch" destination="92D-Xq-tzN" id="pN5-k9-4h0"/>
