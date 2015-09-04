@@ -470,12 +470,12 @@
                     break;
                     
                 case 4:
-                    opaque = &entry->value;
+//                    opaque = &entry->value;
                     opaqueData = [[NSData alloc] initWithBytes: entry->value.buf length: entry->value.size];
                     break;
                     
                 case 5:
-                    hash = &entry->value;
+//                    hash = &entry->value;
                     hashData = [[NSData alloc] initWithBytes: entry->value.buf length: entry->value.size];
                     break;
                     
@@ -487,7 +487,7 @@
         }
         
 #pragma message "UpdateForBuilds to build version before archiving"
-        const char *referenceVersion = "383";
+        const char *referenceVersion = "386";
         const char *receiptVersion = (const char *)bundle_version->buf+2;
         if (strcmp(referenceVersion,receiptVersion))
         {
