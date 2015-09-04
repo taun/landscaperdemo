@@ -21,6 +21,8 @@
 
 @implementation MDBFractalFiltersControllerViewController
 
+@dynamic visualEffectView;
+
 -(void) updateFractalDependents
 {
     [super updateFractalDependents];

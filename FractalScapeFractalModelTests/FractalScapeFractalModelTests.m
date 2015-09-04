@@ -153,7 +153,7 @@
         // Put the code you want to measure the time of here.
         LSFractal *fractal = [self createDefaultFractal];
         
-        fractal.level1Rules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -164,7 +164,7 @@
         LSFractal *fractal = [self createDefaultFractal];
         fractal.level = 5;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -175,7 +175,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = 5;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -186,7 +186,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = 6;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -197,7 +197,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = 7;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -208,7 +208,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = 8;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -219,7 +219,7 @@
         LSFractal *fractal = [self createSierpinskiGasketFractal];
         fractal.level = 9;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -230,7 +230,7 @@
         LSFractal *fractal = [self createBushFractal];
         fractal.level = 5;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -241,7 +241,7 @@
         LSFractal *fractal = [self createBushFractal];
         fractal.level = 6;
         
-        fractal.levelNRules;
+        [fractal generateLevelData];
     }];
 }
 
@@ -508,7 +508,7 @@
     
     NSMutableArray* rules = [NSMutableArray new];
     [self addRulesFromString: @"F-+" toCollection: rules];
-    fractalCopy.startingRules = rules;
+    fractalCopy.startingRules = [MDBFractalObjectList newListFromArray: rules];
     
     NSUInteger rulesCount =  fractalCopy.startingRules.count;
     
@@ -519,7 +519,7 @@
     
     NSMutableArray* replacementRules = [NSMutableArray new];
     [self addRulesFromString: @"F+F-F" toCollection: replacementRules];
-    replacementRule.rules = replacementRules;
+    replacementRule.rules = [MDBFractalObjectList newListFromArray: replacementRules];
     
     NSUInteger replacementRulesCount = replacementRule.rules.count;
     XCTAssert(replacementRulesCount == 5, @"Fractal rules not successfully created");
@@ -550,7 +550,7 @@
     
     [self addRulesFromString: @"FAF--FF--FF" toCollection: rulesSet];
     
-    fractalCopy.startingRules = rulesSet;
+    fractalCopy.startingRules = [MDBFractalObjectList newListFromArray: rulesSet];
     
     NSUInteger rulesCount =  fractalCopy.startingRules.count;
     
@@ -561,14 +561,14 @@
     
     NSMutableArray* replacementRulesSet = [NSMutableArray new];
     [self addRulesFromString: @"FF" toCollection: replacementRulesSet];
-    replacementRuleF.rules = replacementRulesSet;
+    replacementRuleF.rules = [MDBFractalObjectList newListFromArray: replacementRulesSet];
     
     LSReplacementRule* replacementRuleA = [LSReplacementRule new];
     replacementRuleA.contextRule = [self createDrawingRuleWithProduction: @"A" command: @"commandDoNothing"];
     
     NSMutableArray* replacementRulesSetA = [NSMutableArray new];
     [self addRulesFromString: @"--FAF++FAF++FAF--" toCollection: replacementRulesSetA];
-    replacementRuleA.rules = replacementRulesSetA;
+    replacementRuleA.rules = [MDBFractalObjectList newListFromArray: replacementRulesSetA];
     
     NSUInteger replacementRulesCount = replacementRuleF.rules.count;
     XCTAssert(replacementRulesCount == 2, @"Fractal rules not successfully created");
@@ -595,7 +595,7 @@
     NSMutableArray* rules = [NSMutableArray new];
     
     [self addRulesFromString: @"F" toCollection: rules];
-    fractalCopy.startingRules = rules;
+    fractalCopy.startingRules = [MDBFractalObjectList newListFromArray: rules];
     
     NSUInteger rulesCount =  fractalCopy.startingRules.count;
     
@@ -606,7 +606,7 @@
     
     NSMutableArray* replacementRulesSet = [NSMutableArray new];
     [self addRulesFromString: @"FF+[+F-F-F]-[-F+F+F]" toCollection: replacementRulesSet];
-    replacementRuleF.rules = replacementRulesSet;
+    replacementRuleF.rules = [MDBFractalObjectList newListFromArray: replacementRulesSet];
     
     NSMutableArray* fractalReplacementRulesSet = [NSMutableArray new];
     [fractalReplacementRulesSet addObject: replacementRuleF];

@@ -18,5 +18,4 @@
 @property (nonatomic,readonly) MDBFractalCloudBrowser                       *cloudController;
 @property (nonatomic,readonly) MDBSettingsTableViewController               *settingsController;
 
--(IBAction) upgradeToProSelected:(id)sender;
 @end

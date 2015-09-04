@@ -56,7 +56,7 @@
         
         NSInteger addRulesCount = [newDrawingRuleType loadRulesFromPListRulesArray: plistRulesArray];
         
-        NSLog(@"Added %ld rules.", addRulesCount);
+        NSLog(@"Added %ld rules.", (long)addRulesCount);
     }
     return newDrawingRuleType;
 }

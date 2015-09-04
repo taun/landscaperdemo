@@ -140,7 +140,7 @@ static NSString * const reuseIdentifierHeader = @"RulesHeaderCell";
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    UIView* headerView = [collectionView dequeueReusableSupplementaryViewOfKind: kind withReuseIdentifier: reuseIdentifierHeader forIndexPath: indexPath];
+    UICollectionReusableView* headerView = [collectionView dequeueReusableSupplementaryViewOfKind: kind withReuseIdentifier: reuseIdentifierHeader forIndexPath: indexPath];
     
     return headerView;
 }

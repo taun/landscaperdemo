@@ -16,6 +16,15 @@
 
 @implementation MDBFractalObjectList
 
++(instancetype)newListFromArray:(NSArray *)array
+{
+    MDBFractalObjectList* newList = [[self class]new];
+    
+    [newList addObjectsFromArray: array];
+    
+    return newList;
+}
+
 +(instancetype)newListWithEncodingKey:(NSString *)key
 {
     return [[[self class] alloc]initWithEncodingKey: key];

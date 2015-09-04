@@ -223,8 +223,8 @@ X ;   close path
  */
 @property (nonatomic,assign) BOOL                   flipY;
 @property (nonatomic,assign) CGFloat                pixelScale;
-@property (nonatomic,copy) MBColor*                 defaultLineColor;
-@property (nonatomic,copy) MBColor*                 defaultFillColor;
+@property (nonatomic,copy) MBColor                  *defaultLineColor;
+@property (nonatomic,copy) MBColor                  *defaultFillColor;
 @property (nonatomic,copy) MBColor                  *backgroundColor;
 @property (atomic,weak) UIImageView                 *imageView;
 @property (nonatomic,assign,readonly) CGRect        rawFractalPathBounds;

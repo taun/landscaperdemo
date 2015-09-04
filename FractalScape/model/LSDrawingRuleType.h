@@ -53,6 +53,13 @@
 
 -(NSArray*)rulesArrayFromRuleString: (NSString*) ruleString;
 
+/*!
+ Load the rules from a PList Array
+ 
+ @param rulesArray
+ 
+ @return the count of rules added
+ */
 -(NSInteger)loadRulesFromPListRulesArray: (NSArray*) rulesArray;
 
 @end

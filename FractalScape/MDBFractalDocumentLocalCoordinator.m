@@ -129,11 +129,14 @@
 
 - (void)removeFractalAtURL:(NSURL *)URL {
     [MDBDocumentUtilities removeDocumentAtURL:URL withCompletionHandler:^(NSError *error) {
+        
+        id<MDBFractalDocumentCoordinatorDelegate> strongDelegate = self.delegate;
+        
         if (error) {
-            [self.delegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
+            [strongDelegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
         }
         else {
-            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[URL] updatedURLs:@[]];
+            [strongDelegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[URL] updatedURLs:@[]];
         }
     }];
 }

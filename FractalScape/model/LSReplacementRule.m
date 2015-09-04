@@ -56,7 +56,7 @@
                         [newRules addObject: rule];
                     }
                 }
-                newObject.rules = newRules;
+                newObject.rules = [MDBFractalObjectList newListFromArray: newRules];
             }
         }
     }

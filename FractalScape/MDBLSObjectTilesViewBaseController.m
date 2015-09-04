@@ -141,7 +141,7 @@
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    id strongSourceListView = self.sourceListView;
+//    id strongSourceListView = self.sourceListView;
     
     for (UIView* destination in self.allowedDestinationViews)
     {
@@ -328,7 +328,7 @@
     }
 
     [self.draggingItem.view removeFromSuperview];
-    LSDrawingRule* draggedRule = self.draggingItem.dragItem;
+    id<MDBTileObjectProtocol> draggedRule = self.draggingItem.dragItem;
     [self deleteObjectIfUnreferenced: draggedRule]; // check if unreferenced and add POOF effect
     self.draggingItem = nil;
     self.lastDragViewContainer = nil;

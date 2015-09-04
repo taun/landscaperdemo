@@ -92,7 +92,7 @@
 {
     UIStoryboard* storyboard = self.viewController.storyboard;
     NSString* identifier = self.helpPageIdentifiers[index];
-    return  (UIViewController *)[storyboard instantiateViewControllerWithIdentifier: self.helpPageIdentifiers[index]];
+    return  (UIViewController *)[storyboard instantiateViewControllerWithIdentifier: identifier];
 }
 
 -(NSUInteger)indexOfController:(UIViewController *)viewController

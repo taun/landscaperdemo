@@ -133,11 +133,30 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic, assign) CGFloat       lineBrightnessRotationPercent;
 @property (nonatomic, assign) CGFloat       fillBrightnessRotationPercent;
 
+/*!
+ Transform the startingRules into the equivalent string
+ */
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString               *startingRulesAsString;
+/*!
+ Transform the replacements rules into a dictionary.
+ */
 @property (NS_NONATOMIC_IOSONLY, readonly) NSDictionary                 *replacementRulesDictionary;
+/*!
+ Lazily create and return the level 0 rules.
+ */
 @property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *level0Rules;
+/*!
+ Lazily create and return the level 1 rules.
+ */
 @property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *level1Rules;
+/*!
+ Lazily create and return the level 2 rules.
+ */
 @property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *level2Rules;
+/*!
+ Lazily create and return the level N rules.
+ Creating the level N rules always creates the 0-2 rules as well.
+ */
 @property (NS_NONATOMIC_IOSONLY, readonly) NSData                       *levelNRules;
 
 @property (nonatomic,readonly) NSDictionary                             *asPListDictionary;
@@ -201,11 +220,34 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
  @return NSString representing the fillColors property
  */
 +(NSString*) fillColorsKey;
-
+/*!
+ Way of encoding the ranges for properties to be used in UI elements like sliders
+ 
+ @param propertyKey the property to look up
+ 
+ @return the min desired value
+ */
 -(CGFloat)minValueForProperty: (NSString*)propertyKey;
+/*!
+ Way of encoding the ranges for properties to be used in UI elements like sliders
+ 
+ @param propertyKey the property to look up
+ 
+ @return the max desired value
+ */
 -(CGFloat)maxValueForProperty: (NSString*)propertyKey;
+/*!
+ Way of encoding the ranges for properties to be used in UI elements like sliders
+ 
+ @param propertyKey the property to look up
+ 
+ @return if the property is an angle
+ */
 -(BOOL)isAngularProperty: (NSString*)propertyKey;
 
+/*!
+ Generates and caches the level data if the rules have changed or the level has changed.
+ */
 -(void) generateLevelData;
 /*!
  When adding the first item to the filters list, would like to be able turn on apply filters without triggering notifications

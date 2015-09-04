@@ -43,6 +43,4 @@ extern NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerConti
 @property (weak,nonatomic) id               primaryViewController;
 @property (nonatomic, strong) MDBAppModel   *appModel;
 
-- (void)handleUbiquityIdentityDidChangeNotification:(NSNotification *)notification;
-
 @end

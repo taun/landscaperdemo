@@ -12,6 +12,4 @@
 
 @property(nonatomic,assign)CGPoint      initialContentOffset;
 
-- (IBAction)editingIsDoneButton:(id)sender;
-
 @end

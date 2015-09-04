@@ -86,8 +86,6 @@ extern NSString *const kMDBFractalCloudContainer;
 -(void)___setUseWatermark: (BOOL)on;
 
 #pragma mark - In-App Purchasing
--(void)presentProUpgradeOptionOnController:(UIViewController*)currentController;
-
 -(BOOL)loadAdditionalColorsFromPlistFileNamed: (NSString*)fileName;
 
 @end

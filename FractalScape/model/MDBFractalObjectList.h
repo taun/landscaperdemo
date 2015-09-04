@@ -34,6 +34,7 @@ typedef struct MDBListOperationInfo {
 @property (readonly, getter=isEmpty) BOOL   empty;
 @property () NSString*                      encodingKey;
 
++ (instancetype)newListFromArray: (NSArray*)array;
 + (instancetype)newListWithEncodingKey: (NSString*)key;
 - (instancetype)initWithEncodingKey: (NSString*)key;
 - (instancetype)init;

@@ -62,6 +62,7 @@ static const CGFloat kLevelNMargin = 48.0;
 @property (nonatomic,assign) BOOL                   startedInLandscape;
 @property (nonatomic,assign) BOOL                   hasBeenEdited;
 @property (nonatomic,assign) CGFloat                pan10xValue;
+@property (nonatomic,strong) NSTimer                *panIndicatorBackgroundFadeTimer;
 
 //@property (nonatomic, strong) NSSet*                editControls;
 //@property (nonatomic, strong) NSMutableArray*       cachedEditViews;
@@ -210,6 +211,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(void) configureNavBarButtons
 {
+    MDBAppModel* strongAppModel = self.appModel;
     
     self.stopButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemStop
                                                                    target: self
@@ -265,16 +267,16 @@ static const CGFloat kLevelNMargin = 48.0;
 
     self.previousNavBarState = NO;
     
-    self.showPerformanceData = self.appModel.showPerformanceData;
+    self.showPerformanceData = strongAppModel.showPerformanceData;
     
-    if (!self.appModel.allowPremium)
+    if (!strongAppModel.allowPremium)
     {
         [self fullScreenOnDuration: 0];
         [self.toggleFullScreenButton removeFromSuperview];
     }
     else
     {
-        if (self.appModel.fullScreenState)
+        if (strongAppModel.fullScreenState)
         {
             [self fullScreenOn];
         }
@@ -400,8 +402,10 @@ static const CGFloat kLevelNMargin = 48.0;
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    MDBAppModel* strongAppModel = self.appModel;
 
-    if (!self.appModel.allowPremium) // in-app purchase can only be done from settings so this should never change while the view is on screen.
+    if (!strongAppModel.allowPremium) // in-app purchase can only be done from settings so this should never change while the view is on screen.
     {
         [self.toggleFullScreenButton removeFromSuperview];
     }
@@ -424,13 +428,13 @@ static const CGFloat kLevelNMargin = 48.0;
     
     //    self.navigationController.navigationBar.hidden = YES;
 //    [self.navigationController setNavigationBarHidden: YES animated: YES];
-    if (!self.appModel.editorIntroDone)
+    if (!strongAppModel.editorIntroDone)
     {
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            [self firstStartupSequence];
 //        });
         [self showHelpScreen: nil];
-        [self.appModel exitEditorIntroState];
+        [strongAppModel exitEditorIntroState];
     }
     self.toolbarTrailingConstraint.constant = -8.0;
     [self.fractalViewRoot setNeedsUpdateConstraints];
@@ -443,6 +447,7 @@ static const CGFloat kLevelNMargin = 48.0;
                          [self.fractalViewRoot layoutIfNeeded];
                      } completion:^(BOOL finished) {
                          //
+                         [self startPanBackgroundFadeTimer];
                      }];
 }
 
@@ -1232,13 +1237,21 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
+-(void) imageGenerationTimeout
+{
+    NSLog(@"FractalScapes cancelling privateImageGenerationQueue due to timeout");
+    [self.privateImageGenerationQueue cancelAllOperations];
+}
+
 -(void) queueFractalImageUpdates
 {
     if (!self.fractalDocument.fractal.isRenderable) {
         return;
     }
     
-    if (self.fractalRendererLN.operation && !self.fractalRendererLN.operation.isFinished)
+    NSBlockOperation* strongOperation = self.fractalRendererLN.operation;
+    
+    if (strongOperation && !strongOperation.isFinished)
     {
         NSDate* now = [NSDate date];
         NSTimeInterval lastUpdated = [now timeIntervalSinceDate: self.lastImageUpdateTime];
@@ -1246,12 +1259,12 @@ static const CGFloat kLevelNMargin = 48.0;
             return;
         }
         
-        [self.fractalRendererLN.operation cancel];
+        [strongOperation cancel];
     }
     
     self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 10.0
-                                                                                    target: self.privateImageGenerationQueue
-                                                                                  selector: @selector(cancelAllOperations)
+                                                                                    target: self
+                                                                                  selector: @selector(imageGenerationTimeout)
                                                                                   userInfo: nil
                                                                                    repeats: NO];
     [self.privateImageGenerationQueue waitUntilAllOperationsAreFinished];
@@ -1727,6 +1740,8 @@ static const CGFloat kLevelNMargin = 48.0;
  */
 - (IBAction)shareButtonPressed:(id)sender
 {
+    MDBAppModel* strongAppModel = self.appModel;
+
     if (self.presentedViewController) {
         [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
     }
@@ -1751,7 +1766,7 @@ static const CGFloat kLevelNMargin = 48.0;
         [alert addAction: cameraAction];
     }
     
-    if (self.appModel.allowPremium) {
+    if (strongAppModel.allowPremium) {
         UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Export as Vector PDF" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
@@ -1760,7 +1775,7 @@ static const CGFloat kLevelNMargin = 48.0;
                                     }];
         [alert addAction: vectorPDF];
     }
-    else if (self.appModel.userCanMakePayments)
+    else if (strongAppModel.userCanMakePayments)
     {
         UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Upgrade to Export as Vector PDF" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
@@ -1771,7 +1786,7 @@ static const CGFloat kLevelNMargin = 48.0;
         [alert addAction: vectorPDF];
     }
     
-    if (self.appModel.allowPremium) {
+    if (strongAppModel.allowPremium) {
         UIAlertAction* documentShare = [UIAlertAction actionWithTitle:@"Export as Document" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
@@ -2402,8 +2417,31 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     return SIMULTOUCH;
 }
 
+-(void)startPanBackgroundFadeTimer
+{
+    if (self.panIndicatorBackgroundFadeTimer.valid) [self.panIndicatorBackgroundFadeTimer invalidate];
+    
+    self.panIndicatorsContainerView.backgroundColor = [UIColor colorWithWhite: 1.0 alpha: 0.78];
+    self.hudViewBackground.backgroundColor = [UIColor colorWithWhite: 1.0 alpha: 0.78];
+    
+    self.panIndicatorBackgroundFadeTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
+                                                                            target: self
+                                                                          selector: @selector(fadePanIndicatorBackground)
+                                                                          userInfo: nil repeats: NO];
+}
+
+-(void) fadePanIndicatorBackground
+{
+    [UIView animateWithDuration: 2.0 animations:^{
+        self.panIndicatorsContainerView.backgroundColor = [UIColor clearColor];
+        self.hudViewBackground.backgroundColor = [UIColor clearColor];
+    }];
+}
+
 -(void)changePanIndicatorsTo: (NSArray*)indicatorsToShow animate: (BOOL)animate
 {
+    [self startPanBackgroundFadeTimer];
+    
     NSMutableArray* indicatorsToHide = [self.panIndicators mutableCopy];
     [indicatorsToHide removeObjectsInArray: indicatorsToShow];
 
@@ -2513,6 +2551,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)togglePan10x:(UIButton *)sender
 {
+    [self startPanBackgroundFadeTimer];
+
     self.pan10xOn = !self.pan10xOn;
     self.pan10xToggleButton.selected = self.pan10xOn;
     if (self.pan10xOn)
@@ -2588,6 +2628,7 @@ verticalPropertyPath: @"lineChangeFactor"
                           vScale: (CGFloat) vScale
         vFormatter:(NSNumberFormatter*)vFormatter
 {
+    [self startPanBackgroundFadeTimer];
     
     static CGPoint initialPosition;
     static CGFloat  initialHValue;

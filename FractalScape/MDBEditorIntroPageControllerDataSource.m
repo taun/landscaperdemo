@@ -31,7 +31,6 @@
     if (currentIndex < self.pageControllerPages.count - 1)
     {
         next = self.pageControllerPages[currentIndex+1];
-        UIView* view = next.view;
     }
     return next;
 }

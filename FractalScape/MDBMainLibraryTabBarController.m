@@ -115,9 +115,4 @@
 
 #pragma clang diagnostic pop
 
--(IBAction) upgradeToProSelected:(id)sender
-{
-    [self.appModel presentProUpgradeOptionOnController: self];
-}
-
 @end

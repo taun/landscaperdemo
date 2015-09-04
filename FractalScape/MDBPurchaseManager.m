@@ -56,7 +56,8 @@
         MDBColorPakPurchaseableProduct* colorProduct = [MDBColorPakPurchaseableProduct newWithProductIdentifier: @"com.moedae.FractalScapes.colors.aluminum1" image: [UIImage imageNamed: @"purchaseColorsAluminum1Portrait"]];
         colorProduct.resourcePListName = @"MBColorsList_aluminum1";
         colorProduct.purchaseManager = self;
-        
+        if (colorProduct.hasReceipt) [colorProduct loadContent]; // give the user the benefit of the doubt
+
         _possiblePurchaseableProducts = [NSSet setWithObjects: _proPak,colorProduct, nil];
         
         [self receiptsOnboard];
@@ -486,8 +487,18 @@
             }
         }
         
+        if (bundle_version == NULL || bundle_id == NULL)
+        {
+            asn_DEF_Payload.free_struct(&asn_DEF_Payload, payload,0);
+            free(pld);
+            if (bioOutput != NULL) BIO_free(bioOutput);
+            if (receiptPKCS7 != NULL) PKCS7_free(receiptPKCS7);
+            [self refreshReceiptOnce: [NSString stringWithFormat: @"FractalScapes receipt error 3i"]];
+            return;
+        }
+        
 #pragma message "UpdateForBuilds to build version before archiving"
-        const char *referenceVersion =  "386";
+        const char *referenceVersion =  "387";
         const char *receiptVersion = (const char *)bundle_version->buf+2;
         if (strcmp(referenceVersion,receiptVersion))
         {
@@ -624,7 +635,7 @@
     NSString* receiptCheckKey = @"com.moedae.FractalScapes.receiptLastCheckedDate";
     NSUserDefaults* storage = [NSUserDefaults standardUserDefaults];
     NSDate* lastDate = [storage objectForKey: receiptCheckKey];
-    NSTimeInterval checkIntervalHrs = 24;
+    NSTimeInterval checkIntervalHrs = 1;
     NSTimeInterval secPerHr = 60.0*60.0;
     NSTimeInterval checkIntervalSecs = -checkIntervalHrs*secPerHr; // time in the past
     if (!lastDate || [lastDate timeIntervalSinceNow] < checkIntervalSecs) // more in the past than the interval

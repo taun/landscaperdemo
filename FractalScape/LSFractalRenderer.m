@@ -93,7 +93,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _controlPointOn = NO;
         _segmentIndex = 0;
         _margin = 0;
-        _backgroundColor = [UIColor clearColor];
+        _backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
         
         [self nullOutBaseSegment];
         [self setValuesForFractal: aFractal];

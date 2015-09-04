@@ -93,7 +93,7 @@
 
 -(BOOL)hasReceipt
 {
-    return [self.keyValueStorage objectForKey: self.receiptStorageKeyString];
+    return [self.keyValueStorage objectForKey: self.receiptStorageKeyString] != nil;
 }
 
 

@@ -251,7 +251,6 @@
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
 		C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A040281B8A3F1E0052398A /* StoreKit.framework */; };
 		C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */; };
-		C5A4888D1B91171C0031585B /* iCon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A4888C1B91171C0031585B /* iCon60@2x.png */; };
 		C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A4888E1B9117300031585B /* iCon60@2x.png */; };
 		C5A488911B9117DC0031585B /* appStore1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A488901B9117DC0031585B /* appStore1024.png */; };
 		C5A5C38D1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */; };
@@ -1752,7 +1751,7 @@
 			attributes = {
 				CLASSPREFIX = MDB;
 				LastTestingUpgradeCheck = 0600;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "MOEDAE LLC";
 				TargetAttributes = {
 					C59953FF1A6465270093CF50 = {
@@ -1847,7 +1846,6 @@
 				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
 				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
 				C529F85E1B8F6825005D8982 /* PurchaseStoreImages.xcassets in Resources */,
-				C5A4888D1B91171C0031585B /* iCon60@2x.png in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C5B58C611AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */,
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
