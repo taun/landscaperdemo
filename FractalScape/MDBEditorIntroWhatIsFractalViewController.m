@@ -20,6 +20,13 @@
 
 @implementation MDBEditorIntroWhatIsFractalViewController
 
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.currentPage = 0;
+    [self layoutWebView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -56,6 +63,8 @@
 -(void)layoutWebView
 {
     UIView* webView;
+    UIWebView* uiWebView;
+    WKWebView* wkWebView;
     
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     
@@ -65,7 +74,7 @@
          iOS 8 WKWebView seems to have a problem with CSS and the documentation files
          so we use UIWebView only for iOS8.
          */
-        UIWebView* uiWebView = [[UIWebView alloc] initWithFrame: CGRectZero];
+        uiWebView = [[UIWebView alloc] initWithFrame: CGRectZero];
         uiWebView.userInteractionEnabled = YES;
         uiWebView.delegate = self;
         uiWebView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -84,7 +93,7 @@
         //    config.allowsAirPlayForMediaPlayback = NO;
         config.suppressesIncrementalRendering = NO;
         
-        WKWebView* wkWebView = [[WKWebView alloc] initWithFrame: self.webContainer.bounds configuration: config];
+        wkWebView = [[WKWebView alloc] initWithFrame: self.webContainer.bounds configuration: config];
         wkWebView.userInteractionEnabled = YES;
         wkWebView.UIDelegate = self;
         wkWebView.navigationDelegate = self;

@@ -8,6 +8,7 @@
 
 #import "MDBTutorialPageSource.h"
 #import "MDBHelpContentsTableViewCell.h"
+#import "MDBEditorIntroWhatIsFractalViewController.h"
 
 @interface MDBTutorialPageSource ()
 
@@ -16,6 +17,9 @@
  */
 @property (nonatomic,strong) NSArray                      *helpPageIdentifiers;
 @property (nonatomic,strong) NSArray                      *helpPageTitles;
+@property (nonatomic,strong) MDBEditorIntroWhatIsFractalViewController             *currentHelpController;
+@property (nonatomic,strong) MDBEditorIntroWhatIsFractalViewController             *nextHelpController;
+@property (nonatomic,strong) MDBEditorIntroWhatIsFractalViewController             *prevHelpController;
 
 @end
 
@@ -32,8 +36,6 @@
 
 -(void)findAndStoreIdentifiersAndTitles
 {
-    UIStoryboard* storyboard = self.viewController.storyboard;
-    
     NSUInteger maxPageCount = 14;
     NSMutableArray* pages = [NSMutableArray new];
     NSMutableArray* titles = [NSMutableArray new];
@@ -46,7 +48,7 @@
             UIViewController* page;
             do {
                 pageIdentifier = [NSString stringWithFormat: @"HelpControllerPage%u",pageIndex];
-                page = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier: pageIdentifier];
+                page = (UIViewController *)[self.storyboard instantiateViewControllerWithIdentifier: pageIdentifier];
                 
                 [pages addObject: pageIdentifier];
                 [titles addObject: page.title];
@@ -88,11 +90,14 @@
     return _helpPageTitles;
 }
 
--(UIViewController *)helpPageControllerForIndex:(NSUInteger)index
+-(UIViewController *)newHelpPageControllerForIndex:(NSUInteger)index
 {
-    UIStoryboard* storyboard = self.viewController.storyboard;
+//    UIStoryboard* storyboard = self.viewController.storyboard;
+    [UIColor blackColor];
     NSString* identifier = self.helpPageIdentifiers[index];
-    return  (UIViewController *)[storyboard instantiateViewControllerWithIdentifier: identifier];
+    self.currentHelpController = (MDBEditorIntroWhatIsFractalViewController *)[self.storyboard instantiateViewControllerWithIdentifier: identifier];
+    [self.currentHelpController loadView];
+    return self.currentHelpController;
 }
 
 -(NSUInteger)indexOfController:(UIViewController *)viewController
@@ -121,7 +126,7 @@
 
 -(void)setInitialPageFor:(UIPageViewController *)pageController andTableView: (UITableView*)tableView
 {
-    UIViewController* firstController = [self helpPageControllerForIndex: 0];
+    UIViewController* firstController = [self newHelpPageControllerForIndex: 0];
     [pageController setViewControllers: @[firstController] direction: UIPageViewControllerNavigationDirectionForward animated: NO completion:^(BOOL finished) {
         //
         [tableView selectRowAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] animated: NO scrollPosition: UITableViewScrollPositionTop];
@@ -133,16 +138,16 @@
 {
     NSUInteger currentIndex = [self indexOfController: viewController];
     NSUInteger nextIndex = currentIndex + 1;
-    UIViewController* nextController = currentIndex == (self.helpPageIdentifiers.count - 1) ? nil : [self helpPageControllerForIndex: nextIndex];
-    return nextController;
+    self.nextHelpController = currentIndex == (self.helpPageIdentifiers.count - 1) ? nil : [self newHelpPageControllerForIndex: nextIndex];
+    return self.nextHelpController;
 }
 
 -(nullable UIViewController *)pageViewController:(nonnull UIPageViewController *)pageViewController viewControllerBeforeViewController:(nonnull UIViewController *)viewController
 {
     NSUInteger currentIndex = [self indexOfController: viewController];
     NSUInteger nextIndex = currentIndex - 1;
-    UIViewController* nextController = currentIndex == 0 ? nil : [self helpPageControllerForIndex: nextIndex];
-    return nextController;
+    self.prevHelpController = currentIndex == 0 ? nil : [self newHelpPageControllerForIndex: nextIndex];
+    return self.prevHelpController;
 }
 
 -(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController

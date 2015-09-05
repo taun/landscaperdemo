@@ -635,7 +635,7 @@
     NSString* receiptCheckKey = @"com.moedae.FractalScapes.receiptLastCheckedDate";
     NSUserDefaults* storage = [NSUserDefaults standardUserDefaults];
     NSDate* lastDate = [storage objectForKey: receiptCheckKey];
-    NSTimeInterval checkIntervalHrs = 1;
+    NSTimeInterval checkIntervalHrs = 24;
     NSTimeInterval secPerHr = 60.0*60.0;
     NSTimeInterval checkIntervalSecs = -checkIntervalHrs*secPerHr; // time in the past
     if (!lastDate || [lastDate timeIntervalSinceNow] < checkIntervalSecs) // more in the past than the interval

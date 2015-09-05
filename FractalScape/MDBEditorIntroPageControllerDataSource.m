@@ -31,6 +31,7 @@
     if (currentIndex < self.pageControllerPages.count - 1)
     {
         next = self.pageControllerPages[currentIndex+1];
+        UIView* view = next.view; // Necessary to force webview to load
     }
     return next;
 }

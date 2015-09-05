@@ -3644,11 +3644,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPj-sJ-5ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="RVy-eQ-MMN" customClass="MDBTutorialPageSource">
-                    <connections>
-                        <outlet property="viewController" destination="LIr-RW-epR" id="z71-L6-wSL"/>
-                    </connections>
-                </customObject>
+                <customObject id="RVy-eQ-MMN" customClass="MDBTutorialPageSource"/>
             </objects>
             <point key="canvasLocation" x="2897" y="2192"/>
         </scene>

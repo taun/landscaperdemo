@@ -19,7 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    UIStoryboard* storyboard = self.storyboard;
+    self.tutorialSource.storyboard = storyboard;
+    self.tutorialSource.viewController = self;
+    
     self.masterNavCon = (UINavigationController*)self.viewControllers[0];
     self.masterTableView = (UITableViewController*)self.masterNavCon.viewControllers[0];
     self.masterTableView.tableView.delegate = self;
@@ -52,7 +56,7 @@
     
     UIPageViewControllerNavigationDirection direction = currentIndex < indexPath.row ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     
-    UIViewController* pageControllerPage = [self.tutorialSource helpPageControllerForIndex: indexPath.row];
+    UIViewController* pageControllerPage = [self.tutorialSource newHelpPageControllerForIndex: indexPath.row];
     // set pagecontroller initial page and showDetail...
     BOOL isCollapsed = self.isCollapsed;
     UINavigationController* masterController = self.viewControllers[0];

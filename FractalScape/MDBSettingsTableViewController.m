@@ -127,7 +127,7 @@
         }
         else
         {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.twitter.com/taunc"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.twitter.com/taunc"]];
         }
     }
     else if ([identifier isEqualToString: @"LaunchFacebook"])

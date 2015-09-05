@@ -7,10 +7,11 @@
 @interface MDBTutorialPageSource : NSObject <UITableViewDataSource, UIPageViewControllerDataSource>
 
 @property(nonatomic,weak)IBOutlet UIViewController       *viewController;
+@property (nonatomic,strong) UIStoryboard                *storyboard;
 
 -(void)setInitialPageFor: (UIPageViewController*)pageController andTableView: (UITableView*)tableView;
 
--(UIViewController *)helpPageControllerForIndex:(NSUInteger)index;
+-(UIViewController *)newHelpPageControllerForIndex:(NSUInteger)index;
 /*!
  Depends on the viewController having it's restorationIdentifier the same as it's storyboard identifier.
  
