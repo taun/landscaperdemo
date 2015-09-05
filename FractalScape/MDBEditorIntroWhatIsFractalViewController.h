@@ -17,12 +17,12 @@
 
 @interface MDBEditorIntroWhatIsFractalViewController : UIViewController <UIWebViewDelegate,WKUIDelegate, WKNavigationDelegate>
 
-@property (strong,nonatomic)  UIView<WebViewProtocol>   *webView;
-@property (strong,nonatomic) IBOutlet UIView           *webContainer;
-@property (strong,nonatomic) IBInspectable NSString    *documentName;
+@property (nonatomic,strong)  UIView<WebViewProtocol>   *webView;
+@property (strong, nonatomic) IBOutlet UIView           *webContainer;
+@property (strong, nonatomic) IBInspectable NSString    *documentName;
 
-@property (strong,nonatomic) IBOutlet UIBarButtonItem *nextPageButton;
-@property (strong,nonatomic) IBOutlet UIBarButtonItem *prevPageButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *nextPageButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *prevPageButton;
 
 @property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      pushTransition;
 @property (nonatomic,strong)id <UIViewControllerAnimatedTransitioning>      popTransition;

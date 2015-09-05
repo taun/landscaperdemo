@@ -20,13 +20,6 @@
 
 @implementation MDBEditorIntroWhatIsFractalViewController
 
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    self.currentPage = 0;
-    [self layoutWebView];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
