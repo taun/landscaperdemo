@@ -30,7 +30,7 @@
 {
     if (!_helpPages)
     {
-        NSUInteger pageCount = 4;
+        NSUInteger maxPageCount = 14;
         NSMutableArray* pages = [NSMutableArray new];
         UIViewController* page = nil;
         NSString* pageIdentifier = nil;
@@ -42,16 +42,20 @@
                 page = (MDBEditorIntroWhatIsFractalViewController *)[self.storyboard instantiateViewControllerWithIdentifier: pageIdentifier];
                 [pages addObject: page];
                 ++pageIndex;
-            } while (page);
+            } while (page && pageIndex < maxPageCount);
+            
+            if (pageIndex + 1 == maxPageCount)
+            {
+                NSLog(@"FractalScapes max tutorial page count %ul reached during loading",pageIndex);
+            }
         }
         @catch (NSException *exception) {
             //
         }
         @finally {
             //
+            _helpPages = [pages copy];
         }
-
-        _helpPages = [pages copy];
 
     }
     return _helpPages;

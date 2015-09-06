@@ -311,6 +311,8 @@ static const CGFloat kLevelNMargin = 48.0;
 #pragma message "TODO: add variables for max,min values for angles, widths, .... Add to model, class fractal category???"
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
+
     self.panValueLabelHorizontal.font = [UIFont proportionalForExistingFont: self.panValueLabelHorizontal.font];
     self.panValueLabelVertical.font = [UIFont proportionalForExistingFont: self.panValueLabelVertical.font];
     self.hudText1.font = [UIFont proportionalForExistingFont: self.hudText1.font];
@@ -354,8 +356,6 @@ static const CGFloat kLevelNMargin = 48.0;
     fractalCanvas.layer.shadowOpacity = 0.3;
     fractalCanvas.layer.shadowRadius = 3.0;
     [self configureParallax]; // here so changing the setting in user settings can take effect
-   
-    [super viewDidLoad];
 }
 
 -(void) viewWillLayoutSubviews

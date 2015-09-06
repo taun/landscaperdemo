@@ -151,10 +151,15 @@
         else if (_documentName)
         {
             NSString* documentNameWithExtension = [NSString stringWithFormat: @"%@.html",_documentName];
-            path = [[NSBundle mainBundle] pathForResource: documentName ofType: @"html" inDirectory: @"documentation"];
+            NSString* documentsDirectory = @"documentation";
+            path = [[NSBundle mainBundle] pathForResource: documentNameWithExtension ofType: nil inDirectory: documentsDirectory];
             if (path)
             {
                 [tempDocuments addObject: path];
+            }
+            else
+            {
+                NSLog(@"FractalScapes documentation path not found Name:%@, Path: %@",documentName,documentsDirectory);
             }
             
         }

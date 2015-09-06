@@ -22,11 +22,11 @@
 
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
+
     self.cloudDownloadKeys = @[CKFractalRecordNameField,CKFractalRecordDescriptorField,CKFractalRecordFractalDefinitionAssetField,CKFractalRecordFractalThumbnailAssetField];
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.color = [UIColor blueColor];
-    
-    [super viewDidLoad];
 }
 
 -(void) viewDidAppear:(BOOL)animated

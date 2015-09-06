@@ -44,12 +44,12 @@
 
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
     // seems to be a bug in that the tintColor is not being used unless I re-set it.
     // this way it still takes the tintColor from IB.
     _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
     _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
     
-    [super viewDidLoad];
 }
 
 -(void) viewWillLayoutSubviews

@@ -63,6 +63,7 @@
 		C53F8DF61B5C87820050F607 /* MDBTutorialSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F8DF41B5C87820050F607 /* MDBTutorialSplitViewController.m */; };
 		C53F8DF91B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F8DF71B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h */; };
 		C53F8DFA1B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F8DF81B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m */; };
+		C5420D041B9C8DC700FFAF64 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = C5420D031B9C8DC700FFAF64 /* Resources */; };
 		C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */; };
 		C546D71F1A83D5C3002E869A /* LSFractal.h in Headers */ = {isa = PBXBuildFile; fileRef = C546D71D1A83D5C3002E869A /* LSFractal.h */; };
 		C546D7201A83D5C3002E869A /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C546D71E1A83D5C3002E869A /* LSFractal.m */; };
@@ -153,7 +154,6 @@
 		C583EE0A1B972BA100ED4BA6 /* ReceiptAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = C583EDCF1B972BA100ED4BA6 /* ReceiptAttribute.h */; };
 		C583EE0B1B972BA100ED4BA6 /* InAppAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = C583EDD01B972BA100ED4BA6 /* InAppAttribute.h */; };
 		C583EE0C1B972BA100ED4BA6 /* per_opentype.h in Headers */ = {isa = PBXBuildFile; fileRef = C583EDD11B972BA100ED4BA6 /* per_opentype.h */; };
-		C583EE111B976A6800ED4BA6 /* PommeDeTer.cer in Resources */ = {isa = PBXBuildFile; fileRef = C583EE101B976A6800ED4BA6 /* PommeDeTer.cer */; };
 		C583F03D1B977E0200ED4BA6 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = C583EFEE1B977E0200ED4BA6 /* aes.h */; };
 		C583F03E1B977E0200ED4BA6 /* asn1.h in Headers */ = {isa = PBXBuildFile; fileRef = C583EFEF1B977E0200ED4BA6 /* asn1.h */; };
 		C583F03F1B977E0200ED4BA6 /* asn1_mac.h in Headers */ = {isa = PBXBuildFile; fileRef = C583EFF01B977E0200ED4BA6 /* asn1_mac.h */; };
@@ -209,7 +209,6 @@
 		C583F0711B977E0300ED4BA6 /* rc4.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0221B977E0200ED4BA6 /* rc4.h */; };
 		C583F0721B977E0300ED4BA6 /* ripemd.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0231B977E0200ED4BA6 /* ripemd.h */; };
 		C583F0731B977E0300ED4BA6 /* rsa.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0241B977E0200ED4BA6 /* rsa.h */; };
-		C583F0741B977E0300ED4BA6 /* rsa.h.bak in Resources */ = {isa = PBXBuildFile; fileRef = C583F0251B977E0200ED4BA6 /* rsa.h.bak */; };
 		C583F0751B977E0300ED4BA6 /* safestack.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0261B977E0200ED4BA6 /* safestack.h */; };
 		C583F0761B977E0300ED4BA6 /* seed.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0271B977E0200ED4BA6 /* seed.h */; };
 		C583F0771B977E0300ED4BA6 /* sha.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0281B977E0200ED4BA6 /* sha.h */; };
@@ -233,7 +232,6 @@
 		C583F0891B977E0300ED4BA6 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C583F03B1B977E0200ED4BA6 /* libcrypto.a */; };
 		C583F08A1B977E0300ED4BA6 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C583F03C1B977E0200ED4BA6 /* libssl.a */; };
 		C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */; };
-		C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
 		C59954051A6465270093CF50 /* FractalScapeFractalModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */; };
 		C59954181A6465710093CF50 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764681A33A537009DDF83 /* LSDrawingRuleType.m */; };
 		C599541A1A6465710093CF50 /* LSReplacementRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764741A33A537009DDF83 /* LSReplacementRule.m */; };
@@ -250,6 +248,7 @@
 		C59EE2161AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */; };
 		C59FF02116441631006E2B27 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C59FF02016441631006E2B27 /* Settings.bundle */; };
 		C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A040281B8A3F1E0052398A /* StoreKit.framework */; };
+		C5A339141B9BD91700074DD3 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */; };
 		C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */; };
 		C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A4888E1B9117300031585B /* iCon60@2x.png */; };
 		C5A488911B9117DC0031585B /* appStore1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A488901B9117DC0031585B /* appStore1024.png */; };
@@ -265,26 +264,6 @@
 		C5ABE0031B79F29C003EB04E /* MDBHelpContentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */; };
 		C5B0A2B71ACA04B800C5903A /* MBImageFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */; };
 		C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */; };
-		C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */; };
-		C5B58C571AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C441AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */; };
-		C5B58C581AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C451AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */; };
-		C5B58C591AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C461AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */; };
-		C5B58C5A1AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C471AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */; };
-		C5B58C5B1AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C481AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */; };
-		C5B58C5C1AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C491AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */; };
-		C5B58C5D1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4A1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */; };
-		C5B58C5E1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4B1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */; };
-		C5B58C5F1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4C1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */; };
-		C5B58C601AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4D1AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */; };
-		C5B58C611AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4E1AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */; };
-		C5B58C621AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C4F1AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */; };
-		C5B58C631AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C501AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */; };
-		C5B58C641AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C511AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */; };
-		C5B58C651AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C521AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */; };
-		C5B58C661AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C531AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */; };
-		C5B58C671AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C541AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */; };
-		C5B58C681AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C551AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */; };
-		C5B58C691AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5B58C561AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
 		C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */; };
@@ -330,8 +309,6 @@
 		C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E6E1B54486E00EEC58C /* en.lproj */; };
 		C5CE0E711B54488B00EEC58C /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E701B54488B00EEC58C /* Base.lproj */; };
 		C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5CE0E721B544EAD00EEC58C /* Localizable.strings */; };
-		C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
-		C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
 		C5D400191B7D118700ABF7F6 /* MDBTutorialPageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D400171B7D118700ABF7F6 /* MDBTutorialPageSource.h */; };
 		C5D4001A1B7D118700ABF7F6 /* MDBTutorialPageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D400181B7D118700ABF7F6 /* MDBTutorialPageSource.m */; };
 		C5D4D5531AC73B65002113DF /* MDBCustomTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D4D5511AC73B65002113DF /* MDBCustomTransition.h */; };
@@ -447,7 +424,7 @@
 		C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSObjectListTileViewer.m; path = FractalScape/MBLSObjectListTileViewer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5329E891A24566B00056FB4 /* MBLSFractalSummaryEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSFractalSummaryEditView.h; path = FractalScape/MBLSFractalSummaryEditView.h; sourceTree = "<group>"; };
 		C5329E8A1A24566B00056FB4 /* MBLSFractalSummaryEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSFractalSummaryEditView.m; path = FractalScape/MBLSFractalSummaryEditView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C53305C517985877005D2A18 /* History.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = History.rtf; path = resources/History.rtf; sourceTree = "<group>"; };
+		C53305C517985877005D2A18 /* History.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = History.rtf; path = ../History.rtf; sourceTree = "<group>"; };
 		C533DFCF1AE953B6009E9D95 /* MDBAppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBAppModel.h; sourceTree = "<group>"; };
 		C533DFD01AE953B6009E9D95 /* MDBAppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBAppModel.m; sourceTree = "<group>"; };
 		C53956FA14BF5ABC00D7301B /* QuartzHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpers.m; path = FractalScape/model/QuartzHelpers.m; sourceTree = "<group>"; };
@@ -458,6 +435,7 @@
 		C53F8DF41B5C87820050F607 /* MDBTutorialSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialSplitViewController.m; sourceTree = "<group>"; };
 		C53F8DF71B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialMasterTableViewController.h; sourceTree = "<group>"; };
 		C53F8DF81B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialMasterTableViewController.m; sourceTree = "<group>"; };
+		C5420D031B9C8DC700FFAF64 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleDragAndDropProtocol.h; path = FractalScape/MBLSRuleDragAndDropProtocol.h; sourceTree = "<group>"; };
 		C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalSegment.h; path = FractalScape/model/MBFractalSegment.h; sourceTree = "<group>"; };
 		C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalSegment.m; path = FractalScape/model/MBFractalSegment.m; sourceTree = "<group>"; };
@@ -560,7 +538,6 @@
 		C583EDD01B972BA100ED4BA6 /* InAppAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppAttribute.h; path = ReceiptCode/InAppAttribute.h; sourceTree = "<group>"; };
 		C583EDD11B972BA100ED4BA6 /* per_opentype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = per_opentype.h; path = ReceiptCode/per_opentype.h; sourceTree = "<group>"; };
 		C583EDD21B972BA100ED4BA6 /* receiptDefinition.asn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = receiptDefinition.asn; path = ReceiptCode/receiptDefinition.asn; sourceTree = "<group>"; };
-		C583EE101B976A6800ED4BA6 /* PommeDeTer.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = PommeDeTer.cer; path = resources/PommeDeTer.cer; sourceTree = "<group>"; };
 		C583EFEE1B977E0200ED4BA6 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		C583EFEF1B977E0200ED4BA6 /* asn1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1.h; sourceTree = "<group>"; };
 		C583EFF01B977E0200ED4BA6 /* asn1_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1_mac.h; sourceTree = "<group>"; };
@@ -655,6 +632,7 @@
 		C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBMainLibraryTabBarController.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A040281B8A3F1E0052398A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C5A338681B9BD04000074DD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = FractalScape/Base.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5A4888C1B91171C0031585B /* iCon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCon60@2x.png"; path = "Icons.xcassets/AppIcon.appiconset/iCon60@2x.png"; sourceTree = "<group>"; };
 		C5A4888E1B9117300031585B /* iCon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCon60@2x.png"; path = "Icons.xcassets/AppIcon.appiconset/iCon60@2x.png"; sourceTree = "<group>"; };
@@ -672,25 +650,6 @@
 		C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBImageFilter.h; path = FractalScape/model/MBImageFilter.h; sourceTree = "<group>"; };
 		C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBImageFilter.m; path = FractalScape/model/MBImageFilter.m; sourceTree = "<group>"; };
 		C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
-		C5B58C441AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal"; path = "resources/A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal"; sourceTree = "<group>"; };
-		C5B58C451AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal"; path = "resources/DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal"; sourceTree = "<group>"; };
-		C5B58C461AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal"; path = "resources/F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal"; sourceTree = "<group>"; };
-		C5B58C471AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal"; path = "resources/Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal"; sourceTree = "<group>"; };
-		C5B58C481AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal"; path = "resources/Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal"; sourceTree = "<group>"; };
-		C5B58C491AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal"; path = "resources/A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal"; sourceTree = "<group>"; };
-		C5B58C4A1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal"; path = "resources/A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal"; sourceTree = "<group>"; };
-		C5B58C4B1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal"; path = "resources/A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal"; sourceTree = "<group>"; };
-		C5B58C4C1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal"; path = "resources/A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal"; sourceTree = "<group>"; };
-		C5B58C4D1AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal"; path = "resources/A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal"; sourceTree = "<group>"; };
-		C5B58C4E1AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal"; path = "resources/A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal"; sourceTree = "<group>"; };
-		C5B58C4F1AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal"; path = "resources/D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal"; sourceTree = "<group>"; };
-		C5B58C501AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal"; path = "resources/D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal"; sourceTree = "<group>"; };
-		C5B58C511AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal"; path = "resources/DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal"; sourceTree = "<group>"; };
-		C5B58C521AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal"; path = "resources/DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal"; sourceTree = "<group>"; };
-		C5B58C531AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal"; path = "resources/E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal"; sourceTree = "<group>"; };
-		C5B58C541AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal"; path = "resources/E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal"; sourceTree = "<group>"; };
-		C5B58C551AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal"; path = "resources/F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal"; sourceTree = "<group>"; };
-		C5B58C561AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal"; path = "resources/ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal"; sourceTree = "<group>"; };
 		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractalScapeIconSet.h; sourceTree = "<group>"; };
@@ -929,33 +888,6 @@
 				C579626316DD4D7900A8BCDC /* MBCollectionFractalSupplementaryLabel.m */,
 			);
 			name = CollectionViews;
-			sourceTree = "<group>";
-		};
-		C55273F81AFA9C3A00099C64 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				C583EE101B976A6800ED4BA6 /* PommeDeTer.cer */,
-				C5B58C441AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */,
-				C5B58C451AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */,
-				C5B58C461AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */,
-				C5B58C471AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */,
-				C5B58C481AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal */,
-				C5B58C491AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */,
-				C5B58C4A1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal */,
-				C5B58C4B1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */,
-				C5B58C4C1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */,
-				C5B58C4D1AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */,
-				C5B58C4E1AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */,
-				C5B58C4F1AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */,
-				C5B58C501AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */,
-				C5B58C511AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */,
-				C5B58C521AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */,
-				C5B58C531AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */,
-				C5B58C541AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */,
-				C5B58C551AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */,
-				C5B58C561AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		C5567AFB1A79F2AA00882474 /* Categories */ = {
@@ -1299,11 +1231,12 @@
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
+				C5A338671B9BD04000074DD3 /* MainStoryboard_iPad.storyboard */,
+				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
+				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,
 				C5CE0E361B542BAC00EEC58C /* MDUiKit */,
 				C5CE0E331B542BA200EEC58C /* MDCCloudKit */,
-				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
 				C5567AFB1A79F2AA00882474 /* Categories */,
-				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,
 				C5E6B7C414A5359A00DA48BD /* Model */,
 				C5E6B78714A5346300DA48BD /* FractalScape Main */,
 				C5450ED014BBB7DB00CD2E09 /* OldViews */,
@@ -1375,20 +1308,20 @@
 		C5E6B78814A5346300DA48BD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C5420D031B9C8DC700FFAF64 /* Resources */,
+				C59FF02016441631006E2B27 /* Settings.bundle */,
 				C5CE0E721B544EAD00EEC58C /* Localizable.strings */,
 				C5CE0E701B54488B00EEC58C /* Base.lproj */,
 				C5CE0E6E1B54486E00EEC58C /* en.lproj */,
-				C55273F81AFA9C3A00099C64 /* Resources */,
 				C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */,
 				C5BA7FE51A1868C400AFCF70 /* FractalScapeIconSet.m */,
+				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
+				C5E6B78914A5346300DA48BD /* FractalScapes-Info.plist */,
+				C5E6B78F14A5346300DA48BD /* FractalScapes-Prefix.pch */,
 				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
 				C5CE9458170C9389002EF5FD /* MBColorsList.plist */,
 				C583ED8F1B96755400ED4BA6 /* MBColorsList_aluminum1.plist */,
 				C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */,
-				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
-				C5E6B78914A5346300DA48BD /* FractalScapes-Info.plist */,
-				C5E6B78F14A5346300DA48BD /* FractalScapes-Prefix.pch */,
-				C59FF02016441631006E2B27 /* Settings.bundle */,
 				C53305C517985877005D2A18 /* History.rtf */,
 				C5A4888E1B9117300031585B /* iCon60@2x.png */,
 				C5A4888C1B91171C0031585B /* iCon60@2x.png */,
@@ -1807,52 +1740,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5B58C5A1AFD1E990085C1A6 /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */,
 				C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */,
-				C5B58C641AFD1E990085C1A6 /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */,
+				C5A339141B9BD91700074DD3 /* Icons.xcassets in Resources */,
 				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
-				C5B58C581AFD1E990085C1A6 /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */,
 				C583ED961B9721A600ED4BA6 /* ColorsPaper.xcassets in Resources */,
-				C5B58C571AFD1E990085C1A6 /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */,
-				C5B58C671AFD1E990085C1A6 /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */,
-				C5B58C5F1AFD1E990085C1A6 /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */,
-				C5B58C651AFD1E990085C1A6 /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */,
-				C5B58C5E1AFD1E990085C1A6 /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */,
 				C583ED941B97201200ED4BA6 /* ColorsDefault.xcassets in Resources */,
-				C5B58C591AFD1E990085C1A6 /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */,
-				C5914ACF14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
-				C5B58C5D1AFD1E990085C1A6 /* A020Sample9E84863A-9040-4C31-AA45-E9705F8D5D8A.fractal in Resources */,
 				C5CE0E711B54488B00EEC58C /* Base.lproj in Resources */,
-				C5B58C621AFD1E990085C1A6 /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */,
 				C5A488911B9117DC0031585B /* appStore1024.png in Resources */,
-				C5B58C691AFD1E990085C1A6 /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */,
 				C511BA131A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib in Resources */,
-				C5B58C5C1AFD1E990085C1A6 /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */,
-				C5B58C661AFD1E990085C1A6 /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */,
 				C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */,
 				C583ED921B971D9D00ED4BA6 /* PurchaseColorsFuture.xcassets in Resources */,
-				C5B58C681AFD1E990085C1A6 /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */,
 				C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */,
-				C583EE111B976A6800ED4BA6 /* PommeDeTer.cer in Resources */,
 				C583ED8E1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets in Resources */,
-				C583F0741B977E0300ED4BA6 /* rsa.h.bak in Resources */,
 				C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */,
 				C583ED901B96755400ED4BA6 /* MBColorsList_aluminum1.plist in Resources */,
 				C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */,
-				C5B58C631AFD1E990085C1A6 /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */,
 				C50C47BA1A97C2E500CF5121 /* Launch Screen.xib in Resources */,
 				C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */,
-				C5B58C601AFD1E990085C1A6 /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */,
-				C5B3F18319DC7C1900BDFAF5 /* Icons.xcassets in Resources */,
 				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
 				C529F85E1B8F6825005D8982 /* PurchaseStoreImages.xcassets in Resources */,
 				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
-				C5B58C611AFD1E990085C1A6 /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */,
+				C5420D041B9C8DC700FFAF64 /* Resources in Resources */,
 				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
-				C5B58C5B1AFD1E990085C1A6 /* Y1SampleAE9CB5CF-7656-4DAC-964E-3AB61DDF508B.fractal in Resources */,
 				C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */,
-				C5CE9459170C9389002EF5FD /* MBColorsList.plist in Resources */,
-				C5CE945B170C93C3002EF5FD /* LSFractalsList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2024,6 +1934,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		C5A338671B9BD04000074DD3 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5A338681B9BD04000074DD3 /* Base */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
 		C5E6B78A14A5346300DA48BD /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2044,7 +1962,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C57875131B960DDA003B3378 /* Beta Debug */ = {
+		C57875131B960DDA003B3378 /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2087,9 +2005,9 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Beta Debug";
+			name = BetaDebug;
 		};
-		C57875141B960DDA003B3378 /* Beta Debug */ = {
+		C57875141B960DDA003B3378 /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ICON_SET_SUFFIX}";
@@ -2118,20 +2036,16 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/FractalScape/openssl-1.0.1i-iOS/lib",
-					"$(PROJECT_DIR)/FractalScape/openssl/lib",
-					"$(PROJECT_DIR)/FractalScape/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
-			name = "Beta Debug";
+			name = BetaDebug;
 		};
-		C57875151B960DDA003B3378 /* Beta Debug */ = {
+		C57875151B960DDA003B3378 /* BetaDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -2151,7 +2065,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = FractalScapesFractalModelTests;
 			};
-			name = "Beta Debug";
+			name = BetaDebug;
 		};
 		C59954091A6465270093CF50 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2252,6 +2166,7 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FractalScape-dqtbyqfivsmbtqeqqbkpgurnioum/Build/Products/Debug-iphoneos/",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = (
@@ -2261,11 +2176,7 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/FractalScape/openssl-1.0.1i-iOS/lib",
-					"$(PROJECT_DIR)/FractalScape/openssl/lib",
-					"$(PROJECT_DIR)/FractalScape/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2405,11 +2316,7 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/FractalScape/openssl-1.0.1i-iOS/lib",
-					"$(PROJECT_DIR)/FractalScape/openssl/lib",
-					"$(PROJECT_DIR)/FractalScape/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2438,6 +2345,7 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FractalScape-dqtbyqfivsmbtqeqqbkpgurnioum/Build/Products/Debug-iphoneos/",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = (
@@ -2447,11 +2355,7 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/FractalScape/openssl-1.0.1i-iOS/lib",
-					"$(PROJECT_DIR)/FractalScape/openssl/lib",
-					"$(PROJECT_DIR)/FractalScape/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2467,7 +2371,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C59954091A6465270093CF50 /* Debug */,
-				C57875151B960DDA003B3378 /* Beta Debug */,
+				C57875151B960DDA003B3378 /* BetaDebug */,
 				C599540A1A6465270093CF50 /* Release */,
 				C5BB7D8A1A90552900575CFC /* Beta */,
 			);
@@ -2478,7 +2382,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5E6B7BC14A5346300DA48BD /* Debug */,
-				C57875131B960DDA003B3378 /* Beta Debug */,
+				C57875131B960DDA003B3378 /* BetaDebug */,
 				C5E6B7BD14A5346300DA48BD /* Release */,
 				C5BB7D871A90552900575CFC /* Beta */,
 			);
@@ -2489,7 +2393,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5E6B7BF14A5346300DA48BD /* Debug */,
-				C57875141B960DDA003B3378 /* Beta Debug */,
+				C57875141B960DDA003B3378 /* BetaDebug */,
 				C5E6B7C014A5346300DA48BD /* Release */,
 				C5BB7D881A90552900575CFC /* Beta */,
 			);
