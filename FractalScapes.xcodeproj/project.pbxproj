@@ -63,7 +63,6 @@
 		C53F8DF61B5C87820050F607 /* MDBTutorialSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F8DF41B5C87820050F607 /* MDBTutorialSplitViewController.m */; };
 		C53F8DF91B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F8DF71B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h */; };
 		C53F8DFA1B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F8DF81B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m */; };
-		C5420D041B9C8DC700FFAF64 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = C5420D031B9C8DC700FFAF64 /* Resources */; };
 		C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */; };
 		C546D71F1A83D5C3002E869A /* LSFractal.h in Headers */ = {isa = PBXBuildFile; fileRef = C546D71D1A83D5C3002E869A /* LSFractal.h */; };
 		C546D7201A83D5C3002E869A /* LSFractal.m in Sources */ = {isa = PBXBuildFile; fileRef = C546D71E1A83D5C3002E869A /* LSFractal.m */; };
@@ -250,12 +249,29 @@
 		C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A040281B8A3F1E0052398A /* StoreKit.framework */; };
 		C5A339141B9BD91700074DD3 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */; };
 		C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */; };
-		C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A4888E1B9117300031585B /* iCon60@2x.png */; };
 		C5A488911B9117DC0031585B /* appStore1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A488901B9117DC0031585B /* appStore1024.png */; };
 		C5A5C38D1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */; };
 		C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */; };
 		C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38F1ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h */; };
 		C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C3901ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m */; };
+		C5A9F9BA1B9CA6FF0072EAAB /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9A81B9CA6FF0072EAAB /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */; };
+		C5A9F9BB1B9CA6FF0072EAAB /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9A91B9CA6FF0072EAAB /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */; };
+		C5A9F9BC1B9CA6FF0072EAAB /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9AA1B9CA6FF0072EAAB /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */; };
+		C5A9F9BD1B9CA6FF0072EAAB /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9AB1B9CA6FF0072EAAB /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */; };
+		C5A9F9BE1B9CA6FF0072EAAB /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9AC1B9CA6FF0072EAAB /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */; };
+		C5A9F9BF1B9CA6FF0072EAAB /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9AD1B9CA6FF0072EAAB /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */; };
+		C5A9F9C01B9CA6FF0072EAAB /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9AE1B9CA6FF0072EAAB /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */; };
+		C5A9F9C11B9CA6FF0072EAAB /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9AF1B9CA6FF0072EAAB /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */; };
+		C5A9F9C21B9CA6FF0072EAAB /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B01B9CA6FF0072EAAB /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */; };
+		C5A9F9C31B9CA6FF0072EAAB /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B11B9CA6FF0072EAAB /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */; };
+		C5A9F9C41B9CA6FF0072EAAB /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B21B9CA6FF0072EAAB /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */; };
+		C5A9F9C51B9CA6FF0072EAAB /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B31B9CA6FF0072EAAB /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */; };
+		C5A9F9C61B9CA6FF0072EAAB /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B41B9CA6FF0072EAAB /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */; };
+		C5A9F9C71B9CA6FF0072EAAB /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B51B9CA6FF0072EAAB /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */; };
+		C5A9F9C81B9CA6FF0072EAAB /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B61B9CA6FF0072EAAB /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */; };
+		C5A9F9C91B9CA6FF0072EAAB /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B71B9CA6FF0072EAAB /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */; };
+		C5A9F9CA1B9CA6FF0072EAAB /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B81B9CA6FF0072EAAB /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */; };
+		C5A9F9CB1B9CA6FF0072EAAB /* PommeDeTer.cer in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9B91B9CA6FF0072EAAB /* PommeDeTer.cer */; };
 		C5ABDFFA1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5ABDFF81B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h */; };
 		C5ABDFFB1B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABDFF91B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m */; };
 		C5ABDFFE1B74A287003EB04E /* MDBRuleCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C5ABDFFC1B74A287003EB04E /* MDBRuleCollectionViewCell.h */; };
@@ -338,6 +354,11 @@
 		C5E782B21AF7FB9100CC44A3 /* MBImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */; };
 		C5E782B31AF7FB9F00CC44A3 /* MDBFractalCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F1846D1AA4C67A00233E49 /* MDBFractalCategory.m */; };
 		C5E782B41AF7FBFA00CC44A3 /* MDBCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C56080851A9F77C000134B62 /* MDBCloudManager.m */; };
+		C5EB070C1B9CA935001F8881 /* MBColorsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE9458170C9389002EF5FD /* MBColorsList.plist */; };
+		C5EB070D1B9CA944001F8881 /* LSFractalsList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */; };
+		C5EB070E1B9CA959001F8881 /* LSDrawingRulesDefaultTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */; };
+		C5EB070F1B9CA983001F8881 /* iCon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A4888C1B91171C0031585B /* iCon60@2x.png */; };
+		C5EB07101B9CB276001F8881 /* FractalScapes-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C5E6B78F14A5346300DA48BD /* FractalScapes-Prefix.pch */; };
 		C5F1846E1AA4C67A00233E49 /* MDBFractalCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F1846C1AA4C67A00233E49 /* MDBFractalCategory.h */; };
 		C5F1846F1AA4C67A00233E49 /* MDBFractalCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F1846D1AA4C67A00233E49 /* MDBFractalCategory.m */; };
 		C5F184721AA62B4A00233E49 /* MDBFractalObjectList.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F184701AA62B4A00233E49 /* MDBFractalObjectList.h */; };
@@ -435,7 +456,6 @@
 		C53F8DF41B5C87820050F607 /* MDBTutorialSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialSplitViewController.m; sourceTree = "<group>"; };
 		C53F8DF71B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialMasterTableViewController.h; sourceTree = "<group>"; };
 		C53F8DF81B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialMasterTableViewController.m; sourceTree = "<group>"; };
-		C5420D031B9C8DC700FFAF64 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleDragAndDropProtocol.h; path = FractalScape/MBLSRuleDragAndDropProtocol.h; sourceTree = "<group>"; };
 		C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalSegment.h; path = FractalScape/model/MBFractalSegment.h; sourceTree = "<group>"; };
 		C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalSegment.m; path = FractalScape/model/MBFractalSegment.m; sourceTree = "<group>"; };
@@ -635,12 +655,29 @@
 		C5A338681B9BD04000074DD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = FractalScape/Base.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5A4888C1B91171C0031585B /* iCon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCon60@2x.png"; path = "Icons.xcassets/AppIcon.appiconset/iCon60@2x.png"; sourceTree = "<group>"; };
-		C5A4888E1B9117300031585B /* iCon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCon60@2x.png"; path = "Icons.xcassets/AppIcon.appiconset/iCon60@2x.png"; sourceTree = "<group>"; };
 		C5A488901B9117DC0031585B /* appStore1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appStore1024.png; path = ../appStore1024.png; sourceTree = "<group>"; };
 		C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalCloudBrowser.h; path = FractalScape/MDBFractalCloudBrowser.h; sourceTree = "<group>"; };
 		C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalCloudBrowser.m; path = FractalScape/MDBFractalCloudBrowser.m; sourceTree = "<group>"; };
 		C5A5C38F1ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalDocumentProxy.h; path = FractalScape/model/MDBFractalDocumentProxy.h; sourceTree = "<group>"; };
 		C5A5C3901ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalDocumentProxy.m; path = FractalScape/model/MDBFractalDocumentProxy.m; sourceTree = "<group>"; };
+		C5A9F9A81B9CA6FF0072EAAB /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal"; path = "Resources/F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal"; sourceTree = "<group>"; };
+		C5A9F9A91B9CA6FF0072EAAB /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal"; path = "Resources/ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal"; sourceTree = "<group>"; };
+		C5A9F9AA1B9CA6FF0072EAAB /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal"; path = "Resources/A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal"; sourceTree = "<group>"; };
+		C5A9F9AB1B9CA6FF0072EAAB /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal"; path = "Resources/F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal"; sourceTree = "<group>"; };
+		C5A9F9AC1B9CA6FF0072EAAB /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal"; path = "Resources/E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal"; sourceTree = "<group>"; };
+		C5A9F9AD1B9CA6FF0072EAAB /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal"; path = "Resources/DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal"; sourceTree = "<group>"; };
+		C5A9F9AE1B9CA6FF0072EAAB /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal"; path = "Resources/Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal"; sourceTree = "<group>"; };
+		C5A9F9AF1B9CA6FF0072EAAB /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal"; path = "Resources/D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal"; sourceTree = "<group>"; };
+		C5A9F9B01B9CA6FF0072EAAB /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal"; path = "Resources/A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal"; sourceTree = "<group>"; };
+		C5A9F9B11B9CA6FF0072EAAB /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal"; path = "Resources/A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal"; sourceTree = "<group>"; };
+		C5A9F9B21B9CA6FF0072EAAB /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal"; path = "Resources/DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal"; sourceTree = "<group>"; };
+		C5A9F9B31B9CA6FF0072EAAB /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal"; path = "Resources/DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal"; sourceTree = "<group>"; };
+		C5A9F9B41B9CA6FF0072EAAB /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal"; path = "Resources/A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal"; sourceTree = "<group>"; };
+		C5A9F9B51B9CA6FF0072EAAB /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal"; path = "Resources/E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal"; sourceTree = "<group>"; };
+		C5A9F9B61B9CA6FF0072EAAB /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal"; path = "Resources/A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal"; sourceTree = "<group>"; };
+		C5A9F9B71B9CA6FF0072EAAB /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal"; path = "Resources/A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal"; sourceTree = "<group>"; };
+		C5A9F9B81B9CA6FF0072EAAB /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal"; path = "Resources/D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal"; sourceTree = "<group>"; };
+		C5A9F9B91B9CA6FF0072EAAB /* PommeDeTer.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = PommeDeTer.cer; path = Resources/PommeDeTer.cer; sourceTree = "<group>"; };
 		C5ABDFF81B74A22A003EB04E /* MDBHelpRulesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBHelpRulesCollectionViewController.h; sourceTree = "<group>"; };
 		C5ABDFF91B74A22A003EB04E /* MDBHelpRulesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBHelpRulesCollectionViewController.m; sourceTree = "<group>"; };
 		C5ABDFFC1B74A287003EB04E /* MDBRuleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBRuleCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1153,6 +1190,31 @@
 			name = SettingsTab;
 			sourceTree = "<group>";
 		};
+		C5A9F9A71B9CA6E00072EAAB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C5A9F9A81B9CA6FF0072EAAB /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */,
+				C5A9F9A91B9CA6FF0072EAAB /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */,
+				C5A9F9AA1B9CA6FF0072EAAB /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */,
+				C5A9F9AB1B9CA6FF0072EAAB /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal */,
+				C5A9F9AC1B9CA6FF0072EAAB /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal */,
+				C5A9F9AD1B9CA6FF0072EAAB /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal */,
+				C5A9F9AE1B9CA6FF0072EAAB /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal */,
+				C5A9F9AF1B9CA6FF0072EAAB /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal */,
+				C5A9F9B01B9CA6FF0072EAAB /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal */,
+				C5A9F9B11B9CA6FF0072EAAB /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal */,
+				C5A9F9B21B9CA6FF0072EAAB /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal */,
+				C5A9F9B31B9CA6FF0072EAAB /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal */,
+				C5A9F9B41B9CA6FF0072EAAB /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal */,
+				C5A9F9B51B9CA6FF0072EAAB /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal */,
+				C5A9F9B61B9CA6FF0072EAAB /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal */,
+				C5A9F9B71B9CA6FF0072EAAB /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal */,
+				C5A9F9B81B9CA6FF0072EAAB /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal */,
+				C5A9F9B91B9CA6FF0072EAAB /* PommeDeTer.cer */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		C5CD57D21A9BC35A00C70218 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
@@ -1308,7 +1370,7 @@
 		C5E6B78814A5346300DA48BD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C5420D031B9C8DC700FFAF64 /* Resources */,
+				C5A9F9A71B9CA6E00072EAAB /* Resources */,
 				C59FF02016441631006E2B27 /* Settings.bundle */,
 				C5CE0E721B544EAD00EEC58C /* Localizable.strings */,
 				C5CE0E701B54488B00EEC58C /* Base.lproj */,
@@ -1318,18 +1380,17 @@
 				C5E6B78A14A5346300DA48BD /* InfoPlist.strings */,
 				C5E6B78914A5346300DA48BD /* FractalScapes-Info.plist */,
 				C5E6B78F14A5346300DA48BD /* FractalScapes-Prefix.pch */,
-				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
+				C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */,
 				C5CE9458170C9389002EF5FD /* MBColorsList.plist */,
 				C583ED8F1B96755400ED4BA6 /* MBColorsList_aluminum1.plist */,
-				C5CE945A170C93C3002EF5FD /* LSFractalsList.plist */,
+				C5914ACE14C9F0D500856F57 /* LSDrawingRulesDefaultTypeList.plist */,
 				C53305C517985877005D2A18 /* History.rtf */,
-				C5A4888E1B9117300031585B /* iCon60@2x.png */,
 				C5A4888C1B91171C0031585B /* iCon60@2x.png */,
 				C5A488901B9117DC0031585B /* appStore1024.png */,
+				C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */,
 				C59AAE5419DC776000774441 /* RulesIcons.xcassets */,
 				C59AAE5619DC77CE00774441 /* UIMedia.xcassets */,
 				C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */,
-				C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */,
 				C583ED931B97201200ED4BA6 /* ColorsDefault.xcassets */,
 				C583ED951B9721A600ED4BA6 /* ColorsPaper.xcassets */,
 				C583ED8D1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets */,
@@ -1598,6 +1659,7 @@
 				C561578A1B80CA6100527BFA /* MDBDescriptionEditorViewController.h in Headers */,
 				C5CE0E551B542C6100EEC58C /* UICollectionView+MDKDragAndDrop.h in Headers */,
 				C5CE0E661B542C8B00EEC58C /* MDCKBaseCloudBrowserViewController.h in Headers */,
+				C5EB07101B9CB276001F8881 /* FractalScapes-Prefix.pch in Headers */,
 				C583F07F1B977E0300ED4BA6 /* symhacks.h in Headers */,
 				C583F0581B977E0200ED4BA6 /* engine.h in Headers */,
 				C583F05C1B977E0200ED4BA6 /* idea.h in Headers */,
@@ -1740,29 +1802,49 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C50C47BA1A97C2E500CF5121 /* Launch Screen.xib in Resources */,
+				C5A488911B9117DC0031585B /* appStore1024.png in Resources */,
+				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
+				C5EB070F1B9CA983001F8881 /* iCon60@2x.png in Resources */,
+				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
 				C5E6B78C14A5346300DA48BD /* InfoPlist.strings in Resources */,
+				C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */,
+				C5CE0E711B54488B00EEC58C /* Base.lproj in Resources */,
+				C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */,
 				C5A339141B9BD91700074DD3 /* Icons.xcassets in Resources */,
-				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
+				C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */,
+				C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */,
+				C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */,
 				C583ED961B9721A600ED4BA6 /* ColorsPaper.xcassets in Resources */,
 				C583ED941B97201200ED4BA6 /* ColorsDefault.xcassets in Resources */,
-				C5CE0E711B54488B00EEC58C /* Base.lproj in Resources */,
-				C5A488911B9117DC0031585B /* appStore1024.png in Resources */,
-				C511BA131A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib in Resources */,
-				C59AAE5719DC77CE00774441 /* UIMedia.xcassets in Resources */,
-				C583ED921B971D9D00ED4BA6 /* PurchaseColorsFuture.xcassets in Resources */,
-				C5A4888F1B9117300031585B /* iCon60@2x.png in Resources */,
-				C583ED8E1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets in Resources */,
-				C59AAE5519DC776000774441 /* RulesIcons.xcassets in Resources */,
-				C583ED901B96755400ED4BA6 /* MBColorsList_aluminum1.plist in Resources */,
-				C5CE0E6F1B54486E00EEC58C /* en.lproj in Resources */,
-				C50C47BA1A97C2E500CF5121 /* Launch Screen.xib in Resources */,
-				C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */,
-				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
 				C529F85E1B8F6825005D8982 /* PurchaseStoreImages.xcassets in Resources */,
-				C59FF02116441631006E2B27 /* Settings.bundle in Resources */,
-				C5420D041B9C8DC700FFAF64 /* Resources in Resources */,
-				C5A45D5D1A7578C6007AE87E /* Default-568h@2x.png in Resources */,
-				C5CE0E731B544EAD00EEC58C /* Localizable.strings in Resources */,
+				C583ED921B971D9D00ED4BA6 /* PurchaseColorsFuture.xcassets in Resources */,
+				C583ED8E1B9674B500ED4BA6 /* PurchaseColorsAluminum1.xcassets in Resources */,
+				C5E6B79814A5346300DA48BD /* MainStoryboard_iPad.storyboard in Resources */,
+				C5A9F9CB1B9CA6FF0072EAAB /* PommeDeTer.cer in Resources */,
+				C5EB070D1B9CA944001F8881 /* LSFractalsList.plist in Resources */,
+				C5EB070C1B9CA935001F8881 /* MBColorsList.plist in Resources */,
+				C583ED901B96755400ED4BA6 /* MBColorsList_aluminum1.plist in Resources */,
+				C5EB070E1B9CA959001F8881 /* LSDrawingRulesDefaultTypeList.plist in Resources */,
+				C511BA131A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib in Resources */,
+				C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */,
+				C5A9F9BC1B9CA6FF0072EAAB /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */,
+				C5A9F9C31B9CA6FF0072EAAB /* A060Sample98067216-AFED-48EC-AC88-D9DCA13E0583.fractal in Resources */,
+				C5A9F9C51B9CA6FF0072EAAB /* DR0Sample58E28B22-63C4-4E39-849B-5205206EEE2F.fractal in Resources */,
+				C5A9F9BD1B9CA6FF0072EAAB /* F0SampleA7AE4A90-6764-40CD-9397-97053EB3C46A.fractal in Resources */,
+				C5A9F9BE1B9CA6FF0072EAAB /* E050Sample0528476F-AD4D-44F9-A6F0-2B888AED77D5.fractal in Resources */,
+				C5A9F9C11B9CA6FF0072EAAB /* D1Sample0BF7F4E4-1013-465A-BEF3-4BA8261356BF.fractal in Resources */,
+				C5A9F9C81B9CA6FF0072EAAB /* A070SampleA80D7114-0072-4F2D-8A07-D159BF24F978.fractal in Resources */,
+				C5A9F9BF1B9CA6FF0072EAAB /* DR3Sample91035B86-0A8E-4A28-AEB8-A5177D8FC6D5.fractal in Resources */,
+				C5A9F9C61B9CA6FF0072EAAB /* A000SampleA4796D53-23FF-43F8-85AE-FE4894A43541.fractal in Resources */,
+				C5A9F9C21B9CA6FF0072EAAB /* A030Sample177A282D-F336-416B-9A3F-0B53D5302877.fractal in Resources */,
+				C5A9F9C71B9CA6FF0072EAAB /* E100SampleD5F55828-52DC-433A-8EC6-F007920E229E.fractal in Resources */,
+				C5A9F9CA1B9CA6FF0072EAAB /* D0Sample407211C9-EEC7-439A-B3E2-083992832E97.fractal in Resources */,
+				C5A9F9C91B9CA6FF0072EAAB /* A010Sample4C79BA02-62C6-487A-BC58-537BBFD01088.fractal in Resources */,
+				C5A9F9BA1B9CA6FF0072EAAB /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */,
+				C5A9F9BB1B9CA6FF0072EAAB /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */,
+				C5A9F9C01B9CA6FF0072EAAB /* Y0SampleE178C719-D7A2-497B-8566-A4B19A02A13E.fractal in Resources */,
+				C5A9F9C41B9CA6FF0072EAAB /* DR2SampleBA3EDCFD-6E80-4402-AD14-880C8C86EF24.fractal in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2023,10 +2105,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FractalScape-dqtbyqfivsmbtqeqqbkpgurnioum/Build/Products/Debug-iphoneos/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = (
@@ -2162,10 +2241,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FractalScape-dqtbyqfivsmbtqeqqbkpgurnioum/Build/Products/Debug-iphoneos/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2303,10 +2379,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FractalScape-dqtbyqfivsmbtqeqqbkpgurnioum/Build/Products/Debug-iphoneos/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = (
@@ -2341,10 +2414,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FractalScape-dqtbyqfivsmbtqeqqbkpgurnioum/Build/Products/Debug-iphoneos/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

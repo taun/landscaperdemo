@@ -25,13 +25,20 @@
     // Do any additional setup after loading the view.
     self.currentPage = 0;
     [self layoutWebView];
+    if ((YES))
+    {
+        [self loadDocument: self.currentPage];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 //    [self.webContainer setNeedsLayout];
-    [self loadDocument: self.currentPage];
+    if ((NO))
+    {
+        [self loadDocument: self.currentPage];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
