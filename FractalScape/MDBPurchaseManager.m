@@ -498,16 +498,17 @@
         }
         
 #pragma message "UpdateForBuilds to build version before archiving"
-        const char *referenceVersion =  "391";
+        const char *referenceVersion =  "395";
         const char *receiptVersion = (const char *)bundle_version->buf+2;
         if (strcmp(referenceVersion,receiptVersion))
         {
             // Validation fails
+            NSString* receiptVersionString = [[NSString alloc]initWithCString: receiptVersion encoding: NSUTF8StringEncoding];
             asn_DEF_Payload.free_struct(&asn_DEF_Payload, payload,0);
             free(pld);
             if (bioOutput != NULL) BIO_free(bioOutput);
             if (receiptPKCS7 != NULL) PKCS7_free(receiptPKCS7);
-            [self refreshReceiptOnce: [NSString stringWithFormat: @"FractalScapes receipt error 3"]];
+            [self refreshReceiptOnce: [NSString stringWithFormat: @"FractalScapes receipt %@ error 3",receiptVersionString]];
             return;
         };
         

@@ -104,7 +104,7 @@
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     UITableViewHeaderFooterView* headerView = (UITableViewHeaderFooterView*)view;
-    headerView.textLabel.textColor = [UIColor whiteColor];
+    headerView.textLabel.textColor = [UIColor lightGrayColor];
 }
 
 -(void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
