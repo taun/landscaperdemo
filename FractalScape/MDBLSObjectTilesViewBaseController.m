@@ -48,33 +48,38 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if (self.fractalDocument.fractal) {
+    if (self.fractalDocument.fractal)
+    {
 //        [self updateFractalDependents];
     }
     [self configureParallax];
 }
 
--(void) viewWillLayoutSubviews {
-    id strongSourceListView = self.sourceListView;
-    id strongDestinationView = self.destinationView;
-    self.allowedDestinationViews = [@[strongDestinationView] arrayByAddingObjectsFromArray: self.allowedDestinationViews];
-    
-    for (UIView*destination in self.allowedDestinationViews)
+-(void) viewWillLayoutSubviews
+{
+    @autoreleasepool
     {
-        [destination setNeedsLayout];
+        id strongSourceListView = self.sourceListView;
+        id strongDestinationView = self.destinationView;
+        self.allowedDestinationViews = [@[strongDestinationView] arrayByAddingObjectsFromArray: self.allowedDestinationViews];
+        
+        for (UIView*destination in self.allowedDestinationViews)
+        {
+            [destination setNeedsLayout];
+        }
+        //    [self.sourceListView setNeedsUpdateConstraints];
+        [strongSourceListView setNeedsLayout];
+        //    [self.destinationView setNeedsUpdateConstraints];
+        //    [strongDestinationView setNeedsLayout];
+        
+        // Hack to get the label to adjust size after the transition.
+        NSString* info = self.ruleHelpLabel.text;
+        self.ruleHelpLabel.text = info;
+        
+        
+        [self updateViewConstraints];
+        [self.view setNeedsLayout];
     }
-//    [self.sourceListView setNeedsUpdateConstraints];
-    [strongSourceListView setNeedsLayout];
-//    [self.destinationView setNeedsUpdateConstraints];
-//    [strongDestinationView setNeedsLayout];
-
-    // Hack to get the label to adjust size after the transition.
-    NSString* info = self.ruleHelpLabel.text;
-    self.ruleHelpLabel.text = info;
-    
-    
-    [self updateViewConstraints];
-    [self.view setNeedsLayout];
 
     [super viewWillLayoutSubviews];
 }

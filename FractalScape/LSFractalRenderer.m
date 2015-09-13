@@ -263,34 +263,39 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 -(void) generateImagePercent:(CGFloat)percent
 {
-    UIImageView* strongImageView = self.imageView;
-    NSBlockOperation* strongOperation = self.operation;
-    
-    if (!strongImageView || (strongOperation && strongOperation.isCancelled) || percent <= 0.0)
+    @autoreleasepool
     {
-        return;
+        UIImageView* strongImageView = self.imageView;
+        NSBlockOperation* strongOperation = self.operation;
+        
+        if (!strongImageView || (strongOperation && strongOperation.isCancelled) || percent <= 0.0)
+        {
+            return;
+        }
+        
+        CGSize size = strongImageView.bounds.size;
+        
+        UIGraphicsBeginImageContextWithOptions(size, NO, self.pixelScale);
+        {
+            CGContextRef aCGontext = UIGraphicsGetCurrentContext();
+            [self drawInContext: aCGontext size: size percent: percent];
+            self.image = UIGraphicsGetImageFromCurrentImageContext();
+        }
+        UIGraphicsEndImageContext();
     }
-    
-    CGSize size = strongImageView.bounds.size;
-    
-    UIGraphicsBeginImageContextWithOptions(size, NO, self.pixelScale);
-    {
-        CGContextRef aCGontext = UIGraphicsGetCurrentContext();
-        [self drawInContext: aCGontext size: size percent: percent];
-        self.image = UIGraphicsGetImageFromCurrentImageContext();
-    }
-    UIGraphicsEndImageContext();
 }
 -(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size
 {
-    
-    CGContextSaveGState(aCGContext);
+    if (aCGContext)
     {
-        UIColor* thumbNailBackground = self.backgroundColor.UIColor;
-        [thumbNailBackground setFill]; // needed rather than an if then for CGColor vs CGPattern
-        CGContextFillRect(aCGContext, CGRectMake(0.0, 0.0, size.width, size.height));
+        CGContextSaveGState(aCGContext);
+        {
+            UIColor* thumbNailBackground = self.backgroundColor.UIColor;
+            [thumbNailBackground setFill]; // needed rather than an if then for CGColor vs CGPattern
+            CGContextFillRect(aCGContext, CGRectMake(0.0, 0.0, size.width, size.height));
+        }
+        CGContextRestoreGState(aCGContext);
     }
-    CGContextRestoreGState(aCGContext);
 }
 -(void) drawInContext:(CGContextRef)aCGContext size:(CGSize)size
 {

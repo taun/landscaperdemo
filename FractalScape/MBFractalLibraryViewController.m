@@ -160,7 +160,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 -(void)unwindFromEditor:(UIStoryboardSegue *)segue
 {
-//    UIViewController *sourceViewController = segue.sourceViewController;
+    UIViewController *sourceViewController = segue.sourceViewController;
+    if ([sourceViewController isKindOfClass: [MBLSFractalEditViewController class]])
+    { // which it always should be
+        MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)sourceViewController;
+        [editor setFractalInfo: nil];
+    }
 }
 -(void)regularStartupSequence
 {

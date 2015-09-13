@@ -280,15 +280,15 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Rectangle 3 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 18, 20);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 18, 20);
         CGContextRotateCTM(context, -90 * M_PI / 180);
 
         UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 7, 1)];
         [UIColor.whiteColor setFill];
         [rectangle3Path fill];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -682,8 +682,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 14, 14);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 14, 14);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -695,7 +695,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawToolBarDoubleDragSymbolOn
@@ -734,30 +734,30 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIColor* white40 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.367];
 
     //// Rectangle Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 16, 14);
-    CGContextScaleCTM(context, 1, 0.5);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 16, 14);
+    if (context) CGContextScaleCTM(context, 1, 0.5);
 
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-15.5, -1, 12, 1)];
     [UIColor.whiteColor setStroke];
     rectanglePath.lineWidth = 1;
     [rectanglePath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 16, 14);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 16, 14);
     CGContextRotateCTM(context, -50.99 * M_PI / 180);
-    CGContextScaleCTM(context, 1, 0.5);
+    if (context) CGContextScaleCTM(context, 1, 0.5);
 
     UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(3.2, -0.26, 14, 1)];
     [UIColor.whiteColor setStroke];
     rectangle2Path.lineWidth = 1;
     [rectangle2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Oval Drawing
@@ -769,8 +769,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Group
     {
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 7, 17);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 7, 17);
         CGContextRotateCTM(context, 90 * M_PI / 180);
 
 
@@ -786,8 +786,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Polygon 2 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, -12, -8);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, -12, -8);
         CGContextRotateCTM(context, -145.57 * M_PI / 180);
 
         UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
@@ -801,12 +801,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygon2Path.lineWidth = 1.5;
         [polygon2Path stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
         //// Polygon Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 5, -7);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 5, -7);
         CGContextRotateCTM(context, 164.98 * M_PI / 180);
 
         UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -820,11 +820,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygonPath.lineWidth = 1.5;
         [polygonPath stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -838,21 +838,21 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIColor* white40 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.367];
 
     //// Rectangle 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 0.5, 23.5);
-    CGContextScaleCTM(context, 1, 0.6);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 0.5, 23.5);
+    if (context) CGContextScaleCTM(context, 1, 0.6);
 
     UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 27, 1)];
     [UIColor.whiteColor setStroke];
     rectangle2Path.lineWidth = 1;
     [rectangle2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 14, 13);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 14, 13);
     CGContextRotateCTM(context, -180 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -866,20 +866,20 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 8.5, 3.5);
-    CGContextScaleCTM(context, 1, 0.6);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 8.5, 3.5);
+    if (context) CGContextScaleCTM(context, 1, 0.6);
 
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 1)];
     [UIColor.whiteColor setStroke];
     rectanglePath.lineWidth = 1;
     [rectanglePath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawToolBarBaseRotationButtonSymbol
@@ -892,8 +892,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIColor* white40 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.367];
 
     //// Rectangle Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 10, 14);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 10, 14);
     CGContextRotateCTM(context, -45 * M_PI / 180);
 
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-5, -5, 10, 10)];
@@ -901,13 +901,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     rectanglePath.lineWidth = 1;
     [rectanglePath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Group
     {
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 11, 18);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 11, 18);
         CGContextRotateCTM(context, 90 * M_PI / 180);
 
 
@@ -923,8 +923,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Polygon 2 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, -12, -8);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, -12, -8);
         CGContextRotateCTM(context, -145.57 * M_PI / 180);
 
         UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
@@ -938,12 +938,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygon2Path.lineWidth = 1.5;
         [polygon2Path stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
         //// Polygon Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 5, -7);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 5, -7);
         CGContextRotateCTM(context, 164.98 * M_PI / 180);
 
         UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -957,11 +957,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygonPath.lineWidth = 1.5;
         [polygonPath stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -971,8 +971,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 14, 14);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 14, 14);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -984,7 +984,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawToolBarCopyIconTinted
@@ -1056,15 +1056,15 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Rectangle 3 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 18, 20);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 18, 20);
         CGContextRotateCTM(context, -90 * M_PI / 180);
 
         UIBezierPath* rectangle3Path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 7, 1)];
         [FractalScapeIconSet.tintColor setFill];
         [rectangle3Path fill];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -1084,12 +1084,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawKBIconRuleSymbolArrowHead];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleMoveByLine
@@ -1108,12 +1108,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawKBIconRuleSymbolArrowHead];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleDrawDot
@@ -1153,8 +1153,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1168,7 +1168,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleIncrementLineWidth
@@ -1198,8 +1198,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1213,7 +1213,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconCurveSymbol
@@ -1254,20 +1254,20 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Symbol Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 32, 0);
-    CGContextScaleCTM(context, -1, 1);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 32, 0);
+    if (context) CGContextScaleCTM(context, -1, 1);
 
     CGRect symbolRect = CGRectMake(0, 0, 24, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
 
     [FractalScapeIconSet drawKBIconCurveSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleDecrementAngle
@@ -1280,8 +1280,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Group
     {
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 20, 20);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 20, 20);
         CGContextRotateCTM(context, 90 * M_PI / 180);
 
 
@@ -1297,8 +1297,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Polygon 2 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, -12.5, -12.5);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, -12.5, -12.5);
         CGContextRotateCTM(context, 45 * M_PI / 180);
 
         UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
@@ -1312,12 +1312,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygon2Path.lineWidth = 1.5;
         [polygon2Path stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
         //// Polygon Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 12, -12);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 12, -12);
         CGContextRotateCTM(context, -45 * M_PI / 180);
 
         UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1331,11 +1331,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygonPath.lineWidth = 1.5;
         [polygonPath stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 
 
@@ -1349,8 +1349,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Rectangle 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 19.95, 19.89);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 19.95, 19.89);
     CGContextRotateCTM(context, 17.6 * M_PI / 180);
 
     UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(3.01, -0.88, 14, 1)];
@@ -1360,7 +1360,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     rectangle2Path.lineWidth = 1;
     [rectangle2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Oval Drawing
@@ -1389,8 +1389,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Group
     {
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 20, 20);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 20, 20);
         CGContextRotateCTM(context, 90 * M_PI / 180);
 
 
@@ -1406,8 +1406,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Polygon 2 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, -12.5, -12.5);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, -12.5, -12.5);
         CGContextRotateCTM(context, -135 * M_PI / 180);
 
         UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
@@ -1421,12 +1421,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygon2Path.lineWidth = 1.5;
         [polygon2Path stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
         //// Polygon Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 12, -12);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 12, -12);
         CGContextRotateCTM(context, 135 * M_PI / 180);
 
         UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1440,11 +1440,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygonPath.lineWidth = 1.5;
         [polygonPath stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 
 
@@ -1458,8 +1458,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Rectangle 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20.01, 19.9);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20.01, 19.9);
     CGContextRotateCTM(context, 70 * M_PI / 180);
 
     UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(2.95, -0.86, 14, 1)];
@@ -1469,7 +1469,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     rectangle2Path.lineWidth = 1;
     [rectangle2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Oval Drawing
@@ -1507,8 +1507,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Rectangle 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 23, 20.63);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 23, 20.63);
     CGContextRotateCTM(context, 30 * M_PI / 180);
 
     UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 14, 1)];
@@ -1518,7 +1518,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     rectangle2Path.lineWidth = 1;
     [rectangle2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Oval Drawing
@@ -1552,8 +1552,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Rectangle 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 22.5, 18.63);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 22.5, 18.63);
     CGContextRotateCTM(context, -30 * M_PI / 180);
 
     UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 14, 1)];
@@ -1563,7 +1563,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     rectangle2Path.lineWidth = 1;
     [rectangle2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Oval Drawing
@@ -1606,19 +1606,19 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Symbol Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 40, 0);
-    CGContextScaleCTM(context, -1, 1);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 40, 0);
+    if (context) CGContextScaleCTM(context, -1, 1);
 
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawKBIconRulePush];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleSwapRotation
@@ -1663,8 +1663,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 7.5, 7.5);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 7.5, 7.5);
     CGContextRotateCTM(context, -135 * M_PI / 180);
 
     UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
@@ -1678,12 +1678,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygon2Path.lineWidth = 1.5;
     [polygon2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 32, 8);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 32, 8);
     CGContextRotateCTM(context, 135 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1697,7 +1697,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleReverseDirection
@@ -1744,8 +1744,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 7.5, 7.5);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 7.5, 7.5);
     CGContextRotateCTM(context, -135 * M_PI / 180);
 
     UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
@@ -1759,12 +1759,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygon2Path.lineWidth = 1.5;
     [polygon2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 32, 8);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 32, 8);
     CGContextRotateCTM(context, -45 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1778,7 +1778,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleFillOn
@@ -1799,8 +1799,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1814,7 +1814,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle 2 Drawing
@@ -1844,8 +1844,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1859,7 +1859,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle 2 Drawing
@@ -1889,8 +1889,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 18);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 18);
     CGContextRotateCTM(context, -180 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1904,7 +1904,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
@@ -1934,8 +1934,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 18);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 18);
     CGContextRotateCTM(context, -180 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1949,7 +1949,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
@@ -1982,8 +1982,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -1997,19 +1997,19 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(27.5, 19.5, 10, 1)];
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, dropShadow.shadowOffset, dropShadow.shadowBlurRadius, [dropShadow.shadowColor CGColor]);
     [FractalScapeIconSet.ruleGhostLineColor setStroke];
     rectanglePath.lineWidth = 1;
     CGFloat rectanglePattern[] = {2, 2};
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleStrokeOn
@@ -2033,8 +2033,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -2048,19 +2048,19 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(3.5, 19.5, 10, 1)];
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, dropShadow.shadowOffset, dropShadow.shadowBlurRadius, [dropShadow.shadowColor CGColor]);
     [FractalScapeIconSet.ruleGhostLineColor setStroke];
     rectanglePath.lineWidth = 1;
     CGFloat rectanglePattern[] = {2, 2};
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleRandomizeOff
@@ -2216,10 +2216,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* rectangleFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: 16], NSForegroundColorAttributeName: FractalScapeIconSet.symbolFillColor, NSParagraphStyleAttributeName: rectangleStyle};
 
         CGFloat rectangleTextHeight = [textContent boundingRectWithSize: CGSizeMake(rectangleRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: rectangleFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, rectangleRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(rectangleRect), CGRectGetMinY(rectangleRect) + (CGRectGetHeight(rectangleRect) - rectangleTextHeight) / 2, CGRectGetWidth(rectangleRect), rectangleTextHeight) withAttributes: rectangleFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2244,10 +2244,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* rectangleFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: 16], NSForegroundColorAttributeName: FractalScapeIconSet.symbolFillColor, NSParagraphStyleAttributeName: rectangleStyle};
 
         CGFloat rectangleTextHeight = [textContent boundingRectWithSize: CGSizeMake(rectangleRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: rectangleFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, rectangleRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(rectangleRect), CGRectGetMinY(rectangleRect) + (CGRectGetHeight(rectangleRect) - rectangleTextHeight) / 2, CGRectGetWidth(rectangleRect), rectangleTextHeight) withAttributes: rectangleFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2272,10 +2272,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* rectangleFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: 16], NSForegroundColorAttributeName: FractalScapeIconSet.symbolFillColor, NSParagraphStyleAttributeName: rectangleStyle};
 
         CGFloat rectangleTextHeight = [textContent boundingRectWithSize: CGSizeMake(rectangleRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: rectangleFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, rectangleRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(rectangleRect), CGRectGetMinY(rectangleRect) + (CGRectGetHeight(rectangleRect) - rectangleTextHeight) / 2, CGRectGetWidth(rectangleRect), rectangleTextHeight) withAttributes: rectangleFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2300,10 +2300,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* rectangleFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: 16], NSForegroundColorAttributeName: FractalScapeIconSet.symbolFillColor, NSParagraphStyleAttributeName: rectangleStyle};
 
         CGFloat rectangleTextHeight = [textContent boundingRectWithSize: CGSizeMake(rectangleRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: rectangleFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, rectangleRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(rectangleRect), CGRectGetMinY(rectangleRect) + (CGRectGetHeight(rectangleRect) - rectangleTextHeight) / 2, CGRectGetWidth(rectangleRect), rectangleTextHeight) withAttributes: rectangleFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2328,10 +2328,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* rectangleFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: 16], NSForegroundColorAttributeName: FractalScapeIconSet.symbolFillColor, NSParagraphStyleAttributeName: rectangleStyle};
 
         CGFloat rectangleTextHeight = [textContent boundingRectWithSize: CGSizeMake(rectangleRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: rectangleFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, rectangleRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(rectangleRect), CGRectGetMinY(rectangleRect) + (CGRectGetHeight(rectangleRect) - rectangleTextHeight) / 2, CGRectGetWidth(rectangleRect), rectangleTextHeight) withAttributes: rectangleFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2356,10 +2356,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* rectangleFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: 16], NSForegroundColorAttributeName: FractalScapeIconSet.symbolFillColor, NSParagraphStyleAttributeName: rectangleStyle};
 
         CGFloat rectangleTextHeight = [textContent boundingRectWithSize: CGSizeMake(rectangleRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: rectangleFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, rectangleRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(rectangleRect), CGRectGetMinY(rectangleRect) + (CGRectGetHeight(rectangleRect) - rectangleTextHeight) / 2, CGRectGetWidth(rectangleRect), rectangleTextHeight) withAttributes: rectangleFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2372,8 +2372,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIColor* white70 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.692];
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 9.5, 30.5);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 9.5, 30.5);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
     [polygonPath moveToPoint: CGPointMake(0, -5)];
@@ -2386,12 +2386,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Polygon 2 Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
 
     UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
     [polygon2Path moveToPoint: CGPointMake(-5, 5)];
@@ -2403,7 +2403,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygon2Path.lineWidth = 1.5;
     [polygon2Path stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleDrawDotFilled
@@ -2442,8 +2442,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -2457,7 +2457,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRulePreviousColor
@@ -2484,8 +2484,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20.5, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20.5, 20);
     CGContextRotateCTM(context, -90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -2499,7 +2499,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRulePlaceEmpty
@@ -2518,8 +2518,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Group
     {
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 20, 20);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 20, 20);
         CGContextRotateCTM(context, -45 * M_PI / 180);
 
 
@@ -2536,8 +2536,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Bezier 2 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 0, 0.5);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 0, 0.5);
         CGContextRotateCTM(context, -90 * M_PI / 180);
 
         UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
@@ -2549,11 +2549,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         bezier2Path.lineWidth = 2;
         [bezier2Path stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2579,8 +2579,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -2594,7 +2594,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRulePreviousFillColor
@@ -2619,8 +2619,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20.5, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20.5, 20);
     CGContextRotateCTM(context, -90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -2634,7 +2634,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleDrawLineVarD
@@ -2662,23 +2662,23 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(18, 10, 20, 20);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 40, symbol2Rect.size.height / 40);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 40, symbol2Rect.size.height / 40);
 
     [FractalScapeIconSet drawKBIconRuleSymbolArrowHead];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(-13, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawKBIconRuleSymbolArrowHead];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleSymbolArrowHead
@@ -2730,19 +2730,19 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Symbol Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 25.76, -12.49);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 25.76, -12.49);
     CGContextRotateCTM(context, 48.06 * M_PI / 180);
 
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawKBIconRuleSymbolArrowHead];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Oval Drawing
@@ -2767,19 +2767,19 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Symbol Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 25.76, -4.49);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 25.76, -4.49);
     CGContextRotateCTM(context, -48.06 * M_PI / 180);
 
     CGRect symbolRect = CGRectMake(-42.02, -2.25, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawKBIconRuleSymbolArrowHead];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Oval Drawing
@@ -2807,8 +2807,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIColor* white70 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.692];
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 12);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 12);
     CGContextRotateCTM(context, -180 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -2822,7 +2822,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
@@ -2858,8 +2858,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIColor* white70 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.692];
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 18);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 18);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
     [polygonPath moveToPoint: CGPointMake(0, -5)];
@@ -2872,7 +2872,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     polygonPath.lineWidth = 1.5;
     [polygonPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
@@ -2908,8 +2908,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIColor* white70 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.692];
 
     //// Rectangle Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 17, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 17, 20);
     CGContextRotateCTM(context, -24.92 * M_PI / 180);
 
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-8, -8, 16, 16)];
@@ -2917,13 +2917,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     rectanglePath.lineWidth = 4;
     [rectanglePath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Group
     {
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 20, 20);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 20, 20);
         CGContextRotateCTM(context, 90 * M_PI / 180);
 
 
@@ -2939,8 +2939,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Polygon 2 Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, -12.5, -12.5);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, -12.5, -12.5);
         CGContextRotateCTM(context, -135 * M_PI / 180);
 
         UIBezierPath* polygon2Path = UIBezierPath.bezierPath;
@@ -2954,12 +2954,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygon2Path.lineWidth = 1.5;
         [polygon2Path stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
         //// Polygon Drawing
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 12, -12);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 12, -12);
         CGContextRotateCTM(context, 135 * M_PI / 180);
 
         UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -2973,11 +2973,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygonPath.lineWidth = 1.5;
         [polygonPath stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -2988,13 +2988,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame));
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
 
     [FractalScapeIconSet drawKBIconBaseAngle];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleDecrementAngleSmallWithFrame: (CGRect)frame
@@ -3004,13 +3004,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame));
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
 
     [FractalScapeIconSet drawKBIconRuleDecrementAngle];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleRotateCCSmallWithFrame: (CGRect)frame
@@ -3020,13 +3020,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame));
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
 
     [FractalScapeIconSet drawKBIconRuleRotateCC];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleDrawPath
@@ -3093,13 +3093,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(9, 0, 24, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 40, symbolRect.size.height / 40);
 
     [FractalScapeIconSet drawKBIconCurveSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKBIconRuleDecrementLineWidth90
@@ -3112,8 +3112,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Group
     {
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, 20, 20);
+        if (context) CGContextSaveGState(context);
+        if (context) CGContextTranslateCTM(context, 20, 20);
         CGContextRotateCTM(context, -90 * M_PI / 180);
 
 
@@ -3137,7 +3137,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         //// Polygon Drawing
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextRotateCTM(context, 90 * M_PI / 180);
 
         UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -3151,11 +3151,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         polygonPath.lineWidth = 1.5;
         [polygonPath stroke];
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -3165,19 +3165,19 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Symbol Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 40, 0);
-    CGContextScaleCTM(context, -1, 1);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 40, 0);
+    if (context) CGContextScaleCTM(context, -1, 1);
 
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawKBIconRuleDrawLine];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKPathArrow
@@ -3211,8 +3211,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 20, 20);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 20, 20);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -3225,18 +3225,18 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [UIColor.redColor setFill];
     [polygonPath fill];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(10, 10, 20, 20);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 24, symbolRect.size.height / 24);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 24, symbolRect.size.height / 24);
 
     [FractalScapeIconSet drawControlDragCircle16px];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawRatingBarImage
@@ -3246,52 +3246,52 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 2, 22, 22);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
 
     [FractalScapeIconSet drawRatingStarSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(29, 2, 22, 22);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
 
     [FractalScapeIconSet drawRatingStarSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 3 Drawing
     CGRect symbol3Rect = CGRectMake(59, 2, 22, 22);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol3Rect);
-    CGContextTranslateCTM(context, symbol3Rect.origin.x, symbol3Rect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbol3Rect.origin.x, symbol3Rect.origin.y);
 
     [FractalScapeIconSet drawRatingStarSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 4 Drawing
     CGRect symbol4Rect = CGRectMake(89, 2, 22, 22);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol4Rect);
-    CGContextTranslateCTM(context, symbol4Rect.origin.x, symbol4Rect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbol4Rect.origin.x, symbol4Rect.origin.y);
 
     [FractalScapeIconSet drawRatingStarSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 5 Drawing
     CGRect symbol5Rect = CGRectMake(116, 2, 22, 22);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol5Rect);
-    CGContextTranslateCTM(context, symbol5Rect.origin.x, symbol5Rect.origin.y);
+    if (context) CGContextTranslateCTM(context, symbol5Rect.origin.x, symbol5Rect.origin.y);
 
     [FractalScapeIconSet drawRatingStarSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawRatingStarSymbol
@@ -4207,11 +4207,11 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Rectangle Drawing
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(2, 2, 146, 254) cornerRadius: 5];
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, collectionCellShadow.shadowOffset, collectionCellShadow.shadowBlurRadius, [collectionCellShadow.shadowColor CGColor]);
     [UIColor.whiteColor setFill];
     [rectanglePath fill];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawKRowDeleteSwipeIcon
@@ -4233,8 +4233,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 2.75, 8.5);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 2.75, 8.5);
     CGContextRotateCTM(context, -90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -4245,7 +4245,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [UIColor.whiteColor setFill];
     [polygonPath fill];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle 3 Drawing
@@ -4273,8 +4273,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// Polygon Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 21.25, 3.5);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, 21.25, 3.5);
     CGContextRotateCTM(context, 90 * M_PI / 180);
 
     UIBezierPath* polygonPath = UIBezierPath.bezierPath;
@@ -4285,7 +4285,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [UIColor.whiteColor setFill];
     [polygonPath fill];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle 3 Drawing
@@ -6251,12 +6251,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIBezierPath* bezier7Path = UIBezierPath.bezierPath;
     [bezier7Path moveToPoint: CGPointMake(3.5, -0.5)];
     [bezier7Path addCurveToPoint: CGPointMake(3.5, 29.5) controlPoint1: CGPointMake(3.5, 30.5) controlPoint2: CGPointMake(3.5, 29.5)];
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, addDeleteShadow.shadowOffset, addDeleteShadow.shadowBlurRadius, [addDeleteShadow.shadowColor CGColor]);
     [FractalScapeIconSet.betaColor setStroke];
     bezier7Path.lineWidth = 1;
     [bezier7Path stroke];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Bezier 8 Drawing
@@ -6283,12 +6283,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
     [bezier3Path moveToPoint: CGPointMake(3.5, -0.5)];
     [bezier3Path addCurveToPoint: CGPointMake(3.5, 29.5) controlPoint1: CGPointMake(3.5, 30.5) controlPoint2: CGPointMake(3.5, 29.5)];
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, addDeleteShadow.shadowOffset, addDeleteShadow.shadowBlurRadius, [addDeleteShadow.shadowColor CGColor]);
     [FractalScapeIconSet.symbolFillColor setStroke];
     bezier3Path.lineWidth = 1;
     [bezier3Path stroke];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Bezier 6 Drawing
@@ -6309,7 +6309,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     CGRect textRect = CGRectMake(0, 0, 682, 167);
     {
         NSString* textContent = @"FractalScapes";
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, FractalScapeIconSet.topShadow.shadowOffset, FractalScapeIconSet.topShadow.shadowBlurRadius, [FractalScapeIconSet.topShadow.shadowColor CGColor]);
         NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         textStyle.alignment = NSTextAlignmentCenter;
@@ -6318,13 +6318,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
         CGFloat textTextHeight = [textContent boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
         CGRect textTextRect = CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight);
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, textRect);
         [textContent drawInRect: textTextRect withAttributes: textFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
         
         ////// Text Text Inner Shadow
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         UIRectClip(textRect);
         CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
 
@@ -6343,10 +6343,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
             CGContextEndTransparencyLayer(context);
         }
         CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
 
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
 
     }
 }
@@ -6386,8 +6386,8 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
     //// ZeroDegreeTick Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, CGRectGetMinX(frame) + 175, CGRectGetMinY(frame) + 175);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, CGRectGetMinX(frame) + 175, CGRectGetMinY(frame) + 175);
 
     UIBezierPath* zeroDegreeTickPath = UIBezierPath.bezierPath;
     [zeroDegreeTickPath moveToPoint: CGPointMake(93, 0)];
@@ -6396,12 +6396,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     zeroDegreeTickPath.lineWidth = 2;
     [zeroDegreeTickPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// NinetyDegreeTick Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, CGRectGetMinX(frame) + 175, CGRectGetMinY(frame) + 175);
+    if (context) CGContextSaveGState(context);
+    if (context) CGContextTranslateCTM(context, CGRectGetMinX(frame) + 175, CGRectGetMinY(frame) + 175);
     CGContextRotateCTM(context, -90 * M_PI / 180);
 
     UIBezierPath* ninetyDegreeTickPath = UIBezierPath.bezierPath;
@@ -6411,29 +6411,29 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     ninetyDegreeTickPath.lineWidth = 2;
     [ninetyDegreeTickPath stroke];
 
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(CGRectGetMinX(frame) + 245, CGRectGetMinY(frame) + 153, 44, 44);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 36, symbolRect.size.height / 36);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 36, symbolRect.size.height / 36);
 
     [FractalScapeIconSet drawControlDragCircle];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(CGRectGetMinX(frame) + 116, CGRectGetMinY(frame) + 152, 44, 44);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 36, symbol2Rect.size.height / 36);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 36, symbol2Rect.size.height / 36);
 
     [FractalScapeIconSet drawControlDragCircle];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Rectangle Drawing
@@ -6787,12 +6787,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIBezierPath* angleDragCirclePath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(6.5, 5.5, 24, 24)];
     [white40 setFill];
     [angleDragCirclePath fill];
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, controlDialShadow.shadowOffset, controlDialShadow.shadowBlurRadius, [controlDialShadow.shadowColor CGColor]);
     [FractalScapeIconSet.tintColor setStroke];
     angleDragCirclePath.lineWidth = 2;
     [angleDragCirclePath stroke];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawControlSliderBackgroundWithFrame: (CGRect)frame
@@ -6830,12 +6830,12 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     UIBezierPath* angleDragCirclePath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(4, 4, 16, 16)];
     [white40 setFill];
     [angleDragCirclePath fill];
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, controlDialShadowSmall.shadowOffset, controlDialShadowSmall.shadowBlurRadius, [controlDialShadowSmall.shadowColor CGColor]);
     [FractalScapeIconSet.tintColor setStroke];
     angleDragCirclePath.lineWidth = 1;
     [angleDragCirclePath stroke];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIPad76
@@ -6845,13 +6845,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 76, 76);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawAppStore1024WithCORNERRADIUS: (CGFloat)cORNERRADIUS
@@ -15526,10 +15526,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"CourierNewPS-BoldMT" size: 300], NSForegroundColorAttributeName: FractalScapeIconSet.betaColor, NSParagraphStyleAttributeName: textStyle};
 
         CGFloat textTextHeight = [textContent boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, textRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight) withAttributes: textFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -15554,10 +15554,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"CourierNewPS-BoldMT" size: 352], NSForegroundColorAttributeName: UIColor.whiteColor, NSParagraphStyleAttributeName: textStyle};
 
         CGFloat textTextHeight = [textContent boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, textRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight) withAttributes: textFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -15568,13 +15568,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawLowresBushSymbol
@@ -24224,24 +24224,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 76, 76);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 48, 28, 28);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConBeta40
@@ -24251,24 +24251,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 25, 15, 15);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawICon60
@@ -24278,13 +24278,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 60, 60);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConBeta60
@@ -24294,24 +24294,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 60, 60);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(-1, 41, 20, 19);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIPadDebug76
@@ -24321,24 +24321,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 76, 76);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 48, 28, 28);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawAlphaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConDebug60
@@ -24348,24 +24348,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 60, 60);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 38, 22, 22);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawAlphaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConDebug40
@@ -24375,24 +24375,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 25, 15, 15);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawAlphaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConDebug29
@@ -24402,24 +24402,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 29, 29);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 15, 14, 14);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawAlphaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConBeta29
@@ -24429,24 +24429,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 29, 29);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 15, 14, 14);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawICon29
@@ -24456,13 +24456,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 29, 29);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawICon50
@@ -24472,13 +24472,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 50, 50);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawDocumentThumbnailPlaceholder1024
@@ -24497,7 +24497,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Page-1
     {
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, controlDialShadowSmall.shadowOffset, controlDialShadowSmall.shadowBlurRadius, [controlDialShadowSmall.shadowColor CGColor]);
         CGContextBeginTransparencyLayer(context, NULL);
 
@@ -33137,7 +33137,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
         CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -41782,13 +41782,13 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 130, 130);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawDocumentThumbnailPlaceholder1024];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawLowresBushTemplateTinted
@@ -50449,10 +50449,10 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
         NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"CourierNewPS-BoldMT" size: 300], NSForegroundColorAttributeName: FractalScapeIconSet.betaColor, NSParagraphStyleAttributeName: textStyle};
 
         CGFloat textTextHeight = [textContent boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
-        CGContextSaveGState(context);
+        if (context) CGContextSaveGState(context);
         CGContextClipToRect(context, textRect);
         [textContent drawInRect: CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight) withAttributes: textFontAttributes];
-        CGContextRestoreGState(context);
+        if (context) CGContextRestoreGState(context);
     }
 }
 
@@ -50463,24 +50463,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 76, 76);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 48, 28, 28);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaDbgSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConBetaDebug60
@@ -50490,24 +50490,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 60, 60);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawAppStore1024WithCORNERRADIUS: 0];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(-1, 41, 20, 19);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaDbgSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConBetaDebug40
@@ -50517,24 +50517,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 40, 40);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 25, 15, 15);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaDbgSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIConBetaDebug29
@@ -50544,24 +50544,24 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
     //// Symbol Drawing
     CGRect symbolRect = CGRectMake(0, 0, 29, 29);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbolRect);
-    CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
-    CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
+    if (context) CGContextTranslateCTM(context, symbolRect.origin.x, symbolRect.origin.y);
+    if (context) CGContextScaleCTM(context, symbolRect.size.width / 1024, symbolRect.size.height / 1024);
 
     [FractalScapeIconSet drawLowresBushSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 
 
     //// Symbol 2 Drawing
     CGRect symbol2Rect = CGRectMake(0, 15, 14, 14);
-    CGContextSaveGState(context);
+    if (context) CGContextSaveGState(context);
     UIRectClip(symbol2Rect);
-    CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
-    CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
+    if (context) CGContextTranslateCTM(context, symbol2Rect.origin.x, symbol2Rect.origin.y);
+    if (context) CGContextScaleCTM(context, symbol2Rect.size.width / 320, symbol2Rect.size.height / 320);
 
     [FractalScapeIconSet drawBetaDbgSymbol];
-    CGContextRestoreGState(context);
+    if (context) CGContextRestoreGState(context);
 }
 
 + (void)drawIntroArrowDuplicate

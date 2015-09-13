@@ -1339,26 +1339,30 @@ static const CGFloat kLevelNMargin = 48.0;
             {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     BOOL applyFilters = YES;
-                    
-                    if (renderer.applyFilters)
+                    @autoreleasepool
                     {
-                        renderer.imageView.image = [self applyFiltersToImage: renderer.image];
-                    }
-                    else
-                    {
-                        renderer.imageView.image = renderer.image;
-                    }
-                    
-                    if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
-                    {
-                        [self.activityIndicator stopAnimating];
-                    }
-                    if (!self.renderTimeLabel.hidden && renderer == self.fractalRendererLN)
-                    {
-                        UIDevice* device = [UIDevice currentDevice];
-                        NSString* deviceIdentifier = device.model;
-                        self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, Render Time: %0.0fms, Nodes: %lu",
-                                                     deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
+                        if (renderer.applyFilters)
+                        {
+                            
+                            //                        [self updateFiltersOnView: renderer.imageView];
+                            renderer.imageView.image = [self applyFiltersToImage: renderer.image];
+                        }
+                        else
+                        {
+                            renderer.imageView.image = renderer.image;
+                        }
+                        
+                        if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
+                        {
+                            [self.activityIndicator stopAnimating];
+                        }
+                        if (!self.renderTimeLabel.hidden && renderer == self.fractalRendererLN)
+                        {
+                            UIDevice* device = [UIDevice currentDevice];
+                            NSString* deviceIdentifier = device.model;
+                            self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, Render Time: %0.0fms, Nodes: %lu",
+                                                         deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
+                        }
                     }
                 }];
             }
@@ -2267,7 +2271,7 @@ static const CGFloat kLevelNMargin = 48.0;
     CGFloat roundedNumber = (CGFloat)lround(rawValue);
     self.fractalDocument.fractal.levelUnchanged = NO;
     self.fractalDocument.fractal.level = roundedNumber;
-//    [self.activityIndicator startAnimating];
+    [self.activityIndicator startAnimating];
 }
 
 #pragma mark - HUD Slider Actions
@@ -2345,6 +2349,33 @@ static const CGFloat kLevelNMargin = 48.0;
 //    }
 //}
 //
+
+/*
+ 
+ Doesn't yet work. Mayber never on iOS?
+ */
+-(void)updateFiltersOnView: (UIImageView*)filteredView
+{
+    CALayer* layer = filteredView.layer;
+    UIImage* inputImage = filteredView.image;
+    
+    CGFloat scale = inputImage.scale;
+    CGFloat imageWidth = scale*inputImage.size.width;
+    CGFloat imageHeight = scale*inputImage.size.height;
+    CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
+    CIImage *ciiInputImage = [CIImage imageWithCGImage: inputImage.CGImage];
+    
+    CIImage* filteredImage = ciiInputImage;
+    
+    NSMutableArray* layerFilters = [NSMutableArray arrayWithCapacity: self.fractalDocument.fractal.imageFilters.count];
+    
+    for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
+        [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
+        [layerFilters addObject: filter.ciFilter];
+    }
+    layer.filters = [layerFilters copy];
+}
+
 -(UIImage*)applyFiltersToImage: (UIImage*)inputImage
 {
     UIImage* filteredUIImage = inputImage;
@@ -2501,8 +2532,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"turningAngle",
-                                    @"hScale":@5,
-                                    @"hStep":@0.1,
+                                    @"hScale":@0.5,
+                                    @"hStep":@0.01,
                                     @"hFormatter":self.angleFormatter,
                                     @"vPath":@"lineWidth",
                                     @"vScale":@0.01,

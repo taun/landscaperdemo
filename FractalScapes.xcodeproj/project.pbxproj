@@ -228,8 +228,6 @@
 		C583F0861B977E0300ED4BA6 /* x509.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0371B977E0200ED4BA6 /* x509.h */; };
 		C583F0871B977E0300ED4BA6 /* x509_vfy.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0381B977E0200ED4BA6 /* x509_vfy.h */; };
 		C583F0881B977E0300ED4BA6 /* x509v3.h in Headers */ = {isa = PBXBuildFile; fileRef = C583F0391B977E0200ED4BA6 /* x509v3.h */; };
-		C583F0891B977E0300ED4BA6 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C583F03B1B977E0200ED4BA6 /* libcrypto.a */; };
-		C583F08A1B977E0300ED4BA6 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C583F03C1B977E0200ED4BA6 /* libssl.a */; };
 		C58A75731A4A15D900309BE0 /* SliderControlMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A75721A4A15D900309BE0 /* SliderControlMedia.xcassets */; };
 		C59954051A6465270093CF50 /* FractalScapeFractalModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */; };
 		C59954181A6465710093CF50 /* LSDrawingRuleType.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764681A33A537009DDF83 /* LSDrawingRuleType.m */; };
@@ -343,6 +341,8 @@
 		C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */; };
 		C5DE128F1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C5DE128D1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.h */; };
 		C5DE12901AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DE128E1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.m */; };
+		C5E2C05E1BA3B10B00EE699A /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2C05C1BA3B10B00EE699A /* libcrypto.a */; settings = {ASSET_TAGS = (); }; };
+		C5E2C05F1BA3B10B00EE699A /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2C05D1BA3B10B00EE699A /* libssl.a */; settings = {ASSET_TAGS = (); }; };
 		C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78114A5346300DA48BD /* UIKit.framework */; };
 		C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78314A5346300DA48BD /* Foundation.framework */; };
 		C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E6B78514A5346300DA48BD /* CoreGraphics.framework */; };
@@ -755,6 +755,8 @@
 		C5D9C2BF14D32BB500AC9B47 /* MBLSFractalEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBLSFractalEditViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5DE128D1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalLibraryCollectionSource.h; path = FractalScape/MDBFractalLibraryCollectionSource.h; sourceTree = "<group>"; };
 		C5DE128E1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalLibraryCollectionSource.m; path = FractalScape/MDBFractalLibraryCollectionSource.m; sourceTree = "<group>"; };
+		C5E2C05C1BA3B10B00EE699A /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = FractalScape/lib/iOS/libcrypto.a; sourceTree = "<group>"; };
+		C5E2C05D1BA3B10B00EE699A /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = FractalScape/lib/iOS/libssl.a; sourceTree = "<group>"; };
 		C5E6B77D14A5346300DA48BD /* FractalScapes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FractalScapes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5E6B78114A5346300DA48BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C5E6B78314A5346300DA48BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -801,7 +803,7 @@
 			files = (
 				C529F8DA1B8FE175005D8982 /* Security.framework in Frameworks */,
 				C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */,
-				C583F0891B977E0300ED4BA6 /* libcrypto.a in Frameworks */,
+				C5E2C05E1BA3B10B00EE699A /* libcrypto.a in Frameworks */,
 				C5999E7B1B8293EA00A9D848 /* WebKit.framework in Frameworks */,
 				C5567B011A79F88400882474 /* CoreMotion.framework in Frameworks */,
 				C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */,
@@ -810,7 +812,7 @@
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
 				C51B58401A90707F0036C47D /* CloudKit.framework in Frameworks */,
 				C5E6B78614A5346300DA48BD /* CoreGraphics.framework in Frameworks */,
-				C583F08A1B977E0300ED4BA6 /* libssl.a in Frameworks */,
+				C5E2C05F1BA3B10B00EE699A /* libssl.a in Frameworks */,
 				C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1321,6 +1323,8 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5E2C05C1BA3B10B00EE699A /* libcrypto.a */,
+				C5E2C05D1BA3B10B00EE699A /* libssl.a */,
 				C529F8D91B8FE175005D8982 /* Security.framework */,
 				C5A040281B8A3F1E0052398A /* StoreKit.framework */,
 				C5999E7A1B8293EA00A9D848 /* WebKit.framework */,
@@ -2115,7 +2119,10 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/FractalScape/lib",
+					"$(PROJECT_DIR)/FractalScape/lib/iOS",
+				);
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2252,7 +2259,10 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/FractalScape/lib",
+					"$(PROJECT_DIR)/FractalScape/lib/iOS",
+				);
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2389,7 +2399,10 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/FractalScape/lib",
+					"$(PROJECT_DIR)/FractalScape/lib/iOS",
+				);
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2425,7 +2438,10 @@
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/FractalScape/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/FractalScape/lib",
+					"$(PROJECT_DIR)/FractalScape/lib/iOS",
+				);
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;

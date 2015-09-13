@@ -263,11 +263,14 @@ ColorRGBA   ColorConvertHSLAToRGBA(ColorHSLA);
     CGRect viewRect = CGRectMake(0, 0, size.width, size.height);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSaveGState(context);
-    UIColor* thumbNailBackground = self.UIColor;
-    [thumbNailBackground setFill];
-    CGContextFillRect(context, viewRect);
-    CGContextRestoreGState(context);
+    if (context)
+    {
+        CGContextSaveGState(context);
+        UIColor* thumbNailBackground = self.UIColor;
+        [thumbNailBackground setFill];
+        CGContextFillRect(context, viewRect);
+        CGContextRestoreGState(context);
+    }
     
     
     thumbnail = UIGraphicsGetImageFromCurrentImageContext();
