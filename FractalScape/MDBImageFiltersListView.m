@@ -83,12 +83,15 @@
     MDBFractalObjectList* objectList = [MDBFractalObjectList new];
     if (_filterCategory)
     {
-        NSArray* filters = [CIFilter filterNamesInCategory: _filterCategory];
-        for (NSString* filterName in filters)
+        @autoreleasepool
         {
-            MBImageFilter* newFilter = [MBImageFilter newFilterWithIdentifier: filterName];
-//            [newFilter.inputValues addEntriesFromDictionary: @{kCIInputAngleKey:[NSNumber numberWithFloat: self.fractal.turningAngle]}];
-            [objectList addObject: newFilter];
+            NSArray* filters = [CIFilter filterNamesInCategory: _filterCategory];
+            for (NSString* filterName in filters)
+            {
+                MBImageFilter* newFilter = [MBImageFilter newFilterWithIdentifier: filterName];
+                //            [newFilter.inputValues addEntriesFromDictionary: @{kCIInputAngleKey:[NSNumber numberWithFloat: self.fractal.turningAngle]}];
+                [objectList addObject: newFilter];
+            }
         }
     }
     

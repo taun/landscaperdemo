@@ -161,36 +161,41 @@
         [view removeFromSuperview];
     }
     
-    [self.itemConstraintsObjectViewMap removeAllObjects];
-    
-    [self removeConstraints: self.constraints];
-
-    
+    @autoreleasepool
+    {
+        
+        [self.itemConstraintsObjectViewMap removeAllObjects];
+        
+        [self removeConstraints: self.constraints];
+        
+        
 #if TARGET_INTERFACE_BUILDER
-    [self populateRulesWithProxy];
+        [self populateRulesWithProxy];
 #endif
-    
-    if (_objectList.count == 0 && _defaultObjectClass) {
-        [_objectList addObject: [_defaultObjectClass new]];
-    }
-    
-    NSInteger index = 0;
-    for (int i = 0; i < _objectList.count; i++) {
         
-        [self addViewForRepresentedObject: _objectList[i] atIndex: i];
+        if (_objectList.count == 0 && _defaultObjectClass) {
+            [_objectList addObject: [_defaultObjectClass new]];
+        }
+        
+        NSInteger index = 0;
+        for (int i = 0; i < _objectList.count; i++) {
+            
+            [self addViewForRepresentedObject: _objectList[i] atIndex: i];
+            
+        }
+        
+        _heightConstraint = [NSLayoutConstraint constraintWithItem: self
+                                                         attribute: NSLayoutAttributeHeight
+                                                         relatedBy: NSLayoutRelationEqual
+                                                            toItem: nil
+                                                         attribute: NSLayoutAttributeNotAnAttribute
+                                                        multiplier: 1.0 constant: 26.0];
+        _heightConstraint.priority = 1000.0;
+        [self addConstraint: _heightConstraint];
+        
+        self.didSetupSubviews = YES;
         
     }
-
-    _heightConstraint = [NSLayoutConstraint constraintWithItem: self
-                                                     attribute: NSLayoutAttributeHeight
-                                                     relatedBy: NSLayoutRelationEqual
-                                                        toItem: nil
-                                                     attribute: NSLayoutAttributeNotAnAttribute
-                                                    multiplier: 1.0 constant: 26.0];
-    _heightConstraint.priority = 1000.0;
-    [self addConstraint: _heightConstraint];
-
-    self.didSetupSubviews = YES;
     [self setNeedsUpdateConstraints];
 }
 

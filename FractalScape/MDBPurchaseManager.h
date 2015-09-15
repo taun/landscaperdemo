@@ -30,7 +30,7 @@
 @property (nonatomic,strong) NSSet                          *validPurchaseableProducts;
 @property (nonatomic,readonly) BOOL                         isPremiumPaidFor;
 @property (nonatomic,readonly) BOOL                         isColorPakAvailable;
-@property (nonatomic,readonly) BOOL                         userCanMakePayments;
+@property (nonatomic,assign,readonly) BOOL                  userCanMakePayments;
 @property (nonatomic,weak) id<PurchaseManagerDelegate>      delegate;
 
 +(instancetype)newManagerWithModel:(MDBAppModel*)model;

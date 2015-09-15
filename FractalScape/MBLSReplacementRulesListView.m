@@ -78,44 +78,48 @@
         [view removeFromSuperview];
     }
 
-    NSInteger lineNum = 0;
-    
-    NSInteger rrCount;
-    
-#if !TARGET_INTERFACE_BUILDER
-    for (LSReplacementRule* replacementRule in self.replacementRules)
+    @autoreleasepool
     {
-#else
-    for (rrCount = 0; rrCount < 2; rrCount++)
-    {
-#endif
-    
-        CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
-        MBLSReplacementRuleTileView* newRR = [[MBLSReplacementRuleTileView alloc] initWithFrame: rrFrame];
+        
+        NSInteger lineNum = 0;
+        
+        NSInteger rrCount;
         
 #if !TARGET_INTERFACE_BUILDER
-        newRR.replacementRule = replacementRule;
-#endif
-        
-        newRR.justify = _justify;
-        newRR.tileMargin = _tileMargin;
-        newRR.tileWidth = _tileWidth;
-        newRR.showTileBorder = _showTileBorder;
-        newRR.showOutline = YES;
-        
-        MDBLSObjectTileListAddDeleteView* addDeleteContainer = [[MDBLSObjectTileListAddDeleteView alloc] initWithFrame: rrFrame];
-        [self addSubview: addDeleteContainer];
-        addDeleteContainer.delegate = self;
-        [addDeleteContainer setContent: newRR];
-        
-        
-        lineNum++;
-#if !TARGET_INTERFACE_BUILDER
-    }
+        for (LSReplacementRule* replacementRule in self.replacementRules)
+        {
 #else
-    }
+            for (rrCount = 0; rrCount < 2; rrCount++)
+            {
 #endif
-    
+                
+                CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
+                MBLSReplacementRuleTileView* newRR = [[MBLSReplacementRuleTileView alloc] initWithFrame: rrFrame];
+                
+#if !TARGET_INTERFACE_BUILDER
+                newRR.replacementRule = replacementRule;
+#endif
+                
+                newRR.justify = _justify;
+                newRR.tileMargin = _tileMargin;
+                newRR.tileWidth = _tileWidth;
+                newRR.showTileBorder = _showTileBorder;
+                newRR.showOutline = YES;
+                
+                MDBLSObjectTileListAddDeleteView* addDeleteContainer = [[MDBLSObjectTileListAddDeleteView alloc] initWithFrame: rrFrame];
+                [self addSubview: addDeleteContainer];
+                addDeleteContainer.delegate = self;
+                [addDeleteContainer setContent: newRR];
+                
+                
+                lineNum++;
+#if !TARGET_INTERFACE_BUILDER
+            }
+#else
+        }
+#endif
+        
+    }
     [self setNeedsUpdateConstraints];
 }
 

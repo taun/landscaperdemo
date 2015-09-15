@@ -60,7 +60,11 @@
 # define HEADER_PKCS7_H
 
 # include <openssl/asn1.h>
-# include <openssl/bio.h>
+
+# ifndef OPENSSL_NO_BIO
+#  include <openssl/bio.h>
+# endif
+
 # include <openssl/e_os2.h>
 
 # include <openssl/symhacks.h>

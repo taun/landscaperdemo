@@ -1897,11 +1897,11 @@ Drag icon to holder below to apply effect</string>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Tap areas above for help. Scroll for more." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzL-6k-qcb">
                                                     <rect key="frame" x="54.5" y="13" width="197" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="14"/>
                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
+                                                    <color key="highlightedColor" red="0.70588237050000002" green="0.0" blue="0.015686275440000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -3185,16 +3185,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <constraint firstItem="92D-Xq-tzN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FxT-He-ldE" secondAttribute="trailing" constant="8" id="fcf-46-T5n"/>
                                                 <constraint firstAttribute="centerY" secondItem="92D-Xq-tzN" secondAttribute="centerY" id="upx-TL-9lg"/>
                                             </constraints>
-                                            <variation key="heightClass=compact">
-                                                <mask key="subviews">
-                                                    <exclude reference="92D-Xq-tzN"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="widthClass=compact">
-                                                <mask key="subviews">
-                                                    <exclude reference="92D-Xq-tzN"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>

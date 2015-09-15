@@ -64,7 +64,6 @@
 #endif
     
     [self setupConstraints];
-    
 }
 
 -(void) setupConstraints {

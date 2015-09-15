@@ -31,7 +31,6 @@
 #import "MDBFractalDocument.h"
 #import "LSFractalRenderer.h"
 #import "MDBTileObjectProtocol.h"
-#import "MDBEditorIntroPageControllerDataSource.h"
 #import "MDBEditorHelpTransitioningDelegate.h"
 #import "MDBEditorIntroWhatIsFractalViewController.h"
 #import "MDBPurchaseViewController.h"
@@ -102,13 +101,12 @@ static const CGFloat kLevelNMargin = 48.0;
 @property (nonatomic,assign) CGFloat                       playIsPercentCompleted;
 @property (nonatomic,strong) NSArray                       *playbackRenderers;
 @property (readonly,strong) CIContext                      *filterContext;
+@property (readonly,strong) EAGLContext                    *eaglContext;
 @property (nonatomic,strong) NSDictionary                  *twoFingerPanProperties;
 @property (nonatomic,strong) NSArray                       *panIndicators;
 @property (nonatomic,strong) NSArray                       *panToolbarButtons;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
-
-@property (nonatomic,strong) MDBEditorIntroPageControllerDataSource *introPageSource;
 
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
@@ -136,6 +134,7 @@ static const CGFloat kLevelNMargin = 48.0;
 @synthesize undoManager = _undoManager;
 //@synthesize fractal = _fractal;
 @synthesize filterContext = _filterContext;
+@synthesize eaglContext = _eaglContext;
 
 #pragma mark Init
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -170,7 +169,7 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+    [self.privateImageGenerationQueue cancelAllOperations];
 }
 
 -(void) configureParallax
@@ -1108,7 +1107,11 @@ static const CGFloat kLevelNMargin = 48.0;
 -(CIContext*) filterContext
 {
     if (!_filterContext) {
-        _filterContext = [CIContext contextWithOptions: nil];
+        _eaglContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES2];
+        NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null] };
+        _filterContext = [CIContext contextWithEAGLContext: _eaglContext options: options];
+//        NSLog(@"%s max filter image size: %@", __PRETTY_FUNCTION__, NSStringFromCGSize(_filterContext.inputImageMaximumSize));
+//        _filterContext = [CIContext contextWithOptions: nil];
     }
     return _filterContext;
 }
@@ -1215,9 +1218,19 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (self.levelDataArray.count == 5)
     {
-        self.fractalRendererL0.levelData = self.levelDataArray[0];
-        self.fractalRendererL1.levelData = self.levelDataArray[1];
-        self.fractalRendererL2.levelData = self.levelDataArray[2];
+        if (!self.fractalViewLevel0.superview.hidden)
+        {
+            self.fractalRendererL0.levelData = self.levelDataArray[0];
+        }
+        if (!self.fractalViewLevel1.superview.hidden)
+        {
+            self.fractalRendererL1.levelData = self.levelDataArray[1];
+        }
+        if (!self.fractalViewLevel2.superview.hidden)
+        {
+            self.fractalRendererL2.levelData = self.levelDataArray[2];
+        }
+
         self.fractalRendererLN.levelData = self.levelDataArray[[self levelNIndex]];
         [self queueFractalImageUpdates];
         
@@ -2356,24 +2369,31 @@ static const CGFloat kLevelNMargin = 48.0;
  */
 -(void)updateFiltersOnView: (UIImageView*)filteredView
 {
-    CALayer* layer = filteredView.layer;
-    UIImage* inputImage = filteredView.image;
-    
-    CGFloat scale = inputImage.scale;
-    CGFloat imageWidth = scale*inputImage.size.width;
-    CGFloat imageHeight = scale*inputImage.size.height;
-    CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
-    CIImage *ciiInputImage = [CIImage imageWithCGImage: inputImage.CGImage];
-    
-    CIImage* filteredImage = ciiInputImage;
-    
-    NSMutableArray* layerFilters = [NSMutableArray arrayWithCapacity: self.fractalDocument.fractal.imageFilters.count];
-    
-    for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
-        [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
-        [layerFilters addObject: filter.ciFilter];
+    @autoreleasepool
+    {
+        
+        CALayer* layer = filteredView.layer;
+        UIImage* inputImage = filteredView.image;
+        
+        CGFloat scale = inputImage.scale;
+        CGFloat imageWidth = scale*inputImage.size.width;
+        CGFloat imageHeight = scale*inputImage.size.height;
+        CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
+        CIImage *ciiInputImage = [CIImage imageWithCGImage: inputImage.CGImage];
+        
+        CIImage* filteredImage = ciiInputImage;
+        
+        NSMutableArray* layerFilters = [NSMutableArray arrayWithCapacity: self.fractalDocument.fractal.imageFilters.count];
+        
+        @autoreleasepool
+        {
+            for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
+                [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
+                [layerFilters addObject: filter.ciFilter];
+            }
+        }
+        layer.filters = [layerFilters copy];
     }
-    layer.filters = [layerFilters copy];
 }
 
 -(UIImage*)applyFiltersToImage: (UIImage*)inputImage
@@ -2390,21 +2410,25 @@ static const CGFloat kLevelNMargin = 48.0;
         CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
         //    CGFloat midX = imageWidth/2.0;
         //    CGFloat midY = imageHeight/2.0;
-        
-        CIImage *ciiInputImage = [CIImage imageWithCGImage: inputImage.CGImage];
-        
-        CIImage* filteredImage = ciiInputImage;
-        
-        for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
-            [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
-            filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
+        @autoreleasepool
+        {
+            CIImage *ciiInputImage = [CIImage imageWithCGImage: inputImage.CGImage];
+            
+            CIImage* filteredImage = ciiInputImage;
+            
+            @autoreleasepool
+            {
+                for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
+                    [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
+                    filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
+                }
+                CGImageRef cgImage = [self.filterContext createCGImage: filteredImage fromRect: imageBounds];
+                
+                filteredUIImage = [UIImage imageWithCGImage: cgImage scale: scale orientation: UIImageOrientationUp];
+                
+                CGImageRelease(cgImage);
+            }
         }
-        
-        CGImageRef cgImage = [self.filterContext createCGImage: filteredImage fromRect: imageBounds];
-        
-        filteredUIImage = [UIImage imageWithCGImage: cgImage scale: scale orientation: UIImageOrientationUp];
-        
-        CGImageRelease(cgImage);
         [self.activityIndicator stopAnimating];
     }
     
@@ -2828,8 +2852,13 @@ verticalPropertyPath: @"lineChangeFactor"
                      }
                      completion:^(BOOL finished){
                          self.fractalViewLevel0.superview.hidden = YES;
+                         [self setFractalRendererL0: nil];
+                         
                          self.fractalViewLevel1.superview.hidden = YES;
+                         [self setFractalRendererL1: nil];
+                         
                          self.fractalViewLevel2.superview.hidden = YES;
+                         [self setFractalRendererL2: nil];
                      }];
 }
 
@@ -2855,51 +2884,57 @@ verticalPropertyPath: @"lineChangeFactor"
                          self.panIndicatorsContainerView.hidden = YES;
                      }];
 }
+
 - (UIImage *)snapshot:(UIView *)view size: (CGSize)imageSize withWatermark: (BOOL)useWatermark
 {
     UIImage* imageExport;
     
-    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
-    NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
-    renderer.levelData = self.levelDataArray[level];
-    renderer.name = @"Image renderer";
-    renderer.margin = imageSize.width > 500.0 ? 24.0 : 8.0;
-    renderer.autoscale = YES; // leave yes to fill thumbnail
-    renderer.flipY = YES;
-    renderer.showOrigin = NO;
-    renderer.pixelScale = self.fractalView.contentScaleFactor;
-    renderer.applyFilters = self.fractalDocument.fractal.applyFilters;
-    
-    MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
-    if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
-    renderer.backgroundColor = backgroundColor;
-    renderer.autoExpand = YES;
-    
-    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 2.0);
+    @autoreleasepool
     {
-        CGContextRef aCGontext = UIGraphicsGetCurrentContext();
-        [renderer drawInContext: aCGontext size: imageSize];
-        if (useWatermark && !renderer.applyFilters) [self drawWatermarkInContext: aCGontext size: imageSize];
-        imageExport = UIGraphicsGetImageFromCurrentImageContext();
-        if (renderer.applyFilters) {
-            imageExport = [self applyFiltersToImage: imageExport];
-        }
-    }
-    UIGraphicsEndImageContext();
-
-    if (useWatermark && renderer.applyFilters) {
+        
+        LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
+        NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
+        renderer.levelData = self.levelDataArray[level];
+        renderer.name = @"Image renderer";
+        renderer.margin = imageSize.width > 500.0 ? 24.0 : 8.0;
+        renderer.autoscale = YES; // leave yes to fill thumbnail
+        renderer.flipY = YES;
+        renderer.showOrigin = NO;
+        renderer.pixelScale = self.fractalView.contentScaleFactor;
+        renderer.applyFilters = self.fractalDocument.fractal.applyFilters;
+        
+        MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
+        if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
+        renderer.backgroundColor = backgroundColor;
+        renderer.autoExpand = YES;
+        
         UIGraphicsBeginImageContextWithOptions(imageSize, NO, 2.0);
         {
-            CGContextRef aCGContext = UIGraphicsGetCurrentContext();
-            CGContextSaveGState(aCGContext);
-            CGContextTranslateCTM(aCGContext, 0.0, imageSize.height);
-            CGContextScaleCTM(aCGContext, 1.0, -1.0);
-            CGContextDrawImage(aCGContext, CGRectMake(0, 0, imageSize.width, imageSize.height), imageExport.CGImage);
-            CGContextRestoreGState(aCGContext);
-            [self drawWatermarkInContext: aCGContext size: imageSize];
+            CGContextRef aCGontext = UIGraphicsGetCurrentContext();
+            [renderer drawInContext: aCGontext size: imageSize];
+            if (useWatermark && !renderer.applyFilters) [self drawWatermarkInContext: aCGontext size: imageSize];
             imageExport = UIGraphicsGetImageFromCurrentImageContext();
+            if (renderer.applyFilters)
+            {
+                imageExport = [self applyFiltersToImage: imageExport];
+            }
         }
         UIGraphicsEndImageContext();
+        
+        if (useWatermark && renderer.applyFilters) {
+            UIGraphicsBeginImageContextWithOptions(imageSize, NO, 2.0);
+            {
+                CGContextRef aCGContext = UIGraphicsGetCurrentContext();
+                CGContextSaveGState(aCGContext);
+                CGContextTranslateCTM(aCGContext, 0.0, imageSize.height);
+                CGContextScaleCTM(aCGContext, 1.0, -1.0);
+                CGContextDrawImage(aCGContext, CGRectMake(0, 0, imageSize.width, imageSize.height), imageExport.CGImage);
+                CGContextRestoreGState(aCGContext);
+                [self drawWatermarkInContext: aCGContext size: imageSize];
+                imageExport = UIGraphicsGetImageFromCurrentImageContext();
+            }
+            UIGraphicsEndImageContext();
+        }
     }
 
     return imageExport;

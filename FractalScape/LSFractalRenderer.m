@@ -489,25 +489,32 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _baseSegment.randomness = 0.0;
     }
 
-    for (long i=0; i < dataLength; i++)
+    @autoreleasepool
     {
-        [self evaluateRule: bytes[i]];
-        if (self.operation.isCancelled)
+        for (long i=0; i < dataLength; i++)
         {
-            break;
+            [self evaluateRule: bytes[i]];
+            if (self.operation.isCancelled)
+            {
+                break;
+            }
         }
     }
+
     
     if (percent < 100.0 || !_baseSegment.advancedMode) {
         [self drawPathClosed: NO];
     }
     
     // release paths leftover from an operation cancel
-    for (int i = 0; i< kLSMaxSegmentStackSize; i++) {
-        CGPathRef oldPath = _segmentStack[i].path;
-        if (oldPath != NULL) {
-            CGPathRelease(oldPath);
-            _segmentStack[i].path = NULL;
+    @autoreleasepool
+    {
+        for (int i = 0; i< kLSMaxSegmentStackSize; i++) {
+            CGPathRef oldPath = _segmentStack[i].path;
+            if (oldPath != NULL) {
+                CGPathRelease(oldPath);
+                _segmentStack[i].path = NULL;
+            }
         }
     }
 }

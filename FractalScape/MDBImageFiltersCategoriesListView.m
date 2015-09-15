@@ -44,38 +44,40 @@
     for (UIView* view in [self subviews]) {
         [view removeFromSuperview];
     }
-    
-    NSInteger lineNum = 0;
-    
-    NSInteger rrCount;
+    @autoreleasepool
+    {
+        
+        NSInteger lineNum = 0;
+        
+        NSInteger rrCount;
 #if !TARGET_INTERFACE_BUILDER
-    for (NSString* filterCategory in self.filterCategories) {
+        for (NSString* filterCategory in self.filterCategories) {
 #else
-        for (rrCount = 0; rrCount < 3; rrCount++) {
+            for (rrCount = 0; rrCount < 3; rrCount++) {
 #endif
-            
-            CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
-            MDBImageFiltersListView* newRR = [[MDBImageFiltersListView alloc] initWithFrame: rrFrame];
+                
+                CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
+                MDBImageFiltersListView* newRR = [[MDBImageFiltersListView alloc] initWithFrame: rrFrame];
 #if !TARGET_INTERFACE_BUILDER
-            newRR.fractal = self.fractal;
-            newRR.filterCategory = filterCategory;
+                newRR.fractal = self.fractal;
+                newRR.filterCategory = filterCategory;
 #endif
-            newRR.justify = _justify;
-            newRR.tileMargin = _tileMargin;
-            newRR.tileWidth = _tileWidth;
-            newRR.showTileBorder = _showTileBorder;
-            newRR.showOutline = NO;
-            newRR.readOnly = _readOnly;
-            
-            [self addSubview: newRR];
-            
-            lineNum++;
+                newRR.justify = _justify;
+                newRR.tileMargin = _tileMargin;
+                newRR.tileWidth = _tileWidth;
+                newRR.showTileBorder = _showTileBorder;
+                newRR.showOutline = NO;
+                newRR.readOnly = _readOnly;
+                
+                [self addSubview: newRR];
+                
+                lineNum++;
 #if !TARGET_INTERFACE_BUILDER
+            }
+#else
         }
-#else
-    }
 #endif
-    
+    }
     [self setNeedsUpdateConstraints];
 }
 

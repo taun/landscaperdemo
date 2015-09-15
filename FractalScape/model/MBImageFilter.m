@@ -8,11 +8,13 @@
 
 #import "MBImageFilter.h"
 
+CIContext* __filterContext;
+EAGLContext* __eaglContext;
+
 @interface MBImageFilter ()
 
 @property (nonatomic,readwrite) CIFilter             *ciFilter;
 @property (nonatomic,readwrite) CIContext            *filterContext;
-@property (nonatomic,readwrite) UIImage              *cachedAsImage;
 
 @end
 
@@ -153,11 +155,17 @@
 //    }
 //}
 
--(CIContext*) filterContext {
-    if (!_filterContext) {
-        _filterContext = [CIContext contextWithOptions: nil];
-    }
-    return _filterContext;
++(CIContext*) filterContext
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        __eaglContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES2];
+        NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null] };
+        __filterContext = [CIContext contextWithEAGLContext: __eaglContext options: options];
+//        __filterContext = [CIContext contextWithOptions: nil];
+    });
+    
+    return __filterContext;
 }
 
 
@@ -239,52 +247,62 @@
 
 -(UIImage*) filterImage:(UIImage *)inputImage withContext:(CIContext *)context
 {
-    [self.ciFilter setDefaults];
+    UIImage* filteredUIImage;
     
-    self.name = self.ciFilter.attributes[kCIAttributeFilterDisplayName];
-    
-    CGFloat imageWidth = inputImage.scale*inputImage.size.width;
-    CGFloat imageHeight = inputImage.scale*inputImage.size.height;
-    CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
-
-    CIImage *image = [CIImage imageWithCGImage: inputImage.CGImage];
-
-    [self setGoodDefaultsOnCIFilter: self.ciFilter forImage: image bounds: imageBounds];
-
-    if (self.inputValues && self.inputValues.count > 0)
+    @autoreleasepool
     {
-        [self setInputValuesOnFilter: self.ciFilter];
+        
+        [self.ciFilter setDefaults];
+        
+        self.name = self.ciFilter.attributes[kCIAttributeFilterDisplayName];
+        
+        CGFloat imageWidth = inputImage.scale*inputImage.size.width;
+        CGFloat imageHeight = inputImage.scale*inputImage.size.height;
+        CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
+        
+        CIImage *image = [CIImage imageWithCGImage: inputImage.CGImage];
+        
+        [self setGoodDefaultsOnCIFilter: self.ciFilter forImage: image bounds: imageBounds];
+        
+        if (self.inputValues && self.inputValues.count > 0)
+        {
+            [self setInputValuesOnFilter: self.ciFilter];
+        }
+        
+        CIImage *filteredImage = [self.ciFilter valueForKey:kCIOutputImageKey];
+        
+        CGImageRef cgImage = [context createCGImage: filteredImage fromRect: imageBounds];
+        
+        filteredUIImage = [UIImage imageWithCGImage: cgImage scale: inputImage.scale orientation: UIImageOrientationUp];
+        
+        CGImageRelease(cgImage);
+        
+        [self setCiFilter: nil];
+        
     }
-    
-    CIImage *filteredImage = [self.ciFilter valueForKey:kCIOutputImageKey];
-    
-    CGImageRef cgImage = [context createCGImage: filteredImage fromRect: imageBounds];
-    
-    UIImage* filteredUIImage = [UIImage imageWithCGImage: cgImage scale: inputImage.scale orientation: UIImageOrientationUp];
-    
-    CGImageRelease(cgImage);
-    
-    _ciFilter = nil;
     
     return filteredUIImage;
 }
 
 -(UIImage*) asImage
 {
-    if (!_cachedAsImage)
-    {
+    UIImage* tempImage;
+    
         if (self.isDefaultObject)
         {
-            _cachedAsImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+            tempImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
         }
         else
         {
-            UIImage* preFilterImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
-            _cachedAsImage = [self filterImage: preFilterImage withContext: self.filterContext];
+            @autoreleasepool
+            {
+                UIImage* preFilterImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+                tempImage = [self filterImage: preFilterImage withContext: [MBImageFilter filterContext]];
+                [self setFilterContext: nil];
+            }
         }
-    }
     
-    return _cachedAsImage;
+    return tempImage;
 }
 
 - (id) debugQuickLookObject

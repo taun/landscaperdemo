@@ -45,36 +45,40 @@
         [view removeFromSuperview];
     }
     
-    NSInteger lineNum = 0;
-    
-    NSInteger rrCount;
+    @autoreleasepool
+    {
+        
+        NSInteger lineNum = 0;
+        
+        NSInteger rrCount;
 #if !TARGET_INTERFACE_BUILDER
-    for (MBColorCategory* category in self.colorCategories) {
+        for (MBColorCategory* category in self.colorCategories) {
 #else
-        for (rrCount = 0; rrCount < 3; rrCount++) {
+            for (rrCount = 0; rrCount < 3; rrCount++) {
 #endif
-            
-            CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
-            MDBColorCategoryListView* newRR = [[MDBColorCategoryListView alloc] initWithFrame: rrFrame];
+                
+                CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
+                MDBColorCategoryListView* newRR = [[MDBColorCategoryListView alloc] initWithFrame: rrFrame];
 #if !TARGET_INTERFACE_BUILDER
-            newRR.colorCategory = category;
+                newRR.colorCategory = category;
 #endif
-            newRR.justify = _justify;
-            newRR.tileMargin = _tileMargin;
-            newRR.tileWidth = _tileWidth;
-            newRR.showTileBorder = _showTileBorder;
-            newRR.showOutline = NO;
-            newRR.readOnly = _readOnly;
-            
-            [self addSubview: newRR];
-            
-            lineNum++;
+                newRR.justify = _justify;
+                newRR.tileMargin = _tileMargin;
+                newRR.tileWidth = _tileWidth;
+                newRR.showTileBorder = _showTileBorder;
+                newRR.showOutline = NO;
+                newRR.readOnly = _readOnly;
+                
+                [self addSubview: newRR];
+                
+                lineNum++;
 #if !TARGET_INTERFACE_BUILDER
+            }
+#else
         }
-#else
-    }
 #endif
-    
+        
+    }
     [self setNeedsUpdateConstraints];
 }
 

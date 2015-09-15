@@ -75,6 +75,7 @@
         // Hack to get the label to adjust size after the transition.
         NSString* info = self.ruleHelpLabel.text;
         self.ruleHelpLabel.text = info;
+//        self.ruleHelpLabel.highlighted = NO;
         
         
         [self updateViewConstraints];
@@ -96,8 +97,9 @@
     
     if (self.appModel.showHelpTips)
     {
-        NSString* info = self.ruleHelpLabel.text;
-        self.ruleHelpLabel.text = info;
+//        NSString* info = self.ruleHelpLabel.text;
+//        self.ruleHelpLabel.text = info;
+//        self.ruleHelpLabel.highlighted = NO;
     } else
     {
         self.ruleHelpView.hidden = YES;

@@ -37,7 +37,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSArray* filterCategories = @[kCICategoryTileEffect,kCICategoryDistortionEffect,kCICategoryBlur,kCICategoryColorEffect];
+    NSArray* filterCategories = @[kCICategoryTileEffect,kCICategoryDistortionEffect,kCICategoryBlur];
     NSLocalizedString( @"CICategoryTileEffect", @"Core Image Filters");
     NSLocalizedString( @"CICategoryDistortionEffect", @"Core Image Filters");
     NSLocalizedString( @"CICategoryBlur", @"Core Image Filters");

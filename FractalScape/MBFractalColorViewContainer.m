@@ -61,7 +61,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.getExtraColorsView.hidden = !self.appModel.purchaseManager.isColorPakAvailable;
+    if (self.appModel.purchaseManager.isColorPakAvailable && self.appModel.userCanMakePayments)
+    {
+        self.getExtraColorsView.hidden = NO;
+    }
+    else
+    {
+        self.getExtraColorsView.hidden = YES;
+    }
 }
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender

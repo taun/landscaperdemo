@@ -58,7 +58,21 @@
         self.destinationView.alpha = disabledAlpha;
         self.replacementRules.alpha = disabledAlpha;
         [(UIView*)self.sourceListView setAlpha: disabledAlpha];
-        self.ruleHelpLabel.text = @"Rule Editing is only available with in-app purchase";
+        
+        NSString* inApp;
+        
+        if (canPurchase)
+        {
+            inApp = @"Rule Editing is only available with In-App Purchase";
+        }
+        else
+        {
+            inApp = @"Rule Editing is only available with In-App Purchase \nCheck,device Settings, General, Restrictions, In-App Purchase";
+        }
+
+        self.ruleHelpLabel.text = inApp;
+        self.ruleHelpLabel.highlighted = YES;
+        
         if (!canPurchase) [self.upgradeToProView removeFromSuperview];
     }
     else
@@ -69,6 +83,7 @@
         self.destinationView.alpha = 1.0;
         self.replacementRules.alpha = 1.0;
         [(UIView*)self.sourceListView setAlpha: 1.0];
+        self.ruleHelpLabel.highlighted = NO;
     }
 }
 
@@ -136,6 +151,7 @@
     [self cleanUpUIState];
     NSString* infoString = @"Holder for the starting set of rules to draw.";
     self.ruleHelpLabel.text = infoString;
+    self.ruleHelpLabel.highlighted = NO;
     [self infoAnimateView: self.destinationView];
 }
 #pragma message "TODO move info string to proper class instance."
@@ -143,6 +159,7 @@
     [self cleanUpUIState];
     NSString* infoString = @"Occurences of rule to left of '=>' replaced by rules to the right.";
     self.ruleHelpLabel.text = infoString;
+    self.ruleHelpLabel.highlighted = NO;
     [self infoAnimateView: self.replacementRules];
 }
 

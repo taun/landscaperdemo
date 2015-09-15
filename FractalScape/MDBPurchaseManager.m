@@ -38,6 +38,7 @@
 
 @synthesize possiblePurchaseableProducts = _possiblePurchaseableProducts;
 @synthesize validAppReceiptFound = _validAppReceiptFound;
+@synthesize userCanMakePayments = _userCanMakePayments;
 
 +(instancetype)newManagerWithModel:(MDBAppModel *)model
 {
@@ -498,7 +499,7 @@
         }
         
 #pragma message "UpdateForBuilds to build version before archiving"
-        const char *referenceVersion =  "397";
+        const char *referenceVersion =  "398";
         const char *receiptVersion = (const char *)bundle_version->buf+2;
         if (strcmp(referenceVersion,receiptVersion))
         {
@@ -701,7 +702,8 @@
 
 -(BOOL)userCanMakePayments
 {
-    return [SKPaymentQueue canMakePayments];
+    _userCanMakePayments = [SKPaymentQueue canMakePayments];
+    return _userCanMakePayments;
 }
 
 -(void)processPaymentForProduct:(SKProduct *)product quantity:(NSUInteger)qty
