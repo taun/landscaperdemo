@@ -44,10 +44,6 @@
     return rView;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
 
 - (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section
 {

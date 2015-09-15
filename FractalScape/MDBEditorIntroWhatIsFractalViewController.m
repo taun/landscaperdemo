@@ -35,7 +35,7 @@
 {
     [super viewWillAppear:animated];
 //    [self.webContainer setNeedsLayout];
-    if ((NO))
+    if ((YES))
     {
         [self loadDocument: self.currentPage];
     }
@@ -264,14 +264,14 @@
 {
     if (error)
     {
-        NSLog(@"[%@ %@] %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), error);
+//        NSLog(@"[%@ %@] %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), error);
     }
 }
 -(void)webView:(nonnull WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(nonnull NSError *)error
 {
     if (error)
     {
-        NSLog(@"[%@ %@] %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), error);
+//        NSLog(@"[%@ %@] %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), error);
     }
 }
 -(void)webView:(nonnull WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation

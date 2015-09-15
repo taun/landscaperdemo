@@ -16,4 +16,5 @@
 @property (strong, nonatomic) id<MDBFractaDocumentProtocol>          document;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView        *activityIndicator;
 
+-(void)purgeImage;
 @end

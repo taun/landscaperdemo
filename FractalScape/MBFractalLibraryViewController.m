@@ -182,6 +182,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [[NSNotificationCenter defaultCenter] removeObserver: self name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+//    NSArray* visibleCells = self.collectionView.visibleCells;
+//    for (MBCollectionFractalDocumentCell* cell in visibleCells)
+//    {
+//        [cell purgeImage];
+//    }
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

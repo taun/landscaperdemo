@@ -51,21 +51,20 @@
 #pragma mark - UITableViewDelegate
 -(void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    NSUInteger currentIndex = [self.tutorialSource.helpPages indexOfObject: [self.detailPageController.viewControllers firstObject]];
+    NSUInteger currentIndex = [self.tutorialSource indexOfController: [self.detailPageController.viewControllers firstObject]];
     
     UIPageViewControllerNavigationDirection direction = currentIndex < indexPath.row ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     
-    UIViewController* pageControllerPage = self.tutorialSource.helpPages[indexPath.row];
+    UIViewController* pageControllerPage = [self.tutorialSource newHelpPageControllerForIndex: indexPath.row];
     // set pagecontroller initial page and showDetail...
     BOOL isCollapsed = self.isCollapsed;
     UINavigationController* masterController = self.viewControllers[0];
-    UIPageViewController* pageController = self.detailPageController;
     
-    [pageController setViewControllers: @[pageControllerPage] direction: direction animated: !isCollapsed completion:^(BOOL finished) {
+    [self.detailPageController setViewControllers: @[pageControllerPage] direction: direction animated: !isCollapsed completion:^(BOOL finished) {
         //
         if (isCollapsed)
         {
-            [masterController pushViewController: pageController animated: YES];
+            [masterController pushViewController: self.detailPageController animated: YES];
         }
     }];
 }
@@ -76,7 +75,7 @@
     if (completed)
     {
         UIViewController* currentPage = [pageViewController.viewControllers firstObject];
-        NSUInteger index = [self.tutorialSource.helpPages indexOfObject: currentPage];
+        NSUInteger index = [self.tutorialSource indexOfController: currentPage];
         if (index != NSNotFound)
         {
             [self.masterTableView.tableView selectRowAtIndexPath: [NSIndexPath indexPathForItem: index inSection: 0] animated: YES scrollPosition: UITableViewScrollPositionTop];

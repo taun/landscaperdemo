@@ -87,7 +87,7 @@ static const CGFloat kLevelNMargin = 48.0;
 /*!
  Fractal background image generation queue.
  */
-@property (nonatomic,strong) NSOperationQueue              *privateImageGenerationQueue;
+@property (nonatomic,readonly,strong) NSOperationQueue     *privateImageGenerationQueue;
 @property (nonatomic, strong) NSTimer                      *privateImageGenerationQueueTimeoutTimer;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL0;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL1;
@@ -132,6 +132,7 @@ static const CGFloat kLevelNMargin = 48.0;
 @implementation MBLSFractalEditViewController
 
 @synthesize undoManager = _undoManager;
+@synthesize privateImageGenerationQueue = _privateImageGenerationQueue;
 //@synthesize fractal = _fractal;
 @synthesize filterContext = _filterContext;
 @synthesize eaglContext = _eaglContext;
@@ -531,6 +532,7 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUserDefaultsDidChangeNotification object: nil];
+    [_privateImageGenerationQueue cancelAllOperations];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -782,6 +784,9 @@ static const CGFloat kLevelNMargin = 48.0;
         
         if (_fractalInfo) {
             [self removeObserversForCurrentDocument];
+            [_privateImageGenerationQueueTimeoutTimer invalidate];
+            [_privateImageGenerationQueue cancelAllOperations];
+            _privateImageGenerationQueue = nil;
         }
         
         _fractalInfo = fractalInfo;
@@ -1297,7 +1302,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (!self.lowPerformanceDevice || self.fractalRendererLN.levelData.length < 150000)
     {
-        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor * 2.0;
+        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;// * 2.0;
     }
     else
     {
@@ -2810,7 +2815,7 @@ verticalPropertyPath: @"lineChangeFactor"
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
         determinedState = 0;
         self.autoscaleN = YES;
-        [self updateLibraryRepresentationIfNeeded];
+//        [self updateLibraryRepresentationIfNeeded];
     }
 }
 

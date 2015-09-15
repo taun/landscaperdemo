@@ -133,6 +133,13 @@
         }
     }
 }
+
+-(void) purgeImage
+{
+    [self setDocument: nil];
+    self.imageView.image = nil;
+}
+
 -(void) setImageFrame:(UIView *)imageFrame {
     if (_imageFrame != imageFrame) {
         if ((NO)) {

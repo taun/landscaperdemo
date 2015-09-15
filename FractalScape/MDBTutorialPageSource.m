@@ -12,6 +12,15 @@
 
 @interface MDBTutorialPageSource ()
 
+/*!
+ Array of available page storyboard identifiers
+ */
+@property (nonatomic,strong) NSArray                      *helpPageIdentifiers;
+@property (nonatomic,strong) NSArray                      *helpPageTitles;
+@property (nonatomic,strong) UIViewController             *currentHelpController;
+@property (nonatomic,strong) UIViewController             *nextHelpController;
+@property (nonatomic,strong) UIViewController             *prevHelpController;
+
 @end
 
 @implementation MDBTutorialPageSource
@@ -25,42 +34,79 @@
 //    [self.viewController showDetailViewController: self.pageController sender: self.viewController];
 //}
 
-
--(NSArray*)helpPages
+-(void)findAndStoreIdentifiersAndTitles
 {
-    if (!_helpPages)
-    {
-        NSUInteger maxPageCount = 14;
-        NSMutableArray* pages = [NSMutableArray new];
-        UIViewController* page = nil;
-        NSString* pageIdentifier = nil;
+    NSUInteger maxPageCount = 14;
+    NSMutableArray* pages = [NSMutableArray new];
+    NSMutableArray* titles = [NSMutableArray new];
+    
+    
+    @try {
         int pageIndex = 0;
+        UIViewController* page = nil;
         
-        @try {
-            do {
-                pageIdentifier = [NSString stringWithFormat: @"HelpControllerPage%u",pageIndex];
-                page = (MDBEditorIntroWhatIsFractalViewController *)[self.storyboard instantiateViewControllerWithIdentifier: pageIdentifier];
-                [pages addObject: page];
-                ++pageIndex;
-            } while (page && pageIndex < maxPageCount);
+        do {
             
-            if (pageIndex + 1 == maxPageCount)
-            {
-                NSLog(@"FractalScapes max tutorial page count %ul reached during loading",pageIndex);
-            }
-        }
-        @catch (NSException *exception) {
-            //
-        }
-        @finally {
-            //
-            _helpPages = [pages copy];
-        }
+                NSString* pageIdentifier = nil;
 
+                pageIdentifier = [NSString stringWithFormat: @"HelpControllerPage%u",pageIndex];
+                page = (UIViewController *)[self.storyboard instantiateViewControllerWithIdentifier: pageIdentifier];
+                
+                [pages addObject: pageIdentifier];
+                [titles addObject: page.title];
+                
+                ++pageIndex;
+        } while (page && pageIndex < maxPageCount);
+        
+        if (pageIndex + 1 == maxPageCount)
+        {
+            NSLog(@"FractalScapes help pages max page count reached: %ul",pageIndex);
+        }
     }
-    return _helpPages;
+    @catch (NSException *exception) {
+        //
+    }
+    @finally {
+        //
+        _helpPageIdentifiers = [pages copy];
+        _helpPageTitles = [titles copy];
+    }
+    
 }
 
+-(NSArray*)helpPageIdentifiers
+{
+    if (!_helpPageIdentifiers)
+    {
+        [self findAndStoreIdentifiersAndTitles];
+    }
+    return _helpPageIdentifiers;
+}
+
+-(NSArray *)helpPageTitles
+{
+    if (!_helpPageTitles)
+    {
+        [self findAndStoreIdentifiersAndTitles];
+    }
+    return _helpPageTitles;
+}
+
+-(UIViewController *)newHelpPageControllerForIndex:(NSUInteger)index
+{
+//    UIStoryboard* storyboard = self.viewController.storyboard;
+    [UIColor blackColor];
+    NSString* identifier = self.helpPageIdentifiers[index];
+    self.currentHelpController = (MDBEditorIntroWhatIsFractalViewController *)[self.storyboard instantiateViewControllerWithIdentifier: identifier];
+//    [self.currentHelpController loadView];
+    return self.currentHelpController;
+}
+
+-(NSUInteger)indexOfController:(UIViewController *)viewController
+{
+    NSUInteger index = [self.helpPageIdentifiers indexOfObject: viewController.restorationIdentifier];
+    return index;
+}
 
 #pragma mark - UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
@@ -70,19 +116,22 @@
 
 -(NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.helpPages.count;
+    return self.helpPageIdentifiers.count;
 }
 
 -(nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     MDBHelpContentsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"HelpContentsCell"];
-    cell.title = [self.helpPages[indexPath.row] title];
+    cell.title = self.helpPageTitles[indexPath.row];
     return cell;
 }
 
 -(void)setInitialPageFor:(UIPageViewController *)pageController andTableView: (UITableView*)tableView
 {
-    [pageController setViewControllers: @[self.helpPages[0]] direction: UIPageViewControllerNavigationDirectionForward animated: NO completion:^(BOOL finished) {
+    self.currentHelpController = [self newHelpPageControllerForIndex: 0];
+    self.nextHelpController = [self newHelpPageControllerForIndex: 1];
+    
+    [pageController setViewControllers: @[self.currentHelpController] direction: UIPageViewControllerNavigationDirectionForward animated: NO completion:^(BOOL finished) {
         //
         [tableView selectRowAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] animated: NO scrollPosition: UITableViewScrollPositionTop];
     }];
@@ -91,29 +140,40 @@
 #pragma mark - UIPageViewControllerDataSource
 -(nullable UIViewController *)pageViewController:(nonnull UIPageViewController *)pageViewController viewControllerAfterViewController:(nonnull UIViewController *)viewController
 {
-    NSUInteger currentIndex = [self.helpPages indexOfObject: viewController];
-    NSUInteger nextIndex = currentIndex + 1;
-    UIViewController* nextController = currentIndex == (self.helpPages.count - 1) ? nil : self.helpPages[nextIndex];
-    return nextController;
+    UIViewController* nextVC;
+    
+        self.prevHelpController = viewController;
+        NSUInteger currentIndex = [self indexOfController: viewController];
+        NSUInteger nextIndex = currentIndex + 1;
+        self.prevHelpController = viewController;
+        self.currentHelpController = currentIndex == (self.helpPageIdentifiers.count - 1) ? nil : [self newHelpPageControllerForIndex: nextIndex];
+        nextVC = self.currentHelpController;
+    
+    return nextVC;
 }
 
 -(nullable UIViewController *)pageViewController:(nonnull UIPageViewController *)pageViewController viewControllerBeforeViewController:(nonnull UIViewController *)viewController
 {
-    NSUInteger currentIndex = [self.helpPages indexOfObject: viewController];
-    NSUInteger nextIndex = currentIndex - 1;
-    UIViewController* nextController = currentIndex == 0 ? nil : self.helpPages[nextIndex];
-    return nextController;
+    UIViewController* prevVC;
+    
+        self.nextHelpController = viewController;
+        NSUInteger currentIndex = [self indexOfController: viewController];
+        NSUInteger nextIndex = currentIndex - 1;
+        self.currentHelpController = currentIndex == 0 ? nil : [self newHelpPageControllerForIndex: nextIndex];
+        prevVC = self.currentHelpController;
+
+    return prevVC;
 }
 
 -(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
-    return self.helpPages.count;
+    return self.helpPageIdentifiers.count;
 }
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     UIViewController* currentPage = [pageViewController.viewControllers firstObject];
-    return [self.helpPages indexOfObject: currentPage];
+    return [self indexOfController: currentPage];
 }
 
 @end

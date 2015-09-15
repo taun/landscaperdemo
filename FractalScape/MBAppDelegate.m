@@ -104,6 +104,20 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     [self.appModel handleDidBecomeActive];
 }
 
+-(void)applicationWillResignActive:(UIApplication *)application
+{
+    NSLog(@"FractalScapes: %s", __PRETTY_FUNCTION__);
+}
+
+-(BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+-(BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
 /*!
  Doesn't yet do anythig since there is no Mac app to use continuity.
  

@@ -6,10 +6,18 @@
 
 @interface MDBTutorialPageSource : NSObject <UITableViewDataSource, UIPageViewControllerDataSource>
 
-@property(nonatomic,weak)IBOutlet UIViewController          *viewController;
-@property UIStoryboard                                      *storyboard;
-@property (nonatomic,strong) NSArray                        *helpPages;
+@property(nonatomic,weak)IBOutlet UIViewController       *viewController;
+@property (nonatomic,strong) UIStoryboard                *storyboard;
 
 -(void)setInitialPageFor: (UIPageViewController*)pageController andTableView: (UITableView*)tableView;
 
+-(UIViewController *)newHelpPageControllerForIndex:(NSUInteger)index;
+/*!
+ Depends on the viewController having it's restorationIdentifier the same as it's storyboard identifier.
+ 
+ @param viewController viewController to find
+ 
+ @return index of the desired viewController in the page list
+ */
+-(NSUInteger)indexOfController: (UIViewController*)viewController;
 @end

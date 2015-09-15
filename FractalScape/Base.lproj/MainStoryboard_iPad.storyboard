@@ -1138,7 +1138,7 @@
         <!--Name-->
         <scene sceneID="nU4-lI-gI7">
             <objects>
-                <navigationController storyboardIdentifier="DescriptionNavCon" modalPresentationStyle="overCurrentContext" navigationBarHidden="YES" id="QRI-X2-Jga" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="DescriptionNavCon" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="QRI-X2-Jga" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Name" image="tabBarDescriptionIcon" id="2Uy-Ur-Ojr"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
@@ -2511,7 +2511,7 @@ Drag icon to holder below to apply effect</string>
         <!--View Controller-->
         <scene sceneID="zSv-JI-BWw">
             <objects>
-                <collectionViewController storyboardIdentifier="FractalEditLibrary" title="Edit Library" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="FractalEditLibraryController" title="Edit Library" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="7x8-no-bZT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2687,7 +2687,7 @@ Drag icon to holder below to apply effect</string>
         <!--View Controller-->
         <scene sceneID="iKT-0y-poi">
             <objects>
-                <collectionViewController storyboardIdentifier="FractalLibrary" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="FractalLibraryController" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt" userLabel="LibraryCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2861,7 +2861,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="4382" y="141"/>
+            <point key="canvasLocation" x="4389" y="141"/>
         </scene>
         <!--WelcomeLibraryModal-->
         <scene sceneID="ww4-qS-eMi">
@@ -3356,7 +3356,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Select-->
         <scene sceneID="yjO-c8-y2l">
             <objects>
-                <viewController id="Hcg-3b-Pyw" customClass="MDBFractalCloudBrowser" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BrowseCloudController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hcg-3b-Pyw" customClass="MDBFractalCloudBrowser" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XNO-jF-js7"/>
                         <viewControllerLayoutGuide type="bottom" id="rt8-e2-ZSW"/>
@@ -3612,7 +3612,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Navigation Controller-->
         <scene sceneID="92t-Wk-RAa">
             <objects>
-                <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TutorialMasterNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2o6-6V-UAW" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3628,7 +3628,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Help-->
         <scene sceneID="qeT-zj-FGl">
             <objects>
-                <splitViewController id="LIr-RW-epR" customClass="MDBTutorialSplitViewController" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="TutorialSplitView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LIr-RW-epR" customClass="MDBTutorialSplitViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Help" image="tabBarInfo" id="oUr-Dh-DUq"/>
                     <connections>
                         <outlet property="tutorialSource" destination="RVy-eQ-MMN" id="wEp-64-Rxm"/>
@@ -3910,7 +3910,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--My Fractals-->
         <scene sceneID="ECf-kR-spw">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u0F-Fq-0AU" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LibraryNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="u0F-Fq-0AU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="My Fractals" image="tabBarMyFractals" id="w1h-AT-xFO"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -3975,7 +3975,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Browse Cloud-->
         <scene sceneID="ehG-xQ-2ub">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="j6S-Q5-Emg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BrowseNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="j6S-Q5-Emg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="9e1-or-Poa"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gUo-JS-e17">
@@ -3994,7 +3994,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Page View Controller-->
         <scene sceneID="5Au-fm-e3U">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="0wS-Xb-NSj" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="TutorialPageViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="0wS-Xb-NSj" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="E4i-Ng-yy3"/>
                 </pageViewController>
@@ -4186,7 +4186,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Navigation Controller-->
         <scene sceneID="Bt6-QJ-c2c">
             <objects>
-                <navigationController storyboardIdentifier="TutorialDetailNavController" id="qpc-13-ZVz" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TutorialDetailNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qpc-13-ZVz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEs-5p-402">
@@ -4796,7 +4796,7 @@ The main screen with all your fractals is called your "Library". See below for a
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XIW-aO-ufy"/>
-        <segue reference="bSt-YQ-4Z0"/>
+        <segue reference="0fO-dT-L5U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
