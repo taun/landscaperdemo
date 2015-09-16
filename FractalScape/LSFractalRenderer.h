@@ -226,11 +226,12 @@ X ;   close path
 @property (nonatomic,copy) MBColor                  *defaultLineColor;
 @property (nonatomic,copy) MBColor                  *defaultFillColor;
 @property (nonatomic,copy) MBColor                  *backgroundColor;
-@property (atomic,weak) UIImageView                 *imageView;
+@property (atomic,weak) UIImageView                 *mainThreadImageView;
 @property (nonatomic,assign,readonly) CGRect        rawFractalPathBounds;
 @property (nonatomic,copy) NSData                   *levelData;
 @property (nonatomic,assign) CGFloat                renderTime;
 @property (atomic,strong) UIImage                   *image;
+@property (atomic,assign) CGImageRef                imageRef;
 @property (nonatomic,assign) BOOL                   autoscale;
 @property (nonatomic,assign) BOOL                   autoExpand;
 @property (nonatomic,assign) BOOL                   showOrigin;

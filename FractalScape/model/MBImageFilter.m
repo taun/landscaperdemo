@@ -159,9 +159,8 @@ EAGLContext* __eaglContext;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        __eaglContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES2];
         NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null] };
-        __filterContext = [CIContext contextWithEAGLContext: __eaglContext options: options];
+        __filterContext = [CIContext contextWithOptions: options];
 //        __filterContext = [CIContext contextWithOptions: nil];
     });
     

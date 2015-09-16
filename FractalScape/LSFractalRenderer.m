@@ -74,6 +74,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 @implementation LSFractalRenderer
 
 @synthesize pixelScale = _pixelScale;
+@synthesize mainThreadImageView = _mainThreadImageView;
+@synthesize imageRef = _imageRef;
 
 +(instancetype) newRendererForFractal:(LSFractal *)aFractal withSourceRules: (LSDrawingRuleType*)sourceRules
 {
@@ -99,6 +101,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
         _cachedContext = NULL;
         _cachedLayer = nil;
+        _imageRef = NULL;
+        
         [self nullOutBaseSegment];
         [self setValuesForFractal: aFractal];
         [self cacheDrawingRules: sourceRules];
@@ -113,10 +117,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 -(void) dealloc
 {
     [self releaseSegmentCGReferences];
-    if (_cachedContext != NULL)
-    {
-        CGContextRelease(_cachedContext);
-    }
+    
+    if (_imageRef != NULL) CGImageRelease(_imageRef);
+    if (_cachedContext != NULL) CGContextRelease(_cachedContext);
 }
 
 #pragma mark - getters setters
@@ -136,26 +139,71 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     [self setBaseSegmentForFractal: aFractal];
 }
 
--(void)setImageView:(UIImageView *)imageView
+-(void)setMainThreadImageView:(UIImageView *)imageView
 {
     if (_cachedContext != NULL)
     {
-        CGContextRelease(_cachedContext);
-    }
-    if (imageView && imageView != _imageView)
-    {
-        _imageView = imageView;
-        CGSize size = _imageView.bounds.size;
-        CGFloat scale = _imageView.contentScaleFactor;
-        int width = size.width * scale;
-        int height = size.height * scale;
-        int bytesPerRow = 4 * width;
+        if (_imageRef != NULL) CGImageRelease(_imageRef);
+        _imageRef = NULL;
         
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
+        CGContextRelease(_cachedContext);
+        _cachedContext = NULL;
+    }
+    if (imageView && imageView != _mainThreadImageView)
+    {
+        _mainThreadImageView = imageView;
+    }
+}
 
+-(UIImageView *)mainThreadImageView
+{
+    return _mainThreadImageView;
+}
+
+-(CGContextRef)cachedContext
+{
+    UIImageView*strongView = self.mainThreadImageView;
+    
+    CGSize size = strongView.bounds.size;
+    CGFloat scale = strongView.contentScaleFactor;
+    int width = size.width * scale;
+    int height = size.height * scale;
+    int bytesPerRow = 4 * width;
+    
+
+    if (_cachedContext == NULL && strongView)
+    {
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
         _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
         CGColorSpaceRelease( colorSpace );
     }
+    else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_cachedContext), strongView.bounds))
+    {
+        if (_imageRef != NULL) CGImageRelease(_imageRef);
+        _imageRef = NULL;
+        
+        CGContextRelease(_cachedContext);
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
+        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+        CGColorSpaceRelease( colorSpace );
+    }
+
+    
+    return _cachedContext;
+}
+
+-(void)setImageRef:(CGImageRef)imageRef
+{
+    if (_imageRef != imageRef)
+    {
+        if (_imageRef != NULL) CGImageRelease(_imageRef);
+        _imageRef = imageRef;
+    }
+}
+
+-(CGImageRef)imageRef
+{
+    return _imageRef;
 }
 
 -(void) cacheDrawingRules: (LSDrawingRuleType*)sourceDrawingRules
@@ -289,14 +337,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 -(void) generateImage
 {
-    CGContextClearRect(_cachedContext, CGContextGetClipBoundingBox(_cachedContext));
+    CGContextClearRect(self.cachedContext, CGContextGetClipBoundingBox(_cachedContext));
     [self generateImagePercentStart: 0.0 stop: 100.0];
 }
 -(void) generateImagePercentStart:(CGFloat)start stop:(CGFloat)stop
 {
     @autoreleasepool
     {
-        UIImageView* strongImageView = self.imageView;
+        UIImageView* strongImageView = self.mainThreadImageView;
         NSBlockOperation* strongOperation = self.operation;
         
         if (!strongImageView || (strongOperation && strongOperation.isCancelled) || stop <= 0.0)
@@ -306,10 +354,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         
         CGSize size = strongImageView.bounds.size;
         
-        [self drawInContext: _cachedContext size: size percentStart: start stop: stop];
-        CGImageRef cgImage = CGBitmapContextCreateImage(_cachedContext);
-        self.image = [UIImage imageWithCGImage: cgImage];
-        CGImageRelease(cgImage);
+        [self drawInContext: self.cachedContext size: size percentStart: start stop: stop];
+        self.imageRef = CGBitmapContextCreateImage(_cachedContext);
+//        self.image = [UIImage imageWithCGImage: self.imageRef];
     }
 }
 -(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size

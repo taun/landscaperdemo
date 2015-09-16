@@ -60,12 +60,12 @@
         _representedObject = object;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         //
         self.image = [object asImage];
         [self sizeToFit];
         [self setNeedsUpdateConstraints];
-    });
+//    });
 }
 -(void) setWidth:(CGFloat)width {
     if (width == 0) {
