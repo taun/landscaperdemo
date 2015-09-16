@@ -2483,10 +2483,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 {
     if (self.panIndicatorBackgroundFadeTimer.valid) [self.panIndicatorBackgroundFadeTimer invalidate];
     
-//    UIColor* hudBackgroundColor = [[self.fractalDocument.fractal.backgroundColor UIColor] colorWithAlphaComponent: 0.78];
-    UIColor* whiteBackground = [UIColor colorWithWhite: 1.0 alpha: 0.78];
-    self.panIndicatorsContainerView.backgroundColor = whiteBackground;
-    self.hudViewBackground.backgroundColor = whiteBackground;
+    for (UIImageView* imageView in self.backgroundsToFade)
+    {
+        imageView.alpha = 1.0;
+    }
     
     self.panIndicatorBackgroundFadeTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
                                                                             target: self
@@ -2497,8 +2497,12 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(void) fadePanIndicatorBackground
 {
     [UIView animateWithDuration: 2.0 animations:^{
-        self.panIndicatorsContainerView.backgroundColor = [UIColor clearColor];
-        self.hudViewBackground.backgroundColor = [UIColor clearColor];
+        
+        for (UIImageView* imageView in self.backgroundsToFade)
+        {
+            imageView.alpha = 0.0;
+        }
+
     }];
 }
 

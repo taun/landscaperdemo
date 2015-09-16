@@ -81,6 +81,8 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fractalViewRootDoubleTapRecognizer;
 
 #pragma mark PanStatusIndicator Outlets
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *backgroundsToFade;
+
 @property (weak, nonatomic) IBOutlet UIView         *panIndicatorsContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView    *panIndicatorCornerView;
 @property (weak, nonatomic) IBOutlet UIButton       *pan10xToggleButton;

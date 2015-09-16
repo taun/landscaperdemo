@@ -302,9 +302,12 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="240" y="75" width="142" height="39"/>
                                                 <subviews>
+                                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HUDBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ayn-he-ePh">
+                                                        <rect key="frame" x="-6" y="-6" width="154" height="51"/>
+                                                    </imageView>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
                                                         <rect key="frame" x="5" y="5" width="132" height="29"/>
                                                         <subviews>
@@ -318,11 +321,12 @@
                                                                 </connections>
                                                             </stepper>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="18.5" translatesAutoresizingMaskIntoConstraints="NO" id="LpP-a6-a0V">
-                                                                <rect key="frame" x="119" y="4" width="9.5" height="20.5"/>
+                                                                <rect key="frame" x="118" y="4" width="10" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" white="0.49545588422488501" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <color key="shadowColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <size key="shadowOffset" width="0.0" height="1"/>
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -335,45 +339,31 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.78000000000000003" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="u6Z-b4-co7" firstAttribute="leading" secondItem="3Df-59-GZt" secondAttribute="leading" constant="5" id="6lP-3e-oDr"/>
                                                     <constraint firstAttribute="height" constant="39" id="8tQ-8C-QzK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ayn-he-ePh" secondAttribute="trailing" constant="-6" id="BD2-UC-m8q"/>
                                                     <constraint firstAttribute="bottom" secondItem="u6Z-b4-co7" secondAttribute="bottom" constant="5" id="MQA-TG-qLe"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ayn-he-ePh" secondAttribute="bottom" constant="-6" id="aQC-gY-gxg"/>
                                                     <constraint firstAttribute="trailing" secondItem="u6Z-b4-co7" secondAttribute="trailing" constant="5" id="cPT-o7-kIA"/>
+                                                    <constraint firstItem="ayn-he-ePh" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="top" constant="-6" id="oQI-5X-I6n"/>
                                                     <constraint firstItem="u6Z-b4-co7" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="top" constant="5" id="vfD-MM-Q8g"/>
+                                                    <constraint firstItem="ayn-he-ePh" firstAttribute="leading" secondItem="3Df-59-GZt" secondAttribute="leading" constant="-6" id="xqa-lT-ZuN"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="margin">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="6"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.8784313725490196" green="0.8784313725490196" blue="0.89411764705882357" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
-                                                        <point key="value" x="1" y="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="NO"/>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9U-ZO-4Bb" userLabel="PanIndicatorsContainer" customClass="MDKLayerViewDesignable">
+                                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9U-ZO-4Bb" userLabel="PanIndicatorsContainer" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="75" width="144" height="107.5"/>
                                                 <subviews>
+                                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="HUDBackground" translatesAutoresizingMaskIntoConstraints="NO" id="GtG-9Q-F1P">
+                                                        <rect key="frame" x="-6" y="-6" width="156" height="119.5"/>
+                                                    </imageView>
                                                     <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="40" placeholderIntrinsicHeight="40" image="panDirectionsIndicatorImage" translatesAutoresizingMaskIntoConstraints="NO" id="xkn-AG-FUJ">
                                                         <rect key="frame" x="10" y="10" width="40" height="40"/>
                                                         <constraints>
@@ -387,9 +377,7 @@
                                                             <constraint firstAttribute="width" constant="40" id="Get-hO-Bdn"/>
                                                             <constraint firstAttribute="width" secondItem="Bzn-ex-cN5" secondAttribute="height" multiplier="1:1" id="c4J-mj-jma"/>
                                                         </constraints>
-                                                        <state key="normal" image="pan10xButtonImageOff">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
+                                                        <state key="normal" image="pan10xButtonImageOff"/>
                                                         <state key="selected" image="pan10xButtonImageOn"/>
                                                         <state key="highlighted" image="pan10xButtonImageOn"/>
                                                         <connections>
@@ -450,27 +438,32 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
-                                                        <color key="shadowColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="280%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1o7-dW-jgD">
                                                         <rect key="frame" x="4" y="82" width="43.5" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
-                                                        <color key="shadowColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="0.78000000000000003" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
                                                 <constraints>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="74v-T6-WSs" secondAttribute="trailing" constant="-22" id="1pd-Oc-N3v"/>
                                                     <constraint firstItem="74v-T6-WSs" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="1sg-aI-MNJ"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="centerY" secondItem="9Yt-fi-tpd" secondAttribute="centerY" constant="16" id="2TK-9f-5wb"/>
+                                                    <constraint firstItem="GtG-9Q-F1P" firstAttribute="leading" secondItem="v9U-ZO-4Bb" secondAttribute="leading" constant="-6" id="2z5-4F-Ky0"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="KEl-AK-nz0" secondAttribute="trailing" constant="-22" id="7j3-G1-L2o"/>
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="HlV-o5-ifB" secondAttribute="width" id="7qQ-qu-oDn"/>
                                                     <constraint firstItem="l8i-O7-tM9" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="82t-lG-BtE"/>
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="l8i-O7-tM9" secondAttribute="width" id="95L-0y-xSe"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="centerY" secondItem="Mac-ze-iSV" secondAttribute="centerY" constant="16" id="EfK-41-rW9"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="qwL-V4-gOj" secondAttribute="trailing" constant="-22" id="EsE-0Q-Kvg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="GtG-9Q-F1P" secondAttribute="bottom" constant="-6" id="GLz-1X-nJR"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="yA9-FU-HBy" secondAttribute="centerY" constant="-4" id="HkA-Ta-3Ao"/>
                                                     <constraint firstItem="l8i-O7-tM9" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="leading" constant="-8" id="KeA-Aa-5FC"/>
                                                     <constraint firstItem="Mac-ze-iSV" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="2" id="Ltg-DL-02L"/>
@@ -481,6 +474,7 @@
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="9Yt-fi-tpd" secondAttribute="width" id="RVj-d0-vqW"/>
                                                     <constraint firstAttribute="bottom" secondItem="1o7-dW-jgD" secondAttribute="bottom" constant="6" id="Rb8-ZP-jsw"/>
                                                     <constraint firstAttribute="trailing" secondItem="lE7-JV-urG" secondAttribute="trailing" constant="6" id="Tot-e6-hPX"/>
+                                                    <constraint firstItem="GtG-9Q-F1P" firstAttribute="top" secondItem="v9U-ZO-4Bb" secondAttribute="top" constant="-6" id="Udr-Lz-xCY"/>
                                                     <constraint firstItem="qwL-V4-gOj" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="VuA-Xa-TcZ"/>
                                                     <constraint firstItem="KEl-AK-nz0" firstAttribute="width" secondItem="l8i-O7-tM9" secondAttribute="width" id="W6g-qJ-EOk"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="v9U-ZO-4Bb" secondAttribute="top" constant="10" id="Yol-6W-T3W"/>
@@ -488,6 +482,7 @@
                                                     <constraint firstItem="KEl-AK-nz0" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="baF-dd-sTK"/>
                                                     <constraint firstItem="Mac-ze-iSV" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="hDo-YP-Rwa"/>
                                                     <constraint firstItem="lE7-JV-urG" firstAttribute="trailing" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="88" id="hbP-hA-ZF2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="GtG-9Q-F1P" secondAttribute="trailing" constant="-6" id="hdv-zs-10D"/>
                                                     <constraint firstItem="qwL-V4-gOj" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="mZm-E7-EeN"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="Bzn-ex-cN5" secondAttribute="top" constant="-4" id="mxy-Tm-MNA"/>
                                                     <constraint firstItem="HlV-o5-ifB" firstAttribute="centerY" secondItem="xkn-AG-FUJ" secondAttribute="centerY" constant="-16" id="nUp-ik-b7k"/>
@@ -502,7 +497,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
+                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75000000000000022" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-BR-WMy" userLabel="FractalLevel2" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="464" width="296" height="154.5"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-8i-cDX" userLabel="Fractal" customClass="UIImageView">
@@ -648,7 +643,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="52k-sy-KJz" appends="YES" id="2QJ-wY-ash"/>
                                                 </connections>
                                             </view>
-                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
+                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJU-MH-ihA" userLabel="FractalLevel1" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="296" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoY-Fh-7ru" userLabel="Fractal" customClass="UIImageView">
@@ -780,7 +775,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="nwB-ZA-oCT" appends="YES" id="3dA-Fa-dng"/>
                                                 </connections>
                                             </view>
-                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
+                                            <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wmh-En-OwM" userLabel="FractalLevel0" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="128" width="296" height="154"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-Vz-bO2" userLabel="Fractal" customClass="UIImageView">
@@ -1089,6 +1084,8 @@
                         <outlet property="turnAngleSlider" destination="rPE-Sl-13x" id="Y5C-GZ-nNZ"/>
                         <outlet property="turningAngleIncrementSlider" destination="An9-9l-3Tm" id="GSF-fQ-K9R"/>
                         <outlet property="turningAngleLabel" destination="Y8O-zg-dbz" id="aF3-Bi-WE0"/>
+                        <outletCollection property="backgroundsToFade" destination="ayn-he-ePh" id="p3N-ZH-MnU"/>
+                        <outletCollection property="backgroundsToFade" destination="GtG-9Q-F1P" id="XXy-sb-92n"/>
                         <segue destination="eHs-ET-MBW" kind="show" identifier="QuickIntroSegue" id="GI8-HZ-SMh"/>
                         <segue destination="TTb-ph-Ba9" kind="presentation" identifier="ShowPurchaseControllerSegue" modalPresentationStyle="formSheet" modalTransitionStyle="flipHorizontal" id="bSt-YQ-4Z0"/>
                     </connections>
@@ -4748,6 +4745,7 @@ The main screen with all your fractals is called your "Library". See below for a
         </scene>
     </scenes>
     <resources>
+        <image name="HUDBackground" width="31" height="31"/>
         <image name="MOEDAELogo96" width="96" height="96"/>
         <image name="documentThumbnailPlaceholder1024" width="1024" height="1024"/>
         <image name="documentThumbnailPlaceholder130" width="130" height="130"/>
@@ -4794,7 +4792,7 @@ The main screen with all your fractals is called your "Library". See below for a
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XIW-aO-ufy"/>
-        <segue reference="0fO-dT-L5U"/>
+        <segue reference="bSt-YQ-4Z0"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
