@@ -12,30 +12,35 @@
 
 @interface MDBTutorialSplitViewController ()
 
+@property (nonatomic,strong) MDBTutorialPageSource                 *tutorialSource;
 
 @end
 
 @implementation MDBTutorialSplitViewController
 
+-(MDBTutorialPageSource*) tutorialSource
+{
+    if (!_tutorialSource)
+    {
+        _tutorialSource = [MDBTutorialPageSource new];
+        _tutorialSource.storyboard = self.storyboard;
+        _tutorialSource.viewController = self;
+    }
+    return _tutorialSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.tutorialSource.viewController = self;
-    self.tutorialSource.storyboard = self.storyboard;
     
     self.masterNavCon = (UINavigationController*)self.viewControllers[0];
     self.masterTableView = (UITableViewController*)self.masterNavCon.viewControllers[0];
     self.masterTableView.tableView.delegate = self;
-    self.masterTableView.tableView.dataSource = self.tutorialSource;
-    
-    self.detailNavCon = (UINavigationController*)self.viewControllers[1];
+    self.detailNavCon = (UINavigationController*)[self.viewControllers lastObject];
     if (self.detailNavCon)
     {
         self.detailPageController = (UIPageViewController*)self.detailNavCon.viewControllers[0];
         self.detailPageController.delegate = self;
-        self.detailPageController.dataSource = self.tutorialSource;
-        
-        [self.tutorialSource setInitialPageFor: self.detailPageController andTableView: self.masterTableView.tableView];
     }
 }
 
@@ -43,9 +48,23 @@
 {
     [super viewDidAppear:animated];
     
+    self.masterTableView.tableView.dataSource = self.tutorialSource;
+    
+    self.detailPageController.dataSource = self.tutorialSource;
+    
+    [self.tutorialSource setInitialPageFor: self.detailPageController andTableView: self.masterTableView.tableView];
+    
     self.detailPageController.navigationItem.leftBarButtonItem = self.displayModeButtonItem;
     self.detailPageController.navigationItem.leftItemsSupplementBackButton = YES;
     
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.masterTableView.tableView.dataSource = nil;
+    self.detailPageController.dataSource = nil;
+    self.tutorialSource = nil;
 }
 
 #pragma mark - UITableViewDelegate

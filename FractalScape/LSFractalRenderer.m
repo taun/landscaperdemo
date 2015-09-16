@@ -44,8 +44,11 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     MBSegmentRef            _currentSegment;
     MBCommandsStruct        _commandsStruct;
     MBCommandSelectorsStruct _selectorsStruct;
+    CGAffineTransform       _lastPercentTransform; // Local transform so points can be used. Transform point before adding to points.
 }
 
+@property (nonatomic,strong) CALayer                *cachedLayer;
+@property (nonatomic,assign) CGContextRef           cachedContext;
 @property (nonatomic,strong) NSArray                *lineColors;
 @property (nonatomic,strong) NSArray                *fillColors;
 @property (nonatomic,assign) MBSegmentStruct        baseSegment;
@@ -94,7 +97,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         _segmentIndex = 0;
         _margin = 0;
         _backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
-        
+        _cachedContext = NULL;
+        _cachedLayer = nil;
         [self nullOutBaseSegment];
         [self setValuesForFractal: aFractal];
         [self cacheDrawingRules: sourceRules];
@@ -109,6 +113,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 -(void) dealloc
 {
     [self releaseSegmentCGReferences];
+    if (_cachedContext != NULL)
+    {
+        CGContextRelease(_cachedContext);
+    }
 }
 
 #pragma mark - getters setters
@@ -126,6 +134,28 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 -(void) setValuesForFractal:(LSFractal *)aFractal
 {
     [self setBaseSegmentForFractal: aFractal];
+}
+
+-(void)setImageView:(UIImageView *)imageView
+{
+    if (_cachedContext != NULL)
+    {
+        CGContextRelease(_cachedContext);
+    }
+    if (imageView && imageView != _imageView)
+    {
+        _imageView = imageView;
+        CGSize size = _imageView.bounds.size;
+        CGFloat scale = _imageView.contentScaleFactor;
+        int width = size.width * scale;
+        int height = size.height * scale;
+        int bytesPerRow = 4 * width;
+        
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
+
+        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+        CGColorSpaceRelease( colorSpace );
+    }
 }
 
 -(void) cacheDrawingRules: (LSDrawingRuleType*)sourceDrawingRules
@@ -259,39 +289,39 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 -(void) generateImage
 {
-    [self generateImagePercent: 100.0];
+    CGContextClearRect(_cachedContext, CGContextGetClipBoundingBox(_cachedContext));
+    [self generateImagePercentStart: 0.0 stop: 100.0];
 }
--(void) generateImagePercent:(CGFloat)percent
+-(void) generateImagePercentStart:(CGFloat)start stop:(CGFloat)stop
 {
     @autoreleasepool
     {
         UIImageView* strongImageView = self.imageView;
         NSBlockOperation* strongOperation = self.operation;
         
-        if (!strongImageView || (strongOperation && strongOperation.isCancelled) || percent <= 0.0)
+        if (!strongImageView || (strongOperation && strongOperation.isCancelled) || stop <= 0.0)
         {
             return;
         }
         
         CGSize size = strongImageView.bounds.size;
         
-        UIGraphicsBeginImageContextWithOptions(size, NO, self.pixelScale);
-        {
-            CGContextRef aCGontext = UIGraphicsGetCurrentContext();
-            [self drawInContext: aCGontext size: size percent: percent];
-            self.image = UIGraphicsGetImageFromCurrentImageContext();
-        }
-        UIGraphicsEndImageContext();
+        [self drawInContext: _cachedContext size: size percentStart: start stop: stop];
+        CGImageRef cgImage = CGBitmapContextCreateImage(_cachedContext);
+        self.image = [UIImage imageWithCGImage: cgImage];
+        CGImageRelease(cgImage);
     }
 }
 -(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size
 {
+    NSAssert(aCGContext, @"NULL Context being used. Context must be non-null.");
     if (aCGContext)
     {
         CGContextSaveGState(aCGContext);
         {
             UIColor* thumbNailBackground = self.backgroundColor.UIColor;
-            [thumbNailBackground setFill]; // needed rather than an if then for CGColor vs CGPattern
+//            [thumbNailBackground setFill]; // needed rather than an if then for CGColor vs CGPattern
+            CGContextSetFillColorWithColor(aCGContext, thumbNailBackground.CGColor);
             CGContextFillRect(aCGContext, CGRectMake(0.0, 0.0, size.width, size.height));
         }
         CGContextRestoreGState(aCGContext);
@@ -299,9 +329,9 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 -(void) drawInContext:(CGContextRef)aCGContext size:(CGSize)size
 {
-    [self drawInContext: aCGContext size: size percent: 100.0];
+    [self drawInContext: aCGContext size: size percentStart: 0.0 stop: 100.0];
 }
--(void) drawInContext:(CGContextRef)aCGContext size: (CGSize)size percent:(CGFloat)percent
+-(void) drawInContext:(CGContextRef)aCGContext size: (CGSize)size percentStart: (CGFloat)start stop:(CGFloat)stop
 {
 
     NSAssert(aCGContext, @"NULL Context being used. Context must be non-null.");
@@ -321,7 +351,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     CGFloat yOrientation = self.flipY ? -1.0 : 1.0;
     
-    if (self.autoscale)
+    if (self.autoscale && start < 1.0)
     {
         
         /*
@@ -394,16 +424,15 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 //    }
 //    CGFloat actualWidth = _scale * _segmentStack[_segmentIndex].lineWidth;
     _segmentStack[_segmentIndex].noDrawPath = NO;
+    _segmentStack[_segmentIndex].scale = _scale;
     _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, 1.0, yOrientation);
     _segmentStack[_segmentIndex].transform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, _translateX, _translateY);
     _segmentStack[_segmentIndex].transform = CGAffineTransformScale(_segmentStack[_segmentIndex].transform, _scale, _scale);
     _segmentStack[_segmentIndex].transform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, _segmentStack[_segmentIndex].baseAngle);
-    _segmentStack[_segmentIndex].scale = _scale;
     
     CGAffineTransform fractalOriginTransform = _segmentStack[_segmentIndex].transform;
 
-
-    [self createFractalInContext: aCGContext percent: percent];
+    [self createFractalInContext: aCGContext percentStart: start stop: stop];
 
     if (self.showOrigin)
     {
@@ -449,7 +478,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     self.rawFractalPathBounds = CGRectZero;
     
     CGContextSaveGState(aCGContext);
-    [self createFractalInContext: aCGContext percent: 100.0];
+    [self createFractalInContext: aCGContext percentStart: 0.0 stop: 100.0];
     CGContextRestoreGState(aCGContext);
 }
 /*
@@ -459,7 +488,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     2. Redraw at best scale.
     3. Change scale as necessary when changing properties but only draw once and cache scale.
  */
--(void) createFractalInContext: (CGContextRef) aCGContext percent: (CGFloat)percent
+-(void) createFractalInContext: (CGContextRef) aCGContext percentStart: (CGFloat)start stop:(CGFloat)stop
 {
 
 #ifdef LSDEBUGPERFORMANCE
@@ -478,20 +507,27 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     char* bytes = (char*)self.levelData.bytes;
     
-    CGFloat maxPercent = MIN(100.0, percent);
+    CGFloat startPercent = (MAX(0.0, start))/100.0;
+    long dataStart = startPercent * self.levelData.length;
+    
+    CGFloat maxPercent = MIN(100.0, stop);
     CGFloat minPercent = (MAX(1.0, maxPercent))/100.0;
-    long dataLength = minPercent >= 0.99 ? self.levelData.length : minPercent*self.levelData.length;
+    long dataEnd = minPercent >= 0.99 ? self.levelData.length : minPercent*self.levelData.length;
     
-    dataLength = dataLength > self.levelData.length ? self.levelData.length : dataLength;
+    dataEnd = dataEnd > self.levelData.length ? self.levelData.length : dataEnd;
     
-    if (percent < 100.0) {
+    NSAssert(dataStart <= dataEnd, @"start should always be less than end");
+    
+    long dataLength = dataEnd - dataStart;
+    
+    if (stop < 100.0) {
         _baseSegment.randomize = NO;
         _baseSegment.randomness = 0.0;
     }
 
     @autoreleasepool
     {
-        for (long i=0; i < dataLength; i++)
+        for (long i=dataStart; i < dataLength; i++)
         {
             [self evaluateRule: bytes[i]];
             if (self.operation.isCancelled)
@@ -500,9 +536,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             }
         }
     }
-
     
-    if (percent < 100.0 || !_baseSegment.advancedMode) {
+    if (stop < 100.0 || !_baseSegment.advancedMode) {
         [self drawPathClosed: NO];
     }
     

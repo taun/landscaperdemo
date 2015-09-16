@@ -254,9 +254,9 @@ X ;   close path
 -(void) setValuesForFractal:(LSFractal *)aFractal;
 
 -(void) generateImage;
--(void) generateImagePercent: (CGFloat)percent;
+-(void) generateImagePercentStart: (CGFloat)start stop: (CGFloat)stop;
 -(void) drawInContext: (CGContextRef) aCGContext size: (CGSize)size;
--(void) drawInContext: (CGContextRef) aCGContext size: (CGSize)size percent: (CGFloat)percent;
+-(void) drawInContext: (CGContextRef) aCGContext size: (CGSize)size percentStart: (CGFloat)start stop: (CGFloat)stop;
 
 //-(void) charge;
 /*!

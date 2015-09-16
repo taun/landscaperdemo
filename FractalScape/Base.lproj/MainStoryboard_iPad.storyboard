@@ -3612,7 +3612,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Navigation Controller-->
         <scene sceneID="92t-Wk-RAa">
             <objects>
-                <navigationController storyboardIdentifier="TutorialMasterNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2o6-6V-UAW" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3631,13 +3631,11 @@ The main screen with all your fractals is called your "Library". See below for a
                 <splitViewController storyboardIdentifier="TutorialSplitView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LIr-RW-epR" customClass="MDBTutorialSplitViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Help" image="tabBarInfo" id="oUr-Dh-DUq"/>
                     <connections>
-                        <outlet property="tutorialSource" destination="RVy-eQ-MMN" id="wEp-64-Rxm"/>
                         <segue destination="2o6-6V-UAW" kind="relationship" relationship="masterViewController" id="Lav-0r-7Ku"/>
                         <segue destination="qpc-13-ZVz" kind="relationship" relationship="detailViewController" id="KQh-a7-hha"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPj-sJ-5ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="RVy-eQ-MMN" customClass="MDBTutorialPageSource"/>
             </objects>
             <point key="canvasLocation" x="2897" y="2192"/>
         </scene>
@@ -4186,7 +4184,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <!--Navigation Controller-->
         <scene sceneID="Bt6-QJ-c2c">
             <objects>
-                <navigationController storyboardIdentifier="TutorialDetailNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qpc-13-ZVz" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TutorialDetailNavController" id="qpc-13-ZVz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEs-5p-402">

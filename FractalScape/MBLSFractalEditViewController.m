@@ -873,7 +873,7 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererL0.name = @"_fractalRendererL0";
             _fractalRendererL0.imageView = self.fractalViewLevel0;
             _fractalRendererL0.pixelScale = self.fractalViewLevel0.contentScaleFactor;
-            _fractalRendererL0.flipY = YES;
+            _fractalRendererL0.flipY = NO;
             _fractalRendererL0.margin = 60.0;
             _fractalRendererL0.showOrigin = NO;
             _fractalRendererL0.autoscale = YES;
@@ -891,7 +891,7 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererL1.name = @"_fractalRendererL1";
             _fractalRendererL1.imageView = self.fractalViewLevel1;
             _fractalRendererL1.pixelScale = self.fractalViewLevel1.contentScaleFactor;
-            _fractalRendererL1.flipY = YES;
+            _fractalRendererL1.flipY = NO;
             _fractalRendererL1.margin = 40.0;
             _fractalRendererL1.showOrigin = NO;
             _fractalRendererL1.autoscale = YES;
@@ -909,7 +909,7 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererL2.name = @"_fractalRendererL2";
             _fractalRendererL2.imageView = self.fractalViewLevel2;
             _fractalRendererL2.pixelScale = self.fractalViewLevel2.contentScaleFactor;
-            _fractalRendererL2.flipY = YES;
+            _fractalRendererL2.flipY = NO;
             _fractalRendererL2.margin = 40.0;
             _fractalRendererL2.showOrigin = NO;
             _fractalRendererL2.autoscale = YES;
@@ -928,7 +928,7 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererLN.name = @"_fractalRendererLNS1";
             _fractalRendererLN.imageView = strongView;
             _fractalRendererLN.pixelScale = strongView.contentScaleFactor;
-            _fractalRendererLN.flipY = YES;
+            _fractalRendererLN.flipY = NO;
             _fractalRendererLN.margin = kLevelNMargin;
             _fractalRendererLN.showOrigin = YES;
             _fractalRendererLN.autoscale = YES;
@@ -2060,7 +2060,7 @@ static const CGFloat kLevelNMargin = 48.0;
 }
 
 
--(NSBlockOperation*) operationForRenderer: (LSFractalRenderer*)renderer percent: (CGFloat)percent
+-(NSBlockOperation*) operationForRenderer: (LSFractalRenderer*)renderer percentStart: (CGFloat)start stop: (CGFloat)stop
 {
     
     NSBlockOperation* operation = [NSBlockOperation new];
@@ -2070,7 +2070,7 @@ static const CGFloat kLevelNMargin = 48.0;
         //code
         if (!renderer.operation.isCancelled)
         {
-            [renderer generateImagePercent: percent];
+            [renderer generateImagePercentStart: start stop: stop];
             if (renderer.imageView && renderer.image)
             {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -2093,7 +2093,7 @@ static const CGFloat kLevelNMargin = 48.0;
         newRenderer.name = name;
         newRenderer.imageView = self.fractalView;
         newRenderer.pixelScale = self.fractalView.contentScaleFactor;
-        newRenderer.flipY = YES;
+        newRenderer.flipY = NO;
         newRenderer.margin = kLevelNMargin;
         newRenderer.showOrigin = YES;
         newRenderer.autoscale = YES;
@@ -2179,7 +2179,9 @@ static const CGFloat kLevelNMargin = 48.0;
         
         self.playbackSlider.value = self.playIsPercentCompleted;
         
-        NSBlockOperation* operation = [self operationForRenderer: availableRender percent: self.playIsPercentCompleted];
+        CGFloat stop = self.playIsPercentCompleted;
+        
+        NSBlockOperation* operation = [self operationForRenderer: availableRender percentStart: 0 stop: stop];
         
         [self.privateImageGenerationQueue addOperation: operation];
         

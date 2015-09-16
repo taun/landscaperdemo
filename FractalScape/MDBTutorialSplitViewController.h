@@ -15,6 +15,5 @@
 @property (nonatomic,weak) IBOutlet UITableViewController                   *masterTableView;
 @property (nonatomic,strong) IBOutlet UINavigationController                *detailNavCon;
 @property (nonatomic,strong) IBOutlet UIPageViewController                  *detailPageController;
-@property (nonatomic,strong) IBOutlet MDBTutorialPageSource                 *tutorialSource;
 
 @end

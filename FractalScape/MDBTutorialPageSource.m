@@ -33,9 +33,15 @@
 //    
 //    [self.viewController showDetailViewController: self.pageController sender: self.viewController];
 //}
+-(void)dealloc
+{
+    
+}
 
 -(void)findAndStoreIdentifiersAndTitles
 {
+    @autoreleasepool {
+        
     NSUInteger maxPageCount = 14;
     NSMutableArray* pages = [NSMutableArray new];
     NSMutableArray* titles = [NSMutableArray new];
@@ -71,7 +77,7 @@
         _helpPageIdentifiers = [pages copy];
         _helpPageTitles = [titles copy];
     }
-    
+    }
 }
 
 -(NSArray*)helpPageIdentifiers
@@ -97,9 +103,9 @@
 //    UIStoryboard* storyboard = self.viewController.storyboard;
     [UIColor blackColor];
     NSString* identifier = self.helpPageIdentifiers[index];
-    self.currentHelpController = (MDBEditorIntroWhatIsFractalViewController *)[self.storyboard instantiateViewControllerWithIdentifier: identifier];
+    UIViewController* currentHelpController = (MDBEditorIntroWhatIsFractalViewController *)[self.storyboard instantiateViewControllerWithIdentifier: identifier];
 //    [self.currentHelpController loadView];
-    return self.currentHelpController;
+    return currentHelpController;
 }
 
 -(NSUInteger)indexOfController:(UIViewController *)viewController
@@ -129,7 +135,6 @@
 -(void)setInitialPageFor:(UIPageViewController *)pageController andTableView: (UITableView*)tableView
 {
     self.currentHelpController = [self newHelpPageControllerForIndex: 0];
-    self.nextHelpController = [self newHelpPageControllerForIndex: 1];
     
     [pageController setViewControllers: @[self.currentHelpController] direction: UIPageViewControllerNavigationDirectionForward animated: NO completion:^(BOOL finished) {
         //
