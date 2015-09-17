@@ -15,6 +15,7 @@ EAGLContext* __eaglContext;
 
 @property (nonatomic,readwrite) CIFilter             *ciFilter;
 @property (nonatomic,readwrite) CIContext            *filterContext;
+@property (nonatomic,assign) CGRect                  lastBounds;
 
 @end
 
@@ -173,8 +174,11 @@ EAGLContext* __eaglContext;
     return nil;
 }
 
--(void)setGoodDefaultsOnCIFilter: (CIFilter*)ciFilter forImage: (CIImage*)inputImage bounds:(CGRect)bounds
+-(void)setGoodDefaultsForbounds:(CGRect)bounds
 {
+    CGFloat maxDimension =  MAX(bounds.size.width, bounds.size.height);
+    CGFloat minDimension =  MIN(bounds.size.width, bounds.size.height);
+    CGFloat referenceDim = minDimension;
     CGFloat imageWidth = bounds.size.width;
     CGFloat imageHeight = bounds.size.height;
     
@@ -196,7 +200,7 @@ EAGLContext* __eaglContext;
     
     if (filterAttributes[kCIInputWidthKey])
     {
-        CGFloat width = imageWidth/3.0;
+        CGFloat width = referenceDim/3.0;
         [self.ciFilter setValue: @(width) forKey: kCIInputWidthKey];
     }
     
@@ -210,7 +214,7 @@ EAGLContext* __eaglContext;
         }
         else
         {
-            radius = imageWidth/2.5;
+            radius = referenceDim/2.5;
         }
         
         [self.ciFilter setValue: @(radius) forKey: kCIInputRadiusKey];
@@ -226,8 +230,7 @@ EAGLContext* __eaglContext;
         [self.ciFilter setValue:[NSValue valueWithBytes: &rtranslate objCType: @encode(CGAffineTransform)] forKey:@"inputTransform"];
     }
     
-    [self.ciFilter setValue: inputImage forKey:kCIInputImageKey];
-
+    self.lastBounds = bounds;
 }
 
 -(void)setInputValuesOnFilter: (CIFilter*)ciFilter
@@ -261,8 +264,12 @@ EAGLContext* __eaglContext;
         
         CIImage *image = [CIImage imageWithCGImage: inputImage.CGImage];
         
-        [self setGoodDefaultsOnCIFilter: self.ciFilter forImage: image bounds: imageBounds];
+        CGRect nonAsImageBounds = self.lastBounds;
+        [self setGoodDefaultsForbounds: imageBounds];
+        self.lastBounds = nonAsImageBounds;
         
+        [self.ciFilter setValue: image forKey: kCIInputImageKey];
+
         if (self.inputValues && self.inputValues.count > 0)
         {
             [self setInputValuesOnFilter: self.ciFilter];
@@ -270,11 +277,15 @@ EAGLContext* __eaglContext;
         
         CIImage *filteredImage = [self.ciFilter valueForKey:kCIOutputImageKey];
         
-        CGImageRef cgImage = [context createCGImage: filteredImage fromRect: imageBounds];
+        CIImage* cropped = [filteredImage imageByCroppingToRect: imageBounds];
+
+        filteredUIImage = [UIImage imageWithCIImage: cropped];
         
-        filteredUIImage = [UIImage imageWithCGImage: cgImage scale: inputImage.scale orientation: UIImageOrientationUp];
+//        CGImageRef cgImage = [context createCGImage: filteredImage fromRect: imageBounds];
         
-        CGImageRelease(cgImage);
+//        filteredUIImage = [UIImage imageWithCGImage: cgImage scale: inputImage.scale orientation: UIImageOrientationUp];
+        
+//        CGImageRelease(cgImage);
         
         [self setCiFilter: nil];
         
@@ -297,7 +308,7 @@ EAGLContext* __eaglContext;
             {
                 UIImage* preFilterImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
                 tempImage = [self filterImage: preFilterImage withContext: [MBImageFilter filterContext]];
-                [self setFilterContext: nil];
+                [self setGoodDefaultsForbounds: self.lastBounds];
             }
         }
     

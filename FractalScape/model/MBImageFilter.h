@@ -32,6 +32,7 @@
  */
 @property (nonatomic,readonly) CIFilter             *ciFilter;
 
++(CIContext*) filterContext;
 
 +(instancetype) newFilterWithIdentifier: (NSString*)ciFilterName;
 
@@ -44,7 +45,7 @@
 /*!
  Utility
  */
--(void)setGoodDefaultsOnCIFilter: (CIFilter*)ciFilter forImage: (CIImage*)image bounds: (CGRect)bounds;
+-(void)setGoodDefaultsForbounds: (CGRect)bounds;
 
 -(UIImage*)filterImage: (UIImage*)inputImage withContext: (CIContext*)context;
 

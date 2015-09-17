@@ -232,7 +232,13 @@ X ;   close path
 @property (nonatomic,assign) CGFloat                renderTime;
 @property (atomic,strong) UIImage                   *image;
 @property (atomic,assign) CGImageRef                imageRef;
+/*!
+ Find the fractal extents and center in the view
+ */
 @property (nonatomic,assign) BOOL                   autoscale;
+/*!
+ Scale the fractal to fill the view with the fractal.
+ */
 @property (nonatomic,assign) BOOL                   autoExpand;
 @property (nonatomic,assign) BOOL                   showOrigin;
 @property (nonatomic,assign) BOOL                   applyFilters;
