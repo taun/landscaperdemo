@@ -41,6 +41,9 @@
 
 -(UIImage*) thumbnailImageSize: (CGSize) size;
 
+/*!
+ Utility
+ */
 -(void)setGoodDefaultsOnCIFilter: (CIFilter*)ciFilter forImage: (CIImage*)image bounds: (CGRect)bounds;
 
 -(UIImage*)filterImage: (UIImage*)inputImage withContext: (CIContext*)context;

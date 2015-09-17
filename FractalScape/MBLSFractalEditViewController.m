@@ -1403,7 +1403,17 @@ static const CGFloat kLevelNMargin = 48.0;
                         {
                             
                             //                        [self updateFiltersOnView: renderer.imageView];
-                            CGImageRef filteredImage = [self applyFiltersToImage: renderer.imageRef];
+                            CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
+                            CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
+                            CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
+                            //    CGFloat midX = imageWidth/2.0;
+                            //    CGFloat midY = imageHeight/2.0;
+//                            @autoreleasepool
+//                            {
+                                CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
+                                CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: colorSpace];
+                                CGColorSpaceRelease( colorSpace );
+                            CGImageRef filteredImage = [self applyFiltersToImage: ciiInputImage];
                             renderer.mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
 //                            CGImageRelease(filteredImage);
                         }
@@ -2449,30 +2459,28 @@ static const CGFloat kLevelNMargin = 48.0;
 /*!
  Returns unreleased CGImageRef
  */
--(CGImageRef)applyFiltersToImage: (CGImageRef)inputImageRef
+-(CGImageRef)applyFiltersToImage: (CIImage*)ciiImage
 {
-    CGImageRef filteredImageRef = inputImageRef;
-    
     MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
+    
+    CGImageRef filteredImageRef;
     
     if (filters && !filters.isEmpty) {
         [self.activityIndicator startAnimating];
 
-        CGFloat imageWidth = CGImageGetWidth(inputImageRef);
-        CGFloat imageHeight = CGImageGetHeight(inputImageRef);
+        CGFloat imageWidth = ciiImage.extent.size.width;
+        CGFloat imageHeight = ciiImage.extent.size.height;
         CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
         //    CGFloat midX = imageWidth/2.0;
         //    CGFloat midY = imageHeight/2.0;
         @autoreleasepool
         {
-            CIImage *ciiInputImage = [CIImage imageWithCGImage: inputImageRef];
-            
-            CIImage* filteredImage = ciiInputImage;
+            CIImage* filteredImage;
             
             @autoreleasepool
             {
                 for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters) {
-                    [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: filteredImage bounds: imageBounds];
+                    [filter setGoodDefaultsOnCIFilter: filter.ciFilter forImage: ciiImage bounds: imageBounds];
                     filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
                 }
                 filteredImageRef = [self.filterContext createCGImage: filteredImage fromRect: imageBounds];
@@ -2970,18 +2978,12 @@ verticalPropertyPath: @"lineChangeFactor"
             if (renderer.applyFilters)
             {
                 CGImageRef tempImage = CGBitmapContextCreateImage(aCGontext);
-                CGImageRef outputImage = [self applyFiltersToImage: tempImage];
+                CIImage* inputImage = [CIImage imageWithCGImage: tempImage];
+                CGImageRef outputImage = [self applyFiltersToImage: inputImage];
                 imageExport = [UIImage imageWithCGImage: outputImage];
                 
-                if (tempImage != outputImage) // there is a chance they may be the same
-                {
-                    CGImageRelease(tempImage);
-                    CGImageRelease(outputImage);
-                }
-                else
-                {
-                    CGImageRelease(tempImage);
-                }
+                if (tempImage != NULL) CGImageRelease(tempImage);
+                if (outputImage != NULL) CGImageRelease(outputImage);
             }
             else
             {

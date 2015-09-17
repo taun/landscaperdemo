@@ -240,6 +240,9 @@ X ;   close path
 @property (nonatomic,assign) CGFloat                translateX;
 @property (nonatomic,assign) CGFloat                translateY;
 @property (nonatomic,weak) NSBlockOperation         *operation;
+
+@property (atomic, readonly) NSMutableData   *contextNSData;
+
 //@property (nonatomic, unsafe_unretained) CGPathRef  path;
 @property (NS_NONATOMIC_IOSONLY, readonly) CGFloat randomScalar;
 /*!

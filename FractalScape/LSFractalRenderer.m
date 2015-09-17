@@ -49,6 +49,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 @property (nonatomic,strong) CALayer                *cachedLayer;
 @property (nonatomic,assign) CGContextRef           cachedContext;
+@property (atomic,strong) NSMutableData             *contextNSData;
 @property (nonatomic,strong) NSArray                *lineColors;
 @property (nonatomic,strong) NSArray                *fillColors;
 @property (nonatomic,assign) MBSegmentStruct        baseSegment;
@@ -169,7 +170,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     int width = size.width * scale;
     int height = size.height * scale;
     int bytesPerRow = 4 * width;
-    
 
     if (_cachedContext == NULL && strongView)
     {
@@ -179,6 +179,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     }
     else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_cachedContext), strongView.bounds))
     {
+        self.contextNSData = nil;
+        
         if (_imageRef != NULL) CGImageRelease(_imageRef);
         _imageRef = NULL;
         
@@ -190,6 +192,30 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
     
     return _cachedContext;
+}
+
+-(void)copyBitmapToNSDataCache
+{
+    UIImageView*strongView = self.mainThreadImageView;
+    
+    CGSize size = strongView.bounds.size;
+    CGFloat scale = strongView.contentScaleFactor;
+    int width = size.width * scale;
+    int height = size.height * scale;
+    int bytesPerRow = 4 * width;
+    
+    int bytes = bytesPerRow * height;
+    
+    void *buffer = CGBitmapContextGetData(_cachedContext);
+    
+    if (!self.contextNSData)
+    {
+        self.contextNSData = [NSMutableData dataWithBytes: buffer length: bytes];
+    }
+    else
+    {
+        [self.contextNSData replaceBytesInRange: NSMakeRange(0, bytes) withBytes: buffer];
+    }
 }
 
 -(void)setImageRef:(CGImageRef)imageRef
@@ -355,6 +381,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         CGSize size = strongImageView.bounds.size;
         
         [self drawInContext: self.cachedContext size: size percentStart: start stop: stop];
+        [self copyBitmapToNSDataCache];
         self.imageRef = CGBitmapContextCreateImage(_cachedContext);
 //        self.image = [UIImage imageWithCGImage: self.imageRef];
     }
