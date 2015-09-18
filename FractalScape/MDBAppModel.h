@@ -48,7 +48,7 @@ extern NSString *const kMDBFractalCloudContainer;
 
 @property(nonatomic,readonly) LSDrawingRuleType               *sourceDrawingRules;
 @property(nonatomic,readonly) NSArray                         *sourceColorCategories;
-
+@property(nonatomic,readonly) NSCache                           *resourceCache;
 
 -(void)loadInitialDocuments;
 /*!

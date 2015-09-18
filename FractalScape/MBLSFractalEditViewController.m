@@ -359,6 +359,9 @@ static const CGFloat kLevelNMargin = 48.0;
     fractalCanvas.layer.shadowOffset = CGSizeMake(5.0, 5.0);
     fractalCanvas.layer.shadowOpacity = 0.3;
     fractalCanvas.layer.shadowRadius = 3.0;
+
+    self.fractalView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    
     [self configureParallax]; // here so changing the setting in user settings can take effect
 }
 
@@ -670,6 +673,15 @@ static const CGFloat kLevelNMargin = 48.0;
         [self queueFractalImageUpdates];
         [self updateInterface];
     }
+    else if ([keyPath isEqualToString: @"fractal"])
+    {
+        LSFractal* oldFractal = (LSFractal*)change[NSKeyValueChangeOldKey];
+        LSFractal* newFractal = (LSFractal*)change[NSKeyValueChangeNewKey];
+
+        if (oldFractal) [self removeObserversForFractal: oldFractal];
+        if (newFractal) [self addObserversForFractal: newFractal];
+        [self updateFilterSettingsForCanvas];
+    }
     else
     {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -682,9 +694,8 @@ static const CGFloat kLevelNMargin = 48.0;
     for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
     {
         CGSize size = self.fractalView.bounds.size;
-        CGFloat scale = self.fractalView.contentScaleFactor;
         
-        CGRect filterBounds = CGRectMake(0.0, 0.0, size.width*scale, size.height*scale);
+        CGRect filterBounds = CGRectMake(0.0, 0.0, size.width*[[UIScreen mainScreen] scale], size.height*[[UIScreen mainScreen] scale]);
         [filter setGoodDefaultsForbounds: filterBounds];
     }
 }
@@ -715,7 +726,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (state == UIDocumentStateNormal)
     {
-        [self addObserversForCurrentFractal];
+//        [self addObserversForCurrentFractal];
     }
     else if (state & UIDocumentStateInConflict)
     {
@@ -784,28 +795,30 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     UIImageView*strongView = self.fractalView;
     
-    if (_filterBitmapContext != NULL && CGRectEqualToRect(strongView.bounds, CGContextGetClipBoundingBox(_filterBitmapContext)))
-    {
-        CGContextRelease(_filterBitmapContext);
-        _filterBitmapContext = NULL;
-    }
+    CGSize viewSize = strongView.bounds.size;
+    CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
+    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
     
-    if (_filterBitmapContext == NULL)
+    int width = scaledSize.width;
+    int height = scaledSize.height;
+    int bytesPerRow = 4 * width;
+    
+    if (_filterBitmapContext == NULL && strongView)
     {
-        
-        CGSize size = strongView.bounds.size;
-        CGFloat scale = strongView.contentScaleFactor;
-        int width = size.width * scale;
-        int height = size.height * scale;
-        int bytesPerRow = 4 * width;
-        
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
-        _filterBitmapContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
-        CGColorSpaceRelease( colorSpace );
-
+        _filterBitmapContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
         [self updateFilterSettingsForCanvas];
     }
-    
+    else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_filterBitmapContext), scaledRect))
+    {
+//        self.contextNSData = nil;
+//        
+//        self.imageRef = NULL;
+        
+        CGContextRelease(_filterBitmapContext);
+        _filterBitmapContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
+        [self updateFilterSettingsForCanvas];
+    }
+
     return _filterBitmapContext;
 }
 
@@ -907,9 +920,9 @@ static const CGFloat kLevelNMargin = 48.0;
 #pragma message "TODO Use an alert here rather than just deleting. Should only happen if deleted on another device."
 -(void)fractalDocumentWasDeleted: (MDBFractalDocument*)deletedDocument
 {
-    if (self.fractalInfo.document == deletedDocument) {
-        self.fractalInfo = nil;
-        [self popBackToLibrary: nil];
+    if (self.fractalInfo.document == deletedDocument)
+    {
+        [self performSegueWithIdentifier: @"UnwindSegueToLibrary" sender: self];
     }
 }
 
@@ -922,7 +935,6 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererL0 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererL0.name = @"_fractalRendererL0";
             _fractalRendererL0.mainThreadImageView = self.fractalViewLevel0;
-            _fractalRendererL0.pixelScale = self.fractalViewLevel0.contentScaleFactor;
             _fractalRendererL0.flipY = NO;
             _fractalRendererL0.margin = 60.0;
             _fractalRendererL0.showOrigin = NO;
@@ -940,7 +952,6 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererL1 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererL1.name = @"_fractalRendererL1";
             _fractalRendererL1.mainThreadImageView = self.fractalViewLevel1;
-            _fractalRendererL1.pixelScale = self.fractalViewLevel1.contentScaleFactor;
             _fractalRendererL1.flipY = NO;
             _fractalRendererL1.margin = 40.0;
             _fractalRendererL1.showOrigin = NO;
@@ -958,7 +969,6 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererL2 = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererL2.name = @"_fractalRendererL2";
             _fractalRendererL2.mainThreadImageView = self.fractalViewLevel2;
-            _fractalRendererL2.pixelScale = self.fractalViewLevel2.contentScaleFactor;
             _fractalRendererL2.flipY = NO;
             _fractalRendererL2.margin = 40.0;
             _fractalRendererL2.showOrigin = NO;
@@ -977,7 +987,6 @@ static const CGFloat kLevelNMargin = 48.0;
             _fractalRendererLN = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
             _fractalRendererLN.name = @"_fractalRendererLNS1";
             _fractalRendererLN.mainThreadImageView = strongView;
-            _fractalRendererLN.pixelScale = strongView.contentScaleFactor;
             _fractalRendererLN.flipY = NO;
             _fractalRendererLN.margin = kLevelNMargin;
             _fractalRendererLN.showOrigin = YES;
@@ -989,11 +998,14 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(void) addObserverForFractalChangeInCurrentDocument
 {
-    if (_fractalInfo.document) {
+    if (_fractalInfo.document)
+    {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDocumentStateChangedNotification:) name:UIDocumentStateChangedNotification object: _fractalInfo.document];
 //        [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: NSKeyValueObservingOptionOld context: NULL];
         _fractalInfo.document.delegate = self;
-        if (_fractalInfo.document.fractal) {
+        
+        if (_fractalInfo.document.fractal)
+        {
             [self addObserversForCurrentFractal];
         }
     }
@@ -1034,19 +1046,50 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
--(void) addObserversForCurrentFractal
+-(void) addObserversForFractal: (LSFractal*)fractal
 {
-    LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
-    {        
+    {
         [self setupSlidersForCurrentFractal];
         
         _lastImageUpdateTime = [NSDate date];
-
+        
         NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
         [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
         [propertiesToObserve unionSet: [LSFractal labelProperties]];
+        
+        for (NSString* keyPath in propertiesToObserve)
+        {
+            [fractal addObserver: self forKeyPath:keyPath options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context: NULL];
+        }
+        
+        [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: 0 context: NULL];
+    }
+}
+
+-(void) addObserversForCurrentFractal
+{
+    LSFractal* fractal = _fractalInfo.document.fractal;
+    [self addObserversForFractal: fractal];
+}
+
+/*!
+ Most fractal properties are only changed while the appearance editor is present.
+ Only add observers when presenting and remove when dismissing.
+ 
+ Hopefully will also fix problem with fractal changing by load document and observers not being removed before hand.
+ */
+-(void)addObserversForAppearanceEditorChanges
+{
+    LSFractal* fractal = _fractalInfo.document.fractal;
+    if (fractal)
+    {
+        [self setupSlidersForCurrentFractal];
+        
+        _lastImageUpdateTime = [NSDate date];
+        
+        NSMutableSet* propertiesToObserve = [NSMutableSet new];
         [propertiesToObserve addObject: @"startingRules.allObjects"];
         [propertiesToObserve addObject: @"lineColors.allObjects"];
         [propertiesToObserve addObject: @"fillColors.allObjects"];
@@ -1064,6 +1107,7 @@ static const CGFloat kLevelNMargin = 48.0;
         }
     }
 }
+
 
 -(void) updateObserversForReplacementRules: (NSMutableArray*) newReplacementRules {
     // need to find rules missing from registered observers.
@@ -1093,43 +1137,82 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
--(void) removeObserversForCurrentFractal
+-(void) removeObserversForFractal: (LSFractal*)fractal
 {
-    LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
     {
+        [_fractalInfo.document removeObserver: self forKeyPath: @"fractal"];
+        
         NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
         [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
         [propertiesToObserve unionSet: [LSFractal redrawProperties]];
         [propertiesToObserve unionSet: [LSFractal labelProperties]];
+        
+        // Some properties may not being observed due to being nil initially?
+        for (NSString* keyPath in propertiesToObserve)
+        {
+            @try {
+                [fractal removeObserver: self forKeyPath: keyPath];
+            }
+            @catch (NSException *exception)
+            {
+                //
+                NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
+            }
+            @finally {
+                //
+            }
+        }
+    }
+}
+-(void) removeObserversForCurrentFractal
+{
+    LSFractal* fractal = _fractalInfo.document.fractal;
+    [self removeObserversForFractal: fractal];
+}
+
+-(void)removeObserversForAppearanceEditorChanges
+{
+    LSFractal* fractal = _fractalInfo.document.fractal;
+    if (fractal)
+    {
+        NSMutableSet* propertiesToObserve = [NSMutableSet new];
         [propertiesToObserve addObject: @"startingRules.allObjects"];
         [propertiesToObserve addObject: @"lineColors.allObjects"];
         [propertiesToObserve addObject: @"fillColors.allObjects"];
         [propertiesToObserve addObject: @"imageFilters.allObjects"];
         
-        @try {
-            // Some properties may not being observed due to being nil initially?
-            for (NSString* keyPath in propertiesToObserve)
-            {
+        // Some properties may not being observed due to being nil initially?
+        for (NSString* keyPath in propertiesToObserve)
+        {
+            @try {
                 [fractal removeObserver: self forKeyPath: keyPath];
             }
-            for (LSReplacementRule* rule in fractal.replacementRules)
-            {
+            @catch (NSException *exception) {
+                //
+                NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
+            }
+            @finally {
+                //
+            }
+        }
+        for (LSReplacementRule* rule in fractal.replacementRules)
+        {
+            @try {
                 [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
                 [rule removeObserver: self forKeyPath: @"rules.allObjects"];
+            }
+            @catch (NSException *exception) {
+                //
+                NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
+            }
+            @finally {
+                //
                 [self.observedReplacementRules removeObject: rule];
             }
         }
-        @catch (NSException *exception) {
-            //
-            NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
-        }
-        @finally {
-            //
-        }
     }
 }
-
 
 -(void) setLowPerformanceDevice:(BOOL)lowPerformanceDevice {
     _lowPerformanceDevice = lowPerformanceDevice;
@@ -1339,14 +1422,14 @@ static const CGFloat kLevelNMargin = 48.0;
     if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
     self.fractalRendererLN.backgroundColor = backgroundColor;
     
-    if (!self.lowPerformanceDevice || self.fractalRendererLN.levelData.length < 150000)
-    {
-        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;// * 2.0;
-    }
-    else
-    {
-        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;
-    }
+//    if (!self.lowPerformanceDevice || self.fractalRendererLN.levelData.length < 150000)
+//    {
+//        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;// * 2.0;
+//    }
+//    else
+//    {
+//        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;
+//    }
     NSBlockOperation* operationNN1 = [self operationForRenderer: self.fractalRendererLN];
     
     
@@ -1396,46 +1479,34 @@ static const CGFloat kLevelNMargin = 48.0;
             {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     BOOL applyFilters = YES;
-//                    @autoreleasepool
-//                    {
-                        if (renderer.applyFilters)
-                        {
-                            
-                            //                        [self updateFiltersOnView: renderer.imageView];
-                            CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
-                            CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
-                            CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
-                            //    CGFloat midX = imageWidth/2.0;
-                            //    CGFloat midY = imageHeight/2.0;
-//                            @autoreleasepool
-//                            {
-                                CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
-                                CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: colorSpace];
-                            NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
-                            CGColorSpaceRelease( colorSpace );
-                            CGImageRef filteredImage = [self applyFiltersToImage: ciiInputImage];
-                            renderer.mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
-//                            CGImageRelease(filteredImage);
-                        }
-                        else
-                        {
-//                            renderer.imageView.image = renderer.image;
-#pragma message "TODO: Filters view seems to use OpenGL. If a simple filter is implemented here, will this use opengl as well?"
-                            renderer.mainThreadImageView.layer.contents = (__bridge id)(renderer.imageRef);
-                        }
+                    if (renderer.applyFilters)
+                    {
                         
-                        if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
-                        {
-                            [self.activityIndicator stopAnimating];
-                        }
-                        if (!self.renderTimeLabel.hidden && renderer == self.fractalRendererLN)
+                        //                        [self updateFiltersOnView: renderer.imageView];
+                        CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
+                        CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
+                        CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
+                        NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
+                        CGImageRef filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
+                        renderer.mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
+                    }
+                    else
+                    {
+#pragma message "TODO: Filters view seems to use OpenGL. If a simple filter is implemented here, will this use opengl as well?"
+                        renderer.mainThreadImageView.layer.contents = (__bridge id)(renderer.imageRef);
+                    }
+                    
+                    if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
+                    {
+                        [self.activityIndicator stopAnimating];
+                    }
+                    if (!self.renderTimeLabel.hidden && renderer == self.fractalRendererLN)
                         {
                             UIDevice* device = [UIDevice currentDevice];
                             NSString* deviceIdentifier = device.model;
                             self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, Render Time: %0.0fms, Nodes: %lu",
                                                          deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
                         }
-//                    }
                 }];
             }
         }
@@ -1797,9 +1868,12 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     
     self.fractalViewRootSingleTapRecognizer.enabled = NO;
+    
+    [self addObserversForAppearanceEditorChanges];
 }
 -(void) appearanceControllerWasDismissed
 {
+    [self removeObserversForAppearanceEditorChanges];
     [self.navigationController setNavigationBarHidden: self.previousNavBarState animated: YES];
     self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.currentPresentedController = nil;
@@ -2146,7 +2220,6 @@ static const CGFloat kLevelNMargin = 48.0;
         newRenderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
         newRenderer.name = name;
         newRenderer.mainThreadImageView = self.fractalView;
-        newRenderer.pixelScale = self.fractalView.contentScaleFactor;
         newRenderer.flipY = NO;
         newRenderer.margin = kLevelNMargin;
         newRenderer.showOrigin = YES;
@@ -2218,8 +2291,10 @@ static const CGFloat kLevelNMargin = 48.0;
     /*!
      TODO: add a dependency here so operations don't finish out of order?
      */
-    for (LSFractalRenderer*renderer in self.playbackRenderers) {
-        if (renderer.operation == nil || renderer.operation.isFinished) {
+    for (LSFractalRenderer*renderer in self.playbackRenderers)
+    {
+        NSBlockOperation* strongOperation = renderer.operation;
+        if (strongOperation == nil || strongOperation.isFinished) {
             [finishedRenderers addObject: renderer];
         }
     }
@@ -2400,35 +2475,11 @@ static const CGFloat kLevelNMargin = 48.0;
 
 
 #pragma mark - Filter Actions
-//-(void)changeAndApplyFilters
-//{
-//    MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
-//
-//    if (!filters.isEmpty && !self.fractalDocument.fractal.applyFilters)
-//    {
-//        // if there are filters and the applyFilters was off, turn it on.
-//        [self toggleApplyFilter: nil];
-//    }
-//    else if (filters.isEmpty && self.fractalDocument.fractal.applyFilters)
-//    {
-//        // filters are now empty and apply filters was on, turn it off
-//        [self toggleApplyFilter: nil];
-//    }
-//    
-//    UIImage* filteredUIImage = [self applyFiltersToImage: self.fractalRendererLN.image];
-//    
-//    if (filteredUIImage)
-//    {
-//        self.fractalView.image = filteredUIImage;
-//    }
-//}
-//
-
 
 /*!
  Returns unreleased CGImageRef
  */
--(CGImageRef)applyFiltersToImage: (CIImage*)ciiImage
+-(CGImageRef)newCGImageRefToBitmapFromFiltersAppliedToCIImage: (CIImage*)ciiImage
 {
     MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
     
@@ -2442,26 +2493,87 @@ static const CGFloat kLevelNMargin = 48.0;
         CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
         //    CGFloat midX = imageWidth/2.0;
         //    CGFloat midY = imageHeight/2.0;
+        CGContextClearRect(self.filterBitmapContext, CGContextGetClipBoundingBox(self.filterBitmapContext));
+
         @autoreleasepool
         {
             CIImage* filteredImage = ciiImage;
             
             for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
             {
-#pragma message "WARN: do not do this every interation! NSStrings are leaking. Only needed when canvas size changes"
                 [filter.ciFilter setValue: filteredImage forKey:kCIInputImageKey];
                 filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
             }
-            CIImage* cropped = [filteredImage imageByCroppingToRect: imageBounds];
-
-#pragma message "WARN: do not use createCGImage! Use toBitmap: IOSurface textures are either leaking or being cached."
-            filteredImageRef = [[MBImageFilter filterContext] createCGImage: cropped fromRect: imageBounds];
+            filteredImage = [filteredImage imageByCroppingToRect: imageBounds];
+            
+            if ((YES))
+            {
+                CGContextRef bitmapContext = self.filterBitmapContext;
+                
+                void* bitmap = CGBitmapContextGetData(bitmapContext);
+                ptrdiff_t bytes = CGBitmapContextGetBytesPerRow(bitmapContext);
+                CGRect bounds = CGRectMake(0, 0, CGBitmapContextGetWidth(bitmapContext), CGBitmapContextGetHeight(bitmapContext));
+                CGColorSpaceRef colorSpace = CGBitmapContextGetColorSpace(bitmapContext);
+                
+                [[MBImageFilter filterContext] render: filteredImage toBitmap: bitmap rowBytes: bytes bounds: bounds format: kCIFormatRGBA8 colorSpace: colorSpace];
+                
+                filteredImageRef = CGBitmapContextCreateImage(bitmapContext);
+            }
+            else
+            {
+                filteredImageRef = [[MBImageFilter filterContext] createCGImage: filteredImage fromRect: imageBounds];
+            }
         }
         [self.activityIndicator stopAnimating];
     }
     
     return filteredImageRef;
 }
+-(CGImageRef)newCGImageRefForSnapshotFromFiltersAppliedToCIImage: (CIImage*)ciiImage
+{
+    MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
+    
+    CGImageRef filteredImageRef = NULL;
+    
+    if (filters && !filters.isEmpty) {
+        [self.activityIndicator startAnimating];
+        
+        CGFloat imageWidth = ciiImage.extent.size.width;
+        CGFloat imageHeight = ciiImage.extent.size.height;
+        CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
+        //    CGFloat midX = imageWidth/2.0;
+        //    CGFloat midY = imageHeight/2.0;
+        CGContextClearRect(self.filterBitmapContext, CGContextGetClipBoundingBox(self.filterBitmapContext));
+        
+        @autoreleasepool
+        {
+            CIImage* filteredImage = ciiImage;
+            
+            for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
+            {
+                [filter.ciFilter setValue: filteredImage forKey:kCIInputImageKey];
+                filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
+            }
+            filteredImage = [filteredImage imageByCroppingToRect: imageBounds];
+
+            if ((YES))
+            {
+                NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: nil];
+                for (CIFilter *filter in adjustments) {
+                    [filter setValue: filteredImage forKey: kCIInputImageKey];
+                    filteredImage = filter.outputImage;
+                }
+            }
+
+            filteredImageRef = [[MBImageFilter filterContext] createCGImage: filteredImage fromRect: imageBounds];
+        }
+        [self.activityIndicator stopAnimating];
+    }
+    
+    return filteredImageRef;
+}
+
+
 //
 - (IBAction)toggleApplyFilter:(id)sender
 {
@@ -2476,6 +2588,7 @@ static const CGFloat kLevelNMargin = 48.0;
     {
         self.fractalDocument.fractal.applyFilters = !filtersOn;
     }
+    [self updateFilterSettingsForCanvas];
 }
 
 
@@ -2921,6 +3034,14 @@ verticalPropertyPath: @"lineChangeFactor"
 {
     UIImage* imageExport;
     
+    static CIFilter* contrastFilter = nil;
+    
+    if (!contrastFilter)
+    {
+        contrastFilter = [CIFilter filterWithName: @""];
+
+    }
+    
         LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
         NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
         renderer.levelData = self.levelDataArray[level];
@@ -2929,7 +3050,6 @@ verticalPropertyPath: @"lineChangeFactor"
     renderer.autoscale = YES;
         renderer.flipY = YES;
         renderer.showOrigin = NO;
-        renderer.pixelScale = self.fractalView.contentScaleFactor;
         renderer.applyFilters = self.fractalDocument.fractal.applyFilters;
         
         MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
@@ -2947,7 +3067,7 @@ verticalPropertyPath: @"lineChangeFactor"
     
     CGFloat scale = maxSnapshotDimension/maxOriginalDimension;
  
-    UIGraphicsBeginImageContextWithOptions(imageSize, NO, self.fractalView.contentScaleFactor);
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, [[UIScreen mainScreen] scale]);
         {
             CGContextRef aCGontext = UIGraphicsGetCurrentContext();
             
@@ -2962,13 +3082,14 @@ verticalPropertyPath: @"lineChangeFactor"
                 CGImageRef tempImage = CGBitmapContextCreateImage(aCGontext);
                 CIImage* inputImage = [CIImage imageWithCGImage: tempImage];
                 
-                CGRect snapshotBounds = CGRectMake(0.0, 0.0, imageSize.width*renderer.pixelScale, imageSize.height*renderer.pixelScale*aspect);
+                CGRect snapshotBounds = CGRectMake(0.0, 0.0, imageSize.width*[[UIScreen mainScreen] scale], imageSize.height*[[UIScreen mainScreen] scale]*aspect);
                 
                 for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
                 {
                     [filter setGoodDefaultsForbounds: snapshotBounds];
                 }
-                CGImageRef outputImage = [self applyFiltersToImage: inputImage];
+                
+                CGImageRef outputImage = [self newCGImageRefForSnapshotFromFiltersAppliedToCIImage: inputImage];
                 imageExport = [UIImage imageWithCGImage: outputImage];
                 [self updateFilterSettingsForCanvas];
                 if (tempImage != NULL) CGImageRelease(tempImage);

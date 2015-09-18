@@ -8,13 +8,17 @@
 
 #import "MBImageFilter.h"
 
-CIContext* __filterContext;
-EAGLContext* __eaglContext;
+#import "MBAppDelegate.h"
+#import "MDBAppModel.h"
+
+
+
+static EAGLContext* __eaglContext;
+
 
 @interface MBImageFilter ()
 
 @property (nonatomic,readwrite) CIFilter             *ciFilter;
-@property (nonatomic,readwrite) CIContext            *filterContext;
 @property (nonatomic,assign) CGRect                  lastBounds;
 
 @end
@@ -22,6 +26,8 @@ EAGLContext* __eaglContext;
 
 
 @implementation MBImageFilter
+
+@synthesize name = _name;
 
 +(NSSortDescriptor*) sortDescriptor
 {
@@ -49,11 +55,41 @@ EAGLContext* __eaglContext;
     return MBImageFilterDefaultIdentifierString;
 }
 
++(CIContext*) filterContext
+{
+    static CIContext* __filterContext;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null], kCIContextUseSoftwareRenderer : @NO };
+        __filterContext = [CIContext contextWithOptions: options];
+        //        __filterContext = [CIContext contextWithOptions: nil];
+    });
+    
+    return __filterContext;
+}
+
++(CGColorSpaceRef)colorSpace
+{
+    static CGColorSpaceRef __sDeviceRgbColorSpace = NULL;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        __sDeviceRgbColorSpace = CGColorSpaceCreateDeviceRGB();
+    });
+    return __sDeviceRgbColorSpace;
+}
+
+
 +(instancetype)newFilterWithIdentifier:(NSString *)ciFilterName
 {
     MBImageFilter* newFilter = [[[self class]alloc]initWithFilterIdentifier: ciFilterName];
     
     return newFilter;
+}
+
+-(NSString*)cacheIdentifierString
+{
+    return [NSString stringWithFormat: @"%@.%@",NSStringFromClass([self class]), self.identifier];
 }
 
 -(instancetype)initWithFilterIdentifier: (NSString*)ciFilterName
@@ -140,11 +176,20 @@ EAGLContext* __eaglContext;
     if (!_ciFilter && self.identifier)
     {
         _ciFilter = [CIFilter filterWithName: self.identifier];
+        [_ciFilter setDefaults];
 //        [self setCiFilter: _ciFilter values: self.inputValues];
     }
     return _ciFilter;
 }
 
+-(NSString*)name
+{
+    if (!_name)
+    {
+        _name = self.ciFilter.attributes[kCIAttributeFilterDisplayName];
+    }
+    return _name;
+}
 //-(void)setCiFilter:(CIFilter *)ciFilter values: (NSDictionary*)keyValues
 //{
 //    if (keyValues.count > 0)
@@ -156,37 +201,18 @@ EAGLContext* __eaglContext;
 //    }
 //}
 
-+(CIContext*) filterContext
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null] };
-        __filterContext = [CIContext contextWithOptions: options];
-//        __filterContext = [CIContext contextWithOptions: nil];
-    });
-    
-    return __filterContext;
-}
-
-
 -(UIImage*) thumbnailImageSize: (CGSize) size
 {
     return nil;
 }
 
--(void)setGoodDefaultsForbounds:(CGRect)bounds
+-(void)settingsDefault: (CIVector*)vector
 {
-    CGFloat maxDimension =  MAX(bounds.size.width, bounds.size.height);
-    CGFloat minDimension =  MIN(bounds.size.width, bounds.size.height);
-    CGFloat referenceDim = minDimension;
-    CGFloat imageWidth = bounds.size.width;
-    CGFloat imageHeight = bounds.size.height;
+    CGFloat referenceDim =  MIN(vector.CGRectValue.size.width, vector.CGRectValue.size.height);
+
+    CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
     
-    CGFloat midX = imageWidth/2.0;
-    CGFloat midY = imageHeight/2.0;
-    
-    CIVector* filterCenter = [CIVector vectorWithX: midX Y: midY];
-    
+    // droste, circularWrap, stretch crop, glass lozenge, glass distortion
     NSDictionary* filterAttributes = [self.ciFilter attributes];
     if (filterAttributes[kCIInputCenterKey])
     {
@@ -207,7 +233,7 @@ EAGLContext* __eaglContext;
     if (filterAttributes[kCIInputRadiusKey])
     {
         CGFloat radius = 10.0;
-
+        
         if ([[self.identifier lowercaseString] containsString: @"blur"])
         {
             radius = 10.0;
@@ -224,10 +250,76 @@ EAGLContext* __eaglContext;
     {
         CGAffineTransform transform = CGAffineTransformIdentity;
         CGAffineTransform translate = CGAffineTransformTranslate(transform, filterCenter.X, filterCenter.Y);
-        CGAffineTransform scale = CGAffineTransformScale(translate, 0.25, 0.25);
+        CGAffineTransform scale = CGAffineTransformScale(translate, 0.4, 0.4);
         CGAffineTransform rtranslate = CGAffineTransformTranslate(scale, -filterCenter.X, -filterCenter.Y);
-
+        
         [self.ciFilter setValue:[NSValue valueWithBytes: &rtranslate objCType: @encode(CGAffineTransform)] forKey:@"inputTransform"];
+    }
+}
+
+-(void)settingsCITriangleKaleidoscope: (CIVector*)vector
+{
+    CGFloat referenceDim =  MIN(vector.CGRectValue.size.width, vector.CGRectValue.size.height);
+    
+    CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
+    
+    [self.ciFilter setValue: filterCenter forKey: @"inputPoint"];
+    [self.ciFilter setValue: @(referenceDim/4.0) forKey: @"inputSize"];
+    [self.ciFilter setValue: @(1.0) forKey: @"inputDecay"];
+}
+
+-(void)settingsCIKaleidoscope: (CIVector*)vector
+{
+    CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
+    
+    [self.ciFilter setValue: filterCenter forKey: @"inputCenter"];
+}
+
+-(void)settingsCIDroste: (CIVector*)vector
+{
+    CGFloat referenceDim =  MIN(vector.CGRectValue.size.width, vector.CGRectValue.size.height);
+    CGPoint center = CGPointMake(CGRectGetMidX(vector.CGRectValue), CGRectGetMidY(vector.CGRectValue));
+    CGRect innerBox = CGRectMake(center.x, center.y, 0.001*referenceDim, 0.001*referenceDim);
+    CIVector* p1 = [CIVector vectorWithCGPoint: innerBox.origin];
+    CIVector* p2 = [CIVector vectorWithX: CGRectGetMaxX(innerBox) Y: CGRectGetMaxY(innerBox)];
+    
+    [self.ciFilter setValue: p1 forKey: @"inputInsetPoint0"];
+    [self.ciFilter setValue: p2 forKey: @"inputInsetPoint1"];
+    [self.ciFilter setValue: @(4) forKey: @"inputStrands"];
+    [self.ciFilter setValue: @(4) forKey: @"inputPeriodicity"];
+}
+
+-(void)settingsCICircularWrap: (CIVector*)vector
+{
+    CGFloat referenceDim =  MIN(vector.CGRectValue.size.width, vector.CGRectValue.size.height);
+    CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
+    
+    [self.ciFilter setValue: filterCenter forKey: @"inputCenter"];
+    [self.ciFilter setValue: @(referenceDim*0.1) forKey: @"inputRadius"];
+    [self.ciFilter setValue: @(-3.0/4.0*3.14) forKey: @"inputAngle"];
+}
+
+//-(void)settingsTemplate: (CIVector*)vector
+//{
+//CGFloat referenceDim =  MIN(vector.CGRectValue.size.width, vector.CGRectValue.size.height);
+//CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
+//
+//[self.ciFilter setValue: filterCenter forKey: @"inputPoint"];
+//}
+
+-(void)setGoodDefaultsForbounds:(CGRect)bounds
+{
+    CIVector* vector = [CIVector vectorWithCGRect: bounds];
+    
+    SEL selector = NSSelectorFromString([NSString stringWithFormat: @"settings%@:",self.identifier]);
+    
+    if ([self respondsToSelector: selector])
+    {
+        [self performSelector: selector withObject: vector];
+    }
+    else
+    {
+        [self settingsDefault: vector];
     }
     
     self.lastBounds = bounds;
@@ -247,21 +339,20 @@ EAGLContext* __eaglContext;
     }
 }
 
+
 -(UIImage*) filterImage:(UIImage *)inputImage withContext:(CIContext *)context
 {
     UIImage* filteredUIImage;
     
     @autoreleasepool
     {
-        
         [self.ciFilter setDefaults];
-        
-        self.name = self.ciFilter.attributes[kCIAttributeFilterDisplayName];
         
         CGFloat imageWidth = inputImage.scale*inputImage.size.width;
         CGFloat imageHeight = inputImage.scale*inputImage.size.height;
+        CGSize imageSize = CGSizeMake(imageWidth, imageHeight);
         CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
-        
+
         CIImage *image = [CIImage imageWithCGImage: inputImage.CGImage];
         
         CGRect nonAsImageBounds = self.lastBounds;
@@ -279,27 +370,52 @@ EAGLContext* __eaglContext;
         
         CIImage* cropped = [filteredImage imageByCroppingToRect: imageBounds];
 
-        filteredUIImage = [UIImage imageWithCIImage: cropped];
-        
-//        CGImageRef cgImage = [context createCGImage: filteredImage fromRect: imageBounds];
-        
-//        filteredUIImage = [UIImage imageWithCGImage: cgImage scale: inputImage.scale orientation: UIImageOrientationUp];
-        
-//        CGImageRelease(cgImage);
-        
-        [self setCiFilter: nil];
-        
+        UIGraphicsBeginImageContext(imageSize);
+        CGImageRef tempRef = [context createCGImage: cropped fromRect: imageBounds];
+        filteredUIImage = [UIImage imageWithCGImage: tempRef scale: inputImage.scale orientation: UIImageOrientationUp];
+        CGImageRelease(tempRef);
+        UIGraphicsEndImageContext();
     }
     
     return filteredUIImage;
+}
+
+-(NSPurgeableData*) getCachedAsImageData
+{
+    MBAppDelegate* appDelegate = (MBAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSCache* cache = appDelegate.appModel.resourceCache;
+    
+    return [cache objectForKey: [self cacheIdentifierString]];
+}
+
+-(void) saveCachedAsImageData: (NSPurgeableData*)data
+{
+    MBAppDelegate* appDelegate = (MBAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSCache* cache = appDelegate.appModel.resourceCache;
+
+    [cache setObject: data forKey: [self cacheIdentifierString]];
 }
 
 -(UIImage*) asImage
 {
     UIImage* tempImage;
     
+    NSPurgeableData* imageData = [self getCachedAsImageData];
+    
+    if (imageData)
+    {
+        if ([imageData beginContentAccess])
+        {
+            tempImage = [UIImage imageWithData: imageData];
+            [imageData endContentAccess];
+        }
+    }
+    
+    if (!tempImage)
+    {
         if (self.isDefaultObject)
         {
+            //kMBFilterBackground2, kBIconRulePlaceEmpty
             tempImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
         }
         else
@@ -310,7 +426,11 @@ EAGLContext* __eaglContext;
                 tempImage = [self filterImage: preFilterImage withContext: [MBImageFilter filterContext]];
                 [self setGoodDefaultsForbounds: self.lastBounds];
             }
+
+            NSPurgeableData* newImageData = [NSPurgeableData dataWithData: UIImagePNGRepresentation(tempImage)];
+            [self saveCachedAsImageData: newImageData];
         }
+    }
     
     return tempImage;
 }
@@ -320,5 +440,9 @@ EAGLContext* __eaglContext;
     return [self debugDescription];
 }
 
+-(void)dealloc
+{
+    
+}
 
 @end

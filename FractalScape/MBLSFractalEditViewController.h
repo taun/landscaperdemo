@@ -200,7 +200,6 @@
 - (IBAction)autoScale:(id)sender;
 
 #pragma mark - Segue Actions
-- (IBAction)popBackToLibrary:(id)sender;
 - (IBAction)unwindFromEditorIntro:(UIStoryboardSegue *)segue;
 - (IBAction)unwindFromPurchaseController:(UIStoryboardSegue *)segue;
 - (IBAction)unwindFromAppearanceController:(UIStoryboardSegue *)segue;

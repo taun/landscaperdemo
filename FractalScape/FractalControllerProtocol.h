@@ -18,7 +18,7 @@
 
 @protocol FractalControllerProtocol <NSObject>
 
-@property (nonatomic,weak) MDBAppModel                                  *appModel;
+@property (nonatomic,strong) MDBAppModel                                  *appModel;
 @property (nonatomic,strong) MDBFractalDocument                         *fractalDocument;
 @property (nonatomic,weak) NSUndoManager                                *fractalUndoManager;
 @property (nonatomic,weak) id<FractalControllerDelegate>                 fractalControllerDelegate;

@@ -18,7 +18,7 @@
 /*
   CIFilter CIAttributeFilterDisplayName
  */
-@property (nonatomic,copy) NSString                 *name;
+@property (nonatomic,readonly) NSString                 *name;
 
 /*!
  Most values will be NSNumber, CIVector values are stored as NSString.
@@ -33,6 +33,7 @@
 @property (nonatomic,readonly) CIFilter             *ciFilter;
 
 +(CIContext*) filterContext;
++(CGColorSpaceRef) colorSpace;
 
 +(instancetype) newFilterWithIdentifier: (NSString*)ciFilterName;
 

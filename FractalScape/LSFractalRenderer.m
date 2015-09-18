@@ -18,6 +18,7 @@
 #import "LSDrawingRuleType.h"
 #import "LSDrawingRule.h"
 #import "MDBFractalObjectList.h"
+#import "MBImageFilter.h"
 
 //#define LSDEBUGPERFORMANCE
 //#define LSDEBUGPOSITION
@@ -119,7 +120,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     [self releaseSegmentCGReferences];
     
-    if (_imageRef != NULL) CGImageRelease(_imageRef);
+    self.imageRef = NULL;
+
     if (_cachedContext != NULL) CGContextRelease(_cachedContext);
 }
 
@@ -165,29 +167,26 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     UIImageView*strongView = self.mainThreadImageView;
     
-    CGSize size = strongView.bounds.size;
-    CGFloat scale = strongView.contentScaleFactor;
-    int width = size.width * scale;
-    int height = size.height * scale;
+    CGSize viewSize = strongView.bounds.size;
+    CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
+    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
+    
+    int width = scaledSize.width;
+    int height = scaledSize.height;
     int bytesPerRow = 4 * width;
 
     if (_cachedContext == NULL && strongView)
     {
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
-        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
-        CGColorSpaceRelease( colorSpace );
+        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
     }
-    else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_cachedContext), strongView.bounds))
+    else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_cachedContext), scaledRect))
     {
         self.contextNSData = nil;
         
-        if (_imageRef != NULL) CGImageRelease(_imageRef);
-        _imageRef = NULL;
+        self.imageRef = NULL;
         
         CGContextRelease(_cachedContext);
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);;
-        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
-        CGColorSpaceRelease( colorSpace );
+        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
     }
 
     
@@ -198,10 +197,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     UIImageView*strongView = self.mainThreadImageView;
     
-    CGSize size = strongView.bounds.size;
-    CGFloat scale = strongView.contentScaleFactor;
-    int width = size.width * scale;
-    int height = size.height * scale;
+    CGSize viewSize = strongView.bounds.size;
+    CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
+    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
+    
+    int width = scaledSize.width;
+    int height = scaledSize.height;
     int bytesPerRow = 4 * width;
     
     int bytes = bytesPerRow * height;
@@ -223,7 +224,10 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     if (_imageRef != imageRef)
     {
         if (_imageRef != NULL) CGImageRelease(_imageRef);
+        
         _imageRef = imageRef;
+        
+        if (_imageRef != NULL) CGImageRetain(_imageRef);
     }
 }
 
@@ -378,11 +382,14 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             return;
         }
         
-        CGSize size = strongImageView.bounds.size;
+        CGSize unscaled = strongImageView.bounds.size;
+        CGSize size = CGSizeMake(unscaled.width*[[UIScreen mainScreen] scale], unscaled.height*[[UIScreen mainScreen] scale]);
         
         [self drawInContext: self.cachedContext size: size percentStart: start stop: stop];
         [self copyBitmapToNSDataCache];
-        self.imageRef = CGBitmapContextCreateImage(_cachedContext);
+        CGImageRef newImage = CGBitmapContextCreateImage(_cachedContext);
+        self.imageRef = newImage;
+        CGImageRelease(newImage);
 //        self.image = [UIImage imageWithCGImage: self.imageRef];
     }
 }

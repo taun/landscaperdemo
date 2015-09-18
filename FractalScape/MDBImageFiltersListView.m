@@ -85,9 +85,13 @@
     {
         @autoreleasepool
         {
+            NSSet* filtersToIgnore = [NSSet setWithObjects: @"CIStretchCrop", @"CIGlassDistortion", @"CIGlassLozenge", @"CIDisplacementDistortion", nil];
+
             NSArray* filters = [CIFilter filterNamesInCategory: _filterCategory];
             for (NSString* filterName in filters)
             {
+                if ([filtersToIgnore containsObject: filterName]) continue;
+                
                 MBImageFilter* newFilter = [MBImageFilter newFilterWithIdentifier: filterName];
                 //            [newFilter.inputValues addEntriesFromDictionary: @{kCIInputAngleKey:[NSNumber numberWithFloat: self.fractal.turningAngle]}];
                 [objectList addObject: newFilter];

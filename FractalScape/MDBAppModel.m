@@ -53,6 +53,7 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 @synthesize cloudKitManager = _cloudKitManager;
 @synthesize cloudDocumentManager = _cloudDocumentManager;
 @synthesize purchaseManager = _purchaseManager;
+@synthesize resourceCache = _resourceCache;
 
 -(void)___setAllowPremium:(BOOL)on
 {
@@ -74,6 +75,12 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
         _purchaseManager = [MDBPurchaseManager newManagerWithModel: self];
     }
     return self;
+}
+
+-(NSCache *)resourceCache
+{
+    if (!_resourceCache) _resourceCache = [NSCache new];
+    return _resourceCache;
 }
 
 -(MDLCloudKitManager*)cloudKitManager

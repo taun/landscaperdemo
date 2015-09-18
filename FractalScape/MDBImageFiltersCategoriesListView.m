@@ -46,7 +46,6 @@
     }
     @autoreleasepool
     {
-        
         NSInteger lineNum = 0;
         
         NSInteger rrCount;
@@ -55,7 +54,6 @@
 #else
             for (rrCount = 0; rrCount < 3; rrCount++) {
 #endif
-                
                 CGRect rrFrame = CGRectMake(0, lineNum*_tileWidth, self.bounds.size.width, _tileWidth);
                 MDBImageFiltersListView* newRR = [[MDBImageFiltersListView alloc] initWithFrame: rrFrame];
 #if !TARGET_INTERFACE_BUILDER

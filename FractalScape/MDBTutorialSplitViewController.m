@@ -79,11 +79,13 @@
     BOOL isCollapsed = self.isCollapsed;
     UINavigationController* masterController = self.viewControllers[0];
     
-    [self.detailPageController setViewControllers: @[pageControllerPage] direction: direction animated: !isCollapsed completion:^(BOOL finished) {
+    UIPageViewController* __weak pageController = self.detailPageController;
+    
+    [pageController setViewControllers: @[pageControllerPage] direction: direction animated: !isCollapsed completion:^(BOOL finished) {
         //
         if (isCollapsed)
         {
-            [masterController pushViewController: self.detailPageController animated: YES];
+            [masterController pushViewController: pageController animated: YES];
         }
     }];
 }

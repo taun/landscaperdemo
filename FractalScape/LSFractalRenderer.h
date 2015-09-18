@@ -240,11 +240,17 @@ X ;   close path
  Scale the fractal to fill the view with the fractal.
  */
 @property (nonatomic,assign) BOOL                   autoExpand;
+/*!
+ Whether or not to show an origin arrow at the origin.
+ */
 @property (nonatomic,assign) BOOL                   showOrigin;
 @property (nonatomic,assign) BOOL                   applyFilters;
 @property (nonatomic,assign) CGFloat                scale;
 @property (nonatomic,assign) CGFloat                translateX;
 @property (nonatomic,assign) CGFloat                translateY;
+/*!
+ Reference to renderer operation for checking isCancelled, ..
+ */
 @property (nonatomic,weak) NSBlockOperation         *operation;
 
 @property (atomic, readonly) NSMutableData   *contextNSData;
