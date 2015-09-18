@@ -955,7 +955,7 @@
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="top" secondItem="3Df-59-GZt" secondAttribute="bottom" constant="12" id="er1-62-2EY"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="leading" secondItem="dJU-MH-ihA" secondAttribute="leading" id="fcH-Cx-ND2"/>
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="top" secondItem="wmh-En-OwM" secondAttribute="bottom" constant="10" id="gz4-lg-v7f"/>
-                                            <constraint firstItem="3Df-59-GZt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v9U-ZO-4Bb" secondAttribute="trailing" id="ho5-Sp-qnR"/>
+                                            <constraint firstItem="3Df-59-GZt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v9U-ZO-4Bb" secondAttribute="trailing" constant="3" id="ho5-Sp-qnR"/>
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="i9u-dn-N5F"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="top" secondItem="dJU-MH-ihA" secondAttribute="bottom" constant="10" id="tjp-aS-CJK"/>
                                             <constraint firstAttribute="centerX" secondItem="4tK-dc-Bzb" secondAttribute="centerX" id="x7f-gJ-1tF"/>
@@ -3341,6 +3341,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cep-6U-dGk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="hsw-Vg-xX2" kind="relationship" relationship="rootViewController" id="IiX-CI-rEU"/>
@@ -3613,6 +3614,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="B8t-lF-JXC" kind="relationship" relationship="rootViewController" id="e4f-n4-AOF"/>
@@ -3912,6 +3914,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lwl-kr-jhM">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bKg-aJ-g7d">
@@ -3976,6 +3979,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gUo-JS-e17">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.22" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -4187,6 +4191,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEs-5p-402">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -4745,7 +4750,7 @@ The main screen with all your fractals is called your "Library". See below for a
         </scene>
     </scenes>
     <resources>
-        <image name="HUDBackground" width="31" height="31"/>
+        <image name="HUDBackground" width="15" height="15"/>
         <image name="MOEDAELogo96" width="96" height="96"/>
         <image name="documentThumbnailPlaceholder1024" width="1024" height="1024"/>
         <image name="documentThumbnailPlaceholder130" width="130" height="130"/>

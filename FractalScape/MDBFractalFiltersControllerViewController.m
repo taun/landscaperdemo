@@ -96,7 +96,7 @@
     
     self.tappedFilter = filter;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.destinationView.objectList addObject: self.tappedFilter];
         NSTimer* removalTimer = [NSTimer timerWithTimeInterval: 2.0 target: self selector: @selector(removedTappedFilterFromObjectList:) userInfo: nil repeats: NO];
         [[NSRunLoop mainRunLoop]addTimer: removalTimer forMode: NSDefaultRunLoopMode];

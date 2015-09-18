@@ -315,6 +315,10 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     [super viewDidLoad];
 
+//    [[UINavigationBar appearanceWhenContainedIn: [self class],nil] setBarTintColor: self.view.tintColor];
+    
+//    [self.navigationController.navigationBar setBarTintColor: [UIColor redColor]];
+    
     _filterBitmapContext = NULL;
     
     self.panValueLabelHorizontal.font = [UIFont proportionalForExistingFont: self.panValueLabelHorizontal.font];

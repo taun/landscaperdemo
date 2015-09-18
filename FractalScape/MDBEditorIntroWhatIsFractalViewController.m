@@ -79,7 +79,10 @@
         uiWebView.delegate = self;
         uiWebView.translatesAutoresizingMaskIntoConstraints = NO;
         uiWebView.scrollView.backgroundColor = [UIColor clearColor];
+        uiWebView.scrollView.alwaysBounceVertical = YES;
+        uiWebView.scrollView.alwaysBounceHorizontal = NO;
         uiWebView.backgroundColor = [UIColor clearColor];
+        uiWebView.scalesPageToFit = YES;
         
         webView = uiWebView;
     }
@@ -99,6 +102,8 @@
         wkWebView.navigationDelegate = self;
         wkWebView.translatesAutoresizingMaskIntoConstraints = NO;
         wkWebView.scrollView.backgroundColor = [UIColor clearColor];
+        wkWebView.scrollView.alwaysBounceVertical = YES;
+        wkWebView.scrollView.alwaysBounceHorizontal = NO;
         wkWebView.backgroundColor = [UIColor clearColor];
         wkWebView.allowsBackForwardNavigationGestures = NO;
         webView = wkWebView;
@@ -107,7 +112,7 @@
     self.webView = webView;
     [self.webContainer addSubview: self.webView];
     self.webView.frame = self.webContainer.bounds;
-    
+
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(webView);
     
     [self.webContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[webView]-0-|"

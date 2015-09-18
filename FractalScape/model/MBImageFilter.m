@@ -173,7 +173,7 @@ static EAGLContext* __eaglContext;
 
 -(CIFilter*)ciFilter
 {
-    if (!_ciFilter && self.identifier)
+    if (!_ciFilter && self.identifier && !self.isDefaultObject)
     {
         _ciFilter = [CIFilter filterWithName: self.identifier];
         [_ciFilter setDefaults];
@@ -366,15 +366,20 @@ static EAGLContext* __eaglContext;
     }
 }
 
-
+/*!
+ Only used for generating the thumbnail tile.
+ 
+ @param inputImage reference image to filter
+ @param context    global context passed in
+ 
+ @return filtered image
+ */
 -(UIImage*) filterImage:(UIImage *)inputImage withContext:(CIContext *)context
 {
     UIImage* filteredUIImage;
     
     @autoreleasepool
     {
-        [self.ciFilter setDefaults];
-        
         CGFloat imageWidth = inputImage.scale*inputImage.size.width;
         CGFloat imageHeight = inputImage.scale*inputImage.size.height;
         CGSize imageSize = CGSizeMake(imageWidth, imageHeight);
@@ -402,6 +407,9 @@ static EAGLContext* __eaglContext;
         filteredUIImage = [UIImage imageWithCGImage: tempRef scale: inputImage.scale orientation: UIImageOrientationUp];
         CGImageRelease(tempRef);
         UIGraphicsEndImageContext();
+        
+        // reset to non thumbnail settings
+        [self setGoodDefaultsForbounds: nonAsImageBounds];
     }
     
     return filteredUIImage;
@@ -427,33 +435,32 @@ static EAGLContext* __eaglContext;
 {
     UIImage* tempImage;
     
-    NSPurgeableData* imageData = [self getCachedAsImageData];
-    
-    if (imageData)
+    if (self.isDefaultObject)
     {
-        if ([imageData beginContentAccess])
-        {
-            tempImage = [UIImage imageWithData: imageData];
-            [imageData endContentAccess];
-        }
+        //kMBFilterBackground2, kBIconRulePlaceEmpty
+        tempImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
     }
-    
-    if (!tempImage)
+    else
     {
-        if (self.isDefaultObject)
+        NSPurgeableData* imageData = [self getCachedAsImageData];
+        
+        if (imageData)
         {
-            //kMBFilterBackground2, kBIconRulePlaceEmpty
-            tempImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
+            if ([imageData beginContentAccess])
+            {
+                tempImage = [UIImage imageWithData: imageData];
+                [imageData endContentAccess];
+            }
         }
-        else
+        
+        if (!tempImage)
         {
             @autoreleasepool
             {
                 UIImage* preFilterImage = [UIImage imageNamed: @"kBIconRulePlaceEmpty"];
                 tempImage = [self filterImage: preFilterImage withContext: [MBImageFilter filterContext]];
-                [self setGoodDefaultsForbounds: self.lastBounds];
             }
-
+            
             NSPurgeableData* newImageData = [NSPurgeableData dataWithData: UIImagePNGRepresentation(tempImage)];
             [self saveCachedAsImageData: newImageData];
         }
