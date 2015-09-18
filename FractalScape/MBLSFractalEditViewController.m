@@ -2556,7 +2556,7 @@ static const CGFloat kLevelNMargin = 48.0;
             }
             filteredImage = [filteredImage imageByCroppingToRect: imageBounds];
 
-            if ((YES))
+            if ((NO))
             {
                 NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: nil];
                 for (CIFilter *filter in adjustments) {

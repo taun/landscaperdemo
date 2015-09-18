@@ -275,6 +275,24 @@ static EAGLContext* __eaglContext;
     [self.ciFilter setValue: filterCenter forKey: @"inputCenter"];
 }
 
+-(void)settingsCITriangleTile: (CIVector*)vector
+{
+    CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
+    
+    [self.ciFilter setValue: filterCenter forKey: @"inputCenter"];
+    [self.ciFilter setValue: @(vector.CGRectValue.size.width*0.38) forKey: @"inputWidth"];
+}
+
+-(void)settingsCIPerspectiveTile: (CIVector*)vector
+{
+    CGRect rect = vector.CGRectValue;
+    
+    [self.ciFilter setValue: [CIVector vectorWithX: CGRectGetMaxX(rect)*1.2 Y: CGRectGetMinY(rect)*0.9 ] forKey: @"inputTopLeft"];
+    [self.ciFilter setValue: [CIVector vectorWithX: CGRectGetMaxX(rect)*0.9 Y: CGRectGetMaxY(rect)*0.7 ] forKey: @"inputTopRight"];
+    [self.ciFilter setValue: [CIVector vectorWithX: CGRectGetMinX(rect)*0.8 Y: CGRectGetMaxY(rect)*0.9 ] forKey: @"inputBottomRight"];
+    [self.ciFilter setValue: [CIVector vectorWithX: CGRectGetMinX(rect)*1.1 Y: CGRectGetMinY(rect)*1.3 ] forKey: @"inputBottomLeft"];
+}
+
 -(void)settingsCIDroste: (CIVector*)vector
 {
     CGFloat referenceDim =  MIN(vector.CGRectValue.size.width, vector.CGRectValue.size.height);
