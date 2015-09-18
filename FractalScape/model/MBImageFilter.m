@@ -288,7 +288,8 @@ static EAGLContext* __eaglContext;
     CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
     
     [self.ciFilter setValue: filterCenter forKey: @"inputCenter"];
-    [self.ciFilter setValue: @(vector.CGRectValue.size.width*0.38) forKey: @"inputWidth"];
+    [self.ciFilter setValue: @(vector.CGRectValue.size.width*0.05) forKey: @"inputWidth"];
+    [self.ciFilter setValue: @(1.0/0.4) forKey: @"inputScale"]; // inverse of scale transform
 }
 
 -(void)settingsCIPerspectiveTile: (CIVector*)vector

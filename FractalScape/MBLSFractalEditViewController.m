@@ -44,8 +44,8 @@
 
 static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 static const BOOL SIMULTOUCH = NO;
-static const CGFloat kHighPerformanceFrameRate = 20.0;
-static const CGFloat kLowPerformanceFrameRate = 8.0;
+static const CGFloat kHighPerformanceFrameRate = 8.0;
+static const CGFloat kLowPerformanceFrameRate = 4.0;
 static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 static const CGFloat kLevelNMargin = 48.0;
 
@@ -563,7 +563,7 @@ static const CGFloat kLevelNMargin = 48.0;
    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
-        [self queueFractalImageUpdates];
+//        [self queueFractalImageUpdates];
         [self updateViewController: self.currentPresentedController popoverPreferredContentSizeForViewSize: size];
         //        self.fractalView.position = fractalNewPosition;
         
@@ -2558,7 +2558,13 @@ static const CGFloat kLevelNMargin = 48.0;
 
             if ((NO))
             {
-                NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: nil];
+                NSDictionary* options = @{kCIImageAutoAdjustCrop:@NO,
+                                          kCIImageAutoAdjustRedEye:@NO,
+                                          kCIImageAutoAdjustFeatures:@NO,
+                                          kCIImageAutoAdjustEnhance:@YES,
+                                          kCIImageAutoAdjustLevel:@YES};
+                
+                NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: options];
                 for (CIFilter *filter in adjustments) {
                     [filter setValue: filteredImage forKey: kCIInputImageKey];
                     filteredImage = filter.outputImage;
