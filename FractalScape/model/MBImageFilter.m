@@ -283,6 +283,14 @@ static EAGLContext* __eaglContext;
     [self.ciFilter setValue: @(vector.CGRectValue.size.width*0.38) forKey: @"inputWidth"];
 }
 
+-(void)settingsCIOpTile: (CIVector*)vector
+{
+    CIVector* filterCenter = [CIVector vectorWithX: CGRectGetMidX(vector.CGRectValue) Y: CGRectGetMidY(vector.CGRectValue)];
+    
+    [self.ciFilter setValue: filterCenter forKey: @"inputCenter"];
+    [self.ciFilter setValue: @(vector.CGRectValue.size.width*0.38) forKey: @"inputWidth"];
+}
+
 -(void)settingsCIPerspectiveTile: (CIVector*)vector
 {
     CGRect rect = vector.CGRectValue;

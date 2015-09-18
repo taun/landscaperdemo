@@ -418,7 +418,7 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     else
     {
-        
+        [self.toggleFullScreenButton removeFromSuperview];
     }
     
     UIEdgeInsets scrollInsets = UIEdgeInsetsMake(300.0, 300.0, 300.0, 300.0);
