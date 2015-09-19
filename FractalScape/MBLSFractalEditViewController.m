@@ -2505,8 +2505,7 @@ static const CGFloat kLevelNMargin = 48.0;
             
             for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
             {
-                [filter.ciFilter setValue: filteredImage forKey:kCIInputImageKey];
-                filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
+                filteredImage = [filter getOutputCIImageForInputCIImage: filteredImage];
             }
             filteredImage = [filteredImage imageByCroppingToRect: imageBounds];
             
@@ -2555,8 +2554,7 @@ static const CGFloat kLevelNMargin = 48.0;
             
             for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
             {
-                [filter.ciFilter setValue: filteredImage forKey:kCIInputImageKey];
-                filteredImage = [filter.ciFilter valueForKey: kCIOutputImageKey];
+                filteredImage = [filter getOutputCIImageForInputCIImage: filteredImage];
             }
             filteredImage = [filteredImage imageByCroppingToRect: imageBounds];
 
@@ -2569,7 +2567,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                           kCIImageAutoAdjustLevel:@YES};
                 
                 NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: options];
-                for (CIFilter *filter in adjustments) {
+                for (CIFilter *filter in adjustments)
+                {
                     [filter setValue: filteredImage forKey: kCIInputImageKey];
                     filteredImage = filter.outputImage;
                 }

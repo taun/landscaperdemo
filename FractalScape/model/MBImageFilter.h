@@ -48,6 +48,8 @@
  */
 -(void)setGoodDefaultsForbounds: (CGRect)bounds;
 
+-(CIImage*) getOutputCIImageForInputCIImage: (CIImage*)inputImage;
+
 -(UIImage*)filterImage: (UIImage*)inputImage withContext: (CIContext*)context;
 
 @end

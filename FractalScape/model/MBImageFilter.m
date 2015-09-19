@@ -366,6 +366,25 @@ static EAGLContext* __eaglContext;
     }
 }
 
+-(CIImage *)getOutputCIImageForInputCIImage:(CIImage *)inputImage
+{
+    CIImage* outputImage;
+    
+    CIFilter* filter = self.ciFilter;
+    
+    if (filter)
+    {
+        [filter setValue: inputImage forKey: kCIInputImageKey];
+        outputImage = filter.outputImage;
+    }
+    else
+    {
+         outputImage = inputImage;
+    }
+    
+    return outputImage;
+}
+
 /*!
  Only used for generating the thumbnail tile.
  

@@ -94,7 +94,10 @@
                 
                 MBImageFilter* newFilter = [MBImageFilter newFilterWithIdentifier: filterName];
                 //            [newFilter.inputValues addEntriesFromDictionary: @{kCIInputAngleKey:[NSNumber numberWithFloat: self.fractal.turningAngle]}];
-                [objectList addObject: newFilter];
+                if (newFilter)
+                {
+                    [objectList addObject: newFilter];
+                }
             }
         }
     }
