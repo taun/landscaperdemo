@@ -1481,17 +1481,22 @@ static const CGFloat kLevelNMargin = 48.0;
             [renderer generateImage];
             if (renderer.mainThreadImageView && renderer.imageRef != NULL)
             {
+                CGImageRef filteredImage = NULL;
+                
+                if (renderer.applyFilters)
+                {
+                    //                        [self updateFiltersOnView: renderer.imageView];
+                    CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
+                    CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
+                    CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
+                    NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
+                    filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
+                }
+                
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     BOOL applyFilters = YES;
                     if (renderer.applyFilters)
                     {
-                        
-                        //                        [self updateFiltersOnView: renderer.imageView];
-                        CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
-                        CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
-                        CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
-                        NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
-                        CGImageRef filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
                         renderer.mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
                     }
                     else
