@@ -89,6 +89,7 @@ static const CGFloat kLevelNMargin = 48.0;
  */
 @property (nonatomic,readonly,strong) NSOperationQueue     *privateImageGenerationQueue;
 @property (nonatomic, strong) NSTimer                      *privateImageGenerationQueueTimeoutTimer;
+@property (nonatomic,readonly,strong) NSOperationQueue     *exportImageGenerationQueue;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL0;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL1;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL2;
@@ -132,6 +133,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
 @synthesize undoManager = _undoManager;
 @synthesize privateImageGenerationQueue = _privateImageGenerationQueue;
+@synthesize exportImageGenerationQueue = _exportImageGenerationQueue;
 //@synthesize fractal = _fractal;
 @synthesize filterBitmapContext = _filterBitmapContext;
 
@@ -730,7 +732,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (state == UIDocumentStateNormal)
     {
-//        [self addObserversForCurrentFractal];
+        [self addObserversForCurrentFractal];
     }
     else if (state & UIDocumentStateInConflict)
     {
@@ -843,6 +845,16 @@ static const CGFloat kLevelNMargin = 48.0;
     return _privateImageGenerationQueue;
 }
 
+-(NSOperationQueue*) exportImageGenerationQueue
+{
+    if (!_exportImageGenerationQueue)
+    {
+        _exportImageGenerationQueue = [[NSOperationQueue alloc] init];
+        _exportImageGenerationQueue.name = @"FractalExportImageGenerationQueue";
+    }
+    return _exportImageGenerationQueue;
+}
+
 #pragma mark Fractal Property KVO
 -(void)setFractalInfo:(MDBFractalInfo *)fractalInfo {
     
@@ -889,7 +901,6 @@ static const CGFloat kLevelNMargin = 48.0;
         self.autoscaleN = YES;
         self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
         
-        [self updateFilterSettingsForCanvas];
         [self addObserverForFractalChangeInCurrentDocument];
     }
 }
@@ -1039,14 +1050,20 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     if (self.hasBeenEdited)
     {
-        UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
-        
-        [_fractalInfo.document setThumbnail: fractalImage];
-        _fractalInfo.changeDate = [NSDate date];
-        
-        [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-        
-        self.hasBeenEdited = NO;
+        [self.exportImageGenerationQueue addOperationWithBlock:^{
+            UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //
+                [self->_fractalInfo.document setThumbnail: fractalImage];
+                self->_fractalInfo.changeDate = [NSDate date];
+                
+                [self->_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+                
+                self.hasBeenEdited = NO;
+            });
+
+        }];
     }
 }
 
@@ -1069,6 +1086,11 @@ static const CGFloat kLevelNMargin = 48.0;
         }
         
         [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: 0 context: NULL];
+
+        self.hasBeenEdited = YES;
+        [self updateFilterSettingsForCanvas];
+        [self queueFractalImageUpdates];
+        [self updateInterface];
     }
 }
 
@@ -1145,30 +1167,39 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     if (fractal)
     {
-        [_fractalInfo.document removeObserver: self forKeyPath: @"fractal"];
-        
-        NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
-        [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
-        [propertiesToObserve unionSet: [LSFractal redrawProperties]];
-        [propertiesToObserve unionSet: [LSFractal labelProperties]];
-        
-        // Some properties may not being observed due to being nil initially?
-        for (NSString* keyPath in propertiesToObserve)
-        {
-            @try {
-                [fractal removeObserver: self forKeyPath: keyPath];
-            }
-            @catch (NSException *exception)
+        @try {
+            [_fractalInfo.document removeObserver: self forKeyPath: @"fractal"];
+            
+            NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
+            [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
+            [propertiesToObserve unionSet: [LSFractal redrawProperties]];
+            [propertiesToObserve unionSet: [LSFractal labelProperties]];
+            
+            // Some properties may not being observed due to being nil initially?
+            for (NSString* keyPath in propertiesToObserve)
             {
-                //
-                NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
+                @try {
+                    [fractal removeObserver: self forKeyPath: keyPath];
+                }
+                @catch (NSException *exception)
+                {
+                    //
+                    NSLog(@"%s: KVO Error removing observers exception: %@",__PRETTY_FUNCTION__, exception);
+                }
+                @finally {
+                    //
+                }
             }
-            @finally {
-                //
-            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s: KVO Error removing observers exception: %@",__PRETTY_FUNCTION__, exception);
+        }
+        @finally {
+            //
         }
     }
 }
+
 -(void) removeObserversForCurrentFractal
 {
     LSFractal* fractal = _fractalInfo.document.fractal;
@@ -1381,9 +1412,20 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
--(void) imageGenerationTimeout
+-(void) imageGenerationStartAnimator: (NSTimer*)timer
 {
-    NSLog(@"FractalScapes cancelling privateImageGenerationQueue due to timeout");
+    [self.activityIndicator startAnimating];
+
+    self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
+                                                                                    target: self
+                                                                                  selector: @selector(imageGenerationTimeout:)
+                                                                                  userInfo: nil
+                                                                                   repeats: NO];
+}
+
+-(void) imageGenerationTimeout: (NSTimer*)timer
+{
+    NSLog(@"FractalScapes cancelling privateImageGenerationQueue due to timeout: %f",timer.timeInterval);
     [self.privateImageGenerationQueue cancelAllOperations];
 }
 
@@ -1406,13 +1448,7 @@ static const CGFloat kLevelNMargin = 48.0;
         [strongOperation cancel];
     }
     
-    self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 10.0
-                                                                                    target: self
-                                                                                  selector: @selector(imageGenerationTimeout)
-                                                                                  userInfo: nil
-                                                                                   repeats: NO];
     [self.privateImageGenerationQueue waitUntilAllOperationsAreFinished];
-    [self.privateImageGenerationQueueTimeoutTimer invalidate];
     
     [self queueHudImageUpdates];
     
@@ -1434,10 +1470,31 @@ static const CGFloat kLevelNMargin = 48.0;
 //    {
 //        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;
 //    }
+    
+    NSBlockOperation* startTimerOperation = [NSBlockOperation blockOperationWithBlock:^{
+        //
+              dispatch_async(dispatch_get_main_queue(), ^{
+                //
+                  self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 0.5
+                                                                                                  target: self
+                                                                                                selector: @selector(imageGenerationStartAnimator:)
+                                                                                                userInfo: nil
+                                                                                                 repeats: NO];
+            });
+    }];
+    
     NSBlockOperation* operationNN1 = [self operationForRenderer: self.fractalRendererLN];
     
+    NSBlockOperation* endTimerOperation = [NSBlockOperation blockOperationWithBlock:^{
+        // image generation finished before the timeout.
+        if (self.privateImageGenerationQueueTimeoutTimer.isValid) [self.privateImageGenerationQueueTimeoutTimer invalidate];
+    }];
     
-    [self.privateImageGenerationQueue addOperation: operationNN1];
+    [endTimerOperation addDependency: operationNN1];
+    [operationNN1 addDependency: startTimerOperation];
+
+    [self.privateImageGenerationQueue addOperations: @[startTimerOperation,operationNN1,endTimerOperation] waitUntilFinished: NO];
+//    [self.privateImageGenerationQueue addOperation: operationNN1];
     self.lastImageUpdateTime = [NSDate date];
 }
 -(void) queueHudImageUpdates
@@ -1468,7 +1525,8 @@ static const CGFloat kLevelNMargin = 48.0;
 }
 -(NSBlockOperation*) operationForRenderer: (LSFractalRenderer*)renderer
 {
-    
+//    [self.activityIndicator startAnimating];
+
     [renderer setValuesForFractal: self.fractalDocument.fractal];
     
     NSBlockOperation* operation = [NSBlockOperation new];
@@ -1481,22 +1539,17 @@ static const CGFloat kLevelNMargin = 48.0;
             [renderer generateImage];
             if (renderer.mainThreadImageView && renderer.imageRef != NULL)
             {
-                CGImageRef filteredImage = NULL;
-                
-                if (renderer.applyFilters)
-                {
-                    //                        [self updateFiltersOnView: renderer.imageView];
-                    CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
-                    CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
-                    CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
-                    NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
-                    filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
-                }
-                
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     BOOL applyFilters = YES;
                     if (renderer.applyFilters)
                     {
+                        
+                        //                        [self updateFiltersOnView: renderer.imageView];
+                        CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
+                        CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
+                        CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
+                        NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
+                        CGImageRef filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
                         renderer.mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
                     }
                     else
@@ -1510,12 +1563,12 @@ static const CGFloat kLevelNMargin = 48.0;
                         [self.activityIndicator stopAnimating];
                     }
                     if (!self.renderTimeLabel.hidden && renderer == self.fractalRendererLN)
-                        {
-                            UIDevice* device = [UIDevice currentDevice];
-                            NSString* deviceIdentifier = device.model;
-                            self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, Render Time: %0.0fms, Nodes: %lu",
-                                                         deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
-                        }
+                    {
+                        UIDevice* device = [UIDevice currentDevice];
+                        NSString* deviceIdentifier = device.model;
+                        self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, Render Time: %0.0fms, Nodes: %lu",
+                                                     deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
+                    }
                 }];
             }
         }
@@ -2097,6 +2150,7 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     NSMutableArray* exportItems = [NSMutableArray new];
 
+    
     UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(1024.0, 1024.0) withWatermark: self.appModel.useWatermark];
     
     NSData* pngImage = UIImagePNGRepresentation(fractalImage);
@@ -2428,8 +2482,9 @@ static const CGFloat kLevelNMargin = 48.0;
     double rawValue = sender.value;
     CGFloat roundedNumber = (CGFloat)lround(rawValue);
     self.fractalDocument.fractal.levelUnchanged = NO;
-    self.fractalDocument.fractal.level = roundedNumber;
-    [self.activityIndicator startAnimating];
+    self.fractalDocument.fractal.level = roundedNumber; // triggers observer
+    self.hasBeenEdited = YES;
+    [self updateLibraryRepresentationIfNeeded];
 }
 
 #pragma mark - HUD Slider Actions
@@ -2495,7 +2550,6 @@ static const CGFloat kLevelNMargin = 48.0;
     CGImageRef filteredImageRef = NULL;
     
     if (filters && !filters.isEmpty) {
-        [self.activityIndicator startAnimating];
 
         CGFloat imageWidth = ciiImage.extent.size.width;
         CGFloat imageHeight = ciiImage.extent.size.height;
@@ -2532,7 +2586,6 @@ static const CGFloat kLevelNMargin = 48.0;
                 filteredImageRef = [[MBImageFilter filterContext] createCGImage: filteredImage fromRect: imageBounds];
             }
         }
-        [self.activityIndicator stopAnimating];
     }
     
     return filteredImageRef;
@@ -2600,7 +2653,10 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     else if (!filters.isEmpty)
     {
-        self.fractalDocument.fractal.applyFilters = !filtersOn;
+        self.fractalDocument.fractal.applyFilters = !filtersOn; // should trigger observers
+        
+        self.hasBeenEdited = YES;
+        [self updateLibraryRepresentationIfNeeded];
     }
     [self updateFilterSettingsForCanvas];
 }
@@ -2638,11 +2694,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     self.panIndicatorBackgroundFadeTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
                                                                             target: self
-                                                                          selector: @selector(fadePanIndicatorBackground)
+                                                                          selector: @selector(fadePanIndicatorBackground:)
                                                                           userInfo: nil repeats: NO];
 }
 
--(void) fadePanIndicatorBackground
+-(void) fadePanIndicatorBackground:(NSTimer*)timer
 {
     [UIView animateWithDuration: 2.0 animations:^{
         
@@ -2969,7 +3025,8 @@ verticalPropertyPath: @"lineChangeFactor"
         [gestureRecognizer setTranslation: CGPointZero inView: fractalView];
         determinedState = 0;
         self.autoscaleN = YES;
-//        [self updateLibraryRepresentationIfNeeded];
+        self.hasBeenEdited = YES;
+        [self updateLibraryRepresentationIfNeeded];
     }
 }
 

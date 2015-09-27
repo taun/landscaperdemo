@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 
 @protocol MDBFractaDocumentProtocol <NSObject>
 
-@property(nonatomic,strong) LSFractal                       *fractal;
+@property(atomic,strong) LSFractal                       *fractal;
 @property(nonatomic,strong) UIImage                         *thumbnail;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
 @property(nonatomic,readonly) NSString                      *loadResultString;
@@ -63,7 +63,7 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 /*!
  An LSFractal
  */
-@property(nonatomic,strong) LSFractal                       *fractal;
+@property(atomic,strong) LSFractal                       *fractal;
 @property(nonatomic,strong) UIImage                         *thumbnail;
 @property(nonatomic,strong) NSArray                         *categories;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
