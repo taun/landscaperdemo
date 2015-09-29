@@ -1472,30 +1472,32 @@ static const CGFloat kLevelNMargin = 48.0;
 //        self.fractalRendererLN.pixelScale = self.fractalViewHolder.contentScaleFactor;
 //    }
     
-    NSBlockOperation* startTimerOperation = [NSBlockOperation blockOperationWithBlock:^{
-        //
-              dispatch_async(dispatch_get_main_queue(), ^{
-                //
-                  self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 0.5
-                                                                                                  target: self
-                                                                                                selector: @selector(imageGenerationStartAnimator:)
-                                                                                                userInfo: nil
-                                                                                                 repeats: NO];
-            });
-    }];
+//    NSBlockOperation* startTimerOperation = [NSBlockOperation blockOperationWithBlock:^{
+//        //
+//              dispatch_async(dispatch_get_main_queue(), ^{
+//                //
+//                  self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 0.5
+//                                                                                                  target: self
+//                                                                                                selector: @selector(imageGenerationStartAnimator:)
+//                                                                                                userInfo: nil
+//                                                                                                 repeats: NO];
+//            });
+//    }];
     
     NSBlockOperation* operationNN1 = [self operationForRenderer: self.fractalRendererLN];
     
-    NSBlockOperation* endTimerOperation = [NSBlockOperation blockOperationWithBlock:^{
-        // image generation finished before the timeout.
-        if (self.privateImageGenerationQueueTimeoutTimer.isValid) [self.privateImageGenerationQueueTimeoutTimer invalidate];
-    }];
-    
-    [endTimerOperation addDependency: operationNN1];
-    [operationNN1 addDependency: startTimerOperation];
-
-    [self.privateImageGenerationQueue addOperations: @[startTimerOperation,operationNN1,endTimerOperation] waitUntilFinished: NO];
-//    [self.privateImageGenerationQueue addOperation: operationNN1];
+//    NSBlockOperation* endTimerOperation = [NSBlockOperation blockOperationWithBlock:^{
+//        // image generation finished before the timeout.
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (self.privateImageGenerationQueueTimeoutTimer.isValid) [self.privateImageGenerationQueueTimeoutTimer invalidate];
+//        });
+//    }];
+//    
+//    [endTimerOperation addDependency: operationNN1];
+//    [operationNN1 addDependency: startTimerOperation];
+//
+//    [self.privateImageGenerationQueue addOperations: @[startTimerOperation,operationNN1,endTimerOperation] waitUntilFinished: NO];
+    [self.privateImageGenerationQueue addOperation: operationNN1];
     self.lastImageUpdateTime = [NSDate date];
 }
 -(void) queueHudImageUpdates
