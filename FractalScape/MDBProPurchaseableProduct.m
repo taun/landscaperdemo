@@ -16,11 +16,9 @@
     return 10;
 }
 
--(BOOL)processPurchase: (NSDate*)date
+-(void)validReceiptFoundForDate: (NSDate*)date
 {
-    [super processPurchase: date];
-    // over ride return since there is nothing to install
-    return YES;
+    [super validReceiptFoundForDate: date];
 }
 
 @end

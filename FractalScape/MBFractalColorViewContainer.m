@@ -9,6 +9,7 @@
 #import "MBFractalColorViewContainer.h"
 #import "MBColor.h"
 #import "MDBPurchaseManager.h"
+#import "MDBColorPakPurchaseableProduct.h"
 
 #import "QuartzHelpers.h"
 
@@ -64,6 +65,13 @@
     if (self.appModel.purchaseManager.isColorPakAvailable && self.appModel.userCanMakePayments)
     {
         self.getExtraColorsView.hidden = NO;
+        
+        if (self.appModel.purchaseManager.colorPak1.canRestore)
+        {
+            UIButton* button =  (UIButton*)[self.getExtraColorsView.subviews firstObject];
+            NSString* titleString = NSLocalizedString(@"Restore Color Pak", @"Color popover, Restore Color Pak");
+            [button setTitle: titleString forState: UIControlStateNormal];
+        }
     }
     else
     {

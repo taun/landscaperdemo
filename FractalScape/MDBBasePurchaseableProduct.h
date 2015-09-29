@@ -17,8 +17,20 @@
 @property(nonatomic,strong)SKProduct            *product;
 @property(nonatomic,strong)UIImage              *image;
 @property(nonatomic,weak) MDBPurchaseManager    *purchaseManager;
-@property(readonly)NSString                     *localizedPriceString;
-@property(readonly)BOOL                         hasReceipt;
+@property(atomic,readonly)NSString              *localizedPriceString;
+@property(atomic,readonly)NSString              *localizedStoreButtonString;
+
+@property(readonly)BOOL                         canBuy;
+@property(readonly)BOOL                         canRestore;
+/*!
+ A purchase transaction for this product has been completed on this device or an iCloud connected device.
+ */
+@property(readonly)BOOL                         hasLocalReceipt;
+/*!
+ The device app receipt processing has indicated there is a receipt for this product. If there is no hasLocalReceipt,
+ then a restore option needs to be presented. 
+ */
+@property(readonly)BOOL                         hasAppReceipt;
 @property(readonly)NSInteger                    storeClassIndex;
 @property(readonly)SKPaymentTransactionState    transactionState;
 @property(readonly)BOOL                         isContentLoaded;
@@ -27,14 +39,17 @@
 -(instancetype)initWithProductIdentifier: (NSString*)productID image:(UIImage*)image;
 
 /*!
- Handle purchase by enabling feature or installing content.
- Will need to be overridden by subclass.
+ Simply sets the hasAppReceipt property. Usually set at init of the purchase manager.
  
- Content is loaded as part of processPurchase: so it needs to be called at startup.
+ Does not load content. Content is loaded by manager if hasLocalReceipt is YES.
  
- @return if success for enabling or installing content
- */
--(BOOL)processPurchase:(NSDate*)date;
+ Feature is enabled if hasLocalReceipt is YES.
+ 
+ This is used to trigger the Restore option.
+
+ @param date of past transaction
+*/
+-(void)validReceiptFoundForDate:(NSDate*)date;
 
 /*!
  Method to override for classes which load content.

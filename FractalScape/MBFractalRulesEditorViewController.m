@@ -15,6 +15,8 @@
 
 #import "FractalScapeIconSet.h"
 #import "MBLSFractalEditViewController.h"
+#import "MDBPurchaseManager.h"
+#import "MDBBasePurchaseableProduct.h"
 
 @interface MBFractalRulesEditorViewController ()
 @end
@@ -45,15 +47,17 @@
 {
     [super viewWillAppear:animated];
     
-    BOOL allowPremium = self.appModel.allowPremium;
     BOOL canPurchase = self.appModel.userCanMakePayments;
+
+    MDBBasePurchaseableProduct* proPak = self.appModel.purchaseManager.proPak;
     
-    self.rulesModeSegmentedControl.enabled = allowPremium;
-    self.destinationView.userInteractionEnabled = allowPremium;
-    self.replacementRules.userInteractionEnabled = allowPremium;
-    [(UIView*)(self.sourceListView) setUserInteractionEnabled: allowPremium];
-    if (!allowPremium)
-    {
+    self.rulesModeSegmentedControl.enabled = proPak.hasLocalReceipt;
+    self.destinationView.userInteractionEnabled = proPak.hasLocalReceipt;
+    self.replacementRules.userInteractionEnabled = proPak.hasLocalReceipt;
+    [(UIView*)(self.sourceListView) setUserInteractionEnabled: proPak.hasLocalReceipt];
+    
+    if (!proPak.hasLocalReceipt)
+    {   // buy or restore or remove if can't buy
         CGFloat disabledAlpha = 0.6;
         self.destinationView.alpha = disabledAlpha;
         self.replacementRules.alpha = disabledAlpha;
@@ -64,16 +68,21 @@
         if (canPurchase)
         {
             inApp = @"Rule Editing is only available with In-App Purchase";
+            if (proPak.hasAppReceipt)
+            { // restore
+                UIButton* button = (UIButton*)[self.upgradeToProView.subviews firstObject];
+                NSString* restoreTitle = NSLocalizedString(@"Restore Pro Upgrade", @"Editor rule edit popover, Restore Pro Upgrade");
+                [button setTitle: restoreTitle forState: UIControlStateNormal];
+            }
         }
         else
         {
             inApp = @"Rule Editing is only available with In-App Purchase \nCheck,device Settings, General, Restrictions, In-App Purchase";
+            [self.upgradeToProView removeFromSuperview];
         }
 
         self.ruleHelpLabel.text = inApp;
         self.ruleHelpLabel.highlighted = YES;
-        
-        if (!canPurchase) [self.upgradeToProView removeFromSuperview];
     }
     else
     {

@@ -289,5 +289,12 @@ CloudKit Notes\
 	Observer crash for objectList has to do with when UIDocument is loading and changing the fractal while the editor is loading.\
 	I guess document is set then fractal is changed or document changed?\
 \
+2015-09-28\
+	In-App-Purchase restore - when the app is restored onto a device, the receipt should show there was a purchase. Rather than automatically restoring the purchase, show a restore button giving the user the option to restore the purchase. In the store, show restore for all of the possible restorations.\
+\
+	Why does iPad2 keep processing purchase each startup while iPadAir2 does not?\
+	How to get button to show restore? Need receipt to not load content until ? Process receipt actions should depend on product state. \
+	Need to know whether user pressed the button. "hasReceipt" equals user pressed button for valid purchase or restore. Set a "userInitiated" state before transaction and hasReceipt after transaction.\
+\
 \
 }

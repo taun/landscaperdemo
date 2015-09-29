@@ -9,13 +9,19 @@
 #import "MDBSettingsTableViewController.h"
 
 #import "MDBAppModel.h"
-
+#import "MDBPurchaseViewController.h"
 
 @interface MDBSettingsTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *allowPremiumSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *moedaeButton;
 
 - (IBAction)allowPremiumButtonChanged:(UISwitch *)sender;
+- (IBAction)jumpToAppSettings:(id)sender;
+- (IBAction)leaveForTwitter:(id)sender;
+- (IBAction)leaveForFacebook:(id)sender;
+- (IBAction)moedaeButtonTapped:(id)sender;
+- (IBAction)leaveForAppStore:(id)sender;
 
 @end
 
@@ -109,31 +115,42 @@
 
 -(void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath: indexPath];
-    NSString* identifier = cell.reuseIdentifier;
-    if ([identifier isEqualToString: @"LaunchSettings"])
+//    UITableViewCell* cell = [tableView cellForRowAtIndexPath: indexPath];
+//    NSString* identifier = cell.reuseIdentifier;
+//    if ([identifier isEqualToString: @"LaunchSettings"])
+//    {
+//        //
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: UIApplicationOpenSettingsURLString]];
+//    }
+//    else if ([identifier isEqualToString: @"LaunchTwitter"])
+//    {
+//        //
+//        NSURL* twitterAccount = [NSURL URLWithString:@"twitter://user?screen_name=taunc"];
+//        BOOL twitter = [[UIApplication sharedApplication] canOpenURL:twitterAccount];
+//        if (!twitter)
+//        {
+//            [[UIApplication sharedApplication] openURL: twitterAccount];
+//        }
+//        else
+//        {
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.twitter.com/taunc"]];
+//        }
+//    }
+//    else if ([identifier isEqualToString: @"LaunchFacebook"])
+//    {
+//        //
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.facebook.com/fractalscapes"]];
+//    }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString: @"ShowPurchaseControllerSegue"])
     {
         //
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: UIApplicationOpenSettingsURLString]];
-    }
-    else if ([identifier isEqualToString: @"LaunchTwitter"])
-    {
-        //
-        NSURL* twitterAccount = [NSURL URLWithString:@"twitter://user?screen_name=taunc"];
-        BOOL twitter = [[UIApplication sharedApplication] canOpenURL:twitterAccount];
-        if (!twitter)
-        {
-            [[UIApplication sharedApplication] openURL: twitterAccount];
-        }
-        else
-        {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.twitter.com/taunc"]];
-        }
-    }
-    else if ([identifier isEqualToString: @"LaunchFacebook"])
-    {
-        //
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.facebook.com/fractalscapes"]];
+        UINavigationController* navCon = (UINavigationController*)segue.destinationViewController;
+        MDBPurchaseViewController* pvc = [navCon.viewControllers firstObject];
+        pvc.purchaseManager = self.appModel.purchaseManager;
     }
 }
 
@@ -142,8 +159,54 @@
     [self.appModel ___setAllowPremium: sender.on];
 }
 
+- (IBAction)jumpToAppSettings:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: UIApplicationOpenSettingsURLString]];
+}
+
+- (IBAction)leaveForTwitter:(id)sender
+{
+    NSURL* twitterAccount = [NSURL URLWithString:@"twitter://user?screen_name=taunc"];
+    BOOL twitter = [[UIApplication sharedApplication] canOpenURL:twitterAccount];
+    if (!twitter)
+    {
+        [[UIApplication sharedApplication] openURL: twitterAccount];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.twitter.com/taunc"]];
+    }
+}
+
+- (IBAction)leaveForFacebook:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.facebook.com/fractalscapes"]];
+}
+
+- (IBAction)moedaeButtonTapped:(id)sender
+{
+    
+}
+
+- (IBAction)leaveForAppStore:(id)sender
+{
+    //https://itunes.apple.com/us/app/fractalscapes-interactive/id916265154?ls=1&mt=8
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://itunes.apple.com/us/app/fractalscapes-interactive/id916265154?ls=1&mt=8"]];
+}
+
 - (IBAction)useWatermarkButtonChanged:(UISwitch *)sender
 {
     [self.appModel ___setUseWatermark: sender.on];
 }
+
+-(void)unwindFromPurchaseController:(UIStoryboardSegue *)segue
+{
+    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
+    
+    // This is necessary due to presentation being over full context, popover style
+    [sourceController.presentingViewController dismissViewControllerAnimated: YES completion:^{
+        
+    }];
+}
+
 @end

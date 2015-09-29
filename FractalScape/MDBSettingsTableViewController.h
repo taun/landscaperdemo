@@ -22,6 +22,7 @@
 
 - (IBAction)showHelpTipsChanged:(UISwitch *)sender;
 - (IBAction)showParallaxEffectChanged:(UISwitch *)sender;
+- (IBAction)unwindFromPurchaseController:(UIStoryboardSegue *)segue;
 
 
 

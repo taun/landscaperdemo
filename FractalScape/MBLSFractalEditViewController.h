@@ -40,10 +40,7 @@
 @property (nonatomic, weak) MDBAppModel                     *appModel;
 @property (nonatomic, assign) BOOL                          pan10xOn;
 @property (nonatomic, assign) CGFloat                       pan10xMultiplier;
-/*!
- Change some performance parameters based the device. Default is high performance.
- */
-@property (nonatomic, assign) BOOL                 lowPerformanceDevice;
+
 @property (nonatomic, assign) BOOL                 showPerformanceData;
 /*!
  When updating the image due to gestures or playback, allow the image to stay on the screen at least

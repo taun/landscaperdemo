@@ -12,6 +12,8 @@
 
 @class MDBAppModel;
 @class MDBBasePurchaseableProduct;
+@class MDBColorPakPurchaseableProduct;
+@class MDBProPurchaseableProduct;
 
 @protocol PurchaseManagerDelegate <NSObject>
 
@@ -32,6 +34,9 @@
 @property (nonatomic,readonly) BOOL                         isColorPakAvailable;
 @property (nonatomic,assign,readonly) BOOL                  userCanMakePayments;
 @property (nonatomic,weak) id<PurchaseManagerDelegate>      delegate;
+
+@property (nonatomic,readonly) MDBProPurchaseableProduct      *proPak;
+@property (nonatomic,readonly) MDBColorPakPurchaseableProduct *colorPak1;
 
 +(instancetype)newManagerWithModel:(MDBAppModel*)model;
 

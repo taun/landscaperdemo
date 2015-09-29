@@ -14,6 +14,6 @@ static NSString* const  kPrefUbiquityIdentityToken = @"com.moedae.FractalScapes.
 
 #pragma message "TODO The MaxNodes should be in something like a plist settings file so it can be easily updated"
 #define kLSMaxNodesHiPerf 900000
-#define kLSMaxNodesLoPerf 400000
+#define kLSMaxNodesLoPerf 300000
 
 #endif

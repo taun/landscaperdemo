@@ -18,13 +18,9 @@
 }
 
 
--(BOOL)processPurchase: (NSDate*)date
+-(void)validReceiptFoundForDate: (NSDate*)date
 {
-    [super processPurchase: date];
-    // over ride return since there is nothing to install
-    // need to install color pak
-    
-    return YES;
+    [super validReceiptFoundForDate: date];
 }
 
 -(BOOL)loadContent

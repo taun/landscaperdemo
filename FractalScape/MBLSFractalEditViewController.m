@@ -89,7 +89,9 @@ static const CGFloat kLevelNMargin = 48.0;
  */
 @property (nonatomic,readonly,strong) NSOperationQueue     *privateImageGenerationQueue;
 @property (nonatomic, strong) NSTimer                      *privateImageGenerationQueueTimeoutTimer;
+@property (nonatomic,assign) CGFloat                       imageGenerationTimout;
 @property (nonatomic,readonly,strong) NSOperationQueue     *exportImageGenerationQueue;
+@property (nonatomic,assign) NSInteger                     nodeLimit;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL0;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL1;
 @property (nonatomic,strong) LSFractalRenderer             *fractalRendererL2;
@@ -154,12 +156,19 @@ static const CGFloat kLevelNMargin = 48.0;
     _pan10xValue = 1.0;
     _pan10xMultiplier = 10.0;
     
+    _imageGenerationTimout = 6.0;
+    
+    _nodeLimit = kLSMaxNodesHiPerf;
+    
     /*
      FractalScape rendering is much faster on the 64bit devices.
      Coincidentally, the 64 bit devices all have the MotionProcessor which can store activity data.
      We use the isActivityAvailable call to set app performance parameters.
      */
-    self.lowPerformanceDevice = ![CMMotionActivityManager isActivityAvailable];
+    if (![CMMotionActivityManager isActivityAvailable])
+    {
+        [self updatePropertiesForLowPerformanceDevice];
+    }
 
     self.popTransition = [MDBZoomPopBounceTransition new];
     self.pushTransition = [MDBZoomPushBounceTransition new];
@@ -1249,17 +1258,11 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
--(void) setLowPerformanceDevice:(BOOL)lowPerformanceDevice {
-    _lowPerformanceDevice = lowPerformanceDevice;
-    
-    if (_lowPerformanceDevice)
-    {
-        self.minImagePersistence = 1.0 / kLowPerformanceFrameRate;
-    }
-    else
-    {
-        self.minImagePersistence = 1.0 / kHighPerformanceFrameRate;
-    }
+-(void)updatePropertiesForLowPerformanceDevice
+{
+    self.minImagePersistence = 1.0 / kLowPerformanceFrameRate;
+    self.imageGenerationTimout = 10.0;
+    self.nodeLimit = kLSMaxNodesLoPerf;
 }
 
 -(void) setShowPerformanceData:(BOOL)showPerformanceData
@@ -1396,13 +1399,11 @@ static const CGFloat kLevelNMargin = 48.0;
         self.fractalRendererLN.levelData = self.levelDataArray[[self levelNIndex]];
         [self queueFractalImageUpdates];
         
-        NSInteger nodeLimit = self.lowPerformanceDevice ? kLSMaxNodesLoPerf: kLSMaxNodesHiPerf;
-        
         CGFloat currentNodeCount = (CGFloat)[(NSData*)self.levelDataArray[3] length];
         CGFloat estimatedNextNode = currentNodeCount * [self.levelDataArray[4] floatValue];
 //        NSLog(@"growth rate %f",[self.fractalDocument.fractal.levelGrowthRate floatValue]);
         UIStepper* strongLevelStepper = self.hudLevelStepper;
-        if (estimatedNextNode > nodeLimit)
+        if (estimatedNextNode > self.nodeLimit)
         {
             strongLevelStepper.maximumValue = strongLevelStepper.value;
         } else if (strongLevelStepper.maximumValue == strongLevelStepper.value)
@@ -1416,7 +1417,7 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     [self.activityIndicator startAnimating];
 
-    self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
+    self.privateImageGenerationQueueTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval: self.imageGenerationTimout
                                                                                     target: self
                                                                                   selector: @selector(imageGenerationTimeout:)
                                                                                   userInfo: nil

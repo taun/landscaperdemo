@@ -24,8 +24,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.currentPage = 0;
-    [self layoutWebView];
-    if ((YES))
+    //[self layoutWebView];
+    if ((NO))
     {
         [self loadDocument: self.currentPage];
     }
@@ -37,6 +37,7 @@
 //    [self.webContainer setNeedsLayout];
     if ((YES))
     {
+        [self layoutWebView];
         [self loadDocument: self.currentPage];
     }
 }
@@ -58,6 +59,8 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [self.webView removeFromSuperview];
+    self.webView = nil;
 }
 
 -(void)layoutWebView
@@ -249,7 +252,16 @@
 
 -(void)dealloc
 {
-    
+    if ([_webView isKindOfClass: [UIWebView class]])
+    {
+        [((UIWebView*)_webView) setDelegate: nil];
+    }
+    else if ([_webView isKindOfClass: [WKWebView class]])
+    {
+        [((WKWebView*)_webView)setUIDelegate: nil];
+    }
+
+    _webView = nil;
 }
 
 #pragma mark - WKnavigationDelegate
