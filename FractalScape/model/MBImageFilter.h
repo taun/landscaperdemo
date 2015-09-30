@@ -33,6 +33,7 @@
 @property (nonatomic,readonly) CIFilter             *ciFilter;
 
 +(CIContext*) filterContext;
++(CIContext*) snapshotFilterContext;
 +(CGColorSpaceRef) colorSpace;
 
 +(instancetype) newFilterWithIdentifier: (NSString*)ciFilterName;

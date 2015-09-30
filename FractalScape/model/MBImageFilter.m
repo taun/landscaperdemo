@@ -14,6 +14,7 @@
 
 
 static EAGLContext* __eaglContext;
+static EAGLContext* __eaglSnapshotContext;
 
 
 @interface MBImageFilter ()
@@ -67,6 +68,20 @@ static EAGLContext* __eaglContext;
     });
     
     return __filterContext;
+}
+
++(CIContext*) snapshotFilterContext
+{
+    static CIContext* __snapshotFilterContext;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null], kCIContextUseSoftwareRenderer : @NO };
+        __snapshotFilterContext = [CIContext contextWithOptions: options];
+        //        __filterContext = [CIContext contextWithOptions: nil];
+    });
+    
+    return __snapshotFilterContext;
 }
 
 +(CGColorSpaceRef)colorSpace

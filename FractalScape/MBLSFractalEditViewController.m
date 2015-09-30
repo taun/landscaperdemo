@@ -2488,7 +2488,7 @@ static const CGFloat kLevelNMargin = 48.0;
     self.fractalDocument.fractal.levelUnchanged = NO;
     self.fractalDocument.fractal.level = roundedNumber; // triggers observer
     self.hasBeenEdited = YES;
-    [self updateLibraryRepresentationIfNeeded];
+//    [self updateLibraryRepresentationIfNeeded];
 }
 
 #pragma mark - HUD Slider Actions
@@ -2602,7 +2602,7 @@ static const CGFloat kLevelNMargin = 48.0;
     CGImageRef filteredImageRef = NULL;
     
     if (filters && !filters.isEmpty) {
-        [self.activityIndicator startAnimating];
+//        [self.activityIndicator startAnimating];
         
         CGFloat imageWidth = ciiImage.extent.size.width;
         CGFloat imageHeight = ciiImage.extent.size.height;
@@ -2637,9 +2637,9 @@ static const CGFloat kLevelNMargin = 48.0;
                 }
             }
 
-            filteredImageRef = [[MBImageFilter filterContext] createCGImage: filteredImage fromRect: imageBounds];
+            filteredImageRef = [[MBImageFilter snapshotFilterContext] createCGImage: filteredImage fromRect: imageBounds];
         }
-        [self.activityIndicator stopAnimating];
+//        [self.activityIndicator stopAnimating];
     }
     
     return filteredImageRef;
@@ -2661,7 +2661,7 @@ static const CGFloat kLevelNMargin = 48.0;
         self.fractalDocument.fractal.applyFilters = !filtersOn; // should trigger observers
         
         self.hasBeenEdited = YES;
-        [self updateLibraryRepresentationIfNeeded];
+//        [self updateLibraryRepresentationIfNeeded];
     }
     [self updateFilterSettingsForCanvas];
 }
@@ -3031,7 +3031,7 @@ verticalPropertyPath: @"lineChangeFactor"
         determinedState = 0;
         self.autoscaleN = YES;
         self.hasBeenEdited = YES;
-        [self updateLibraryRepresentationIfNeeded];
+//        [self updateLibraryRepresentationIfNeeded];
     }
 }
 
