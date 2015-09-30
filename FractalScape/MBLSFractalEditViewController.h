@@ -148,7 +148,7 @@
 
 
 #pragma mark - Generation and Display
--(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowEditor: (BOOL)update;
+-(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowCopiedAlert: (BOOL)update;
 -(void) logBounds: (CGRect) bounds info: (NSString*) boundsInfo;
 -(void) updateNavButtons;
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio;

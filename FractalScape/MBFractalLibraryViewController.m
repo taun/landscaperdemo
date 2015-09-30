@@ -44,7 +44,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 @property (nonatomic,strong) NSUserActivity                         *pendingUserActivity;
 @property (nonatomic,strong) MDBNavConTransitionCoordinator         *navConTransitionDelegate;
-@property (nonatomic,weak) MDBFractalInfo                           *fractalInfoBeingEdited;
 /*!
  Used to make sure queries and loads aren't done twice. Once when properties change and once when the view appears.
  */
@@ -163,8 +162,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     UIViewController *sourceViewController = segue.sourceViewController;
     if ([sourceViewController isKindOfClass: [MBLSFractalEditViewController class]])
     { // which it always should be
-        MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)sourceViewController;
-        [editor setFractalInfo: nil];
+//        MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)sourceViewController;
+//        [editor setFractalInfo: nil];
     }
 }
 -(void)regularStartupSequence
@@ -464,6 +463,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     {
         MBLSFractalEditViewController *editViewController = (MBLSFractalEditViewController *)segue.destinationViewController;
         editViewController.appModel = self.appModel;
+        editViewController.libraryViewController = self;
 
         //editViewController.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
         //editViewController.navigationItem.leftItemsSupplementBackButton = YES;
@@ -475,7 +475,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             MDBFractalInfo* fractalInfo = self.appModel.documentController.fractalInfos[infoIndex.row];
             if (fractalInfo.document)
             {
-                [editViewController setFractalInfo: fractalInfo andShowEditor: NO];
+                [editViewController setFractalInfo: fractalInfo andShowCopiedAlert: NO];
             }
         }
         else if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])

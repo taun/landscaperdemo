@@ -553,6 +553,7 @@ static const CGFloat kLevelNMargin = 48.0;
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+//    [self.exportImageGenerationQueue waitUntilAllOperationsAreFinished];
     [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUserDefaultsDidChangeNotification object: nil];
     [_privateImageGenerationQueue cancelAllOperations];
 }
@@ -915,7 +916,7 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
--(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowEditor: (BOOL)update
+-(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowCopiedAlert: (BOOL)copied
 {
     UIDocumentState docState = fractalInfo.document.documentState;
     
@@ -926,15 +927,47 @@ static const CGFloat kLevelNMargin = 48.0;
             [fractalInfo.document openWithCompletionHandler:^(BOOL success) {
                 //detect if we have a new default fractal
                 self.fractalInfo = fractalInfo;
-                if (update) [self updateEditorContent];
+                if (copied)
+                {
+                    [self updateEditorContent];
+                    
+                    self.libraryViewController.fractalInfoBeingEdited = fractalInfo;
+                    
+                    [self showCopiedAlert: fractalInfo.document.fractal.name];
+//                    [self performSegueWithIdentifier: @"EditSegue" sender: self];
+                }
             }];
         });
     }
     else
     {
         self.fractalInfo = fractalInfo;
-        if (update) [self updateEditorContent];
+        if (copied) // not sure this is ever called
+        {
+            [self updateEditorContent];
+//            [self performSegueWithIdentifier: @"EditSegue" sender: self];
+        }
     }
+}
+
+-(void)showCopiedAlert: (NSString*)message
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Your fractal has been copied and you may begin editing."
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                    }];
+    [alert addAction: defaultAction];
+    
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(MDBFractalDocument*)fractalDocument
@@ -1097,7 +1130,7 @@ static const CGFloat kLevelNMargin = 48.0;
         
         [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: 0 context: NULL];
 
-        self.hasBeenEdited = YES;
+        self.hasBeenEdited = NO;
         [self updateFilterSettingsForCanvas];
         [self queueFractalImageUpdates];
         [self updateInterface];
@@ -1798,7 +1831,8 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     else if ([segue.identifier isEqualToString: @"UnwindSegueToLibrary"])
     {
-        [self setFractalInfo: nil];
+        [self updateLibraryRepresentationIfNeeded];
+        [self.exportImageGenerationQueue waitUntilAllOperationsAreFinished];
     }
 }
 
@@ -2477,7 +2511,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
     
-    [self setFractalInfo: fractalInfo andShowEditor: YES];
+    [self setFractalInfo: fractalInfo andShowCopiedAlert: YES];
     self.hasBeenEdited = YES;
 }
 

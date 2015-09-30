@@ -14,6 +14,7 @@
 #import "MDBNavConTransitionCoordinator.h"
 
 @class MDBAppModel;
+@class MDBFractalInfo;
 @class MDBFractalDocument;
 @class MDBDocumentController;
 
@@ -30,6 +31,7 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
 @property (nonatomic,strong) IBOutlet MDBFractalLibraryCollectionSource      *collectionSource;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem                        *addDocumentButton;
+@property (nonatomic,weak) MDBFractalInfo                                   *fractalInfoBeingEdited;
 
 -(void)regularStartupSequence;
 
