@@ -44,7 +44,7 @@
 
 static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 static const BOOL SIMULTOUCH = NO;
-static const CGFloat kHighPerformanceFrameRate = 8.0;
+static const CGFloat kHighPerformanceFrameRate = 4.0;
 static const CGFloat kLowPerformanceFrameRate = 4.0;
 static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 static const CGFloat kLevelNMargin = 48.0;
@@ -836,6 +836,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
     return _filterBitmapContext;
 }
+
 
 -(dispatch_queue_t) levelDataGenerationQueue{
     if (!_levelDataGenerationQueue) {
@@ -2593,6 +2594,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     return filteredImageRef;
 }
+
 -(CGImageRef)newCGImageRefForSnapshotFromFiltersAppliedToCIImage: (CIImage*)ciiImage
 {
     MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
@@ -2607,8 +2609,8 @@ static const CGFloat kLevelNMargin = 48.0;
         CGRect imageBounds = CGRectMake(0.0, 0.0, imageWidth, imageHeight);
         //    CGFloat midX = imageWidth/2.0;
         //    CGFloat midY = imageHeight/2.0;
-        CGContextClearRect(self.filterBitmapContext, CGContextGetClipBoundingBox(self.filterBitmapContext));
         
+#pragma message "TODO need to make snapshotFilters independent of screen filter context and settings..."
         @autoreleasepool
         {
             CIImage* filteredImage = ciiImage;
@@ -2619,7 +2621,7 @@ static const CGFloat kLevelNMargin = 48.0;
             }
             filteredImage = [filteredImage imageByCroppingToRect: imageBounds];
 
-            if ((NO))
+            if ((YES))
             {
                 NSDictionary* options = @{kCIImageAutoAdjustCrop:@NO,
                                           kCIImageAutoAdjustRedEye:@NO,
@@ -2627,7 +2629,7 @@ static const CGFloat kLevelNMargin = 48.0;
                                           kCIImageAutoAdjustEnhance:@YES,
                                           kCIImageAutoAdjustLevel:@YES};
                 
-                NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: options];
+                NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: nil];
                 for (CIFilter *filter in adjustments)
                 {
                     [filter setValue: filteredImage forKey: kCIInputImageKey];
@@ -3110,25 +3112,21 @@ verticalPropertyPath: @"lineChangeFactor"
     
     static CIFilter* contrastFilter = nil;
     
-    if (!contrastFilter)
-    {
-        contrastFilter = [CIFilter filterWithName: @""];
-
-    }
+    if (!contrastFilter) contrastFilter = [CIFilter filterWithName: @""];
     
-        LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
-        NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
-        renderer.levelData = self.levelDataArray[level];
-        renderer.name = @"Image renderer";
-        renderer.margin = imageSize.width > 500.0 ? 24.0 : 8.0;
+    LSFractalRenderer* renderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
+    NSInteger level = MIN(self.fractalDocument.fractal.level, 3) ;
+    renderer.levelData = self.levelDataArray[level];
+    renderer.name = @"Image renderer";
+    renderer.margin = imageSize.width > 500.0 ? 24.0 : 8.0;
     renderer.autoscale = YES;
-        renderer.flipY = YES;
-        renderer.showOrigin = NO;
-        renderer.applyFilters = self.fractalDocument.fractal.applyFilters;
-        
-        MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
-        if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
-        renderer.backgroundColor = backgroundColor;
+    renderer.flipY = YES;
+    renderer.showOrigin = NO;
+    renderer.applyFilters = self.fractalDocument.fractal.applyFilters;
+    
+    MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
+    if (!backgroundColor) backgroundColor = [MBColor newMBColorWithUIColor: [UIColor clearColor]];
+    renderer.backgroundColor = backgroundColor;
     renderer.autoExpand = !self.fractalDocument.fractal.applyFilters || self.fractalDocument.fractal.autoExpand;
     
     CGFloat maxOriginalDimension = MAX(self.fractalView.bounds.size.width,self.fractalView.bounds.size.height);
