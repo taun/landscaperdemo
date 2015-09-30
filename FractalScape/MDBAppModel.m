@@ -315,7 +315,11 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 
 - (void)setupUserStoragePreferences
 {
-    [MDBDocumentUtilities waitUntilDoneCopying];
+    if (self.loadDemoFiles)
+    {
+        [MDBDocumentUtilities waitUntilDoneCopying];
+        [self demoFilesLoaded];
+    }
     
     MDBAPPStorageState storageState = self.cloudDocumentManager.storageState;
     

@@ -109,21 +109,25 @@
         
         NSString* message = [NSString stringWithFormat: @"Are you sure you want to delete %lu fractal(s)?", (unsigned long)fractalInfos.count];
         
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Delete?"
+        NSString* localizedDelete = NSLocalizedString(@"Delete", @"Delete a file");
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle: localizedDelete
                                                                        message: message
                                                                 preferredStyle: UIAlertControllerStyleAlert];
         
-        UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive
+        UIAlertAction* deleteAction = [UIAlertAction actionWithTitle: localizedDelete
+                                                               style: UIAlertActionStyleDestructive
                                                               handler:^(UIAlertAction * action)
                                         {
                                             [self performDeletionOfSelectedItems: fractalInfos];
                                         }];
         [alert addAction: deleteAction];
 
-        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action){ }];
+        
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Cancel", @"Cancel an action") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action){ }];
         [alert addAction: cancelAction];
         
-        [self presentViewController: alert animated: YES completion: nil];
+        [self.navigationController presentViewController: alert animated: YES completion: nil];
     }
 }
 
@@ -174,7 +178,8 @@
     
     UIAlertController* __weak weakAlert = alert;
     
-    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Go to iCloud Settings" style:UIAlertActionStyleDefault
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Go to iCloud Settings",nil)
+                                                           style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -182,7 +187,8 @@
                                    }];
     [alert addAction: fractalCloud];
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Maybe Later",nil)
+                                                            style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -214,7 +220,8 @@
     
     if (self.appModel.allowPremium)
     {
-        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"FractalCloud" style:UIAlertActionStyleDefault
+        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"FractalCloud",nil)
+                                                               style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -224,7 +231,8 @@
     }
     else if (self.appModel.userCanMakePayments)
     {
-        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Upgrade to Share" style:UIAlertActionStyleDefault
+        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Upgrade to Share",nil)
+                                                               style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -233,7 +241,8 @@
         [alert addAction: fractalCloud];
     }
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Maybe Later",nil)
+                                                            style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -365,7 +374,8 @@
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
     UIAlertController* __weak weakAlert = alert;
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"OK",nil)
+                                                            style: UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode

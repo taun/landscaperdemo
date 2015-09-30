@@ -167,29 +167,30 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     UIImageView*strongView = self.mainThreadImageView;
     
-    CGSize viewSize = strongView.bounds.size;
-    CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
-    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
-    
-    int width = scaledSize.width;
-    int height = scaledSize.height;
-    int bytesPerRow = 4 * width;
-
-    if (_cachedContext == NULL && strongView)
+    if (strongView)
     {
-        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
-    }
-    else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_cachedContext), scaledRect))
-    {
-        self.contextNSData = nil;
+        CGSize viewSize = strongView.bounds.size;
+        CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
+        CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
         
-        self.imageRef = NULL;
+        int width = scaledSize.width;
+        int height = scaledSize.height;
+        int bytesPerRow = 4 * width;
         
-        CGContextRelease(_cachedContext);
-        _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
+        if (_cachedContext == NULL)
+        {
+            _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
+        }
+        else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_cachedContext), scaledRect))
+        {
+            self.contextNSData = nil;
+            
+            self.imageRef = NULL;
+            
+            CGContextRelease(_cachedContext);
+            _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
+        }
     }
-
-    
     return _cachedContext;
 }
 
@@ -199,7 +200,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     CGSize viewSize = strongView.bounds.size;
     CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
-    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
+//    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
     
     int width = scaledSize.width;
     int height = scaledSize.height;
@@ -367,8 +368,12 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 -(void) generateImage
 {
-    CGContextClearRect(self.cachedContext, CGContextGetClipBoundingBox(_cachedContext));
-    [self generateImagePercentStart: 0.0 stop: 100.0];
+    CGContextRef context = self.cachedContext;
+    if (context)
+    {
+        CGContextClearRect(context, CGContextGetClipBoundingBox(context));
+        [self generateImagePercentStart: 0.0 stop: 100.0];
+    }
 }
 -(void) generateImagePercentStart:(CGFloat)start stop:(CGFloat)stop
 {

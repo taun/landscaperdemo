@@ -561,16 +561,16 @@ static const CGFloat kLevelNMargin = 48.0;
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-}
-
--(void)dealloc
-{
     if (_fractalInfo)
     {
         // cascades removal of observers
         [self setFractalInfo: nil];
     }
     if (_filterBitmapContext != NULL) CGContextRelease(_filterBitmapContext);
+}
+
+-(void)dealloc
+{
 }
 
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -773,13 +773,14 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     NSString* versionConflictMessage = [NSString stringWithFormat: @"Another one of your devices is trying to save a newly edited version over the version you are editing on this device. What do you want to do?"];
     
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Editing Conflict!"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Editing Conflict!",nil)
                                                                    message: versionConflictMessage
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
     UIAlertController* __weak weakAlert = alert;
     
-    UIAlertAction* pushOverwriteAction = [UIAlertAction actionWithTitle:@"Keep this device edits" style:UIAlertActionStyleDefault
+    UIAlertAction* pushOverwriteAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Keep this device edits",nil)
+                                                                  style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action)
                                            {
                                                [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -794,7 +795,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                            }];
     [alert addAction: pushOverwriteAction];
 
-    UIAlertAction* makeCopyAction = [UIAlertAction actionWithTitle:@"Make a new copy of this fractal" style:UIAlertActionStyleCancel
+    UIAlertAction* makeCopyAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Make a new copy of this fractal",nil)
+                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -934,6 +936,7 @@ static const CGFloat kLevelNMargin = 48.0;
                     self.libraryViewController.fractalInfoBeingEdited = fractalInfo;
                     
                     [self showCopiedAlert: fractalInfo.document.fractal.name];
+                    self.hasBeenEdited = YES;
 //                    [self performSegueWithIdentifier: @"EditSegue" sender: self];
                 }
             }];
@@ -952,14 +955,15 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(void)showCopiedAlert: (NSString*)message
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Your fractal has been copied and you may begin editing."
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Your fractal has been copied and you may begin editing.",nil)
                                                                    message: message
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
     UIAlertController* __weak weakAlert = alert;
     
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Ok", @"Ok, go ahead with action")
+                                                            style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -967,7 +971,7 @@ static const CGFloat kLevelNMargin = 48.0;
     [alert addAction: defaultAction];
     
     
-    [self presentViewController:alert animated:YES completion:nil];
+    [self.navigationController presentViewController: weakAlert animated:YES completion:nil];
 }
 
 -(MDBFractalDocument*)fractalDocument
@@ -1466,7 +1470,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(void) queueFractalImageUpdates
 {
-    if (!self.fractalDocument.fractal.isRenderable) {
+    if (!self.fractalDocument.fractal.isRenderable || !self.fractalView) {
         return;
     }
     
@@ -1997,8 +2001,8 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     
     //    [self.shareActionsSheet showFromBarButtonItem: sender animated: YES];
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share"
-                                                                   message: @"How would you like to share the image?"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Share",nil)
+                                                                   message: NSLocalizedString(@"How would you like to share the image?",nil)
                                                             preferredStyle: UIAlertControllerStyleActionSheet];
     
     UIAlertController* __weak weakAlert = alert;
@@ -2007,7 +2011,8 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (cameraAuthStatus == ALAuthorizationStatusNotDetermined || cameraAuthStatus == ALAuthorizationStatusAuthorized)
     {
-        UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"Export as Image" style:UIAlertActionStyleDefault
+        UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Export as Image",nil)
+                                                               style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -2017,7 +2022,8 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     
     if (strongAppModel.allowPremium) {
-        UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Export as Vector PDF" style:UIAlertActionStyleDefault
+        UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle: NSLocalizedString(@"Export as Vector PDF",nil)
+                                                            style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -2027,7 +2033,8 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     else if (strongAppModel.userCanMakePayments)
     {
-        UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle:@"Upgrade to Export as Vector PDF" style:UIAlertActionStyleDefault
+        UIAlertAction* vectorPDF = [UIAlertAction actionWithTitle: NSLocalizedString(@"Upgrade to Export as Vector PDF",nil)
+                                                            style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -2037,7 +2044,8 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     
     if (strongAppModel.allowPremium) {
-        UIAlertAction* documentShare = [UIAlertAction actionWithTitle:@"Export as Document" style:UIAlertActionStyleDefault
+        UIAlertAction* documentShare = [UIAlertAction actionWithTitle: NSLocalizedString(@"Export as Document",nil)
+                                                                style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -2053,7 +2061,8 @@ static const CGFloat kLevelNMargin = 48.0;
 //                                   }];
 //    [alert addAction: fractalCloud];
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Cancel",nil)
+                                                            style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
@@ -2512,7 +2521,6 @@ static const CGFloat kLevelNMargin = 48.0;
     MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
     
     [self setFractalInfo: fractalInfo andShowCopiedAlert: YES];
-    self.hasBeenEdited = YES;
 }
 
 - (IBAction)levelInputChanged:(UIStepper*)sender
@@ -3421,14 +3429,15 @@ verticalPropertyPath: @"lineChangeFactor"
         successText = [NSString stringWithFormat: @"There was a problem sharing your fractal. \nError: %@", error];
     }
     
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Share Status"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Share Status",nil)
                                                                    message: successText
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
     UIAlertController* __weak weakAlert = alert;
     
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Ok",nil)
+                                                            style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
