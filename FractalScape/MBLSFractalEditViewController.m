@@ -58,6 +58,7 @@ static const CGFloat kLevelNMargin = 48.0;
                                                     MDBFractalDocumentDelegate>
 
 @property (nonatomic,strong) NSMutableSet           *observedReplacementRules;
+@property (atomic,assign) BOOL                      fractalEditorObserversHaveBeenSet;
 @property (nonatomic,assign) BOOL                   startedInLandscape;
 @property (nonatomic,assign) BOOL                   hasBeenEdited;
 @property (nonatomic,assign) CGFloat                pan10xValue;
@@ -1114,9 +1115,15 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
+-(void) addObserversForCurrentFractal
+{
+    LSFractal* fractal = _fractalInfo.document.fractal;
+    [self addObserversForFractal: fractal];
+}
+
 -(void) addObserversForFractal: (LSFractal*)fractal
 {
-    if (fractal)
+    if (fractal && !self.fractalEditorObserversHaveBeenSet)
     {
         [self setupSlidersForCurrentFractal];
         
@@ -1134,6 +1141,8 @@ static const CGFloat kLevelNMargin = 48.0;
         
         [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: 0 context: NULL];
 
+        self.fractalEditorObserversHaveBeenSet = YES;
+        
         self.hasBeenEdited = NO;
         [self updateFilterSettingsForCanvas];
         [self queueFractalImageUpdates];
@@ -1141,78 +1150,15 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
--(void) addObserversForCurrentFractal
+-(void) removeObserversForCurrentFractal
 {
     LSFractal* fractal = _fractalInfo.document.fractal;
-    [self addObserversForFractal: fractal];
-}
-
-/*!
- Most fractal properties are only changed while the appearance editor is present.
- Only add observers when presenting and remove when dismissing.
- 
- Hopefully will also fix problem with fractal changing by load document and observers not being removed before hand.
- */
--(void)addObserversForAppearanceEditorChanges
-{
-    LSFractal* fractal = _fractalInfo.document.fractal;
-    if (fractal)
-    {
-        [self setupSlidersForCurrentFractal];
-        
-        _lastImageUpdateTime = [NSDate date];
-        
-        NSMutableSet* propertiesToObserve = [NSMutableSet new];
-        [propertiesToObserve addObject: @"startingRules.allObjects"];
-        [propertiesToObserve addObject: @"lineColors.allObjects"];
-        [propertiesToObserve addObject: @"fillColors.allObjects"];
-        [propertiesToObserve addObject: @"imageFilters.allObjects"];
-        
-        for (NSString* keyPath in propertiesToObserve)
-        {
-            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
-        }
-        for (LSReplacementRule* rRule in fractal.replacementRules)
-        {
-            [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
-            [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
-            [self.observedReplacementRules addObject: rRule];
-        }
-    }
-}
-
-
--(void) updateObserversForReplacementRules: (NSMutableArray*) newReplacementRules {
-    // need to find rules missing from registered observers.
-    
-    NSMutableSet* copyOfCurrent = [NSMutableSet setWithArray: newReplacementRules];
-    NSMutableSet* copyOfPrevious = [self.observedReplacementRules mutableCopy];
-    
-    NSMutableSet* repRulesToUnobserve = [copyOfPrevious mutableCopy];
-    [repRulesToUnobserve minusSet: copyOfCurrent];
-    
-    
-    for (LSReplacementRule* rule in repRulesToUnobserve)
-    {
-        [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
-        [rule removeObserver: self forKeyPath: @"rules.allObjects"];
-        [self.observedReplacementRules removeObject: rule];
-    }
-    
-    NSMutableSet* repRulesToAddObserver = [copyOfCurrent mutableCopy];
-    [repRulesToAddObserver minusSet: self.observedReplacementRules];
-    
-    for (LSReplacementRule* rRule in repRulesToAddObserver)
-    {
-        [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
-        [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
-        [self.observedReplacementRules addObject: rRule];
-    }
+    [self removeObserversForFractal: fractal];
 }
 
 -(void) removeObserversForFractal: (LSFractal*)fractal
 {
-    if (fractal)
+    if (fractal && self.fractalEditorObserversHaveBeenSet)
     {
         @try {
             [_fractalInfo.document removeObserver: self forKeyPath: @"fractal"];
@@ -1243,14 +1189,44 @@ static const CGFloat kLevelNMargin = 48.0;
         }
         @finally {
             //
+            self.fractalEditorObserversHaveBeenSet = NO;
         }
     }
 }
 
--(void) removeObserversForCurrentFractal
+/*!
+ Most fractal properties are only changed while the appearance editor is present.
+ Only add observers when presenting and remove when dismissing.
+ 
+ Hopefully will also fix problem with fractal changing by load document and observers not being removed before hand.
+ */
+-(void)addObserversForAppearanceEditorChanges
 {
     LSFractal* fractal = _fractalInfo.document.fractal;
-    [self removeObserversForFractal: fractal];
+    if (fractal)
+    {
+        [self setupSlidersForCurrentFractal];
+        
+        _lastImageUpdateTime = [NSDate date];
+        
+        NSMutableSet* propertiesToObserve = [NSMutableSet new];
+        [propertiesToObserve addObject: @"startingRules.allObjects"];
+        [propertiesToObserve addObject: @"lineColors.allObjects"];
+        [propertiesToObserve addObject: @"fillColors.allObjects"];
+        [propertiesToObserve addObject: @"imageFilters.allObjects"];
+        
+        for (NSString* keyPath in propertiesToObserve)
+        {
+            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
+        }
+        
+        for (LSReplacementRule* rRule in fractal.replacementRules)
+        {
+            [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
+            [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
+            [self.observedReplacementRules addObject: rRule];
+        }
+    }
 }
 
 -(void)removeObserversForAppearanceEditorChanges
@@ -1278,6 +1254,7 @@ static const CGFloat kLevelNMargin = 48.0;
                 //
             }
         }
+        
         for (LSReplacementRule* rule in fractal.replacementRules)
         {
             @try {
@@ -1293,6 +1270,34 @@ static const CGFloat kLevelNMargin = 48.0;
                 [self.observedReplacementRules removeObject: rule];
             }
         }
+    }
+}
+
+-(void) updateObserversForReplacementRules: (NSMutableArray*) newReplacementRules {
+    // need to find rules missing from registered observers.
+    
+    NSMutableSet* copyOfCurrent = [NSMutableSet setWithArray: newReplacementRules];
+    NSMutableSet* copyOfPrevious = [self.observedReplacementRules mutableCopy];
+    
+    NSMutableSet* repRulesToUnobserve = [copyOfPrevious mutableCopy];
+    [repRulesToUnobserve minusSet: copyOfCurrent];
+    
+    
+    for (LSReplacementRule* rule in repRulesToUnobserve)
+    {
+        [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
+        [rule removeObserver: self forKeyPath: @"rules.allObjects"];
+        [self.observedReplacementRules removeObject: rule];
+    }
+    
+    NSMutableSet* repRulesToAddObserver = [copyOfCurrent mutableCopy];
+    [repRulesToAddObserver minusSet: self.observedReplacementRules];
+    
+    for (LSReplacementRule* rRule in repRulesToAddObserver)
+    {
+        [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
+        [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
+        [self.observedReplacementRules addObject: rRule];
     }
 }
 
