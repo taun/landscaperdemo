@@ -562,16 +562,16 @@ static const CGFloat kLevelNMargin = 48.0;
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+}
+
+-(void)dealloc
+{
     if (_fractalInfo)
     {
         // cascades removal of observers
         [self setFractalInfo: nil];
     }
     if (_filterBitmapContext != NULL) CGContextRelease(_filterBitmapContext);
-}
-
--(void)dealloc
-{
 }
 
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -1819,6 +1819,11 @@ static const CGFloat kLevelNMargin = 48.0;
 }
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if (self.presentedViewController)
+    {
+        [self dismissViewControllerAnimated: YES completion: nil];
+    }
+    
     [self stopButtonPressed: nil];
     
     UIViewController<FractalControllerProtocol>* newController;

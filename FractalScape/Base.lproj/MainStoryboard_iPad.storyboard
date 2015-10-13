@@ -3139,7 +3139,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <state key="normal" title="Visit In-App-Purchase Store"/>
                                                     <connections>
-                                                        <segue destination="TTb-ph-Ba9" kind="presentation" identifier="ShowPurchaseControllerSegue" id="m6M-61-Rhx"/>
+                                                        <segue destination="TTb-ph-Ba9" kind="presentation" identifier="ShowPurchaseControllerSegue" modalPresentationStyle="formSheet" modalTransitionStyle="flipHorizontal" id="m6M-61-Rhx"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -3754,8 +3754,8 @@ The main screen with all your fractals is called your "Library". See below for a
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5uZ-uJ-as5">
-                                                    <rect key="frame" x="109" y="41" width="483" height="90.5"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uZ-uJ-as5">
+                                                    <rect key="frame" x="109" y="39.5" width="483" height="92"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -3867,8 +3867,11 @@ The main screen with all your fractals is called your "Library". See below for a
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sorry the store shelves are currently empty" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwL-sb-fwb">
-                                                    <rect key="frame" x="109" y="79" width="328" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwL-sb-fwb">
+                                                    <rect key="frame" x="109" y="48" width="469" height="82.5"/>
+                                                    <string key="text">Sorry the store shelves are currently empty.
+Is you're device connected to the internet and do you have store purchasing permission?
+Please try again later.</string>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4840,7 +4843,7 @@ The main screen with all your fractals is called your "Library". See below for a
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XIW-aO-ufy"/>
-        <segue reference="bSt-YQ-4Z0"/>
+        <segue reference="0fO-dT-L5U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

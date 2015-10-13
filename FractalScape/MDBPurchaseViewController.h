@@ -12,8 +12,9 @@
 
 @interface MDBPurchaseViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,PurchaseManagerDelegate>
 
-@property(nonatomic,weak)MDBPurchaseManager         *purchaseManager;
+@property(nonatomic,strong)MDBPurchaseManager         *purchaseManager;
 
+-(IBAction)attemptProductRestore:(id)sender;
 -(void)productsChanged;
 
 @end

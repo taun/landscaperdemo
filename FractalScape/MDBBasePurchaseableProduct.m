@@ -168,10 +168,15 @@
 {
     self.hasAppReceipt = YES;
 
+    [self loadContent];
+    
     if (!self.hasLocalReceipt)
     {
-        self.localizedStoreButtonString = NSLocalizedString(@"Restore", @"App store Restore");
+        [self.keyValueStorage setObject: date forKey: self.receiptStorageKeyString];
+        self.localizedStoreButtonString = NSLocalizedString(@"Restored", @"App store Restored");
     }
+    
+    [self loadContent];
 }
 
 -(BOOL)loadContent

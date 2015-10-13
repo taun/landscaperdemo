@@ -63,13 +63,26 @@
         if (_colorPak1.hasLocalReceipt) [_colorPak1 loadContent]; // give the user the benefit of the doubt
 
         _possiblePurchaseableProducts = [NSSet setWithObjects: _proPak,_colorPak1, nil];
-        
-        [self receiptsOnboard];
-        
+                
         [[SKPaymentQueue defaultQueue] addTransactionObserver: self];
         [self revalidateProducts];
     }
     return self;
+}
+
+-(BOOL)areThereProductsToBuyOrRestore
+{
+    BOOL areThere = NO;
+    
+    for (MDBBasePurchaseableProduct* product in self.possiblePurchaseableProducts)
+    {
+        if (product.canBuy || product.canRestore)
+        {
+            areThere = YES;
+            break;
+        }
+    }
+    return areThere;
 }
 
 -(void)dealloc
@@ -80,7 +93,7 @@
 /*!
  Check if there is a receipt in the file system.
  */
--(void)receiptsOnboard
+-(void)updateAppReceipt
 {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSURL *myURL = [mainBundle appStoreReceiptURL];
@@ -507,7 +520,7 @@
         }
         
 #pragma message "UpdateForBuilds to build version before archiving"
-        const char *referenceVersion =  "422";
+        const char *referenceVersion =  "423";
         const char *receiptVersion = (const char *)bundle_version->buf+2;
         if (strcmp(referenceVersion,receiptVersion))
         {
@@ -695,6 +708,7 @@
     return found;
 }
 
+
 #pragma mark - Payment Processing
 
 /*!
@@ -789,9 +803,9 @@
 
 -(void)requestDidFinish:(SKRequest *)request
 {
-    if (!_validAppReceiptFound)
+    if (!_validAppReceiptFound && ![request isMemberOfClass: [SKProductsRequest class]])
     {
-        [self receiptsOnboard];
+        [self updateAppReceipt];
     }
 }
 

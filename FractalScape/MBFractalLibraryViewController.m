@@ -457,6 +457,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 //        [editViewController configureWithNewBlankDocument];
 //    }
 //    else
+    
+    if (self.presentedViewController)
+    {
+        [self dismissViewControllerAnimated: YES completion: nil];
+    }
+    
     if ([segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier] ||
         [segue.identifier isEqualToString: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier])
     {

@@ -9,6 +9,15 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleDocumentTypes</key>
+			<array>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>Fractal</string>
+					<key>LSHandlerRank</key>
+					<string>Default</string>
+				</dict>
+			</array>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
 				<string>FractalScape/Icons.xcassets/AppIcon.appiconset/iCon60@2x.png</string>
@@ -18,6 +27,8 @@
 			<string>Fractal</string>
 			<key>LSItemContentTypes</key>
 			<array>
+				<string>public.content</string>
+				<string>com.apple.package</string>
 				<string>com.moedae.fractal</string>
 			</array>
 		</dict>
@@ -81,8 +92,9 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.composite.content</string>
 				<string>com.apple.package</string>
+				<string>public.data</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>FractalScape Fractal</string>

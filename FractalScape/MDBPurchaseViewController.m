@@ -34,6 +34,36 @@
     }
 }
 
+-(IBAction) attemptProductRestore: (id)sender
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Restore",nil)
+                                                                   message: NSLocalizedString(@"Access App Store for Purchases?",nil)
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Ok", @"Ok, go ahead with action")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated: YES completion:nil];
+                                        [self.purchaseManager updateAppReceipt];
+                                    }];
+    [alert addAction: defaultAction];
+
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Cancel", @"Cancel, cancel action")
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated: YES completion:nil];
+                                    }];
+    [alert addAction: cancelAction];
+
+    
+    [self.navigationController presentViewController: weakAlert animated:YES completion:nil];
+}
+
 #pragma mark - UITableDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -64,6 +94,39 @@
 }
 
 #pragma mark - UITableDelegate
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (self.purchaseManager.validPurchaseableProducts.count)
+    {
+        return 88.0;
+    }
+    else
+    {
+        return 0.0;
+    }
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIButton* restoreButton;
+    
+    restoreButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    
+    if (self.purchaseManager.userCanMakePayments && self.purchaseManager.validPurchaseableProducts.count && self.purchaseManager.areThereProductsToBuyOrRestore)
+    {
+        [restoreButton setTitle: NSLocalizedString(@"Check for restorable purchases", @"Store restore button") forState: UIControlStateNormal];
+        [restoreButton addTarget: self action: @selector(attemptProductRestore:) forControlEvents: UIControlEventTouchUpInside];
+    }
+    else
+    {
+        [restoreButton setTitle: NSLocalizedString(@"No Purchases to Restore", @"Store nothing to restore button") forState: UIControlStateNormal];
+        restoreButton.enabled = NO;
+    }
+    
+    return restoreButton;
+}
+
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     if ([cell isKindOfClass:[MDBPurchaseTableViewCell class]])

@@ -33,6 +33,7 @@
 @property (nonatomic,readonly) BOOL                         isPremiumPaidFor;
 @property (nonatomic,readonly) BOOL                         isColorPakAvailable;
 @property (nonatomic,assign,readonly) BOOL                  userCanMakePayments;
+@property (nonatomic,assign,readonly) BOOL                  areThereProductsToBuyOrRestore;
 @property (nonatomic,weak) id<PurchaseManagerDelegate>      delegate;
 
 @property (nonatomic,readonly) MDBProPurchaseableProduct      *proPak;
@@ -47,5 +48,10 @@
 -(MDBBasePurchaseableProduct*)baseProductForIdentifier: (NSString*)id;
 
 -(NSArray*)sortedValidPurchaseableProducts;
+
+/*!
+ Method to iterate through restorable purchases and restore them.
+ */
+-(void)updateAppReceipt;
 
 @end

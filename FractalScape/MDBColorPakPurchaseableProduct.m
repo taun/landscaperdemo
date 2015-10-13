@@ -28,11 +28,11 @@
     if (!self.isContentLoaded)
     {
         BOOL success = [self.purchaseManager.appModel loadAdditionalColorsFromPlistFileNamed: self.resourcePListName];
-        NSLog(@"FractalScapes loading additonal content %@",self.productIdentifier);
         
         if (success)
         {
             [super loadContent];
+            NSLog(@"FractalScapes loading additonal content %@",self.productIdentifier);
         }
     }
     
