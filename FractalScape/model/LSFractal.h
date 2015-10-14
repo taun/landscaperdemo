@@ -122,8 +122,17 @@ static inline double degrees (double radians) {return radians * 180.0/M_PI;}
 @property (nonatomic, assign) BOOL          rulesUnchanged;
 @property (nonatomic, assign) BOOL          levelUnchanged;
 @property (nonatomic, strong) MBColor       *backgroundColor;
+/*!
+ fill colors
+ */
 @property (nonatomic, strong) MDBFractalObjectList       *fillColors;
+/*!
+ line colors
+ */
 @property (nonatomic, strong) MDBFractalObjectList       *lineColors;
+/*!
+ image filters
+ */
 @property (nonatomic, strong) MDBFractalObjectList       *imageFilters;
 @property (nonatomic, assign) BOOL                       applyFilters;
 @property (nonatomic, assign) CGFloat       lineHueRotationPercent;

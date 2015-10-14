@@ -2672,16 +2672,16 @@ static const CGFloat kLevelNMargin = 48.0;
                 filteredImage = [filter getOutputCIImageForInputCIImage: filteredImage];
             }
             filteredImage = [filteredImage imageByCroppingToRect: imageBounds];
-
-            if ((YES))
+#pragma message "TODO fix crash with autoAdjustment and Drost filter"
+            if ((NO)) // bad memory exec for some filters when this is enabled. Such as Drost
             {
-                NSDictionary* options = @{kCIImageAutoAdjustCrop:@NO,
+                NSDictionary* options = @{kCIImageAutoAdjustCrop:@YES,
                                           kCIImageAutoAdjustRedEye:@NO,
-                                          kCIImageAutoAdjustFeatures:@NO,
-                                          kCIImageAutoAdjustEnhance:@YES,
-                                          kCIImageAutoAdjustLevel:@YES};
+                                          kCIImageAutoAdjustEnhance:@NO,
+                                          kCIImageAutoAdjustFeatures:@[],
+                                          kCIImageAutoAdjustLevel:@NO};
                 
-                NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: nil];
+                NSArray *adjustments = [filteredImage autoAdjustmentFiltersWithOptions: options];
                 for (CIFilter *filter in adjustments)
                 {
                     [filter setValue: filteredImage forKey: kCIInputImageKey];
