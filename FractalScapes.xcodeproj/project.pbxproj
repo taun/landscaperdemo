@@ -254,7 +254,7 @@
 		C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */; };
 		C5A5C3911ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A5C38F1ACCC4ED003CAA99 /* MDBFractalDocumentProxy.h */; };
 		C5A5C3921ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A5C3901ACCC4ED003CAA99 /* MDBFractalDocumentProxy.m */; };
-		C5A8F98D1BA63E9C00C43F4B /* MDBAppStoreSnapshots.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A8F98C1BA63E9C00C43F4B /* MDBAppStoreSnapshots.m */; settings = {ASSET_TAGS = (); }; };
+		C5A8F98D1BA63E9C00C43F4B /* MDBAppStoreSnapshots.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A8F98C1BA63E9C00C43F4B /* MDBAppStoreSnapshots.m */; };
 		C5A9F9BA1B9CA6FF0072EAAB /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9A81B9CA6FF0072EAAB /* F1SampleF8E68733-FA47-414C-9761-46F27CE288EE.fractal */; };
 		C5A9F9BB1B9CA6FF0072EAAB /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9A91B9CA6FF0072EAAB /* ZSample9E8FEC73-B481-41C2-ADEA-76DD9CABDB4E.fractal */; };
 		C5A9F9BC1B9CA6FF0072EAAB /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal in Resources */ = {isa = PBXBuildFile; fileRef = C5A9F9AA1B9CA6FF0072EAAB /* A080SampleAF9C2974-1245-4023-AC2E-A30B1670C84F.fractal */; };
@@ -378,6 +378,8 @@
 		C5F1848C1AA8DAA200233E49 /* MDBFractalDocumentLocalCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F1848A1AA8DAA200233E49 /* MDBFractalDocumentLocalCoordinator.m */; };
 		C5F544821A5B56B3000EE8B9 /* LSFractalRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F544801A5B56B3000EE8B9 /* LSFractalRenderer.h */; };
 		C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F544811A5B56B3000EE8B9 /* LSFractalRenderer.m */; };
+		C5FF31651BEA40D1005550C8 /* MBFractalLibraryShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FF31631BEA40D1005550C8 /* MBFractalLibraryShareViewController.m */; };
+		C5FF31661BEA40D1005550C8 /* MBFractalLibraryShareViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5FF31641BEA40D1005550C8 /* MBFractalLibraryShareViewController.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -786,6 +788,8 @@
 		C5F544801A5B56B3000EE8B9 /* LSFractalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFractalRenderer.h; path = FractalScape/LSFractalRenderer.h; sourceTree = "<group>"; };
 		C5F544811A5B56B3000EE8B9 /* LSFractalRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFractalRenderer.m; path = FractalScape/LSFractalRenderer.m; sourceTree = "<group>"; };
 		C5FDC1E21A8BF83D004BE617 /* MBFractalPrefConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBFractalPrefConstants.h; sourceTree = "<group>"; };
+		C5FF31631BEA40D1005550C8 /* MBFractalLibraryShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalLibraryShareViewController.m; path = FractalScape/MBFractalLibraryShareViewController.m; sourceTree = "<group>"; };
+		C5FF31641BEA40D1005550C8 /* MBFractalLibraryShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalLibraryShareViewController.h; path = FractalScape/MBFractalLibraryShareViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1489,6 +1493,8 @@
 				C5DE128E1AC08DA100AAE804 /* MDBFractalLibraryCollectionSource.m */,
 				C52C60A01AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.h */,
 				C52C60A11AB7CA0400CD7FA5 /* MBFractalLibraryEditViewController.m */,
+				C5FF31641BEA40D1005550C8 /* MBFractalLibraryShareViewController.h */,
+				C5FF31631BEA40D1005550C8 /* MBFractalLibraryShareViewController.m */,
 				C5A5C38B1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.h */,
 				C5A5C38C1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m */,
 				C500160D1AC6103F00101340 /* MDBNavConTransitionCoordinator.h */,
@@ -1625,6 +1631,7 @@
 				C54A72511BA602CC00D2C47E /* ssl2.h in Headers */,
 				C583EDFB1B972BA100ED4BA6 /* xer_encoder.h in Headers */,
 				C54A72161BA602CC00D2C47E /* asn1.h in Headers */,
+				C5FF31661BEA40D1005550C8 /* MBFractalLibraryShareViewController.h in Headers */,
 				C5CE0E581B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h in Headers */,
 				C54A72301BA602CC00D2C47E /* err.h in Headers */,
 				C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */,
@@ -1912,6 +1919,7 @@
 				C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */,
 				C54FC6D31ADB60A600588E9F /* MDBImageFiltersListView.m in Sources */,
 				C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */,
+				C5FF31651BEA40D1005550C8 /* MBFractalLibraryShareViewController.m in Sources */,
 				C583EDDA1B972BA100ED4BA6 /* NativeInteger.c in Sources */,
 				C5F1847D1AA6751200233E49 /* MDBDocumentController.m in Sources */,
 				C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */,

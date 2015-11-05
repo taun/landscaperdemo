@@ -132,6 +132,7 @@
 {
     [textField resignFirstResponder];
     UITextView* strongDescriptor = self.descriptor;
+    strongDescriptor.editable = YES;
     [strongDescriptor becomeFirstResponder];
     return NO;
 }
@@ -145,7 +146,15 @@
         }
     }
 }
+
 #pragma mark - UITextViewDelegate
+-(BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    [[UIApplication sharedApplication] openURL: URL];
+    
+    return NO;
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"]) {
@@ -167,6 +176,16 @@
             [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
         }
     }
+    textView.editable = NO;
 }
 
+- (IBAction)descriptorTextViewTapped:(UITapGestureRecognizer *)sender
+{
+    UITextView* view = (UITextView*)sender.view;
+    if ([view isMemberOfClass: [UITextView class]])
+    {
+        view.editable = YES;
+        [view becomeFirstResponder];
+    }
+}
 @end

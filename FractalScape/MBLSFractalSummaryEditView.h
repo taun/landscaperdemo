@@ -25,4 +25,7 @@ IB_DESIGNABLE
 @property (nonatomic,weak) IBOutlet UITextField         *name;
 @property (nonatomic,weak) IBOutlet UITextView          *descriptor;
 @property (nonatomic,strong) IBInspectable UIColor      *borderColor;
+
+- (IBAction)descriptorTextViewTapped:(UITapGestureRecognizer *)sender;
+
 @end
