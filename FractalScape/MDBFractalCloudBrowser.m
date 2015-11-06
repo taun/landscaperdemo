@@ -127,7 +127,16 @@
 
     NSSortDescriptor* byModDate = [NSSortDescriptor sortDescriptorWithKey: @"modificationDate" ascending: NO];
     NSSortDescriptor* byName = [NSSortDescriptor sortDescriptorWithKey: CKFractalRecordNameField ascending: YES];
-    NSArray* descriptors = @[byModDate, byName];
+
+    NSArray* descriptors;
+    
+    if ((NO)) {
+        descriptors = @[byModDate];
+    }
+    else
+    {
+        descriptors = @[byModDate, byName];
+    }
 
     [self fetchCloudRecordsWithPredicate: predicate andSortDescriptors: descriptors];
 }

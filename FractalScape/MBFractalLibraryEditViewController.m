@@ -50,6 +50,13 @@
     self.deleteButton.enabled = state;
 }
 
+-(void)documentControllerChanged
+{
+    [super documentControllerChanged];
+    self.navigationItem.title = NSLocalizedString(@"Select to Delete", @"To select an item to delete");
+}
+
+
 #pragma mark - MDBFractalLibraryCollectionDelegate
 -(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -47,6 +47,12 @@
     self.shareButton.enabled = state;
 }
 
+-(void)documentControllerChanged
+{
+    [super documentControllerChanged];
+    self.navigationItem.title = NSLocalizedString(@"Select to Share", @"To select an item to share to the cloud");
+}
+
 #pragma mark - MDBFractalLibraryCollectionDelegate
 -(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

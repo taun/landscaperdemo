@@ -33,7 +33,18 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem                        *addDocumentButton;
 @property (nonatomic,weak) MDBFractalInfo                                   *fractalInfoBeingEdited;
 
+/*!
+ Startup sequence used when it is not the first startup and there is no need for the intro.
+ 
+ Public so it can be overriden in subclasses.
+ */
 -(void)regularStartupSequence;
+/*!
+ Method to allow changing document controller observers and the navigation title if the MDBDocumentController is changed due to going from local storage to cloud storage.
+ 
+ Public so it can be overriden/appended in subclasses.
+ */
+-(void)documentControllerChanged;
 
 #pragma mark - Segue Actions
 //- (IBAction)unwindToLibraryFromEditor:(UIStoryboardSegue *)segue;

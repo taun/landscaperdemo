@@ -335,14 +335,19 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(void)documentControllerChanged
 {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-        [self addDocumentControllerObservers];
-        self.collectionSource.documentController = self->_appModel.documentController;
-//        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-//        [self.collectionView reloadData];
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    [self addDocumentControllerObservers];
+    self.collectionSource.documentController = self->_appModel.documentController;
+    //        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
+    //        [self.collectionView reloadData];
+    if ([self isMemberOfClass: [MBFractalLibraryViewController class]])
+    {
+        // only use this title change if it is the root class.
+        // let the other classes assign their own titles.
         self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
-        if (_isAppeared) [self->_appModel.documentController.documentCoordinator startQuery];
-//    });
+    }
+    if (_isAppeared) [self->_appModel.documentController.documentCoordinator startQuery];
+    //    });
 }
 
 #pragma mark - IBActions
