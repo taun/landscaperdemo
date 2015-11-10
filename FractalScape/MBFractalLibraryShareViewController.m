@@ -132,7 +132,8 @@
 
 -(void)sendUserToSystemiCloudSettings: (id)sender
 {
-    [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"prefs:root=iCloud"]];
+    // Cloud —> prefs:root=CASTLE
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: UIApplicationOpenSettingsURLString]];
 }
 
 -(void)showAlertActionsToShare: (id)sender

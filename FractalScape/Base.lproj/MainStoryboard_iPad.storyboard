@@ -1234,7 +1234,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dfw-V4-hee" customClass="MBLSFractalSummaryEditViewer">
+                                        <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dfw-V4-hee" customClass="MBLSFractalSummaryEditViewer">
                                             <rect key="frame" x="8" y="0.0" width="384" height="451"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1432,13 +1432,13 @@
                             <view contentMode="scaleToFill" restorationIdentifier="ScrollContainer" translatesAutoresizingMaskIntoConstraints="NO" id="qOW-vz-zam" userLabel="ScrollContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                 <subviews>
-                                    <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0d-fD-dP1">
+                                    <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0d-fD-dP1">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" restorationIdentifier="FiltersScrollContents" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-N1-HPR" userLabel="FiltersScrollContents">
+                                            <view contentMode="scaleToFill" restorationIdentifier="FiltersScrollContents" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-N1-HPR" userLabel="FiltersScrollContents">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="230"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" ambiguous="YES" misplaced="YES" restorationIdentifier="FilterCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" userLabel="FilterCategoriesView" customClass="MDBImageFiltersCategoriesListView">
+                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" misplaced="YES" restorationIdentifier="FilterCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" userLabel="FilterCategoriesView" customClass="MDBImageFiltersCategoriesListView">
                                                         <rect key="frame" x="18" y="0.0" width="364" height="186"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1495,13 +1495,13 @@
                                     <constraint firstAttribute="bottom" secondItem="Q0d-fD-dP1" secondAttribute="bottom" id="se5-hO-MqY"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kbu-uc-QBR">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kbu-uc-QBR">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="108"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="E5G-Xc-F7c">
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="E5G-Xc-F7c">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="108"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ab9-Jg-fYJ" userLabel="FiltersGroup" customClass="MDKLayerViewDesignable">
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ab9-Jg-fYJ" userLabel="FiltersGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="2" y="2" width="396" height="104"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls" customClass="MDBFilterControlView">
@@ -1529,7 +1529,7 @@ Drag icon to holder below to apply effect</string>
                                                         <constraint firstAttribute="centerY" secondItem="jhA-5f-k1Y" secondAttribute="centerY" id="w9Z-wT-cV6"/>
                                                     </constraints>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
+                                                <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
                                                     <rect key="frame" x="6" y="56" width="384" height="42"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1735,10 +1735,10 @@ Drag icon to holder below to apply effect</string>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-dI-EIj">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="479"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" misplaced="YES" restorationIdentifier="RulesScrollContentsView" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="RulesScrollContentsView">
+                                            <view contentMode="scaleToFill" restorationIdentifier="RulesScrollContentsView" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="RulesScrollContentsView">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="307"/>
                                                 <subviews>
-                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="RulesOutlineDesignable" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="RulesOutlineDesignable" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
                                                         <rect key="frame" x="2" y="2" width="396" height="231"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Td5-aV-Bii" customClass="MDKLayerViewDesignable">
@@ -1811,7 +1811,7 @@ Drag icon to holder below to apply effect</string>
                                                             <rect key="frame" x="10" y="8" width="780" height="200"/>
                                                         </variation>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Start:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eki-f5-HFG">
                                                         <rect key="frame" x="12" y="101.5" width="42" height="20.5"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2127,7 +2127,7 @@ Drag icon to holder below to apply effect</string>
                                             <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ScrollContentView" translatesAutoresizingMaskIntoConstraints="NO" id="SrT-kZ-Fno" userLabel="ScrollContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="451"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" restorationIdentifier="ColorCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" userLabel="ColorCategoriesView" customClass="MDBColorCategoriesListView">
+                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" misplaced="YES" restorationIdentifier="ColorCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-Vl-Ltb" userLabel="ColorCategoriesView" customClass="MDBColorCategoriesListView">
                                                         <rect key="frame" x="18" y="0.0" width="364" height="363"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2217,13 +2217,13 @@ Drag icon to holder below to apply effect</string>
                                     <constraint firstItem="4QD-IE-s5T" firstAttribute="leading" secondItem="HCL-AF-c5r" secondAttribute="leading" id="yqg-Lg-rbv"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="jQ1-fw-lLr">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="106"/>
                                 <view key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" verticalCompressionResistancePriority="250" id="TLs-EA-bzv">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="106"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
+                                        <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9ba-HM-kSK" userLabel="PropertiesGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="2" y="2" width="396" height="102"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="scaleAspectFill" verticalHuggingPriority="249" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-cF-wSc" userLabel="PageColorGroup" customClass="MDBFractalPageColorTileView">
@@ -2258,10 +2258,10 @@ Drag icon to holder below to apply effect</string>
                                                         <outletCollection property="gestureRecognizers" destination="tHc-f0-gZq" appends="YES" id="rMH-uI-lpb"/>
                                                     </connections>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
+                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maa-lX-Faf" userLabel="LineColorsGroup" customClass="MDKLayerViewDesignable">
                                                     <rect key="frame" x="48" y="2" width="346" height="100"/>
                                                     <subviews>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarLineColorIconTemplate" highlightedImage="tabBarLineColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="y20-fS-x0U">
                                                             <rect key="frame" x="4" y="11" width="28" height="28"/>
                                                             <animations/>
                                                             <constraints>
@@ -2312,7 +2312,7 @@ Drag icon to holder below to apply effect</string>
                                                                 <outletCollection property="gestureRecognizers" destination="LiJ-uw-Hif" appends="YES" id="6zS-6n-xbb"/>
                                                             </connections>
                                                         </view>
-                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
+                                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarFillColorIconTemplate" highlightedImage="tabBarFillColorIconTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="sUp-Wy-sYl">
                                                             <rect key="frame" x="4" y="57" width="28" height="28"/>
                                                             <animations/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2824,7 +2824,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="5259" y="504"/>
+            <point key="canvasLocation" x="4257" y="915"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="iKT-0y-poi">
@@ -3014,8 +3014,8 @@ Drag icon to holder below to apply effect</string>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showNewFractalDocument" id="CAI-sc-RDe"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocumentFromUserActivity" id="XIW-aO-ufy"/>
                         <segue destination="4nM-Pc-iAd" kind="show" identifier="showFractalDocument" id="O2z-rK-pDb"/>
-                        <segue destination="aUm-Ex-52D" kind="presentation" identifier="WelcomeSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="Q5v-4z-TQQ"/>
                         <segue destination="TTb-ph-Ba9" kind="presentation" identifier="ShowPurchaseControllerSegue" modalPresentationStyle="formSheet" modalTransitionStyle="flipHorizontal" id="0fO-dT-L5U"/>
+                        <segue destination="GLc-D3-MPS" kind="presentation" identifier="WelcomeSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="T3I-Ze-v4U"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIQ-NF-cp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3025,12 +3025,12 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="4389" y="141"/>
+            <point key="canvasLocation" x="4590" y="125"/>
         </scene>
         <!--WelcomeLibraryModal-->
         <scene sceneID="ww4-qS-eMi">
             <objects>
-                <viewController storyboardIdentifier="WelcomeViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aUm-Ex-52D" userLabel="WelcomeLibraryModal" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeBrowserViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aUm-Ex-52D" userLabel="WelcomeLibraryModal" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pVm-SJ-0Oj"/>
                         <viewControllerLayoutGuide type="bottom" id="1gZ-mC-xe4"/>
@@ -3040,40 +3040,80 @@ Drag icon to holder below to apply effect</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqt-OL-7TY" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="16" y="72" width="567.5" height="772"/>
+                                <rect key="frame" x="18" y="72" width="564" height="772"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-Bj-4wS">
-                                        <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="564" height="772"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="51C-ij-UpW">
-                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="564" height="772"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJr-Yi-XVd" userLabel="ScrollContainer">
-                                                    <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="564" height="772"/>
                                                     <subviews>
                                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEw-vQ-EnU">
-                                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="564" height="772"/>
                                                             <subviews>
                                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJo-5w-3J5" userLabel="ScrollContent">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="567.5" height="740"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="564" height="740"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jm4-us-epF">
-                                                                            <rect key="frame" x="214" y="40" width="138" height="88"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" misplaced="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jm4-us-epF">
+                                                                            <rect key="frame" x="212" y="40" width="138" height="88"/>
                                                                             <animations/>
                                                                             <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="26"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MK-Ue-1Yh">
-                                                                            <rect key="frame" x="8" y="136" width="551.5" height="270.5"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MK-Ue-1Yh">
+                                                                            <rect key="frame" x="8" y="136" width="548" height="270.5"/>
                                                                             <animations/>
-                                                                            <string key="text">FractalScapes let's you create new colorful and amazing fractal plants and patterns. You don't need to be an artist to create cool looking designs.
+                                                                            <attributedString key="attributedText">
+                                                                                <fragment>
+                                                                                    <string key="content">FractalScapes let's you create new colorful and amazing fractal plants and patterns. You don't need to be an artist to create cool looking designs.
 
-Just play around with the fractals and have fun. We have added sample fractals to play with. If you want more, you can browse our in-app public Cloud share. Or upgrade to the Pro version and create your own from scratch.
+Just play around with the fractals and have fun. Since you have an iCloud account, we have selected the FractalCloud Browser for you. </string>
+                                                                                    <attributes>
+                                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <font key="NSFont" size="18" name="AvenirNext-DemiBold"/>
+                                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                                    </attributes>
+                                                                                </fragment>
+                                                                                <fragment content="Select">
+                                                                                    <attributes>
+                                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <font key="NSFont" size="18" name="AvenirNext-DemiBoldItalic"/>
+                                                                                        <font key="NSOriginalFont" size="18" name="AvenirNext-DemiBoldItalic"/>
+                                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                                        <integer key="NSUnderline" value="1"/>
+                                                                                    </attributes>
+                                                                                </fragment>
+                                                                                <fragment content=" and ">
+                                                                                    <attributes>
+                                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <font key="NSFont" size="18" name="AvenirNext-DemiBold"/>
+                                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                                    </attributes>
+                                                                                </fragment>
+                                                                                <fragment content="Get">
+                                                                                    <attributes>
+                                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <font key="NSFont" size="18" name="AvenirNext-DemiBoldItalic"/>
+                                                                                        <font key="NSOriginalFont" size="18" name="AvenirNext-DemiBoldItalic"/>
+                                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                                        <integer key="NSUnderline" value="1"/>
+                                                                                    </attributes>
+                                                                                </fragment>
+                                                                                <fragment>
+                                                                                    <string key="content"> as many fractals as you like, then play with them in your library.
 
 The main screen with all your fractals is called your "Library". See below for a description of each of the library Tabs.</string>
-                                                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
-                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <attributes>
+                                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <font key="NSFont" size="18" name="AvenirNext-DemiBold"/>
+                                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                                    </attributes>
+                                                                                </fragment>
+                                                                            </attributedString>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tab Icon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44Q-Mg-LLI">
@@ -3119,39 +3159,39 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                                 <constraint firstAttribute="width" constant="40" id="Q2X-Q6-Lqc"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your fractal library, stored locally or in the cloud" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPA-Vh-g26">
-                                                                            <rect key="frame" x="56" y="464" width="353" height="19.5"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your fractal library, stored locally or in the cloud" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPA-Vh-g26">
+                                                                            <rect key="frame" x="56" y="464" width="361.5" height="19.5"/>
                                                                             <animations/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Fractals shared to everyone. Check often for new creations." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xu7-08-9SH">
-                                                                            <rect key="frame" x="56" y="512" width="442.5" height="19.5"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fractals shared to everyone. Check often for new creations." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xu7-08-9SH">
+                                                                            <rect key="frame" x="56" y="512" width="451" height="19.5"/>
                                                                             <animations/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Find out more about fractals and FractalScape. Feedback links." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Su-7M-aS4">
-                                                                            <rect key="frame" x="56" y="560" width="471" height="19.5"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find out more about fractals and FractalScape. Feedback links." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Su-7M-aS4">
+                                                                            <rect key="frame" x="56" y="560" width="476" height="19.5"/>
                                                                             <animations/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Frequently used app settings. Link to full app  settings." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmM-1v-DlQ">
-                                                                            <rect key="frame" x="56" y="608" width="407.5" height="19.5"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequently used app settings. Link to full app  settings." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmM-1v-DlQ">
+                                                                            <rect key="frame" x="56" y="608" width="414.5" height="19.5"/>
                                                                             <animations/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d7-BG-oNU">
-                                                                            <rect key="frame" x="269" y="658" width="290" height="61.5"/>
+                                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d7-BG-oNU">
+                                                                            <rect key="frame" x="243.5" y="658" width="312" height="61.5"/>
                                                                             <animations/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                                            <state key="normal" title="Get Started by selecting a fractal!">
+                                                                            <state key="normal" title="Get Started by selecting fractals you like!">
                                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </state>
                                                                             <connections>
@@ -3280,7 +3320,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBA-Po-qV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Z2d-iD-tDV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4389" y="1067"/>
+            <point key="canvasLocation" x="5329" y="-584"/>
         </scene>
         <!--Settings-->
         <scene sceneID="y58-hl-MeF">
@@ -3849,11 +3889,12 @@ The main screen with all your fractals is called your "Library". See below for a
                         <outlet property="searchBarContainer" destination="1UX-71-Kq3" id="dge-SO-FfJ"/>
                         <outlet property="searchBarContainerHeightConstraint" destination="DIa-9j-Wls" id="DWl-AV-ryT"/>
                         <outlet property="searchButton" destination="Pwm-gI-tdQ" id="bmf-nu-5fw"/>
+                        <segue destination="aUm-Ex-52D" kind="presentation" identifier="WelcomeSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="w2f-qC-qrU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlr-YX-DBd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4389" y="-568"/>
+            <point key="canvasLocation" x="4590" y="-584"/>
         </scene>
         <!--Help-->
         <scene sceneID="uhO-0n-cBU">
@@ -3903,7 +3944,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yID-CE-aV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4379" y="1864"/>
+            <point key="canvasLocation" x="2861" y="1790"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="92t-Wk-RAa">
@@ -3921,7 +3962,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fi4-Fc-RCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3645" y="1864"/>
+            <point key="canvasLocation" x="2127" y="1790"/>
         </scene>
         <!--Help-->
         <scene sceneID="qeT-zj-FGl">
@@ -3935,7 +3976,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPj-sJ-5ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2897" y="2192"/>
+            <point key="canvasLocation" x="1379" y="2118"/>
         </scene>
         <!--FractalScapes Store-->
         <scene sceneID="llP-wv-S99">
@@ -3957,7 +3998,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZZ-kp-QlI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5450" y="-1630"/>
+            <point key="canvasLocation" x="5372" y="-1640"/>
         </scene>
         <!--Upgrades-->
         <scene sceneID="cmQ-VW-5A6">
@@ -4185,7 +4226,7 @@ Please try again later.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tcu-4u-pXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="MOF-rr-kf0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6165" y="-1630"/>
+            <point key="canvasLocation" x="6119" y="-1640"/>
         </scene>
         <!--Main Library Tab Bar Controller-->
         <scene sceneID="95T-CA-6ut">
@@ -4208,7 +4249,7 @@ Please try again later.</string>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ3-UZ-hST" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2969" y="141"/>
+            <point key="canvasLocation" x="1379" y="133"/>
         </scene>
         <!--My Fractals-->
         <scene sceneID="ECf-kR-spw">
@@ -4234,7 +4275,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dce-s8-c1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3691" y="141"/>
+            <point key="canvasLocation" x="3892" y="125"/>
         </scene>
         <!--Rules-->
         <scene sceneID="M0i-xl-FcE">
@@ -4299,7 +4340,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brm-ue-2zq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3691" y="-568"/>
+            <point key="canvasLocation" x="3892" y="-584"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="5Au-fm-e3U">
@@ -4310,7 +4351,7 @@ Please try again later.</string>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B0n-AT-w3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4379" y="2613"/>
+            <point key="canvasLocation" x="2861" y="2539"/>
         </scene>
         <!--Rules Glossary-->
         <scene sceneID="lN5-Zy-q45">
@@ -4506,7 +4547,7 @@ Please try again later.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BpR-Br-fH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9808" y="2613"/>
+            <point key="canvasLocation" x="8290" y="2539"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bt6-QJ-c2c">
@@ -4527,7 +4568,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKA-RW-I9I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3645" y="2613"/>
+            <point key="canvasLocation" x="2127" y="2539"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="yUH-v2-PcJ">
@@ -4610,7 +4651,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5071" y="2613"/>
+            <point key="canvasLocation" x="3553" y="2539"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="iPl-tY-QdS">
@@ -4693,7 +4734,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5757" y="2621"/>
+            <point key="canvasLocation" x="4239" y="2547"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="we8-at-8Xg">
@@ -4776,7 +4817,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6441" y="2621"/>
+            <point key="canvasLocation" x="4923" y="2547"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="Ecr-9y-q5N">
@@ -4859,7 +4900,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="7091" y="2621"/>
+            <point key="canvasLocation" x="5573" y="2547"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="hCM-GW-Dog">
@@ -4942,7 +4983,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="7767" y="2613"/>
+            <point key="canvasLocation" x="6249" y="2539"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="n3f-yT-moA">
@@ -5025,7 +5066,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="8461" y="2613"/>
+            <point key="canvasLocation" x="6943" y="2539"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="niF-3F-uH2">
@@ -5108,7 +5149,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="9143" y="2613"/>
+            <point key="canvasLocation" x="7625" y="2539"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="616-qu-iQJ">
@@ -5298,7 +5339,262 @@ Please try again later.</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="5259" y="-233"/>
+            <point key="canvasLocation" x="4923" y="915"/>
+        </scene>
+        <!--WelcomeLibraryModal-->
+        <scene sceneID="fJB-Ox-vBG">
+            <objects>
+                <viewController storyboardIdentifier="WelcomeLibraryViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GLc-D3-MPS" userLabel="WelcomeLibraryModal" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2XM-yf-PpO"/>
+                        <viewControllerLayoutGuide type="bottom" id="gSr-DE-cI3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="J5G-4d-44Q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcC-uT-bo1" customClass="MDKLayerViewDesignable">
+                                <rect key="frame" x="16" y="72" width="567.5" height="772"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVu-9d-51V">
+                                        <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GNi-gh-71h">
+                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93G-cV-xB9" userLabel="ScrollContainer">
+                                                    <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                                    <subviews>
+                                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jr-Oa-qQE">
+                                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                                            <subviews>
+                                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsf-sM-5Mv" userLabel="ScrollContent">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="567.5" height="740"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdQ-x6-oD9">
+                                                                            <rect key="frame" x="214" y="40" width="138" height="88"/>
+                                                                            <animations/>
+                                                                            <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="26"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zu8-ra-eRM">
+                                                                            <rect key="frame" x="8" y="136" width="551.5" height="270.5"/>
+                                                                            <animations/>
+                                                                            <string key="text">FractalScapes let's you create new colorful and amazing fractal plants and patterns. You don't need to be an artist to create cool looking designs.
+
+Just play around with the fractals and have fun. We have added sample fractals to play with. If you want more, you can browse our in-app public Cloud share. Or upgrade to the Pro version and create your own from scratch.
+
+The main screen with all your fractals is called your "Library". See below for a description of each of the library Tabs.</string>
+                                                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tab Icon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIu-b5-vls">
+                                                                            <rect key="frame" x="8" y="431" width="65.5" height="20.5"/>
+                                                                            <animations/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarMyFractals" translatesAutoresizingMaskIntoConstraints="NO" id="6z8-ag-Zj8">
+                                                                            <rect key="frame" x="8" y="454" width="40" height="40"/>
+                                                                            <animations/>
+                                                                            <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" secondItem="6z8-ag-Zj8" secondAttribute="height" multiplier="1:1" id="GZN-Ak-4Vr"/>
+                                                                                <constraint firstAttribute="width" constant="40" id="glO-0q-FNP"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloud" translatesAutoresizingMaskIntoConstraints="NO" id="RTF-bB-ZFn">
+                                                                            <rect key="frame" x="8" y="502" width="40" height="40"/>
+                                                                            <animations/>
+                                                                            <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="40" id="Nbw-Fz-kC5"/>
+                                                                                <constraint firstAttribute="width" secondItem="RTF-bB-ZFn" secondAttribute="height" multiplier="1:1" id="y89-zf-02N"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarInfo" translatesAutoresizingMaskIntoConstraints="NO" id="5qa-OB-4eW">
+                                                                            <rect key="frame" x="8" y="550" width="40" height="40"/>
+                                                                            <animations/>
+                                                                            <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" secondItem="5qa-OB-4eW" secondAttribute="height" multiplier="1:1" id="olG-xq-Shz"/>
+                                                                                <constraint firstAttribute="width" constant="40" id="pen-cP-X9E"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="245" image="tabBarSettings" translatesAutoresizingMaskIntoConstraints="NO" id="4US-62-Lf7">
+                                                                            <rect key="frame" x="8" y="598" width="40" height="40"/>
+                                                                            <animations/>
+                                                                            <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" secondItem="4US-62-Lf7" secondAttribute="height" multiplier="1:1" id="1W5-U6-D9I"/>
+                                                                                <constraint firstAttribute="width" constant="40" id="yIF-XA-sSi"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your fractal library, stored locally or in the cloud" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gV0-Kd-tOz">
+                                                                            <rect key="frame" x="56" y="464" width="353" height="19.5"/>
+                                                                            <animations/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Fractals shared to everyone. Check often for new creations." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocL-3i-eA2">
+                                                                            <rect key="frame" x="56" y="512" width="442.5" height="19.5"/>
+                                                                            <animations/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Find out more about fractals and FractalScape. Feedback links." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjt-pB-iFD">
+                                                                            <rect key="frame" x="56" y="560" width="471" height="19.5"/>
+                                                                            <animations/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Frequently used app settings. Link to full app  settings." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9U-Mk-Tsk">
+                                                                            <rect key="frame" x="56" y="608" width="407.5" height="19.5"/>
+                                                                            <animations/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwE-Oj-zx1">
+                                                                            <rect key="frame" x="269" y="658" width="290" height="61.5"/>
+                                                                            <animations/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                            <state key="normal" title="Get Started by selecting a fractal!">
+                                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            </state>
+                                                                            <connections>
+                                                                                <segue destination="s88-3u-Bit" kind="unwind" unwindAction="unwindFromWelcome:" id="9U9-NY-6za"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <animations/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="RTF-bB-ZFn" firstAttribute="centerY" secondItem="ocL-3i-eA2" secondAttribute="centerY" id="4cP-JN-Krk"/>
+                                                                        <constraint firstItem="zu8-ra-eRM" firstAttribute="leading" secondItem="Tsf-sM-5Mv" secondAttribute="leading" constant="8" id="5NF-nd-T7t"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="vwE-Oj-zx1" secondAttribute="trailing" constant="8" id="DO8-Sq-p8X"/>
+                                                                        <constraint firstItem="ocL-3i-eA2" firstAttribute="leading" secondItem="RTF-bB-ZFn" secondAttribute="trailing" constant="8" id="DcJ-WL-6xj"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="vwE-Oj-zx1" secondAttribute="bottom" constant="20" id="Ga0-Px-hzc"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T9U-Mk-Tsk" secondAttribute="trailing" constant="8" id="Het-mV-26W"/>
+                                                                        <constraint firstItem="rjt-pB-iFD" firstAttribute="leading" secondItem="5qa-OB-4eW" secondAttribute="trailing" constant="8" id="INa-70-Zsf"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ocL-3i-eA2" secondAttribute="trailing" constant="8" id="LLe-nY-IRc"/>
+                                                                        <constraint firstItem="6z8-ag-Zj8" firstAttribute="top" secondItem="RIu-b5-vls" secondAttribute="bottom" constant="2" id="LTo-XS-zvP"/>
+                                                                        <constraint firstItem="4US-62-Lf7" firstAttribute="top" secondItem="5qa-OB-4eW" secondAttribute="bottom" constant="8" id="N4v-71-YGP"/>
+                                                                        <constraint firstItem="6z8-ag-Zj8" firstAttribute="width" secondItem="6z8-ag-Zj8" secondAttribute="height" multiplier="1:1" id="OdE-Im-XNt"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="zu8-ra-eRM" secondAttribute="trailing" constant="8" id="QVf-8t-yz1"/>
+                                                                        <constraint firstItem="RTF-bB-ZFn" firstAttribute="top" secondItem="6z8-ag-Zj8" secondAttribute="bottom" constant="8" id="SQM-hE-04l"/>
+                                                                        <constraint firstItem="gV0-Kd-tOz" firstAttribute="leading" secondItem="6z8-ag-Zj8" secondAttribute="trailing" constant="8" id="VgJ-PY-g62"/>
+                                                                        <constraint firstItem="RTF-bB-ZFn" firstAttribute="leading" secondItem="6z8-ag-Zj8" secondAttribute="leading" id="XQu-5f-BRs"/>
+                                                                        <constraint firstItem="rjt-pB-iFD" firstAttribute="centerY" secondItem="5qa-OB-4eW" secondAttribute="centerY" id="YRO-bn-uro"/>
+                                                                        <constraint firstItem="vwE-Oj-zx1" firstAttribute="top" secondItem="4US-62-Lf7" secondAttribute="bottom" constant="20" id="ZlG-4b-2vt"/>
+                                                                        <constraint firstItem="RTF-bB-ZFn" firstAttribute="leading" secondItem="5qa-OB-4eW" secondAttribute="leading" id="cRP-CQ-8WY"/>
+                                                                        <constraint firstAttribute="centerX" secondItem="ZdQ-x6-oD9" secondAttribute="centerX" id="d52-KY-7xY"/>
+                                                                        <constraint firstItem="5qa-OB-4eW" firstAttribute="width" secondItem="5qa-OB-4eW" secondAttribute="height" multiplier="1:1" id="d8q-3h-qw8"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gV0-Kd-tOz" secondAttribute="trailing" constant="8" id="enw-WA-NeX"/>
+                                                                        <constraint firstItem="RTF-bB-ZFn" firstAttribute="leading" secondItem="4US-62-Lf7" secondAttribute="leading" id="erP-EJ-k2c"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rjt-pB-iFD" secondAttribute="trailing" constant="8" id="fb7-Ao-qFu"/>
+                                                                        <constraint firstItem="5qa-OB-4eW" firstAttribute="top" secondItem="RTF-bB-ZFn" secondAttribute="bottom" constant="8" id="joN-Qc-lDi"/>
+                                                                        <constraint firstAttribute="height" constant="740" placeholder="YES" id="lqV-MM-LYU"/>
+                                                                        <constraint firstItem="4US-62-Lf7" firstAttribute="centerY" secondItem="T9U-Mk-Tsk" secondAttribute="centerY" id="nJI-Xs-eXf"/>
+                                                                        <constraint firstItem="6z8-ag-Zj8" firstAttribute="centerY" secondItem="gV0-Kd-tOz" secondAttribute="centerY" id="pSD-0n-6e8"/>
+                                                                        <constraint firstItem="T9U-Mk-Tsk" firstAttribute="leading" secondItem="4US-62-Lf7" secondAttribute="trailing" constant="8" id="pSk-U4-DGI"/>
+                                                                        <constraint firstItem="4US-62-Lf7" firstAttribute="width" secondItem="4US-62-Lf7" secondAttribute="height" multiplier="1:1" id="qjV-L7-JCI"/>
+                                                                        <constraint firstItem="ZdQ-x6-oD9" firstAttribute="top" secondItem="Tsf-sM-5Mv" secondAttribute="top" constant="40" id="rdJ-uZ-WeR"/>
+                                                                        <constraint firstItem="RTF-bB-ZFn" firstAttribute="leading" secondItem="Tsf-sM-5Mv" secondAttribute="leading" constant="8" id="tl9-eh-W2X"/>
+                                                                        <constraint firstItem="6z8-ag-Zj8" firstAttribute="top" secondItem="zu8-ra-eRM" secondAttribute="bottom" constant="48" id="wRS-AW-ZiM">
+                                                                            <variation key="heightClass=compact" constant="24"/>
+                                                                            <variation key="widthClass=compact" constant="40"/>
+                                                                        </constraint>
+                                                                        <constraint firstItem="6z8-ag-Zj8" firstAttribute="leading" secondItem="RIu-b5-vls" secondAttribute="leading" id="woJ-OD-vOH"/>
+                                                                        <constraint firstItem="zu8-ra-eRM" firstAttribute="top" secondItem="ZdQ-x6-oD9" secondAttribute="bottom" constant="8" symbolic="YES" id="y8m-fC-JPD"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                            <animations/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="Tsf-sM-5Mv" secondAttribute="bottom" id="3tR-6v-htw"/>
+                                                                <constraint firstItem="Tsf-sM-5Mv" firstAttribute="leading" secondItem="1jr-Oa-qQE" secondAttribute="leading" id="Gac-uK-guO"/>
+                                                                <constraint firstItem="Tsf-sM-5Mv" firstAttribute="top" secondItem="1jr-Oa-qQE" secondAttribute="top" id="mMy-V7-AWU"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Tsf-sM-5Mv" secondAttribute="trailing" id="mkS-WN-LmN"/>
+                                                            </constraints>
+                                                        </scrollView>
+                                                    </subviews>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Tsf-sM-5Mv" secondAttribute="width" id="9od-Mk-vtv"/>
+                                                        <constraint firstItem="1jr-Oa-qQE" firstAttribute="top" secondItem="93G-cV-xB9" secondAttribute="top" id="9vQ-Ih-KXI"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1jr-Oa-qQE" secondAttribute="trailing" id="Tld-Hh-PMT"/>
+                                                        <constraint firstItem="1jr-Oa-qQE" firstAttribute="leading" secondItem="93G-cV-xB9" secondAttribute="leading" id="qzJ-jf-A89"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1jr-Oa-qQE" secondAttribute="bottom" id="v3u-qJ-Ens"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="93G-cV-xB9" firstAttribute="leading" secondItem="GNi-gh-71h" secondAttribute="leading" id="FIW-gU-Dg9"/>
+                                                <constraint firstItem="93G-cV-xB9" firstAttribute="top" secondItem="GNi-gh-71h" secondAttribute="top" id="OCZ-z8-fJW"/>
+                                                <constraint firstAttribute="bottom" secondItem="93G-cV-xB9" secondAttribute="bottom" id="WVi-1b-C0s"/>
+                                                <constraint firstAttribute="trailing" secondItem="93G-cV-xB9" secondAttribute="trailing" id="jRf-sF-12L"/>
+                                            </constraints>
+                                        </view>
+                                        <animations/>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="cVu-9d-51V" firstAttribute="top" secondItem="ZcC-uT-bo1" secondAttribute="top" id="0vT-Ez-Ssf"/>
+                                    <constraint firstItem="cVu-9d-51V" firstAttribute="leading" secondItem="ZcC-uT-bo1" secondAttribute="leading" id="4y9-JK-6Zv"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="2000" id="gQJ-NC-Bfw">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="760"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="cVu-9d-51V" secondAttribute="trailing" id="qNw-KU-JRr"/>
+                                    <constraint firstAttribute="bottom" secondItem="cVu-9d-51V" secondAttribute="bottom" id="yy5-fq-XMn"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="maskToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="ZcC-uT-bo1" secondAttribute="centerX" id="DjV-Vs-ZYh"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="ZcC-uT-bo1" secondAttribute="bottom" constant="56" id="XtA-MN-dpE"/>
+                            <constraint firstItem="ZcC-uT-bo1" firstAttribute="width" relation="lessThanOrEqual" secondItem="J5G-4d-44Q" secondAttribute="width" constant="-32" id="bwj-O3-BVr"/>
+                            <constraint firstItem="ZcC-uT-bo1" firstAttribute="top" secondItem="J5G-4d-44Q" secondAttribute="topMargin" constant="72" id="dpF-2Z-8lZ">
+                                <variation key="heightClass=compact-widthClass=compact" constant="32"/>
+                                <variation key="heightClass=compact-widthClass=regular" constant="48"/>
+                            </constraint>
+                        </constraints>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="900"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J0l-yb-F8p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="s88-3u-Bit" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3601" y="1065"/>
         </scene>
     </scenes>
     <resources>
@@ -5348,7 +5644,7 @@ Please try again later.</string>
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XIW-aO-ufy"/>
+        <segue reference="O2z-rK-pDb"/>
         <segue reference="0fO-dT-L5U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>

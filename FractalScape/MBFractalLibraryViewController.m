@@ -77,6 +77,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     _isAppeared = NO;
     
     [super viewWillAppear:animated];
+    
+    [self.appModel setupUserStoragePreferences];
     [[UIApplication sharedApplication] setStatusBarHidden: NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
@@ -97,43 +99,16 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     }
     
     self.pendingUserActivity = nil;
-
-//    [self.documentController resortFractalInfos];
     
     self.addDocumentButton.enabled = self.appModel.allowPremium || self.appModel.userCanMakePayments;
-
-    if (self.appModel.welcomeDone)
-    {
-        /*
-         need to handle getting here by change in cloud identity
-         */
-        [self regularStartupSequence];
-    }
-    else
-    {
-        if (self.appModel.loadDemoFiles) // way to let the intro be played again without reloading the demo fractals
-        {
-            [self.appModel loadInitialDocuments];
-        }
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self firstStartupSequence];
-        });
-    }
-}
-
-/*
- firstLaunch, we want to
- load initialDocuments
- raise an intro modal
- set cloud state.
- */
--(void)firstStartupSequence
-{
-    [self performSegueWithIdentifier: @"WelcomeSegue" sender: self];
     
-    [self regularStartupSequence];
+    [self.appModel.documentController.documentCoordinator startQuery];
+    
+    _isAppeared = YES;
+
+//    [self.collectionView reloadData];
 }
+
 - (IBAction)unwindFromWelcome:(UIStoryboardSegue *)segue
 {
     UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
@@ -143,10 +118,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [self.appModel exitWelcomeState];
     }];
 }
+
 - (IBAction)unwindFromLibraryEditController:(UIStoryboardSegue*)segue
 {
     
 }
+
 -(void)unwindFromPurchaseController:(UIStoryboardSegue *)segue
 {
     UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
@@ -156,6 +133,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
     }];
 }
+
 -(void)unwindFromEditor:(UIStoryboardSegue *)segue
 {
     UIViewController *sourceViewController = segue.sourceViewController;
@@ -165,14 +143,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 //        [editor setFractalInfo: nil];
     }
 }
--(void)regularStartupSequence
-{
-    [self.appModel setupUserStoragePreferences];
-    [self.appModel.documentController.documentCoordinator startQuery];
-    [self.collectionView reloadData];
-    _isAppeared = YES;
-}
-
 
 -(void)viewWillDisappear:(BOOL)animated
 {

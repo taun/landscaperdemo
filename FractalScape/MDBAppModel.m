@@ -83,6 +83,11 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
     return _resourceCache;
 }
 
+-(BOOL)isCloudAvailable
+{
+    return self.cloudDocumentManager.storageState.cloudAvailable;
+}
+
 -(MDLCloudKitManager*)cloudKitManager
 {
     if (!_cloudKitManager) {
@@ -163,7 +168,8 @@ NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDo
 -(BOOL)loadDemoFiles
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];
+    
+    return [defaults boolForKey: kMDBFractalScapesFirstLaunchUserDefaultsKey];;
 }
 
 -(void)enterCloudIdentityChangedState

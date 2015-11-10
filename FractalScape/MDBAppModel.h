@@ -45,6 +45,7 @@ extern NSString *const kMDBFractalCloudContainer;
 @property(nonatomic,readonly) BOOL                              welcomeDone;
 @property(nonatomic,readonly) BOOL                              editorIntroDone;
 @property(nonatomic,readonly) BOOL                              userCanMakePayments;
+@property(nonatomic,readonly) BOOL                              isCloudAvailable;
 
 @property(nonatomic,readonly) LSDrawingRuleType               *sourceDrawingRules;
 @property(nonatomic,readonly) NSArray                         *sourceColorCategories;

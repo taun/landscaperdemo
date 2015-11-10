@@ -42,25 +42,70 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
-    
-}
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
--(void) viewDidAppear:(BOOL)animated {
-    
     [self sendAppModelToTabSubControllers];
+
+    if (!self.appModel.welcomeDone)
+    {  // show cloud browser on startup for sample fractals
+        UINavigationController* browserNav;
+        
+        if (self.appModel.isCloudAvailable)
+        {
+            browserNav = [self getTabCloudBrowserNav];
+            if (browserNav) self.selectedViewController = browserNav;
+        }
+        else
+        {  // no cloud and first launch so load demo files
+            browserNav = [self getTabLibraryBrowserNav];
+            if (browserNav) self.selectedViewController = browserNav;
+
+            if (self.appModel.loadDemoFiles) [self.appModel loadInitialDocuments];
+        }
+    }
+}
+
+-(UINavigationController*)getTabCloudBrowserNav
+{
+    UINavigationController* browser;
+    
+    for (UINavigationController* navController in self.viewControllers)
+    {
+        UIViewController* viewController = navController.childViewControllers[0];
+        if ([viewController isMemberOfClass: [MDBFractalCloudBrowser class]])
+        {
+            browser = navController;
+            break;
+        }
+    }
+    return browser;
+}
+
+-(UINavigationController*)getTabLibraryBrowserNav
+{
+    UINavigationController* browser;
+    
+    for (UINavigationController* navController in self.viewControllers)
+    {
+        UIViewController* viewController = navController.childViewControllers[0];
+        if ([viewController isMemberOfClass: [MBFractalLibraryViewController class]])
+        {
+            browser = navController;
+            break;
+        }
+    }
+    return browser;
+}
+
+
+-(void) viewDidAppear:(BOOL)animated
+{
     // must be after child setup
     [super viewDidAppear:animated];
+    
+    if (!self.appModel.welcomeDone)
+    {
+        UIViewController* destinationViewController = self.selectedViewController.childViewControllers[0];
+        [destinationViewController performSegueWithIdentifier: @"WelcomeSegue" sender: self];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -87,7 +132,7 @@
 
 -(void)sendAppModelToTabSubControllers
 {
-    for (id subController in self.childViewControllers) {
+    for (id subController in self.viewControllers) {
         UINavigationController* baseNavCon = (UINavigationController*)subController;
         
         UIViewController* realController = baseNavCon.childViewControllers[0];

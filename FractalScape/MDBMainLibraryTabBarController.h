@@ -18,4 +18,7 @@
 @property (nonatomic,readonly) MDBFractalCloudBrowser                       *cloudController;
 @property (nonatomic,readonly) MDBSettingsTableViewController               *settingsController;
 
+-(UINavigationController*)getTabLibraryBrowserNav;
+-(UINavigationController*)getTabCloudBrowserNav;
+
 @end
