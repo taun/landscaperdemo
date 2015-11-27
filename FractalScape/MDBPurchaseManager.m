@@ -24,6 +24,8 @@
 // ans.c ans1c generated
 #include "Payload.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface MDBPurchaseManager ()
 
 @property (nonatomic,readonly) id                           keyValueStorage;
@@ -520,7 +522,7 @@
         }
         
 #pragma message "UpdateForBuilds to build version before archiving"
-        const char *referenceVersion =  "431";
+        const char *referenceVersion =  "433";
         const char *receiptVersion = (const char *)bundle_version->buf+2;
         if (strcmp(referenceVersion,receiptVersion))
         {

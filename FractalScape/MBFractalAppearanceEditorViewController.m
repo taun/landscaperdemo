@@ -10,6 +10,8 @@
 #import "MDBFractalFiltersControllerViewController.h"
 #import "MBFractalRulesEditorViewController.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface MBFractalAppearanceEditorViewController ()
 
 -(void)setupChildViewController:(UIViewController<FractalControllerProtocol>*)fractalController;
@@ -77,5 +79,10 @@
 #pragma mark - TabBarDelegateProtocol
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     [self setupChildViewController: (UIViewController<FractalControllerProtocol>*)viewController];
+
+    UINavigationController* navCon = (UINavigationController*)viewController;
+    NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
+
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : selectedViewName}];
 }
 @end

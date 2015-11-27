@@ -29,9 +29,22 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
  The collection of MDBFractalDocumentInfo objects from the local filesystem or cloud.
  */
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
+/*!
+ The library collection source
+ */
 @property (nonatomic,strong) IBOutlet MDBFractalLibraryCollectionSource      *collectionSource;
+/*!
+ Add a new document
+ */
 @property (weak, nonatomic) IBOutlet UIBarButtonItem                        *addDocumentButton;
+/*!
+ The fractlInfo currently being edited for when view unwinds back
+ */
 @property (nonatomic,weak) MDBFractalInfo                                   *fractalInfoBeingEdited;
+/*!
+ For when transitioning and wanting to pre-set a scroll location.
+ */
+@property(nonatomic,assign)CGPoint                                          initialContentOffset;
 
 /*!
  Startup sequence used when it is not the first startup and there is no need for the intro.

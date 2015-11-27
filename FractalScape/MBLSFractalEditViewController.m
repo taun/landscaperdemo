@@ -36,6 +36,9 @@
 #import "MDBPurchaseViewController.h"
 
 #import "UIFont+MDKProportional.h"
+
+#import <Crashlytics/Crashlytics.h>
+
 //
 //static inline double radians (double degrees){return degrees * M_PI/180.0;}
 //static inline double degrees (double radians){return radians * 180.0/M_PI;}
@@ -426,6 +429,8 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     [super viewDidAppear:animated];
     
+    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Fractal" contentId: NSStringFromClass([self class]) customAttributes: @{@"Name": self.fractalDocument.fractal.name}];
+
     MDBAppModel* strongAppModel = self.appModel;
 
     if (!strongAppModel.allowPremium) // in-app purchase can only be done from settings so this should never change while the view is on screen.
@@ -500,6 +505,8 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(IBAction)showHelpScreen:(id)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"ShowHelpScreen"}];
+    
     [self performSegueWithIdentifier: @"QuickIntroSegue" sender: sender];
 }
 
@@ -629,6 +636,8 @@ static const CGFloat kLevelNMargin = 48.0;
 //        [self updateInterface];
 //    }
 //    else
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : keyPath}];
+    
     if ([[LSFractal redrawProperties] containsObject: keyPath])
     {
         if (changeCount)
@@ -2025,6 +2034,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
+                                           [Answers logShareWithMethod: @"Image" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                           
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                            [self shareWithActivityController: sender];
                                        }];
@@ -2036,6 +2047,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
+                                        [Answers logShareWithMethod: @"VectorPDF" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                         [self sharePDFWithDocumentInteractionController: sender];
                                     }];
@@ -2058,6 +2071,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                 style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
+                                        [Answers logShareWithMethod: @"Document" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                         [self shareWithDocumentInteractionController: sender];
                                     }];
@@ -2075,6 +2090,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
+                                        [Answers logShareWithMethod: @"Cancel" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                     }];
     [alert addAction: defaultAction];
@@ -2373,6 +2390,8 @@ static const CGFloat kLevelNMargin = 48.0;
 }
 - (IBAction)playButtonPressed: (id)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"Playback"}];
+    
     if (self.presentedViewController) {
         [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
     }
@@ -2451,6 +2470,7 @@ static const CGFloat kLevelNMargin = 48.0;
 }
 -(IBAction) pauseButtonPressed: (id)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PlayBackPaused"}];
     if ([sender isKindOfClass: [UISlider class]])
     {
         // just pause for slider movement
@@ -2503,6 +2523,7 @@ static const CGFloat kLevelNMargin = 48.0;
 }
 -(IBAction)toggleAutoExpandFractal:(id)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"ToggleAutoExpand"}];
     self.fractalDocument.fractal.autoExpand = !self.fractalDocument.fractal.autoExpand;
 }
 
@@ -2524,6 +2545,8 @@ static const CGFloat kLevelNMargin = 48.0;
 
 - (IBAction)copyFractal:(id)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"CopyFractal"}];
+    
     LSFractal* newFractal = [self.fractalDocument.fractal copy];
     
     self.fractalInfo = nil;
@@ -2701,6 +2724,8 @@ static const CGFloat kLevelNMargin = 48.0;
 //
 - (IBAction)toggleApplyFilter:(id)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"ToggleApplyFilter"}];
+    
     MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
     BOOL filtersOn = self.fractalDocument.fractal.applyFilters;
     
@@ -2808,6 +2833,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToBaseRotation:(UIButton *)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectBaseAngle"}];
+
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"baseAngle",
                                     @"hScale":@5,
@@ -2826,6 +2853,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToJointAngle:(UIButton *)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectTurnAngle"}];
+
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"turningAngle",
                                     @"hScale":@0.5,
@@ -2844,6 +2873,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectIncrements"}];
+
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"turningAngleIncrement",
                                     @"hScale":@0.0001,
@@ -2862,6 +2893,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToHueIncrements:(UIButton *)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectHues"}];
+    
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"fillHueRotationPercent",
                                     @"hScale":@0.001,
@@ -2880,6 +2913,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)togglePan10x:(UIButton *)sender
 {
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"Toggle10X"}];
+    
     [self startPanBackgroundFadeTimer];
 
     self.pan10xOn = !self.pan10xOn;

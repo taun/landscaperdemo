@@ -22,6 +22,8 @@
 #import "MDBPurchaseManager.h"
 #import "MDBPurchaseViewController.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";
 NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";

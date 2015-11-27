@@ -14,6 +14,8 @@
 //#import "ABX.h"
 #import "MDBAppModel.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface MDBMainLibraryTabBarController ()
 
 @end
@@ -159,5 +161,12 @@
 }
 
 #pragma clang diagnostic pop
+
+-(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    UINavigationController* navCon = (UINavigationController*)viewController;
+    NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
+    [Answers logCustomEventWithName: @"MainTabSelection" customAttributes: @{@"SelectedTab": selectedViewName}];
+}
 
 @end

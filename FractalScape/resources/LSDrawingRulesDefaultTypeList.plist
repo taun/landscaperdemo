@@ -189,7 +189,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Draw a circle. Takes effect immediately.</string>
+			<string>Draw an empty circle. Takes effect immediately. In basic mode, the equivalent to [O!] with fill off, stroke on, where the radius is 2 * lineWidth.</string>
 			<key>productionString</key>
 			<string>O</string>
 			<key>drawingMethodString</key>
@@ -199,7 +199,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Shortcut to draw a circle filled with no outline. Takes effect immediately.</string>
+			<string>Shortcut to draw a circle filled with no outline. Takes effect immediately. In basic mode, the equivalent to [O!] with fill on, stroke off, where the radius is 2 * lineWidth.</string>
 			<key>productionString</key>
 			<string>@</string>
 			<key>drawingMethodString</key>
@@ -229,7 +229,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Save the turtle&apos;s current direction and position. They will be restored after a close bracket rule.</string>
+			<string>Save the turtle&apos;s current direction, position, color, width, stroke and fill. They will be restored after a close bracket rule.</string>
 			<key>productionString</key>
 			<string>[</string>
 			<key>drawingMethodString</key>
@@ -239,7 +239,7 @@
 		</dict>
 		<dict>
 			<key>descriptor</key>
-			<string>Return the turtle to it&apos;s position and direction of the previous starting bracket.</string>
+			<string>Restore the turtle to it&apos;s direction, position, color, width, stroke and fill of the previous starting bracket.</string>
 			<key>productionString</key>
 			<string>]</string>
 			<key>drawingMethodString</key>

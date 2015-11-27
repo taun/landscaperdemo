@@ -13,6 +13,7 @@
 #import "MDBFractalInfo.h"
 #import "MDBCloudManager.h"
 
+#import <Crashlytics/Crashlytics.h>
 
 @interface MDBFractalCloudBrowser ()
 
@@ -37,6 +38,8 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Public Fractals" contentId: NSStringFromClass([self class]) customAttributes:nil];
     
     MDBAppModel* model = (MDBAppModel*)self.appModel;
     if (model.cloudDocumentManager.isCloudAvailable)
@@ -299,7 +302,7 @@
         descriptors = @[byModDate, byName];
     }
 
-    [self fetchCloudRecordsWithPredicate: predicate andSortDescriptors: descriptors];
+    [self fetchCloudRecordsWithPredicate: predicate sortDescriptors: descriptors timeout: 12.0];
 }
 
 
@@ -395,6 +398,8 @@
             {
                 MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[self.collectionView cellForItemAtIndexPath: path];
                 MDBFractalDocumentProxy* proxy = documentInfoCell.document;
+                
+                [Answers logCustomEventWithName: @"FractalDownload" customAttributes: @{@"Name" : proxy.fractal.name}];
                 
                 MDBAppModel* appModel = (MDBAppModel*)self.appModel;
                 

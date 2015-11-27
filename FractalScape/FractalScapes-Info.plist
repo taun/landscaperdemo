@@ -53,6 +53,20 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>Unknown</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>7cf4fe660cacadc64ad129dfe90d4ea2da0cfd52</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

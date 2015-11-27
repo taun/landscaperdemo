@@ -22,6 +22,8 @@
 		C511BA181A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h in Headers */ = {isa = PBXBuildFile; fileRef = C511BA161A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h */; };
 		C511BA191A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = C511BA171A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m */; };
 		C511BA1B1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C511BA1A1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib */; };
+		C51AE1C61C0623AE0017565E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51AE1C41C0623AE0017565E /* Fabric.framework */; };
+		C51AE1C71C0623AE0017565E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51AE1C51C0623AE0017565E /* Crashlytics.framework */; };
 		C51B58401A90707F0036C47D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51B583F1A90707F0036C47D /* CloudKit.framework */; };
 		C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */; };
 		C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */ = {isa = PBXBuildFile; fileRef = C522DABB1A2CA8ED00419781 /* LSDrawingRule.h */; };
@@ -412,6 +414,8 @@
 		C511BA161A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBLSObjectTileListAddDeleteView.h; path = FractalScape/MDBLSObjectTileListAddDeleteView.h; sourceTree = "<group>"; };
 		C511BA171A895473004FD0BB /* MDBLSObjectTileListAddDeleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBLSObjectTileListAddDeleteView.m; path = FractalScape/MDBLSObjectTileListAddDeleteView.m; sourceTree = "<group>"; };
 		C511BA1A1A895488004FD0BB /* MDBLSObjectTileListAddDeleteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MDBLSObjectTileListAddDeleteView.xib; path = FractalScape/MDBLSObjectTileListAddDeleteView.xib; sourceTree = "<group>"; };
+		C51AE1C41C0623AE0017565E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		C51AE1C51C0623AE0017565E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C51B583E1A9070770036C47D /* FractalScapes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FractalScapes.entitlements; sourceTree = "<group>"; };
 		C51B583F1A90707F0036C47D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C51DF52216E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalAppearanceEditorViewController.h; path = FractalScape/MBFractalAppearanceEditorViewController.h; sourceTree = "<group>"; };
@@ -805,12 +809,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C557C1751BA77592001EC564 /* libcrypto.a in Frameworks */,
+				C51AE1C71C0623AE0017565E /* Crashlytics.framework in Frameworks */,
 				C557C1761BA77592001EC564 /* libssl.a in Frameworks */,
 				C529F8DA1B8FE175005D8982 /* Security.framework in Frameworks */,
 				C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */,
 				C5999E7B1B8293EA00A9D848 /* WebKit.framework in Frameworks */,
 				C5567B011A79F88400882474 /* CoreMotion.framework in Frameworks */,
 				C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */,
+				C51AE1C61C0623AE0017565E /* Fabric.framework in Frameworks */,
 				C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */,
 				C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */,
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
@@ -1316,6 +1322,8 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C51AE1C41C0623AE0017565E /* Fabric.framework */,
+				C51AE1C51C0623AE0017565E /* Crashlytics.framework */,
 				C557C1731BA77592001EC564 /* libcrypto.a */,
 				C557C1741BA77592001EC564 /* libssl.a */,
 				C529F8D91B8FE175005D8982 /* Security.framework */,
@@ -1728,6 +1736,7 @@
 				C5BB7D861A90502600575CFC /* Version Sync Run Script */,
 				C55AAA6B1A153A4D0023DE47 /* Headers */,
 				C53A93A81B32481400609F91 /* Embed Frameworks */,
+				C51AE1C31C06233F0017565E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1851,6 +1860,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		C51AE1C31C06233F0017565E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 7cf4fe660cacadc64ad129dfe90d4ea2da0cfd52 7cefba451c83154fd4c31621d98a3c3d11b50a20dd422abf37662679c4d2db7b";
+		};
 		C5BB7D861A90502600575CFC /* Version Sync Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2108,7 +2130,10 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = (
@@ -2247,7 +2272,10 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2389,7 +2417,10 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = (
@@ -2427,7 +2458,10 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

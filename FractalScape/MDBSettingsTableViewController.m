@@ -11,6 +11,8 @@
 #import "MDBAppModel.h"
 #import "MDBPurchaseViewController.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface MDBSettingsTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *allowPremiumSwitch;
@@ -61,6 +63,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Settings" contentId: NSStringFromClass([self class]) customAttributes: nil];
+    
     [self updateControls];
 }
 -(void)viewDidAppear:(BOOL)animated

@@ -23,6 +23,9 @@
 
 #import "FractalScapeIconSet.h"
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 // View controller segue identifiers.
 NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier = @"showEditFractalDocumentsList";
@@ -35,6 +38,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 @property (nonatomic, readonly) MDBMainLibraryTabBarController  *mainTabController;
 @property (nonatomic, strong) UIImage                           *backgroundImage;
+@property (nonatomic, strong) NSDate                            *sessionStart;
+
 @end
 
 @implementation MBAppDelegate
@@ -46,6 +51,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 {
     // Override point for customization after application launch.
     // OS X 10.7 and later / iOS 7 and later    
+
+    [Fabric with:@[[Crashlytics class],[Answers class]]];
 
     self.window.backgroundColor = [FractalScapeIconSet selectionBackgroundColor];
     
@@ -69,6 +76,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    NSTimeInterval sessionDuration = [self.sessionStart timeIntervalSinceNow] / 60.0;
+    [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Minutes":@(sessionDuration)}];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.appModel handleMoveToBackground];
 }
@@ -100,13 +109,12 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    
+    self.sessionStart = [NSDate date];
     [self.appModel handleDidBecomeActive];
 }
 
 -(void)applicationWillResignActive:(UIApplication *)application
 {
-    NSLog(@"FractalScapes: %s", __PRETTY_FUNCTION__);
 }
 
 -(BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder

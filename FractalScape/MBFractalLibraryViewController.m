@@ -25,6 +25,7 @@
 
 #import "MBAppDelegate.h"
 #import "MBFractalLibraryEditViewController.h"
+#import "MBFractalLibraryShareViewController.h"
 #import "MBLSFractalEditViewController.h"
 #import "MDBFractalLibraryCollectionSource.h"
 #import "MDBNavConTransitionCoordinator.h"
@@ -36,6 +37,8 @@
 #import "MBImmutableCellBackgroundView.h"
 #import "NSString+MDKConvenience.h"
 #import "MDBPurchaseViewController.h"
+
+#import <Crashlytics/Crashlytics.h>
 
 NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
 
@@ -77,6 +80,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     _isAppeared = NO;
     
     [super viewWillAppear:animated];
+    
+    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"FractalDocuments" contentId: NSStringFromClass([self class]) customAttributes: nil];
     
     [self.appModel setupUserStoragePreferences];
     [[UIApplication sharedApplication] setStatusBarHidden: NO];
@@ -315,6 +320,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         // only use this title change if it is the root class.
         // let the other classes assign their own titles.
         self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
+        [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": self.navigationItem.title}];
     }
     if (_isAppeared) [self->_appModel.documentController.documentCoordinator startQuery];
     //    });
@@ -464,13 +470,13 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             editViewController.fractalInfo = userActivityDocumentInfo;
         }
     }
-    else if ([segue.identifier isEqualToString: @"showEditFractalDocumentsList"])
+    else if ([segue.identifier isEqualToString: @"showEditFractalDocumentsList"] || [segue.identifier isEqualToString: @"showShareFractalDocumentsList"])
     {
-        MBFractalLibraryEditViewController* libraryEditViewController = (MBFractalLibraryEditViewController *)segue.destinationViewController;
-        libraryEditViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
-        libraryEditViewController.appModel = self.appModel;
+        MBFractalLibraryViewController* libraryViewController = (MBFractalLibraryViewController *)segue.destinationViewController;
+        libraryViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
+        libraryViewController.appModel = self.appModel;
         CGPoint scrollOffset = self.collectionView.contentOffset;
-        libraryEditViewController.initialContentOffset = scrollOffset;
+        libraryViewController.initialContentOffset = scrollOffset;
     }
     else if ([segue.identifier isEqualToString: @"WelcomeSegue"])
     {

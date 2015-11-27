@@ -14,6 +14,9 @@
 #import "MDLCloudKitManager.h"
 #import "MDBCloudManager.h"
 
+#import <Crashlytics/Crashlytics.h>
+
+
 @interface MBFractalLibraryShareViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem    *shareButton;
@@ -110,6 +113,7 @@
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
+                                       [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudSettings"}];
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                        [self sendUserToSystemiCloudSettings: sender];
                                    }];
@@ -119,6 +123,7 @@
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
+                                        [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudLater"}];
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                     }];
     [alert addAction: defaultAction];
@@ -153,6 +158,7 @@
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
+                                           [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud"}];
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                            [self shareCurrentSelections: sender];
                                        }];
@@ -164,6 +170,7 @@
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
+                                           [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"ShowPremiumUpgradeOption"}];
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                            [self upgradeToProSelected: sender];
                                        }];
@@ -174,6 +181,7 @@
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
+                                        [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"SkipShowPremiumUpgradeOption"}];
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                     }];
     [alert addAction: defaultAction];
@@ -208,8 +216,11 @@
             MDBFractalInfo* fractalInfo = self.appModel.documentController.fractalInfos[path.row];
             if (fractalInfo)
             {
+                
                 MDBFractalDocument* fractalDocument = fractalInfo.document;
                 LSFractal* fractal = fractalDocument.fractal;
+
+                [Answers logShareWithMethod: @"FractalCloud" contentName: fractal.name contentType:@"Fractal" contentId: fractal.name customAttributes: nil];
                 
                 CKRecord* record;
                 record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
@@ -231,9 +242,9 @@
         
         [self.appModel.cloudKitManager savePublicRecords: records withCompletionHandler:^(NSError *error) {
             if (error) {
-                NSLog(@"Saved Records: %@; Error:%@", records, error);
+                [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud", @"Error":@(error.code)}];
             }
-            [self sharingStatusAlert: nil];
+            [self sharingStatusAlert: error];
         }];
         
         [self rightButtonsEnabledState: NO];

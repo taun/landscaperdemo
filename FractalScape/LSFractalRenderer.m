@@ -1117,18 +1117,24 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 -(void) commandDrawDot
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
+    
     [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth*2, _segmentStack[_segmentIndex].randomness)];
+    
     _segmentStack[_segmentIndex].stroke = YES; // ignore advancedMode
     _segmentStack[_segmentIndex].fill = NO; // ignore advancedMode
+    
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     if (!_segmentStack[_segmentIndex].advancedMode) [self popCurrentPath];
 }
 -(void) commandDrawDotFilledNoStroke
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
+    
     [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth*2, _segmentStack[_segmentIndex].randomness)];
+    
     _segmentStack[_segmentIndex].stroke = NO; // ignore advancedMode
     _segmentStack[_segmentIndex].fill = YES; // ignore advancedMode
+    
     if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
     if (!_segmentStack[_segmentIndex].advancedMode) [self popCurrentPath];
 }
