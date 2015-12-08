@@ -15,5 +15,6 @@
 @property(nonatomic,strong) UIImage                         *thumbnail;
 @property(nonatomic,readwrite) MDBFractalDocumentLoadResult  loadResult;
 @property(nonatomic,readonly) NSString                      *loadResultString;
+@property(nonatomic,readonly) NSURL                         *fileURL;
 
 @end

@@ -2937,6 +2937,25 @@ Drag icon to holder below to apply effect</string>
                                             <color key="highlightedColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
+                                        <view opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="25" placeholderIntrinsicHeight="25" translatesAutoresizingMaskIntoConstraints="NO" id="O1K-WX-dkz" customClass="MDCCloudTransferStatusIndicator">
+                                            <rect key="frame" x="6" y="0.0" width="25" height="25"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="outlineColor">
+                                                    <color key="value" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="progressColor">
+                                                    <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="progress">
+                                                    <real key="value" value="0.10000000000000001"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2944,6 +2963,7 @@ Drag icon to holder below to apply effect</string>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="O1K-WX-dkz" firstAttribute="top" secondItem="OPm-W7-tPA" secondAttribute="top" id="7CX-tu-ExR"/>
                                     <constraint firstItem="6en-9e-q6w" firstAttribute="top" secondItem="PV1-X5-WaQ" secondAttribute="bottom" id="BFo-bf-0xi"/>
                                     <constraint firstItem="6en-9e-q6w" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="6" id="EH2-do-xPp"/>
                                     <constraint firstAttribute="bottom" secondItem="6en-9e-q6w" secondAttribute="bottom" constant="6" id="HEx-pi-enY"/>
@@ -2954,6 +2974,7 @@ Drag icon to holder below to apply effect</string>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="trailing" secondItem="OPm-W7-tPA" secondAttribute="trailing" constant="-6" id="k1B-Je-zPk"/>
                                     <constraint firstAttribute="trailing" secondItem="6en-9e-q6w" secondAttribute="trailing" constant="6" id="kWp-hJ-UIz"/>
                                     <constraint firstItem="z47-1a-Cob" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="6" id="kl7-au-tsS"/>
+                                    <constraint firstItem="O1K-WX-dkz" firstAttribute="leading" secondItem="OPm-W7-tPA" secondAttribute="leading" constant="6" id="lr7-lA-k1u"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PV1-X5-WaQ" secondAttribute="trailing" constant="6" id="nhX-MF-snD"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -2970,6 +2991,7 @@ Drag icon to holder below to apply effect</string>
                                     <outlet property="imageFrame" destination="z47-1a-Cob" id="xkP-Xw-MvZ"/>
                                     <outlet property="imageView" destination="AYV-rN-sBG" id="lg7-Jp-1im"/>
                                     <outlet property="textLabel" destination="PV1-X5-WaQ" id="rtZ-MR-lcd"/>
+                                    <outlet property="transferIndicator" destination="O1K-WX-dkz" id="N2V-BU-ztC"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

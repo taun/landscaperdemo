@@ -51,6 +51,7 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 @property(nonatomic,strong) UIImage                         *thumbnail;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
 @property(nonatomic,readonly) NSString                      *loadResultString;
+@property(nonatomic,readonly) NSURL                         *fileURL;
 
 @end
 

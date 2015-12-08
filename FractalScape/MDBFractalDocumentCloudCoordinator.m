@@ -173,9 +173,9 @@
     
     NSArray *updatedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateChangedItemsKey];
     if (updatedMetadataItemsOrNil.count > 0) {
-        NSMetadataItem* firstItem = (NSMetadataItem*)updatedMetadataItemsOrNil[0];
-        NSArray* attributes = firstItem.attributes;
-        NSDictionary* values = [firstItem valuesForAttributes: attributes];
+//        NSMetadataItem* firstItem = (NSMetadataItem*)updatedMetadataItemsOrNil[0];
+//        NSArray* attributes = firstItem.attributes;
+//        NSDictionary* values = [firstItem valuesForAttributes: attributes];
 //        NSLog(@"UpdatedMetadataItems: %@", values);
         
         NSIndexSet *indexesOfCompletelyDownloadedUpdatedMetadataItems = [updatedMetadataItemsOrNil indexesOfObjectsPassingTest:^BOOL(NSMetadataItem *updatedMetadataItem, NSUInteger idx, BOOL *stop) {

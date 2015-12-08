@@ -301,6 +301,8 @@
 		C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C671A24ED70008C5409 /* MBLSReplacementRuleTileView.m */; };
 		C5C37C6C1A24EF9F008C5409 /* MDBLSObjectTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C37C6A1A24EF9F008C5409 /* MDBLSObjectTileView.h */; };
 		C5C37C6D1A24EF9F008C5409 /* MDBLSObjectTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */; };
+		C5C460431C173F39008F9C6B /* MDCCloudTransferStatusIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C460411C173F39008F9C6B /* MDCCloudTransferStatusIndicator.h */; };
+		C5C460441C173F39008F9C6B /* MDCCloudTransferStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C460421C173F39008F9C6B /* MDCCloudTransferStatusIndicator.m */; };
 		C5CD57CF1A98E42400C70218 /* MDBFractalDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD57CD1A98E42400C70218 /* MDBFractalDocument.h */; };
 		C5CD57D01A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
 		C5CD57D11A98E42400C70218 /* MDBFractalDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */; };
@@ -716,6 +718,8 @@
 		C5C37C671A24ED70008C5409 /* MBLSReplacementRuleTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBLSReplacementRuleTileView.m; path = FractalScape/MBLSReplacementRuleTileView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5C37C6A1A24EF9F008C5409 /* MDBLSObjectTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MDBLSObjectTileView.h; path = FractalScape/MDBLSObjectTileView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C5C37C6B1A24EF9F008C5409 /* MDBLSObjectTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MDBLSObjectTileView.m; path = FractalScape/MDBLSObjectTileView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C5C460411C173F39008F9C6B /* MDCCloudTransferStatusIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDCCloudTransferStatusIndicator.h; path = FractalScape/MDCloudKitFramework/MDCloudKit/MDCloudKit/MDCCloudTransferStatusIndicator.h; sourceTree = "<group>"; };
+		C5C460421C173F39008F9C6B /* MDCCloudTransferStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDCCloudTransferStatusIndicator.m; path = FractalScape/MDCloudKitFramework/MDCloudKit/MDCloudKit/MDCCloudTransferStatusIndicator.m; sourceTree = "<group>"; };
 		C5CD57CD1A98E42400C70218 /* MDBFractalDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBFractalDocument.h; path = FractalScape/model/MDBFractalDocument.h; sourceTree = "<group>"; };
 		C5CD57CE1A98E42400C70218 /* MDBFractalDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBFractalDocument.m; path = FractalScape/model/MDBFractalDocument.m; sourceTree = "<group>"; };
 		C5CE0E371B542C6100EEC58C /* MDKLinePropertyControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKLinePropertyControl.h; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKLinePropertyControl.h"; sourceTree = "<group>"; };
@@ -1281,6 +1285,8 @@
 				C5CE0E611B542C8B00EEC58C /* MDCKCloudManagerAppModelProtocol.h */,
 				C5CE0E631B542C8B00EEC58C /* MDLCloudKitManager.h */,
 				C5CE0E641B542C8B00EEC58C /* MDLCloudKitManager.m */,
+				C5C460411C173F39008F9C6B /* MDCCloudTransferStatusIndicator.h */,
+				C5C460421C173F39008F9C6B /* MDCCloudTransferStatusIndicator.m */,
 			);
 			name = MDCCloudKit;
 			sourceTree = "<group>";
@@ -1694,6 +1700,7 @@
 				C5F184781AA6663800233E49 /* MDBDocumentUtilities.h in Headers */,
 				C54A72391BA602CC00D2C47E /* mdc2.h in Headers */,
 				C583EE0A1B972BA100ED4BA6 /* ReceiptAttribute.h in Headers */,
+				C5C460431C173F39008F9C6B /* MDCCloudTransferStatusIndicator.h in Headers */,
 				C54A724D1BA602CC00D2C47E /* sha.h in Headers */,
 				C5F1847C1AA6751200233E49 /* MDBDocumentController.h in Headers */,
 				C583ED831B963CA200ED4BA6 /* MDBProPurchaseableProduct.h in Headers */,
@@ -2022,6 +2029,7 @@
 				C583EDE11B972BA100ED4BA6 /* der_encoder.c in Sources */,
 				C5ABE0031B79F29C003EB04E /* MDBHelpContentsTableViewCell.m in Sources */,
 				C583EDFE1B972BA100ED4BA6 /* xer_encoder.c in Sources */,
+				C5C460441C173F39008F9C6B /* MDCCloudTransferStatusIndicator.m in Sources */,
 				C5A5C38E1ACCBFDC003CAA99 /* MDBFractalCloudBrowser.m in Sources */,
 				C583EE021B972BA100ED4BA6 /* InAppReceipt.c in Sources */,
 				C5F544831A5B56B3000EE8B9 /* LSFractalRenderer.m in Sources */,

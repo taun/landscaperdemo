@@ -12,6 +12,8 @@
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
 #import "MBColorCellBackgroundView.h"
+#import "MDCCloudTransferStatusIndicator.h"
+#import "FBKVOController.h"
 
 @interface MBCollectionFractalDocumentCell ()
 
@@ -20,10 +22,13 @@
 @property (weak, nonatomic) IBOutlet UILabel        *textLabel;
 @property (weak, nonatomic) IBOutlet UILabel        *detailTextLabel;
 
+@property (strong,nonatomic,readonly) FBKVOController*kvoController;
+
 @end
 
 @implementation MBCollectionFractalDocumentCell
 
+@synthesize kvoController = _kvoController;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -40,14 +45,21 @@
     self = [super initWithCoder: aDecoder];
     if (self) {
         //
-        [self configureDefaults];
     }
     return self;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self configureDefaults];
 }
 
 -(void)prepareForReuse
 {
     [super prepareForReuse];
+    [self.kvoController unobserve: _document];
+    self.transferIndicator.progress = 0.0;
     [self.activityIndicator startAnimating];
 }
 
@@ -79,6 +91,8 @@
     }
     
     self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
+
+    self.transferIndicator.progress = 0.0;
 }
 
 -(UIView*) configureSelectedBackgroundViewFrame: (CGRect) frame
@@ -102,26 +116,90 @@
     selectBackgroundView.layer.backgroundColor = [[UIColor darkGrayColor] CGColor];
     return selectBackgroundView;
 }
+
+-(FBKVOController *)kvoController
+{
+    if (!_kvoController)
+    {
+        _kvoController = [FBKVOController controllerWithObserver: self];
+    }
+    return _kvoController;
+}
+
+-(void) propertyDcoumentThumbnailDidChange: (NSDictionary*)change object: (id)object
+{
+    if ([object thumbnail])
+    {
+        self.imageView.image = [object thumbnail];
+    }
+}
+
+-(void)updateProgessIndicatorForURL: (NSURL*)docURL
+{
+    if (docURL)
+    {
+        NSError* error;
+        id fileIsICloud;
+        id downloadedStatusValue;
+        id uploadedValue;
+        id downloadingValue;
+        id uploadingValue;
+        
+        
+        [docURL getResourceValue: &fileIsICloud forKey: NSURLIsUbiquitousItemKey error: &error];
+        
+        if ([fileIsICloud boolValue])
+        {
+            [docURL getResourceValue: &downloadedStatusValue forKey: NSURLUbiquitousItemDownloadingStatusKey error: &error];
+            [docURL getResourceValue: &downloadingValue forKey: NSURLUbiquitousItemIsDownloadingKey error: &error];
+            [docURL getResourceValue: &uploadedValue forKey: NSURLUbiquitousItemIsUploadedKey error: &error];
+            [docURL getResourceValue: &uploadingValue forKey: NSURLUbiquitousItemIsUploadingKey error: &error];
+            
+            self.transferIndicator.hidden = NO;
+            
+            if ([downloadingValue boolValue])
+            {
+                self.transferIndicator.progress = -0.1;
+            }
+            else if ([uploadingValue boolValue] || ![uploadedValue boolValue])
+            {
+                self.transferIndicator.progress = 0.1;
+            }
+            else
+            {
+                self.transferIndicator.progress = 1.0;
+            }
+        }
+        else
+        {
+            self.transferIndicator.hidden = YES;
+        }
+        
+    }
+}
+
 -(void)setDocument:(MDBFractalDocument *)document
 {
     if (_document != document)
     {
-        [self configureDefaults];
+//        [self configureDefaults];
         
         [self.activityIndicator stopAnimating];
+        
+        [self.kvoController unobserve: _document];
         
         _document = document;
         
         if (_document)
         {
+            [self updateProgessIndicatorForURL: _document.fileURL];
+
             if (_document.loadResult == MDBFractalDocumentLoad_SUCCESS)
             {
                 if (_document.fractal.name) self.textLabel.text = _document.fractal.name;
                 if (_document.fractal.descriptor) self.detailTextLabel.text = _document.fractal.descriptor;
-                if (_document.thumbnail)
-                {
-                    self.imageView.image = _document.thumbnail;
-                }
+                [self propertyDcoumentThumbnailDidChange: nil object: _document];
+                [self.kvoController observe: _document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
             } else {
                 self.textLabel.text = _document.loadResultString;
             }
@@ -131,10 +209,6 @@
 //                UIImageView* strongImageView = self.imageView;
 //                strongImageView.image = placeholder;
 //            }
-        }
-        else
-        {
-            [self configureDefaults];
         }
     }
 }

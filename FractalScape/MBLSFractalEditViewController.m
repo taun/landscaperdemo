@@ -36,6 +36,7 @@
 #import "MDBPurchaseViewController.h"
 
 #import "UIFont+MDKProportional.h"
+#import "FBKVOController.h"
 
 #import <Crashlytics/Crashlytics.h>
 
@@ -113,6 +114,7 @@ static const CGFloat kLevelNMargin = 48.0;
 @property (nonatomic,strong) NSArray                       *panToolbarButtons;
 
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
+@property (nonatomic,strong, readonly) FBKVOController       *kvoController;
 
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
@@ -142,6 +144,7 @@ static const CGFloat kLevelNMargin = 48.0;
 @synthesize exportImageGenerationQueue = _exportImageGenerationQueue;
 //@synthesize fractal = _fractal;
 @synthesize filterBitmapContext = _filterBitmapContext;
+@synthesize kvoController = _kvoController;
 
 #pragma mark Init
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -566,6 +569,7 @@ static const CGFloat kLevelNMargin = 48.0;
     [super viewWillDisappear:animated];
 //    [self.exportImageGenerationQueue waitUntilAllOperationsAreFinished];
     [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUserDefaultsDidChangeNotification object: nil];
+    [self removeObserversForCurrentDocument];
     [_privateImageGenerationQueue cancelAllOperations];
 }
 
@@ -576,11 +580,6 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(void)dealloc
 {
-    if (_fractalInfo)
-    {
-        // cascades removal of observers
-        [self setFractalInfo: nil];
-    }
     if (_filterBitmapContext != NULL) CGContextRelease(_filterBitmapContext);
 }
 
@@ -607,117 +606,6 @@ static const CGFloat kLevelNMargin = 48.0;
     return YES;
 }
 
-/* observer fractal.replacementRules */
--(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    
-//    NSInteger changeCount = 0;
-#pragma message "TODO: fix for uidocument"
-//    if ([object isKindOfClass:[NSManagedObject class]])
-//    {
-//        NSDictionary* changes = [object changedValuesForCurrentEvent];
-//        changeCount = changes.count;
-//    }
-//    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
-
-//    NSLog(@"Observed Change Type: %@", change[NSKeyValueChangeKindKey]);
-    BOOL changeCount = ([change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting
-                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeInsertion
-                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeRemoval
-                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeReplacement);
-    
-//    if ([keyPath isEqualToString: @"fractal"])
-//    {
-//        // the document fractal changed
-//        id oldFractalObject = change[NSKeyValueChangeOldKey];
-//        if (oldFractalObject != [NSNull null])
-//        {
-//            [self removeObserversForFractal: oldFractalObject];
-//        }
-//        [self addObserversForFractal: self.fractalDocument.fractal];
-//        [self regenerateLevels];
-//        [self updateInterface];
-//    }
-//    else
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : keyPath}];
-    
-    if ([[LSFractal redrawProperties] containsObject: keyPath])
-    {
-        if (changeCount)
-        {
-            self.hasBeenEdited = YES;
-            [self queueFractalImageUpdates];
-            [self updateInterface];
-        }
-    }
-    else if ([[LSFractal appearanceProperties] containsObject: keyPath] ||
-             [keyPath isEqualToString: @"lineColors.allObjects"] ||
-             [keyPath isEqualToString: @"fillColors.allObjects"])
-    {
-        if (changeCount)
-        {
-            self.hasBeenEdited = YES;
-            [self queueFractalImageUpdates];
-            [self updateInterface];
-        }
-    }
-    else if ([[LSFractal productionRuleProperties] containsObject: keyPath] ||
-             [keyPath isEqualToString: @"startingRules.allObjects"] ||
-             [keyPath isEqualToString: @"rules.allObjects"] ||
-             [keyPath isEqualToString: [LSReplacementRule contextRuleKey]])
-    {
-        if (changeCount)
-        {
-#pragma message "TODO: fix for uidocument"
-            self.fractalDocument.fractal.rulesUnchanged = NO;
-            self.hasBeenEdited = YES;
-            
-            if ([keyPath isEqualToString:[LSFractal replacementRulesKey]])
-            {
-                [self updateObserversForReplacementRules: self.fractalDocument.fractal.replacementRules];
-            }
-            
-            [self regenerateLevels];
-            [self updateInterface];
-        }
-    }
-    else if ([keyPath isEqualToString: @"name"])
-    {
-        self.hasBeenEdited = YES;
-        [self updateNavButtons];
-    }
-    else if ([keyPath isEqualToString: @"category"])
-    {
-        self.hasBeenEdited = YES;
-    }
-    else if ([keyPath isEqualToString: @"descriptor"])
-    {
-        self.hasBeenEdited = YES;
-    }
-    else if ([keyPath isEqualToString: @"imageFilters.allObjects"])
-    {
-        self.hasBeenEdited = YES;
-        [self updateFilterSettingsForCanvas];
-        [self.fractalDocument.fractal updateApplyFiltersWithoutNotificationForFiltersListChange];
-        [self queueFractalImageUpdates];
-        [self updateInterface];
-    }
-    else if ([keyPath isEqualToString: @"fractal"])
-    {
-        LSFractal* oldFractal = (LSFractal*)change[NSKeyValueChangeOldKey];
-        LSFractal* newFractal = (LSFractal*)change[NSKeyValueChangeNewKey];
-
-        if (oldFractal) [self removeObserversForFractal: oldFractal];
-        if (newFractal) [self addObserversForFractal: newFractal];
-        [self updateFilterSettingsForCanvas];
-    }
-    else
-    {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-    [self updateUndoRedoBarButtonState];
-}
-
 -(void)updateFilterSettingsForCanvas
 {
     for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
@@ -729,96 +617,6 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
-#pragma message "TODO: handle UIDocumentStateInConflict option to rename or overwrite"
-/*!
- Device A and device B have a fractal open for editing.
- When B has no edits, and A is changed,
- B gets two stateChanged notifications,
- 1. State changes to UIDocumentStateEditingDisabled just before reading in the new fractal.
- 2. State changes to UIDocumentStateNormal when the new fractal has been read and replaced the fractal of the document.
- 
-    When state changes to UIDocumentStateEditingDisabled remove fractal observers.
-    When state changes to normal, re-add the fractal observers.
- 
- When B has edits and A has edits,
- B gets two stateChanged notifications
- 1. States EditingDisabled AND InConflict bx01010
-    Need to ask user which version they want to keep or if they want to create a new version.
- 
- Do we need to keep track of previous state?
- 
- @param notification
- */
-- (void)handleDocumentStateChangedNotification:(NSNotification *)notification
-{
-    UIDocumentState state = self.fractalDocument.documentState;
-    
-    if (state == UIDocumentStateNormal)
-    {
-        [self addObserversForCurrentFractal];
-    }
-    else if (state & UIDocumentStateInConflict)
-    {
-        if (self.presentedViewController && [self.presentedViewController isKindOfClass: [UIAlertController class]])
-        {
-            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
-        }
-        else if (self.presentedViewController)
-        {
-            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
-        }
-        
-        [self resolveConflicts];
-    }
-    else if (state & UIDocumentStateEditingDisabled)
-    {
-        [self removeObserversForCurrentFractal];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //        [self.tableView reloadData];
-        [self updateInterface];
-        [self regenerateLevels];
-    });
-}
-
-- (void)resolveConflicts
-{
-    NSString* versionConflictMessage = [NSString stringWithFormat: @"Another one of your devices is trying to save a newly edited version over the version you are editing on this device. What do you want to do?"];
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Editing Conflict!",nil)
-                                                                   message: versionConflictMessage
-                                                            preferredStyle: UIAlertControllerStyleAlert];
-    
-    UIAlertController* __weak weakAlert = alert;
-    
-    UIAlertAction* pushOverwriteAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Keep this device edits",nil)
-                                                                  style:UIAlertActionStyleDefault
-                                                                 handler:^(UIAlertAction * action)
-                                           {
-                                               [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                               // Any automatic merging logic or presentation of conflict resolution UI should go here.
-                                               // For this sample, just pick the current version and mark the conflict versions as resolved.
-                                               [NSFileVersion removeOtherVersionsOfItemAtURL: self.fractalDocument.fileURL error:nil];
-                                               
-                                               NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: self.fractalDocument.fileURL];
-                                               for (NSFileVersion *fileVersion in conflictVersions) {
-                                                   fileVersion.resolved = YES;
-                                               }
-                                           }];
-    [alert addAction: pushOverwriteAction];
-
-    UIAlertAction* makeCopyAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Make a new copy of this fractal",nil)
-                                                             style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action)
-                                    {
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                        [self copyFractal: nil];
-                                    }];
-    [alert addAction: makeCopyAction];
-
-    [self presentViewController: alert animated: YES completion: nil];
-}
 
 #pragma mark - Getters & Setters
 
@@ -882,6 +680,15 @@ static const CGFloat kLevelNMargin = 48.0;
 }
 
 #pragma mark Fractal Property KVO
+-(FBKVOController *)kvoController
+{
+    if (!_kvoController)
+    {
+        _kvoController = [FBKVOController controllerWithObserver: self];
+    }
+    return _kvoController;
+}
+
 -(void)setFractalInfo:(MDBFractalInfo *)fractalInfo {
     
     if (_fractalInfo != fractalInfo) {
@@ -937,14 +744,6 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (docState != UIDocumentStateNormal)
     {
-        if (self.fractalInfo)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //
-                self.fractalInfo = nil;
-            });
-        }
-
         dispatch_async(dispatch_get_main_queue(), ^{
             //
             [fractalInfo.document openWithCompletionHandler:^(BOOL success) {
@@ -1079,6 +878,112 @@ static const CGFloat kLevelNMargin = 48.0;
     return _fractalRendererLN;
 }
 
+#pragma message "TODO: handle UIDocumentStateInConflict option to rename or overwrite"
+/*!
+ Device A and device B have a fractal open for editing.
+ When B has no edits, and A is changed,
+ B gets two stateChanged notifications,
+ 1. State changes to UIDocumentStateEditingDisabled just before reading in the new fractal.
+ 2. State changes to UIDocumentStateNormal when the new fractal has been read and replaced the fractal of the document.
+ 
+ When state changes to UIDocumentStateEditingDisabled remove fractal observers.
+ When state changes to normal, re-add the fractal observers.
+ 
+ When B has edits and A has edits,
+ B gets two stateChanged notifications
+ 1. States EditingDisabled AND InConflict bx01010
+ Need to ask user which version they want to keep or if they want to create a new version.
+ 
+ Do we need to keep track of previous state?
+ 
+ @param notification
+ */
+- (void)handleDocumentStateChangedNotification:(NSNotification *)notification
+{
+#pragma message "Note there seems to be no rhyme or reason to when this gets called vs the fractal path observer so observer removal and adding is purposefully redundant."
+#pragma message "TODO: add cloud progress indicator"
+    
+    MDBFractalDocument* document = notification.object;
+    
+    if (document != self.fractalInfo.document)
+    {
+        NSLog(@"Notification for wrong document");
+    }
+    
+    UIDocumentState state = document.documentState;
+    
+    if (state == UIDocumentStateNormal)
+    {
+//        [self removeObserversForFractal: self.fractalDocument.fractal];
+        [self addObserversForFractal: document.fractal];
+    }
+    else if (state == UIDocumentStateClosed)
+    {
+        [self removeObserversForFractal: document.fractal];
+    }
+    else if (state & UIDocumentStateInConflict)
+    {
+        if (self.presentedViewController && [self.presentedViewController isKindOfClass: [UIAlertController class]])
+        {
+            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+        }
+        else if (self.presentedViewController)
+        {
+            [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
+        }
+        
+        [self resolveConflicts];
+    }
+    else if (state & UIDocumentStateEditingDisabled)
+    {
+        [self removeObserversForFractal: document.fractal];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //        [self.tableView reloadData];
+        [self updateInterface];
+        [self regenerateLevels];
+    });
+}
+
+- (void)resolveConflicts
+{
+    NSString* versionConflictMessage = [NSString stringWithFormat: @"Another one of your devices is trying to save a newly edited version over the version you are editing on this device. What do you want to do?"];
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Editing Conflict!",nil)
+                                                                   message: versionConflictMessage
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    UIAlertAction* pushOverwriteAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Keep this device edits",nil)
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * action)
+                                          {
+                                              [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                              // Any automatic merging logic or presentation of conflict resolution UI should go here.
+                                              // For this sample, just pick the current version and mark the conflict versions as resolved.
+                                              [NSFileVersion removeOtherVersionsOfItemAtURL: self.fractalDocument.fileURL error:nil];
+                                              
+                                              NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: self.fractalDocument.fileURL];
+                                              for (NSFileVersion *fileVersion in conflictVersions) {
+                                                  fileVersion.resolved = YES;
+                                              }
+                                          }];
+    [alert addAction: pushOverwriteAction];
+    
+    UIAlertAction* makeCopyAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Make a new copy of this fractal",nil)
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction * action)
+                                     {
+                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                         [self copyFractal: nil];
+                                     }];
+    [alert addAction: makeCopyAction];
+    
+    [self presentViewController: alert animated: YES completion: nil];
+}
+
 -(void) addObserverForFractalChangeInCurrentDocument
 {
     if (_fractalInfo.document)
@@ -1087,9 +992,11 @@ static const CGFloat kLevelNMargin = 48.0;
 //        [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: NSKeyValueObservingOptionOld context: NULL];
         _fractalInfo.document.delegate = self;
         
+        [self.kvoController observe: _fractalInfo.document keyPath: @"fractal" options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionPrior action: @selector(propertyDocumentFractalDidChange:object:)];
+
         if (_fractalInfo.document.fractal)
         {
-            [self addObserversForCurrentFractal];
+            [self addObserversForFractal: _fractalInfo.document.fractal];
         }
     }
 }
@@ -1100,8 +1007,10 @@ static const CGFloat kLevelNMargin = 48.0;
         
         [[NSNotificationCenter defaultCenter] removeObserver: self name: UIDocumentStateChangedNotification object: _fractalInfo.document];
 
+        [self.kvoController unobserve: _fractalInfo.document];
+        
         if (_fractalInfo.document && _fractalInfo.document.fractal) {
-            [self removeObserversForCurrentFractal];
+            [self removeObserversForFractal: _fractalInfo.document.fractal];
         }
 
         [self updateLibraryRepresentationIfNeeded];
@@ -1109,7 +1018,6 @@ static const CGFloat kLevelNMargin = 48.0;
         [_privateImageGenerationQueue cancelAllOperations];
         
         _fractalInfo.document.delegate = nil;
-#pragma message "***TODO Check for observers here before closing document: Key path: imageFilters.allObjects, Key path: allObjects, imageFilters on fractal"
         [_fractalInfo.document closeWithCompletionHandler:nil];
     }
 }
@@ -1118,100 +1026,158 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     if (self.hasBeenEdited)
     {
-        [self.exportImageGenerationQueue addOperationWithBlock:^{
-            UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //
-                [self->_fractalInfo.document setThumbnail: fractalImage];
-                self->_fractalInfo.changeDate = [NSDate date];
-                
-                [self->_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-                
-                self.hasBeenEdited = NO;
-            });
-
-        }];
+        [self updateLibraryRepresentationIfNeededNow: NO];
     }
 }
 
--(void) addObserversForCurrentFractal
+-(void) updateLibraryRepresentationIfNeededNow: (BOOL)now
 {
-    LSFractal* fractal = _fractalInfo.document.fractal;
-    [self addObserversForFractal: fractal];
+    if (self.hasBeenEdited)
+    {
+        if (now)
+        {
+            UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
+            [_fractalInfo.document setThumbnail: fractalImage];
+            _fractalInfo.changeDate = [NSDate date];
+            
+            [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+            self.hasBeenEdited = NO;
+        }
+        else
+        {
+            [self.exportImageGenerationQueue addOperationWithBlock:^{
+                UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //
+                    [self->_fractalInfo.document setThumbnail: fractalImage];
+                    self->_fractalInfo.changeDate = [NSDate date];
+                    
+                    [self->_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+                    
+                    self.hasBeenEdited = NO;
+                });
+                
+            }];
+
+        }
+    }
 }
 
--(void) addObserversForFractal: (LSFractal*)fractal
+-(BOOL)checkChangeCountFor: (NSDictionary*)change
 {
-    if (fractal && !self.fractalEditorObserversHaveBeenSet)
-    {
-        [self setupSlidersForCurrentFractal];
-        
-        _lastImageUpdateTime = [NSDate date];
-        
-        NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
-        [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
-        [propertiesToObserve unionSet: [LSFractal redrawProperties]];
-        [propertiesToObserve unionSet: [LSFractal labelProperties]];
-        
-        for (NSString* keyPath in propertiesToObserve)
-        {
-            [fractal addObserver: self forKeyPath:keyPath options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context: NULL];
-        }
-        
-        [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: 0 context: NULL];
+    return ([change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting
+                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeInsertion
+                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeRemoval
+                        || [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeReplacement);
+}
 
-        self.fractalEditorObserversHaveBeenSet = YES;
-        
-        self.hasBeenEdited = NO;
-        [self updateFilterSettingsForCanvas];
+-(void) propertyDocumentFractalDidChange: (NSDictionary*)change object: (id)object
+{
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"fractal"}];
+    
+    if (self.fractalInfo.document.documentState == UIDocumentStateNormal) // never called so remove?
+    {
+        if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue])
+        {
+            LSFractal* oldFractal = (LSFractal*) change[NSKeyValueChangeOldKey];
+            [self removeObserversForFractal: oldFractal];
+        }
+        else
+        { // goes through here twice for some reason
+            LSFractal* oldFractal = (LSFractal*) change[NSKeyValueChangeOldKey];
+            [self removeObserversForFractal: oldFractal];
+            LSFractal* newFractal = (LSFractal*)change[NSKeyValueChangeNewKey];
+            if (newFractal) [self addObserversForFractal: newFractal];
+        }
+    }
+}
+
+-(void) propertyFractalLabelDidChange: (NSDictionary*)change object: (id)object
+{
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"label"}];
+    self.hasBeenEdited = YES;
+}
+
+-(void) propertyFractalRedrawDidChange: (NSDictionary*)change object: (id)object
+{
+    if ([self checkChangeCountFor: change])
+    {
+        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"redraw"}];
+        self.hasBeenEdited = YES;
         [self queueFractalImageUpdates];
         [self updateInterface];
     }
 }
 
--(void) removeObserversForCurrentFractal
+-(void) propertyFractalAppearanceDidChange: (NSDictionary*)change object: (id)object
 {
-    LSFractal* fractal = _fractalInfo.document.fractal;
-    [self removeObserversForFractal: fractal];
+    if ([self checkChangeCountFor: change])
+    {
+        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"appearance"}];
+        self.hasBeenEdited = YES;
+        [self queueFractalImageUpdates];
+        [self updateInterface];
+    }
 }
 
--(void) removeObserversForFractal: (LSFractal*)fractal
+-(void) propertyFractalFiltersDidChange: (NSDictionary*)change object: (id)object
 {
-    if (fractal && self.fractalEditorObserversHaveBeenSet)
+    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"filter"}];
+    self.hasBeenEdited = YES;
+    [self updateFilterSettingsForCanvas];
+    [self.fractalDocument.fractal updateApplyFiltersWithoutNotificationForFiltersListChange];
+    [self queueFractalImageUpdates];
+    [self updateInterface];
+}
+
+-(void) propertyFractalProductionRulesDidChange: (NSDictionary*)change object: (id)object
+{
+    if ([self checkChangeCountFor: change])
     {
-        @try {
-            [_fractalInfo.document removeObserver: self forKeyPath: @"fractal"];
-            
-            NSMutableSet* propertiesToObserve = [NSMutableSet setWithSet: [LSFractal productionRuleProperties]];
-            [propertiesToObserve unionSet: [LSFractal appearanceProperties]];
-            [propertiesToObserve unionSet: [LSFractal redrawProperties]];
-            [propertiesToObserve unionSet: [LSFractal labelProperties]];
-            
-            // Some properties may not being observed due to being nil initially?
-            for (NSString* keyPath in propertiesToObserve)
-            {
-                @try {
-                    [fractal removeObserver: self forKeyPath: keyPath];
-                }
-                @catch (NSException *exception)
-                {
-                    //
-                    NSLog(@"%s: KVO Error removing observers exception: %@",__PRETTY_FUNCTION__, exception);
-                }
-                @finally {
-                    //
-                }
-            }
-        }
-        @catch (NSException *exception) {
-            NSLog(@"%s: KVO Error removing observers exception: %@",__PRETTY_FUNCTION__, exception);
-        }
-        @finally {
-            //
-            self.fractalEditorObserversHaveBeenSet = NO;
-        }
+        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"rule"}];
+#pragma message "TODO: fix for uidocument"
+        self.fractalDocument.fractal.rulesUnchanged = NO;
+        self.hasBeenEdited = YES;
+        
+        [self regenerateLevels];
+        [self updateInterface];
     }
+}
+
+-(void) propertyFractalReplacementRulesDidChange: (NSDictionary*)change object: (id)object
+{
+    if ([self checkChangeCountFor: change])
+    {
+        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"replacementRule"}];
+        [self updateObserversForReplacementRules: self.fractalDocument.fractal.replacementRules];
+        [self regenerateLevels];
+        [self updateInterface];
+    }
+}
+
+-(void) addObserversForFractal: (LSFractal*)fractal
+{
+    [self setupSlidersForCurrentFractal];
+    
+    _lastImageUpdateTime = [NSDate date];
+    
+    NSKeyValueObservingOptions options = NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew;
+    
+    [self.kvoController observe: fractal keyPaths: [[LSFractal productionRuleProperties]allObjects] options: options action: @selector(propertyFractalProductionRulesDidChange:object:)];
+    [self.kvoController observe: fractal keyPaths: [[LSFractal appearanceProperties]allObjects] options: options action: @selector(propertyFractalAppearanceDidChange:object:)];
+    [self.kvoController observe: fractal keyPaths: [[LSFractal redrawProperties]allObjects] options: options action: @selector(propertyFractalRedrawDidChange:object:)];
+    [self.kvoController observe: fractal keyPaths: [[LSFractal labelProperties]allObjects] options: options action: @selector(propertyFractalProductionRulesDidChange:object:)];
+    
+    self.hasBeenEdited = NO;
+    [self updateFilterSettingsForCanvas];
+    [self queueFractalImageUpdates];
+    [self updateInterface];
+}
+
+-(void)removeObserversForFractal:(LSFractal*)fractal
+{
+    [self.kvoController unobserve: fractal];
 }
 
 /*!
@@ -1229,24 +1195,16 @@ static const CGFloat kLevelNMargin = 48.0;
         
         _lastImageUpdateTime = [NSDate date];
         
-        NSMutableSet* propertiesToObserve = [NSMutableSet new];
-        [propertiesToObserve addObject: @"startingRules.allObjects"];
-        [propertiesToObserve addObject: @"lineColors.allObjects"];
-        [propertiesToObserve addObject: @"fillColors.allObjects"];
-        [propertiesToObserve addObject: @"imageFilters.allObjects"];
+        NSKeyValueObservingOptions options = NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew;
         
-        for (NSString* keyPath in propertiesToObserve)
-        {
-            [fractal addObserver: self forKeyPath:keyPath options: 0 context: NULL];
-        }
+        [self.kvoController observe: fractal keyPaths: @[@"lineColors.allObjects",@"fillColors.allObjects"] options: options action: @selector(propertyFractalAppearanceDidChange:object:)];
+        [self.kvoController observe: fractal keyPaths: @[@"imageFilters.allObjects"] options: options action: @selector(propertyFractalFiltersDidChange:object:)];
+        [self.kvoController observe: fractal keyPaths: @[@"startingRules.allObjects"] options: options action: @selector(propertyFractalProductionRulesDidChange:object:)];
+        [self.kvoController observe: fractal keyPaths: @[[LSFractal replacementRulesKey]] options: options action: @selector(propertyFractalReplacementRulesDidChange:object:)];
+
         
-        for (LSReplacementRule* rRule in fractal.replacementRules)
-        {
-            [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
-            [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
-            [self.observedReplacementRules addObject: rRule];
-        }
-    }
+        [self updateObserversForReplacementRules: fractal.replacementRules];
+      }
 }
 
 -(void)removeObserversForAppearanceEditorChanges
@@ -1254,41 +1212,15 @@ static const CGFloat kLevelNMargin = 48.0;
     LSFractal* fractal = _fractalInfo.document.fractal;
     if (fractal)
     {
-        NSMutableSet* propertiesToObserve = [NSMutableSet new];
-        [propertiesToObserve addObject: @"startingRules.allObjects"];
-        [propertiesToObserve addObject: @"lineColors.allObjects"];
-        [propertiesToObserve addObject: @"fillColors.allObjects"];
-        [propertiesToObserve addObject: @"imageFilters.allObjects"];
+        [self.kvoController unobserve: fractal keyPath: @"startingRules.allObjects"];
+        [self.kvoController unobserve: fractal keyPath: @"lineColors.allObjects"];
+        [self.kvoController unobserve: fractal keyPath: @"fillColors.allObjects"];
+        [self.kvoController unobserve: fractal keyPath: @"imageFilters.allObjects"];
         
-        // Some properties may not being observed due to being nil initially?
-        for (NSString* keyPath in propertiesToObserve)
+        for (LSReplacementRule* rRule in fractal.replacementRules)
         {
-            @try {
-                [fractal removeObserver: self forKeyPath: keyPath];
-            }
-            @catch (NSException *exception) {
-                //
-                NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
-            }
-            @finally {
-                //
-            }
-        }
-        
-        for (LSReplacementRule* rule in fractal.replacementRules)
-        {
-            @try {
-                [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
-                [rule removeObserver: self forKeyPath: @"rules.allObjects"];
-            }
-            @catch (NSException *exception) {
-                //
-                NSLog(@"%@: KVO Error removing observers exception: %@",NSStringFromSelector(_cmd), exception);
-            }
-            @finally {
-                //
-                [self.observedReplacementRules removeObject: rule];
-            }
+            [self.kvoController unobserve: rRule];
+            [self.observedReplacementRules removeObject: rRule];
         }
     }
 }
@@ -1303,11 +1235,10 @@ static const CGFloat kLevelNMargin = 48.0;
     [repRulesToUnobserve minusSet: copyOfCurrent];
     
     
-    for (LSReplacementRule* rule in repRulesToUnobserve)
+    for (LSReplacementRule* rRule in repRulesToUnobserve)
     {
-        [rule removeObserver: self forKeyPath: [LSReplacementRule contextRuleKey]];
-        [rule removeObserver: self forKeyPath: @"rules.allObjects"];
-        [self.observedReplacementRules removeObject: rule];
+        [self.kvoController unobserve: rRule];
+        [self.observedReplacementRules removeObject: rRule];
     }
     
     NSMutableSet* repRulesToAddObserver = [copyOfCurrent mutableCopy];
@@ -1315,8 +1246,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     for (LSReplacementRule* rRule in repRulesToAddObserver)
     {
-        [rRule addObserver: self forKeyPath: [LSReplacementRule contextRuleKey] options: 0 context: NULL];
-        [rRule addObserver: self forKeyPath: @"rules.allObjects" options: 0 context: NULL];
+        [self.kvoController observe: rRule keyPaths: @[[LSReplacementRule contextRuleKey], @"rules.allObjects"] options: 0 action: @selector(propertyFractalProductionRulesDidChange:object:)];
         [self.observedReplacementRules addObject: rRule];
     }
 }
@@ -1351,7 +1281,6 @@ static const CGFloat kLevelNMargin = 48.0;
     [self stopButtonPressed: nil];
     [self updateValueInputs];
     [self updateLabelsAndControls];
-    [self updateNavButtons];
 }
 
 -(void) updateValueInputs
@@ -1671,20 +1600,6 @@ static const CGFloat kLevelNMargin = 48.0;
     }
 }
 
-//TODO: add Undo and Redo buttons for editing
-- (void) updateNavButtons
-{
-//    self.title = self.fractalDocument.fractal.name;
-//    UILabel* title = [[UILabel alloc]initWithFrame: CGRectZero];
-//    title.lineBreakMode = NSLineBreakByTruncatingMiddle;
-//    title.adjustsFontSizeToFitWidth = YES;
-//    title.minimumScaleFactor = 0.6;
-//    title.text = self.fractalDocument.fractal.name;
-//    [title sizeToFit];
-//    self.navigationItem.titleView = title;
-}
-
-
 #pragma mark - action utility methods
 -(double) convertAndQuantizeRotationFrom: (UIRotationGestureRecognizer*)sender quanta: (double) stepRadians ratio: (double) deltaAngleToDeltaGestureRatio
 {
@@ -1865,7 +1780,7 @@ static const CGFloat kLevelNMargin = 48.0;
     }
     else if ([segue.identifier isEqualToString: @"UnwindSegueToLibrary"])
     {
-        [self updateLibraryRepresentationIfNeeded];
+        [self updateLibraryRepresentationIfNeededNow: YES];
         [self.exportImageGenerationQueue waitUntilAllOperationsAreFinished];
     }
 }
@@ -3311,7 +3226,12 @@ verticalPropertyPath: @"lineChangeFactor"
 //    CGContextSetBlendMode(aCGContext, kCGBlendModeDifference);
 //    [watermark drawInRect: wRect withAttributes: @{NSFontAttributeName:font,NSForegroundColorAttributeName:[FractalScapeIconSet selectionBackgrundColor]}];
 
-    CGRect textRect = CGRectMake(0, 0, 682, 167);
+    CGFloat fontSize = 32.0;
+    CGFloat width = 682.0/2.0;
+    CGFloat height = 168.0/1.0;
+    CGFloat margin = 64.0;
+//    CGRect textRect = CGRectMake(imageSize.width - margin - width, imageSize.height - margin - height, width, height);
+    CGRect textRect = CGRectMake(imageSize.width - width, imageSize.height - height, width, height);
     NSString* watermark = @"FractalScapes";
     CGContextSaveGState(aCGContext);
     {
@@ -3319,7 +3239,7 @@ verticalPropertyPath: @"lineChangeFactor"
         NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         textStyle.alignment = NSTextAlignmentCenter;
         
-        NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: FractalScapeIconSet.selectionBackgroundColor, NSParagraphStyleAttributeName: textStyle};
+        NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: fontSize], NSForegroundColorAttributeName: FractalScapeIconSet.selectionBackgroundColor, NSParagraphStyleAttributeName: textStyle};
         
         CGFloat textTextHeight = [watermark boundingRectWithSize: CGSizeMake(textRect.size.width, INFINITY)  options: NSStringDrawingUsesLineFragmentOrigin attributes: textFontAttributes context: nil].size.height;
         CGRect textTextRect = CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight);
@@ -3345,7 +3265,7 @@ verticalPropertyPath: @"lineChangeFactor"
                 CGContextSetBlendMode(aCGContext, kCGBlendModeSourceOut);
                 CGContextBeginTransparencyLayer(aCGContext, NULL);
                 
-                textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
+                textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: fontSize], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
                 [watermark drawInRect: textTextRect withAttributes: textFontAttributes];
                 
                 CGContextEndTransparencyLayer(aCGContext);

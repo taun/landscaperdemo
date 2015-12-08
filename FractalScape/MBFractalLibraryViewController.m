@@ -144,7 +144,11 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     UIViewController *sourceViewController = segue.sourceViewController;
     if ([sourceViewController isKindOfClass: [MBLSFractalEditViewController class]])
     { // which it always should be
-//        MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)sourceViewController;
+        
+        MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)sourceViewController;
+        NSUInteger index = [[self.appModel.documentController fractalInfos] indexOfObject: editor.fractalInfo];
+        
+        [self.collectionView reloadItemsAtIndexPaths: @[[NSIndexPath indexPathForItem: index inSection: 0]]];
 //        [editor setFractalInfo: nil];
     }
 }
