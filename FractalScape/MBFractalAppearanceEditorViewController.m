@@ -83,6 +83,6 @@
     UINavigationController* navCon = (UINavigationController*)viewController;
     NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
 
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : selectedViewName}];
+    if (selectedViewName) [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : selectedViewName}];
 }
 @end

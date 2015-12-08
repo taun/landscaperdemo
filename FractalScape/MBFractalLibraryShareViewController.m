@@ -220,7 +220,7 @@
                 MDBFractalDocument* fractalDocument = fractalInfo.document;
                 LSFractal* fractal = fractalDocument.fractal;
 
-                [Answers logShareWithMethod: @"FractalCloud" contentName: fractal.name contentType:@"Fractal" contentId: fractal.name customAttributes: nil];
+                if (fractal.name != nil)  [Answers logShareWithMethod: @"FractalCloud" contentName: fractal.name contentType:@"Fractal" contentId: fractal.name customAttributes: nil];
                 
                 CKRecord* record;
                 record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];

@@ -399,7 +399,7 @@
                 MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[self.collectionView cellForItemAtIndexPath: path];
                 MDBFractalDocumentProxy* proxy = documentInfoCell.document;
                 
-                [Answers logCustomEventWithName: @"FractalDownload" customAttributes: @{@"Name" : proxy.fractal.name}];
+                if (proxy.fractal.name != nil) [Answers logCustomEventWithName: @"FractalDownload" customAttributes: @{@"Name" : proxy.fractal.name}];
                 
                 MDBAppModel* appModel = (MDBAppModel*)self.appModel;
                 

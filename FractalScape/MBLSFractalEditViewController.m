@@ -429,7 +429,10 @@ static const CGFloat kLevelNMargin = 48.0;
 {
     [super viewDidAppear:animated];
     
-    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Fractal" contentId: NSStringFromClass([self class]) customAttributes: @{@"Name": self.fractalDocument.fractal.name}];
+    if (self.fractalDocument.fractal.name != nil)
+    {
+        [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Fractal" contentId: NSStringFromClass([self class]) customAttributes: @{@"Name": self.fractalDocument.fractal.name}];
+    }
 
     MDBAppModel* strongAppModel = self.appModel;
 
@@ -934,6 +937,14 @@ static const CGFloat kLevelNMargin = 48.0;
     
     if (docState != UIDocumentStateNormal)
     {
+        if (self.fractalInfo)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //
+                self.fractalInfo = nil;
+            });
+        }
+
         dispatch_async(dispatch_get_main_queue(), ^{
             //
             [fractalInfo.document openWithCompletionHandler:^(BOOL success) {
@@ -2034,7 +2045,10 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
-                                           [Answers logShareWithMethod: @"Image" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                           if (self.fractalDocument.fractal.name != nil)
+                                           {
+                                               [Answers logShareWithMethod: @"Image" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                           }
                                            
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                            [self shareWithActivityController: sender];
@@ -2047,7 +2061,10 @@ static const CGFloat kLevelNMargin = 48.0;
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        [Answers logShareWithMethod: @"VectorPDF" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        if (self.fractalDocument.fractal.name != nil)
+                                        {
+                                            [Answers logShareWithMethod: @"VectorPDF" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        }
                                         
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                         [self sharePDFWithDocumentInteractionController: sender];
@@ -2071,7 +2088,10 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                 style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        [Answers logShareWithMethod: @"Document" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        if (self.fractalDocument.fractal.name != nil)
+                                        {
+                                            [Answers logShareWithMethod: @"Document" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        }
                                         
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                         [self shareWithDocumentInteractionController: sender];
@@ -2090,7 +2110,10 @@ static const CGFloat kLevelNMargin = 48.0;
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        [Answers logShareWithMethod: @"Cancel" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        if (self.fractalDocument.fractal.name != nil)
+                                        {
+                                            [Answers logShareWithMethod: @"Cancel" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                        }
                                         
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                     }];

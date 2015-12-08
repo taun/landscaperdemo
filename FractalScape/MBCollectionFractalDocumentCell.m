@@ -63,13 +63,18 @@
     
     _imageView.image = nil;
     
+//    _selectedBorder = [UIColor whiteColor];
+//    _selectedBorderWidth = 4.0;
+    
 //    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
 //    UIImageView* strongImageView = self.imageView;
 //    strongImageView.image = placeholder;
     
     if (!self.backgroundView) {
 //        MBColorCellBackgroundView* backgroundView = [MBColorCellBackgroundView new];
-        UIView* background = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"kLibraryCellBackgroundImage"]];
+        UIImageView* backgroundImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"kLibraryCellBackgroundImage"]];
+        backgroundImage.opaque = NO;
+        UIView* background = backgroundImage;
         self.backgroundView = background;
     }
     

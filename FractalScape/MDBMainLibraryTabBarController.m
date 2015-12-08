@@ -166,7 +166,7 @@
 {
     UINavigationController* navCon = (UINavigationController*)viewController;
     NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
-    [Answers logCustomEventWithName: @"MainTabSelection" customAttributes: @{@"SelectedTab": selectedViewName}];
+    if (selectedViewName != nil) [Answers logCustomEventWithName: @"MainTabSelection" customAttributes: @{@"SelectedTab": selectedViewName}];
 }
 
 @end

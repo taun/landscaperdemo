@@ -119,6 +119,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     
     if (fileData)
     {
+        self.fractal = nil;
         self.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fileData];
     }
     else

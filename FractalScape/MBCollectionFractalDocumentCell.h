@@ -15,6 +15,9 @@
 @property (assign,nonatomic) CGFloat   radius;
 @property (strong, nonatomic) id<MDBFractaDocumentProtocol>          document;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView        *activityIndicator;
+@property (strong,nonatomic) IBInspectable UIColor                  *selectedBorder;
+@property (assign,nonatomic) IBInspectable CGFloat                  selectedBorderWidth;
 
 -(void)purgeImage;
+
 @end

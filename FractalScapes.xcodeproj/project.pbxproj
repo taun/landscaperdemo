@@ -281,6 +281,10 @@
 		C5ABDFFF1B74A287003EB04E /* MDBRuleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABDFFD1B74A287003EB04E /* MDBRuleCollectionViewCell.m */; };
 		C5ABE0021B79F29C003EB04E /* MDBHelpContentsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C5ABE0001B79F29C003EB04E /* MDBHelpContentsTableViewCell.h */; };
 		C5ABE0031B79F29C003EB04E /* MDBHelpContentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */; };
+		C5AD4EA81C16651E009386FA /* FBKVOController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AD4EA41C16651E009386FA /* FBKVOController.h */; };
+		C5AD4EA91C16651E009386FA /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4EA51C16651E009386FA /* FBKVOController.m */; };
+		C5AD4EAA1C16651E009386FA /* NSObject+FBKVOController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AD4EA61C16651E009386FA /* NSObject+FBKVOController.h */; };
+		C5AD4EAB1C16651E009386FA /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4EA71C16651E009386FA /* NSObject+FBKVOController.m */; };
 		C5B0A2B71ACA04B800C5903A /* MBImageFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */; };
 		C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
@@ -691,6 +695,10 @@
 		C5ABDFFD1B74A287003EB04E /* MDBRuleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBRuleCollectionViewCell.m; sourceTree = "<group>"; };
 		C5ABE0001B79F29C003EB04E /* MDBHelpContentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBHelpContentsTableViewCell.h; sourceTree = "<group>"; };
 		C5ABE0011B79F29C003EB04E /* MDBHelpContentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBHelpContentsTableViewCell.m; sourceTree = "<group>"; };
+		C5AD4EA41C16651E009386FA /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBKVOController.h; path = "../../Third Party/KVOController/FBKVOController/FBKVOController.h"; sourceTree = "<group>"; };
+		C5AD4EA51C16651E009386FA /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBKVOController.m; path = "../../Third Party/KVOController/FBKVOController/FBKVOController.m"; sourceTree = "<group>"; };
+		C5AD4EA61C16651E009386FA /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+FBKVOController.h"; path = "../../Third Party/KVOController/FBKVOController/NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		C5AD4EA71C16651E009386FA /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+FBKVOController.m"; path = "../../Third Party/KVOController/FBKVOController/NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBImageFilter.h; path = FractalScape/model/MBImageFilter.h; sourceTree = "<group>"; };
 		C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBImageFilter.m; path = FractalScape/model/MBImageFilter.m; sourceTree = "<group>"; };
 		C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
@@ -1216,6 +1224,17 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		C5AD4EA31C1664F8009386FA /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				C5AD4EA41C16651E009386FA /* FBKVOController.h */,
+				C5AD4EA51C16651E009386FA /* FBKVOController.m */,
+				C5AD4EA61C16651E009386FA /* NSObject+FBKVOController.h */,
+				C5AD4EA71C16651E009386FA /* NSObject+FBKVOController.m */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
 		C5CD57D21A9BC35A00C70218 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
@@ -1294,6 +1313,7 @@
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
+				C5AD4EA31C1664F8009386FA /* ThirdParty */,
 				C5A338671B9BD04000074DD3 /* MainStoryboard_iPad.storyboard */,
 				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
 				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,
@@ -1527,6 +1547,7 @@
 				C529F8571B8F63C1005D8982 /* MDBPurchaseTableViewCell.h in Headers */,
 				C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */,
 				C5CE0E5C1B542C6100EEC58C /* NSMutableArray+MDKConvenience.h in Headers */,
+				C5AD4EAA1C16651E009386FA /* NSObject+FBKVOController.h in Headers */,
 				C583EDEB1B972BA100ED4BA6 /* INTEGER.h in Headers */,
 				C500160F1AC6103F00101340 /* MDBNavConTransitionCoordinator.h in Headers */,
 				C54A72261BA602CC00D2C47E /* dh.h in Headers */,
@@ -1667,6 +1688,7 @@
 				C54A72291BA602CC00D2C47E /* dtls1.h in Headers */,
 				C5EB07101B9CB276001F8881 /* FractalScapes-Prefix.pch in Headers */,
 				C54A721E1BA602CC00D2C47E /* cmac.h in Headers */,
+				C5AD4EA81C16651E009386FA /* FBKVOController.h in Headers */,
 				C54A72541BA602CC00D2C47E /* stack.h in Headers */,
 				C54A724A1BA602CC00D2C47E /* rsa.h in Headers */,
 				C5F184781AA6663800233E49 /* MDBDocumentUtilities.h in Headers */,
@@ -1944,6 +1966,7 @@
 				C5FF31651BEA40D1005550C8 /* MBFractalLibraryShareViewController.m in Sources */,
 				C583EDDA1B972BA100ED4BA6 /* NativeInteger.c in Sources */,
 				C5F1847D1AA6751200233E49 /* MDBDocumentController.m in Sources */,
+				C5AD4EA91C16651E009386FA /* FBKVOController.m in Sources */,
 				C52EA9B21A2649B1009C8398 /* NSLayoutConstraint+MDBAddons.m in Sources */,
 				C5CE0E571B542C6100EEC58C /* MDKLayerViewDesignable.m in Sources */,
 				C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */,
@@ -1957,6 +1980,7 @@
 				C5999E7F1B835D2E00A9D848 /* MDBEditorHelpTransitioningDelegate.m in Sources */,
 				C583EDDD1B972BA100ED4BA6 /* asn_codecs_prim.c in Sources */,
 				C546D7201A83D5C3002E869A /* LSFractal.m in Sources */,
+				C5AD4EAB1C16651E009386FA /* NSObject+FBKVOController.m in Sources */,
 				C5F1848C1AA8DAA200233E49 /* MDBFractalDocumentLocalCoordinator.m in Sources */,
 				C55131F314F5F6E80074137C /* MBFractalPropertyTableHeaderView.m in Sources */,
 				C5CE0E651B542C8B00EEC58C /* MDCKBaseCloudBrowserViewController.m in Sources */,

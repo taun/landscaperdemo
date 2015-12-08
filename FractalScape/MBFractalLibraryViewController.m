@@ -320,7 +320,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         // only use this title change if it is the root class.
         // let the other classes assign their own titles.
         self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
-        [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": self.navigationItem.title}];
+        if (self.navigationItem.title != nil) [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": self.navigationItem.title}];
     }
     if (_isAppeared) [self->_appModel.documentController.documentCoordinator startQuery];
     //    });
