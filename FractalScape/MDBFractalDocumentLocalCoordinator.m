@@ -139,7 +139,8 @@
             [strongDelegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
         }
         else {
-            [strongDelegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[URL] updatedURLs:@[]];
+            MDBURLPlusMetaData* plusMeta = [MDBURLPlusMetaData urlPlusMetaWithFileURL: URL metaData: nil];
+            [strongDelegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[plusMeta] updatedURLs:@[]];
         }
     }];
 }
