@@ -182,7 +182,7 @@
         NSMetadataItem* firstItem = (NSMetadataItem*)insertedMetadataItemsOrNil[0];
         NSArray* attributes = firstItem.attributes;
         NSDictionary* values = [firstItem valuesForAttributes: attributes];
-        NSLog(@"InsertedMetadataItems: %@", values);
+//        NSLog(@"InsertedMetadataItems: %@", values);
 
         insertedURLs = [self URLsByMappingMetadataItems:insertedMetadataItemsOrNil];
     }

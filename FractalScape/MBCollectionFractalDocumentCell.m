@@ -59,9 +59,9 @@
 -(void)prepareForReuse
 {
     [super prepareForReuse];
-    [self.kvoController unobserve: _info.document];
-    [self.kvoController unobserve: _info];
-    self.transferIndicator.progress = 0.0;
+
+    self.info = nil;
+    
     [self.activityIndicator startAnimating];
 }
 
@@ -94,7 +94,7 @@
     
     self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
 
-    self.transferIndicator.progress = 0.0;
+    [self.transferIndicator setDirection: 0 progress: 0];
 }
 
 -(UIView*) configureSelectedBackgroundViewFrame: (CGRect) frame
@@ -145,18 +145,13 @@
         
         if (_info.isDownloading || _info.isUploading)
         {
-            if (_info.isDownloading)
-            {
-                self.transferIndicator.progress = - _info.downloadingProgress;
-            }
-            else if (_info.isUploading)
-            {
-                self.transferIndicator.progress = _info.uploadingProgress;
-            }
+            if (_info.isUploading) [self.transferIndicator setDirection: 1 progress: _info.uploadingProgress];
+            // prioritize display of downloading over uploading
+            if (_info.isDownloading) [self.transferIndicator setDirection: -1 progress: _info.downloadingProgress];
         }
         else
         {
-            self.transferIndicator.progress = 100.0;
+            [self.transferIndicator setDirection: 0 progress: 0];
         }
     }
     else
@@ -174,6 +169,7 @@
         [self.activityIndicator stopAnimating];
         
         [self.kvoController unobserve: _info];
+        [self.kvoController unobserve: _info.document];
         
         _info = info;
         
@@ -184,13 +180,12 @@
                 if ( _info.document.fractal.name) self.textLabel.text =  _info.document.fractal.name;
                 if ( _info.document.fractal.descriptor) self.detailTextLabel.text =  _info.document.fractal.descriptor;
                 [self propertyDcoumentThumbnailDidChange: nil object:  _info.document];
-                [self.kvoController observe:  _info.document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
+//                [self.kvoController observe:  _info.document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
                 [self.kvoController observe: _info keyPath: @"fileStatusChanged" options: 0 action: @selector(updateProgessIndicator)];
             } else {
                 self.textLabel.text =  _info.document.loadResultString;
             }
             
-            [self updateProgessIndicator];
 
  //            else
 //            {
@@ -200,6 +195,7 @@
 //            }
         }
     }
+    [self updateProgessIndicator];
 }
 
 -(void) purgeImage

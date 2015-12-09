@@ -197,31 +197,25 @@
     MDBFractalInfo* newFractalInfo = [MDBFractalInfo newFractalInfoWithURLPlusMeta: [MDBURLPlusMetaData urlPlusMetaWithFileURL: documentURL metaData: nil]
                                                                         forFractal: fractal documentDelegate: delegate];
     
-    [newFractalInfo.document saveToURL: newFractalInfo.document.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
         //
         //        dispatch_async(self.fractalUpdateQueue, ^{
 #ifdef MDB_QUEUE_LOG
         NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
 #endif
 //        id<MDBFractalDocumentControllerDelegate> strongDelegate = self.delegate;
-        
-        if (![self.fractalInfos containsObject: newFractalInfo])
-        {
-            [self processContentChangesWithInsertedURLs: @[newFractalInfo.urlPlusMeta] removedURLs: nil updatedURLs: nil];
-            //                [strongDelegate documentControllerWillChangeContent:self];
-            
-            //                dispatch_sync(dispatch_get_main_queue(), ^{
-            //                    NSMutableArray* mutableArray = [self mutableArrayValueForKey: @"fractalInfos"];
-            //                    [mutableArray insertObject: newFractalInfo atIndex: 0];
-            //                });
-            //
-            //                NSIndexPath* indexPath = [NSIndexPath indexPathForRow: 0 inSection: 0];
-            //                [strongDelegate documentController:self didInsertFractalInfosAtIndexPaths: @[indexPath] totalRows: self.fractalInfos.count];
-            
-            //                [strongDelegate documentControllerDidChangeContent:self];
-        };
-        //        });
-    }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [newFractalInfo.document saveToURL: newFractalInfo.document.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+                
+                if (success)
+                {
+                    [self willChange: NSKeyValueChangeInsertion valuesAtIndexes: [NSIndexSet indexSetWithIndex: 0] forKey:@"fractalInfos"];
+                    
+                    [self.fractalInfos insertObject: newFractalInfo atIndex: 0];
+                    
+                    [self didChange: NSKeyValueChangeInsertion valuesAtIndexes: [NSIndexSet indexSetWithIndex: 0] forKey:@"fractalInfos"];
+                }
+            }];
+        });
     
     return newFractalInfo;
 }

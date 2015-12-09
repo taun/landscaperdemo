@@ -36,6 +36,8 @@ NSString* const  kPrefVersion = @"com.moedae.FractalScapes.AppVersion";
 NSString* const  kPrefPromptedDiscoveryUsed = @"com.moedae.FractalScapes.CKDiscoveryPromptUsed";
 NSString* const  kPrefWelcomeDone = @"com.moedae.FractalScapes.WelcomeDone";
 NSString* const  kPrefEditorIntroDone = @"com.moedae.FractalScapes.EditorIntroDone";
+NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
+
 
 @interface MDBAppModel ()
 

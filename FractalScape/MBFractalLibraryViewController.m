@@ -151,9 +151,17 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     { // which it always should be
         
         MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)sourceViewController;
-        NSUInteger index = [[self.appModel.documentController fractalInfos] indexOfObject: editor.fractalInfo];
+        MDBFractalDocument* tempDocument = editor.fractalInfo.document;
+        editor.fractalInfo = nil;
         
-        [self.collectionView reloadItemsAtIndexPaths: @[[NSIndexPath indexPathForItem: index inSection: 0]]];
+        [tempDocument closeWithCompletionHandler:^(BOOL success) {
+            //
+            NSLog(@"Fractal Closed");
+            NSUInteger index = [[self.appModel.documentController fractalInfos] indexOfObject: editor.fractalInfo];
+            
+            [self.collectionView reloadItemsAtIndexPaths: @[[NSIndexPath indexPathForItem: index inSection: 0]]];
+        }];
+
 //        [editor setFractalInfo: nil];
     }
 }
