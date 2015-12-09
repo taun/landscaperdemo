@@ -132,7 +132,9 @@
 {
     if ([object thumbnail])
     {
-        self.imageView.image = [object thumbnail];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.imageView.image = [object thumbnail];
+        });
     }
 }
 
@@ -180,7 +182,7 @@
                 if ( _info.document.fractal.name) self.textLabel.text =  _info.document.fractal.name;
                 if ( _info.document.fractal.descriptor) self.detailTextLabel.text =  _info.document.fractal.descriptor;
                 [self propertyDcoumentThumbnailDidChange: nil object:  _info.document];
-//                [self.kvoController observe:  _info.document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
+                [self.kvoController observe:  _info.document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
                 [self.kvoController observe: _info keyPath: @"fileStatusChanged" options: 0 action: @selector(updateProgessIndicator)];
             } else {
                 self.textLabel.text =  _info.document.loadResultString;
@@ -194,6 +196,12 @@
 //                strongImageView.image = placeholder;
 //            }
         }
+        else
+        {
+            _imageView.image = nil;
+            _textLabel.text = @"Loading..";
+            _detailTextLabel.text = @"";
+       }
     }
     [self updateProgessIndicator];
 }

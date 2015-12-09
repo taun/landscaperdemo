@@ -240,7 +240,7 @@
         
         if (indexOfFractalInfo == NSNotFound)
         {
-            NSLog(@"%@, Error: FractalInfo not found: %@",NSStringFromSelector(_cmd), fractalInfo);
+//            NSLog  (@"%@, Error: FractalInfo not found: %@",NSStringFromSelector(_cmd), fractalInfo);
         }
         else if (indexOfFractalInfo == 0)
         {

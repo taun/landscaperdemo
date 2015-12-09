@@ -240,7 +240,7 @@
             }
         }
         
-        [self.appModel.cloudKitManager savePublicRecords: records withCompletionHandler:^(NSError *error) {
+        [self.appModel.cloudKitManager savePublicRecords: records qualityOfService: NSQualityOfServiceUserInitiated withCompletionHandler:^(NSError *error) {
             if (error) {
                 [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud", @"Error":@(error.code)}];
             }

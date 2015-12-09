@@ -30,7 +30,9 @@
 {
     [super viewDidLoad];
     
-    self.cloudDownloadKeys = @[CKFractalRecordNameField,CKFractalRecordDescriptorField,CKFractalRecordFractalDefinitionAssetField,CKFractalRecordFractalThumbnailAssetField];
+    self.cloudDownloadKeys = @[CKFractalRecordNameField,CKFractalRecordDescriptorField,CKFractalRecordFractalDefinitionAssetField];
+    self.cloudThumbnailKey = CKFractalRecordFractalThumbnailAssetField;
+    
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.color = [UIColor blueColor];
 }
@@ -342,13 +344,17 @@
         
         MDBFractalDocumentProxy* proxy = [MDBFractalDocumentProxy new];
         CKAsset* fractalFile = fractalRecord[CKFractalRecordFractalDefinitionAssetField];
-        CKAsset* thumbnailFile = fractalRecord[CKFractalRecordFractalThumbnailAssetField];
         
         NSData* fractalData = [NSData dataWithContentsOfURL: fractalFile.fileURL];
-        NSData* thumbnailData = [NSData dataWithContentsOfURL: thumbnailFile.fileURL];
         
         proxy.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fractalData];
-        proxy.thumbnail = [UIImage imageWithData: thumbnailData];
+        if (proxy.thumbnail == nil)
+        {
+            [self.appModel.cloudKitManager fetchImageAsset: self.cloudThumbnailKey forRecordWithID: fractalRecord.recordID.recordName completionHandler:^(UIImage *image) {
+                // get cached or cloud image and set
+                proxy.thumbnail = image;
+            }];
+        }
         proxy.loadResult = MDBFractalDocumentLoad_SUCCESS;
         
         MDBFractalInfo* info = [[MDBFractalInfo alloc]init];
