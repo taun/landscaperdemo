@@ -327,7 +327,7 @@
 {
     static NSString *CellIdentifier = @"FractalLibraryListCell";
     MBCollectionFractalDocumentCell* reuseCell = [collectionView dequeueReusableCellWithReuseIdentifier: CellIdentifier forIndexPath: indexPath];
-    reuseCell.document = nil;
+    reuseCell.info = nil;
     return reuseCell;
 }
 
@@ -351,7 +351,9 @@
         proxy.thumbnail = [UIImage imageWithData: thumbnailData];
         proxy.loadResult = MDBFractalDocumentLoad_SUCCESS;
         
-        documentInfoCell.document = proxy;
+        MDBFractalInfo* info = [[MDBFractalInfo alloc]init];
+        [info setProxyDocument: proxy];
+        documentInfoCell.info = info;
     }
     // Configure the cell with data from the managed object.
 //    if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
@@ -378,7 +380,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MBCollectionFractalDocumentCell* fractalDocCell = (MBCollectionFractalDocumentCell*)cell;
-    fractalDocCell.document = nil;
+    fractalDocCell.info = nil;
 }
 
 
@@ -397,7 +399,7 @@
             for (NSIndexPath* path in selectedIndexPaths)
             {
                 MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[self.collectionView cellForItemAtIndexPath: path];
-                MDBFractalDocumentProxy* proxy = documentInfoCell.document;
+                MDBFractalDocumentProxy* proxy = documentInfoCell.info.document;
                 
                 if (proxy.fractal.name != nil) [Answers logCustomEventWithName: @"FractalDownload" customAttributes: @{@"Name" : proxy.fractal.name}];
                 

@@ -10,6 +10,7 @@
 
 #import "LSFractal.h"
 #import "MDBFractalInfo.h"
+#import "MDBURLPlusMetaData.h"
 #import "MDBFractalDocument.h"
 #import "MBColorCellBackgroundView.h"
 #import "MDCCloudTransferStatusIndicator.h"
@@ -58,7 +59,8 @@
 -(void)prepareForReuse
 {
     [super prepareForReuse];
-    [self.kvoController unobserve: _document];
+    [self.kvoController unobserve: _info.document];
+    [self.kvoController unobserve: _info];
     self.transferIndicator.progress = 0.0;
     [self.activityIndicator startAnimating];
 }
@@ -134,75 +136,62 @@
     }
 }
 
--(void)updateProgessIndicatorForURL: (NSURL*)docURL
+-(void)updateProgessIndicator
 {
-    if (docURL)
+#pragma message "TODO add bad file load indicator"
+    if (_info.urlPlusMeta.metaDataItem)
     {
-        NSError* error;
-        id fileIsICloud;
-        id downloadedStatusValue;
-        id uploadedValue;
-        id downloadingValue;
-        id uploadingValue;
+        self.transferIndicator.hidden = NO;
         
-        
-        [docURL getResourceValue: &fileIsICloud forKey: NSURLIsUbiquitousItemKey error: &error];
-        
-        if ([fileIsICloud boolValue])
+        if (_info.isDownloading || _info.isUploading)
         {
-            [docURL getResourceValue: &downloadedStatusValue forKey: NSURLUbiquitousItemDownloadingStatusKey error: &error];
-            [docURL getResourceValue: &downloadingValue forKey: NSURLUbiquitousItemIsDownloadingKey error: &error];
-            [docURL getResourceValue: &uploadedValue forKey: NSURLUbiquitousItemIsUploadedKey error: &error];
-            [docURL getResourceValue: &uploadingValue forKey: NSURLUbiquitousItemIsUploadingKey error: &error];
-            
-            self.transferIndicator.hidden = NO;
-            
-            if ([downloadingValue boolValue])
+            if (_info.isDownloading)
             {
-                self.transferIndicator.progress = -0.1;
+                self.transferIndicator.progress = - _info.downloadingProgress;
             }
-            else if ([uploadingValue boolValue] || ![uploadedValue boolValue])
+            else if (_info.isUploading)
             {
-                self.transferIndicator.progress = 0.1;
-            }
-            else
-            {
-                self.transferIndicator.progress = 1.0;
+                self.transferIndicator.progress = _info.uploadingProgress;
             }
         }
         else
         {
-            self.transferIndicator.hidden = YES;
+            self.transferIndicator.progress = 100.0;
         }
-        
+    }
+    else
+    {
+        self.transferIndicator.hidden = YES;
     }
 }
 
--(void)setDocument:(MDBFractalDocument *)document
+-(void)setInfo:(MDBFractalInfo *)info
 {
-    if (_document != document)
+    if (_info != info)
     {
 //        [self configureDefaults];
         
         [self.activityIndicator stopAnimating];
         
-        [self.kvoController unobserve: _document];
+        [self.kvoController unobserve: _info];
         
-        _document = document;
+        _info = info;
         
-        if (_document)
+        if (_info)
         {
-            [self updateProgessIndicatorForURL: _document.fileURL];
-
-            if (_document.loadResult == MDBFractalDocumentLoad_SUCCESS)
+            if ( _info.document.loadResult == MDBFractalDocumentLoad_SUCCESS)
             {
-                if (_document.fractal.name) self.textLabel.text = _document.fractal.name;
-                if (_document.fractal.descriptor) self.detailTextLabel.text = _document.fractal.descriptor;
-                [self propertyDcoumentThumbnailDidChange: nil object: _document];
-                [self.kvoController observe: _document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
+                if ( _info.document.fractal.name) self.textLabel.text =  _info.document.fractal.name;
+                if ( _info.document.fractal.descriptor) self.detailTextLabel.text =  _info.document.fractal.descriptor;
+                [self propertyDcoumentThumbnailDidChange: nil object:  _info.document];
+                [self.kvoController observe:  _info.document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
+                [self.kvoController observe: _info keyPath: @"fileStatusChanged" options: 0 action: @selector(updateProgessIndicator)];
             } else {
-                self.textLabel.text = _document.loadResultString;
+                self.textLabel.text =  _info.document.loadResultString;
             }
+            
+            [self updateProgessIndicator];
+
  //            else
 //            {
 //                UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
@@ -215,7 +204,7 @@
 
 -(void) purgeImage
 {
-    [self setDocument: nil];
+    [self setInfo: nil];
     self.imageView.image = nil;
 }
 

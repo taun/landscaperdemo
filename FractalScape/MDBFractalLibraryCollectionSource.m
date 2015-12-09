@@ -66,7 +66,7 @@
 {
     static NSString *CellIdentifier = @"FractalLibraryListCell";
     MBCollectionFractalDocumentCell* reuseCell = [collectionView dequeueReusableCellWithReuseIdentifier: CellIdentifier forIndexPath: indexPath];
-    reuseCell.document = nil;
+    reuseCell.info = nil;
     return reuseCell;
 }
 
@@ -81,7 +81,7 @@
     // Configure the cell with data from the managed object.
     if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
     {
-        documentInfoCell.document = fractalInfo.document;
+        documentInfoCell.info = fractalInfo;
     }
     else if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
     {
@@ -91,8 +91,8 @@
                 if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
                 {
 //                    NSInteger index = indexPath.row;
-                    documentInfoCell.document = fractalInfo.document;
-                    MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.document;
+                    documentInfoCell.info = fractalInfo;
+                    MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.info.document;
                     [document closeWithCompletionHandler:^(BOOL success) {}];
                 } 
 //                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
@@ -116,6 +116,11 @@
 //        }];;
 //    }
     //    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
+}
+
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.viewController libraryCollectionView: collectionView shouldSelectItemAtIndexPath: indexPath];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

@@ -17,4 +17,6 @@
 @property(nonatomic,readonly) NSString                      *loadResultString;
 @property(nonatomic,readonly) NSURL                         *fileURL;
 
+@property (weak) id<MDBFractalDocumentDelegate>             delegate;
+
 @end

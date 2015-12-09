@@ -12,6 +12,8 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
+#import "MDBURLPlusMetaData.h"
+
 
 //#define MDB_QUEUE_LOG
 
@@ -100,7 +102,7 @@
 #ifdef MDB_QUEUE_LOG
             NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
 #endif
-            allURLs = [self.fractalInfos valueForKey:@"URL"];
+            allURLs = [self.fractalInfos valueForKey:@"urlPlusMeta"];
         });
         
         [self processContentChangesWithInsertedURLs:@[] removedURLs: allURLs updatedURLs:@[]];
@@ -173,7 +175,7 @@
 
 - (void)removeFractalInfo:(MDBFractalInfo *)fractalInfo
 {
-    [self.documentCoordinator removeFractalAtURL: fractalInfo.URL];
+    [self.documentCoordinator removeFractalAtURL: fractalInfo.urlPlusMeta.fileURL];
 }
 
 - (MDBFractalInfo*)createFractalInfoForFractal:(LSFractal *)fractal withDocumentDelegate: (id)delegate
@@ -192,7 +194,8 @@
     
     NSURL* documentURL = [self.documentCoordinator documentURLForName: newIdentifier];
 
-    MDBFractalInfo* newFractalInfo = [MDBFractalInfo newFractalInfoWithURL: documentURL forFractal: fractal documentDelegate: delegate];
+    MDBFractalInfo* newFractalInfo = [MDBFractalInfo newFractalInfoWithURLPlusMeta: [MDBURLPlusMetaData urlPlusMetaWithFileURL: documentURL metaData: nil]
+                                                                        forFractal: fractal documentDelegate: delegate];
     
     [newFractalInfo.document saveToURL: newFractalInfo.document.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
         //
@@ -204,7 +207,7 @@
         
         if (![self.fractalInfos containsObject: newFractalInfo])
         {
-            [self processContentChangesWithInsertedURLs: @[newFractalInfo.URL] removedURLs: nil updatedURLs: nil];
+            [self processContentChangesWithInsertedURLs: @[newFractalInfo.urlPlusMeta] removedURLs: nil updatedURLs: nil];
             //                [strongDelegate documentControllerWillChangeContent:self];
             
             //                dispatch_sync(dispatch_get_main_queue(), ^{
@@ -274,21 +277,21 @@
     });
 }
 
-- (void)documentCoordinatorDidUpdateContentsWithInsertedURLs:(NSArray *)insertedURLs removedURLs:(NSArray *)removedURLs updatedURLs:(NSArray *)updatedURLs
+- (void)documentCoordinatorDidUpdateContentsWithInsertedURLs:(NSArray <MDBURLPlusMetaData*> *)insertedURLs removedURLs:(NSArray <MDBURLPlusMetaData*> *)removedURLs updatedURLs:(NSArray <MDBURLPlusMetaData*> *)updatedURLs
 {
-    [self processContentChangesWithInsertedURLs:insertedURLs removedURLs:removedURLs updatedURLs:updatedURLs];
+    [self processContentChangesWithInsertedURLs: insertedURLs removedURLs: removedURLs updatedURLs: updatedURLs];
 }
 
 - (void)documentCoordinatorDidFailCreatingDocumentAtURL:(NSURL *)URL withError:(NSError *)error
 {
-    MDBFractalInfo *fractalInfo = [[MDBFractalInfo alloc] initWithURL:URL];
+    MDBFractalInfo *fractalInfo = [[MDBFractalInfo alloc] initWithURLPlusMeta: [MDBURLPlusMetaData urlPlusMetaWithFileURL: URL metaData: nil]];
     
     [self.delegate documentController:self didFailCreatingFractalInfo:fractalInfo withError:error];
 }
 
 - (void)documentCoordinatorDidFailRemovingDocumentAtURL:(NSURL *)URL withError:(NSError *)error
 {
-    MDBFractalInfo *fractalInfo = [[MDBFractalInfo alloc] initWithURL:URL];
+    MDBFractalInfo *fractalInfo = [[MDBFractalInfo alloc] initWithURLPlusMeta: [MDBURLPlusMetaData urlPlusMetaWithFileURL: URL metaData: nil]];
     
     [self.delegate documentController:self didFailRemovingFractalInfo: fractalInfo withError:error];
 }
@@ -304,10 +307,10 @@
  * @param removedURLs The \c NSURL instances that have just been untracked.
  * @param updatedURLs The \c NSURL instances that have had their underlying model updated.
  */
-- (void)processContentChangesWithInsertedURLs:(NSArray *)insertedURLs removedURLs:(NSArray *)removedURLs updatedURLs:(NSArray *)updatedURLs {
-    NSArray *insertedFractalInfos = [self fractalInfosByMappingURLs:insertedURLs];
-    NSArray *removedFractalInfos = [self fractalInfosByMappingURLs:removedURLs];
-    NSArray *updatedFractalInfos = [self fractalInfosByMappingURLs:updatedURLs];
+- (void)processContentChangesWithInsertedURLs:(NSArray <MDBURLPlusMetaData*> *)insertedURLs removedURLs:(NSArray <MDBURLPlusMetaData*> *)removedURLs updatedURLs:(NSArray <MDBURLPlusMetaData*> *)updatedURLs {
+    NSArray *insertedFractalInfos = [self fractalInfosByMappingURLs: insertedURLs];
+    NSArray *removedFractalInfos = [self fractalInfosByMappingURLs: removedURLs];
+    NSArray *updatedFractalInfos = [self fractalInfosByMappingURLs: updatedURLs];
     
     if (!insertedURLs && !removedURLs && !updatedURLs) {
         return;
@@ -353,22 +356,37 @@
         if (updatedFractalInfos && updatedFractalInfos.count > 0)
         {
             NSMutableArray* reallyUpdatedInfos = [NSMutableArray arrayWithCapacity: updatedFractalInfos.count];
+            NSMutableArray* statusUpdatedInfos = [NSMutableArray arrayWithCapacity: updatedFractalInfos.count];
+           
             for (MDBFractalInfo*updatedInfo in updatedFractalInfos)
             {
                 NSUInteger index = [self.fractalInfos indexOfObject: updatedInfo]; // searches based on URL match
-                if (index != NSNotFound)
+                
+                if (index != NSNotFound) // this should always be the case otherwise it would have been "inserted" not "updated"
                 {
-                    MDBFractalInfo* fileSystemInfo = self.fractalInfos[index];
-                    NSComparisonResult dateComparison = [updatedInfo.changeDate compare: fileSystemInfo.changeDate];
-                    if (dateComparison == NSOrderedAscending)
+                    MDBFractalInfo* currentInfo = self.fractalInfos[index];
+                    
+                    NSComparisonResult dateComparison = [updatedInfo.changeDate compare: currentInfo.changeDate];
+                    
+                    if (dateComparison == NSOrderedSame || updatedInfo.isUploading || updatedInfo.isDownloading)
                     {
-                        [reallyUpdatedInfos addObject: fileSystemInfo];
+                        [statusUpdatedInfos addObject: currentInfo];
+                        [currentInfo updateMetaDataWith: updatedInfo.urlPlusMeta.metaDataItem];
+                    }
+                    else if (dateComparison == NSOrderedAscending)
+                    { // current is newer
+                        [reallyUpdatedInfos addObject: currentInfo];
                     }
                     else if (dateComparison == NSOrderedDescending)
-                    {
+                    { // updated is newer
                         [reallyUpdatedInfos addObject: updatedInfo];
                     }
                 }
+            }
+            
+            if (statusUpdatedInfos.count > 0)
+            {
+                [self notifyInfosStatusChange: statusUpdatedInfos];
             }
             
             // remove really updated infos
@@ -391,6 +409,16 @@
         }
         
 //        [self.delegate documentControllerDidChangeContent:self];
+    });
+}
+
+-(void)notifyInfosStatusChange: (NSArray*)changedFractalInfos
+{
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        for (MDBFractalInfo* info in changedFractalInfos)
+        {
+            [info setFileStatusChanged: info.fileStatusChanged + 1]; // being observed by collection cells status badge
+        }
     });
 }
 
@@ -488,13 +516,13 @@
 
 #pragma mark - Convenience
 
-- (NSArray *)fractalInfosByMappingURLs:(NSArray *)URLs {
-    NSMutableArray *fractalInfos = [NSMutableArray arrayWithCapacity:URLs.count];
+- (NSArray *)fractalInfosByMappingURLs:(NSArray <MDBURLPlusMetaData*> *)metaArray {
+    NSMutableArray *fractalInfos = [NSMutableArray arrayWithCapacity: metaArray.count];
     
-    for (NSURL *URL in URLs) {
-        MDBFractalInfo *fractalInfo = [[MDBFractalInfo alloc] initWithURL:URL];
+    for (MDBURLPlusMetaData *plusMeta in metaArray) {
+        MDBFractalInfo *fractalInfo = [[MDBFractalInfo alloc] initWithURLPlusMeta: plusMeta];
         
-        [fractalInfos addObject:fractalInfo];
+        [fractalInfos addObject: fractalInfo];
     }
     
     return fractalInfos;

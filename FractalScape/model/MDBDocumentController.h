@@ -140,7 +140,7 @@
  */
 @property (nonatomic, strong) id<MDBFractalDocumentCoordinator> documentCoordinator;
 
-@property (atomic, strong, readonly) NSMutableArray*                      fractalInfos;
+@property (atomic, strong, readonly) NSMutableArray <MDBFractalInfo*>                      *fractalInfos;
 
 ///*!
 // * @return The \c MDBFractalInfo instance at a specific index. This method traps if the index is out

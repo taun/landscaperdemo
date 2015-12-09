@@ -9,36 +9,72 @@
 #import "MDBFractalInfo.h"
 #import "MDBDocumentUtilities.h"
 #import "MDBFractalDocument.h"
+#import "MDBURLPlusMetaData.h"
+
 
 @interface MDBFractalInfo ()
 @property(nonatomic,strong,readwrite) MDBFractalDocument    *document;
 @property (nonatomic,strong) dispatch_queue_t              fetchQueue;
+
+@property(nonatomic,assign,readwrite) BOOL                                  isCurrent;
+@property(nonatomic,assign,readwrite) BOOL                                  isDownloading;
+@property(nonatomic,assign,readwrite) double                                downloadingProgress;
+@property(nonatomic,assign,readwrite) BOOL                                  isUploading;
+@property(nonatomic,assign,readwrite) double                                uploadingProgress;
+
 @end
 
 @implementation MDBFractalInfo
 
-+ (instancetype)newFractalInfoWithURL: (NSURL*)url forFractal:(LSFractal *)fractal documentDelegate: (id)delegate
+
+
++ (instancetype)newFractalInfoWithURLPlusMeta: (MDBURLPlusMetaData*)urlPlusMeta forFractal:(LSFractal *)fractal documentDelegate: (id)delegate
 {
-    MDBFractalInfo* newInfo = [[[self class]alloc] initWithURL: url];
-    MDBFractalDocument* newDocument = [[MDBFractalDocument alloc] initWithFileURL: newInfo.URL];
+    MDBFractalInfo* newInfo = [[[self class]alloc] initWithURLPlusMeta: urlPlusMeta];
+    MDBFractalDocument* newDocument = [[MDBFractalDocument alloc] initWithFileURL: urlPlusMeta.fileURL];
     newDocument.fractal = fractal;
     newDocument.delegate = delegate;
     newInfo.document = newDocument;
-        
+    
     return newInfo;
 }
 
-- (instancetype)initWithURL:(NSURL *)URL {
+- (instancetype)initWithURLPlusMeta:(MDBURLPlusMetaData *)urlPlusMeta {
     self = [super init];
     
     if (self)
     {
         _fetchQueue = dispatch_queue_create("com.moedae.FractalScapes.info", DISPATCH_QUEUE_SERIAL);
-        _URL = URL;
-        [self updateChangeDate];
+        _urlPlusMeta = urlPlusMeta;
+        [self updateMetaDataValues];
     }
     
     return self;
+}
+
+-(void)updateMetaDataWith:(NSMetadataItem *)meta
+{
+    if (meta)
+    {
+        _urlPlusMeta.metaDataItem = meta;
+        [self updateMetaDataValues];
+    }
+}
+
+-(void)updateMetaDataValues
+{
+        NSMetadataItem* meta = _urlPlusMeta.metaDataItem;
+        
+        if (meta)
+        {
+            NSString *downloadStatus = [meta valueForAttribute: NSMetadataUbiquitousItemDownloadingStatusKey];
+            _isCurrent = [downloadStatus isEqualToString: NSMetadataUbiquitousItemDownloadingStatusCurrent];
+            _isDownloading = [[meta valueForAttribute: NSMetadataUbiquitousItemIsDownloadingKey] boolValue];
+            _downloadingProgress = [[meta valueForAttribute: NSMetadataUbiquitousItemPercentDownloadedKey] doubleValue];
+            _isUploading = [[meta valueForAttribute: NSMetadataUbiquitousItemIsUploadingKey] boolValue];
+            _uploadingProgress = [[meta valueForAttribute: NSMetadataUbiquitousItemPercentUploadedKey] doubleValue];
+        }
+    [self updateChangeDate];
 }
 
 -(NSString *)debugDescription
@@ -51,7 +87,7 @@
 {
     NSError* error;
     NSDate* modDate;
-    [_URL getResourceValue: &modDate forKey: NSURLContentModificationDateKey error: &error];
+    [_urlPlusMeta.fileURL getResourceValue: &modDate forKey: NSURLContentModificationDateKey error: &error];
     if (modDate && !error)
     {
         _changeDate = modDate;
@@ -65,9 +101,14 @@
 #pragma mark - Property Overrides
 
 - (NSString *)identifier {
-    NSString *identifier = self.URL.lastPathComponent;
+    NSString *identifier = self.urlPlusMeta.fileURL.lastPathComponent;
     
     return identifier.stringByDeletingPathExtension;
+}
+
+-(void)setProxyDocument:(id<MDBFractaDocumentProtocol>)proxy
+{
+    _document = proxy;
 }
 
 -(void) dealloc
@@ -87,7 +128,7 @@
             return;
         }
         
-        [MDBDocumentUtilities readDocumentAtURL: self.URL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
+        [MDBDocumentUtilities readDocumentAtURL: self.urlPlusMeta.fileURL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
             dispatch_async(self.fetchQueue, ^{
                 if (document && !error) {
                     self->_document = document;
@@ -109,8 +150,8 @@
     if (![object isKindOfClass:[MDBFractalInfo class]]) {
         return NO;
     }
-    NSURL* myURL = [[self.URL absoluteString]hasSuffix: @"/"] ? self.URL : [self.URL URLByAppendingPathComponent: @"/"];
-    NSURL* otherURL = [[[object URL] absoluteString]hasSuffix: @"/"] ? [object URL] : [[object URL] URLByAppendingPathComponent: @"/"];
+    NSURL* myURL = [[self.urlPlusMeta.fileURL absoluteString]hasSuffix: @"/"] ? self.urlPlusMeta.fileURL : [self.urlPlusMeta.fileURL URLByAppendingPathComponent: @"/"];
+    NSURL* otherURL = [[[[object urlPlusMeta]fileURL] absoluteString]hasSuffix: @"/"] ? [[object urlPlusMeta]fileURL] : [[[object urlPlusMeta]fileURL] URLByAppendingPathComponent: @"/"];
 
     return [myURL isEqual: otherURL];
 }

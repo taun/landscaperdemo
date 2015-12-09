@@ -10,4 +10,29 @@
 
 @implementation MDBFractalDocumentProxy
 
+-(UIDocumentState)documentState
+{
+    return UIDocumentStateClosed;
+}
+
+-(void)openWithCompletionHandler:(void (^)(BOOL))completionHandler
+{
+    completionHandler(YES);
+}
+
+-(void)closeWithCompletionHandler:(void (^)(BOOL))completionHandler
+{
+    completionHandler(YES);
+}
+
+-(void)saveToURL:(NSURL *)url forSaveOperation:(UIDocumentSaveOperation)saveOperation completionHandler:(void (^)(BOOL))completionHandler
+{
+    completionHandler(YES);
+}
+
+-(void)updateChangeCount:(UIDocumentChangeKind)change
+{
+    
+}
+
 @end

@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@class MDBFractalDocument, LSFractal;
+@class MDBFractalDocument, LSFractal, MDBURLPlusMetaData;
 
 @protocol MDBFractalDocumentCoordinatorDelegate;
 
@@ -87,7 +87,7 @@
  * @param removedURLs The \c NSURL instances that have just been untracked.
  * @param updatedURLs The \c NSURL instances that have had their underlying model updated.
  */
-- (void)documentCoordinatorDidUpdateContentsWithInsertedURLs:(NSArray *)insertedURLs removedURLs:(NSArray *)removedURLs updatedURLs:(NSArray *)updatedURLs;
+- (void)documentCoordinatorDidUpdateContentsWithInsertedURLs:(NSArray <MDBURLPlusMetaData*> *)insertedURLs removedURLs:(NSArray <MDBURLPlusMetaData*>*)removedURLs updatedURLs:(NSArray <MDBURLPlusMetaData*>*)updatedURLs;
 
 /*!
  * Notifies an \c MDBFractalDocumentCoordinatorDelegate instance of an error that occured when a coordinator

@@ -9,6 +9,7 @@
 #import "MDBFractalDocumentLocalCoordinator.h"
 #import "MDBCloudManager.h"
 #import "MDBDocumentUtilities.h"
+#import "MDBURLPlusMetaData.h"
 
 @interface MDBFractalDocumentLocalCoordinator ()
 @property (nonatomic, strong) NSPredicate       *predicate;
@@ -117,7 +118,9 @@
             NSArray* insertedURLsArray = [newInserts sortedArrayUsingDescriptors: @[self.urlArraySortDescriptor]];
             NSArray* updatedURLsArray = [updates sortedArrayUsingDescriptors: @[self.urlArraySortDescriptor]];
             NSArray* removedURLsArray = [removed sortedArrayUsingDescriptors: @[self.urlArraySortDescriptor]];
-            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs: insertedURLsArray removedURLs: removedURLsArray updatedURLs: updatedURLsArray];
+            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs: [MDBURLPlusMetaData newArrayFromURLArray: insertedURLsArray]
+                                                                    removedURLs: [MDBURLPlusMetaData newArrayFromURLArray: removedURLsArray]
+                                                                    updatedURLs: [MDBURLPlusMetaData newArrayFromURLArray: updatedURLsArray]];
         }
     });
 }

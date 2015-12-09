@@ -121,11 +121,8 @@
 
 -(void) performDeletionOfSelectedItems: (NSArray*)items
 {
-    NSMutableArray* urls = [NSMutableArray arrayWithCapacity: items.count];
-    
     for (MDBFractalInfo* fractalInfo in items) {
         if ([fractalInfo isKindOfClass:[MDBFractalInfo class]]) {
-            [urls addObject: fractalInfo.URL];
             [self.appModel.documentController removeFractalInfo: fractalInfo];
         }
     }

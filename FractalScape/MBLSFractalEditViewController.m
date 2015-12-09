@@ -571,6 +571,7 @@ static const CGFloat kLevelNMargin = 48.0;
     [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUserDefaultsDidChangeNotification object: nil];
     [self removeObserversForCurrentDocument];
     [_privateImageGenerationQueue cancelAllOperations];
+    _privateImageGenerationQueue = nil;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -1018,7 +1019,14 @@ static const CGFloat kLevelNMargin = 48.0;
         [_privateImageGenerationQueue cancelAllOperations];
         
         _fractalInfo.document.delegate = nil;
-        [_fractalInfo.document closeWithCompletionHandler:nil];
+        
+        MDBFractalDocument* tempDocument = _fractalInfo.document;
+        _fractalInfo = nil;
+        
+        [tempDocument closeWithCompletionHandler:^(BOOL success) {
+            //
+            NSLog(@"Fractal Closed");
+        }];
     }
 }
 

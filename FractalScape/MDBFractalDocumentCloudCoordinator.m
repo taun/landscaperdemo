@@ -9,6 +9,8 @@
 #import "MDBFractalDocumentCloudCoordinator.h"
 #import "MDBCloudManager.h"
 #import "MDBDocumentUtilities.h"
+#import "MDBURLPlusMetaData.h"
+
 
 @interface MDBFractalDocumentCloudCoordinator ()
 @property (nonatomic, strong) NSMetadataQuery *metadataQuery;
@@ -27,10 +29,12 @@
     return newCoord;
 }
 
-- (instancetype)initWithPredicate:(NSPredicate *)predicate {
+- (instancetype)initWithPredicate:(NSPredicate *)predicate
+{
     self = [super init];
     
-    if (self) {
+    if (self)
+    {
         _documentsDirectoryQueue = dispatch_queue_create("com.moedae.FractalScapes.cloudDocumentCoordinator", DISPATCH_QUEUE_SERIAL);
         
         _metadataQuery = [[NSMetadataQuery alloc] init];
@@ -55,24 +59,28 @@
     return self;
 }
 
-- (instancetype)initWithPathExtension:(NSString *)pathExtension {
+- (instancetype)initWithPathExtension:(NSString *)pathExtension
+{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K.pathExtension = %@)", NSMetadataItemURLKey, pathExtension];
     
     self = [self initWithPredicate:predicate];
     
-    if (self) {
+    if (self)
+    {
         // No need for additional initialization.
     }
     
     return self;
 }
 
-- (instancetype)initWithLastPathComponent:(NSString *)lastPathComponent {
+- (instancetype)initWithLastPathComponent:(NSString *)lastPathComponent
+{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K.lastPathComponent = %@)", NSMetadataItemURLKey, lastPathComponent];
     
     self = [self initWithPredicate:predicate];
     
-    if (self) {
+    if (self)
+    {
         // No need for additional initialization.
     }
     
@@ -81,7 +89,8 @@
 
 #pragma mark - Lifetime
 
-- (void)dealloc {
+- (void)dealloc
+{
     // Stop observing the query.
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter removeObserver:self name:NSMetadataQueryDidFinishGatheringNotification object:self.metadataQuery];
@@ -90,7 +99,8 @@
 
 #pragma mark - Property Overrides
 
-- (NSURL *)documentsDirectory {
+- (NSURL *)documentsDirectory
+{
     __block NSURL *documentsDirectory;
     
     dispatch_sync(self.documentsDirectoryQueue, ^{
@@ -102,16 +112,20 @@
 
 #pragma mark - MDBFractalDocumentCoordinator
 
-- (void)startQuery {
+- (void)startQuery
+{
     [self.metadataQuery startQuery];
 }
 
-- (void)stopQuery {
+- (void)stopQuery
+{
     [self.metadataQuery stopQuery];
 }
 
-- (BOOL)canCreateFractalWithIdentifier:(NSString *)name {
-    if (name.length <= 0) {
+- (BOOL)canCreateFractalWithIdentifier:(NSString *)name
+{
+    if (name.length <= 0)
+    {
         return NO;
     }
     
@@ -120,35 +134,42 @@
     return ![[NSFileManager defaultManager] fileExistsAtPath:documentURL.path];
 }
 
-- (void)removeFractalAtURL:(NSURL *)URL {
+- (void)removeFractalAtURL:(NSURL *)URL
+{
     [MDBDocumentUtilities removeDocumentAtURL:URL withCompletionHandler:^(NSError *error) {
-        if (error) {
+        if (error)
+        {
             [self.delegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
         }
-        else {
-            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[URL] updatedURLs:@[]];
+        else
+        {
+            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[[MDBURLPlusMetaData urlPlusMetaWithFileURL: URL metaData: nil]] updatedURLs:@[]];
         }
     }];
 }
 
 #pragma mark - NSMetadataQuery Notifications
 
-- (void)metadataQueryDidFinishGathering:(NSNotification *)notification {
+- (void)metadataQueryDidFinishGathering:(NSNotification *)notification
+{
     [self.metadataQuery disableUpdates];
     
     NSMutableArray *insertedURLs = [NSMutableArray arrayWithCapacity:self.metadataQuery.results.count];
-    for (NSMetadataItem *metadataItem in self.metadataQuery.results) {
-        NSURL *insertedURL = [metadataItem valueForAttribute:NSMetadataItemURLKey];
+    
+    for (NSMetadataItem *metadataItem in self.metadataQuery.results)
+    {
+        NSURL *insertedURL = [metadataItem valueForAttribute: NSMetadataItemURLKey];
         
-        [insertedURLs addObject:insertedURL];
+        [insertedURLs addObject: [MDBURLPlusMetaData urlPlusMetaWithFileURL: insertedURL metaData: metadataItem]];
     }
     
-    [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:insertedURLs removedURLs:@[] updatedURLs:@[]];
+    [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs: insertedURLs removedURLs:@[] updatedURLs:@[]];
     
     [self.metadataQuery enableUpdates];
 }
 
-- (void)metadataQueryDidUpdate:(NSNotification *)notification {
+- (void)metadataQueryDidUpdate:(NSNotification *)notification
+{
     [self.metadataQuery disableUpdates];
     
     NSArray *insertedURLs;
@@ -156,7 +177,8 @@
     NSArray *updatedURLs;
     
     NSArray *insertedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateAddedItemsKey];
-    if (insertedMetadataItemsOrNil.count > 0) {
+    if (insertedMetadataItemsOrNil.count > 0)
+    {
         NSMetadataItem* firstItem = (NSMetadataItem*)insertedMetadataItemsOrNil[0];
         NSArray* attributes = firstItem.attributes;
         NSDictionary* values = [firstItem valuesForAttributes: attributes];
@@ -172,38 +194,15 @@
     }
     
     NSArray *updatedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateChangedItemsKey];
-    if (updatedMetadataItemsOrNil.count > 0) {
-//        NSMetadataItem* firstItem = (NSMetadataItem*)updatedMetadataItemsOrNil[0];
-//        NSArray* attributes = firstItem.attributes;
-//        NSDictionary* values = [firstItem valuesForAttributes: attributes];
-//        NSLog(@"UpdatedMetadataItems: %@", values);
-        
-        NSIndexSet *indexesOfCompletelyDownloadedUpdatedMetadataItems = [updatedMetadataItemsOrNil indexesOfObjectsPassingTest:^BOOL(NSMetadataItem *updatedMetadataItem, NSUInteger idx, BOOL *stop) {
-            NSString *downloadStatus = [updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemDownloadingStatusKey];
-            BOOL downloadedIsCurrent = [downloadStatus isEqualToString: NSMetadataUbiquitousItemDownloadingStatusCurrent];
-            
-            NSInteger isUploading = [[updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemIsUploadingKey] integerValue];
-            
-            BOOL keep = downloadedIsCurrent && !isUploading;
-//            NSString *downloadStatus = [updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemDownloadingStatusKey];
-//            BOOL justDownloadedNewOne = [downloadStatus isEqualToString: NSMetadataUbiquitousItemDownloadingStatusDownloaded];
-//            
-//            NSInteger isDownloaded = [[updatedMetadataItem valueForAttribute: NSMetadataUbiquitousItemIsDownloadedKey] integerValue];
-//            
-//            BOOL keep = justDownloadedNewOne && !isDownloaded;
-            
-            return keep;
-        }];
-        
-        NSArray *completelyDownloadedUpdatedMetadataItems = [updatedMetadataItemsOrNil objectsAtIndexes:indexesOfCompletelyDownloadedUpdatedMetadataItems];
-        
-        updatedURLs = [self URLsByMappingMetadataItems: completelyDownloadedUpdatedMetadataItems];
+    if (updatedMetadataItemsOrNil.count > 0)
+    {
+        updatedURLs = [self URLsByMappingMetadataItems: updatedMetadataItemsOrNil];
     }
     
     NSIndexSet* indexesOfRemovedItemsToKeep = [removedURLs indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         BOOL keep = NO;
-        NSURL* removedUrl = (NSURL*)obj;
-        for (NSURL* url in updatedURLs)
+        MDBURLPlusMetaData* removedUrl = (MDBURLPlusMetaData*)obj;
+        for (MDBURLPlusMetaData* url in updatedURLs)
         {
             if ([removedUrl isEqual: url])
             {
@@ -225,7 +224,9 @@
     updatedURLs = updatedURLs ?: @[];
     
 //    NSLog(@"insertedURLs: %@; removedURLS: %@; updatedURLS: %@", insertedURLs, removedURLs, updatedURLs);
-    [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:insertedURLs removedURLs:removedURLs updatedURLs:updatedURLs];
+    [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs: insertedURLs
+                                                            removedURLs: removedURLs
+                                                            updatedURLs: updatedURLs];
     
     [self.metadataQuery enableUpdates];
 }
@@ -239,14 +240,15 @@
     return documentWithExtension;
 }
 
-- (NSArray *)URLsByMappingMetadataItems:(NSArray *)metadataItems {
-    NSMutableArray *URLs = [NSMutableArray arrayWithCapacity:metadataItems.count];
+- (NSArray <MDBURLPlusMetaData*>*)URLsByMappingMetadataItems:(NSArray *)metadataItems
+{
+    NSMutableArray *URLs = [NSMutableArray arrayWithCapacity: metadataItems.count];
     
     for (NSMetadataItem *metadataItem in metadataItems)
     {
-        NSURL *URL = [metadataItem valueForAttribute:NSMetadataItemURLKey];
+        NSURL *URL = [metadataItem valueForAttribute: NSMetadataItemURLKey];
         
-        [URLs addObject:URL];
+        [URLs addObject: [MDBURLPlusMetaData urlPlusMetaWithFileURL: URL metaData: metadataItem]];
     }
     
     return URLs;

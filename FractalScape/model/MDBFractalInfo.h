@@ -8,18 +8,59 @@
 
 @import Foundation;
 
-@class MDBFractalDocument;
-@class LSFractal;
+#import "MDBFractalDocument.h"
+
+@class LSFractal, MDBURLPlusMetaData;
 
 @interface MDBFractalInfo : NSObject
+/*!
+ Identifier
+ */
+@property(nonatomic,copy,readonly) NSString                         *identifier;
+/*!
+ File url
+ */
+@property(nonatomic,strong,readonly) MDBURLPlusMetaData             *urlPlusMeta;
+/*!
+ The last change date, redundant?
+ */
+@property(nonatomic,strong) NSDate                                  *changeDate;
+/*!
+ A Fractal Document
+ */
+@property(nonatomic,strong,readonly) id<MDBFractaDocumentProtocol>  document;
+/*!
+ The version on this device is the current version. Only applicable for cloud
+ 
+ Always returns yes for local.
+ */
+@property(nonatomic,readonly) BOOL                                  isCurrent;
+/*!
+ Always returns NO for local
+ */
+@property(nonatomic,readonly) BOOL                                  isDownloading;
+/*!
+ 0 to 100%
+ */
+@property(nonatomic,readonly) double                                downloadingProgress;
+/*!
+ Always returns NO for local
+ */
+@property(nonatomic,readonly) BOOL                                  isUploading;
+/*!
+ 0 to 100%
+ */
+@property(nonatomic,readonly) double                                uploadingProgress;
 
-@property(nonatomic,copy,readonly) NSString             *identifier;
-@property(nonatomic,strong,readonly) NSURL              *URL;
-@property(nonatomic,strong) NSDate                      *changeDate;
-@property(nonatomic,strong,readonly) MDBFractalDocument *document;
+@property(nonatomic,assign) NSUInteger                              fileStatusChanged;
 
-+ (instancetype)newFractalInfoWithURL: (NSURL*)url forFractal: (LSFractal*)fractal documentDelegate: (id)delegate;
-- (instancetype)initWithURL:(NSURL *)URL;
+
+-(void)setProxyDocument: (id<MDBFractaDocumentProtocol>)proxy;
+
++ (instancetype)newFractalInfoWithURLPlusMeta: (MDBURLPlusMetaData*)urlPlusMeta forFractal: (LSFractal*)fractal documentDelegate: (id)delegate;
+- (instancetype)initWithURLPlusMeta:(MDBURLPlusMetaData *)urlPlusMeta;
+- (void) updateMetaDataWith: (NSMetadataItem*)meta;
 - (void)fetchDocumentWithCompletionHandler:(void (^)(void))completionHandler;
-- (void)unCacheDocument;
+//- (void)unCacheDocument;
+
 @end

@@ -47,11 +47,18 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 
 @protocol MDBFractaDocumentProtocol <NSObject>
 
-@property(atomic,strong) LSFractal                       *fractal;
+@property(atomic,strong) LSFractal                          *fractal;
 @property(nonatomic,strong) UIImage                         *thumbnail;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
 @property(nonatomic,readonly) NSString                      *loadResultString;
 @property(nonatomic,readonly) NSURL                         *fileURL;
+
+@property (weak) id<MDBFractalDocumentDelegate>             delegate;
+
+-(UIDocumentState)documentState;
+- (void)openWithCompletionHandler:(void (^ __nullable)(BOOL success))completionHandler;
+- (void)saveToURL:(NSURL *)url forSaveOperation:(UIDocumentSaveOperation)saveOperation completionHandler:(void (^ __nullable)(BOOL success))completionHandler __TVOS_PROHIBITED;- (void)closeWithCompletionHandler:(void (^ __nullable)(BOOL success))completionHandler;
+- (void)updateChangeCount:(UIDocumentChangeKind)change;
 
 @end
 
@@ -64,7 +71,7 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 /*!
  An LSFractal
  */
-@property(atomic,strong) LSFractal                       *fractal;
+@property(atomic,strong) LSFractal                          *fractal;
 @property(nonatomic,strong) UIImage                         *thumbnail;
 @property(nonatomic,strong) NSArray                         *categories;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;

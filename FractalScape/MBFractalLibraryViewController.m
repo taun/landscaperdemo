@@ -37,6 +37,8 @@
 #import "MBImmutableCellBackgroundView.h"
 #import "NSString+MDKConvenience.h"
 #import "MDBPurchaseViewController.h"
+#import "FBKVOController.h"
+#import "MDBURLPlusMetaData.h"
 
 #import <Crashlytics/Crashlytics.h>
 
@@ -47,6 +49,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 @property (nonatomic,strong) NSUserActivity                         *pendingUserActivity;
 @property (nonatomic,strong) MDBNavConTransitionCoordinator         *navConTransitionDelegate;
+@property (nonatomic,strong,readonly) FBKVOController               *kvoController;
 /*!
  Used to make sure queries and loads aren't done twice. Once when properties change and once when the view appears.
  */
@@ -55,6 +58,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 @end
 
 @implementation MBFractalLibraryViewController
+
+@synthesize kvoController = _kvoController;
 
 
 #pragma mark - State handling
@@ -199,123 +204,79 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 
 #pragma mark - custom getters -
+
+-(FBKVOController *)kvoController
+{
+    if (!_kvoController)
+    {
+        _kvoController = [FBKVOController controllerWithObserver: self];
+    }
+    return _kvoController;
+}
+
 -(void)setAppModel:(MDBAppModel *)appModel
 {
     if (_appModel != appModel)
     {
-        [self removeAppModelObservers];
+        if (_appModel.documentController)  [self.kvoController unobserve: _appModel.documentController];
+        [self.kvoController unobserve: _appModel keyPath: @"documentController"];
+        
         _appModel = appModel;
-        [self addAppModelObservers];
-    }
-}
--(void)addAppModelObservers{
-    if (_appModel)
-    {
-        [_appModel addObserver: self forKeyPath: @"documentController" options: NSKeyValueObservingOptionOld context: NULL];
-        if (_appModel.documentController) {
-            [self documentControllerChanged];
-        }
-    }
 
-}
--(void)removeAppModelObservers
-{
-    if (_appModel)
-    {
-        [_appModel removeObserver: self forKeyPath: @"documentController"];
-        if (_appModel.documentController)
-        {
-            [self removeDocumentControllerObserversFor: _appModel.documentController];
-        }
-    }
-}
--(void)addDocumentControllerObservers
-{
-    if (_appModel.documentController)
-    {
-        [_appModel.documentController addObserver: self forKeyPath: @"fractalInfos" options: 0 context: NULL];
-    }
-}
--(void)removeDocumentControllerObserversFor: (MDBDocumentController*)oldController
-{
-    if (oldController && oldController != [NSNull null])
-    {
-        [oldController removeObserver: self forKeyPath: @"fractalInfos"];
+        [self.kvoController observe: _appModel
+                            keyPath: @"documentController"
+                            options: NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                             action: @selector(propertyAppDocumentControllerDidChange:object:)];
+        
+        if (_appModel.documentController) [self documentControllerChanged];
     }
 }
 
--(void)dealloc
-{
-    if (_appModel)
-    {
-        // trigger observer removal
-        [self setAppModel: nil];
-    }
-}
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if ([keyPath isEqualToString: @"documentController"]) {
+//        MDBDocumentController* oldController = change[NSKeyValueChangeOldKey];
+//        if (oldController && oldController != [NSNull null])
+//        {
+//            [self removeDocumentControllerObserversFor: oldController];
+//        }
+//        [self documentControllerChanged];
+//    }
+//    else if ([keyPath isEqualToString: @"fractalInfos"])
+//    {
+//    }
+//    else
+//    {
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//    }
+//}
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+-(void) propertyAppDocumentControllerDidChange: (NSDictionary*)change object: (id)object
 {
-    if ([keyPath isEqualToString: @"documentController"]) {
-        MDBDocumentController* oldController = change[NSKeyValueChangeOldKey];
-        if (oldController && oldController != [NSNull null])
-        {
-            [self removeDocumentControllerObserversFor: oldController];
-        }
-        [self documentControllerChanged];
-    }
-    else if ([keyPath isEqualToString: @"fractalInfos"])
+    if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue])
     {
-        NSNumber *changeKind = change[NSKeyValueChangeKindKey];
-        NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];
-        
-        NSMutableArray* indexPaths = [NSMutableArray array];
-        
-        [changes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-            [indexPaths addObject: [NSIndexPath indexPathForRow: idx inSection: 0]];
-        }];
-        
-        NSInteger currentItems;// = [self.collectionView numberOfItemsInSection: 0];
-        NSUInteger changeCount = indexPaths.count;
-        
-        @try {
-            if ([changeKind longValue] == NSKeyValueChangeInsertion) {
-                //
-//                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
-                [self.collectionView insertItemsAtIndexPaths: indexPaths];
-                [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
-            }
-            else if ([changeKind longValue] == NSKeyValueChangeRemoval)
-            {
-                [self.collectionView deleteItemsAtIndexPaths: indexPaths];
-            }
-            else if ([changeKind longValue] == NSKeyValueChangeReplacement)
-            {
-#pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
-                if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]]) {
-                    [self.collectionView reloadItemsAtIndexPaths: indexPaths];
-                }
-            }
-        }
-        @catch (NSException *exception) {
-            //
-            NSLog(@"[%@ %@], %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), exception);
-            NSLog(@"[%@ %@], changeKind: %@, %ld, %lu",NSStringFromClass([self class]),NSStringFromSelector(_cmd), changeKind, (long)currentItems, (unsigned long)changeCount);
-            [self.collectionView reloadData];
-        }
-        @finally {
-            //
-        }
+        MDBDocumentController* oldController = (MDBDocumentController*) change[NSKeyValueChangeOldKey];
+        [self.kvoController unobserve: oldController];
     }
     else
     {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        [self documentControllerChanged];
     }
 }
+
 
 -(void)documentControllerChanged
 {
     //    dispatch_async(dispatch_get_main_queue(), ^{
-    [self addDocumentControllerObservers];
+    
+    if (_appModel.documentController)
+    {
+        [self.kvoController observe: _appModel.documentController
+                            keyPath: @"fractalInfos"
+                            options: 0
+                             action: @selector(propertyDocumentControllerInfosDidChange:object:)];
+    }
+    
     self.collectionSource.documentController = self->_appModel.documentController;
     //        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
     //        [self.collectionView reloadData];
@@ -329,6 +290,60 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     if (_isAppeared) [self->_appModel.documentController.documentCoordinator startQuery];
     //    });
 }
+
+-(void) propertyDocumentControllerInfosDidChange: (NSDictionary*)change object: (id)object
+{
+    NSNumber *changeKind = change[NSKeyValueChangeKindKey];
+    NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];
+    
+    NSMutableArray* indexPaths = [NSMutableArray array];
+    
+    [changes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [indexPaths addObject: [NSIndexPath indexPathForRow: idx inSection: 0]];
+    }];
+    
+    NSInteger currentItems;// = [self.collectionView numberOfItemsInSection: 0];
+    NSUInteger changeCount = indexPaths.count;
+    
+    @try {
+        if ([changeKind longValue] == NSKeyValueChangeInsertion) {
+            //
+            //                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+            [self.collectionView insertItemsAtIndexPaths: indexPaths];
+            [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
+        }
+        else if ([changeKind longValue] == NSKeyValueChangeRemoval)
+        {
+            [self.collectionView deleteItemsAtIndexPaths: indexPaths];
+        }
+        else if ([changeKind longValue] == NSKeyValueChangeReplacement)
+        {
+#pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
+            if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]]) {
+                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        //
+        NSLog(@"[%@ %@], %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), exception);
+        NSLog(@"[%@ %@], changeKind: %@, %ld, %lu",NSStringFromClass([self class]),NSStringFromSelector(_cmd), changeKind, (long)currentItems, (unsigned long)changeCount);
+        [self.collectionView reloadData];
+    }
+    @finally {
+        //
+    }
+}
+
+//-(void)dealloc
+//{
+//    if (_appModel)
+//    {
+//        // trigger observer removal
+//        [self setAppModel: nil];
+//    }
+//}
+
 
 #pragma mark - IBActions
 
@@ -349,6 +364,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [self showUpgradeAlert: barButtonItem];
     }
 }
+
 -(void)showUpgradeAlert:(UIBarButtonItem*)barButtonItem
 {
     NSString* title = NSLocalizedString(@"New Fractal", nil);
@@ -412,6 +428,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
+-(BOOL)libraryCollectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[collectionView cellForItemAtIndexPath: indexPath];
+    return !cell.info.isDownloading;
+}
+
 -(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MBCollectionFractalDocumentCell* cell = (MBCollectionFractalDocumentCell*)[collectionView cellForItemAtIndexPath: indexPath];
@@ -582,7 +604,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     NSURL *activityURL = activity.userInfo[NSUserActivityDocumentURLKey];
     
     if (activityURL != nil) {
-        MDBFractalInfo *activityDocumentInfo = [[MDBFractalInfo alloc] initWithURL: activityURL];
+        MDBFractalInfo *activityDocumentInfo = [[MDBFractalInfo alloc] initWithURLPlusMeta: [MDBURLPlusMetaData urlPlusMetaWithFileURL: activityURL metaData: nil]];
         [activityDocumentInfo fetchDocumentWithCompletionHandler:^{
             //
             [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier sender: activityDocumentInfo];

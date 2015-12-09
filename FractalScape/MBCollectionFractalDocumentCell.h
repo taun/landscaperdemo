@@ -11,11 +11,13 @@
 #import "MDBFractalDocument.h"
 
 @class MDCCloudTransferStatusIndicator;
+@class MDBFractalInfo;
 
 @interface MBCollectionFractalDocumentCell : UICollectionViewCell
 
 @property (assign,nonatomic) CGFloat   radius;
-@property (strong, nonatomic) id<MDBFractaDocumentProtocol>          document;
+//@property (strong, nonatomic) id<MDBFractaDocumentProtocol>          document;
+@property (strong, nonatomic) MDBFractalInfo                        *info;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView        *activityIndicator;
 @property (weak, nonatomic) IBOutlet MDCCloudTransferStatusIndicator*transferIndicator;
 @property (strong,nonatomic) IBInspectable UIColor                  *selectedBorder;
