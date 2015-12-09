@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E2D2F6C13A3B859E274DA8336922942DDD98A508" : 0,
+    "4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E" : 0,
+    "BB8F212FAC8DED679E22BAE5A39386D4426A6BFE" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E86BA404-CE1C-4A6E-89A3-B8FE9B67D073",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E2D2F6C13A3B859E274DA8336922942DDD98A508" : "FractalScape\/FractalScape\/MDCloudKitFramework\/MDCloudKit\/",
+    "4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E" : "FractalScape\/",
+    "BB8F212FAC8DED679E22BAE5A39386D4426A6BFE" : "..\/DigitalSpring\/Daisy%20Sensor\/Daisy%20Sensor\/MDUiKitFramework"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FractalScapes",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FractalScapes.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/srv.moedae.net:2609\/srv\/gitroot\/moedae\/apple\/landscaperdemo.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/srv.moedae.net:2609\/srv\/gitroot\/moedae\/apple\/MDUiKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BB8F212FAC8DED679E22BAE5A39386D4426A6BFE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/srv.moedae.net:2609\/srv\/gitroot\/moedae\/apple\/MDCloudKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E2D2F6C13A3B859E274DA8336922942DDD98A508"
+    }
+  ]
+}
