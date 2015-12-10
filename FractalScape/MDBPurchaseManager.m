@@ -522,7 +522,7 @@
         }
         
 #pragma message "UpdateForBuilds to build version before archiving"
-        const char *referenceVersion =  "444";
+        const char *referenceVersion =  "445";
         const char *receiptVersion = (const char *)bundle_version->buf+2;
         if (strcmp(referenceVersion,receiptVersion))
         {
