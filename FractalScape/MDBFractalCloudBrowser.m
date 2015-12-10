@@ -17,8 +17,6 @@
 
 @interface MDBFractalCloudBrowser ()
 
-@property(nonatomic,assign)BOOL             handlingFetchRequestErrorWasPostponed;
-@property(nonatomic,strong)NSError          *fetchRequestError;
 
 @end
 
@@ -131,134 +129,23 @@
     }
 }
 
--(void) handleFetchRequestError: (NSError*)error
+-(void)presentFetchErrorAlertTitle:(NSString *)title message:(NSString *)message withActions:(NSMutableArray<UIAlertAction *> *)alertActions
 {
-    if (self.presentedViewController)
+    MDBAppModel* model = self.appModel;
+    
+    if (model.loadDemoFiles)
     {
-        // welcome screen is up or some other modally presented view and we need to defer the error box.
-        self.fetchRequestError = error;
-        self.handlingFetchRequestErrorWasPostponed = YES;
+        NSString* actionTitle = NSLocalizedString(@"Load Local Starter Fractals", @"");
+        UIAlertAction* loadAction = [UIAlertAction actionWithTitle: actionTitle style: UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+                                     {
+                                         [model loadInitialDocuments];
+                                         
+                                         MDBMainLibraryTabBarController* tabController = (MDBMainLibraryTabBarController*) self.tabBarController;
+                                         tabController.selectedViewController = [tabController getTabLibraryBrowserNav];
+                                     }];
+        [alertActions insertObject: loadAction atIndex: 0];
     }
-    else
-    {
-        self.handlingFetchRequestErrorWasPostponed = NO;
-
-        self.networkConnected = NO;
-        BOOL giveRetryOption = NO;
-        BOOL giveLoadLocalOption = NO;
-        
-        NSString *title;
-        NSString *message;
-        NSLog(@"%@ error code: %ld, %@",NSStringFromSelector(_cmd),(long)error.code,[error.userInfo debugDescription]);
-        CKErrorCode code = error.code;
-        
-        switch (code) {
-            case CKErrorInternalError: // 1
-                title = NSLocalizedString(@"Network problem", nil);
-                message = @"Please try again in couple of minutes";
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorPartialFailure: // 2
-                title = NSLocalizedString(@"Network problem", nil);
-                message = @"Please try again in couple of minutes";
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorNetworkUnavailable: // 3
-                title = NSLocalizedString(@"No Network", nil);
-                message = @"Please try again when connected to a network";
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorNetworkFailure: // 4
-                title = NSLocalizedString(@"Network problem", nil);
-                message = @"Please try again in couple of minutes";
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorServiceUnavailable: // 6
-                title = NSLocalizedString(@"Cloud Unavailable", nil);
-                message = @"iCloud is temporarily unavailable. Please try again in couple of minutes";
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorRequestRateLimited: // 7
-                title = NSLocalizedString(@"Cloud Unavailable", nil);
-                message = [NSString stringWithFormat: @"iCloud is temporarily unavailable. Please try again in %@ seconds",error.userInfo[@"CKRetryAfter"]];
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorZoneBusy: // 23
-                title = NSLocalizedString(@"Too Much Traffic", nil);
-                message = @"Please try again in couple of minutes";
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorOperationCancelled: // 20
-                title = NSLocalizedString(@"Cloud Timeout", nil);
-                message = @"Try again later? OR";
-                giveRetryOption = YES;
-                giveLoadLocalOption = YES;
-                break;
-                
-            case CKErrorQuotaExceeded: // 25
-                title = NSLocalizedString(@"Cloud quota reached", nil);
-                message = @"Free some cloud space";
-                break;
-                
-            default:
-                title = NSLocalizedString(@"Problem with the Cloud", nil);
-                message = @"Try again later.";
-                break;
-        }
-        
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
-                                                                       message: message
-                                                                preferredStyle: UIAlertControllerStyleAlert];
-        
-        UIAlertController* __weak weakAlert = alert;
-        
-        MDBAppModel* model = self.appModel;
-        
-        if (giveLoadLocalOption && model.loadDemoFiles)
-        {
-            NSString* actionTitle = NSLocalizedString(@"Load Local Starter Fractals", @"");
-            UIAlertAction* loadAction = [UIAlertAction actionWithTitle: actionTitle style: UIAlertActionStyleDefault handler:^(UIAlertAction * action)
-                                          {
-                                                  [model loadInitialDocuments];
-                                                  
-                                                  MDBMainLibraryTabBarController* tabController = (MDBMainLibraryTabBarController*) self.tabBarController;
-                                                  tabController.selectedViewController = [tabController getTabLibraryBrowserNav];
-                                          }];
-            
-            [alert addAction: loadAction];
-        }
-        
-        if (giveRetryOption)
-        {
-            NSString* actionTitle = NSLocalizedString(@"Retry Cloud Now", @"Try the action again now");
-            UIAlertAction* retryAction = [UIAlertAction actionWithTitle: actionTitle style: UIAlertActionStyleDefault handler:^(UIAlertAction * action)
-                                          {
-                                              [self updateSearchResultsForSearchController: self.searchController];
-                                          }];
-            
-            [alert addAction: retryAction];
-        }
-        
-        NSString *okActionTitle = NSLocalizedString(@"Ok, Try later", nil);
-        
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: okActionTitle style: UIAlertActionStyleCancel handler:^(UIAlertAction * action)
-                                        {
-                                        }];
-        
-        [alert addAction: defaultAction];
-        
-#pragma message "TODO how to include additional options from subclass?"
-        [self.navigationController presentViewController: weakAlert animated: YES completion:^{
-            //
-        }];
-    }
+    [super presentFetchErrorAlertTitle: title message: message withActions: alertActions];
 }
 
 #pragma mark - UISearchResultsUpdating
@@ -304,7 +191,7 @@
         descriptors = @[byModDate, byName];
     }
 
-    [self fetchCloudRecordsWithPredicate: predicate sortDescriptors: descriptors timeout: 12.0];
+    [self fetchCloudRecordsWithPredicate: predicate sortDescriptors: descriptors timeout: 30.0];
 }
 
 
