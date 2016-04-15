@@ -449,7 +449,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     CGRect cellFrame = cell.frame;
     CGRect cellSquareFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.width);
     self.transitionSourceRect = [self.collectionView.window convertRect: cellSquareFrame fromView: self.collectionView];
-    [self performSegueWithIdentifier: @"showFractalDocument" sender: self];
+    [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier sender: self];
 }
 
 

@@ -253,9 +253,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                                                  target: self
                                                                  action: @selector(showHelpScreen:)];
 
-    _shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem: UIBarButtonSystemItemAction
-                                                                 target: self
-                                                                 action: @selector(shareButtonPressed:)];
+    NSString* shareLocalized = NSLocalizedString(@"Share", @"share button title");
+    _shareButton = [[UIBarButtonItem alloc]initWithTitle: shareLocalized style: UIBarButtonItemStylePlain target: self action: @selector(shareButtonPressed:)];
     
     _disabledDuringPlaybackButtons = @[self.autoExpandOff, copyButton, _shareButton];
     
