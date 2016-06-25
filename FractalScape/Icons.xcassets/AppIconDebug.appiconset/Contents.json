@@ -77,6 +77,12 @@
       "idiom" : "ipad",
       "filename" : "iPadDebug@2x.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "83.5x83.5",
+      "idiom" : "ipad",
+      "filename" : "iPadDebug167.png",
+      "scale" : "2x"
     }
   ],
   "info" : {
