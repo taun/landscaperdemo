@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *allowPremiumSwitch;
 @property (weak, nonatomic) IBOutlet UIButton *moedaeButton;
+@property (nonatomic,strong) UIDynamicAnimator*buttonAnimator;
 
 - (IBAction)allowPremiumButtonChanged:(UISwitch *)sender;
 - (IBAction)jumpToAppSettings:(id)sender;
@@ -24,6 +25,7 @@
 - (IBAction)leaveForFacebook:(id)sender;
 - (IBAction)moedaeButtonTapped:(id)sender;
 - (IBAction)leaveForAppStore:(id)sender;
+- (IBAction)leaveForEmail:(id)sender;
 
 @end
 
@@ -77,6 +79,7 @@
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUserDefaultsDidChangeNotification object: nil];
+    [self stopAnimation];
 }
 -(void)updateUIDueToSettingsChange
 {
@@ -188,14 +191,52 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.facebook.com/fractalscapes"]];
 }
 
+- (IBAction)leaveForEmail:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"mailto:help@fractalscapes.info"]];
+}
+
 - (IBAction)moedaeButtonTapped:(id)sender
 {
+    if (!_buttonAnimator || !self.buttonAnimator.running) {
+        [self generateAnimatedButtonView];
+    }
+    else
+    {
+        [self stopAnimation];
+    }
+}
+
+-(void)stopAnimation
+{
+    if (_buttonAnimator && self.buttonAnimator.running) [self.buttonAnimator removeAllBehaviors];
+}
+
+-(UIDynamicAnimator*) buttonAnimator
+{
+    if (_buttonAnimator == nil)
+    {
+        _buttonAnimator = [[UIDynamicAnimator alloc] initWithReferenceView: self.moedaeButton.superview];
+    }
     
+    return _buttonAnimator;
+}
+
+-(void) generateAnimatedButtonView
+{
+    UIDynamicItemBehavior* behaviour = [[UIDynamicItemBehavior alloc] init];
+    [behaviour addItem: self.moedaeButton];
+    behaviour.density = 1000;
+    behaviour.angularResistance = 0;
+    [behaviour addAngularVelocity: 6.28/60 forItem: self.moedaeButton];
+    
+    [self.buttonAnimator addBehavior: behaviour];
 }
 
 - (IBAction)leaveForAppStore:(id)sender
 {
-    //https://itunes.apple.com/us/app/fractalscapes-interactive/id916265154?ls=1&mt=8
+    // https://itunes.apple.com/us/app/fractalscapes-interactive/id916265154?ls=1&mt=8
+    // https://geo.itunes.apple.com/us/app/fractalscapes-interactive/id916265154?mt=8
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://itunes.apple.com/us/app/fractalscapes-interactive/id916265154?ls=1&mt=8"]];
 }
 

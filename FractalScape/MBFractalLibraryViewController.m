@@ -301,7 +301,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(void) propertyDocumentControllerInfosDidChange: (NSDictionary*)change object: (id)object
 {
-    NSNumber *changeKind = change[NSKeyValueChangeKindKey];
+    NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
     NSIndexSet *changes = change[NSKeyValueChangeIndexesKey];
     
     NSMutableArray* indexPaths = [NSMutableArray array];
@@ -314,20 +314,25 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     NSUInteger changeCount = indexPaths.count;
     
     @try {
-        if ([changeKind longValue] == NSKeyValueChangeInsertion) {
+        if (changeKind == NSKeyValueChangeInsertion) {
             //
             //                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
             [self.collectionView insertItemsAtIndexPaths: indexPaths];
-            [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
+            NSIndexPath* firstPath = [indexPaths firstObject];
+            if (firstPath && firstPath.row == 0)
+            {
+                [self.collectionView scrollToItemAtIndexPath: firstPath atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
+            }
         }
-        else if ([changeKind longValue] == NSKeyValueChangeRemoval)
+        else if (changeKind == NSKeyValueChangeRemoval)
         {
             [self.collectionView deleteItemsAtIndexPaths: indexPaths];
         }
-        else if ([changeKind longValue] == NSKeyValueChangeReplacement)
+        else if (changeKind == NSKeyValueChangeReplacement)
         {
 #pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
-            if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]]) {
+            if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]])
+            {
                 [self.collectionView reloadItemsAtIndexPaths: indexPaths];
             }
         }

@@ -17,6 +17,8 @@
 
 @interface MDBFractalCloudBrowser ()
 
+@property(nonatomic,assign) BOOL                                    initialLoad;
+@property(nonatomic,strong) NSMutableDictionary                     *cachedFractalsByRecordNameKey;
 
 @end
 
@@ -24,15 +26,29 @@
 
 @implementation MDBFractalCloudBrowser
 
+-(NSMutableDictionary *)cachedFractalsByRecordNameKey
+{
+    if (!_cachedFractalsByRecordNameKey) {
+        _cachedFractalsByRecordNameKey = [NSMutableDictionary dictionaryWithCapacity: 50];
+    }
+    
+    return _cachedFractalsByRecordNameKey;
+}
+
 -(void)viewDidLoad
 {
-    [super viewDidLoad];
+    self.cloudDownloadKeys = @[CKFractalRecordNameField,
+                               CKFractalRecordDescriptorField,
+                               CKFractalRecordFractalDefinitionAssetField];
     
-    self.cloudDownloadKeys = @[CKFractalRecordNameField,CKFractalRecordDescriptorField,CKFractalRecordFractalDefinitionAssetField];
     self.cloudThumbnailKey = CKFractalRecordFractalThumbnailAssetField;
     
     self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.color = [UIColor blueColor];
+    
+    _initialLoad = YES;
+
+    [super viewDidLoad];
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -50,6 +66,12 @@
     {
         [self showAlertActionsToAddiCloud: nil];
     }
+}
+
+-(void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    [self setCachedFractalsByRecordNameKey: nil];
 }
 
 - (IBAction)unwindFromWelcome:(UIStoryboardSegue *)segue
@@ -228,24 +250,34 @@
         MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
         
         CKRecord* fractalRecord = self.publicCloudRecords[indexPath.row];
+        NSString* recordName = fractalRecord.recordID.recordName;
         
-        MDBFractalDocumentProxy* proxy = [MDBFractalDocumentProxy new];
-        CKAsset* fractalFile = fractalRecord[CKFractalRecordFractalDefinitionAssetField];
+        MDBFractalInfo* info = self.cachedFractalsByRecordNameKey[recordName];
         
-        NSData* fractalData = [NSData dataWithContentsOfURL: fractalFile.fileURL];
-        
-        proxy.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fractalData];
-        if (proxy.thumbnail == nil)
+        if (!info && recordName)
         {
-            [self.appModel.cloudKitManager fetchImageAsset: self.cloudThumbnailKey forRecordWithID: fractalRecord.recordID.recordName completionHandler:^(UIImage *image) {
-                // get cached or cloud image and set
-                proxy.thumbnail = image;
-            }];
+            MDBFractalDocumentProxy* proxy = [MDBFractalDocumentProxy new];
+            CKAsset* fractalFile = fractalRecord[CKFractalRecordFractalDefinitionAssetField];
+            
+            NSData* fractalData = [NSData dataWithContentsOfURL: fractalFile.fileURL];
+            
+            proxy.fractal = [NSKeyedUnarchiver unarchiveObjectWithData: fractalData];
+            if (proxy.thumbnail == nil)
+            {
+                [self.appModel.cloudKitManager fetchImageAsset: self.cloudThumbnailKey forRecordWithID: fractalRecord.recordID.recordName completionHandler:^(UIImage *image) {
+                    // get cached or cloud image and set
+                    proxy.thumbnail = image;
+                }];
+            }
+            proxy.loadResult = MDBFractalDocumentLoad_SUCCESS;
+            
+            info = [[MDBFractalInfo alloc]init];
+            [info setProxyDocument: proxy];
+            
+            self.cachedFractalsByRecordNameKey[recordName] = info;
         }
-        proxy.loadResult = MDBFractalDocumentLoad_SUCCESS;
         
-        MDBFractalInfo* info = [[MDBFractalInfo alloc]init];
-        [info setProxyDocument: proxy];
+        
         documentInfoCell.info = info;
     }
     // Configure the cell with data from the managed object.

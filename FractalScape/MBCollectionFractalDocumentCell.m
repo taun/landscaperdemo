@@ -151,6 +151,10 @@
             // prioritize display of downloading over uploading
             if (_info.isDownloading) [self.transferIndicator setDirection: -1 progress: _info.downloadingProgress];
         }
+        else if (!_info.isCurrent)
+        {
+            [self.transferIndicator setDirection: -1 progress: _info.downloadingProgress];
+        }
         else
         {
             [self.transferIndicator setDirection: 0 progress: 0];

@@ -10,7 +10,7 @@
 
 @implementation MDBEditorHelpTransitioningDelegate
 
--(nullable UIPresentationController *)presentationControllerForPresentedViewController:(nonnull UIViewController *)presented presentingViewController:(nonnull UIViewController *)presenting sourceViewController:(nonnull UIViewController *)source
+-(nullable UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
 {
     return [[MDBEditorHelpPresentationController alloc]initWithPresentedViewController: presented presentingViewController: presenting];
 }

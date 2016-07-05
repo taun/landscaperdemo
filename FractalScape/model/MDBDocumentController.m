@@ -362,10 +362,11 @@
                     
                     NSComparisonResult dateComparison = [updatedInfo.changeDate compare: currentInfo.changeDate];
                     
+                    [currentInfo updateMetaDataWith: updatedInfo.urlPlusMeta.metaDataItem];
+
                     if (dateComparison == NSOrderedSame || updatedInfo.isUploading || updatedInfo.isDownloading)
                     {
                         [statusUpdatedInfos addObject: currentInfo];
-                        [currentInfo updateMetaDataWith: updatedInfo.urlPlusMeta.metaDataItem];
                     }
                     else if (dateComparison == NSOrderedAscending)
                     { // current is newer
