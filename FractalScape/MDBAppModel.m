@@ -431,6 +431,11 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
     BOOL localOption = self.cloudDocumentManager.storageOption != MDBAPPStorageCloud;
     BOOL optionChanged = documentCoordinator && (([documentCoordinator isKindOfClass: [MDBFractalDocumentCloudCoordinator class]] && localOption) || ([documentCoordinator isKindOfClass: [MDBFractalDocumentLocalCoordinator class]] && !localOption));
     
+    if (optionChanged || accountChanged)
+    {
+        [self.delegate.primaryViewController popToRootViewControllerAnimated:YES];
+    }
+    
     if (!documentCoordinator || optionChanged)
     {
         if (localOption)

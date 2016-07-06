@@ -157,7 +157,8 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 - (MBFractalLibraryViewController *)documentsViewController
 {
-    MBFractalLibraryViewController *documentsViewController = [self.mainTabController.viewControllers firstObject];
+    UINavigationController* navCon = [self.mainTabController.viewControllers firstObject];
+    MBFractalLibraryViewController *documentsViewController = [navCon.childViewControllers firstObject];
     return documentsViewController;
 }
 
