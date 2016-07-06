@@ -88,7 +88,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"FractalDocuments" contentId: NSStringFromClass([self class]) customAttributes: nil];
     
-    [self.appModel setupUserStoragePreferences];
+//    [self.appModel setupUserStoragePreferences];
     [[UIApplication sharedApplication] setStatusBarHidden: NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
@@ -112,11 +112,9 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     self.addDocumentButton.enabled = self.appModel.allowPremium || self.appModel.userCanMakePayments;
     
-    [self.appModel.documentController.documentCoordinator startQuery];
-    
     _isAppeared = YES;
-
-//    [self.collectionView reloadData];
+    
+    [self.appModel.documentController.documentCoordinator startQuery];
 }
 
 - (IBAction)unwindFromWelcome:(UIStoryboardSegue *)segue
@@ -175,6 +173,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    _isAppeared = NO;
 //    NSArray* visibleCells = self.collectionView.visibleCells;
 //    for (MBCollectionFractalDocumentCell* cell in visibleCells)
 //    {
@@ -227,76 +226,76 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     if (_appModel != appModel)
     {
         if (_appModel.documentController)  [self.kvoController unobserve: _appModel.documentController];
-        [self.kvoController unobserve: _appModel keyPath: @"documentController"];
+        if (_appModel) [self.kvoController unobserve: _appModel];
         
         _appModel = appModel;
 
         [self.kvoController observe: _appModel
                             keyPath: @"documentController"
-                            options: NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                            options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                              action: @selector(propertyAppDocumentControllerDidChange:object:)];
-        
-        if (_appModel.documentController) [self documentControllerChanged];
     }
 }
-
-//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    if ([keyPath isEqualToString: @"documentController"]) {
-//        MDBDocumentController* oldController = change[NSKeyValueChangeOldKey];
-//        if (oldController && oldController != [NSNull null])
-//        {
-//            [self removeDocumentControllerObserversFor: oldController];
-//        }
-//        [self documentControllerChanged];
-//    }
-//    else if ([keyPath isEqualToString: @"fractalInfos"])
-//    {
-//    }
-//    else
-//    {
-//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//    }
-//}
 
 -(void) propertyAppDocumentControllerDidChange: (NSDictionary*)change object: (id)object
 {
-    if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue])
+    id oldController = change[NSKeyValueChangeOldKey];
+    id newController = change[NSKeyValueChangeNewKey];
+    
+    if (oldController != nil && oldController != [NSNull null])
     {
-        MDBDocumentController* oldController = (MDBDocumentController*) change[NSKeyValueChangeOldKey];
         [self.kvoController unobserve: oldController];
     }
-    else
-    {
-        [self documentControllerChanged];
-    }
-}
-
-
--(void)documentControllerChanged
-{
-    //    dispatch_async(dispatch_get_main_queue(), ^{
     
-    if (_appModel.documentController)
+    if (newController != nil && newController != [NSNull null])
     {
-        [self.kvoController observe: _appModel.documentController
+        [self.kvoController observe: newController
                             keyPath: @"fractalInfos"
                             options: 0
                              action: @selector(propertyDocumentControllerInfosDidChange:object:)];
+        
+        [self.kvoController observe: newController
+                            keyPath: @"documentCoordinator"
+                            options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                             action: @selector(propertyAppDocumentCoordinatorDidChange:object:)];
+        
+        self.collectionSource.documentController = newController;
+    }
+}
+
+-(void) propertyAppDocumentCoordinatorDidChange: (NSDictionary*)change object: (id)object
+{
+    id oldCoordinator = change[NSKeyValueChangeOldKey];
+    id newCoordinator = change[NSKeyValueChangeNewKey];
+    
+    if (oldCoordinator != nil && oldCoordinator != [NSNull null])
+    {
+        [self.kvoController unobserve: oldCoordinator];
     }
     
-    self.collectionSource.documentController = self->_appModel.documentController;
-    //        [self.collectionView numberOfItemsInSection: 0]; //force call to numItems
-    //        [self.collectionView reloadData];
-    if ([self isMemberOfClass: [MBFractalLibraryViewController class]])
+    if (newCoordinator != nil && newCoordinator != [NSNull null])
     {
-        // only use this title change if it is the root class.
-        // let the other classes assign their own titles.
-        self.navigationItem.title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
-        if (self.navigationItem.title != nil) [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": self.navigationItem.title}];
+        NSString* title = [self libraryTitle];
+        if (title != nil)
+        {
+            self.navigationItem.title = title;
+            [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": title}];
+        }
+        
+        if (_isAppeared)
+        {
+            [self.collectionView reloadData];
+//            [self->_appModel.documentController.documentCoordinator startQuery];
+        }
     }
-    if (_isAppeared) [self->_appModel.documentController.documentCoordinator startQuery];
-    //    });
+}
+
+-(NSString*)libraryTitle
+{
+    NSString* title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
+    if (title != nil) [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": title}];
+    
+    return title;
 }
 
 -(void) propertyDocumentControllerInfosDidChange: (NSDictionary*)change object: (id)object
@@ -310,7 +309,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         [indexPaths addObject: [NSIndexPath indexPathForRow: idx inSection: 0]];
     }];
     
-    NSInteger currentItems;// = [self.collectionView numberOfItemsInSection: 0];
+//    NSInteger currentItems;// = [self.collectionView numberOfItemsInSection: 0];
     NSUInteger changeCount = indexPaths.count;
     
     @try {
@@ -340,7 +339,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     @catch (NSException *exception) {
         //
         NSLog(@"[%@ %@], %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd), exception);
-        NSLog(@"[%@ %@], changeKind: %@, %ld, %lu",NSStringFromClass([self class]),NSStringFromSelector(_cmd), changeKind, (long)currentItems, (unsigned long)changeCount);
+        NSLog(@"[%@ %@], changeKind: %lu count: %lu",NSStringFromClass([self class]),NSStringFromSelector(_cmd), (unsigned long)changeKind, (unsigned long)changeCount);
         [self.collectionView reloadData];
     }
     @finally {

@@ -318,7 +318,7 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 
 -(void)handleDidBecomeActive
 {
-//    [self setupUserStoragePreferences];
+    [self setupUserStoragePreferences];
 }
 
 #pragma mark - User Storage Preferences
@@ -350,12 +350,12 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
             
             self.cloudDocumentManager.storageOption = MDBAPPStorageCloud;
             
-            [self configureDocumentController:YES];
+            [self configureDocumentController: YES];
         }
         else {
             // The user has already selected a specific storage option. Set up the list controller to
             // use that storage option.
-            [self configureDocumentController:storageState.accountDidChange];
+            [self configureDocumentController: storageState.accountDidChange];
         }
     }
     else {
@@ -371,6 +371,11 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
     //    self.documentsViewController.appModel = _appModel;
     //    self.cloudBrowserViewController.appModel = _appModel;
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(handleUbiquityIdentityDidChangeNotification:) name: NSUbiquityIdentityDidChangeNotification object: nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUbiquityIdentityDidChangeNotification object: nil];
 }
 
 #pragma mark - Alerts
@@ -421,16 +426,23 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 #pragma mark - Convenience
 
 - (void)configureDocumentController:(BOOL)accountChanged {
-    id<MDBFractalDocumentCoordinator> documentCoordinator;
+    id<MDBFractalDocumentCoordinator> documentCoordinator = self.documentController.documentCoordinator;
     
-    if (self.cloudDocumentManager.storageOption != MDBAPPStorageCloud)
+    BOOL localOption = self.cloudDocumentManager.storageOption != MDBAPPStorageCloud;
+    BOOL optionChanged = documentCoordinator && (([documentCoordinator isKindOfClass: [MDBFractalDocumentCloudCoordinator class]] && localOption) || ([documentCoordinator isKindOfClass: [MDBFractalDocumentLocalCoordinator class]] && !localOption));
+    
+    if (!documentCoordinator || optionChanged)
     {
-        // This will be called if the storage option is either MDBAPPStorageLocal or MDBAPPStorageNotSet.
-        documentCoordinator = [[MDBFractalDocumentLocalCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
-    }
-    else
-    {
-        documentCoordinator = [[MDBFractalDocumentCloudCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
+        if (localOption)
+        {
+            // This will be called if the storage option is either MDBAPPStorageLocal or MDBAPPStorageNotSet.
+            documentCoordinator = [[MDBFractalDocumentLocalCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
+        }
+        else
+        {
+            documentCoordinator = [[MDBFractalDocumentCloudCoordinator alloc] initWithPathExtension: kMDBFractalDocumentFileExtension];
+        }
+        
     }
     
     if (!self.documentController)
@@ -454,7 +466,7 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
         //        self.documentsViewController.documentController = self.appModel.documentController;
         //        self.cloudBrowserViewController.documentController = self.appModel.documentController;
     }
-    else if (accountChanged)
+    else if (accountChanged || optionChanged)
     {
         self.documentController.documentCoordinator = documentCoordinator;
         //        self.documentsViewController.navigationItem.title = [self.appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
@@ -484,7 +496,7 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 
 -(void)handleMoveToBackground
 {
-    [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUbiquityIdentityDidChangeNotification object: nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUbiquityIdentityDidChangeNotification object: nil];
 }
 
 - (void)handleUbiquityIdentityDidChangeNotification:(NSNotification *)notification

@@ -79,7 +79,6 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     NSTimeInterval sessionDuration = [self.sessionStart timeIntervalSinceNow] / 60.0;
     [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Minutes":@(sessionDuration)}];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.appModel handleMoveToBackground];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -115,6 +114,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 
 -(void)applicationWillResignActive:(UIApplication *)application
 {
+    [self.appModel handleMoveToBackground];
 }
 
 -(BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder

@@ -60,7 +60,7 @@
         
         _documentCoordinator.delegate = self;
         
-//        [_documentCoordinator startQuery];
+        [_documentCoordinator startQuery];
     }
     
     return self;

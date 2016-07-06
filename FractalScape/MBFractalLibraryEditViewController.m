@@ -38,6 +38,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+        
     if (!CGPointEqualToPoint(self.initialContentOffset, CGPointZero)) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.collectionView.contentOffset = self.initialContentOffset;
@@ -50,12 +51,13 @@
     self.deleteButton.enabled = state;
 }
 
--(void)documentControllerChanged
-{
-    [super documentControllerChanged];
-    self.navigationItem.title = NSLocalizedString(@"Select to Delete", @"To select an item to delete");
-}
 
+-(NSString*)libraryTitle
+{
+    NSString* title = NSLocalizedString(@"Select to Delete", @"To select an item to delete");
+    
+    return title;
+}
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
 -(void)libraryCollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
