@@ -368,34 +368,35 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 }
 -(void) generateImage
 {
+    [self generateImagePercentStart: 0.0 stop: 100.0];
+}
+-(void) generateImagePercentStart:(CGFloat)start stop:(CGFloat)stop
+{
     CGContextRef context = self.cachedContext;
     if (context)
     {
         CGContextClearRect(context, CGContextGetClipBoundingBox(context));
-        [self generateImagePercentStart: 0.0 stop: 100.0];
-    }
-}
--(void) generateImagePercentStart:(CGFloat)start stop:(CGFloat)stop
-{
-    @autoreleasepool
-    {
-        UIImageView* strongImageView = self.mainThreadImageView;
-        NSBlockOperation* strongOperation = self.operation;
         
-        if (!strongImageView || (strongOperation && strongOperation.isCancelled) || stop <= 0.0)
+        @autoreleasepool
         {
-            return;
+            UIImageView* strongImageView = self.mainThreadImageView;
+            NSBlockOperation* strongOperation = self.operation;
+            
+            if (!strongImageView || (strongOperation && strongOperation.isCancelled) || stop <= 0.0)
+            {
+                return;
+            }
+            
+            CGSize unscaled = strongImageView.bounds.size;
+            CGSize size = CGSizeMake(unscaled.width*[[UIScreen mainScreen] scale], unscaled.height*[[UIScreen mainScreen] scale]);
+            
+            [self drawInContext: self.cachedContext size: size percentStart: start stop: stop];
+            [self copyBitmapToNSDataCache];
+            CGImageRef newImage = CGBitmapContextCreateImage(_cachedContext);
+            self.imageRef = newImage;
+            CGImageRelease(newImage);
+            //        self.image = [UIImage imageWithCGImage: self.imageRef];
         }
-        
-        CGSize unscaled = strongImageView.bounds.size;
-        CGSize size = CGSizeMake(unscaled.width*[[UIScreen mainScreen] scale], unscaled.height*[[UIScreen mainScreen] scale]);
-        
-        [self drawInContext: self.cachedContext size: size percentStart: start stop: stop];
-        [self copyBitmapToNSDataCache];
-        CGImageRef newImage = CGBitmapContextCreateImage(_cachedContext);
-        self.imageRef = newImage;
-        CGImageRelease(newImage);
-//        self.image = [UIImage imageWithCGImage: self.imageRef];
     }
 }
 -(void) fillBackgroundInContext: (CGContextRef)aCGContext size: (CGSize)size
