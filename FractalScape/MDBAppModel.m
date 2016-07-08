@@ -501,7 +501,7 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 
 -(void)handleMoveToBackground
 {
-    [self.documentController closeAllDocuments];
+    //    [self.documentController closeAllDocuments]; // Was too agressive and causing blank documents due to documents not being re-opened on selection.
 //    [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUbiquityIdentityDidChangeNotification object: nil];
 }
 
