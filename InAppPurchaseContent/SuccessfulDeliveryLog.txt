@@ -1,0 +1,910 @@
+[2015-09-01 14:05:36 EDT] <main>  INFO: Transporter is skipping bundle update check: Already checked recently.
+[2015-09-01 14:05:36 EDT] <main>  INFO: Logging level set to eXtreme
+[2015-09-01 14:05:36 EDT] <main>  INFO: Logging configured successfully.
+[2015-09-01 14:05:36 EDT] <main> DEBUG: Attempting refresh of configuration data from https://contentdelivery.itunes.apple.com/transporter/Defaults.properties
+[2015-09-01 14:05:37 EDT] <main> DEBUG: Configuration refresh successful.
+[2015-09-01 14:05:37 EDT] <main> DEBUG: Saving configuration to local path: /Users/taun/.itmstransporter/Defaults.properties
+[2015-09-01 14:05:37 EDT] <main>  INFO: iTMSTransporter : iTunes Store Transporter [1.8.5]
+[2015-09-01 14:05:37 EDT] <main>  INFO: OS identifier: Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:37 EDT] <main>  INFO: Memory: [JVM] 25M free, 55M total, 910M max [System] (Physical) 577M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:37 EDT] <main>  INFO: Client: Application Loader 3.1 (670)
+[2015-09-01 14:05:37 EDT] <main>  INFO: Upload mode selected.
+[2015-09-01 14:05:37 EDT] <main> DBG-X: Memory: [JVM] 25M free, 55M total, 910M max [System] (Physical) 577M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:37 EDT] <main> DBG-X: Memory: [JVM] 5M free, 55M total, 910M max [System] (Physical) 557M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:37 EDT] <main> DBG-X: Using operation named: authenticateForSession
+[2015-09-01 14:05:37 EDT] <main> DBG-X: Apple's web service operation input parameters:
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Application = iTMSTransporter
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter BaseVersion = 1.8.3
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Client = Application Loader
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter ClientVersion = 3.1 (670)
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter OSIdentifier = Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Password = **hidden value**
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter TransporterArguments = -m upload -u tchapman@moedae.com -p **hidden value** -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp -indicator true -v eXtreme -Dtransporter.client=Application Loader -Dtransporter.client.version=3.1 (670)
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Username = tchapman@moedae.com
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Version = 1.8.5
+[2015-09-01 14:05:37 EDT] <main>  INFO: id = 20150901140537-637
+[2015-09-01 14:05:37 EDT] <main> DBG-X: Apple's web service operation return value:
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter SessionId = CKWmDBIQQp8eJ9ALTr2Sp9UbJNqvHQ==
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter SharedSecret = 7cbd5b53-ed2a-43a4-b3f2-52c8f41b139f
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter ApplicationSettings = {ShouldPricingTabBeDisplayed=true, IsVendorIDEditablePreferenceEnabled=true, SkipValidateProductErrors=true, SkipValidateFirenzeSPIUsage=false, MZWebServiceTimeOut=900, SkipValidatePurpleSPIUsage=false, IsDisplayArtistVisible=false, IsEnabledForMasteredForItunes=false, MZWebServiceValidateSoftwareSPIUsageMaximumSize=1048576, IsISBNOptional=true, PerformServerVerification=true, VerifyZipIntegrity=true, BookSeriesSequenceNumberFormatter=#.#;0;#0.#, IsPublicationDateOptional=false, softwareUserGuideFilePath=https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf, AllowPublicationPreorderWithoutAssets=false, ITunesSoftwareServiceAllowedPlatforms=[{sdkID=com.apple.platform.iphoneos, validationMethod=ios, xmlID=ios, platformDirectory=iPhoneOS.platform, serverID=Purple, type=1, displayName=iOS App, platformCriteria={plistEntries={LSRequiresIPhoneOS=, MinimumOSVersion=}}}, {sdkID=com.apple.platform.macosx, validationMethod=osx, xmlID=osx, platformDirectory=MacOSX.platform, serverID=Firenze, type=2, displayName=Mac OS X App, platformCriteria={plistEntries={LSMinimumSystemVersion=}}}, {validationMethod=iap, serverID=InAppPurchase, type=3, displayName=In-App Purchase}, {sdkID=com.apple.platform.watchos, validationMethod=ios, platformDirectory=WatchOS.platform, type=6, displayName=watchOS, platformCriteria={}}], TerritoriesAllowedToAlterPlusQuality=[JP]}
+[2015-09-01 14:05:37 EDT] <main> DBG-X: Using operation named: authenticateForTransportDiscovery
+[2015-09-01 14:05:37 EDT] <main> DBG-X: Apple's web service operation input parameters:
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Application = iTMSTransporter
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter BaseVersion = 1.8.3
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Client = Application Loader
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter ClientVersion = 3.1 (670)
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter OSIdentifier = Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter TransporterArguments = -m upload -u tchapman@moedae.com -p **hidden value** -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp -indicator true -v eXtreme -Dtransporter.client=Application Loader -Dtransporter.client.version=3.1 (670)
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Username = tchapman@moedae.com
+[2015-09-01 14:05:37 EDT] <main> DBG-X:   parameter Version = 1.8.5
+[2015-09-01 14:05:37 EDT] <main>  INFO: id = 20150901140537-111
+[2015-09-01 14:05:38 EDT] <main> DBG-X: Apple's web service operation return value:
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter PreferredTransports = [Aspera, Signiant, DAV]
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter TransportHosts.Aspera = [vgr106.apple.com:33001, vgr104.apple.com:33001, vgr105.apple.com:33001, vgr103.apple.com:33001]
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter ApplicationSettings = {ShouldPricingTabBeDisplayed=true, IsVendorIDEditablePreferenceEnabled=true, SkipValidateProductErrors=true, SkipValidateFirenzeSPIUsage=false, MZWebServiceTimeOut=900, SkipValidatePurpleSPIUsage=false, IsDisplayArtistVisible=false, IsEnabledForMasteredForItunes=false, MZWebServiceValidateSoftwareSPIUsageMaximumSize=1048576, IsISBNOptional=true, PerformServerVerification=true, VerifyZipIntegrity=true, BookSeriesSequenceNumberFormatter=#.#;0;#0.#, IsPublicationDateOptional=false, softwareUserGuideFilePath=https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf, AllowPublicationPreorderWithoutAssets=false, ITunesSoftwareServiceAllowedPlatforms=[{sdkID=com.apple.platform.iphoneos, validationMethod=ios, xmlID=ios, platformDirectory=iPhoneOS.platform, serverID=Purple, type=1, displayName=iOS App, platformCriteria={plistEntries={LSRequiresIPhoneOS=, MinimumOSVersion=}}}, {sdkID=com.apple.platform.macosx, validationMethod=osx, xmlID=osx, platformDirectory=MacOSX.platform, serverID=Firenze, type=2, displayName=Mac OS X App, platformCriteria={plistEntries={LSMinimumSystemVersion=}}}, {validationMethod=iap, serverID=InAppPurchase, type=3, displayName=In-App Purchase}, {sdkID=com.apple.platform.watchos, validationMethod=ios, platformDirectory=WatchOS.platform, type=6, displayName=watchOS, platformCriteria={}}], TerritoriesAllowedToAlterPlusQuality=[JP]}
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter TransportHosts.Signiant = [sgr203.apple.com:44001, sgr204.apple.com:44001, sgr205.apple.com:44001, sgr206.apple.com:44001]
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter TransportHosts.DAV = [itmsdav.apple.com:443]
+[2015-09-01 14:05:38 EDT] <main>  INFO: Examining the package at: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp
+[2015-09-01 14:05:38 EDT] <main>  INFO: Ensuring that package has well formed metadata file...
+[2015-09-01 14:05:38 EDT] <main> DEBUG: Getting case-sensitive metadata xml filename...
+[2015-09-01 14:05:38 EDT] <main>  INFO: Gathering the list of valid files from the package ...
+[2015-09-01 14:05:38 EDT] <main> DEBUG:   1__#$!@%!#__machine-local-data.xml will be verified by Apple's web service to determine if it is a valid file.
+[2015-09-01 14:05:38 EDT] <main> DEBUG:   FractalScapesIAPAluminumColorPak1.pkg will be verified by Apple's web service to determine if it is a valid file.
+[2015-09-01 14:05:38 EDT] <main> DEBUG:   iPhone6AddColorPak-1.png will be verified by Apple's web service to determine if it is a valid file.
+[2015-09-01 14:05:38 EDT] <main> DEBUG:   iPhone6AddColorPak.png will be verified by Apple's web service to determine if it is a valid file.
+[2015-09-01 14:05:38 EDT] <main> DEBUG:   machine-local-data.xml will be verified by Apple's web service to determine if it is a valid file.
+[2015-09-01 14:05:38 EDT] <main> DEBUG:   metadata.xml will be verified by Apple's web service to determine if it is a valid file.
+[2015-09-01 14:05:38 EDT] <main>  INFO: Finished gathering the list of valid files from the package.
+[2015-09-01 14:05:38 EDT] <main> DEBUG:   Case-sensitive metadata filename is: metadata.xml
+[2015-09-01 14:05:38 EDT] <main>  INFO: Performing authentication of package FractalScapesMDA00004.itmsp ...
+[2015-09-01 14:05:38 EDT] <main> DBG-X: Memory: [JVM] 38M free, 77M total, 910M max [System] (Physical) 549M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:38 EDT] <main> DBG-X: Deflated 19983 bytes to 4816
+[2015-09-01 14:05:38 EDT] <main> DBG-X: Using operation named: validateMetadata
+[2015-09-01 14:05:38 EDT] <main> DBG-X: Apple's web service operation input parameters:
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter Application = iTMSTransporter
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter BaseVersion = 1.8.3
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter Client = Application Loader
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter ClientVersion = 3.1 (670)
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter Files = [1__#$!@%!#__machine-local-data.xml, FractalScapesIAPAluminumColorPak1.pkg, iPhone6AddColorPak-1.png, iPhone6AddColorPak.png, machine-local-data.xml, metadata.xml]
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter Metadata = <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<package xmlns="http://apple.com/itunes/importer" version="software5.2">
+    <metadata_token>1441128507135-e4dc45e1cde58309434e8c9c6143549e213524f1524938d74b56b97562ccf17a</metadata_token>
+    <provider>TaunChapman226603837</provider>
+    <team_id>6569EWWSLR</team_id>
+    <software>
+        <vendor_id>MDA00004</vendor_id>
+        <software_metadata>
+            <versions>
+                <version string="1.0">
+                    <locales>
+                        <locale name="en-US">
+                            <title>FractalScapes</title>
+                            <description>Create fun beautiful interactive fractal designs for the iPad and iPhone. FractalScapes helps non-artists create art.
+
+FractalScapes helps you create beautiful, interesting, geometric and plant like fractals. You can start from a blank canvas, use the provided samples or start with someone else's fractal shared in the cloud.
+
+FractalScapes is the only iOS fractal application which uses the touch interface to let you drag and drop rules for creating the fractal. Please see our video for an example of using your finger to rearrange the fractal rules and create totally new fractals with ease. 
+
+Education:
+
+FractalScapes is an excellent educational tool. The fractal creation is interactive letting students see the effects of different rule positions immediately. The playback feature lets them see the creation of the fractal step by step. The playback is interactive so if there is an area of the fractal they don't understand, they can slide back and forth through that area to see what is going on. In advanced mode, rules can be selectively excluded allowing one to see the impact of a set of rules without deleting and re-adding them. 
+
+Sharing:
+
+There are many ways to share and use your creations. You can,
+
+* export as a vector PDF then import into a vector drawing package - Available for free during beta. Will be an in-app purchase when the app is fully released.
+* export as a PNG with a transparent background then post to sharing sites or import into a drawing package and create forest. - Includes a FractalScapes watermark which can be removed with in-app purchase once fully released.
+* share to the FractalScapes cloud where others can find and appreciate your creations.
+
+** NOTE: The iPhone version is meant as a companion for the iPad app. The iPhone version is good for viewing or tweaking fractals created on the iPad. While you can edit fractals on an iPhone 4 or 5, it is not recommended. For editing, you should have an iPhone 6 or bigger. The touch interface on iPad 2 or iPhone 4 is not as responsive as the newer devices.
+
+*** iPad 2 and other non-retina devices will not have the filters functionality. The app will display filtered fractals but will not have filter editing.</description>
+                            <keywords>
+                                <keyword>fractal</keyword>
+                                <keyword>pattern</keyword>
+                                <keyword>vector</keyword>
+                                <keyword>design</keyword>
+                            </keywords>
+                            <software_url>http://www.moedae.com</software_url>
+                            <support_url>http://www.moedae.com</support_url>
+                            <software_screenshots>
+                                <software_screenshot display_target="iOS-3.5-in" position="1">
+                                    <file_name>en-US-iPhone4-5-DragonPlay-portrait.png</file_name>
+                                    <size>373987</size>
+                                    <checksum type="md5">999fd93d6799eca5c7ac2ea1ae941612</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-3.5-in" position="2">
+                                    <file_name>en-US-iPhone4-3-DragonEditRules-portrait.png</file_name>
+                                    <size>201964</size>
+                                    <checksum type="md5">516e2212903cf91a3dc096456ff6f97d</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-3.5-in" position="3">
+                                    <file_name>en-US-iPhone4-2-DragonEditColors-portrait.png</file_name>
+                                    <size>206115</size>
+                                    <checksum type="md5">4964824a78b33f18377d334491eaddcb</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-3.5-in" position="4">
+                                    <file_name>en-US-iPhone4-7-LibraryCloudShare-portrait.png</file_name>
+                                    <size>199098</size>
+                                    <checksum type="md5">0794fd507134e8494ae0a7807e4f3952</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-3.5-in" position="5">
+                                    <file_name>en-US-iPhone4-6-DragonShareOptions-portrait.png</file_name>
+                                    <size>271963</size>
+                                    <checksum type="md5">a03bd33ed792a10a9be3aebf5465ccb2</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-iPad" position="1">
+                                    <file_name>IMG_0111.jpg</file_name>
+                                    <size>389127</size>
+                                    <checksum type="md5">cae42039a2b2f128f43c7bfb7258a051</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-iPad" position="2">
+                                    <file_name>Penrose_5.jpg</file_name>
+                                    <size>448064</size>
+                                    <checksum type="md5">cd6bd3a2f0bbbb1d72d21ecd02dc6ea3</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-iPad" position="3">
+                                    <file_name>Screen_Shot_2014-12-19_at_Dec_19__3.53.54_PM.png</file_name>
+                                    <size>346859</size>
+                                    <checksum type="md5">d52743775cea993d51e7a2bf002e61d2</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-iPad" position="4">
+                                    <file_name>iOS_Simulator_Screen_Shot_Dec_20__2014__Dec_20__12.55.12_PM.png</file_name>
+                                    <size>533890</size>
+                                    <checksum type="md5">d96e432eee0ef96c2347791283058c1e</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-iPad" position="5">
+                                    <file_name>en-US-iOS-iPad-0-LandingScreen-portrait.png</file_name>
+                                    <size>783809</size>
+                                    <checksum type="md5">77eef9916eebe024f82b9d9c01420c54</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4-in" position="1">
+                                    <file_name>en-US-iPhone5-5-DragonPlay-portrait.png</file_name>
+                                    <size>401090</size>
+                                    <checksum type="md5">cb76869aa663e44cde2102c4b042f21a</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4-in" position="2">
+                                    <file_name>en-US-iPhone5-2-DragonEditColors-portrait.png</file_name>
+                                    <size>294299</size>
+                                    <checksum type="md5">bc40a5c9d1dcc44bffc148e5beeee74d</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4-in" position="3">
+                                    <file_name>en-US-iPhone5-3-DragonEditRules-portrait.png</file_name>
+                                    <size>290182</size>
+                                    <checksum type="md5">aaf9b7707dce0601cf33a985eb78a239</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4-in" position="4">
+                                    <file_name>en-US-iPhone5-6-DragonShareOptions-portrait.png</file_name>
+                                    <size>339899</size>
+                                    <checksum type="md5">77d755fea1625523338364e65676b12c</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4-in" position="5">
+                                    <file_name>en-US-iPhone5-7-LibraryCloudShare-portrait.png</file_name>
+                                    <size>255432</size>
+                                    <checksum type="md5">118c05abc18cc532d8a279ffdc074305</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-5.5-in" position="1">
+                                    <file_name>en-US-iPhone6Plus-5-DragonPlay-portrait.png</file_name>
+                                    <size>1270132</size>
+                                    <checksum type="md5">4dea00209e62683fc3af9283d827d628</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-5.5-in" position="2">
+                                    <file_name>en-US-iPhone6Plus-2-DragonEditColors-portrait.png</file_name>
+                                    <size>1150828</size>
+                                    <checksum type="md5">ddb5dadec49f1752d7d8043b5130f0bb</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-5.5-in" position="3">
+                                    <file_name>en-US-iPhone6Plus-3-DragonEditRules-portrait.png</file_name>
+                                    <size>1133991</size>
+                                    <checksum type="md5">1850263060d294438c0b5e1b0b07de94</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-5.5-in" position="4">
+                                    <file_name>en-US-iPhone6Plus-6-DragonShareOptions-portrait.png</file_name>
+                                    <size>1199361</size>
+                                    <checksum type="md5">05945354723e6596bda2fe783178704b</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-5.5-in" position="5">
+                                    <file_name>en-US-iPhone6Plus-7-LibraryCloudShare-portrait.png</file_name>
+                                    <size>661378</size>
+                                    <checksum type="md5">151fd8dd1a889a059015caa09611edb9</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4.7-in" position="1">
+                                    <file_name>iPhone6RedDragon.jpg</file_name>
+                                    <size>148476</size>
+                                    <checksum type="md5">67c8dbd48ee9ca210fa600cd57accaf3</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4.7-in" position="2">
+                                    <file_name>iPhone6DragonRules.jpg</file_name>
+                                    <size>208492</size>
+                                    <checksum type="md5">1e1cd20ea4eaedb4698b17425a44fe22</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4.7-in" position="3">
+                                    <file_name>iPhone6DragonColor.jpg</file_name>
+                                    <size>222365</size>
+                                    <checksum type="md5">e1175bab35ec0a00797a0b157e5eaa29</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4.7-in" position="4">
+                                    <file_name>iPhone6Bush.jpg</file_name>
+                                    <size>304505</size>
+                                    <checksum type="md5">6d371b226f9a4a6efd5819ded5713530</checksum>
+                                </software_screenshot>
+                                <software_screenshot display_target="iOS-4.7-in" position="5">
+                                    <file_name>en-US-iPhone6-6-DragonShareOptions-portrait.png</file_name>
+                                    <size>487349</size>
+                                    <checksum type="md5">e2db69ddcd45a273522baa8b9c718ee5</checksum>
+                                </software_screenshot>
+                            </software_screenshots>
+                        </locale>
+                    </locales>
+                </version>
+            </versions>
+            <products>
+                <product>
+                    <territory>WW</territory>
+                    <sales_start_date>2015-08-27</sales_start_date>
+                    <cleared_for_sale>true</cleared_for_sale>
+                    <intervals>
+                        <interval>
+                            <start_date>2015-09-01</start_date>
+                            <wholesale_price_tier>0</wholesale_price_tier>
+                        </interval>
+                    </intervals>
+                    <allow_volume_discount>true</allow_volume_discount>
+                </product>
+            </products>
+            <in_app_purchases>
+                <in_app_purchase>
+                    <locales>
+                        <locale name="en-US">
+                            <title>Aluminum Color Pak1</title>
+                            <description>Get 17 new metallic textures to make your fractals shine.</description>
+                        </locale>
+                    </locales>
+                    <review_screenshot>
+                        <file_name>iPhone6AddColorPak-1.png</file_name>
+                        <size>253841</size>
+                        <checksum type="md5">db8451c4c131587dec2cdbcacf2c9e18</checksum>
+                    </review_screenshot>
+                    <read_only_info>
+                        <read_only_value key="iap-status">Waiting for Upload</read_only_value>
+                    </read_only_info>
+                    <product_id>com.moedae.FractalScapes.ColorPakMetallic2</product_id>
+                    <reference_name>Aluminum Metalic Pak1</reference_name>
+                    <type>non-consumable</type>
+                    <products>
+                        <product>
+                            <cleared_for_sale>true</cleared_for_sale>
+                            <intervals>
+                                <interval>
+                                    <start_date>2015-09-01</start_date>
+                                    <wholesale_price_tier>0</wholesale_price_tier>
+                                </interval>
+                            </intervals>
+                        </product>
+                    </products>
+                    <has_hosted_content>true</has_hosted_content>
+                </in_app_purchase>
+                <in_app_purchase>
+                    <locales>
+                        <locale name="en-US">
+                            <title>Aluminum Texture Pak1</title>
+                            <description>Brighten your fractals with 17 shiny brushed aluminum textures.</description>
+                        </locale>
+                    </locales>
+                    <review_screenshot>
+                        <file_name>iPhone6AddColorPak.png</file_name>
+                        <size>253841</size>
+                        <checksum type="md5">db8451c4c131587dec2cdbcacf2c9e18</checksum>
+                    </review_screenshot>
+                    <read_only_info>
+                        <read_only_value key="iap-status">Waiting for Upload</read_only_value>
+                    </read_only_info>
+                    <product_id>com.moedae.FractalScapesIAPAluminumColorPak1</product_id>
+                    <reference_name>FractalScapesIAPAluminumColorPak1</reference_name>
+                    <type>non-consumable</type>
+                    <products>
+                        <product>
+                            <cleared_for_sale>true</cleared_for_sale>
+                            <intervals>
+                                <interval>
+                                    <start_date>2015-09-01</start_date>
+                                    <wholesale_price_tier>0</wholesale_price_tier>
+                                </interval>
+                            </intervals>
+                        </product>
+                    </products>
+                    <has_hosted_content>true</has_hosted_content>
+                    <software_assets>
+                        <asset type="in-app-purchase-content">
+                            <data_file>
+                                <file_name>FractalScapesIAPAluminumColorPak1.pkg</file_name>
+                                <size>2171846</size>
+                                <checksum type="md5">6595d44a2868be820cc810c5c9d7a2ac</checksum>
+                            </data_file>
+                        </asset>
+                    </software_assets>
+                </in_app_purchase>
+                <in_app_purchase>
+                    <locales>
+                        <locale name="en-US">
+                            <title>Pro Upgrade</title>
+                            <description>Add:
+*Edit rules
+*create original fractals
+*share to Cloud
+*no watermark</description>
+                        </locale>
+                    </locales>
+                    <review_notes>Sandbox account
+inapp@charcoalia.net/Justgr8fungame</review_notes>
+                    <review_screenshot>
+                        <file_name>iOS_20Simulator_20Screen_20Shot_20Aug_2031_2C_202015_2C_20Aug_2031_2C_208.34.53_20PM.png</file_name>
+                        <size>140981</size>
+                        <checksum type="md5">a275b58c24863b17b062d9f873f152bf</checksum>
+                    </review_screenshot>
+                    <read_only_info>
+                        <read_only_value key="iap-status">Waiting for Review</read_only_value>
+                    </read_only_info>
+                    <product_id>com.moedae.FractalScapes.proupgrade</product_id>
+                    <reference_name>Pro Upgrade</reference_name>
+                    <type>non-consumable</type>
+                    <products>
+                        <product>
+                            <cleared_for_sale>true</cleared_for_sale>
+                            <intervals>
+                                <interval>
+                                    <start_date>2015-09-01</start_date>
+                                    <wholesale_price_tier>5</wholesale_price_tier>
+                                </interval>
+                            </intervals>
+                        </product>
+                    </products>
+                </in_app_purchase>
+            </in_app_purchases>
+        </software_metadata>
+    </software>
+</package>
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter MetadataChecksum = feab812f3f4d6f81af064909ad6114f1
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter MetadataCompressed = (suppressed)
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter OSIdentifier = Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter PackageName = FractalScapesMDA00004.itmsp
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter PackageSize = 2700533
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter TransporterArguments = -m upload -u tchapman@moedae.com -p **hidden value** -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp -indicator true -v eXtreme -Dtransporter.client=Application Loader -Dtransporter.client.version=3.1 (670)
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter Username = tchapman@moedae.com
+[2015-09-01 14:05:38 EDT] <main> DBG-X:   parameter Version = 1.8.5
+[2015-09-01 14:05:38 EDT] <main>  INFO: id = 20150901140538-328
+[2015-09-01 14:05:40 EDT] <main> DBG-X: Apple's web service operation return value:
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter ApplicationSettings = {ShouldPricingTabBeDisplayed=true, IsVendorIDEditablePreferenceEnabled=true, SkipValidateProductErrors=true, SkipValidateFirenzeSPIUsage=false, MZWebServiceTimeOut=900, SkipValidatePurpleSPIUsage=false, IsDisplayArtistVisible=false, IsEnabledForMasteredForItunes=false, MZWebServiceValidateSoftwareSPIUsageMaximumSize=1048576, IsISBNOptional=true, PerformServerVerification=true, VerifyZipIntegrity=true, BookSeriesSequenceNumberFormatter=#.#;0;#0.#, IsPublicationDateOptional=false, softwareUserGuideFilePath=https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf, AllowPublicationPreorderWithoutAssets=false, ITunesSoftwareServiceAllowedPlatforms=[{sdkID=com.apple.platform.iphoneos, validationMethod=ios, xmlID=ios, platformDirectory=iPhoneOS.platform, serverID=Purple, type=1, displayName=iOS App, platformCriteria={plistEntries={LSRequiresIPhoneOS=, MinimumOSVersion=}}}, {sdkID=com.apple.platform.macosx, validationMethod=osx, xmlID=osx, platformDirectory=MacOSX.platform, serverID=Firenze, type=2, displayName=Mac OS X App, platformCriteria={plistEntries={LSMinimumSystemVersion=}}}, {validationMethod=iap, serverID=InAppPurchase, type=3, displayName=In-App Purchase}, {sdkID=com.apple.platform.watchos, validationMethod=ios, platformDirectory=WatchOS.platform, type=6, displayName=watchOS, platformCriteria={}}], TerritoriesAllowedToAlterPlusQuality=[JP]}
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter CPUToken = 91f48efb-719e-454f-a37d-ac166e885654/1441130739458
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter AssetsToDescribe = [{UTI=com.apple.pkg, Role=source, ShouldDescribeAsset=true, Filename=FractalScapesIAPAluminumColorPak1.pkg}]
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter FileSizes = {FractalScapesIAPAluminumColorPak1.pkg=2171846}
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter Checksums = {FractalScapesIAPAluminumColorPak1.pkg=6595d44a2868be820cc810c5c9d7a2ac}
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter Success = true
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter FilesToUpload = [metadata.xml, FractalScapesIAPAluminumColorPak1.pkg]
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter MinimumFileSizeThresholdForCheckum = 104857600
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter ProviderNameForToken = TaunChapman226603837
+[2015-09-01 14:05:40 EDT] <main>  INFO: The list of files requested for upload by Apple is: [metadata.xml, FractalScapesIAPAluminumColorPak1.pkg].  These are the files that will be uploaded.
+[2015-09-01 14:05:40 EDT] <main>  INFO: Starting media analysis of assets
+[2015-09-01 14:05:40 EDT] <main> DEBUG: Handling asset: filename=FractalScapesIAPAluminumColorPak1.pkg,uti=com.apple.pkg,role=source,describe=true
+[2015-09-01 14:05:40 EDT] <main> DEBUG: Using container type tool name and version: Mac App Describer:1.24
+[2015-09-01 14:05:40 EDT] <main> DEBUG: Using path: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg
+[2015-09-01 14:05:40 EDT] <main> DBG-X: Asset description: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>os-version</key>
+	<string>10.10.5</string>
+	<key>product-metadata</key>
+	<dict>
+		<key>archive-bytes</key>
+		<integer>2171846</integer>
+		<key>auto-launch</key>
+		<false/>
+		<key>distribution-javascript</key>
+		<false/>
+		<key>file-name</key>
+		<string>FractalScapesIAPAluminumColorPak1.pkg</string>
+		<key>install-bytes</key>
+		<integer>2793472</integer>
+		<key>install-domains</key>
+		<array>
+			<string>system</string>
+		</array>
+		<key>packages</key>
+		<array>
+			<dict>
+				<key>files</key>
+				<array>
+					<dict>
+						<key>file-command-output</key>
+						<dict>
+							<key>command</key>
+							<string>/usr/bin/file ./ContentInfo.plist</string>
+							<key>stdout</key>
+							<string>./ContentInfo.plist: XML  document text
+</string>
+						</dict>
+						<key>file-size</key>
+						<integer>760</integer>
+						<key>file-type</key>
+						<string>NSFileTypeRegular</string>
+						<key>has-acl</key>
+						<false/>
+						<key>has-resource-fork</key>
+						<false/>
+						<key>path</key>
+						<string>ContentInfo.plist</string>
+						<key>permissions</key>
+						<integer>420</integer>
+						<key>reason-codes</key>
+						<array>
+							<integer>-10000</integer>
+							<integer>-10109</integer>
+						</array>
+						<key>uti</key>
+						<string>com.apple.property-list</string>
+					</dict>
+					<dict>
+						<key>file-command-output</key>
+						<dict>
+							<key>command</key>
+							<string>/usr/bin/file ./Contents</string>
+							<key>stdout</key>
+							<string>./Contents: directory
+</string>
+						</dict>
+						<key>has-acl</key>
+						<false/>
+						<key>has-resource-fork</key>
+						<false/>
+						<key>path</key>
+						<string>Contents</string>
+						<key>permissions</key>
+						<integer>493</integer>
+						<key>reason-codes</key>
+						<array>
+							<integer>-10000</integer>
+							<integer>-10001</integer>
+							<integer>-10207</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>file-command-output</key>
+						<dict>
+							<key>command</key>
+							<string>/usr/bin/file ./Contents/Assets.car</string>
+							<key>stdout</key>
+							<string>./Contents/Assets.car: Mac OS X bill of materials (BOM) file
+</string>
+						</dict>
+						<key>file-size</key>
+						<integer>2784840</integer>
+						<key>file-type</key>
+						<string>NSFileTypeRegular</string>
+						<key>has-acl</key>
+						<false/>
+						<key>has-resource-fork</key>
+						<false/>
+						<key>path</key>
+						<string>Contents/Assets.car</string>
+						<key>permissions</key>
+						<integer>420</integer>
+						<key>reason-codes</key>
+						<array>
+							<integer>-10000</integer>
+							<integer>-10109</integer>
+						</array>
+						<key>uti</key>
+						<string>dyn.age80g2pw</string>
+					</dict>
+					<dict>
+						<key>file-command-output</key>
+						<dict>
+							<key>command</key>
+							<string>/usr/bin/file ./Contents/MBColorsList_ FractalScapesIAPAluminumColorPak1.plist</string>
+							<key>stdout</key>
+							<string>./Contents/MBColorsList_ FractalScapesIAPAluminumColorPak1.plist: XML  document text
+</string>
+						</dict>
+						<key>file-size</key>
+						<integer>6558</integer>
+						<key>file-type</key>
+						<string>NSFileTypeRegular</string>
+						<key>has-acl</key>
+						<false/>
+						<key>has-resource-fork</key>
+						<false/>
+						<key>path</key>
+						<string>Contents/MBColorsList_ FractalScapesIAPAluminumColorPak1.plist</string>
+						<key>permissions</key>
+						<integer>420</integer>
+						<key>reason-codes</key>
+						<array>
+							<integer>-10000</integer>
+							<integer>-10109</integer>
+						</array>
+						<key>uti</key>
+						<string>com.apple.property-list</string>
+					</dict>
+				</array>
+				<key>in-app-content</key>
+				<dict>
+					<key>ContentInfo.plist</key>
+					<dict>
+						<key>BuildMachineOSBuild</key>
+						<string>14F27</string>
+						<key>ContentVersion</key>
+						<string>1.0</string>
+						<key>DTCompiler</key>
+						<string>com.apple.compilers.llvm.clang.1_0</string>
+						<key>DTPlatformBuild</key>
+						<string>6E35b</string>
+						<key>DTPlatformVersion</key>
+						<string>GM</string>
+						<key>DTSDKBuild</key>
+						<string>14D125</string>
+						<key>DTSDKName</key>
+						<string>macosx10.10</string>
+						<key>DTXcode</key>
+						<string>0640</string>
+						<key>DTXcodeBuild</key>
+						<string>6E35b</string>
+						<key>IAPProductIdentifier</key>
+						<string>com.moedae.FractalScapesIAPAluminumColorPak1</string>
+					</dict>
+				</dict>
+				<key>install-path</key>
+				<string>/</string>
+				<key>package-content-type</key>
+				<string>in-app</string>
+				<key>package-generator</key>
+				<string>InstallCmds-502 (14F27)</string>
+				<key>package-identifier</key>
+				<string>FractalScapesIAPAluminumColorPak1</string>
+				<key>package-scripts</key>
+				<array/>
+				<key>package-version</key>
+				<string>0</string>
+				<key>payload-path</key>
+				<string>FractalScapesIAPAluminumColorPak1.pkg/Payload</string>
+				<key>preserve-xattr-acl</key>
+				<false/>
+			</dict>
+		</array>
+		<key>requirements</key>
+		<dict/>
+		<key>xar-toc-output</key>
+		<dict>
+			<key>command</key>
+			<string>/usr/bin/xar -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg --dump-toc=-</string>
+			<key>stdout</key>
+			<data>
+			PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4K
+			PHhhcj4KIDx0b2M+CiAgPGNoZWNrc3VtIHN0eWxlPSJzaGExIj4K
+			ICAgPHNpemU+MjA8L3NpemU+CiAgIDxvZmZzZXQ+MDwvb2Zmc2V0
+			PgogIDwvY2hlY2tzdW0+CiAgPGNyZWF0aW9uLXRpbWU+MjAxNS0w
+			OS0wMVQxNzoyNzozMDwvY3JlYXRpb24tdGltZT4KICA8ZmlsZSBp
+			ZD0iMSI+CiAgIDxuYW1lPkZyYWN0YWxTY2FwZXNJQVBBbHVtaW51
+			bUNvbG9yUGFrMS5wa2c8L25hbWU+CiAgIDx0eXBlPmRpcmVjdG9y
+			eTwvdHlwZT4KICAgPGlub2RlPjA8L2lub2RlPgogICA8ZGV2aWNl
+			bm8+MDwvZGV2aWNlbm8+CiAgIDxtb2RlPjA3MDA8L21vZGU+CiAg
+			IDx1aWQ+MDwvdWlkPgogICA8dXNlcj5yb290PC91c2VyPgogICA8
+			Z2lkPjA8L2dpZD4KICAgPGdyb3VwPndoZWVsPC9ncm91cD4KICAg
+			PGF0aW1lPjE5NzAtMDEtMDFUMDA6MDA6MDBaPC9hdGltZT4KICAg
+			PG10aW1lPjE5NzAtMDEtMDFUMDA6MDA6MDBaPC9tdGltZT4KICAg
+			PGN0aW1lPjE5NzAtMDEtMDFUMDA6MDA6MDBaPC9jdGltZT4KICAg
+			PGZpbGUgaWQ9IjIiPgogICAgPG5hbWU+Qm9tPC9uYW1lPgogICAg
+			PHR5cGU+ZmlsZTwvdHlwZT4KICAgIDxpbm9kZT41MzI5ODA0Njwv
+			aW5vZGU+CiAgICA8ZGV2aWNlbm8+MTY3NzcyMjA8L2RldmljZW5v
+			PgogICAgPG1vZGU+MDY0NDwvbW9kZT4KICAgIDx1aWQ+NTAxPC91
+			aWQ+CiAgICA8dXNlcj50YXVuPC91c2VyPgogICAgPGdpZD4yMDwv
+			Z2lkPgogICAgPGdyb3VwPnN0YWZmPC9ncm91cD4KICAgIDxhdGlt
+			ZT4yMDE1LTA5LTAxVDE3OjI3OjMwWjwvYXRpbWU+CiAgICA8bXRp
+			bWU+MjAxNS0wOS0wMVQxNzoyNzozMFo8L210aW1lPgogICAgPGN0
+			aW1lPjIwMTUtMDktMDFUMTc6Mjc6MzBaPC9jdGltZT4KICAgIDxG
+			aW5kZXJDcmVhdGVUaW1lPgogICAgIDx0aW1lPjE5NzAtMDEtMDFU
+			MDA6MDA6MDA8L3RpbWU+CiAgICAgPG5hbm9zZWNvbmRzPjE0MDU0
+			ODUwOTc5NDMwNDwvbmFub3NlY29uZHM+CiAgICA8L0ZpbmRlckNy
+			ZWF0ZVRpbWU+CiAgICA8ZGF0YT4KICAgICA8YXJjaGl2ZWQtY2hl
+			Y2tzdW0gc3R5bGU9InNoYTEiPmU3ZGY0YmMyMzQ1OTdmOTBlNTU3
+			NjRmNjg2N2Y4NjhiZDc2NDU3Y2Y8L2FyY2hpdmVkLWNoZWNrc3Vt
+			PgogICAgIDxleHRyYWN0ZWQtY2hlY2tzdW0gc3R5bGU9InNoYTEi
+			PmFmZTg1NDU5YzJlYmJiOGY3MzU4ODdmYjkyNWI4MGI4MjNlZmU1
+			NWY8L2V4dHJhY3RlZC1jaGVja3N1bT4KICAgICA8ZW5jb2Rpbmcg
+			c3R5bGU9ImFwcGxpY2F0aW9uL3gtZ3ppcCIvPgogICAgIDxzaXpl
+			PjM2MDE2PC9zaXplPgogICAgIDxvZmZzZXQ+MjA8L29mZnNldD4K
+			ICAgICA8bGVuZ3RoPjc3ODwvbGVuZ3RoPgogICAgPC9kYXRhPgog
+			ICA8L2ZpbGU+CiAgIDxmaWxlIGlkPSIzIj4KICAgIDxuYW1lPlBh
+			eWxvYWQ8L25hbWU+CiAgICA8dHlwZT5maWxlPC90eXBlPgogICAg
+			PGlub2RlPjUzMjk4MDQ3PC9pbm9kZT4KICAgIDxkZXZpY2Vubz4x
+			Njc3NzIyMDwvZGV2aWNlbm8+CiAgICA8bW9kZT4wNjQ0PC9tb2Rl
+			PgogICAgPHVpZD41MDE8L3VpZD4KICAgIDx1c2VyPnRhdW48L3Vz
+			ZXI+CiAgICA8Z2lkPjIwPC9naWQ+CiAgICA8Z3JvdXA+c3RhZmY8
+			L2dyb3VwPgogICAgPGF0aW1lPjIwMTUtMDktMDFUMTc6Mjc6MzBa
+			PC9hdGltZT4KICAgIDxtdGltZT4yMDE1LTA5LTAxVDE3OjI3OjMw
+			WjwvbXRpbWU+CiAgICA8Y3RpbWU+MjAxNS0wOS0wMVQxNzoyNzoz
+			MFo8L2N0aW1lPgogICAgPEZpbmRlckNyZWF0ZVRpbWU+CiAgICAg
+			PHRpbWU+MTk3MC0wMS0wMVQwMDowMDowMDwvdGltZT4KICAgICA8
+			bmFub3NlY29uZHM+MTQwNzMzMTkzMzg4MDMyPC9uYW5vc2Vjb25k
+			cz4KICAgIDwvRmluZGVyQ3JlYXRlVGltZT4KICAgIDxkYXRhPgog
+			ICAgIDxhcmNoaXZlZC1jaGVja3N1bSBzdHlsZT0ic2hhMSI+Yjk2
+			ZTIxMDNmMDNhNzQyODU4YjcwZDg0M2E3NzhjMDFhZmU1NDQ4MDwv
+			YXJjaGl2ZWQtY2hlY2tzdW0+CiAgICAgPGV4dHJhY3RlZC1jaGVj
+			a3N1bSBzdHlsZT0ic2hhMSI+Yjk2ZTIxMDNmMDNhNzQyODU4Yjcw
+			ZDg0M2E3NzhjMDFhZmU1NDQ4MDwvZXh0cmFjdGVkLWNoZWNrc3Vt
+			PgogICAgIDxzaXplPjIxNjc0MzM8L3NpemU+CiAgICAgPG9mZnNl
+			dD43OTg8L29mZnNldD4KICAgICA8ZW5jb2Rpbmcgc3R5bGU9ImFw
+			cGxpY2F0aW9uL29jdGV0LXN0cmVhbSIvPgogICAgIDxsZW5ndGg+
+			MjE2NzQzMzwvbGVuZ3RoPgogICAgPC9kYXRhPgogICA8L2ZpbGU+
+			CiAgIDxmaWxlIGlkPSI0Ij4KICAgIDxuYW1lPlBhY2thZ2VJbmZv
+			PC9uYW1lPgogICAgPHR5cGU+ZmlsZTwvdHlwZT4KICAgIDxkYXRh
+			PgogICAgIDxhcmNoaXZlZC1jaGVja3N1bSBzdHlsZT0ic2hhMSI+
+			MGMzYTkzNDExNTRjMmVmMTlhNTZmNWYwOGQ2ZTFmOTdlZmRiZTk0
+			MTwvYXJjaGl2ZWQtY2hlY2tzdW0+CiAgICAgPGV4dHJhY3RlZC1j
+			aGVja3N1bSBzdHlsZT0ic2hhMSI+OWVmNjk2YzkwN2NlNmRmYTY2
+			YzI1MThmMWJkMTg4ZGJmZDg3NTUyZTwvZXh0cmFjdGVkLWNoZWNr
+			c3VtPgogICAgIDxlbmNvZGluZyBzdHlsZT0iYXBwbGljYXRpb24v
+			eC1nemlwIi8+CiAgICAgPHNpemU+NDk2PC9zaXplPgogICAgIDxv
+			ZmZzZXQ+MjE2ODIzMTwvb2Zmc2V0PgogICAgIDxsZW5ndGg+MzA2
+			PC9sZW5ndGg+CiAgICA8L2RhdGE+CiAgIDwvZmlsZT4KICA8L2Zp
+			bGU+CiAgPGZpbGUgaWQ9IjUiPgogICA8bmFtZT5EaXN0cmlidXRp
+			b248L25hbWU+CiAgIDx0eXBlPmZpbGU8L3R5cGU+CiAgIDxkYXRh
+			PgogICAgPGFyY2hpdmVkLWNoZWNrc3VtIHN0eWxlPSJzaGExIj4x
+			OGE5NzEwNTgzZTZkZjFlMzA3MzI1YTBlMWY0N2Y0NGY2NWQxMzJk
+			PC9hcmNoaXZlZC1jaGVja3N1bT4KICAgIDxleHRyYWN0ZWQtY2hl
+			Y2tzdW0gc3R5bGU9InNoYTEiPjc3NGZmZjg3MmJmZTYzODAxNjM2
+			ZmE2MmIwOWRlYjM0YWRiYjBlYmU8L2V4dHJhY3RlZC1jaGVja3N1
+			bT4KICAgIDxlbmNvZGluZyBzdHlsZT0iYXBwbGljYXRpb24veC1n
+			emlwIi8+CiAgICA8c2l6ZT43NDg8L3NpemU+CiAgICA8b2Zmc2V0
+			PjIxNjg1Mzc8L29mZnNldD4KICAgIDxsZW5ndGg+MzAxPC9sZW5n
+			dGg+CiAgIDwvZGF0YT4KICA8L2ZpbGU+CiA8L3RvYz4KPC94YXI+
+			Cg==
+			</data>
+		</dict>
+	</dict>
+	<key>product-signature</key>
+	<dict>
+		<key>certificate-chain</key>
+		<array/>
+		<key>contents-verified</key>
+		<true/>
+		<key>signature-verified</key>
+		<false/>
+		<key>trust-level</key>
+		<string>NotSigned</string>
+		<key>validated</key>
+		<false/>
+	</dict>
+	<key>tool-version</key>
+	<string>1.2.640</string>
+	<key>xcode-versions</key>
+	<array>
+		<dict>
+			<key>path</key>
+			<string>/Applications/Xcode.app</string>
+			<key>version.plist</key>
+			<dict>
+				<key>BuildVersion</key>
+				<string>8</string>
+				<key>CFBundleShortVersionString</key>
+				<string>6.4</string>
+				<key>CFBundleVersion</key>
+				<string>7720</string>
+				<key>ProductBuildVersion</key>
+				<string>6E35b</string>
+				<key>ProjectName</key>
+				<string>IDEFrameworks</string>
+				<key>SourceVersion</key>
+				<string>7720000000000000</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>path</key>
+			<string>/Applications/Xcode-beta.app</string>
+			<key>version.plist</key>
+			<dict>
+				<key>BuildVersion</key>
+				<string>2</string>
+				<key>CFBundleShortVersionString</key>
+				<string>7.0</string>
+				<key>CFBundleVersion</key>
+				<string>8208.9</string>
+				<key>ProductBuildVersion</key>
+				<string>7A192o</string>
+				<key>ProjectName</key>
+				<string>IDEFrameworks</string>
+				<key>SourceVersion</key>
+				<string>8208009000000000</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
+
+[2015-09-01 14:05:40 EDT] <main> DEBUG: Asset successfully described: com.apple.jingle.leghorn.software.AbstractSoftwareDescriber$1@4e124a9
+[2015-09-01 14:05:40 EDT] <main>  INFO: Asset media analysis has completed
+[2015-09-01 14:05:40 EDT] <main> DBG-X: Memory: [JVM] 37M free, 78M total, 910M max [System] (Physical) 543M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:40 EDT] <main> DBG-X: Using operation named: lookupTransportDiagnostic
+[2015-09-01 14:05:40 EDT] <main> DBG-X: Apple's web service operation input parameters:
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter Application = iTMSTransporter
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter BaseVersion = 1.8.3
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter Client = Application Loader
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter ClientVersion = 3.1 (670)
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter OSIdentifier = Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter TransporterArguments = -m upload -u tchapman@moedae.com -p **hidden value** -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp -indicator true -v eXtreme -Dtransporter.client=Application Loader -Dtransporter.client.version=3.1 (670)
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter Username = tchapman@moedae.com
+[2015-09-01 14:05:40 EDT] <main> DBG-X:   parameter Version = 1.8.5
+[2015-09-01 14:05:40 EDT] <main>  INFO: id = 20150901140540-123
+[2015-09-01 14:05:41 EDT] <main> DBG-X: Apple's web service operation return value:
+[2015-09-01 14:05:41 EDT] <main> DBG-X:   parameter SigniantLoggingLevel = OFF
+[2015-09-01 14:05:41 EDT] <main> DBG-X:   parameter ApplicationSettings = {ShouldPricingTabBeDisplayed=true, IsVendorIDEditablePreferenceEnabled=true, SkipValidateProductErrors=true, SkipValidateFirenzeSPIUsage=false, MZWebServiceTimeOut=900, SkipValidatePurpleSPIUsage=false, IsDisplayArtistVisible=false, IsEnabledForMasteredForItunes=false, MZWebServiceValidateSoftwareSPIUsageMaximumSize=1048576, IsISBNOptional=true, PerformServerVerification=true, VerifyZipIntegrity=true, BookSeriesSequenceNumberFormatter=#.#;0;#0.#, IsPublicationDateOptional=false, softwareUserGuideFilePath=https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf, AllowPublicationPreorderWithoutAssets=false, ITunesSoftwareServiceAllowedPlatforms=[{sdkID=com.apple.platform.iphoneos, validationMethod=ios, xmlID=ios, platformDirectory=iPhoneOS.platform, serverID=Purple, type=1, displayName=iOS App, platformCriteria={plistEntries={LSRequiresIPhoneOS=, MinimumOSVersion=}}}, {sdkID=com.apple.platform.macosx, validationMethod=osx, xmlID=osx, platformDirectory=MacOSX.platform, serverID=Firenze, type=2, displayName=Mac OS X App, platformCriteria={plistEntries={LSMinimumSystemVersion=}}}, {validationMethod=iap, serverID=InAppPurchase, type=3, displayName=In-App Purchase}, {sdkID=com.apple.platform.watchos, validationMethod=ios, platformDirectory=WatchOS.platform, type=6, displayName=watchOS, platformCriteria={}}], TerritoriesAllowedToAlterPlusQuality=[JP]}
+[2015-09-01 14:05:41 EDT] <main> DBG-X:   parameter AsperaLoggingLevel = OFF
+[2015-09-01 14:05:41 EDT] <main> DBG-X:   testing host/port: vgr106.apple.com/33001
+[2015-09-01 14:05:43 EDT] <aspera.util.SelectThread>  INFO: The upload of the file named /var/folders/1s/7h4qct5d6ts4y69z6sd51dw00000gn/T/45e6ecb1-c983-4bb7-aa5a-2238ed33b43f343246756817580621dir/1da6011d-8f20-49ef-8166-4d4c646402212334019076219038709.txt has started.
+[2015-09-01 14:05:43 EDT] <aspera.util.SelectThread>  INFO:      File: /var/folders/1s/7h4qct5d6ts4y69z6sd51dw00000gn/T/45e6ecb1-c983-4bb7-aa5a-2238ed33b43f343246756817580621dir/1da6011d-8f20-49ef-8166-4d4c646402212334019076219038709.txt 11/11, 100% completed
+[2015-09-01 14:05:43 EDT] <aspera.util.SelectThread>  INFO: The status is FINISHED for the file named /var/folders/1s/7h4qct5d6ts4y69z6sd51dw00000gn/T/45e6ecb1-c983-4bb7-aa5a-2238ed33b43f343246756817580621dir/1da6011d-8f20-49ef-8166-4d4c646402212334019076219038709.txt.
+[2015-09-01 14:05:43 EDT] <main>  INFO: The session's final state is Complete
+[2015-09-01 14:05:43 EDT] <main>  INFO: Number of files transferred: 1 .  Names of files transferred:
+[2015-09-01 14:05:43 EDT] <main>  INFO:     /var/folders/1s/7h4qct5d6ts4y69z6sd51dw00000gn/T/45e6ecb1-c983-4bb7-aa5a-2238ed33b43f343246756817580621dir/1da6011d-8f20-49ef-8166-4d4c646402212334019076219038709.txt - Complete
+[2015-09-01 14:05:43 EDT] <main> DEBUG: Using token file path /Users/taun/.itmstransporter/UploadTokens/ganymede.local_TaunChapman226603837_FractalScapesMDA00004.itmsp.token
+[2015-09-01 14:05:43 EDT] <main> DEBUG: Attempting exclusive file lock on token file
+[2015-09-01 14:05:43 EDT] <main> DEBUG: Set token: 91f48efb-719e-454f-a37d-ac166e885654/1441130739458
+[2015-09-01 14:05:43 EDT] <main> DBG-X: Memory: [JVM] 31M free, 78M total, 910M max [System] (Physical) 536M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:43 EDT] <main> DBG-X: Deflated 19983 bytes to 4816
+[2015-09-01 14:05:44 EDT] <main> DBG-X: Deflated 11670 bytes to 3481
+[2015-09-01 14:05:44 EDT] <main> DBG-X: Using operation named: validateAssets
+[2015-09-01 14:05:44 EDT] <main> DBG-X: Apple's web service operation input parameters:
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter Application = iTMSTransporter
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter BaseVersion = 1.8.3
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter CPUToken = 91f48efb-719e-454f-a37d-ac166e885654/1441130739458
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter Client = Application Loader
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter ClientVersion = 3.1 (670)
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter Files = [1__#$!@%!#__machine-local-data.xml, FractalScapesIAPAluminumColorPak1.pkg, iPhone6AddColorPak-1.png, iPhone6AddColorPak.png, machine-local-data.xml, metadata.xml]
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter MetadataChecksum = feab812f3f4d6f81af064909ad6114f1
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter MetadataCompressed = (suppressed)
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter OSIdentifier = Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter PackageName = FractalScapesMDA00004.itmsp
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter PackageSize = 2191829
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter Transport = Aspera
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter TransporterArguments = -m upload -u tchapman@moedae.com -p **hidden value** -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp -indicator true -v eXtreme -Dtransporter.client=Application Loader -Dtransporter.client.version=3.1 (670)
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter Username = tchapman@moedae.com
+[2015-09-01 14:05:44 EDT] <main> DBG-X:   parameter Version = 1.8.5
+[2015-09-01 14:05:44 EDT] <main>  INFO: id = 20150901140544-516
+[2015-09-01 14:05:54 EDT] <main> DBG-X: Apple's web service operation return value:
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter SigniantLoggingLevel = INFO
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter WebDavFolderPath = /4/TaunChapman226603837/uploading
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter TransportHosts = [vgr106.apple.com, vgr104.apple.com, vgr103.apple.com, vgr105.apple.com]
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter ProviderName = TaunChapman226603837
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter WebDavServerName = https://itmsdav.apple.com:443
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter Checksums = {FractalScapesIAPAluminumColorPak1.pkg=6595d44a2868be820cc810c5c9d7a2ac}
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter MinimumFileSizeThresholdForCheckum = 104857600
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter CPUToken = fe0ede77-82e6-45a5-8d88-f4d96c09743e/1441130745797
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter AssetsToDescribe = [{UTI=com.apple.pkg, Role=source, ShouldDescribeAsset=true, Filename=FractalScapesIAPAluminumColorPak1.pkg}]
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter FileSizes = {FractalScapesIAPAluminumColorPak1.pkg=2171846}
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter ProviderNameForToken = TaunChapman226603837
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter ApplicationSettings = {ShouldPricingTabBeDisplayed=true, IsVendorIDEditablePreferenceEnabled=true, SkipValidateProductErrors=true, SkipValidateFirenzeSPIUsage=false, MZWebServiceTimeOut=900, SkipValidatePurpleSPIUsage=false, IsDisplayArtistVisible=false, IsEnabledForMasteredForItunes=false, MZWebServiceValidateSoftwareSPIUsageMaximumSize=1048576, IsISBNOptional=true, PerformServerVerification=true, VerifyZipIntegrity=true, BookSeriesSequenceNumberFormatter=#.#;0;#0.#, IsPublicationDateOptional=false, softwareUserGuideFilePath=https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf, AllowPublicationPreorderWithoutAssets=false, ITunesSoftwareServiceAllowedPlatforms=[{sdkID=com.apple.platform.iphoneos, validationMethod=ios, xmlID=ios, platformDirectory=iPhoneOS.platform, serverID=Purple, type=1, displayName=iOS App, platformCriteria={plistEntries={LSRequiresIPhoneOS=, MinimumOSVersion=}}}, {sdkID=com.apple.platform.macosx, validationMethod=osx, xmlID=osx, platformDirectory=MacOSX.platform, serverID=Firenze, type=2, displayName=Mac OS X App, platformCriteria={plistEntries={LSMinimumSystemVersion=}}}, {validationMethod=iap, serverID=InAppPurchase, type=3, displayName=In-App Purchase}, {sdkID=com.apple.platform.watchos, validationMethod=ios, platformDirectory=WatchOS.platform, type=6, displayName=watchOS, platformCriteria={}}], TerritoriesAllowedToAlterPlusQuality=[JP]}
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter TransportHost = vgr105.apple.com
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter Success = true
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter TransportPort = 33001
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter FilesToUpload = [metadata.xml, FractalScapesIAPAluminumColorPak1.pkg]
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter ResumeFlag = false
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter NewPackageName = FractalScapesMDA00004-20150901110546-611.itmsp
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter TransportUser = transporter
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   parameter TransportPath = vgr1_pod2/transporter/content/transporter/TaunChapman226603837
+[2015-09-01 14:05:54 EDT] <main> DBG-X: Existing token found, cleaning up
+[2015-09-01 14:05:54 EDT] <main> DBG-X: Unlocking token at path /Users/taun/.itmstransporter/UploadTokens/ganymede.local_TaunChapman226603837_FractalScapesMDA00004.itmsp.token
+[2015-09-01 14:05:54 EDT] <main> DBG-X: Releasing token file lock
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Using token file path /Users/taun/.itmstransporter/UploadTokens/ganymede.local_TaunChapman226603837_FractalScapesMDA00004.itmsp.token
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Attempting exclusive file lock on token file
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Set token: fe0ede77-82e6-45a5-8d88-f4d96c09743e/1441130745797
+[2015-09-01 14:05:54 EDT] <main>  INFO: The list of files requested for upload by Apple is: [metadata.xml, FractalScapesIAPAluminumColorPak1.pkg].  These are the files that will be uploaded.
+[2015-09-01 14:05:54 EDT] <main>  INFO: Done performing authentication.
+[2015-09-01 14:05:54 EDT] <main>  INFO: The asset replacement verification check is disabled.
+[2015-09-01 14:05:54 EDT] <main>  INFO: Checking the file size of the files: [FractalScapesIAPAluminumColorPak1.pkg]
+[2015-09-01 14:05:54 EDT] <main> DBG-X:  Checking the size of file: FractalScapesIAPAluminumColorPak1.pkg
+[2015-09-01 14:05:54 EDT] <main>  INFO: Done checking the file sizes.
+[2015-09-01 14:05:54 EDT] <main>  INFO: Apple's web service did not return any cover images to be validated.
+[2015-09-01 14:05:54 EDT] <main>  INFO: Checking the md5 checksum of the files: [FractalScapesIAPAluminumColorPak1.pkg]
+[2015-09-01 14:05:54 EDT] <main> DBG-X:  Checking the MD5 checksum of file: FractalScapesIAPAluminumColorPak1.pkg
+[2015-09-01 14:05:54 EDT] <main>  INFO: Done checking the md5 checksum.
+[2015-09-01 14:05:54 EDT] <main>  INFO: Preparing to upload package FractalScapesMDA00004.itmsp ...
+[2015-09-01 14:05:54 EDT] <main>  INFO: Determining which files should be uploaded ...
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Valid local files will be checked:
+[/Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/metadata.xml, /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg]
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Remote files uploaded:
+[]
+[2015-09-01 14:05:54 EDT] <main> DBG-X: Examining working file: metadata.xml
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Adding file to be uploaded: metadata.xml
+[2015-09-01 14:05:54 EDT] <main> DBG-X: Examining working file: FractalScapesIAPAluminumColorPak1.pkg
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Adding file to be uploaded: FractalScapesIAPAluminumColorPak1.pkg
+[2015-09-01 14:05:54 EDT] <main>  INFO: Finished determining which files should be uploaded.
+[2015-09-01 14:05:54 EDT] <main> DBG-X: ITMSPackage: files to be uploaded:
+[/Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/metadata.xml, /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg]
+[2015-09-01 14:05:54 EDT] <main>  INFO: Starting to upload the package's files (FractalScapesMDA00004.itmsp) ...
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Resetting sizes for progress logging
+[2015-09-01 14:05:54 EDT] <main>  INFO: Computing total size of files to upload ...
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   adding file for % complete logging: metadata.xml , size: 19983
+[2015-09-01 14:05:54 EDT] <main> DBG-X:   adding file for % complete logging: FractalScapesIAPAluminumColorPak1.pkg , size: 2171846
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Setting total size of files for upload to: 2191829
+[2015-09-01 14:05:54 EDT] <main>  INFO: Done computing total size of files to upload.
+[2015-09-01 14:05:54 EDT] <main> DEBUG: Using Aspera server 'vgr105.apple.com' for the upload.
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread>  INFO: The upload of the file named /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/metadata.xml has started.
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X: Memory: [JVM] 15M free, 78M total, 910M max [System] (Physical) 546M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X: Using operation named: assignTransportPodToUpload
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X: Apple's web service operation input parameters:
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter Application = iTMSTransporter
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter BaseVersion = 1.8.3
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter CPUToken = fe0ede77-82e6-45a5-8d88-f4d96c09743e/1441130745797
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter Client = Application Loader
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter ClientVersion = 3.1 (670)
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter NewPackageName = FractalScapesMDA00004-20150901110546-611.itmsp
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter OSIdentifier = Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter Pod = Newark Aspera 5
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter Transport = Aspera
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter TransporterArguments = -m upload -u tchapman@moedae.com -p **hidden value** -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp -indicator true -v eXtreme -Dtransporter.client=Application Loader -Dtransporter.client.version=3.1 (670)
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter Username = tchapman@moedae.com
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter Version = 1.8.5
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread>  INFO: id = 20150901140555-540
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X: Apple's web service operation return value:
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter ApplicationSettings = {ShouldPricingTabBeDisplayed=true, IsVendorIDEditablePreferenceEnabled=true, SkipValidateProductErrors=true, SkipValidateFirenzeSPIUsage=false, MZWebServiceTimeOut=900, SkipValidatePurpleSPIUsage=false, IsDisplayArtistVisible=false, IsEnabledForMasteredForItunes=false, MZWebServiceValidateSoftwareSPIUsageMaximumSize=1048576, IsISBNOptional=true, PerformServerVerification=true, VerifyZipIntegrity=true, BookSeriesSequenceNumberFormatter=#.#;0;#0.#, IsPublicationDateOptional=false, softwareUserGuideFilePath=https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf, AllowPublicationPreorderWithoutAssets=false, ITunesSoftwareServiceAllowedPlatforms=[{sdkID=com.apple.platform.iphoneos, validationMethod=ios, xmlID=ios, platformDirectory=iPhoneOS.platform, serverID=Purple, type=1, displayName=iOS App, platformCriteria={plistEntries={LSRequiresIPhoneOS=, MinimumOSVersion=}}}, {sdkID=com.apple.platform.macosx, validationMethod=osx, xmlID=osx, platformDirectory=MacOSX.platform, serverID=Firenze, type=2, displayName=Mac OS X App, platformCriteria={plistEntries={LSMinimumSystemVersion=}}}, {validationMethod=iap, serverID=InAppPurchase, type=3, displayName=In-App Purchase}, {sdkID=com.apple.platform.watchos, validationMethod=ios, platformDirectory=WatchOS.platform, type=6, displayName=watchOS, platformCriteria={}}], TerritoriesAllowedToAlterPlusQuality=[JP]}
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread> DBG-X:   parameter Success = true
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread>  INFO: The upload of the file named /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg has started.
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread>  INFO:      File: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/metadata.xml 19983/19983, 100% completed
+[2015-09-01 14:05:55 EDT] <aspera.util.SelectThread>  INFO: The status is FINISHED for the file named /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/metadata.xml.
+[2015-09-01 14:05:56 EDT] <aspera.util.SelectThread>  INFO:      File: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg 195088/2171846, 8% completed
+[2015-09-01 14:05:57 EDT] <aspera.util.SelectThread>  INFO:      File: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg 596656/2171846, 27% completed
+[2015-09-01 14:05:58 EDT] <aspera.util.SelectThread>  INFO:      File: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg 1492352/2171846, 68% completed
+[2015-09-01 14:05:58 EDT] <aspera.util.SelectThread>  INFO:      File: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg 2171846/2171846, 100% completed
+[2015-09-01 14:05:58 EDT] <aspera.util.SelectThread>  INFO: The status is FINISHED for the file named /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg.
+[2015-09-01 14:05:58 EDT] <main>  INFO: The session's final state is Complete
+[2015-09-01 14:05:58 EDT] <main>  INFO: Number of files transferred: 2 .  Names of files transferred:
+[2015-09-01 14:05:58 EDT] <main>  INFO:     /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/FractalScapesIAPAluminumColorPak1.pkg - Complete
+[2015-09-01 14:05:58 EDT] <main>  INFO:     /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp/metadata.xml - Complete
+[2015-09-01 14:05:58 EDT] <main>  INFO: The package's files (FractalScapesMDA00004.itmsp) uploaded successfully.
+[2015-09-01 14:05:58 EDT] <main>  INFO: Done performing upload.
+[2015-09-01 14:05:58 EDT] <main> DBG-X: The transfer time for the package FractalScapesMDA00004.itmsp was 4353 milliseconds.
+[2015-09-01 14:05:58 EDT] <main> DBG-X: Throughput information for FractalScapesMDA00004.itmsp: 0 minutes, 4.35 seconds, 2.09MB, 491.72KB/sec
+
+[2015-09-01 14:05:58 EDT] <main>  INFO: Performing uploadDone notification to Apple for package FractalScapesMDA00004.itmsp ...
+[2015-09-01 14:05:58 EDT] <main> DBG-X: Memory: [JVM] 13M free, 78M total, 910M max [System] (Physical) 545M free, 16384M total (Swap) 1013M free, 1024M total
+[2015-09-01 14:05:58 EDT] <main> DBG-X: Deflated 57544 bytes to 14444
+[2015-09-01 14:05:58 EDT] <main> DBG-X: Deflated 13533 bytes to 3024
+[2015-09-01 14:05:58 EDT] <main> DBG-X: Using operation named: uploadDoneWithArguments
+[2015-09-01 14:05:58 EDT] <main> DBG-X: Apple's web service operation input parameters:
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter Application = iTMSTransporter
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter BaseVersion = 1.8.3
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter CPUToken = fe0ede77-82e6-45a5-8d88-f4d96c09743e/1441130745797
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter Client = Application Loader
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter ClientChecksumInfo = [{FileSize=2171846, CalculatedChecksum=6595d44a2868be820cc810c5c9d7a2ac, FileLastModified=1441128450000, Filename=FractalScapesIAPAluminumColorPak1.pkg, CalculationTime=6}]
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter ClientVersion = 3.1 (670)
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter ExtraTransportLogCompressed = (suppressed)
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter FileSizeInfo = {metadata.xml=19983, FractalScapesIAPAluminumColorPak1.pkg=2171846}
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter NewPackageName = FractalScapesMDA00004-20150901110546-611.itmsp
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter NumberBytesTransferred = 2191829
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter OSIdentifier = Mac OS X 10.10.5 (x86_64); jvm=24.80-b07; jre=1.7.0-internal-root_2015_01_13_21_57-b00
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter PackagePathWithoutBase = vgr1_pod2/transporter/content/transporter/TaunChapman226603837
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter TransferTime = 4353
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter Transport = Aspera
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter TransportLogCompressed = (suppressed)
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter TransporterArguments = -m upload -u tchapman@moedae.com -p **hidden value** -f /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp -indicator true -v eXtreme -Dtransporter.client=Application Loader -Dtransporter.client.version=3.1 (670)
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter Username = tchapman@moedae.com
+[2015-09-01 14:05:58 EDT] <main> DBG-X:   parameter Version = 1.8.5
+[2015-09-01 14:05:58 EDT] <main>  INFO: id = 20150901140558-861
+[2015-09-01 14:06:03 EDT] <main> DBG-X: Apple's web service operation return value:
+[2015-09-01 14:06:03 EDT] <main> DBG-X:   parameter ApplicationSettings = {ShouldPricingTabBeDisplayed=true, IsVendorIDEditablePreferenceEnabled=true, SkipValidateProductErrors=true, SkipValidateFirenzeSPIUsage=false, MZWebServiceTimeOut=900, SkipValidatePurpleSPIUsage=false, IsDisplayArtistVisible=false, IsEnabledForMasteredForItunes=false, MZWebServiceValidateSoftwareSPIUsageMaximumSize=1048576, IsISBNOptional=true, PerformServerVerification=true, VerifyZipIntegrity=true, BookSeriesSequenceNumberFormatter=#.#;0;#0.#, IsPublicationDateOptional=false, softwareUserGuideFilePath=https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf, AllowPublicationPreorderWithoutAssets=false, ITunesSoftwareServiceAllowedPlatforms=[{sdkID=com.apple.platform.iphoneos, validationMethod=ios, xmlID=ios, platformDirectory=iPhoneOS.platform, serverID=Purple, type=1, displayName=iOS App, platformCriteria={plistEntries={LSRequiresIPhoneOS=, MinimumOSVersion=}}}, {sdkID=com.apple.platform.macosx, validationMethod=osx, xmlID=osx, platformDirectory=MacOSX.platform, serverID=Firenze, type=2, displayName=Mac OS X App, platformCriteria={plistEntries={LSMinimumSystemVersion=}}}, {validationMethod=iap, serverID=InAppPurchase, type=3, displayName=In-App Purchase}, {sdkID=com.apple.platform.watchos, validationMethod=ios, platformDirectory=WatchOS.platform, type=6, displayName=watchOS, platformCriteria={}}], TerritoriesAllowedToAlterPlusQuality=[JP]}
+[2015-09-01 14:06:03 EDT] <main> DBG-X:   parameter Success = true
+[2015-09-01 14:06:03 EDT] <main> DBG-X: Unlocking token at path /Users/taun/.itmstransporter/UploadTokens/ganymede.local_TaunChapman226603837_FractalScapesMDA00004.itmsp.token
+[2015-09-01 14:06:03 EDT] <main> DBG-X: Releasing token file lock
+[2015-09-01 14:06:03 EDT] <main> DBG-X: Removing token at path /Users/taun/.itmstransporter/UploadTokens/ganymede.local_TaunChapman226603837_FractalScapesMDA00004.itmsp.token
+[2015-09-01 14:06:03 EDT] <main>  INFO: Done performing uploadDone notification to Apple.
+[2015-09-01 14:06:03 EDT] <main>  INFO: The package: /Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp has been successfully uploaded.
+[2015-09-01 14:06:03 EDT] <main> DBG-X: Returning 0
+
+
+
+
+Package Summary:
+ 
+1 packages were uploaded successfully:
+	/Users/taun/Documents/Application Loader/Packages/FractalScapesMDA00004.itmsp

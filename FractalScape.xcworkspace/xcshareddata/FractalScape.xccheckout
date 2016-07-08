@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8B59D33D-89E0-4BA7-8104-B841D72A043D</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E</key>
+		<string>ssh://srv.moedae.net:2609/srv/gitroot/moedae/apple/landscaperdemo.git</string>
+		<key>BB8F212FAC8DED679E22BAE5A39386D4426A6BFE</key>
+		<string>ssh://srv.moedae.net:2609/srv/gitroot/moedae/apple/MDUiKit.git</string>
+	</dict>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E</key>
+		<string>FractalScape/</string>
+		<key>BB8F212FAC8DED679E22BAE5A39386D4426A6BFE</key>
+		<string>FractalScape/FractalScape/MDUiKitFramework/</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://srv.moedae.net:2609/srv/gitroot/moedae/apple/landscaperdemo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4F70520DDFD6FD0886F1F55FE4C5E54A36EC3E8E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FractalScape</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BB8F212FAC8DED679E22BAE5A39386D4426A6BFE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MDUiKitFramework</string>
+		</dict>
+	</array>
+</dict>
+</plist>

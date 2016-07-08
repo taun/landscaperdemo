@@ -1,0 +1,15 @@
+Create fun beautiful interactive fractal designs for the iPad and iPhone. FractalScapes helps non-artists create art.
+
+FractalScapes helps you create beautiful, interesting, geometric and plant like fractals. You can start from a blank canvas, use the provided samples or start with someone else's fractal shared in the cloud.
+
+FractalScapes is the only fractal application which uses the iOS touch interface to let you change the rules for creating the fractal using drag and drop. Please see our video for an example of using your finger to rearrange the fractal rules and create totally new fractals with ease. 
+
+Sharing:
+
+There are many ways to share and use your creations. You can,
+
+* export as a vector PDF then import into a vector drawing package
+* export as a PNG with a transparent background then post to sharing sites or import into a drawing package and create forest.
+* share to the FractalScapes cloud where others can find and appreciate your creations.
+
+** NOTE: The iPhone version is meant as a companion for the iPad app. The iPhone version is good for viewing or tweaking fractals created on the iPad. While you can edit fractals on an iPhone 4 or 5, it is not recommended. For editing, you should have an iPhone 6 or bigger. The touch interface on iPad 2 or iPhone 4 is not as responsive as the newer devices.
