@@ -10,7 +10,7 @@
 @import UIKit;
 #import "MDBNavConTransitionCoordinator.h"
 
-@class MDBDocumentController;
+@class MDBFractalInfo;
 
 
 @protocol MDBFractalLibraryCollectionDelegate <NSObject>
@@ -23,9 +23,9 @@
 
 @interface MDBFractalLibraryCollectionSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property(nonatomic,weak) IBOutlet UIViewController<MDBFractalLibraryCollectionDelegate>     *viewController;
-@property(nonatomic,weak) MDBDocumentController                                             *documentController;
+@property(nonatomic,weak) IBOutlet UIViewController<MDBFractalLibraryCollectionDelegate>    *viewController;
 @property(nonatomic,assign) NSInteger                                                       rowCount;
+@property (atomic,strong) NSMutableArray <MDBFractalInfo*>                                  *sourceInfos;
 
 
 @end

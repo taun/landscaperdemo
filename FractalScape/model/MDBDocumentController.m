@@ -60,7 +60,7 @@
         
         _documentCoordinator.delegate = self;
         
-        [_documentCoordinator startQuery];
+//        [_documentCoordinator startQuery];
     }
     
     return self;
@@ -76,6 +76,14 @@
     //    NSString* ddesc = [NSString stringWithFormat: @"Name: %@\nDescription: %@\nLevels: %lu\nStarting Rules: %@\nReplacement Rules: %@",_name,_descriptor,_level,[self startingRulesAsString],[self replacementRulesAsPListArray]];
     NSString* ddesc = [NSString stringWithFormat: @"FractalInfos: %@",_fractalInfos];
     return ddesc;
+}
+
+-(void)closeAllDocuments
+{
+    for (MDBFractalInfo* info in self.fractalInfos)
+    {
+        [info closeDocument];
+    }
 }
 
 -(void)dealloc
@@ -110,9 +118,10 @@
         oldDocumentCoordinator.delegate = nil;
         _documentCoordinator.delegate = self;
         
-        [_documentCoordinator startQuery];
+//        [_documentCoordinator startQuery];
     }
 }
+
 
 #pragma mark - Subscripting
 /*!
@@ -206,7 +215,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [newFractalInfo.document saveToURL: newFractalInfo.document.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
                 
-                if (success)
+                if (success && !self.documentCoordinator.isCloudBased)
                 {
                     [self willChange: NSKeyValueChangeInsertion valuesAtIndexes: [NSIndexSet indexSetWithIndex: 0] forKey:@"fractalInfos"];
                     
@@ -496,17 +505,18 @@
         }
     }
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self willChange: NSKeyValueChangeInsertion valuesAtIndexes: sortedIndexes forKey:@"fractalInfos"];
-        {
-            [sortedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                MDBFractalInfo* infoToInsert = integratedSortedFractalInfos[idx];
+    [sortedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        MDBFractalInfo* infoToInsert = integratedSortedFractalInfos[idx];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            {
+                NSIndexSet* indexSet = [NSIndexSet indexSetWithIndex: idx];
+                [self willChange: NSKeyValueChangeInsertion valuesAtIndexes: indexSet forKey:@"fractalInfos"];
                 [self.fractalInfos insertObject: infoToInsert atIndex: idx];
-            }];
-        }
-        [self didChange: NSKeyValueChangeInsertion valuesAtIndexes: sortedIndexes forKey:@"fractalInfos"];
-    });
-
+                [self didChange: NSKeyValueChangeInsertion valuesAtIndexes: indexSet forKey:@"fractalInfos"];
+            }
+        });
+    }];
+    
 }
 
 #pragma mark - Convenience

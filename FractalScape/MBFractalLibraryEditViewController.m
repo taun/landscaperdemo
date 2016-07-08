@@ -46,6 +46,11 @@
     }
 }
 
+-(void)dealloc
+{
+    
+}
+
 -(void) rightButtonsEnabledState: (BOOL)state
 {
     self.deleteButton.enabled = state;

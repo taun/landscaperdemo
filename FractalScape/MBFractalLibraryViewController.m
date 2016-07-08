@@ -114,7 +114,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     _isAppeared = YES;
     
-    [self.appModel.documentController.documentCoordinator startQuery];
+//    [self.appModel.documentController.documentCoordinator startQuery];
 }
 
 - (IBAction)unwindFromWelcome:(UIStoryboardSegue *)segue
@@ -149,7 +149,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     { // which it always should be
         
         MBLSFractalEditViewController* editor = (MBLSFractalEditViewController*)sourceViewController;
-        MDBFractalDocument* tempDocument = editor.fractalInfo.document;
+        id<MDBFractaDocumentProtocol> tempDocument = editor.fractalInfo.document;
         editor.fractalInfo = nil;
         
         [tempDocument closeWithCompletionHandler:^(BOOL success) {
@@ -249,6 +249,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     
     if (newController != nil && newController != [NSNull null])
     {
+        [self.collectionSource.sourceInfos  removeAllObjects];
+        
         [self.kvoController observe: newController
                             keyPath: @"fractalInfos"
                             options: 0
@@ -258,8 +260,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
                             keyPath: @"documentCoordinator"
                             options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                              action: @selector(propertyAppDocumentCoordinatorDidChange:object:)];
-        
-        self.collectionSource.documentController = newController;
     }
 }
 
@@ -271,6 +271,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     if (oldCoordinator != nil && oldCoordinator != [NSNull null])
     {
         [self.kvoController unobserve: oldCoordinator];
+        [oldCoordinator stopQuery];
     }
     
     if (newCoordinator != nil && newCoordinator != [NSNull null])
@@ -282,10 +283,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": title}];
         }
         
-        if (_isAppeared)
+        if ((YES) || _isAppeared)
         {
             [self.collectionView reloadData];
-//            [self->_appModel.documentController.documentCoordinator startQuery];
+            [self->_appModel.documentController.documentCoordinator startQuery];
         }
     }
 }
@@ -316,23 +317,51 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         if (changeKind == NSKeyValueChangeInsertion) {
             //
             //                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
-            [self.collectionView insertItemsAtIndexPaths: indexPaths];
-            NSIndexPath* firstPath = [indexPaths firstObject];
-            if (firstPath && firstPath.row == 0)
-            {
-                [self.collectionView scrollToItemAtIndexPath: firstPath atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
-            }
+            [self.collectionView performBatchUpdates:^{
+                NSArray* infoSource = self.appModel.documentController.fractalInfos;
+                MDBFractalLibraryCollectionSource* source = (MDBFractalLibraryCollectionSource*)self.collectionView.dataSource;
+                NSMutableArray* infoDestination = source.sourceInfos;
+                
+                [infoDestination insertObjects: [infoSource objectsAtIndexes: changes] atIndexes: changes];
+                
+                [self.collectionView insertItemsAtIndexPaths: indexPaths];
+            } completion:^(BOOL finished) {
+                NSIndexPath* firstPath = [indexPaths firstObject];
+                if (firstPath && firstPath.row == 0)
+                {
+                    [self.collectionView scrollToItemAtIndexPath: firstPath atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
+                }
+            }];
         }
         else if (changeKind == NSKeyValueChangeRemoval)
         {
-            [self.collectionView deleteItemsAtIndexPaths: indexPaths];
+            [self.collectionView performBatchUpdates:^{
+                MDBFractalLibraryCollectionSource* source = (MDBFractalLibraryCollectionSource*)self.collectionView.dataSource;
+                NSMutableArray* infoDestination = source.sourceInfos;
+                
+                [infoDestination removeObjectsAtIndexes: changes];
+                
+                [self.collectionView deleteItemsAtIndexPaths: indexPaths];
+            } completion:^(BOOL finished) {
+                //
+            }];
         }
         else if (changeKind == NSKeyValueChangeReplacement)
         {
 #pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
             if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]])
             {
-                [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+                [self.collectionView performBatchUpdates:^{
+                    NSArray* infoSource = self.appModel.documentController.fractalInfos;
+                    MDBFractalLibraryCollectionSource* source = (MDBFractalLibraryCollectionSource*)self.collectionView.dataSource;
+                    NSMutableArray* infoDestination = source.sourceInfos;
+                    
+                    [infoDestination replaceObjectsAtIndexes: changes withObjects: [infoSource objectsAtIndexes: changes]];
+                    
+                    [self.collectionView reloadItemsAtIndexPaths: indexPaths];
+                } completion:^(BOOL finished) {
+                    //
+                }];
             }
         }
     }
@@ -513,6 +542,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         MBFractalLibraryViewController* libraryViewController = (MBFractalLibraryViewController *)segue.destinationViewController;
         libraryViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
         libraryViewController.appModel = self.appModel;
+        MDBFractalLibraryCollectionSource* dataSource = (MDBFractalLibraryCollectionSource*)libraryViewController.collectionView.dataSource;
+        MDBFractalLibraryCollectionSource* mySource = (MDBFractalLibraryCollectionSource*)self.collectionView.dataSource;
+        dataSource.sourceInfos = [mySource.sourceInfos mutableCopy];
+        
         CGPoint scrollOffset = self.collectionView.contentOffset;
         libraryViewController.initialContentOffset = scrollOffset;
     }

@@ -338,7 +338,7 @@
                 
                 [appModel.documentController setFractalInfoHasNewContents: fractalInfo];
                 
-                [fractalInfo.document closeWithCompletionHandler:nil];
+                [fractalInfo closeDocument];
                 
                 [self.collectionView deselectItemAtIndexPath: path animated: YES];
             }

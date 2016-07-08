@@ -1608,7 +1608,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z1E-Yr-P2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000003" id="foF-dM-5lu" userLabel="Source Filters Long Press">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000001" id="foF-dM-5lu" userLabel="Source Filters Long Press">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="mtR-yj-lqv" id="qxx-zz-XY0"/>
                     </connections>
@@ -1965,7 +1965,7 @@ Drag icon to holder below to apply effect</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL2-QH-oX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SUr-BP-LKd" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000003" id="GOJ-hO-oEe" userLabel="Rule Type Long Gesture">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000001" id="GOJ-hO-oEe" userLabel="Rule Type Long Gesture">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="bDY-89-tKS" id="psL-4m-kmh"/>
                     </connections>
@@ -2454,7 +2454,7 @@ Drag icon to holder below to apply effect</string>
                         <action selector="lineColorLongPress:" destination="bRM-XI-8Xh" id="ggi-IC-7TB"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000003" id="ZLj-J4-nOO" userLabel="SourceColorsLongPress">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000001" id="ZLj-J4-nOO" userLabel="SourceColorsLongPress">
                     <connections>
                         <action selector="sourceDragLongGesture:" destination="bRM-XI-8Xh" id="R2s-Gr-Ca5"/>
                     </connections>
@@ -5396,8 +5396,8 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="m6M-61-Rhx"/>
         <segue reference="O2z-rK-pDb"/>
+        <segue reference="bSt-YQ-4Z0"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

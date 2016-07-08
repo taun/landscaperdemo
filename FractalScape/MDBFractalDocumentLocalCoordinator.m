@@ -25,6 +25,11 @@
 
 #pragma mark - Initializers
 
+-(BOOL)isCloudBased
+{
+    return NO;
+}
+
 -(instancetype)copyWithZone:(NSZone *)zone
 {
     MDBFractalDocumentLocalCoordinator* newCoord = [[[self class]alloc]initWithPredicate: self.predicate];
@@ -86,6 +91,22 @@
 #pragma mark - MDBFractalDocumentCoordinator
 
 - (void)startQuery {
+    
+    BOOL logStack = NO;
+    if (logStack)
+    {
+        NSArray* callStack = [NSThread callStackSymbols];
+        NSMutableArray* filteredStack = [NSMutableArray new];
+        for (NSString* stackEntry in callStack)
+        {
+            if ([stackEntry containsString: @"FractalScapes"])
+            {
+                [filteredStack addObject: stackEntry];
+            }
+        }
+        NSString* stackString = [filteredStack debugDescription];
+        NSLog(@"Called by - %@",stackString);
+    }
     
     dispatch_async(self.queryQueue, ^{
         

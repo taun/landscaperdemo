@@ -60,7 +60,8 @@
 + (instancetype)newFractalInfoWithURLPlusMeta: (MDBURLPlusMetaData*)urlPlusMeta forFractal: (LSFractal*)fractal documentDelegate: (id)delegate;
 - (instancetype)initWithURLPlusMeta:(MDBURLPlusMetaData *)urlPlusMeta;
 - (void) updateMetaDataWith: (NSMetadataItem*)meta;
-- (void)fetchDocumentWithCompletionHandler:(void (^)(void))completionHandler;
+- (void) fetchDocumentWithCompletionHandler:(void (^)(void))completionHandler;
+- (void) closeDocument;
 //- (void)unCacheDocument;
 
 @end

@@ -501,6 +501,7 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 
 -(void)handleMoveToBackground
 {
+    [self.documentController closeAllDocuments];
 //    [[NSNotificationCenter defaultCenter] removeObserver: self name: NSUbiquityIdentityDidChangeNotification object: nil];
 }
 

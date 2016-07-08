@@ -12,9 +12,16 @@
 #import "MBCollectionFractalSupplementaryLabel.h"
 #import "MDBFractalInfo.h"
 #import "MBFractalLibraryViewController.h"
-#import "MDBDocumentController.h"
 
 @implementation MDBFractalLibraryCollectionSource
+
+@synthesize sourceInfos = _sourceInfos;
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    _sourceInfos = [NSMutableArray arrayWithCapacity: 200];
+}
 
 #pragma mark - FlowLayoutDelegate
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -45,20 +52,26 @@
 }
 
 
-- (NSInteger)collectionView:(UICollectionView *)table numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray* callStack = [NSThread callStackSymbols];
-    NSMutableArray* filteredStack = [NSMutableArray new];
-    for (NSString* stackEntry in callStack)
+    NSUInteger count = self.sourceInfos.count;
+
+    BOOL logStack = NO;
+    if (logStack)
     {
-        if ([stackEntry containsString: @"FractalScapes"])
+        NSArray* callStack = [NSThread callStackSymbols];
+        NSMutableArray* filteredStack = [NSMutableArray new];
+        for (NSString* stackEntry in callStack)
         {
-            [filteredStack addObject: stackEntry];
+            if ([stackEntry containsString: @"FractalScapes"])
+            {
+                [filteredStack addObject: stackEntry];
+            }
         }
+        NSString* stackString = [filteredStack debugDescription];
+        NSLog(@"Count: %lu Stack: %@",count, stackString);
     }
-//    NSString* stackString = [callStack debugDescription];
     
-    NSUInteger count = self.documentController.fractalInfos.count;
     return count;
 }
 
@@ -76,7 +89,7 @@
     NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
     MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
     
-    MDBFractalInfo* fractalInfo = self.documentController.fractalInfos[indexPath.row];
+    MDBFractalInfo* fractalInfo = self.sourceInfos[indexPath.row];
     
     // Configure the cell with data from the managed object.
     if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)

@@ -13,8 +13,8 @@
 
 
 @interface MDBFractalInfo ()
-@property(nonatomic,strong,readwrite) MDBFractalDocument    *document;
-@property (nonatomic,strong) dispatch_queue_t              fetchQueue;
+@property(nonatomic,strong,readwrite) id<MDBFractaDocumentProtocol>         document;
+@property (nonatomic,strong) dispatch_queue_t                               fetchQueue;
 
 @property(nonatomic,assign,readwrite) BOOL                                  isCurrent;
 @property(nonatomic,assign,readwrite) BOOL                                  isDownloading;
@@ -111,12 +111,18 @@
     _document = proxy;
 }
 
--(void) dealloc
+-(void)closeDocument
 {
-    if (_document.documentState != UIDocumentStateClosed) {
+    if (_document.documentState != UIDocumentStateClosed)
+    {
         [_document closeWithCompletionHandler: nil];
     }
     _document = nil;
+}
+
+-(void) dealloc
+{
+    [self closeDocument];
 }
 
 - (void)fetchDocumentWithCompletionHandler:(void (^)(void))completionHandler {

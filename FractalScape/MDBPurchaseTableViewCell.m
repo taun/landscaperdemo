@@ -29,6 +29,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     // Initialization code
 //    self.backgroundView = [[UIImageView alloc]initWithImage: [UIImage
 //                                                              imageNamed: @"skMasterTableCellBackground"]];

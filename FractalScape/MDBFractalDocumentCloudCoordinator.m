@@ -23,6 +23,11 @@
 @synthesize delegate = _delegate;
 @synthesize documentsDirectory = _documentsDirectory;
 
+-(BOOL)isCloudBased
+{
+    return YES;
+}
+
 -(instancetype)copyWithZone:(NSZone *)zone
 {
     MDBFractalDocumentCloudCoordinator* newCoord = [[[self class]alloc]initWithPredicate: self.metadataQuery.predicate];

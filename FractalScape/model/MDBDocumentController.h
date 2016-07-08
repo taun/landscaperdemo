@@ -128,7 +128,7 @@
  * The \c MDBFractalDocumentController object's delegate who is responsible for responding to \c MDBFractalDocumentController
  * changes.
  */
-@property (nonatomic, weak) id<MDBFractalDocumentControllerDelegate> delegate;
+@property (nonatomic, weak) id<MDBFractalDocumentControllerDelegate>        delegate;
 
 ///*!
 // * @return The number of tracked \c MDBFractalInfo objects.
@@ -138,9 +138,9 @@
 /*!
  * The current \c MDBFractalDocumentCoordinator that the document controller manages.
  */
-@property (nonatomic, strong) id<MDBFractalDocumentCoordinator> documentCoordinator;
+@property (nonatomic, strong) id<MDBFractalDocumentCoordinator>             documentCoordinator;
 
-@property (atomic, strong, readonly) NSMutableArray <MDBFractalInfo*>                      *fractalInfos;
+@property (atomic, strong, readonly) NSMutableArray <MDBFractalInfo*>       *fractalInfos;
 
 ///*!
 // * @return The \c MDBFractalInfo instance at a specific index. This method traps if the index is out
@@ -190,5 +190,7 @@
  * @param fractalInfo The \c MDBFractalInfo instance that has new content.
  */
 - (void)setFractalInfoHasNewContents:(MDBFractalInfo *)fractalInfo;
+
+- (void) closeAllDocuments;
 
 @end

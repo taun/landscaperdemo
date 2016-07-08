@@ -18,7 +18,7 @@
  * instance determines such events occured.
  */
 @property (nonatomic, weak) id<MDBFractalDocumentCoordinatorDelegate> delegate;
-
+@property (readonly) BOOL                                             isCloudBased;
 /*!
  * Starts observing changes to the important \c NSURL instances. For example, if an \c MDBFractalDocumentCoordinator
  * conforming class has the responsibility to manage iCloud documents, the \c -startQuery method
