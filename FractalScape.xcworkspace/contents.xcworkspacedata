@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:FractalScape/FractalScapes.xcodeproj">
+      location = "container:FractalScapes.xcodeproj">
    </FileRef>
 </Workspace>
