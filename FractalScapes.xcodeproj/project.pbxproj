@@ -167,6 +167,8 @@
 		C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE4F170FC29900967F79 /* MBImmutableCellBackgroundView.m */; };
 		C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */; };
 		C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */; };
+		C5800FC41D3057BF00555E59 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C5800FC31D3057BF00555E59 /* README.md */; };
+		C5800FC61D30580A00555E59 /* User Testing Checklist.md in Sources */ = {isa = PBXBuildFile; fileRef = C5800FC51D30580A00555E59 /* User Testing Checklist.md */; };
 		C580330B1D2F6461005481AB /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C580330A1D2F6461005481AB /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C583ED831B963CA200ED4BA6 /* MDBProPurchaseableProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */; };
 		C583ED841B963CA200ED4BA6 /* MDBProPurchaseableProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */; };
@@ -583,6 +585,8 @@
 		C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBTextViewTableCell.m; path = FractalScape/MBTextViewTableCell.m; sourceTree = "<group>"; };
 		C57F32BA170209EE0072FE75 /* MBXibAutolayoutTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBXibAutolayoutTableCell.h; path = FractalScape/MBXibAutolayoutTableCell.h; sourceTree = "<group>"; };
 		C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBXibAutolayoutTableCell.m; path = FractalScape/MBXibAutolayoutTableCell.m; sourceTree = "<group>"; };
+		C5800FC31D3057BF00555E59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		C5800FC51D30580A00555E59 /* User Testing Checklist.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "User Testing Checklist.md"; sourceTree = "<group>"; };
 		C580330A1D2F6461005481AB /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBProPurchaseableProduct.h; sourceTree = "<group>"; };
 		C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBProPurchaseableProduct.m; sourceTree = "<group>"; };
@@ -1186,6 +1190,7 @@
 		C59954011A6465270093CF50 /* FractalScapeFractalModelTests */ = {
 			isa = PBXGroup;
 			children = (
+				C5800FC51D30580A00555E59 /* User Testing Checklist.md */,
 				C59954041A6465270093CF50 /* FractalScapeFractalModelTests.m */,
 				C5A8F98C1BA63E9C00C43F4B /* MDBAppStoreSnapshots.m */,
 				C59954021A6465270093CF50 /* Supporting Files */,
@@ -1326,6 +1331,7 @@
 		C5E6B77214A5346200DA48BD = {
 			isa = PBXGroup;
 			children = (
+				C5800FC31D3057BF00555E59 /* README.md */,
 				C5AD4EA31C1664F8009386FA /* ThirdParty */,
 				C5A338671B9BD04000074DD3 /* MainStoryboard_iPad.storyboard */,
 				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
@@ -1975,6 +1981,7 @@
 				C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */,
 				C5CE0E501B542C6100EEC58C /* UIFont+MDKProportional.m in Sources */,
 				C583ED881B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.m in Sources */,
+				C5800FC61D30580A00555E59 /* User Testing Checklist.md in Sources */,
 				C583EDDF1B972BA100ED4BA6 /* NativeEnumerated.c in Sources */,
 				C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */,
 				C583EDF01B972BA100ED4BA6 /* InAppAttribute.c in Sources */,
@@ -1991,6 +1998,7 @@
 				C583EDF81B972BA100ED4BA6 /* constr_TYPE.c in Sources */,
 				C5F184791AA6663800233E49 /* MDBDocumentUtilities.m in Sources */,
 				C52D75D61A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m in Sources */,
+				C5800FC41D3057BF00555E59 /* README.md in Sources */,
 				C50B82951A02E06E00FBA03F /* MBFractalDescriptionTableCell.m in Sources */,
 				C583EDEF1B972BA100ED4BA6 /* ReceiptAttribute.c in Sources */,
 				C5BA7FE71A1868C400AFCF70 /* FractalScapeIconSet.m in Sources */,
