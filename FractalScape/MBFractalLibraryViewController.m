@@ -50,10 +50,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 @property (nonatomic,strong) NSUserActivity                         *pendingUserActivity;
 @property (nonatomic,strong) MDBNavConTransitionCoordinator         *navConTransitionDelegate;
 @property (nonatomic,strong,readonly) FBKVOController               *kvoController;
-/*!
- Used to make sure queries and loads aren't done twice. Once when properties change and once when the view appears.
- */
-@property (nonatomic,assign) BOOL                                   isAppeared;
 
 @end
 
@@ -65,8 +61,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 #pragma mark - State handling
 - (void)viewDidLoad
 {
-    _isAppeared = NO;
-    
     [super viewDidLoad];
     
     if ([self isMemberOfClass: [MBFractalLibraryViewController class]])
@@ -82,8 +76,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    _isAppeared = NO;
-    
     [super viewWillAppear:animated];
     
     [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"FractalDocuments" contentId: NSStringFromClass([self class]) customAttributes: nil];
@@ -100,8 +92,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
  */
 -(void)viewDidAppear:(BOOL)animated
 {
-    _isAppeared = NO;
-    
     [super viewDidAppear:animated];
 
     if (self.pendingUserActivity) {
@@ -111,10 +101,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     self.pendingUserActivity = nil;
     
     self.addDocumentButton.enabled = self.appModel.allowPremium || self.appModel.userCanMakePayments;
-    
-    _isAppeared = YES;
-    
-//    [self.appModel.documentController.documentCoordinator startQuery];
 }
 
 - (IBAction)unwindFromWelcome:(UIStoryboardSegue *)segue
@@ -173,12 +159,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    _isAppeared = NO;
-//    NSArray* visibleCells = self.collectionView.visibleCells;
-//    for (MBCollectionFractalDocumentCell* cell in visibleCells)
-//    {
-//        [cell purgeImage];
-//    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -283,7 +263,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": title}];
         }
         
-        if ((YES) || _isAppeared)
+        if ((YES))
         {
             [self.collectionView reloadData];
             [self->_appModel.documentController.documentCoordinator startQuery];
