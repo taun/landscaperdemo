@@ -1369,6 +1369,10 @@ static const CGFloat kLevelNMargin = 48.0;
 {
 #pragma message "TODO: fix for uidocument create a separate operation queue for this stuff"
     LSFractal* strongFractal = self.fractalDocument.fractal;
+    if (!strongFractal)
+    {
+        return;
+    }
     
     dispatch_async(self.levelDataGenerationQueue, ^{
         //
@@ -2501,6 +2505,7 @@ static const CGFloat kLevelNMargin = 48.0;
             //
             if (previewViewController)
             {
+                previewViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
                 previewViewController.previewControllerDelegate = self;
                 self.previewViewController = previewViewController;
                 [self presentViewController: previewViewController animated:YES completion:nil];
