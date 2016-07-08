@@ -1,4 +1,5 @@
-# landscaperdemo
+# FractalScapes Tests
+
 FractalScapes Interactive Fractal designer
 
 Outline of manual FractalScapes UI testing

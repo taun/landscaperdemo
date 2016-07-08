@@ -1,5 +1,6 @@
-# landscaperdemo
-FractalScapes Interactive Fractal designer
+# FractalScapes Interactive Fractal Designer
+
+FractalScapes is ...
 
 
 
