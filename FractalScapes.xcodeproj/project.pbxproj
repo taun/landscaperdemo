@@ -167,6 +167,7 @@
 		C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE4F170FC29900967F79 /* MBImmutableCellBackgroundView.m */; };
 		C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */; };
 		C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */; };
+		C580330B1D2F6461005481AB /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C580330A1D2F6461005481AB /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C583ED831B963CA200ED4BA6 /* MDBProPurchaseableProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */; };
 		C583ED841B963CA200ED4BA6 /* MDBProPurchaseableProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */; };
 		C583ED871B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = C583ED851B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h */; };
@@ -582,6 +583,7 @@
 		C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBTextViewTableCell.m; path = FractalScape/MBTextViewTableCell.m; sourceTree = "<group>"; };
 		C57F32BA170209EE0072FE75 /* MBXibAutolayoutTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBXibAutolayoutTableCell.h; path = FractalScape/MBXibAutolayoutTableCell.h; sourceTree = "<group>"; };
 		C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBXibAutolayoutTableCell.m; path = FractalScape/MBXibAutolayoutTableCell.m; sourceTree = "<group>"; };
+		C580330A1D2F6461005481AB /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBProPurchaseableProduct.h; sourceTree = "<group>"; };
 		C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBProPurchaseableProduct.m; sourceTree = "<group>"; };
 		C583ED851B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBColorPakPurchaseableProduct.h; sourceTree = "<group>"; };
@@ -824,6 +826,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C580330B1D2F6461005481AB /* ReplayKit.framework in Frameworks */,
 				C557C1751BA77592001EC564 /* libcrypto.a in Frameworks */,
 				C51AE1C71C0623AE0017565E /* Crashlytics.framework in Frameworks */,
 				C557C1761BA77592001EC564 /* libssl.a in Frameworks */,
@@ -1352,6 +1355,7 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C580330A1D2F6461005481AB /* ReplayKit.framework */,
 				C51AE1C41C0623AE0017565E /* Fabric.framework */,
 				C51AE1C51C0623AE0017565E /* Crashlytics.framework */,
 				C557C1731BA77592001EC564 /* libcrypto.a */,

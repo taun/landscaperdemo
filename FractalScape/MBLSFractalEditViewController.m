@@ -9,6 +9,8 @@
 @import QuartzCore;
 @import ImageIO;
 @import AssetsLibrary;
+@import ReplayKit;
+
 #include <math.h>
 
 #import "FractalScapeIconSet.h"
@@ -59,7 +61,8 @@ static const CGFloat kLevelNMargin = 48.0;
                                                     UIScrollViewDelegate,
                                                     UIDocumentInteractionControllerDelegate,
                                                     FractalControllerDelegate,
-                                                    MDBFractalDocumentDelegate>
+                                                    MDBFractalDocumentDelegate,
+                                                    RPPreviewViewControllerDelegate>
 
 @property (nonatomic,assign) BOOL                   startedInLandscape;
 @property (nonatomic,assign) BOOL                   hasBeenEdited;
@@ -117,6 +120,7 @@ static const CGFloat kLevelNMargin = 48.0;
 @property (nonatomic,weak) MDBFractalDocument               *observedDocument;
 @property (nonatomic,strong) NSMutableSet                   *observedReplacementRules;
 
+@property (nonnull,strong) RPPreviewViewController          *previewViewController;
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
 -(void) fullScreenOff;
@@ -2388,6 +2392,14 @@ static const CGFloat kLevelNMargin = 48.0;
         
         [self resumePlayback];
     }
+    
+    RPScreenRecorder* recorder = [RPScreenRecorder sharedRecorder];
+    if (recorder.isAvailable)
+    {
+        [recorder startRecordingWithMicrophoneEnabled: NO handler:^(NSError * _Nullable error) {
+            //
+        }];
+    }
 }
 
 -(void) playNextFrame: (NSTimer*)timer
@@ -2481,12 +2493,33 @@ static const CGFloat kLevelNMargin = 48.0;
         [self swapOldButton: self.stopButton withNewButton: self.playButton];
         strongPlayback.hidden = YES;
     }
+    
+    RPScreenRecorder* recorder = [RPScreenRecorder sharedRecorder];
+    if (recorder.isAvailable)
+    {
+        [recorder stopRecordingWithHandler:^(RPPreviewViewController * _Nullable previewViewController, NSError * _Nullable error) {
+            //
+            if (previewViewController)
+            {
+                previewViewController.previewControllerDelegate = self;
+                self.previewViewController = previewViewController;
+                [self presentViewController: previewViewController animated:YES completion:nil];
+            }
+        }];
+    }
 }
+
+-(void)previewControllerDidFinish:(RPPreviewViewController *)previewController
+{
+    [previewController dismissViewControllerAnimated: YES completion: nil];
+}
+
 -(IBAction) playSliderChangedValue: (UISlider*)slider
 {
     self.playIsPercentCompleted = slider.value;
     [self playNextFrame: nil];
 }
+
 -(IBAction)toggleAutoExpandFractal:(id)sender
 {
     [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"ToggleAutoExpand"}];
