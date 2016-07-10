@@ -191,6 +191,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
             _cachedContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
         }
     }
+//    CGContextSetAllowsAntialiasing(_cachedContext, 0);
+//    CGContextSetInterpolationQuality(_cachedContext, kCGInterpolationNone);
     return _cachedContext;
 }
 
@@ -327,6 +329,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     _baseSegment.turningAngle = aFractal.turningAngle;
     _baseSegment.turningAngleIncrement = aFractal.turningAngleIncrement;
+    _baseSegment.directionSwap = 1.0;
     
     _baseSegment.randomness = aFractal.randomness;
     _baseSegment.lineChangeFactor = aFractal.lineChangeFactor;
@@ -746,11 +749,12 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
 #pragma mark - Segment routines
 -(CGPathDrawingMode) getSegmentDrawingMode
 {
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
     
-    if (!_segmentStack[_segmentIndex].drawingModeUnchanged) {
-        BOOL stroke = _segmentStack[_segmentIndex].stroke;
-        BOOL fill = _segmentStack[_segmentIndex].fill;
-        BOOL eoFill = _segmentStack[_segmentIndex].EOFill;
+    if (!(*segment).drawingModeUnchanged) {
+        BOOL stroke = (*segment).stroke;
+        BOOL fill = (*segment).fill;
+        BOOL eoFill = (*segment).EOFill;
         
         CGPathDrawingMode strokeOrFill = kCGPathStroke;
         
@@ -765,37 +769,39 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
             strokeOrFill = eoFill ? kCGPathEOFill : kCGPathFill;
         }
         
-        _segmentStack[_segmentIndex].mode = strokeOrFill;
+        (*segment).mode = strokeOrFill;
     }
-    return _segmentStack[_segmentIndex].mode;
+    return (*segment).mode;
 }
 
 #pragma message "TODO fill out below and use with hue rotation routines to change correct color."
 
 -(void) setCGGraphicsStateFromCurrentSegment {
-    CGContextSetLineJoin(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineJoin);
-    CGContextSetLineCap(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineCap);
-    CGContextSetLineWidth(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].lineWidth * _segmentStack[_segmentIndex].scale);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
 
-    ColorRgbaOrColorRef colorRGBorRef = _segmentStack[_segmentIndex].currentFillColor;
+    CGContextSetLineJoin((*segment).context, (*segment).lineJoin);
+    CGContextSetLineCap((*segment).context, (*segment).lineCap);
+    CGContextSetLineWidth((*segment).context, (*segment).lineWidth * (*segment).scale);
+
+    ColorRgbaOrColorRef colorRGBorRef = (*segment).currentFillColor;
     if (colorRGBorRef.isColorRef)
     {
-        CGContextSetFillColorWithColor(_segmentStack[_segmentIndex].context, colorRGBorRef.colorRef);
+        CGContextSetFillColorWithColor((*segment).context, colorRGBorRef.colorRef);
     }
     else
     {
         ColorRGBA rgba = colorRGBorRef.rgba;
-        CGContextSetRGBFillColor(_segmentStack[_segmentIndex].context, rgba.r, rgba.g, rgba.b, rgba.a);
+        CGContextSetRGBFillColor((*segment).context, rgba.r, rgba.g, rgba.b, rgba.a);
     }
     
-    colorRGBorRef = _segmentStack[_segmentIndex].currentLineColor;
+    colorRGBorRef = (*segment).currentLineColor;
     if (colorRGBorRef.isColorRef) {
-        CGContextSetStrokeColorWithColor(_segmentStack[_segmentIndex].context, colorRGBorRef.colorRef);
+        CGContextSetStrokeColorWithColor((*segment).context, colorRGBorRef.colorRef);
     }
     else
     {
         ColorRGBA rgba = colorRGBorRef.rgba;
-        CGContextSetRGBStrokeColor(_segmentStack[_segmentIndex].context, rgba.r, rgba.g, rgba.b, rgba.a);
+        CGContextSetRGBStrokeColor((*segment).context, rgba.r, rgba.g, rgba.b, rgba.a);
     }
 }
 
@@ -806,27 +812,29 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
 
 -(void) segmentAddLineToPoint: (CGPoint) aUserPoint
 {
-    CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, _segmentStack[_segmentIndex].transform);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, (*segment).transform);
     
-    if (!_segmentStack[_segmentIndex].noDrawPath)
+    if (!(*segment).noDrawPath)
     {
-        if (_segmentStack[_segmentIndex].path == NULL)
+        if ((*segment).path == NULL)
         {
             // the first point in a continuous path
-            _segmentStack[_segmentIndex].path = CGPathCreateMutable();
+            (*segment).path = CGPathCreateMutable();
         }
         
-        BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+        BOOL emptyPath = CGPathIsEmpty((*segment).path);
         
         if (emptyPath)
         {
-            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
-            CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
+            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), (*segment).transform);
+            CGPathMoveToPoint((*segment).path, NULL, transformedSPoint.x, transformedSPoint.y);
         }
         
-        if (!_segmentStack[_segmentIndex].inCurve)
+        if (!(*segment).inCurve)
         {
-            CGPathAddLineToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
+            CGPathAddLineToPoint((*segment).path, NULL, transformedPoint.x, transformedPoint.y);
         }
         else
         {
@@ -839,33 +847,35 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
 }
 -(void) addCurvePoint: (CGPoint)aUserPoint
 {
-    if (_segmentStack[_segmentIndex].pointIndex+1 >= kLSMaxSegmentPointsSize) {
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).pointIndex+1 >= kLSMaxSegmentPointsSize) {
         // save last two endpoints
-        CGPoint p0 = _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex-1];
-        CGPoint p1 = _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex];
+        CGPoint p0 = (*segment).points[(*segment).pointIndex-1];
+        CGPoint p1 = (*segment).points[(*segment).pointIndex];
         [self drawFinishedCurve: NO];
         // put last two endpoints back. p1 will be the new control point
-        _segmentStack[_segmentIndex].points[0] = p0;
-        _segmentStack[_segmentIndex].points[1] = p1;
-        _segmentStack[_segmentIndex].pointIndex = 1;
+        (*segment).points[0] = p0;
+        (*segment).points[1] = p1;
+        (*segment).pointIndex = 1;
     }
-    else if (_segmentStack[_segmentIndex].pointIndex < 0)
+    else if ((*segment).pointIndex < 0)
     {
         // no start point so add default (0,0)
-        CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
-        _segmentStack[_segmentIndex].pointIndex += 1;
-        _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedSPoint;
+        CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), (*segment).transform);
+        (*segment).pointIndex += 1;
+        (*segment).points[(*segment).pointIndex] = transformedSPoint;
     }
     
-    CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, _segmentStack[_segmentIndex].transform);
-    if (_segmentStack[_segmentIndex].pointIndex+1 < kLSMaxSegmentPointsSize)
+    CGPoint transformedPoint = CGPointApplyAffineTransform(aUserPoint, (*segment).transform);
+    if ((*segment).pointIndex+1 < kLSMaxSegmentPointsSize)
     {
-        _segmentStack[_segmentIndex].pointIndex += 1;
+        (*segment).pointIndex += 1;
     }
     else{
         NSLog(@"FractalScape:Warning reached end of segment point buffer %ld",(long)kLSMaxSegmentPointsSize);
     }
-    _segmentStack[_segmentIndex].points[_segmentStack[_segmentIndex].pointIndex] = transformedPoint;
+    (*segment).points[(*segment).pointIndex] = transformedPoint;
 }
 /*!
  Called at the end of the commandStartCurve, commandEndCurve sequence.
@@ -877,13 +887,15 @@ static inline  CGFloat randomScalar(bool apply, CGFloat scalar, CGFloat randomne
  */
 -(void) drawFinishedCurve: (BOOL)finish
 {
-    if (!_segmentStack[_segmentIndex].noDrawPath && _segmentStack[_segmentIndex].pointIndex > 1)
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if (!(*segment).noDrawPath && (*segment).pointIndex > 1)
     {
-        NSInteger count = _segmentStack[_segmentIndex].pointIndex + 1;
+        NSInteger count = (*segment).pointIndex + 1;
         
-        MBCGQuadCurvedPathWithPoints(_segmentStack[_segmentIndex].path,_segmentStack[_segmentIndex].points, count, finish);
+        MBCGQuadCurvedPathWithPoints((*segment).path,(*segment).points, count, finish);
         // reset points array
-        _segmentStack[_segmentIndex].pointIndex = -1;
+        (*segment).pointIndex = -1;
     }
 }
 void MBCGQuadCurvedPathWithPoints(CGMutablePathRef path, CGPoint* points, NSInteger count, bool finish);
@@ -973,25 +985,26 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 
 -(void) drawPathClosed: (BOOL)closed
 {
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
     
-    if (!_segmentStack[_segmentIndex].noDrawPath)
+    if (!(*segment).noDrawPath)
     {
         [self setCGGraphicsStateFromCurrentSegment];
         
-        if (_segmentStack[_segmentIndex].inCurve) {
+        if ((*segment).inCurve) {
             [self drawFinishedCurve: YES];
         }
         
-        if (closed || _segmentStack[_segmentIndex].fill)
+        if (closed || (*segment).fill)
         {
             [self closePath];
         }
         
-        CGContextAddPath(_segmentStack[_segmentIndex].context, _segmentStack[_segmentIndex].path);
-        CGPathRelease(_segmentStack[_segmentIndex].path);
-        _segmentStack[_segmentIndex].path = NULL;
+        CGContextAddPath((*segment).context, (*segment).path);
+        CGPathRelease((*segment).path);
+        (*segment).path = NULL;
         
-        CGContextDrawPath(_segmentStack[_segmentIndex].context, [self getSegmentDrawingMode]);
+        CGContextDrawPath((*segment).context, [self getSegmentDrawingMode]);
     }
 }
 -(void) closePath
@@ -1006,34 +1019,38 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 //    
 //    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(-radius, -radius, radius*2.0, radius*2.0), _segmentStack[_segmentIndex].transform);
     
-    if (!_segmentStack[_segmentIndex].noDrawPath)
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if (!(*segment).noDrawPath)
     {
         
-        BOOL emptyPath = CGPathIsEmpty(_segmentStack[_segmentIndex].path);
+        BOOL emptyPath = CGPathIsEmpty((*segment).path);
         
         if (emptyPath)
         {
-            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), _segmentStack[_segmentIndex].transform);
-            CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedSPoint.x, transformedSPoint.y);
+            CGPoint transformedSPoint = CGPointApplyAffineTransform(CGPointMake(0.0, 0.0), (*segment).transform);
+            CGPathMoveToPoint((*segment).path, NULL, transformedSPoint.x, transformedSPoint.y);
         }
         
         CGRect circleRect = CGRectMake(-radius, -radius, radius*2.0, radius*2.0);
-        CGPathAddEllipseInRect(_segmentStack[_segmentIndex].path, &_segmentStack[_segmentIndex].transform, circleRect);
-        CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, 0.0, 0.0); // not used for circle
-        _segmentStack[_segmentIndex].transform = newTransform;
+        CGPathAddEllipseInRect((*segment).path, &_segmentStack[_segmentIndex].transform, circleRect);
+        CGAffineTransform newTransform = CGAffineTransformTranslate((*segment).transform, 0.0, 0.0); // not used for circle
+        (*segment).transform = newTransform;
     }
-    CGPoint transformedPoint0 = CGPointApplyAffineTransform(CGPointMake(-radius, -radius), _segmentStack[_segmentIndex].transform);
-    CGPoint transformedPoint1 = CGPointApplyAffineTransform(CGPointMake(radius, radius), _segmentStack[_segmentIndex].transform);
+    CGPoint transformedPoint0 = CGPointApplyAffineTransform(CGPointMake(-radius, -radius), (*segment).transform);
+    CGPoint transformedPoint1 = CGPointApplyAffineTransform(CGPointMake(radius, radius), (*segment).transform);
     
     _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint0);
     _rawFractalPathBounds = inlineUpdateBounds(_rawFractalPathBounds, transformedPoint1);
 }
 // unused - if used, needs noDrawPath code
 -(void) drawSquareWidth: (CGFloat) width {
-    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -width/2.0, width, width), _segmentStack[_segmentIndex].transform);
-    CGPathAddRect(_segmentStack[_segmentIndex].path, NULL, transformedRect);
-    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, width, 0.0);
-    _segmentStack[_segmentIndex].transform = newTransform;
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    CGRect transformedRect = CGRectApplyAffineTransform(CGRectMake(0.0, -width/2.0, width, width), (*segment).transform);
+    CGPathAddRect((*segment).path, NULL, transformedRect);
+    CGAffineTransform newTransform = CGAffineTransformTranslate((*segment).transform, width, 0.0);
+    (*segment).transform = newTransform;
 }
 
 -(void) pushCurrentPath {
@@ -1048,9 +1065,11 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 }
 -(void) popCurrentPath
 {
-    if (_segmentStack[_segmentIndex].path != NULL) {
-        CGPathRelease(_segmentStack[_segmentIndex].path);
-        _segmentStack[_segmentIndex].path = NULL;
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).path != NULL) {
+        CGPathRelease((*segment).path);
+        (*segment).path = NULL;
     }
     _segmentIndex = _segmentIndex > 0 ? --_segmentIndex : _segmentIndex;
     NSAssert(_segmentIndex >= 0 && _segmentIndex < kLSMaxSegmentStackSize, @"_segmentIndex out of range!");
@@ -1063,50 +1082,62 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 }
 -(void) commandDrawLine
 {
-    CGFloat tx = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    CGFloat tx = randomScalar((*segment).randomize, (*segment).lineLength, (*segment).randomness);
 
     [self segmentAddLineToPoint: CGPointMake(tx, 0.0)];
     
-    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
-    _segmentStack[_segmentIndex].transform = newTransform;
+    CGAffineTransform newTransform = CGAffineTransformTranslate((*segment).transform, tx, 0.0);
+    (*segment).transform = newTransform;
 }
 #pragma message "TODO: how to implement variable line length? or just a second line command? Already have line increment/decrement."
 -(void) commandDrawLineVarLength
 {
-    CGFloat tx = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    CGFloat tx = randomScalar((*segment).randomize, (*segment).lineLength, (*segment).randomness);
     
     [self segmentAddLineToPoint: CGPointMake(tx, 0.0)];
     
-    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
-    _segmentStack[_segmentIndex].transform = newTransform;
+    CGAffineTransform newTransform = CGAffineTransformTranslate((*segment).transform, tx, 0.0);
+    (*segment).transform = newTransform;
 }
 
 -(void) commandMoveByLine
 {
-    CGFloat tx = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineLength, _segmentStack[_segmentIndex].randomness);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
 
-    CGPoint transformedPoint = CGPointApplyAffineTransform(CGPointMake(tx, 0.0), _segmentStack[_segmentIndex].transform);
+    CGFloat tx = randomScalar((*segment).randomize, (*segment).lineLength, (*segment).randomness);
+
+    CGPoint transformedPoint = CGPointApplyAffineTransform(CGPointMake(tx, 0.0), (*segment).transform);
 #pragma message "TODO: not sure this move is necessary."
-    CGPathMoveToPoint(_segmentStack[_segmentIndex].path, NULL, transformedPoint.x, transformedPoint.y);
+    CGPathMoveToPoint((*segment).path, NULL, transformedPoint.x, transformedPoint.y);
 
-    CGAffineTransform newTransform = CGAffineTransformTranslate(_segmentStack[_segmentIndex].transform, tx, 0.0);
-    _segmentStack[_segmentIndex].transform = newTransform;
+    CGAffineTransform newTransform = CGAffineTransformTranslate((*segment).transform, tx, 0.0);
+    (*segment).transform = newTransform;
 }
 
 -(void) commandRotateCC
 {
-    CGFloat theta = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].turningAngle, _segmentStack[_segmentIndex].randomness);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+    
+    CGFloat theta = randomScalar((*segment).randomize, (*segment).turningAngle, (*segment).randomness);
+    CGFloat thetaSwapped = (*segment).directionSwap * theta;
 
-    CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, theta);
-    _segmentStack[_segmentIndex].transform = newTransform;
+    CGAffineTransform newTransform = CGAffineTransformRotate((*segment).transform, thetaSwapped);
+    (*segment).transform = newTransform;
 }
 
 -(void) commandRotateC
 {
-    CGFloat theta = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].turningAngle, _segmentStack[_segmentIndex].randomness);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
     
-    CGAffineTransform newTransform = CGAffineTransformRotate(_segmentStack[_segmentIndex].transform, -theta);
-    _segmentStack[_segmentIndex].transform = newTransform;
+    CGFloat theta = randomScalar((*segment).randomize,(*segment).turningAngle, (*segment).randomness);
+    CGFloat thetaSwapped = (*segment).directionSwap * theta;
+    
+    CGAffineTransform newTransform = CGAffineTransformRotate((*segment).transform, -thetaSwapped);
+    (*segment).transform = newTransform;
 }
 
 -(void) commandReverseDirection
@@ -1119,25 +1150,29 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
     
-    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth*2, _segmentStack[_segmentIndex].randomness)];
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    [self drawCircleRadius: randomScalar((*segment).randomize, (*segment).lineWidth*2, (*segment).randomness)];
     
-    _segmentStack[_segmentIndex].stroke = YES; // ignore advancedMode
-    _segmentStack[_segmentIndex].fill = NO; // ignore advancedMode
+    (*segment).stroke = YES; // ignore advancedMode
+    (*segment).fill = NO; // ignore advancedMode
     
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-    if (!_segmentStack[_segmentIndex].advancedMode) [self popCurrentPath];
+    if (!(*segment).advancedMode) [self drawPath];
+    if (!(*segment).advancedMode) [self popCurrentPath];
 }
 -(void) commandDrawDotFilledNoStroke
 {
     if (!_segmentStack[_segmentIndex].advancedMode) [self pushCurrentPath];
     
-    [self drawCircleRadius: randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineWidth*2, _segmentStack[_segmentIndex].randomness)];
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    [self drawCircleRadius: randomScalar((*segment).randomize, (*segment).lineWidth*2, (*segment).randomness)];
     
-    _segmentStack[_segmentIndex].stroke = NO; // ignore advancedMode
-    _segmentStack[_segmentIndex].fill = YES; // ignore advancedMode
+    (*segment).stroke = NO; // ignore advancedMode
+    (*segment).fill = YES; // ignore advancedMode
     
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-    if (!_segmentStack[_segmentIndex].advancedMode) [self popCurrentPath];
+    if (!(*segment).advancedMode) [self drawPath];
+    if (!(*segment).advancedMode) [self popCurrentPath];
 }
 
 -(void) commandOpenPolygon
@@ -1153,15 +1188,19 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 #pragma message "TODO: remove length scaling in favor of just manipulating the aspect ration with width"
 -(void) commandUpscaleLineLength
 {
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        _segmentStack[_segmentIndex].lineLength += _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).lineChangeFactor > 0) {
+        (*segment).lineLength += (*segment).lineLength * (*segment).lineChangeFactor;
     }
 }
 
 -(void) commandDownscaleLineLength
 {
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        _segmentStack[_segmentIndex].lineLength -= _segmentStack[_segmentIndex].lineLength * _segmentStack[_segmentIndex].lineChangeFactor;
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).lineChangeFactor > 0) {
+        (*segment).lineLength -= (*segment).lineLength * (*segment).lineChangeFactor;
     }
 }
 /*!
@@ -1187,9 +1226,11 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
  */
 -(void) commandIncrementLineWidth
 {
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0) {
-        if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
-       _segmentStack[_segmentIndex].lineWidth = _segmentStack[_segmentIndex].lineWidth * (1.0 + _segmentStack[_segmentIndex].lineChangeFactor);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).lineChangeFactor > 0) {
+        if (!(*segment).advancedMode) [self drawPath];
+       (*segment).lineWidth = (*segment).lineWidth * (1.0 + (*segment).lineChangeFactor);
     }
 }
 
@@ -1199,43 +1240,40 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
  */
 -(void) commandDecrementLineWidth
 {
-    if (_segmentStack[_segmentIndex].lineChangeFactor > 0)
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).lineChangeFactor > 0)
     {
-        if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath]; // line widths only take effect when drawing the path.
-        _segmentStack[_segmentIndex].lineWidth = _segmentStack[_segmentIndex].lineWidth / (1.0 + _segmentStack[_segmentIndex].lineChangeFactor);
+        if (!(*segment).advancedMode) [self drawPath]; // line widths only take effect when drawing the path.
+        (*segment).lineWidth = (*segment).lineWidth / (1.0 + (*segment).lineChangeFactor);
     }
 }
 
 -(void) commandSwapRotation
 {
-    char turnLeft = '+'; // need to not hard code this.
-    char turnRight = '-'; // same as above
-    
-    char* currentLeftCommand = _commandsStruct.command[turnLeft];
-    char* currentRightCommand = _commandsStruct.command[turnRight];
-    SEL currentLeftSelector = _selectorsStruct.selector[turnLeft];
-    SEL currentRightSelector = _selectorsStruct.selector[turnRight];
-    
-    strcpy(_commandsStruct.command[turnLeft], currentRightCommand);
-    strcpy(_commandsStruct.command[turnRight], currentLeftCommand);
-    
-    _selectorsStruct.selector[turnLeft] = currentRightSelector;
-    _selectorsStruct.selector[turnRight] = currentLeftSelector;
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    CGFloat direction = (*segment).directionSwap;
+    (*segment).directionSwap = -direction;
 }
 /*!
  Use same reversible logic as commandLineWidthIncrement
  */
 -(void) commandIncrementAngle
 {
-    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
-        _segmentStack[_segmentIndex].turningAngle = _segmentStack[_segmentIndex].turningAngle * (1.0 + _segmentStack[_segmentIndex].turningAngleIncrement);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).turningAngleIncrement > 0) {
+        (*segment).turningAngle = (*segment).turningAngle * (1.0 + (*segment).turningAngleIncrement);
     }
 }
 
 -(void) commandDecrementAngle
 {
-    if (_segmentStack[_segmentIndex].turningAngleIncrement > 0) {
-        _segmentStack[_segmentIndex].turningAngle = _segmentStack[_segmentIndex].turningAngle / (1.0 + _segmentStack[_segmentIndex].turningAngleIncrement);
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).turningAngleIncrement > 0) {
+        (*segment).turningAngle = (*segment).turningAngle / (1.0 + (*segment).turningAngleIncrement);
     }
 }
 
@@ -1312,84 +1350,94 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 }
 -(void) commandNextColor
 {
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if (!(*segment).advancedMode) [self drawPath];
     
     NSInteger count = self.lineColors.count;
     
     if (count > 1)
     {
-        NSInteger currentIndex = _segmentStack[_segmentIndex].lineColorIndex + 1;
+        NSInteger currentIndex = (*segment).lineColorIndex + 1;
         
-        _segmentStack[_segmentIndex].lineColorIndex = currentIndex >= count ? 0 : currentIndex;
+        (*segment).lineColorIndex = currentIndex >= count ? 0 : currentIndex;
         
-        _segmentStack[_segmentIndex].currentLineColor = [self.lineColors[_segmentStack[_segmentIndex].lineColorIndex] asColorRgbaOrColorRefStruct];
+        (*segment).currentLineColor = [self.lineColors[(*segment).lineColorIndex] asColorRgbaOrColorRefStruct];
     }
 }
 -(void) commandPreviousColor
 {
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if (!(*segment).advancedMode) [self drawPath];
     
     NSInteger count = self.lineColors.count;
     
     if (count > 1)
     {
-        NSInteger currentIndex = _segmentStack[_segmentIndex].lineColorIndex - 1;
+        NSInteger currentIndex = (*segment).lineColorIndex - 1;
         
-        _segmentStack[_segmentIndex].lineColorIndex = currentIndex < 0 ? count : currentIndex;
+        (*segment).lineColorIndex = currentIndex < 0 ? count : currentIndex;
         
-        _segmentStack[_segmentIndex].currentLineColor = [self.lineColors[_segmentStack[_segmentIndex].lineColorIndex] asColorRgbaOrColorRefStruct];
+        (*segment).currentLineColor = [self.lineColors[(*segment).lineColorIndex] asColorRgbaOrColorRefStruct];
     }
 }
 -(void) commandNextFillColor
 {
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if (!(*segment).advancedMode) [self drawPath];
     
     NSInteger count = self.fillColors.count;
     
     if (count > 1)
     {
-        NSInteger currentIndex = _segmentStack[_segmentIndex].fillColorIndex + 1;
+        NSInteger currentIndex = (*segment).fillColorIndex + 1;
         
-        _segmentStack[_segmentIndex].fillColorIndex = currentIndex >= count ? 0 : currentIndex;
+        (*segment).fillColorIndex = currentIndex >= count ? 0 : currentIndex;
         
-        _segmentStack[_segmentIndex].currentFillColor = [self.fillColors[_segmentStack[_segmentIndex].fillColorIndex] asColorRgbaOrColorRefStruct];
+        (*segment).currentFillColor = [self.fillColors[(*segment).fillColorIndex] asColorRgbaOrColorRefStruct];
     }
 }
 -(void) commandPreviousFillColor
 {
-    if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if (!(*segment).advancedMode) [self drawPath];
     
     NSInteger count = self.fillColors.count;
     
     if (count > 1)
     {
-        NSInteger currentIndex = _segmentStack[_segmentIndex].fillColorIndex - 1;
+        NSInteger currentIndex = (*segment).fillColorIndex - 1;
         
-        _segmentStack[_segmentIndex].fillColorIndex = currentIndex < 0 ? count : currentIndex;
+        (*segment).fillColorIndex = currentIndex < 0 ? count : currentIndex;
         
-        _segmentStack[_segmentIndex].currentFillColor = [self.fillColors[_segmentStack[_segmentIndex].fillColorIndex] asColorRgbaOrColorRefStruct];
+        (*segment).currentFillColor = [self.fillColors[(*segment).fillColorIndex] asColorRgbaOrColorRefStruct];
     }
 }
 -(void)commandRotateLineHue
 {
-    if (_segmentStack[_segmentIndex].lineHueRotationPercent != 0)
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).lineHueRotationPercent != 0)
     {
-        ColorRgbaOrColorRef currentColor = _segmentStack[_segmentIndex].currentLineColor;
+        ColorRgbaOrColorRef currentColor = (*segment).currentLineColor;
         
         if (!currentColor.isColorRef)
         {
-            if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+            if (!(*segment).advancedMode) [self drawPath];
 
             ColorRGBA rgba = currentColor.rgba;
             
             ColorHSLA hlsa = ColorConvertRGBAToHSLA(rgba);
-            CGFloat randomizedDelta = randomScalar(_segmentStack[_segmentIndex].randomize, _segmentStack[_segmentIndex].lineHueRotationPercent, _segmentStack[_segmentIndex].randomness);
+            CGFloat randomizedDelta = randomScalar((*segment).randomize, (*segment).lineHueRotationPercent, (*segment).randomness);
             CGFloat rotationDelta = 0.36 * randomizedDelta;
             hlsa.h = hlsa.h + rotationDelta; // in degrees
             
             ColorRGBA newRgba = ColorConvertHSLAToRGBA(hlsa);
             currentColor.rgba = newRgba;
-            _segmentStack[_segmentIndex].currentLineColor = currentColor;
+            (*segment).currentLineColor = currentColor;
         }
     }
 }
@@ -1403,23 +1451,25 @@ static inline CGPoint midPointForPoints(CGPoint p1, CGPoint p2)
 }
 -(void) commandRotateFillHue
 {
-    if (_segmentStack[_segmentIndex].fillHueRotationPercent != 0)
+    MBSegmentStruct *segment = &(_segmentStack[_segmentIndex]);
+
+    if ((*segment).fillHueRotationPercent != 0)
     {
-        ColorRgbaOrColorRef currentColor = _segmentStack[_segmentIndex].currentFillColor;
+        ColorRgbaOrColorRef currentColor = (*segment).currentFillColor;
         
         if (!currentColor.isColorRef)
         {
-            if (!_segmentStack[_segmentIndex].advancedMode) [self drawPath];
+            if (!(*segment).advancedMode) [self drawPath];
 
             ColorRGBA rgba = currentColor.rgba;
             
             ColorHSLA hlsa = ColorConvertRGBAToHSLA(rgba);
-            CGFloat rotationDelta = 3.6 * _segmentStack[_segmentIndex].fillHueRotationPercent;
+            CGFloat rotationDelta = 3.6 * (*segment).fillHueRotationPercent;
             hlsa.h = hlsa.h + rotationDelta; // in degrees
             
             ColorRGBA newRgba = ColorConvertHSLAToRGBA(hlsa);
             currentColor.rgba = newRgba;
-            _segmentStack[_segmentIndex].currentFillColor = currentColor;
+            (*segment).currentFillColor = currentColor;
         }
     }
 }
