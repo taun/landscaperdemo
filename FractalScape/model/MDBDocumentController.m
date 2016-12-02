@@ -187,7 +187,7 @@
     [self.documentCoordinator removeFractalAtURL: fractalInfo.urlPlusMeta.fileURL];
 }
 
-- (MDBFractalInfo*)createFractalInfoForFractal:(LSFractal *)fractal withDocumentDelegate: (id)delegate
+- (MDBFractalInfo*)createFractalInfoForFractal:(LSFractal *)fractal withImage: (UIImage*)image withDocumentDelegate: (id)delegate
 {
     NSString* newIdentifier;
     NSInteger numTries = 10;
@@ -204,7 +204,7 @@
     NSURL* documentURL = [self.documentCoordinator documentURLForName: newIdentifier];
 
     MDBFractalInfo* newFractalInfo = [MDBFractalInfo newFractalInfoWithURLPlusMeta: [MDBURLPlusMetaData urlPlusMetaWithFileURL: documentURL metaData: nil]
-                                                                        forFractal: fractal documentDelegate: delegate];
+                                                                        forFractal: fractal image: image documentDelegate: delegate];
     
         //
         //        dispatch_async(self.fractalUpdateQueue, ^{
@@ -212,7 +212,7 @@
         NSLog(@"%@ %@ queue: %@",NSStringFromClass([self class]),NSStringFromSelector(_cmd),self.fractalUpdateQueue);
 #endif
 //        id<MDBFractalDocumentControllerDelegate> strongDelegate = self.delegate;
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
             [newFractalInfo.document saveToURL: newFractalInfo.document.fileURL forSaveOperation: UIDocumentSaveForCreating completionHandler:^(BOOL success) {
                 
                 if (success && !self.documentCoordinator.isCloudBased)
@@ -224,7 +224,7 @@
                     [self didChange: NSKeyValueChangeInsertion valuesAtIndexes: [NSIndexSet indexSetWithIndex: 0] forKey:@"fractalInfos"];
                 }
             }];
-        });
+//        });
     
     return newFractalInfo;
 }

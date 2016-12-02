@@ -57,14 +57,9 @@
     
     [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Public Fractals" contentId: NSStringFromClass([self class]) customAttributes:nil];
     
-    MDBAppModel* model = (MDBAppModel*)self.appModel;
-    if (model.cloudDocumentManager.isCloudAvailable)
+    if (self.searchController.active || self.publicCloudRecords.count == 0)
     {
         [self updateSearchResultsForSearchController: self.searchController];
-    }
-    else
-    {
-        [self showAlertActionsToAddiCloud: nil];
     }
 }
 
@@ -330,13 +325,9 @@
                 
                 MDBAppModel* appModel = (MDBAppModel*)self.appModel;
                 
-                MDBFractalInfo* fractalInfo = [appModel.documentController createFractalInfoForFractal: proxy.fractal withDocumentDelegate: nil];
+                MDBFractalInfo* fractalInfo = [appModel.documentController createFractalInfoForFractal: proxy.fractal withImage: [proxy.thumbnail copy] withDocumentDelegate: nil];
                 
-                fractalInfo.document.thumbnail = proxy.thumbnail;
-                fractalInfo.changeDate = [NSDate date];
-                [fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-                
-                [appModel.documentController setFractalInfoHasNewContents: fractalInfo];
+//                [appModel.documentController setFractalInfoHasNewContents: fractalInfo];
                 
                 [fractalInfo closeDocument];
                 

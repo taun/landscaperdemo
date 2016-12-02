@@ -28,13 +28,16 @@
 
 
 
-+ (instancetype)newFractalInfoWithURLPlusMeta: (MDBURLPlusMetaData*)urlPlusMeta forFractal:(LSFractal *)fractal documentDelegate: (id)delegate
++ (instancetype)newFractalInfoWithURLPlusMeta: (MDBURLPlusMetaData*)urlPlusMeta forFractal:(LSFractal *)fractal image: (UIImage*)image documentDelegate: (id)delegate
 {
     MDBFractalInfo* newInfo = [[[self class]alloc] initWithURLPlusMeta: urlPlusMeta];
     MDBFractalDocument* newDocument = [[MDBFractalDocument alloc] initWithFileURL: urlPlusMeta.fileURL];
     newDocument.fractal = fractal;
+    newDocument.thumbnail = image;
+    [newDocument updateChangeCount: UIDocumentChangeDone];
     newDocument.delegate = delegate;
     newInfo.document = newDocument;
+    newInfo.changeDate = [NSDate date];
     
     return newInfo;
 }

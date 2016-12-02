@@ -433,7 +433,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         // Show the MBLSFractalEditViewController.
         //        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
         LSFractal* newFractal = [LSFractal new];
-        MDBFractalInfo* newInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: nil];
+        MDBFractalInfo* newInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withImage: nil withDocumentDelegate: nil];
         NSLog(@"FractalScapes new fractal info created: %@",newInfo);
         if (self.collectionView.indexPathsForVisibleItems.count > 0) {
             [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];

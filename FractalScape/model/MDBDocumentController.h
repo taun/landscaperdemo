@@ -169,7 +169,7 @@
  @param fractal the fractal to be stored in the document
  @param id the document delegate
  */
-- (MDBFractalInfo*)createFractalInfoForFractal:(LSFractal *)fractal withDocumentDelegate: (id)delegate;
+- (MDBFractalInfo*)createFractalInfoForFractal:(LSFractal *)fractal withImage: (UIImage*)image withDocumentDelegate: (id)delegate;
 
 /*!
  * Determines whether or not a document can be created with a given name. This method delegates to

@@ -53,6 +53,11 @@
     return self.fileURL.hash;
 }
 
+-(instancetype)copyWithZone:(NSZone *)zone
+{
+    return [self copy];
+}
+
 -(instancetype)copy
 {
     MDBURLPlusMetaData* newCopy = [MDBURLPlusMetaData urlPlusMetaWithFileURL: self.fileURL metaData: self.metaDataItem];

@@ -2555,7 +2555,7 @@ static const CGFloat kLevelNMargin = 48.0;
     
     self.fractalInfo = nil;
     
-    MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withDocumentDelegate: self];
+    MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withImage: [self.fractalDocument.thumbnail copy] withDocumentDelegate: self];
     
     [self setFractalInfo: fractalInfo andShowCopiedAlert: YES];
 }
