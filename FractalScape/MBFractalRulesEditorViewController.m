@@ -100,8 +100,15 @@
     [super viewDidAppear:animated];
     self.editing = YES;
     
-    [self.scrollView flashScrollIndicators];
+//    [self.scrollView flashScrollIndicators];
+    if (self.destinationView.userInteractionEnabled)
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self animateSlideToAddDeletePeekaboo];
+        });
+    }
 }
+
 -(void) viewDidDisappear:(BOOL)animated {
 #pragma message "TODO: uidocument fix"
 //    if ([self.fractalDocument hasChanges]) {
@@ -123,6 +130,11 @@
     [self.contentView layoutIfNeeded]; // For some reason, layout never happens on contentView without this call.
 }
 
+-(void) animateSlideToAddDeletePeekaboo
+{
+    MBLSReplacementRulesListView* strongReplacementRulesView = self.replacementRules;
+    [strongReplacementRulesView animatePeekaboo];
+}
 
 #pragma mark - Drag & Drop
 - (IBAction)sourceDragLongGesture:(UILongPressGestureRecognizer *)sender {

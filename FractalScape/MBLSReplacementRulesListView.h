@@ -44,4 +44,6 @@ IB_DESIGNABLE
 -(void) startBlinkOutline;
 -(void) endBlinkOutline;
 
+-(void) animatePeekaboo;
+
 @end

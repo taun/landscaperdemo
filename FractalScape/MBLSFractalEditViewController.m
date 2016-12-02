@@ -746,6 +746,8 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowCopiedAlert: (BOOL)copied
 {
+    __weak MBLSFractalEditViewController* weakSelf =  self;
+    
     UIDocumentState docState = fractalInfo.document.documentState;
     
     if (docState != UIDocumentStateNormal)
@@ -754,15 +756,17 @@ static const CGFloat kLevelNMargin = 48.0;
             //
             [fractalInfo.document openWithCompletionHandler:^(BOOL success) {
                 //detect if we have a new default fractal
-                self.fractalInfo = fractalInfo;
+                MBLSFractalEditViewController* editor = weakSelf;
+                
+                editor.fractalInfo = fractalInfo;
                 if (copied)
                 {
-                    [self updateEditorContent];
+                    [editor updateEditorContent];
                     
-                    self.libraryViewController.fractalInfoBeingEdited = fractalInfo;
+                    editor.libraryViewController.fractalInfoBeingEdited = fractalInfo;
                     
-                    [self showCopiedAlert: fractalInfo.document.fractal.name];
-                    self.hasBeenEdited = YES;
+                    [editor showCopiedAlert: fractalInfo.document.fractal.name];
+                    editor.hasBeenEdited = YES;
 //                    [self performSegueWithIdentifier: @"EditSegue" sender: self];
                 }
             }];
@@ -1042,10 +1046,7 @@ static const CGFloat kLevelNMargin = 48.0;
 
 -(void) updateLibraryRepresentationIfNeeded
 {
-    if (self.hasBeenEdited)
-    {
-        [self updateLibraryRepresentationIfNeededNow: NO];
-    }
+    [self updateLibraryRepresentationIfNeededNow: NO];
 }
 
 -(void) updateLibraryRepresentationIfNeededNow: (BOOL)now

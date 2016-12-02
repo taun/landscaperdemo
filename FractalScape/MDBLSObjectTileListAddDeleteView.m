@@ -302,8 +302,8 @@
     switch (_state) {
         case MDBLSNeutral:
             [self setContentViewEnabled:YES];
-            strongAdd.alpha = 0.0;
-            strongDelete.alpha = 0.0;
+            strongAdd.alpha = 0.08;
+            strongDelete.alpha = 0.05;
             [self resignFirstResponder];
             break;
             
@@ -327,6 +327,29 @@
     self.deleteControlConstraint.constant = self.deleteControlInitialConstant - position;
     self.leftConstraint.constant = position;
     self.rightConstraint.constant = position;
+}
+
+-(void) animatePeekaboo
+{
+    if (self.content.userInteractionEnabled)
+    {
+//        CGPoint center = self.center;
+        //
+        [UIView animateWithDuration: 3.0 delay: 0.0
+             usingSpringWithDamping: 0.5
+              initialSpringVelocity: 0.0
+                            options: UIViewAnimationOptionAllowUserInteraction
+                         animations:^{
+                             //
+//                             self.center = CGPointMake(center.x + 20.0, center.y);
+                             [self animateSlideForAdd];
+                             
+                         } completion:^(BOOL finished) {
+                             //
+//                             self.center = center;
+                             [self animateClosed: YES];
+                         }];
+    }
 }
 
 -(void) setContentViewEnabled: (BOOL)enabled

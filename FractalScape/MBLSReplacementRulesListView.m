@@ -229,6 +229,17 @@
     
     [self setNeedsUpdateConstraints];
 }
+
+-(void) animatePeekaboo {
+    
+    for (MDBLSObjectTileListAddDeleteView* rrView in self.subviews) {
+        [rrView animatePeekaboo];
+        break;
+    }
+}
+
+
+
 #pragma mark - Drag&Drop
 -(UIView*) dragDidStartAtLocalPoint: (CGPoint)point draggingItem: (MBDraggingItem*) draggingRule {
     UIView* dragView;

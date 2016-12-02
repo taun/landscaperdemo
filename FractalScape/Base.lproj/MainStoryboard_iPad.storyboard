@@ -1168,7 +1168,7 @@
                     <tabBarItem key="tabBarItem" title="Effects" image="tabBarFillColorIcon" id="aIQ-UF-ZEG"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Yyv-ZW-fjS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yyv-ZW-fjS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1306,7 +1306,7 @@
                                             <view contentMode="scaleToFill" restorationIdentifier="FiltersScrollContents" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-N1-HPR" userLabel="FiltersScrollContents">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="230"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" restorationIdentifier="FilterCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" userLabel="FilterCategoriesView" customClass="MDBImageFiltersCategoriesListView">
+                                                    <view opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" misplaced="YES" restorationIdentifier="FilterCategoriesView" translatesAutoresizingMaskIntoConstraints="NO" id="ehG-I0-xK1" userLabel="FilterCategoriesView" customClass="MDBImageFiltersCategoriesListView">
                                                         <rect key="frame" x="18" y="0.0" width="364" height="186"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <gestureRecognizers/>
@@ -1391,7 +1391,7 @@ Drag icon to holder below to apply effect</string>
                                                         <constraint firstAttribute="centerY" secondItem="jhA-5f-k1Y" secondAttribute="centerY" id="w9Z-wT-cV6"/>
                                                     </constraints>
                                                 </view>
-                                                <view opaque="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
+                                                <view opaque="NO" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-D6-jGd" customClass="MBLSObjectListTileViewer">
                                                     <rect key="frame" x="6" y="56" width="384" height="42"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <gestureRecognizers/>
@@ -2345,7 +2345,7 @@ Drag icon to holder below to apply effect</string>
         <scene sceneID="zSv-JI-BWw">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalEditLibraryController" title="Edit Library" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="7x8-no-bZT">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" id="7x8-no-bZT">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2468,10 +2468,11 @@ Drag icon to holder below to apply effect</string>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="mfX-Jd-0ku" customClass="MBCollectionFractalSupplementaryLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lH-HW-227">
-                                    <rect key="frame" x="-81.5" y="11" width="163" height="21"/>
+                                    <rect key="frame" x="418.5" y="11" width="163" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="NPk-Vn-gcT"/>
                                     </constraints>
@@ -2678,10 +2679,11 @@ Drag icon to holder below to apply effect</string>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="R8j-MN-2F0" customClass="MBCollectionFractalSupplementaryLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBu-fT-DpV">
-                                    <rect key="frame" x="-81.5" y="11" width="163" height="21"/>
+                                    <rect key="frame" x="418.5" y="11" width="163" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="cWI-Hz-w47"/>
                                     </constraints>
@@ -3368,7 +3370,7 @@ The main screen with all your fractals is called your "Library". See below for a
             <objects>
                 <navigationController id="0Qx-6W-pJV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="tabBarSettings" id="Og5-2p-JKi"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cep-6U-dGk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cep-6U-dGk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3650,7 +3652,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="92t-Wk-RAa">
             <objects>
                 <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6PP-ZX-118">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3681,7 +3683,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="llP-wv-S99">
             <objects>
                 <navigationController storyboardIdentifier="FractalScapesStoreFront" title="FractalScapes Store" id="TTb-ph-Ba9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="WoR-a2-5VD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WoR-a2-5VD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3940,13 +3942,14 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="LibraryNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="u0F-Fq-0AU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="My Fractals" image="tabBarMyFractals" id="w1h-AT-xFO"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Lwl-kr-jhM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lwl-kr-jhM">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bKg-aJ-g7d">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -3965,7 +3968,7 @@ Please try again later.</string>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gqA-wB-5rr">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gqA-wB-5rr">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3986,7 +3989,7 @@ Please try again later.</string>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="x8W-Hw-E0T">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="x8W-Hw-E0T">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4005,7 +4008,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="BrowseNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="j6S-Q5-Emg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="9e1-or-Poa"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gUo-JS-e17">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gUo-JS-e17">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.22" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4216,7 +4219,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="TutorialDetailNavController" id="qpc-13-ZVz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FEs-5p-402">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEs-5p-402">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4903,10 +4906,11 @@ Please try again later.</string>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FractalLibraryCollectionHeader" id="12w-1T-vYj" customClass="MBCollectionFractalSupplementaryLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Collection Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dD-19-8hd">
-                                    <rect key="frame" x="-81.5" y="11" width="163" height="21"/>
+                                    <rect key="frame" x="418.5" y="11" width="163" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="Yl2-a6-DgR"/>
                                     </constraints>
@@ -5069,6 +5073,21 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-8u-SNp" customClass="MDKLayerViewDesignable">
+                                                                            <rect key="frame" x="284" y="664" width="281" height="49.5"/>
+                                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.50963184930000005" colorSpace="calibratedRGB"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="6"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                    <real key="value" value="1"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                    <color key="value" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </view>
                                                                         <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwE-Oj-zx1">
                                                                             <rect key="frame" x="290" y="658" width="269" height="61.5"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -5086,6 +5105,8 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                         <constraint firstItem="zu8-ra-eRM" firstAttribute="leading" secondItem="Tsf-sM-5Mv" secondAttribute="leading" constant="8" id="5NF-nd-T7t"/>
                                                                         <constraint firstAttribute="trailing" secondItem="vwE-Oj-zx1" secondAttribute="trailing" constant="8" id="DO8-Sq-p8X"/>
                                                                         <constraint firstItem="ocL-3i-eA2" firstAttribute="leading" secondItem="RTF-bB-ZFn" secondAttribute="trailing" constant="8" id="DcJ-WL-6xj"/>
+                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="top" secondItem="vwE-Oj-zx1" secondAttribute="top" constant="6" id="Fgg-cf-OTh"/>
+                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="bottom" secondItem="vwE-Oj-zx1" secondAttribute="bottom" constant="-6" id="GWn-cQ-m5j"/>
                                                                         <constraint firstAttribute="bottom" secondItem="vwE-Oj-zx1" secondAttribute="bottom" constant="20" id="Ga0-Px-hzc"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T9U-Mk-Tsk" secondAttribute="trailing" constant="8" id="Het-mV-26W"/>
                                                                         <constraint firstItem="rjt-pB-iFD" firstAttribute="leading" secondItem="5qa-OB-4eW" secondAttribute="trailing" constant="8" id="INa-70-Zsf"/>
@@ -5093,6 +5114,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                         <constraint firstItem="6z8-ag-Zj8" firstAttribute="top" secondItem="RIu-b5-vls" secondAttribute="bottom" constant="2" id="LTo-XS-zvP"/>
                                                                         <constraint firstItem="4US-62-Lf7" firstAttribute="top" secondItem="5qa-OB-4eW" secondAttribute="bottom" constant="8" id="N4v-71-YGP"/>
                                                                         <constraint firstItem="6z8-ag-Zj8" firstAttribute="width" secondItem="6z8-ag-Zj8" secondAttribute="height" multiplier="1:1" id="OdE-Im-XNt"/>
+                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="leading" secondItem="vwE-Oj-zx1" secondAttribute="leading" constant="-6" id="Pdx-gG-cMh"/>
                                                                         <constraint firstAttribute="trailing" secondItem="zu8-ra-eRM" secondAttribute="trailing" constant="8" id="QVf-8t-yz1"/>
                                                                         <constraint firstItem="RTF-bB-ZFn" firstAttribute="top" secondItem="6z8-ag-Zj8" secondAttribute="bottom" constant="8" id="SQM-hE-04l"/>
                                                                         <constraint firstItem="gV0-Kd-tOz" firstAttribute="leading" secondItem="6z8-ag-Zj8" secondAttribute="trailing" constant="8" id="VgJ-PY-g62"/>
@@ -5107,6 +5129,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rjt-pB-iFD" secondAttribute="trailing" constant="8" id="fb7-Ao-qFu"/>
                                                                         <constraint firstItem="5qa-OB-4eW" firstAttribute="top" secondItem="RTF-bB-ZFn" secondAttribute="bottom" constant="8" id="joN-Qc-lDi"/>
                                                                         <constraint firstAttribute="height" constant="740" placeholder="YES" id="lqV-MM-LYU"/>
+                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="trailing" secondItem="vwE-Oj-zx1" secondAttribute="trailing" constant="6" id="mT5-Md-5Ly"/>
                                                                         <constraint firstItem="4US-62-Lf7" firstAttribute="centerY" secondItem="T9U-Mk-Tsk" secondAttribute="centerY" id="nJI-Xs-eXf"/>
                                                                         <constraint firstItem="6z8-ag-Zj8" firstAttribute="centerY" secondItem="gV0-Kd-tOz" secondAttribute="centerY" id="pSD-0n-6e8"/>
                                                                         <constraint firstItem="T9U-Mk-Tsk" firstAttribute="leading" secondItem="4US-62-Lf7" secondAttribute="trailing" constant="8" id="pSk-U4-DGI"/>
