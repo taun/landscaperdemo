@@ -184,7 +184,7 @@
 -(void) setTileMargin:(CGFloat)tileMargin {
     _tileMargin = tileMargin;
     
-    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+    for (MDBLSObjectTileListAddDeleteView* rrView in self.subviews) {
         rrView.tileMargin = _tileMargin;
     }
     
@@ -194,7 +194,7 @@
 -(void) setTileWidth:(CGFloat)tileWidth {
     _tileWidth = tileWidth;
 
-    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+    for (MDBLSObjectTileListAddDeleteView* rrView in self.subviews) {
         rrView.tileWidth = _tileWidth;
     }
 
@@ -204,7 +204,7 @@
 -(void) setShowTileBorder:(BOOL)showTileBorder {
     _showTileBorder = showTileBorder;
 
-    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+    for (MDBLSObjectTileListAddDeleteView* rrView in self.subviews) {
         rrView.showTileBorder = _showTileBorder;
     }
 }
@@ -219,10 +219,11 @@
         self.layer.borderWidth = 0.0;
     }
 }
+
 -(void) setJustify:(BOOL)justify {
     _justify = justify;
     
-    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+    for (MDBLSObjectTileListAddDeleteView* rrView in self.subviews) {
         rrView.justify = _justify;
     }
     

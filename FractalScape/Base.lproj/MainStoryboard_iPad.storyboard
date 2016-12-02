@@ -1083,7 +1083,7 @@
                 <tapGestureRecognizer id="nwB-ZA-oCT"/>
                 <tapGestureRecognizer id="52k-sy-KJz"/>
             </objects>
-            <point key="canvasLocation" x="6119" y="118"/>
+            <point key="canvasLocation" x="5547" y="-29"/>
         </scene>
         <!--Name-->
         <scene sceneID="nU4-lI-gI7">
@@ -1102,7 +1102,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Clw-Wv-vQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7328" y="-363"/>
+            <point key="canvasLocation" x="6980" y="-14"/>
         </scene>
         <!--Description Editor View Controller-->
         <scene sceneID="wMQ-rm-34g">
@@ -1159,7 +1159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sN4-kj-eTD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7328" y="232"/>
+            <point key="canvasLocation" x="6980" y="581"/>
         </scene>
         <!--Effects-->
         <scene sceneID="GlJ-fF-gPe">
@@ -1178,7 +1178,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52B-LO-Zy5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7875" y="-363"/>
+            <point key="canvasLocation" x="7527" y="-14"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="7mb-ZU-f8L">
@@ -1283,7 +1283,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6119" y="923"/>
+            <point key="canvasLocation" x="5547" y="890"/>
         </scene>
         <!--Fractal FIlters Controller-->
         <scene sceneID="U9M-3b-HZb">
@@ -1567,7 +1567,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="7875" y="229"/>
+            <point key="canvasLocation" x="7527" y="578"/>
         </scene>
         <!--Fractal Rules Editor View Controller-->
         <scene sceneID="AoQ-mK-Ne2">
@@ -1588,10 +1588,10 @@ Drag icon to holder below to apply effect</string>
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="479"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" restorationIdentifier="RulesScrollContentsView" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-9f-h9I" userLabel="RulesScrollContentsView">
-                                                <rect key="frame" x="0.0" y="0.0" width="400" height="307"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="400" height="317"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="RulesOutlineDesignable" translatesAutoresizingMaskIntoConstraints="NO" id="1Sj-KC-aPt" customClass="MDKLayerViewDesignable">
-                                                        <rect key="frame" x="2" y="2" width="396" height="231"/>
+                                                        <rect key="frame" x="2" y="2" width="396" height="241"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Td5-aV-Bii" customClass="MDKLayerViewDesignable">
                                                                 <rect key="frame" x="105.5" y="8" width="185" height="34"/>
@@ -1687,7 +1687,7 @@ Drag icon to holder below to apply effect</string>
                                                         </connections>
                                                     </view>
                                                     <view opaque="NO" contentMode="scaleAspectFit" restorationIdentifier="ListOfReplacementRules" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-Hx-YZd" customClass="MBLSReplacementRulesListView">
-                                                        <rect key="frame" x="12" y="143" width="376" height="82"/>
+                                                        <rect key="frame" x="12" y="143" width="376" height="92"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
@@ -1714,7 +1714,7 @@ Drag icon to holder below to apply effect</string>
                                                         </connections>
                                                     </view>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" restorationIdentifier="ReplacementRulesSourceListView" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-Ea-Cqu" customClass="MBLSRuleTypeTileViewer">
-                                                        <rect key="frame" x="12" y="245" width="376" height="42"/>
+                                                        <rect key="frame" x="12" y="255" width="376" height="42"/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
@@ -1897,7 +1897,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="8323" y="243"/>
+            <point key="canvasLocation" x="7975" y="592"/>
         </scene>
         <!--Fractal Color View Container-->
         <scene sceneID="ahc-Pz-mGd">
@@ -2315,7 +2315,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="8788" y="229"/>
+            <point key="canvasLocation" x="8440" y="578"/>
         </scene>
         <!--Fractal Appearance Editor View Controller-->
         <scene sceneID="vbC-pS-Rbr">
@@ -2339,7 +2339,7 @@ Drag icon to holder below to apply effect</string>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCg-OZ-rZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6793" y="-363"/>
+            <point key="canvasLocation" x="6379" y="-14"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zSv-JI-BWw">
@@ -2523,7 +2523,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="4256.25" y="914.64843749999989"/>
+            <point key="canvasLocation" x="7104" y="2118"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="iKT-0y-poi">
@@ -2745,7 +2745,7 @@ Drag icon to holder below to apply effect</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="4589.84375" y="124.80468749999999"/>
+            <point key="canvasLocation" x="3728" y="605"/>
         </scene>
         <!--WelcomeLibraryModal-->
         <scene sceneID="ww4-qS-eMi">
@@ -3040,7 +3040,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBA-Po-qV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Z2d-iD-tDV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5329" y="-584"/>
+            <point key="canvasLocation" x="5237" y="2118"/>
         </scene>
         <!--Settings-->
         <scene sceneID="y58-hl-MeF">
@@ -3051,7 +3051,7 @@ The main screen with all your fractals is called your "Library". See below for a
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="5ja-JH-4WM">
-                            <rect key="frame" x="0.0" y="721" width="600" height="134"/>
+                            <rect key="frame" x="0.0" y="724" width="600" height="134"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E50-QU-HWQ" userLabel="MOEDAELogo96">
@@ -3074,10 +3074,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="Store" id="bDL-qV-BiA">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="y93-tc-fH2">
-                                        <rect key="frame" x="0.0" y="55.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="y93-tc-fH2" id="LuX-N7-HsZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aE9-AY-7Sg">
@@ -3097,10 +3097,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="xNP-RW-gb3">
-                                        <rect key="frame" x="0.0" y="99.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="xNP-RW-gb3" id="u4s-88-CnB">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xhs-dV-O3J">
@@ -3124,10 +3124,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="User Experience" footerTitle="" id="Qku-oU-V1L">
                                 <cells>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="Kd4-dq-iCc">
-                                        <rect key="frame" x="0.0" y="199" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="200" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="Kd4-dq-iCc" id="bCO-Jx-c63">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
@@ -3153,10 +3153,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="NJS-hC-8Qq">
-                                        <rect key="frame" x="0.0" y="243" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="244" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="NJS-hC-8Qq" id="Qjv-pf-EbT">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
@@ -3186,10 +3186,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="Leave FractalScapes for" id="Pjt-rq-jh7">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchSettings" id="eUm-GQ-XwH">
-                                        <rect key="frame" x="0.0" y="335" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="337" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="eUm-GQ-XwH" id="MVb-0a-4kt">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNJ-J0-W67">
@@ -3209,10 +3209,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchTwitter" id="w2G-kB-ytX">
-                                        <rect key="frame" x="0.0" y="379" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="381" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="w2G-kB-ytX" id="Usf-Pk-dQ4">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyF-5K-Agg">
@@ -3232,10 +3232,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchEmail" id="qcz-5a-Cng">
-                                        <rect key="frame" x="0.0" y="423" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="425" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="qcz-5a-Cng" id="wcM-kN-fzA">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5x-ld-WqJ">
@@ -3255,10 +3255,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchFacebook" id="38P-A3-hOZ">
-                                        <rect key="frame" x="0.0" y="467" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="469" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="38P-A3-hOZ" id="k97-d7-dHN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1D-qe-ep3">
@@ -3282,10 +3282,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="About" id="Le5-ZS-dP9">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="pno-yd-cLQ">
-                                        <rect key="frame" x="0.0" y="559" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="562" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="pno-yd-cLQ" id="QYy-0L-YNf">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
@@ -3311,10 +3311,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="JD4-OE-jya">
-                                        <rect key="frame" x="0.0" y="603" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="606" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="JD4-OE-jya" id="NPT-4G-m7q">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Build" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzu-MW-p1f">
@@ -3361,7 +3361,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5T-qE-k9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4421" y="-1687"/>
+            <point key="canvasLocation" x="3728" y="-1734"/>
         </scene>
         <!--Settings-->
         <scene sceneID="fKo-5P-cMR">
@@ -3379,7 +3379,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4jW-06-Tuf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3581" y="-1678"/>
+            <point key="canvasLocation" x="2680" y="-1734"/>
         </scene>
         <!--Select-->
         <scene sceneID="yjO-c8-y2l">
@@ -3598,7 +3598,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlr-YX-DBd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4590" y="-584"/>
+            <point key="canvasLocation" x="3728" y="-584"/>
         </scene>
         <!--Help-->
         <scene sceneID="uhO-0n-cBU">
@@ -3613,7 +3613,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
@@ -3644,7 +3644,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yID-CE-aV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2861" y="1790"/>
+            <point key="canvasLocation" x="3728" y="2118"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="92t-Wk-RAa">
@@ -3661,7 +3661,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fi4-Fc-RCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2127" y="1790"/>
+            <point key="canvasLocation" x="2680" y="2118"/>
         </scene>
         <!--Help-->
         <scene sceneID="qeT-zj-FGl">
@@ -3696,7 +3696,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZZ-kp-QlI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5372" y="-1640"/>
+            <point key="canvasLocation" x="6263" y="-1734"/>
         </scene>
         <!--Upgrades-->
         <scene sceneID="cmQ-VW-5A6">
@@ -3721,7 +3721,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                         <rect key="frame" x="0.0" y="22" width="540" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="tCq-9a-a7L" id="mRQ-6D-CpM">
-                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTX-Yf-NGD">
@@ -3818,7 +3818,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                         <rect key="frame" x="0.0" y="202" width="540" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="fyl-UY-Fcf" id="FFC-4i-gmy">
-                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFl-4s-FvV" customClass="MDKLayerViewDesignable">
@@ -3910,7 +3910,7 @@ Please try again later.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tcu-4u-pXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="MOF-rr-kf0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6119" y="-1640"/>
+            <point key="canvasLocation" x="7010" y="-1734"/>
         </scene>
         <!--Main Library Tab Bar Controller-->
         <scene sceneID="95T-CA-6ut">
@@ -3955,7 +3955,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dce-s8-c1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3892" y="125"/>
+            <point key="canvasLocation" x="2680" y="605"/>
         </scene>
         <!--Rules-->
         <scene sceneID="M0i-xl-FcE">
@@ -3976,7 +3976,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqe-FJ-cA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8323" y="-363"/>
+            <point key="canvasLocation" x="7975" y="-14"/>
         </scene>
         <!--Colors-->
         <scene sceneID="w3F-vD-9bK">
@@ -3997,7 +3997,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBY-hp-n0F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8788" y="-363"/>
+            <point key="canvasLocation" x="8440" y="-14"/>
         </scene>
         <!--Browse Cloud-->
         <scene sceneID="ehG-xQ-2ub">
@@ -4017,7 +4017,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brm-ue-2zq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3892" y="-584"/>
+            <point key="canvasLocation" x="2680" y="-584"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="5Au-fm-e3U">
@@ -4028,7 +4028,7 @@ Please try again later.</string>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B0n-AT-w3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2861" y="2539"/>
+            <point key="canvasLocation" x="3448" y="3535"/>
         </scene>
         <!--Rules Glossary-->
         <scene sceneID="lN5-Zy-q45">
@@ -4208,7 +4208,7 @@ Please try again later.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BpR-Br-fH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8290" y="2539"/>
+            <point key="canvasLocation" x="7343" y="4799"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bt6-QJ-c2c">
@@ -4228,7 +4228,7 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKA-RW-I9I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2127" y="2539"/>
+            <point key="canvasLocation" x="2441" y="3543"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="yUH-v2-PcJ">
@@ -4306,7 +4306,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3553" y="2539"/>
+            <point key="canvasLocation" x="4460" y="3527"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="iPl-tY-QdS">
@@ -4384,7 +4384,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4239" y="2547"/>
+            <point key="canvasLocation" x="5410" y="3527"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="we8-at-8Xg">
@@ -4462,7 +4462,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4923" y="2547"/>
+            <point key="canvasLocation" x="6377" y="3527"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="Ecr-9y-q5N">
@@ -4540,7 +4540,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5573" y="2547"/>
+            <point key="canvasLocation" x="7311" y="3527"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="hCM-GW-Dog">
@@ -4618,7 +4618,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6249" y="2539"/>
+            <point key="canvasLocation" x="4460" y="4799"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="n3f-yT-moA">
@@ -4696,7 +4696,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6943" y="2539"/>
+            <point key="canvasLocation" x="5410" y="4799"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="niF-3F-uH2">
@@ -4774,7 +4774,7 @@ Please try again later.</string>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="7625" y="2539"/>
+            <point key="canvasLocation" x="6377" y="4799"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="616-qu-iQJ">
@@ -4958,7 +4958,7 @@ Please try again later.</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="4922.65625" y="914.64843749999989"/>
+            <point key="canvasLocation" x="6023" y="2118"/>
         </scene>
         <!--WelcomeLibraryModal-->
         <scene sceneID="fJB-Ox-vBG">
@@ -5194,7 +5194,7 @@ The main screen with all your fractals is called your "Library". See below for a
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J0l-yb-F8p" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="s88-3u-Bit" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3601" y="1065"/>
+            <point key="canvasLocation" x="4592" y="2118"/>
         </scene>
     </scenes>
     <resources>
@@ -5244,8 +5244,8 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0fO-dT-L5U"/>
         <segue reference="O2z-rK-pDb"/>
+        <segue reference="m6M-61-Rhx"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

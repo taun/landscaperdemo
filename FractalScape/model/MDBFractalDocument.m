@@ -137,12 +137,8 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 - (void)updateDocumentWrapperForThumbnail
 {
     NSFileWrapper* existingWrapper = [self thumbnailFileWrapper];
-    if (existingWrapper)
-    {
-        [self.documentFileWrapper removeFileWrapper: existingWrapper];
-    }
     
-    if (self.thumbnail)
+    if (self.thumbnail && !existingWrapper)
     {
         [self.documentFileWrapper addRegularFileWithContents: UIImagePNGRepresentation(self.thumbnail) preferredFilename: kMDBThumbnailFileName]; // UIImageJPEGRepresentation(self.thumbnail, kMDBJGPQuality)
     }
@@ -178,7 +174,7 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 {
     if (self.documentFileWrapper == nil)
     {
-        self.documentFileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
+        self.documentFileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
     }
 
     NSFileWrapper* existingVersion = self.documentFileWrapper.fileWrappers[kMDBVersionFileName];
@@ -188,14 +184,9 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     
     [self.documentFileWrapper addRegularFileWithContents: [NSKeyedArchiver archivedDataWithRootObject: @(kMDBDocumentCurrentVersion)] preferredFilename: kMDBVersionFileName];
     
-    if (self.fractal)
-    {
-        [self updateDocumentWrapperForFractal];
-    }
+    [self updateDocumentWrapperForFractal];
     
-    if (self.thumbnail) {
-        [self updateDocumentWrapperForThumbnail];
-    }
+    [self updateDocumentWrapperForThumbnail];
     
     return self.documentFileWrapper;
 }
@@ -324,6 +315,9 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
     if (_thumbnail != thumbnail) {
         _thumbnail = thumbnail;
         _thumbnailData = nil;
+        
+        NSFileWrapper* existingWrapper = [self thumbnailFileWrapper];
+        if (existingWrapper) [self.documentFileWrapper removeFileWrapper: existingWrapper];
     }
 }
 

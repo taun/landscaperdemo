@@ -31,6 +31,14 @@ typedef NS_ENUM(NSUInteger, MDBLSAddDeleteState) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *deleteControlConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addControlConstraint;
 
+// Properties for subviews
+@property (nonatomic,assign) IBInspectable CGFloat      tileWidth;
+@property (nonatomic,assign) IBInspectable CGFloat      tileMargin;
+@property (nonatomic,assign) IBInspectable BOOL         showTileBorder;
+@property (nonatomic,assign) IBInspectable BOOL         showOutline;
+@property (nonatomic,assign) IBInspectable BOOL         justify;
+
+
 - (IBAction)deletePressed:(id)sender;
 - (IBAction)addPressed:(id)sender;
 

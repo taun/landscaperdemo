@@ -115,21 +115,55 @@
 {
     for (MBLSReplacementRuleTileView* subview in self.subviews)
     {
-        if ([subview isKindOfClass: [MBLSReplacementRuleTileView class]])
-        {
-            [subview startBlinkOutline];
-        }
+        if ([subview isKindOfClass: [MBLSReplacementRuleTileView class]]) [subview startBlinkOutline];
     }
 }
 -(void)endBlinkOutline
 {
     for (MBLSReplacementRuleTileView* subview in self.subviews)
     {
-        if ([subview isKindOfClass: [MBLSReplacementRuleTileView class]])
-        {
-            [subview endBlinkOutline];
-        }
+        if ([subview isKindOfClass: [MBLSReplacementRuleTileView class]])  [subview endBlinkOutline];
     }
+}
+
+-(void) setTileMargin:(CGFloat)tileMargin {
+    _tileMargin = tileMargin;
+    
+    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+        if([rrView isKindOfClass: [MBLSReplacementRuleTileView class]]) rrView.tileMargin = _tileMargin;
+    }
+    
+    [self setNeedsUpdateConstraints];
+}
+
+-(void) setShowOutline:(BOOL)showOutline {
+    _showOutline = showOutline;
+    
+    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+        if([rrView isKindOfClass: [MBLSReplacementRuleTileView class]]) rrView.showOutline = _showOutline;
+    }
+    
+    [self setNeedsUpdateConstraints];
+}
+
+-(void) setTileWidth:(CGFloat)tileWidth {
+    _tileWidth = tileWidth;
+    
+    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+        if([rrView isKindOfClass: [MBLSReplacementRuleTileView class]]) rrView.tileWidth = _tileWidth;
+    }
+    
+    [self setNeedsUpdateConstraints];
+}
+
+-(void) setJustify:(BOOL)justify {
+    _justify = justify;
+    
+    for (MBLSReplacementRuleTileView* rrView in self.subviews) {
+        if([rrView isKindOfClass: [MBLSReplacementRuleTileView class]]) rrView.justify = _justify;
+    }
+    
+    [self setNeedsUpdateConstraints];
 }
 
 -(void)updateConstraints
