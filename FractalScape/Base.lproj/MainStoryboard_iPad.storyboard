@@ -1168,7 +1168,7 @@
                     <tabBarItem key="tabBarItem" title="Effects" image="tabBarFillColorIcon" id="aIQ-UF-ZEG"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yyv-ZW-fjS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Yyv-ZW-fjS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2345,7 +2345,7 @@ Drag icon to holder below to apply effect</string>
         <scene sceneID="zSv-JI-BWw">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalEditLibraryController" title="Edit Library" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pe-kV-foC" customClass="MBFractalLibraryEditViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" id="7x8-no-bZT">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="7x8-no-bZT">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2898,9 +2898,27 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHN-WE-buM" customClass="MDKLayerViewDesignable">
-                                                                            <rect key="frame" x="219.5" y="662" width="344" height="53.5"/>
-                                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.50963184931506844" colorSpace="calibratedRGB"/>
+                                                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHN-WE-buM" customClass="MDKLayerViewDesignable">
+                                                                            <rect key="frame" x="109" y="646" width="348" height="74"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d7-BG-oNU">
+                                                                                    <rect key="frame" x="8" y="8" width="332" height="58"/>
+                                                                                    <size key="titleShadowOffset" width="0.0" height="2"/>
+                                                                                    <state key="normal" title="Get Started by selecting fractals you like!">
+                                                                                        <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                    </state>
+                                                                                    <connections>
+                                                                                        <segue destination="Z2d-iD-tDV" kind="unwind" unwindAction="unwindFromWelcome:" id="UW0-1J-0Xv"/>
+                                                                                    </connections>
+                                                                                </button>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="5d7-BG-oNU" firstAttribute="leading" secondItem="cHN-WE-buM" secondAttribute="leading" constant="8" id="L2c-f3-BKq"/>
+                                                                                <constraint firstItem="5d7-BG-oNU" firstAttribute="top" secondItem="cHN-WE-buM" secondAttribute="top" constant="8" id="UfH-xP-qmR"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="5d7-BG-oNU" secondAttribute="bottom" constant="8" id="k3b-4u-iJd"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="5d7-BG-oNU" secondAttribute="trailing" constant="8" id="rQH-lP-HIh"/>
+                                                                            </constraints>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                     <real key="value" value="6"/>
@@ -2913,23 +2931,14 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </view>
-                                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d7-BG-oNU">
-                                                                            <rect key="frame" x="225.5" y="658" width="332" height="61.5"/>
-                                                                            <state key="normal" title="Get Started by selecting fractals you like!">
-                                                                                <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            </state>
-                                                                            <connections>
-                                                                                <segue destination="Z2d-iD-tDV" kind="unwind" unwindAction="unwindFromWelcome:" id="UW0-1J-0Xv"/>
-                                                                            </connections>
-                                                                        </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstItem="L7Y-Jc-iAw" firstAttribute="leading" secondItem="vIX-Zw-Zgt" secondAttribute="leading" id="0dB-rJ-b1H"/>
-                                                                        <constraint firstItem="cHN-WE-buM" firstAttribute="top" secondItem="5d7-BG-oNU" secondAttribute="top" constant="4" id="1Ru-kB-kam"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="cHN-WE-buM" secondAttribute="bottom" constant="20" symbolic="YES" id="0gT-HW-Eh3"/>
                                                                         <constraint firstItem="1Su-7M-aS4" firstAttribute="leading" secondItem="08j-Q0-HVl" secondAttribute="trailing" constant="8" id="2NV-vR-y4q"/>
                                                                         <constraint firstItem="vIX-Zw-Zgt" firstAttribute="width" secondItem="vIX-Zw-Zgt" secondAttribute="height" multiplier="1:1" id="57j-zZ-t5W"/>
+                                                                        <constraint firstItem="cHN-WE-buM" firstAttribute="centerX" secondItem="CJo-5w-3J5" secondAttribute="centerX" id="5yN-9U-p6d"/>
                                                                         <constraint firstItem="vIX-Zw-Zgt" firstAttribute="top" secondItem="08j-Q0-HVl" secondAttribute="bottom" constant="8" id="65o-Aw-OeU"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xu7-08-9SH" secondAttribute="trailing" constant="8" id="79y-ea-z9Q"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RmM-1v-DlQ" secondAttribute="trailing" constant="8" id="84I-3R-Lrd"/>
@@ -2938,27 +2947,24 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                         <constraint firstAttribute="centerX" secondItem="Jm4-us-epF" secondAttribute="centerX" constant="1" id="Gyp-NY-zay"/>
                                                                         <constraint firstItem="Jm4-us-epF" firstAttribute="top" secondItem="CJo-5w-3J5" secondAttribute="top" constant="40" id="Gyx-dB-GEZ"/>
                                                                         <constraint firstItem="2Hw-Gm-9mv" firstAttribute="leading" secondItem="44Q-Mg-LLI" secondAttribute="leading" id="H7q-0v-Ygd"/>
-                                                                        <constraint firstItem="5d7-BG-oNU" firstAttribute="top" secondItem="vIX-Zw-Zgt" secondAttribute="bottom" constant="20" id="KqK-Rm-igi"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IPA-Vh-g26" secondAttribute="trailing" constant="8" id="Ojc-5V-XEV"/>
                                                                         <constraint firstItem="08j-Q0-HVl" firstAttribute="width" secondItem="08j-Q0-HVl" secondAttribute="height" multiplier="1:1" id="P2d-Xu-Nnn"/>
                                                                         <constraint firstItem="vIX-Zw-Zgt" firstAttribute="centerY" secondItem="RmM-1v-DlQ" secondAttribute="centerY" id="PJk-Il-GUD"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1Su-7M-aS4" secondAttribute="trailing" constant="8" id="Ra0-fn-rOW"/>
                                                                         <constraint firstItem="L7Y-Jc-iAw" firstAttribute="leading" secondItem="08j-Q0-HVl" secondAttribute="leading" id="UPd-mr-TaV"/>
                                                                         <constraint firstItem="RmM-1v-DlQ" firstAttribute="leading" secondItem="vIX-Zw-Zgt" secondAttribute="trailing" constant="8" id="Uzd-cK-lsf"/>
-                                                                        <constraint firstItem="cHN-WE-buM" firstAttribute="trailing" secondItem="5d7-BG-oNU" secondAttribute="trailing" constant="6" id="VGu-3w-fRE"/>
                                                                         <constraint firstAttribute="trailing" secondItem="4MK-Ue-1Yh" secondAttribute="trailing" constant="8" id="W2e-Lf-tUC"/>
-                                                                        <constraint firstItem="cHN-WE-buM" firstAttribute="leading" secondItem="5d7-BG-oNU" secondAttribute="leading" constant="-6" id="WWq-B9-F0o"/>
                                                                         <constraint firstItem="08j-Q0-HVl" firstAttribute="top" secondItem="L7Y-Jc-iAw" secondAttribute="bottom" constant="8" id="XFp-Dd-M6z"/>
                                                                         <constraint firstItem="L7Y-Jc-iAw" firstAttribute="leading" secondItem="CJo-5w-3J5" secondAttribute="leading" constant="8" id="Yxx-R5-2M2"/>
                                                                         <constraint firstItem="1Su-7M-aS4" firstAttribute="centerY" secondItem="08j-Q0-HVl" secondAttribute="centerY" id="bip-Je-Fji"/>
                                                                         <constraint firstItem="IPA-Vh-g26" firstAttribute="leading" secondItem="2Hw-Gm-9mv" secondAttribute="trailing" constant="8" id="cBf-MT-UWX"/>
                                                                         <constraint firstItem="4MK-Ue-1Yh" firstAttribute="top" secondItem="Jm4-us-epF" secondAttribute="bottom" constant="8" symbolic="YES" id="ehj-S9-KX4"/>
+                                                                        <constraint firstItem="cHN-WE-buM" firstAttribute="top" secondItem="vIX-Zw-Zgt" secondAttribute="bottom" constant="8" symbolic="YES" id="g3t-Ym-Hjg"/>
                                                                         <constraint firstItem="xu7-08-9SH" firstAttribute="leading" secondItem="L7Y-Jc-iAw" secondAttribute="trailing" constant="8" id="g47-aY-eXv"/>
                                                                         <constraint firstItem="2Hw-Gm-9mv" firstAttribute="top" secondItem="44Q-Mg-LLI" secondAttribute="bottom" constant="2" id="g4l-3M-BTm"/>
                                                                         <constraint firstItem="4MK-Ue-1Yh" firstAttribute="leading" secondItem="CJo-5w-3J5" secondAttribute="leading" constant="8" id="iCB-St-Vqz"/>
                                                                         <constraint firstItem="2Hw-Gm-9mv" firstAttribute="width" secondItem="2Hw-Gm-9mv" secondAttribute="height" multiplier="1:1" id="kIw-DI-Byx"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="5d7-BG-oNU" secondAttribute="trailing" constant="8" id="kOU-5Y-zVz"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="5d7-BG-oNU" secondAttribute="bottom" constant="20" id="oX4-wt-1hG"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="cHN-WE-buM" secondAttribute="bottom" constant="20" symbolic="YES" id="kcU-pR-hCc"/>
                                                                         <constraint firstItem="L7Y-Jc-iAw" firstAttribute="top" secondItem="2Hw-Gm-9mv" secondAttribute="bottom" constant="8" id="psE-gP-QDZ"/>
                                                                         <constraint firstItem="2Hw-Gm-9mv" firstAttribute="top" secondItem="4MK-Ue-1Yh" secondAttribute="bottom" constant="48" id="u1O-EG-mow">
                                                                             <variation key="heightClass=compact" constant="24"/>
@@ -2966,7 +2972,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                         </constraint>
                                                                         <constraint firstItem="L7Y-Jc-iAw" firstAttribute="centerY" secondItem="xu7-08-9SH" secondAttribute="centerY" id="vp8-lG-OXw"/>
                                                                         <constraint firstAttribute="height" constant="740" placeholder="YES" id="whr-bu-HzN"/>
-                                                                        <constraint firstItem="cHN-WE-buM" firstAttribute="bottom" secondItem="5d7-BG-oNU" secondAttribute="bottom" constant="-4" id="zxK-4i-S3s"/>
                                                                     </constraints>
                                                                 </view>
                                                             </subviews>
@@ -3370,7 +3375,7 @@ The main screen with all your fractals is called your "Library". See below for a
             <objects>
                 <navigationController id="0Qx-6W-pJV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="tabBarSettings" id="Og5-2p-JKi"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cep-6U-dGk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cep-6U-dGk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3652,7 +3657,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="92t-Wk-RAa">
             <objects>
                 <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3683,7 +3688,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="llP-wv-S99">
             <objects>
                 <navigationController storyboardIdentifier="FractalScapesStoreFront" title="FractalScapes Store" id="TTb-ph-Ba9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WoR-a2-5VD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="WoR-a2-5VD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3942,7 +3947,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="LibraryNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="u0F-Fq-0AU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="My Fractals" image="tabBarMyFractals" id="w1h-AT-xFO"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lwl-kr-jhM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Lwl-kr-jhM">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3968,7 +3973,7 @@ Please try again later.</string>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gqA-wB-5rr">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gqA-wB-5rr">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3989,7 +3994,7 @@ Please try again later.</string>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="x8W-Hw-E0T">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="x8W-Hw-E0T">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4008,7 +4013,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="BrowseNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="j6S-Q5-Emg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="9e1-or-Poa"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gUo-JS-e17">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gUo-JS-e17">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.22" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4219,7 +4224,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="TutorialDetailNavController" id="qpc-13-ZVz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEs-5p-402">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FEs-5p-402">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4973,23 +4978,23 @@ Please try again later.</string>
                         <viewControllerLayoutGuide type="bottom" id="gSr-DE-cI3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="J5G-4d-44Q">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcC-uT-bo1" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="16" y="72" width="567.5" height="772"/>
+                                <rect key="frame" x="16" y="72" width="567.5" height="1072"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVu-9d-51V">
-                                        <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="567.5" height="1072"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GNi-gh-71h">
-                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="1072"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93G-cV-xB9" userLabel="ScrollContainer">
-                                                    <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="567.5" height="1072"/>
                                                     <subviews>
                                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jr-Oa-qQE">
-                                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="772"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="567.5" height="1072"/>
                                                             <subviews>
                                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsf-sM-5Mv" userLabel="ScrollContent">
                                                                     <rect key="frame" x="0.0" y="0.0" width="567.5" height="740"/>
@@ -5012,13 +5017,13 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tab Icon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIu-b5-vls">
-                                                                            <rect key="frame" x="8" y="431" width="65.5" height="20.5"/>
+                                                                            <rect key="frame" x="8" y="431.5" width="65.5" height="20.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarMyFractals" translatesAutoresizingMaskIntoConstraints="NO" id="6z8-ag-Zj8">
-                                                                            <rect key="frame" x="8" y="454" width="40" height="40"/>
+                                                                            <rect key="frame" x="8" y="454.5" width="40" height="40"/>
                                                                             <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="6z8-ag-Zj8" secondAttribute="height" multiplier="1:1" id="GZN-Ak-4Vr"/>
@@ -5026,7 +5031,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             </constraints>
                                                                         </imageView>
                                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloud" translatesAutoresizingMaskIntoConstraints="NO" id="RTF-bB-ZFn">
-                                                                            <rect key="frame" x="8" y="502" width="40" height="40"/>
+                                                                            <rect key="frame" x="8" y="502.5" width="40" height="40"/>
                                                                             <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="40" id="Nbw-Fz-kC5"/>
@@ -5034,7 +5039,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             </constraints>
                                                                         </imageView>
                                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarInfo" translatesAutoresizingMaskIntoConstraints="NO" id="5qa-OB-4eW">
-                                                                            <rect key="frame" x="8" y="550" width="40" height="40"/>
+                                                                            <rect key="frame" x="8" y="550.5" width="40" height="40"/>
                                                                             <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="5qa-OB-4eW" secondAttribute="height" multiplier="1:1" id="olG-xq-Shz"/>
@@ -5042,7 +5047,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             </constraints>
                                                                         </imageView>
                                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="245" image="tabBarSettings" translatesAutoresizingMaskIntoConstraints="NO" id="4US-62-Lf7">
-                                                                            <rect key="frame" x="8" y="598" width="40" height="40"/>
+                                                                            <rect key="frame" x="8" y="598.5" width="40" height="40"/>
                                                                             <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="4US-62-Lf7" secondAttribute="height" multiplier="1:1" id="1W5-U6-D9I"/>
@@ -5050,32 +5055,51 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your fractal library, stored locally or in the cloud" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gV0-Kd-tOz">
-                                                                            <rect key="frame" x="56" y="463.5" width="381" height="20.5"/>
+                                                                            <rect key="frame" x="56" y="464" width="381" height="20.5"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fractals shared to everyone. Check often for new creations." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocL-3i-eA2">
-                                                                            <rect key="frame" x="56" y="511.5" width="476" height="20.5"/>
+                                                                            <rect key="frame" x="56" y="512" width="476" height="20.5"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find out more about fractals and FractalScape. Feedback links." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjt-pB-iFD">
-                                                                            <rect key="frame" x="56" y="559.5" width="502" height="20.5"/>
+                                                                            <rect key="frame" x="56" y="560" width="502" height="20.5"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequently used app settings. Link to full app  settings." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9U-Mk-Tsk">
-                                                                            <rect key="frame" x="56" y="607.5" width="437.5" height="20.5"/>
+                                                                            <rect key="frame" x="56" y="608" width="437.5" height="20.5"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-8u-SNp" customClass="MDKLayerViewDesignable">
-                                                                            <rect key="frame" x="284" y="664" width="281" height="49.5"/>
-                                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.50963184930000005" colorSpace="calibratedRGB"/>
+                                                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-8u-SNp" customClass="MDKLayerViewDesignable">
+                                                                            <rect key="frame" x="141.5" y="646.5" width="285" height="73"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwE-Oj-zx1">
+                                                                                    <rect key="frame" x="8" y="8" width="269" height="57"/>
+                                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                                    <size key="titleShadowOffset" width="0.0" height="2"/>
+                                                                                    <state key="normal" title="Get Started by selecting a fractal!">
+                                                                                        <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    </state>
+                                                                                    <connections>
+                                                                                        <segue destination="s88-3u-Bit" kind="unwind" unwindAction="unwindFromWelcome:" id="9U9-NY-6za"/>
+                                                                                    </connections>
+                                                                                </button>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="vwE-Oj-zx1" firstAttribute="top" secondItem="TJ0-8u-SNp" secondAttribute="top" constant="8" id="CR6-A0-NFR"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="vwE-Oj-zx1" secondAttribute="trailing" constant="8" id="JiB-iu-ufV"/>
+                                                                                <constraint firstItem="vwE-Oj-zx1" firstAttribute="leading" secondItem="TJ0-8u-SNp" secondAttribute="leading" constant="8" id="jUq-Dl-6ww"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="vwE-Oj-zx1" secondAttribute="bottom" constant="8" id="wBX-mz-nQm"/>
+                                                                            </constraints>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                     <real key="value" value="6"/>
@@ -5088,39 +5112,26 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </view>
-                                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwE-Oj-zx1">
-                                                                            <rect key="frame" x="290" y="658" width="269" height="61.5"/>
-                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                                            <state key="normal" title="Get Started by selecting a fractal!">
-                                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            </state>
-                                                                            <connections>
-                                                                                <segue destination="s88-3u-Bit" kind="unwind" unwindAction="unwindFromWelcome:" id="9U9-NY-6za"/>
-                                                                            </connections>
-                                                                        </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstItem="RTF-bB-ZFn" firstAttribute="centerY" secondItem="ocL-3i-eA2" secondAttribute="centerY" id="4cP-JN-Krk"/>
                                                                         <constraint firstItem="zu8-ra-eRM" firstAttribute="leading" secondItem="Tsf-sM-5Mv" secondAttribute="leading" constant="8" id="5NF-nd-T7t"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="vwE-Oj-zx1" secondAttribute="trailing" constant="8" id="DO8-Sq-p8X"/>
+                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="centerX" secondItem="Tsf-sM-5Mv" secondAttribute="centerX" id="7Sf-w4-qDg"/>
                                                                         <constraint firstItem="ocL-3i-eA2" firstAttribute="leading" secondItem="RTF-bB-ZFn" secondAttribute="trailing" constant="8" id="DcJ-WL-6xj"/>
-                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="top" secondItem="vwE-Oj-zx1" secondAttribute="top" constant="6" id="Fgg-cf-OTh"/>
-                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="bottom" secondItem="vwE-Oj-zx1" secondAttribute="bottom" constant="-6" id="GWn-cQ-m5j"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="vwE-Oj-zx1" secondAttribute="bottom" constant="20" id="Ga0-Px-hzc"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T9U-Mk-Tsk" secondAttribute="trailing" constant="8" id="Het-mV-26W"/>
+                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="top" secondItem="4US-62-Lf7" secondAttribute="bottom" constant="8" symbolic="YES" id="I1U-qf-G6J"/>
                                                                         <constraint firstItem="rjt-pB-iFD" firstAttribute="leading" secondItem="5qa-OB-4eW" secondAttribute="trailing" constant="8" id="INa-70-Zsf"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ocL-3i-eA2" secondAttribute="trailing" constant="8" id="LLe-nY-IRc"/>
                                                                         <constraint firstItem="6z8-ag-Zj8" firstAttribute="top" secondItem="RIu-b5-vls" secondAttribute="bottom" constant="2" id="LTo-XS-zvP"/>
                                                                         <constraint firstItem="4US-62-Lf7" firstAttribute="top" secondItem="5qa-OB-4eW" secondAttribute="bottom" constant="8" id="N4v-71-YGP"/>
                                                                         <constraint firstItem="6z8-ag-Zj8" firstAttribute="width" secondItem="6z8-ag-Zj8" secondAttribute="height" multiplier="1:1" id="OdE-Im-XNt"/>
-                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="leading" secondItem="vwE-Oj-zx1" secondAttribute="leading" constant="-6" id="Pdx-gG-cMh"/>
                                                                         <constraint firstAttribute="trailing" secondItem="zu8-ra-eRM" secondAttribute="trailing" constant="8" id="QVf-8t-yz1"/>
                                                                         <constraint firstItem="RTF-bB-ZFn" firstAttribute="top" secondItem="6z8-ag-Zj8" secondAttribute="bottom" constant="8" id="SQM-hE-04l"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="TJ0-8u-SNp" secondAttribute="bottom" constant="20" symbolic="YES" id="SjZ-zc-bee"/>
                                                                         <constraint firstItem="gV0-Kd-tOz" firstAttribute="leading" secondItem="6z8-ag-Zj8" secondAttribute="trailing" constant="8" id="VgJ-PY-g62"/>
                                                                         <constraint firstItem="RTF-bB-ZFn" firstAttribute="leading" secondItem="6z8-ag-Zj8" secondAttribute="leading" id="XQu-5f-BRs"/>
                                                                         <constraint firstItem="rjt-pB-iFD" firstAttribute="centerY" secondItem="5qa-OB-4eW" secondAttribute="centerY" id="YRO-bn-uro"/>
-                                                                        <constraint firstItem="vwE-Oj-zx1" firstAttribute="top" secondItem="4US-62-Lf7" secondAttribute="bottom" constant="20" id="ZlG-4b-2vt"/>
                                                                         <constraint firstItem="RTF-bB-ZFn" firstAttribute="leading" secondItem="5qa-OB-4eW" secondAttribute="leading" id="cRP-CQ-8WY"/>
                                                                         <constraint firstAttribute="centerX" secondItem="ZdQ-x6-oD9" secondAttribute="centerX" id="d52-KY-7xY"/>
                                                                         <constraint firstItem="5qa-OB-4eW" firstAttribute="width" secondItem="5qa-OB-4eW" secondAttribute="height" multiplier="1:1" id="d8q-3h-qw8"/>
@@ -5129,7 +5140,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rjt-pB-iFD" secondAttribute="trailing" constant="8" id="fb7-Ao-qFu"/>
                                                                         <constraint firstItem="5qa-OB-4eW" firstAttribute="top" secondItem="RTF-bB-ZFn" secondAttribute="bottom" constant="8" id="joN-Qc-lDi"/>
                                                                         <constraint firstAttribute="height" constant="740" placeholder="YES" id="lqV-MM-LYU"/>
-                                                                        <constraint firstItem="TJ0-8u-SNp" firstAttribute="trailing" secondItem="vwE-Oj-zx1" secondAttribute="trailing" constant="6" id="mT5-Md-5Ly"/>
                                                                         <constraint firstItem="4US-62-Lf7" firstAttribute="centerY" secondItem="T9U-Mk-Tsk" secondAttribute="centerY" id="nJI-Xs-eXf"/>
                                                                         <constraint firstItem="6z8-ag-Zj8" firstAttribute="centerY" secondItem="gV0-Kd-tOz" secondAttribute="centerY" id="pSD-0n-6e8"/>
                                                                         <constraint firstItem="T9U-Mk-Tsk" firstAttribute="leading" secondItem="4US-62-Lf7" secondAttribute="trailing" constant="8" id="pSk-U4-DGI"/>
@@ -5212,7 +5222,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="900"/>
+                    <size key="freeformSize" width="600" height="1200"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J0l-yb-F8p" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="s88-3u-Bit" userLabel="Exit" sceneMemberID="exit"/>
