@@ -261,7 +261,7 @@
     
     [fileCoordinator prepareForReadingItemsAtURLs: @[fractalDocument.fileURL]
                                           options: 0
-                               writingItemsAtURLs: nil
+                               writingItemsAtURLs: @[]
                                           options: 0
                                             error: &readError
                                        byAccessor:^(void (^completionHandler)(void)) {

@@ -11,6 +11,8 @@
 #include <math.h>
 
 #import "MBFractalLibraryViewController.h"
+#import "MDKUICollectionViewFlowLayoutDebug.h"
+#import "MDBResizingWidthFlowLayoutDelegate.h"
 
 #import "MDBAppModel.h"
 #import "MDBFractalInfo.h"
@@ -72,6 +74,9 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         self.popTransition = [MDBZoomPopBounceTransition new];
         self.pushTransition = [MDBZoomPushBounceTransition new];
     }
+
+    // Total hack. Still can't figure out layout invalidations
+//    [(MDKUICollectionViewFlowLayoutDebug*)self.collectionView.collectionViewLayout newSizeForBounds: self.collectionView.bounds];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -175,12 +180,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
     
+    // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
+    // If the size of a cell changes without invalidating layout, then when the layout looks in dictionary for visible cells, the dict is wrong and a crash results 
+    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
-        [self.collectionViewLayout invalidateLayout];
     }];
 }
 
@@ -447,6 +455,76 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self presentViewController:documentMenu animated:YES completion:nil];
 }
 
+#pragma mark - FlowLayoutDelegate
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Should have a test for layout type
+    return [MDBResizingWidthFlowLayoutDelegate collectionView: collectionView layout: collectionViewLayout sizeForItemAtIndexPath: indexPath];
+}
+
+#pragma mark - UICollectionViewDelegate
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
+    MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
+    
+    MDBFractalInfo* fractalInfo = self.collectionSource.sourceInfos[indexPath.row];
+    
+    // Configure the cell with data from the managed object.
+    if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
+    {
+        documentInfoCell.info = fractalInfo;
+    }
+    else if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
+    {
+        [fractalInfo fetchDocumentWithCompletionHandler:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Make sure that the list info is still visible once the color has been fetched.
+                if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
+                {
+                    //                    NSInteger index = indexPath.row;
+                    documentInfoCell.info = fractalInfo;
+                    MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.info.document;
+                    [document closeWithCompletionHandler:^(BOOL success) {}];
+                }
+                //                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
+                //
+                //                }];;
+            });
+        }];
+    }
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    MBCollectionFractalDocumentCell* fractalDocCell = (MBCollectionFractalDocumentCell*)cell;
+    //    MDBFractalDocument* document = (MDBFractalDocument*)fractalDocCell.document;
+    //    UIDocumentState docState = document.documentState;
+    
+    //    if (docState != UIDocumentStateClosed)
+    //    {
+    //        [document closeWithCompletionHandler:^(BOOL success) {
+    //            //
+    //        }];;
+    //    }
+    //    [fractalInfo unCacheDocument]; //should release the document and thumbnail from memory.
+}
+
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self libraryCollectionView: collectionView shouldSelectItemAtIndexPath: indexPath];
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Depends on viewController being nil for the LibraryEdit instance of the dataSource. Meaning the following does nothing in that case.
+    [self libraryCollectionView: collectionView didSelectItemAtIndexPath: indexPath];
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self libraryCollectionView: collectionView didDeselectItemAtIndexPath: indexPath];
+}
 
 #pragma mark - MDBFractalLibraryCollectionDelegate
 -(BOOL)libraryCollectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -520,7 +598,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     else if ([segue.identifier isEqualToString: @"showEditFractalDocumentsList"] || [segue.identifier isEqualToString: @"showShareFractalDocumentsList"])
     {
         MBFractalLibraryViewController* libraryViewController = (MBFractalLibraryViewController *)segue.destinationViewController;
-        libraryViewController.useLayoutToLayoutNavigationTransitions = NO; // sigabort with YES!
+        libraryViewController.collectionView = (UICollectionView*)libraryViewController.view;
         libraryViewController.appModel = self.appModel;
         MDBFractalLibraryCollectionSource* dataSource = (MDBFractalLibraryCollectionSource*)libraryViewController.collectionView.dataSource;
         MDBFractalLibraryCollectionSource* mySource = (MDBFractalLibraryCollectionSource*)self.collectionView.dataSource;

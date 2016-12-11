@@ -9,6 +9,9 @@
 #import "MDBHelpRulesCollectionViewController.h"
 #import "LSDrawingRuleType.h"
 #import "MDBRuleCollectionViewCell.h"
+#import "MDKUICollectionViewFlowLayoutDebug.h"
+#import "MDBResizingWidthFlowLayoutDelegate.h"
+
 
 @interface MDBHelpRulesCollectionViewController ()
 
@@ -39,6 +42,23 @@ static NSString * const reuseIdentifierHeader = @"RulesHeaderCell";
     // Do any additional setup after loading the view.
 }
 
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+    
+    // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
+//    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
+        //
+        
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
+        //
+        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+    }];
+    //    subLayer.position = self.fractalView.center;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -54,54 +74,15 @@ static NSString * const reuseIdentifierHeader = @"RulesHeaderCell";
 }
 */
 
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-    
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-        
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-        [self.collectionView.collectionViewLayout invalidateLayout]; // to resize the collection view cells.
-//        [self.collectionView reloadData];
-
-    }];
-}
-
--(void)viewWillLayoutSubviews
-{
-    [self.collectionView.collectionViewLayout invalidateLayout]; // to resize collectionCells with explanding and contracting splitView
-}
+//-(void)viewWillLayoutSubviews
+//{
+//    [self.collectionView.collectionViewLayout invalidateLayout]; // to resize collectionCells with explanding and contracting splitView
+//}
 
 #pragma mark - FlowLayoutDelegate
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-//{
-//    CGFloat minInset = 2.0;
-//    
-//    UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)collectionViewLayout;
-//    CGFloat itemWidth = layout.itemSize.width;
-//    CGFloat rowWidth = collectionView.bounds.size.width - (2*minInset);
-//    NSInteger numItems = floorf(rowWidth/itemWidth);
-//    CGFloat margins = floorf((rowWidth - (numItems * itemWidth))/(numItems+1.0));
-//    //    margins = MAX(margins, 4.0);
-//    UIEdgeInsets oldInsets = layout.sectionInset;
-//    UIEdgeInsets insets = UIEdgeInsetsMake(oldInsets.top, margins, oldInsets.bottom, margins);
-//    return insets;
-//    //    return 20.0;
-//}
+
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    CGFloat width = self.collectionView.bounds.size.width - 20.0;
-//    
-//    MDBRuleCollectionViewCell* cell = (MDBRuleCollectionViewCell*)[collectionView cellForItemAtIndexPath: indexPath];
-//    cell.cellAutolayoutWidthConstraint.constant = width;
-//    
-//    
-//    UICollectionViewLayoutAttributes* attributes = [cell preferredLayoutAttributesFittingAttributes: [collectionViewLayout layoutAttributesForItemAtIndexPath: indexPath]];
-//    
-//    return attributes.size;
-//    UICollectionViewLayoutAttributes* attributes = [collectionViewLayout layoutAttributesForItemAtIndexPath: indexPath];
     
     CGFloat colWidth = collectionView.bounds.size.width;
     CGFloat spacing = [(UICollectionViewFlowLayout*)collectionViewLayout minimumInteritemSpacing];
@@ -110,17 +91,6 @@ static NSString * const reuseIdentifierHeader = @"RulesHeaderCell";
     
     CGFloat width = colWidth > 600.0 ? colWidth/2.0 - margin - spacing : colWidth - margin;
     CGFloat height = (320.0-margin)/width * 164;
-//    self.layoutSizingCell.rule = self.drawingRules[indexPath.row];
-    
-//    CGSize estimatedSize = CGSizeMake(width, 150.0);
-    
-
-//    MDBRuleCollectionViewCell* cell = self.layoutSizingCell;
-    
-//    cell.frame = CGRectMake(0, 0, width, 150);
-//    [cell setNeedsLayout];
-//    [cell layoutIfNeeded];
-//    CGFloat newHeight = cell.desiredMinHeight;
     
     return CGSizeMake(width, height);
 }

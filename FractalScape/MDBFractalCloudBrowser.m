@@ -237,6 +237,53 @@
     return reuseCell;
 }
 
+//-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+//{
+//    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+//    
+//    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
+//        
+//        
+//    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
+//        //
+//        [self.collectionView.collectionViewLayout invalidateLayout];
+//    }];
+//    //    subLayer.position = self.fractalView.center;
+//}
+
+#pragma mark - FlowLayoutDelegate
+
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    // Should have a test for layout type
+//    
+//    UICollectionViewFlowLayout* flowLayout;
+//    
+//    if ([collectionViewLayout isKindOfClass: [UICollectionViewFlowLayout class]])
+//    {
+//        flowLayout = (UICollectionViewFlowLayout*) collectionViewLayout;
+//    }
+//    
+//    int minWidth = 150;
+//    int maxWidth = 200;
+//    
+//    int viewWidth = (int)self.collectionView.bounds.size.width;
+//    
+//    int totalRemainderSpace = viewWidth % minWidth;
+//    int totalItems = viewWidth / minWidth;
+//    
+//    int itemMarginTotal = (totalItems - 1) * (int)flowLayout.minimumInteritemSpacing;
+//    int extraSpace = totalRemainderSpace - itemMarginTotal;
+//    
+//    int width = MAX(minWidth, minWidth + (extraSpace / totalItems) - (int)(flowLayout.sectionInset.left + flowLayout.sectionInset.right));
+//    
+//    CGSize newSize = CGSizeMake(width, 258);
+//    
+//    NSLog(@"Width %@", NSStringFromCGSize(newSize));
+//    
+//    return newSize;
+//}
+
 #pragma mark - UICollectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {

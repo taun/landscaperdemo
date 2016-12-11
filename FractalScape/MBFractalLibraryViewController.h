@@ -23,12 +23,19 @@ extern NSString *const kSupplementaryHeaderCellIdentifier;
 /*!
  Facilitates the selection of a MDBFractalDocumentInfo and passes it to the MBLSFractalEditViewController.
  */
-@interface MBFractalLibraryViewController : UICollectionViewController <MDBNavConTransitionProtocol,MDBFractalLibraryCollectionDelegate>
+@interface MBFractalLibraryViewController : UIViewController <  UICollectionViewDelegate,
+                                                                UICollectionViewDelegateFlowLayout,
+                                                                MDBNavConTransitionProtocol,
+                                                                MDBFractalLibraryCollectionDelegate>
 
 /*!
  The collection of MDBFractalDocumentInfo objects from the local filesystem or cloud.
  */
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
+/*!
+ The collectionView for showing the records
+ */
+@property (weak, nonatomic) IBOutlet UICollectionView                       *collectionView;
 /*!
  The library collection source
  */

@@ -21,7 +21,7 @@
 
 @end
 
-@interface MDBFractalLibraryCollectionSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface MDBFractalLibraryCollectionSource : NSObject <UICollectionViewDataSource>
 
 @property(nonatomic,weak) IBOutlet UIViewController<MDBFractalLibraryCollectionDelegate>    *viewController;
 @property(nonatomic,assign) NSInteger                                                       rowCount;

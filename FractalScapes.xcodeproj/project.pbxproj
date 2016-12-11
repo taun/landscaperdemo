@@ -51,6 +51,8 @@
 		C5302CB21B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */; };
 		C5302CB91B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */; };
 		C5302CBA1B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */; };
+		C531A77C1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C531A77A1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h */; };
+		C531A77D1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C531A77B1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */; };
 		C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */; };
 		C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */; };
@@ -457,6 +459,8 @@
 		C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorIntroPageControllerDataSource.m; sourceTree = "<group>"; };
 		C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEditorIntroPage3ViewController.h; sourceTree = "<group>"; };
 		C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorIntroPage3ViewController.m; sourceTree = "<group>"; };
+		C531A77A1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBResizingWidthFlowLayoutDelegate.h; path = FractalScape/MDUiKitFramework/MDUiKit/MDBResizingWidthFlowLayoutDelegate.h; sourceTree = "<group>"; };
+		C531A77B1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBResizingWidthFlowLayoutDelegate.m; path = FractalScape/MDUiKitFramework/MDUiKit/MDBResizingWidthFlowLayoutDelegate.m; sourceTree = "<group>"; };
 		C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalRulesEditorViewController.h; path = FractalScape/MBFractalRulesEditorViewController.h; sourceTree = "<group>"; };
 		C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalRulesEditorViewController.m; path = FractalScape/MBFractalRulesEditorViewController.m; sourceTree = "<group>"; };
 		C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSObjectListTileViewer.h; path = FractalScape/MBLSObjectListTileViewer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1324,6 +1328,8 @@
 				C5CE0E481B542C6100EEC58C /* NSMutableArray+MDKConvenience.h */,
 				C5CE0E491B542C6100EEC58C /* NSMutableArray+MDKConvenience.m */,
 				C5CE0E4A1B542C6100EEC58C /* UICollectionView+MDKDragAndDrop.m */,
+				C531A77A1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h */,
+				C531A77B1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m */,
 			);
 			name = MDUiKit;
 			sourceTree = "<group>";
@@ -1681,6 +1687,7 @@
 				C54A72591BA602CC00D2C47E /* ui_compat.h in Headers */,
 				C529F85B1B8F65D7005D8982 /* MDBBasePurchaseableProduct.h in Headers */,
 				C54A72511BA602CC00D2C47E /* ssl2.h in Headers */,
+				C531A77C1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h in Headers */,
 				C583EDFB1B972BA100ED4BA6 /* xer_encoder.h in Headers */,
 				C54A72161BA602CC00D2C47E /* asn1.h in Headers */,
 				C5FF31661BEA40D1005550C8 /* MBFractalLibraryShareViewController.h in Headers */,
@@ -2032,6 +2039,7 @@
 				C583EDD81B972BA100ED4BA6 /* per_support.c in Sources */,
 				C5D542381A300FFA006CD47A /* MDBColorCategoriesListView.m in Sources */,
 				C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */,
+				C531A77D1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m in Sources */,
 				C5F184811AA7A2A000233E49 /* MDBFractalInfo.m in Sources */,
 				C583EDFA1B972BA100ED4BA6 /* asn_SET_OF.c in Sources */,
 				C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */,
