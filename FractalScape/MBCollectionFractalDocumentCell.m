@@ -59,7 +59,7 @@
 -(void)prepareForReuse
 {
     [super prepareForReuse];
-
+    
     self.info = nil;
     
     [self.activityIndicator startAnimating];
@@ -68,8 +68,8 @@
 -(void) configureDefaults
 {
     
-//    [self fixConstraints];
-
+    //    [self fixConstraints];
+    
     _radius = 5.0;
     
     _textLabel.text = @"Loading..";
@@ -77,15 +77,15 @@
     
     _imageView.image = nil;
     
-//    _selectedBorder = [UIColor whiteColor];
-//    _selectedBorderWidth = 4.0;
+    //    _selectedBorder = [UIColor whiteColor];
+    //    _selectedBorderWidth = 4.0;
     
-//    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
-//    UIImageView* strongImageView = self.imageView;
-//    strongImageView.image = placeholder;
+    //    UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
+    //    UIImageView* strongImageView = self.imageView;
+    //    strongImageView.image = placeholder;
     
     if (!self.backgroundView) {
-//        MBColorCellBackgroundView* backgroundView = [MBColorCellBackgroundView new];
+        //        MBColorCellBackgroundView* backgroundView = [MBColorCellBackgroundView new];
         UIImageView* backgroundImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"kLibraryCellBackgroundImage"]];
         backgroundImage.opaque = NO;
         UIView* background = backgroundImage;
@@ -93,7 +93,7 @@
     }
     
     self.selectedBackgroundView = [self configureSelectedBackgroundViewFrame: CGRectZero];
-
+    
     [self.transferIndicator setDirection: 0 progress: 0];
 }
 
@@ -128,12 +128,49 @@
     return _kvoController;
 }
 
+-(void) propertyDocumentDidChange: (NSDictionary*)changes object: (id)infoObject
+{
+    id old = changes[NSKeyValueChangeOldKey];
+    if (old != nil && old != [NSNull null] && [old conformsToProtocol:@protocol(MDBFractaDocumentProtocol)])
+    {
+        id<MDBFractaDocumentProtocol> document = old;
+        [self.kvoController unobserve: document];
+    }
+    
+    id new = changes[NSKeyValueChangeNewKey];
+    if (new != nil && new != [NSNull null] && [new conformsToProtocol:@protocol(MDBFractaDocumentProtocol)])
+    {
+        id<MDBFractaDocumentProtocol> document = new;
+        
+        if (document.loadResult == MDBFractalDocumentLoad_SUCCESS)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (document.fractal.name) self.textLabel.text = document.fractal.name;
+                if (document.fractal.descriptor) self.detailTextLabel.text = document.fractal.descriptor;
+            });
+
+            
+            [self.kvoController observe: document
+                                keyPath: @"thumbnail"
+                                options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
+        }
+        else
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.textLabel.text = document.loadResultString;
+            });
+        }
+    }
+}
+
 -(void) propertyDcoumentThumbnailDidChange: (NSDictionary*)change object: (id)object
 {
     if ([object thumbnail])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.imageView.image = [object thumbnail];
+            [object closeWithCompletionHandler:^(BOOL success) {}];
         });
     }
 }
@@ -170,7 +207,7 @@
 {
     if (_info != info)
     {
-//        [self configureDefaults];
+        //        [self configureDefaults];
         
         [self.activityIndicator stopAnimating];
         
@@ -181,31 +218,23 @@
         
         if (_info)
         {
-            if ( _info.document.loadResult == MDBFractalDocumentLoad_SUCCESS)
-            {
-                if ( _info.document.fractal.name) self.textLabel.text =  _info.document.fractal.name;
-                if ( _info.document.fractal.descriptor) self.detailTextLabel.text =  _info.document.fractal.descriptor;
-                [self propertyDcoumentThumbnailDidChange: nil object:  _info.document];
-                [self.kvoController observe:  _info.document keyPath: @"thumbnail" options: 0 action: @selector(propertyDcoumentThumbnailDidChange:object:)];
-                [self.kvoController observe: _info keyPath: @"fileStatusChanged" options: 0 action: @selector(updateProgessIndicator)];
-            } else {
-                self.textLabel.text =  _info.document.loadResultString;
-            }
+            [self.kvoController observe: _info
+                                keyPath: @"document"
+                                options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                 action: @selector(propertyDocumentDidChange:object:)];
             
-
- //            else
-//            {
-//                UIImage* placeholder = [UIImage imageNamed: @"documentThumbnailPlaceholder130"];
-//                UIImageView* strongImageView = self.imageView;
-//                strongImageView.image = placeholder;
-//            }
+            [self.kvoController observe: _info
+                                keyPath: @"fileStatusChanged"
+                                options: 0
+                                 action: @selector(updateProgessIndicator)];
+            
         }
         else
         {
             _imageView.image = nil;
             _textLabel.text = @"Loading..";
             _detailTextLabel.text = @"";
-       }
+        }
     }
     [self updateProgessIndicator];
 }
@@ -231,9 +260,9 @@
  Cannont add constraints to the contentView using IB so we do it manually.
  */
 //-(void) fixConstraints {
-//    
+//
 //    NSMutableArray* constraints = [[NSMutableArray alloc] init];
-//    
+//
 //    [constraints addObject: [NSLayoutConstraint
 //                             constraintWithItem: self
 //                             attribute: NSLayoutAttributeHeight
@@ -250,17 +279,17 @@
 //                             attribute: 0
 //                             multiplier: 1.0
 //                             constant: 154.]];
-//    
+//
 //    [self addConstraints: constraints];
 //}
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

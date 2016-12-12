@@ -2530,7 +2530,7 @@ Drag icon to holder below to apply effect</string>
         <scene sceneID="iKT-0y-poi">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalLibraryController" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt" userLabel="LibraryCollectionView">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt" userLabel="LibraryCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3059,7 +3059,7 @@ The main screen with all your fractals is called your "Library". See below for a
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="5ja-JH-4WM">
-                            <rect key="frame" x="0.0" y="724" width="600" height="134"/>
+                            <rect key="frame" x="0.0" y="721" width="600" height="134"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E50-QU-HWQ" userLabel="MOEDAELogo96">
@@ -3082,10 +3082,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="Store" id="bDL-qV-BiA">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="y93-tc-fH2">
-                                        <rect key="frame" x="0.0" y="56" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="y93-tc-fH2" id="LuX-N7-HsZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aE9-AY-7Sg">
@@ -3105,10 +3105,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="xNP-RW-gb3">
-                                        <rect key="frame" x="0.0" y="100" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="xNP-RW-gb3" id="u4s-88-CnB">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xhs-dV-O3J">
@@ -3132,10 +3132,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="User Experience" footerTitle="" id="Qku-oU-V1L">
                                 <cells>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="Kd4-dq-iCc">
-                                        <rect key="frame" x="0.0" y="200" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="199" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="Kd4-dq-iCc" id="bCO-Jx-c63">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
@@ -3161,10 +3161,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="NJS-hC-8Qq">
-                                        <rect key="frame" x="0.0" y="244" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="243" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="NJS-hC-8Qq" id="Qjv-pf-EbT">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
@@ -3194,10 +3194,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="Leave FractalScapes for" id="Pjt-rq-jh7">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchSettings" id="eUm-GQ-XwH">
-                                        <rect key="frame" x="0.0" y="337" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="335" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="eUm-GQ-XwH" id="MVb-0a-4kt">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNJ-J0-W67">
@@ -3217,10 +3217,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchTwitter" id="w2G-kB-ytX">
-                                        <rect key="frame" x="0.0" y="381" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="379" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="w2G-kB-ytX" id="Usf-Pk-dQ4">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyF-5K-Agg">
@@ -3240,10 +3240,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchEmail" id="qcz-5a-Cng">
-                                        <rect key="frame" x="0.0" y="425" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="423" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="qcz-5a-Cng" id="wcM-kN-fzA">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5x-ld-WqJ">
@@ -3263,10 +3263,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchFacebook" id="38P-A3-hOZ">
-                                        <rect key="frame" x="0.0" y="469" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="467" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="38P-A3-hOZ" id="k97-d7-dHN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1D-qe-ep3">
@@ -3290,10 +3290,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="About" id="Le5-ZS-dP9">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="pno-yd-cLQ">
-                                        <rect key="frame" x="0.0" y="562" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="559" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="pno-yd-cLQ" id="QYy-0L-YNf">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
@@ -3319,10 +3319,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="JD4-OE-jya">
-                                        <rect key="frame" x="0.0" y="606" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="603" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="JD4-OE-jya" id="NPT-4G-m7q">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Build" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzu-MW-p1f">
@@ -3621,7 +3621,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
@@ -3658,7 +3658,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="92t-Wk-RAa">
             <objects>
                 <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3729,7 +3729,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                         <rect key="frame" x="0.0" y="22" width="540" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="tCq-9a-a7L" id="mRQ-6D-CpM">
-                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTX-Yf-NGD">
@@ -3826,7 +3826,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                         <rect key="frame" x="0.0" y="202" width="540" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="fyl-UY-Fcf" id="FFC-4i-gmy">
-                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFl-4s-FvV" customClass="MDKLayerViewDesignable">
@@ -3948,7 +3948,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="LibraryNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="u0F-Fq-0AU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="My Fractals" image="tabBarMyFractals" id="w1h-AT-xFO"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lwl-kr-jhM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Lwl-kr-jhM">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3974,7 +3974,7 @@ Please try again later.</string>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gqA-wB-5rr">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gqA-wB-5rr">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4014,7 +4014,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="BrowseNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="j6S-Q5-Emg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse Cloud" image="tabBarBrowseCloud" id="9e1-or-Poa"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gUo-JS-e17">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gUo-JS-e17">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.22" colorSpace="custom" customColorSpace="sRGB"/>

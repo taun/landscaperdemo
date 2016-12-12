@@ -140,7 +140,9 @@
         [MDBDocumentUtilities readDocumentAtURL: self.urlPlusMeta.fileURL withCompletionHandler:^(MDBFractalDocument *document, NSError *error) {
             dispatch_async(self.fetchQueue, ^{
                 if (document && !error) {
+                    [self willChangeValueForKey: @"document"];
                     self->_document = document;
+                    [self didChangeValueForKey: @"document"];
                 }
                 else {
                     // what to do here? if no document why would there be info?

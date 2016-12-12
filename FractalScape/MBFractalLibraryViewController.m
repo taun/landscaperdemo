@@ -75,6 +75,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         self.pushTransition = [MDBZoomPushBounceTransition new];
     }
 
+    if ([UICollectionView instancesRespondToSelector: @selector(prefetchDataSource)])
+    {
+        self.collectionView.prefetchingEnabled = YES;
+        self.collectionView.prefetchDataSource = self.collectionSource;
+    }
+    
     // Total hack. Still can't figure out layout invalidations
 //    [(MDKUICollectionViewFlowLayoutDebug*)self.collectionView.collectionViewLayout newSizeForBounds: self.collectionView.bounds];
 }
@@ -183,12 +189,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
     // If the size of a cell changes without invalidating layout, then when the layout looks in dictionary for visible cells, the dict is wrong and a crash results 
     [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+//    [self.collectionView.collectionViewLayout invalidateLayout];
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
+//        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
+//        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
     }];
 }
 
@@ -463,37 +472,37 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 
 #pragma mark - UICollectionViewDelegate
--(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
-    MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
-    
-    MDBFractalInfo* fractalInfo = self.collectionSource.sourceInfos[indexPath.row];
-    
-    // Configure the cell with data from the managed object.
-    if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
-    {
-        documentInfoCell.info = fractalInfo;
-    }
-    else if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
-    {
-        [fractalInfo fetchDocumentWithCompletionHandler:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Make sure that the list info is still visible once the color has been fetched.
-                if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
-                {
-                    //                    NSInteger index = indexPath.row;
-                    documentInfoCell.info = fractalInfo;
-                    MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.info.document;
-                    [document closeWithCompletionHandler:^(BOOL success) {}];
-                }
-                //                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
-                //
-                //                }];;
-            });
-        }];
-    }
-}
+//-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
+//    MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
+//    
+//    MDBFractalInfo* fractalInfo = self.collectionSource.sourceInfos[indexPath.row];
+//    
+//    // Configure the cell with data from the managed object.
+//    if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
+//    {
+//        documentInfoCell.info = fractalInfo;
+//    }
+//    else if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
+//    {
+//        [fractalInfo fetchDocumentWithCompletionHandler:^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                // Make sure that the list info is still visible once the color has been fetched.
+//                if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
+//                {
+//                    //                    NSInteger index = indexPath.row;
+//                    documentInfoCell.info = fractalInfo;
+//                    MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.info.document;
+//                    [document closeWithCompletionHandler:^(BOOL success) {}];
+//                }
+//                //                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
+//                //
+//                //                }];;
+//            });
+//        }];
+//    }
+//}
 
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
