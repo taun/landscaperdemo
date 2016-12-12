@@ -166,11 +166,25 @@
 
 -(void) propertyDcoumentThumbnailDidChange: (NSDictionary*)change object: (id)object
 {
-    if ([object thumbnail])
+    UIImage* image = [object thumbnail];
+    if (image && [image isKindOfClass: [UIImage class]])
     {
+        [self setNewImage: image];
+    }
+}
+
+-(void)setNewImage: (UIImage*)image
+{
+    if (image)
+    {
+        self.alpha = 0.3;
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.imageView.image = [object thumbnail];
-            [object closeWithCompletionHandler:^(BOOL success) {}];
+            self.imageView.image = image;
+            [self setNeedsDisplay];
+            [UIView animateWithDuration: 0.4 animations:^{
+                self.alpha = 1.0;
+            }];
         });
     }
 }

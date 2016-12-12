@@ -75,14 +75,13 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         self.pushTransition = [MDBZoomPushBounceTransition new];
     }
 
-    if ([UICollectionView instancesRespondToSelector: @selector(prefetchDataSource)])
-    {
-        self.collectionView.prefetchingEnabled = YES;
-        self.collectionView.prefetchDataSource = self.collectionSource;
-    }
+//    if ([UICollectionView instancesRespondToSelector: @selector(prefetchDataSource)])
+//    {
+//        self.collectionView.prefetchingEnabled = YES;
+//        self.collectionView.prefetchDataSource = self.collectionSource;
+//    }
     
-    // Total hack. Still can't figure out layout invalidations
-//    [(MDKUICollectionViewFlowLayoutDebug*)self.collectionView.collectionViewLayout newSizeForBounds: self.collectionView.bounds];
+    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -182,24 +181,24 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     }
 }
 
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-    
-    // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
-    // If the size of a cell changes without invalidating layout, then when the layout looks in dictionary for visible cells, the dict is wrong and a crash results 
-    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-//    [self.collectionView.collectionViewLayout invalidateLayout];
-    
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-//        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-        
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-//        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-    }];
-}
+//-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+//{
+//    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+//    
+//    // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
+//    // If the size of a cell changes without invalidating layout, then when the layout looks in dictionary for visible cells, the dict is wrong and a crash results 
+////    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+////    [self.collectionView.collectionViewLayout invalidateLayout];
+//    
+//    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
+//        //
+////        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+//        
+//    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
+//        //
+////        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+//    }];
+//}
 
 #pragma mark - Notifications
 
@@ -468,6 +467,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Should have a test for layout type
+//    NSLog(@"FlowDelegate %s", __PRETTY_FUNCTION__);
     return [MDBResizingWidthFlowLayoutDelegate collectionView: collectionView layout: collectionViewLayout sizeForItemAtIndexPath: indexPath];
 }
 
@@ -552,6 +552,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier sender: self];
 }
 
+-(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 #pragma mark - UIStoryboardSegue Handling
 

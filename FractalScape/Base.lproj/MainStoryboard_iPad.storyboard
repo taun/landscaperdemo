@@ -1092,7 +1092,7 @@
                     <tabBarItem key="tabBarItem" title="Name" image="tabBarDescriptionIcon" id="2Uy-Ur-Ojr"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rJ7-sa-N5j">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rJ7-sa-N5j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1168,7 +1168,7 @@
                     <tabBarItem key="tabBarItem" title="Effects" image="tabBarFillColorIcon" id="aIQ-UF-ZEG"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yyv-ZW-fjS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Yyv-ZW-fjS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2350,7 +2350,7 @@ Drag icon to holder below to apply effect</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="Cyh-CT-dHJ">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="Cyh-CT-dHJ" customClass="MDKUICollectionViewFlowLayoutDebug">
                             <size key="itemSize" width="150" height="258"/>
                             <size key="headerReferenceSize" width="50" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -2530,11 +2530,11 @@ Drag icon to holder below to apply effect</string>
         <scene sceneID="iKT-0y-poi">
             <objects>
                 <collectionViewController storyboardIdentifier="FractalLibraryController" title="Library" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o9m-5w-n8i" customClass="MBFractalLibraryViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt" userLabel="LibraryCollectionView">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt" userLabel="LibraryCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="tuN-UJ-qld">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="tuN-UJ-qld" customClass="MDKUICollectionViewFlowLayoutDebug">
                             <size key="itemSize" width="150" height="258"/>
                             <size key="headerReferenceSize" width="50" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -3376,7 +3376,7 @@ The main screen with all your fractals is called your "Library". See below for a
             <objects>
                 <navigationController id="0Qx-6W-pJV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="tabBarSettings" id="Og5-2p-JKi"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cep-6U-dGk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cep-6U-dGk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3442,7 +3442,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="44" maxX="0.0" maxY="50"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="bvV-NY-XS6">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="bvV-NY-XS6" customClass="MDKUICollectionViewFlowLayoutDebug">
                                     <size key="itemSize" width="150" height="258"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -3689,7 +3689,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="llP-wv-S99">
             <objects>
                 <navigationController storyboardIdentifier="FractalScapesStoreFront" title="FractalScapes Store" id="TTb-ph-Ba9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WoR-a2-5VD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="WoR-a2-5VD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3995,7 +3995,7 @@ Please try again later.</string>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="500"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="x8W-Hw-E0T">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="x8W-Hw-E0T">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4095,7 +4095,7 @@ Please try again later.</string>
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="scrollIndicatorInsets" minX="8" minY="8" maxX="8" maxY="8"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="8" id="m5W-Pt-2Kq">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="8" id="m5W-Pt-2Kq" customClass="MDKUICollectionViewFlowLayoutDebug">
                                             <size key="itemSize" width="300" height="76"/>
                                             <size key="headerReferenceSize" width="50" height="100"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -4225,7 +4225,7 @@ Please try again later.</string>
                 <navigationController storyboardIdentifier="TutorialDetailNavController" id="qpc-13-ZVz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FEs-5p-402">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FEs-5p-402">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4794,7 +4794,7 @@ Please try again later.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="yqf-uH-Wdn">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="yqf-uH-Wdn" customClass="MDKUICollectionViewFlowLayoutDebug">
                             <size key="itemSize" width="150" height="258"/>
                             <size key="headerReferenceSize" width="50" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>

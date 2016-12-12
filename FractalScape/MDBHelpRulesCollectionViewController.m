@@ -40,24 +40,25 @@ static NSString * const reuseIdentifierHeader = @"RulesHeaderCell";
 //    [self.collectionView registerClass:[MDBRuleCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
+    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
 }
 
--(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-    
-    // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
-//    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-        
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
-        //
-        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-    }];
-    //    subLayer.position = self.fractalView.center;
-}
+//-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+//{
+//    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+//    
+//    // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
+////    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+//
+//    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
+//        //
+//        
+//    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
+//        //
+//        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+//    }];
+//    //    subLayer.position = self.fractalView.center;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
