@@ -44,6 +44,8 @@
         _queryQueue = dispatch_queue_create("com.moedae.FractalScapes.localDocumentCoordinator", DISPATCH_QUEUE_SERIAL);
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startQuery) name: SavedFractalURLNotification object:nil];
+
     return self;
 }
 
@@ -71,6 +73,10 @@
     return self;
 }
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name: SavedFractalURLNotification object: nil];
+}
+
 //-(NSMutableSet*)insertedFiles
 //{
 //    if (!_insertedFiles) {
@@ -89,6 +95,8 @@
 
 
 #pragma mark - MDBFractalDocumentCoordinator
+
+
 
 - (void)startQuery {
     

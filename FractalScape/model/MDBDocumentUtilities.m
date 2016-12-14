@@ -11,6 +11,8 @@
 #import "LSFractal.h"
 #import "MDBCloudManager.h"
 
+NSString * const SavedFractalURLNotification = @"SavedFractalURL";
+
 @implementation MDBDocumentUtilities
 
 
@@ -23,7 +25,7 @@
 {
     NSArray *defaultListURLs = [[NSBundle mainBundle] URLsForResourcesWithExtension: kMDBFractalDocumentFileExtension subdirectory:@""];
     
-    [self copyURLToDocumentsDirectory: defaultListURLs];
+    [self copyURLToDocumentsDirectory: defaultListURLs andRemoveOriginal: NO];
 }
 
 +(void)waitUntilDoneCopying
@@ -46,25 +48,32 @@
         
         for (NSURL *URL in localDocumentURLs) {
             if ([URL.pathExtension isEqualToString: kMDBFractalDocumentFileExtension]) {
-                [self makeItemUbiquitousAtURL:URL documentsDirectoryURL:documentsDirectoryURL];
+                [self makeItemUbiquitousAtURL:URL documentsDirectoryURL:documentsDirectoryURL andRemoveOriginal: NO];
             }
         }
     });
 }
 
-+ (void)makeItemUbiquitousAtURL:(NSURL *)sourceURL documentsDirectoryURL:(NSURL *)documentsDirectoryURL {
++ (void)makeItemUbiquitousAtURL:(NSURL *)sourceURL documentsDirectoryURL:(NSURL *)documentsDirectoryURL andRemoveOriginal: (BOOL) remove {
     NSString *destinationFileName = sourceURL.lastPathComponent;
     
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     NSURL *destinationURL = [documentsDirectoryURL URLByAppendingPathComponent:destinationFileName];
     
     if ([fileManager fileExistsAtPath:destinationURL.path]) {
+        NSError* error;
+        BOOL success = NO;
+        if (remove) success = [[NSFileManager defaultManager] removeItemAtURL: sourceURL error: &error];
+        if (!success) NSLog(@"%s already existing file removal failed. Error: %@", __PRETTY_FUNCTION__, error);
         return;
     }
     
     dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(defaultQueue, ^{
-        [fileManager setUbiquitous:YES itemAtURL:sourceURL destinationURL:destinationURL error:nil];
+        NSError* error;
+        BOOL success = NO;
+        success = [fileManager setUbiquitous:YES itemAtURL:sourceURL destinationURL:destinationURL error: &error];
+        if (!success) NSLog(@"%s moving file to cloud failed. Error: %@", __PRETTY_FUNCTION__, error);
     });
 }
 
@@ -183,7 +192,19 @@
 
 #pragma mark - Convenience
 
-+ (void)copyURLToDocumentsDirectory:(NSArray *)urls {
++ (void)copyToAppLocalFromInboxUrl: (NSURL*)sourceURL  andRemoveOriginal: (BOOL) remove{
+    [self copyURLToDocumentsDirectory: @[sourceURL] andRemoveOriginal: remove];
+}
+
++ (void)copyToAppCloudFromInboxUrl: (NSURL*)sourceURL  andRemoveOriginal: (BOOL) remove{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *cloudDirectoryURL = [fileManager URLForUbiquityContainerIdentifier:nil];
+    NSURL *documentsDirectoryURL = [cloudDirectoryURL URLByAppendingPathComponent:@"Documents"];
+    [self makeItemUbiquitousAtURL: sourceURL documentsDirectoryURL: documentsDirectoryURL andRemoveOriginal: remove];
+}
+
+
++ (void)copyURLToDocumentsDirectory:(NSArray *)urls andRemoveOriginal: (BOOL) remove{
     
     NSMutableArray* toURLS = [NSMutableArray arrayWithCapacity: urls.count];
     
@@ -196,20 +217,34 @@
         {
             [toURLS addObject: @[url ,toURL]];;
         }
+        else if(remove)
+        {
+            [[NSFileManager defaultManager] removeItemAtURL: url error: nil];
+        }
     }
     
     NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
     __block NSError *error;
     
-    BOOL successfulSecurityScopedResourceAccess = [[MDBDocumentUtilities localDocumentsDirectory] startAccessingSecurityScopedResource];
+    // BOOL successfulSecurityScopedResourceAccess = [[MDBDocumentUtilities localDocumentsDirectory] startAccessingSecurityScopedResource];
     
     NSMutableArray* intents = [NSMutableArray arrayWithCapacity: toURLS.count*2];
     
     for (NSArray* urlToURL in toURLS)
     {
-        NSFileAccessIntent *movingIntent = [NSFileAccessIntent writingIntentWithURL: urlToURL[0] options:NSFileCoordinatorWritingForMoving];
-        NSFileAccessIntent *replacingIntent = [NSFileAccessIntent writingIntentWithURL: urlToURL[1] options:NSFileCoordinatorWritingForReplacing];
-        [intents addObject: movingIntent];
+        NSFileAccessIntent *readingIntent;
+        
+        if (remove)
+        {
+            readingIntent = [NSFileAccessIntent writingIntentWithURL: urlToURL[0] options: NSFileCoordinatorWritingForMoving];
+        }
+        else
+        {
+            readingIntent = [NSFileAccessIntent readingIntentWithURL: urlToURL[0] options: NSFileCoordinatorReadingWithoutChanges];
+        }
+        
+        NSFileAccessIntent *replacingIntent = [NSFileAccessIntent writingIntentWithURL: urlToURL[1] options: NSFileCoordinatorWritingForReplacing];
+        [intents addObject: readingIntent];
         [intents addObject: replacingIntent];
     }
 
@@ -226,24 +261,27 @@
         NSFileManager *fileManager = [[NSFileManager alloc] init];
         
         for (int i = 0; i < intents.count; i+=2) {
-            NSFileAccessIntent* moveIntent = (NSFileAccessIntent*)intents[i];
+            NSFileAccessIntent* copyIntent = (NSFileAccessIntent*)intents[i];
             NSFileAccessIntent* replaceIntent = (NSFileAccessIntent*)intents[i+1];
             
-            success = [fileManager copyItemAtURL: moveIntent.URL toURL: replaceIntent.URL error: &error];
+            success = [fileManager copyItemAtURL: copyIntent.URL toURL: replaceIntent.URL error: &error];
             
             if (success)
             {
                 NSDictionary *fileAttributes = @{ NSFileExtensionHidden: @YES };
                 
                 [fileManager setAttributes:fileAttributes ofItemAtPath: replaceIntent.URL.path error:nil];
+                if (remove) [[NSFileManager defaultManager] removeItemAtURL: copyIntent.URL error: nil];
+
+                [[NSNotificationCenter defaultCenter] postNotificationName: SavedFractalURLNotification object:nil];
             }
         }
         
         
-        if (successfulSecurityScopedResourceAccess)
-        {
-            [[MDBDocumentUtilities localDocumentsDirectory] stopAccessingSecurityScopedResource];
-        }
+        //if (successfulSecurityScopedResourceAccess)
+        //{
+        //    [[MDBDocumentUtilities localDocumentsDirectory] stopAccessingSecurityScopedResource];
+        //}
         
         if (!success) {
             // An error occured when moving URL to toURL. In your app, handle this gracefully.

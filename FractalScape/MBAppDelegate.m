@@ -110,6 +110,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
      */
     self.sessionStart = [NSDate date];
     [self.appModel handleDidBecomeActive];
+    [self handleDocumentsInbox];
 }
 
 -(void)applicationWillResignActive:(UIApplication *)application
@@ -126,6 +127,42 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
 {
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if (url) {
+        if (url.scheme && [url.pathExtension isEqualToString: @"fractal"]) {
+            
+            //Save the received profile and notify observers
+            [self.appModel copyToAppStorageFromURL: url andRemoveOriginal: YES];
+            
+        }
+        else
+        {
+            
+            [self.appModel copyToAppStorageFromURL: url andRemoveOriginal: YES];
+            //Clean up inbox
+        }
+    }
+    return YES;
+}
+
+- (void)handleDocumentsInbox
+{
+    //All incoming files are stored in Documents/Inbox/
+    NSURL *inboxPath = [[MDBDocumentUtilities localDocumentsDirectory] URLByAppendingPathComponent: @"Inbox" isDirectory: YES];
+    
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSError* error;
+    NSArray *inboxFiles = [fileManager contentsOfDirectoryAtURL: inboxPath includingPropertiesForKeys: @[] options: 0 error: &error];
+    
+    for (NSURL *url in inboxFiles) {
+        
+        //Append file name to path and create URL
+        [self application: [UIApplication sharedApplication] openURL: url sourceApplication: @"" annotation: nil];
+    }
+}
+
 /*!
  Doesn't yet do anythig since there is no Mac app to use continuity.
  

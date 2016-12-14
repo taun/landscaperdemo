@@ -11,6 +11,8 @@
 @class LSFractal;
 @class MDBFractalDocument;
 
+extern NSString * const SavedFractalURLNotification;
+
 @interface MDBDocumentUtilities : NSObject
 
 + (NSURL *)localDocumentsDirectory;
@@ -26,5 +28,9 @@
 + (void)removeDocumentAtURL:(NSURL *)url withCompletionHandler:(void (^)(NSError *error))completionHandler;
 
 + (void)waitUntilDoneCopying;
+
++ (void)copyToAppLocalFromInboxUrl: (NSURL*)sourceURL andRemoveOriginal: (BOOL) remove;
+
++ (void)copyToAppCloudFromInboxUrl: (NSURL*)sourceURL andRemoveOriginal: (BOOL) remove;
 
 @end

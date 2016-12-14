@@ -83,6 +83,35 @@ extern NSString *const kMDBFractalCloudContainer;
 -(void)setShowHelpTips: (BOOL)show;
 -(BOOL)showHelpTips;
 
+-(void)sendUserToSystemiCloudSettings: (id)sender;
+
+-(void)copyToAppStorageFromURL: (NSURL*) sourceURL andRemoveOriginal: (BOOL) remove;
+
+/**
+ Give the user the option to enable iCloud for multi-devices and sharing
+
+ @param sender the usual sender
+ @param viewController controller to present the alert.
+ */
+-(void)showAlertActionsToAddiCloud: (id)sender onController: (UIViewController*)viewController;
+
+/**
+ Generic task completion alert
+
+ @param title alert title
+ @param error task error, replaces title and adds description if non-nil
+ @param viewController controller to present the alert.
+ */
+-(void)showAlertTitled: (NSString*)title potentialError: (NSError*)error onController: (UIViewController*)viewController ;
+
+/**
+ Method to push an array of fractals to the public cloud
+
+ @param setOfFractalInfos array of fractals to share
+ @param viewController controller to present the completion or error alert.
+ */
+-(void)pushToPublicCloudFractalInfos: (NSSet*)setOfFractalInfos onController: (UIViewController*)viewController;
+
 -(void)___setAllowPremium: (BOOL)on;
 -(void)___setUseWatermark: (BOOL)on;
 

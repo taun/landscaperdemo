@@ -75,11 +75,11 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         self.pushTransition = [MDBZoomPushBounceTransition new];
     }
 
-//    if ([UICollectionView instancesRespondToSelector: @selector(prefetchDataSource)])
-//    {
-//        self.collectionView.prefetchingEnabled = YES;
-//        self.collectionView.prefetchDataSource = self.collectionSource;
-//    }
+    if ([UICollectionView instancesRespondToSelector: @selector(prefetchDataSource)])
+    {
+        self.collectionView.prefetchingEnabled = YES;
+        self.collectionView.prefetchDataSource = self.collectionSource;
+    }
     
     [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
 }

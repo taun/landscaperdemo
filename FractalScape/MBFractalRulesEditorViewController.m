@@ -16,7 +16,7 @@
 #import "FractalScapeIconSet.h"
 #import "MBLSFractalEditViewController.h"
 #import "MDBPurchaseManager.h"
-#import "MDBBasePurchaseableProduct.h"
+#import "MDBProPurchaseableProduct.h"
 
 @interface MBFractalRulesEditorViewController ()
 @end
@@ -49,14 +49,14 @@
     
     BOOL canPurchase = self.appModel.userCanMakePayments;
 
-    MDBBasePurchaseableProduct* proPak = self.appModel.purchaseManager.proPak;
+    BOOL premium = self.appModel.allowPremium;
     
-    self.rulesModeSegmentedControl.enabled = proPak.hasLocalReceipt;
-    self.destinationView.userInteractionEnabled = proPak.hasLocalReceipt;
-    self.replacementRules.userInteractionEnabled = proPak.hasLocalReceipt;
-    [(UIView*)(self.sourceListView) setUserInteractionEnabled: proPak.hasLocalReceipt];
+    self.rulesModeSegmentedControl.enabled = premium;
+    self.destinationView.userInteractionEnabled = premium;
+    self.replacementRules.userInteractionEnabled = premium;
+    [(UIView*)(self.sourceListView) setUserInteractionEnabled: premium];
     
-    if (!proPak.hasLocalReceipt)
+    if (!premium)
     {   // buy or restore or remove if can't buy
         CGFloat disabledAlpha = 0.6;
         self.destinationView.alpha = disabledAlpha;
@@ -68,6 +68,7 @@
         if (canPurchase)
         {
             inApp = @"Rule Editing is only available with In-App Purchase";
+            MDBProPurchaseableProduct* proPak = self.appModel.purchaseManager.proPak;
             if (proPak.hasAppReceipt)
             { // restore
                 UIButton* button = (UIButton*)[self.upgradeToProView.subviews firstObject];

@@ -89,59 +89,8 @@
     }
     else
     {
-        [self showAlertActionsToAddiCloud: sender];
+        [self.appModel showAlertActionsToAddiCloud: sender onController: self];
     }
-}
-
--(void)showAlertActionsToAddiCloud: (id)sender
-{
-    NSString* title = NSLocalizedString(@"For iCloud Share", nil);
-    NSString* message;
-    if (self.appModel.allowPremium)
-    {
-        message = NSLocalizedString(@"You must have your device logged into iCloud", nil);
-    }
-    else
-    {
-        message = NSLocalizedString(@"You must have your device logged into iCloud AND Upgrade to Pro", nil);
-    }
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
-                                                                   message: message
-                                                            preferredStyle: UIAlertControllerStyleActionSheet];
-    
-    UIAlertController* __weak weakAlert = alert;
-    
-    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Go to iCloud Settings",nil)
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action)
-                                   {
-                                       [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudSettings"}];
-                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                       [self sendUserToSystemiCloudSettings: sender];
-                                   }];
-    [alert addAction: fractalCloud];
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Maybe Later",nil)
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action)
-                                    {
-                                        [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudLater"}];
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                    }];
-    [alert addAction: defaultAction];
-    
-    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
-    ppc.barButtonItem = sender;
-    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
--(void)sendUserToSystemiCloudSettings: (id)sender
-{
-    // Cloud —> prefs:root=CASTLE
-    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: UIApplicationOpenSettingsURLString]];
 }
 
 -(void)showAlertActionsToShare: (id)sender
@@ -155,31 +104,16 @@
     
     UIAlertController* __weak weakAlert = alert;
     
-    if (self.appModel.allowPremium)
-    {
-        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"FractalCloud",nil)
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action)
-                                       {
-                                           [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud"}];
-                                           [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                           [self shareCurrentSelections: sender];
-                                       }];
-        [alert addAction: fractalCloud];
-    }
-    else if (self.appModel.userCanMakePayments)
-    {
-        UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Upgrade to Share",nil)
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action)
-                                       {
-                                           [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"ShowPremiumUpgradeOption"}];
-                                           [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                           [self upgradeToProSelected: sender];
-                                       }];
-        [alert addAction: fractalCloud];
-    }
-    
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"FractalCloud",nil)
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action)
+                                   {
+                                       [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud"}];
+                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                       [self shareCurrentSelections: sender];
+                                   }];
+    [alert addAction: fractalCloud];
+
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Maybe Later",nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
@@ -211,125 +145,24 @@
     if (selectedIndexPaths.count > 0)
     {
         
-        NSMutableArray* records = [NSMutableArray arrayWithCapacity: selectedIndexPaths.count];
+        NSMutableSet* fractalInfos = [NSMutableSet setWithCapacity: selectedIndexPaths.count];
         
         for (NSIndexPath* path in selectedIndexPaths)
         {
             
             MDBFractalInfo* fractalInfo = self.appModel.documentController.fractalInfos[path.row];
-            if (fractalInfo)
+            if (fractalInfo && fractalInfo.document)
             {
-                
-                MDBFractalDocument* fractalDocument = fractalInfo.document;
-                LSFractal* fractal = fractalDocument.fractal;
-
-                if (fractal.name != nil)  [Answers logShareWithMethod: @"FractalCloud" contentName: fractal.name contentType:@"Fractal" contentId: fractal.name customAttributes: nil];
-                
-                CKRecord* record;
-                record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
-                record[CKFractalRecordNameField] = fractal.name;
-                record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
-                record[CKFractalRecordDescriptorField] = fractal.descriptor;
-                
-                
-                NSURL* fractalURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBFractalFileName];
-                record[CKFractalRecordFractalDefinitionAssetField] = [[CKAsset alloc] initWithFileURL: fractalURL];
-                
-                NSURL* thumbnailURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBThumbnailFileName];
-                record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: thumbnailURL];
-                
-                [records addObject: record];
-                [self.collectionView deselectItemAtIndexPath: path animated: YES];
+                [fractalInfos addObject: fractalInfo];
             }
+
+            [self.collectionView deselectItemAtIndexPath: path animated: YES];
         }
         
-        [self.appModel.cloudKitManager savePublicRecords: records qualityOfService: NSQualityOfServiceUserInitiated withCompletionHandler:^(NSError *error) {
-            if (error) {
-                [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud", @"Error":@(error.code)}];
-            }
-            [self sharingStatusAlert: error];
-        }];
+        [self.appModel pushToPublicCloudFractalInfos: [fractalInfos copy] onController: self];
         
         [self rightButtonsEnabledState: NO];
     }
-}
-
--(void) shareToPublicCloudDocument: (MDBFractalDocument*)fractalDocument
-{
-    NSError* readError;
-    NSFileCoordinator* fileCoordinator = [[NSFileCoordinator alloc]initWithFilePresenter: fractalDocument];
-    
-    [fileCoordinator prepareForReadingItemsAtURLs: @[fractalDocument.fileURL]
-                                          options: 0
-                               writingItemsAtURLs: @[]
-                                          options: 0
-                                            error: &readError
-                                       byAccessor:^(void (^completionHandler)(void)) {
-                                           //
-                                           LSFractal* fractal = fractalDocument.fractal;
-                                           CKRecord* record;
-                                           record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
-                                           record[CKFractalRecordNameField] = fractal.name;
-                                           record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
-                                           record[CKFractalRecordDescriptorField] = fractal.descriptor;
-                                           
-                                           
-                                           NSURL* fractalURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBFractalFileName];
-                                           
-                                           [fileCoordinator coordinateReadingItemAtURL: fractalURL options: NSFileCoordinatorReadingForUploading error: nil byAccessor:^(NSURL *newURL) {
-                                               record[CKFractalRecordFractalDefinitionAssetField] = [[CKAsset alloc] initWithFileURL: newURL];
-                                           }];
-                                           
-                                           NSURL* thumbnailURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBThumbnailFileName];
-                                           
-                                           [fileCoordinator coordinateReadingItemAtURL: thumbnailURL options: NSFileCoordinatorReadingForUploading error: nil byAccessor:^(NSURL *newURL) {
-                                               record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: newURL];
-                                           }];
-                                           
-                                           [self.appModel.cloudKitManager savePublicRecord: record withCompletionHandler:^(NSError *ckError) {
-                                               //
-                                               [self sharingStatusAlert: ckError];
-                                           }];
-                                           
-                                           completionHandler();
-                                       }];
-    
-}
-
-
--(void) sharingStatusAlert: (NSError*)error
-{
-    NSString* title;
-    NSString* message;
-    
-    if (!error)
-    {
-        title = @"Thanks for sharing!";
-    }
-    else
-    {
-        title = error.localizedDescription;
-        message = error.localizedRecoverySuggestion;
-    }
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
-                                                                   message: message
-                                                            preferredStyle: UIAlertControllerStyleAlert];
-    
-    UIAlertController* __weak weakAlert = alert;
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"OK",nil)
-                                                            style: UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action)
-                                    {
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                    }];
-    
-    [alert addAction: defaultAction];
-    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
-
-    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 

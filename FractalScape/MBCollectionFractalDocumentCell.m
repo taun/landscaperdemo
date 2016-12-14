@@ -60,6 +60,7 @@
 {
     [super prepareForReuse];
     
+    self.alpha = 0.3;
     self.info = nil;
     
     [self.activityIndicator startAnimating];
@@ -177,8 +178,6 @@
 {
     if (image)
     {
-        self.alpha = 0.3;
-
         dispatch_async(dispatch_get_main_queue(), ^{
             self.imageView.image = image;
             [self setNeedsDisplay];

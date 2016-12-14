@@ -10,6 +10,7 @@
 
 #import "MDBAppModel.h"
 #import "MDBPurchaseViewController.h"
+#import "MDBProPurchaseableProduct.h"
 
 #import <Crashlytics/Crashlytics.h>
 
@@ -92,6 +93,10 @@
     
     self.showHelpTipsSwitch.on = self.appModel.showHelpTips;
     self.showParallaxEffect.on = self.appModel.showParallax;
+    self.showWatermarkSwitch.on = self.appModel.useWatermark;
+    
+    MDBProPurchaseableProduct* proPak = self.appModel.purchaseManager.proPak;
+    self.showWatermarkSwitch.enabled = proPak.hasLocalReceipt;
     
     self.allowPremiumSwitch.on = self.appModel.allowPremium;
 }

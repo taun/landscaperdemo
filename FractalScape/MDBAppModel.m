@@ -12,6 +12,7 @@
 #import "MDBFractalDocument.h"
 #import "MBColorCategory.h"
 #import "LSDrawingRuleType.h"
+#import "LSFractal.h"
 #import "MDBFractalInfo.h"
 #import "MDLCloudKitManager.h"
 #import "MDBCloudManager.h"
@@ -29,6 +30,7 @@ NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScape
 NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
 
 NSString* const  kPrefParalax = @"com.moedae.FractalScapes.paralax";
+NSString* const  kPrefWatermark = @"com.moedae.FractalScapes.watermark";
 NSString* const  kPrefShowPerformanceData = @"com.moedae.FractalScapes.showPerformanceData";
 NSString* const  kPrefFullScreenState = @"com.moedae.FractalScapes.fullScreenState";
 NSString* const  kPrefShowHelpTips = @"com.moedae.FractalScapes.showEditHelp";
@@ -49,6 +51,9 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 @property(nonatomic,readwrite,strong) LSDrawingRuleType               *sourceDrawingRules;
 @property(nonatomic,readwrite,strong) NSArray                         *sourceColorCategories;
 
+// iOS 10 Haptic additions
+@property(nonatomic,strong) UIImpactFeedbackGenerator*                  selectionFeedbackGenerator;
+
 @end
 
 
@@ -64,9 +69,19 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
     self.allowPremiumOverride = on;
 }
 
--(void)___setUseWatermark:(BOOL)on
+-(void)___setUseWatermark:(BOOL)show
 {
-    self.useWatermarkOverride = on;
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool: show forKey: kPrefWatermark];
+    [defaults synchronize];
+
+    self.useWatermarkOverride = show;
+}
+
+-(BOOL)useWatermarkOverride
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey: kPrefWatermark];
 }
 
 - (instancetype)init
@@ -90,6 +105,130 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 -(BOOL)isCloudAvailable
 {
     return self.cloudDocumentManager.storageState.cloudAvailable;
+}
+
+-(void)sendUserToSystemiCloudSettings: (id)sender
+{
+    // Cloud —> prefs:root=CASTLE
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: UIApplicationOpenSettingsURLString]];
+}
+
+
+-(void)pushToPublicCloudFractalInfos:(NSSet *)setOfFractalInfos onController:(UIViewController *)viewController
+{
+    NSMutableArray* records = [NSMutableArray arrayWithCapacity: setOfFractalInfos.count];
+    
+    for (MDBFractalInfo* fractalInfo in setOfFractalInfos)
+    {
+        if (fractalInfo.document)
+        {
+            id<MDBFractaDocumentProtocol> fractalDocument = fractalInfo.document;
+            LSFractal* fractal = fractalDocument.fractal;
+            
+            if (fractal.name != nil)  [Answers logShareWithMethod: @"FractalCloud" contentName: fractal.name contentType:@"Fractal" contentId: fractal.name customAttributes: nil];
+            
+            CKRecord* record;
+            record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
+            record[CKFractalRecordNameField] = fractal.name;
+            record[CKFractalRecordNameInsensitiveField] = [fractal.name lowercaseString];
+            record[CKFractalRecordDescriptorField] = fractal.descriptor;
+            
+            
+            NSURL* fractalURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBFractalFileName];
+            record[CKFractalRecordFractalDefinitionAssetField] = [[CKAsset alloc] initWithFileURL: fractalURL];
+            
+            NSURL* thumbnailURL = [fractalDocument.fileURL URLByAppendingPathComponent: kMDBThumbnailFileName];
+            record[CKFractalRecordFractalThumbnailAssetField] = [[CKAsset alloc] initWithFileURL: thumbnailURL];
+            
+            [records addObject: record];
+        }
+    }
+    
+    [self.cloudKitManager savePublicRecords: records qualityOfService: NSQualityOfServiceUserInitiated withCompletionHandler:^(NSError *error) {
+        if (error) {
+            [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud", @"Error":@(error.code)}];
+        }
+        [self showAlertTitled: @"Thanks for sharing!" potentialError: error onController: viewController];
+    }];
+}
+
+-(void)showAlertActionsToAddiCloud: (id)sender onController:(UIViewController *)viewController
+{
+    NSString* title = NSLocalizedString(@"Login to iCloud", nil);
+    NSString* message;
+//    if (self.allowPremium)
+//    {
+//    }
+//    else
+//    {
+//        message = NSLocalizedString(@"You must have your device logged into iCloud AND Upgrade to Pro", nil);
+//    }
+    message = NSLocalizedString(@"Sharing uses your iCloud account", nil);
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Go to iCloud Settings",nil)
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action)
+                                   {
+                                       [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudSettings"}];
+                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                       [self sendUserToSystemiCloudSettings: sender];
+                                   }];
+    [alert addAction: fractalCloud];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Maybe Later",nil)
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudLater"}];
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    [alert addAction: defaultAction];
+    
+    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+    ppc.barButtonItem = sender;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [viewController presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)showAlertTitled:(NSString *)title potentialError:(NSError *)error onController:(UIViewController *)viewController
+{
+    NSString* message;
+    
+    if (!error)
+    {
+        title = title;
+    }
+    else
+    {
+        title = error.localizedDescription;
+        message = error.localizedRecoverySuggestion;
+    }
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"OK",nil)
+                                                            style: UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
+                                    }];
+    
+    [alert addAction: defaultAction];
+    UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+    
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [viewController presentViewController:alert animated:YES completion:nil];
 }
 
 -(MDLCloudKitManager*)cloudKitManager
@@ -120,7 +259,7 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 {
     //    // since no default values have been set, create them here
     
-    NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys:  @YES, kPrefParalax, @YES, kPrefFullScreenState, @YES, kPrefShowHelpTips, nil];
+    NSDictionary *appDefaults =  @{kPrefParalax:@YES, kPrefFullScreenState:@YES, kPrefShowHelpTips:@YES, kPrefWatermark:@YES };
     //
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults: appDefaults];
@@ -130,6 +269,8 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
     [userDefaults setValue: self.versionBuildString forKey: kPrefVersion];
     
     [userDefaults synchronize];
+    
+    self.allowPremiumOverride = YES;
 }
 
 -(NSString *)versionString
@@ -475,6 +616,20 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
     {
         self.documentController.documentCoordinator = documentCoordinator;
         //        self.documentsViewController.navigationItem.title = [self.appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
+    }
+}
+
+-(void)copyToAppStorageFromURL:(NSURL *)sourceURL andRemoveOriginal: (BOOL) remove
+{
+    BOOL localOption = self.cloudDocumentManager.storageOption != MDBAPPStorageCloud;
+
+    if (localOption)
+    {
+        [MDBDocumentUtilities copyToAppLocalFromInboxUrl: sourceURL andRemoveOriginal: remove];
+    }
+    else
+    {
+        [MDBDocumentUtilities copyToAppCloudFromInboxUrl: sourceURL andRemoveOriginal: remove];
     }
 }
 

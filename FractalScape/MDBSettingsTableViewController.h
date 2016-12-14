@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *showHelpTipsSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *showParallaxEffect;
+@property (weak, nonatomic) IBOutlet UISwitch *showWatermarkSwitch;
 
 @property (weak, nonatomic) IBOutlet UILabel *appVersion;
 @property (weak, nonatomic) IBOutlet UILabel *appBuild;
