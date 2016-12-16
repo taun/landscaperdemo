@@ -6337,7 +6337,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
             CGContextSetBlendMode(context, kCGBlendModeSourceOut);
             CGContextBeginTransparencyLayer(context, NULL);
 
-            NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
+            textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName: @"Papyrus" size: 96], NSForegroundColorAttributeName: opaqueShadow, NSParagraphStyleAttributeName: textStyle};
             [textContent drawInRect: textTextRect withAttributes: textFontAttributes];
 
             CGContextEndTransparencyLayer(context);
@@ -52051,10 +52051,9 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 
 
 @implementation NSShadow (PaintCodeAdditions)
-
 - (instancetype)initWithColor: (UIColor*)color offset: (CGSize)offset blurRadius: (CGFloat)blurRadius
 {
-    self = super.init;
+    self = [super init];
     if (self)
     {
         self.shadowColor = color;

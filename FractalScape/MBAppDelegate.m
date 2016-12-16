@@ -128,21 +128,12 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-    if (url) {
-        if (url.scheme && [url.pathExtension isEqualToString: @"fractal"]) {
-            
+    if (url && url.scheme && [url.pathExtension isEqualToString: @"fractal"])
+    {
             //Save the received profile and notify observers
             [self.appModel copyToAppStorageFromURL: url andRemoveOriginal: YES];
-            
-        }
-        else
-        {
-            
-            [self.appModel copyToAppStorageFromURL: url andRemoveOriginal: YES];
-            //Clean up inbox
-        }
     }
     return YES;
 }
@@ -159,7 +150,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     for (NSURL *url in inboxFiles) {
         
         //Append file name to path and create URL
-        [self application: [UIApplication sharedApplication] openURL: url sourceApplication: @"" annotation: nil];
+        [self application: [UIApplication sharedApplication] openURL: url options: @{}];
     }
 }
 

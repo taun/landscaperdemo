@@ -82,8 +82,7 @@ RPPreviewViewControllerDelegate>
 @property (nonatomic, strong) UIBarButtonItem*      cancelButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      undoButtonItem;
 @property (nonatomic, strong) UIBarButtonItem*      redoButtonItem;
-#pragma message "TODO Add autoExpand as LSFractal model property."
-@property (nonatomic, strong) NSArray*              disabledDuringPlaybackButtons;
+//@property (nonatomic, strong) NSArray*              disabledDuringPlaybackButtons;
 @property (nonatomic, strong) NSArray*              editPassThroughViews;
 
 @property (nonatomic,weak) UIViewController*        currentPresentedController;
@@ -118,10 +117,16 @@ RPPreviewViewControllerDelegate>
 @property (nonatomic,strong) UIDocumentInteractionController *documentShareController;
 @property (nonatomic,strong, readonly) FBKVOController       *kvoController;
 @property (nonatomic,weak) LSFractal                        *observedFractal;
-@property (nonatomic,weak) MDBFractalDocument               *observedDocument;
+@property (nonatomic,weak) id<MDBFractaDocumentProtocol>    observedDocument;
 @property (nonatomic,strong) NSMutableSet                   *observedReplacementRules;
 
-@property (nonnull,strong) RPPreviewViewController          *previewViewController;
+@property (nonatomic,strong) RPPreviewViewController        *previewViewController;
+
+#pragma mark - Undo Handling
+@property (nonatomic,strong) LSFractal                      *originalFractal;
+@property (nonatomic,strong) UIImage                        *originalThumbnail;
+
+
 //-(void) setEditMode: (BOOL) editing;
 -(void) fullScreenOn;
 -(void) fullScreenOff;
@@ -248,11 +253,6 @@ RPPreviewViewControllerDelegate>
     //                                                                 target: self
     //                                                                 action: @selector(backToLibrary:)];
     
-    UIBarButtonItem* copyButton = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"toolBarCopyIcon"]
-                                                                  style: UIBarButtonItemStylePlain
-                                                                 target: self
-                                                                 action: @selector(copyFractal:)];
-    
     UIBarButtonItem* helpButton = [[UIBarButtonItem alloc]initWithImage: [UIImage imageNamed: @"tabBarInfoThin"]
                                                                   style: UIBarButtonItemStylePlain
                                                                  target: self
@@ -261,7 +261,7 @@ RPPreviewViewControllerDelegate>
     NSString* shareLocalized = NSLocalizedString(@"Share", @"share button title");
     _shareButton = [[UIBarButtonItem alloc]initWithTitle: shareLocalized style: UIBarButtonItemStylePlain target: self action: @selector(shareButtonPressed:)];
     
-    _disabledDuringPlaybackButtons = @[self.autoExpandOff, copyButton, _shareButton];
+//    _disabledDuringPlaybackButtons = @[self.autoExpandOff, _shareButton];
     
     [self.navigationItem setHidesBackButton: YES animated: NO];
     self.navigationItem.leftItemsSupplementBackButton = YES;
@@ -272,22 +272,19 @@ RPPreviewViewControllerDelegate>
         items = [NSMutableArray new];
     }
     //    [items addObject: backButton];
-    UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
+//    UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
     
     UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace target:nil action:NULL];
     space.width = 20.0;
     [items addObject: space];
-    [items addObject: copyButton];
-    [items addObject: flexibleSpace];
-    [items addObject: helpButton];
-    [items addObject: flexibleSpace];
+    [items addObject: _shareButton];
     [self.navigationItem setLeftBarButtonItems: items];
     
     
     
     items = [self.navigationItem.rightBarButtonItems mutableCopy];
+    [items addObject: helpButton];
     [items addObject: space];
-    [items addObject: _shareButton];
     [self.navigationItem setRightBarButtonItems: items];
     
     self.previousNavBarState = NO;
@@ -431,7 +428,7 @@ RPPreviewViewControllerDelegate>
     self.fractalInfo.document.delegate = self;
     [self addObserverForFractalChangeInDocument: self.fractalInfo.document];
     
-    self.toolbarTrailingConstraint.constant = -70.0;
+    [self hideToolPaletteWithAnimations: NO];
 }
 
 /* on startup, fractal should not be set until just before view didAppear */
@@ -465,7 +462,10 @@ RPPreviewViewControllerDelegate>
     }
     
     [self updateEditorContent];
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(updateUIDueToUserSettingsChange) name: NSUserDefaultsDidChangeNotification object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(updateUIDueToUserSettingsChange)
+                                                 name: NSUserDefaultsDidChangeNotification
+                                               object: nil];
     
     //    self.navigationController.navigationBar.hidden = YES;
     //    [self.navigationController setNavigationBarHidden: YES animated: YES];
@@ -477,44 +477,69 @@ RPPreviewViewControllerDelegate>
         [self showHelpScreen: nil];
         [strongAppModel exitEditorIntroState];
     }
-    self.toolbarTrailingConstraint.constant = -8.0;
-    [self.fractalViewRoot setNeedsUpdateConstraints];
-    
-    [UIView animateWithDuration: 2.0 delay: 0.1
-         usingSpringWithDamping: 0.5
-          initialSpringVelocity: 0.0
-                        options: UIViewAnimationOptionAllowUserInteraction
-                     animations:^{
-                         [self.fractalViewRoot layoutIfNeeded];
-                     } completion:^(BOOL finished) {
-                         //
-                         [self startPanBackgroundFadeTimer];
-                     }];
+    [self showToolPalleteWithAnimations: YES];
 }
 
-//-(void)firstStartupSequence
-//{
-//    UIStoryboard* storyBoard = self.storyboard;
-//
-////    NSString* pageNavIdentifier = @"HelpControllerNav";
-////    UIViewController* pageNav = [storyBoard instantiateViewControllerWithIdentifier: pageNavIdentifier];
-//
-//    NSString* pageIdentifier0 = @"HelpControllerPage0";
-//    UIViewController* page0 = [storyBoard instantiateViewControllerWithIdentifier: pageIdentifier0];
-//    //HelpControllerPage0
-//
-////    webIntro.transitioningDelegate = transDel;
-////    webIntro.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-////    webIntro.modalPresentationStyle = UIModalPresentationCurrentContext;
-////    webIntro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-//    [self.navigationController pushViewController: page0 animated: YES];
-//    [self.appModel exitEditorIntroState];
-////    [self presentViewController: page animated: YES completion:^{
-//        //
-////        [self.navigationController setNavigationBarHidden: YES animated: YES];
-////        NSLog(@"");
-////    }];
-//}
+-(void)showToolPalleteWithAnimations: (BOOL)animate
+{
+    CGFloat newBarConstant = -8.0;
+    
+    if (self.toolbarTrailingConstraint.constant == newBarConstant) return;
+    
+    self.toolbarTrailingConstraint.constant = newBarConstant;
+    [self.fractalViewRoot setNeedsUpdateConstraints];
+    
+    if (animate)
+    {
+        [UIView animateWithDuration: 2.0 delay: 0.1
+             usingSpringWithDamping: 0.5
+              initialSpringVelocity: 0.0
+                            options: UIViewAnimationOptionAllowUserInteraction
+                         animations:^{
+                             [self.fractalViewRoot layoutIfNeeded];
+                         } completion:^(BOOL finished) {
+                             //
+                             [self startPanBackgroundFadeTimer];
+                         }];
+    }
+    else
+    {
+        [self.fractalViewRoot layoutIfNeeded];
+    }
+    
+    self.hudViewBackground.alpha = 1.0;
+    self.panIndicatorsContainerView.alpha = 1.0;
+}
+
+-(void)hideToolPaletteWithAnimations: (BOOL)animate
+{
+    CGFloat newBarConstant = -70.0;
+
+    if (self.toolbarTrailingConstraint.constant == newBarConstant) return;
+
+    self.toolbarTrailingConstraint.constant = newBarConstant;
+    [self.fractalViewRoot setNeedsUpdateConstraints];
+
+    if (animate)
+    {
+        [UIView animateWithDuration: 0.5 delay: 0.1
+             usingSpringWithDamping: 1.0
+              initialSpringVelocity: 0.0
+                            options: UIViewAnimationOptionAllowUserInteraction
+                         animations:^{
+                             [self.fractalViewRoot layoutIfNeeded];
+                         } completion:^(BOOL finished) {
+                             //
+                         }];
+    }
+    else
+    {
+        [self.fractalViewRoot layoutIfNeeded];
+    }
+    
+    self.hudViewBackground.alpha = 0.0;
+    self.panIndicatorsContainerView.alpha = 0.0;
+}
 
 -(IBAction)showHelpScreen:(id)sender
 {
@@ -626,6 +651,14 @@ RPPreviewViewControllerDelegate>
 
 
 #pragma mark - Getters & Setters
+
+-(void)setHasBeenEdited:(BOOL)hasBeenEdited
+{
+    if (_hasBeenEdited != hasBeenEdited)
+    {
+        _hasBeenEdited = hasBeenEdited;
+    }
+}
 
 -(CGContextRef)filterBitmapContext
 {
@@ -740,14 +773,14 @@ RPPreviewViewControllerDelegate>
         
         self.autoscaleN = YES;
         self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
-        
+    
         [self addObserverForFractalChangeInDocument: _fractalInfo.document];
     }
 }
 
 -(void) setFractalInfo: (MDBFractalInfo*)fractalInfo andShowCopiedAlert: (BOOL)copied
 {
-    __weak MBLSFractalEditViewController* weakSelf =  self;
+    MBLSFractalEditViewController* __weak weakSelf =  self;
     
     UIDocumentState docState = fractalInfo.document.documentState;
     
@@ -806,7 +839,7 @@ RPPreviewViewControllerDelegate>
     [self.navigationController presentViewController: weakAlert animated:YES completion:nil];
 }
 
--(MDBFractalDocument*)fractalDocument
+-(id<MDBFractaDocumentProtocol>)fractalDocument
 {
     return _fractalInfo.document;
 }
@@ -967,18 +1000,21 @@ RPPreviewViewControllerDelegate>
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
     UIAlertController* __weak weakAlert = alert;
+    MBLSFractalEditViewController* __weak weakSelf = self;
     
     UIAlertAction* pushOverwriteAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Keep this device edits",nil)
                                                                   style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action)
                                           {
+                                              MBLSFractalEditViewController* strongSelf = weakSelf;
                                               [weakAlert dismissViewControllerAnimated:YES completion:nil];
                                               // Any automatic merging logic or presentation of conflict resolution UI should go here.
                                               // For this sample, just pick the current version and mark the conflict versions as resolved.
-                                              [NSFileVersion removeOtherVersionsOfItemAtURL: self.fractalDocument.fileURL error:nil];
+                                              [NSFileVersion removeOtherVersionsOfItemAtURL: strongSelf.fractalDocument.fileURL error:nil];
                                               
-                                              NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: self.fractalDocument.fileURL];
-                                              for (NSFileVersion *fileVersion in conflictVersions) {
+                                              NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL: strongSelf.fractalDocument.fileURL];
+                                              for (NSFileVersion *fileVersion in conflictVersions)
+                                              {
                                                   fileVersion.resolved = YES;
                                               }
                                           }];
@@ -989,16 +1025,16 @@ RPPreviewViewControllerDelegate>
                                                            handler:^(UIAlertAction * action)
                                      {
                                          [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                         [self copyFractal: nil];
+                                         [weakSelf copyFractal: nil];
                                      }];
     [alert addAction: makeCopyAction];
     
     [self presentViewController: alert animated: YES completion: nil];
 }
 
--(void) addObserverForFractalChangeInDocument: (MDBFractalDocument*)document
+-(void) addObserverForFractalChangeInDocument: (id<MDBFractaDocumentProtocol>)document
 {
-    MDBFractalDocument* observedDocument = self.observedDocument;
+    id<MDBFractaDocumentProtocol> observedDocument = self.observedDocument;
     
     if (observedDocument && observedDocument == document)
     {
@@ -1014,7 +1050,9 @@ RPPreviewViewControllerDelegate>
             //        [_fractalInfo.document addObserver: self forKeyPath: @"fractal" options: NSKeyValueObservingOptionOld context: NULL];
             document.delegate = self;
             
-            [self.kvoController observe: document keyPath: @"fractal" options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionPrior action: @selector(propertyDocumentFractalDidChange:object:)];
+            [self.kvoController observe: document keyPath: @"fractal"
+                                options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionPrior
+                                 action: @selector(propertyDocumentFractalDidChange:object:)];
             
             [self addObserversForFractal: document.fractal];
             
@@ -1025,7 +1063,7 @@ RPPreviewViewControllerDelegate>
 
 -(void) removeObserversForObservedDocument
 {
-    MDBFractalDocument* observedDocument = self.observedDocument;
+    id<MDBFractaDocumentProtocol> observedDocument = self.observedDocument;
     
     if (observedDocument) {
         
@@ -1061,21 +1099,25 @@ RPPreviewViewControllerDelegate>
             _fractalInfo.changeDate = [NSDate date];
             
             [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-            self.hasBeenEdited = NO;
+//            self.hasBeenEdited = NO;
         }
         else
         {
+            MBLSFractalEditViewController* __weak weakSelf = self;
+            
             [self.exportImageGenerationQueue addOperationWithBlock:^{
                 UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //
-                    [self->_fractalInfo.document setThumbnail: fractalImage];
-                    self->_fractalInfo.changeDate = [NSDate date];
+                    MBLSFractalEditViewController* strongSelf = weakSelf;
                     
-                    [self->_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+                    [strongSelf->_fractalInfo.document setThumbnail: fractalImage];
+                    strongSelf->_fractalInfo.changeDate = [NSDate date];
                     
-                    self.hasBeenEdited = NO;
+                    [strongSelf->_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
+                    
+//                    self.hasBeenEdited = NO;
                 });
                 
             }];
@@ -1186,7 +1228,7 @@ RPPreviewViewControllerDelegate>
         [self removeObserversForObservedFractal];
         
         if (fractal)
-        {
+        {            
             [self setupSlidersForCurrentFractal];
             
             _lastImageUpdateTime = [NSDate date];
@@ -1197,6 +1239,7 @@ RPPreviewViewControllerDelegate>
             [self.kvoController observe: fractal keyPaths: [[LSFractal appearanceProperties]allObjects] options: options action: @selector(propertyFractalAppearanceDidChange:object:)];
             [self.kvoController observe: fractal keyPaths: [[LSFractal redrawProperties]allObjects] options: options action: @selector(propertyFractalRedrawDidChange:object:)];
             [self.kvoController observe: fractal keyPaths: [[LSFractal labelProperties]allObjects] options: options action: @selector(propertyFractalProductionRulesDidChange:object:)];
+            
             self.hasBeenEdited = NO;
             
             [self updateFilterSettingsForCanvas];
@@ -1204,8 +1247,25 @@ RPPreviewViewControllerDelegate>
             [self updateInterface];
         }
         
+        [self storeOriginalFractal: fractal thumbnail: self.fractalDocument.thumbnail];
         self.observedFractal = fractal;
     }
+}
+
+-(void)storeOriginalFractal: (LSFractal*) fractal thumbnail: (UIImage*)thumbnail
+{
+    self.originalFractal = [fractal copy];
+    self.originalFractal.name = fractal.name; // revert name since 'copy' adds a number, should have separate copy/method for incrementing name.
+    self.originalThumbnail = thumbnail;
+}
+
+-(void)restoreOriginalFractal
+{
+    self.fractalDocument.thumbnail = self.originalThumbnail;
+    self.fractalDocument.fractal = self.originalFractal;
+    [self.fractalDocument updateChangeCount: UIDocumentChangeDone];
+    [self updateLibraryRepresentationIfNeededNow: YES];
+    self.hasBeenEdited = NO;
 }
 
 -(void)removeObserversForObservedFractal
@@ -1312,7 +1372,7 @@ RPPreviewViewControllerDelegate>
 
 -(void) updateInterface
 {
-    [self stopButtonPressed: nil];
+//    [self stopButtonPressed: nil];
     [self updateValueInputs];
     [self updateLabelsAndControls];
 }
@@ -1385,21 +1445,6 @@ RPPreviewViewControllerDelegate>
             [self updateRendererLevels: levelDataArray];
         });
     });
-    
-    
-    //    NSManagedObjectID* fid;// = self.fractalID;
-    //
-    //    [pc performBlock:^{
-    //        [pc reset];
-    //        LSFractal* fractal = (LSFractal*)[pc objectWithID: fid];
-    //        [fractal generateLevelData];
-    //
-    //        NSArray* levelDataArray = @[fractal.level0RulesCache, fractal.level1RulesCache, fractal.level2RulesCache, fractal.levelNRulesCache, fractal.levelGrowthRate];
-    //
-    //        dispatch_async(dispatch_get_main_queue(), ^{
-    //            [self updateRendererLevels: levelDataArray];
-    //        });
-    //    }];
 }
 -(NSInteger) levelNIndex
 {
@@ -1570,7 +1615,10 @@ RPPreviewViewControllerDelegate>
         if (!renderer.operation.isCancelled)
         {
             [renderer generateImage];
-            if (renderer.mainThreadImageView && renderer.imageRef != NULL)
+            
+            UIImageView* mainThreadImageView = renderer.mainThreadImageView;
+            
+            if (mainThreadImageView && renderer.imageRef != NULL)
             {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     BOOL applyFilters = YES;
@@ -1583,12 +1631,12 @@ RPPreviewViewControllerDelegate>
                         CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
                         NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
                         CGImageRef filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
-                        renderer.mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
+                        mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
                     }
                     else
                     {
 #pragma message "TODO: Filters view seems to use OpenGL. If a simple filter is implemented here, will this use opengl as well?"
-                        renderer.mainThreadImageView.layer.contents = (__bridge id)(renderer.imageRef);
+                        mainThreadImageView.layer.contents = (__bridge id)(renderer.imageRef);
                     }
                     
                     if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
@@ -1679,43 +1727,6 @@ RPPreviewViewControllerDelegate>
 {
     
 }
-/*!
- It took awhile to understand the undo mechanism but I think I finally have it.
- 
- Undo undoes everything in the top level closed undo group.
- 
- To have the ability to undo lists of operations, they need to be nested and undoNested needs to be used.
- 
- undoNested adds the operation to the redo stack whereas undo puts what was undone on the undo stack so undoing again just redoes what was undone like a toggle.
- 
- In this context, we want undo to perform undoNested and undo individual edit operations.
- 
- Cancel will undo all changes since the edit session started by using core data rollback.
- */
-// TODO: change all undos to [managedObjectContext undo] rather than undoManager
-// need to make sure MOC undoManager exist like in setupUndoManager
-// Don't need self.undoManager just model undoManager
-- (IBAction)undoEdit:(id)sender
-{
-    [self logGroupingLevelFrom: NSStringFromSelector(_cmd)];
-    if ([self.undoManager groupingLevel] > 0)
-    {
-        [self.undoManager endUndoGrouping];
-        [self.undoManager undoNestedGroup];
-    }
-    //[self.undoManager disableUndoRegistration];
-    //[self.undoManager undo];
-    //[self.undoManager enableUndoRegistration];
-    [self logGroupingLevelFrom: NSStringFromSelector(_cmd)];
-}
-- (IBAction)redoEdit:(id)sender
-{
-    //    [self.fractalDocument.fractal.managedObjectContext redo];
-}
-
-/*
- since we are using core data, all we need to do to undo all changes and cancel the edit session is not save the core data and use rollback.
- */
 
 -(void) updateViewConstraints
 {
@@ -1735,7 +1746,7 @@ RPPreviewViewControllerDelegate>
     UIView* container = self.playbackSlider.superview;
     
     CGFloat topBarOffset = self.topLayoutGuide.length;
-    CGFloat verticalMargins = 80.0;
+    CGFloat verticalMargins = 60.0;
     
     
     
@@ -1765,7 +1776,7 @@ RPPreviewViewControllerDelegate>
                                                               toItem: container
                                                            attribute: NSLayoutAttributeTrailing
                                                           multiplier: 1.0
-                                                            constant: -80.0]];
+                                                            constant: -20.0]];
 }
 
 #pragma mark - Segues
@@ -1775,18 +1786,22 @@ RPPreviewViewControllerDelegate>
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     BOOL should = YES;
-    if ([identifier isEqualToString:@"EditSegue"] && [self.currentPresentedController isKindOfClass:[MBFractalAppearanceEditorViewController class]]) {
+    
+    UIViewController* currentPresentedController = self.currentPresentedController;
+    
+    if ([identifier isEqualToString:@"EditSegue"] && [currentPresentedController isKindOfClass:[MBFractalAppearanceEditorViewController class]])
+    {
         should = NO;
-        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
+        MBLSFractalEditViewController* __weak weakSelf = self;
+        [currentPresentedController dismissViewControllerAnimated: YES completion:^{
             //
-            [self appearanceControllerWasDismissed];
+            [weakSelf appearanceControllerWasDismissed];
         }];
-    } else if ([identifier isEqualToString:@"LibrarySegue"] && [self.currentPresentedController isKindOfClass:[MBFractalLibraryViewController class]]) {
+    }
+    else if ([identifier isEqualToString:@"LibrarySegue"] && [currentPresentedController isKindOfClass:[MBFractalLibraryViewController class]])
+    {
         should = NO;
-        [self.currentPresentedController dismissViewControllerAnimated: YES completion:^{
-            //
-            //            [self libraryControllerWasDismissed];
-        }];
+        [currentPresentedController dismissViewControllerAnimated: YES completion: nil];
     }
     return should;
 }
@@ -1987,6 +2002,7 @@ RPPreviewViewControllerDelegate>
                                                             preferredStyle: UIAlertControllerStyleActionSheet];
     
     UIAlertController* __weak weakAlert = alert;
+    MBLSFractalEditViewController* __weak weakSelf = self;
     
     ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
     
@@ -1996,13 +2012,19 @@ RPPreviewViewControllerDelegate>
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action)
                                        {
-                                           if (self.fractalDocument.fractal.name != nil)
+                                           MBLSFractalEditViewController* strongSelf = weakSelf;
+                                           
+                                           if (strongSelf.fractalDocument.fractal.name != nil)
                                            {
-                                               [Answers logShareWithMethod: @"Image" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                               [Answers logShareWithMethod: @"Image"
+                                                               contentName: strongSelf.fractalDocument.fractal.name
+                                                               contentType: @"Fractal"
+                                                                 contentId: strongSelf.fractalDocument.fractal.name
+                                                          customAttributes: nil];
                                            }
                                            
-                                           [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                           [self shareWithActivityController: sender];
+                                           [weakAlert dismissViewControllerAnimated: YES completion: nil];
+                                           [strongSelf shareWithActivityController: sender];
                                        }];
         [alert addAction: cameraAction];
     }
@@ -2013,7 +2035,7 @@ RPPreviewViewControllerDelegate>
                                                              handler:^(UIAlertAction * action)
                                        {
                                            [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                           [self.appModel sendUserToSystemiCloudSettings: sender];
+                                           [weakSelf.appModel sendUserToSystemiCloudSettings: sender];
                                        }];
         [alert addAction: cameraAction];
     }
@@ -2023,13 +2045,19 @@ RPPreviewViewControllerDelegate>
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        if (self.fractalDocument.fractal.name != nil)
+                                        MBLSFractalEditViewController* strongSelf = weakSelf;
+                                        
+                                        if (strongSelf.fractalDocument.fractal.name != nil)
                                         {
-                                            [Answers logShareWithMethod: @"Document" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                            [Answers logShareWithMethod: @"Document"
+                                                            contentName: strongSelf.fractalDocument.fractal.name
+                                                            contentType: @"Fractal"
+                                                              contentId: strongSelf.fractalDocument.fractal.name
+                                                       customAttributes: nil];
                                         }
                                         
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                        [self shareWithDocumentInteractionController: sender];
+                                        [weakAlert dismissViewControllerAnimated: YES completion: nil];
+                                        [strongSelf shareWithDocumentInteractionController: sender];
                                     }];
     [alert addAction: documentShare];
     
@@ -2037,8 +2065,8 @@ RPPreviewViewControllerDelegate>
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
-                                       [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                       [self shareFractalToCloud: sender];
+                                       [weakAlert dismissViewControllerAnimated: YES completion:nil]; // because of popover mode
+                                       [weakSelf shareFractalToCloud: sender];
                                    }
                                    ];
     [alert addAction: fractalCloud];
@@ -2050,13 +2078,19 @@ RPPreviewViewControllerDelegate>
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        if (self.fractalDocument.fractal.name != nil)
+                                        MBLSFractalEditViewController* strongSelf = weakSelf;
+                                        
+                                        if (strongSelf.fractalDocument.fractal.name != nil)
                                         {
-                                            [Answers logShareWithMethod: @"VectorPDF" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                            [Answers logShareWithMethod: @"VectorPDF"
+                                                            contentName: strongSelf.fractalDocument.fractal.name
+                                                            contentType: @"Fractal"
+                                                              contentId: strongSelf.fractalDocument.fractal.name
+                                                       customAttributes: nil];
                                         }
                                         
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                        [self sharePDFWithDocumentInteractionController: sender];
+                                        [weakAlert dismissViewControllerAnimated: YES completion:nil];
+                                        [strongSelf sharePDFWithDocumentInteractionController: sender];
                                     }];
         [alert addAction: vectorPDF];
     }
@@ -2067,7 +2101,7 @@ RPPreviewViewControllerDelegate>
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil];
-                                        [self upgradeToProSelected: sender];
+                                        [weakSelf upgradeToProSelected: sender];
                                     }];
         [alert addAction: vectorPDF];
     }
@@ -2076,12 +2110,17 @@ RPPreviewViewControllerDelegate>
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        if (self.fractalDocument.fractal.name != nil)
+                                        MBLSFractalEditViewController* strongSelf = weakSelf;
+                                        if (strongSelf.fractalDocument.fractal.name != nil)
                                         {
-                                            [Answers logShareWithMethod: @"Cancel" contentName: self.fractalDocument.fractal.name contentType:@"Fractal" contentId: self.fractalDocument.fractal.name customAttributes: nil];
+                                            [Answers logShareWithMethod: @"Cancel"
+                                                            contentName: strongSelf.fractalDocument.fractal.name
+                                                            contentType: @"Fractal"
+                                                              contentId: strongSelf.fractalDocument.fractal.name
+                                                       customAttributes: nil];
                                         }
                                         
-                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                        [weakAlert dismissViewControllerAnimated: YES completion:nil];
                                     }];
     [alert addAction: defaultAction];
     
@@ -2096,16 +2135,21 @@ RPPreviewViewControllerDelegate>
 {
     // check for iCloud account
     // check for discovery
-    if (self.appModel.isCloudAvailable)
+    MDBAppModel* appModel = self.appModel;
+    
+    if (appModel.isCloudAvailable)
     {
-        [self.appModel.cloudKitManager requestDiscoverabilityPermission:^(BOOL discoverable) {
-            NSSet* fractalInfos = [NSSet setWithObject: self.fractalInfo];
-            [self.appModel pushToPublicCloudFractalInfos: fractalInfos onController: self];
+        MBLSFractalEditViewController* __weak weakSelf = self;
+        
+        [appModel.cloudKitManager requestDiscoverabilityPermission:^(BOOL discoverable) {
+            MBLSFractalEditViewController* strongSelf = weakSelf;
+            NSSet* fractalInfos = [NSSet setWithObject: strongSelf.fractalInfo];
+            [appModel pushToPublicCloudFractalInfos: fractalInfos onController: strongSelf];
         }];
     }
     else
     {
-        [self.appModel showAlertActionsToAddiCloud: sender onController: self];
+        [appModel showAlertActionsToAddiCloud: sender onController: self];
     }
 }
 
@@ -2414,10 +2458,15 @@ RPPreviewViewControllerDelegate>
     }
     
     [self.playbackTimer invalidate];
-    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
-    {
-        button.enabled = NO;
-    }
+//    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
+//    {
+//        button.enabled = NO;
+//    }
+    
+    [self hideToolPaletteWithAnimations: YES];
+    [self setNavBarHidden: YES];
+    self.fractalViewRootSingleTapRecognizer.enabled = NO;
+    self.fractal2PanGR.enabled = NO;
     
     [self swapOldButton: self.playButton withNewButton: self.stopButton];
     
@@ -2515,10 +2564,10 @@ RPPreviewViewControllerDelegate>
 }
 -(IBAction) stopButtonPressed: (id)sender
 {
-    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
-    {
-        button.enabled = YES;
-    }
+//    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
+//    {
+//        button.enabled = YES;
+//    }
     
     UISlider* strongPlayback = self.playbackSlider;
     
@@ -2537,6 +2586,11 @@ RPPreviewViewControllerDelegate>
         strongPlayback.hidden = YES;
     }
     
+    [self setNavBarHidden: NO];
+    [self showToolPalleteWithAnimations: YES];
+    self.fractalViewRootSingleTapRecognizer.enabled = YES;
+    self.fractal2PanGR.enabled = YES;
+
     RPScreenRecorder* recorder = [RPScreenRecorder sharedRecorder];
     if (recorder.isAvailable)
     {
@@ -2597,6 +2651,71 @@ RPPreviewViewControllerDelegate>
     MDBFractalInfo* fractalInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withImage: [self.fractalDocument.thumbnail copy] withDocumentDelegate: self];
     
     [self setFractalInfo: fractalInfo andShowCopiedAlert: YES];
+}
+
+- (IBAction)showSaveFractalAlert:(id)sender
+{
+    if (self.hasBeenEdited)
+    {
+        MBLSFractalEditViewController* __weak weakSelf = self;
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"",nil)
+                                                                       message: nil
+                                                                preferredStyle: UIAlertControllerStyleActionSheet];
+        
+        
+        UIAlertAction* saveAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Save As Is",nil)
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action)
+                                     {
+                                         [weakSelf performSegueWithIdentifier: @"UnwindSegueToLibrary" sender: self];
+                                     }];
+        
+        [alert addAction: saveAction];
+        
+        UIAlertAction* copyAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Save As Copy",nil)
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action)
+                                     {
+                                         MBLSFractalEditViewController* strongSelf = weakSelf;
+                                         
+                                         LSFractal* newFractal = [strongSelf.fractalDocument.fractal copy];
+                                         UIImage* thumbnail = [self.fractalDocument.thumbnail copy];
+                                         
+                                         [strongSelf restoreOriginalFractal];
+                                         
+                                         strongSelf.fractalInfo = nil;
+                                         
+                                         strongSelf.fractalInfo = [strongSelf.appModel.documentController createFractalInfoForFractal: newFractal withImage: thumbnail withDocumentDelegate: strongSelf];
+                                         
+                                         [strongSelf performSegueWithIdentifier: @"UnwindSegueToLibrary" sender: strongSelf];
+                                     }];
+        
+        [alert addAction: copyAction];
+        
+        UIAlertAction* discardAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Discard Changes",nil)
+                                                                style:UIAlertActionStyleDestructive
+                                                              handler:^(UIAlertAction * action)
+                                        {
+                                            MBLSFractalEditViewController* strongSelf = weakSelf;
+                                            [strongSelf restoreOriginalFractal];
+                                            [strongSelf performSegueWithIdentifier: @"UnwindSegueToLibrary" sender: strongSelf];
+                                        }];
+        
+        [alert addAction: discardAction];
+        
+        alert.modalPresentationStyle = UIModalPresentationPopover;
+        
+        UIPopoverPresentationController* ppc = alert.popoverPresentationController;
+        ppc.barButtonItem = sender;
+        ppc.delegate = self;
+        
+        [self presentViewController: alert animated: YES completion: nil];
+    }
+    else
+    {
+        [self performSegueWithIdentifier: @"UnwindSegueToLibrary" sender: self];
+    }
 }
 
 - (IBAction)levelInputChanged:(UIStepper*)sender
@@ -3571,23 +3690,6 @@ verticalPropertyPath: (NSString*) verticalPath
 
 - (void)setUpUndoManager
 {
-    /*
-     If the book's managed object context doesn't already have an undo manager, then create one and set it for the context and self.
-     The view controller needs to keep a reference to the undo manager it creates so that it can determine whether to remove the undo manager when editing finishes.
-     */
-    //    if (self.fractalDocument.fractal.managedObjectContext.undoManager == nil)
-    //    {
-    //
-    //        NSUndoManager *anUndoManager = [[NSUndoManager alloc] init];
-    //        [anUndoManager setLevelsOfUndo:50];
-    //        [anUndoManager setGroupsByEvent: NO];
-    //        _undoManager = anUndoManager;
-    //
-    //        self.fractalDocument.fractal.managedObjectContext.undoManager = _undoManager;
-    //    }
-    //
-    //    // Register as an observer of the book's context's undo manager.
-    //    NSUndoManager *fractalUndoManager = self.fractalDocument.fractal.managedObjectContext.undoManager;
     //
     //    NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
     //    [dnc addObserver:self selector:@selector(undoManagerDidUndo:) name:NSUndoManagerDidUndoChangeNotification object:fractalUndoManager];
@@ -3599,7 +3701,6 @@ verticalPropertyPath: (NSString*) verticalPath
 {
     
     // Remove self as an observer.
-#pragma message "TODO: fix for uidocument"
     //    [[NSNotificationCenter defaultCenter] removeObserver:self];
     //
     //    if (self.fractalDocument.fractal.managedObjectContext.undoManager == _undoManager)
@@ -3619,6 +3720,11 @@ verticalPropertyPath: (NSString*) verticalPath
 - (void)undoManagerDidRedo:(NSNotification *)notification
 {
     [self updateInterface];
+}
+
+-(void)undoEdit:(id)sender
+{
+    
 }
 
 #pragma mark - Utilities

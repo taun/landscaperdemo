@@ -344,7 +344,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         }
         else if (changeKind == NSKeyValueChangeReplacement)
         {
-#pragma message "TODO: need to separate status updates due to uploading progess from actual changes"
             if ([self.collectionView cellForItemAtIndexPath: [indexPaths firstObject]])
             {
                 [self.collectionView performBatchUpdates:^{
@@ -472,37 +471,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 }
 
 #pragma mark - UICollectionViewDelegate
-//-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSParameterAssert([cell isKindOfClass:[MBCollectionFractalDocumentCell class]]);
-//    MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)cell;
-//    
-//    MDBFractalInfo* fractalInfo = self.collectionSource.sourceInfos[indexPath.row];
-//    
-//    // Configure the cell with data from the managed object.
-//    if (fractalInfo.document && fractalInfo.document.documentState == UIDocumentStateNormal)
-//    {
-//        documentInfoCell.info = fractalInfo;
-//    }
-//    else if (!fractalInfo.document || fractalInfo.document.documentState == UIDocumentStateClosed)
-//    {
-//        [fractalInfo fetchDocumentWithCompletionHandler:^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                // Make sure that the list info is still visible once the color has been fetched.
-//                if ([collectionView.indexPathsForVisibleItems containsObject: indexPath])
-//                {
-//                    //                    NSInteger index = indexPath.row;
-//                    documentInfoCell.info = fractalInfo;
-//                    MDBFractalDocument* document = (MDBFractalDocument*)documentInfoCell.info.document;
-//                    [document closeWithCompletionHandler:^(BOOL success) {}];
-//                }
-//                //                [fractalInfo.document closeWithCompletionHandler:^(BOOL success) {
-//                //
-//                //                }];;
-//            });
-//        }];
-//    }
-//}
 
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -550,6 +518,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     CGRect cellSquareFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.width);
     self.transitionSourceRect = [self.collectionView.window convertRect: cellSquareFrame fromView: self.collectionView];
     [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToFractalViewControllerSegueIdentifier sender: self];
+    [self.collectionView deselectItemAtIndexPath: indexPath animated: YES];
 }
 
 -(void)libraryCollectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

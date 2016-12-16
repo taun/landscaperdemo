@@ -278,9 +278,11 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 - (void)accommodatePresentedItemDeletionWithCompletionHandler:(void (^)(NSError *errorOrNil))completionHandler {
     [super accommodatePresentedItemDeletionWithCompletionHandler:completionHandler];
     
-    if ([self.delegate respondsToSelector: @selector(fractalDocumentWasDeleted:)])
+    id strongDelegate = self.delegate;
+    
+    if ([strongDelegate respondsToSelector: @selector(fractalDocumentWasDeleted:)])
     {
-        [self.delegate fractalDocumentWasDeleted: self];
+        [strongDelegate fractalDocumentWasDeleted: self];
     }
 }
 
@@ -294,6 +296,20 @@ NSString * const CKFractalRecordSubscriptionIDkey = @"subscriptionID";
 
 #pragma mark - Lazy Properties
 
+-(NSString *)localizedName
+{
+    NSString* nameString;
+    if (self.fractal.name)
+    {
+        nameString = self.fractal.name;
+    }
+    else
+    {
+        nameString = self.fileURL.lastPathComponent;
+    }
+    
+    return nameString;
+}
 /*!
  Lazily convert the NSData to a UIImage. Since the thumbnail property always gets called by the collectionViewCell on the main thread,
  this is a way around the lack of background thread support of UIImage creation. Creating the UIImage as part of the loadFromContents:

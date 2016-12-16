@@ -14,18 +14,18 @@
 @class LSDrawingRuleType;
 @class MDBFractalDocument;
 
-extern NSString* const kMDBVersionFileName;
-extern NSString* const kMDBThumbnailFileName;
-extern NSString* const kMDBFractalFileName;
+extern NSString* _Nonnull const kMDBVersionFileName;
+extern NSString* _Nonnull const kMDBThumbnailFileName;
+extern NSString* _Nonnull const kMDBFractalFileName;
 
-extern NSString * const CKFractalRecordType;
-extern NSString * const CKFractalRecordNameField;
-extern NSString * const CKFractalRecordNameInsensitiveField;
-extern NSString * const CKFractalRecordDescriptorField;
-extern NSString * const CKFractalRecordFractalDefinitionAssetField;
-extern NSString * const CKFractalRecordFractalThumbnailAssetField;
+extern NSString* _Nonnull const CKFractalRecordType;
+extern NSString* _Nonnull const CKFractalRecordNameField;
+extern NSString* _Nonnull const CKFractalRecordNameInsensitiveField;
+extern NSString* _Nonnull const CKFractalRecordDescriptorField;
+extern NSString* _Nonnull const CKFractalRecordFractalDefinitionAssetField;
+extern NSString* _Nonnull const CKFractalRecordFractalThumbnailAssetField;
 
-extern NSString * const CKFractalRecordSubscriptionIDkey;
+extern NSString* _Nonnull const CKFractalRecordSubscriptionIDkey;
 
 typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 {
@@ -41,23 +41,23 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
  */
 @protocol MDBFractalDocumentDelegate <NSObject>
 
-- (void)fractalDocumentWasDeleted:(MDBFractalDocument *)document;
+- (void)fractalDocumentWasDeleted:(MDBFractalDocument* _Nullable)document;
 
 @end
 
 @protocol MDBFractaDocumentProtocol <NSObject>
 
-@property(atomic,strong) LSFractal                          *fractal;
-@property(nonatomic,strong) UIImage                         *thumbnail;
+@property(atomic,strong,nullable) LSFractal                 *fractal;
+@property(nonatomic,strong,nullable) UIImage                *thumbnail;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
-@property(nonatomic,readonly) NSString                      *loadResultString;
-@property(nonatomic,readonly) NSURL                         *fileURL;
+@property(nonatomic,readonly,nullable) NSString             *loadResultString;
+@property(nonatomic,readonly,nullable) NSURL                *fileURL;
 
-@property (weak) id<MDBFractalDocumentDelegate>             delegate;
+@property (weak,nullable) id<MDBFractalDocumentDelegate>   delegate;
 
 -(UIDocumentState)documentState;
 - (void)openWithCompletionHandler:(void (^ __nullable)(BOOL success))completionHandler;
-- (void)saveToURL:(NSURL *)url forSaveOperation:(UIDocumentSaveOperation)saveOperation completionHandler:(void (^ __nullable)(BOOL success))completionHandler __TVOS_PROHIBITED;- (void)closeWithCompletionHandler:(void (^ __nullable)(BOOL success))completionHandler;
+- (void)saveToURL:(NSURL *_Nullable)url forSaveOperation:(UIDocumentSaveOperation)saveOperation completionHandler:(void (^ _Nullable)(BOOL success))completionHandler __TVOS_PROHIBITED;- (void)closeWithCompletionHandler:(void (^ _Nullable)(BOOL success))completionHandler;
 - (void)updateChangeCount:(UIDocumentChangeKind)change;
 
 @end
@@ -71,14 +71,14 @@ typedef NS_ENUM(NSUInteger, MDBFractalDocumentLoadResult)
 /*!
  An LSFractal
  */
-@property(atomic,strong) LSFractal                          *fractal;
-@property(nonatomic,strong) UIImage                         *thumbnail;
-@property(nonatomic,strong) NSArray                         *categories;
+@property(atomic,strong,nullable) LSFractal                          *fractal;
+@property(nonatomic,strong,nullable) UIImage                         *thumbnail;
+@property(nonatomic,strong,nullable) NSArray                         *categories;
 @property(nonatomic,readonly) MDBFractalDocumentLoadResult  loadResult;
-@property(nonatomic,readonly) NSString                      *loadResultString;
+@property(nonatomic,readonly,nullable) NSString                      *loadResultString;
 
-@property (weak) id<MDBFractalDocumentDelegate>             delegate;
+@property (weak,nullable) id<MDBFractalDocumentDelegate>             delegate;
 
--(CKRecord*) asCloudKitRecord;
+-(CKRecord* _Nullable) asCloudKitRecord;
 
 @end

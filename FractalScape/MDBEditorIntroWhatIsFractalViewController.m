@@ -65,7 +65,7 @@
 
 -(void)layoutWebView
 {
-    UIView* webView;
+    UIView<WebViewProtocol>* webView;
     UIWebView* uiWebView;
     WKWebView* wkWebView;
     
@@ -87,7 +87,7 @@
         uiWebView.backgroundColor = [UIColor clearColor];
         uiWebView.scalesPageToFit = YES;
         
-        webView = uiWebView;
+        webView = (UIView<WebViewProtocol>*)uiWebView;
     }
     else
     {
@@ -109,7 +109,7 @@
         wkWebView.scrollView.alwaysBounceHorizontal = NO;
         wkWebView.backgroundColor = [UIColor clearColor];
         wkWebView.allowsBackForwardNavigationGestures = NO;
-        webView = wkWebView;
+        webView = (UIView<WebViewProtocol>*)wkWebView;
     }
     
     self.webView = webView;

@@ -71,8 +71,7 @@ NSString * const SavedFractalURLNotification = @"SavedFractalURL";
     dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(defaultQueue, ^{
         NSError* error;
-        BOOL success = NO;
-        success = [fileManager setUbiquitous:YES itemAtURL:sourceURL destinationURL:destinationURL error: &error];
+        BOOL success = [fileManager setUbiquitous:YES itemAtURL:sourceURL destinationURL:destinationURL error: &error];
         if (!success) NSLog(@"%s moving file to cloud failed. Error: %@", __PRETTY_FUNCTION__, error);
     });
 }
@@ -81,14 +80,14 @@ NSString * const SavedFractalURLNotification = @"SavedFractalURL";
     NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];
     
     // `url` may be a security scoped resource.
-    BOOL successfulSecurityScopedResourceAccess = [url startAccessingSecurityScopedResource];
+//    BOOL successfulSecurityScopedResourceAccess = [url startAccessingSecurityScopedResource];
     
     NSFileAccessIntent *readingIntent = [NSFileAccessIntent readingIntentWithURL:url options:NSFileCoordinatorReadingWithoutChanges];
     [fileCoordinator coordinateAccessWithIntents:@[readingIntent] queue:[self queue] byAccessor:^(NSError *accessError) {
         if (accessError) {
-            if (successfulSecurityScopedResourceAccess) {
-                [url stopAccessingSecurityScopedResource];
-            }
+//            if (successfulSecurityScopedResourceAccess) {
+//                [url stopAccessingSecurityScopedResource];
+//            }
             
             if (completionHandler) {
                 completionHandler(nil, accessError);
@@ -103,10 +102,10 @@ NSString * const SavedFractalURLNotification = @"SavedFractalURL";
         if (deserializedDocument.documentState & UIDocumentStateClosed)
         {
             [deserializedDocument openWithCompletionHandler:^(BOOL success) {
-                if (successfulSecurityScopedResourceAccess)
-                {
-                    [url stopAccessingSecurityScopedResource];
-                }
+//                if (successfulSecurityScopedResourceAccess)
+//                {
+//                    [url stopAccessingSecurityScopedResource];
+//                }
                 if (completionHandler)
                 {
                     NSError* docError;
@@ -157,7 +156,7 @@ NSString * const SavedFractalURLNotification = @"SavedFractalURL";
     // `url` may be a security scoped resource.
     url = [[url absoluteString]hasSuffix: @"/"] ? url : [url URLByAppendingPathComponent: @"/"];
     
-    BOOL successfulSecurityScopedResourceAccess = [url startAccessingSecurityScopedResource];
+//    BOOL successfulSecurityScopedResourceAccess = [url startAccessingSecurityScopedResource];
     
     NSFileAccessIntent *writingIntent = [NSFileAccessIntent writingIntentWithURL:url options:NSFileCoordinatorWritingForDeleting];
     [fileCoordinator coordinateAccessWithIntents:@[writingIntent] queue:[self queue] byAccessor:^(NSError *accessError) {
@@ -174,15 +173,15 @@ NSString * const SavedFractalURLNotification = @"SavedFractalURL";
         
         NSError *error;
         
-        [fileManager removeItemAtURL:writingIntent.URL error: &error];
-        if (error)
+        BOOL success = [fileManager removeItemAtURL:writingIntent.URL error: &error];
+        if (!success)
         {
             NSLog(@"FractalScapes File Remove Error: %@, %@", NSStringFromSelector(_cmd),error.localizedDescription);
         }
         
-        if (successfulSecurityScopedResourceAccess) {
-            [url stopAccessingSecurityScopedResource];
-        }
+//        if (successfulSecurityScopedResourceAccess) {
+//            [url stopAccessingSecurityScopedResource];
+//        }
         
         if (completionHandler) {
             completionHandler(error);
@@ -219,8 +218,9 @@ NSString * const SavedFractalURLNotification = @"SavedFractalURL";
         }
         else if(remove)
         {
-            [[NSFileManager defaultManager] removeItemAtURL: url error: nil];
-        }
+            BOOL success = [[NSFileManager defaultManager] removeItemAtURL: url error: nil];
+            [toURLS addObject: @[url ,toURL]];;
+       }
     }
     
     NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] init];

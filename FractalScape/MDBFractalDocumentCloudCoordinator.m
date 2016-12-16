@@ -141,14 +141,16 @@
 
 - (void)removeFractalAtURL:(NSURL *)URL
 {
+    id delegate = self.delegate;
+    
     [MDBDocumentUtilities removeDocumentAtURL:URL withCompletionHandler:^(NSError *error) {
         if (error)
         {
-            [self.delegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
+            [delegate documentCoordinatorDidFailRemovingDocumentAtURL:URL withError:error];
         }
         else
         {
-            [self.delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[[MDBURLPlusMetaData urlPlusMetaWithFileURL: URL metaData: nil]] updatedURLs:@[]];
+            [delegate documentCoordinatorDidUpdateContentsWithInsertedURLs:@[] removedURLs:@[[MDBURLPlusMetaData urlPlusMetaWithFileURL: URL metaData: nil]] updatedURLs:@[]];
         }
     }];
 }
@@ -186,7 +188,7 @@
     {
         NSMetadataItem* firstItem = (NSMetadataItem*)insertedMetadataItemsOrNil[0];
         NSArray* attributes = firstItem.attributes;
-        NSDictionary* values = [firstItem valuesForAttributes: attributes];
+//        NSDictionary* values = [firstItem valuesForAttributes: attributes];
 //        NSLog(@"InsertedMetadataItems: %@", values);
 
         insertedURLs = [self URLsByMappingMetadataItems:insertedMetadataItemsOrNil];

@@ -33,7 +33,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView                    *fillColorsTemplateImageView;
 @property (weak, nonatomic) IBOutlet MDBFractalPageColorTileView    *pageColorDestinationTileView;
 @property (weak, nonatomic) IBOutlet UIView                         *getExtraColorsView;
-@property (weak, nonatomic) IBOutlet UIVisualEffectView             *visualEffectView;
 
 
 - (IBAction)lineColorLongPress:(UILongPressGestureRecognizer *)sender;

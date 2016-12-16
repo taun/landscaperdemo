@@ -19,6 +19,10 @@
 +(instancetype) newWithItem:(id)representedObject size:(NSInteger)size {
     return [[self alloc] initWithItem: representedObject size: size];
 }
+- (instancetype)init
+{
+    return [self initWithItem: nil size: 0];
+}
 -(instancetype)initWithItem:(id)representedObject size:(NSInteger)size {
     self = [super init];
     if (self) {

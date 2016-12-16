@@ -52,7 +52,7 @@
             }
         }
         NSString* stackString = [filteredStack debugDescription];
-        NSLog(@"Count: %lu Stack: %@",count, stackString);
+        NSLog(@"Count: %lu Stack: %@",(unsigned long)count, stackString);
     }
     
     return count;

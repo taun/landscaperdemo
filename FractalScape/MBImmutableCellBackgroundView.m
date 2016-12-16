@@ -19,11 +19,11 @@
         self.readOnlyView = NO;
         CALayer* temp = [CALayer layer];
         [self.layer addSublayer: temp];
+        temp.frame = CGRectInset(frame, -6.0, -6.0);
+        temp.borderWidth = 2.0;
+        temp.cornerRadius = 6.0;
+        temp.zPosition = 1000.0;
         _outlineLayer = temp;
-        _outlineLayer.frame = CGRectInset(frame, -6.0, -6.0);
-        _outlineLayer.borderWidth = 2.0;
-        _outlineLayer.cornerRadius = 6.0;
-        _outlineLayer.zPosition = 1000.0;
     }
     return self;
 }

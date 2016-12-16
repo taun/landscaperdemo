@@ -55,6 +55,7 @@
     return self;
 }
 -(void)awakeFromNib {
+    [super awakeFromNib];
 }
 /*!
  Seems to be a bug in iOS 8 beta#?

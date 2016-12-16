@@ -12,6 +12,7 @@
 #import "MDBFractalDocumentCoordinator.h"
 #import "MDBFractalInfo.h"
 #import "MDBFractalDocument.h"
+#import "MDBDocumentUtilities.h"
 #import "MDBURLPlusMetaData.h"
 
 
@@ -217,11 +218,7 @@
                 
                 if (success && !self.documentCoordinator.isCloudBased)
                 {
-                    [self willChange: NSKeyValueChangeInsertion valuesAtIndexes: [NSIndexSet indexSetWithIndex: 0] forKey:@"fractalInfos"];
-                    
-                    [self.fractalInfos insertObject: newFractalInfo atIndex: 0];
-                    
-                    [self didChange: NSKeyValueChangeInsertion valuesAtIndexes: [NSIndexSet indexSetWithIndex: 0] forKey:@"fractalInfos"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName: SavedFractalURLNotification object:nil];
                 }
             }];
 //        });

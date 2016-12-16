@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0xE-iA-jSj">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -310,7 +310,7 @@
                                             <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3Df-59-GZt" userLabel="HUDBackground" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="240" y="75" width="142" height="39"/>
                                                 <subviews>
-                                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HUDBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ayn-he-ePh">
+                                                    <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HUDBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ayn-he-ePh">
                                                         <rect key="frame" x="-6" y="-6" width="154" height="51"/>
                                                     </imageView>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-b4-co7" userLabel="HUD Content">
@@ -327,7 +327,7 @@
                                                             </stepper>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="18.5" translatesAutoresizingMaskIntoConstraints="NO" id="LpP-a6-a0V">
                                                                 <rect key="frame" x="118" y="4" width="10" height="20.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                                 <color key="textColor" red="0.49545589089393616" green="0.49545589089393616" blue="0.49545589089393616" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -366,8 +366,11 @@
                                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="v9U-ZO-4Bb" userLabel="PanIndicatorsContainer" customClass="MDKLayerViewDesignable">
                                                 <rect key="frame" x="12" y="75" width="144" height="108.5"/>
                                                 <subviews>
-                                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HUDBackground" translatesAutoresizingMaskIntoConstraints="NO" id="GtG-9Q-F1P">
-                                                        <rect key="frame" x="-6" y="-6" width="156" height="120.5"/>
+                                                    <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HUDBackground" translatesAutoresizingMaskIntoConstraints="NO" id="hxA-Rk-5FD" userLabel="HUDBackgroundTop">
+                                                        <rect key="frame" x="-6" y="-6" width="156" height="51"/>
+                                                    </imageView>
+                                                    <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HUDBackground" translatesAutoresizingMaskIntoConstraints="NO" id="lRs-eX-qRl" userLabel="HUDBackgroundLeft">
+                                                        <rect key="frame" x="-6" y="35" width="71.5" height="80"/>
                                                     </imageView>
                                                     <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="40" placeholderIntrinsicHeight="40" image="panDirectionsIndicatorImage" translatesAutoresizingMaskIntoConstraints="NO" id="xkn-AG-FUJ">
                                                         <rect key="frame" x="10" y="10" width="40" height="40"/>
@@ -439,16 +442,16 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-180.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-JV-urG">
-                                                        <rect key="frame" x="81" y="3.5" width="57" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <rect key="frame" x="79" y="3.5" width="59" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                         <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="280%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1o7-dW-jgD">
-                                                        <rect key="frame" x="4" y="82" width="41.5" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <rect key="frame" x="4" y="82" width="42.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                         <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -461,14 +464,14 @@
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="74v-T6-WSs" secondAttribute="trailing" constant="-22" id="1pd-Oc-N3v"/>
                                                     <constraint firstItem="74v-T6-WSs" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="1sg-aI-MNJ"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="centerY" secondItem="9Yt-fi-tpd" secondAttribute="centerY" constant="16" id="2TK-9f-5wb"/>
-                                                    <constraint firstItem="GtG-9Q-F1P" firstAttribute="leading" secondItem="v9U-ZO-4Bb" secondAttribute="leading" constant="-6" id="2z5-4F-Ky0"/>
+                                                    <constraint firstItem="hxA-Rk-5FD" firstAttribute="leading" secondItem="v9U-ZO-4Bb" secondAttribute="leading" constant="-6" id="76A-Ue-JaM"/>
+                                                    <constraint firstItem="lRs-eX-qRl" firstAttribute="leading" secondItem="hxA-Rk-5FD" secondAttribute="leading" id="7dD-8N-jJs"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="KEl-AK-nz0" secondAttribute="trailing" constant="-22" id="7j3-G1-L2o"/>
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="HlV-o5-ifB" secondAttribute="width" id="7qQ-qu-oDn"/>
                                                     <constraint firstItem="l8i-O7-tM9" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="82t-lG-BtE"/>
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="l8i-O7-tM9" secondAttribute="width" id="95L-0y-xSe"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="centerY" secondItem="Mac-ze-iSV" secondAttribute="centerY" constant="16" id="EfK-41-rW9"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="qwL-V4-gOj" secondAttribute="trailing" constant="-22" id="EsE-0Q-Kvg"/>
-                                                    <constraint firstAttribute="bottom" secondItem="GtG-9Q-F1P" secondAttribute="bottom" constant="-6" id="GLz-1X-nJR"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="yA9-FU-HBy" secondAttribute="centerY" constant="-4" id="HkA-Ta-3Ao"/>
                                                     <constraint firstItem="l8i-O7-tM9" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="leading" constant="-8" id="KeA-Aa-5FC"/>
                                                     <constraint firstItem="Mac-ze-iSV" firstAttribute="leading" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="2" id="Ltg-DL-02L"/>
@@ -479,15 +482,17 @@
                                                     <constraint firstItem="yA9-FU-HBy" firstAttribute="width" secondItem="9Yt-fi-tpd" secondAttribute="width" id="RVj-d0-vqW"/>
                                                     <constraint firstAttribute="bottom" secondItem="1o7-dW-jgD" secondAttribute="bottom" constant="6" id="Rb8-ZP-jsw"/>
                                                     <constraint firstAttribute="trailing" secondItem="lE7-JV-urG" secondAttribute="trailing" constant="6" id="Tot-e6-hPX"/>
-                                                    <constraint firstItem="GtG-9Q-F1P" firstAttribute="top" secondItem="v9U-ZO-4Bb" secondAttribute="top" constant="-6" id="Udr-Lz-xCY"/>
+                                                    <constraint firstItem="lRs-eX-qRl" firstAttribute="top" secondItem="hxA-Rk-5FD" secondAttribute="bottom" constant="-10" id="UEC-RU-nNo"/>
                                                     <constraint firstItem="qwL-V4-gOj" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="VuA-Xa-TcZ"/>
                                                     <constraint firstItem="KEl-AK-nz0" firstAttribute="width" secondItem="l8i-O7-tM9" secondAttribute="width" id="W6g-qJ-EOk"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="v9U-ZO-4Bb" secondAttribute="top" constant="10" id="Yol-6W-T3W"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="leading" secondItem="v9U-ZO-4Bb" secondAttribute="leading" constant="10" id="bQz-q5-JQ5"/>
                                                     <constraint firstItem="KEl-AK-nz0" firstAttribute="top" secondItem="xkn-AG-FUJ" secondAttribute="bottom" constant="4" id="baF-dd-sTK"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lRs-eX-qRl" secondAttribute="bottom" constant="-6" id="fJi-e0-Bzl"/>
+                                                    <constraint firstItem="lRs-eX-qRl" firstAttribute="width" secondItem="hxA-Rk-5FD" secondAttribute="height" multiplier="1.4" id="fRe-s6-Geu"/>
                                                     <constraint firstItem="Mac-ze-iSV" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="hDo-YP-Rwa"/>
                                                     <constraint firstItem="lE7-JV-urG" firstAttribute="trailing" secondItem="xkn-AG-FUJ" secondAttribute="trailing" constant="88" id="hbP-hA-ZF2"/>
-                                                    <constraint firstAttribute="trailing" secondItem="GtG-9Q-F1P" secondAttribute="trailing" constant="-6" id="hdv-zs-10D"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hxA-Rk-5FD" secondAttribute="trailing" constant="-6" id="lh2-pS-BQS"/>
                                                     <constraint firstItem="qwL-V4-gOj" firstAttribute="width" secondItem="yA9-FU-HBy" secondAttribute="width" id="mZm-E7-EeN"/>
                                                     <constraint firstItem="xkn-AG-FUJ" firstAttribute="top" secondItem="Bzn-ex-cN5" secondAttribute="top" constant="-4" id="mxy-Tm-MNA"/>
                                                     <constraint firstItem="HlV-o5-ifB" firstAttribute="centerY" secondItem="xkn-AG-FUJ" secondAttribute="centerY" constant="-16" id="nUp-ik-b7k"/>
@@ -870,7 +875,7 @@
                                                 </connections>
                                             </view>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="fN9-Mq-Ukg" userLabel="playbackSlider">
-                                                <rect key="frame" x="286" y="330" width="504" height="31"/>
+                                                <rect key="frame" x="320" y="330" width="504" height="31"/>
                                                 <accessibility key="accessibilityConfiguration" hint="Show playback prrogress and allows manual override of the playback position." label="PlayBackSlider"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="500" placeholder="YES" id="djp-OB-WlZ"/>
@@ -889,11 +894,12 @@
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" id="1Cp-Ac-Lfe"/>
-                                            <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-182" placeholder="YES" id="5Ot-TV-dl0"/>
+                                            <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-216" placeholder="YES" id="5Ot-TV-dl0"/>
                                             <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" id="5VZ-uV-U3v"/>
                                             <constraint firstItem="SdO-1x-rjL" firstAttribute="trailing" secondItem="ZQ7-Jz-vVR" secondAttribute="trailing" id="9cr-PB-C02"/>
                                             <constraint firstItem="ZQ7-Jz-vVR" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="bottom" id="Hlh-T5-VmA"/>
                                             <constraint firstItem="v9U-ZO-4Bb" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="12" id="IfB-ZL-Bli"/>
+                                            <constraint firstItem="hxA-Rk-5FD" firstAttribute="height" secondItem="ayn-he-ePh" secondAttribute="height" id="KVK-4e-KJS"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" id="SLY-K3-9cB"/>
@@ -910,6 +916,7 @@
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="top" secondItem="wmh-En-OwM" secondAttribute="bottom" constant="10" id="gz4-lg-v7f"/>
                                             <constraint firstItem="3Df-59-GZt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v9U-ZO-4Bb" secondAttribute="trailing" constant="3" id="ho5-Sp-qnR"/>
                                             <constraint firstItem="dJU-MH-ihA" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="i9u-dn-N5F"/>
+                                            <constraint firstItem="hxA-Rk-5FD" firstAttribute="top" secondItem="ayn-he-ePh" secondAttribute="top" id="lJm-hY-k4U"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="top" secondItem="dJU-MH-ihA" secondAttribute="bottom" constant="10" id="tjp-aS-CJK"/>
                                             <constraint firstAttribute="centerX" secondItem="4tK-dc-Bzb" secondAttribute="centerX" id="x7f-gJ-1tF"/>
                                         </constraints>
@@ -972,7 +979,7 @@
                     <navigationItem key="navigationItem" id="5yD-Jb-xIT">
                         <barButtonItem key="leftBarButtonItem" title="Library" id="s76-oj-pj9">
                             <connections>
-                                <segue destination="1mr-7G-CSM" kind="unwind" identifier="UnwindSegueToLibrary" unwindAction="unwindFromEditor:" id="KcY-AY-c8O"/>
+                                <action selector="showSaveFractalAlert:" destination="4nM-Pc-iAd" id="U0y-2g-6AX"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="toolBarPlay" id="Kgo-6O-GAI" userLabel="PlayBack">
@@ -1038,9 +1045,11 @@
                         <outlet property="turningAngleIncrementSlider" destination="An9-9l-3Tm" id="GSF-fQ-K9R"/>
                         <outlet property="turningAngleLabel" destination="Y8O-zg-dbz" id="aF3-Bi-WE0"/>
                         <outletCollection property="backgroundsToFade" destination="ayn-he-ePh" id="p3N-ZH-MnU"/>
-                        <outletCollection property="backgroundsToFade" destination="GtG-9Q-F1P" id="XXy-sb-92n"/>
+                        <outletCollection property="backgroundsToFade" destination="lRs-eX-qRl" id="Kci-bl-mwj"/>
+                        <outletCollection property="backgroundsToFade" destination="hxA-Rk-5FD" id="lH3-5c-miK"/>
                         <segue destination="eHs-ET-MBW" kind="show" identifier="QuickIntroSegue" id="GI8-HZ-SMh"/>
                         <segue destination="TTb-ph-Ba9" kind="presentation" identifier="ShowPurchaseControllerSegue" modalPresentationStyle="formSheet" modalTransitionStyle="flipHorizontal" id="bSt-YQ-4Z0"/>
+                        <segue destination="1mr-7G-CSM" kind="unwind" identifier="UnwindSegueToLibrary" unwindAction="unwindFromEditor:" id="zrL-FI-bDc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEn-fB-YNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1083,7 +1092,7 @@
                 <tapGestureRecognizer id="nwB-ZA-oCT"/>
                 <tapGestureRecognizer id="52k-sy-KJz"/>
             </objects>
-            <point key="canvasLocation" x="5547" y="-29"/>
+            <point key="canvasLocation" x="5546.875" y="-29.296874999999996"/>
         </scene>
         <!--Name-->
         <scene sceneID="nU4-lI-gI7">
@@ -3059,7 +3068,7 @@ The main screen with all your fractals is called your "Library". See below for a
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="5ja-JH-4WM">
-                            <rect key="frame" x="0.0" y="765" width="600" height="134"/>
+                            <rect key="frame" x="0.0" y="704" width="600" height="134"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E50-QU-HWQ" userLabel="MOEDAELogo96">
@@ -3082,10 +3091,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="Store" id="bDL-qV-BiA">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="y93-tc-fH2">
-                                        <rect key="frame" x="0.0" y="55.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="y93-tc-fH2" id="LuX-N7-HsZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aE9-AY-7Sg">
@@ -3105,10 +3114,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="xNP-RW-gb3">
-                                        <rect key="frame" x="0.0" y="99.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="xNP-RW-gb3" id="u4s-88-CnB">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xhs-dV-O3J">
@@ -3132,10 +3141,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="User Experience" footerTitle="" id="Qku-oU-V1L">
                                 <cells>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="Kd4-dq-iCc">
-                                        <rect key="frame" x="0.0" y="199" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="200" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="Kd4-dq-iCc" id="bCO-Jx-c63">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Show Watermark" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
@@ -3161,10 +3170,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="opu-Il-s0S">
-                                        <rect key="frame" x="0.0" y="243" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="244" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="opu-Il-s0S" id="iqd-0H-ixS">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDG-2H-6D6">
@@ -3190,10 +3199,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="NJS-hC-8Qq">
-                                        <rect key="frame" x="0.0" y="287" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="288" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="NJS-hC-8Qq" id="Qjv-pf-EbT">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
@@ -3223,10 +3232,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="Leave FractalScapes for" id="Pjt-rq-jh7">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchSettings" id="eUm-GQ-XwH">
-                                        <rect key="frame" x="0.0" y="379" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="381" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="eUm-GQ-XwH" id="MVb-0a-4kt">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNJ-J0-W67">
@@ -3246,10 +3255,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchTwitter" id="w2G-kB-ytX">
-                                        <rect key="frame" x="0.0" y="423" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="425" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="w2G-kB-ytX" id="Usf-Pk-dQ4">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyF-5K-Agg">
@@ -3269,10 +3278,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchEmail" id="qcz-5a-Cng">
-                                        <rect key="frame" x="0.0" y="467" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="469" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="qcz-5a-Cng" id="wcM-kN-fzA">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5x-ld-WqJ">
@@ -3292,10 +3301,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchFacebook" id="38P-A3-hOZ">
-                                        <rect key="frame" x="0.0" y="511" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="513" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="38P-A3-hOZ" id="k97-d7-dHN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1D-qe-ep3">
@@ -3319,10 +3328,10 @@ The main screen with all your fractals is called your "Library". See below for a
                             <tableViewSection headerTitle="About" id="Le5-ZS-dP9">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="pno-yd-cLQ">
-                                        <rect key="frame" x="0.0" y="603" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="606" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="pno-yd-cLQ" id="QYy-0L-YNf">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
@@ -3348,10 +3357,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" id="JD4-OE-jya">
-                                        <rect key="frame" x="0.0" y="647" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="650" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="JD4-OE-jya" id="NPT-4G-m7q">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Build" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzu-MW-p1f">
@@ -3650,7 +3659,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
@@ -3687,7 +3696,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="92t-Wk-RAa">
             <objects>
                 <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6PP-ZX-118">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6PP-ZX-118">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3758,7 +3767,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                         <rect key="frame" x="0.0" y="22" width="540" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="tCq-9a-a7L" id="mRQ-6D-CpM">
-                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTX-Yf-NGD">
@@ -3855,7 +3864,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                         <rect key="frame" x="0.0" y="202" width="540" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="fyl-UY-Fcf" id="FFC-4i-gmy">
-                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="540" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFl-4s-FvV" customClass="MDKLayerViewDesignable">
@@ -5308,8 +5317,8 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="m6M-61-Rhx"/>
         <segue reference="O2z-rK-pDb"/>
+        <segue reference="bSt-YQ-4Z0"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -7,6 +7,4 @@
 
 @interface MBFractalLibraryShareViewController : MBFractalLibraryViewController
 
-@property(nonatomic,assign)CGPoint      initialContentOffset;
-
 @end
