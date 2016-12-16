@@ -910,13 +910,15 @@ RPPreviewViewControllerDelegate>
     {
         if (self.fractalDocument.fractal)
         {
+            MDBAppModel* strongAppModel = self.appModel;
             UIImageView* strongView = self.fractalView;
-            _fractalRendererLN = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
+            
+            _fractalRendererLN = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: strongAppModel.sourceDrawingRules];
             _fractalRendererLN.name = @"_fractalRendererLNS1";
             _fractalRendererLN.mainThreadImageView = strongView;
             _fractalRendererLN.flipY = NO;
             _fractalRendererLN.margin = kLevelNMargin;
-            _fractalRendererLN.showOrigin = YES;
+            _fractalRendererLN.showOrigin = !strongAppModel.hideOrigin;
             _fractalRendererLN.autoscale = YES;
         }
     }
@@ -1531,7 +1533,7 @@ RPPreviewViewControllerDelegate>
     self.fractalRendererLN.autoscale = self.autoscaleN;
     self.fractalRendererLN.autoExpand = self.fractalDocument.fractal.autoExpand;
     self.fractalRendererLN.applyFilters = self.fractalDocument.fractal.applyFilters;
-    self.fractalRendererLN.showOrigin = !self.fractalDocument.fractal.applyFilters;
+    if (self.fractalDocument.fractal.applyFilters) self.fractalRendererLN.showOrigin = NO; // overrides user pref
     
 #pragma message "TODO define a property for the default fractal background color. Currently manually spread throughout code."
     MBColor* backgroundColor = self.fractalDocument.fractal.backgroundColor;
@@ -2274,7 +2276,12 @@ RPPreviewViewControllerDelegate>
     {
         CGContextRef aCGontext = UIGraphicsGetCurrentContext();
         
+        CGContextSaveGState(aCGontext);
+        CGFloat flipY = -1.0;
+        CGContextScaleCTM(aCGontext, 1.0, flipY);
+        CGContextTranslateCTM(aCGontext, 0, -imageSize.height);
         CGContextDrawImage(aCGontext, CGRectMake(0, 0, imageSize.width, imageSize.height), baseImageRef);
+        CGContextRestoreGState(aCGontext);
         
         if (self.appModel.useWatermark)
         {
@@ -2293,7 +2300,91 @@ RPPreviewViewControllerDelegate>
     UIActivityViewController *activityViewController;
     activityViewController = [[UIActivityViewController alloc] initWithActivityItems: exportItems applicationActivities:nil];
     
-#pragma message "Upgrade to use UIActivitySource subjectForActivityType: "
+    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
+    
+#pragma message "TODO make this more generic for other activities?"
+        NSLog(@"%s %@ completed: %lu, items: %@", __PRETTY_FUNCTION__, activityType, (unsigned long)completed, returnedItems);
+        
+        NSString* title;
+        NSString* message;
+        
+        if ([activityType isEqualToString: UIActivityTypePostToFacebook])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypePostToTwitter])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypePostToWeibo])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypeMessage])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypeMail])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypePrint])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypeCopyToPasteboard])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypeAssignToContact])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypeSaveToCameraRoll])
+        {
+            if (completed)
+            {
+                title = NSLocalizedString(@"Success", @"");
+                message = NSLocalizedString(@"Check your PHOTOS for the fractal", @"");
+            }
+        }
+        else if ([activityType isEqualToString: UIActivityTypeAddToReadingList])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypePostToFlickr])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypePostToVimeo])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypePostToTencentWeibo])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypeAirDrop])
+        {
+            
+        }
+        else if ([activityType isEqualToString: UIActivityTypeOpenInIBooks])
+        {
+            
+        }
+        
+        if (title)
+        {
+            NSString *okActionTitle = NSLocalizedString(@"OK", nil);
+            
+            UIAlertController *completionAlertController = [UIAlertController alertControllerWithTitle: title message: message preferredStyle: UIAlertControllerStyleAlert];
+            
+            [completionAlertController addAction:[UIAlertAction actionWithTitle: okActionTitle style: UIAlertActionStyleDefault handler: nil]];
+            
+            [self presentViewController: completionAlertController animated: YES completion: nil];
+        }
+        
+    }];
     
     UIPopoverPresentationController* ppc = activityViewController.popoverPresentationController;
     
@@ -2410,13 +2501,15 @@ RPPreviewViewControllerDelegate>
     
     if (self.fractalDocument.fractal)
     {
+        MDBAppModel* strongAppModel = self.appModel;
+        
         NSInteger levelIndex = MIN(3, self.fractalDocument.fractal.level);
-        newRenderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: self.appModel.sourceDrawingRules];
+        newRenderer = [LSFractalRenderer newRendererForFractal: self.fractalDocument.fractal withSourceRules: strongAppModel.sourceDrawingRules];
         newRenderer.name = name;
         newRenderer.mainThreadImageView = self.fractalView;
         newRenderer.flipY = NO;
         newRenderer.margin = kLevelNMargin;
-        newRenderer.showOrigin = YES;
+        newRenderer.showOrigin = !strongAppModel.hideOrigin;
         newRenderer.autoscale = YES;
         newRenderer.autoExpand = self.fractalDocument.fractal.autoExpand;
         newRenderer.levelData = self.levelDataArray[levelIndex];

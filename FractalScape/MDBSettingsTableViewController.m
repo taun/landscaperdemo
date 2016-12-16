@@ -92,8 +92,9 @@
     self.appBuild.text = self.appModel.buildString;
     
     self.showHelpTipsSwitch.on = self.appModel.showHelpTips;
-    self.showParallaxEffect.on = self.appModel.showParallax;
+    self.showParallaxSwitch.on = self.appModel.showParallax;
     self.showWatermarkSwitch.on = self.appModel.useWatermark;
+    self.hideOriginSwitch.on = self.appModel.hideOrigin;
     
     MDBProPurchaseableProduct* proPak = self.appModel.purchaseManager.proPak;
     self.showWatermarkSwitch.enabled = proPak.hasLocalReceipt;
@@ -118,6 +119,11 @@
 - (IBAction)showParallaxEffectChanged:(UISwitch *)sender
 {
     [self.appModel setShowParallax: sender.on];
+}
+
+-(IBAction)hideOriginChanged:(UISwitch*)sender
+{
+    [self.appModel setHideOrigin: sender.on];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section

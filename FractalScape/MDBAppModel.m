@@ -30,6 +30,7 @@ NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScape
 NSString *const kMDBFractalCloudContainer = @"iCloud.com.moedae.FractalScapes";
 
 NSString* const  kPrefParalax = @"com.moedae.FractalScapes.paralax";
+NSString* const  kPrefOrigin = @"com.moedae.FractalScapes.hideOrigin";
 NSString* const  kPrefWatermark = @"com.moedae.FractalScapes.watermark";
 NSString* const  kPrefShowPerformanceData = @"com.moedae.FractalScapes.showPerformanceData";
 NSString* const  kPrefFullScreenState = @"com.moedae.FractalScapes.fullScreenState";
@@ -259,7 +260,11 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 {
     //    // since no default values have been set, create them here
     
-    NSDictionary *appDefaults =  @{kPrefParalax:@YES, kPrefFullScreenState:@YES, kPrefShowHelpTips:@YES, kPrefWatermark:@YES };
+    NSDictionary *appDefaults =  @{kPrefParalax:@YES,
+                                   kPrefFullScreenState:@YES,
+                                   kPrefShowHelpTips:@YES,
+                                   kPrefWatermark:@YES,
+                                   kPrefOrigin:@NO };
     //
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults: appDefaults];
@@ -359,6 +364,19 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey: kPrefParalax];
+}
+
+-(void)setHideOrigin:(BOOL)show
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool: show forKey: kPrefOrigin];
+    [defaults synchronize];
+}
+
+-(BOOL)hideOrigin
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey: kPrefOrigin];
 }
 
 -(void)setShowPerformanceData:(BOOL)show

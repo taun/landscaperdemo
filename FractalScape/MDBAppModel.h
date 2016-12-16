@@ -74,6 +74,9 @@ extern NSString *const kMDBFractalCloudContainer;
 -(void)setShowParallax: (BOOL)show;
 -(BOOL)showParallax;
 
+-(void)setHideOrigin: (BOOL)show;
+-(BOOL)hideOrigin;
+
 -(void)setShowPerformanceData: (BOOL)show;
 -(BOOL)showPerformanceData;
 

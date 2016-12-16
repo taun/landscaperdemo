@@ -15,7 +15,8 @@
 @property (nonatomic,strong) MDBAppModel                                    *appModel;
 
 @property (weak, nonatomic) IBOutlet UISwitch *showHelpTipsSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *showParallaxEffect;
+@property (weak, nonatomic) IBOutlet UISwitch *showParallaxSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *hideOriginSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *showWatermarkSwitch;
 
 @property (weak, nonatomic) IBOutlet UILabel *appVersion;
