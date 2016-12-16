@@ -3319,7 +3319,7 @@ verticalPropertyPath: (NSString*) verticalPath
             if (axisState && verticalPath)
             {
                 // vertical, change aspect
-                CGFloat scaledWidth = floorf(translation.y * vScale * 10000.0)/10000.0;
+                CGFloat scaledWidth = floorf(translation.y * vScale * 100000.0)/100000.0;
                 CGFloat newWidth = fminf(fmaxf(initialVValue + scaledWidth, vMin), vMax);
                 [fractal setValue: @(newWidth) forKey: verticalPath];
                 self.panValueLabelVertical.text = [vFormatter stringFromNumber: @(newWidth)];
@@ -3339,7 +3339,7 @@ verticalPropertyPath: (NSString*) verticalPath
                 }
                 else
                 {
-                    CGFloat scaled = floorf(translation.x * hScale * 10000.0)/10000.0;
+                    CGFloat scaled = floorf(translation.x * hScale * 100000.0)/100000.0;
                     CGFloat newValue = fminf(fmaxf(initialHValue + scaled, hMin), hMax);
                     [fractal setValue: @(newValue) forKey: horizontalPath];
                     self.panValueLabelHorizontal.text = [hFormatter stringFromNumber: @(newValue)];
