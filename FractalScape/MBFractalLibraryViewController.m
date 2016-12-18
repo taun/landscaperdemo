@@ -393,7 +393,15 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     if (self.appModel.allowPremium)
     {
-        [self showDocumentPickerWithNewFractalDocument: barButtonItem];
+        BOOL iCloudDriveEnabled = NO;
+        if (iCloudDriveEnabled)
+        {
+            [self showDocumentPickerWithNewFractalDocument: barButtonItem];
+        }
+        else
+        {
+            [self createAndScrollToNewFractal];
+        }
     }
     else
     {
@@ -443,16 +451,11 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     UIDocumentMenuViewController *documentMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[kMDBFractalDocumentFileUTI] inMode: UIDocumentPickerModeImport];
     documentMenu.delegate = self;
     
+    MBFractalLibraryViewController* __weak weakSelf = self;
+    
     NSString *newDocumentTitle = NSLocalizedString(@"New Fractal", nil);
     [documentMenu addOptionWithTitle: newDocumentTitle image: nil order: UIDocumentMenuOrderFirst handler:^{
-        // Show the MBLSFractalEditViewController.
-        //        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
-        LSFractal* newFractal = [LSFractal new];
-        MDBFractalInfo* newInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withImage: nil withDocumentDelegate: nil];
-        NSLog(@"FractalScapes new fractal info created: %@",newInfo);
-        if (self.collectionView.indexPathsForVisibleItems.count > 0) {
-            [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
-        }
+        [weakSelf createAndScrollToNewFractal];
     }];
     
     //    documentMenu.modalInPopover = UIModalPresentationPopover;
@@ -460,6 +463,18 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     documentMenu.popoverPresentationController.barButtonItem = barButtonItem;
     
     [self presentViewController:documentMenu animated:YES completion:nil];
+}
+
+-(void)createAndScrollToNewFractal
+{
+    // Show the MBLSFractalEditViewController.
+    //        [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerToNewDocumentControllerSegueIdentifier sender:self];
+    LSFractal* newFractal = [LSFractal new];
+    MDBFractalInfo* newInfo = [self.appModel.documentController createFractalInfoForFractal: newFractal withImage: nil withDocumentDelegate: nil];
+    NSLog(@"FractalScapes new fractal info created: %@",newInfo);
+    if (self.collectionView.indexPathsForVisibleItems.count > 0) {
+        [self.collectionView scrollToItemAtIndexPath: [NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition: UICollectionViewScrollPositionTop animated: YES];
+    }
 }
 
 #pragma mark - FlowLayoutDelegate
