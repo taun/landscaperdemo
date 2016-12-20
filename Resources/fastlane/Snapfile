@@ -2,9 +2,13 @@
 
 # A list of devices you want to take the screenshots from
 
-devices([  "iPhone 6",  "iPhone 6 Plus",  "iPhone 5",  "iPhone 4s"])
-
-#devices(["iPad Air"])
+devices([
+   "iPhone 7",
+   "iPhone 7 Plus",
+   "iPhone SE",
+   "iPad Retina",
+   "iPad Pro (12.9 inch)"
+])
 
 languages([
   'en-US',
@@ -22,7 +26,7 @@ js_file './snapshot.js'
 scheme 'FractalScapes Beta Debug'
 
 # Where is your project (or workspace)? Provide the full path here
-project_path '../FractalScape.xcworkspace'
+project_path '../../FractalScape.xcworkspace'
 
 # By default, the latest version should be used automatically. If you want to change it, do it here
 # ios_version '8.1'

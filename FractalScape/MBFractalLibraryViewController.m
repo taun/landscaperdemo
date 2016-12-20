@@ -81,7 +81,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         self.collectionView.prefetchDataSource = self.collectionSource;
     }
     
-    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+//    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
