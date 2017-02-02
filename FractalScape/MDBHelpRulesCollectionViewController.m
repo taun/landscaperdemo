@@ -9,7 +9,7 @@
 #import "MDBHelpRulesCollectionViewController.h"
 #import "LSDrawingRuleType.h"
 #import "MDBRuleCollectionViewCell.h"
-#import "MDKUICollectionViewFlowLayoutDebug.h"
+#import "MDKUICollectionViewResizingFlowLayout.h"
 #import "MDBResizingWidthFlowLayoutDelegate.h"
 
 

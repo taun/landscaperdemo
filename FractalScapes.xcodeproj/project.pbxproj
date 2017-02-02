@@ -26,6 +26,8 @@
 		C51AE1C71C0623AE0017565E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51AE1C51C0623AE0017565E /* Crashlytics.framework */; };
 		C51B58401A90707F0036C47D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51B583F1A90707F0036C47D /* CloudKit.framework */; };
 		C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */; };
+		C51F3C371E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C51F3C351E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.h */; };
+		C51F3C381E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F3C361E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.m */; };
 		C522DABD1A2CA8ED00419781 /* LSDrawingRule.h in Headers */ = {isa = PBXBuildFile; fileRef = C522DABB1A2CA8ED00419781 /* LSDrawingRule.h */; };
 		C522DABE1A2CA8ED00419781 /* LSDrawingRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */; };
 		C523009B1B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C52300991B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h */; };
@@ -51,8 +53,6 @@
 		C5302CB21B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */; };
 		C5302CB91B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */; };
 		C5302CBA1B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */; };
-		C531A77C1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C531A77A1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h */; };
-		C531A77D1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C531A77B1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m */; };
 		C531F3ED16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */; };
 		C5329E871A24558F00056FB4 /* MBLSObjectListTileViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */; };
 		C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5329E861A24558F00056FB4 /* MBLSObjectListTileViewer.m */; };
@@ -326,8 +326,8 @@
 		C5CE0E541B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E401B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.h */; };
 		C5CE0E551B542C6100EEC58C /* UICollectionView+MDKDragAndDrop.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E411B542C6100EEC58C /* UICollectionView+MDKDragAndDrop.h */; };
 		C5CE0E571B542C6100EEC58C /* MDKLayerViewDesignable.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE0E431B542C6100EEC58C /* MDKLayerViewDesignable.m */; };
-		C5CE0E581B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E441B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h */; };
-		C5CE0E591B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE0E451B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.m */; };
+		C5CE0E581B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E441B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.h */; };
+		C5CE0E591B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE0E451B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.m */; };
 		C5CE0E5A1B542C6100EEC58C /* MDKUICollectionViewScrollContentSized.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE0E461B542C6100EEC58C /* MDKUICollectionViewScrollContentSized.m */; };
 		C5CE0E5B1B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CE0E471B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.m */; };
 		C5CE0E5C1B542C6100EEC58C /* NSMutableArray+MDKConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CE0E481B542C6100EEC58C /* NSMutableArray+MDKConvenience.h */; };
@@ -433,6 +433,8 @@
 		C51B583F1A90707F0036C47D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C51DF52216E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalAppearanceEditorViewController.h; path = FractalScape/MBFractalAppearanceEditorViewController.h; sourceTree = "<group>"; };
 		C51DF52316E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalAppearanceEditorViewController.m; path = FractalScape/MBFractalAppearanceEditorViewController.m; sourceTree = "<group>"; };
+		C51F3C351E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBResizingWidthFlowLayoutDelegate.h; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDBResizingWidthFlowLayoutDelegate.h"; sourceTree = "<group>"; };
+		C51F3C361E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBResizingWidthFlowLayoutDelegate.m; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDBResizingWidthFlowLayoutDelegate.m"; sourceTree = "<group>"; };
 		C522DABB1A2CA8ED00419781 /* LSDrawingRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSDrawingRule.h; path = FractalScape/model/LSDrawingRule.h; sourceTree = "<group>"; };
 		C522DABC1A2CA8ED00419781 /* LSDrawingRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSDrawingRule.m; path = FractalScape/model/LSDrawingRule.m; sourceTree = "<group>"; };
 		C52300991B825C860077C4E7 /* MDBEditorIntroWhatIsFractalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEditorIntroWhatIsFractalViewController.h; sourceTree = "<group>"; };
@@ -459,8 +461,6 @@
 		C5302CB01B69D8C000130D9A /* MDBEditorIntroPageControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorIntroPageControllerDataSource.m; sourceTree = "<group>"; };
 		C5302CB71B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEditorIntroPage3ViewController.h; sourceTree = "<group>"; };
 		C5302CB81B6B2FBD00130D9A /* MDBEditorIntroPage3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEditorIntroPage3ViewController.m; sourceTree = "<group>"; };
-		C531A77A1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBResizingWidthFlowLayoutDelegate.h; path = FractalScape/MDUiKitFramework/MDUiKit/MDBResizingWidthFlowLayoutDelegate.h; sourceTree = "<group>"; };
-		C531A77B1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBResizingWidthFlowLayoutDelegate.m; path = FractalScape/MDUiKitFramework/MDUiKit/MDBResizingWidthFlowLayoutDelegate.m; sourceTree = "<group>"; };
 		C531F3EB16E1398E007F4DD3 /* MBFractalRulesEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalRulesEditorViewController.h; path = FractalScape/MBFractalRulesEditorViewController.h; sourceTree = "<group>"; };
 		C531F3EC16E1398E007F4DD3 /* MBFractalRulesEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalRulesEditorViewController.m; path = FractalScape/MBFractalRulesEditorViewController.m; sourceTree = "<group>"; };
 		C5329E851A24558F00056FB4 /* MBLSObjectListTileViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MBLSObjectListTileViewer.h; path = FractalScape/MBLSObjectListTileViewer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -747,8 +747,8 @@
 		C5CE0E401B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKUITableViewDynamicRowHeights.h; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKUITableViewDynamicRowHeights.h"; sourceTree = "<group>"; };
 		C5CE0E411B542C6100EEC58C /* UICollectionView+MDKDragAndDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UICollectionView+MDKDragAndDrop.h"; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/UICollectionView+MDKDragAndDrop.h"; sourceTree = "<group>"; };
 		C5CE0E431B542C6100EEC58C /* MDKLayerViewDesignable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKLayerViewDesignable.m; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKLayerViewDesignable.m"; sourceTree = "<group>"; };
-		C5CE0E441B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKUICollectionViewFlowLayoutDebug.h; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKUICollectionViewFlowLayoutDebug.h"; sourceTree = "<group>"; };
-		C5CE0E451B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUICollectionViewFlowLayoutDebug.m; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKUICollectionViewFlowLayoutDebug.m"; sourceTree = "<group>"; };
+		C5CE0E441B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDKUICollectionViewResizingFlowLayout.h; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKUICollectionViewResizingFlowLayout.h"; sourceTree = "<group>"; };
+		C5CE0E451B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUICollectionViewResizingFlowLayout.m; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKUICollectionViewResizingFlowLayout.m"; sourceTree = "<group>"; };
 		C5CE0E461B542C6100EEC58C /* MDKUICollectionViewScrollContentSized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUICollectionViewScrollContentSized.m; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKUICollectionViewScrollContentSized.m"; sourceTree = "<group>"; };
 		C5CE0E471B542C6100EEC58C /* MDKUITableViewDynamicRowHeights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDKUITableViewDynamicRowHeights.m; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/MDKUITableViewDynamicRowHeights.m"; sourceTree = "<group>"; };
 		C5CE0E481B542C6100EEC58C /* NSMutableArray+MDKConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+MDKConvenience.h"; path = "../../DigitalSpring/Daisy Sensor/Daisy Sensor/MDUiKitFramework/MDUiKit/NSMutableArray+MDKConvenience.h"; sourceTree = "<group>"; };
@@ -1326,10 +1326,10 @@
 				C5CE0E481B542C6100EEC58C /* NSMutableArray+MDKConvenience.h */,
 				C5CE0E491B542C6100EEC58C /* NSMutableArray+MDKConvenience.m */,
 				C5CE0E4A1B542C6100EEC58C /* UICollectionView+MDKDragAndDrop.m */,
-				C5CE0E441B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h */,
-				C5CE0E451B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.m */,
-				C531A77A1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h */,
-				C531A77B1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m */,
+				C5CE0E441B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.h */,
+				C5CE0E451B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.m */,
+				C51F3C351E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.h */,
+				C51F3C361E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.m */,
 			);
 			name = MDUiKit;
 			sourceTree = "<group>";
@@ -1687,11 +1687,11 @@
 				C54A72591BA602CC00D2C47E /* ui_compat.h in Headers */,
 				C529F85B1B8F65D7005D8982 /* MDBBasePurchaseableProduct.h in Headers */,
 				C54A72511BA602CC00D2C47E /* ssl2.h in Headers */,
-				C531A77C1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.h in Headers */,
+				C51F3C371E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.h in Headers */,
 				C583EDFB1B972BA100ED4BA6 /* xer_encoder.h in Headers */,
 				C54A72161BA602CC00D2C47E /* asn1.h in Headers */,
 				C5FF31661BEA40D1005550C8 /* MBFractalLibraryShareViewController.h in Headers */,
-				C5CE0E581B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.h in Headers */,
+				C5CE0E581B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.h in Headers */,
 				C54A72301BA602CC00D2C47E /* err.h in Headers */,
 				C56080861A9F77C000134B62 /* MDBCloudManager.h in Headers */,
 				C54A72471BA602CC00D2C47E /* rc2.h in Headers */,
@@ -2040,14 +2040,14 @@
 				C583EDD81B972BA100ED4BA6 /* per_support.c in Sources */,
 				C5D542381A300FFA006CD47A /* MDBColorCategoriesListView.m in Sources */,
 				C51DF52416E68E7F00FBDB8A /* MBFractalAppearanceEditorViewController.m in Sources */,
-				C531A77D1DFCD62300D45E9C /* MDBResizingWidthFlowLayoutDelegate.m in Sources */,
+				C51F3C381E0B2F7000C8F476 /* MDBResizingWidthFlowLayoutDelegate.m in Sources */,
 				C5F184811AA7A2A000233E49 /* MDBFractalInfo.m in Sources */,
 				C583EDFA1B972BA100ED4BA6 /* asn_SET_OF.c in Sources */,
 				C5329E881A24558F00056FB4 /* MBLSObjectListTileViewer.m in Sources */,
 				C525B9FC16F8A6C500CE2200 /* MBColorCellBackgroundView.m in Sources */,
 				C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */,
 				C53F8DF61B5C87820050F607 /* MDBTutorialSplitViewController.m in Sources */,
-				C5CE0E591B542C6100EEC58C /* MDKUICollectionViewFlowLayoutDebug.m in Sources */,
+				C5CE0E591B542C6100EEC58C /* MDKUICollectionViewResizingFlowLayout.m in Sources */,
 				C522DABE1A2CA8ED00419781 /* LSDrawingRule.m in Sources */,
 				C5D99F52170270450025D5BB /* MBBasicLabelTextTableCell.m in Sources */,
 				C50764761A33A537009DDF83 /* LSReplacementRule.m in Sources */,

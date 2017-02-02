@@ -11,7 +11,7 @@
 #include <math.h>
 
 #import "MBFractalLibraryViewController.h"
-#import "MDKUICollectionViewFlowLayoutDebug.h"
+#import "MDKUICollectionViewResizingFlowLayout.h"
 #import "MDBResizingWidthFlowLayoutDelegate.h"
 
 #import "MDBAppModel.h"
@@ -52,6 +52,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 @property (nonatomic,strong) NSUserActivity                         *pendingUserActivity;
 @property (nonatomic,strong) MDBNavConTransitionCoordinator         *navConTransitionDelegate;
 @property (nonatomic,strong,readonly) FBKVOController               *kvoController;
+@property (nonatomic,assign) CGSize                                 baseCellSize;
 
 @end
 
@@ -81,7 +82,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         self.collectionView.prefetchDataSource = self.collectionSource;
     }
     
-//    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
+    UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+    self.baseCellSize = CGSizeMake(layout.itemSize.width, layout.itemSize.height);
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -180,25 +182,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         return YES;
     }
 }
-
-//-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-//{
-//    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-//    
-//    // Important! need to invalidate before starting rotation animation, otherwise a crash due to cells not being where expected
-//    // If the size of a cell changes without invalidating layout, then when the layout looks in dictionary for visible cells, the dict is wrong and a crash results 
-////    [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-////    [self.collectionView.collectionViewLayout invalidateLayout];
-//    
-//    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
-//        //
-////        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-//        
-//    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
-//        //
-////        [MDBResizingWidthFlowLayoutDelegate invalidateFlowLayoutAttributesForCollection: self.collectionView];
-//    }];
-//}
 
 #pragma mark - Notifications
 
@@ -481,8 +464,8 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Should have a test for layout type
-//    NSLog(@"FlowDelegate %s", __PRETTY_FUNCTION__);
-    return [MDBResizingWidthFlowLayoutDelegate collectionView: collectionView layout: collectionViewLayout sizeForItemAtIndexPath: indexPath];
+    NSLog(@"FlowDelegate %s", __PRETTY_FUNCTION__);
+    return [MDBResizingWidthFlowLayoutDelegate collectionView: collectionView layout: collectionViewLayout sizeForItemAtIndexPath: indexPath withBaseSize: self.baseCellSize];
 }
 
 #pragma mark - UICollectionViewDelegate
