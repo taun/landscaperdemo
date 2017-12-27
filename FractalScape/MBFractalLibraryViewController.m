@@ -60,6 +60,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 @synthesize kvoController = _kvoController;
 
+-(void)regularStartupSequence
+{
+    
+}
 
 #pragma mark - State handling
 - (void)viewDidLoad
@@ -93,8 +97,12 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"FractalDocuments" contentId: NSStringFromClass([self class]) customAttributes: nil];
     
 //    [self.appModel setupUserStoragePreferences];
-    [[UIApplication sharedApplication] setStatusBarHidden: NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name: UIContentSizeCategoryDidChangeNotification object: nil];
+}
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 /*!
@@ -160,6 +168,10 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 
 //        [editor setFractalInfo: nil];
     }
+}
+
+-(void)pushToLibraryEditViewController:(id)sender {
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -670,6 +682,21 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     // this protocol replaced by using observers
 }
 
+- (void)documentController:(MDBDocumentController *)documentController didInsertFractalInfosAtIndexPaths:(NSArray *)index totalRows:(NSInteger)rows { 
+    //
+}
+
+
+- (void)documentController:(MDBDocumentController *)documentController didRemoveFractalInfosAtIndexPaths:(NSArray *)index totalRows:(NSInteger)rows { 
+    //
+}
+
+
+- (void)documentController:(MDBDocumentController *)documentController didUpdateFractalInfosAtIndexPaths:(NSArray *)index totalRows:(NSInteger)rows { 
+    //
+}
+
+
 #pragma mark - UIResponder
 
 
@@ -693,6 +720,61 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
             [self performSegueWithIdentifier: kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUserActivityToFractalViewControllerSegueIdentifier sender: activityDocumentInfo];
         }];
     }
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder { 
+    //
+    [super encodeWithCoder: aCoder];
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection { 
+    //
+    [super traitCollectionDidChange: previousTraitCollection];
+}
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    //
+    [super preferredContentSizeDidChangeForChildContentContainer: container];
+}
+
+- (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize { 
+    //
+    return [super sizeForChildContentContainer: container withParentContainerSize: parentSize];
+}
+
+- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    //
+    [super systemLayoutFittingSizeDidChangeForChildContentContainer: container];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator { 
+    //
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+}
+
+- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator { 
+    //
+    [super willTransitionToTraitCollection: newCollection  withTransitionCoordinator: coordinator];
+}
+
+- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator { 
+    //
+    [super didUpdateFocusInContext: context withAnimationCoordinator: coordinator];
+}
+
+- (void)setNeedsFocusUpdate { 
+    //
+    [super setNeedsFocusUpdate];
+}
+
+- (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context { 
+    //
+    return [super shouldUpdateFocusInContext: context];
+}
+
+- (void)updateFocusIfNeeded { 
+    //
+    [super updateFocusIfNeeded];
 }
 
 @end

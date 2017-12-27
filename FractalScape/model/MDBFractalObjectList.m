@@ -10,7 +10,7 @@
 #import "MDBTileObjectProtocol.h"
 
 @interface MDBFractalObjectList ()
-@property (readwrite, copy) NSMutableArray *objects;
+@property (readwrite, atomic) NSMutableArray *objects;
 @end
 
 

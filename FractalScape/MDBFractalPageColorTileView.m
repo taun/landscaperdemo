@@ -16,7 +16,7 @@
 
 @property (nonatomic,assign) CGRect                         lastBounds;
 
--(void) updateColor: (MBColor*) newColor;
+-(void) updateColor: (id<MDBTileObjectProtocol>) newColor;
 
 @end
 
@@ -152,7 +152,7 @@
 
 -(void) updateColor:(id<MDBTileObjectProtocol>)color {
     if ([color isKindOfClass: [MBColor class]]) {
-        self.fractalDocument.fractal.backgroundColor = color;
+        self.fractalDocument.fractal.backgroundColor = (MBColor*)color;
     }
     self.backgroundColorView.representedObject = color;
 }

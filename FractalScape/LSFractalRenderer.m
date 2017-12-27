@@ -48,6 +48,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     CGAffineTransform       _lastPercentTransform; // Local transform so points can be used. Transform point before adding to points.
 }
 
+@property (atomic,assign) CGRect                    mainThreadImageViewBounds;
+
 @property (nonatomic,strong) CALayer                *cachedLayer;
 @property (nonatomic,assign) CGContextRef           cachedContext;
 @property (atomic,strong) NSMutableData             *contextNSData;
@@ -77,6 +79,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 @synthesize pixelScale = _pixelScale;
 @synthesize mainThreadImageView = _mainThreadImageView;
+@synthesize mainThreadImageViewBounds = _mainThreadImageViewBounds;
 @synthesize imageRef = _imageRef;
 
 +(instancetype) newRendererForFractal:(LSFractal *)aFractal withSourceRules: (LSDrawingRuleType*)sourceRules
@@ -156,6 +159,8 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     {
         _mainThreadImageView = imageView;
     }
+    
+    self.mainThreadImageViewBounds = _mainThreadImageView.bounds;
 }
 
 -(UIImageView *)mainThreadImageView
@@ -169,7 +174,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
     
     if (strongView)
     {
-        CGSize viewSize = strongView.bounds.size;
+        CGSize viewSize = self.mainThreadImageViewBounds.size;
         CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
         CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
         
@@ -200,7 +205,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 {
     UIImageView*strongView = self.mainThreadImageView;
     
-    CGSize viewSize = strongView.bounds.size;
+    CGSize viewSize = self.mainThreadImageViewBounds.size;
     CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
 //    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);
     
@@ -390,7 +395,7 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
                 return;
             }
             
-            CGSize unscaled = strongImageView.bounds.size;
+            CGSize unscaled = self.mainThreadImageViewBounds.size;
             CGSize size = CGSizeMake(unscaled.width*[[UIScreen mainScreen] scale], unscaled.height*[[UIScreen mainScreen] scale]);
             
             [self drawInContext: self.cachedContext size: size percentStart: start stop: stop];

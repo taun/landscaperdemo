@@ -349,6 +349,9 @@ static EAGLContext* __eaglSnapshotContext;
 //[self.ciFilter setValue: filterCenter forKey: @"inputPoint"];
 //}
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
 -(void)setGoodDefaultsForbounds:(CGRect)bounds
 {
     CIVector* vector = [CIVector vectorWithCGRect: bounds];
@@ -366,6 +369,8 @@ static EAGLContext* __eaglSnapshotContext;
     
     self.lastBounds = bounds;
 }
+
+#pragma clang diagnostic pop
 
 -(void)setInputValuesOnFilter: (CIFilter*)ciFilter
 {

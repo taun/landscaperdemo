@@ -414,7 +414,16 @@ RPPreviewViewControllerDelegate>
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    [[UIApplication sharedApplication] setStatusBarHidden: YES];
+    
+    BOOL hideStatus = YES;
+    
+    if (@available(iOS 11.0, *)) {
+        if (UIApplication.sharedApplication.keyWindow.safeAreaInsets.top > 0.0) {
+            hideStatus = NO;
+        }
+    }
+    
+    [[UIApplication sharedApplication] setStatusBarHidden: hideStatus];
     
     self.hasBeenEdited = NO;
     
@@ -629,9 +638,30 @@ RPPreviewViewControllerDelegate>
         //
         [self updateFilterSettingsForCanvas];
         [self queueFractalImageUpdates];
+        [self autoScale: nil];
     }];
     //    subLayer.position = self.fractalView.center;
 }
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    [super preferredContentSizeDidChangeForChildContentContainer: container];
+}
+
+
+- (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize { 
+    return [super sizeForChildContentContainer: container withParentContainerSize: parentSize];
+}
+
+
+- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    [super systemLayoutFittingSizeDidChangeForChildContentContainer: container];
+}
+
+
+- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator { 
+    [super willTransitionToTraitCollection: newCollection withTransitionCoordinator: coordinator];
+}
+
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     // Return YES for supported orientations
@@ -773,7 +803,7 @@ RPPreviewViewControllerDelegate>
         
         self.autoscaleN = YES;
         self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
-    
+        
         [self addObserverForFractalChangeInDocument: _fractalInfo.document];
     }
 }
@@ -1096,19 +1126,21 @@ RPPreviewViewControllerDelegate>
     {
         if (now)
         {
-            UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
+            UIImage* fractalImage = [self snapshotFractalViewBounds: self.fractalView.bounds size: CGSizeMake(130.0, 130.0) withWatermark: NO];
             [_fractalInfo.document setThumbnail: fractalImage];
             _fractalInfo.changeDate = [NSDate date];
             
             [_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
-//            self.hasBeenEdited = NO;
+            //            self.hasBeenEdited = NO;
         }
         else
         {
             MBLSFractalEditViewController* __weak weakSelf = self;
             
+            CGRect fractalBounds = self.fractalView.bounds;
+            
             [self.exportImageGenerationQueue addOperationWithBlock:^{
-                UIImage* fractalImage = [self snapshot: self.fractalView size: CGSizeMake(130.0, 130.0) withWatermark: NO];
+                UIImage* fractalImage = [self snapshotFractalViewBounds: fractalBounds size: CGSizeMake(130.0, 130.0) withWatermark: NO];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //
@@ -1119,7 +1151,7 @@ RPPreviewViewControllerDelegate>
                     
                     [strongSelf->_fractalInfo.document updateChangeCount: UIDocumentChangeDone];
                     
-//                    self.hasBeenEdited = NO;
+                    //                    self.hasBeenEdited = NO;
                 });
                 
             }];
@@ -1374,7 +1406,7 @@ RPPreviewViewControllerDelegate>
 
 -(void) updateInterface
 {
-//    [self stopButtonPressed: nil];
+    //    [self stopButtonPressed: nil];
     [self updateValueInputs];
     [self updateLabelsAndControls];
 }
@@ -1530,6 +1562,7 @@ RPPreviewViewControllerDelegate>
     
     [self queueHudImageUpdates];
     
+    self.fractalRendererLN.mainThreadImageView = self.fractalView;
     self.fractalRendererLN.autoscale = self.autoscaleN;
     self.fractalRendererLN.autoExpand = self.fractalDocument.fractal.autoExpand;
     self.fractalRendererLN.applyFilters = self.fractalDocument.fractal.applyFilters;
@@ -1974,6 +2007,7 @@ RPPreviewViewControllerDelegate>
     self.fractalViewRootSingleTapRecognizer.enabled = NO;
     
     [self addObserversForAppearanceEditorChanges];
+    [self queueFractalImageUpdates]; // FIXME: this shouldn't be necessary. Real question is why fractalView goes blank after being moved?
 }
 
 -(void) appearanceControllerWasDismissed
@@ -1984,6 +2018,7 @@ RPPreviewViewControllerDelegate>
     self.currentPresentedController = nil;
     [self updateLibraryRepresentationIfNeeded];
     [self autoScale: nil];
+    [self queueFractalImageUpdates]; // FIXME: this shouldn't be necessary. Real question is why fractalView goes blank after being moved?
 }
 
 #pragma mark - Control Actions
@@ -2301,7 +2336,7 @@ RPPreviewViewControllerDelegate>
     activityViewController = [[UIActivityViewController alloc] initWithActivityItems: exportItems applicationActivities:nil];
     
     [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
-    
+        
 #pragma message "TODO make this more generic for other activities?"
         NSLog(@"%s %@ completed: %lu, items: %@", __PRETTY_FUNCTION__, activityType, (unsigned long)completed, returnedItems);
         
@@ -2551,10 +2586,10 @@ RPPreviewViewControllerDelegate>
     }
     
     [self.playbackTimer invalidate];
-//    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
-//    {
-//        button.enabled = NO;
-//    }
+    //    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
+    //    {
+    //        button.enabled = NO;
+    //    }
     
     [self hideToolPaletteWithAnimations: YES];
     [self setNavBarHidden: YES];
@@ -2657,10 +2692,10 @@ RPPreviewViewControllerDelegate>
 }
 -(IBAction) stopButtonPressed: (id)sender
 {
-//    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
-//    {
-//        button.enabled = YES;
-//    }
+    //    for (UIBarButtonItem* button in self.disabledDuringPlaybackButtons)
+    //    {
+    //        button.enabled = YES;
+    //    }
     
     UISlider* strongPlayback = self.playbackSlider;
     
@@ -2683,7 +2718,7 @@ RPPreviewViewControllerDelegate>
     [self showToolPalleteWithAnimations: YES];
     self.fractalViewRootSingleTapRecognizer.enabled = YES;
     self.fractal2PanGR.enabled = YES;
-
+    
     RPScreenRecorder* recorder = [RPScreenRecorder sharedRecorder];
     if (recorder.isAvailable)
     {
@@ -2819,6 +2854,11 @@ RPPreviewViewControllerDelegate>
     self.fractalDocument.fractal.level = roundedNumber; // triggers observer
     self.hasBeenEdited = YES;
     //    [self updateLibraryRepresentationIfNeeded];
+}
+
+-(void)redoEdit:(id)sender
+{
+    
 }
 
 #pragma mark - HUD Slider Actions
@@ -3448,7 +3488,7 @@ verticalPropertyPath: (NSString*) verticalPath
                      }];
 }
 
-- (UIImage *)snapshot:(UIView *)view size: (CGSize)imageSize withWatermark: (BOOL)useWatermark
+- (UIImage *)snapshotFractalViewBounds:(CGRect)fractalBounds size: (CGSize)imageSize withWatermark: (BOOL)useWatermark
 {
     UIImage* imageExport;
     
@@ -3471,9 +3511,9 @@ verticalPropertyPath: (NSString*) verticalPath
     renderer.backgroundColor = backgroundColor;
     renderer.autoExpand = !self.fractalDocument.fractal.applyFilters || self.fractalDocument.fractal.autoExpand;
     
-    CGFloat maxOriginalDimension = MAX(self.fractalView.bounds.size.width,self.fractalView.bounds.size.height);
+    CGFloat maxOriginalDimension = MAX(fractalBounds.size.width,fractalBounds.size.height);
     
-    CGFloat aspect = MIN(maxOriginalDimension/self.fractalView.bounds.size.width,maxOriginalDimension/self.fractalView.bounds.size.height);
+    CGFloat aspect = MIN(maxOriginalDimension/fractalBounds.size.width,maxOriginalDimension/fractalBounds.size.height);
     
     CGSize renderSize = CGSizeMake(maxOriginalDimension, maxOriginalDimension);
     
@@ -3885,4 +3925,36 @@ verticalPropertyPath: (NSString*) verticalPath
     }
     return _angleFormatter;
 }
+- (void)presentPurchaseOptions { 
+    //
+}
+
+- (void)setFractalDocument:(MDBFractalDocument *)fractalDocument { 
+    //
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder { 
+    [super encodeWithCoder: aCoder];
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection { 
+    [super traitCollectionDidChange: previousTraitCollection];
+}
+
+- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator { 
+    [super didUpdateFocusInContext: context withAnimationCoordinator: coordinator];
+}
+
+- (void)setNeedsFocusUpdate { 
+    [super setNeedsFocusUpdate];
+}
+
+- (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context { 
+    return [super shouldUpdateFocusInContext: context];
+}
+
+- (void)updateFocusIfNeeded { 
+    [super updateFocusIfNeeded];
+}
+
 @end

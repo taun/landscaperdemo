@@ -173,8 +173,10 @@
 //    [self setNeedsLayout];
 }
 -(void) updateRuleViewRule:(id<MDBTileObjectProtocol>)rule {
-    self.replacementRule.contextRule = rule;
-    self.ruleView.representedObject = rule;
+    if ([rule isKindOfClass: [LSDrawingRule class]]) {
+        self.replacementRule.contextRule = (LSDrawingRule*)rule;
+        self.ruleView.representedObject = (LSDrawingRule*)rule;
+    }
 }
 -(void) setTileMargin:(CGFloat)tileMargin {
     _tileMargin = tileMargin;
