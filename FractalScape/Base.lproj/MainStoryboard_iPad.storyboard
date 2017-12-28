@@ -4290,7 +4290,7 @@ Please try again later.</string>
                             <constraint firstItem="lzc-zF-GfN" firstAttribute="leading" secondItem="Ayq-vk-5p2" secondAttribute="leading" id="OkS-wa-QkV"/>
                             <constraint firstAttribute="bottom" secondItem="lzc-zF-GfN" secondAttribute="bottom" id="RF7-oE-7Os"/>
                             <constraint firstItem="Oej-az-wVa" firstAttribute="top" secondItem="Ayq-vk-5p2" secondAttribute="top" id="T72-Og-w8b"/>
-                            <constraint firstItem="Oej-az-wVa" firstAttribute="bottom" secondItem="Ayq-vk-5p2" secondAttribute="bottomMargin" id="UNe-cs-BcP"/>
+                            <constraint firstItem="Oej-az-wVa" firstAttribute="bottom" secondItem="Ayq-vk-5p2" secondAttribute="bottom" id="UNe-cs-BcP"/>
                             <constraint firstAttribute="trailing" secondItem="lzc-zF-GfN" secondAttribute="trailing" id="c1g-Sk-QvJ"/>
                             <constraint firstAttribute="right" secondItem="Oej-az-wVa" secondAttribute="right" id="w5b-Og-zs9"/>
                         </constraints>
@@ -4335,45 +4335,22 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="CpS-30-NQ7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPw-LM-PTA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3Fp-4U-PHS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tA-ys-GSb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="8CE-sq-gWm" appends="YES" id="MJh-LW-pjU"/>
-                                                <outletCollection property="gestureRecognizers" destination="MGK-8x-PB0" appends="YES" id="MWu-gP-UPc"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="3tA-ys-GSb" firstAttribute="top" secondItem="3Fp-4U-PHS" secondAttribute="top" id="OTY-mm-mnH"/>
-                                        <constraint firstItem="3tA-ys-GSb" firstAttribute="leading" secondItem="3Fp-4U-PHS" secondAttribute="leading" id="RDQ-Rl-sC1"/>
-                                        <constraint firstAttribute="bottom" secondItem="3tA-ys-GSb" secondAttribute="bottom" id="ZxI-r0-Z5A"/>
-                                        <constraint firstAttribute="trailing" secondItem="3tA-ys-GSb" secondAttribute="trailing" id="iyN-Rm-SRs"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tA-ys-GSb">
+                                <rect key="frame" x="16" y="0.0" width="343" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="8CE-sq-gWm" appends="YES" id="MJh-LW-pjU"/>
+                                    <outletCollection property="gestureRecognizers" destination="MGK-8x-PB0" appends="YES" id="MWu-gP-UPc"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CpS-30-NQ7" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leading" id="5xg-PZ-58d"/>
-                            <constraint firstItem="CpS-30-NQ7" firstAttribute="top" secondItem="vxt-X5-Zki" secondAttribute="top" id="IWW-Hy-05J"/>
-                            <constraint firstItem="CpS-30-NQ7" firstAttribute="bottom" secondItem="vxt-X5-Zki" secondAttribute="bottomMargin" id="Ret-Bz-VMC"/>
-                            <constraint firstAttribute="trailing" secondItem="cPw-LM-PTA" secondAttribute="trailing" id="WKV-9w-BKo"/>
-                            <constraint firstItem="cPw-LM-PTA" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leading" id="azG-HD-EhY"/>
-                            <constraint firstItem="cPw-LM-PTA" firstAttribute="top" secondItem="vxt-X5-Zki" secondAttribute="top" id="fjf-hV-iyn"/>
-                            <constraint firstItem="cPw-LM-PTA" firstAttribute="bottom" secondItem="vxt-X5-Zki" secondAttribute="bottomMargin" id="pCS-R6-QRH"/>
-                            <constraint firstAttribute="trailing" secondItem="CpS-30-NQ7" secondAttribute="trailing" id="qu0-EI-C5y"/>
+                            <constraint firstItem="3tA-ys-GSb" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leadingMargin" id="Dw0-Ly-qSa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3tA-ys-GSb" secondAttribute="trailing" id="LfC-AE-9u3"/>
+                            <constraint firstItem="3tA-ys-GSb" firstAttribute="top" secondItem="vxt-X5-Zki" secondAttribute="topMargin" id="Mae-cM-Fsg"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="3tA-ys-GSb" secondAttribute="bottom" id="mqE-dT-jmK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AdJ-XB-whE">
@@ -4413,45 +4390,22 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="a3m-8z-Q82">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBW-j8-y79">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oJJ-J5-mWN">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4C9-18-EDd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="zrG-s1-aLh" appends="YES" id="1v7-x7-8PY"/>
-                                                <outletCollection property="gestureRecognizers" destination="Xkf-ie-diA" appends="YES" id="XnJ-KL-Kuc"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="4C9-18-EDd" firstAttribute="top" secondItem="oJJ-J5-mWN" secondAttribute="top" id="HXh-kD-Vu1"/>
-                                        <constraint firstAttribute="trailing" secondItem="4C9-18-EDd" secondAttribute="trailing" id="HaZ-89-6LS"/>
-                                        <constraint firstItem="4C9-18-EDd" firstAttribute="leading" secondItem="oJJ-J5-mWN" secondAttribute="leading" id="b2m-CC-sAh"/>
-                                        <constraint firstAttribute="bottom" secondItem="4C9-18-EDd" secondAttribute="bottom" id="e0Q-uy-oEK"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4C9-18-EDd">
+                                <rect key="frame" x="32" y="0.0" width="311" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Xkf-ie-diA" appends="YES" id="XnJ-KL-Kuc"/>
+                                    <outletCollection property="gestureRecognizers" destination="zrG-s1-aLh" appends="YES" id="1v7-x7-8PY"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="a3m-8z-Q82" firstAttribute="top" secondItem="JuK-xT-Jpx" secondAttribute="top" id="2gr-WN-rVj"/>
-                            <constraint firstItem="a3m-8z-Q82" firstAttribute="leading" secondItem="JuK-xT-Jpx" secondAttribute="leading" id="5AY-Aa-QXr"/>
-                            <constraint firstItem="a3m-8z-Q82" firstAttribute="bottom" secondItem="JuK-xT-Jpx" secondAttribute="bottomMargin" id="5Tv-dU-ahX"/>
-                            <constraint firstItem="EBW-j8-y79" firstAttribute="top" secondItem="JuK-xT-Jpx" secondAttribute="top" id="6bb-h5-dHd"/>
-                            <constraint firstItem="EBW-j8-y79" firstAttribute="leading" secondItem="JuK-xT-Jpx" secondAttribute="leading" id="Hw1-Ph-UnL"/>
-                            <constraint firstItem="EBW-j8-y79" firstAttribute="bottom" secondItem="JuK-xT-Jpx" secondAttribute="bottomMargin" id="UnK-Vp-tBI"/>
-                            <constraint firstAttribute="trailing" secondItem="EBW-j8-y79" secondAttribute="trailing" id="YwU-HV-lKN"/>
-                            <constraint firstAttribute="trailing" secondItem="a3m-8z-Q82" secondAttribute="trailing" id="hbL-A4-aLY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4C9-18-EDd" secondAttribute="trailing" constant="16" id="N2y-e0-Hmj"/>
+                            <constraint firstItem="4C9-18-EDd" firstAttribute="leading" secondItem="JuK-xT-Jpx" secondAttribute="leadingMargin" constant="16" id="QXX-Op-jYu"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="4C9-18-EDd" secondAttribute="bottom" id="iqI-UP-9Oc"/>
+                            <constraint firstItem="4C9-18-EDd" firstAttribute="top" secondItem="JuK-xT-Jpx" secondAttribute="topMargin" id="mDU-wR-9mb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qa4-hS-RtF">
@@ -4491,45 +4445,22 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="cy7-YZ-lTh">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ba-il-IoS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FMf-ku-YHa">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rc0-qZ-T5S">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="KV2-5x-OP6" appends="YES" id="U35-gM-K3E"/>
-                                                <outletCollection property="gestureRecognizers" destination="eMD-eZ-BMQ" appends="YES" id="AYY-Wv-5iu"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="rc0-qZ-T5S" secondAttribute="trailing" id="55L-W1-cEq"/>
-                                        <constraint firstItem="rc0-qZ-T5S" firstAttribute="top" secondItem="FMf-ku-YHa" secondAttribute="top" id="8dt-GK-75f"/>
-                                        <constraint firstItem="rc0-qZ-T5S" firstAttribute="leading" secondItem="FMf-ku-YHa" secondAttribute="leading" id="hKR-99-GPY"/>
-                                        <constraint firstAttribute="bottom" secondItem="rc0-qZ-T5S" secondAttribute="bottom" id="pGS-wq-r6p"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rc0-qZ-T5S">
+                                <rect key="frame" x="32" y="0.0" width="311" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="KV2-5x-OP6" appends="YES" id="U35-gM-K3E"/>
+                                    <outletCollection property="gestureRecognizers" destination="eMD-eZ-BMQ" appends="YES" id="AYY-Wv-5iu"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cy7-YZ-lTh" firstAttribute="bottom" secondItem="ZRK-BM-4Jb" secondAttribute="bottomMargin" id="01Y-Ll-4s5"/>
-                            <constraint firstItem="4Ba-il-IoS" firstAttribute="bottom" secondItem="ZRK-BM-4Jb" secondAttribute="bottomMargin" id="83w-aj-Pj4"/>
-                            <constraint firstItem="cy7-YZ-lTh" firstAttribute="leading" secondItem="ZRK-BM-4Jb" secondAttribute="leading" id="D0Q-Ea-WqU"/>
-                            <constraint firstAttribute="trailing" secondItem="4Ba-il-IoS" secondAttribute="trailing" id="MMP-ic-g9q"/>
-                            <constraint firstItem="4Ba-il-IoS" firstAttribute="leading" secondItem="ZRK-BM-4Jb" secondAttribute="leading" id="QMX-cJ-Qez"/>
-                            <constraint firstItem="4Ba-il-IoS" firstAttribute="top" secondItem="ZRK-BM-4Jb" secondAttribute="top" id="VMl-J9-Y8U"/>
-                            <constraint firstItem="cy7-YZ-lTh" firstAttribute="top" secondItem="ZRK-BM-4Jb" secondAttribute="top" id="YHB-YA-QRO"/>
-                            <constraint firstAttribute="trailing" secondItem="cy7-YZ-lTh" secondAttribute="trailing" id="YUs-tX-gTJ"/>
+                            <constraint firstItem="rc0-qZ-T5S" firstAttribute="leading" secondItem="ZRK-BM-4Jb" secondAttribute="leadingMargin" constant="16" id="S6h-RO-WSR"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="rc0-qZ-T5S" secondAttribute="bottom" id="Tqa-t7-lFV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rc0-qZ-T5S" secondAttribute="trailing" constant="16" id="XLu-kp-FrF"/>
+                            <constraint firstItem="rc0-qZ-T5S" firstAttribute="top" secondItem="ZRK-BM-4Jb" secondAttribute="topMargin" id="hJr-cD-5hd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="SfR-u0-Gos">
@@ -4569,45 +4500,22 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="Nr7-zO-GST">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHJ-MT-QlK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Igu-jn-Lo1">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXG-fl-NJC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="PD9-tt-2Wf" appends="YES" id="B58-po-pVD"/>
-                                                <outletCollection property="gestureRecognizers" destination="ZOr-o1-MUV" appends="YES" id="B0R-sr-pga"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="WXG-fl-NJC" secondAttribute="bottom" id="9NE-Hg-myn"/>
-                                        <constraint firstAttribute="trailing" secondItem="WXG-fl-NJC" secondAttribute="trailing" id="Qw9-5i-IBO"/>
-                                        <constraint firstItem="WXG-fl-NJC" firstAttribute="leading" secondItem="Igu-jn-Lo1" secondAttribute="leading" id="qIG-AQ-UyO"/>
-                                        <constraint firstItem="WXG-fl-NJC" firstAttribute="top" secondItem="Igu-jn-Lo1" secondAttribute="top" id="xBS-dZ-nKz"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXG-fl-NJC">
+                                <rect key="frame" x="32" y="0.0" width="311" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ZOr-o1-MUV" appends="YES" id="B0R-sr-pga"/>
+                                    <outletCollection property="gestureRecognizers" destination="PD9-tt-2Wf" appends="YES" id="B58-po-pVD"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="uHJ-MT-QlK" firstAttribute="top" secondItem="HEK-PU-bN9" secondAttribute="top" id="3mX-QV-onx"/>
-                            <constraint firstItem="Nr7-zO-GST" firstAttribute="top" secondItem="HEK-PU-bN9" secondAttribute="top" id="5JT-1s-NAa"/>
-                            <constraint firstItem="Nr7-zO-GST" firstAttribute="bottom" secondItem="HEK-PU-bN9" secondAttribute="bottomMargin" id="Cbl-in-Stf"/>
-                            <constraint firstAttribute="trailing" secondItem="Nr7-zO-GST" secondAttribute="trailing" id="ceL-Qk-VId"/>
-                            <constraint firstItem="uHJ-MT-QlK" firstAttribute="bottom" secondItem="HEK-PU-bN9" secondAttribute="bottomMargin" id="eZ7-v8-LHS"/>
-                            <constraint firstAttribute="trailing" secondItem="uHJ-MT-QlK" secondAttribute="trailing" id="m2J-qa-GHj"/>
-                            <constraint firstItem="Nr7-zO-GST" firstAttribute="leading" secondItem="HEK-PU-bN9" secondAttribute="leading" id="qgF-WN-bu0"/>
-                            <constraint firstItem="uHJ-MT-QlK" firstAttribute="leading" secondItem="HEK-PU-bN9" secondAttribute="leading" id="zqV-hr-p8d"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="WXG-fl-NJC" secondAttribute="bottom" id="0Hr-t7-sw6"/>
+                            <constraint firstItem="WXG-fl-NJC" firstAttribute="top" secondItem="HEK-PU-bN9" secondAttribute="topMargin" id="BD8-m9-qXf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WXG-fl-NJC" secondAttribute="trailing" constant="16" id="Sbq-an-GsD"/>
+                            <constraint firstItem="WXG-fl-NJC" firstAttribute="leading" secondItem="HEK-PU-bN9" secondAttribute="leadingMargin" constant="16" id="oiS-WB-hbx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rH6-n5-4E7">
@@ -4647,45 +4555,22 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="qvZ-XY-bJg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fV6-m2-W7S">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="7no-u7-zF1">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hdc-2Q-nVE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="mNq-o6-QPp" appends="YES" id="QXA-Vz-KTd"/>
-                                                <outletCollection property="gestureRecognizers" destination="IJB-c7-TuG" appends="YES" id="LnQ-Ml-6Ih"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="Hdc-2Q-nVE" secondAttribute="bottom" id="SP1-P8-QCx"/>
-                                        <constraint firstItem="Hdc-2Q-nVE" firstAttribute="leading" secondItem="7no-u7-zF1" secondAttribute="leading" id="fWw-ji-nLO"/>
-                                        <constraint firstAttribute="trailing" secondItem="Hdc-2Q-nVE" secondAttribute="trailing" id="qKA-Kk-uUh"/>
-                                        <constraint firstItem="Hdc-2Q-nVE" firstAttribute="top" secondItem="7no-u7-zF1" secondAttribute="top" id="ybN-y8-jb1"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hdc-2Q-nVE">
+                                <rect key="frame" x="32" y="0.0" width="311" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="IJB-c7-TuG" appends="YES" id="LnQ-Ml-6Ih"/>
+                                    <outletCollection property="gestureRecognizers" destination="mNq-o6-QPp" appends="YES" id="QXA-Vz-KTd"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fV6-m2-W7S" firstAttribute="leading" secondItem="O8V-lC-U9a" secondAttribute="leading" id="CY0-e6-yT8"/>
-                            <constraint firstItem="fV6-m2-W7S" firstAttribute="top" secondItem="O8V-lC-U9a" secondAttribute="top" id="DHo-g5-Xu0"/>
-                            <constraint firstItem="qvZ-XY-bJg" firstAttribute="leading" secondItem="O8V-lC-U9a" secondAttribute="leading" id="Lgz-Xr-UuG"/>
-                            <constraint firstItem="qvZ-XY-bJg" firstAttribute="bottom" secondItem="O8V-lC-U9a" secondAttribute="bottomMargin" id="M57-tV-Ap6"/>
-                            <constraint firstAttribute="trailing" secondItem="qvZ-XY-bJg" secondAttribute="trailing" id="PpM-y0-slD"/>
-                            <constraint firstItem="qvZ-XY-bJg" firstAttribute="top" secondItem="O8V-lC-U9a" secondAttribute="top" id="WPn-6m-e9y"/>
-                            <constraint firstItem="fV6-m2-W7S" firstAttribute="bottom" secondItem="O8V-lC-U9a" secondAttribute="bottomMargin" id="iOD-ea-0vE"/>
-                            <constraint firstAttribute="trailing" secondItem="fV6-m2-W7S" secondAttribute="trailing" id="lsj-lW-aoj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Hdc-2Q-nVE" secondAttribute="trailing" constant="16" id="KfW-Wh-oOn"/>
+                            <constraint firstItem="Hdc-2Q-nVE" firstAttribute="top" secondItem="O8V-lC-U9a" secondAttribute="topMargin" id="P1q-F7-evS"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Hdc-2Q-nVE" secondAttribute="bottom" id="Pad-a5-dn1"/>
+                            <constraint firstItem="Hdc-2Q-nVE" firstAttribute="leading" secondItem="O8V-lC-U9a" secondAttribute="leadingMargin" constant="16" id="WhM-jY-N9R"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uss-0h-gVI">
@@ -4725,45 +4610,22 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="47F-ES-u7c">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7G-G0-V85">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TgK-Jf-zZd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Nf-WWf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="8EH-fz-AIS" appends="YES" id="Pxr-Jf-7aS"/>
-                                                <outletCollection property="gestureRecognizers" destination="P3h-cj-Yeo" appends="YES" id="g1f-pt-NKr"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="nLe-Nf-WWf" firstAttribute="top" secondItem="TgK-Jf-zZd" secondAttribute="top" id="17I-YP-KcA"/>
-                                        <constraint firstItem="nLe-Nf-WWf" firstAttribute="leading" secondItem="TgK-Jf-zZd" secondAttribute="leading" id="STd-Wo-Mvs"/>
-                                        <constraint firstAttribute="trailing" secondItem="nLe-Nf-WWf" secondAttribute="trailing" id="WeJ-NT-GPZ"/>
-                                        <constraint firstAttribute="bottom" secondItem="nLe-Nf-WWf" secondAttribute="bottom" id="v09-v4-wzu"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Nf-WWf">
+                                <rect key="frame" x="32" y="0.0" width="311" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="P3h-cj-Yeo" appends="YES" id="g1f-pt-NKr"/>
+                                    <outletCollection property="gestureRecognizers" destination="8EH-fz-AIS" appends="YES" id="Pxr-Jf-7aS"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="h7G-G0-V85" secondAttribute="trailing" id="273-zm-uym"/>
-                            <constraint firstItem="47F-ES-u7c" firstAttribute="leading" secondItem="nl3-PT-XRN" secondAttribute="leading" id="60y-Pn-YRJ"/>
-                            <constraint firstItem="h7G-G0-V85" firstAttribute="bottom" secondItem="nl3-PT-XRN" secondAttribute="bottomMargin" id="6M6-5K-PFx"/>
-                            <constraint firstAttribute="trailing" secondItem="47F-ES-u7c" secondAttribute="trailing" id="BfI-Yb-nFk"/>
-                            <constraint firstItem="h7G-G0-V85" firstAttribute="top" secondItem="nl3-PT-XRN" secondAttribute="top" id="Nzt-q1-nMl"/>
-                            <constraint firstItem="h7G-G0-V85" firstAttribute="leading" secondItem="nl3-PT-XRN" secondAttribute="leading" id="RMP-wm-bEg"/>
-                            <constraint firstItem="47F-ES-u7c" firstAttribute="bottom" secondItem="nl3-PT-XRN" secondAttribute="bottomMargin" id="auw-WW-dLY"/>
-                            <constraint firstItem="47F-ES-u7c" firstAttribute="top" secondItem="nl3-PT-XRN" secondAttribute="top" id="rCf-rg-E4J"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="nLe-Nf-WWf" secondAttribute="bottom" id="2Ai-A7-owf"/>
+                            <constraint firstItem="nLe-Nf-WWf" firstAttribute="leading" secondItem="nl3-PT-XRN" secondAttribute="leadingMargin" constant="16" id="H9b-CS-rWT"/>
+                            <constraint firstItem="nLe-Nf-WWf" firstAttribute="top" secondItem="nl3-PT-XRN" secondAttribute="topMargin" id="JQq-qn-NRn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nLe-Nf-WWf" secondAttribute="trailing" constant="16" id="JfO-Gd-M6A"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gSZ-q3-oBK">
@@ -4803,45 +4665,22 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="documentThumbnailPlaceholder1024" translatesAutoresizingMaskIntoConstraints="NO" id="Awm-DK-B54">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hf-4Q-nrV">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="42x-ud-5F3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxP-9g-I6j">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="hCC-na-w7J" appends="YES" id="vqp-U7-XDz"/>
-                                                <outletCollection property="gestureRecognizers" destination="BQF-7o-2Yu" appends="YES" id="ifv-pd-CU7"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="uxP-9g-I6j" secondAttribute="bottom" id="1Tk-Bk-jAX"/>
-                                        <constraint firstItem="uxP-9g-I6j" firstAttribute="top" secondItem="42x-ud-5F3" secondAttribute="top" id="FZG-qC-WME"/>
-                                        <constraint firstAttribute="trailing" secondItem="uxP-9g-I6j" secondAttribute="trailing" id="GdS-6f-VTY"/>
-                                        <constraint firstItem="uxP-9g-I6j" firstAttribute="leading" secondItem="42x-ud-5F3" secondAttribute="leading" id="szo-Bo-M63"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxP-9g-I6j">
+                                <rect key="frame" x="32" y="0.0" width="311" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="hCC-na-w7J" appends="YES" id="vqp-U7-XDz"/>
+                                    <outletCollection property="gestureRecognizers" destination="BQF-7o-2Yu" appends="YES" id="ifv-pd-CU7"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Awm-DK-B54" firstAttribute="leading" secondItem="deb-fn-hy7" secondAttribute="leading" id="0hr-te-r8a"/>
-                            <constraint firstItem="4Hf-4Q-nrV" firstAttribute="bottom" secondItem="deb-fn-hy7" secondAttribute="bottomMargin" id="7Z1-aO-0Ko"/>
-                            <constraint firstItem="Awm-DK-B54" firstAttribute="bottom" secondItem="deb-fn-hy7" secondAttribute="bottomMargin" id="Feb-C9-9pH"/>
-                            <constraint firstItem="4Hf-4Q-nrV" firstAttribute="leading" secondItem="deb-fn-hy7" secondAttribute="leading" id="Iha-bq-Svb"/>
-                            <constraint firstItem="Awm-DK-B54" firstAttribute="top" secondItem="deb-fn-hy7" secondAttribute="top" id="VHf-lA-rmi"/>
-                            <constraint firstAttribute="trailing" secondItem="Awm-DK-B54" secondAttribute="trailing" id="bet-9m-wK4"/>
-                            <constraint firstItem="4Hf-4Q-nrV" firstAttribute="top" secondItem="deb-fn-hy7" secondAttribute="top" id="jp5-zp-QGc"/>
-                            <constraint firstAttribute="trailing" secondItem="4Hf-4Q-nrV" secondAttribute="trailing" id="wWg-Ue-YJc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uxP-9g-I6j" secondAttribute="trailing" constant="16" id="Ahu-9r-ySq"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="uxP-9g-I6j" secondAttribute="bottom" id="dpm-un-UZ8"/>
+                            <constraint firstItem="uxP-9g-I6j" firstAttribute="top" secondItem="deb-fn-hy7" secondAttribute="topMargin" id="mhd-U2-Y5w"/>
+                            <constraint firstItem="uxP-9g-I6j" firstAttribute="leading" secondItem="deb-fn-hy7" secondAttribute="leadingMargin" constant="16" id="twr-Da-usq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xOZ-ND-V3c">
