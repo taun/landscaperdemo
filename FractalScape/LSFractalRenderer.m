@@ -155,12 +155,13 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
         CGContextRelease(_cachedContext);
         _cachedContext = NULL;
     }
-    if (imageView && imageView != _mainThreadImageView)
+    UIImageView*strongView = _mainThreadImageView;
+    if (imageView && imageView != strongView)
     {
         _mainThreadImageView = imageView;
     }
     
-    self.mainThreadImageViewBounds = _mainThreadImageView.bounds;
+    self.mainThreadImageViewBounds = imageView.bounds;
 }
 
 -(UIImageView *)mainThreadImageView
@@ -203,8 +204,6 @@ typedef struct MBCommandSelectorsStruct MBCommandSelectorsStruct;
 
 -(void)copyBitmapToNSDataCache
 {
-    UIImageView*strongView = self.mainThreadImageView;
-    
     CGSize viewSize = self.mainThreadImageViewBounds.size;
     CGSize scaledSize = CGSizeMake(viewSize.width*[[UIScreen mainScreen] scale], viewSize.height*[[UIScreen mainScreen] scale]);
 //    CGRect scaledRect = CGRectMake(0, 0, scaledSize.width, scaledSize.height);

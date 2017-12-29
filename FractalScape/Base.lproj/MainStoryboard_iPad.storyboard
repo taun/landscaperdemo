@@ -54,7 +54,7 @@
                                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-5R-WKj" userLabel="FractalCanvas">
                                                                 <rect key="frame" x="10" y="10" width="582" height="618"/>
                                                                 <subviews>
-                                                                    <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="UIImageView">
+                                                                    <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="UIImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="582" height="618"/>
                                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <gestureRecognizers/>
@@ -2790,31 +2790,31 @@ Drag icon to holder below to apply effect</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqt-OL-7TY" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="17" y="92" width="566" height="952"/>
+                                <rect key="frame" x="16" y="92" width="568" height="952"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-Bj-4wS">
-                                        <rect key="frame" x="0.0" y="0.0" width="566" height="952"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="952"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="51C-ij-UpW">
-                                            <rect key="frame" x="0.0" y="0.0" width="566" height="952"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="568" height="952"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJr-Yi-XVd" userLabel="ScrollContainer">
-                                                    <rect key="frame" x="0.0" y="0.0" width="566" height="952"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="952"/>
                                                     <subviews>
                                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEw-vQ-EnU">
-                                                            <rect key="frame" x="0.0" y="0.0" width="566" height="952"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="568" height="952"/>
                                                             <subviews>
                                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJo-5w-3J5" userLabel="ScrollContent">
-                                                                    <rect key="frame" x="0.0" y="64" width="566" height="740"/>
+                                                                    <rect key="frame" x="0.0" y="64" width="568" height="740"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jm4-us-epF">
-                                                                            <rect key="frame" x="213" y="40" width="138" height="88"/>
+                                                                            <rect key="frame" x="214" y="40" width="138" height="88"/>
                                                                             <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="26"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MK-Ue-1Yh">
-                                                                            <rect key="frame" x="8" y="136" width="550" height="270.5"/>
+                                                                            <rect key="frame" x="8" y="136" width="552" height="270.5"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment>
                                                                                     <string key="content">FractalScapes let's you create new colorful and amazing fractal plants and patterns. You don't need to be an artist to create cool looking designs.
@@ -2915,7 +2915,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find out more about fractals and FractalScape. Feedback links." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Su-7M-aS4">
-                                                                            <rect key="frame" x="56" y="551.5" width="502" height="21"/>
+                                                                            <rect key="frame" x="56" y="551.5" width="504" height="21"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -2927,7 +2927,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHN-WE-buM" customClass="MDKLayerViewDesignable">
-                                                                            <rect key="frame" x="118" y="638.5" width="330" height="61.5"/>
+                                                                            <rect key="frame" x="119" y="638.5" width="330" height="61.5"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d7-BG-oNU">
                                                                                     <rect key="frame" x="8" y="8" width="314" height="45.5"/>
@@ -5205,7 +5205,7 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarPlay" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0fO-dT-L5U"/>
+        <segue reference="bSt-YQ-4Z0"/>
         <segue reference="O2z-rK-pDb"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

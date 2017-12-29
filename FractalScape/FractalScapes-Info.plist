@@ -73,6 +73,8 @@
 	<true/>
 	<key>NSMotionUsageDescription</key>
 	<string>Device motion is used for simulated fractal motion. Motion can be turned off in settings.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FractalScapes needs access to your Photos in order to save your Fractal Image to Photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Access is needed to save your fractal image to your Photos</string>
 	<key>UILaunchStoryboardName</key>

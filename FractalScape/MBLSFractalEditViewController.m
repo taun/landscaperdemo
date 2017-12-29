@@ -630,9 +630,7 @@ RPPreviewViewControllerDelegate>
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
-        //        [self queueFractalImageUpdates];
         [self updateViewController: self.currentPresentedController popoverPreferredContentSizeForViewSize: size];
-        //        self.fractalView.position = fractalNewPosition;
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
@@ -640,7 +638,6 @@ RPPreviewViewControllerDelegate>
         [self queueFractalImageUpdates];
         [self autoScale: nil];
     }];
-    //    subLayer.position = self.fractalView.center;
 }
 
 - (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
@@ -1666,12 +1663,14 @@ RPPreviewViewControllerDelegate>
                         CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
                         NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
                         CGImageRef filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
-                        mainThreadImageView.layer.contents = CFBridgingRelease(filteredImage);
+                        mainThreadImageView.image = [UIImage imageWithCGImage: filteredImage];
+                        CGImageRelease(filteredImage);
                     }
                     else
                     {
 #pragma message "TODO: Filters view seems to use OpenGL. If a simple filter is implemented here, will this use opengl as well?"
-                        mainThreadImageView.layer.contents = (__bridge id)(renderer.imageRef);
+                        UIImage* tempImage = [UIImage imageWithCGImage: renderer.imageRef];
+                        mainThreadImageView.image = tempImage;
                     }
                     
                     if (renderer == self.fractalRendererLN && self.activityIndicator.isAnimating)
@@ -2007,7 +2006,6 @@ RPPreviewViewControllerDelegate>
     self.fractalViewRootSingleTapRecognizer.enabled = NO;
     
     [self addObserversForAppearanceEditorChanges];
-    [self queueFractalImageUpdates]; // FIXME: this shouldn't be necessary. Real question is why fractalView goes blank after being moved?
 }
 
 -(void) appearanceControllerWasDismissed
@@ -2018,7 +2016,6 @@ RPPreviewViewControllerDelegate>
     self.currentPresentedController = nil;
     [self updateLibraryRepresentationIfNeeded];
     [self autoScale: nil];
-    [self queueFractalImageUpdates]; // FIXME: this shouldn't be necessary. Real question is why fractalView goes blank after being moved?
 }
 
 #pragma mark - Control Actions
@@ -2522,7 +2519,7 @@ RPPreviewViewControllerDelegate>
             if (renderer.mainThreadImageView && renderer.imageRef)
             {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    renderer.mainThreadImageView.layer.contents = (__bridge id)(renderer.imageRef);
+                    renderer.mainThreadImageView.image = [UIImage imageWithCGImage: renderer.imageRef];
                 }];
             }
         }
