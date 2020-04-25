@@ -1785,8 +1785,8 @@
 			buildPhases = (
 				C5E6B77914A5346200DA48BD /* Sources */,
 				C5E6B77A14A5346200DA48BD /* Frameworks */,
-				C5E6B77B14A5346200DA48BD /* Resources */,
 				C5BB7D861A90502600575CFC /* Version Sync Run Script */,
+				C5E6B77B14A5346200DA48BD /* Resources */,
 				C55AAA6B1A153A4D0023DE47 /* Headers */,
 				C53A93A81B32481400609F91 /* Embed Frameworks */,
 				C51AE1C31C06233F0017565E /* ShellScript */,
@@ -1836,6 +1836,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1925,7 +1926,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 7cf4fe660cacadc64ad129dfe90d4ea2da0cfd52 7cefba451c83154fd4c31621d98a3c3d11b50a20dd422abf37662679c4d2db7b";
+			shellScript = "./Fabric.framework/run 7cf4fe660cacadc64ad129dfe90d4ea2da0cfd52 7cefba451c83154fd4c31621d98a3c3d11b50a20dd422abf37662679c4d2db7b\n";
 		};
 		C5BB7D861A90502600575CFC /* Version Sync Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1939,7 +1940,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "git=`sh /etc/profile; which git`\nbranch_name=`$git symbolic-ref HEAD | sed -e 's,.*/\\\\(.*\\\\),\\\\1,'`\ngit_count=`$git rev-list $branch_name |wc -l | sed 's/^ *//;s/ *$//'`\nsimple_branch_name=`$git rev-parse --abbrev-ref HEAD`\n\nbuild_number=\"$git_count\"\nif [ $CONFIGURATION != \"Release\" || $CONFIGURATION != \"Beta\"]; then\nbuild_number+=\"-$simple_branch_name\"\nfi\n\ninfo_plist=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\ndsym_plist=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$info_plist\"\nif [ -f \"$DSYM_INFO_PLIST\" ] ; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$dsym_plist\"\nfi";
+			shellScript = "git=`sh /etc/profile; which git`\nbranch_name=`$git symbolic-ref HEAD | sed -e 's,.*/\\\\(.*\\\\),\\\\1,'`\ngit_count=`$git rev-list $branch_name |wc -l | sed 's/^ *//;s/ *$//'`\nsimple_branch_name=`$git rev-parse --abbrev-ref HEAD`\n\nbuild_number=\"$git_count\"\nif [ $CONFIGURATION != \"Release\" || $CONFIGURATION != \"Beta\"]; then\nbuild_number+=\"-$simple_branch_name\"\nfi\n\ninfo_plist=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\ndsym_plist=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$info_plist\"\nif [ -f \"$DSYM_INFO_PLIST\" ] ; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$dsym_plist\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2216,6 +2217,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -2374,6 +2376,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -2537,6 +2540,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -2580,6 +2584,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";

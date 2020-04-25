@@ -476,7 +476,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Should have a test for layout type
-    NSLog(@"FlowDelegate %s", __PRETTY_FUNCTION__);
+//    NSLog(@"FlowDelegate %s", __PRETTY_FUNCTION__);
     return [MDBResizingWidthFlowLayoutDelegate collectionView: collectionView layout: collectionViewLayout sizeForItemAtIndexPath: indexPath withBaseSize: self.baseCellSize];
 }
 
