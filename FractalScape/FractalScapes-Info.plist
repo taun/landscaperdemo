@@ -71,6 +71,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>NSMotionUsageDescription</key>
 	<string>Device motion is used for simulated fractal motion. Motion can be turned off in settings.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -107,6 +109,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UTExportedTypeDeclarations</key>

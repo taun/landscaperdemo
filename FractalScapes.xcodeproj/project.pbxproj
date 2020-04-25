@@ -407,7 +407,6 @@
 		C59EE2141AF3EE6300CFE254 /* MDBMainLibraryTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBMainLibraryTabBarController.m; sourceTree = "<group>"; };
 		C59FF02016441631006E2B27 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5A040281B8A3F1E0052398A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		C5A338681B9BD04000074DD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = FractalScape/Base.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5A4888C1B91171C0031585B /* iCon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCon60@2x.png"; path = "Icons.xcassets/AppIcon.appiconset/iCon60@2x.png"; sourceTree = "<group>"; };
 		C5A488901B9117DC0031585B /* appStore1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appStore1024.png; path = ../appStore1024.png; sourceTree = "<group>"; };
@@ -900,7 +899,6 @@
 			children = (
 				C5800FC31D3057BF00555E59 /* README.md */,
 				C5AD4EA31C1664F8009386FA /* ThirdParty */,
-				C5A338671B9BD04000074DD3 /* MainStoryboard_iPad.storyboard */,
 				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
 				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,
 				C5CE0E361B542BAC00EEC58C /* MDUiKit */,
@@ -1530,14 +1528,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C5A338671B9BD04000074DD3 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C5A338681B9BD04000074DD3 /* Base */,
-			);
-			name = MainStoryboard_iPad.storyboard;
-			sourceTree = "<group>";
-		};
 		C5E6B78A14A5346300DA48BD /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
