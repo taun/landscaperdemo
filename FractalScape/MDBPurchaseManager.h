@@ -41,8 +41,6 @@
 
 +(instancetype)newManagerWithModel:(MDBAppModel*)model;
 
--(void)revalidateProducts;
-
 -(void)processPaymentForProduct:(SKProduct*)product quantity: (NSUInteger)qty;
 
 -(MDBBasePurchaseableProduct*)baseProductForIdentifier: (NSString*)id;

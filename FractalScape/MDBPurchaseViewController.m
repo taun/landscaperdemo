@@ -23,7 +23,6 @@
 {
     [super viewDidAppear:animated];
     self.purchaseManager.delegate = self;
-    [self.purchaseManager revalidateProducts];
 }
 
 -(void)dealloc
