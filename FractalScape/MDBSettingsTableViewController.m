@@ -12,7 +12,6 @@
 #import "MDBPurchaseViewController.h"
 #import "MDBProPurchaseableProduct.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 @interface MDBSettingsTableViewController ()
 
@@ -66,9 +65,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Settings" contentId: NSStringFromClass([self class]) customAttributes: nil];
-    
+        
     [self updateControls];
 }
 -(void)viewDidAppear:(BOOL)animated

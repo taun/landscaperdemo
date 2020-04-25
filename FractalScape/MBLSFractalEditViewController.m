@@ -41,7 +41,6 @@
 #import "UIFont+MDKProportional.h"
 #import "FBKVOController.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 //
 //static inline double radians (double degrees){return degrees * M_PI/180.0;}
@@ -444,12 +443,7 @@ RPPreviewViewControllerDelegate>
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    if (self.fractalDocument.fractal.name != nil)
-    {
-        [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Fractal" contentId: NSStringFromClass([self class]) customAttributes: @{@"Name": self.fractalDocument.fractal.name}];
-    }
-    
+        
     MDBAppModel* strongAppModel = self.appModel;
     
     if (!strongAppModel.allowPremium) // in-app purchase can only be done from settings so this should never change while the view is on screen.
@@ -552,24 +546,13 @@ RPPreviewViewControllerDelegate>
 
 -(IBAction)showHelpScreen:(id)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"ShowHelpScreen"}];
-    
     [self performSegueWithIdentifier: @"QuickIntroSegue" sender: sender];
 }
 
 - (IBAction)unwindFromEditorIntro:(UIStoryboardSegue *)segue
 {
-    //    UIViewController* sourceController = (UIViewController*)segue.sourceViewController;
     [self dismissViewControllerAnimated: YES completion:^{
         [self.appModel exitEditorIntroState];
-        //        for (UIBarButtonItem* button in self.navigationItem.rightBarButtonItems)
-        //        {
-        //            button.enabled = YES;
-        //        }
-        //        for (UIBarButtonItem* button in self.navigationItem.leftBarButtonItems)
-        //        {
-        //            button.enabled = YES;
-        //        }
     }];
 }
 
@@ -577,7 +560,6 @@ RPPreviewViewControllerDelegate>
 {
     [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
     [[UIPageControl appearance] setCurrentPageIndicatorTintColor: self.view.tintColor];
-    //    [[UIPageControl appearance] setBackgroundColor: [UIColor darkGrayColor]];
 }
 -(void)updateUIDueToUserSettingsChange
 {
@@ -608,7 +590,6 @@ RPPreviewViewControllerDelegate>
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    //    [self.exportImageGenerationQueue waitUntilAllOperationsAreFinished];
     [self removeObserversForObservedDocument];
     
     [self.panIndicatorBackgroundFadeTimer invalidate];
@@ -1167,8 +1148,6 @@ RPPreviewViewControllerDelegate>
 
 -(void) propertyDocumentFractalDidChange: (NSDictionary*)change object: (id)object
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"fractal"}];
-    
     if (self.fractalInfo.document.documentState == UIDocumentStateNormal) // never called so remove?
     {
         if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue])
@@ -1185,7 +1164,6 @@ RPPreviewViewControllerDelegate>
 
 -(void) propertyFractalLabelDidChange: (NSDictionary*)change object: (id)object
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"label"}];
     self.hasBeenEdited = YES;
 }
 
@@ -1193,7 +1171,6 @@ RPPreviewViewControllerDelegate>
 {
     if ([self checkChangeCountFor: change])
     {
-        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"redraw"}];
         self.hasBeenEdited = YES;
         [self queueFractalImageUpdates];
         [self updateInterface];
@@ -1204,7 +1181,6 @@ RPPreviewViewControllerDelegate>
 {
     if ([self checkChangeCountFor: change])
     {
-        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"appearance"}];
         self.hasBeenEdited = YES;
         [self queueFractalImageUpdates];
         [self updateInterface];
@@ -1213,7 +1189,6 @@ RPPreviewViewControllerDelegate>
 
 -(void) propertyFractalFiltersDidChange: (NSDictionary*)change object: (id)object
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"filter"}];
     self.hasBeenEdited = YES;
     [self updateFilterSettingsForCanvas];
     [self.fractalDocument.fractal updateApplyFiltersWithoutNotificationForFiltersListChange];
@@ -1225,7 +1200,6 @@ RPPreviewViewControllerDelegate>
 {
     if ([self checkChangeCountFor: change])
     {
-        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"rule"}];
 #pragma message "TODO: fix for uidocument"
         self.fractalDocument.fractal.rulesUnchanged = NO;
         self.hasBeenEdited = YES;
@@ -1239,7 +1213,6 @@ RPPreviewViewControllerDelegate>
 {
     if ([self checkChangeCountFor: change])
     {
-        [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"ChangeKeyPath" : @"replacementRule"}];
         [self updateObserversForReplacementRules: self.fractalDocument.fractal.replacementRules];
         [self regenerateLevels];
         [self updateInterface];
@@ -2047,16 +2020,7 @@ RPPreviewViewControllerDelegate>
                                                              handler:^(UIAlertAction * action)
                                        {
                                            MBLSFractalEditViewController* strongSelf = weakSelf;
-                                           
-                                           if (strongSelf.fractalDocument.fractal.name != nil)
-                                           {
-                                               [Answers logShareWithMethod: @"Image"
-                                                               contentName: strongSelf.fractalDocument.fractal.name
-                                                               contentType: @"Fractal"
-                                                                 contentId: strongSelf.fractalDocument.fractal.name
-                                                          customAttributes: nil];
-                                           }
-                                           
+                                                                                      
                                            [weakAlert dismissViewControllerAnimated: YES completion: nil];
                                            [strongSelf shareWithActivityController: sender];
                                        }];
@@ -2081,15 +2045,6 @@ RPPreviewViewControllerDelegate>
                                     {
                                         MBLSFractalEditViewController* strongSelf = weakSelf;
                                         
-                                        if (strongSelf.fractalDocument.fractal.name != nil)
-                                        {
-                                            [Answers logShareWithMethod: @"Document"
-                                                            contentName: strongSelf.fractalDocument.fractal.name
-                                                            contentType: @"Fractal"
-                                                              contentId: strongSelf.fractalDocument.fractal.name
-                                                       customAttributes: nil];
-                                        }
-                                        
                                         [weakAlert dismissViewControllerAnimated: YES completion: nil];
                                         [strongSelf shareWithDocumentInteractionController: sender];
                                     }];
@@ -2113,16 +2068,7 @@ RPPreviewViewControllerDelegate>
                                                           handler:^(UIAlertAction * action)
                                     {
                                         MBLSFractalEditViewController* strongSelf = weakSelf;
-                                        
-                                        if (strongSelf.fractalDocument.fractal.name != nil)
-                                        {
-                                            [Answers logShareWithMethod: @"VectorPDF"
-                                                            contentName: strongSelf.fractalDocument.fractal.name
-                                                            contentType: @"Fractal"
-                                                              contentId: strongSelf.fractalDocument.fractal.name
-                                                       customAttributes: nil];
-                                        }
-                                        
+                                                                                
                                         [weakAlert dismissViewControllerAnimated: YES completion:nil];
                                         [strongSelf sharePDFWithDocumentInteractionController: sender];
                                     }];
@@ -2146,14 +2092,6 @@ RPPreviewViewControllerDelegate>
                                     {
                                         MBLSFractalEditViewController* strongSelf = weakSelf;
                                         if (strongSelf.fractalDocument.fractal.name != nil)
-                                        {
-                                            [Answers logShareWithMethod: @"Cancel"
-                                                            contentName: strongSelf.fractalDocument.fractal.name
-                                                            contentType: @"Fractal"
-                                                              contentId: strongSelf.fractalDocument.fractal.name
-                                                       customAttributes: nil];
-                                        }
-                                        
                                         [weakAlert dismissViewControllerAnimated: YES completion:nil];
                                     }];
     [alert addAction: defaultAction];
@@ -2572,8 +2510,6 @@ RPPreviewViewControllerDelegate>
 }
 - (IBAction)playButtonPressed: (id)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"Playback"}];
-    
     if (self.presentedViewController) {
         [self.presentedViewController dismissViewControllerAnimated: NO completion: nil];
     }
@@ -2665,7 +2601,6 @@ RPPreviewViewControllerDelegate>
 }
 -(IBAction) pauseButtonPressed: (id)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PlayBackPaused"}];
     if ([sender isKindOfClass: [UISlider class]])
     {
         // just pause for slider movement
@@ -2745,7 +2680,6 @@ RPPreviewViewControllerDelegate>
 
 -(IBAction)toggleAutoExpandFractal:(id)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"ToggleAutoExpand"}];
     self.fractalDocument.fractal.autoExpand = !self.fractalDocument.fractal.autoExpand;
 }
 
@@ -2767,8 +2701,6 @@ RPPreviewViewControllerDelegate>
 
 - (IBAction)copyFractal:(id)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"CopyFractal"}];
-    
     LSFractal* newFractal = [self.fractalDocument.fractal copy];
     
     self.fractalInfo = nil;
@@ -3016,8 +2948,6 @@ RPPreviewViewControllerDelegate>
 //
 - (IBAction)toggleApplyFilter:(id)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"ToggleApplyFilter"}];
-    
     MDBFractalObjectList* filters = self.fractalDocument.fractal.imageFilters;
     BOOL filtersOn = self.fractalDocument.fractal.applyFilters;
     
@@ -3125,8 +3055,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToBaseRotation:(UIButton *)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectBaseAngle"}];
-    
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"baseAngle",
                                     @"hScale":@5,
@@ -3145,8 +3073,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToJointAngle:(UIButton *)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectTurnAngle"}];
-    
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"turningAngle",
                                     @"hScale":@0.5,
@@ -3165,8 +3091,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToIncrements:(UIButton *)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectIncrements"}];
-    
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"turningAngleIncrement",
                                     @"hScale":@0.0001,
@@ -3185,8 +3109,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)moveTwoFingerPanToHueIncrements:(UIButton *)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"PanSelectHues"}];
-    
     self.twoFingerPanProperties = @{@"imageView":self.fractalView,
                                     @"hPath":@"fillHueRotationPercent",
                                     @"hScale":@0.001,
@@ -3205,8 +3127,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)togglePan10x:(UIButton *)sender
 {
-    [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : @"Toggle10X"}];
-    
     [self startPanBackgroundFadeTimer];
     
     self.pan10xOn = !self.pan10xOn;

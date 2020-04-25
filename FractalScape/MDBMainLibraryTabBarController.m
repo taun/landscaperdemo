@@ -14,7 +14,6 @@
 //#import "ABX.h"
 #import "MDBAppModel.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 @interface MDBMainLibraryTabBarController ()
 
@@ -166,7 +165,6 @@
 {
     UINavigationController* navCon = (UINavigationController*)viewController;
     NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
-    if (selectedViewName != nil) [Answers logCustomEventWithName: @"MainTabSelection" customAttributes: @{@"SelectedTab": selectedViewName}];
 }
 
 @end

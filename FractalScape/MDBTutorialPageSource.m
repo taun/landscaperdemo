@@ -10,7 +10,6 @@
 #import "MDBHelpContentsTableViewCell.h"
 #import "MDBEditorIntroWhatIsFractalViewController.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 @interface MDBTutorialPageSource ()
 
@@ -102,12 +101,9 @@
 
 -(UIViewController *)newHelpPageControllerForIndex:(NSUInteger)index
 {
-//    UIStoryboard* storyboard = self.viewController.storyboard;
     [UIColor blackColor];
     NSString* identifier = self.helpPageIdentifiers[index];
     UIViewController* currentHelpController = (MDBEditorIntroWhatIsFractalViewController *)[self.storyboard instantiateViewControllerWithIdentifier: identifier];
-//    [self.currentHelpController loadView];
-    [Answers logContentViewWithName: currentHelpController.title contentType: @"HelpPage" contentId: currentHelpController.title customAttributes: nil];
     
     return currentHelpController;
 }

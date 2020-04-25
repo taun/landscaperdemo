@@ -13,7 +13,6 @@
 #import "MDBFractalInfo.h"
 #import "MDBCloudManager.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 @interface MDBFractalCloudBrowser ()
 
@@ -54,9 +53,7 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"Public Fractals" contentId: NSStringFromClass([self class]) customAttributes:nil];
-    
+        
     if (self.searchController.active || self.publicCloudRecords.count == 0)
     {
         [self updateSearchResultsForSearchController: self.searchController];
@@ -367,15 +364,11 @@
             {
                 MBCollectionFractalDocumentCell *documentInfoCell = (MBCollectionFractalDocumentCell *)[self.collectionView cellForItemAtIndexPath: path];
                 MDBFractalDocumentProxy* proxy = documentInfoCell.info.document;
-                
-                if (proxy.fractal.name != nil) [Answers logCustomEventWithName: @"FractalDownload" customAttributes: @{@"Name" : proxy.fractal.name}];
-                
+                                
                 MDBAppModel* appModel = (MDBAppModel*)self.appModel;
                 
                 MDBFractalInfo* fractalInfo = [appModel.documentController createFractalInfoForFractal: proxy.fractal withImage: [proxy.thumbnail copy] withDocumentDelegate: nil];
-                
-//                [appModel.documentController setFractalInfoHasNewContents: fractalInfo];
-                
+                                
                 [fractalInfo closeDocument];
                 
                 [self.collectionView deselectItemAtIndexPath: path animated: YES];

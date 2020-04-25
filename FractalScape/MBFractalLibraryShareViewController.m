@@ -14,7 +14,6 @@
 #import "MDLCloudKitManager.h"
 #import "MDBCloudManager.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 
 @interface MBFractalLibraryShareViewController ()
@@ -108,7 +107,6 @@
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
-                                       [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud"}];
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                        [self shareCurrentSelections: sender];
                                    }];
@@ -118,7 +116,6 @@
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"SkipShowPremiumUpgradeOption"}];
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                     }];
     [alert addAction: defaultAction];

@@ -24,7 +24,6 @@
 #import "FractalScapeIconSet.h"
 
 #import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 
 // View controller segue identifiers.
@@ -52,8 +51,6 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     // Override point for customization after application launch.
     // OS X 10.7 and later / iOS 7 and later    
 
-    [Fabric with:@[[Crashlytics class],[Answers class]]];
-
     self.window.backgroundColor = [FractalScapeIconSet selectionBackgroundColor];
     
     srand48(time(0)); // for use of randomize function in other parts of app
@@ -64,9 +61,7 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
     _appModel.delegate = self;
     
     self.mainTabController.appModel = _appModel;
-    
-//    [[ABXApiClient instance] setApiKey:@"a02e2366313edf6d321e3eda0e3fcf613fd4ab72"];
-    
+        
     return YES;
 }
 
@@ -77,7 +72,6 @@ NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerContinueUser
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     NSTimeInterval sessionDuration = [self.sessionStart timeIntervalSinceNow] / 60.0;
-    [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Minutes":@(sessionDuration)}];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

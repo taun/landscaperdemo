@@ -42,7 +42,6 @@
 #import "FBKVOController.h"
 #import "MDBURLPlusMetaData.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionHeader";
 
@@ -94,9 +93,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 {
     [super viewWillAppear:animated];
     
-    [Answers logContentViewWithName: NSStringFromClass([self class]) contentType: @"FractalDocuments" contentId: NSStringFromClass([self class]) customAttributes: nil];
-    
-//    [self.appModel setupUserStoragePreferences];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContentSizeCategoryDidChangeNotification:) name: UIContentSizeCategoryDidChangeNotification object: nil];
 }
 
@@ -271,7 +267,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
         if (title != nil)
         {
             self.navigationItem.title = title;
-            [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": title}];
         }
         
         if ((YES))
@@ -285,7 +280,6 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
 -(NSString*)libraryTitle
 {
     NSString* title = [self->_appModel.documentController.documentCoordinator isMemberOfClass: [MDBFractalDocumentLocalCoordinator class]] ? @"Local Library" : @"Cloud Library";
-    if (title != nil) [Answers logCustomEventWithName: @"AppSession" customAttributes: @{@"Session Type": title}];
     
     return title;
 }

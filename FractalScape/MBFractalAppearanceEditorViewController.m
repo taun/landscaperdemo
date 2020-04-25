@@ -10,7 +10,6 @@
 #import "MDBFractalFiltersControllerViewController.h"
 #import "MBFractalRulesEditorViewController.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 @interface MBFractalAppearanceEditorViewController ()
 
@@ -82,7 +81,5 @@
 
     UINavigationController* navCon = (UINavigationController*)viewController;
     NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
-
-    if (selectedViewName) [Answers logCustomEventWithName: @"FractalEdit" customAttributes: @{@"Action" : selectedViewName}];
 }
 @end

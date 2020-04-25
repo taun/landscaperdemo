@@ -10,7 +10,6 @@
 #import "MDBBasePurchaseableProduct.h"
 #import "MDBPurchaseManager.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 @interface MDBPurchaseTableViewCell ()
 
@@ -109,12 +108,6 @@
 - (IBAction)buyButtonTapped:(UIButton *)sender
 {
     self.buyButton.enabled = NO;
-    [Answers logAddToCartWithPrice: self.purchaseableProduct.product.price
-                          currency: self.purchaseableProduct.product.priceLocale.localeIdentifier
-                          itemName: self.purchaseableProduct.product.localizedTitle
-                          itemType: NSStringFromClass([self.purchaseableProduct class])
-                            itemId: self.purchaseableProduct.productIdentifier
-                  customAttributes: nil];
 
     [self.purchaseableProduct.purchaseManager processPaymentForProduct: self.purchaseableProduct.product quantity: 1];
 }

@@ -23,7 +23,6 @@
 #import "MDBPurchaseManager.h"
 #import "MDBPurchaseViewController.h"
 
-#import <Crashlytics/Crashlytics.h>
 
 
 NSString *const kMDBFractalScapesFirstLaunchUserDefaultsKey = @"kMDBFractalScapesFirstLaunchUserDefaultsKey";
@@ -125,9 +124,7 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
         {
             id<MDBFractaDocumentProtocol> fractalDocument = fractalInfo.document;
             LSFractal* fractal = fractalDocument.fractal;
-            
-            if (fractal.name != nil)  [Answers logShareWithMethod: @"FractalCloud" contentName: fractal.name contentType:@"Fractal" contentId: fractal.name customAttributes: nil];
-            
+                        
             CKRecord* record;
             record = [[CKRecord alloc] initWithRecordType: CKFractalRecordType];
             record[CKFractalRecordNameField] = fractal.name;
@@ -147,7 +144,6 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
     
     [self.cloudKitManager savePublicRecords: records qualityOfService: NSQualityOfServiceUserInitiated withCompletionHandler:^(NSError *error) {
         if (error) {
-            [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"FractalCloud", @"Error":@(error.code)}];
         }
         [self showAlertTitled: @"Thanks for sharing!" potentialError: error onController: viewController];
     }];
@@ -176,7 +172,6 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
-                                       [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudSettings"}];
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                        [self sendUserToSystemiCloudSettings: sender];
                                    }];
@@ -186,7 +181,6 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
-                                        [Answers logCustomEventWithName: @"LibraryShare" customAttributes: @{@"Action": @"iCloudLater"}];
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
                                     }];
     [alert addAction: defaultAction];
