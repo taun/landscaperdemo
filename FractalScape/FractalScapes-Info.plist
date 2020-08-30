@@ -15,7 +15,7 @@
 					<key>CFBundleTypeName</key>
 					<string>Fractal</string>
 					<key>LSHandlerRank</key>
-					<string>Default</string>
+					<string>Owner</string>
 				</dict>
 			</array>
 			<key>CFBundleTypeIconFiles</key>
@@ -52,9 +52,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>Unknown</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSHandlerRank</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>

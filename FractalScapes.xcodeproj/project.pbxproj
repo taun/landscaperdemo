@@ -1378,7 +1378,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/bash;
 			shellScript = "git=`sh /etc/profile; which git`\nbranch_name=`$git symbolic-ref HEAD | sed -e 's,.*/\\\\(.*\\\\),\\\\1,'`\ngit_count=`$git rev-list $branch_name |wc -l | sed 's/^ *//;s/ *$//'`\nsimple_branch_name=`$git rev-parse --abbrev-ref HEAD`\n\nbuild_number=\"$git_count\"\nif [ $CONFIGURATION != \"Release\" || $CONFIGURATION != \"Beta\"]; then\nbuild_number+=\"-$simple_branch_name\"\nfi\n\ninfo_plist=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\ndsym_plist=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$info_plist\"\nif [ -f \"$DSYM_INFO_PLIST\" ] ; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$dsym_plist\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1609,6 +1609,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 501;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1774,6 +1775,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 501;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1950,6 +1952,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 501;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1996,6 +1999,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 501;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
