@@ -1608,7 +1608,7 @@ RPPreviewViewControllerDelegate>
 }
 -(NSBlockOperation*) operationForRenderer: (LSFractalRenderer*)renderer
 {
-    //    [self.activityIndicator startAnimating];
+    [self.activityIndicator startAnimating];
     
     [renderer setValuesForFractal: self.fractalDocument.fractal];
     
@@ -1623,17 +1623,21 @@ RPPreviewViewControllerDelegate>
             
             UIImageView* mainThreadImageView = renderer.mainThreadImageView;
             
-            if (mainThreadImageView && renderer.imageRef != NULL)
+            CGImageRef renderedImage = renderer.imageRef;
+            
+            if (mainThreadImageView && renderedImage != NULL)
             {
+                CGImageRef imageCopy = CGImageCreateCopy(renderedImage);
+                NSData* imageData = renderer.contextNSData;
+                BOOL applyFilters = renderer.applyFilters;
+
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    BOOL applyFilters = YES;
-                    if (renderer.applyFilters)
+                    if (applyFilters)
                     {
-                        
                         //                        [self updateFiltersOnView: renderer.imageView];
-                        CGFloat imageWidth = CGImageGetWidth(renderer.imageRef);
-                        CGFloat imageHeight = CGImageGetHeight(renderer.imageRef);
-                        CIImage *ciiInputImage = [CIImage imageWithBitmapData: renderer.contextNSData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
+                        CGFloat imageWidth = CGImageGetWidth(imageCopy);
+                        CGFloat imageHeight = CGImageGetHeight(imageCopy);
+                        CIImage *ciiInputImage = [CIImage imageWithBitmapData: imageData bytesPerRow: imageWidth*4 size: CGSizeMake(imageWidth, imageHeight) format: kCIFormatRGBA8 colorSpace: [MBImageFilter colorSpace]];
                         NSAssert(ciiInputImage, @"FractalScapes Error: Core Image CIImage for filters should not be nil");
                         CGImageRef filteredImage = [self newCGImageRefToBitmapFromFiltersAppliedToCIImage: ciiInputImage];
                         mainThreadImageView.image = [UIImage imageWithCGImage: filteredImage];
@@ -1642,7 +1646,7 @@ RPPreviewViewControllerDelegate>
                     else
                     {
 #pragma message "TODO: Filters view seems to use OpenGL. If a simple filter is implemented here, will this use opengl as well?"
-                        UIImage* tempImage = [UIImage imageWithCGImage: renderer.imageRef];
+                        UIImage* tempImage = [UIImage imageWithCGImage: imageCopy];
                         mainThreadImageView.image = tempImage;
                     }
                     
@@ -1657,6 +1661,8 @@ RPPreviewViewControllerDelegate>
                         self.renderTimeLabel.text = [NSString localizedStringWithFormat: @"Device: %@, Render Time: %0.0fms, Nodes: %lu",
                                                      deviceIdentifier,self.fractalRendererLN.renderTime,(unsigned long)self.fractalRendererLN.levelData.length];
                     }
+                    
+                    CGImageRelease(imageCopy);
                 }];
             }
         }
