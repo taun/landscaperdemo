@@ -2652,7 +2652,7 @@ RPPreviewViewControllerDelegate>
     self.fractal2PanGR.enabled = YES;
     
     RPScreenRecorder* recorder = [RPScreenRecorder sharedRecorder];
-    if (recorder.isAvailable)
+    if (recorder.isAvailable && recorder.isRecording)
     {
         [recorder stopRecordingWithHandler:^(RPPreviewViewController * _Nullable previewViewController, NSError * _Nullable error) {
             //
