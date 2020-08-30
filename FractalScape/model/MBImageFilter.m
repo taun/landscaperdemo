@@ -11,12 +11,6 @@
 #import "MBAppDelegate.h"
 #import "MDBAppModel.h"
 
-
-
-static EAGLContext* __eaglContext;
-static EAGLContext* __eaglSnapshotContext;
-
-
 @interface MBImageFilter ()
 
 @property (nonatomic,readwrite) CIFilter             *ciFilter;

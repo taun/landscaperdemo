@@ -66,52 +66,30 @@
 -(void)layoutWebView
 {
     UIView<WebViewProtocol>* webView;
-    UIWebView* uiWebView;
     WKWebView* wkWebView;
     
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     
-    if ([osVersion hasPrefix: @"8"])
-    {
-        /*
-         iOS 8 WKWebView seems to have a problem with CSS and the documentation files
-         so we use UIWebView only for iOS8.
-         */
-        uiWebView = [[UIWebView alloc] initWithFrame: CGRectZero];
-        uiWebView.userInteractionEnabled = YES;
-        uiWebView.delegate = self;
-        uiWebView.translatesAutoresizingMaskIntoConstraints = NO;
-        uiWebView.scrollView.backgroundColor = [UIColor clearColor];
-        uiWebView.scrollView.alwaysBounceVertical = YES;
-        uiWebView.scrollView.alwaysBounceHorizontal = NO;
-        uiWebView.backgroundColor = [UIColor clearColor];
-        uiWebView.scalesPageToFit = YES;
-        
-        webView = (UIView<WebViewProtocol>*)uiWebView;
-    }
-    else
-    {
-        WKPreferences* prefs = [WKPreferences new];
-        prefs.javaScriptEnabled = YES;
-        
-        WKWebViewConfiguration* config = [WKWebViewConfiguration new];
-        config.preferences = prefs;
-        //    config.allowsAirPlayForMediaPlayback = NO;
-        config.suppressesIncrementalRendering = NO;
-        
-        wkWebView = [[WKWebView alloc] initWithFrame: self.webContainer.bounds configuration: config];
-        wkWebView.userInteractionEnabled = YES;
-        wkWebView.UIDelegate = self;
-        wkWebView.navigationDelegate = self;
-        wkWebView.translatesAutoresizingMaskIntoConstraints = NO;
-        wkWebView.scrollView.backgroundColor = [UIColor clearColor];
-        wkWebView.scrollView.alwaysBounceVertical = YES;
-        wkWebView.scrollView.alwaysBounceHorizontal = NO;
-        wkWebView.backgroundColor = [UIColor clearColor];
-        wkWebView.allowsBackForwardNavigationGestures = NO;
-        webView = (UIView<WebViewProtocol>*)wkWebView;
-    }
+    WKPreferences* prefs = [WKPreferences new];
+    prefs.javaScriptEnabled = YES;
     
+    WKWebViewConfiguration* config = [WKWebViewConfiguration new];
+    config.preferences = prefs;
+    //    config.allowsAirPlayForMediaPlayback = NO;
+    config.suppressesIncrementalRendering = NO;
+    
+    wkWebView = [[WKWebView alloc] initWithFrame: self.webContainer.bounds configuration: config];
+    wkWebView.userInteractionEnabled = YES;
+    wkWebView.UIDelegate = self;
+    wkWebView.navigationDelegate = self;
+    wkWebView.translatesAutoresizingMaskIntoConstraints = NO;
+    wkWebView.scrollView.backgroundColor = [UIColor clearColor];
+    wkWebView.scrollView.alwaysBounceVertical = YES;
+    wkWebView.scrollView.alwaysBounceHorizontal = NO;
+    wkWebView.backgroundColor = [UIColor clearColor];
+    wkWebView.allowsBackForwardNavigationGestures = NO;
+    webView = (UIView<WebViewProtocol>*)wkWebView;
+
     self.webView = webView;
     [self.webContainer addSubview: self.webView];
     self.webView.frame = self.webContainer.bounds;
@@ -252,14 +230,7 @@
 
 -(void)dealloc
 {
-    if ([_webView isKindOfClass: [UIWebView class]])
-    {
-        [((UIWebView*)_webView) setDelegate: nil];
-    }
-    else if ([_webView isKindOfClass: [WKWebView class]])
-    {
-        [((WKWebView*)_webView)setUIDelegate: nil];
-    }
+    [((WKWebView*)_webView)setUIDelegate: nil];
 
     _webView = nil;
 }

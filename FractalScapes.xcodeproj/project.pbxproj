@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,6 @@
 		C50764761A33A537009DDF83 /* LSReplacementRule.m in Sources */ = {isa = PBXBuildFile; fileRef = C50764741A33A537009DDF83 /* LSReplacementRule.m */; };
 		C50B82951A02E06E00FBA03F /* MBFractalDescriptionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C50B82941A02E06E00FBA03F /* MBFractalDescriptionTableCell.m */; };
 		C50C47BA1A97C2E500CF5121 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50C47B91A97C2E500CF5121 /* Launch Screen.xib */; };
-		C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50C825F19BF916300AD6A0F /* AssetsLibrary.framework */; platformFilter = ios; };
 		C51130791A38C93F0083B178 /* MDBFractalPageColorTileView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51130771A38C93F0083B178 /* MDBFractalPageColorTileView.h */; };
 		C511307A1A38C93F0083B178 /* MDBFractalPageColorTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51130781A38C93F0083B178 /* MDBFractalPageColorTileView.m */; };
 		C511BA131A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = C511BA121A891F94004FD0BB /* MBLSFractalSummaryEditViewer.xib */; };
@@ -157,6 +156,7 @@
 		C5AD4EAB1C16651E009386FA /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4EA71C16651E009386FA /* NSObject+FBKVOController.m */; };
 		C5B0A2B71ACA04B800C5903A /* MBImageFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */; };
 		C5B0A2B81ACA04B800C5903A /* MBImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */; };
+		C5B730F524FC596D009CBE6B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B730F424FC596D009CBE6B /* Photos.framework */; };
 		C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */; };
 		C5BA2BE614C6F58900F2B9D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */; };
 		C5BA7FE61A1868C400AFCF70 /* FractalScapeIconSet.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */; };
@@ -445,6 +445,7 @@
 		C5B0A2B51ACA04B800C5903A /* MBImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBImageFilter.h; path = FractalScape/model/MBImageFilter.h; sourceTree = "<group>"; };
 		C5B0A2B61ACA04B800C5903A /* MBImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBImageFilter.m; path = FractalScape/model/MBImageFilter.m; sourceTree = "<group>"; };
 		C5B3F18219DC7C1900BDFAF5 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
+		C5B730F424FC596D009CBE6B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.16.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		C5B979EA14B3AF3B00BB0022 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C5BA2BE514C6F58900F2B9D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5BA7FE41A1868C400AFCF70 /* FractalScapeIconSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FractalScapeIconSet.h; sourceTree = "<group>"; };
@@ -568,7 +569,7 @@
 				C5A040291B8A3F1E0052398A /* StoreKit.framework in Frameworks */,
 				C5999E7B1B8293EA00A9D848 /* WebKit.framework in Frameworks */,
 				C5567B011A79F88400882474 /* CoreMotion.framework in Frameworks */,
-				C50C826019BF916300AD6A0F /* AssetsLibrary.framework in Frameworks */,
+				C5B730F524FC596D009CBE6B /* Photos.framework in Frameworks */,
 				C5B979EB14B3AF3B00BB0022 /* QuartzCore.framework in Frameworks */,
 				C5E6B78214A5346300DA48BD /* UIKit.framework in Frameworks */,
 				C5E6B78414A5346300DA48BD /* Foundation.framework in Frameworks */,
@@ -925,6 +926,7 @@
 		C5E6B78014A5346300DA48BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5B730F424FC596D009CBE6B /* Photos.framework */,
 				C580330A1D2F6461005481AB /* ReplayKit.framework */,
 				C51AE1C41C0623AE0017565E /* Fabric.framework */,
 				C557C1731BA77592001EC564 /* libcrypto.a */,
@@ -1267,6 +1269,7 @@
 						DevelopmentTeam = 6569EWWSLR;
 					};
 					C5E6B77C14A5346200DA48BD = {
+						DevelopmentTeam = 6569EWWSLR;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -1619,10 +1622,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
@@ -1632,7 +1633,7 @@
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1655,11 +1656,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = FractalScapeFractalModelTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = FractalScapesFractalModelTests;
@@ -1683,11 +1680,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = FractalScapeFractalModelTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = FractalScapesFractalModelTests;
@@ -1707,11 +1700,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = FractalScapeFractalModelTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = FractalScapesFractalModelTests;
@@ -1799,10 +1788,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
@@ -1812,7 +1799,7 @@
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1831,11 +1818,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = FractalScapeFractalModelTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = FractalScapesFractalModelTests;
@@ -1980,10 +1963,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
@@ -1993,7 +1974,7 @@
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2029,10 +2010,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "FractalScape/FractalScapes-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
@@ -2042,7 +2021,7 @@
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

@@ -8,8 +8,8 @@
 @import UIKit;
 @import QuartzCore;
 @import ImageIO;
-@import AssetsLibrary;
 @import ReplayKit;
+@import Photos;
 
 #include <math.h>
 
@@ -2017,9 +2017,9 @@ RPPreviewViewControllerDelegate>
     UIAlertController* __weak weakAlert = alert;
     MBLSFractalEditViewController* __weak weakSelf = self;
     
-    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
+    PHAuthorizationStatus cameraAuthStatus = [PHPhotoLibrary authorizationStatus];
     
-    if (cameraAuthStatus == ALAuthorizationStatusNotDetermined || cameraAuthStatus == ALAuthorizationStatusAuthorized)
+    if (cameraAuthStatus == PHAuthorizationStatusNotDetermined || cameraAuthStatus == PHAuthorizationStatusAuthorized)
     {
         UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Export as Image",nil)
                                                                style:UIAlertActionStyleDefault
@@ -3048,15 +3048,17 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 -(void)activateToolbarPanButton: (UIButton*)buttonToActivate
 {
-    NSMutableArray* buttonsToHide = [self.panToolbarButtons mutableCopy];
-    [buttonsToHide removeObject: buttonToActivate];
-    
-    for (UIButton* button in buttonsToHide)
-    {
-        button.selected = NO;
-    }
-    
-    buttonToActivate.selected = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableArray* buttonsToHide = [self.panToolbarButtons mutableCopy];
+        [buttonsToHide removeObject: buttonToActivate];
+        
+        for (UIButton* button in buttonsToHide)
+        {
+            button.selected = NO;
+        }
+        
+        buttonToActivate.selected = YES;
+    });
 }
 
 - (IBAction)moveTwoFingerPanToBaseRotation:(UIButton *)sender
