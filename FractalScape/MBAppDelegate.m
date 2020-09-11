@@ -23,8 +23,6 @@
 
 #import "FractalScapeIconSet.h"
 
-#import <Fabric/Fabric.h>
-
 
 // View controller segue identifiers.
 NSString *const kMDBAppDelegateMainStoryboardDocumentsViewControllerToEditDocumentListControllerSegueIdentifier = @"showEditFractalDocumentsList";
