@@ -60,7 +60,7 @@
     _categoryLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, _tileWidth, _tileWidth)];
     NSString* category = _colorCategory.name;
     if (category == nil || category.length == 0) {
-        category = @"Category";
+        category = NSLocalizedString(@"Category", nil);
     }
     _categoryLabel.text = category;
     _categoryLabel.translatesAutoresizingMaskIntoConstraints = NO;

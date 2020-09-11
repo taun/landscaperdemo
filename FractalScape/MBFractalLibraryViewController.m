@@ -410,7 +410,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
     UIAlertController* __weak weakAlert = alert;
     
     //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
-    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Upgrade to create a new Fractal" style:UIAlertActionStyleDefault
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Upgrade to create a new Fractal", nil) style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -418,7 +418,7 @@ NSString *const kSupplementaryHeaderCellIdentifier = @"FractalLibraryCollectionH
                                    }];
     [alert addAction: fractalCloud];
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Maybe Later", nil) style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode

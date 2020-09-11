@@ -94,18 +94,19 @@
                                                             preferredStyle: UIAlertControllerStyleAlert];
     
     UIAlertController* __weak weakAlert = alert;
-    
+    MDBFractalCloudBrowser* __weak weakSelf = self;
+
     //    ALAuthorizationStatus cameraAuthStatus = [ALAssetsLibrary authorizationStatus];
     
-    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle:@"Go to iCloud Settings" style:UIAlertActionStyleDefault
+    UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Go to iCloud Settings", nil) style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                       [self sendUserToSystemiCloudSettings: sender];
+                                       [(MDBAppModel*)weakSelf.appModel sendUserToSystemiCloudSettings: sender];
                                    }];
     [alert addAction: fractalCloud];
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Later Maybe" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Later Maybe", nil) style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action)
                                     {
                                         [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
@@ -117,11 +118,6 @@
 //    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
     
     [self presentViewController: alert animated:YES completion:nil];
-}
-
--(void)sendUserToSystemiCloudSettings: (id)sender
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: UIApplicationOpenSettingsURLString]];
 }
 
 -(void)setupSearchController
@@ -374,14 +370,14 @@
                 [self.collectionView deselectItemAtIndexPath: path animated: YES];
             }
             
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle: @"Downloaded"
-                                                                           message: @"Go to 'My Fractals' tab"
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle: NSLocalizedString(@"Downloaded", nil)
+                                                                           message: NSLocalizedString(@"Go to 'My Fractals' tab", nil)
                                                                     preferredStyle: UIAlertControllerStyleAlert];
             
             UIAlertController* __weak weakAlert = alert;
             
             
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Ok", nil) style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action)
                                             {
                                                 [weakAlert dismissViewControllerAnimated:YES completion:nil];

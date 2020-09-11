@@ -68,7 +68,7 @@
     UIView<WebViewProtocol>* webView;
     WKWebView* wkWebView;
     
-    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
+//    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     
     WKPreferences* prefs = [WKPreferences new];
     prefs.javaScriptEnabled = YES;

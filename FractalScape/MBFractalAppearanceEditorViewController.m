@@ -80,6 +80,6 @@
     [self setupChildViewController: (UIViewController<FractalControllerProtocol>*)viewController];
 
     UINavigationController* navCon = (UINavigationController*)viewController;
-    NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
+//    NSString* selectedViewName = NSStringFromClass([[navCon.viewControllers firstObject] class]);
 }
 @end

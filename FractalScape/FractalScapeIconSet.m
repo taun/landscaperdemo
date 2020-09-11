@@ -2209,7 +2209,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
     {
-        NSString* textContent = @"1";
+        NSString* textContent = NSLocalizedString(@"1", nil);
         NSMutableParagraphStyle* rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         rectangleStyle.alignment = NSTextAlignmentCenter;
 
@@ -2237,7 +2237,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
     {
-        NSString* textContent = @"2";
+        NSString* textContent = NSLocalizedString(@"2", nil);
         NSMutableParagraphStyle* rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         rectangleStyle.alignment = NSTextAlignmentCenter;
 
@@ -2265,7 +2265,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
     {
-        NSString* textContent = @"3";
+        NSString* textContent = NSLocalizedString(@"3", nil);
         NSMutableParagraphStyle* rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         rectangleStyle.alignment = NSTextAlignmentCenter;
 
@@ -2293,7 +2293,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
     {
-        NSString* textContent = @"4";
+        NSString* textContent = NSLocalizedString(@"4", nil);
         NSMutableParagraphStyle* rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         rectangleStyle.alignment = NSTextAlignmentCenter;
 
@@ -2321,7 +2321,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
     {
-        NSString* textContent = @"5";
+        NSString* textContent = NSLocalizedString(@"5", nil);
         NSMutableParagraphStyle* rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         rectangleStyle.alignment = NSTextAlignmentCenter;
 
@@ -2349,7 +2349,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
     [rectanglePath stroke];
     {
-        NSString* textContent = @"6";
+        NSString* textContent = NSLocalizedString(@"6", nil);
         NSMutableParagraphStyle* rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         rectangleStyle.alignment = NSTextAlignmentCenter;
 
@@ -6308,7 +6308,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     //// Text Drawing
     CGRect textRect = CGRectMake(0, 0, 682, 167);
     {
-        NSString* textContent = @"FractalScapes";
+        NSString* textContent = NSLocalizedString(@"FractalScapes", nil);
         if (context) CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, FractalScapeIconSet.topShadow.shadowOffset, FractalScapeIconSet.topShadow.shadowBlurRadius, [FractalScapeIconSet.topShadow.shadowColor CGColor]);
         NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
@@ -15519,7 +15519,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     //// Text Drawing
     CGRect textRect = CGRectMake(1, -16, 320, 320);
     {
-        NSString* textContent = @"β";
+        NSString* textContent = NSLocalizedString(@"β", nil);
         NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         textStyle.alignment = NSTextAlignmentCenter;
 
@@ -15547,7 +15547,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     //// Text Drawing
     CGRect textRect = CGRectMake(5, -20, 320, 320);
     {
-        NSString* textContent = @"α";
+        NSString* textContent = NSLocalizedString(@"α", nil);
         NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         textStyle.alignment = NSTextAlignmentCenter;
 
@@ -50442,7 +50442,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
     //// Text Drawing
     CGRect textRect = CGRectMake(1, 0, 320, 320);
     {
-        NSString* textContent = @"Σ";
+        NSString* textContent = NSLocalizedString(@"Σ", "Sum greek symbol");
         NSMutableParagraphStyle* textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
         textStyle.alignment = NSTextAlignmentCenter;
 
@@ -52053,7 +52053,7 @@ static UIImage* _imageOfIConBetaDebug29 = nil;
 @implementation NSShadow (PaintCodeAdditions)
 - (instancetype)initWithColor: (UIColor*)color offset: (CGSize)offset blurRadius: (CGFloat)blurRadius
 {
-    self = [super init];
+    self = [self init];
     if (self)
     {
         self.shadowColor = color;

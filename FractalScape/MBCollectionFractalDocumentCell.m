@@ -73,7 +73,7 @@
     
     _radius = 5.0;
     
-    _textLabel.text = @"Loading..";
+    _textLabel.text = NSLocalizedString(@"Loading..", @"Loading a fractal");
     _detailTextLabel.text = @"";
     
     _imageView.image = nil;
@@ -245,7 +245,7 @@
         else
         {
             _imageView.image = nil;
-            _textLabel.text = @"Loading..";
+            _textLabel.text = NSLocalizedString(@"Loading..", "Loading a fractal");
             _detailTextLabel.text = @"";
         }
     }

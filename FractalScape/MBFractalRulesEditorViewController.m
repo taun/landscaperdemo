@@ -67,7 +67,7 @@
         
         if (canPurchase)
         {
-            inApp = @"Rule Editing is only available with In-App Purchase";
+            inApp = NSLocalizedString(@"Rule Editing is only available with In-App Purchase", nil);
             MDBProPurchaseableProduct* proPak = self.appModel.purchaseManager.proPak;
             if (proPak.hasAppReceipt)
             { // restore
@@ -78,7 +78,7 @@
         }
         else
         {
-            inApp = @"Rule Editing is only available with In-App Purchase \nCheck,device Settings, General, Restrictions, In-App Purchase";
+            inApp = NSLocalizedString(@"Rule Editing is only available with In-App Purchase \nCheck,device Settings, General, Restrictions, In-App Purchase", nil);
             [self.upgradeToProView removeFromSuperview];
         }
 
@@ -171,7 +171,7 @@
 
 - (IBAction)rulesStartTapGesture:(UITapGestureRecognizer *)sender {
     [self cleanUpUIState];
-    NSString* infoString = @"Holder for the starting set of rules to draw.";
+    NSString* infoString = NSLocalizedString(@"Holder for the starting set of rules to draw.", nil);
     self.ruleHelpLabel.text = infoString;
     self.ruleHelpLabel.highlighted = NO;
     [self infoAnimateView: self.destinationView];
@@ -179,7 +179,7 @@
 #pragma message "TODO move info string to proper class instance."
 - (IBAction)replacementTapGesture:(UITapGestureRecognizer *)sender {
     [self cleanUpUIState];
-    NSString* infoString = @"Occurences of rule to left of '=>' replaced by rules to the right.";
+    NSString* infoString = NSLocalizedString(@"Occurences of rule to left of '=>' replaced by rules to the right.", nil);
     self.ruleHelpLabel.text = infoString;
     self.ruleHelpLabel.highlighted = NO;
     [self infoAnimateView: self.replacementRules];

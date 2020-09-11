@@ -3515,7 +3515,7 @@ verticalPropertyPath: (NSString*) verticalPath
     CGFloat margin = 64.0;
     //    CGRect textRect = CGRectMake(imageSize.width - margin - width, imageSize.height - margin - height, width, height);
     CGRect textRect = CGRectMake(imageSize.width - width, imageSize.height - height, width, height);
-    NSString* watermark = @"FractalScapes";
+    NSString* watermark = NSLocalizedString(@"FractalScapes", nil);
     CGContextSaveGState(aCGContext);
     {
         CGContextSetShadowWithColor(aCGContext, FractalScapeIconSet.topShadow.shadowOffset, FractalScapeIconSet.topShadow.shadowBlurRadius, [FractalScapeIconSet.topShadow.shadowColor CGColor]);

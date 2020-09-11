@@ -75,7 +75,7 @@
     [self addSubview: _ruleView];
     
     _separator = [[UILabel alloc] initWithFrame: CGRectMake(_tileWidth*2, 0, _tileWidth, _tileWidth)];
-    _separator.text = @"=>";
+    _separator.text = NSLocalizedString(@"=>", nil);
     _separator.translatesAutoresizingMaskIntoConstraints = NO;
     _separator.textColor = [FractalScapeIconSet tutorialOverlayColor];
 

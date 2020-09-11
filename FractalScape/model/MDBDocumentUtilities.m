@@ -218,7 +218,7 @@ NSString * const SavedFractalURLNotification = @"SavedFractalURL";
         }
         else if(remove)
         {
-            BOOL success = [[NSFileManager defaultManager] removeItemAtURL: url error: nil];
+            [[NSFileManager defaultManager] removeItemAtURL: url error: nil];
             [toURLS addObject: @[url ,toURL]];;
        }
     }

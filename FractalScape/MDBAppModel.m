@@ -109,8 +109,10 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
 
 -(void)sendUserToSystemiCloudSettings: (id)sender
 {
-    // Cloud —> prefs:root=CASTLE
-    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: UIApplicationOpenSettingsURLString]];
+    NSURL* url = [NSURL URLWithString: UIApplicationOpenSettingsURLString];
+    [[UIApplication sharedApplication] openURL: url options: @{} completionHandler:^(BOOL success) {
+        return;
+    }];
 }
 
 
@@ -167,13 +169,14 @@ NSString* const  kPrefAnalytics = @"com.moedae.FractalScapes.collectAnalytics";
                                                             preferredStyle: UIAlertControllerStyleActionSheet];
     
     UIAlertController* __weak weakAlert = alert;
+    MDBAppModel* __weak weakSelf = self;
     
     UIAlertAction* fractalCloud = [UIAlertAction actionWithTitle: NSLocalizedString(@"Go to iCloud Settings",nil)
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action)
                                    {
                                        [weakAlert dismissViewControllerAnimated:YES completion:nil]; // because of popover mode
-                                       [self sendUserToSystemiCloudSettings: sender];
+                                       [weakSelf sendUserToSystemiCloudSettings: sender];
                                    }];
     [alert addAction: fractalCloud];
     

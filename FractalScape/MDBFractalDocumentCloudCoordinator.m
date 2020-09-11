@@ -186,8 +186,8 @@
     NSArray *insertedMetadataItemsOrNil = notification.userInfo[NSMetadataQueryUpdateAddedItemsKey];
     if (insertedMetadataItemsOrNil.count > 0)
     {
-        NSMetadataItem* firstItem = (NSMetadataItem*)insertedMetadataItemsOrNil[0];
-        NSArray* attributes = firstItem.attributes;
+//        NSMetadataItem* firstItem = (NSMetadataItem*)insertedMetadataItemsOrNil[0];
+//        NSArray* attributes = firstItem.attributes;
 //        NSDictionary* values = [firstItem valuesForAttributes: attributes];
 //        NSLog(@"InsertedMetadataItems: %@", values);
 

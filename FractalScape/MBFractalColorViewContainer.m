@@ -48,8 +48,10 @@
     [super viewDidLoad];
     // seems to be a bug in that the tintColor is not being used unless I re-set it.
     // this way it still takes the tintColor from IB.
-    _lineColorsTemplateImageView.tintColor = _lineColorsTemplateImageView.tintColor;
-    _fillColorsTemplateImageView.tintColor = _fillColorsTemplateImageView.tintColor;
+    UIImageView* strongLineView = _lineColorsTemplateImageView;
+    UIImageView* strongFillView = _fillColorsTemplateImageView;
+    strongLineView.tintColor = strongLineView.tintColor;
+    strongFillView.tintColor = strongFillView.tintColor;
     
 }
 
@@ -95,19 +97,19 @@
 }
 
 - (IBAction)pageColorTapGesture:(UITapGestureRecognizer *)sender {
-    NSString* infoString = @"Page background color. Default is clear.";
+    NSString* infoString = NSLocalizedString(@"Page background color. Default is clear.", nil);
     self.ruleHelpLabel.text = infoString;
     [self infoAnimateView: self.pageColorDestinationTileView];
 }
 
 - (IBAction)lineColorTapGesture:(UITapGestureRecognizer *)sender {
-    NSString* infoString = @"Line colors.";
+    NSString* infoString = NSLocalizedString(@"Line colors.", nil);
     self.ruleHelpLabel.text = infoString;
     [self infoAnimateView: self.destinationView];
 }
 
 - (IBAction)fillColorTapGesture:(UITapGestureRecognizer *)sender {
-    NSString* infoString = @"Fill colors.";
+    NSString* infoString = NSLocalizedString(@"Fill colors.", nil);
     self.ruleHelpLabel.text = infoString;
     [self infoAnimateView: self.fillColorsListView];
 }

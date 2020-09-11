@@ -89,8 +89,6 @@
 		C57EDE50170FC29900967F79 /* MBImmutableCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE4F170FC29900967F79 /* MBImmutableCellBackgroundView.m */; };
 		C57EDE53170FC2B700967F79 /* MBTextViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57EDE52170FC2B700967F79 /* MBTextViewTableCell.m */; };
 		C57F32BC170209EE0072FE75 /* MBXibAutolayoutTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F32BB170209EE0072FE75 /* MBXibAutolayoutTableCell.m */; };
-		C5800FC41D3057BF00555E59 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C5800FC31D3057BF00555E59 /* README.md */; };
-		C5800FC61D30580A00555E59 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C5800FC51D30580A00555E59 /* README.md */; };
 		C580330B1D2F6461005481AB /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C580330A1D2F6461005481AB /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C583ED831B963CA200ED4BA6 /* MDBProPurchaseableProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = C583ED811B963CA200ED4BA6 /* MDBProPurchaseableProduct.h */; };
 		C583ED841B963CA200ED4BA6 /* MDBProPurchaseableProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C583ED821B963CA200ED4BA6 /* MDBProPurchaseableProduct.m */; };
@@ -1379,7 +1377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "git=`sh /etc/profile; which git`\nbranch_name=`$git symbolic-ref HEAD | sed -e 's,.*/\\\\(.*\\\\),\\\\1,'`\ngit_count=`$git rev-list $branch_name |wc -l | sed 's/^ *//;s/ *$//'`\nsimple_branch_name=`$git rev-parse --abbrev-ref HEAD`\n\nbuild_number=\"$git_count\"\nif [ $CONFIGURATION != \"Release\" || $CONFIGURATION != \"Beta\"]; then\nbuild_number+=\"-$simple_branch_name\"\nfi\n\ninfo_plist=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\ndsym_plist=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$info_plist\"\nif [ -f \"$DSYM_INFO_PLIST\" ] ; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$dsym_plist\"\nfi\n";
+			shellScript = "git=`sh /etc/profile; which git`\nbranch_name=`$git symbolic-ref HEAD`\ngit_count=`$git rev-list $branch_name |wc -l | sed 's/^ *//;s/ *$//'`\nsimple_branch_name=`$git rev-parse --abbrev-ref HEAD`\n\nbuild_number=\"$git_count\"\nif [ $CONFIGURATION != \"Release\"]; then\nbuild_number+=\"-$simple_branch_name\"\nfi\n\ninfo_plist=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\" #TARGET_BUILD_DIR\ndsym_plist=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$info_plist\"\nif [ -f \"$DSYM_INFO_PLIST\" ] ; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$dsym_plist\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1427,7 +1425,6 @@
 				C5450ED714BBB8D800CD2E09 /* MBFractalSegment.m in Sources */,
 				C5CE0E501B542C6100EEC58C /* UIFont+MDKProportional.m in Sources */,
 				C583ED881B963CC800ED4BA6 /* MDBColorPakPurchaseableProduct.m in Sources */,
-				C5800FC61D30580A00555E59 /* README.md in Sources */,
 				C53956FB14BF5ABC00D7301B /* QuartzHelpers.m in Sources */,
 				C5C37C691A24ED70008C5409 /* MBLSReplacementRuleTileView.m in Sources */,
 				C54FC6D31ADB60A600588E9F /* MDBImageFiltersListView.m in Sources */,
@@ -1440,7 +1437,6 @@
 				C5D9C2C014D32BB500AC9B47 /* MBLSFractalEditViewController.m in Sources */,
 				C5F184791AA6663800233E49 /* MDBDocumentUtilities.m in Sources */,
 				C52D75D61A93A3C900BDA6B3 /* MDBFractalFiltersControllerViewController.m in Sources */,
-				C5800FC41D3057BF00555E59 /* README.md in Sources */,
 				C50B82951A02E06E00FBA03F /* MBFractalDescriptionTableCell.m in Sources */,
 				C5BA7FE71A1868C400AFCF70 /* FractalScapeIconSet.m in Sources */,
 				C5CE0E4E1B542C6100EEC58C /* NSString+MDKConvenience.m in Sources */,
