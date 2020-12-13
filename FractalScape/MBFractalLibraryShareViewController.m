@@ -3,8 +3,6 @@
 //  Copyright (c) 2015 MOEDAE LLC. All rights reserved.
 //
 
-@import AssetsLibrary;
-
 #import "MBFractalLibraryShareViewController.h"
 
 #import "MDBAppModel.h"
