@@ -1375,7 +1375,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "git=`sh /etc/profile; which git`\nbranch_name=`$git symbolic-ref HEAD`\ngit_count=`$git rev-list $branch_name |wc -l | sed 's/^ *//;s/ *$//'`\nsimple_branch_name=`$git rev-parse --abbrev-ref HEAD`\n\nbuild_number=\"$git_count\"\nif [ $CONFIGURATION != \"Release\" ]\nthen\nbuild_number+=\"-$simple_branch_name\"\nfi\n\ninfo_plist=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\" #TARGET_BUILD_DIR\ndsym_plist=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$info_plist\"\nif [ -f \"$DSYM_INFO_PLIST\" ] ; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$dsym_plist\"\nfi\n";
+			shellScript = "git=`sh /etc/profile; which git`\n\n# curtis version\nbundleVersion=`\"$git\" rev-list --all |wc -l`\n\n# branch_name=`$git symbolic-ref HEAD`\n# git_count=`$git rev-list $branch_name |wc -l | sed 's/^ *//;s/ *$//'`\nsimple_branch_name=`$git rev-parse --abbrev-ref HEAD`\n\n# build_number=\"$git_count\"\nif [ $CONFIGURATION != \"Release\" ]\nthen\nbundleVersion+=\"-$simple_branch_name\"\n# echo bundleVersion+\"-$simple_branch_name\"\nfi\n\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bundleVersion\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bundleVersion\" \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1604,7 +1604,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 505;
+				CURRENT_PROJECT_VERSION = 510;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1771,7 +1771,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 505;
+				CURRENT_PROJECT_VERSION = 510;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1949,7 +1949,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 505;
+				CURRENT_PROJECT_VERSION = 510;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1997,7 +1997,7 @@
 				CODE_SIGN_ENTITLEMENTS = FractalScapes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 505;
+				CURRENT_PROJECT_VERSION = 510;
 				DEVELOPMENT_TEAM = 6569EWWSLR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
