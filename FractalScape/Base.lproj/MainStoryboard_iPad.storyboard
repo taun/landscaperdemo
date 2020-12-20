@@ -32,10 +32,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="602" height="702"/>
                                                         <subviews>
                                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-5R-WKj" userLabel="FractalCanvas">
-                                                                <rect key="frame" x="10" y="10" width="582" height="682"/>
+                                                                <rect key="frame" x="10" y="12" width="582" height="680"/>
                                                                 <subviews>
                                                                     <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="UIImageView">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="582" height="682"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="582" height="680"/>
                                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <gestureRecognizers/>
                                                                         <connections>
@@ -60,7 +60,7 @@
                                                             <constraint firstItem="9wd-5R-WKj" firstAttribute="leading" secondItem="K7q-IS-pfO" secondAttribute="leading" constant="10" id="Bha-gy-OhZ"/>
                                                             <constraint firstAttribute="bottom" secondItem="9wd-5R-WKj" secondAttribute="bottom" constant="10" id="Ftc-Uh-4eo"/>
                                                             <constraint firstAttribute="trailing" secondItem="9wd-5R-WKj" secondAttribute="trailing" constant="10" id="u1t-Jf-cvY"/>
-                                                            <constraint firstItem="9wd-5R-WKj" firstAttribute="top" secondItem="K7q-IS-pfO" secondAttribute="top" constant="10" id="wpm-ef-dOo"/>
+                                                            <constraint firstItem="9wd-5R-WKj" firstAttribute="top" secondItem="K7q-IS-pfO" secondAttribute="top" constant="12" id="wpm-ef-dOo"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="delegate" destination="4nM-Pc-iAd" id="Lqm-gO-T05"/>
@@ -84,7 +84,7 @@
                                                     <constraint firstItem="K7q-IS-pfO" firstAttribute="leading" secondItem="L8D-tT-rkV" secondAttribute="leading" id="WF5-Bd-UWv"/>
                                                     <constraint firstAttribute="bottom" secondItem="K7q-IS-pfO" secondAttribute="bottom" id="biS-mC-3aL"/>
                                                     <constraint firstItem="K7q-IS-pfO" firstAttribute="top" secondItem="L8D-tT-rkV" secondAttribute="top" id="dAz-gs-pgq"/>
-                                                    <constraint firstItem="9wd-5R-WKj" firstAttribute="height" secondItem="L8D-tT-rkV" secondAttribute="height" constant="-20" id="jvk-A6-QP9"/>
+                                                    <constraint firstItem="9wd-5R-WKj" firstAttribute="height" secondItem="L8D-tT-rkV" secondAttribute="height" constant="-22" id="jvk-A6-QP9"/>
                                                 </constraints>
                                                 <variation key="heightClass=regular-widthClass=compact">
                                                     <mask key="subviews">

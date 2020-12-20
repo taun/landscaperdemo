@@ -847,6 +847,28 @@ RPPreviewViewControllerDelegate>
     [self.navigationController presentViewController: weakAlert animated:YES completion:nil];
 }
 
+-(void)showNotImplementOnMacOSAlert: (NSString*)message
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle: message
+                                                                   message: NSLocalizedString(@"is not yet implemented for the Mac. Soon ...",nil)
+                                                            preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertController* __weak weakAlert = alert;
+    
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle: NSLocalizedString(@"Ok", @"Ok, go ahead with action")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                        //                                        [weakAlert dismissViewControllerAnimated:YES completion:nil];
+                                        //                                        [self updateLibraryRepresentationIfNeededNow: YES];
+                                    }];
+    [alert addAction: defaultAction];
+    
+    
+    [self.navigationController presentViewController: weakAlert animated:YES completion:nil];
+}
+
 -(id<MDBFractaDocumentProtocol>)fractalDocument
 {
     return _fractalInfo.document;
@@ -2052,7 +2074,12 @@ RPPreviewViewControllerDelegate>
                                         MBLSFractalEditViewController* strongSelf = weakSelf;
                                         
                                         [weakAlert dismissViewControllerAnimated: YES completion: nil];
-                                        [strongSelf shareWithDocumentInteractionController: sender];
+#if TARGET_OS_MACCATALYST
+        // TODO: Implement macOS alternative
+        [strongSelf showNotImplementOnMacOSAlert: @"Document Share"];
+#else
+        [strongSelf shareWithDocumentInteractionController: sender];
+#endif
                                     }];
     [alert addAction: documentShare];
     
@@ -2076,7 +2103,12 @@ RPPreviewViewControllerDelegate>
                                         MBLSFractalEditViewController* strongSelf = weakSelf;
                                                                                 
                                         [weakAlert dismissViewControllerAnimated: YES completion:nil];
-                                        [strongSelf sharePDFWithDocumentInteractionController: sender];
+#if TARGET_OS_MACCATALYST
+        // TODO: Implement macOS alternative
+            [strongSelf showNotImplementOnMacOSAlert: @"PDF Vector Share"];
+#else
+            [strongSelf sharePDFWithDocumentInteractionController: sender];
+#endif
                                     }];
         [alert addAction: vectorPDF];
     }
