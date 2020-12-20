@@ -19,23 +19,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
+                            <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="818" verticalCompressionResistancePriority="818" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-WI-8ja" userLabel="FractalLevelHolder">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="ekL-TA-FTU" userLabel="FractalViewRoot">
                                         <rect key="frame" x="-3" y="-3" width="606" height="706"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-tT-rkV" userLabel="FractalViewParent">
-                                                <rect key="frame" x="2" y="46" width="602" height="658"/>
+                                                <rect key="frame" x="2" y="2" width="602" height="702"/>
                                                 <subviews>
-                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="K7q-IS-pfO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="602" height="658"/>
+                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="K7q-IS-pfO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="602" height="702"/>
                                                         <subviews>
                                                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-5R-WKj" userLabel="FractalCanvas">
-                                                                <rect key="frame" x="10" y="10" width="582" height="638"/>
+                                                                <rect key="frame" x="10" y="10" width="582" height="682"/>
                                                                 <subviews>
                                                                     <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QA7-0x-p1h" userLabel="FractalView" customClass="UIImageView">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="582" height="638"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="582" height="682"/>
                                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <gestureRecognizers/>
                                                                         <connections>
@@ -886,16 +886,16 @@
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leadingMargin" constant="-6" id="1Cp-Ac-Lfe"/>
+                                            <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="2" id="1Cp-Ac-Lfe"/>
                                             <constraint firstAttribute="trailing" secondItem="fN9-Mq-Ukg" secondAttribute="trailing" constant="-216" placeholder="YES" id="5Ot-TV-dl0"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="L8D-tT-rkV" secondAttribute="trailing" constant="-6" id="5VZ-uV-U3v"/>
+                                            <constraint firstAttribute="trailing" secondItem="L8D-tT-rkV" secondAttribute="trailing" constant="2" id="5VZ-uV-U3v"/>
                                             <constraint firstItem="SdO-1x-rjL" firstAttribute="trailing" secondItem="ZQ7-Jz-vVR" secondAttribute="trailing" id="9cr-PB-C02"/>
                                             <constraint firstItem="ZQ7-Jz-vVR" firstAttribute="top" secondItem="SdO-1x-rjL" secondAttribute="bottom" id="Hlh-T5-VmA"/>
                                             <constraint firstItem="v9U-ZO-4Bb" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leadingMargin" constant="6" id="IfB-ZL-Bli"/>
                                             <constraint firstItem="hxA-Rk-5FD" firstAttribute="height" secondItem="ayn-he-ePh" secondAttribute="height" id="KVK-4e-KJS"/>
-                                            <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="topMargin" constant="-6" id="OvU-lg-C8p"/>
+                                            <constraint firstItem="L8D-tT-rkV" firstAttribute="top" secondItem="ekL-TA-FTU" secondAttribute="top" constant="2" id="OvU-lg-C8p"/>
                                             <constraint firstItem="wmh-En-OwM" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="10" id="Pea-fQ-YfV"/>
-                                            <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottomMargin" constant="6" id="SLY-K3-9cB"/>
+                                            <constraint firstItem="L8D-tT-rkV" firstAttribute="bottom" secondItem="ekL-TA-FTU" secondAttribute="bottom" constant="-2" id="SLY-K3-9cB"/>
                                             <constraint firstItem="XIe-BR-WMy" firstAttribute="width" secondItem="wmh-En-OwM" secondAttribute="width" id="Tgk-ig-GfA"/>
                                             <constraint firstAttribute="centerX" secondItem="3Df-59-GZt" secondAttribute="centerX" priority="750" constant="-8" id="TsX-Ok-zmn"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="ZQ7-Jz-vVR" secondAttribute="trailing" id="UGs-Mg-3Sl"/>
