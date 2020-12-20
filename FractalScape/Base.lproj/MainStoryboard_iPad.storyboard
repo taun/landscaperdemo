@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0xE-iA-jSj">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -2772,12 +2772,12 @@ Drag icon to holder below to apply effect</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqt-OL-7TY" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="18.333333333333314" y="72" width="563.33333333333348" height="972"/>
+                                <rect key="frame" x="18" y="72" width="564.33333333333337" height="972"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-Bj-4wS">
-                                        <rect key="frame" x="0.0" y="0.0" width="563.33333333333337" height="972"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="564.33333333333337" height="972"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="51C-ij-UpW">
-                                            <rect key="frame" x="0.0" y="0.0" width="563.33333333333337" height="972"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="564.33333333333337" height="972"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJr-Yi-XVd" userLabel="ScrollContainer">
@@ -2909,7 +2909,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHN-WE-buM" customClass="MDKLayerViewDesignable">
-                                                                            <rect key="frame" x="117.66666666666669" y="638.66666666666663" width="329" height="61.333333333333371"/>
+                                                                            <rect key="frame" x="117.33333333333337" y="638.66666666666663" width="329" height="61.333333333333371"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d7-BG-oNU">
                                                                                     <rect key="frame" x="8" y="8" width="313" height="45.333333333333336"/>
@@ -3663,20 +3663,20 @@ The main screen with all your fractals is called your "Library". See below for a
         <scene sceneID="uhO-0n-cBU">
             <objects>
                 <tableViewController storyboardIdentifier="TutorialMasterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="B8t-lF-JXC" customClass="MDBTutorialMasterTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HelpMasterTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pu6-X5-wdT">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HelpMasterTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pu6-X5-wdT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HelpContentsCell" id="s6A-u6-upv" customClass="MDBHelpContentsTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="50.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
-                                    <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="394.66666666666669" height="50.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
-                                            <rect key="frame" x="28" y="15" width="98" height="14"/>
+                                            <rect key="frame" x="28" y="15.000000000000002" width="98" height="20.666666666666671"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -4872,12 +4872,12 @@ Please try again later.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcC-uT-bo1" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="16.666666666666686" y="72" width="566.66666666666652" height="1072"/>
+                                <rect key="frame" x="16.666666666666686" y="72" width="567" height="1072"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVu-9d-51V">
-                                        <rect key="frame" x="0.0" y="0.0" width="566.66666666666663" height="1072"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="567" height="1072"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GNi-gh-71h">
-                                            <rect key="frame" x="0.0" y="0.0" width="566.66666666666663" height="1072"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="1072"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93G-cV-xB9" userLabel="ScrollContainer">
