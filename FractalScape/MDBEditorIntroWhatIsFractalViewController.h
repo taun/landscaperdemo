@@ -15,7 +15,7 @@
 
 @end
 
-@interface MDBEditorIntroWhatIsFractalViewController : UIViewController <UIWebViewDelegate,WKUIDelegate, WKNavigationDelegate>
+@interface MDBEditorIntroWhatIsFractalViewController : UIViewController <WKUIDelegate, WKNavigationDelegate>
 
 @property (nonatomic,strong)  UIView<WebViewProtocol>   *webView;
 @property (strong, nonatomic) IBOutlet UIView           *webContainer;

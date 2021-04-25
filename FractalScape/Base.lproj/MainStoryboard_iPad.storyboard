@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0xE-iA-jSj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0xE-iA-jSj">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -55,7 +56,7 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.91662824153900146" green="0.91628801822662354" blue="0.92631775140762329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="9wd-5R-WKj" firstAttribute="leading" secondItem="K7q-IS-pfO" secondAttribute="leading" constant="10" id="Bha-gy-OhZ"/>
                                                             <constraint firstAttribute="bottom" secondItem="9wd-5R-WKj" secondAttribute="bottom" constant="10" id="Ftc-Uh-4eo"/>
@@ -883,7 +884,7 @@
                                                 <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </activityIndicatorView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="L8D-tT-rkV" firstAttribute="leading" secondItem="ekL-TA-FTU" secondAttribute="leading" constant="2" id="1Cp-Ac-Lfe"/>
@@ -937,7 +938,7 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="ekL-TA-FTU" firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" constant="3" id="QJk-1c-69Z"/>
@@ -947,7 +948,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.91662824153900146" green="0.91628801822662354" blue="0.92631775140762329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="TbU-WI-8ja" firstAttribute="top" secondItem="pSX-p9-jkP" secondAttribute="top" id="0cN-oL-7yD"/>
                             <constraint firstAttribute="bottom" secondItem="TbU-WI-8ja" secondAttribute="bottom" id="IdL-jb-QvC"/>
@@ -2542,7 +2543,7 @@ Drag icon to holder below to apply effect</string>
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Zoz-c2-VEt" userLabel="LibraryCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBlueColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" sectionInsetReference="safeArea" id="tuN-UJ-qld" customClass="MDKUICollectionViewResizingFlowLayout">
                             <size key="itemSize" width="150" height="258"/>
                             <size key="headerReferenceSize" width="50" height="0.0"/>
@@ -2561,11 +2562,12 @@ Drag icon to holder below to apply effect</string>
                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ShI-nH-hbk">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <blurEffect style="extraLight"/>
                                 </visualEffectView>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.47843137383460999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" systemColor="separatorColor"/>
                             <constraints>
                                 <constraint firstItem="Jac-CG-EeR" firstAttribute="top" secondItem="Mjp-7F-fEf" secondAttribute="top" id="OBh-zf-Mxu"/>
                                 <constraint firstAttribute="trailing" secondItem="Jac-CG-EeR" secondAttribute="trailing" id="QYv-XI-h2g"/>
@@ -2600,7 +2602,7 @@ Drag icon to holder below to apply effect</string>
                                                     <rect key="frame" x="59" y="59" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="ocs-qG-gJa" secondAttribute="centerY" id="8hc-sC-2y6"/>
                                                 <constraint firstItem="AYV-rN-sBG" firstAttribute="top" secondItem="z47-1a-Cob" secondAttribute="top" constant="4" id="G6y-YK-QcH"/>
@@ -2611,19 +2613,18 @@ Drag icon to holder below to apply effect</string>
                                                 <constraint firstAttribute="bottom" secondItem="AYV-rN-sBG" secondAttribute="bottom" constant="4" id="s04-t5-Qgh"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
-                                            <rect key="frame" x="42.999999999999993" y="152" width="64.333333333333314" height="22"/>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="750" text="Loading ...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75000000000000022" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PV1-X5-WaQ">
+                                            <rect key="frame" x="27.333333333333336" y="152" width="95.333333333333314" height="24"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" verticalCompressionResistancePriority="500" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000013" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
-                                            <rect key="frame" x="6" y="174" width="138" height="78"/>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="center" verticalHuggingPriority="249" verticalCompressionResistancePriority="500" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000013" adjustsFontForContentSizeCategory="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="6en-9e-q6w">
+                                            <rect key="frame" x="6" y="176" width="138" height="76"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
@@ -3669,14 +3670,14 @@ The main screen with all your fractals is called your "Library". See below for a
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HelpContentsCell" id="s6A-u6-upv" customClass="MDBHelpContentsTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="414" height="50.666667938232422"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
-                                    <rect key="frame" x="0.0" y="0.0" width="394.66666666666669" height="50.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
-                                            <rect key="frame" x="28" y="15.000000000000002" width="98" height="20.666666666666671"/>
+                                            <rect key="frame" x="28" y="15" width="98" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -4001,7 +4002,6 @@ Please try again later.</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lwl-kr-jhM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bKg-aJ-g7d">
@@ -4872,12 +4872,12 @@ Please try again later.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcC-uT-bo1" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="16.666666666666686" y="72" width="567" height="1072"/>
+                                <rect key="frame" x="16.333333333333314" y="72" width="567.33333333333348" height="1072"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVu-9d-51V">
-                                        <rect key="frame" x="0.0" y="0.0" width="567" height="1072"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="567.33333333333337" height="1072"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GNi-gh-71h">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="1072"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567.33333333333337" height="1072"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93G-cV-xB9" userLabel="ScrollContainer">
@@ -4890,7 +4890,7 @@ Please try again later.</string>
                                                                     <rect key="frame" x="0.0" y="0.0" width="567.33333333333337" height="740"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdQ-x6-oD9">
-                                                                            <rect key="frame" x="214.66666666666669" y="40" width="138" height="88"/>
+                                                                            <rect key="frame" x="214.66666666666663" y="40" width="138" height="88"/>
                                                                             <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="26"/>
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -4969,7 +4969,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-8u-SNp" customClass="MDKLayerViewDesignable">
-                                                                            <rect key="frame" x="147.66666666666669" y="638.66666666666663" width="272" height="61.333333333333371"/>
+                                                                            <rect key="frame" x="147.66666666666663" y="638.66666666666663" width="272" height="61.333333333333371"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwE-Oj-zx1">
                                                                                     <rect key="frame" x="8" y="8" width="256" height="45.333333333333336"/>
@@ -5132,7 +5132,7 @@ The main screen with all your fractals is called your "Library". See below for a
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="bSt-YQ-4Z0"/>
+        <segue reference="0fO-dT-L5U"/>
         <segue reference="O2z-rK-pDb"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5181,5 +5181,23 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarJointRotationButtonOff" width="38" height="28"/>
         <image name="toolBarJointRotationButtonOn" width="38" height="28"/>
         <image name="toolBarPlay" width="28" height="28"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>
