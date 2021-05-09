@@ -390,7 +390,6 @@ RPPreviewViewControllerDelegate>
 
 -(void) viewWillLayoutSubviews
 {
-    [super viewWillLayoutSubviews];
 }
 
 /*!

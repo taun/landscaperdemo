@@ -58,7 +58,6 @@
 -(void) viewWillLayoutSubviews
 {
     self.allowedDestinationViews = [@[self.fillColorsListView,self.pageColorDestinationTileView] arrayByAddingObjectsFromArray: self.allowedDestinationViews];
-    [super viewWillLayoutSubviews];
 }
 
 -(void)viewWillAppear:(BOOL)animated

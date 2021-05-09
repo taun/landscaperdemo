@@ -81,8 +81,6 @@
         [self updateViewConstraints];
         [self.view setNeedsLayout];
     }
-
-    [super viewWillLayoutSubviews];
 }
 
 //-(void)viewWillAppear:(BOOL)animated
