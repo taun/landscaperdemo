@@ -1246,10 +1246,10 @@
                                         </mask>
                                     </variation>
                                 </view>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="systemThinMaterial"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBlueColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="uMa-kC-ZWA" secondAttribute="trailing" id="9cm-rE-CTg"/>
                             <constraint firstItem="uMa-kC-ZWA" firstAttribute="leading" secondItem="xSR-cg-P26" secondAttribute="leading" id="GwI-8d-QhX"/>
@@ -1364,9 +1364,8 @@
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kbu-uc-QBR">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="108"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="E5G-Xc-F7c">
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="E5G-Xc-F7c">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="108"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ab9-Jg-fYJ" userLabel="FiltersGroup" customClass="MDKLayerViewDesignable">
                                             <rect key="frame" x="2" y="2" width="396" height="104"/>
@@ -1374,12 +1373,12 @@
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-RN-Xhr" userLabel="FilterControls" customClass="MDBFilterControlView">
                                                     <rect key="frame" x="4" y="4" width="388" height="50"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhA-5f-k1Y">
-                                                            <rect key="frame" x="44.333333333333343" y="3" width="299.66666666666663" height="44"/>
-                                                            <string key="text">Tap an tile to preview effect
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhA-5f-k1Y">
+                                                            <rect key="frame" x="70.666666666666686" y="8.3333333333333321" width="247" height="33.666666666666671"/>
+                                                            <string key="text">Tap a tile to preview effect
 Drag icon to holder below to apply effect</string>
-                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
-                                                            <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                            <color key="textColor" systemColor="systemBlueColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                         </label>
@@ -1465,9 +1464,13 @@ Drag icon to holder below to apply effect</string>
                                 </view>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="E5G-Xc-F7c" firstAttribute="top" secondItem="Kbu-uc-QBR" secondAttribute="top" id="5yt-o9-y1h"/>
+                                    <constraint firstAttribute="trailing" secondItem="E5G-Xc-F7c" secondAttribute="trailing" id="SXo-uu-cMY"/>
+                                    <constraint firstAttribute="bottom" secondItem="E5G-Xc-F7c" secondAttribute="bottom" id="XDM-zs-S8W"/>
+                                    <constraint firstItem="E5G-Xc-F7c" firstAttribute="leading" secondItem="Kbu-uc-QBR" secondAttribute="leading" id="jJg-aj-R8h"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="kSx-S9-7Uf"/>
                                 </constraints>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="systemMaterial"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="kSx-S9-7Uf"/>
@@ -1516,7 +1519,7 @@ Drag icon to holder below to apply effect</string>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="44" id="391-hC-FdS"/>
                                 </constraints>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="systemMaterial"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="8"/>
@@ -1825,7 +1828,7 @@ Drag icon to holder below to apply effect</string>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="44" id="R8h-kc-Baq"/>
                                 </constraints>
-                                <blurEffect style="light"/>
+                                <blurEffect style="systemMaterial"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="8"/>
@@ -2185,7 +2188,7 @@ Drag icon to holder below to apply effect</string>
                                     </constraints>
                                 </view>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="systemMaterial"/>
                             </visualEffectView>
                             <visualEffectView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4BU-94-61F">
                                 <rect key="frame" x="0.0" y="387" width="400" height="44"/>
@@ -2229,7 +2232,7 @@ Drag icon to holder below to apply effect</string>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="44" id="kfI-5D-VkV"/>
                                 </constraints>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="systemMaterial"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="8"/>
@@ -2369,7 +2372,7 @@ Drag icon to holder below to apply effect</string>
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
-                                    <blurEffect style="extraLight"/>
+                                    <blurEffect style="systemThinMaterial"/>
                                 </visualEffectView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemRedColor"/>
@@ -2560,10 +2563,10 @@ Drag icon to holder below to apply effect</string>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <blurEffect style="extraLight"/>
+                                    <blurEffect style="systemThinMaterial"/>
                                 </visualEffectView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="separatorColor"/>
+                            <color key="backgroundColor" systemColor="systemBlueColor"/>
                             <constraints>
                                 <constraint firstItem="Jac-CG-EeR" firstAttribute="top" secondItem="Mjp-7F-fEf" secondAttribute="top" id="OBh-zf-Mxu"/>
                                 <constraint firstAttribute="trailing" secondItem="Jac-CG-EeR" secondAttribute="trailing" id="QYv-XI-h2g"/>
@@ -2586,7 +2589,7 @@ Drag icon to holder below to apply effect</string>
                                         <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="z47-1a-Cob" userLabel="ImageFrame">
                                             <rect key="frame" x="6" y="6" width="138" height="138"/>
                                             <subviews>
-                                                <imageView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="documentThumbnailPlaceholder130" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
+                                                <imageView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="24" verticalHuggingPriority="24" image="documentThumbnailPlaceholder130" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-rN-sBG">
                                                     <rect key="frame" x="4" y="4" width="130" height="130"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -2769,12 +2772,12 @@ Drag icon to holder below to apply effect</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqt-OL-7TY" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="18" y="72" width="564.33333333333337" height="972"/>
+                                <rect key="frame" x="18" y="72" width="564" height="972"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-Bj-4wS">
-                                        <rect key="frame" x="0.0" y="0.0" width="564.33333333333337" height="972"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="564" height="972"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="51C-ij-UpW">
-                                            <rect key="frame" x="0.0" y="0.0" width="564.33333333333337" height="972"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="564" height="972"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJr-Yi-XVd" userLabel="ScrollContainer">
@@ -2906,7 +2909,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHN-WE-buM" customClass="MDKLayerViewDesignable">
-                                                                            <rect key="frame" x="117.33333333333337" y="638.66666666666663" width="329" height="61.333333333333371"/>
+                                                                            <rect key="frame" x="117.66666666666663" y="638.66666666666663" width="329" height="61.333333333333371"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d7-BG-oNU">
                                                                                     <rect key="frame" x="8" y="8" width="313" height="45.333333333333336"/>
@@ -3010,7 +3013,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <constraint firstItem="XJr-Yi-XVd" firstAttribute="leading" secondItem="51C-ij-UpW" secondAttribute="leading" id="GjK-kk-xkg"/>
                                             </constraints>
                                         </view>
-                                        <blurEffect style="light"/>
+                                        <blurEffect style="systemMaterial"/>
                                     </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3067,7 +3070,7 @@ The main screen with all your fractals is called your "Library". See below for a
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Ai6-Qn-ZW2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="5ja-JH-4WM">
                             <rect key="frame" x="0.0" y="683.99999809265137" width="600" height="134"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3101,7 +3104,9 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xhs-dV-O3J">
                                                     <rect key="frame" x="25" y="6" width="555" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="Visit App Store"/>
+                                                    <state key="normal" title="Visit App Store">
+                                                        <color key="titleColor" systemColor="linkColor"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="leaveForAppStore:" destination="hsw-Vg-xX2" eventType="touchUpInside" id="VbF-4i-E4c"/>
                                                     </connections>
@@ -3128,7 +3133,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Show Watermark" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-Y7-3a0">
                                                     <rect key="frame" x="28" y="12" width="124" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" layoutMarginsFollowReadableWidth="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zd4-KL-30N">
@@ -3157,7 +3161,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Hide Origin Mark" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6Y-qz-bnZ">
                                                     <rect key="frame" x="28" y="12" width="122" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9x-pU-X4o">
@@ -3187,7 +3190,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Use Canvas Parallax Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDG-2H-6D6">
                                                     <rect key="frame" x="28" y="12" width="194" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2l4-6D-kVn">
@@ -3216,7 +3218,6 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Show Help Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxT-He-ldE">
                                                     <rect key="frame" x="28" y="12" width="113" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92D-Xq-tzN">
@@ -3249,7 +3250,9 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNJ-J0-W67">
                                                     <rect key="frame" x="25" y="6" width="555" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="More Settings ..."/>
+                                                    <state key="normal" title="More Settings ...">
+                                                        <color key="titleColor" systemColor="linkColor"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="jumpToAppSettings:" destination="hsw-Vg-xX2" eventType="touchUpInside" id="Bb1-4Y-gLf"/>
                                                     </connections>
@@ -3272,7 +3275,9 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyF-5K-Agg">
                                                     <rect key="frame" x="25" y="6" width="555" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="Twitter: @taunc"/>
+                                                    <state key="normal" title="Twitter: @taunc">
+                                                        <color key="titleColor" systemColor="linkColor"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="leaveForTwitter:" destination="hsw-Vg-xX2" eventType="touchUpInside" id="lWS-xl-sde"/>
                                                     </connections>
@@ -3295,7 +3300,9 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5x-ld-WqJ">
                                                     <rect key="frame" x="25" y="6" width="555" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="Email help@fractalscapes.info"/>
+                                                    <state key="normal" title="Email help@fractalscapes.info">
+                                                        <color key="titleColor" systemColor="linkColor"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="leaveForEmail:" destination="hsw-Vg-xX2" eventType="touchUpInside" id="1Bf-iY-Xkq"/>
                                                     </connections>
@@ -3318,7 +3325,9 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1D-qe-ep3">
                                                     <rect key="frame" x="25" y="6" width="555" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="Facebook Page: FractalScapes"/>
+                                                    <state key="normal" title="Facebook Page: FractalScapes">
+                                                        <color key="titleColor" systemColor="linkColor"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="leaveForFacebook:" destination="hsw-Vg-xX2" eventType="touchUpInside" id="VL7-hQ-shG"/>
                                                     </connections>
@@ -3345,13 +3354,11 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yy-zd-Gqd">
                                                     <rect key="frame" x="28" y="12" width="54" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQe-6t-eRd">
                                                     <rect key="frame" x="560.33333333333337" y="13.666666666666664" width="19.666666666666629" height="17"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -3374,13 +3381,11 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Build" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzu-MW-p1f">
                                                     <rect key="frame" x="28" y="12" width="37" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="344" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-Nj-6b6">
                                                     <rect key="frame" x="552.33333333333337" y="13.666666666666664" width="27.666666666666629" height="17"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -3427,7 +3432,6 @@ The main screen with all your fractals is called your "Library". See below for a
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cep-6U-dGk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="hsw-Vg-xX2" kind="relationship" relationship="rootViewController" id="IiX-CI-rEU"/>
@@ -3471,7 +3475,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <constraint firstAttribute="centerY" secondItem="uiW-6f-xyP" secondAttribute="centerY" id="wqh-st-OCc"/>
                                             </constraints>
                                         </view>
-                                        <blurEffect style="extraLight"/>
+                                        <blurEffect style="systemThinMaterial"/>
                                     </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
@@ -3609,10 +3613,10 @@ The main screen with all your fractals is called your "Library". See below for a
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" placeholder="YES" id="nWE-ia-dgJ"/>
                                 </constraints>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="systemMaterial"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBlueColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ODs-9j-jAA" secondAttribute="bottom" id="Rat-aX-XVn"/>
                             <constraint firstItem="Jd7-Hu-z8h" firstAttribute="top" secondItem="XNO-jF-js7" secondAttribute="bottom" id="YCG-Qr-Rcd"/>
@@ -3668,13 +3672,12 @@ The main screen with all your fractals is called your "Library". See below for a
                                 <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="47.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6A-u6-upv" id="gbg-Vd-BZn">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="47.333332061767578"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="47.333332061767578"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-Vd-B84">
                                             <rect key="frame" x="28" y="14.999999999999998" width="83" height="17.333333333333329"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -3707,7 +3710,6 @@ The main screen with all your fractals is called your "Library". See below for a
                 <navigationController storyboardIdentifier="TutorialMasterNavController" id="2o6-6V-UAW" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6PP-ZX-118">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="B8t-lF-JXC" kind="relationship" relationship="rootViewController" id="e4f-n4-AOF"/>
@@ -4061,7 +4063,6 @@ Please try again later.</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gUo-JS-e17">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.22" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -4075,9 +4076,10 @@ Please try again later.</string>
         <!--Page View Controller-->
         <scene sceneID="5Au-fm-e3U">
             <objects>
-                <pageViewController storyboardIdentifier="TutorialPageViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="0wS-Xb-NSj" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                <pageViewController storyboardIdentifier="TutorialPageViewController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="0wS-Xb-NSj" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="E4i-Ng-yy3"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B0n-AT-w3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4117,7 +4119,7 @@ Please try again later.</string>
                                                 <constraint firstAttribute="centerY" secondItem="wiw-0C-sdS" secondAttribute="centerY" id="zal-jD-v5U"/>
                                             </constraints>
                                         </view>
-                                        <blurEffect style="extraLight"/>
+                                        <blurEffect style="systemMaterial"/>
                                     </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
@@ -4166,11 +4168,10 @@ Please try again later.</string>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Be-aY-axu">
                                                                     <rect key="frame" x="68" y="2" width="212" height="56"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
-                                                                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstItem="CLO-MB-FuV" firstAttribute="leading" secondItem="SJZ-yg-mAY" secondAttribute="leading" constant="20" id="8en-KH-goY"/>
                                                                 <constraint firstItem="6Be-aY-axu" firstAttribute="leading" secondItem="CLO-MB-FuV" secondAttribute="trailing" constant="8" id="9cr-RJ-oFT"/>
@@ -4213,9 +4214,8 @@ Please try again later.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Below is a description of all the drawing rules available to create a fractal." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-DY-fXL">
-                                                    <rect key="frame" x="37" y="26.666666666666668" width="340.33333333333331" height="46.666666666666657"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <rect key="frame" x="15.333333333333343" y="26.666666666666671" width="383.33333333333326" height="47"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -4266,13 +4266,13 @@ Please try again later.</string>
         <!--Navigation Controller-->
         <scene sceneID="Bt6-QJ-c2c">
             <objects>
-                <navigationController storyboardIdentifier="TutorialDetailNavController" id="qpc-13-ZVz" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TutorialDetailNavController" automaticallyAdjustsScrollViewInsets="NO" id="qpc-13-ZVz" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FEs-5p-402">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.83529411764705885" green="0.89803921568627454" blue="0.96862745098039216" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -4281,22 +4281,59 @@ Please try again later.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKA-RW-I9I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2441" y="3543"/>
+            <point key="canvasLocation" x="2443" y="3535"/>
         </scene>
         <!--QuickIntroController-->
         <scene sceneID="yUH-v2-PcJ">
             <objects>
-                <viewController storyboardIdentifier="HelpControllerPage0" title="Intro" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o2z-Iv-Q7J" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpControllerPage0" title="Intro" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o2z-Iv-Q7J" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="US2-LN-yWb"/>
                         <viewControllerLayoutGuide type="bottom" id="wh8-L0-UIS"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vxt-X5-Zki">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vxt-X5-Zki">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tA-ys-GSb">
-                                <rect key="frame" x="20" y="0.0" width="374" height="736"/>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lO2-uO-GJE">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="03b-Js-ySt">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                    </imageView>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuI-6D-naW">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ecV-D8-9hf">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="IAk-UZ-nIs">
+                                                    <rect key="frame" x="196.66666666666666" y="358" width="20" height="20"/>
+                                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="IAk-UZ-nIs" secondAttribute="centerX" constant="0.5" id="f8e-Qf-vQm"/>
+                                                <constraint firstAttribute="centerY" secondItem="IAk-UZ-nIs" secondAttribute="centerY" id="ym5-88-CHT"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="03b-Js-ySt" firstAttribute="leading" secondItem="lO2-uO-GJE" secondAttribute="leading" id="1Tt-ge-a6A"/>
+                                    <constraint firstAttribute="trailing" secondItem="AuI-6D-naW" secondAttribute="trailing" id="3gP-jr-oDH"/>
+                                    <constraint firstItem="AuI-6D-naW" firstAttribute="leading" secondItem="lO2-uO-GJE" secondAttribute="leading" id="58T-yV-a4E"/>
+                                    <constraint firstAttribute="bottom" secondItem="AuI-6D-naW" secondAttribute="bottom" id="9fC-ZZ-vuk"/>
+                                    <constraint firstAttribute="trailing" secondItem="03b-Js-ySt" secondAttribute="trailing" id="PeW-zs-bd4"/>
+                                    <constraint firstItem="AuI-6D-naW" firstAttribute="top" secondItem="lO2-uO-GJE" secondAttribute="top" id="Qsb-ch-LlP"/>
+                                    <constraint firstItem="03b-Js-ySt" firstAttribute="top" secondItem="lO2-uO-GJE" secondAttribute="top" id="fyl-7R-ldK"/>
+                                    <constraint firstAttribute="bottom" secondItem="03b-Js-ySt" secondAttribute="bottom" id="svT-By-IAR"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tA-ys-GSb">
+                                <rect key="frame" x="36" y="0.0" width="342" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -4305,14 +4342,19 @@ Please try again later.</string>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3tA-ys-GSb" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leadingMargin" id="Dw0-Ly-qSa"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="3tA-ys-GSb" secondAttribute="trailing" id="LfC-AE-9u3"/>
+                            <constraint firstItem="3tA-ys-GSb" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leadingMargin" constant="16" id="Dw0-Ly-qSa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3tA-ys-GSb" secondAttribute="trailing" constant="16" id="LfC-AE-9u3"/>
                             <constraint firstItem="3tA-ys-GSb" firstAttribute="top" secondItem="vxt-X5-Zki" secondAttribute="topMargin" id="Mae-cM-Fsg"/>
+                            <constraint firstAttribute="trailing" secondItem="lO2-uO-GJE" secondAttribute="trailing" id="dDb-fO-sBV"/>
                             <constraint firstAttribute="bottomMargin" secondItem="3tA-ys-GSb" secondAttribute="bottom" id="mqE-dT-jmK"/>
+                            <constraint firstItem="wh8-L0-UIS" firstAttribute="top" secondItem="lO2-uO-GJE" secondAttribute="bottom" id="rg6-kf-uT4"/>
+                            <constraint firstItem="lO2-uO-GJE" firstAttribute="leading" secondItem="vxt-X5-Zki" secondAttribute="leading" id="uRi-Sr-owE"/>
+                            <constraint firstItem="lO2-uO-GJE" firstAttribute="top" secondItem="US2-LN-yWb" secondAttribute="bottom" id="vn2-d6-e7h"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="AdJ-XB-whE">
                         <barButtonItem key="backBarButtonItem" title="Done" id="K8g-Ce-xm4"/>
                     </navigationItem>
@@ -4341,7 +4383,7 @@ Please try again later.</string>
         <!--QuickIntroController-->
         <scene sceneID="iPl-tY-QdS">
             <objects>
-                <viewController storyboardIdentifier="HelpControllerPage1" title="Drawing Rules Intro" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pc6-bS-ySa" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpControllerPage1" title="Drawing Rules Intro" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pc6-bS-ySa" userLabel="QuickIntroController" customClass="MDBEditorIntroWhatIsFractalViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bcL-NG-gbK"/>
                         <viewControllerLayoutGuide type="bottom" id="9Wt-87-xWk"/>
@@ -4350,7 +4392,44 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4C9-18-EDd">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZl-CP-Wur">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="MAU-u9-Rx6">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                    </imageView>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zZ-JW-lZg">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oUA-Ek-QLv">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mlO-CD-yP7">
+                                                    <rect key="frame" x="196.66666666666666" y="358" width="20" height="20"/>
+                                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="mlO-CD-yP7" secondAttribute="centerY" id="I4O-Xl-Ysn"/>
+                                                <constraint firstAttribute="centerX" secondItem="mlO-CD-yP7" secondAttribute="centerX" constant="0.5" id="lE2-0Q-9Mg"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="MAU-u9-Rx6" secondAttribute="trailing" id="4X0-bE-Pig"/>
+                                    <constraint firstItem="MAU-u9-Rx6" firstAttribute="top" secondItem="nZl-CP-Wur" secondAttribute="top" id="Atq-Vr-2Jg"/>
+                                    <constraint firstAttribute="bottom" secondItem="MAU-u9-Rx6" secondAttribute="bottom" id="OQq-Q2-zui"/>
+                                    <constraint firstAttribute="bottom" secondItem="4zZ-JW-lZg" secondAttribute="bottom" id="Pro-Cs-Gia"/>
+                                    <constraint firstItem="4zZ-JW-lZg" firstAttribute="leading" secondItem="nZl-CP-Wur" secondAttribute="leading" id="WPf-G1-o10"/>
+                                    <constraint firstAttribute="trailing" secondItem="4zZ-JW-lZg" secondAttribute="trailing" id="aVY-3B-Ps0"/>
+                                    <constraint firstItem="4zZ-JW-lZg" firstAttribute="top" secondItem="nZl-CP-Wur" secondAttribute="top" id="pTG-hv-CW2"/>
+                                    <constraint firstItem="MAU-u9-Rx6" firstAttribute="leading" secondItem="nZl-CP-Wur" secondAttribute="leading" id="qP7-db-lPA"/>
+                                </constraints>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4C9-18-EDd">
                                 <rect key="frame" x="36" y="0.0" width="342" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <gestureRecognizers/>
@@ -4360,10 +4439,14 @@ Please try again later.</string>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="nZl-CP-Wur" secondAttribute="trailing" id="0Rt-a4-p7G"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4C9-18-EDd" secondAttribute="trailing" constant="16" id="N2y-e0-Hmj"/>
+                            <constraint firstItem="nZl-CP-Wur" firstAttribute="top" secondItem="bcL-NG-gbK" secondAttribute="bottom" id="Nc1-My-1CD"/>
+                            <constraint firstItem="9Wt-87-xWk" firstAttribute="top" secondItem="nZl-CP-Wur" secondAttribute="bottom" id="Opt-eb-FIx"/>
                             <constraint firstItem="4C9-18-EDd" firstAttribute="leading" secondItem="JuK-xT-Jpx" secondAttribute="leadingMargin" constant="16" id="QXX-Op-jYu"/>
+                            <constraint firstItem="nZl-CP-Wur" firstAttribute="leading" secondItem="JuK-xT-Jpx" secondAttribute="leading" id="agz-xQ-ogE"/>
                             <constraint firstAttribute="bottomMargin" secondItem="4C9-18-EDd" secondAttribute="bottom" id="iqI-UP-9Oc"/>
                             <constraint firstItem="4C9-18-EDd" firstAttribute="top" secondItem="JuK-xT-Jpx" secondAttribute="topMargin" id="mDU-wR-9mb"/>
                         </constraints>
@@ -4405,7 +4488,44 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rc0-qZ-T5S">
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3id-B3-V0u">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="EL3-cd-4Wz">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                    </imageView>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHG-6h-OrF">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Ltk-wJ-KCM">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S6g-H1-TeA">
+                                                    <rect key="frame" x="196.66666666666666" y="358" width="20" height="20"/>
+                                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="S6g-H1-TeA" secondAttribute="centerX" constant="0.5" id="Sx5-6i-fPd"/>
+                                                <constraint firstAttribute="centerY" secondItem="S6g-H1-TeA" secondAttribute="centerY" id="dM8-LA-Vrj"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="EL3-cd-4Wz" firstAttribute="leading" secondItem="3id-B3-V0u" secondAttribute="leading" id="6jt-yI-zMA"/>
+                                    <constraint firstItem="CHG-6h-OrF" firstAttribute="leading" secondItem="3id-B3-V0u" secondAttribute="leading" id="7Iu-NU-6mh"/>
+                                    <constraint firstItem="EL3-cd-4Wz" firstAttribute="top" secondItem="3id-B3-V0u" secondAttribute="top" id="BD2-5t-afI"/>
+                                    <constraint firstItem="CHG-6h-OrF" firstAttribute="top" secondItem="3id-B3-V0u" secondAttribute="top" id="FxO-iE-LYW"/>
+                                    <constraint firstAttribute="trailing" secondItem="EL3-cd-4Wz" secondAttribute="trailing" id="G6d-R6-Ti4"/>
+                                    <constraint firstAttribute="bottom" secondItem="EL3-cd-4Wz" secondAttribute="bottom" id="IJt-0J-7jH"/>
+                                    <constraint firstAttribute="trailing" secondItem="CHG-6h-OrF" secondAttribute="trailing" id="Ihd-MG-v3Y"/>
+                                    <constraint firstAttribute="bottom" secondItem="CHG-6h-OrF" secondAttribute="bottom" id="V3D-f2-ZkN"/>
+                                </constraints>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rc0-qZ-T5S">
                                 <rect key="frame" x="36" y="0.0" width="342" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <gestureRecognizers/>
@@ -4415,12 +4535,16 @@ Please try again later.</string>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3id-B3-V0u" secondAttribute="trailing" id="6cf-nK-Hz1"/>
                             <constraint firstItem="rc0-qZ-T5S" firstAttribute="leading" secondItem="ZRK-BM-4Jb" secondAttribute="leadingMargin" constant="16" id="S6h-RO-WSR"/>
                             <constraint firstAttribute="bottomMargin" secondItem="rc0-qZ-T5S" secondAttribute="bottom" id="Tqa-t7-lFV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rc0-qZ-T5S" secondAttribute="trailing" constant="16" id="XLu-kp-FrF"/>
+                            <constraint firstItem="C8w-zY-Zhb" firstAttribute="top" secondItem="3id-B3-V0u" secondAttribute="bottom" id="gf1-pN-D5O"/>
                             <constraint firstItem="rc0-qZ-T5S" firstAttribute="top" secondItem="ZRK-BM-4Jb" secondAttribute="topMargin" id="hJr-cD-5hd"/>
+                            <constraint firstItem="3id-B3-V0u" firstAttribute="leading" secondItem="ZRK-BM-4Jb" secondAttribute="leading" id="lN8-VL-4If"/>
+                            <constraint firstItem="3id-B3-V0u" firstAttribute="top" secondItem="cLg-Ak-ShZ" secondAttribute="bottom" id="zgv-TM-lxi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="SfR-u0-Gos">
@@ -4460,6 +4584,43 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lB6-o6-SDu">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="uoF-Eh-HdR">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                    </imageView>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cub-wO-BKS">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jaT-o5-dpZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kQk-8a-Qfy">
+                                                    <rect key="frame" x="196.66666666666666" y="358" width="20" height="20"/>
+                                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="kQk-8a-Qfy" secondAttribute="centerY" id="6Jl-Yp-3C2"/>
+                                                <constraint firstAttribute="centerX" secondItem="kQk-8a-Qfy" secondAttribute="centerX" constant="0.5" id="CjT-m7-bp1"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="cub-wO-BKS" firstAttribute="leading" secondItem="lB6-o6-SDu" secondAttribute="leading" id="2rI-lS-az5"/>
+                                    <constraint firstItem="cub-wO-BKS" firstAttribute="top" secondItem="lB6-o6-SDu" secondAttribute="top" id="EKO-DU-3Qg"/>
+                                    <constraint firstItem="uoF-Eh-HdR" firstAttribute="leading" secondItem="lB6-o6-SDu" secondAttribute="leading" id="NB3-i2-mfr"/>
+                                    <constraint firstAttribute="trailing" secondItem="cub-wO-BKS" secondAttribute="trailing" id="NDr-3n-blG"/>
+                                    <constraint firstAttribute="bottom" secondItem="uoF-Eh-HdR" secondAttribute="bottom" id="QnE-r2-rC6"/>
+                                    <constraint firstAttribute="trailing" secondItem="uoF-Eh-HdR" secondAttribute="trailing" id="XQQ-fz-e1C"/>
+                                    <constraint firstAttribute="bottom" secondItem="cub-wO-BKS" secondAttribute="bottom" id="n3s-KI-i4C"/>
+                                    <constraint firstItem="uoF-Eh-HdR" firstAttribute="top" secondItem="lB6-o6-SDu" secondAttribute="top" id="s1A-Ii-If3"/>
+                                </constraints>
+                            </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXG-fl-NJC">
                                 <rect key="frame" x="36" y="0.0" width="342" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -4470,12 +4631,16 @@ Please try again later.</string>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottomMargin" secondItem="WXG-fl-NJC" secondAttribute="bottom" id="0Hr-t7-sw6"/>
+                            <constraint firstItem="lB6-o6-SDu" firstAttribute="leading" secondItem="HEK-PU-bN9" secondAttribute="leading" id="3YR-6Y-tIr"/>
+                            <constraint firstItem="rBQ-xC-7We" firstAttribute="top" secondItem="lB6-o6-SDu" secondAttribute="bottom" id="ANT-0w-j5N"/>
                             <constraint firstItem="WXG-fl-NJC" firstAttribute="top" secondItem="HEK-PU-bN9" secondAttribute="topMargin" id="BD8-m9-qXf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WXG-fl-NJC" secondAttribute="trailing" constant="16" id="Sbq-an-GsD"/>
+                            <constraint firstItem="lB6-o6-SDu" firstAttribute="top" secondItem="kQ5-ZY-k3E" secondAttribute="bottom" id="cFa-6Z-e0B"/>
                             <constraint firstItem="WXG-fl-NJC" firstAttribute="leading" secondItem="HEK-PU-bN9" secondAttribute="leadingMargin" constant="16" id="oiS-WB-hbx"/>
+                            <constraint firstAttribute="trailing" secondItem="lB6-o6-SDu" secondAttribute="trailing" id="pYC-uq-vCB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rH6-n5-4E7">
@@ -4515,6 +4680,43 @@ Please try again later.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="veS-3n-cat">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="UVM-iY-T5j">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                    </imageView>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7E-d9-n1c">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="S8g-yB-h79">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PQD-S6-ggq">
+                                                    <rect key="frame" x="196.66666666666666" y="358" width="20" height="20"/>
+                                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="PQD-S6-ggq" secondAttribute="centerX" constant="0.5" id="94Y-A4-KNx"/>
+                                                <constraint firstAttribute="centerY" secondItem="PQD-S6-ggq" secondAttribute="centerY" id="r9d-1e-0qf"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="R7E-d9-n1c" firstAttribute="top" secondItem="veS-3n-cat" secondAttribute="top" id="25y-2c-CQo"/>
+                                    <constraint firstAttribute="bottom" secondItem="R7E-d9-n1c" secondAttribute="bottom" id="2RK-aX-H2r"/>
+                                    <constraint firstAttribute="trailing" secondItem="R7E-d9-n1c" secondAttribute="trailing" id="83d-4o-i6a"/>
+                                    <constraint firstAttribute="bottom" secondItem="UVM-iY-T5j" secondAttribute="bottom" id="Jk0-QY-MLe"/>
+                                    <constraint firstItem="UVM-iY-T5j" firstAttribute="top" secondItem="veS-3n-cat" secondAttribute="top" id="K2i-7z-Fv1"/>
+                                    <constraint firstAttribute="trailing" secondItem="UVM-iY-T5j" secondAttribute="trailing" id="S3h-HB-c9y"/>
+                                    <constraint firstItem="R7E-d9-n1c" firstAttribute="leading" secondItem="veS-3n-cat" secondAttribute="leading" id="maA-eA-xQ0"/>
+                                    <constraint firstItem="UVM-iY-T5j" firstAttribute="leading" secondItem="veS-3n-cat" secondAttribute="leading" id="oWF-pl-fIg"/>
+                                </constraints>
+                            </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hdc-2Q-nVE">
                                 <rect key="frame" x="36" y="0.0" width="342" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -4525,12 +4727,16 @@ Please try again later.</string>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="gcy-wY-RzO" firstAttribute="top" secondItem="veS-3n-cat" secondAttribute="bottom" id="0hj-V6-bAp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hdc-2Q-nVE" secondAttribute="trailing" constant="16" id="KfW-Wh-oOn"/>
+                            <constraint firstItem="veS-3n-cat" firstAttribute="top" secondItem="edq-I9-g1L" secondAttribute="bottom" id="Lah-ex-SnV"/>
                             <constraint firstItem="Hdc-2Q-nVE" firstAttribute="top" secondItem="O8V-lC-U9a" secondAttribute="topMargin" id="P1q-F7-evS"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Hdc-2Q-nVE" secondAttribute="bottom" id="Pad-a5-dn1"/>
                             <constraint firstItem="Hdc-2Q-nVE" firstAttribute="leading" secondItem="O8V-lC-U9a" secondAttribute="leadingMargin" constant="16" id="WhM-jY-N9R"/>
+                            <constraint firstItem="veS-3n-cat" firstAttribute="leading" secondItem="O8V-lC-U9a" secondAttribute="leading" id="iPq-HM-CzD"/>
+                            <constraint firstAttribute="trailing" secondItem="veS-3n-cat" secondAttribute="trailing" id="jOM-Ho-37K"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uss-0h-gVI">
@@ -4566,10 +4772,46 @@ Please try again later.</string>
                         <viewControllerLayoutGuide type="top" id="nCZ-0T-UK9"/>
                         <viewControllerLayoutGuide type="bottom" id="f7k-YF-3it"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nl3-PT-XRN">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nl3-PT-XRN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mce-Lx-mtl">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="gvo-LF-svB">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                    </imageView>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1M3-U6-zi8">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pGo-Rd-Izh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rr5-V4-yh8">
+                                                    <rect key="frame" x="196.66666666666666" y="358" width="20" height="20"/>
+                                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="Rr5-V4-yh8" secondAttribute="centerY" id="ZGZ-jm-sde"/>
+                                                <constraint firstAttribute="centerX" secondItem="Rr5-V4-yh8" secondAttribute="centerX" constant="0.5" id="qKM-mR-3Q7"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="gvo-LF-svB" firstAttribute="top" secondItem="mce-Lx-mtl" secondAttribute="top" id="M84-Gw-kKh"/>
+                                    <constraint firstAttribute="trailing" secondItem="gvo-LF-svB" secondAttribute="trailing" id="MXs-CB-5Mq"/>
+                                    <constraint firstItem="1M3-U6-zi8" firstAttribute="leading" secondItem="mce-Lx-mtl" secondAttribute="leading" id="UId-jE-Hyc"/>
+                                    <constraint firstItem="gvo-LF-svB" firstAttribute="leading" secondItem="mce-Lx-mtl" secondAttribute="leading" id="WTV-Wj-72D"/>
+                                    <constraint firstAttribute="trailing" secondItem="1M3-U6-zi8" secondAttribute="trailing" id="X1g-PV-QZs"/>
+                                    <constraint firstItem="1M3-U6-zi8" firstAttribute="top" secondItem="mce-Lx-mtl" secondAttribute="top" id="Y0M-Wf-znu"/>
+                                    <constraint firstAttribute="bottom" secondItem="1M3-U6-zi8" secondAttribute="bottom" id="bDA-qb-OyO"/>
+                                    <constraint firstAttribute="bottom" secondItem="gvo-LF-svB" secondAttribute="bottom" id="xgg-yP-yWZ"/>
+                                </constraints>
+                            </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Nf-WWf">
                                 <rect key="frame" x="36" y="0.0" width="342" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -4580,12 +4822,16 @@ Please try again later.</string>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mce-Lx-mtl" firstAttribute="top" secondItem="nCZ-0T-UK9" secondAttribute="bottom" id="0iC-fJ-Rrh"/>
+                            <constraint firstItem="f7k-YF-3it" firstAttribute="top" secondItem="mce-Lx-mtl" secondAttribute="bottom" id="1O8-p3-tfq"/>
+                            <constraint firstAttribute="trailing" secondItem="mce-Lx-mtl" secondAttribute="trailing" id="1Tk-al-CBa"/>
                             <constraint firstAttribute="bottomMargin" secondItem="nLe-Nf-WWf" secondAttribute="bottom" id="2Ai-A7-owf"/>
                             <constraint firstItem="nLe-Nf-WWf" firstAttribute="leading" secondItem="nl3-PT-XRN" secondAttribute="leadingMargin" constant="16" id="H9b-CS-rWT"/>
                             <constraint firstItem="nLe-Nf-WWf" firstAttribute="top" secondItem="nl3-PT-XRN" secondAttribute="topMargin" id="JQq-qn-NRn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nLe-Nf-WWf" secondAttribute="trailing" constant="16" id="JfO-Gd-M6A"/>
+                            <constraint firstItem="mce-Lx-mtl" firstAttribute="leading" secondItem="nl3-PT-XRN" secondAttribute="leading" id="S7k-SL-qde"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gSZ-q3-oBK">
@@ -4621,10 +4867,46 @@ Please try again later.</string>
                         <viewControllerLayoutGuide type="top" id="UeC-RC-e4O"/>
                         <viewControllerLayoutGuide type="bottom" id="01D-3q-sKd"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="deb-fn-hy7">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deb-fn-hy7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ry2-qu-l1T">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="tabBarBrowseCloudFilled" translatesAutoresizingMaskIntoConstraints="NO" id="LMh-K8-RLZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                    </imageView>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJq-VV-CPc">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tjd-an-tji">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9DD-og-dVP">
+                                                    <rect key="frame" x="196.66666666666666" y="358" width="20" height="20"/>
+                                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="9DD-og-dVP" secondAttribute="centerY" id="aht-2H-8kI"/>
+                                                <constraint firstAttribute="centerX" secondItem="9DD-og-dVP" secondAttribute="centerX" constant="0.5" id="r03-yg-vwV"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="IJq-VV-CPc" firstAttribute="leading" secondItem="ry2-qu-l1T" secondAttribute="leading" id="7Xu-fG-fPu"/>
+                                    <constraint firstAttribute="bottom" secondItem="IJq-VV-CPc" secondAttribute="bottom" id="BQ9-bb-gZP"/>
+                                    <constraint firstItem="LMh-K8-RLZ" firstAttribute="leading" secondItem="ry2-qu-l1T" secondAttribute="leading" id="C6P-EL-1Zu"/>
+                                    <constraint firstAttribute="trailing" secondItem="LMh-K8-RLZ" secondAttribute="trailing" id="KrN-du-2mN"/>
+                                    <constraint firstItem="LMh-K8-RLZ" firstAttribute="top" secondItem="ry2-qu-l1T" secondAttribute="top" id="Ud5-bF-R2b"/>
+                                    <constraint firstAttribute="trailing" secondItem="IJq-VV-CPc" secondAttribute="trailing" id="aM6-9K-GS2"/>
+                                    <constraint firstItem="IJq-VV-CPc" firstAttribute="top" secondItem="ry2-qu-l1T" secondAttribute="top" id="jrb-i8-MJO"/>
+                                    <constraint firstAttribute="bottom" secondItem="LMh-K8-RLZ" secondAttribute="bottom" id="s7x-6X-P7L"/>
+                                </constraints>
+                            </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxP-9g-I6j">
                                 <rect key="frame" x="36" y="0.0" width="342" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -4635,10 +4917,18 @@ Please try again later.</string>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="uxP-9g-I6j" secondAttribute="trailing" constant="16" id="Ahu-9r-ySq"/>
+                            <constraint firstItem="01D-3q-sKd" firstAttribute="top" secondItem="ry2-qu-l1T" secondAttribute="bottom" id="Aww-Qm-dHQ"/>
+                            <constraint firstItem="ry2-qu-l1T" firstAttribute="top" secondItem="UeC-RC-e4O" secondAttribute="bottom" id="GN7-B4-WCd"/>
+                            <constraint firstAttribute="trailing" secondItem="ry2-qu-l1T" secondAttribute="trailing" id="VWi-PB-BCe"/>
+                            <constraint firstItem="ry2-qu-l1T" firstAttribute="leading" secondItem="deb-fn-hy7" secondAttribute="leading" id="XWh-bu-IqZ"/>
+                            <constraint firstItem="01D-3q-sKd" firstAttribute="top" secondItem="ry2-qu-l1T" secondAttribute="bottom" id="Zm7-QG-yEP"/>
                             <constraint firstAttribute="bottomMargin" secondItem="uxP-9g-I6j" secondAttribute="bottom" id="dpm-un-UZ8"/>
+                            <constraint firstItem="ry2-qu-l1T" firstAttribute="top" secondItem="UeC-RC-e4O" secondAttribute="bottom" id="er7-6t-Lh1"/>
+                            <constraint firstItem="ry2-qu-l1T" firstAttribute="leading" secondItem="deb-fn-hy7" secondAttribute="leading" id="hPK-uu-OG8"/>
+                            <constraint firstAttribute="trailing" secondItem="ry2-qu-l1T" secondAttribute="trailing" id="mZS-5w-qnk"/>
                             <constraint firstItem="uxP-9g-I6j" firstAttribute="top" secondItem="deb-fn-hy7" secondAttribute="topMargin" id="mhd-U2-Y5w"/>
                             <constraint firstItem="uxP-9g-I6j" firstAttribute="leading" secondItem="deb-fn-hy7" secondAttribute="leadingMargin" constant="16" id="twr-Da-usq"/>
                         </constraints>
@@ -4696,7 +4986,7 @@ Please try again later.</string>
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="742"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
-                                    <blurEffect style="extraLight"/>
+                                    <blurEffect style="systemThinMaterial"/>
                                 </visualEffectView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBlueColor"/>
@@ -4868,12 +5158,12 @@ Please try again later.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcC-uT-bo1" customClass="MDKLayerViewDesignable">
-                                <rect key="frame" x="16" y="72" width="568" height="1072"/>
+                                <rect key="frame" x="16.333333333333314" y="72" width="567.33333333333348" height="1072"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVu-9d-51V">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="1072"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="567.33333333333337" height="1072"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GNi-gh-71h">
-                                            <rect key="frame" x="0.0" y="0.0" width="568" height="1072"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567.33333333333337" height="1072"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93G-cV-xB9" userLabel="ScrollContainer">
@@ -5068,7 +5358,7 @@ The main screen with all your fractals is called your "Library". See below for a
                                                 <constraint firstAttribute="trailing" secondItem="93G-cV-xB9" secondAttribute="trailing" id="jRf-sF-12L"/>
                                             </constraints>
                                         </view>
-                                        <blurEffect style="light"/>
+                                        <blurEffect style="systemMaterial"/>
                                     </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5177,14 +5467,14 @@ The main screen with all your fractals is called your "Library". See below for a
         <image name="toolBarJointRotationButtonOff" width="38" height="28"/>
         <image name="toolBarJointRotationButtonOn" width="38" height="28"/>
         <image name="toolBarPlay" width="28" height="28"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

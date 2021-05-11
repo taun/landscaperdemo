@@ -56,7 +56,6 @@
     
     self.detailPageController.navigationItem.leftBarButtonItem = self.displayModeButtonItem;
     self.detailPageController.navigationItem.leftItemsSupplementBackButton = YES;
-    
 }
 
 -(void)viewDidDisappear:(BOOL)animated

@@ -76,7 +76,7 @@
     WKWebViewConfiguration* config = [WKWebViewConfiguration new];
     config.preferences = prefs;
     //    config.allowsAirPlayForMediaPlayback = NO;
-    config.suppressesIncrementalRendering = NO;
+    config.suppressesIncrementalRendering = YES;
     
     wkWebView = [[WKWebView alloc] initWithFrame: self.webContainer.bounds configuration: config];
     wkWebView.userInteractionEnabled = YES;
@@ -101,11 +101,11 @@
                                                                                metrics: nil
                                                                                  views: viewsDictionary]];
     
-    [self.webContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[webView]-0-|"
+    [self.webContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-[webView]-|"
                                                                                options: 0
                                                                                metrics: nil
                                                                                  views: viewsDictionary]];
-    
+    [self.view layoutSubviews];
 }
 
 -(void)setDocumentName:(NSString *)documentName
