@@ -390,6 +390,7 @@ RPPreviewViewControllerDelegate>
 
 -(void) viewWillLayoutSubviews
 {
+    [super viewWillLayoutSubviews];
 }
 
 /*!
@@ -614,7 +615,7 @@ RPPreviewViewControllerDelegate>
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
         //
-        [self updateFilterSettingsForCanvas];
+        [self updateFilterSettingsForCanvasSize: self.fractalView.bounds.size];
         [self queueFractalImageUpdates];
         [self autoScale: nil];
     }];
@@ -645,12 +646,10 @@ RPPreviewViewControllerDelegate>
     return YES;
 }
 
--(void)updateFilterSettingsForCanvas
+-(void)updateFilterSettingsForCanvasSize: (CGSize)size
 {
     for (MBImageFilter* filter in self.fractalDocument.fractal.imageFilters)
     {
-        CGSize size = self.fractalView.bounds.size;
-        
         CGRect filterBounds = CGRectMake(0.0, 0.0, size.width*[[UIScreen mainScreen] scale], size.height*[[UIScreen mainScreen] scale]);
         [filter setGoodDefaultsForbounds: filterBounds];
     }
@@ -682,7 +681,7 @@ RPPreviewViewControllerDelegate>
     if (_filterBitmapContext == NULL && strongView)
     {
         _filterBitmapContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
-        [self updateFilterSettingsForCanvas];
+        [self updateFilterSettingsForCanvasSize: viewSize];
     }
     else if (!CGRectEqualToRect(CGContextGetClipBoundingBox(_filterBitmapContext), scaledRect))
     {
@@ -692,7 +691,7 @@ RPPreviewViewControllerDelegate>
         
         CGContextRelease(_filterBitmapContext);
         _filterBitmapContext = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, [MBImageFilter colorSpace], kCGImageAlphaPremultipliedLast);
-        [self updateFilterSettingsForCanvas];
+        [self updateFilterSettingsForCanvasSize: viewSize];
     }
     
     return _filterBitmapContext;
@@ -1211,7 +1210,7 @@ RPPreviewViewControllerDelegate>
 -(void) propertyFractalFiltersDidChange: (NSDictionary*)change object: (id)object
 {
     self.hasBeenEdited = YES;
-    [self updateFilterSettingsForCanvas];
+    [self updateFilterSettingsForCanvasSize: self.fractalView.bounds.size];
     [self.fractalDocument.fractal updateApplyFiltersWithoutNotificationForFiltersListChange];
     [self queueFractalImageUpdates];
     [self updateInterface];
@@ -1267,7 +1266,7 @@ RPPreviewViewControllerDelegate>
             
             self.hasBeenEdited = NO;
             
-            [self updateFilterSettingsForCanvas];
+            [self updateFilterSettingsForCanvasSize: self.fractalView.bounds.size];
             [self queueFractalImageUpdates];
             [self updateInterface];
         }
@@ -2999,7 +2998,7 @@ RPPreviewViewControllerDelegate>
         self.hasBeenEdited = YES;
         //        [self updateLibraryRepresentationIfNeeded];
     }
-    [self updateFilterSettingsForCanvas];
+    [self updateFilterSettingsForCanvasSize: self.fractalView.bounds.size];
 }
 
 
@@ -3501,7 +3500,7 @@ verticalPropertyPath: (NSString*) verticalPath
             
             CGImageRef outputImage = [self newCGImageRefForSnapshotFromFiltersAppliedToCIImage: inputImage];
             imageExport = [UIImage imageWithCGImage: outputImage];
-            [self updateFilterSettingsForCanvas];
+            [self updateFilterSettingsForCanvasSize: fractalBounds.size];
             if (tempImage != NULL) CGImageRelease(tempImage);
             if (outputImage != NULL) CGImageRelease(outputImage);
         }
