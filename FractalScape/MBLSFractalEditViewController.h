@@ -118,7 +118,8 @@
 @property (weak, nonatomic) IBOutlet UILabel       *hudLabel;
 @property (weak, nonatomic) IBOutlet UILabel       *hudText1;
 @property (weak, nonatomic) IBOutlet UILabel       *hudText2;
-@property (weak, nonatomic) IBOutlet UIStepper     *hudLevelStepper;
+@property (weak, nonatomic) IBOutlet UIButton *decrementCountButton;
+@property (weak, nonatomic) IBOutlet UIButton *incrementCountButton;
 @property (weak, nonatomic) IBOutlet UILabel       *renderTimeLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 

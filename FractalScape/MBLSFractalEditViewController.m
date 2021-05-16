@@ -52,7 +52,6 @@ static NSString* kLibrarySelectionKeypath = @"selectedFractal";
 static const BOOL SIMULTOUCH = NO;
 static const CGFloat kHighPerformanceFrameRate = 4.0;
 static const CGFloat kLowPerformanceFrameRate = 4.0;
-static const CGFloat kHudLevelStepperDefaultMax = 16.0;
 static const CGFloat kLevelNMargin = 48.0;
 
 @interface MBLSFractalEditViewController ()  <UIGestureRecognizerDelegate,
@@ -64,6 +63,7 @@ FractalControllerDelegate,
 MDBFractalDocumentDelegate,
 RPPreviewViewControllerDelegate>
 
+@property (nonatomic, assign) CGFloat               maxLevel;
 @property (nonatomic,assign) BOOL                   startedInLandscape;
 @property (nonatomic,assign) BOOL                   hasBeenEdited;
 @property (nonatomic,assign) CGFloat                pan10xValue;
@@ -172,7 +172,7 @@ RPPreviewViewControllerDelegate>
     _minImagePersistence = 1.0/kHighPerformanceFrameRate;
     _pan10xValue = 1.0;
     _pan10xMultiplier = 10.0;
-    
+    _maxLevel = 16;
     _imageGenerationTimout = 6.0;
     
     _nodeLimit = kLSMaxNodesHiPerf;
@@ -310,9 +310,13 @@ RPPreviewViewControllerDelegate>
 
 -(void)setupHUDSlider: (UISlider*)slider forProperty:(NSString*)propertyKey rotatedDegrees:(CGFloat)rotation
 {
-    UIImage* sliderCircleImage = [UIImage imageNamed: @"controlDragCircle"];
     slider.transform = CGAffineTransformMakeRotation(radians(rotation));
+#if TARGET_OS_MACCATALYST
+        // TODO: Implement macOS alternative
+#else
+    UIImage* sliderCircleImage = [UIImage imageNamed: @"controlDragCircle"];
     [slider setThumbImage: sliderCircleImage forState: UIControlStateNormal];
+#endif
     slider.minimumValue = [self.fractalDocument.fractal minValueForProperty: propertyKey];
     slider.maximumValue = [self.fractalDocument.fractal maxValueForProperty: propertyKey];
     slider.value = degrees([[self.fractalDocument.fractal valueForKey: propertyKey] floatValue]);
@@ -367,13 +371,16 @@ RPPreviewViewControllerDelegate>
         [self.fractalViewRootSingleTapRecognizer requireGestureRecognizerToFail: self.fractalViewRootDoubleTapRecognizer];
     }
     //    self.fractalDocument.fractal = [self getUsersLastFractal];
-    
-    UIImage* sliderCircleImage = [UIImage imageNamed: @"controlDragCircle"];
-    
+        
     UISlider* strongPlayback = _playbackSlider;
     strongPlayback.hidden = YES;
     strongPlayback.transform = CGAffineTransformMakeRotation(-M_PI_2);
+#if TARGET_OS_MACCATALYST
+        // TODO: Implement macOS alternative
+#else
+    UIImage* sliderCircleImage = [UIImage imageNamed: @"controlDragCircle"];
     [strongPlayback setThumbImage: sliderCircleImage forState: UIControlStateNormal];
+#endif
     
     // Setup the scrollView to allow the fractal image to float.
     // This is to allow the user to move the fractal out from under the HUD display.
@@ -778,7 +785,6 @@ RPPreviewViewControllerDelegate>
         }
         
         self.autoscaleN = YES;
-        self.hudLevelStepper.maximumValue = kHudLevelStepperDefaultMax;
         
         [self addObserverForFractalChangeInDocument: _fractalInfo.document];
     }
@@ -1403,8 +1409,6 @@ RPPreviewViewControllerDelegate>
 
 -(void) updateValueInputs
 {
-    self.hudLevelStepper.value = self.fractalDocument.fractal.level;
-    //
     self.hudText2.text =[self.twoPlaceFormatter stringFromNumber: @(degrees(self.fractalDocument.fractal.turningAngle))];
 }
 
@@ -1501,13 +1505,14 @@ RPPreviewViewControllerDelegate>
         CGFloat currentNodeCount = (CGFloat)[(NSData*)self.levelDataArray[3] length];
         CGFloat estimatedNextNode = currentNodeCount * [self.levelDataArray[4] floatValue];
         //        NSLog(@"growth rate %f",[self.fractalDocument.fractal.levelGrowthRate floatValue]);
-        UIStepper* strongLevelStepper = self.hudLevelStepper;
+        CGFloat currentLevel = self.fractalDocument.fractal.level;
+        
         if (estimatedNextNode > self.nodeLimit)
         {
-            strongLevelStepper.maximumValue = strongLevelStepper.value;
-        } else if (strongLevelStepper.maximumValue == strongLevelStepper.value)
+            self.maxLevel = currentLevel;
+        } else if (self.maxLevel == currentLevel)
         {
-            strongLevelStepper.maximumValue = strongLevelStepper.value + 1;
+            self.maxLevel = currentLevel + 1;
         }
     }
 }
@@ -2811,15 +2816,21 @@ RPPreviewViewControllerDelegate>
     }
 }
 
-- (IBAction)levelInputChanged:(UIStepper*)sender
+- (IBAction)levelInputDecrement:(UIButton*)sender
 {
-    double rawValue = sender.value;
-    CGFloat roundedNumber = (CGFloat)lround(rawValue);
     self.fractalDocument.fractal.levelUnchanged = NO;
-    self.fractalDocument.fractal.level = roundedNumber; // triggers observer
+    self.fractalDocument.fractal.level = MAX(0, self.fractalDocument.fractal.level - 1); // triggers observer
     self.hasBeenEdited = YES;
     //    [self updateLibraryRepresentationIfNeeded];
 }
+- (IBAction)levelInputIncrement:(UIButton*)sender
+{
+    self.fractalDocument.fractal.levelUnchanged = NO;
+    self.fractalDocument.fractal.level = MIN(self.maxLevel, self.fractalDocument.fractal.level + 1); // triggers observer
+    self.hasBeenEdited = YES;
+    //    [self updateLibraryRepresentationIfNeeded];
+}
+
 
 -(void)redoEdit:(id)sender
 {
