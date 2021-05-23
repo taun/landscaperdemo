@@ -40,7 +40,6 @@
     if (self.detailNavCon)
     {
         self.detailPageController = (UIPageViewController*)self.detailNavCon.viewControllers[0];
-        self.detailPageController.delegate = self;
     }
 }
 
@@ -56,6 +55,7 @@
     
     self.detailPageController.navigationItem.leftBarButtonItem = self.displayModeButtonItem;
     self.detailPageController.navigationItem.leftItemsSupplementBackButton = YES;
+    self.detailPageController.delegate = self;
 }
 
 -(void)viewDidDisappear:(BOOL)animated

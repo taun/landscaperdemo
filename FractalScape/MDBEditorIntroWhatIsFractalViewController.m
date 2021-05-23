@@ -88,6 +88,7 @@
     wkWebView.scrollView.alwaysBounceHorizontal = NO;
     wkWebView.backgroundColor = [UIColor clearColor];
     wkWebView.allowsBackForwardNavigationGestures = NO;
+    wkWebView.scrollView.contentInset = UIEdgeInsetsMake(0, -1, 0, 0);
     webView = (UIView<WebViewProtocol>*)wkWebView;
 
     self.webView = webView;
