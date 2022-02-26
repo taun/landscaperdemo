@@ -1,6 +1,6 @@
 [submodule "FractalScape/MDUiKitFramework"]
 	path = FractalScape/MDUiKitFramework
-	url = https://taun@github.com/taun/MDUiKit.git
+	url = https://taun@github.com/taun/MDUiKitFramework.git
 	branch = working
 [submodule "FractalScape/MDCloudKitFramework/MDCloudKit"]
 	path = FractalScape/MDCloudKitFramework/MDCloudKit
