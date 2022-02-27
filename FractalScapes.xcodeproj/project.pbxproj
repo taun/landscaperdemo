@@ -1624,7 +1624,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -1792,7 +1792,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -1969,7 +1969,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
@@ -2018,7 +2018,7 @@
 					"$(PROJECT_DIR)/FractalScape/lib",
 					"$(PROJECT_DIR)/FractalScape/lib/iOS/9",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.$(PRODUCT_NAME:rfc1034identifier)$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = FractalScapes;
 				PROVISIONING_PROFILE = "";
