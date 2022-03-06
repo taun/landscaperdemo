@@ -1,17 +1,84 @@
 
-title: Taun Parshall Chapman
-email: website@charcoalia.net
-description: >- # this means to ignore newlines until "baseurl:"
-  Strategist, Philomath, Problem Solver, Proven Innovator, Empathizer, Coach, Mentor
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: taunc
-github_username:  taun
+locale: "en-US"
+title: "FractalScapes"
+title_separator: "-"
+subtitle: "An interactive L-System fractal generator."
+email: "help@fractalscapes.info"
+description: "An interactive L-System fractal design tool."
+url: "https://www.fractalscapes.info"
+twitter: taunc
+repository:  taun/landscaperdemo
 
 # Build settings
-theme: minima
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin: "air"
+breadcrumbs: true
+search: true
+
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
+  project:
+    output: true
+    permalink: /:collection/:path/
+    
+footer:
+  links:
+      - label: "Twitter"
+        icon: "fab fa-fw fa-twitter-square"
+        url: "https://twitter.com/FScapes"
+      - label: "GitHub"
+        icon: "fab fa-fw fa-github"
+        url: "https://github.com/taun/landscaperdemo"
+
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      show_date: true
+      read_time: true
+      related: true
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+  # _portfolio
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: false
+      share: true
+  # _project
+  - scope:
+      path: ""
+      type: project
+    values:
+      layout: single
+      author_profile: false
+      share: true
+
 plugins:
   - jekyll-feed
+  - jekyll-include-cache
+
+include:
+  - .htaccess
+  - _pages
+  - _posts
+  - _project
+  - _portfolio
+
+keep_files:
+  - .git
 
 # Exclude from processing.
 # The following items will not be processed, by default.

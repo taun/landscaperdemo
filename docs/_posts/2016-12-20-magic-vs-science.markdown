@@ -1,9 +1,13 @@
 ---
-layout: post
+permalink: /fractalscapes-science-1
 title:  "Magic vs Science & UICollectionViews"
 date:   2016-12-20 17:49:00 -0500
-categories: fractalscapes uicollectionview
+tags: fractalscapes uicollectionview
+categories: fractalscapes
+tag: fractalscapes
 summary: "Or how I overcame magical thinking to finally solve my UICollectionView resizing layout on rotation problems."
+excerpt: "Or how I overcame magical thinking to finally solve my UICollectionView resizing layout on rotation problems."
+toc: true
 ---
 
 This post is about how by changing my approach to a problem from trial and error to a more scientific method, I was able to do in 30 minutes what I hadn't been able to do in 3 days.
@@ -48,7 +52,7 @@ Yay, so in a matter of a few minutes, we now know when the UICollectionViewFlowL
 Behavior of invalidationContextForBoundsChange:
 We continue past the shouldInvalidateLayoutForBoundsChange:  and the next break is invalidationContextForBoundsChange:. Here we can again call super with various bounds and then check which of the UICollectionViewFlowLayoutInvalidationContext invalidateABC properties are set to YES. Here is the NSLog result of a rotation changing the bounds width for a vertical scrolling collectionView:
 
-```
+```objectivec
 [MDKUICollectionViewFlowLayoutDebug invalidationContextForBoundsChange:] bounds: \{\{0, -64\}, \{1366, 1024\}\},
  <UICollectionViewFlowLayoutInvalidationContext: 0x6180000e5700> 
 invalidateEverything: NO,
@@ -59,12 +63,12 @@ invalidateFlowLayoutDelegateMetrics: NO
 
 That's interesting! The flow layout does NOT set invalidateFlowLayoutDelegateMetrics. And upon further research, we know that the one method for setting item size, [UICollectionViewFlowLayoutDelegate collectionView:layout:sizeForItemAtIndexPath:] does not get called unless invalidateFlowLayoutDelegateMetrics is set. So that is our problem. UICollectionViewFlowLayout pretty much never asks for new sizes from the delegate. Even if the bounds changes and shouldInvalidateLayoutForBoundsChange: returns YES. Using our custom flow to override invalidationContextForBoundsChange: and set invalidateFlowLayoutDelegateMetrics = YES, results in our delegate being called for a new size and the desired resizing or rotation working beautifully.
 
-## UICollectionViewFlowLayout Behavior Summary
+## UICollection View Flow Layout Behavior Summary
 - shouldInvalidateLayoutForBoundsChange: returns YES for any change in bounds orthogonal to the scrolling direction.
 - [UICollectionViewFlowLayoutDelegate collectionView:layout:sizeForItemAtIndexPath:] will only be called if invalidateFlowLayoutDelegateMetrics = YES. AND the best time for this to be set is in a subclass implementation of [MDKUICollectionViewFlowLayoutDebug invalidationContextForBoundsChange:].
 
-## Resizing UICollectionReusableView Implementation
-```
+## Resizing UICollection Reusable View Implementation
+```objectivec
 @interface MDKUICollectionViewResizingFlowLayout : UICollectionViewFlowLayout
 @end
 
@@ -82,7 +86,7 @@ That's interesting! The flow layout does NOT set invalidateFlowLayoutDelegateMet
 ```
 Then in your UIViewControllerFlowLayoutDelegate protocol implementor, return your new sizes. In my case, I implemented a class for the resizing and other related reusable functionality. 
 
-```
+```objectivec
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return [MDBResizingWidthFlowLayoutDelegate collectionView: collectionView layout: collectionViewLayout sizeForItemAtIndexPath: indexPath];
@@ -92,7 +96,7 @@ Then in your UIViewControllerFlowLayoutDelegate protocol implementor, return you
 Lastly, if you wanted to just invalidate the sizes for the layout manually, you could do something like:
 
 
-```
+```objectivec
 UICollectionViewFlowLayoutInvalidationContext* validationContext = [UICollectionViewFlowLayoutInvalidationContext new];
 validationContext.invalidateFlowLayoutAttributes = YES;
 

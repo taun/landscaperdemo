@@ -339,6 +339,7 @@
 		C53F8DF41B5C87820050F607 /* MDBTutorialSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialSplitViewController.m; sourceTree = "<group>"; };
 		C53F8DF71B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBTutorialMasterTableViewController.h; sourceTree = "<group>"; };
 		C53F8DF81B5C8D0D0050F607 /* MDBTutorialMasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBTutorialMasterTableViewController.m; sourceTree = "<group>"; };
+		C543175627D54FA6009B58C6 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = "<group>"; };
 		C544C71B19F56193002C2A2B /* MBLSRuleDragAndDropProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBLSRuleDragAndDropProtocol.h; path = FractalScape/MBLSRuleDragAndDropProtocol.h; sourceTree = "<group>"; };
 		C5450ED514BBB8D800CD2E09 /* MBFractalSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBFractalSegment.h; path = FractalScape/model/MBFractalSegment.h; sourceTree = "<group>"; };
 		C5450ED614BBB8D800CD2E09 /* MBFractalSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBFractalSegment.m; path = FractalScape/model/MBFractalSegment.m; sourceTree = "<group>"; };
@@ -895,6 +896,7 @@
 			isa = PBXGroup;
 			children = (
 				C5800FC31D3057BF00555E59 /* README.md */,
+				C543175627D54FA6009B58C6 /* docs */,
 				C5AD4EA31C1664F8009386FA /* ThirdParty */,
 				C51B583E1A9070770036C47D /* FractalScapes.entitlements */,
 				C5A45D5C1A7578C6007AE87E /* Default-568h@2x.png */,

@@ -1,14 +1,15 @@
 ---
-layout: post
+permalink: /on-documentation-1
 title:  "A Theory"
 date:   2018-09-06 17:49:00 -0500
-categories: 
-summary: On why Open Source software so often has poor documentation.
+tag: musing
+summary: "On why Open Source software so often has poor documentation."
+excerpt: "On why Open Source software so often has poor documentation."
 ---
 
 I believe most programmers familiar with open source software would agree the documentation is usually lacking. Some attribute it to a lack of writing ability, laziness, lack of priority, and various other negative reasons. I suggest it is actually for a good reason.
 
-The source is the documentation. Most additional documentation is redundant and misleading.
+> The source is the documentation. Most additional documentation is redundant and misleading.
 
 Whenever creating a complicated program, the author runs into conceptual road blocks. A time where you think the code should do one thing but it does something else. Scientific theory would suggest we conduct experiments to try and discover the true behavioral rules. With open source we don't need to do that. The rules of the universe are at our fingertips. We can read the rules directly and know not only the true behavior but if there are comments, we even know the intent. Documentation may point you in the right direction but the code is the master.
 

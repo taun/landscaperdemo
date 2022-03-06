@@ -1,9 +1,12 @@
 ---
-layout: post
+permalink: /fractalscapes-initial-release
 title:  "FractalScapes is on the App Store!"
 date:   2015-11-05 17:49:00 -0500
-categories: fractalscapes lindenmayer ios art lsystem fractal app
+categories: fractalscapes
+tags: fractalscapes lindenmayer ios art lsystem fractal app
 summary: "I am incredibly relieved to finally be able to announce that after over a year of work, FractalScapes an interactive fractal art designer is finally available on the app store. It has plenty of room to grow but how that goes will depend on you and your feedback."
+excerpt: "I am incredibly relieved to finally be able to announce that after over a year of work, FractalScapes an interactive fractal art designer is finally available on the app store. It has plenty of room to grow but how that goes will depend on you and your feedback."
+toc: true
 ---
 
 

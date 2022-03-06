@@ -1,9 +1,11 @@
 ---
-layout: post
+permalink: /fractalscapes-new-features-2015
 title:  "Fractalscapes, Exciting New Features"
 date:   2015-01-30 17:49:00 -0500
 categories: fractalscapes
+tags: fractalscapes
 summary: I am really excited about the new features I have added to FractalScape. My soon to be released Interactive Fractal editor.
+excerpt: I am really excited about the new features I have added to FractalScape. My soon to be released Interactive Fractal editor.
 ---
 
 I am really excited about the new features I have added to FractalScape. My soon to be released Interactive Fractal editor.

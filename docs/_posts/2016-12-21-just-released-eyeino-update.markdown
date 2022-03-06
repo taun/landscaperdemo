@@ -1,8 +1,10 @@
 ---
-layout: post
+permalink: /fractalscapes-update-vx
 title:  "Just released 'Eyein' update"
 date:   2016-12-21 17:49:00 -0500
-categories: fractalscapes update
+tags: fractalscapes update
+categories: fractalscapes
+toc: true
 ---
 
 Some changes big and small to FractalScapes, your interactive fractal art design buddy.

@@ -1,9 +1,12 @@
 ---
-layout: post
+permalink: /fractalscapes-without-scrollview
 title:  "Basic Non-Scrolling UITableView and UICollectionViews"
 date:   2014-12-19 23:49:00 -0500
-categories: fractalscapes UICollectionView UITableView
+tags: fractalscapes UICollectionView UITableView
+categories: fractalscapes
 summary: How to create a basic view which can layout subviews in a way similar to a UITableView or UICollectionView without the embedded scrolling and other baggage of the standard views. 
+excerpt: How to create a basic view which can layout subviews in a way similar to a UITableView or UICollectionView without the embedded scrolling and other baggage of the standard views. 
+toc: true
 ---
 
 This is from a talk I gave at the [Philly CocoaHeads meeting](http://phillycocoa.org/2014/12/17/phillycocoa-meeting-notes-december-2014/). The [slideshow](http://www.moedae.com/blog/cocoaheads-talk-materials/CocoaHeads%20IB_Designable%20and%20MVC.pdf) for the talk is [here](http://www.moedae.com/blog/cocoaheads-talk-materials/CocoaHeads%20IB_Designable%20and%20MVC.pdf). The talk had 3 parts, implementing a basic replacement for UITableView and UICollectionView, using Smalltalk style MVC for views and using IBDesignable for MVC style view re-use. This is just part 1 of 3.
@@ -29,7 +32,7 @@ At its most basic, a tableView or collectionView is just a way of laying out obj
 Why do we use static tableviews? This is not just a rhetorical question. If you need a static table view with 4 cells, why not just use a ViewController and layout 4 views? You have to create 4 tableViewCells anyhow and you don't need all of the tableView mechanisms. On the other hand, if you want to layout a variable but small number of object views in a vertical row layout and embed the whole thing in a scrollView, all you need is something like the following code.
 
 TABLEVIEW LAYOUT CODE
-```
+```objectivec
 @implementation NSLayoutConstraint (MDBAddons)
 
 +(NSArray*) constraintsForFlowing:(NSArray *)views inContainingView:(UIView *)container forOrientation:(UILayoutConstraintAxis)axis withSpacing:(CGFloat)spacing {
@@ -104,7 +107,7 @@ Implementing a basic UICollectionView style flow layout is a little more complic
 The following code excerpt calculates the auto layout constraint constants for a view of a given collection index.
 
 COLLECTIONVIEW CONSTANT CALC
-```
+```objectivec
 -(void) calcHConstraint: (NSLayoutConstraint*)hConstraint vConstraint: (NSLayoutConstraint*) vConstraint forIndex: (NSUInteger) index {
     
     NSUInteger itemsPerLine = self.itemsPerLine;
