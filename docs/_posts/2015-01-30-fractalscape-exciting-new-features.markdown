@@ -1,5 +1,5 @@
 ---
-permalink: /fractalscapes-new-features-2015
+permalink: /blog/fractalscapes-new-features-2015
 title:  "Fractalscapes, Exciting New Features"
 date:   2015-01-30 17:49:00 -0500
 categories: fractalscapes

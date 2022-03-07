@@ -1,5 +1,5 @@
 ---
-permalink: /fractalscapes-initial-release
+permalink: /blog/fractalscapes-initial-release
 title:  "FractalScapes is on the App Store!"
 date:   2015-11-05 17:49:00 -0500
 categories: fractalscapes

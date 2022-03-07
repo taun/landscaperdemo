@@ -2,7 +2,7 @@
 permalink: /
 layout: home
 header:
-  image: /assets/images/beautiful-hawaiian-coastal-trees.jpeg
-  image_description: "A description of the image"
+  image: /assets/images/banner.png
+  image_description: "An assortment of fractals"
 toc: true
 ---

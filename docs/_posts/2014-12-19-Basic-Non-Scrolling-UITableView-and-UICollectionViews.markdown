@@ -1,5 +1,5 @@
 ---
-permalink: /fractalscapes-without-scrollview
+permalink: /blog/fractalscapes-without-scrollview
 title:  "Basic Non-Scrolling UITableView and UICollectionViews"
 date:   2014-12-19 23:49:00 -0500
 tags: fractalscapes UICollectionView UITableView

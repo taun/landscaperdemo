@@ -1,4 +1,10 @@
 main:
+  - title: "Gallery"
+    url: /gallery/
+  - title: "Blog"
+    url: /blog/
+  - title: "FAQ"
+    url: /faq/
   - title: "About"
     url: /about/
   # - title: "Projects"

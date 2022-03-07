@@ -1,5 +1,5 @@
 ---
-permalink: /fractalscapes-science-1
+permalink: /blog/fractalscapes-science-1
 title:  "Magic vs Science & UICollectionViews"
 date:   2016-12-20 17:49:00 -0500
 tags: fractalscapes uicollectionview

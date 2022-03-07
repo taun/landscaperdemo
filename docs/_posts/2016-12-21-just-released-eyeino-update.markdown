@@ -1,5 +1,5 @@
 ---
-permalink: /fractalscapes-update-vx
+permalink: /blog/fractalscapes-update-vx
 title:  "Just released 'Eyein' update"
 date:   2016-12-21 17:49:00 -0500
 tags: fractalscapes update
